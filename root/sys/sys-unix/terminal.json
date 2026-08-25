@@ -1,0 +1,328 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-unix",
+  "slug": "terminal",
+  "title": "Термінал і сеанс",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "terminal-line",
+      "title": "Термінальна лінія",
+      "topics": [
+        {
+          "slug": "tty-layer-and-virtual-consoles",
+          "title": "Шар TTY та віртуальні консолі: лінійна дисципліна й режими клавіатури",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-line-discipline-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-vt-mode-switch.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-vt-keyboard-ioctls.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "tty-and-termios",
+          "title": "TTY і послідовний порт: модель termios",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-teletype.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-serial-port.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-termios.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pseudo-terminal",
+          "title": "Псевдотермінал: термінал без заліза",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-teletype-to-ptmx.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pty-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pty-interfaces.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "virtual-console",
+          "title": "Віртуальна консоль Linux: емулятор термінала всередині ядра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-why-emulator-in-kernel.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-vt-handover.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-console-ioctls.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "terminal-language",
+      "title": "Мова термінала",
+      "topics": [
+        {
+          "slug": "wcwidth-and-cell-width",
+          "title": "Ширина символу в комірках: wcwidth, подвійні знаки й комбінаційні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-from-monowidth-to-emojis.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-grapheme-width-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-posix-wcwidth.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "terminal-escape-sequences",
+          "title": "Керуючі послідовності термінала: як програма малює на екрані",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ansi-standard.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-input-parser.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-common-sequences.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "terminfo-database",
+          "title": "База terminfo: як програма дізнається мову свого термінала",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-termcap-to-terminfo.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tparm-interpreter.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-terminfo-surface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ncurses",
+          "title": "ncurses: бібліотека повноекранних програм у терміналі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-curses-to-ncurses.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-minimal-updater.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ncurses-surface.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "screen-control",
+      "title": "Керування екраном",
+      "topics": [
+        {
+          "slug": "terminal-size-and-modes",
+          "title": "Розмір вікна й режими екрана",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "terminal-text-editor",
+          "title": "Редактор у терміналі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "stty-and-broken-terminal",
+          "title": "stty і зламаний термінал",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "driving-a-tty-program",
+          "title": "Керувати програмою, що вимагає термінала",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "session-survival",
+      "title": "Сеанс і живучість",
+      "topics": [
+        {
+          "slug": "hangup-and-survival",
+          "title": "Розрив і живучість: SIGHUP, nohup, disown, setsid",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "no-controlling-terminal",
+          "title": "Коли термінала немає",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "terminal-multiplexer",
+          "title": "Мультиплексор термінала: сеанс, що переживає розрив",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

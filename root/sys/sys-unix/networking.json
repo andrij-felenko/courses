@@ -1,0 +1,1058 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-unix",
+  "slug": "networking",
+  "title": "Мережа",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "stack-and-sockets",
+      "title": "Стек і сокети",
+      "topics": [
+        {
+          "slug": "network-stack-architecture",
+          "title": "Мережевий стек ядра Linux: архітектура та шлях пакета",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "socket-api-linux",
+          "title": "Сокети в Linux: від дескриптора до з'єднання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bsd-sockets-to-linux.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tcp-echo-server-client.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-socket-syscalls-and-structures.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "name-resolution-path",
+          "title": "Шлях розв'язання імені: NSS, resolv, systemd-resolved",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hosts-to-systemd-resolved.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-nss-custom-module.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-nss-and-resolv-interface.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "tcp-connections",
+      "title": "З'єднання TCP",
+      "topics": [
+        {
+          "slug": "tcp-connection-liveness",
+          "title": "Виявлення мертвого TCP-з'єднання: keepalive, TCP_USER_TIMEOUT і прикладна перевірка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tcp-keepalive.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-liveness-tracker.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tcp-liveness.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "out-of-band-data",
+          "title": "Термінові дані TCP: покажчик терміновости, MSG_OOB і SIGURG",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rfc-793-to-6093.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-oob-handling.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-oob-socket-options.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "multipath-tcp-mptcp",
+          "title": "Багатошляховий TCP (MPTCP)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mptcp-rfc6824-to-rfc8684.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mptcp-socket-client.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-netlink-mptcp.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mptcp-path-managers",
+          "title": "Менеджери шляхів у MPTCP (mptcpd та in-kernel path manager)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mptcp-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mptcpd-plugin.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mptcp-netlink.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "routing-and-filtering",
+      "title": "Маршрут і фільтр",
+      "topics": [
+        {
+          "slug": "routing-decision",
+          "title": "Таблиця маршрутів і рішення про маршрут",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-route-cache-removal.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rtnetlink-route-lookup.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fib-and-rtnetlink.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "netfilter-model",
+          "title": "netfilter: ланцюги, таблиці й NAT",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-netfilter-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-nftables-rule-manager.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-netfilter-kernel-hooks.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "netfilter-nftables-expression-engine",
+          "title": "Рушій виразів nftables у ядрах Linux (nftables vs iptables)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-iptables-to-nftables.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-nftables-bytecode-emulator.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-nftables-expressions.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "netfilter-conntrack-architecture",
+          "title": "Підсистема відстеження зʼєднань Conntrack (nf_conntrack) та conntrack tables",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-conntrack-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-conntrack-monitor.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-netlink-conntrack.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "network-configuration",
+      "title": "Керування мережею ззовні",
+      "topics": [
+        {
+          "slug": "interfaces-and-addresses",
+          "title": "Інтерфейси, адреси й стан лінка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ifconfig-to-iproute2.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rtnetlink.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "netlink-protocol",
+          "title": "Обмін повідомленнями через netlink",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-netlink-origins.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-netlink-monitor.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-netlink-headers.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ethtool-netlink-interface",
+          "title": "Сучасний інтерфейс налаштування мережі ethtool Netlink",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-netlink-ethtool.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-netlink-ethtool-client.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ethtool-netlink.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "network-configuration-daemons",
+          "title": "Хто налаштовує мережу: DHCP-клієнт, NetworkManager, systemd-networkd",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "nic-and-queues",
+      "title": "Мережева карта й черги",
+      "topics": [
+        {
+          "slug": "nic-offloads",
+          "title": "Розвантаження мережевої карти: контрольні суми, збирання й сегментація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-nic-offloads.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-offload-bench.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ethtool-netlink.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ethtool-rss-indirection-tables",
+          "title": "Масштабування на боці прийому: RSS Indirection Tables та Flow Hashing",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rss-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-toeplitz-reta-sim.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ethtool-rss.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bonding-and-team-drivers",
+          "title": "Агрегація каналів: Bonding та Team",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bonding-to-team.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-netlink-bond-controller.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bonding-team-netlink.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "kernel-bypass",
+      "title": "Обхід ядра заради швидкості",
+      "topics": [
+        {
+          "slug": "xdp-sockets-af-xdp",
+          "title": "Сокети високої швидкості AF_XDP (XSK)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kernel-bypass.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-af-xdp-packet-processor.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-xsk-umem.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "packet-mmap-ring-buffers",
+          "title": "Механізм PACKET_MMAP (TPACKET_V3 ring buffers)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tpacket-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-packet-mmap-capture.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tpacket-v3.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "io-uring-net-passthrough",
+          "title": "Мережевий ввід-вивід io_uring: SendZC та RecvZC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-zerocopy-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-zerocopy-tcp-server.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-io-uring-net.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "rdma-in-linux",
+          "title": "RDMA: віддалений прямий доступ до пам'яті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rdma-origins.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rdma-pingpong.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ibverbs.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "bpf-datapath",
+      "title": "BPF у мережевому шляху",
+      "topics": [
+        {
+          "slug": "xdp-express-data-path",
+          "title": "eXpress Data Path (XDP): обробка пакетів на NIC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-xdp-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-xdp-pass-drop-router.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-xdp-helpers.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "xdp-cpumap-and-devmap",
+          "title": "Маршрутизація XDP: BPF_MAP_TYPE_CPUMAP та BPF_MAP_TYPE_DEVMAP",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cpumap-devmap-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-xdp-router-cpumap-devmap.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cpumap-devmap-reference.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ebpf-traffic-control-clsact",
+          "title": "eBPF у підсистемі Traffic Control",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tc-bpf-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tc-ebpf-redirect.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-clsact-bpf-helpers.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bpf-cgroup-skb-hooks",
+          "title": "Хуки eBPF на рівні cgroup: BPF_CGROUP_INET_INGRESS/EGRESS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cgroup-bpf-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cgroup-skb-firewall.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cgroup-skb-helpers.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bpf-sockmap-and-sk-skb",
+          "title": "Прискорення сокетів BPF: sockmap та sk_skb",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sockmap-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sockmap-proxy.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sockmap-sk-skb.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "guest-networking",
+      "title": "Мережа для гостей",
+      "topics": [
+        {
+          "slug": "network-namespaces",
+          "title": "Мережеві простори імен, veth і мости",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-netns-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-netns-veth-setup.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-netns-syscalls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "linux-bridge",
+          "title": "Linux Bridge: програмний L2-комутатор у ядрі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bridge-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bridge-vlan-lab.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bridge-netlink.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "tun-tap",
+          "title": "TUN/TAP: віртуальні інтерфейси",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-universal-tun-tap.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-user-space-router.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tuntap-ioctl.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "macvlan-macvtap-drivers",
+          "title": "Драйвери Macvlan та Macvtap",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-macvlan-genesis.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-macvlan-creator.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-macvlan-netlink-sysfs.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "vhost-net-acceleration",
+          "title": "Прискорення мережі у віртуалізації (vhost-net)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tap-to-vhost-net.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-vhost-net-setup.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-vhost-net-ioctl.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "traffic-protection",
+      "title": "Захист трафіку",
+      "topics": [
+        {
+          "slug": "ipsec-xfrm",
+          "title": "IPsec у Linux: каркас перетворень xfrm",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-freeswan-to-xfrm.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-xfrm-netlink-setup.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-netlink-xfrm.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "wireguard-kernel-architecture",
+          "title": "Ядерний тунель WireGuard",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-wireguard-genesis.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-wireguard-netlink-control.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-wireguard-netlink.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "macsec-ieee-802-1ae",
+          "title": "Захист канального рівня MACsec (IEEE 802.1AE) у ядрі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-802-1ae-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-macsec-netlink-ctl.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rtnetlink-macsec.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kernel-tls-record-layer",
+          "title": "Шар TLS-записів у ядрі: ULP, підміна sk_prot і криптоконвеєр tls_sw",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ktls-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ktls-file-server.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ktls-sockets.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ktls-hw-offload-and-enablement",
+          "title": "Апаратне розвантаження kTLS (TLS_HW): резинк, фолбек і ввімкнення в OpenSSL/NGINX",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ktls-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ktls-c-cpp-socket.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ktls-ulp-and-setsockopt.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

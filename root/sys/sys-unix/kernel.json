@@ -1,0 +1,1500 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-unix",
+  "slug": "kernel",
+  "title": "Устрій ядра",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "kernel-architecture",
+      "title": "Будова ядра",
+      "topics": [
+        {
+          "slug": "monolithic-with-modules",
+          "title": "Монолітне ядро з модулями: вибір Linux",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-tanenbaum-torvalds.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hello-module.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kernel-notifier-chains",
+          "title": "Ланцюжки сповіщень ядра (notifier chains)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-evolution-of-notifier-chains.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kernel-notifier-module.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-notifier-chains-reference.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "kernel-timekeeping",
+          "title": "Час у ядрі: тики, монотонний годинник і джерела часу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-tick-to-tickless.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cycles-to-nanoseconds.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-clock-lab.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "loadable-modules",
+      "title": "Модулі ядра",
+      "topics": [
+        {
+          "slug": "kernel-modules",
+          "title": "Модулі ядра: завантаження, параметри, залежності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-autoload-evolution.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-module-tooling.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "module-signing",
+          "title": "Підпис модулів ядра: чому ядро відмовляється вантажити чужий код",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-module-signing-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-verify-ko-signature.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-signature-trailer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dkms-out-of-tree-modules",
+          "title": "DKMS: перезбирання й підписування позадеревних модулів під кожне ядро",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "kernel-initialization",
+      "title": "Ініціалізація ядра",
+      "topics": [
+        {
+          "slug": "kernel-boot-process-from-reset-vector-to-start-kernel",
+          "title": "Завантаження ядра: від вектора скидання процесора до start_kernel",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-real-mode-legacy-boot.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-early-paging-layout.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-parse-vmlinuz-header.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-boot-params-header.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kernel-initcalls",
+          "title": "Ініціалізація підсистем ядра: initcall і порядок стартів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-initcall-levels.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-initcall-lab.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-initcall-reference.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "init-sections",
+          "title": "Секції ініціалізації: код і дані, які ядро викидає після завантаження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-custom-init-section.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-init-macros.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "kernel-tasks",
+      "title": "Задачі всередині ядра",
+      "topics": [
+        {
+          "slug": "kernel-threads",
+          "title": "Потоки ядра: задачі без простору користувача",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-daemonize-to-kworkers.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kthread-module.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kthread-names.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kernel-wait-queues",
+          "title": "Черги очікування в ядрі: як задача засинає й прокидається",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sleep-and-wakeup.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-waitqueue-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-wait-queue-interfaces.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "in-kernel-synchronization",
+      "title": "Синхронізація в ядрі",
+      "topics": [
+        {
+          "slug": "kernel-locking",
+          "title": "Замки в ядрі й атомарний контекст: де спати не можна",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-lock-scaling.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lockdep-lab.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-locking-primitives.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "per-cpu-data",
+          "title": "Дані свого ядра процесора: змінні per-CPU і local_lock",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-percpu-and-local-lock.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-percpu-stats.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-percpu.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "stop-machine",
+          "title": "stop_machine: зупинити всю машину, щоб змінити недоторканне",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-birth-and-retreat.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-freeze-cost.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "lockless",
+      "title": "Робота без замків",
+      "topics": [
+        {
+          "slug": "rcu-read-copy-update",
+          "title": "RCU: читання без замків і відкладене звільнення",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-rcu-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rcu-list-module.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rcu-primitives.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "seqlocks",
+          "title": "Послідовні замки: як читати без блокування письменників",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "rseq",
+          "title": "Перезапускні послідовності (rseq): ділянки без замків, які починаються заново",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-rseq-journey.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-percpu-counter.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rseq.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "membarrier",
+          "title": "membarrier: примусовий бар'єр пам'яті на всіх ядрах процесу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-urcu-and-membarrier.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-asymmetric-rcu.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-membarrier.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "time-sharing",
+      "title": "Планування часу",
+      "topics": [
+        {
+          "slug": "scheduler-model",
+          "title": "Планувальник: як ядро ділить час",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-scheduler-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-virtual-time.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-share-experiment.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "priority-nice-realtime",
+          "title": "Пріоритети, nice і реальночасові класи",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-nice-to-deadline.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-shares-and-bandwidth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-realtime-thread.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sched-interfaces.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "scheduler-classes",
+      "title": "Класи планувальника",
+      "topics": [
+        {
+          "slug": "deadline-scheduler",
+          "title": "Планувальник SCHED_DEADLINE та алгоритм EDF",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "sched-idle-and-sched-batch",
+          "title": "Класи планирування SCHED_IDLE та SCHED_BATCH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-sched-attr.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sched-energy-aware-eas",
+          "title": "Енергоефективне планування Energy-Aware Scheduling (EAS) та Energy Model",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-eas-and-biglittle.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-eas-cost-calculation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-eas-trace-analyzer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-energy-model-sysfs.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "uclamp-utilization-clamping",
+          "title": "Обмеження утилізації CPU: uclamp (sched_setattr uclamp_min/uclamp_max)",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-uclamp-and-pelt.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-uclamp-manager.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-uclamp-kernel-structures.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sched-ext-ebpf-scheduler",
+          "title": "Планувальник sched_ext: eBPF розширення для sched",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sched-ext.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-scx-simple-fifo.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sched-ext-ops.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sched-ext-custom-schedulers",
+          "title": "Практична розробка BPF-планувальників у sched_ext (scx_rustland, scx_lavd)",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-custom-schedulers.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-scx-lavd-deadline.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-scx-rustland-architecture.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-scx-rust-framework.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cpu-management",
+      "title": "Розпорядження ядрами процесора",
+      "topics": [
+        {
+          "slug": "cpu-affinity",
+          "title": "Прив'язка задач до ядер: affinity, taskset і cpuset",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-isolated-core.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-affinity-interfaces.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cpu-isolation",
+          "title": "Ізоляція ядер процесора: isolcpus, nohz_full і боротьба за тишу на гарячому ядрі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-tickless.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cset-shield.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-isolation-knobs.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "nohz-adaptive-tickless",
+          "title": "Адаптивне ядро без тиків (NO_HZ_FULL)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "cpu-hotplug",
+          "title": "Вимикання ядер процесора на ходу: online, offline і хто про це має знати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-notifier-to-state-machine.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cpuhp-module.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-hotplug-sysfs.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "preemption-and-latency",
+      "title": "Затримка й витісненість",
+      "topics": [
+        {
+          "slug": "kernel-preemption",
+          "title": "Витісненість ядра: від PREEMPT_NONE до PREEMPT_RT",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-preemptible-kernel.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-measure-latency.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-preempt-controls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "preempt-rt-kernel-transformation",
+          "title": "PREEMPT_RT: перетворення споживачів процесора на задачі з пріоритетом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dual-kernel.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rt-application.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rt-lock-types.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "rt-latency-budget-and-tuning",
+          "title": "Бюджет затримки під PREEMPT_RT: з чого складається, чим міряти, що налаштувати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "high-resolution-timers",
+          "title": "Таймери високої точності (hrtimers)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "kernel-files",
+      "title": "Налаштування через файли",
+      "topics": [
+        {
+          "slug": "sysctl-tunables",
+          "title": "sysctl: параметри ядра, які крутять на ходу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-mib-to-files.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-own-sysctl.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sysctl-surface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sysctl-parameter-map-and-tooling",
+          "title": "Карта параметрів /proc/sys: kernel, vm, net, fs та утиліта sysctl(8)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sysctl-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sysctl-tool.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sysctl-handlers.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sysfs-kobject-sysfs-dirent",
+          "title": "Файлова система sysfs, kobject та sysfs_dirent",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sysfs-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kobject-custom.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sysfs-kobject.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kernfs-vfs-abstraction-layer",
+          "title": "Шар абстракції kernfs та його роль у розвантаженні VFS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-kernfs-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kernfs-custom-fs.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kernfs-ops.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "devtmpfs-kernel-device-node-management",
+          "title": "Автоматичне монтування вузлів пристроїв у devtmpfs",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dev-nodes-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-devtmpfs-node-inspector.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-devtmpfs-kernel-surface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "configfs-user-space-kernel-object-creation",
+          "title": "Файлова система configfs: створення ядерних об'єктів із юзерспейсу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-configfs-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-configfs-kernel-module.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-configfs-structures.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bpffs-bpf-filesystem-and-map-pinning",
+          "title": "Файлова система bpffs та пінінг об'єктів BPF (maps, programs)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-bpffs-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pinned-map-sharing.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bpffs-syscall-and-ops.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "kernel-state-files",
+      "title": "Стан ядра у файлах",
+      "topics": [
+        {
+          "slug": "seq-file-iterator",
+          "title": "Інтерфейс seq_file: ітератор текстового виводу ядра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-seq-file-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-seq-proc-driver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-seq-file-ops.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "procfs-kernel-implementation",
+          "title": "Реалізація procfs у ядрі: inode, dentry, seq_file, гейти доступу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-procfs-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-procfs-pid-inspector.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-proc-pid-nodes.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "procfs-process-reflection",
+          "title": "Відображення процесів у procfs",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-procfs-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-procfs-inspector.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-procfs-process-layout.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "proc-reading-process-and-kernel-state",
+          "title": "Читання стану через /proc: процеси, метрики, sysctl",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-procfs.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-proc-parser.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-proc-filesystem.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sysfs-device-model",
+          "title": "Модель пристроїв у sysfs",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-driver-model-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sysfs-attribute-module.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sysfs-tree.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "debugfs-kernel-debug-vfs",
+          "title": "debugfs: службова ВФС для налагодження драйверів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-debugfs.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-debugfs-custom-file.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-debugfs.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kallsyms-and-system-map",
+          "title": "kallsyms: імена символів усередині ядра, System.map і %pS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kallsyms-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kallsyms-symbol-resolver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kallsyms-kernel-surface.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "live-patching",
+      "title": "Правка ядра на ходу",
+      "topics": [
+        {
+          "slug": "kernel-text-patching",
+          "title": "Правка коду ядра на ходу: alternatives, static keys й text_poke",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-kernel-self-editing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-static-key-module.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "livepatch",
+          "title": "Живе латання ядра: livepatch і модель узгодженості",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ksplice-to-livepatch.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-livepatch-module.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-livepatch-surface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kernel-taint",
+          "title": "Заплямоване ядро: прапорці taint і що вони означають при розборі аварій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-taint-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-taint-lab.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-taint-surface.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "kernel-project",
+      "title": "Випуски й збірка",
+      "topics": [
+        {
+          "slug": "kernel-release-model",
+          "title": "Модель випусків ядра: вікно злиття, -rc і стабільні гілки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-two-branches.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-where-is-my-fix.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-release-metadata.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kernel-config-and-build",
+          "title": "Конфігурація й збірка ядра: Kconfig, .config і що потрапляє в образ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-config-wars.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-trace-one-option.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kconfig-language.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kernel-cve-and-security-fixes",
+          "title": "CVE в ядрі: потік номерів і що з ним робити",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-kernel-becomes-cna.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cve-triage.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cve-record.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sparse-checker",
+          "title": "sparse: статичний перевіряч ядра й анотації на кшталт __iomem",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-check-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-annotations.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,500 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-unix",
+  "slug": "graphics-and-media",
+  "title": "Графіка, звук і медіа",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "display-pipeline",
+      "title": "Показ на екран",
+      "topics": [
+        {
+          "slug": "drm-kms-object-model",
+          "title": "Об'єктна модель KMS: хто володіє екраном і як стан міняється цілком",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-ums-to-kms.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-atomic-modeset.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kms-objects.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "drm-format-modifiers",
+          "title": "Формати й модифікатори буфера: fourcc і розкладка пам'яті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-modifiers-revolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dmabuf-modifier-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-drm-modifiers-ref.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "drm-buffers-formats-and-prime",
+          "title": "Буфери DRM: GEM і TTM, формати й модифікатори, PRIME між двома GPU",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-x11-to-atomic-kms.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-display-bandwidth-calc.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-atomic-kms-flip.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-drm-kms-properties.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fbdev-interface",
+          "title": "Кадровий буфер як пристрій: /dev/fb0 і його емуляція поверх DRM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-fbdev-to-drm.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-raw-fb-draw.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fbdev-structs.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "accelerator-memory",
+      "title": "Пам'ять і черги прискорювача",
+      "topics": [
+        {
+          "slug": "gem-buffer-objects",
+          "title": "GEM: об'єкти пам'яті графічного чипа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gem-and-ttm-lineage.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gem-dumb-alloc-and-mmap.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-gem-core-and-uapi.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "gpu-command-submission",
+          "title": "Подання роботи на графічний процесор: черги команд і планувальник",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-relocations-to-softpin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sched-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-submit-ioctls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "drm-accel-compute-subsystem",
+          "title": "Підсистема прискорювачів DRM Accel (/dev/accel/accelX для NPU та AI-чіпів)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-habana-to-drm-accel.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-accel-submission.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-accel-uapi-sysfs.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "shared-buffers",
+      "title": "Спільні буфери",
+      "topics": [
+        {
+          "slug": "dma-buf",
+          "title": "dma-buf: спільний буфер між драйверами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dmabuf-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dmabuf-share.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dmabuf-interfaces.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dma-fence-sync",
+          "title": "dma-fence і sync_file: хто каже, що буфер готовий",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-fencing-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sw-sync.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fence-interfaces.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "video-and-camera",
+      "title": "Відео й камера",
+      "topics": [
+        {
+          "slug": "v4l2-video-devices",
+          "title": "V4L2: модель відеопристрою в ядрі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-v4l-to-v4l2.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-capture-loop.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-v4l2-ioctls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "v4l2-mem2mem-devices",
+          "title": "Пристрої «пам'ять у пам'ять» у V4L2: дві черги на одному вузлі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-m2m-and-stateless.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-m2m-scaler-transform.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-v4l2-m2m-framework.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "v4l2-subdev-routing-request-and-zero-copy",
+          "title": "V4L2 subdevice API: маршрутизація потоків, Media Request і DMA-BUF zero-copy",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-v4l2-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-v4l2-zero-copy-pipeline.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-v4l2-media-ioctls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "media-controller-graph",
+          "title": "Media Controller: граф пристроїв замість одного вузла",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-graph-api-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-media-pipeline-bandwidth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-walk-the-graph.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-media-ioctls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "media-request-api",
+          "title": "Медіазапити: параметри й буфер, застосовані до кадру атомарно",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-request-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-per-frame-controls.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-request-ioctls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "libcamera-stack",
+          "title": "libcamera: користувацький стек камери над V4L2 та Media Controller",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-complex-cameras-and-libcamera.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-libcamera-capture-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-libcamera-core.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "audio-path",
+      "title": "Звуковий тракт",
+      "topics": [
+        {
+          "slug": "sound-open-firmware-sof",
+          "title": "Аудіоплатформа Sound Open Firmware (SOF) та ALSA SoC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pcm-stream.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ipc.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

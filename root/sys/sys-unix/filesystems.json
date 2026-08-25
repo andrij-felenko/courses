@@ -1,0 +1,1936 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-unix",
+  "slug": "filesystems",
+  "title": "Файли й файлові системи",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "file-interface",
+      "title": "Файловий інтерфейс",
+      "topics": [
+        {
+          "slug": "vfs-layer",
+          "title": "VFS: спільний шар над файловими системами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-vnode-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-minimal-filesystem-module.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-vfs-operation-tables.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fuse-userspace-filesystems",
+          "title": "FUSE: файлова система в просторі користувача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-fuse-origins.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hello-fuse.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fuse-protocol.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pseudo-filesystems",
+          "title": "Псевдо-ФС: procfs, sysfs, tmpfs, devtmpfs",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-proc-origin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-seqfile-module.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "configfs",
+          "title": "configfs: об'єкти ядра, які створює простір користувача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-configfs-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-configfs-module.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pidfs-filesystem-architecture",
+          "title": "Спеціалізована файлова система pidfs у сучасних ядрах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pid-recycling-to-pidfs.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pidfs-identity-checker.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pidfs-ioctls.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "memory-as-files",
+      "title": "Пам'ять як файли",
+      "topics": [
+        {
+          "slug": "tmpfs-shmem-ram-filesystem",
+          "title": "Тимчасова ВФС tmpfs та підсистема shmem: дисковий кеш у RAM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ramdisk-to-tmpfs.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-posix-shm-and-memfd.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tmpfs-mount-and-shmem-sysctl.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hugetlbfs-thp-kernel-interfaces",
+          "title": "hugetlbfs і THP усередині ядра: пул, згортання, розщеплення та їх налаштування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-hugepages-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hugepages-allocator.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-hugetlb-thp-sysfs.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "inode-and-links",
+      "title": "Inode й посилання",
+      "topics": [
+        {
+          "slug": "inode-model",
+          "title": "Inode: файл без імені",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-i-number.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-inode-identity.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-stat-fields.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hard-and-symbolic-links",
+          "title": "Жорсткі й символьні посилання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-symlink-arrival.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-two-counters.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-link-syscalls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "file-handles",
+          "title": "Стійке посилання на файл: name_to_handle_at і open_by_handle_at",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-nfs-handle-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-handle-index.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-handle-syscalls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "o-tmpfile",
+          "title": "O_TMPFILE: безіменний файл на справжній файловій системі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-temp-file-races.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-atomic-publish.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "directories-and-paths",
+      "title": "Каталоги й шляхи",
+      "topics": [
+        {
+          "slug": "directory-as-mapping",
+          "title": "Каталог як відображення імен",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-directory-formats.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-walk-directory.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-directory-syscalls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "path-resolution",
+          "title": "Розбір шляху",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-namei.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-resolve-by-hand.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-resolution-controls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "at-family-syscalls",
+          "title": "Сімейство *at: шлях, відлічений від дескриптора каталогу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-at-family-origin.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-at-family-reference.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "readdir-getdents64-directory-traversal",
+          "title": "Обхід каталогів: readdir, getdents64 та внутрішня структура",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-readdir-r-deprecation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fast-directory-walker.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-getdents64-structs.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "open-file",
+      "title": "Відкритий файл",
+      "topics": [
+        {
+          "slug": "file-descriptor",
+          "title": "Файловий дескриптор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-fd-origin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fd-table-tour.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fd-lifecycle.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "open-file-description",
+          "title": "Опис відкритого файлу: що спільне після fork",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-file-table.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-shared-offset.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fd-vs-ofd.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "file-locking",
+          "title": "Блокування файлів: flock, POSIX-замки й замки на опис відкритого файлу",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-file-lock.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-lock-interfaces.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "large-file-support",
+          "title": "Великі файли: off_t, LFS і _FILE_OFFSET_BITS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-large-file-summit.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-offset-audit.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-lfs-surface.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "mount-tree",
+      "title": "Дерево монтувань",
+      "topics": [
+        {
+          "slug": "mount-model",
+          "title": "Монтування й дерево монтувань",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mount-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mountinfo-tree.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mount-syscalls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "chroot",
+          "title": "chroot і його межі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-chroot-origins.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-escape-demo.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-chroot-contract.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pivot-root",
+          "title": "pivot_root: підміна кореневого монтування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pivot-root-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-detached-root-probe.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "overlay-filesystems",
+          "title": "Накладені файлові системи: overlayfs, шари й «білило»",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-union-mounts.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-overlay-lab.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-overlay-mount.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "file-permissions",
+      "title": "Права на файл",
+      "topics": [
+        {
+          "slug": "permission-bits",
+          "title": "Біти прав і як їх перевіряють",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-nine-bits.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-access-check.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mode-bits.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "umask-and-defaults",
+          "title": "umask і типові права новоствореного",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-umask-origin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-exact-mode.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-umask-surface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "acl-and-xattr",
+          "title": "Розширені права (ACL) і атрибути (xattr)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-withdrawn-draft.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-decode-acl-blob.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-xattr-and-acl.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "device-access-groups",
+          "title": "Доступ до пристроїв через групи: dialout, plugdev",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dialout-uucp.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-udev-access-rules.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "file-attributes",
+      "title": "Атрибути файлу",
+      "topics": [
+        {
+          "slug": "statx-mask-and-unknown-values",
+          "title": "statx: маска запиту й відповідь «не знаю»",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-seven-years-to-statx.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-capability-survey.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "statx-fields-and-kernel-extensions",
+          "title": "Поля struct statx: часи, номери пристроїв, DIOALIGN, mount ID, io_uring",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-statx-inspect.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-statx-masks-and-flags.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "inode-flags-chattr",
+          "title": "Прапорці inode: immutable, append-only й chattr",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-immutable-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-flag-tour.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fileattr-interface.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "buffers-and-durability",
+      "title": "Буфери й довговічність",
+      "topics": [
+        {
+          "slug": "fsync-fdatasync-sync-file-range",
+          "title": "Гарантії скидання кешу: fsync, fdatasync та sync_file_range",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-fsyncgate-and-cache.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sync-bench.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sync-contracts.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "copy-file-range-cross-fs-reflink",
+          "title": "copy_file_range, reflink та копіювання на рівні ФС",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cross-fs-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cross-fs-cloner.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cross-fs-matrix.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "buffered-and-direct-io",
+          "title": "Буферизований і прямий ввід-вивід",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-o-direct-arrival.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-direct-copy.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-direct-io-contract.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "zero-copy",
+          "title": "Передача без копіювання: sendfile і splice",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sendfile-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sendfile-server.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-transfer-calls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "stdio-buffering",
+          "title": "Буферизація stdio: порядкова, поблокова, без буфера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-lesk-and-ritchie.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-buffering-lab.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-stdio-buffer-controls.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "caches-and-journal",
+      "title": "Кеші й журнал",
+      "topics": [
+        {
+          "slug": "page-cache-durability",
+          "title": "Кеш сторінок, fsync і довговічність запису",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-o-ponies.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-fsyncgate.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-durable-write.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sync-syscalls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "readahead",
+          "title": "Випереджувальне читання: як ядро вгадує наступний блок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-readahead-lineage.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-window-and-bandwidth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-measure-readahead.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dentry-cache",
+          "title": "Кеш каталогових записів (dcache): dentry, негативні записи, RCU-walk",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dcache-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dcache-tracing-and-bench.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dentry-kernel-api.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "journaling-consistency",
+          "title": "Журналювання й узгодженість після збою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-fsck-to-journal.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-journal-replay.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-journal-controls.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "on-disk-layout",
+      "title": "Розміщення на носії",
+      "topics": [
+        {
+          "slug": "file-block-allocation",
+          "title": "Розміщення блоків файлу: екстенти, відкладене виділення й фрагментація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-fragmentation-cost.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-allocator-lab.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-allocation-controls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sparse-files",
+          "title": "Розріджені файли: діри замість нулів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-seek-hole.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hole-map.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sparse-syscalls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "log-structured-filesystems",
+          "title": "Лог-структуровані файлові системи",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-lfs-argument.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cleaning-cost.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-segment-cleaner.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-f2fs-ioctls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "zonefs",
+          "title": "zonefs: кожна зона носія як звичайний файл",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-append-to-zone-file.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-zonefs-surface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dax-direct-access",
+          "title": "DAX: пряме звертання до файлів на постійній пам'яті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-xip-to-dax.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-persist-by-hand.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dax-controls.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "fs-families",
+      "title": "Родини файлових систем",
+      "topics": [
+        {
+          "slug": "filesystem-families",
+          "title": "Родини файлових систем: ext4, XFS, Btrfs, F2FS",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-four-births.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fiemap-layout.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mkfs-and-mount.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "btrfs-b-tree-architecture",
+          "title": "Btrfs: Архітектура B-дерев",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-btrfs-creation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-btrfs-key-search.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-btrfs-tree-types.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "btrfs-checksums-scrubbing-raid",
+          "title": "Btrfs: Контрольні суми, Scrubbing та RAID",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-silent-data-corruption.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-crc32c-btrfs.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-btrfs-scrub-ioctl.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "zfs-pool-architecture",
+          "title": "Архітектура пулів ZFS: від дисків до наборів даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-zfs-architecture-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-zfs-block-pointer-parser.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-zfs-pool-management.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "zfs-on-linux-arc",
+          "title": "ZFS у Linux: ARC кеш та ZIL",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-arc-algorithm.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-arc-monitoring.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-arc-kstat.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "copy-without-rewrite",
+      "title": "Копії без переписування",
+      "topics": [
+        {
+          "slug": "reflink-copies",
+          "title": "Копії з поділом блоків: reflink і copy_file_range",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-reflink-syscall.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dedupe-ranges.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-clone-and-copy.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "copy-file-range-syscall",
+          "title": "Системний виклик copy_file_range(2) та server-side copy",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-copy-engine.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-copy-file-range-spec.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "btrfs-copy-on-write-and-subvolumes",
+          "title": "Btrfs: Copy-on-Write, Субтоми та Знімки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-btrfs-subvolumes.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-snapshot-manager.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-btrfs-subvol-ioctls.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "readonly-images",
+      "title": "Образи лише для читання",
+      "topics": [
+        {
+          "slug": "read-only-image-filesystems",
+          "title": "Стиснені образи лише для читання: SquashFS і EROFS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-two-births.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-block-size-tradeoff.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-image-lab.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "erofs-read-only-filesystem",
+          "title": "Стиснена файлова система EROFS для контейнерів та прошивок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-erofs-evolution.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-squashfs-vs-erofs.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-erofs-toolchain.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-erofs-ondisk.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "incfs-incremental-filesystem",
+          "title": "Інкрементальна файлова система IncFS (Android Incremental Delivery)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-android-incremental.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-incfs-daemon.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-incfs-ctl.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "file-encryption",
+      "title": "Шифрування на рівні файлів",
+      "topics": [
+        {
+          "slug": "fscrypt",
+          "title": "fscrypt: шифрування на рівні файлової системи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-ecryptfs-to-fbe.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-derive-file-key.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fscrypt-ioctls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fs-verity",
+          "title": "fs-verity: перевірка вмісту файлу на читанні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-two-apis.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-recompute-digest.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fsverity-ioctls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "device-mapper-dm-crypt",
+          "title": "Device Mapper: LVM, DM-Crypt та LUKS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "zfs-native-encryption",
+          "title": "Вбудоване шифрування та дедуплікація в ZFS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-zfs-key-manager.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-zfs-crypto-cli.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "change-watching",
+      "title": "Стеження за змінами",
+      "topics": [
+        {
+          "slug": "inotify-and-fanotify",
+          "title": "Стеження за змінами у файловій системі: inotify і fanotify",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-dnotify-to-fanotify.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-watch-tree.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-notify-syscalls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fanotify-fsnotify-permission-events",
+          "title": "Розширений моніторинг файлів fanotify: перехоплення FAN_OPEN_PERM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-fsnotify-perm-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fanotify-guard.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fanotify-perm-reference.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "file-leases",
+          "title": "Оренда файлу: F_SETLEASE і сповіщення про чуже відкриття",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-oplocks-and-delegations.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lease-holder.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-lease-interface.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "fs-maintenance",
+      "title": "Обслуговування файлової системи",
+      "topics": [
+        {
+          "slug": "fsck-and-repair",
+          "title": "fsck: перевірка й ремонт файлової системи",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-linkcount-audit.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fsck-invocation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "filesystem-freeze",
+          "title": "Заморожування файлової системи: узгоджений момент для знімка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-xfs-to-fifreeze.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-freeze-window.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-freeze-interface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "disk-quotas",
+          "title": "Дискові квоти: облік місця за власником",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-quota-birth.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-quota-control.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "remote-filesystems",
+      "title": "Спільне й віддалене сховище",
+      "topics": [
+        {
+          "slug": "network-filesystems",
+          "title": "Мережеві файлові системи: NFS, SMB і чого від них чекати",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-nfs-and-smb-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mount-contract-probe.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mount-options.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cluster-filesystems-gfs2-ocfs2",
+          "title": "Кластерні файлові системи: GFS2 і OCFS2",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-shared-disk-filesystems.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-distributed-lock-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dlm-lockspaces-and-glocks.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "virtiofs",
+          "title": "virtiofs: каталог хоста у віртуальній машині через спільну пам'ять",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-9p-to-virtiofs.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-count-the-crossings.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-virtiofs-surface.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

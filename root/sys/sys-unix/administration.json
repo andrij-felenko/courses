@@ -1,0 +1,498 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-unix",
+  "slug": "administration",
+  "title": "Адміністрування",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "packages",
+      "title": "Пакунки й постачання",
+      "topics": [
+        {
+          "slug": "package-manager-model",
+          "title": "Модель пакетного менеджера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tarballs-to-repositories.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-atomic-pkg-installer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dpkg-status-database.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "deb-and-rpm",
+          "title": "deb і rpm: два світи пакування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-formats.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-building.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-deb-rpm.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "repositories-and-trust",
+          "title": "Репозиторії, підписи й довіра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-keyservers-and-web-of-trust.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gpg-verification-tool.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-apt-rpm-trust-config.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dependency-resolution",
+          "title": "Розв'язання залежностей і конфлікти версій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sat-in-package-managers.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sat-solver-engine.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-libsolv-surface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "self-contained-bundles",
+          "title": "Самодостатні пакунки: AppImage, Flatpak, Snap",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bundle-formats.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-minimal-bundle-launcher.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bundle-manifests.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "containers-vs-packages",
+          "title": "Контейнер проти пакунка",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-chroot-to-oci.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-chroot-overlay-runner.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-container-vs-pkg-manifests.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "remote-access",
+      "title": "Віддалений доступ",
+      "topics": [
+        {
+          "slug": "ssh-remote-session",
+          "title": "Віддалений сеанс: SSH — модель, автентифікація, канал",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "ssh-keys-and-host-trust",
+          "title": "Ключі, known_hosts і довіра до хоста",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "ssh-agent-and-config",
+          "title": "Агент, ~/.ssh/config і перехід через бастіон (ProxyJump)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "ssh-port-forwarding",
+          "title": "Прокидання портів: локальне, віддалене, динамічне",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "sshd-configuration-and-hardening",
+          "title": "sshd: конфігурація й загартування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "file-transfer-over-ssh",
+          "title": "Перенесення файлів: scp, sftp і rsync поверх SSH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "account-sources",
+      "title": "Джерела облікових записів",
+      "topics": [
+        {
+          "slug": "user-database-nss",
+          "title": "База облікових записів: passwd, group, shadow і шар NSS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-shadow-and-nis.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-nss-module.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-nsswitch-and-getent.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ldap-directory",
+          "title": "Каталог LDAP як мережеве джерело облікових записів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-x500-to-ldap.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ldap-login-check.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ldap-search-and-schema.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sssd",
+          "title": "SSSD: демон, що тримає з'єднання з каталогом і кеш облікових записів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sssd-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-measure-cache.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sssd-config-and-tools.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "userdb-varlink",
+          "title": "userdb: облікові записи як записи JSON через Varlink",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-varlink-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-userdb-service.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-userdb-varlink.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "systemd-homed",
+          "title": "systemd-homed: домівка як переносний підписаний образ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-homed-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-inspect-home-image.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-homectl-and-record.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "authentication",
+      "title": "Автентифікація й ведення записів",
+      "topics": [
+        {
+          "slug": "pam-stack",
+          "title": "PAM: стек модулів автентифікації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pam-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pam-module.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pam-config.md",
+              "status": "done"
+            },
+            {
+              "file": "api-pam-library.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "account-administration",
+          "title": "Завести й прибрати обліковий запис: useradd, /etc/skel, блокування й термін дії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "logind-sessions-seats",
+          "title": "systemd-logind: сеанси, місця (seats) і хто зараз за комп'ютером",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-from-utmp-to-logind.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-session-device-handover.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-login1-dbus.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "time-and-schedule",
+      "title": "Час і розклад",
+      "topics": [
+        {
+          "slug": "scheduled-jobs-cron-anacron",
+          "title": "Робота за розкладом: cron, crontab і anacron",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "wall-clock-and-timezones",
+          "title": "Годинник машини: RTC, часові пояси, tzdata, timedatectl",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

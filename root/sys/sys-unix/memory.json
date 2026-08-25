@@ -1,0 +1,710 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-unix",
+  "slug": "memory",
+  "title": "Пам'ять ядра",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "kernel-allocators",
+      "title": "Розподільники пам'яті ядра",
+      "topics": [
+        {
+          "slug": "physical-page-allocator",
+          "title": "Фізичні сторінки в ядрі: зони, блоки за порядками й ущільнення",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-buddy-and-fragmentation.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fragmentation-index.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-buddyinfo-reader.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-allocator-controls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kernel-memory-slab",
+          "title": "Пам'ять ядра: slab і зменшувачі кешів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-slab-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-slab-watch.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-slab-interfaces.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "memblock-early-memory",
+          "title": "memblock: пам'ять до того, як з'явився розподільник сторінок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-bootmem-to-memblock.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-read-memblock.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-memblock-interfaces.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "vmalloc-kernel-mappings",
+          "title": "vmalloc: віртуально суцільна пам'ять ядра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-vmalloc-scalability.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-vmallocinfo-reader.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-vmalloc-interfaces.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "page-tables",
+      "title": "Таблиці сторінок і TLB",
+      "topics": [
+        {
+          "slug": "tlb-shootdown",
+          "title": "Розсилання скидань TLB: чому правка таблиці сторінок коштує міжпроцесорних переривань",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-shootdown-name.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-shootdown-cost.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tlb-flush-controls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kernel-page-table-isolation",
+          "title": "Ізоляція таблиць сторінок ядра (KPTI): чому ядро прибрали з простору процесу",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-kaiser-to-kpti.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kpti-cost.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pti-controls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "memory-types-and-page-attributes",
+          "title": "Тип пам'яті в записі таблиці сторінок: кешованість, PAT і MAIR",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mtrr-to-pat.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-wc-buffer-benchmark.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kernel-memory-types.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "physical-memory-map",
+      "title": "Карта фізичної пам'яті",
+      "topics": [
+        {
+          "slug": "sparsemem-and-vmemmap",
+          "title": "Модель фізичної пам'яті: SPARSEMEM, vmemmap і масив описувачів кадрів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-memory-models.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-vmemmap-walk.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sparsemem-controls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "memory-hotplug",
+          "title": "Гаряче додавання й вилучення пам'яті: секції, блоки й перехід в онлайн",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "memory-failure-hwpoison",
+          "title": "Апаратна помилка пам'яті: hwpoison, SIGBUS і отруєна сторінка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-sigbus-handler.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-hwpoison-interfaces.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "page-owners",
+      "title": "Кадр і його власники",
+      "topics": [
+        {
+          "slug": "reverse-mapping",
+          "title": "Зворотне відображення сторінки (rmap): як знайти всіх, хто на неї вказує",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-anon-vma-war.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-who-maps-this-page.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rmap-interfaces.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "page-migration",
+          "title": "Міграція сторінок: перенести вміст в інший кадр, не зламавши посилань",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-move-pages.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ksm-page-merging",
+          "title": "KSM: злиття однакових сторінок",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ksm-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ksm-lab.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ksm-controls.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "memory-pressure",
+      "title": "Брак пам'яті",
+      "topics": [
+        {
+          "slug": "swap-and-reclaim",
+          "title": "Свопінг і витіснення сторінок",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-swapping-to-reclaim.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-thrashing-cliff.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-observe-reclaim.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-reclaim-counters.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "overcommit-and-oom",
+          "title": "Overcommit і OOM-killer",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-out-of-fuel.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-touch-the-promise.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-oom-knobs.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "asynchronous-page-reclaim",
+          "title": "Асинхронне витіснення сторінок: kswapd та watermarks",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "numa-and-tiers",
+      "title": "NUMA й яруси пам'яті",
+      "topics": [
+        {
+          "slug": "numa-memory-policy",
+          "title": "NUMA: вузли, політики розміщення й багаторівнева пам'ять",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-numa-and-multiprocessing.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-numa-allocator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mempolicy.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "memory-tiering-and-demotion",
+          "title": "Ярусування пам'яті: NUMA balancing, demotion і memory-tiers",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tiering-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cxl-tiering-monitor.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sysfs-memory-tiers.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "memory-as-device",
+      "title": "Пам'ять як пристрій",
+      "topics": [
+        {
+          "slug": "persistent-memory-devices",
+          "title": "Постійна пам'ять як пристрій: NVDIMM, простори імен і /dev/pmem",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-nvdimm-standardisation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-survive-a-bad-cell.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-nd-tree-and-ndctl.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cxl-type3-regions-and-numa-node",
+          "title": "Пам'ять CXL Type 3 у ядрі Linux: декодери, області й CPU-less NUMA-вузол",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-cxl-cli.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cxl-spec.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cxl-bus-protocols-and-generations",
+          "title": "Шина CXL: протоколи CXL.io/cache/mem, покоління стандарту й дезагрегація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cxl-origin.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cxl-interleave-mapping.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cxl-numa-alloc.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sysfs-cxl.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "device-memory",
+      "title": "Пам'ять для пристроїв",
+      "topics": [
+        {
+          "slug": "cma-contiguous-allocator",
+          "title": "CMA: резерв суцільної фізичної пам'яті для пристроїв",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cma-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cma-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cma-interfaces.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "page-pinning-gup",
+          "title": "Закріплення сторінок для пристрою: get_user_pages і pin_user_pages",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-gup-troubles.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pin-user-buffer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-gup-family.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mmu-notifiers",
+          "title": "Сповіщувачі MMU: як драйвер дізнається, що ядро забирає сторінку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mmu-notifier-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mirror-a-range.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mmu-notifier-ops.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hmm-address-space-mirroring",
+          "title": "HMM: дзеркалення адресного простору процесу в пам'яті прискорювача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-hmm-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-migrate-to-device.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

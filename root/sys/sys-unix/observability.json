@@ -1,0 +1,1038 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-unix",
+  "slug": "observability",
+  "title": "Спостереження й діагностика",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "kernel-tracing",
+      "title": "Трасування ядра",
+      "topics": [
+        {
+          "slug": "ftrace-tracepoints",
+          "title": "ftrace і трасувальні точки ядра Linux (Linux Kernel Tracepoints)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tracepoints-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-tracepoint.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tracefs-events.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ftrace-kernel-tracing",
+          "title": "Трасування ядра ftrace (/sys/kernel/tracing, function, tracepoints, trace-cmd)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ftrace-origins.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ftrace-user-reader.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tracefs.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "tracefs-ftrace-control-interface",
+          "title": "tracefs: файловий інтерфейс керування ftrace",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-debugfs-tracefs-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kernel-debugfs-module.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-debugfs-tracefs-control.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "uprobes-and-kprobes",
+          "title": "Динамічне трасування: kprobes та uprobes",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dynamic-tracing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-uprobe-latency-tracker.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kprobes-uprobes.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "user-events-ftrace-subsystem",
+          "title": "Користувацькі події у ftrace: User Events підсистема",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-user-events.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-user-events-demo.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-user-events.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bpf-trampoline-and-fprobe",
+          "title": "Сучасні оверхеди трасування: BPF Trampoline та fprobe",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tracing-overhead.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fentry-tracing-benchmark.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bpf-trampoline-and-fprobe.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "systemtap-and-bpftrace",
+          "title": "Високорівневе трасування: SystemTap та bpftrace",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dtrace-to-bpftrace.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-usdt-and-tracing.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bpftrace-and-systemtap.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "bpf-programs",
+      "title": "Програми всередині ядра",
+      "topics": [
+        {
+          "slug": "ebpf-programming-model-and-toolchain",
+          "title": "Модель програмування eBPF: від C-коду до хука в ядрі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ebpf-origins.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ebpf-execve-monitor.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bpf-syscall-and-maps.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ebpf-verifier-internals-and-runtime-cost",
+          "title": "Нутрощі верифікатора eBPF і ціна виконання: діапазони, прунінг, затримки хуків",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ebpf-vm-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ebpf-latency-tracker.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bpf-maps.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "bpf-event-channels",
+      "title": "Канали подій BPF",
+      "topics": [
+        {
+          "slug": "perf-event-array-setup-and-tuning",
+          "title": "Perf Event Array: підняття карти, bpf_perf_event_output() і тюнінг буферів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-perf-event-array.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-perf-event-array.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-perf-event-array.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bpf-ringbuf-vs-perfbuf",
+          "title": "Порівняльний аналіз механізмів доставки подій BPF Ring Buffer vs Perf Event Array",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-perf-to-ringbuf.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bpf-ringbuf-benchmark.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ringbuf-vs-perfbuf.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bpf-iterators-and-user-ringbuf",
+          "title": "Ітератори BPF (bpf_iter) та User Ring Buffer",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bpf-iter-and-user-ringbuf.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bpf-iter-and-user-ringbuf.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bpf-iter-and-user-ringbuf.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ebpf-arena-shared-memory-region",
+          "title": "Спільні регіони памʼяті BPF Arena (Linux 6.8+)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-arena-shared-tree.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bpf-arena.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "process-tracing",
+      "title": "Трасування процесу",
+      "topics": [
+        {
+          "slug": "ptrace-model",
+          "title": "ptrace: на чому тримається трасування й налагодження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ptrace.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tracer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ptrace.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "syscall-tracing",
+          "title": "Трасування системних викликів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ptrace-to-seccomp.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-syscall-interceptor.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ptrace-and-seccomp.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "profiling",
+      "title": "Профіль і символи",
+      "topics": [
+        {
+          "slug": "perf-events",
+          "title": "Підсистема perf: лічильники й вибірковий профіль",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pmu-and-perf.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ring-buffer-reader.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-perf-event-open.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "latency-tracers",
+          "title": "Трасувальники затримок: osnoise, timerlat і rtla",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rtla-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-latency-harness.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rtla-interfaces.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "debug-symbols-and-build-id",
+          "title": "Символи в системі: strip, build-id, debuginfo-пакунки й debuginfod",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "sanitizers",
+      "title": "Санітайзери й перевірки",
+      "topics": [
+        {
+          "slug": "kasan-kernel-address-sanitizer",
+          "title": "Kernel Address Sanitizer (KASAN)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kasan-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kasan-uaf-demo.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kasan-config.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kcsan-concurrency-sanitizer",
+          "title": "Kernel Concurrency Sanitizer (KCSAN)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kcsan-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kcsan-kernel-module.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kcsan-annotations.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kmemleak-leak-detector",
+          "title": "Виявлення витоків пам'яті ядра (Kmemleak)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mark-and-sweep-in-kernel.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kmemleak-driver-audit.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kmemleak-interface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lockdep-lock-validator",
+          "title": "Валідатор блокувань Lockdep",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lockdep-history.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lockdep-validation.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-lockdep-interfaces.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kernel-kunit-test-framework",
+          "title": "Фреймворк тестування ядра KUnit та відлагоджувачі KASAN/KCSAN/KFENCE",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kunit-origins.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kunit-test-suite.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kunit-and-sanitizers.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "crashes-and-hangs",
+      "title": "Аварії, зависання й нагляд",
+      "topics": [
+        {
+          "slug": "kernel-oops-panic",
+          "title": "Oops і паніка: що система робить, коли падає саме ядро",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kernel-faults-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-oops-trigger-module.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kernel-panic-sysctl-and-oops-format.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "core-dump",
+          "title": "Аварійний дамп: як налаштувати й що з нього видно",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-magnetic-core.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gdb-core-analysis.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-core-pattern.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lockup-detectors",
+          "title": "Детектори зависань ядра: soft lockup, hard lockup і NMI-watchdog",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-watchdog-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sim-lockups.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-watchdog-sysctl.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "watchdog-timer-subsystem",
+          "title": "Підсистема та драйвери таймерів Watchdog (/dev/watchdog)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-watchdog-evolution.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-hardware-watchdog-architecture.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-watchdog-timeout-window.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-watchdog-daemon.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-watchdog-ioctl-abi.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "magic-sysrq",
+          "title": "Магічний SysRq: аварійні команди ядра з клавіатури",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "machine-check-and-ras",
+          "title": "Апаратні помилки: машинна перевірка (MCE) і як ядро про них дізнається",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "logs-and-audit",
+      "title": "Журнали й аудит",
+      "topics": [
+        {
+          "slug": "kernel-log-printk",
+          "title": "Журнал ядра: printk, рівні важливості й dmesg",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-printk-lockless-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kmsg-watcher.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kmsg-and-syslog.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "syslog-protocol",
+          "title": "Syslog: пріоритет, засоби (facility) і формат повідомлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-syslog-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-syslog-socket-parser.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-syslog-c-library.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "journald-structured-entry-model",
+          "title": "journald: запис як набір довірених полів замість рядка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-syslog-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-journal-reader.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-journal-protocol.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "journalctl-and-journald-conf-operation",
+          "title": "Експлуатація журналу: journalctl, journald.conf і простори імен",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-syslog-to-journald.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-journal-fss-sealing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-journalctl-emulator.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sd-journal.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "audit-framework",
+          "title": "Підсистема аудиту ядра: правила, події й auditd",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "system-load",
+      "title": "Навантаження й тиск",
+      "topics": [
+        {
+          "slug": "load-and-pressure",
+          "title": "Середнє навантаження й тиск на ресурси (PSI)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-loadavg-to-psi.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-psi-monitor.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-proc-pressure-interface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "psi-pressure-stall-information",
+          "title": "Підсистема оцінки голодування ресурсів PSI (Pressure Stall Info)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-loadavg-to-psi.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-psi-daemon.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-proc-pressure-interface.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "inspection-tools",
+      "title": "Прилади спостереження",
+      "topics": [
+        {
+          "slug": "live-system-tools",
+          "title": "Подивитися на живу систему: ps, top, lsof",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "network-inspection-tools",
+          "title": "Подивитися на мережу: ss, tcpdump, traceroute",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

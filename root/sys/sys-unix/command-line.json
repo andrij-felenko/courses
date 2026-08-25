@@ -1,0 +1,530 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-unix",
+  "slug": "command-line",
+  "title": "Командний рядок",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "shell-and-pipeline",
+      "title": "Оболонка й конвеєр",
+      "topics": [
+        {
+          "slug": "shell-role",
+          "title": "Оболонка: що вона робить насправді",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-unix-shell-decoupling.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mini-shell.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-posix-shell-grammar.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "argv-and-environment",
+          "title": "argv, оточення й що успадковує дитина",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-environment-variables.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-proc-context-inspector.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-exec-and-environment.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pipeline-composition",
+          "title": "Конвеєр: композиція процесів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mcilroy-pipe.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-shell-pipeline.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pipe-syscalls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "exit-status",
+          "title": "Код виходу як інтерфейс програми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-exit-status-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pipeline-exit-inspector.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-posix-sysexits.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "expansion-and-quoting",
+          "title": "Розкриття й лапки: коли текст стає аргументами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-glob-and-quoting.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-wordexp-and-glob.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "session-and-jobs",
+      "title": "Завдання й оточення сеансу",
+      "topics": [
+        {
+          "slug": "job-control",
+          "title": "Керування завданнями: PGID, управляючий термінал, SIGTSTP і сигнальні групи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-job-control-shell.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-job-control-syscalls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "session-environment",
+          "title": "Оточення сеансу: profile, rc і пошук у PATH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-profile-and-rc-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-path-resolver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-path-lookup-and-exec.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "locale-and-collation",
+          "title": "Локаль: як мова змінює поведінку програм",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-locale-standards.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-collation-bench.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-locale-libc.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "interactive-shell",
+      "title": "Інтерактивна оболонка",
+      "topics": [
+        {
+          "slug": "command-history",
+          "title": "Історія команд",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "readline-line-editing",
+          "title": "readline: редагування рядка й прив'язки клавіш",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "shell-completion",
+          "title": "Доповнення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "shell-prompt",
+          "title": "Запрошення: PS1, PS2 і що в них тримати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "text-filters",
+      "title": "Фільтри тексту",
+      "topics": [
+        {
+          "slug": "grep",
+          "title": "grep: пошук у потоці й у дереві",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "sed",
+          "title": "sed: потоковий редактор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "awk",
+          "title": "awk: записи, поля й маленька мова",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "sort-and-uniq",
+          "title": "sort і uniq: порядок, ключі й LC_ALL=C",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "field-tools",
+          "title": "Поля й стовпці: cut, paste, join, comm, tr",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "head-tail-and-following",
+          "title": "Початок, кінець і стеження: head, tail -f, wc, split",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "classic-filters",
+          "title": "Класичні фільтри: grep, sed, awk, sort",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "text-as-interface",
+      "title": "Текст як інтерфейс",
+      "topics": [
+        {
+          "slug": "text-as-interface",
+          "title": "Текст як універсальний інтерфейс: рядок, роздільник, запис",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "bytes-characters-and-line-endings",
+          "title": "Байти, символи й кінці рядків",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "machine-readable-output",
+          "title": "Машинний вивід проти людського",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "structured-text-in-pipelines",
+          "title": "Структурований текст у конвеєрі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "scripting",
+      "title": "Сценарій",
+      "topics": [
+        {
+          "slug": "functions-and-subshells",
+          "title": "Функції, підоболонки й область видимості",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "script-arguments",
+          "title": "Аргументи сценарію: $1, \"$@\", shift, getopts",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "script-control-flow",
+          "title": "Умови й цикли: test, [, [[, case, while read",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "parameter-expansion",
+          "title": "Підстановка параметра: дефолти, обрізання, заміна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "secrets-in-environment",
+          "title": "Секрети в середовищі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "robust-scripts",
+      "title": "Надійний сценарій",
+      "topics": [
+        {
+          "slug": "script-debugging",
+          "title": "Відлагодження сценарію: set -x, PS4, shellcheck",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "portable-shell",
+          "title": "Переносний сценарій: POSIX sh, bashism, GNU проти BSD",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "set-e-and-strict-mode",
+          "title": "set -e, set -u, set -o pipefail",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "trap-and-cleanup",
+          "title": "trap і прибирання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "file-search",
+      "title": "Пошук і копіювання файлів",
+      "topics": [
+        {
+          "slug": "find-and-xargs",
+          "title": "find і xargs: генератор для конвеєра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "copying-trees-preserving-metadata",
+          "title": "Копіювання дерева без втрат: cp, tar, rsync",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

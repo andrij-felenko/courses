@@ -1,0 +1,962 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-unix",
+  "slug": "security",
+  "title": "Безпека",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "process-identity",
+      "title": "Ідентичність процесу",
+      "topics": [
+        {
+          "slug": "uid-gid-identity-model",
+          "title": "Модель UID/GID: чому ідентичність — це число всередині процесу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-setuid-semantics.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-drop-privileges.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-credential-syscalls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "process-credential-checks-and-transitions",
+          "title": "Креденшели процесу в ядрі: перевірка VFS, переходи привілеїв, нитки й ptrace",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-posix-credentials.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-privilege-drop.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cred-syscalls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "setuid-and-privilege",
+          "title": "setuid, setgid і підвищення прав",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-environment-holes.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-setuid-helper.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "privileges",
+      "title": "Привілеї root",
+      "topics": [
+        {
+          "slug": "capabilities",
+          "title": "Можливості (capabilities) замість всесильного root",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-posix-1e.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-keep-capability.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-capability-interfaces.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "capabilities-in-practice",
+          "title": "Можливості на практиці: файли, процеси та systemd",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "privilege-separation",
+          "title": "Розділення привілеїв: маленький довірений процес і решта",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-privsep-origins.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-privsep-helper.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kernel-lockdown",
+          "title": "Режим блокування ядра (lockdown): чого не можна навіть root",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-lockdown-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-probe-lockdown.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-lockdown-controls.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "privilege-escalation",
+      "title": "Підвищення прав",
+      "topics": [
+        {
+          "slug": "sudo",
+          "title": "sudo: підвищення прав за правилами sudoers",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sudo-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sudo-wrapper.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sudoers-syntax.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "su-switch-user",
+          "title": "su: перемикання на іншого користувача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-su-and-wheel.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-minimal-su.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-su-invocation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "polkit",
+          "title": "polkit: хто дозволяє непривілейованому процесу привілейовану дію",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-policykit-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-polkit-mechanism.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-polkit-files.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "mandatory-access-control",
+      "title": "Обов'язковий контроль доступу",
+      "topics": [
+        {
+          "slug": "mac-selinux-apparmor",
+          "title": "Обов'язковий контроль доступу: SELinux і AppArmor",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mac-in-linux.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-denial-to-policy.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-selinux-surface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "selinux-type-enforcement",
+          "title": "SELinux: Type Enforcement та контексти безпеки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-flask-architecture.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-te-policy-module.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-selinuxfs-interface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "apparmor-path-rules",
+          "title": "AppArmor: профілі на основі шляхів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-apparmor-pathname-lsm.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-apparmor-securityfs-interface.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-apparmor-rule-syntax.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "apparmor-stacking-and-profiles",
+          "title": "Стек профілів AppArmor та інстанціація політик",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-apparmor-stacking-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-stacking-intersection.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-apparmor-policy-instantiation.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-apparmor-stacking-interface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "tomoyo-linux-path-based-lsm",
+          "title": "Політики безпеки TOMOYO Linux: LSM на основі шляхів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-tomoyo-pathname-mac.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tomoyo-policy-editor.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tomoyo-policy-syntax.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "smack-simplified-mandatory-access",
+          "title": "Спрощений мандатний контроль доступу SMACK (Simplified Mandatory Access Control)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-smack-creation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-smack-policy-loader.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-smackfs-and-xattr.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "netlabel-cipso-packet-labeling",
+          "title": "NetLabel і CIPSO: мітки безпеки на мережевих пакетах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cipso-fips188.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-netlabel-mls-socket.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-netlabelctl-and-kernel-types.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "security-hooks",
+      "title": "Гачки безпеки в ядрі",
+      "topics": [
+        {
+          "slug": "lsm-framework",
+          "title": "LSM: каркас гачків безпеки в ядрі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-restrictive-hooks.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bpf-lsm.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-lsm-module.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lsm-stacking-multiple-modules",
+          "title": "Стекування LSM: кілька модулів безпеки разом — блоби, порядок, ціна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-stacking-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lsm-blob-offset.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-lsm-kernel-interface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bpf-lsm-policy-authoring-libbpf-core",
+          "title": "Написання політик BPF-LSM: libbpf, CO-RE та завантажувач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-bpf-lsm-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bpf-lsm-loader.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bpf-lsm-hooks.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bpf-lsm-deny-path-storage-and-audit",
+          "title": "Заборона й аудит у BPF-LSM: ланцюжок хуків, local storage, sleepable",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-bpf-lsm-override.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bpf-lsm-override.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bpf-lsm-helpers.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ebpf-security-tracing",
+          "title": "eBPF у безпеці та трасуванні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-auditd-to-ebpf.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ebpf-exec-monitor.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bpf-helpers-tracing.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "sandboxes",
+      "title": "Пісочниці",
+      "topics": [
+        {
+          "slug": "seccomp-filter-mechanism",
+          "title": "seccomp: механізм фільтрації системних викликів і його межі",
+          "basic": {
+            "status": "deeper"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-seccomp-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-seccomp-filter.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-seccomp.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "seccomp-profiles-and-tooling",
+          "title": "Профілі seccomp на практиці: cBPF вручну, libseccomp, Docker, аудит",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-seccomp-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-seccomp.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-seccomp-syscall.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "landlock-self-restriction-model",
+          "title": "Landlock: як процес відбирає права сам у себе",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-landlock-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sandbox-exec.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-landlock-syscalls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "landlock-kernel-internals-and-abi",
+          "title": "Landlock у ядрі: домени, хуки VFS, версії ABI та діагностика",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "landlock-abi-v4-v5-features",
+          "title": "Еволюція Landlock LSM: ABI v4/v5 (мережеві обмеження та ioctl)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-landlock-evolution.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-landlock-vs-seccomp-apparmor.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-landlock-network-ioctl-sandbox.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-landlock-v4-v5-structs.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "kernel-keys",
+      "title": "Ключі ядра",
+      "topics": [
+        {
+          "slug": "kernel-keyrings",
+          "title": "Кільця ключів ядра: add_key, keyctl і довірені сертифікати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-key-service-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-key-possession.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-keyctl-surface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kernel-keyring-internals-and-lsm",
+          "title": "Будова служби ключів зсередини: struct key, збирання сміття й перевірки LSM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-key-retention-structures.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "crypto-and-randomness",
+      "title": "Криптографія й випадковість",
+      "topics": [
+        {
+          "slug": "kernel-crypto-api",
+          "title": "Криптографічна підсистема ядра: імена алгоритмів і трансформації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-two-crypto-apis.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tfm-in-module.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-crypto-transforms.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kernel-crypto-framework",
+          "title": "Криптографічний API ядра (Kernel Crypto API)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ipsec-crypto-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-af-alg-crypto.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-af-alg.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kernel-fips-mode",
+          "title": "Режим FIPS у ядрі: fips_enabled, самоперевірки й звужений набір алгоритмів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fips140-in-linux.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fips-status-and-kat.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fips-sysfs-and-crypto.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "random-devices",
+          "title": "Джерело випадковості в ядрі: /dev/random, /dev/urandom і getrandom",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-two-devices.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-getting-random-bytes.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-random-surface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hwrng-hardware-random-number-generator",
+          "title": "Підсистема апаратних генераторів випадкових чисел (hwrng) та entropy pool",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-blocking-random.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-entropy-feeder.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-hwrng-framework.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

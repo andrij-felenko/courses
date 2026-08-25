@@ -1,0 +1,498 @@
+# 📋 Інтерфейс класів планування: виклики, поля, права
+
+Тут зібрано контракт, за яким програма змінює собі чи чужій задачі клас планування, пріоритет і nice: підписи викликів, зміст кожного поля структур, повні переліки помилок, права, яких вимагає ядро, і команди оболонки, що роблять те саме ззовні. Довідка потрібна в момент, коли код уже пишеться і треба точно знати, що покласти в поле й що перевірити на поверненні.
+
+## Карта: чим що змінюють
+
+| що змінюємо | виклик | команда | межа можливостей |
+|---|---|---|---|
+| nice собі, відносно | `nice(2)` | `nice -n 10 …` | лише собі, лише приріст |
+| nice собі або чужому, абсолютно | `setpriority(2)` | `renice --priority 5 …` | ще й цілій групі процесів або всьому користувачеві |
+| клас і реальночасовий пріоритет | `sched_setscheduler(2)` | `chrt -f 20 …` | усе, крім `SCHED_DEADLINE` |
+| усе разом, зокрема договір `SCHED_DEADLINE` | `sched_setattr(2)` | `chrt -d -T … -P … 0 …` | обгортки в glibc немає |
+| прочитати поточний стан | `sched_getattr(2)`, `sched_getscheduler(2)`, `getpriority(2)` | `chrt -p PID`, `ps -eLo cls,rtprio,ni` | те саме видно у `/proc` |
+| частку цілої гілки процесів | файли контролера `cpu` в cgroup | `systemctl set-property`, `systemd-run --slice=…` | стоїть над усім переліченим |
+
+Одне спільне для всього переліку варто зафіксувати одразу: **усе це — атрибути задачі, а не процесу**. У Linux одиниця планування — потік, і власний клас, власний пріоритет і власне nice має кожен із них окремо ([потоки як задачі](topic:sys-unix/threads-as-tasks) — «процес» тут лише група задач зі спільним адресним простором, а на процесор ядро ставить саме задачу). Тому `pid == 0` в усіх викликах означає «та задача, що кличе», ненульове число — номер **задачі** (TID), а не групи; і зміна, зроблена за PID процесу, дістанеться лише його головному потокові. Щоб охопити всі — або обійти `/proc/<pid>/task/*`, або взяти `chrt -a`.
+
+## nice: `nice(2)`, `setpriority(2)`, `getpriority(2)`
+
+```c
+#include <unistd.h>
+int nice(int inc);                        /* тільки собі, тільки відносно */
+
+#include <sys/resource.h>
+int getpriority(int which, id_t who);     /* −20 … 19 */
+int setpriority(int which, id_t who, int prio);
+```
+
+| `which` | що означає `who` | на кого діє |
+|---|---|---|
+| `PRIO_PROCESS` | номер задачі; `0` — та, що кличе | одна задача |
+| `PRIO_PGRP` | номер групи процесів; `0` — своя група | усі процеси групи |
+| `PRIO_USER` | UID; `0` — свій реальний UID | усі процеси користувача |
+
+Чотири властивості цих трьох рядків, на яких спотикаються.
+
+**Значення поза `−20 … 19` не є помилкою** — ядро мовчки затискає їх до діапазону. Перевірити «чи прийняли моє число» можна лише читанням назад.
+
+**`getpriority()` законно повертає `−1`** — це nice, а не збій. Розрізняє їх тільки `errno`, тому його обнуляють **перед** викликом:
+
+```c
+errno = 0;
+int ni = getpriority(PRIO_PROCESS, 0);
+if (ni == -1 && errno != 0)
+    perror("getpriority");
+```
+
+**`nice()` і сирий системний виклик повертають різне.** Обгортка glibc (з версії 2.2.4) реалізована через `getpriority()`/`setpriority()` і віддає **нове** значення nice; системний виклик `nice` віддає `0`. Так само розходиться `getpriority`: ядро повертає число в діапазоні `40 … 1`, а бібліотека переводить його в звичний вигляд за `unice = 20 − knice`. Це має значення рівно тоді, коли ви кличете `syscall(SYS_getpriority, …)` напряму, минаючи libc.
+
+**У Linux nice — атрибут потоку.** POSIX описує його як властивість процесу, реалізація NPTL — як властивість задачі. Переносний код на жоден із двох варіантів не спирається.
+
+| помилка | коли |
+|---|---|
+| `EACCES` | `setpriority()`: спроба опустити nice нижче за дозволене цій задачі |
+| `EPERM` | адресата знайдено, але його UID чужий і немає `CAP_SYS_NICE`; для `nice()` — і від'ємний `inc` без права (обгортка перекладає сюди й `EACCES`) |
+| `EINVAL` | `which` не є жодним із трьох |
+| `ESRCH` | під запит `which`/`who` не підпав ніхто |
+
+## Клас і пріоритет: `sched_setscheduler(2)` і рідня
+
+```c
+#include <sched.h>
+
+struct sched_param { int sched_priority; };   /* у чинній реалізації — одне поле */
+
+int sched_setscheduler(pid_t pid, int policy, const struct sched_param *param);
+int sched_getscheduler(pid_t pid);            /* повертає політику, ≥ 0 */
+int sched_setparam(pid_t pid, const struct sched_param *param);
+int sched_getparam(pid_t pid, struct sched_param *param);
+
+int sched_get_priority_min(int policy);
+int sched_get_priority_max(int policy);
+int sched_rr_get_interval(pid_t pid, struct timespec *tp);
+```
+
+| політика | число | `sched_priority` | чим важливість задається всередині класу |
+|---|---|---|---|
+| `SCHED_OTHER` (він же `SCHED_NORMAL`) | 0 | мусить бути **0** | nice |
+| `SCHED_FIFO` | 1 | 1 … 99 | самим пріоритетом |
+| `SCHED_RR` | 2 | 1 … 99 | пріоритетом плюс квант |
+| `SCHED_BATCH` | 3 | мусить бути **0** | nice |
+| `SCHED_IDLE` | 5 | мусить бути **0** | нічим — задача найлегша, яка буває |
+| `SCHED_DEADLINE` | 6 | **0**; задається лише через `sched_setattr()` | договором «стільки часу до такого моменту» |
+| `SCHED_EXT` | 7 | 0 | програмою BPF, якщо ядро зібране з `CONFIG_SCHED_CLASS_EXT` |
+
+Число 4 у переліку пропущено: воно зарезервоване за `SCHED_ISO`, який так і не потрапив у ядро, хоча в переліку класів `ps` досі згадується.
+
+`sched_get_priority_min`/`max` — єдиний правильний спосіб дізнатися межі: для `SCHED_FIFO` і `SCHED_RR` це `1` і `99`, для решти класів обидва повертають `0`. Зашивати ці числа в код не варто, бо перевірка «чи не завеликий пріоритет» на класі без пріоритетів має дати саме нуль.
+
+**`SCHED_RESET_ON_FORK`** (`0x40000000`) домішується операцією «або» до самої політики:
+
+```c
+struct sched_param p = { .sched_priority = 20 };
+sched_setscheduler(0, SCHED_FIFO | SCHED_RESET_ON_FORK, &p);
+```
+
+Дитина, народжена такою задачею, не успадкує привілейованих налаштувань: політика `SCHED_FIFO`/`SCHED_RR` у неї стане `SCHED_OTHER`, а від'ємне nice — нулем. Прапорець не входить у число, яке віддає `sched_getscheduler()` як політику, тож надійно прочитати його стан можна через `sched_getattr()` у полі `sched_flags`.
+
+**Куди задача стає в чергу свого пріоритету.** Для `SCHED_FIFO` і `SCHED_RR` це не дрібниця, а частина контракту: місце в черзі визначає, чи побіжить вона просто зараз.
+
+| подія | куди потрапляє задача |
+|---|---|
+| пріоритет підняли | у **хвіст** черги нового пріоритету |
+| пріоритет не змінився | лишається там, де була |
+| пріоритет знизили | у **голову** черги нового пріоритету |
+| витіснила вища задача | лишається головою своєї черги |
+| прокинулася після сну чи блокування | у хвіст своєї черги |
+| викликала `sched_yield()` | у хвіст своєї черги |
+
+Асиметрія «вгору — у хвіст, вниз — у голову» не випадкова: підвищення пріоритету не повинно давати задачі право лізти поперед рівних, а зниження не мусить каратися втратою місця.
+
+Квант `SCHED_RR` читається викликом `sched_rr_get_interval()` і налаштовується глобально файлом `/proc/sys/kernel/sched_rr_timeslice_ms` (типово 100).
+
+| помилка | коли |
+|---|---|
+| `EINVAL` | невідома політика; `param == NULL`; `pid < 0`; `sched_priority` поза діапазоном цієї політики (зокрема ненульовий для `SCHED_OTHER`) |
+| `EPERM` | бракує прав — див. таблицю прав нижче |
+| `ESRCH` | задачі з таким номером немає |
+
+## Усе одним викликом: `sched_setattr(2)` і `sched_getattr(2)`
+
+```c
+int syscall(SYS_sched_setattr, pid_t pid, struct sched_attr *attr,
+            unsigned int flags);
+int syscall(SYS_sched_getattr, pid_t pid, struct sched_attr *attr,
+            unsigned int size, unsigned int flags);
+```
+
+Обгорток у glibc немає — ці два виклики роблять напряму через `syscall()` ([libc як шлюз до ядра](topic:sys-unix/libc-as-gateway) — бібліотека прикриває більшість системних викликів обгортками, але не всі, і тоді номер виклику подають самі). Заголовок `<linux/sched/types.h>` зі структурою є не в кожному дистрибутиві, тому її часто оголошують у себе:
+
+```c
+struct sched_attr {
+    __u32 size;              /* sizeof(struct sched_attr) — заповнити обов'язково */
+    __u32 sched_policy;      /* SCHED_*                                            */
+    __u64 sched_flags;       /* SCHED_FLAG_*                                       */
+    __s32 sched_nice;        /* −20 … 19                                           */
+    __u32 sched_priority;    /* 1 … 99                                             */
+    __u64 sched_runtime;     /* нс                                                 */
+    __u64 sched_deadline;    /* нс                                                 */
+    __u64 sched_period;      /* нс                                                 */
+    __u32 sched_util_min;    /* 0 … 1024 — підказка про завантаження               */
+    __u32 sched_util_max;
+};
+```
+
+| поле | `OTHER` / `BATCH` | `IDLE` | `FIFO` / `RR` | `DEADLINE` |
+|---|---|---|---|---|
+| `sched_nice` | діє | ігнорується | ігнорується | ігнорується |
+| `sched_priority` | мусить бути 0 | 0 | **діє**, 1 … 99 | мусить бути 0 |
+| `sched_runtime` / `deadline` / `period` | ігноруються | ігноруються | ігноруються | **діють** |
+| `sched_util_min` / `max` | діють із прапорцем | діють із прапорцем | діють із прапорцем | діють із прапорцем |
+
+| прапорець `sched_flags` | значення | що робить | з ядра |
+|---|---|---|---|
+| `SCHED_FLAG_RESET_ON_FORK` | `0x01` | дитина не успадкує привілейованого класу | 3.14 |
+| `SCHED_FLAG_RECLAIM` | `0x02` | дедлайновій задачі дозволено добирати смугу, яку не з'їли інші (алгоритм GRUB) | 4.13 |
+| `SCHED_FLAG_DL_OVERRUN` | `0x04` | при перевитраті бюджету надіслати `SIGXCPU` | 4.16 |
+| `SCHED_FLAG_KEEP_POLICY` | `0x08` | не чіпати політику, змінити лише решту | 5.3 |
+| `SCHED_FLAG_KEEP_PARAMS` | `0x10` | не чіпати параметри — так вмикають самі лише підказки про завантаження | 5.3 |
+| `SCHED_FLAG_UTIL_CLAMP_MIN` | `0x20` | брати до уваги `sched_util_min` | 5.3 |
+| `SCHED_FLAG_UTIL_CLAMP_MAX` | `0x40` | брати до уваги `sched_util_max` | 5.3 |
+
+**Поле `size` — це домовленість про версії, а не формальність.** Ви ставите `attr.size = sizeof(struct sched_attr)`, і ядро порівнює це число зі своїм. Ваша структура менша за ядрову — поля, яких бракує, вважаються нулями, виклик проходить. Ваша більша — ядро дивиться на «зайві» байти: усі нульові, значить, ви не просите нічого, чого воно не вміє, і виклик проходить; є хоч один ненульовий — `E2BIG`. Так один і той самий бінарник працює на старших і новіших ядрах, а програма, що попросила нову можливість на старому ядрі, дізнається про це помилкою, а не мовчазним ігноруванням. У `sched_getattr()` навпаки: ви передаєте розмір свого буфера окремим аргументом, ядро записує туди стільки, скільки вміщається, і ставить у `attr.size` фактичний розмір своєї структури; замалий буфер дає `E2BIG`.
+
+**Обмеження на трійку чисел `SCHED_DEADLINE`** ядро перевіряє до всього іншого:
+
+```
+sched_runtime  ≤  sched_deadline  ≤  sched_period
+кожне з трьох  ≥  1024 нс   і   < 2⁶³
+sched_period == 0  →  береться рівним sched_deadline
+```
+
+Порушення будь-якого рядка — `EINVAL`. (`chrt(1)` згадує ще й практичний нижній поріг періоду в 100 мкс.)
+
+Далі йде **перевірка при прийомі**: сума часток усіх дедлайнових задач мусить уміститися в дозволену смугу.
+
+```
+Σ (runtime_i / period_i)  ≤  M · (sched_rt_runtime_us / sched_rt_period_us)
+```
+
+де `M` — кількість процесорів у домені, до якого належить задача.
+
+**Умова: чотириядерна машина, типові 950000/1000000, задача просить 1200 мкс за 5000 мкс.**
+
+```
+частка задачі        = 1200 / 5000  = 0.24
+дозволено на 4 ядрах = 4 · 0.95     = 3.80    →  0.24 ≤ 3.80, приймається
+
+та сама задача після taskset -c 2:
+маска покриває 1 процесор із 4      →  EPERM ще до всякої арифметики
+```
+
+Другий випадок — найчастіша причина незрозумілої відмови: ядро вимагає, щоб маска дозволених процесорів задачі покривала **всі** процесори системи, інакше арифметика прийому втрачає ґрунт ([прив'язка до процесорів](topic:sys-unix/cpu-affinity) — маска ядер, на яких задачі дозволено виконуватися). Прив'язувати дедлайнову задачу до підмножини ядер можна лише через cpuset, і тоді смуга рахується для того домену, а не для всієї машини.
+
+| помилка | коли |
+|---|---|
+| `EINVAL` | `attr == NULL`; `pid < 0`; `flags != 0`; невідома політика чи прапорець; порушено співвідношення трійки; `sched_priority` не з діапазону політики; недійсний `size` у `getattr` |
+| `E2BIG` | `setattr`: «зайві» байти структури ненульові; `getattr`: буфер замалий |
+| `EBUSY` | `setattr`: не пройшла перевірка прийому `SCHED_DEADLINE` |
+| `EPERM` | немає `CAP_SYS_NICE`, або маска процесорів задачі не покриває всіх процесорів |
+| `EOPNOTSUPP` | прапорці `UTIL_CLAMP` на ядрі без `CONFIG_UCLAMP_TASK` |
+| `ESRCH` | задачі з таким номером немає |
+
+## Мінімальний робочий виклик
+
+Увійти в `SCHED_DEADLINE`, розрізнити всі три типові відмови й відпрацювати перший десяток періодів:
+
+:::tabs
+```c
+#define _GNU_SOURCE
+#include <errno.h>
+#include <sched.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/syscall.h>
+#include <time.h>
+#include <unistd.h>
+
+#ifndef SCHED_DEADLINE
+#define SCHED_DEADLINE 6
+#endif
+#ifndef SCHED_FLAG_DL_OVERRUN
+#define SCHED_FLAG_DL_OVERRUN 0x04
+#endif
+
+struct sched_attr {
+    uint32_t size, sched_policy;
+    uint64_t sched_flags;
+    int32_t  sched_nice;
+    uint32_t sched_priority;
+    uint64_t sched_runtime, sched_deadline, sched_period;
+};
+
+static void do_one_job(void)              /* робота, що вкладається в бюджет */
+{
+    struct timespec t0, t;
+    clock_gettime(CLOCK_MONOTONIC, &t0);
+    do {
+        clock_gettime(CLOCK_MONOTONIC, &t);
+    } while ((t.tv_sec - t0.tv_sec) * 1000000000LL
+             + (t.tv_nsec - t0.tv_nsec) < 800000LL);      /* 800 мкс */
+}
+
+int main(void)
+{
+    struct sched_attr a;
+    memset(&a, 0, sizeof a);              /* сміття в полях = EINVAL */
+    a.size           = sizeof a;
+    a.sched_policy   = SCHED_DEADLINE;
+    a.sched_flags    = SCHED_FLAG_DL_OVERRUN;   /* SIGXCPU, якщо не вклалися */
+    a.sched_runtime  = 1200 * 1000;             /* 1.2 мс */
+    a.sched_deadline = 2500 * 1000;             /* 2.5 мс */
+    a.sched_period   = 5000 * 1000;             /* 5.0 мс */
+
+    if (syscall(SYS_sched_setattr, 0, &a, 0u) != 0) {
+        switch (errno) {
+        case EPERM:  fprintf(stderr, "немає CAP_SYS_NICE або звужена маска ядер\n"); break;
+        case EBUSY:  fprintf(stderr, "смуга вичерпана: сума часток не влазить\n");   break;
+        case EINVAL: fprintf(stderr, "порушено runtime ≤ deadline ≤ period\n");      break;
+        default:     perror("sched_setattr");
+        }
+        return 1;
+    }
+
+    for (int i = 0; i < 10; i++) {
+        do_one_job();
+        sched_yield();          /* «на цей період усе» — чекаємо наступного */
+    }
+    return 0;
+}
+```
+
+```cpp
+#define _GNU_SOURCE
+#include <cerrno>
+#include <chrono>
+#include <cstdint>
+#include <cstdio>
+#include <iostream>
+#include <sched.h>
+#include <sys/syscall.h>
+#include <unistd.h>
+
+#ifndef SCHED_DEADLINE
+#define SCHED_DEADLINE 6
+#endif
+#ifndef SCHED_FLAG_DL_OVERRUN
+#define SCHED_FLAG_DL_OVERRUN 0x04
+#endif
+
+struct sched_attr {
+    uint32_t size{}, sched_policy{};
+    uint64_t sched_flags{};
+    int32_t  sched_nice{};
+    uint32_t sched_priority{};
+    uint64_t sched_runtime{}, sched_deadline{}, sched_period{};
+};
+
+static void do_one_job() {
+    auto start = std::chrono::steady_clock::now();
+    while (std::chrono::steady_clock::now() - start < std::chrono::microseconds(800)) {}
+}
+
+int main() {
+    sched_attr a{};
+    a.size           = sizeof(a);
+    a.sched_policy   = SCHED_DEADLINE;
+    a.sched_flags    = SCHED_FLAG_DL_OVERRUN;
+    a.sched_runtime  = 1200 * 1000;
+    a.sched_deadline = 2500 * 1000;
+    a.sched_period   = 5000 * 1000;
+
+    if (syscall(SYS_sched_setattr, 0, &a, 0u) != 0) {
+        switch (errno) {
+        case EPERM:  std::cerr << "немає CAP_SYS_NICE або звужена маска ядер\n"; break;
+        case EBUSY:  std::cerr << "смуга вичерпана: сума часток не влазить\n";   break;
+        case EINVAL: std::cerr << "порушено runtime ≤ deadline ≤ period\n";      break;
+        default:     std::perror("sched_setattr");
+        }
+        return 1;
+    }
+
+    for (int i = 0; i < 10; ++i) {
+        do_one_job();
+        sched_yield();
+    }
+    return 0;
+}
+```
+:::
+
+Два місця тут неочевидні. `memset` не косметичний: ненульове сміття в полях, які ядро вважає зайвими, дає `E2BIG`, а в полях, які воно читає, — `EINVAL`. І `sched_yield()` у дедлайновому класі означає не «поступлюся рівним», а «свою роботу на цей період я закінчив» — задача засинає до початку наступного періоду, не витрачаючи решти бюджету. Ще одне: `SCHED_FLAG_DL_OVERRUN` шле `SIGXCPU`, типова дія якого — аварійне завершення з дампом, тож прапорець без обробника перетворює перевитрату на падіння.
+
+## Права: чого ядро вимагає
+
+| чого просите | що ядро вимагає | інакше |
+|---|---|---|
+| підняти собі nice; знизити свій реальночасовий пріоритет; вийти з реального часу | нічого — послаблення дозволене завжди | — |
+| опустити nice до `N` | `N ≥ 20 − RLIMIT_NICE.rlim_cur` або `CAP_SYS_NICE` | `EACCES` (у `nice(2)` — `EPERM`) |
+| `SCHED_FIFO`/`SCHED_RR` із пріоритетом `P` | `P ≤ max(поточний пріоритет, RLIMIT_RTPRIO.rlim_cur)` або `CAP_SYS_NICE` | `EPERM` |
+| `SCHED_DEADLINE` | `CAP_SYS_NICE` **і** маска процесорів без вилучень | `EPERM` |
+| `SCHED_DEADLINE`, друга перевірка | сума часток уміщається в смугу | `EBUSY` |
+| будь-що чужій задачі | збіг UID або `CAP_SYS_NICE` | `EPERM`; `ESRCH`, якщо задачі немає |
+
+`CAP_SYS_NICE` знімає всі перелічені обмеження одразу ([можливості замість всесильного root](topic:sys-unix/capabilities) — повноваження, нарізані дрібно й видані окремо, замість одного «можна все»). М'який ліміт `RLIMIT_RTPRIO`, рівний нулю, залишає задачі рівно дві дії: знизити свій пріоритет або піти з реального часу зовсім.
+
+| ліміт | що обмежує | як читати число |
+|---|---|---|
+| `RLIMIT_NICE` | найнижче nice, яке задача може собі поставити | стеля `nice = 20 − rlim_cur`; `rlim_cur` від 1 (nice 19) до 40 (nice −20) |
+| `RLIMIT_RTPRIO` | найвищий пріоритет `SCHED_FIFO`/`SCHED_RR` | саме число, 0 … 99 |
+| `RLIMIT_RTTIME` | скільки мікросекунд процесорного часу реальночасова задача може з'їсти, **не заблокувавшись** | на м'якій межі — `SIGXCPU` щосекунди, на жорсткій — `SIGKILL`; лічильник обнуляється на кожному блокуванні |
+
+Перевернутий вигляд `RLIMIT_NICE` (більше число — нижче дозволене nice) — наслідок того, що ліміти ресурсів завжди читаються як «не більше ніж», а nice росте в бік поступливості ([ліміти ресурсів](topic:sys-unix/resource-limits) — рамки, які ядро тримає на кожен процес і успадковує при народженні).
+
+| як виставити | приклад |
+|---|---|
+| bash | `ulimit -e 30` (nice — стеля −10), `ulimit -r 20` (rtprio), `ulimit -R 200000` (rttime) |
+| `prlimit(1)` | `prlimit --pid 4242 --rtprio=20 --rttime=200000` |
+| PAM, `/etc/security/limits.conf` | `@audio  -  rtprio  95` і `@audio  -  nice  -10` |
+| systemd | `LimitNICE=-10`, `LimitRTPRIO=20`, `LimitRTTIME=200ms` |
+| у коді | `setrlimit(RLIMIT_RTPRIO, &(struct rlimit){ 20, 20 })` |
+
+Пастка `LimitNICE=`: значення з явним знаком (`-10`, `+5`) systemd читає як звичайне nice, а голе число з діапазону `0 … 40` — як сире значення ліміту, тобто `20 − nice`. Тому `LimitNICE=5` і `LimitNICE=+5` означають різні речі: голе `5` дозволяє службі опуститися лише до nice 15, а `+5` — аж до nice 5. Збігаються ці два прочитання рівно в одній точці, на числі 10.
+
+## Команди
+
+**`nice(1)`** — тільки відносно й тільки для нової програми:
+
+```sh
+nice -n 10 make -j16      # +10 до поточного nice
+nice make -j16            # без -n приріст той самий, 10
+nice -n -5 ./daemon       # від'ємний приріст — лише з правом
+```
+
+GNU `nice`, отримавши відмову, друкує попередження `cannot set niceness` і **однаково запускає** програму. Відмова не мовчазна, але код виходу про неї не скаже, тож висновок «запустилося — отже, з потрібним nice» хибний.
+
+**`renice(1)`** — абсолютне значення, і саме тут ховається класична пастка:
+
+```sh
+renice --priority 5 --pid 4242    # однозначно: поставити nice = 5
+renice --relative 5 --pid 4242    # однозначно: додати 5 до поточного
+renice -n 5 -p 4242               # абсолютне… якщо не виставлено POSIXLY_CORRECT
+renice -n 5 -u builder            # усі процеси користувача
+renice -n 5 -g 1234               # уся група процесів
+```
+
+В util-linux `-n` з історичних причин задає **абсолютне** значення всупереч POSIX, а під змінною оточення `POSIXLY_CORRECT` та сама команда стає відносною. У скриптах пишуть лише `--priority`/`--relative`.
+
+**`chrt(1)`** — усе про класи:
+
+| опція | що робить |
+|---|---|
+| `-o` `-b` `-i` | `SCHED_OTHER` / `SCHED_BATCH` / `SCHED_IDLE` |
+| `-f` `-r` | `SCHED_FIFO` / `SCHED_RR` |
+| `-d` | `SCHED_DEADLINE`; аргумент пріоритету мусить бути `0` |
+| `-e` | `SCHED_EXT`; є лише в новіших util-linux, і потрібне ядро з `CONFIG_SCHED_CLASS_EXT` |
+| `-T` `-P` `-D` | runtime / period / deadline у **наносекундах** |
+| `-R` | додати `SCHED_RESET_ON_FORK` |
+| `-G` `-O` | `SCHED_FLAG_RECLAIM` / `SCHED_FLAG_DL_OVERRUN` |
+| `-a` | на всі потоки процесу, а не лише на головний |
+| `-p` | діяти на наявний номер, а не запускати команду |
+| `-m` | показати межі пріоритетів кожної політики |
+
+```sh
+chrt -f 20 ./sensor-loop                  # запустити у FIFO з пріоритетом 20
+chrt -f -p 20 4242                        # перевести наявну задачу
+chrt -a -f -p 20 4242                     # разом з усіма її потоками
+chrt -p 4242                              # прочитати клас і пріоритет
+chrt -d -T 1200000 -D 2500000 -P 5000000 0 ./control-loop
+```
+
+Пастка `chrt`: політика за замовчуванням — `SCHED_RR`, тож `chrt -p 20 4242` без прапорця політики тихо переведе задачу в реальний час по колу. Політику вказують завжди.
+
+**Прочитати назад:**
+
+```sh
+ps -eLo pid,tid,cls,rtprio,ni,pri,psr,comm     # -L: рядок на кожен потік
+```
+
+У стовпчику `CLS` стоять `TS` (`SCHED_OTHER`), `FF`, `RR`, `B`, `IDL`, `DLN`. Стовпчик `PRI` читати не варто: `ps` показує його так, що більше означає важливіше, `top` у своєму `PR` — навпаки, і жоден із них не порівнюється між класами. Достовірна трійка — `cls`, `rtprio`, `ni`.
+
+Те саме є у файлах ([procfs](topic:sys-unix/proc-reading-process-and-kernel-state) — каталоги-вікна у структури ядра, які нічого не важать на диску):
+
+| де | що |
+|---|---|
+| `/proc/<pid>/stat`, поле **18** (`priority`) | для реальночасових — від'ємний пріоритет мінус один, тобто `−2 … −100`; для решти — сире ядрове nice `0 … 39` |
+| `/proc/<pid>/stat`, поле **19** (`nice`) | звичне nice `−20 … 19` |
+| `/proc/<pid>/stat`, поле **40** (`rt_priority`) | `1 … 99` або `0` для нереальночасових |
+| `/proc/<pid>/stat`, поле **41** (`policy`) | число `SCHED_*` |
+| `/proc/<pid>/sched` | внутрішні лічильники планувальника, зокрема віртуальний час |
+| `/proc/<pid>/autogroup` | автогрупа сеансу і її власне nice |
+
+**Загальносистемні перемикачі:**
+
+| файл | типове значення | що робить |
+|---|---|---|
+| `/proc/sys/kernel/sched_rt_period_us` | 1000000 | період обліку смуги реального часу |
+| `/proc/sys/kernel/sched_rt_runtime_us` | 950000 | скільки з цього періоду віддано реальному часу; `−1` знімає запобіжник разом із можливістю втрутитися, коли задача зациклиться |
+| `/proc/sys/kernel/sched_rr_timeslice_ms` | 100 | квант `SCHED_RR` |
+| `/proc/sys/kernel/sched_autogroup_enabled` | 1 на робочому столі | групувати задачі за сеансами |
+
+**systemd** виставляє те саме на юніті, і саме цей шлях правильний для служби ([systemd](topic:sys-unix/systemd-model) — юніти як опис бажаного стану, з якого система сама виводить порядок запуску):
+
+```ini
+[Service]
+Nice=-5
+CPUSchedulingPolicy=fifo          # other | batch | idle | fifo | rr
+CPUSchedulingPriority=20          # 1 … 99, лише для fifo і rr
+CPUSchedulingResetOnFork=yes
+LimitRTPRIO=20
+LimitRTTIME=200ms
+```
+
+**Частка гілки процесів** задається не цими викликами, а контролером `cpu` в cgroup — і він стоїть **над** усім переліченим ([cgroups](topic:sys-unix/cgroups-resource-model) — облік і обмеження ресурсів для цілого піддерева процесів): `cpu.weight` (1 … 10000, де 100 відповідає nice 0), `cpu.weight.nice` (те саме у звичних одиницях nice), `cpu.max` (пара «скільки мікросекунд за скільки», тверда стеля). Поки задачі в різних групах, їхні nice між собою не порівнюються взагалі.
+
+## Потоки: обгортки pthread
+
+```c
+#include <pthread.h>
+
+int pthread_setschedparam(pthread_t t, int policy, const struct sched_param *p);
+int pthread_getschedparam(pthread_t t, int *policy, struct sched_param *p);
+int pthread_setschedprio(pthread_t t, int prio);        /* лише пріоритет */
+
+int pthread_attr_setinheritsched(pthread_attr_t *a, int inherit);
+int pthread_attr_setschedpolicy(pthread_attr_t *a, int policy);
+int pthread_attr_setschedparam(pthread_attr_t *a, const struct sched_param *p);
+```
+
+Три відмінності від системних викликів, кожна з яких коштує помилки.
+
+**Вони не чіпають `errno`, а повертають код.** `perror()` після них покаже сторонню помилку; правильно — `strerror(rc)`.
+
+**Атрибути потоку типово ігноруються.** Початкове значення — `PTHREAD_INHERIT_SCHED`: новий потік бере клас і пріоритет у того, хто його створив, а `pthread_attr_setschedpolicy()` мовчки не діє. Щоб атрибут спрацював, треба явно:
+
+```c
+pthread_attr_setinheritsched(&attr, PTHREAD_EXPLICIT_SCHED);
+```
+
+**`SCHED_DEADLINE` через pthread недоступний.** Для нього беруть `sched_setattr()` із номером задачі, який дає `gettid()` — уже всередині самого потоку.
+
+## Типові помилки
+
+| симптом | причина | що робити |
+|---|---|---|
+| потік створено з політикою в атрибутах, а він `SCHED_OTHER` | типове `PTHREAD_INHERIT_SCHED` | `pthread_attr_setinheritsched(&a, PTHREAD_EXPLICIT_SCHED)` |
+| `chrt -f 20` → «Operation not permitted» | `RLIMIT_RTPRIO` = 0 і немає `CAP_SYS_NICE` | `limits.conf`/`LimitRTPRIO=`, або `setcap cap_sys_nice+ep` на бінарник |
+| `sched_setattr` → `EPERM` на числах, які точно правильні | задачу перед тим прив'язали до частини ядер | зняти прив'язку або переносити задачу в cpuset |
+| `sched_setattr` → `EBUSY` | сума часток не влазить у смугу домену | зменшити `runtime`, збільшити `period` або звільнити смугу |
+| `sched_setattr` → `EINVAL` на видимо правильній структурі | забули `a.size = sizeof a` або `memset` | занулити структуру перед заповненням |
+| `sched_setscheduler(pid, SCHED_OTHER, &p)` → `EINVAL` | `sched_priority` лишився ненульовим від попереднього виклику | для нереальночасових класів у полі мусить бути 0 |
+| `renice -n 5` зробив не те, що очікували | `-n` в util-linux абсолютний, а під `POSIXLY_CORRECT` — відносний | `--priority` або `--relative` |
+| змінили nice процесові, а половина потоків лишилася як була | nice і клас — атрибути задачі | `chrt -a`, або обійти `/proc/<pid>/task/*` |
+| реальночасову задачу мовчки вбито | `RLIMIT_RTTIME`: `SIGXCPU`, далі `SIGKILL` — або `SCHED_FLAG_DL_OVERRUN` без обробника | поставити обробник або підняти ліміт |
+| nice змінився, а розподіл часу — ні | задачі в різних автогрупах або cgroup | дивитися `cpu.weight` своєї гілки й `/proc/<pid>/autogroup` |
+| `fork()` із дедлайнової задачі → `EAGAIN` | ядро не дозволяє успадкувати договір | `SCHED_FLAG_RESET_ON_FORK` або створювати дітей до входу в клас |
+| `getpriority()` повернув `−1`, код вирішив, що це збій | `−1` — законне значення nice | `errno = 0` перед викликом, перевіряти `errno` після |

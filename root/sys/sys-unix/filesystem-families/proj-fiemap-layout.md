@@ -1,0 +1,720 @@
+# ⚙️ Власний filefrag: карта файлу через FIEMAP
+
+Це програма на C, яка питає ядро, де саме на носії лежать байти конкретного файлу, і зводить відповідь до трьох чисел: скільки в цього файлу шматків, які вони завдовжки і яка їх частка лежить упритул одна до одної. Потрібна вона там, де здогад «здається, воно роздробилося» треба перетворити на величину, яку можна порівняти: сьогоднішню з учорашньою, ext4 з XFS, свіжу копію образу віртуальної машини з тим самим образом після тижня роботи.
+
+## Що саме хочеться побачити
+
+Розмір файлу нічого не каже про його розкладку. `stat` віддає два числа — `st_size` (скільки байтів видно програмі) і `st_blocks` (скільки блоків носія під це віддано), — і жодне з них не відповідає на питання «а вони поспіль чи розкидані?». Тим часом саме від цього залежить, чи прочитається сорокагігабайтний образ за пів хвилини, чи за годину.
+
+Питань, які хочеться закрити числом, насправді три.
+
+**Скільки шматків.** Файл, описаний сорока сімома екстентами, і файл, описаний півмільйоном, читаються по-різному навіть на носії без механіки: карту треба спершу прочитати, а карта на півмільйона записів — це вже мегабайти метаданих перед першим байтом даних.
+
+**Яка середня довжина шматка.** Це та величина, від якої залежить, чи встигне [випереджувальне читання](topic:sys-unix/readahead) розігнатися. Коли середній екстент — вісімсот мебібайтів, розгін відбувається один раз на весь файл; коли вісімдесят кібібайтів, кожні двадцять сторінок доводиться починати спочатку.
+
+**Яка частка сусідів лежить упритул.** Тут ховається тонкість, через яку сира кількість екстентів обманює. Формат карти має стелю на довжину одного запису: в ext4 під довжину відведено 16 бітів, але старший з них позначає невитерту ділянку, тож на дані лишається 32768 блоків — 128 МіБ при блоці в 4 КіБ. Суцільна ділянка на гігабайт розпадається на вісім записів не тому, що файл роздроблено, а тому, що в один запис більше не влазить. Такі сусіди лежать на носії стик у стик, і читання через них проходить без жодної затримки. Тому корисне число — не «скільки записів», а «скільки сусідніх пар справді розірвано».
+
+## Чому питати доводиться саме через ioctl
+
+Карта — власність конкретної файлової системи, а не спільного шару над ними. В ext4 це дерево екстентів, у Btrfs — записи в дереві файлу, у F2FS — ланцюг вузлів. Спільного вигляду в цих структур немає, і в `struct stat` для них поля не передбачено й не буде: `stat` описує файл як абстракцію, однакову для всіх файлових систем. Отже, відповідь мусить іти каналом, що вміє носити структури, специфічні для підсистеми, — тобто через [ioctl](topic:sys-unix/ioctl-interface).
+
+Перший такий канал звався `FIBMAP` і працював за принципом «дай номер блока на пристрої для логічного блока N». Один виклик — одне число. Для образу на 40 ГіБ при блоці в 4 КіБ рахунок такий:
+
+```
+42949672960 / 4096 = 10485760 викликів
+10485760 · 4 Б     = 40 МіБ відповідей
+```
+
+Десять з половиною мільйонів переходів у ядро й назад, і 99 % з них — нудне «наступний, наступний, наступний». До того ж `FIBMAP` віддає сирі номери блоків будь-якого файлу, а це вже підказка тому, хто читає пристрій в обхід файлової системи, — тому ядро вимагає на нього повноваження `CAP_SYS_RAWIO`.
+
+`FIEMAP` з'явився в Linux 2.6.28 (випуск наприкінці грудня 2008 року) і відповідає одразу переліком екстентів. Інтерфейс на рівні VFS написав Марк Фаше (Mark Fasheh) з Oracle; у самому повідомленні коміту він перелічує тих, чиї попередні редакції задали вигляд структури, — Калпак Шах, Андреас Дільґер, Ерік Сандін. Загальну реалізацію для файлових систем із блоковим відображенням додав Джозеф Бацик (Josef Bacik), обидва коміти прийняв Теодор Цо. Утиліта `filefrag` з набору `e2fsprogs` — саме споживач цього виклику: вона пробує `FIEMAP`, і лише якщо його немає, відкочується до старого `FIBMAP`.
+
+## Контракт: заголовок і хвіст
+
+Виклик оголошено як `FS_IOC_FIEMAP` = `_IOWR('f', 11, struct fiemap)`. Літера `f` — родина «файлові», номер 11, а `_IOWR` означає, що той самий буфер іде і в ядро, і з ядра.
+
+Буфер має незвичну для новачка будову: тридцятидвобайтовий заголовок, а одразу за ним — масив записів.
+
+:::tabs
+```c
+/* Цитата з <linux/fiemap.h> */
+struct fiemap {
+    __u64 fm_start;             /* з якого зсуву питаємо        — вхід  */
+    __u64 fm_length;            /* яку довжину хочемо покрити   — вхід  */
+    __u32 fm_flags;             /* FIEMAP_FLAG_*            — вхід/вихід */
+    __u32 fm_mapped_extents;    /* скільки записів заповнено    — вихід */
+    __u32 fm_extent_count;      /* скільки слотів ми дали       — вхід  */
+    __u32 fm_reserved;
+    struct fiemap_extent fm_extents[];
+};
+```
+```cpp
+// Вигляд структури <linux/fiemap.h> у C++
+struct fiemap {
+    uint64_t fm_start;          // з якого зсуву питаємо        — вхід
+    uint64_t fm_length;         // яку довжину хочемо покрити   — вхід
+    uint32_t fm_flags;          // FIEMAP_FLAG_*            — вхід/вихід
+    uint32_t fm_mapped_extents; // скільки записів заповнено    — вихід
+    uint32_t fm_extent_count;   // скільки слотів ми дали       — вхід
+    uint32_t fm_reserved;
+    fiemap_extent fm_extents[]; // гнучкий масив екстентів
+};
+```
+:::
+
+Ключова пара — `fm_extent_count` і `fm_mapped_extents`. Перше каже ядру, скільки в нас місця; друге ядро повертає нам, скільки з того місця воно зайняло. Заголовок і масив мусять лежати в пам'яті поспіль, тож виділяються одним `malloc` на `sizeof(struct fiemap) + N · sizeof(struct fiemap_extent)`. Один запис — 56 байтів, з яких змістовні три: логічний зсув у файлі, фізичний зсув на носії й довжина; решта — прапорці й місце про запас.
+
+У контракті є дві дрібниці, які варто знати заздалегідь, бо вони перетворюють годину гадання на хвилину.
+
+**`fm_extent_count = 0` — це запит «просто порахуй».** Ядро в такому режимі не копіює нічого в масив (його й немає), а лише збільшує лічильник на кожному екстенті й віддає підсумок у `fm_mapped_extents`. Один виклик — і ви знаєте, наскільки великий буфер треба або чи взагалі варто щось виділяти.
+
+**Незрозумілий прапорець дає `EBADR`, і ядро каже, який саме.** Ядро звіряє `fm_flags` зі своїм списком підтримуваних; якщо лишилися невпізнані біти, воно кладе саме їх назад у `fm_flags` і повертає помилку. Це рідкісний випадок, коли інтерфейс не просто відмовляє, а показує пальцем на причину.
+
+![Дві панелі. Угорі: у пам'яті програми лежать заголовок struct fiemap з полями fm_start, fm_length, fm_flags, fm_extent_count дорівнює 512 на вході й fm_mapped_extents на виході, а одразу за ним масив fm_extents на 512 записів по 56 байтів; підпис — один malloc на sizeof struct fiemap плюс 512 разів sizeof struct fiemap_extent. Праворуч рамка «ядро»: іде деревом екстентів файлу від fm_start і кладе записи у вільні слоти, останньому в файлі ставить прапорець LAST. Стрілка праворуч підписана ioctl fd, FS_IOC_FIEMAP, fm; стрілка ліворуч підписана fm_mapped_extents — скільки слотів заповнено. Унизу: логічна вісь файлу, розбита на екстенти, з двома сірими дірами; три дужки над віссю — виклик 1 з fm_start дорівнює нулю, виклик 2 з fm_start на кінці останнього поверненого, виклик 3, у якому останній екстент має прапорець LAST і цикл спиняється](img/fiemap-loop.svg)
+
+*Обмін відбувається через один буфер: заголовок несе питання в ядро й повертається з лічильником, масив приходить назад заповненим. Файл більший за буфер — тоді питання ставлять кілька разів, зсуваючи вікно.*
+
+## Як рухатися по файлу
+
+Тут ховається єдине справді хитре місце всієї програми, і його треба проговорити повільно.
+
+Спокуслива відповідь — «наступного разу питаю з `fm_start + fm_length`» — неправильна, бо `fm_length` ми задаємо самі й зазвичай ставимо «до кінця файлу». Друга спокуслива відповідь — «додам суму довжин повернутих екстентів» — теж неправильна, бо між екстентами бувають розриви (діри), і сума довжин менша за пройдений шлях.
+
+Правильне правило одне: **наступний `fm_start` — це кінець останнього обробленого екстента**, тобто `fe_logical + fe_length`. Воно спирається на те, що ядро повертає записи в порядку зростання логічного зсуву, а зсув і довжина в кожному записі відомі точно.
+
+До цього треба додати три запобіжники.
+
+Перший: ядро віддає екстенти, які **хоча б частково** накривають запитаний проміжок. Отже, перший запис нової пачки може починатися ще до нашого `fm_start` — якщо ми потрапили в середину довгого екстента. Програма, яка сліпо додає все підряд, порахує такий екстент двічі. Ліки — тримати найбільший побачений кінець і мовчки пропускати записи, що закінчуються не далі за нього.
+
+Другий: цикл спиняє прапорець `FIEMAP_EXTENT_LAST` на останньому екстенті файлу, і є ще запасний вихід — `fm_mapped_extents == 0`, тобто даних далі немає. Покладатися на самий лише прапорець не варто (реалізації неідеальні), на саму лише порожню пачку — теж.
+
+Третій: якщо після пачки новий `fm_start` не став більшим за старий, треба виходити. Це страховка від нескінченного циклу на екстенті нульової довжини — рівно те, чого не хочеться отримати від інструменту діагностики.
+
+## Код
+
+Одна одиниця трансляції, жодних залежностей:
+
+```sh
+cc -Wall -Wextra -O2 -o fmap fmap.c
+./fmap disk.qcow2         # підсумок
+./fmap -v disk.qcow2      # ще й кожен екстент
+./fmap -s disk.qcow2      # спершу висадити кеш на носій
+./fmap -c disk.qcow2      # лише порахувати екстенти, без буфера
+```
+
+Іншої мови тут і не буває: `struct fiemap` з масивом-хвостом та `ioctl` над ним — це контракт, записаний мовою C, і звертання з будь-якої іншої мови все одно відтворює ту саму розкладку байтів у пам'яті, лише вручну.
+
+Почнімо з розбору прапорців — маленької, але потрібної частини, бо без неї цифри в стовпчику брешуть.
+
+:::tabs
+```c
+/* fmap.c — карта файлу на екстенти через FIEMAP. */
+#define _FILE_OFFSET_BITS 64
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdint.h>
+#include <inttypes.h>
+#include <sys/ioctl.h>
+#include <sys/stat.h>
+#include <linux/fiemap.h>
+#include <linux/fs.h>
+
+#define SLOTS 512          /* скільки екстентів беремо за один виклик */
+
+static const struct { uint32_t bit; const char *name; } FLAGNAME[] = {
+    { FIEMAP_EXTENT_LAST,           "last"        },
+    { FIEMAP_EXTENT_UNKNOWN,        "unknown"     },
+    { FIEMAP_EXTENT_DELALLOC,       "delalloc"    },
+    { FIEMAP_EXTENT_ENCODED,        "encoded"     },
+    { FIEMAP_EXTENT_DATA_ENCRYPTED, "encrypted"   },
+    { FIEMAP_EXTENT_NOT_ALIGNED,    "not_aligned" },
+    { FIEMAP_EXTENT_DATA_INLINE,    "inline"      },
+    { FIEMAP_EXTENT_DATA_TAIL,      "tail"        },
+    { FIEMAP_EXTENT_UNWRITTEN,      "unwritten"   },
+    { FIEMAP_EXTENT_MERGED,         "merged"      },
+    { FIEMAP_EXTENT_SHARED,         "shared"      },
+};
+
+static void flags_str(uint32_t f, char *out, size_t n)
+{
+    size_t used = 0;
+    out[0] = '\0';
+    for (size_t i = 0; i < sizeof FLAGNAME / sizeof FLAGNAME[0]; i++) {
+        if (!(f & FLAGNAME[i].bit))
+            continue;
+        int k = snprintf(out + used, n - used, "%s%s", used ? "," : "", FLAGNAME[i].name);
+        if (k < 0 || (size_t)k >= n - used)
+            return;                       /* не влізло — обриваємо чесно */
+        used += (size_t)k;
+    }
+}
+```
+```cpp
+// fmap.cpp — карта файлу на екстенти через FIEMAP (C++20).
+#define _FILE_OFFSET_BITS 64
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <string_view>
+#include <array>
+#include <memory>
+#include <cstdint>
+#include <cinttypes>
+#include <cstdio>
+#include <cstring>
+#include <cerrno>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+#include <sys/stat.h>
+#include <linux/fiemap.h>
+#include <linux/fs.h>
+
+constexpr size_t SLOTS = 512;
+
+struct FlagInfo {
+    uint32_t bit;
+    std::string_view name;
+};
+
+constexpr std::array FLAGNAME{
+    FlagInfo{ FIEMAP_EXTENT_LAST,           "last"        },
+    FlagInfo{ FIEMAP_EXTENT_UNKNOWN,        "unknown"     },
+    FlagInfo{ FIEMAP_EXTENT_DELALLOC,       "delalloc"    },
+    FlagInfo{ FIEMAP_EXTENT_ENCODED,        "encoded"     },
+    FlagInfo{ FIEMAP_EXTENT_DATA_ENCRYPTED, "encrypted"   },
+    FlagInfo{ FIEMAP_EXTENT_NOT_ALIGNED,    "not_aligned" },
+    FlagInfo{ FIEMAP_EXTENT_DATA_INLINE,    "inline"      },
+    FlagInfo{ FIEMAP_EXTENT_DATA_TAIL,      "tail"        },
+    FlagInfo{ FIEMAP_EXTENT_UNWRITTEN,      "unwritten"   },
+    FlagInfo{ FIEMAP_EXTENT_MERGED,         "merged"      },
+    FlagInfo{ FIEMAP_EXTENT_SHARED,         "shared"      },
+};
+
+static std::string flags_str(uint32_t f)
+{
+    std::string out;
+    for (const auto &item : FLAGNAME) {
+        if (!(f & item.bit))
+            continue;
+        if (!out.empty())
+            out += ',';
+        out += item.name;
+    }
+    return out;
+}
+```
+:::
+
+Далі — накопичувач. Він тримає підсумки й пам'ять про попередній екстент, бо всі цікаві висновки народжуються саме з пари сусідів.
+
+:::tabs
+```c
+struct walk {
+    uint64_t n;                 /* екстентів у карті                     */
+    uint64_t mapped;            /* сума fe_length                        */
+    uint64_t longest;
+    uint64_t holes, hole_bytes;
+    uint64_t unwritten, delalloc, shared, encoded;
+    uint64_t pairs, glued;      /* сусідніх пар / з них — упритул        */
+
+    uint64_t seen_end;          /* найбільший побачений логічний кінець  */
+    int have_prev;
+    struct fiemap_extent prev;
+};
+
+/* записи, на яких фізичну арифметику робити не можна:
+   місця ще немає (UNKNOWN, DELALLOC), зсув не кратний блокові (NOT_ALIGNED)
+   або довжина виміряна не в тих одиницях, що займане місце (ENCODED) */
+#define VAGUE (FIEMAP_EXTENT_UNKNOWN | FIEMAP_EXTENT_DELALLOC | \
+               FIEMAP_EXTENT_NOT_ALIGNED | FIEMAP_EXTENT_ENCODED)
+
+static void take(struct walk *w, const struct fiemap_extent *e, int verbose, uint64_t idx)
+{
+    if (e->fe_logical + e->fe_length <= w->seen_end)
+        return;                                   /* цей запис ми вже бачили */
+
+    if (e->fe_logical > w->seen_end) {            /* між даними — діра */
+        w->holes++;
+        w->hole_bytes += e->fe_logical - w->seen_end;
+    }
+
+    w->n++;
+    w->mapped += e->fe_length;
+    if (e->fe_length > w->longest)
+        w->longest = e->fe_length;
+    if (e->fe_flags & FIEMAP_EXTENT_UNWRITTEN) w->unwritten += e->fe_length;
+    if (e->fe_flags & FIEMAP_EXTENT_DELALLOC)  w->delalloc  += e->fe_length;
+    if (e->fe_flags & FIEMAP_EXTENT_SHARED)    w->shared    += e->fe_length;
+    if (e->fe_flags & FIEMAP_EXTENT_ENCODED)   w->encoded   += e->fe_length;
+
+    if (w->have_prev && !((w->prev.fe_flags | e->fe_flags) & VAGUE)) {
+        w->pairs++;
+        if (w->prev.fe_physical + w->prev.fe_length == e->fe_physical &&
+            w->prev.fe_logical  + w->prev.fe_length == e->fe_logical)
+            w->glued++;                           /* сусіди стик у стик */
+    }
+
+    if (verbose) {
+        char fs[160];
+        flags_str(e->fe_flags, fs, sizeof fs);
+        printf("%8" PRIu64 " %14" PRIu64 " %12" PRIu64 " %16" PRIu64 "  %s\n",
+               idx, (uint64_t)e->fe_logical, (uint64_t)e->fe_length,
+               (uint64_t)e->fe_physical, fs);
+    }
+
+    w->seen_end = e->fe_logical + e->fe_length;
+    w->prev = *e;
+    w->have_prev = 1;
+}
+```
+```cpp
+struct Walk {
+    uint64_t n{0};                 // екстентів у карті
+    uint64_t mapped{0};            // сума fe_length
+    uint64_t longest{0};
+    uint64_t holes{0}, hole_bytes{0};
+    uint64_t unwritten{0}, delalloc{0}, shared{0}, encoded{0};
+    uint64_t pairs{0}, glued{0};   // сусідніх пар / з них — упритул
+
+    uint64_t seen_end{0};          // найбільший побачений логічний кінець
+    bool have_prev{false};
+    fiemap_extent prev{};
+
+    void take(const fiemap_extent &e, bool verbose, uint64_t idx) {
+        if (e.fe_logical + e.fe_length <= seen_end)
+            return;                               // цей запис ми вже бачили
+
+        if (e.fe_logical > seen_end) {            // між даними — діра
+            holes++;
+            hole_bytes += e.fe_logical - seen_end;
+        }
+
+        n++;
+        mapped += e.fe_length;
+        if (e.fe_length > longest)
+            longest = e.fe_length;
+        if (e.fe_flags & FIEMAP_EXTENT_UNWRITTEN) unwritten += e.fe_length;
+        if (e.fe_flags & FIEMAP_EXTENT_DELALLOC)  delalloc  += e.fe_length;
+        if (e.fe_flags & FIEMAP_EXTENT_SHARED)    shared    += e.fe_length;
+        if (e.fe_flags & FIEMAP_EXTENT_ENCODED)   encoded   += e.fe_length;
+
+        constexpr uint32_t VAGUE = FIEMAP_EXTENT_UNKNOWN | FIEMAP_EXTENT_DELALLOC |
+                                   FIEMAP_EXTENT_NOT_ALIGNED | FIEMAP_EXTENT_ENCODED;
+
+        if (have_prev && !((prev.fe_flags | e.fe_flags) & VAGUE)) {
+            pairs++;
+            if (prev.fe_physical + prev.fe_length == e.fe_physical &&
+                prev.fe_logical  + prev.fe_length == e.fe_logical)
+                glued++;                          // сусіди стик у стик
+        }
+
+        if (verbose) {
+            std::string fs = flags_str(e.fe_flags);
+            printf("%8" PRIu64 " %14" PRIu64 " %12" PRIu64 " %16" PRIu64 "  %s\n",
+                   idx, static_cast<uint64_t>(e.fe_logical),
+                   static_cast<uint64_t>(e.fe_length),
+                   static_cast<uint64_t>(e.fe_physical), fs.c_str());
+        }
+
+        seen_end = e.fe_logical + e.fe_length;
+        prev = e;
+        have_prev = true;
+    }
+};
+```
+:::
+
+Тепер сам цикл. Він короткий рівно тому, що правило руху сформульоване заздалегідь.
+
+:::tabs
+```c
+static int map_file(const char *path, unsigned req_flags, int verbose)
+{
+    int fd = open(path, O_RDONLY);
+    if (fd < 0) { perror(path); return -1; }
+
+    struct stat st;
+    if (fstat(fd, &st) < 0) { perror("fstat"); close(fd); return -1; }
+
+    struct fiemap *fm = malloc(sizeof *fm + SLOTS * sizeof fm->fm_extents[0]);
+    if (!fm) { fprintf(stderr, "бракує пам'яті\n"); close(fd); return -1; }
+
+    struct walk w;
+    memset(&w, 0, sizeof w);
+    uint64_t want = 0, idx = 0;
+    int last = 0, rc = 0;
+
+    if (verbose)
+        printf("       №     зсув у файлі      довжина    зсув на носії  прапорці\n");
+
+    while (!last) {
+        memset(fm, 0, sizeof *fm);
+        fm->fm_start        = want;
+        fm->fm_length       = FIEMAP_MAX_OFFSET - want;
+        /* висаджувати кеш має сенс один раз, перед першим питанням */
+        fm->fm_flags        = want ? (req_flags & ~FIEMAP_FLAG_SYNC) : req_flags;
+        fm->fm_extent_count = SLOTS;
+
+        if (ioctl(fd, FS_IOC_FIEMAP, fm) < 0) {
+            if (errno == EBADR)
+                fprintf(stderr, "%s: ФС не розуміє прапорці 0x%x\n", path, fm->fm_flags);
+            else if (errno == EOPNOTSUPP)
+                fprintf(stderr, "%s: ця файлова система не віддає карту\n", path);
+            else
+                fprintf(stderr, "%s: FIEMAP: %s\n", path, strerror(errno));
+            rc = -1;
+            break;
+        }
+        if (fm->fm_mapped_extents == 0)
+            break;                                /* даних далі немає */
+
+        for (unsigned i = 0; i < fm->fm_mapped_extents; i++) {
+            const struct fiemap_extent *e = &fm->fm_extents[i];
+            take(&w, e, verbose, ++idx);
+            if (e->fe_flags & FIEMAP_EXTENT_LAST)
+                last = 1;
+        }
+
+        if (w.seen_end <= want)                   /* карта не рухається */
+            break;
+        want = w.seen_end;
+    }
+
+    if (rc == 0 && w.seen_end < (uint64_t)st.st_size) {
+        w.holes++;                                /* хвостова діра */
+        w.hole_bytes += (uint64_t)st.st_size - w.seen_end;
+    }
+
+    if (rc == 0) {
+        printf("%s\n", path);
+        printf("  розмір               %" PRIu64 " Б\n", (uint64_t)st.st_size);
+        printf("  віддано блоків       %" PRIu64 " Б\n", (uint64_t)st.st_blocks * 512);
+        printf("  екстентів            %" PRIu64 "\n", w.n);
+        if (w.n) {
+            printf("  відображено          %" PRIu64 " Б\n", w.mapped);
+            printf("  середня довжина      %.0f Б\n", (double)w.mapped / (double)w.n);
+            printf("  найдовший            %" PRIu64 " Б\n", w.longest);
+        }
+        if (w.pairs)
+            printf("  частка суцільності   %.3f (%" PRIu64 " з %" PRIu64
+                   " сусідніх пар упритул)\n",
+                   (double)w.glued / (double)w.pairs, w.glued, w.pairs);
+        if (w.holes)     printf("  дірок                %" PRIu64 " на %" PRIu64 " Б\n",
+                                w.holes, w.hole_bytes);
+        if (w.unwritten) printf("  недоторканих         %" PRIu64 " Б (unwritten)\n", w.unwritten);
+        if (w.delalloc)  printf("  ще не розподілено    %" PRIu64 " Б (delalloc)\n", w.delalloc);
+        if (w.shared)    printf("  спільних із кимось   %" PRIu64 " Б (shared)\n", w.shared);
+        if (w.encoded)   printf("  закодованих          %" PRIu64 " Б (encoded)\n", w.encoded);
+    }
+
+    free(fm);
+    close(fd);
+    return rc;
+}
+```
+```cpp
+class UniqueFd {
+    int fd_{-1};
+public:
+    explicit UniqueFd(int fd = -1) : fd_(fd) {}
+    ~UniqueFd() { if (fd_ >= 0) ::close(fd_); }
+    UniqueFd(const UniqueFd &) = delete;
+    UniqueFd &operator=(const UniqueFd &) = delete;
+    UniqueFd(UniqueFd &&o) noexcept : fd_(o.fd_) { o.fd_ = -1; }
+    UniqueFd &operator=(UniqueFd &&o) noexcept {
+        if (this != &o) {
+            if (fd_ >= 0) ::close(fd_);
+            fd_ = o.fd_; o.fd_ = -1;
+        }
+        return *this;
+    }
+    [[nodiscard]] int get() const { return fd_; }
+    [[nodiscard]] bool valid() const { return fd_ >= 0; }
+};
+
+static int map_file(const char *path, unsigned req_flags, bool verbose)
+{
+    UniqueFd fd{::open(path, O_RDONLY)};
+    if (!fd.valid()) { std::perror(path); return -1; }
+
+    struct stat st;
+    if (::fstat(fd.get(), &st) < 0) { std::perror("fstat"); return -1; }
+
+    size_t buf_size = sizeof(fiemap) + SLOTS * sizeof(fiemap_extent);
+    std::vector<uint8_t> buffer(buf_size, 0);
+    auto *fm = reinterpret_cast<fiemap*>(buffer.data());
+
+    Walk w;
+    uint64_t want = 0, idx = 0;
+    bool last = false;
+    int rc = 0;
+
+    if (verbose)
+        std::cout << "       №     зсув у файлі      довжина    зсув на носії  прапорці\n";
+
+    while (!last) {
+        std::memset(buffer.data(), 0, buf_size);
+        fm->fm_start        = want;
+        fm->fm_length       = FIEMAP_MAX_OFFSET - want;
+        fm->fm_flags        = want ? (req_flags & ~FIEMAP_FLAG_SYNC) : req_flags;
+        fm->fm_extent_count = SLOTS;
+
+        if (::ioctl(fd.get(), FS_IOC_FIEMAP, fm) < 0) {
+            if (errno == EBADR)
+                std::cerr << path << ": ФС не розуміє прапорці 0x" << std::hex << fm->fm_flags << std::dec << "\n";
+            else if (errno == EOPNOTSUPP)
+                std::cerr << path << ": ця файлова система не віддає карту\n";
+            else
+                std::cerr << path << ": FIEMAP: " << std::strerror(errno) << "\n";
+            rc = -1;
+            break;
+        }
+        if (fm->fm_mapped_extents == 0)
+            break;                                // даних далі немає
+
+        for (unsigned i = 0; i < fm->fm_mapped_extents; i++) {
+            const auto &e = fm->fm_extents[i];
+            w.take(e, verbose, ++idx);
+            if (e.fe_flags & FIEMAP_EXTENT_LAST)
+                last = true;
+        }
+
+        if (w.seen_end <= want)                   // карта не рухається
+            break;
+        want = w.seen_end;
+    }
+
+    if (rc == 0 && w.seen_end < static_cast<uint64_t>(st.st_size)) {
+        w.holes++;                                // хвостова діра
+        w.hole_bytes += static_cast<uint64_t>(st.st_size) - w.seen_end;
+    }
+
+    if (rc == 0) {
+        std::cout << path << "\n";
+        printf("  розмір               %" PRIu64 " Б\n", static_cast<uint64_t>(st.st_size));
+        printf("  віддано блоків       %" PRIu64 " Б\n", static_cast<uint64_t>(st.st_blocks) * 512);
+        printf("  екстентів            %" PRIu64 "\n", w.n);
+        if (w.n) {
+            printf("  відображено          %" PRIu64 " Б\n", w.mapped);
+            printf("  середня довжина      %.0f Б\n", static_cast<double>(w.mapped) / static_cast<double>(w.n));
+            printf("  найдовший            %" PRIu64 " Б\n", w.longest);
+        }
+        if (w.pairs)
+            printf("  частка суцільності   %.3f (%" PRIu64 " з %" PRIu64
+                   " сусідніх пар упритул)\n",
+                   static_cast<double>(w.glued) / static_cast<double>(w.pairs), w.glued, w.pairs);
+        if (w.holes)     printf("  дірок                %" PRIu64 " на %" PRIu64 " Б\n",
+                                w.holes, w.hole_bytes);
+        if (w.unwritten) printf("  недоторканих         %" PRIu64 " Б (unwritten)\n", w.unwritten);
+        if (w.delalloc)  printf("  ще не розподілено    %" PRIu64 " Б (delalloc)\n", w.delalloc);
+        if (w.shared)    printf("  спільних із кимось   %" PRIu64 " Б (shared)\n", w.shared);
+        if (w.encoded)   printf("  закодованих          %" PRIu64 " Б (encoded)\n", w.encoded);
+    }
+
+    return rc;
+}
+```
+:::
+
+Дешевий режим «лише порахувати» — той самий виклик із порожнім масивом. Тут добре видно, що заголовок самодостатній: ядро копіює назад тільки його.
+
+:::tabs
+```c
+static long long count_extents(int fd, unsigned req_flags)
+{
+    struct fiemap fm;
+    memset(&fm, 0, sizeof fm);
+    fm.fm_start        = 0;
+    fm.fm_length       = FIEMAP_MAX_OFFSET;
+    fm.fm_flags        = req_flags;
+    fm.fm_extent_count = 0;                       /* масиву немає — тільки лічи */
+    if (ioctl(fd, FS_IOC_FIEMAP, &fm) < 0)
+        return -1;
+    return (long long)fm.fm_mapped_extents;
+}
+
+int main(int argc, char **argv)
+{
+    unsigned req_flags = 0;
+    int verbose = 0, count_only = 0, opt, bad = 0;
+
+    while ((opt = getopt(argc, argv, "svc")) != -1) {
+        switch (opt) {
+        case 's': req_flags |= FIEMAP_FLAG_SYNC; break;
+        case 'v': verbose = 1; break;
+        case 'c': count_only = 1; break;
+        default:  fprintf(stderr, "вжиток: %s [-s] [-v] [-c] файл...\n", argv[0]);
+                  return 2;
+        }
+    }
+    if (optind == argc) {
+        fprintf(stderr, "вжиток: %s [-s] [-v] [-c] файл...\n", argv[0]);
+        return 2;
+    }
+
+    for (int i = optind; i < argc; i++) {
+        if (!count_only) {
+            if (map_file(argv[i], req_flags, verbose) < 0)
+                bad = 1;
+            continue;
+        }
+        int fd = open(argv[i], O_RDONLY);
+        if (fd < 0) { perror(argv[i]); bad = 1; continue; }
+        long long n = count_extents(fd, req_flags);
+        if (n < 0) { fprintf(stderr, "%s: FIEMAP: %s\n", argv[i], strerror(errno)); bad = 1; }
+        else       { printf("%s: %lld екстентів\n", argv[i], n); }
+        close(fd);
+    }
+    return bad ? 1 : 0;
+}
+```
+```cpp
+static long long count_extents(int fd, unsigned req_flags)
+{
+    fiemap fm{};
+    fm.fm_start        = 0;
+    fm.fm_length       = FIEMAP_MAX_OFFSET;
+    fm.fm_flags        = req_flags;
+    fm.fm_extent_count = 0;                       // масиву немає — тільки лічи
+    if (::ioctl(fd, FS_IOC_FIEMAP, &fm) < 0)
+        return -1;
+    return static_cast<long long>(fm.fm_mapped_extents);
+}
+
+int main(int argc, char **argv)
+{
+    unsigned req_flags = 0;
+    bool verbose = false, count_only = false;
+    int opt = 0, bad = 0;
+
+    while ((opt = ::getopt(argc, argv, "svc")) != -1) {
+        switch (opt) {
+        case 's': req_flags |= FIEMAP_FLAG_SYNC; break;
+        case 'v': verbose = true; break;
+        case 'c': count_only = true; break;
+        default:
+            std::cerr << "вжиток: " << argv[0] << " [-s] [-v] [-c] файл...\n";
+            return 2;
+        }
+    }
+    if (optind == argc) {
+        std::cerr << "вжиток: " << argv[0] << " [-s] [-v] [-c] файл...\n";
+        return 2;
+    }
+
+    for (int i = optind; i < argc; i++) {
+        if (!count_only) {
+            if (map_file(argv[i], req_flags, verbose) < 0)
+                bad = 1;
+            continue;
+        }
+        UniqueFd fd{::open(argv[i], O_RDONLY)};
+        if (!fd.valid()) { std::perror(argv[i]); bad = 1; continue; }
+        long long n = count_extents(fd.get(), req_flags);
+        if (n < 0) {
+            std::cerr << argv[i] << ": FIEMAP: " << std::strerror(errno) << "\n";
+            bad = 1;
+        } else {
+            std::cout << argv[i] << ": " << n << " екстентів\n";
+        }
+    }
+    return bad ? 1 : 0;
+}
+```
+:::
+
+Стеля на `fm_extent_count` теж є — `UINT_MAX / sizeof(struct fiemap_extent)`, тобто близько 76 мільйонів, — але впиратися в неї не варто: буфер на 512 слотів займає 28 КіБ і чудово переживає файл будь-якого розміру, просто зробивши більше обертів циклу.
+
+## Три числа з карти
+
+**Умова.** Образ віртуальної машини на 40 ГіБ (42949672960 Б): щойно скопійований на XFS — і він самий на Btrfs після тижня, протягом якого всередині нього працювала система. Ось що друкує програма.
+
+```
+$ ./fmap -s /srv/vm/agent.qcow2            # XFS, свіжа копія
+/srv/vm/agent.qcow2
+  розмір               42949672960 Б
+  віддано блоків       42949672960 Б
+  екстентів            47
+  відображено          42949672960 Б
+  середня довжина      913822829 Б
+  найдовший            8589930496 Б
+  частка суцільності   0.239 (11 з 46 сусідніх пар упритул)
+
+$ ./fmap -s /srv/vm/agent.qcow2            # Btrfs, тиждень роботи
+/srv/vm/agent.qcow2
+  розмір               42949672960 Б
+  віддано блоків       42949672960 Б
+  екстентів            486300
+  відображено          42949672960 Б
+  середня довжина      88319 Б
+  найдовший            134217728 Б
+  частка суцільності   0.019 (9100 з 486299 сусідніх пар упритул)
+  спільних із кимось   11274289152 Б (shared)
+```
+
+Далі — сама арифметика, з якої видно, чому ці два стовпчики означають різні години очікування.
+
+```
+середня довжина = відображено / N
+   XFS     42949672960 / 47      = 913822829 Б  ≈ 871.5 МіБ
+   Btrfs   42949672960 / 486300  =     88319 Б  ≈  86.3 КіБ
+
+частка суцільності = пар упритул / (N − 1)
+   XFS     11 / 46        = 0.239
+   Btrfs   9100 / 486299  = 0.019
+
+розривів (пар, що НЕ впритул) = (N − 1) − пар упритул
+   XFS     46 − 11        =      35
+   Btrfs   486299 − 9100  =  477199
+
+ціна розриву на обертовому диску ≈ 8 мс
+   XFS     35 · 8 мс      =     0.28 с
+   Btrfs   477199 · 8 мс  =  3817.6 с  ≈ 64 хв
+
+сама карта, з міркою ext4 у 12 Б на запис
+   XFS     47 · 12        =       564 Б
+   Btrfs   486300 · 12    =   5835600 Б  ≈ 5.6 МіБ
+```
+
+**Висновок.** На обертовому диску різниця стає катастрофою: там, де перший файл читається послідовно, другий вимагає майже пів мільйона переміщень головки — година замість хвилин. На NVMe переміщення коштує майже нічого, і тут працюють дві інші статті витрат: карту на 486 300 записів треба спершу прочитати цілком (мегабайти метаданих перед першим байтом даних), а великих запитів на читання більше не складається — кожен екстент обриває злиття, і замість кількох сотень великих операцій пристрій отримує сотні тисяч дрібних. Тобто на швидкому носії роздроблення не вбиває, але й безкоштовним не буває.
+
+![Дві горизонтальні смуги. Перша, підписана «XFS, свіжа копія», — це носій, на якому файл лежить приблизно десятком широких суцільних ділянок майже впорядковано; під нею напис: 47 екстентів, середня довжина приблизно 871 МіБ, частка суцільності приблизно 0.24. Друга, підписана «Btrfs, тиждень роботи ВМ», — той самий носій, укритий густою мжичкою з півтори сотні тонких рисок, розкиданих по всій довжині; під нею напис: 486 300 екстентів, середня довжина приблизно 86 КіБ, частка суцільності приблизно 0.02](img/fragmentation-bands.svg)
+
+*Той самий файл, той самий вміст, той самий розмір. Різниця вся в тому, скільки разів доводиться перериватися, читаючи його з початку до кінця.*
+
+> 🔧 **Навіщо це.** «Частка суцільності» вимірює саме те, що болить, і не піддається на обман, від якого страждає сира кількість екстентів: та росте вже від того, що файл великий, а не роздроблений. Суцільний терабайт на ext4 — це вісім тисяч записів по 128 МіБ, усі стик у стик: екстентів «багато», частка суцільності одиниця, читанню не заважає ніщо. І навпаки, зайвої точності частка не вдає — там, де фізичні адреси складати не можна (недорозподілені, невирівняні чи стиснуті записи), пара просто не потрапляє в знаменник, і програма друкує, на скількох парах поміряно, замість вигадувати число.
+
+## Прапорці, які міняють зміст суми
+
+Три поля екстента — зсув, місце, довжина — здаються самодостатніми, але без прапорців сума довжин легко перетворюється на неправду. Варто розібрати ті чотири, що трапляються найчастіше.
+
+**`FIEMAP_EXTENT_UNWRITTEN` — місце віддано, даних там немає.** Так виглядає результат `fallocate`: файлова система застовпила ділянку, але не витирала її, тож читання поверне нулі, а на носії лежить старе сміття. Для нашого підсумку це означає, що «відображено 40 ГіБ» може стосуватися файлу, у який ще не записали жодного корисного байта. Саме тому попереднє відведення місця під базу даних не бреше про розмір, але й не свідчить, що там щось є.
+
+**`FIEMAP_EXTENT_DELALLOC` — фізичного місця ще не обрано.** Дані є, вони лежать у [кеші сторінок](topic:sys-unix/page-cache-durability), а куди саме їх покласти, файлова система вирішить під час висадження на носій. Ядро супроводжує цей прапорець ще й `FIEMAP_EXTENT_UNKNOWN`, і це не ввічливість, а попередження: `fe_physical` у такому записі — просто нуль або сміття, і будувати на ньому арифметику сусідства не можна. Наш код тому й виключає такі пари з підрахунку суцільності.
+
+**`FIEMAP_EXTENT_SHARED` — ця ділянка належить не лише цьому файлові.** З'являється після знімка Btrfs або після [копії з поділом блоків](topic:sys-unix/reflink-copies) на Btrfs і XFS. Наслідок практичний: сумувати `fe_length` по всіх файлах каталогу й називати це «зайнятим місцем» не можна — спільні ділянки порахуються стільки разів, скільки на них посилаються.
+
+**`FIEMAP_EXTENT_ENCODED` — вміст не є простими блоками файлової системи.** Найчастіше це стиснутий екстент Btrfs. Тут ламається найспокусливіше припущення: `fe_length` — це довжина в логічному просторі файлу, а на носії ця ділянка займає менше, і скільки саме — з карти не видно. Для стиснутого файлу питання «скільки місця він займає» через `FIEMAP` не має відповіді взагалі; на нього відповідає `st_blocks`.
+
+Поруч є ще `FIEMAP_EXTENT_DATA_INLINE` — вміст лежить прямо в блоці метаданих (дрібні файли на Btrfs, «швидкі» символьні посилання). Разом із ним ядро ставить `NOT_ALIGNED`, попереджаючи, що зсув і довжина тут не кратні блокові, тож рахувати за ними адреси теж не варто.
+
+## Пастки
+
+**Без `-s` ви бачите намір, а не носій.** Файлові системи з відкладеним розподілом обирають місце в останню мить, тож для щойно записаного файлу карта складається з `delalloc`-екстентів без фізичних адрес. Прапорець `FIEMAP_FLAG_SYNC` каже ядру спершу висадити кеш на носій — і лише тоді питати карту. Саме це робить `filefrag -s`, і саме тому вимірювати роздроблення без нього безглуздо: ви поміряєте, скільки даних ще не дійшло до диска. Зворотний бік — `-s` змінює систему, яку вимірює: на завантаженій машині примусове висадження великого файлу коштує помітної паузи, а розподіл, зроблений «зараз, бо вас попросили», може бути гіршим за той, що стався б через хвилину.
+
+**Діра — не екстент нульової довжини, а відсутність запису.** Розріджений файл на 100 ГіБ, у якому записано два фрагменти, дасть два екстенти й розрив між ними — карта просто мовчить про порожнечу. Програма, яка вважає, що екстенти покривають файл суцільно, порахує розмір неправильно; наш код ловить розрив, порівнюючи `fe_logical` з очікуваним продовженням. Окремий випадок — діра в кінці: `LAST` стоїть на останньому екстенті **з даними**, а до `st_size` може лишатися ще багато порожнього. Подробиці того, як діри взагалі виникають і що з ними можна робити, — у [розріджених файлах](topic:sys-unix/sparse-files).
+
+**Btrfs роздроблюється саме там, де вам найдорожче.** Правило «жоден блок не переписується на місці» означає, що кожна правка сторінки всередині великого файлу лягає в нове місце. Послідовно записаний образ або файл бази даних, який тиждень правлять випадковими сторінками, дає карту на порядки більшу за початкову — це видно з чисел вище. Ліки відомі: атрибут `C` (`chattr +C`, тобто `nodatacow`) на теку **перед** створенням файлу — і разом із перезаписом на місці зникають контрольні суми на ці дані; або періодична дефрагментація, яка, до речі, розриває поділ блоків зі знімками й може несподівано з'їсти місце.
+
+**Не в кожної файлової системи карта взагалі є.** На `tmpfs`, `procfs` чи `sysfs` виклик поверне `EOPNOTSUPP` — і це не збій, а чесне «у цього файлу немає блоків на носії». Ще одна дрібниця з тієї ж породи: для файлів понад два гігабайти на 32-бітових системах не забудьте про `_FILE_OFFSET_BITS`, інакше `fstat` відмовить іще до першого `ioctl` — про це є окрема розмова у [великих файлах](topic:sys-unix/large-file-support).
+
+**`FIEMAP` — інструмент діагностики, а не основа для копіювання.** Спокуса очевидна: карта каже, де дані, — отже, можна копіювати тільки їх і не переносити діри. Але карта відповідає на питання «де це лежить фізично», а копіювальникові треба інше — «де в логічному просторі файлу є дані». Ці питання розходяться в кількох місцях одразу: `delalloc`-екстент не має фізичного місця, `unwritten` має місце без даних, `encoded` має довжину не в тих одиницях, `shared` належить іще комусь, а сама карта може змінитися між викликом і копіюванням, бо ніхто її для вас не заморожував.
+
+Питання «де в логічному просторі є дані» має власну відповідь — `lseek` з `SEEK_HOLE` і `SEEK_DATA`, що прийшли в Linux 3.1 (Btrfs — одразу, XFS — з 3.5, ext4 і tmpfs — з 3.8, NFS — з 3.18). Вони теж не дають гарантій: файлова система не зобов'язана повідомляти про діри, і найпростіша чесна реалізація каже «все — дані». Але помиляються вони в безпечний бік: копія вийде більшою, ніж могла б, і жодного байта не загубиться. `FIEMAP`, помилившись, віддасть копію, у якій байтів немає — а помилку цю ви побачите не під час копіювання, а тоді, коли з копії доведеться відновлюватися.

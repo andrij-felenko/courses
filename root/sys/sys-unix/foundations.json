@@ -1,0 +1,474 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-unix",
+  "slug": "foundations",
+  "title": "Задум і межі системи",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "unix-idea",
+      "title": "Ідея Unix",
+      "topics": [
+        {
+          "slug": "unix-philosophy",
+          "title": "Філософія Unix: малі програми, що складаються",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pipeline-by-hand.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-filter-contract.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "everything-is-a-file",
+          "title": "«Усе є файлом»: один інтерфейс на все",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-one-namespace.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-uniform-copy.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "unix-lineage",
+          "title": "Родовід Unix: AT&T, BSD і поява Linux",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-multics.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-usl-bsdi.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-portable-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "posix-standard",
+          "title": "POSIX: що саме стандартизовано",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-standard-wars.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-portable-shell.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-conformance-query.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "plan-9-and-9p",
+          "title": "Plan 9 і протокол 9P: «усе є файлом», доведене до мережі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-bell-labs-plan9.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-v9fs-wsl2.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-9p-protocol.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "distribution",
+      "title": "Дистрибутив і дерево системи",
+      "topics": [
+        {
+          "slug": "kernel-vs-distribution",
+          "title": "Ядро, дистрибутив і що між ними",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-first-distributions.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-min-userland.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gnu-userland",
+          "title": "Інструментарій GNU і чому «GNU/Linux»",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-two-halves.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-minimal-userland.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-gnu-vs-posix.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fhs-layout",
+          "title": "Ієрархія файлової системи: куди що кладуть",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-usrmerge-and-split-usr.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fhs-traverser-and-mount-checker.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fhs-directory-spec.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "multilib-multiarch",
+          "title": "Multilib і multiarch: два комплекти бібліотек в одній ієрархії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-amd64-and-multiarch.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-multiarch-probe.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-triplet-and-ldconfig.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "kernel-boundary",
+      "title": "Межа ядра",
+      "topics": [
+        {
+          "slug": "kernel-and-userspace",
+          "title": "Ядро й простір користувача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-border-origin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-border-probe.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "syscall-mechanics",
+          "title": "Системний виклик: як програма просить ядро",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-entry-path-walk.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "libc-as-gateway",
+          "title": "libc як шлюз до ядра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-libc-story.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-syscall-without-libc.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-libc-boundary.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "userspace-abi-stability",
+          "title": "Що саме заморожено: ABI до простору користувача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-vsyscall-trap.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-abi-extensible-syscall.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-abi-surface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kernel-abi-stability",
+          "title": "«Не ламати простір користувача»: сталість ABI ядра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-do-not-break.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-feature-probe.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "compat-32-on-64",
+          "title": "32-бітні програми на 64-бітному ядрі: шар сумісности",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-64bit-transition.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-see-the-seam.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-compat-contract.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "vdso",
+          "title": "vDSO: бібліотека від ядра в кожному процесі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-vsyscall-to-vdso.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-vdso-dump-and-symbol-resolution.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-vdso-symbols-and-auxv.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "self-description",
+      "title": "Самоопис системи",
+      "topics": [
+        {
+          "slug": "finding-answers-in-the-system",
+          "title": "Де в системі лежить правда",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "manual-pages",
+          "title": "Сторінки довідки: розділи man і як читати сигнатуру",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "manual-pages-and-help",
+          "title": "Довідка системи: man, розділи, --help, домовленості опцій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

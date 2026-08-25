@@ -1,0 +1,736 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-unix",
+  "slug": "boot-and-services",
+  "title": "Завантаження й служби",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "firmware-trust",
+      "title": "Прошивка й довіра до старту",
+      "topics": [
+        {
+          "slug": "uefi-firmware",
+          "title": "UEFI: прошивка як середовище виконання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-efi-to-uefi.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hello-uefi.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-efi-variables.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "secure-boot",
+          "title": "Secure Boot: перевірений ланцюг завантаження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-shim-and-mok.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-own-keys.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-secure-boot-variables.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "measured-boot-pcr",
+          "title": "Виміряне завантаження: регістри PCR і журнал подій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tpm-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pcr-extend.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tpm2-eventlog-parser.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pcr-registry.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "firmware-capsule-updates",
+          "title": "Оновлення прошивки з-під системи: капсули UEFI, таблиця ESRT і fwupd",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "boot-sequence",
+      "title": "Ланцюг завантаження",
+      "topics": [
+        {
+          "slug": "boot-chain",
+          "title": "Ланцюг завантаження: від прошивки до init",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-chain-shape.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-walk-the-chain.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bootloader-and-cmdline",
+          "title": "Завантажувач і командний рядок ядра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-multiboot-and-grub.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-uki-by-hand.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cmdline-reference.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "systemd-boot-and-systemd-stub-uki",
+          "title": "Завантажувачі UEFI: systemd-boot та Unified Kernel Images (UKI)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-uki-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-build-uki.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-uki-sections.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kexec-and-kdump",
+          "title": "kexec: завантаження нового ядра без прошивки, і kdump",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kexec-origin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kexec-reboot.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kexec-interface.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "temporary-root",
+      "title": "Тимчасовий корінь",
+      "topics": [
+        {
+          "slug": "initramfs",
+          "title": "initramfs: тимчасовий корінь",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-initrd-to-initramfs.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tiny-initramfs.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "initramfs-cpio-unpacker-internals",
+          "title": "Розпакувальник initramfs у ядрі: формат cpio newc і побудова rootfs",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ramdisk-to-rootfs.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-initrd-initramfs-memory.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cpio-unpack-engine.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cpio-header-spec.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dracut-and-mkinitcpio-toolchains",
+          "title": "Генератори initramfs: dracut, mkinitcpio та initramfs-tools",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-initramfs-generators-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-dracut-module.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-toolchain-hook-interfaces.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "init-and-units",
+      "title": "Init і менеджер служб",
+      "topics": [
+        {
+          "slug": "init-and-pid1",
+          "title": "Роль init і особливість PID 1",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-shapes-of-init.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-minimal-init.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "systemd-model",
+          "title": "systemd: юніти, залежності, цілі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-from-runlevels-to-units.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-see-the-transaction.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-unit-directives.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "systemd-systemctl-and-unit-files",
+          "title": "Системний менеджер systemd: unit-файли та systemctl",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-systemctl-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dbus-unit-control.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-systemctl-dbus.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "systemd-target-units-and-boot-targets",
+          "title": "Цільові юніти (target) та ізоляція рівнів виконання systemd",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-runlevels-to-targets.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-target-and-isolation.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-target-unit-spec.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "systemd-generator-architecture",
+          "title": "Генератори systemd (/lib/systemd/system-generators/)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-generators-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-generator.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-generator-interface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "orderly-shutdown",
+          "title": "Впорядковане вимкнення: як система зупиняється",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sysvinit-to-systemd-shutdown.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-shutdown-inhibitor.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-reboot-syscall.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "service-startup",
+      "title": "Запуск і готовність служби",
+      "topics": [
+        {
+          "slug": "service-lifecycle",
+          "title": "Життєвий цикл служби й політика перезапуску",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-supervision.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-notify-watchdog.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-service-unit.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "socket-activation",
+          "title": "Активація за сокетом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-from-inetd.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-activated-service.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-listen-fds.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "service-notify-protocol",
+          "title": "Протокол сповіщення менеджера: NOTIFY_SOCKET, READY=1 і Type=notify",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-notify-protocol.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "service-sandbox",
+      "title": "Обмеження й ресурси служби",
+      "topics": [
+        {
+          "slug": "service-sandboxing",
+          "title": "Пісочниця служби: ProtectSystem, PrivateTmp і решта обмежень юніта",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "service-directories",
+          "title": "Керовані каталоги служби: RuntimeDirectory, StateDirectory і хто їх прибирає",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-dynamic-user-dirs.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-service-directories.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dynamic-service-users",
+          "title": "DynamicUser: обліковий запис, що живе рівно стільки, скільки служба",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-service-accounts.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-uid-lock-by-hand.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dynamic-user-surface.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "declarative-state",
+      "title": "Декларативний стан системи",
+      "topics": [
+        {
+          "slug": "tmpfiles-d-runtime-volatile-files",
+          "title": "Управління тимчасовими файлами: сервіс systemd-tmpfiles та tmpfiles.d",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-volatile-storage-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-tmpfiles-service.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tmpfiles-spec.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "systemd-sysusers-and-sysctl-d",
+          "title": "Декларативне налаштування системи: systemd-sysusers та systemd-sysctl",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-declarative-sysconfig-evolution.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-dot-d-hierarchy-precedence.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-declarative-provisioning-engine.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sysusers-and-sysctl-formats.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sysusers-declarative-accounts",
+          "title": "systemd-sysusers: облікові записи, описані декларативно",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-declarative-users.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sysusers-parser.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sysusers-format.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "config-files-and-drop-ins",
+          "title": "Конфіг як текст: /etc проти дефолтів у /usr і каталоги drop-in",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1938 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-unix",
+  "slug": "processes",
+  "title": "Процеси й системне програмування",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "process-anatomy",
+      "title": "Будова процесу",
+      "topics": [
+        {
+          "slug": "process-model",
+          "title": "Процес: що це насправді",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-process-and-fork.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-clone-flags.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pid-and-hierarchy",
+          "title": "PID і дерево процесів",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pid-and-init.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pidfd-supervisor.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pid-interfaces.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "process-states",
+          "title": "Стани процесу і що означає стан D",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-killable-sleep.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-catch-d-state.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-state-reporting.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "threads-as-tasks",
+          "title": "Потоки в Linux: задача як одиниця планування",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-linuxthreads-to-nptl.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-thread-anatomy.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-per-thread-scope.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "birth-and-death",
+      "title": "Народження й завершення",
+      "topics": [
+        {
+          "slug": "fork-semantics",
+          "title": "fork: розмноження процесу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-fork-origin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cow-observed.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "exec-semantics",
+          "title": "exec: заміна образу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-shebang.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-exec-survivors.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-exec-family.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "spawn-alternatives",
+          "title": "vfork, posix_spawn і clone: чим ще народжують процес",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-spawn-cost.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-clone-flags.md",
+              "status": "done"
+            },
+            {
+              "file": "api-posix-spawn.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "exit-wait-zombies",
+          "title": "Завершення, wait і зомбі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-wait-and-zombie.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-zombie-lab.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-wait-family.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "orphan-reparenting",
+          "title": "Сироти й перепідпорядкування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-orphan-and-subreaper.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-reparenting-lab.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "binfmt-misc",
+          "title": "binfmt_misc: як ядро вчиться запускати чужі формати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-binfmt-misc.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-register-own-format.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-register-format.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "program-image",
+      "title": "Образ програми",
+      "topics": [
+        {
+          "slug": "elf-structure",
+          "title": "ELF: сегменти, секції, точка входу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-elf-format.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-elf-parser.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-elf-headers.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "position-independent-code",
+          "title": "Позиційно-незалежний код: PIC, PIE й ціна непрямості",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pic-pie.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pic-pie-demo.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-gcc-pic-flags.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "elf-tls",
+          "title": "TLS в ELF: як потік дістає власні глобальні змінні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tls-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-inspecting-tls.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-elf-tls-structures.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "auxiliary-vector",
+          "title": "Допоміжний вектор ELF: що ядро передає програмі на старті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-auxv-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-auxv-parser.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-auxv-types.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "dynamic-linking",
+      "title": "Динамічне лінкування",
+      "topics": [
+        {
+          "slug": "static-and-dynamic-linking",
+          "title": "Статичне й динамічне лінкування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-static-to-dynamic-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-dynamic-loader-hooks.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-linker-internals.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dynamic-loader",
+          "title": "Динамічний завантажувач і його робота",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ld-so-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mini-dynamic-loader.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dlfcn-and-rtld-debug.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "soname-versioning",
+          "title": "SONAME і версіонування спільних бібліотек",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-elf-versioning.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-abi-compatibility-wrapper.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-symbol-versioning.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "library-search-order",
+          "title": "Порядок пошуку бібліотек: rpath, LD_LIBRARY_PATH, кеш",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rpath-runpath.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-search-order-inspector.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ld-so.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "symbol-resolution",
+          "title": "Розв'язання символів і перекриття (interposition)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-symbol-interposition.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ld-preload-hook.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dynamic-linker-flags.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "plt-and-got",
+          "title": "PLT і GOT: як працює виклик через межу бібліотеки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lazy-binding-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-plt-got-inspector.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-plt-got-relocations.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "library-abi-compat",
+          "title": "Сумісність ABI бібліотеки й що її ламає",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cxx11-abi.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-abi-safe-pimpl.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-libabigail.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "address-space",
+      "title": "Відображення й розподіл пам'яті",
+      "topics": [
+        {
+          "slug": "mmap-model",
+          "title": "mmap: файл і пам'ять як одне",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mmap-origin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mmap-vs-read.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mmap-flags.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "allocator-and-kernel",
+          "title": "Звідки алокатор бере пам'ять: brk і mmap",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-program-break.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-heap-probe.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mallopt-tunables.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "memory-locking",
+          "title": "Прибивання пам'яті: mlock, mlockall і сторінки, яких не можна віддати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-memlock-limit.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-realtime-preamble.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-locking-interfaces.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "userfaultfd",
+          "title": "userfaultfd: сторінкові збої в руках програми",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-userfaultfd.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-uffd-lazy-region.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-userfaultfd.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "huge-pages-tlb-reach",
+          "title": "Великі сторінки: обхват TLB і ціна суцільності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-huge-pages.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-huge-page-benchmark.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-huge-page-interfaces.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "memory-protection",
+      "title": "Захист пам'яті процесу",
+      "topics": [
+        {
+          "slug": "address-space-randomization",
+          "title": "Рандомізація адресного простору в системі: рівні та вимикачі",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-aslr-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-entropy-lab.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-randomization-controls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "memory-protection-keys",
+          "title": "Ключі захисту пам'яті: PKU і PKRU",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-storage-keys.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pkey-guard.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pkey-interfaces.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "signals",
+      "title": "Сигнали",
+      "topics": [
+        {
+          "slug": "eintr-and-restart",
+          "title": "EINTR: перервані виклики й перезапуск",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-restart-wars.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-retry-right.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-restart-matrix.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "signal-model",
+          "title": "Сигнал: асинхронне сповіщення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-unreliable-signals.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-signal-race.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sending-signals.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "signal-disposition",
+          "title": "Диспозиція сигналу: обробник, ігнорування, типова дія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-unreliable-signals.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sigaction.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "async-signal-safety",
+          "title": "Що взагалі можна робити в обробнику сигналу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-signal-to-event-loop.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-safe-functions.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "signal-mask-signalfd",
+          "title": "Маскування сигналів і signalfd",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-self-pipe-to-signalfd.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-signalfd-supervisor.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-signal-mask-and-signalfd.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "signal-frame-and-sigreturn",
+          "title": "Сигнальний кадр і повернення з обробника (rt_sigreturn)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-trampoline-on-the-stack.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-context-rewrite.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-signal-frame-layout.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "realtime-signals",
+          "title": "Реальночасові сигнали: черга, порядок доставки й siginfo",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-rt-signal-dispatch.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-realtime-signals.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "descriptors",
+      "title": "Дескриптор як інтерфейс",
+      "topics": [
+        {
+          "slug": "socket-as-descriptor",
+          "title": "Сокет як дескриптор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-socket-or-file.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-connection-budget.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "standard-streams",
+          "title": "Три потоки: stdin, stdout, stderr",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-unix-streams-and-pipes.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mini-shell-redirection.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-standard-descriptors.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "redirection-model",
+          "title": "Перенаправлення як робота з дескрипторами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-io-redirection.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-shell-redirection.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-redirection-syscalls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "close-on-exec",
+          "title": "Закриття при exec: FD_CLOEXEC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cloexec-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-multithread-race-and-fix.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cloexec-interfaces.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "io-waiting",
+      "title": "Очікування вводу-виводу",
+      "topics": [
+        {
+          "slug": "blocking-and-nonblocking",
+          "title": "Блокуючий і неблокуючий режим",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ndelay-to-nonblock.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-echo-two-ways.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-nonblock-contract.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "readiness-vs-completion",
+          "title": "Готовність проти завершення: дві моделі вводу-виводу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-two-lineages.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-two-models-one-server.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "select-poll-epoll",
+          "title": "select, poll, epoll: чекати на багато джерел",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-c10k.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-scaling-measure.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-epoll-interfaces.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "signal-driven-io",
+          "title": "Ввід-вивід за сигналом: F_SETOWN, F_SETSIG і SIGIO",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sigio-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-signal-driven-echo.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-signal-io-contract.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "async-io",
+      "title": "Асинхронний ввід-вивід",
+      "topics": [
+        {
+          "slug": "posix-aio",
+          "title": "POSIX AIO: стандартний інтерфейс aio_*",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-aio-file-reader.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-aio-calls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "linux-aio-io-submit",
+          "title": "Асинхронний ввід-вивід ядра: io_submit і його межі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-direct-read-depth.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-aio-syscalls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "io-uring-rings-model",
+          "title": "io_uring: кільця подань і завершень та ціна межі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-aio-to-uring.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-uring-echo.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-uring-surface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "io-uring-kernel-internals",
+          "title": "io_uring зсередини ядра: io-wq, task_work, IOPOLL і зареєстровані ресурси",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-liburing-ring.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "ipc-channels",
+      "title": "Канали й сокети між процесами",
+      "topics": [
+        {
+          "slug": "ipc-landscape",
+          "title": "Огляд засобів взаємодії: що коли обирати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sysv-and-posix-ipc.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ipc-latency-bench.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ipc-comparison.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pipe-and-fifo",
+          "title": "Канали й іменовані канали",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pipe-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pipeline-by-hand.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pipe-fifo.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pipe-kernel-internals",
+          "title": "Канал усередині ядра: pipe_inode_info, splice і діагностика",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pipe-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-multiprocess-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pipe-fifo-surface.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "unix-domain-sockets",
+          "title": "Сокети домену Unix і передача дескрипторів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-pass-a-descriptor.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ancillary-data.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "ipc-memory-and-messages",
+      "title": "Спільна пам'ять і повідомлення",
+      "topics": [
+        {
+          "slug": "posix-shared-memory",
+          "title": "Спільна пам'ять POSIX",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sysv-vs-posix.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-shm-ring.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "message-queues",
+          "title": "Черги повідомлень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-priority-dispatcher.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-message-queues.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "memfd-create",
+          "title": "memfd_create: безіменний файл у пам'яті й пломби (seals)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sealing-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sealed-buffer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-memfd-and-seals.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dbus",
+          "title": "D-Bus: шина повідомлень простору користувача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dbus-origin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dbus-service.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dbus-wire.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "process-sync",
+      "title": "Синхронізація процесів",
+      "topics": [
+        {
+          "slug": "eventfd-and-futex",
+          "title": "eventfd і futex: сповіщення й дешеве очікування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-futex-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-futex-mutex.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "process-shared-sync",
+          "title": "Синхронізація між процесами: POSIX-семафори й спільні м'ютекси",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-shared-work-queue.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-process-shared-sync.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "posix-semaphores",
+          "title": "Семафори POSIX: іменовані й безіменні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dijkstra-semaphore.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-producer-consumer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "futex-fast-userspace-mutex",
+          "title": "Futex (Fast Userspace Mutex)",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-futex-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-futex-mutex.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-futex-syscall.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "futex2-waitv-syscall",
+          "title": "Багатооб’єктна синхронізація futex2 (sys_futex_waitv)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-esync-fsync-futex2.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-futex-waitv.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "sessions-and-daemons",
+      "title": "Сеанси й фонова робота",
+      "topics": [
+        {
+          "slug": "sessions-and-process-groups",
+          "title": "Сеанси, групи процесів і керуючий термінал",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-job-control-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-shell-job-launch.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "daemonize",
+          "title": "Демонізація: відхід у фон",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-daemon-word.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-daemonize.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "process-control",
+      "title": "Контроль чужого процесу",
+      "topics": [
+        {
+          "slug": "ptrace-and-debugging",
+          "title": "ptrace: повний контроль над чужим процесом",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "pidfd",
+          "title": "Дескриптор процесу (pidfd)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pdfork-to-pidfd.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-peer-identity.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pidfd-info.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "checkpoint-restore",
+          "title": "Контрольна точка й відновлення процесу (CRIU)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-two-schools.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-precopy-convergence.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-inject-parasite.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kernel-surface.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "resource-accounting",
+      "title": "Облік і межі ресурсів",
+      "topics": [
+        {
+          "slug": "memory-accounting",
+          "title": "Як міряти пам'ять процесу: VSZ, RSS, PSS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pss-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pss-by-hand.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-proc-memory-fields.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "resource-limits",
+          "title": "Ліміти ресурсів: rlimit і ulimit",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-limits-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fd-limit.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rlimit.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cpu-time-accounting",
+          "title": "Облік процесорного часу: як ядро набирає user і sys",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-tick-accounting.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sampling-error.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-utime-vs-runtime.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cputime-interfaces.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "time-and-timers",
+      "title": "Час і таймери",
+      "topics": [
+        {
+          "slug": "time-representation-y2038",
+          "title": "Час як число: time_t, епоха і межа 2038 року",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-epoch-choice.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-y2038-audit.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-time64-surface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "process-timers",
+          "title": "Таймери процесу: alarm, setitimer, POSIX-таймери й timerfd",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-alarm-to-timerfd.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-timerfd-scheduler.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-timer-interfaces.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

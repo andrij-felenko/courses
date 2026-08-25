@@ -1,0 +1,1842 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-unix",
+  "slug": "drivers",
+  "title": "Драйвери й залізо",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "device-model",
+      "title": "Модель пристроїв",
+      "topics": [
+        {
+          "slug": "kobject-kref-lifetime",
+          "title": "kobject, kref і час життя об'єктів ядра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kernel-object-model.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-kobject-driver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kobject-kref.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "mfd-multifunction-devices",
+          "title": "Багатофункційні мікросхеми: підсистема MFD і діти на platform",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pmic-and-mfd-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mfd-pmic-driver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mfd-core-interfaces.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "driver-probe-and-binding",
+          "title": "Прив'язка драйвера до пристрою: probe, збіг за таблицею й відкладена спроба",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ordering-problem.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-probe-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-binding-controls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "device-links",
+          "title": "Зв'язки між пристроями: явне ребро «постачальник — споживач» поверх дерева",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-device-link-example.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-device-link-flags.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "devm-resource-lifetime-in-probe",
+          "title": "Керовані ресурси драйвера: devm_ у probe і час життя прив'язки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-devres-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-managed-resource.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-devm-surface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "devres-internals-and-subsystem-coverage",
+          "title": "Устрій devres: вузли, блокування, пошук і покриття підсистем",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-devres-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-devres-action.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-devm-core.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "device-node",
+      "title": "Вузол пристрою",
+      "topics": [
+        {
+          "slug": "character-and-block-devices",
+          "title": "Символьні та блочні пристрої",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-raw-devices-and-devfs.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cdev-bdev-userspace.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cdev-bdev-interfaces.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "device-file-model",
+          "title": "Файл пристрою: символьний і блоковий",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dev-directory.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-char-driver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "major-minor-numbers",
+          "title": "Старший і молодший номери пристрою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-number-space.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-minor-fanout.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dev-numbers.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ioctl-interface",
+          "title": "Керуючий канал до драйвера: ioctl",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-stty-to-ioctl.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-char-driver-ioctl.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ioctl-encoding.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "device-naming",
+      "title": "Імена пристроїв",
+      "topics": [
+        {
+          "slug": "predictable-network-interface-names",
+          "title": "Передбачувані імена мережевих інтерфейсів: enp3s0 замість eth0",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-eth0-to-predictable.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-interface-renamer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-net-naming-policies.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "udev-rules",
+          "title": "udev: іменування пристроїв і правила",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-udev-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hotplug-service.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rule-keys.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "firmware-description",
+      "title": "Опис заліза прошивкою",
+      "topics": [
+        {
+          "slug": "device-tree",
+          "title": "Дерево пристроїв: як прошивка описує недискаверабельне залізо",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-board-files.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-i2c-sensor-overlay.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dt-bindings.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "device-tree-flattened-dtb",
+          "title": "Дерево пристроїв (Device Tree, DTB)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-arm-churn-to-device-tree.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fdt-userspace-parser.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fdt-binary-layout-and-kernel-of-api.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "devicetree-overlays-and-dtbo",
+          "title": "Динамічні оверлеї дерева пристроїв (DTBO)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dtbo-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dtbo-configfs-loader.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dtbo-kernel-interfaces.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "platform-bus",
+          "title": "Шина platform: дім для заліза, яке не можна перелічити",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pseudo-bus-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-platform-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-platform-surface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "acpi-tables-and-namespace",
+          "title": "ACPI: таблиці прошивки й простір імен, з якого ядро дізнається про залізо",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-apm-to-acpi.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-aml-parser-and-override.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-acpi-table-structures.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "wmi-windows-management-instrumentation",
+          "title": "Інтерфейс WMI (ACPI-WMI) у драйверах Linux",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-wmi-to-acpi.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-wmi-driver-skeleton.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-wmi-kernel-surface.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "interrupts",
+      "title": "Переривання",
+      "topics": [
+        {
+          "slug": "msi-x-interrupts",
+          "title": "Переривання MSI та MSI-X: від лінії INTx до запису в пам'ять",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-from-wires-to-messages.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-msix-driver-skeleton.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pci-irq-vectors.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "irq-chip-and-domain",
+          "title": "Контролер переривань: irqchip, irq_domain і шлях від hwirq до номера Linux",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sparse-irq-and-domains.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gpio-irqchip-driver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-irq-domain-chip.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "interrupts-bottom-halves",
+          "title": "Переривання, softirq і робочі черги",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-bottom-half.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-threaded-irq-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-deferred-work.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "inter-processor-interrupts",
+          "title": "Міжпроцесорні переривання: як одне ядро змушує інші виконати код",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-ipi-latency.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-smp-call.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "registers-and-dma",
+      "title": "Регістри й DMA",
+      "topics": [
+        {
+          "slug": "mmio-and-ioremap",
+          "title": "Регістри пристрою в пам'яті: ioremap і доступ через readl/writel",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-memory-or-ports.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mmio-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-io-accessors.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dma-and-buffers",
+          "title": "DMA і відображення буферів у ядрі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-virt-to-bus.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ring-and-transfer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dma-mapping.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "swiotlb-bounce-buffers",
+          "title": "swiotlb: підмінні буфери, коли пристрій не дотягується",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-amd64-and-gart.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-detect-and-monitor.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-swiotlb-internals.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "dma-mapping-subsystem-and-iommu",
+          "title": "Підсистема DMA mapping та IOMMU в ядрі Linux",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dma-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dma-driver-example.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dma-mapping-surface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dma-buf-heaps-framework",
+          "title": "Фреймворк dma-buf heaps: заміна ION для виділення неперервної памʼяті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-zerocopy-pipeline.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-uapi-dma-heap.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "pci-bus",
+      "title": "Шина PCI",
+      "topics": [
+        {
+          "slug": "pci-config-space-and-enumeration",
+          "title": "Конфігураційний простір PCI, вікна BAR і перелічення пристроїв",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-pci-config-space.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pcie-fabric-msix-and-aer",
+          "title": "Фабрика PCI Express: рівні лінка, MSI-X і відновлення після помилок (AER)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pci-to-pcie.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pcie-sysfs-explorer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pci-kernel-interface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pci-peer-to-peer-p2pdma",
+          "title": "Прямий доступ між пристроями PCIe (P2PDMA)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-p2p-dma-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-p2p-throughput-latency.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-p2pdma-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-p2pdma-kernel.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "spdm-device-attestation",
+          "title": "Протокол атестації пристроїв SPDM на шинах PCIe",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-spdm-genesis.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-spdm-attestation-verifier.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-spdm-kernel-sysfs.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "board-buses",
+      "title": "Шини плати",
+      "topics": [
+        {
+          "slug": "i2c-and-smbus-subsystem",
+          "title": "Шина I²C і SMBus у ядрі: адаптери, клієнти й збіг за таблицею",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-i2c-smbus-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-i2c-sensor-userspace.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-i2c-subsystem.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "i3c-bus-subsystem",
+          "title": "Підсистема шини I3C (MIPI I3C)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mipi-i3c.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-i3c-master-controller.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-i3c-arbitration.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-i3c-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-i3c-subsystem.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "usb",
+      "title": "USB",
+      "topics": [
+        {
+          "slug": "usb-in-linux",
+          "title": "USB у Linux: шина, класи, доступ із простору користувача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-linux-usb-stack.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-libusb-claim.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-usbfs-ioctl.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "usbcore-enumeration-and-urb",
+          "title": "usbcore зсередини: нумерація, URB, смуга й живлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-usb-core-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-urb-async-engine.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-usb-core-functions.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "usb-host-controller",
+          "title": "Драйвер контролера хоста USB: xHCI і планування передач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-framelist-to-rings.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-periodic-bandwidth.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-xhci-structures.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "usb-bulk-streams",
+          "title": "Bulk-стрими USB 3: кілька кілець на одну кінцеву точку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-streams-and-uasp.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-streams-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-stream-contexts.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "usb-gadget",
+          "title": "USB-gadget: Linux у ролі пристрою, а не хоста",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-gadget-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ffs-function.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-configfs-gadget.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "usb-type-c-connector-class-framework",
+          "title": "Фреймворк коннекторів USB Type-C та Power Delivery",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-typec-pd-evolution.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-tcpm-tcpci-ucsi.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-typec-role-switcher.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-typec-kernel-sysfs.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "usb-device-quirks",
+          "title": "Хиби пристроїв USB: чорні списки й прапорці відхилень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-usb-quirks-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dynamic-usb-quirk-loader.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-usb-quirk-flags.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "power",
+      "title": "Живлення",
+      "topics": [
+        {
+          "slug": "powercap-and-rapl",
+          "title": "Підсистема powercap та ліміти потужності RAPL",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-powercap-and-rapl.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rapl-power-limiter.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-powercap-sysfs.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "system-suspend-resume",
+          "title": "Призупинення й пробудження системи: suspend to RAM у ядрі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-acpi-sleep-states.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-suspend-debug-trace.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dev-pm-ops.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "power-management-qos-framework",
+          "title": "PM QoS: фреймворк гарантій продуктивності та управління затримками в ядрі Linux",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pm-qos-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pm-qos-benchmark.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pm-qos-kernel.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "runtime-power-management",
+          "title": "Присипляння пристрою на ходу: runtime PM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-usb-to-runtime-pm.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-runtime-pm-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-runtime-pm.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "power-domains-genpd",
+          "title": "Домени живлення в ядрі: genpd і спільний вимикач на групу пристроїв",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-genpd-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-genpd-provider.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-genpd-provider.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "regulator-framework",
+          "title": "Підсистема регуляторів: хто вмикає напругу для пристрою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-regulator-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-regulator-functions.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "clocks-and-frequency",
+      "title": "Такти й частота",
+      "topics": [
+        {
+          "slug": "clock-framework",
+          "title": "Каркас тактування: хто роздає, ділить і вимикає такти пристроїв",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-pll-divider-calc.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-clk-driver-example.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ccf-functions.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "opp-tables",
+          "title": "Таблиці робочих точок (OPP): частота, напруга й рівень домену",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-opp-dt-example.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-opp-functions.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cpufreq-and-cpuidle",
+          "title": "Управління частотою та станами CPU (cpufreq, cpuidle)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dvfs-and-acpi-origin.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dvfs-power-and-residency.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cpufreq-governor-and-qos.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cpufreq-cpuidle-sysfs.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cpuidle-and-cstates",
+          "title": "Простій ядра процесора: cpuidle і глибина сну",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-hlt-to-cpuidle.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-break-even.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cpuidle-sysfs.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "devfreq-framework",
+          "title": "devfreq: DVFS для не-CPU пристроїв",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-devfreq-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-devfreq-driver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-devfreq-reference.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "thermal",
+      "title": "Тепло",
+      "topics": [
+        {
+          "slug": "hwmon",
+          "title": "hwmon: клас датчиків у ядрі й одиниці в sysfs",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-lm-sensors-to-hwmon.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hwmon-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-hwmon-attributes.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "thermal-management-framework",
+          "title": "Термальний фреймворк ядра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-thermal-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-power-allocator-pid.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-thermal-monitor.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-thermal-governor.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sysfs-and-netlink.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "lines-and-sensors",
+      "title": "Лінії й датчики",
+      "topics": [
+        {
+          "slug": "gpiod-kernel-consumer-api",
+          "title": "Ядерний споживчий API gpiod: gpio_desc, devm_gpiod_get, cansleep",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-legacy-gpio-to-gpiod.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kernel-gpio-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kernel-gpiod-functions.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gpio-character-device-v2",
+          "title": "Сучасний інтерфейс GPIO chardev ABI v2 (/dev/gpiochipN)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-abi-v1-vs-v2.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-v2-raw-ioctl-and-libgpiod.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-v2-structures-and-ioctls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gpio-chardev-abi-v2-libgpiod",
+          "title": "GPIO з простору користувача: /dev/gpiochipN, chardev ABI v2 та libgpiod",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "counter-subsystem-quadrature",
+          "title": "Підсистема лічильників ядра Counter subsystem (Hardware Quadrature Encoders)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-counter-subsystem-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-counter-event-reader.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-counter-kernel-interface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "iio-industrial-io-subsystem",
+          "title": "Підсистема Industrial I/O (IIO) для аналогових сенсорів та ADC/DAC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-iio-user-reader.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-iio-sysfs-abi.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "input-stack",
+      "title": "Ввід",
+      "topics": [
+        {
+          "slug": "input-subsystem-event-model",
+          "title": "Модель події вводу: як натиск стає input_event і кадром SYN_REPORT",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-input-core-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-uinput-device.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-evdev-interface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "evdev-codes-abi-and-ioctl",
+          "title": "Довідник evdev: типи й коди подій, бінарний ABI, ioctl і шлях до libinput",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-linux-input-subsystem.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-evdev-abs-scaling.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-evdev-event-loop.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-evdev-ioctl.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "evdev-userspace-interface",
+          "title": "Робота з evdev із простору користувача: ioctl, мультидотик, force feedback, libinput і uinput",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-input-subsystem-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-uinput-keyboard-mapper.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-evdev-ioctls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hid-subsystem",
+          "title": "Підсистема HID: дескриптор звітів і як пристрій сам описує свої органи керування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-hid-standard.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hidraw-reader.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-hid-report-items.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "multitouch-protocol",
+          "title": "Протокол мультидотику: слоти, контакти й два способи їх описати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "libinput-input-stack",
+          "title": "libinput: спільний шар обробки вводу для Wayland і X",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-libinput-wayland-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-event-dispatcher.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-libinput-core-interface.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

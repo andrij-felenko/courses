@@ -1,0 +1,878 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-unix",
+  "slug": "virtualization",
+  "title": "Віртуалізація й контейнери",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "namespaces",
+      "title": "Простори імен",
+      "topics": [
+        {
+          "slug": "namespaces",
+          "title": "Простори імен: ізоляція погляду на систему",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-namespaces-origin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mini-container.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-namespace-interfaces.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "user-namespaces-uid-mapping",
+          "title": "Юзер-простори імен (User Namespaces)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-rootless-and-userns.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-uid-translation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-uid-mapping-helper.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-userns-procfs.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "rootless-containers",
+          "title": "Безкорінна контейнеризація",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-rootless-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rootless-ns-setup.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-subuid-and-newuidmap.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cgroups",
+      "title": "Групи контролю ресурсів",
+      "topics": [
+        {
+          "slug": "cgroups-resource-model",
+          "title": "cgroups: група як одиниця обліку й обмеження ресурсів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-two-hierarchies.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cgroup-by-hand.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cgroup2-interface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cgroups-v2-unified-hierarchy",
+          "title": "Cgroups v2: єдина ієрархія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "cgroup-v2-controllers",
+          "title": "Контролери Cgroups v2: механізми розподілу та лімітування ресурсів",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "cgroup-v2-memory-peak-swap",
+          "title": "Управління піками та пропускною здатністю у Cgroups v2 memory",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-cgroup-memory-monitor.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-memory-control-surface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cgroup-writeback",
+          "title": "Фоновий запис по cgroup: чия брудна сторінка й хто платить за її злив",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-one-owner-per-inode.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-whose-write-is-it.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cgwb-contract.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cgroupfs-kernfs-implementation",
+          "title": "cgroupfs у ядрі: css_set, міграція задачі та дерево поверх kernfs",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cgroups-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cgroupv2-manager.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cgroupv2-control-files.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "systemd-architecture-and-cgroups",
+          "title": "Архітектура systemd та cgroups",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "guest-systems",
+      "title": "Гостьові системи",
+      "topics": [
+        {
+          "slug": "systemd-nspawn-lightweight-containers",
+          "title": "Контейнеризація у systemd: інструмент systemd-nspawn",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-chroot-to-nspawn.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-nspawn-custom-container.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-nspawn-cli-and-nspawn-file.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kvm-and-qemu-architecture",
+          "title": "Архітектура KVM і QEMU: як ядро віддає процесор гостю",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-kvm-creation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kvm-mini-hypervisor.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kvm-ioctl.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "hypervisor-and-guest",
+      "title": "Гіпервізор і гість",
+      "topics": [
+        {
+          "slug": "kvm-irq-virtualization-apicv",
+          "title": "Віртуалізація переривань у KVM: vAPIC, APICv і posted interrupts",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-evolution-of-virtual-interrupts.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-irqfd-kvm-setup.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kvm-irq-ioctls.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "kvm-mmu-ept-npt",
+          "title": "Пам'ять гостя в KVM: EPT/NPT і тіньові таблиці сторінок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-shadow-to-ept.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-2d-walk-cost.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ept-walk-tracer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kvm-mmu-controls.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "vm-generation-id",
+          "title": "VM Generation ID: як гість дізнається, що його клонували",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-vmgenid-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-catch-the-fork.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-vmgenid-surface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "xen-dom0-domu",
+          "title": "Гіпервізор Xen: Dom0, DomU та grant tables",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-xen-paravirtualization.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-grant-table-io.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-xenstore-gnttab.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "nested-virtualization-kvm",
+          "title": "Вкладена віртуалізація у KVM (Nested VT-x/AMD-V)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-shadow-vmcs-and-nested-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kvm-nested-control-and-ioctl.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kvm-nested-sysfs-and-msr.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "confidential-computing-sev-tdx",
+          "title": "Конфіденційні обчислення: AMD SEV-SNP та Intel TDX",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-confidential-computing.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-memory-encryption-engines.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-guest-report-fetch.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-guest-attestation.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "virtio-bus",
+      "title": "Virtio: шина й віртчерги",
+      "topics": [
+        {
+          "slug": "virtio-transport",
+          "title": "virtio: паравіртуалізована шина й віртчерги",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-virtio-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ring-walk.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-virtio-transports.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "virtio-pci-spec",
+          "title": "Специфікація Virtio: virtqueues та vring",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-virtio-oasis-standard.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-vring-indexing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-vring-user-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-virtio-pci-caps.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "vhost-and-vdpa",
+          "title": "vhost і vDPA: хто насправді обслуговує віртчергу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-qemu-to-vdpa.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-vdpa-setup.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-virtqueue-ring.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "vhost-user-protocol",
+          "title": "vhost-user: дата-плейн virtio в чужому процесі простору користувача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-userspace-datapaths.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-socket-handshake.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-protocol-messages.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "vdpa-virtio-data-path-acceleration",
+          "title": "Апаратне прискорення Virtio: vDPA та SmartNIC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-vdpa-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-vdpa-ioctl-query.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-vdpa-kernel-ops.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "virtio-devices",
+      "title": "Паравіртуальні пристрої",
+      "topics": [
+        {
+          "slug": "virtio-balloon",
+          "title": "virtio-balloon: надування балона й повернення сторінок господарю",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ballooning-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-qmp-autoballoon.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-virtio-balloon-spec.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "virtio-mem-and-virtio-pmem",
+          "title": "Динамічне додавання пам'яті: virtio-mem та virtio-pmem",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-virtio-mem-genesis.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-virtio-mem-vs-acpi-dimm.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-virtio-mem-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-virtio-mem-spec.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "virtio-rng",
+          "title": "virtio-rng: непередбачність від гіпервізора до гостьового ядра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-virtio-rng-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-minimal-rng-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-virtio-rng-surface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "virtio-fs-and-virtio-gpu",
+          "title": "Спеціалізовані пристрої Virtio: virtio-fs та virtio-gpu",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-virtio-gpu-cmd.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-virtio-gpu-protocol.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "device-passthrough",
+      "title": "Прокидання заліза",
+      "topics": [
+        {
+          "slug": "iommufd-subsystem",
+          "title": "IOMMUFD: керування таблицями IOMMU з простору користувача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-vfio-type1-to-iommufd.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-iommufd-device-bind.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-iommufd-ioctl.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "vfio-passthrough",
+          "title": "Парапрохідність пристроїв та IOMMU-групи (VFIO)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-kvm-assign-to-vfio.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-userspace-pci-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-vfio-ioctl.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sr-iov-virtual-functions",
+          "title": "Апаратне розділення пристроїв (SR-IOV)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sriov-evolution.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-eswitch-architecture.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sriov-manager.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sriov-pci-cap.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "viommu-virtual-iommu",
+          "title": "Віртуальний IOMMU (vIOMMU) для вкладеного прокидання",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-nested-iommufd-bind.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1326 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-unix",
+  "slug": "storage",
+  "title": "Сховище й блокові пристрої",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "block-model",
+      "title": "Блоковий шар",
+      "topics": [
+        {
+          "slug": "block-device-model",
+          "title": "Блоковий пристрій: сектори, блоки й черга запитів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-elevator-to-blkmq.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-watch-merges.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-queue-attributes.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "loop-device",
+          "title": "Loop-пристрій: файл у вигляді блокового пристрою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-loop-origins.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-loop-attach.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-losetup-and-ioctls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "disk-partitions",
+          "title": "Розділи диска: таблиця розділів, вирівнювання й що з цього бачить ядро",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mbr-to-gpt.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-parse-gpt.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-gpt-layout.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "userspace-block-devices",
+          "title": "Блоковий пристрій із простору користувача: NBD і ublk",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-userspace-block-drivers.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ublk-server.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ublk-protocol.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "request-queues",
+      "title": "Черги запитів",
+      "topics": [
+        {
+          "slug": "block-layer-mq",
+          "title": "Багаточергова підсистема блокового вводу-виводу (blk-mq)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-single-queue-to-blk-mq.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-null-blk-benchmark.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-blk-mq-sysfs-and-trace.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "blk-mq-tag-sets-and-hardware-queues",
+          "title": "Слоти команд у blk-mq: Tag Sets та Hardware Dispatch Queues",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-sbitmap-allocator.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-blk-mq-tag-set-surface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "blk-iopoll-and-io-polling",
+          "title": "Опитування блокових пристроїв: IO polling та blk-mq iopoll",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-polling-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hipri-bench.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-iopoll-sysfs-params.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ublk-userspace-block-driver",
+          "title": "Фреймворк ublk: блокові драйвери у просторі користувача",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-userspace-block-devs.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ublk-target.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "io-scheduling",
+      "title": "Черга й затримка",
+      "topics": [
+        {
+          "slug": "io-schedulers",
+          "title": "Планувальники блокового введення-виведення: none, mq-deadline, BFQ і Kyber",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-fair-queueing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-measure-schedulers.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-scheduler-tunables.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "writeback-throttling",
+          "title": "Гальмування фонового запису: wbt і цільова затримка читання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-codel-in-block-layer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-wbt-controls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "io-cgroup-control",
+          "title": "Обмеження блокового вводу-виводу по cgroup: io.max, io.latency і iocost",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-from-blkio-to-iocost.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-two-groups-lab.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-io-controller-files.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "io-priorities",
+          "title": "Пріоритет вводу-виводу: класи ionice та ioprio_set",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ioprio-and-cfq.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-does-ionice-work.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ioprio.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "device-command-sets",
+      "title": "Набори команд носія",
+      "topics": [
+        {
+          "slug": "scsi-subsystem",
+          "title": "Підсистема SCSI: команди, сенс-коди й обробка помилок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sasi-to-scsi.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-decode-sense.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sense-and-status.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "nvme-in-linux",
+          "title": "NVMe в Linux: черги, простори імен і власна багатошляховість",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-driver-and-multipath.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-identify-by-ioctl.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-nvme-surface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "scsi-generic-passthrough",
+          "title": "Наскрізні команди до пристрою: SG_IO, ATA passthrough і чому вони йдуть повз блоковий шар",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-three-doors.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ask-the-drive.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sg-io-hdr.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "usb-mass-storage",
+          "title": "Накопичувачі по USB: клас mass storage, драйвери usb-storage і uas",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-usb-storage-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-usb-storage-quirks.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bot-vs-uas.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "libata",
+          "title": "libata: як ATA-диск потрапляє під SCSI-шар Linux",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ide-to-libata.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-libata-sysfs.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sat-translation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "io-uring-cmd-passthrough",
+          "title": "Низькорівневий пасстру команд NVMe через IORING_OP_URING_CMD",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-nvme-passthrough-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-nvme-passthrough-bench.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-uring-cmd-nvme.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "multipath",
+      "title": "Кілька шляхів",
+      "topics": [
+        {
+          "slug": "scsi-alua",
+          "title": "ALUA: асиметричний доступ і стани портів цілі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-proprietary-failover-to-alua.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-alua-rtpg-parser.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rtpg-stpg-descriptors.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "scsi-transport-timeouts",
+          "title": "Таймери транспорту SCSI: dev_loss_tmo, fast_io_fail_tmo і шлях помилки вгору",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-multipath-failover.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-transport-sysfs.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "nvme-native-multipath-ana",
+          "title": "Нативний мультипасинг NVMe та стани ANA у ядрі Linux",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-from-dm-to-nvme-multipath.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ana-log-parser.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ana-log-and-sysfs.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "dm-multipath",
+          "title": "Multipath: кілька шляхів до одного сховища",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-md-multipath-to-dm.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-multipath-on-loop.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-multipath-table.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "zoned-media",
+      "title": "Зоновані носії",
+      "topics": [
+        {
+          "slug": "zoned-block-devices",
+          "title": "Зонований блоковий пристрій: зони, послідовний запис і хто стежить за порядком",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-shingles-and-honesty.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-walk-the-zones.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-zone-interface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dm-zoned",
+          "title": "dm-zoned: зонований носій під виглядом звичайного",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-zone-reclaim-cost.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dmzoned-setup.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-zbc-zns-spec.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "nvme-zoned-namespaces-zns",
+          "title": "Зонований простір імен NVMe (ZNS)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-zns-from-smr-to-nvme.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-zns-append-io-uring.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-zns-ioctl-and-sysfs.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "zoned-block-devices-zns",
+          "title": "Зоновані блокові пристрої (ZBC/ZAC та zonefs)",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-smr-to-zns.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-zone-append-demo.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-zbd-ioctls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "zoned-storage-f2fs-integration",
+          "title": "Файлова система f2fs для зонованих пристроїв ZNS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "device-mapper-layers",
+      "title": "Шари device mapper",
+      "topics": [
+        {
+          "slug": "dm-persistent-data",
+          "title": "persistent-data: транзакційні метадані device mapper",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-btree-device-mapper.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-persistent-data.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "device-mapper",
+          "title": "Device mapper: блоковий пристрій, зібраний із шарів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-policy-out-of-kernel.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-live-table-swap.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dm-table.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dm-thin-provisioning",
+          "title": "Тонке виділення: dm-thin, спільний пул і повернення місця",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-arrays-to-dm-thin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-thin-by-hand.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-thin-pool-table.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dm-writecache-and-dm-cache",
+          "title": "Кешування блокових пристроїв: dm-writecache та dm-cache",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-block-caching-in-linux.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dm-cache-status-monitor.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dm-target-parameters-and-status.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "volumes-and-arrays",
+      "title": "Томи й масиви",
+      "topics": [
+        {
+          "slug": "md-reshape",
+          "title": "Перебудова масиву md наживо: --grow, reshape_position і резервний файл",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-reshape-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-md-grow-lab.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-md-reshape.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "lvm-and-snapshots",
+          "title": "LVM: логічні томи й миттєві знімки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-hpux-to-lvm2.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-snapshot-sizing.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-lvm-commands.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "md-raid",
+          "title": "Програмний RAID у Linux: md, рівні масиву й відновлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-md-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-md-lab.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-md-metadata.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "shared-storage",
+      "title": "Спільне сховище",
+      "topics": [
+        {
+          "slug": "scsi-target-lio",
+          "title": "Ціль SCSI в ядрі (LIO): як машина віддає своє сховище",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-target-in-mainline.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-target-by-hand.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-configfs-target.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "iscsi-in-linux",
+          "title": "iSCSI: SCSI поверх TCP — сесії, IQN і портали",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-iscsi-standard.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-iscsi-target-setup.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-iscsi-pdu.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "scsi-persistent-reservations",
+          "title": "Постійні резервації SCSI: як вузли кластера ділять один диск",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-cluster-fencing-pr.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-scsi-pr-commands.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "nvme-target-kernel-subsystem",
+          "title": "Підсистема NVMe Target (nvmet) у ядрі Linux",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-target-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-nvmet-c-cpp-configfs.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-nvmet-ops.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "nvme-of-model-and-client-connect",
+          "title": "NVMe over Fabrics: модель ініціатор—таргет, вибір фабрики і підключення через nvme-cli",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-iscsi-to-nvmeof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-nvmet-setup.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-nvmeof-transports.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "nvme-of-protocol-architecture-and-kernel-stack",
+          "title": "Протокол NVMe-oF: NQN, капсули, черги, PDU та стек ядра Linux",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "nvme-of-fabrics-deployment-security-and-offload",
+          "title": "Розгортання NVMe-oF: фабрики FC/RDMA/TCP, цілісність T10-PI, автентифікація та апаратний офлоад",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-iscsi-to-nvmeof.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-nvmeof-latency-throughput.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-nvmeof-c-cpp-client.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-nvmeof-pdu-structures.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "block-encryption",
+      "title": "Шифрування блокового пристрою",
+      "topics": [
+        {
+          "slug": "luks-format",
+          "title": "LUKS2: формат заголовка шифрованого тому",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-luks1-to-luks2.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-afsplit-information-dispersion.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-luks2-header-dumper.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-luks2-json-metadata.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "dm-verity",
+          "title": "dm-verity: блоковий пристрій під деревом Меркла",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-chromeos-to-android.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-verity-by-hand.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-verity-table.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dm-crypt",
+          "title": "dm-crypt: прозоре шифрування блокового пристрою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-cryptoloop-to-luks.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-crypt-by-hand.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-crypt-target.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dm-integrity",
+          "title": "dm-integrity: контрольні суми на записуваному блоковому пристрої",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-two-attempts.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-integrity-by-hand.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-integrity-table.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sed-opal-drives",
+          "title": "Самошифрувальний носій: TCG Opal і підтримка sed-opal у ядрі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-opal-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-opal-discovery.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-opal-ioctls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "block-integrity-profile",
+          "title": "Профіль цілісності блокового шару: T10 DIF/DIX і додаткові байти на сектор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-end-to-end-argument.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pi-by-hand.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-integrity-interfaces.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
