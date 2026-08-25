@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Copy-on-write: нове поряд, тоді один крок-перемикач</text>
+<rect x="120.0" y="110.0" width="150.0" height="56.0" rx="6" fill="#eef2f7" stroke="#2457d6" stroke-width="1.8"/>
+<text x="195.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">старий</text>
+<text x="195.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">цілий</text>
+<rect x="120.0" y="230.0" width="150.0" height="56.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="195.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">новий</text>
+<text x="195.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">у чистому місці</text>
+<rect x="360.0" y="110.0" width="170.0" height="56.0" rx="6" fill="#fff8e1" stroke="#b8860b" stroke-width="1.8"/>
+<text x="445.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">вказівник:</text>
+<text x="445.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">дійсний зараз</text>
+<line x1="270.0" y1="138.0" x2="354.0" y2="138.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="445.0" y1="166.0" x2="445.0" y2="258.0" stroke="#b8860b" stroke-width="1.6" stroke-dasharray="5,4"/>
+<line x1="445.0" y1="258.0" x2="274.0" y2="258.0" stroke="#b8860b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="455.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b8860b" text-anchor="start" font-weight="700">один крок-перемикач</text>
+<text x="360.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">гасне струм до кроку — лишається старий; після — новий; «півфайлу» немає</text>
+</svg>

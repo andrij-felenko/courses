@@ -1,0 +1,268 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-data",
+  "slug": "value-encoding",
+  "title": "Подання значень",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "text-and-bytes",
+      "title": "Текст у байтах",
+      "topics": [
+        {
+          "slug": "ascii-utf8",
+          "title": "ASCII і UTF-8",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-utf8-diner.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-utf8-decoder.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "iso-8601",
+          "title": "ISO 8601: подання дати й часу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-calendar-chaos.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fast-iso8601.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-format-reference.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "uuid-and-guid",
+          "title": "UUID і GUID: 128-бітний ідентифікатор без реєстру",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-apollo-to-rfc9562.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-birthday-paradox.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-uuidv7-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rfc9562-layouts.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "interchange-formats",
+      "title": "Формати обміну",
+      "topics": [
+        {
+          "slug": "json-format",
+          "title": "JSON: текстове подання об'єктів і масивів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-crockford-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-streaming-ndjson.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "xml-markup",
+          "title": "XML: дерево елементів, атрибути й простори імен",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sgml-to-xml.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-streaming-parser.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-xml-parser-contract.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "zero-copy-serialization",
+          "title": "Формати без копіювання: доступ до полів просто в буфері",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-evolution-to-zerocopy.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-zerocopy-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-schema-and-traversal.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "geo-data-formats",
+          "title": "Формати гео-даних: GeoJSON, KML, GPX",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-three-births.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-coordinate-precision.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gpx-to-geojson.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "structure-description",
+      "title": "Опис структури",
+      "topics": [
+        {
+          "slug": "json-schema",
+          "title": "JSON Schema: декларативний опис та валідація структури даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-draft-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-validator-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-keywords-reference.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "self-describing-format",
+          "title": "Самоописовий формат: схема всередині файлу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-from-hdf-to-parquet.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-avro-container-parser.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

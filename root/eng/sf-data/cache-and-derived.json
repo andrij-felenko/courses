@@ -1,0 +1,280 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-data",
+  "slug": "cache-and-derived",
+  "title": "Кеш і похідні копії",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "cache-cost",
+      "title": "Ціна другого джерела правди",
+      "topics": [
+        {
+          "slug": "cache-invalidation-intro",
+          "title": "Кеш вводить друге джерело правди (ціна)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-karlton-and-coherence.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-staleness-bound.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-stale-race-and-leases.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cache-consistency-tradeoff",
+          "title": "Свіжість проти навантаження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-scaling-memcache.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-probabilistic-expiration.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-singleflight-xfetch.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "what-not-to-cache",
+          "title": "Що НЕ кешувати і чому",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-cache-cost-model.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cache-admission.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cache-strategies",
+      "title": "Стратегії кешування",
+      "topics": [
+        {
+          "slug": "caching-strategies",
+          "title": "Патерни кешування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cache-aside-memcached.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-caching-patterns.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cache-tactics",
+          "title": "Дрібні кеш-тактики, що рятують проди",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-early-refresh.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-resilient-cache.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cache-policy.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "eviction",
+      "title": "Витіснення",
+      "topics": [
+        {
+          "slug": "cache-eviction-policies",
+          "title": "Політики витіснення кешу: LRU, LFU, CLOCK",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-paging-origins.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-competitive-paging.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lru-clock.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "derived-stores",
+      "title": "Похідні сховища",
+      "topics": [
+        {
+          "slug": "materialized-views",
+          "title": "Матеріалізовані в'ю як похідні дані",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-view-materialization-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-incremental-view-calculus.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-incremental-view-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-postgresql-clickhouse-views.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "change-data-capture",
+          "title": "CDC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cdc-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cdc-stream-guarantees.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-wal-cdc-parser.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-debezium-pgoutput.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "search-subsystem",
+          "title": "Пошук як друга правда",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lucene-revolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-search-sync-pipeline.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

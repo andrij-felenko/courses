@@ -1,0 +1,292 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-data",
+  "slug": "storage-engine",
+  "title": "Фізичне зберігання",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "indexes-and-layout",
+      "title": "Індекси й розкладка",
+      "topics": [
+        {
+          "slug": "database-indexes",
+          "title": "Індекси",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-btree-birth.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-btree-fanout.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bplus-tree.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-gist-methods.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "columnar-storage",
+          "title": "Стовпцеве зберігання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "on-disk-structures",
+      "title": "Структури на диску",
+      "topics": [
+        {
+          "slug": "b-tree",
+          "title": "B-дерево",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-b-tree.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-b-tree-bounds.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-b-tree.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-b-tree.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lsm-tree",
+          "title": "B-tree vs LSM-tree / log-structured",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lsm-origin.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-write-amplification.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lsm-engine.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "log-structured-storage",
+          "title": "Журнальне і log-structured сховище",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-log-structured.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-append-only-store.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "filesystems",
+      "title": "Файлові системи",
+      "topics": [
+        {
+          "slug": "fat-filesystem",
+          "title": "Файлова система FAT",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "flash-filesystem",
+          "title": "Файлові системи у Flash",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "flash-filesystems",
+          "title": "Файлові системи Flash",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-fat.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "durable-write",
+      "title": "Надійний запис",
+      "topics": [
+        {
+          "slug": "write-integrity",
+          "title": "Цілісність запису",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-atomic-config.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "atomic-file-replace",
+          "title": "Атомарна заміна файлу: запис у тимчасовий і перейменування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "files-outside-database",
+      "title": "Файли поза базою",
+      "topics": [
+        {
+          "slug": "file-uploads",
+          "title": "Завантаження файлів як конвеєр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-multipart-mime.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-multipart-parser.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tus-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "object-storage",
+          "title": "Об'єктне сховище",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-s3-flat-namespace.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-erasure-coding.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-presigned-signer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-s3-operations.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

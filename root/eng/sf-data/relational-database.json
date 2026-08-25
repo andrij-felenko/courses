@@ -1,0 +1,398 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-data",
+  "slug": "relational-database",
+  "title": "Реляційна база",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "relations-and-queries",
+      "title": "Відношення й запити",
+      "topics": [
+        {
+          "slug": "codd-relational-model",
+          "title": "Реляційна модель даних та теорема Кодда",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-codd-ibm.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-codd-theorem-proof.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-relational-algebra-interpreter.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-relational-algebra-spec.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "relational-model",
+          "title": "Реляційна модель і нормалізація як рішення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-relational-birth.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-armstrong-axioms.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-normalization-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-schema-ddl.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "sql",
+          "title": "SQL: мова запитів до реляційних баз",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "sql-null-three-valued",
+          "title": "NULL і тризначна логіка SQL",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "tree-in-a-table",
+          "title": "Дерево в таблиці: список суміжності, шлях, замикання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "schema-changes",
+      "title": "Схема та її зміни",
+      "topics": [
+        {
+          "slug": "database-migrations",
+          "title": "Міграції схеми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-evolution-migrations.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lock-queue.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mini-migration-runner.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-zero-downtime-checklist.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "schema-on-read-write",
+          "title": "Schema-on-write vs schema-on-read",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-schema-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-schema-parsing-complexity.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-schema-parsers-benchmark.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-schema-evolution-matrix.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "query-execution",
+      "title": "Виконання запиту",
+      "topics": [
+        {
+          "slug": "query-planner",
+          "title": "Планувальник запитів і EXPLAIN",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-system-r.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cost-model.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-plan-analyzer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-explain-syntax.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "prepared-statements",
+          "title": "Підготовлені вирази: компіляція запиту один раз",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "database-cursor",
+          "title": "Курсор бази даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "transactions",
+      "title": "Транзакції та ізоляція",
+      "topics": [
+        {
+          "slug": "transactions-acid",
+          "title": "Транзакції та **ACID**",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-acid-formalization.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-serializability-graphs.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mini-transaction-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-posix-fsync-durability.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "isolation-levels",
+          "title": "Рівні ізоляції та аномалії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-critique-ansi-sql.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-serializability-and-adya.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-anomaly-reproducer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sql-isolation-matrix.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "mvcc",
+          "title": "MVCC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-vacuum-tuning.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "write-ahead-log",
+          "title": "Журнал попереднього запису (WAL)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-aries-mohan.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-recovery-correctness.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mini-wal-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-wal-configuration.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "concurrent-writes",
+      "title": "Конкурентні зміни",
+      "topics": [
+        {
+          "slug": "optimistic-locking",
+          "title": "Оптимістичне блокування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "pessimistic-locking",
+          "title": "Песимістичне блокування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

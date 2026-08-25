@@ -1,0 +1,330 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-data",
+  "slug": "scale-and-pipelines",
+  "title": "Масштаб і конвеєр",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "distributed-storage",
+      "title": "Розподілене сховище",
+      "topics": [
+        {
+          "slug": "read-replicas-replication",
+          "title": "Репліки читання та реплікація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-replication-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-replication-capacity-and-lag.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lag-aware-read-router.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-replication-configs-and-metrics.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "database-sharding",
+          "title": "Шардинг баз даних: архітектура горизонтального масштабування, маршрутизація, розщеплення та експлуатація Shared-Nothing систем",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sharding-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sharding-skew-and-fanout.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-shard-router.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-shard-coordinator-spec.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "database-clustering",
+          "title": "Кластеризація баз даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-shared-storage-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cluster-fencing-controller.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-patroni-cluster-config.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "storage-choice",
+      "title": "Вибір сховища",
+      "topics": [
+        {
+          "slug": "nosql-landscape",
+          "title": "Ландшафт NoSQL",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-nosql-movement.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cap-pacelc.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mini-kv-store.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-nosql-decision-tree.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "access-pattern-first",
+          "title": "Форма доступу диктує модель",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-single-table-design.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-partition-cardinality.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-single-table-router.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dynamodb-modeling-cheatsheet.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "polyglot-persistence",
+          "title": "Polyglot persistence і його ціна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-polyglot-persistence.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dual-write-consistency.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-polyglot-order-service.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-polyglot-integration-matrix.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "time-series-storage",
+          "title": "Часові ряди: сховище під потік вимірів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "data-movement",
+      "title": "Рух даних",
+      "topics": [
+        {
+          "slug": "etl-elt",
+          "title": "ETL/ELT",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-batch-to-lakehouse.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pipeline-latency-and-cost.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pipeline-execution-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pipeline-contract-and-manifest.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "idempotent-reprocessing",
+          "title": "Ідемпотентний перерахунок історії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lambda-kappa-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-idempotent-algebra.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-idempotent-backfill-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-backfill-orchestration.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "fleet-data",
+      "title": "Дані з парку",
+      "topics": [
+        {
+          "slug": "bazhanyi-i-zvitovanyi-stan",
+          "title": "Бажаний і звітований стан",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "chasovi-riady",
+          "title": "Часові ряди: темп запису, зріджування, строк зберігання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

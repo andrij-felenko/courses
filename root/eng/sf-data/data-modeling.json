@@ -1,0 +1,226 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-data",
+  "slug": "data-modeling",
+  "title": "Моделювання й життєвий цикл",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "modeling-patterns",
+      "title": "Шаблони моделювання",
+      "topics": [
+        {
+          "slug": "double-entry-ledger",
+          "title": "Гросбух",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-double-entry.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ledger-invariants.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mini-ledger.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ledger-schema.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "soft-delete-tombstones",
+          "title": "М'яке видалення і надгробки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-right-to-be-forgotten.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-soft-delete-cleaner.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-retention-policy.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "sequences-counters",
+          "title": "Людські номери й ID",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-snowflake-twitter.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-collision-drift.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-distributed-id.md",
+              "status": "recheck"
+            },
+            {
+              "file": "proj-sharded-counter.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-id-formats.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "data-lifecycle",
+      "title": "Життя запису",
+      "topics": [
+        {
+          "slug": "crypto-shredding",
+          "title": "Крипто-шредінг: видалення через знищення ключа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "personal-data-class",
+          "title": "Персональні дані як клас: класифікація, мінімізація, псевдонімізація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "storage-tiers-and-retention",
+          "title": "Яруси зберігання й строк життя даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "data-trust",
+      "title": "Довіра до числа",
+      "topics": [
+        {
+          "slug": "data-contracts",
+          "title": "Data-контракти між продюсером і сховищем",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-data-mesh-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sla-contract-bounds.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-contract-enforcer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-contract-spec.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "data-lineage",
+          "title": "Lineage «звідки це число»",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-provenance-to-openlineage.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-provenance-semirings.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-column-lineage-extractor.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-openlineage-spec.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

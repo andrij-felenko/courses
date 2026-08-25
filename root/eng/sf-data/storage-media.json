@@ -1,0 +1,320 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-data",
+  "slug": "storage-media",
+  "title": "Носій і його ресурс",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "flash-internals",
+      "title": "Нутрощі флешу",
+      "topics": [
+        {
+          "slug": "ftl-flash-translation",
+          "title": "Шар трансляції флешу (FTL)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ftl-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ftl-sim-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "flash-garbage-collection",
+          "title": "Garbage collection у Flash-сховищах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gc-algorithms.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gc-simulator.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-gc-trim.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "write-amplification",
+          "title": "Write Amplification Factor",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-waf-origins.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-waf-bounds.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-waf-simulator.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-waf-metrics.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "wear-and-endurance",
+      "title": "Знос і ресурс",
+      "topics": [
+        {
+          "slug": "wear-leveling",
+          "title": "Wear leveling",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-wear-leveling.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-endurance.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-wear-leveling.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bad-block-management",
+          "title": "Управління бракованими блоками NAND",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "media-health",
+      "title": "Стан носія",
+      "topics": [
+        {
+          "slug": "smart-self-monitoring",
+          "title": "SMART: що носій знає про власне здоров'я і як це прочитати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-from-predict-to-smart.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-smart-reader.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-smart-protocols.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "discard-and-trim",
+          "title": "Discard і TRIM: як файлова система каже носієві, що блоки більше не потрібні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-trim-birth.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-discard-controls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "secure-erase-and-sanitize",
+          "title": "Надійне стирання носія: ATA Secure Erase, Sanitize і чому discard для цього не годиться",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-erasure-myths.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-drive-the-sanitize.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-erase-commands.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "fault-tolerance",
+      "title": "Стійкість до збоїв",
+      "topics": [
+        {
+          "slug": "bit-flips",
+          "title": "Перевернуті біти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bit-flip-election.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-hamming.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ecc-memory",
+          "title": "ECC і виявлення помилок у пам'яті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-syndrome-and-sizing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-syndrome-decoder.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "single-event-upset",
+          "title": "Одиничний збій від частинки (SEU і SEL)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "raid-levels",
+          "title": "RAID: смуги, дзеркала й парність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-raid-history.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-parity-gf28.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-raid-simulator.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-linux-md.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

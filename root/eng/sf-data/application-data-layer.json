@@ -1,0 +1,298 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-data",
+  "slug": "application-data-layer",
+  "title": "Застосунок і сховище",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "objects-and-tables",
+      "title": "Об'єкти й таблиці",
+      "topics": [
+        {
+          "slug": "object-relational-mismatch",
+          "title": "Об'єктно-реляційна неузгодженість",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-impedance-term.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-inheritance-mapping.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "active-record",
+          "title": "Active Record",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-active-record-rails.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-n-plus-one.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-active-record-from-scratch.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "data-mapper",
+          "title": "Data Mapper",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-two-orm-camps.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mapper-round-trip.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hand-written-mapper.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "row-data-gateway",
+          "title": "Шлюз рядка даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-data-source-patterns.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-row-data-gateway.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "table-data-gateway",
+          "title": "Шлюз таблиці даних",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "proj": [
+            {
+              "file": "proj-table-data-gateway.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "record-set",
+          "title": "Набір рядків (record set)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-recordset-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-record-set.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "data-session",
+      "title": "Сеанс роботи з даними",
+      "topics": [
+        {
+          "slug": "identity-map",
+          "title": "Identity map",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-identity-map-lineage.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-identity-invariants.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-identity-map.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "unit-of-work",
+          "title": "Unit of Work",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-unit-of-work.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-unit-of-work.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-unit-of-work.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lazy-loading",
+          "title": "Ліниве завантаження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-value-holder-smalltalk.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lazy-loading-graph.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "database-seam",
+      "title": "Шов із базою",
+      "topics": [
+        {
+          "slug": "orm",
+          "title": "ORM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-evolution-orm.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-n-plus-one-complexity.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mini-orm-data-mapper.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-orm-performance-guide.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "connection-pool",
+          "title": "Пул з'єднань з базою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "embedded-database",
+          "title": "Вбудована база даних у процесі застосунку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
