@@ -1,0 +1,418 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-devices",
+  "slug": "usb-power-delivery",
+  "title": "Type-C і Power Delivery",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "usbpd-connector",
+      "title": "Роз'єм і кабель",
+      "topics": [
+        {
+          "slug": "usb-c-connector",
+          "title": "USB-C конектор",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "usb-c-connector-physics",
+          "title": "Фізика роз'єму USB-C",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-type-c-birth.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-type-c-receptacle.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-contact-heating.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "usb-active-cable",
+          "title": "Активні USB-кабелі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-retimer-redriver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pd-cable-vdo.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "e-marker",
+          "title": "E-Marker: чип автентифікації кабелю",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-emarker-ic.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-vdm-decoder.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-vdm-descriptors.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "usb-c-audio-adapter",
+          "title": "USB-C аудіоадаптер: резистор Ra і режим аналогового звуку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-audio-switch.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-audio-accessory.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "usbpd-cc-line",
+      "title": "Лінія CC",
+      "topics": [
+        {
+          "slug": "type-c-cc",
+          "title": "Type-C без PD",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-cc-resistors.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cc-resistors",
+          "title": "CC-резистори",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dual-role-controller",
+          "title": "Контролер дворольового порту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-otg-role-swap.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-drp-state-machine.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-drp-controller-ic.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-drp-controller-ic.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bmc-encoding",
+          "title": "BMC-кодування: як USB-C передає біти по CC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-bmc-timing.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bmc-codec.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "usbpd-negotiation",
+      "title": "Переговори про потужність",
+      "topics": [
+        {
+          "slug": "usb-pd",
+          "title": "USB Power Delivery",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "usb-pd-protocol",
+          "title": "USB PD: рівень повідомлень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-pd-parser.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pd-messages.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "usb-pd-epr",
+          "title": "USB PD EPR (розширений діапазон)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-epr-240w.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-power-heat.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-epr-sink.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pps-charging",
+          "title": "PPS-зарядка батарей",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pps-origins.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pps-cv-resolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pps-cc-loop.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "usbpd-legacy-charging",
+      "title": "Зарядка до Type-C",
+      "topics": [
+        {
+          "slug": "legacy-charging-dialects",
+          "title": "Легасі-зарядка: діалекти підпису на D+/D− і чому «заряджає повільно»",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-charger-wars.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bc12-detection-electrical",
+          "title": "BC 1.2: електрика детекту порту, автомат станів і схемотехніка обох боків",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-usb-charging.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-bc12-detector.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bc12-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "quick-charge",
+          "title": "Quick Charge: протокол швидкої зарядки Qualcomm",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-qc-lineage.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-hvdcp-optimum.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-qc-sink.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "apple-charging-protocol",
+          "title": "Apple D+/D− кодування зарядного струму",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mintyboost.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-dcp-signature-ic.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-divider-window.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-divider-signature.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

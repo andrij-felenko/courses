@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="400" viewBox="0 0 880 400">
+<rect width="880" height="400" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="440.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Один біт зблизька: підготувати на низькому такті, зняти на високому</text>
+<text x="440.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">поки SCL низький — той, хто говорить, виставляє біт; SCL піднявся — інший його зчитує</text>
+<text x="184.0" y="140.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f47b5" text-anchor="end" font-weight="bold" font-style="normal">SCL</text>
+<line x1="200.0" y1="168.0" x2="300.0" y2="168.0" stroke="#1f47b5" stroke-width="2.8" stroke-linecap="round"/>
+<line x1="300.0" y1="120.0" x2="300.0" y2="168.0" stroke="#1f47b5" stroke-width="2.8" stroke-linecap="round"/>
+<line x1="300.0" y1="120.0" x2="500.0" y2="120.0" stroke="#1f47b5" stroke-width="2.8" stroke-linecap="round"/>
+<line x1="500.0" y1="120.0" x2="500.0" y2="168.0" stroke="#1f47b5" stroke-width="2.8" stroke-linecap="round"/>
+<line x1="500.0" y1="168.0" x2="600.0" y2="168.0" stroke="#1f47b5" stroke-width="2.8" stroke-linecap="round"/>
+<text x="184.0" y="235.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="end" font-weight="bold" font-style="normal">SDA</text>
+<line x1="200.0" y1="216.0" x2="280.0" y2="216.0" stroke="#c0271e" stroke-width="2.8" stroke-linecap="round"/>
+<line x1="280.0" y1="216.0" x2="280.0" y2="264.0" stroke="#c0271e" stroke-width="2.8" stroke-linecap="round"/>
+<line x1="280.0" y1="264.0" x2="600.0" y2="264.0" stroke="#c0271e" stroke-width="2.8" stroke-linecap="round"/>
+<rect x="200.0" y="290.0" width="100.0" height="28.0" rx="4" fill="#f3f3f3" stroke="#8a8a8a" stroke-width="1"/>
+<text x="250.0" y="309.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="bold" font-style="normal">виставити SDA</text>
+<rect x="300.0" y="290.0" width="200.0" height="28.0" rx="4" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.2"/>
+<text x="400.0" y="309.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">SCL високий → зчитування</text>
+<rect x="500.0" y="290.0" width="100.0" height="28.0" rx="4" fill="#f3f3f3" stroke="#8a8a8a" stroke-width="1"/>
+<text x="550.0" y="309.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">готувати наступний</text>
+<line x1="400.0" y1="120.0" x2="400.0" y2="264.0" stroke="#1f8a3b" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round"/>
+<line x1="400.0" y1="350.0" x2="400.0" y2="266.0" stroke="#1f8a3b" stroke-width="1.8" marker-end="url(#aGreen)"/>
+<text x="400.0" y="366.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">відлік біта</text>
+<rect x="60.0" y="340.0" width="150.0" height="36.0" rx="0" fill="none" stroke="none" stroke-width="0"/>
+</svg>

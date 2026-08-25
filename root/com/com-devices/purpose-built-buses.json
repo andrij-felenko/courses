@@ -1,0 +1,396 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-devices",
+  "slug": "purpose-built-buses",
+  "title": "Шини під задачу",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "can-fundamentals",
+      "title": "Кадр і арбітраж CAN",
+      "topics": [
+        {
+          "slug": "can-bus",
+          "title": "CAN: від фізичного кадру до контролю помилок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-can-bosch-1986.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-can-socket-filter.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-can-frame-spec.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "can-frame-errors",
+          "title": "Кадр CAN",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-can-bit-timing.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-socketcan-error-handling.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "can-arbitration",
+          "title": "Арбітраж CAN",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-can-bosch.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "can-vehicle-networks",
+      "title": "Бортові мережі",
+      "topics": [
+        {
+          "slug": "lin-bus",
+          "title": "LIN Bus: локальна мережа автомобільних підсистем",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lin-consortium.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lin-frame-parser.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-lin-frame-spec.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "flexray",
+          "title": "FlexRay: детермінована високошвидкісна шина для критичних систем",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-flexray-consortium.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-clock-sync.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-flexray-cycle-simulator.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-flexray-frame-registers.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dronecan",
+          "title": "DroneCAN",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-uavcan-split.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "actuator-command",
+      "title": "Команда до привода",
+      "topics": [
+        {
+          "slug": "pwm-servo-protocol",
+          "title": "PWM-протокол сервомашинки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "servo-digital-output",
+          "title": "Цифрові протоколи виходу для серво",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dshot-protocol",
+          "title": "DShot: цифровий протокол до регулятора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "storage-and-audio",
+      "title": "Носій і звук",
+      "topics": [
+        {
+          "slug": "sd-card-protocol",
+          "title": "Протокол SD/SDIO",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sd-card.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sd-crc.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sd-driver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sd-commands.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "sdio-bus",
+          "title": "Шина SDIO",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sdio-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sdio-driver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sdio-linux.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "i2s-bus",
+          "title": "Шина I2S",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-i2s.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-i2s-transmit.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "single-wire",
+      "title": "Один дріт",
+      "topics": [
+        {
+          "slug": "one-wire",
+          "title": "1-Wire — шина на одному дроті",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dallas-ibutton.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rom-search.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-bitbang-master.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-onewire-reference.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "high-speed-serial",
+      "title": "Гігабітні пари",
+      "topics": [
+        {
+          "slug": "mipi-csi2",
+          "title": "MIPI CSI-2: послідовний інтерфейс камери",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-raw10-unpacker.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-packet-format.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "lvds",
+          "title": "Диференціальна сигналізація LVDS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "pcie",
+          "title": "PCIe",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pcie-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lane-bandwidth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-config-enum.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

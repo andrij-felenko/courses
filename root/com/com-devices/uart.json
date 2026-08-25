@@ -1,0 +1,266 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-devices",
+  "slug": "uart",
+  "title": "Асинхронний порт",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "uart-framing",
+      "title": "Кадр і передача",
+      "topics": [
+        {
+          "slug": "async-serial",
+          "title": "Асинхронна передача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-baudot.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "uart-frame",
+          "title": "Кадр UART",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-frame-in-code.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "uart",
+          "title": "UART: апаратний модуль і периферійний контролер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-16550.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-level-shifters.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-baud-calculator.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-uart-driver.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "uart-baud",
+      "title": "Швидкість і дільники",
+      "topics": [
+        {
+          "slug": "baud-vs-bitrate",
+          "title": "Baud проти біт/с",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-baudot-and-hartley.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-nyquist-shannon-capacity.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-baud-bitrate-calc.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "baud-rate",
+          "title": "Швидкість baud",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "fractional-baud",
+          "title": "Дробовий дільник baud",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-bresenham-accumulator.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-brr-calculator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mcu-brr-registers.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "uart-clock-recovery",
+      "title": "Ловіння меж біта",
+      "topics": [
+        {
+          "slug": "clock-tolerance-uart",
+          "title": "Допуск годинника UART",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-baud-error-budget.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-brr-error-calc.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "uart-oversampling",
+          "title": "Передискретизація UART",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-timing-budget.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-oversampling-receiver.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "uart-line-modes",
+      "title": "Стани лінії",
+      "topics": [
+        {
+          "slug": "break-signal-uart",
+          "title": "Break-сигнал UART",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-break-key.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-break-detection.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-break-control.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "half-duplex-uart",
+          "title": "Напівдуплекс UART",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-rs485-transceiver.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-turnaround-timing.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-stm32-halfduplex-de.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

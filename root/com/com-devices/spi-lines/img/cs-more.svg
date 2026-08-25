@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="19" fill="#1a1a1a" text-anchor="middle" font-weight="700">CS — не лише «вибір»: він ще й обрамляє команду</text>
+<text x="450.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">багато чіпів за фронтом CS скидають внутрішній стан або засувають результат</text>
+<rect x="60.0" y="96.0" width="260.0" height="150.0" rx="12" fill="#fbfbfb" stroke="#2457d6" stroke-width="2.0"/>
+<text x="190.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">кадр команди</text>
+<text x="190.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">CS↓ — початок нової команди;</text>
+<text x="190.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">команда має вкластися, поки CS = 0</text>
+<rect x="340.0" y="96.0" width="260.0" height="150.0" rx="12" fill="#fbfbfb" stroke="#b08900" stroke-width="2.0"/>
+<text x="470.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b08900" text-anchor="middle" font-weight="700">скидання стану</text>
+<text x="470.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">CS↑ між словами скидає</text>
+<text x="470.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">внутрішній лічильник або автомат чіпа</text>
+<rect x="620.0" y="96.0" width="260.0" height="150.0" rx="12" fill="#fbfbfb" stroke="#27ae60" stroke-width="2.0"/>
+<text x="750.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">CS на кожне слово</text>
+<text x="750.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">деякі АЦП хочуть CS-імпульс</text>
+<text x="750.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">на КОЖЕН вимір (засувка результату)</text>
+<rect x="60.0" y="266.0" width="780.0" height="80.0" rx="10" fill="#eef6ef" stroke="#27ae60" stroke-width="1.4"/>
+<text x="450.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тому CS не можна тримати завжди опущеним «про запас»: для багатьох чіпів важать саме його ФРОНТИ.</text>
+<text x="450.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Звіряйся з даташитом: тримати CS на весь обмін чи смикати на кожне слово.</text>
+<text x="450.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Неправильна робота з CS — другий за частотою глюк SPI (після неправильного режиму CPOL/CPHA).</text>
+</svg>

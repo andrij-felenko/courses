@@ -1,0 +1,232 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-devices",
+  "slug": "usb",
+  "title": "USB",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "usb-architecture",
+      "title": "Хост, хаб і дерево",
+      "topics": [
+        {
+          "slug": "usb-overview",
+          "title": "USB огляд",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-usb-birth.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "usb-hub",
+          "title": "USB-хаб: архітектура й топологія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "usb-host",
+          "title": "МК як USB-host",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-otg.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "usb-physical-layer",
+      "title": "Дроти й рівні напруги",
+      "topics": [
+        {
+          "slug": "usb-physical",
+          "title": "USB фізично",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-nrzi.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "usb3-physical",
+          "title": "USB 3.x фізично: SuperSpeed і вище",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-superspeed.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-receiver-detect.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-8b10b-disparity.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "usb-transactions",
+      "title": "Пакети й кінцеві точки",
+      "topics": [
+        {
+          "slug": "usb-protocol-layer",
+          "title": "Протокольний рівень USB: пакети, токени, транзакції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "usb-endpoints",
+          "title": "Кінцеві точки USB",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-frames.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "usb-device-discovery",
+      "title": "Впізнавання пристрою",
+      "topics": [
+        {
+          "slug": "usb-enumeration",
+          "title": "Енумерація USB",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-descriptors.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "usb-device-basics",
+          "title": "Пристрій на шині USB: хост, енумерація, кінцеві точки, класи",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-descriptor-parser.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-standard-requests.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "usb-device-classes",
+          "title": "Класи USB",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-badusb.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hid-reports.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "usb-power-states",
+      "title": "Живлення й сон",
+      "topics": [
+        {
+          "slug": "usb-power",
+          "title": "Живлення з USB",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "usb-suspend-resume",
+          "title": "USB Suspend і Resume: управління живленням шини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

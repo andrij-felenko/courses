@@ -1,0 +1,410 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-devices",
+  "slug": "i2c",
+  "title": "I²C",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "i2c-fundamentals",
+      "title": "Два дроти й транзакція",
+      "topics": [
+        {
+          "slug": "i2c",
+          "title": "Шина I²C",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-i2c.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-i2c-timing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bitbang-i2c.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-i2c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "i2c-bus",
+          "title": "Шина I2C",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-i2c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "i2c-transaction",
+          "title": "Транзакція I2C",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "start-stop-ack",
+          "title": "Старт, стоп, ACK",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-ack-handling.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "i2c-address-space",
+      "title": "Адресація",
+      "topics": [
+        {
+          "slug": "i2c-addressing",
+          "title": "Адресація I2C",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-i2c-mux-scan.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-i2c-mux.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "i2c-10bit-addressing",
+          "title": "10-бітна адресація I2C",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-10bit-transfer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-10bit-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "i2c-timing",
+      "title": "Швидкості й розтягування такту",
+      "topics": [
+        {
+          "slug": "i2c-speeds",
+          "title": "Режими швидкості I2C",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-active-accelerator.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rc-timing.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-timing-calc.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "i2c-bus-timing",
+          "title": "Часові діаграми I²C: START, STOP, ACK і clock stretching",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-clock-sync.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-timing-margins.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bitbang-timing.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-um10204-timings.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "i2c-clock-stretching-timing-budget",
+          "title": "Межі розтягування такту I2C: бюджет часу, дедлок шини і відмова від механізму в I3C",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-clock-stretching.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bitbang-stretching.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "i2c-clock-stretching-hardware",
+          "title": "Розтягування такту I2C: апаратна реалізація в контролері та на лінії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-bidirectional-isolators.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-timing-throughput.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bitbang-master.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "i2c-electrical",
+      "title": "Електрика лінії",
+      "topics": [
+        {
+          "slug": "i2c-bus-capacity",
+          "title": "Ємність шини I²C і вибір підтяжок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-pullup-limits.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pullup-calculator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "i2c-multimaster",
+          "title": "Кілька ведучих на I2C",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-multimaster-arbitration.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "i2c-bus-recovery",
+          "title": "Відновлення завислої шини I²C",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "i2c-smbus-i3c",
+      "title": "Надбудови SMBus та I3C",
+      "topics": [
+        {
+          "slug": "smbus-standard",
+          "title": "Стандарт SMBus: системні інваріанти, транзакції та екосистема",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sbs-if.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-smbalert-ara.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-electrical-timing.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "smbus-bus-design",
+          "title": "Проєктування й налагодження шини SMBus: підтяжки, ємність, пастки, драйвери",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-smbus.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pec-crc8.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-transactions.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "i3c",
+          "title": "Шина I3C",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mipi-i3c.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-i3c-throughput.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-i3c-controller.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-i3c-ccc.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

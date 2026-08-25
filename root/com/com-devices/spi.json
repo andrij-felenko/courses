@@ -1,0 +1,286 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-devices",
+  "slug": "spi",
+  "title": "SPI",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "spi-fundamentals",
+      "title": "Лінії та вибір кристала",
+      "topics": [
+        {
+          "slug": "spi-bus",
+          "title": "Шина SPI",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-spi.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-spi-transfer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "spi-lines",
+          "title": "Лінії SPI",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-tri-state-buffer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "chip-select",
+          "title": "Вибір кристала",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "spi-modes",
+      "title": "Полярність і фаза такту",
+      "topics": [
+        {
+          "slug": "spi-mode-selection",
+          "title": "Вибір режиму SPI: CPOL, CPHA і чотири режими",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-motorola-spi.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "spi-mode-timing-and-faults",
+          "title": "Режими SPI на рівні кристала: часовий бюджет, сумісність 0/3 і збої",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-spi-bitbang.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "spi-timing-budget",
+      "title": "Часові запаси",
+      "topics": [
+        {
+          "slug": "spi-speed",
+          "title": "Швидкість SPI",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "spi-timing",
+          "title": "Тайминг SPI: t_su, t_h, t_clk",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-timing-budget.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-timing-calculator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-spi-timings.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "spi-cs-timing",
+          "title": "Часові параметри CS у SPI",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-timing-budget.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-stm32-dma-cs.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-timing-params.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "spi-topology",
+      "title": "Кілька пристроїв на лініях",
+      "topics": [
+        {
+          "slug": "daisy-chain-spi",
+          "title": "Daisy-chain у SPI",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-shift-cascade.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-daisy-architectures.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cascade-driver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "spi-multimaster",
+          "title": "SPI з кількома веденими і режимами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-bus-capacitance.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dynamic-reconfig.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "spi-multilane",
+      "title": "Багатолінійний обмін",
+      "topics": [
+        {
+          "slug": "multi-lane-spi-dual-quad-octal",
+          "title": "Багатолінійний SPI: Dual, Quad, Octal (xSPI)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-jedec-sfdp.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-stm32-qspi-xip.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-qspi-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "quad-spi-commands-and-controller",
+          "title": "Quad-SPI: набір команд і апаратний контролер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-xip-cache-integration.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-controller-registers.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

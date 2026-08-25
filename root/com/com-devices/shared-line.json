@@ -1,0 +1,156 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-devices",
+  "slug": "shared-line",
+  "title": "Спільна лінія",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "line-control",
+      "title": "Хто тримає лінію",
+      "topics": [
+        {
+          "slug": "bus-resource-conflicts",
+          "title": "Конфлікти шин",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-i2c-bus-recovery.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "tri-state-output",
+          "title": "Вихід із трьома станами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "clock-stretch-arbitration",
+          "title": "Розтягування й арбітраж",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-clock-stretching-slave.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "slave-device",
+      "title": "Ведений пристрій",
+      "topics": [
+        {
+          "slug": "register-map",
+          "title": "Регістрова карта",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-sensor-driver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "burst-read",
+          "title": "Пакетне зчитування регістрів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-bus-overhead.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dma-burst.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "fifo-register",
+          "title": "FIFO-регістри в давачах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-burst-dma-reader.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fifo-registers.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "drdy-pattern",
+          "title": "Шаблон DRDY і переривання давача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "i2c-expander",
+          "title": "I²C-розширювач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-interrupt-driver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-register-architecture.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
