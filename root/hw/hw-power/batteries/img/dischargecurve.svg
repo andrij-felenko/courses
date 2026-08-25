@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="470"
+     viewBox="0 0 960 470" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="470" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Крива розряду: напруга не лінійна — повна, плато, тоді обрив</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">тому «вольти ≠ відсотки»; під навантаженням крива ще й просідає нижче</text>
+<line x1="110" y1="360" x2="760" y2="360" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="756" y="380" font-size="10.5" fill="#1a1a1a" text-anchor="end" font-weight="normal" font-style="normal">розряджено →</text>
+<line x1="110" y1="360" x2="110" y2="100" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="102" y="106" font-size="10.5" fill="#1a1a1a" text-anchor="end" font-weight="bold" font-style="normal">В / комірку</text>
+<line x1="110" y1="129.23076923076917" x2="750" y2="129.23076923076917" stroke="#0a8f3c" stroke-width="1.0" stroke-dasharray="4,4" stroke-opacity="0.5" stroke-linecap="round"/>
+<text x="758" y="133.23076923076917" font-size="10" fill="#0a8f3c" text-anchor="start" font-weight="bold" font-style="normal">4.2 повна</text>
+<line x1="110" y1="225.38461538461533" x2="750" y2="225.38461538461533" stroke="#1a1a1a" stroke-width="1.0" stroke-dasharray="4,4" stroke-opacity="0.5" stroke-linecap="round"/>
+<text x="758" y="229.38461538461533" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="bold" font-style="normal">3.7 номінал</text>
+<line x1="110" y1="263.8461538461538" x2="750" y2="263.8461538461538" stroke="#d98a00" stroke-width="1.0" stroke-dasharray="4,4" stroke-opacity="0.5" stroke-linecap="round"/>
+<text x="758" y="267.8461538461538" font-size="10" fill="#d98a00" text-anchor="start" font-weight="bold" font-style="normal">3.5 — сідай!</text>
+<line x1="110" y1="360.0" x2="750" y2="360.0" stroke="#cc0000" stroke-width="1.0" stroke-dasharray="4,4" stroke-opacity="0.5" stroke-linecap="round"/>
+<text x="758" y="364.0" font-size="10" fill="#cc0000" text-anchor="start" font-weight="bold" font-style="normal">3.0 — далі шкода</text>
+<polyline points="110.0,129.23076923076917 161.2,148.46153846153848 270.0,186.92307692307693 462.0,210.0 609.2,233.07692307692304 686.0,263.8461538461538 737.2,321.5384615384615 750.0,360.0" fill="none" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="2.8" stroke-linejoin="round"/>
+<text x="260" y="158.07692307692307" font-size="10.5" fill="#1f4ed8" text-anchor="start" font-weight="bold" font-style="normal">без навантаження</text>
+<polyline points="110.0,177.30769230769224 161.2,196.53846153846152 270.0,225.38461538461533 462.0,244.61538461538458 609.2,267.6923076923077 686.0,298.4615384615385 737.2,350.3846153846154 750.0,379.2307692307692" fill="none" fill-opacity="0.8" stroke="#cc0000" stroke-width="2.2" stroke-linejoin="round"/>
+<text x="470" y="273.46153846153845" font-size="10.5" fill="#cc0000" text-anchor="start" font-weight="bold" font-style="normal">під газом (просідає)</text>
+<circle cx="686.0" cy="263.8461538461538" r="5" fill="#d98a00" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="686.0" y="249.8461538461538" font-size="9" fill="#d98a00" text-anchor="middle" font-weight="normal" font-style="normal">коліно</text>
+<text x="480.0" y="458" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Більшу частину розряду напруга майже стоїть (плато), а наприкінці різко падає — тому за вольтами важко вгадати точний залишок.</text>
+</svg>

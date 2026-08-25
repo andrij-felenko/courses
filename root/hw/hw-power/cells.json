@@ -1,0 +1,280 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-power",
+  "slug": "cells",
+  "title": "Хімічне джерело",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "cell-chemistry",
+      "title": "Комірка та її хімія",
+      "topics": [
+        {
+          "slug": "batteries",
+          "title": "Акумулятори",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "battery-formats",
+          "title": "Формати акумуляторних елементів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-18650.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pervynni-elementy",
+          "title": "Первинні елементи: літій-тіоніл, лужні, монетка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "energy-density",
+          "title": "Щільність енергії: Вт·год/кг і Вт·год/л",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "ragone-chart",
+          "title": "Діаграма Рагоне",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ragone-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ragone-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ragone-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ragone-metrics.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "lipo-swelling-chemistry",
+          "title": "Хімія здуття LiPo",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "aging",
+      "title": "Старіння й саморозряд",
+      "topics": [
+        {
+          "slug": "battery-aging",
+          "title": "Старіння батарей",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-calendar-arrhenius.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "self-discharge",
+          "title": "Саморозряд батареї",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-shelf-life.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-self-discharge.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "state-of-health",
+          "title": "Здоров'я батареї (SoH)",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "math": [
+            {
+              "file": "math-soh-metrics.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-soh-estimator.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "under-load",
+      "title": "Віддача під навантаженням",
+      "topics": [
+        {
+          "slug": "battery-discharge-curve",
+          "title": "Крива розряду батареї",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-battery-curves.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-discharge-model.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-soc-estimator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "battery-sag",
+          "title": "Просадка під навантаженням",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-sag-calc.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "c-rate",
+          "title": "C-rate й опір",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "battery-impedance",
+          "title": "Імпеданс батареї та методи вимірювання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-randles-warburg.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "peukert-effect",
+          "title": "Ефект Пойкерта й доступна ємність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-peukert-1897.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-peukert-derivation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "battery-thermal-model",
+          "title": "Теплова модель батарейного пакета",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    }
+  ]
+}

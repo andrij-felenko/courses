@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="450"
+     viewBox="0 0 960 450" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="450" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Ємність ≠ енергія: mAh — це заряд, Вт·год — це паливо</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">час польоту визначає ЕНЕРГІЯ (Вт·год), а не самі лиш mAh</text>
+<rect x="50" y="100" width="400" height="150" rx="12" fill="#eef2ff" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.8"/>
+<text x="250" y="128" font-size="13" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">Ємність — це ЗАРЯД</text>
+<text x="250" y="158" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="normal" font-style="normal" font-family="Consolas, monospace">5000 mAh = 5 А·год</text>
+<text x="250" y="184" font-size="11.5" fill="#1a1a1a" text-anchor="middle" font-weight="normal" font-style="normal">= 5 А впродовж 1 години</text>
+<text x="250" y="206" font-size="10.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">(або 10 А за 30 хв тощо)</text>
+<text x="250" y="232" font-size="11" fill="#cc0000" text-anchor="middle" font-weight="bold" font-style="normal">— але НЕ каже, скільки енергії!</text>
+<rect x="510" y="100" width="400" height="150" rx="12" fill="#eafaef" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.8"/>
+<text x="710" y="128" font-size="13" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">Енергія — це ПАЛИВО</text>
+<text x="710" y="158" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="normal" font-style="normal" font-family="Consolas, monospace">Вт·год = В × А·год</text>
+<text x="710" y="184" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal" font-family="Consolas, monospace">14.8 В × 5 А·год = 74 Вт·год</text>
+<text x="710" y="212" font-size="11.5" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">ОЦЕ й визначає час польоту</text>
+<rect x="120" y="290" width="720" height="96" rx="12" fill="#fff5e6" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.5"/>
+<text x="140" y="316" font-size="12" fill="#d98a00" text-anchor="start" font-weight="bold" font-style="normal">Чому це важливо:</text>
+<text x="140" y="340" font-size="11.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">Дві батареї по 5000 mAh, але одна 4S (74 Вт·год), друга 6S (111 Вт·год) —</text>
+<text x="140" y="362" font-size="11.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">у другої в 1.5 раза більше енергії за тих самих «mAh». Порівнювати треба Вт·год, а не mAh.</text>
+<text x="480.0" y="436" font-size="11.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Запам'ятай: mAh — половина правди; повну дає лише добуток на напругу.</text>
+</svg>

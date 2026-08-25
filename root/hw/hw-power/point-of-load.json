@@ -1,0 +1,290 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-power",
+  "slug": "point-of-load",
+  "title": "Точка навантаження",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "compute-module",
+      "title": "Обчислювальний модуль",
+      "topics": [
+        {
+          "slug": "dc-dc-module",
+          "title": "DC-DC модуль",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "module-power-supply",
+          "title": "Живлення модуля",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-supply-monitor.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "companion-power-thermal",
+          "title": "Енергія й тепло",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-bec.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "battery-to-controller",
+          "title": "Батарея до контролера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-three-terminal-regulator.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-brownout-monitor.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "integrated-dc-dc",
+          "title": "Вбудований DC-DC в мікроконтролерах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-dcdc-vs-ldo.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-power-modes.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cpu-core-supply",
+      "title": "Ядро процесора",
+      "topics": [
+        {
+          "slug": "multiphase-buck",
+          "title": "Багатофазний buck-перетворювач",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-vrm-lineage.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-smart-power-stage.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "interleaved-converter",
+          "title": "Паралельно-фазний (interleaved) перетворювач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-ripple-cancellation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "vid-voltage-identification",
+          "title": "VID: код напруги від процесора до регулятора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-vrm-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-slew-rate-dvfs.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-svid-sniffer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-svid-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "adaptive-voltage-positioning",
+          "title": "Адаптивне позиціювання напруги (AVP)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-dcr-sensing.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-loadline-impedance.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "dcr-current-sense",
+          "title": "Вимірювання струму за DCR котушки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lossless-sensing.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-ntc-network.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rc-balance.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dcr-tuning.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "led-current",
+      "title": "Струм для світлодіодів",
+      "topics": [
+        {
+          "slug": "led-driver",
+          "title": "Драйвер LED: стабілізатор струму для світлодіодів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-solid-state-lighting.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pwm-led-current.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "backlight-driver",
+          "title": "Драйвер підсвічування",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "pwm-expander",
+          "title": "PWM-розширювач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-grayscale-driver.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="400" viewBox="0 0 920 400">
+<rect width="920" height="400" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="460.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Карта діагностики: симптом → ймовірна причина → лік</text>
+<rect x="40.0" y="60.0" width="840.0" height="30.0" rx="6" fill="#eef3fb" stroke="#1f47b5" stroke-width="1.6"/>
+<text x="64.0" y="80.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">Симптом</text>
+<text x="344.0" y="80.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">Ймовірна причина</text>
+<text x="664.0" y="80.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">Лік</text>
+<rect x="40.0" y="92.0" width="840.0" height="44.0" rx="0" fill="#ffffff" stroke="#e4e4e4" stroke-width="1"/>
+<text x="64.0" y="119.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#caa24a" text-anchor="start" font-weight="bold" font-style="normal">Свист/спів (чути)</text>
+<text x="344.0" y="119.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">PFM у звуковій смузі · спів кераміки/котушки</text>
+<text x="664.0" y="119.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="start" font-weight="normal" font-style="normal">forced-PWM · інші C · демпфер</text>
+<rect x="40.0" y="140.0" width="840.0" height="44.0" rx="0" fill="#f6f6f6" stroke="#e4e4e4" stroke-width="1"/>
+<text x="64.0" y="167.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">Дзвін/коливання</text>
+<text x="344.0" y="167.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">мала стійкість контуру · поганий C/ESR</text>
+<text x="664.0" y="167.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="start" font-weight="normal" font-style="normal">компенсація · правильний Cвих</text>
+<rect x="40.0" y="188.0" width="840.0" height="44.0" rx="0" fill="#ffffff" stroke="#e4e4e4" stroke-width="1"/>
+<text x="64.0" y="215.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">Чергування імпульсів</text>
+<text x="344.0" y="215.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">субгармоніка при D&gt;0.5 (current-mode)</text>
+<text x="664.0" y="215.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="start" font-weight="normal" font-style="normal">нахилова компенсація · нижчий D</text>
+<rect x="40.0" y="236.0" width="840.0" height="44.0" rx="0" fill="#f6f6f6" stroke="#e4e4e4" stroke-width="1"/>
+<text x="64.0" y="263.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">Просідання виходу</text>
+<text x="344.0" y="263.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">ліміт струму · насичення котушки · DCR/ESR</text>
+<text x="664.0" y="263.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="start" font-weight="normal" font-style="normal">більший Isat/C · перевірити ТЗ</text>
+<rect x="40.0" y="284.0" width="840.0" height="44.0" rx="0" fill="#ffffff" stroke="#e4e4e4" stroke-width="1"/>
+<text x="64.0" y="311.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="start" font-weight="bold" font-style="normal">Перегрів</text>
+<text x="344.0" y="311.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">великі втрати · погане розведення/тепловідвід</text>
+<text x="664.0" y="311.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="start" font-weight="normal" font-style="normal">інші деталі · мідь+via (§10.2.6)</text>
+<rect x="40.0" y="332.0" width="840.0" height="44.0" rx="0" fill="#f6f6f6" stroke="#e4e4e4" stroke-width="1"/>
+<text x="64.0" y="359.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">Не стартує / рве на пуску</text>
+<text x="344.0" y="359.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">інраш · спрацьовує захист · просід входу</text>
+<text x="664.0" y="359.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f8a3b" text-anchor="start" font-weight="normal" font-style="normal">м'який старт · більший Cвх</text>
+</svg>

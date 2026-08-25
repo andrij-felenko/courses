@@ -1,0 +1,610 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-power",
+  "slug": "voltage-conversion",
+  "title": "Перетворення напруги",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "linear-regulators",
+      "title": "Лінійні регулятори",
+      "topics": [
+        {
+          "slug": "linear-regulator",
+          "title": "Лінійний регулятор напруги",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-foldback-limit.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "linear-regulator-types",
+          "title": "Топології лінійних регуляторів: NPN, PNP, PMOS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pass-element.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-nmos-ldo.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pass-element.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ldo",
+          "title": "LDO",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "ldo-internals",
+          "title": "LDO зсередини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-ldo-dissipation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ldo-stability",
+          "title": "Стійкість LDO: полюси, ESR і компенсація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ldo-esr.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ldo-poles.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-esr-map.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "psrr",
+          "title": "PSRR — придушення пульсацій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-psrr-loop-gain.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-psrr-measure.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "regulator-efficiency-budget",
+          "title": "ККД регулятора в енергетичному бюджеті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-weighted-efficiency.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-battery-budget-calculator.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "charge-pumps",
+      "title": "Ємнісні перетворювачі",
+      "topics": [
+        {
+          "slug": "charge-pump",
+          "title": "Charge pump",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "charge-pump-conv",
+          "title": "Заряд-помпа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-charge-pumps.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dickson-charge-pump",
+          "title": "Діксон-ланцюжок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dickson-lineage.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-charge-transfer-switch.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "voltage-doubler",
+          "title": "Помножувач напруги",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-cockcroft-walton.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-multiplier-droop.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "switching-basics",
+      "title": "Ключ і котушка",
+      "topics": [
+        {
+          "slug": "switching-core",
+          "title": "Спільне ядро імпульсних топологій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "switching-converter",
+          "title": "Імпульсний перетворювач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-smps.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-volt-second.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pwm",
+          "title": "Широтно-імпульсна модуляція (ШІМ)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-natural-sampling.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ccm-dcm-boundary",
+          "title": "Межа CCM/DCM у DC-DC перетворювачах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-boundary-mode.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-critical-inductance.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pfm-burst-mode",
+          "title": "PFM і burst-mode: режими легкого навантаження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-light-load-modes.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-light-load-losses.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ultrasonic-clamp.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "buck-boost-family",
+      "title": "Buck, boost і похідні",
+      "topics": [
+        {
+          "slug": "buck",
+          "title": "Buck-перетворювач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-sync-vs-async.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-inductor-ripple.md",
+              "status": "done"
+            },
+            {
+              "file": "math-volt-second.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "boost",
+          "title": "Boost-перетворювач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "buck-boost",
+          "title": "Buck-boost",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-buck-boost-ic.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sepic",
+          "title": "SEPIC-перетворювач",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-sepic.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sepic-transfer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cuk-converter",
+          "title": "Перетворювач Ćuk",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-cuk-transfer.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cuk-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "zeta-converter",
+          "title": "Zeta-перетворювач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-zeta-transfer.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-zeta-sim.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "isolated-topologies",
+      "title": "Ізольовані топології",
+      "topics": [
+        {
+          "slug": "flyback-isolated",
+          "title": "Flyback",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-wall-adapter.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "flyback-dcm-ccm",
+          "title": "Режими DCM і CCM у flyback-перетворювачі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-flyback-modes.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mode-classifier.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "forward-converter",
+          "title": "Forward-перетворювач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "push-pull-converter",
+          "title": "Двотактний (push-pull) перетворювач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-push-pull.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-flux-walking.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "half-bridge-converter",
+          "title": "Напівмістовий перетворювач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-isolated-topologies.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-halfbridge-flux-balance.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-halfbridge-deadtime-calc.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "resonant-converter",
+          "title": "Резонансні перетворювачі (LLC/LCC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-resonant-origins.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "wireless-power-transfer",
+          "title": "Бездротова передача енергії: Qi і резонансна індукція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-wpt-topologies.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-wpt-efficiency.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-qi-packet-parser.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,388 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-power",
+  "slug": "converter-design",
+  "title": "Проєктування перетворювача",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "sizing",
+      "title": "Розрахунок під ТЗ",
+      "topics": [
+        {
+          "slug": "converter-spec",
+          "title": "ТЗ перетворювача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "controller-fsw",
+          "title": "Контролер і частота",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-power-modules.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-power-module-pins.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "converter-inductor",
+          "title": "Котушка перетворювача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-inductor-selection.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "converter-caps",
+          "title": "Конденсатори перетворювача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-ripple-esr.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "coupled-inductor",
+          "title": "Спарені котушки: взаємоіндукція в перетворювачах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cuk.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "rms-current",
+          "title": "Діючий струм (RMS) у перетворювачах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-current-shapes.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "converter-efficiency-curve",
+          "title": "Крива ефективності перетворювача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-efficiency-optimum.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-efficiency-model.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "feedback-loop",
+      "title": "Петля зворотного зв'язку",
+      "topics": [
+        {
+          "slug": "feedback-stability",
+          "title": "Зворотний зв'язок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-load-step.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "small-signal-converter",
+          "title": "Малосигнальна модель DC/DC перетворювача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-averaging.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-state-space-averaging.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "control-loop-compensation",
+          "title": "Компенсатор і стійкість зворотного зв'язку DC-DC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-venable.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-k-factor.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "rhp-zero",
+          "title": "Нуль правої півплощини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-bode-nmp.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "error-amplifier",
+          "title": "Операційний підсилювач в контурі зворотного зв'язку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "esr-capacitor",
+          "title": "ESR конденсатора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-capacitor-plague.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-low-esr-types.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-impedance-curve.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "layout-and-emi",
+      "title": "Розводка й завади",
+      "topics": [
+        {
+          "slug": "converter-layout",
+          "title": "Розведення перетворювача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "mosfet-switch-layout",
+          "title": "Розводка плати для MOSFET-ключа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-loop-ring.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-loop-inductance-budget.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "switching-noise",
+          "title": "Шум імпульсного перетворювача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-snubber-calc.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-snubber-tuning.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "spread-spectrum-emc",
+          "title": "Спред-спектрум у DC-DC і зниження EMI-піків",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "emc-filtering",
+          "title": "ЕМС-фільтрація на вводах живлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-x-y-cispr.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "emi-filter",
+          "title": "ЕМС-фільтр мережі живлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "bring-up",
+      "title": "Налагодження плати",
+      "topics": [
+        {
+          "slug": "converter-measure",
+          "title": "Вимірювання перетворювача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-electronic-load.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-efficiency-sweep.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "converter-faults",
+          "title": "Хвороби перетворювача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    }
+  ]
+}

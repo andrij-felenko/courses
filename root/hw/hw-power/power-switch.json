@@ -1,0 +1,258 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-power",
+  "slug": "power-switch",
+  "title": "Силовий ключ і його драйвер",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "gate-driver",
+      "title": "Драйвер затвора",
+      "topics": [
+        {
+          "slug": "gate-driver",
+          "title": "Gate driver",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "high-side-switch",
+          "title": "Верхній ключ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-pmos-load-switch.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bootstrap-cap.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mosfet-array-driver",
+          "title": "MOSFET-масив — драйвер нижнього плеча на польових ключах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "bootstrap-capacitor",
+          "title": "Bootstrap-конденсатор у драйвері затвора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-bootstrap-sizing.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "high-side-level-shift",
+          "title": "Зсув рівня у плаваючий домен",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-hvic.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-halfbridge-hvic.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-levelshift-power.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "driver-protection",
+      "title": "Ізоляція й захист ключа",
+      "topics": [
+        {
+          "slug": "isolated-gate-driver",
+          "title": "Ізольований драйвер затвора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "sic-gan-gate-drive",
+          "title": "Керування затвором SiC і GaN",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-wbg-gate-drive.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-crosstalk-margin.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "desaturation-detection",
+          "title": "Захист по десатурації (desat)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "negative-gate-supply",
+          "title": "Від'ємне живлення затвора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-spurious-vgs.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "half-bridge-timing",
+      "title": "Напівміст і мертвий час",
+      "topics": [
+        {
+          "slug": "complementary-pwm-generation",
+          "title": "Комплементарна ШІМ: формування пари сигналів і апаратний генератор мертвого часу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-deadtime.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mcu-pwm.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "dead-time-sizing",
+          "title": "Мертвий час у напівмості: як обрати тривалість паузи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "snubbers",
+      "title": "Снабери й м'яке перемикання",
+      "topics": [
+        {
+          "slug": "snubbers-dvdt",
+          "title": "Снабери",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-ssr.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-snubber-calc.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "rcd-snubber",
+          "title": "RCD-снабер для flyback",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "soft-switching-zvs-zcs",
+          "title": "М'яке перемикання: ZVS і ZCS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-soft-switching-origins.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="450"
+     viewBox="0 0 960 450" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="450" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Бюджет енергії: час польоту = запас ÷ витрата</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">корисну енергію (Вт·год) ділимо на середню потужність (Вт) → тривалість</text>
+<rect x="60" y="150" width="150" height="120" rx="12" fill="#eafaef" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.8"/>
+<text x="135.0" y="182" font-size="13" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">Повна енергія</text>
+<text x="135.0" y="216" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">5 А·год × 14.8 В</text>
+<text x="135.0" y="242" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">= 74 Вт·год</text>
+<line x1="216" y1="210.0" x2="294" y2="210.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="300" y="150" width="150" height="120" rx="12" fill="#fff5e6" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.8"/>
+<text x="375.0" y="182" font-size="13" fill="#d98a00" text-anchor="middle" font-weight="bold" font-style="normal">× корисних ~80%</text>
+<text x="375.0" y="216" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">(не в нуль!)</text>
+<text x="375.0" y="242" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">≈ 59 Вт·год</text>
+<line x1="456" y1="210.0" x2="534" y2="210.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="540" y="150" width="150" height="120" rx="12" fill="#eef2ff" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.8"/>
+<text x="615.0" y="182" font-size="13" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">÷ витрата</text>
+<text x="615.0" y="216" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">÷ 300 Вт</text>
+<text x="615.0" y="242" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">(середня)</text>
+<line x1="696" y1="210.0" x2="774" y2="210.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="780" y="150" width="150" height="120" rx="12" fill="#fde2e2" fill-opacity="1.0" stroke="#cc0000" stroke-width="1.8"/>
+<text x="855.0" y="182" font-size="13" fill="#cc0000" text-anchor="middle" font-weight="bold" font-style="normal">= час</text>
+<text x="855.0" y="216" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">≈ 0.20 год</text>
+<text x="855.0" y="242" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">≈ 12 хв</text>
+<rect x="260" y="300" width="440" height="56" rx="10" fill="#f4f4f5" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="480" y="334" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">t = E_корисна ÷ P_середня</text>
+<text x="480.0" y="436" font-size="11.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Рахуй у ВАТ-ГОДИНАХ, не в mAh: лише вони з'єднують запас із витратою.</text>
+</svg>

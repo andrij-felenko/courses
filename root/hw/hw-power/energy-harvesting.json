@@ -1,0 +1,288 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-power",
+  "slug": "energy-harvesting",
+  "title": "Автономність і збирання енергії",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "power-budget",
+      "title": "Бюджет енергії",
+      "topics": [
+        {
+          "slug": "energy-budget",
+          "title": "Бюджет енергії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "battery-budget",
+          "title": "Бюджет батареї",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pacemaker.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-battery-math.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "current-paths",
+          "title": "Куди тече струм",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-voyager.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-sensor-standby.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "peak-current-budgeting",
+          "title": "Пікові струми та просідання живлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "wi-fi-power-modes",
+          "title": "Режими енергоощадності Wi-Fi",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "low-power-node-battery-life",
+          "title": "Термін служби батареї автономного вузла: сон, імпульси, роки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-pulsed-discharge-model.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-battery-life-calc.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "solar-panel",
+      "title": "Сонячна панель",
+      "topics": [
+        {
+          "slug": "panel-iv-mpp",
+          "title": "ВАХ панелі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "panel-bypass-diode",
+          "title": "Байпасний діод сонячної панелі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-hot-spot.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-cool-bypass-switch.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-shading-iv-curve.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "panel-temperature-coeff",
+          "title": "Температурні коефіцієнти сонячної панелі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-voc-temperature.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-string-sizing.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "real-sun-mppt",
+          "title": "Реальне сонце",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "mppt-algorithms",
+          "title": "Алгоритми стеження за MPP",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mppt.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mpp-condition.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-po-tracker.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "montazh-paneli-v-poli",
+          "title": "Монтаж панелі в полі: кріплення, бруд, град, тварини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "wind-and-heat",
+      "title": "Вітер і тепло",
+      "topics": [
+        {
+          "slug": "mala-vitroustanovka",
+          "title": "Мала вітроустановка: ротор, межа Бетца, крива потужності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "elektryka-vitriaka",
+          "title": "Електрика вітряка: генератор, випрямляч, баласт, гальмування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "termoelektrychnyi-henerator",
+          "title": "Термоелектричний генератор: ефект Зеєбека",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "micro-harvesters",
+      "title": "Мікрозбирачі",
+      "topics": [
+        {
+          "slug": "rf-zbyrachi-i-kimnatne-svitlo",
+          "title": "RF-збирачі й кімнатне світло",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "nakopychuvach-zbyracha-i-kholodnyi-start",
+          "title": "Накопичувач збирача й холодний старт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

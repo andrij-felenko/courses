@@ -1,0 +1,378 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-power",
+  "slug": "pack-and-charging",
+  "title": "Пакет і його заряд",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "li-ion-charging",
+      "title": "Заряджання комірки",
+      "topics": [
+        {
+          "slug": "li-ion-charger",
+          "title": "Зарядка Li-ion",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "cc-cv-bms",
+          "title": "Заряд і BMS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "li-ion-precharge",
+          "title": "Попередній заряд літієвої комірки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-copper-dissolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-precharge-fsm.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "charge-termination",
+          "title": "Методи термінації заряду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-delta-v.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fast-charging",
+          "title": "Прискорений заряд літію",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-plating-limit.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "charger-ic-architecture",
+          "title": "Архітектура зарядного чипа (клас BQ24xxx/MP2625)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-charger-ic-lineage.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-charger-power-balance.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bq2419x-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bq2419x-registers.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "zariad-svyntsiu-i-nimh",
+          "title": "Заряд свинцю й NiMH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "charge-gauging",
+      "title": "Стан заряду",
+      "topics": [
+        {
+          "slug": "state-of-charge",
+          "title": "Заряд, що лишився",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-coulomb-counting.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fuel-gauge",
+          "title": "Fuel gauge",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "ocv-curve",
+          "title": "OCV-крива комірки",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "math": [
+            {
+              "file": "math-curve-shape.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ocv-lookup.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "pack-protection",
+      "title": "Захист і BMS",
+      "topics": [
+        {
+          "slug": "bms",
+          "title": "Захист і BMS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "battery-protection",
+          "title": "Захист акумулятора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-lithium-protection.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-single-cell-protection-ic.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ocp-threshold.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "battery-balancing",
+          "title": "Балансування комірок батареї",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-balancing-current.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-active-balancer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cell-monitor-ic",
+          "title": "Мікросхема-монітор комірок (Cell Monitor IC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "smbus-smart-battery",
+          "title": "Smart Battery і SMBus: протокол і команди",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sbs-origins.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-battery-hacking.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "pack-assembly",
+      "title": "Складання пакета",
+      "topics": [
+        {
+          "slug": "topolohiia-s-p-pid-potribnu-napruhu-i-strum",
+          "title": "Топологія S/P під потрібну напругу й струм",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dobir-komirok",
+          "title": "Добір комірок: партія, матчинг, вимір внутрішнього опору",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "spot-welding-batteries",
+          "title": "Контактне зварювання в батарейних збірках",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-thomson-resistance-welding.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "battery-mechanics",
+          "title": "Механіка й безпека",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "pack-hazards",
+      "title": "Небезпека пакета",
+      "topics": [
+        {
+          "slug": "korotke-zamykannia-paketa",
+          "title": "Коротке замикання пакета: струм, дуга, що згорить першим",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "povodzhennia-z-li-ion",
+          "title": "Поводження з Li-ion: заряд, зберігання, ушкоджена комірка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "battery-transport-regs",
+          "title": "Норми перевезення літієвих батарей",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-airborne-incidents.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

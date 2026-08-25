@@ -1,0 +1,710 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-power",
+  "slug": "mains",
+  "title": "Мережа й змінний струм",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "grid",
+      "title": "Енергосистема",
+      "topics": [
+        {
+          "slug": "ac-power-grid",
+          "title": "Змінна мережа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-mains-socket.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "generator-alternator",
+          "title": "Генератор змінного струму",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-alternator-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-alternator-anatomy.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-three-phase-rectification.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-avr-pid-controller.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "hvdc",
+          "title": "HVDC — постійний струм високої напруги",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hvdc-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-hvdc-economics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hvdc-converter-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-hvdc-scada.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "hvdc-transmission",
+          "title": "Передача електроенергії постійним струмом (HVDC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hvdc-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-lcc-vs-vsc.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cable-charging-losses.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "three-phase",
+      "title": "Трифазна система",
+      "topics": [
+        {
+          "slug": "three-phase-rotating-field",
+          "title": "Трифазний струм і обертове магнітне поле",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-three-phase-ac.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-three-phase-ac.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-three-phase-ac.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-three-phase-ac.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "three-phase-power-measurement",
+          "title": "Розрахунок і вимірювання потужності в трифазній мережі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tesla-ferraris.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-three-phase-power.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-power-meter.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-three-phase-specs.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "rectifiers",
+      "title": "Випрямлення",
+      "topics": [
+        {
+          "slug": "rectification",
+          "title": "Випрямлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-ripple-calc.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "schottky-diode",
+          "title": "Діод Шотткі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-metal-semiconductor.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bridge-rectifier",
+          "title": "Діодний міст",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "three-phase-rectifier",
+          "title": "Три-фазний міст",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "sync-rectifier",
+          "title": "Синхронний випрямляч",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-synchronous-rectification.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "power-factor",
+      "title": "Коефіцієнт потужності",
+      "topics": [
+        {
+          "slug": "pfc-basics",
+          "title": "Корекція коефіцієнта потужності (PFC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pfc-story.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "boost-pfc",
+          "title": "Boost у корекції коефіцієнта потужності (PFC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-pfc-controller.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-current-reference.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "mains-supply",
+      "title": "Готовий мережевий блок",
+      "topics": [
+        {
+          "slug": "wall-adapter",
+          "title": "Мережевий адаптер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "switching-psu",
+          "title": "Імпульсний блок живлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rod-holt-apple2.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-smps-controller.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pfc-boost.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "ac-load-control",
+      "title": "Керування змінним навантаженням",
+      "topics": [
+        {
+          "slug": "phase-control-dimmer",
+          "title": "Фазове керування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-phase-power.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dimmer-algorithm.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "trailing-edge-dimmer",
+          "title": "Trailing-edge dimmer",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-reverse-phase.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "zero-cross-switching",
+          "title": "Перехід через нуль",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-zero-cross-module.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-burst-control.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "solid-state-relay",
+          "title": "Твердотільне реле",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ssr.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-ssr-module.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "soft-start-ac",
+          "title": "Плавний пуск змінного навантаження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-motor-starting.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-ac-softstarter.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-transformer-inrush.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-softstart-controller.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "mains-isolation",
+      "title": "Ізоляція й мережева безпека",
+      "topics": [
+        {
+          "slug": "mains-safety",
+          "title": "Безпека з мережею",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-rcd-thresholds.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "insulation-classes",
+          "title": "Класи ізоляції: базова, підсилена, подвійна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-safety-barriers.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-paschen-clearance.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-isolation-routing.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "mains-hipot-test",
+          "title": "Гіпот-тест: перевірка ізоляції мережевих пристроїв",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dielectric-withstand.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-insulation-coordination.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hipot-sequencer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mains-transients",
+          "title": "Кидки напруги в мережі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-surge-standards.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "electric-shock",
+      "title": "Струм і людина",
+      "topics": [
+        {
+          "slug": "current-safety",
+          "title": "Електробезпека",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dalziel.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-rcd.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ventricular-fibrillation",
+          "title": "Фібриляція шлуночків",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-defibrillation.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fitzhugh-nagumo.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-spiral-wave-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-iec60479-limits.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "step-voltage",
+          "title": "Крокова й дотикова напруга",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-step-touch.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-hemispherical-ground.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-earth-potential-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-grounding-standards.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "protective-grounding",
+          "title": "Захисне заземлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-grounding-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ground-resistance.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ground-fault-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-grounding-standards.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

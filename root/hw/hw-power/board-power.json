@@ -1,0 +1,598 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-power",
+  "slug": "board-power",
+  "title": "Вхід і шини плати",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "input-protection",
+      "title": "Вхід і його захист",
+      "topics": [
+        {
+          "slug": "bort-aparata",
+          "title": "Борт апарата: 12/24 В, скидання навантаження, холодний пуск",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "reverse-polarity-protection",
+          "title": "Захист від переполюсування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-reverse-battery.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "transient-suppression",
+          "title": "Придушення перехідних стрибків напруги",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-inductive-spark.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-clamp-energy.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "crowbar",
+          "title": "Crowbar-захист",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "reverse-current-protection",
+          "title": "Захист від зворотного струму",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-reverse-current-cutout.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-reverse-current.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-reverse-current-supervisor.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "ideal-diode-switches",
+      "title": "Ідеальний діод і ключі",
+      "topics": [
+        {
+          "slug": "ideal-diode",
+          "title": "Ideal diode",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-body-diode.md",
+              "status": "done"
+            },
+            {
+              "file": "comp-pmos-load-switch.md",
+              "status": "done"
+            },
+            {
+              "file": "comp-logic-level.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ideal-diode-controller",
+          "title": "Контролер ідеального діода",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-active-oring.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-ideal-diode-controller.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mosfet-back-to-back",
+          "title": "MOSFET спина-до-спини і двосторонній ключ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-battery-protector.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "inrush-and-cutoff",
+      "title": "Увімкнення й відсічення",
+      "topics": [
+        {
+          "slug": "load-switch",
+          "title": "Load switch",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-body-diode.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hot-swap",
+          "title": "Hot-swap: гаряче підключення плати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-live-insertion.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-hotswap-controller.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-inrush-soa.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "inrush-current",
+          "title": "Кидок струму при вмиканні (inrush current)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-point-on-wave.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "soft-start-circuits",
+          "title": "Схеми м'якого старту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-soft-start-lineage.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mosfet-softstart.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-precharge-sequencer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "efuse",
+          "title": "Електронний запобіжник (eFuse)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-efuse-naming.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "i2t-protection",
+          "title": "Інтегральний захист I²t",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-semiconductor-fuse.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-i2t-adiabatic.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "rail-tree",
+      "title": "Дерево шин",
+      "topics": [
+        {
+          "slug": "power-rails",
+          "title": "Шини живлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "power-rail-sequencing",
+          "title": "Секвенування шин живлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-sequencer-ics.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-active-discharge.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fpga-power-sequencer.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "power-sequencing",
+          "title": "Черговість увімкнення шин живлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-latchup.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-isolation-switch.md",
+              "status": "done"
+            },
+            {
+              "file": "comp-sequencer-ic.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "uvlo",
+          "title": "Блокування за низькою напругою (UVLO)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-undervoltage-supervision.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-uvlo-thresholds.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "voltage-supervisor-ic",
+          "title": "Супервізор напруги (клас ІС)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-supervisor-circuits.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-reset-timing.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-supervisor-firmware.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "power-domains",
+          "title": "Силові домени мікроконтролера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-power-switches.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dynamic-vs-leakage.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-power-sequencing.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "multiple-sources",
+      "title": "Кілька джерел",
+      "topics": [
+        {
+          "slug": "power-path",
+          "title": "Power-path",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "power-oring",
+          "title": "Power ORing: об'єднання джерел живлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-oring-fault-dynamics.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "power-redundancy",
+          "title": "Резервування живлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-power-oring-switchover.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-holdup-energy.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-backup-supervisor.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "current-sharing",
+          "title": "Розподіл струму між паралельними джерелами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-parallel-redundancy.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-diode-or.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ballast-sharing.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "usb-pd",
+      "title": "USB PD і павербанк",
+      "topics": [
+        {
+          "slug": "usb-pd-sink",
+          "title": "USB PD sink",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-pd-trigger.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pd-sink-negotiation",
+          "title": "PD-переговори стіка: алгоритм вибору профілю",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-sink-fsm.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sink-request.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "powerbank-source",
+          "title": "Свій павербанк",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-power-path.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
