@@ -3,10 +3,17 @@
    newtopic.js — покласти НОВУ ТЕМУ В ЧЕРГУ. Маніфесту НЕ чіпає й письма НЕ починає.
 
    Ужиток:
-     node scripts/antigravity/newtopic.js --book unix-linux --kind reference \
-          --section devices --slug nvme-namespaces --title "Простори імен NVMe" \
+     node scripts/antigravity/newtopic.js --book sys-unix \
+          --group devices --chapter block-layer \
+          --slug nvme-namespaces --title "Простори імен NVMe" \
           --why "<чому це окрема тема>" --meets too-big,key   (треба 2 ознаки з 4)
+          [--group-title "<Назва групи>" --group-scope "<про що ця група>"]
+          [--chapter-title "<Назва розділу>"]   ← ОБОВ'ЯЗКОВІ, коли групи/розділу ще немає
           [--from <тека статті, що помітила>]   ← --book може бути ІНШОЮ книгою, ніж стаття
+
+   АДРЕСА (канон v7 §1): вид/книга/ГРУПА/РОЗДІЛ/тема. Група й розділ живуть тільки
+   в маніфесті — у шляху їх немає, тема лежить пласко: root/<вид>/<книга>/<тема>/.
+   Вид не передають: він випливає з книги (root/shelf.json).
      node scripts/antigravity/newtopic.js --book unix-linux --drop <слуг>     (прибрати з черги)
      node scripts/antigravity/newtopic.js --book unix-linux --list
 
@@ -29,7 +36,7 @@ const val = (n) => { const i = argv.indexOf("--" + n); return i >= 0 ? argv[i + 
 const has = (n) => argv.includes("--" + n);
 
 const BOOK = val("book");
-if (!BOOK) { console.error("Ужиток: node scripts/antigravity/newtopic.js --book <книга> --kind <вид> --section <секція> --slug <слуг> --title <назва> --why <навіщо> --meets <ознаки через кому>"); process.exit(3); }
+if (!BOOK) { console.error("Ужиток: node scripts/antigravity/newtopic.js --book <книга> --kind <вид> --section <секція> --slug <слуг> --title <назва> --why <навіщо> --meets <ознаки через кому> [--section-title <Назва групи> --section-scope <про що група>]"); process.exit(3); }
 
 const QDIR = path.join("scripts", "_finish");
 const QFILE = path.join(QDIR, `_ag-newtopics-${BOOK}.json`);
@@ -50,7 +57,7 @@ if (has("list")) {
   const q = load();
   if (!q.length) { console.log(`черга нових тем для ${BOOK} порожня`); process.exit(0); }
   console.log(`\nчерга нових тем — ${BOOK} (${q.length}):`);
-  q.forEach((t, i) => console.log(`  ${i + 1}. [${t.section}] ${t.slug} — ${t.title}\n     навіщо: ${t.why}${t.from ? "\n     звідки: " + t.from : ""}`));
+  q.forEach((t, i) => console.log(`  ${i + 1}. [${t.group}/${t.chapter}] ${t.slug} — ${t.title}\n     навіщо: ${t.why}${t.from ? "\n     звідки: " + t.from : ""}`));
   console.log(`\nу маніфест вони підуть наприкінці батчу: node scripts/antigravity/finish-batch.js --book ${BOOK} --kind <вид> --apply`);
   process.exit(0);
 }
@@ -65,18 +72,32 @@ if (val("drop") && !val("slug")) {
   process.exit(0);
 }
 
-const KIND = val("kind") || "book";
-const SECTION = val("section");
+const M7 = require("../lib/manifest7.js");
+const GROUP = val("group") || val("section");          // --section приймаємо як синонім: звичка з v6
+const CHAPTER = val("chapter");
 const SLUG = val("slug");
 const TITLE = val("title");
 const WHY = val("why");
+const GROUP_TITLE = val("group-title") || val("section-title");
+const GROUP_SCOPE = val("group-scope") || val("section-scope");
+const CHAPTER_TITLE = val("chapter-title");
 const FROM = val("from") || "";
-for (const [n, v] of [["kind", KIND], ["section", SECTION], ["slug", SLUG], ["title", TITLE], ["why", WHY]])
+for (const [n, v] of [["group", GROUP], ["chapter", CHAPTER], ["slug", SLUG], ["title", TITLE], ["why", WHY]])
   if (!v) { console.error(`бракує --${n}`); process.exit(3); }
 if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(SLUG)) { console.error(`слуг має бути kebab-case без номерів: ${SLUG}`); process.exit(3); }
 
-const MF = path.join(KIND, BOOK, "manifest.js");
-if (!fs.existsSync(MF)) {
+/* Слуг має бути такий, щоб на нього надалі НІЧОГО не налізло (AUTHORING §2). Родове
+   однослівне ім'я — найдешевший спосіб зробити майбутній дубль. Не блокуємо: `mutex`,
+   `vdso`, `dma` — точні терміни, а `cache` чи `memory` — ні, і машина їх не розрізнить. */
+if (!SLUG.includes("-")) {
+  console.log(`\n⚠ слуг «${SLUG}» однослівний. Це годиться лише для ТОЧНОГО терміна (mutex, vdso).`);
+  console.log(`  Родове слово (cache, timers, memory, geometry) — уточни складеним:`);
+  console.log(`  cache → cache-eviction-policies · timers → hardware-timer-capture-compare.`);
+}
+
+const BOOKDIR = M7.bookDirOf(BOOK);
+const MF = BOOKDIR ? path.relative(process.cwd(), path.join(BOOKDIR, "manifest.json")) : `root/<вид>/${BOOK}/manifest.json`;
+if (!BOOKDIR) {
   console.error(`
 ✖ книги «${BOOK}» (${KIND}) не існує: нема ${MF}`);
   console.error(`   ⛔ КНИГУ, ТОМ І КУРС ЗАВОДИТЬ ТІЛЬКИ АВТОР — ні ти, ні цей скрипт.`);
@@ -89,8 +110,8 @@ if (!fs.existsSync(MF)) {
 }
 
 /* уже є в маніфесті? */
-const mfSrc = fs.readFileSync(MF, "utf8");
-if (new RegExp(`slug\\s*:\\s*["']${SLUG}["']`).test(mfSrc)) {
+const BOOKMF = M7.loadBook(BOOKDIR);
+if (BOOKMF && M7.findTopic(BOOKMF, SLUG)) {
   console.log(`тема «${SLUG}» уже є в маніфесті ${MF} — у чергу не кладемо`);
   process.exit(0);
 }
@@ -180,20 +201,16 @@ if (FROM) {
   }
 }
 
-/* що скаже manifest-patch про схожі слуги (нічого не пишемо: --dry) */
-const op = JSON.stringify([{ op: "topic", section: SECTION, slug: SLUG, title: TITLE, basic: "empty", detailed: "pending" }]);
-const tmp = path.join(QDIR, `_ag-dupecheck-${BOOK}.json`);
-fs.mkdirSync(QDIR, { recursive: true });
-fs.writeFileSync(tmp, op, "utf8");
-let dryOut = "";
-try { dryOut = execSync(`node scripts/manifest-patch.js "${MF}" --ops "${tmp}" --dry`).toString(); }
-catch (e) { dryOut = ((e.stdout || "") + (e.stderr || "")).toString(); }
-try { try { fs.unlinkSync(tmp); } catch {} } catch {}
-const dupes = dryOut.split(/\r?\n/).filter((l) => /•/.test(l)).map((l) => l.trim());
-if (/МОЖЛИВІ ДУБЛІ/.test(dryOut)) {
+/* Схожі слуги — по всьому корпусу v7. Чотири сигнали, ті самі, що були в
+   manifest-patch: вкладеність по сегментах, збіг без дефісів, спільне РІДКІСНЕ
+   слово, той самий слуг в іншій книзі. Не блокує — рішення людське (§6). */
+const dupes = M7.dupeHints(SLUG, BOOK);
+if (dupes.length) {
   console.log(`\n⚠ МОЖЛИВІ ДУБЛІ ПОНЯТТЯ — глянь, перш ніж заводити нову тему:`);
-  dupes.forEach((d) => console.log(`   ${d}`));
-  console.log(`   Якщо це те саме поняття — не заводь тему, а допиши наявну.`);
+  dupes.forEach((d) => console.log(`   • ${d}`));
+  console.log(`   Те саме поняття — не заводь тему, а допиши наявну.`);
+  console.log(`   Схоже, але РІЗНЕ — заводь, і дай ОБОМ точніші назви (§6): оманлива`);
+  console.log(`   назва гірша за зайву тему.`);
 }
 
 /* Тема може належати ІНШІЙ книзі, ніж стаття, що її помітила: фізика спирається на
@@ -203,13 +220,47 @@ const fromBook = (FROM.split(/[\\/]/).filter(Boolean)[1] || "");
 if (fromBook && fromBook !== BOOK) {
   console.log(`\n↪ тема йде в ЧУЖУ книгу: стаття з «${fromBook}», тема в «${BOOK}».`);
   console.log(`  Це нормальний шлях. Зареєструє її finish-batch книги «${BOOK}» — не твоєї.`);
-  console.log(`  Лінк став одразу: topic:${BOOK}/${SLUG}.`);
+  console.log(`  Лінк став одразу: root:${BOOK}/${SLUG}.`);
 }
-if (!new RegExp(`slug\\s*:\\s*["']${SECTION}["']`).test(mfSrc))
-  console.log(`⚠ секції «${SECTION}» у ${MF} немає — finish-batch не зможе покласти туди тему.\n  Назви наявну секцію цієї книги або скажи людині, що потрібна нова.`);
+/* Нова ГРУПА — твоє рішення, не людське (канон §2, спіраль): книгу заводить автор, групу
+   й розділ ти сам. Але заводити її треба ЯВНО: без назви й `scope` finish-batch не має
+   чого записати, opTopic лається «нема секції», і тема мовчки не лягає. */
+const GROUP_NEW = !BOOKMF || !M7.groupSlugs(BOOKMF).has(GROUP);
+const CHAPTER_NEW = GROUP_NEW || !M7.chapterSlugs(BOOKMF, GROUP).has(CHAPTER);
+if (GROUP_NEW && (!GROUP_TITLE || !GROUP_SCOPE)) {
+  console.error(`\n✖ групи «${GROUP}» у ${MF} ще немає — отже ти її СТВОРЮЄШ.`);
+  console.error(`   Це твоє право (книгу заводить автор, групу — ти), але назви її явно:`);
+  console.error(`     --group-title "<Назва групи>"   одне-чотири слова, іменникова група.`);
+  console.error(`                                       НЕ перелік, НЕ гасло, НЕ «Основи чогось»,`);
+  console.error(`                                       НЕ двокрапка з поясненням, НЕ «Інше».`);
+  console.error(`     --group-scope "<про що ця група>"  одне речення ПРО ГРУПУ, не про тему.`);
+  console.error(`                                       Погано: «Це тема про кеш, тому Кеш».`);
+  console.error(`                                       Добре:  «Сюди все, де відповідь беруть із`);
+  console.error(`                                                копії замість першоджерела».`);
+  console.error(`   Якщо ж група насправді ПОТРІБНА наявна — назви наявну в --group.\n`);
+  refuse("group-unnamed", { group: GROUP });
+  process.exit(6);
+}
+if (CHAPTER_NEW && !CHAPTER_TITLE) {
+  console.error(`\n✖ розділу «${CHAPTER}» ще немає — назви його: --chapter-title "<Назва розділу>"`);
+  console.error(`   Розділ — ЕТАП РОБОТИ, а не дисципліна (§1), і мусить мати вагу:`);
+  console.error(`   тонку тему кладуть туди, де вона важить, а не роблять із неї розділ.\n`);
+  refuse("chapter-unnamed", { group: GROUP, chapter: CHAPTER });
+  process.exit(6);
+}
+if (GROUP_NEW) {
+  console.log(`\n＋ НОВА ГРУПА «${GROUP}» — ${GROUP_TITLE}`);
+  if (GROUP_SCOPE.toLowerCase().includes(TITLE.toLowerCase()))
+    console.log(`  ⚠ scope переказує назву теми. Він має казати про ГРУПУ — що сюди лягає взагалі.`);
+}
+if (CHAPTER_NEW) console.log(`＋ НОВИЙ РОЗДІЛ «${CHAPTER}» — ${CHAPTER_TITLE}`);
+if (GROUP_NEW || CHAPTER_NEW) console.log(`  Заведе їх finish-batch у тому ж проході, що й тему.`);
 
-q.push({ section: SECTION, slug: SLUG, title: TITLE, why: WHY, from: FROM, meets: [...claimed], kind: KIND, dupes, queuedAt: new Date().toISOString() });
+q.push({ group: GROUP, chapter: CHAPTER, slug: SLUG, title: TITLE, why: WHY, from: FROM, meets: [...claimed], dupes,
+         ...(GROUP_NEW ? { groupTitle: GROUP_TITLE, groupScope: GROUP_SCOPE } : {}),
+         ...(CHAPTER_NEW ? { chapterTitle: CHAPTER_TITLE } : {}),
+         queuedAt: new Date().toISOString() });
 fs.writeFileSync(QFILE, JSON.stringify(q, null, 2), "utf8");
-console.log(`\n✓ у черзі: [${SECTION}] ${SLUG} — ${TITLE}`);
+console.log(`\n✓ у черзі: [${GROUP}/${CHAPTER}] ${SLUG} — ${TITLE}`);
 console.log(`  файл: ${QFILE}  (тем у черзі: ${q.length})`);
 console.log(`  маніфест НЕ змінено, письмо НЕ запущено — так і має бути.`);

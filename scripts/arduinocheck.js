@@ -24,7 +24,7 @@
      ✓ Arduino + ще щось — усе гаразд, у звіті не показується
 
    Запуск:  node scripts/arduinocheck.js                    (увесь корпус)
-            node scripts/arduinocheck.js catalog/sensors    (тека)
+            node scripts/arduinocheck.js root/cat/cat-hw-sensors    (тека)
             node scripts/arduinocheck.js --all              (перелічити всі файли)
             node scripts/arduinocheck.js --json out.json    (payload для батчу)
    ========================================================================== */

@@ -6,7 +6,7 @@ const TOTAL_RUNS = 10;
 
 console.log(`================================================================`);
 console.log(`🚀 SEQUENTIAL 10-TOPIC RUNNER FOR BOOK: MATH`);
-console.log(`Target: book/math | Count: 10 topics | Single Execution Mode`);
+console.log(`Target: root/sci/math-* | Count: 10 topics | Single Execution Mode`);
 console.log(`================================================================\n`);
 
 for (let i = 1; i <= TOTAL_RUNS; i++) {

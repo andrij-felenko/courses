@@ -21,6 +21,8 @@ const LIMIT = A.limit || 20
 const EFFORT = A.effort || 'medium'
 const APPLY = A.apply !== false
 const ROOT = 'E:\\develop\\courses'
+const _M7 = require(`${ROOT}\\scripts\\lib\\manifest7.js`)
+const BOOKDIR = _M7.bookDirOf(BOOK) || `${ROOT}\\root\\?\\${BOOK}`   // v7: вид випливає з книги
 if (!BOOK && !(Array.isArray(A.dirs) && A.dirs.length)) throw new Error('треба або args.book, або args.dirs')
 
 /* ── Черга ───────────────────────────────────────────────────────────────────
@@ -73,7 +75,7 @@ ${filesOf(d) ? `Файли в ній (усі, більше нема — ls ро�
 Ти дивишся рівно те, чого машина не вміє.
 
 ═══ 0. ПРАВИЛА ═══
-${ROOT}\\${KIND}\\${BOOK}\\_canon.md — ЯКЩО ФАЙЛ Є, прочитай його першим: це правила саме цієї
+${BOOKDIR}\\_canon.md — ЯКЩО ФАЙЛ Є, прочитай його першим: це правила саме цієї
 книги, і там, де вони уточнюють загальний канон, суди за ними. AUTHORING.md читати НЕ треба —
 питання обсягу, структури й оформлення в цьому проході не судяться взагалі.
 
@@ -144,7 +146,7 @@ ${ROOT}\\${KIND}\\${BOOK}\\_canon.md — ЯКЩО ФАЙЛ Є, прочитай 
 Поняття з іншої галузі — не привід відмовлятись, а привід завести його в ІНШУ книгу: --book math,
 --book algorithms. Тема ляже в чергу тієї книги, лінк ставиться одразу.
 
-node ${ROOT}\\scripts\\antigravity\\newtopic.js --book ${BOOK} --kind ${KIND} --section <секція> \\
+node ${ROOT}\\scripts\\antigravity\\newtopic.js --book ${BOOK} --group <група> --chapter <розділ> \\
      --slug <слуг> --title "<назва>" --why "<чому це окрема тема>" --from ${dir} \\
      --meets too-big,key
 

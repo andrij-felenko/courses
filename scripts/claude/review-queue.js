@@ -26,6 +26,8 @@ const fs = require("fs");
 const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..", "..");
+const _M7 = require(`${ROOT}\\scripts\\lib\\manifest7.js`)
+const BOOKDIR = _M7.bookDirOf(BOOK) || `${ROOT}\\root\\?\\${BOOK}`   // v7: вид випливає з книги
 const argv = process.argv.slice(2);
 const arg = (k, d) => { const i = argv.indexOf(k); return i >= 0 && argv[i + 1] ? argv[i + 1] : d; };
 const has = (k) => argv.includes(k);
@@ -37,8 +39,8 @@ const WANT = arg("--status", "recheck");
 const OUT = arg("--json", "");
 if (!BOOK) { console.error("треба --book <slug>"); process.exit(2); }
 
-const mf = path.join(ROOT, KIND, BOOK, "manifest.js");
-if (!fs.existsSync(mf)) { console.error("нема маніфесту: " + mf); process.exit(2); }
+const mf = BOOKDIR ? path.join(BOOKDIR, "manifest.json") : null;
+if (!mf || !fs.existsSync(mf)) { console.error("нема маніфесту книги «" + BOOK + "» у root/"); process.exit(2); }
 
 const sb = {};
 new Function("window", fs.readFileSync(mf, "utf8"))(sb);
@@ -85,7 +87,7 @@ const queue = [], ghosts = [], other = [];
 for (const { section, t } of rows) {
   const d = (t.detailed || {}).status, b = (t.basic || {}).status;
   if (d !== WANT && b !== WANT) { other.push(t.slug); continue; }
-  const rel = `${KIND}/${BOOK}/${section}/${t.slug}`;
+  const rel = `${BOOKDIR}/${t.slug}`;
   const abs = path.join(ROOT, rel);
   /* тека без жодного .md — це запис у маніфесті без тексту, ревізувати нічого */
   const written = fs.existsSync(abs) && fs.readdirSync(abs).some((f) => f.endsWith(".md"));
@@ -93,7 +95,7 @@ for (const { section, t } of rows) {
 }
 
 const take = queue.slice(0, LIMIT === Infinity ? queue.length : LIMIT);
-console.log(`книга ${KIND}/${BOOK}   статус «${WANT}»`);
+console.log(`книга ${BOOK}   статус «${WANT}»`);
 console.log(`  у маніфесті зі статусом:  ${queue.length + ghosts.length}`);
 console.log(`  з них написані на диску:  ${queue.length}`);
 console.log(`  запис є, тексту нема:     ${ghosts.length}${ghosts.length ? "  ← у чергу НЕ йдуть" : ""}`);

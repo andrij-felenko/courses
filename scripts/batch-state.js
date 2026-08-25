@@ -24,33 +24,27 @@ const has = (n) => argv.includes('--' + n);
 const BOOK = arg('book');
 const KIND = arg('kind', 'book');
 const JOURNAL = arg('journal');            // journal.jsonl обірваного прогону — звідти беруться newTopics
-if (!BOOK) { console.error('потрібен --book <slug> (і --kind book|catalog|reference|guide)'); process.exit(1) }
+if (!BOOK) { console.error('потрібен --book <slug> — слуг книги в root/ (вид визначиться сам)'); process.exit(1) }
 
-const MF = path.join(ROOT, KIND, BOOK, 'manifest.js');
-if (!fs.existsSync(MF)) { console.error('нема маніфесту: ' + MF); process.exit(1) }
-
-global.window = { __BOOKS__: [], __GUIDES__: [] };
-require(MF);
-const bk = (global.window.__BOOKS__[0] || global.window.__GUIDES__[0]);
-if (!bk) { console.error('маніфест не зареєстрував книгу'); process.exit(1) }
+const M7 = require('./lib/manifest7.js');
+const BOOKDIR = M7.bookDirOf(BOOK);
+if (!BOOKDIR) { console.error('нема книги «' + BOOK + '» у root/ — перевір слуг (root/shelf.json)'); process.exit(1) }
+const MF = path.join(BOOKDIR, 'manifest.json');
+const BOOKMF = M7.loadBook(BOOKDIR);
+if (!BOOKMF) { console.error('нема маніфесту: ' + MF); process.exit(1) }
+const bk = BOOKMF.manifest;
 
 const INS_RE = /^(hist|comp|math|proj|api)-[a-z0-9-]+\.md$/;
 const TYPES = ['hist', 'comp', 'math', 'proj', 'api'];
 
-/** Плоский список тем: {section, slug, title, topic, dir} — однаково для book-подібних і для guide. */
+/** Плоский список тем: {section, slug, title, topic, dir}.
+    v7: «section» — це ГРУПА з маніфесту, а тека теми лежить ПЛАСКО під книгою,
+    бо ні групи, ні розділу в шляху немає. */
 function topics() {
-  const out = [];
-  if (bk.type === 'guide') {
-    for (const m of bk.modules || [])
-      for (const ch of m.chapters || [])
-        for (const st of ch.steps || [])
-          if (st && st.slug) out.push({ section: m.slug, slug: st.slug, title: st.title, topic: st, dir: path.join(ROOT, KIND, BOOK, m.slug, st.slug) });
-  } else {
-    for (const s of bk.sections || [])
-      for (const t of s.topics || [])
-        out.push({ section: s.slug, slug: t.slug, title: t.title, topic: t, dir: path.join(ROOT, KIND, BOOK, s.slug, t.slug) });
-  }
-  return out;
+  return M7.allTopics(BOOKMF).filter((t) => t.own).map((t) => ({
+    section: t.group, chapter: t.chapter, slug: t.slug, title: t.title,
+    topic: t.node, dir: path.join(BOOKDIR, t.slug),
+  }));
 }
 
 const unregArticles = [];   // файл є, статус не done → зареєструвати
@@ -111,7 +105,7 @@ const insertsDone = [...unregInserts, ...notDoneInserts.map((i) => ({ ...i }))]
   .map(({ section, topicSlug, topicTitle, file, type }) => ({ section, topicSlug, topicTitle, file, type }));
 
 const line = (s) => console.log(s);
-line(`\n=== СТАН БАТЧУ: ${KIND}/${BOOK} ===`);
+line(`\n=== СТАН БАТЧУ: ${BOOK} ===`);
 line(`  статті НА ДИСКУ, але не done у маніфесті: ${unregArticles.length}` + (unregArticles.length ? ' → ' + unregArticles.map((a) => a.slug + ':' + a.ver + '(' + a.status + ')').join(', ') : ''));
 line(`  статті pending, файла НЕМА (ще писати):   ${missingArticles.length}` + (missingArticles.length ? ' → ' + missingArticles.slice(0, 12).join(', ') + (missingArticles.length > 12 ? ' …' : '') : ''));
 line(`  вставки НА ДИСКУ, у маніфесті НЕМА:       ${unregInserts.length}` + (unregInserts.length ? ' → ' + unregInserts.map((i) => i.topicSlug + '/' + i.file).join(', ') : ''));
@@ -146,7 +140,7 @@ if (JOURNAL) {
   }
   let already = 0, noSection = 0;
   for (const t of seen.values()) {
-    const rel = `${t.kind}/${t.book}/manifest.js`;
+    const rel = `${t.book}/manifest.json`;
     const mfp = path.join(ROOT, rel);
     if (!fs.existsSync(mfp)) { console.log('   ✖ нема маніфесту ' + rel + ' → ' + t.slug); continue }
     global.window = { __BOOKS__: [], __GUIDES__: [] };
@@ -185,8 +179,8 @@ for (const [rel, ops2] of ntJobs) {
 
 if (!ops.length) { line('\n  --apply: статусів/вставок міняти нічого — маніфест уже збігається з диском.'); process.exit(0) }
 
-const opsFile = path.join(OUTDIR, `_mfops-state-${BOOK}.json`);
-fs.writeFileSync(opsFile, JSON.stringify(ops, null, 1), 'utf8');
-line(`\n  --apply: ${ops.length} операцій → ${path.relative(ROOT, opsFile)}`);
-const out = execFileSync(process.execPath, [path.join(ROOT, 'scripts', 'manifest-patch.js'), `${KIND}/${BOOK}/manifest.js`, '--ops', opsFile], { cwd: ROOT, encoding: 'utf8' });
-line('  ' + out.trim());
+/* v7: пишемо самі через manifest7 — JSON редагується безпечно за побудовою. */
+line(`\n  --apply: ${ops.length} операцій у ${path.relative(ROOT, MF)}`);
+const rep = M7.applyOps(BOOKDIR, ops);
+line(`  груп +${rep.group || 0} · розділів +${rep.chapter || 0} · тем +${rep.topic || 0} · статусів ${rep.status || 0} · вставок ${rep.insert || 0}`);
+(rep.errors || []).forEach((e) => line('  ✖ ' + e));

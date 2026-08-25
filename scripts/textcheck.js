@@ -12,7 +12,7 @@
                        рахує саму прозу). Лише список на перевірку.
 
    Запуск:  node scripts/textcheck.js <тека> [--apply] [--only 1,3] [--json] [--quiet]
-            node scripts/textcheck.js book/algorithms
+            node scripts/textcheck.js root/eng/sf-algorithms
             node scripts/textcheck.js . --only 1 --apply
 
    Код виходу: 1, якщо є класи (1) або (2) — це тверді дефекти. Інакше 0.

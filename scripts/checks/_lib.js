@@ -179,10 +179,34 @@ function proseWords(md) {
 }
 
 /* ── маніфест книги, до якої належить тема ────────────────────────────────────
-   Тека теми — `<вид>/<книга>/<секція>/<слуг>` (у курсі — `<модуль>` замість секції),
-   тож маніфест завжди на два сегменти вище. Читаємо тим самим способом, що й
-   manifest-patch: виконуємо файл у пісочниці й беремо зареєстрований об'єкт.      */
+   ДВА ДЕРЕВА, і поки триває перенос — обидва живі:
+
+     v7  root/<вид>/<книга>/<тема>          маніфест: root/<вид>/<книга>/manifest.json
+                                            (шапка + окремий <група>.json на кожну групу)
+     v6  <вид>/<книга>/<секція>/<слуг>      маніфест: <вид>/<книга>/manifest.js
+
+   У v7 тема лежить ПЛАСКО під книгою — секції в шляху немає, вона тільки в маніфесті.
+   Розбір v7 живе в scripts/lib/manifest7.js: один розбір на весь тулінг, щоб не
+   повторилася історія v6, де чотири скрипти читали схему кожен по-своєму.          */
 function manifestOf(dir) {
+  const M7 = require("../lib/manifest7.js");
+  if (M7.isV7(dir)) {
+    const bookDir = M7.bookDirOfTopic(dir);
+    if (!bookDir) return null;
+    const b = M7.loadBook(bookDir);
+    if (!b) return null;
+    const slug = path.basename(path.resolve(dir));
+    const topics = M7.allTopics(b).filter((t) => t.own).map((t) => t.node);
+    return {
+      path: b.mfPath,
+      kind: b.manifest.kind || path.basename(path.dirname(bookDir)),
+      book: b.manifest.slug || path.basename(bookDir),
+      isGuide: (b.manifest.kind || "") === "course",
+      all: topics,
+      topic: topics.find((t) => t.slug === slug) || null,
+    };
+  }
+
   const rel = path.relative(ROOT, path.resolve(dir)).split(/[\\/]/);
   if (rel.length < 3) return null;
   const [kind, book] = rel;

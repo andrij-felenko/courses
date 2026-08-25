@@ -54,7 +54,7 @@ phase('Скаут')
 const FILT = BOOKFILTER ? `if(book!==${JSON.stringify(BOOKFILTER)})continue;` : ''
 const SCOUT_SNIPPET = [
   `const fs=require("fs"),path=require("path");const R="E:/develop/courses";`,
-  `const files=[];for(const kind of ["book","catalog","guide"]){const d=path.join(R,kind);if(!fs.existsSync(d))continue;for(const name of fs.readdirSync(d)){const mf=path.join(d,name,"manifest.js");if(fs.existsSync(mf))files.push([kind,name,mf]);}}`,
+  `const files=[];for(const kind of ["book","catalog"]){const d=path.join(R,kind);if(!fs.existsSync(d))continue;for(const name of fs.readdirSync(d)){const mf=path.join(d,name,"manifest.js");if(fs.existsSync(mf))files.push([kind,name,mf]);}}`,
   `const out=[];for(const [kind,book,mf] of files){${FILT}let cap=null;global.window={__BOOKS__:{push:x=>cap=x},__GUIDES__:{push:x=>cap=x},__CATALOGS__:{push:x=>cap=x}};try{delete require.cache[require.resolve(mf)];require(mf);}catch(e){continue;}const bk=cap;if(!bk)continue;`,
   `for(const sec of (bk.sections||[]))for(const t of (sec.topics||[])){if(t.ref)continue;`,
   `  if(t.basic&&t.basic.status==="recheck")out.push({kind,book,section:sec.slug,slug:t.slug,title:t.title,target:"basic"});`,

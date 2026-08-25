@@ -82,7 +82,10 @@ const BRIEF_FILE = (_a && _a.briefFile) ? String(_a.briefFile) : ''
 if (SKIP_ARTICLES && !UNITS_IN) throw new Error('skipArticles потребує args.units (теми, чиї статті вже на диску)')
 
 const ROOT = 'E:\\develop\\courses'
-const MF = `${KIND}/${BOOK}/manifest.js`
+const M7 = require(`${ROOT}\\scripts\\lib\\manifest7.js`)
+const BOOKDIR = M7.bookDirOf(BOOK)                  // root/<вид>/<книга> — вид випливає з книги
+const KINDDIR = BOOKDIR ? require('path').basename(require('path').dirname(BOOKDIR)) : '?'   // тека виду — лише для абсолютних img-шляхів
+const MF = BOOKDIR ? require('path').relative(ROOT, BOOKDIR).replace(/\\/g, '/') + '/manifest.json' : `root/?/${BOOK}/manifest.json`
 const MFWIN = `${ROOT}\\${MF.replace(/\//g, '\\')}`
 const MAX_TRIES = 30, RETRY_WAIT = 60000
 const SVG_TRIES = 6                                 // максимум ітерацій svg-гейта на теку (фаза Фігури)
@@ -102,14 +105,14 @@ const CANON = `WRITING CANON (condensed; full — ${ROOT}\\AUTHORING.write.en.md
 • Formulas — Unicode in code blocks (10⁻⁹, ε, ≈, ², ₀, ·), no LaTeX; decimal separator — dot (3.3). Worked example: bold condition-caption → code block with step-by-step computation → conclusion. CODE — real and correct, not pseudocode.
 • CODE LANGUAGE — BY DOMAIN, not always C/C++: embedded/hardware/registers/hot-path → C/C++; general/web/backend/architecture → stack languages (TS/JS, Python, Go, Rust, Java…). LANGUAGE CHOICE — WEIGHTED SCORE: score EACH candidate language 0–10 for fitness FOR THIS example FROM ALL ANGLES (expressiveness, idiomaticity AND **efficiency/speed/memory** for this task) — NOT by language popularity: where the example is about performance, memory, systems level, parallelism or the hot path — performance languages (C/C++/Rust/Go/Zig) take a HIGHER raw score, even if TS/Python are more popular for general code; where the example is about domain expressiveness/DTO/script — the opposite. Multiply by a coefficient (C++ and TypeScript — ×1.5; other languages — ×1), write those whose product >5. E.g.: C++ raw 4 → 4·1.5=6 (WRITE); Python 4 → 4 (no). Several that pass the threshold — as TABS «:::tabs» (switcher on top; EACH tab an IDIOMATIC equivalent, NOT transliteration); a single one — an ordinary code block with the language in the fence (highlighting). C++/TS appear more often, but ONLY where they fit — a low raw score won't be saved by ×1.5 (we don't write registers in Python). Domain-locked code (registers, syscalls) — one language. In programming/algorithms: non-web proj (algorithm/data structure/systems/computation/performance/memory/parallelism) — C or C++ is MANDATORY (main language or one of the :::tabs tabs); the only exception is PURELY client-side frontend.
 • Near an important concept — a box «> 🔧 **Навіщо це.**» (on the material of this topic).
-• FIGURES: SVG only, pure Python without dependencies; figs.py IN THE TOPIC FOLDER, output ./img/. At the start of figs.py: «import sys, os; sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..','..','..','..','scripts')); from svgkit import *». Text frames — ONLY via textbox()/fitbox(). SPARINGLY 2–5, each carries weight; CHECK that figs.py runs FAST (doesn't loop). Embedding «![desc](/${KIND}/${BOOK}/<section>/<slug>/img/<file>.svg)» — from repo root (with /); caption in italics WITHOUT a number and «Рис.». RUN figs.py (from the topic folder) so the SVGs appear in ./img/. Lay out captions with MARGIN (wider columns/cells, larger viewBox), don't cram long lines side by side, route lines past labels — so there are no overlaps or tiny fonts. ⚠️ The FINAL svg-gate (svgcheck.py to «із зауваженнями: 0», v6 catches both tiny font and text OVERLAP on text/lines) is done by a SEPARATE pipeline step on Sonnet-high — you yourself do NOT need to run svgcheck and drive it to 0; your job is meaningful figures and a tidy layout with margin.
+• FIGURES: SVG only, pure Python without dependencies; figs.py IN THE TOPIC FOLDER, output ./img/. At the start of figs.py: «import sys, os; sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..','..','..','..','scripts')); from svgkit import *». Text frames — ONLY via textbox()/fitbox(). SPARINGLY 2–5, each carries weight; CHECK that figs.py runs FAST (doesn't loop). Embedding «![desc](/root/${KINDDIR}/${BOOK}/<slug>/img/<file>.svg)» — from repo root (with /); caption in italics WITHOUT a number and «Рис.». RUN figs.py (from the topic folder) so the SVGs appear in ./img/. Lay out captions with MARGIN (wider columns/cells, larger viewBox), don't cram long lines side by side, route lines past labels — so there are no overlaps or tiny fonts. ⚠️ The FINAL svg-gate (svgcheck.py to «із зауваженнями: 0», v6 catches both tiny font and text OVERLAP on text/lines) is done by a SEPARATE pipeline step on Sonnet-high — you yourself do NOT need to run svgcheck and drive it to 0; your job is meaningful figures and a tidy layout with margin.
 • FACTS: any historical/factual statement (date, name, «who was first», invention, patent, origin) — WEB-VERIFY RIGHT HERE (WebSearch/WebFetch); mark the evidential status. Don't stick the label «Russian» when sources give something more precise (Ukrainian, Pole, Serb, Jew, Georgian, Armenian, Balt…); distinguish idea/theory/implementation/system/patent.
-• CROSS-LINKS — ONLY to real dependencies (not every mention!): a short 1–7 sentence recap «what to know» + ref-popup. DEFAULT is the general 2-segment link → topic:<book>/<slug> (the renderer opens the basic, or the detailed if no basic) — use it almost always; a course target → topic:<course>/<slug>. No section in the link. EXPLICIT detailed = 3rd segment «/detail» (RARE — mainly a ref FROM A COURSE wanting the full version); an INSERT = 3rd segment «<type>-<name>.md» (WITH «.md»). Do NOT rewrite the whole target.
+• CROSS-LINKS — ONLY to real dependencies (not every mention!): a short 1–7 sentence recap «what to know» + ref-popup. DEFAULT is the general 2-segment link → root:<book>/<slug> (the renderer opens the basic, or the detailed if no basic) — use it almost always; a course target → root:<course>/<slug>. No section in the link. EXPLICIT detailed = 3rd segment «/detail» (RARE — mainly a ref FROM A COURSE wanting the full version); an INSERT = 3rd segment «<type>-<name>.md» (WITH «.md»). Do NOT rewrite the whole target.
 • NAMING slug-only; insert — <type>-<name>.md (type ∈ hist/comp/math/proj/api); an insert file starts with H1 (may use an emoji «# 📜 …»), and the title + first sentence THEMSELVES say what it is and why.
 • LANGUAGE FINAL ON FIRST PASS — there will be no separate proofreading.${RULESNOTE}`
 
 const KINDNOTE = KIND === 'guide'
-  ? `\n\n⚠️ THIS IS A COURSE (guide), NOT a book-atom. A course article is CUMULATIVE — it BUILDS ON the steps already passed, ASSUMES what is already known, gradually DEEPENS. Sequence phrases («as we saw», «in the previous step», «we'll see later») are APPROPRIATE; lead the thread naturally (rely ONLY on what came before), without forcing. Needed book-topics EMBED as a popup (ref to topic:), don't rewrite. Link the course's own topics/inserts as topic:<course>/...`
+  ? `\n\n⚠️ THIS IS A COURSE (guide), NOT a book-atom. A course article is CUMULATIVE — it BUILDS ON the steps already passed, ASSUMES what is already known, gradually DEEPENS. Sequence phrases («as we saw», «in the previous step», «we'll see later») are APPROPRIATE; lead the thread naturally (rely ONLY on what came before), without forcing. Needed book-topics EMBED as a popup (ref to topic:), don't rewrite. Link the course's own topics/inserts as root:<course>/...`
   : `\n\nThis is a book-atom: a SELF-CONTAINED article, WITHOUT numbering and WITHOUT sequence phrases («previous/next section», «as we saw», «we'll see later») — there is no order in the book. In general: a specific part/number only as an example-mention with a link (catalog/comp-), don't build the article on it.`
 
 // додатковий нахил для книг про код: поряд з історією не забувай proj/math (алгоритм/код)
@@ -201,7 +204,8 @@ async function staggered(items, fn) {
   await Promise.all(workers)
   return results
 }
-function topicDirWin(section, slug) { return `${ROOT}\\${KIND}\\${BOOK}\\${section}\\${slug}` }
+/* v7: тема лежить ПЛАСКО під книгою — групи в шляху немає, вона тільки в маніфесті. */
+function topicDirWin(section, slug) { return `${BOOKDIR}\\${slug}` }
 
 /* ── схеми ── */
 const UNITS = { type: 'object', additionalProperties: false, required: ['units'], properties: { units: { type: 'array', items: {
@@ -210,14 +214,14 @@ const UNITS = { type: 'object', additionalProperties: false, required: ['units']
 const ART_RET = { type: 'object', additionalProperties: false, required: ['ok'], properties: {
   ok: { type: 'boolean' }, skipBasic: { type: 'boolean' }, files: { type: 'array', items: { type: 'string' } }, note: { type: 'string' },
   inserts: { type: 'array', items: { type: 'object', additionalProperties: false, required: ['file', 'type', 'brief'], properties: { file: { type: 'string' }, type: { type: 'string' }, brief: { type: 'string' } } } },
-  newTopics: { type: 'array', items: { type: 'object', additionalProperties: false, required: ['kind', 'book', 'section', 'slug', 'title', 'why'], properties: { kind: { type: 'string' }, book: { type: 'string' }, section: { type: 'string' }, slug: { type: 'string' }, title: { type: 'string' }, why: { type: 'string' }, needDetailed: { type: 'boolean' } } } },
+  newTopics: { type: 'array', items: { type: 'object', additionalProperties: false, required: ['kind', 'book', 'section', 'slug', 'title', 'why'], properties: { kind: { type: 'string' }, book: { type: 'string' }, section: { type: 'string' }, slug: { type: 'string' }, title: { type: 'string' }, why: { type: 'string' }, sectionTitle: { type: 'string' }, sectionScope: { type: 'string' }, needDetailed: { type: 'boolean' } } } },
   needDetailedSelf: { type: 'boolean' },
   needBasicSelf: { type: 'boolean' },          // ЛИШЕ від автора ДЕТАЛЬНОЇ: чи варта тема базового огляду (етап 3)
   basicExists: { type: 'boolean' },            // ЛИШЕ від автора ДЕТАЛЬНОЇ: базова ВЖЕ на диску → не чіпаємо ні файл, ні статус
   deeperTargets: { type: 'array', items: { type: 'object', additionalProperties: false, required: ['book', 'slug'], properties: { book: { type: 'string' }, slug: { type: 'string' } } } } } }
 // newTopics і у вставці: вона лінкує за тим самим §6, отже так само може спертися на тему, якої ще
 // нема. Без цього поля оголосити її не було чим — ref у прозі є, теми в маніфесті нема, лінк битий.
-const INS_RET = { type: 'object', additionalProperties: false, required: ['ok'], properties: { ok: { type: 'boolean' }, file: { type: 'string' }, note: { type: 'string' }, newTopics: { type: 'array', items: { type: 'object', additionalProperties: false, required: ['kind', 'book', 'section', 'slug', 'title', 'why'], properties: { kind: { type: 'string' }, book: { type: 'string' }, section: { type: 'string' }, slug: { type: 'string' }, title: { type: 'string' }, why: { type: 'string' }, needDetailed: { type: 'boolean' } } } } } }
+const INS_RET = { type: 'object', additionalProperties: false, required: ['ok'], properties: { ok: { type: 'boolean' }, file: { type: 'string' }, note: { type: 'string' }, newTopics: { type: 'array', items: { type: 'object', additionalProperties: false, required: ['kind', 'book', 'section', 'slug', 'title', 'why'], properties: { kind: { type: 'string' }, book: { type: 'string' }, section: { type: 'string' }, slug: { type: 'string' }, title: { type: 'string' }, why: { type: 'string' }, sectionTitle: { type: 'string' }, sectionScope: { type: 'string' }, needDetailed: { type: 'boolean' } } } } } }
 const REG_RET = { type: 'object', additionalProperties: false, required: ['ok'], properties: { ok: { type: 'boolean' }, count: { type: 'number' } } }
 // фаза «Маніфест»: агент повертає ще й підсумкові рядки локального патчера
 const MFP_RET = { type: 'object', additionalProperties: false, required: ['ok'], properties: { ok: { type: 'boolean' }, count: { type: 'number' }, note: { type: 'string' } } }
@@ -243,17 +247,23 @@ if (UNITS_IN) {
   log(`Скаут (інлайн): ${WORK.length} тем (детальних ${WORK.filter((u) => u.level === 'detailed').length}, базових ${WORK.filter((u) => u.level === 'basic').length})`)
 } else {
   phase('Скаут')
-  const levelsDesc = SCOUT_LEVELS.join(' → ')
-  const scout = await callAgent(
-    `Знайди pending-теми на письмо в маніфесті ${MFWIN}. Потрібні ВЕРСІЇ в порядку пріоритету: ${levelsDesc}.
-Схема: book/catalog/reference — sections[]→topics[]; guide (v6) — modules[]→chapters[]→steps[]. В ОБОХ формах рядок секції/модуля містить "scope:", а тема/крок — { slug, title, basic:{status}, detailed:{status} } одним рядком; для guide поверни section = slug МОДУЛЯ. КРОК-ref (без slug) — ПРОПУСКАЙ.
-ШВИДКО (не вантаж весь файл у відповідь): зроби Bash «grep -n» по файлу. Окремо витягни рядки секцій/модулів (містять "scope:"). Для КОЖНОЇ потрібної версії окремо знайди рядки тем, де САМЕ ЦЯ версія має status "pending" АБО "update" (обидва — черга на письмо цієї версії; НЕ бери "done"/"empty"/"deeper"/"recheck"): для detailed шукай 'detailed: { status: "pending" }' і 'detailed: { status: "update" }'; для basic — 'basic: { status: "pending" }' і 'basic: { status: "update" }'. Візьми ПЕРШІ ${LIMIT} таких тем У ПОРЯДКУ файлу НА КОЖНУ версію.
-Для кожної теми визнач секцію (найближчий вищий рядок із "scope:"), витягни slug+title з її рядка, scope — з рядка секції, і ОБОВʼЯЗКОВО постав level = версія, за якою її знайдено ("detailed" чи "basic").
-Поверни units:[{section, slug, title, scope, level}] — спершу всі знайдені detailed (до ${LIMIT}), тоді всі basic (до ${LIMIT}); скрипт сам обмежить сумарно до ${LIMIT}. Якщо якоїсь версії нема в черзі — просто не додавай її тем.`,
-    { label: 'скаут', phase: 'Скаут', model: 'sonnet', schema: UNITS })
-  const cand = ((scout && scout.units) || [])
-    .filter((u) => u && u.slug && u.section)
-    .map((u) => ({ ...u, level: (u.level === 'basic' || u.level === 'detailed') ? u.level : DEFAULT_LEVEL }))
+  /* v7: маніфест — JSON, тож черга рахується ЛОКАЛЬНО й точно. Агент тут більше не
+     потрібен: у v6 він грепав текст .js, бо іншого способу не було, і коштував
+     токенів на кожному прогоні за роботу, яку робить один прохід по масиву. */
+  if (!BOOKDIR) { log(`✖ книги «${BOOK}» немає в root/ — перевір слуг (root/shelf.json)`); return { book: BOOK, total: 0, note: 'нема книги' } }
+  const _bk = M7.loadBook(BOOKDIR)
+  if (!_bk) { log(`✖ нема маніфесту ${MF}`); return { book: BOOK, total: 0, note: 'нема маніфесту' } }
+  const _cand = []
+  for (const lv of SCOUT_LEVELS)
+    for (const tp of M7.allTopics(_bk)) {
+      if (!tp.own) continue
+      const stt = (tp.node[lv] && tp.node[lv].status) || 'empty'
+      if (stt !== 'pending') continue
+      const g = _bk.groups.get(tp.group)
+      _cand.push({ section: tp.group, chapter: tp.chapter, slug: tp.slug, title: tp.title, scope: (g && g.data.scope) || '', level: lv })
+    }
+  log(`Скаут (локально, 0 агентів): знайдено ${_cand.length} pending — detailed ${_cand.filter((u) => u.level === 'detailed').length}, basic ${_cand.filter((u) => u.level === 'basic').length}`)
+  const cand = _cand
   // складання за пріоритетом SCOUT_LEVELS; дедуп по section/slug (тема з обома pending → береться раз, як detailed); добір до LIMIT
   const _seenU = new Set()
   for (const lv of SCOUT_LEVELS) {
@@ -296,13 +306,13 @@ STEP 1: read ${ROOT}\\AUTHORING.write.en.md — the writing canon VERBATIM, with
    • THE BASIC'S LANGUAGE IS SIMPLER, THE MEANING IDENTICAL (§3): simpler words, shorter sentences, less jargon and formalism, the term named AFTER its mechanism. You cut MATERIAL (derivations, variations, edge cases, most examples), NOT truth: "almost right" simplifications that must later be unlearned are FORBIDDEN — better an honest "we take this as given" + a link. Simpler ≠ infantile (no baby talk, no condescension). Test: someone who read ONLY the basic says CORRECT things about the topic — merely fewer of them.
    • The detailed is NOT on disk yet → skipBasic:true. A basic is decided ONLY with the finished detailed in hand (signs 1 and 3 cannot be checked without it); we do not guess in advance.`}`}
 STEP 2 — WRITE the article file in full (§3–§5): ${level === 'detailed' ? 'DETAILED 1000–6500 words (rarely up to 9000), TYPICAL 2100–2600 — 6500 is the ceiling you almost never approach; over it — only a rare topic that truly demands it, up to 9000, not a target; land near 2100–2600 unless the topic genuinely earns more. Completeness IN DEPTH along ONE thread, every gap filled (not sideways onto neighbours)' : 'BASIC (only if STEP 1 did not yield skipBasic) 500–1200 words AND ≤ half the detailed, in SIMPLER language without losing meaning (§3) — a fast atom: one core thread, no second layer, no duplication of the detailed'}; Feynman; continuity (no gaps); necessity before statement; the example illustrates, doesn't carry; LIVING UKRAINIAN PROSE; worked examples in the language dictated by the domain (§5, NOT always C/C++; in programming/algorithms a non-web proj → C/C++ mandatory); 🔧 boxes; etymology in parentheses; your own figures (figs.py in the folder, RUN it — SVG into img/; tidy layout with margin; the svg gate to «0» is done by a SEPARATE pipeline step on Sonnet-high, you do NOT run svgcheck); facts — web-verified (§7).
- • **(v6) THE «BEFORE READING» BLOCK.** Immediately UNDER the H1 put a collapsed block \`<preknowlist>…</preknowlist>\` — a bullet list of ref links to PREREQUISITES (what one must know, without which the article makes no sense), each line = a link + briefly «what exactly to know». The links are 2-segment, to a TOPIC (\`topic:<book>/<slug>\` or \`topic:<course>/<slug>\`, mirrored per §6), only WEIGHTY prerequisites. The list text itself is in UKRAINIAN. ${KIND === 'guide' ? 'COURSE: include only prerequisites from OUTSIDE the course OR not yet passed along the thread — do NOT add what the course already covered earlier.' : 'book/catalog: all genuine prerequisites (the article is standalone).'} If a prerequisite topic does not exist in the repo yet — treat it as a dependency (add it to newTopics, STEP 3).${KIND === 'catalog' ? `
- • **(§8) CATALOG — A CONCRETE OBJECT.** You describe this very thing (board/module/instrument/part): the reader must RECOGNIZE it, understand what it does and how it is built, how to connect/use it and what to beware of. Pick the sections YOURSELF to fit the device's nature; part numbers/models ARE appropriate (this is a catalog). NO sequence phrases. CATALOG LINKS — the SAME single prefix as everywhere: a topic topic:FAMILY/slug; an insert topic:FAMILY/slug/TYPE-name.md. There is NO catalog: prefix and no book:/guide: any more, and do not use a catalog path link in the parentheses — only the topic: popup.
+ • **(v6) THE «BEFORE READING» BLOCK.** Immediately UNDER the H1 put a collapsed block \`<preknowlist>…</preknowlist>\` — a bullet list of ref links to PREREQUISITES (what one must know, without which the article makes no sense), each line = a link + briefly «what exactly to know». The links are 2-segment, to a TOPIC (\`root:<book>/<slug>\` or \`root:<course>/<slug>\`, mirrored per §6), only WEIGHTY prerequisites. The list text itself is in UKRAINIAN. ${KIND === 'guide' ? 'COURSE: include only prerequisites from OUTSIDE the course OR not yet passed along the thread — do NOT add what the course already covered earlier.' : 'book/catalog: all genuine prerequisites (the article is standalone).'} If a prerequisite topic does not exist in the repo yet — treat it as a dependency (add it to newTopics, STEP 3).${KIND === 'catalog' ? `
+ • **(§8) CATALOG — A CONCRETE OBJECT.** You describe this very thing (board/module/instrument/part): the reader must RECOGNIZE it, understand what it does and how it is built, how to connect/use it and what to beware of. Pick the sections YOURSELF to fit the device's nature; part numbers/models ARE appropriate (this is a catalog). NO sequence phrases. CATALOG LINKS — the SAME single prefix as everywhere: a topic root:FAMILY/slug; an insert root:FAMILY/slug/TYPE-name.md. There is NO catalog: prefix and no book:/guide: any more, and do not use a catalog path link in the parentheses — only the topic: popup.
  • **(§8) A BOARD/MODULE WITH A SCHEMATIC — MANDATORY.** If the thing has a device schematic OR a wiring schematic: (a) draw BOTH SVG figures — the schematic + the PIN-BY-PIN wiring (svgcheck 0); (b) describe them (power, levels, pull-ups, what goes where); (c) give the API in an api insert — add to inserts[] { file:"api-<name>.md", type:"api", brief:"API/reference: pinout+registers+protocol (hardware) and/or library/typical calls + working C/C++, pitfalls" }. Without these three a board/module article is INCOMPLETE. Bare passives/consumables (resistors, wires, solder) — no schematic/API, briefly by purpose.
- • **(§8) A FAMILY — LINK, DON'T REPEAT.** If the product belongs to a line of several variants (a shared vendor/architecture/history — ESP32, Arduino, RPi, the KY series…) — do NOT retell the shared history/architecture HERE. Put a ref popup to the family OVERVIEW article topic:<family>/<family-slug> (e.g. topic:boards/esp32-family) for the shared part and describe ONLY this product's specifics. No family topic exists — add to newTopics { kind:"catalog", book:"<family>", section:"<section>", slug:"<family-slug>", title:"Родина …" } (title in Ukrainian) and put a ref to it.` : ''}
+ • **(§8) A FAMILY — LINK, DON'T REPEAT.** If the product belongs to a line of several variants (a shared vendor/architecture/history — ESP32, Arduino, RPi, the KY series…) — do NOT retell the shared history/architecture HERE. Put a ref popup to the family OVERVIEW article root:<family>/<family-slug> (e.g. root:boards/esp32-family) for the shared part and describe ONLY this product's specifics. No family topic exists — add to newTopics { kind:"catalog", book:"<family>", section:"<section>", slug:"<family-slug>", title:"Родина …" } (title in Ukrainian) and put a ref to it.` : ''}
 STEP 3 — LINKS AND LISTS (the key part for the pipeline):
  • YOUR OWN INSERTS (a low decision threshold, but CONTEXTUAL — as many as the topic asks for). If the topic contains a sub-block worth unfolding separately (the history of its birth / a mathematical derivation / a code project / an algorithm walkthrough / a component class) — spin it out as an insert instead of squeezing it into the article. Hesitating «is it worth its own insert» — rather DO it, BUT the threshold is RAISED one notch (−10% inserts): a hesitation of exactly 50/50 → do NOT spin it out (leave it as a sentence in the article), and from this topic's candidate set DROP THE WEAKEST — the one whose layer adds least. There is NO quota on the count: put as many as the topic's logic asks for (one topic — no inserts at all, another — several of different types, when each is genuinely needed: hist/math/proj complement one another). Do NOT add for the sake of a number. The bar is quality: each carries its own layer, not a retelling of the article. Do NOT write the insert's content here. Instead: (a) place in the prose a ref popup [текст](${SELF}:${BOOK}/${u.slug}/<type>-<name>.md) — the link MUST carry the «.md» extension (without it the engine won't open it) — with a 1–7 sentence summary; (b) add it to inserts:[{file:"<type>-<name>.md", type:"hist|comp|math|proj|api", brief:"2–4 sentences: what exactly the insert must cover"}]. The NEXT phase will write it. ⚠️ EVERY insert you ref'd in the prose MUST be in inserts[] with the SAME file name — no ref without an entry (otherwise the file won't be created → a broken link).${KIND === 'catalog' ? ' (catalog — no comp-.)' : ''}${INSERT_BIAS}
- • NEW DEPENDENT TOPICS — PROACTIVELY, DO NOT RELY ON THE PLAN. The course/book plan is NOT 100% exhaustive — it is WHILE WRITING that you see best what is missing. Before finishing, go over the WEIGHTY concepts the article ASSUMES known or LEANS ON, and for each CHECK whether it exists in the repo: Bash grep by slug/title in ${ROOT}\\book\\*\\manifest.js and ${ROOT}\\guide\\*\\manifest.js (a finished one OR a pending/empty stub is enough). If a weighty concept is NOWHERE — that is a GAP in the plan: do NOT route around it (don't avoid the mention and don't leave bare inline text without a ref!), but REGISTER the topic — put a ref (topic:<book>/<slug> or topic:<course>/<slug>) and add it to newTopics:[{kind,book,section,slug,title,why,needDetailed}] (title and why in UKRAINIAN). ⚠️ CHOOSE THE ADDRESS BY THE SPIRAL (§2), NOT by «what looks closest»: (a) state to YOURSELF, in one sentence, what the topic is about; (b) invent the BOOK name INDEPENDENTLY — do NOT look at the existing books first; (c) ONLY THEN compare your answer with ${ROOT}\\BOOKS.md (the book registry) and with the existing books — a very close one exists, file it there; (d) same for the SECTION/module: your own answer first, then the closest existing one — none fits, just create a new section, asking no one. ⛔ NO BOOK FITS → you do NOT invent a book: file the topic into the closest existing book anyway and say so in «why» (Ukrainian: «книги під це немає — тимчасово в X»); creating a book, a volume or a course is the AUTHOR's decision alone. «why» = ONE Ukrainian sentence on what principle the topic belongs exactly there — that sentence is what later reveals that two differently-named sections mean one and the same thing. If you link to the EXPLICIT DETAILED of a new topic (…/detail, rare) — needDetailed:true. A link to an insert file — with «.md». Do NOT create the file (the Manifest phase will register it; it filters duplicates). The bar is weight (§6): a genuine dependency without which the topic makes no sense, NOT every passing mention. Better to register one stub too many than to leave a hidden gap.${level === 'basic' ? `
+ • NEW DEPENDENT TOPICS — PROACTIVELY, DO NOT RELY ON THE PLAN. The course/book plan is NOT 100% exhaustive — it is WHILE WRITING that you see best what is missing. Before finishing, go over the WEIGHTY concepts the article ASSUMES known or LEANS ON, and for each CHECK whether it exists in the repo: Bash grep by slug/title in ${ROOT}\\book\\*\\manifest.js and ${ROOT}\\guide\\*\\manifest.js (a finished one OR a pending/empty stub is enough). If a weighty concept is NOWHERE — that is a GAP in the plan: do NOT route around it (don't avoid the mention and don't leave bare inline text without a ref!), but REGISTER the topic — put a ref (root:<book>/<slug> or root:<course>/<slug>) and add it to newTopics:[{kind,book,section,slug,title,why,needDetailed}] (title and why in UKRAINIAN). ⚠️ CHOOSE THE ADDRESS BY THE SPIRAL (§2), NOT by «what looks closest»: (a) state to YOURSELF, in one sentence, what the topic is about; (b) invent the BOOK name INDEPENDENTLY — do NOT look at the existing books first; (c) ONLY THEN compare your answer with ${ROOT}\\BOOKS.md (the book registry) and with the existing books — a very close one exists, file it there; (d) same for the SECTION/module: your own answer first, then the closest existing one — none fits, CREATE a new section, asking no one — but then you MUST also give `sectionTitle` (one to four words, a Ukrainian noun phrase — not a list, not a slogan, not «Основи чогось», not a colon-plus-explanation, never «Інше») and `sectionScope` (ONE Ukrainian sentence about what belongs in that GROUP, not about this topic — bad: «Це тема про кеш, тому Кеш»; good: «Сюди все, де відповідь беруть із копії замість першоджерела»). Without those two the section cannot be created and the topic silently fails to land. ⚠️ SLUG (§2): it must be such that NOTHING can later land on top of it — a generic one-word slug (`cache`, `timers`, `memory`, `geometry`) is the cheapest way to manufacture a future duplicate; use a precise compound (`cache-eviction-policies`, `hardware-timer-capture-compare`). A precise one-word technical term (`mutex`, `vdso`) is fine. ⛔ NO BOOK FITS → you do NOT invent a book: file the topic into the closest existing book anyway and say so in «why» (Ukrainian: «книги під це немає — тимчасово в X»); creating a book, a volume or a course is the AUTHOR's decision alone. «why» = ONE Ukrainian sentence on what principle the topic belongs exactly there — that sentence is what later reveals that two differently-named sections mean one and the same thing. If you link to the EXPLICIT DETAILED of a new topic (…/detail, rare) — needDetailed:true. A link to an insert file — with «.md». Do NOT create the file (the Manifest phase will register it; it filters duplicates). The bar is weight (§6): a genuine dependency without which the topic makes no sense, NOT every passing mention. Better to register one stub too many than to leave a hidden gap.${level === 'basic' ? `
  • THE DETAILED VERSION OF THIS TOPIC (§3, LOW THRESHOLD). Judge: does the topic have a REAL second layer — formula derivations, a protocol/algorithm, a many-sided architecture/hardware, many edge cases? If, while writing the basic, you were COMPRESSING material — set needDetailedSelf:true (the detailed will be queued). A simple reference/overview/narrow note — needDetailedSelf:false.` : ''}
 ${level === 'detailed' ? ` • DOES THIS TOPIC NEED A BASIC (§3) — YOU decide, because only you see the finished detailed.
    1) FIRST Bash-check whether a basic is ALREADY on disk: ${dir}\\${u.slug}.md. IF IT IS — set basicExists:true, needBasicSelf:false and do NOTHING with it: don't rewrite it, don't propose writing it; its manifest status won't be touched either. The decision ends there.
@@ -337,7 +347,7 @@ let BASIC_REQUEUE = []          // базова була в черзі етап�
 async function runArticles(units, phaseName) {
   if (!units.length) return { wrote: [], skipped: [], failed: [] }
   phase(phaseName)
-  log(`${phaseName} (opus effort=${effortForUnit()} — «${BOOK}» ${HARD_BOOKS.has(BOOK) ? 'формули/код' : 'проза'}, стагер ${STAGGER / 1000}с): ${units.length} тем (${KIND}/${BOOK})`)
+  log(`${phaseName} (opus effort=${effortForUnit()} — «${BOOK}» ${HARD_BOOKS.has(BOOK) ? 'формули/код' : 'проза'}, стагер ${STAGGER / 1000}с): ${units.length} тем (${BOOK})`)
   const res = await staggered(units, (u) =>
     callAgent(articlePrompt(u), { label: `${u.level === 'detailed' ? 'детальна' : 'базова'}:${u.slug}`, phase: phaseName, model: 'opus', effort: effortForUnit(), schema: ART_RET })
       .then((pr) => ({ u, ok: !!(pr && pr.ok), skipBasic: !!(pr && pr.skipBasic), inserts: (pr && pr.inserts) || [], newTopics: (pr && pr.newTopics) || [], needBasicSelf: !!(pr && pr.needBasicSelf), basicExists: !!(pr && pr.basicExists), needDetailedSelf: !!(pr && pr.needDetailedSelf), deeperTargets: (pr && pr.deeperTargets) || [], note: pr && pr.note }))
@@ -405,7 +415,7 @@ ${ins.brief
  IN ANY CASE, read the owner article before writing, so as not to duplicate what it already says.`}
 TYPE TEMPLATE: ${TPL[ins.type] || TPL.hist}
 REQUIREMENTS: §3 — start with an H1 («# Назва», an emoji is allowed; the title + the first sentence THEMSELVES say WHAT this is and WHY); 400–5000 words, TYPICAL 1200–1400 (5000 is a hard ceiling you almost never approach, not a target); it carries weight (NOT a retelling of the topic, not banality); Feynman; LIVING UKRAINIAN PROSE; formulas in Unicode inside code blocks; your own figures if needed (figs.py in ${dir}, RUN it — SVG into img/; the svg gate to «0» is a separate Sonnet step, not yours); facts — web-verified; cross-links ${SELF}: / topic: per §6 (a topic/step — 2 segments, the general link; an explicit detailed — a 3rd segment /detail; an insert <type>-<name>.md — with «.md»). The insert carries NO back-links to its owner article (do NOT link back to «${ins.topicSlug}»). DO NOT TOUCH THE MANIFEST.
- • NEW DEPENDENT TOPICS — same as for an article author (§6). If you lean on a weighty concept that is NOT IN THE REPO (Bash-grep by slug/title in ${ROOT}\\book\\*\\manifest.js and ${ROOT}\\guide\\*\\manifest.js — a pending/empty stub is enough), do NOT route around the mention and do NOT leave bare text without a ref: put a ref (topic:<book>/<slug>) and add the topic to newTopics:[{kind,book,section,slug,title,why,needDetailed}] (title and why in UKRAINIAN) — CHOOSE BY THE SPIRAL (§2): your OWN answer for book and section FIRST, then compare with ${ROOT}\\BOOKS.md and with the existing ones; a new section you may create yourself, a new BOOK you may NOT (that is the AUTHOR's decision — file into the closest existing book and say so in «why»). «why» = ONE Ukrainian sentence on why exactly there. Do NOT create the file (the «Маніфест» phase will register it; it filters duplicates). The bar is a genuine dependency without which the insert makes no sense, NOT every passing mention.
+ • NEW DEPENDENT TOPICS — same as for an article author (§6). If you lean on a weighty concept that is NOT IN THE REPO (Bash-grep by slug/title in ${ROOT}\\book\\*\\manifest.js and ${ROOT}\\guide\\*\\manifest.js — a pending/empty stub is enough), do NOT route around the mention and do NOT leave bare text without a ref: put a ref (root:<book>/<slug>) and add the topic to newTopics:[{kind,book,section,slug,title,why,needDetailed}] (title and why in UKRAINIAN) — CHOOSE BY THE SPIRAL (§2): your OWN answer for book and section FIRST, then compare with ${ROOT}\\BOOKS.md and with the existing ones; a new section you may create yourself — but then also give `sectionTitle` and `sectionScope` (see §2), else it cannot be created; a new BOOK you may NOT (that is the AUTHOR's decision — file into the closest existing book and say so in «why»). «why» = ONE Ukrainian sentence on why exactly there. Do NOT create the file (the «Маніфест» phase will register it; it filters duplicates). The bar is a genuine dependency without which the insert makes no sense, NOT every passing mention.
 Return: ok, file, note, newTopics (new dependent topics to register; [] if none).`
 }
 if (INSERTS.length) {
@@ -452,7 +462,7 @@ if (FIG_DIRS.length) {
   // і каже, які теки взагалі мають проблему. Чисті теки далі не йдуть: дорогий sonnet-фіксер
   // запускається лише там, де є що правити (раніше агент відкривався на кожну теку — марні токени).
   const PRE_RET = { type: 'object', additionalProperties: false, required: ['ok'], properties: { ok: { type: 'boolean' }, bad: { type: 'array', items: { type: 'string' } }, note: { type: 'string' } } }
-  const dirsSh = FIG_DIRS.map((d) => `"${ROOT.replace(/\\/g, '/')}/${KIND}/${BOOK}/${d}"`).join(' ')
+  const dirsSh = FIG_DIRS.map((d) => `"${BOOKDIR.replace(/\\/g, '/')}/${d.split('/').pop()}"`).join(' ')
   const pre = await callAgent(
     `Ти — передгейт фігур. Зроби РІВНО ОДИН Bash-виклик і НІЧОГО не читай:
 for d in ${dirsSh}; do echo "== $d"; python "${ROOT.replace(/\\/g, '/')}/scripts/svgcheck.py" "$d" --min-font 8 --links; done
@@ -487,10 +497,25 @@ for (const u of BASIC_EMPTY) pushOp(MF, { op: 'status', slug: u.slug, ver: 'basi
 for (const u of BASIC_NOT_NEEDED) pushOp(MF, { op: 'status-if', slug: u.slug, ver: 'basic', from: 'pending', to: 'empty' })
 // базова була в черзі етапу 3, але агент не впорався — хай лишається у черзі на наступний прогін
 for (const u of BASIC_REQUEUE) pushOp(MF, { op: 'status-if', slug: u.slug, ver: 'basic', from: 'empty', to: 'pending' })
-for (const i of doneInserts) pushOp(MF, { op: 'insert', slug: i.topicSlug, section: i.section, type: i.type, file: i.file, status: 'done' })
+for (const i of doneInserts) pushOp(MF, { op: 'insert', slug: i.topicSlug, type: i.type, file: i.file, status: 'done' })
+/* Спіраль (§2) дозволяє авторові створити НОВУ групу самому. Без op:"section" перед темою
+   opTopic лише лається «нема секції», і тема мовчки не лягає в маніфест. */
+const SECTIONS_KNOWN = new Set()
+try {
+  const sb = { __BOOKS__: [], __GUIDES__: [] }
+  new Function('window', require('fs').readFileSync(`${ROOT}\\${MF.replace(/\//g, '\\')}`, 'utf8'))(sb)
+  for (const m of [...sb.__BOOKS__, ...sb.__GUIDES__])
+    for (const s of (m.sections || m.modules || [])) if (s && s.slug) SECTIONS_KNOWN.add(s.slug)
+} catch {}
+const SECTIONS_MADE = new Set()
 for (const t of NEWTOPICS) {                            // §3/§6: нова тема — ЗАВЖДИ basic:empty + detailed:pending
-  const rel = `${t.kind || 'book'}/${t.book}/manifest.js`
-  pushOp(rel, { op: 'topic', section: t.section, slug: t.slug, title: t.title || t.titleHint || t.slug })
+  const rel = `${t.book}/manifest.json`
+  const sameBook = rel === MF
+  if (t.section && t.sectionTitle && !SECTIONS_MADE.has(rel + '|' + t.section) && !(sameBook && SECTIONS_KNOWN.has(t.section))) {
+    SECTIONS_MADE.add(rel + '|' + t.section)
+    pushOp(rel, { op: 'group', slug: t.section, title: t.sectionTitle, scope: t.sectionScope || '' })
+  }
+  pushOp(rel, { op: 'topic', group: t.section, chapter: t.chapter || t.section, slug: t.slug, title: t.title || t.titleHint || t.slug, groupTitle: t.sectionTitle, groupScope: t.sectionScope, chapterTitle: t.chapterTitle })
   // …КРІМ книг, що пишуть лише базові: там detailed:empty — норма за їхнім `_canon.md`, і тема,
   // заведена як detailed:pending, стала б у чергу, якої в цій книзі не існує. Перевертаємо пару.
   if (BASIC_IS_SOLE && (t.book === BOOK || !t.book)) {
@@ -498,37 +523,31 @@ for (const t of NEWTOPICS) {                            // §3/§6: нова т�
     pushOp(rel, { op: 'status', slug: t.slug, ver: 'basic', status: 'pending' })
   }
 }
-for (const d of DETAILED_QUEUE) pushOp(`book/${d.book}/manifest.js`, { op: 'status-if', slug: d.slug, ver: 'detailed', from: 'empty', to: 'pending' })
+for (const d of DETAILED_QUEUE) pushOp(`${d.book}/manifest.json`, { op: 'status-if', slug: d.slug, ver: 'detailed', from: 'empty', to: 'pending' })
 
 if (OPS.size) {
-  const jobs = [...OPS.entries()].map(([rel, ops], i) => ({
-    rel, ops, file: `${ROOT}\\scripts\\_mfops-${BOOK}-${i}.json`,
-    mf: `${ROOT}\\${rel.replace(/\//g, '\\')}`,
-  }))
-  const total = jobs.reduce((s, j) => s + j.ops.length, 0)
-  log(`Маніфест (локальний патчер): ${total} операцій у ${jobs.length} маніфест(ах) — агент лише кладе JSON і запускає скрипт`)
-  const r = await callAgent(
-    `Ти — механічний виконавець. НЕ читай і НЕ редагуй маніфести — усе зробить локальний скрипт.
-Для КОЖНОГО завдання нижче: (1) Write-ом поклади JSON-масив ops ДОСЛІВНО у вказаний файл (нічого не міняй у тексті, не перекладай, не переформульовуй назви); (2) Bash: «node ${ROOT}\\scripts\\manifest-patch.js <manifest> --ops <файл>».
-Скрипт сам знаходить теми, ставить статуси, реєструє вставки й додає нові теми (basic:empty + detailed:pending), пропускає вже наявне й валідує маніфест — якщо він друкує «✖», просто перекажи це у note.
-ЗАВДАННЯ:
-${jobs.map((j, k) => `${k + 1}) файл ops: ${j.file}\n   маніфест: ${j.mf}\n   ops: ${JSON.stringify(j.ops)}`).join('\n')}
-Поверни ok (true ⟺ усі команди відпрацювали), count (скільки операцій застосовано за звітами скрипта), note (рядки-підсумки скрипта; ✖-помилки, якщо були).`,
-    { label: `маніфест-патч ×${total}`, phase: 'Маніфест', model: 'sonnet', effort: 'low', schema: MFP_RET })
-  log(`Маніфест: застосовано ${(r && r.count) || 0}/${total} операцій${r && r.note ? ` — ${String(r.note).slice(0, 300)}` : ''}`)
+  /* v7: пишемо самі. Раніше тут був агент, що клав JSON і запускав manifest-patch —
+     обхідний шлях довкола того, що маніфест був ТЕКСТОМ .js. JSON редагується
+     безпечно за побудовою, тож і агент, і проміжний файл більше не потрібні. */
+  phase('Маніфест')
+  let _tot = 0, _err = []
+  for (const [rel, ops] of OPS.entries()) {
+    const bslug = rel.split('/').filter(Boolean).slice(-2)[0]
+    const bd = M7.bookDirOf(bslug)
+    if (!bd) { _err.push(`нема книги «${bslug}» — ${ops.length} операцій не застосовано`); continue }
+    const r = M7.applyOps(bd, ops)
+    _tot += r.changed || 0
+    ;(r.errors || []).forEach((e) => _err.push(`${bslug}: ${e}`))
+    log(`  ${bslug}: груп +${r.group || 0} · розділів +${r.chapter || 0} · тем +${r.topic || 0} · статусів ${r.status || 0} · вставок ${r.insert || 0}`)
+  }
+  log(`Маніфест: ${_tot} змін у ${OPS.size} книз(і/ях), локально, 0 агентів`)
+  _err.forEach((e) => { log('  ✖ ' + e); PROBLEMS.push(e) })
 }
 
-/* ──────────────── ЕТАП 7 — КОНТРОЛЬ (§3-обсяг, пари база↔деталь, фігури; лише звіт) ──────────────── */
-let PROBLEMS = []
-const _cdirs = new Set()
-for (const u of doneArticles) _cdirs.add(`${u.section}/${u.slug}`)
-for (const i of doneInserts) _cdirs.add(`${i.section}/${i.topicSlug}`)
-const DONE_DIRS = [..._cdirs]
-if (DONE_DIRS.length) {
-  phase('Контроль')
+phase('Контроль')
   const ctrl = await callAgent(
     `Ти — агент-контролер якості у репо ${ROOT}. Працюй МОВЧКИ (лише Bash). НІЧОГО НЕ ПИШИ й НЕ ПРАВ — тільки перевір і звітуй.
-Цей батч написав теми (${KIND}/${BOOK}), теки (відносно кореня репо): ${JSON.stringify(DONE_DIRS.map((d) => `${KIND}/${BOOK}/${d}`))}
+Цей батч написав теми (${BOOK}), теки (відносно кореня репо): ${JSON.stringify(DONE_DIRS.map((d) => `${KIND}/${BOOK}/${d}`))}
 ПЕРЕВІРКА 1 — ОБСЯГ §3: Bash «node ${ROOT}\\scripts\\wordcount.js ${KIND}/${BOOK} --all». У виводі знайди ЛИШЕ файли з ТЕК цього батчу, що позначені як поза смугою (замало/забагато слів за §3: базова 500–1200, детальна 1000–6500, вставка 400–5000; допуск ±10%, у виводі це «~» — не порушення). ОКРЕМО подивись блок «ПАРИ базова↔детальна»: рядок «✖ ПОРУШЕННЯ» для теми ЦЬОГО батчу — це порушення заліза §3 (базова МУСИТЬ бути ≤ ½ прози своєї детальної); занось його у problems як issue «базова >½ детальної (NN%) — скоротити базову або basic:empty».
 ПЕРЕВІРКА 2 — ФІГУРИ: для КОЖНОЇ теки батчу зроби Bash «python ${ROOT}\\scripts\\svgcheck.py ${ROOT}\\${KIND}\\${BOOK}\\<секція>\\<slug> --min-font 8» і знайди фігури «із зауваженнями» (не 0).
 ПЕРЕВІРКА 3 — МОВА КОДУ (§5: є C — має бути й C++): для КОЖНОЇ теки батчу зроби Bash «node ${ROOT}\\scripts\\checks\\17-cpp.js ${KIND}/${BOOK}/<секція>/<slug>». Код 0 — гаразд. Код 2 — скрипт перелічив C-блоки без пари C++; занось КОЖЕН рядок переліку у problems як issue «C-блок без вкладки C++ — §5». ВИНЯТКИ §5, які НЕ є порушенням і в problems не йдуть (перевір сам, глянувши блок): код простору ядра (#include <linux/…>, MODULE_LICENSE, збірка в .ko) · приклад про сам C як мову (препроцесор, ABI, _Generic) · чужий заголовок, показаний як цитата · випадок, коли після перекладу різнились би лише рядки #include (сирий syscall()/ioctl() над POSIX-структурою). Не виправляй — лише назви.

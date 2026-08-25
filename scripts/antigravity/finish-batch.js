@@ -34,11 +34,13 @@ const { execSync } = require("child_process");
 const argv = process.argv.slice(2);
 const val = (n) => { const i = argv.indexOf("--" + n); return i >= 0 ? argv[i + 1] : null; };
 const APPLY = argv.includes("--apply");
-const BOOK = val("book"), KIND = val("kind") || "book";
+const M7 = require("../lib/manifest7.js");
+const BOOK = val("book"), KIND = val("kind") || "book";   // KIND лишається для звіту: вид тепер випливає з книги
 if (!BOOK) { console.error("Ужиток: node scripts/antigravity/finish-batch.js --book <книга> --kind <вид> [--apply]"); process.exit(3); }
 
-const MF = path.join(KIND, BOOK, "manifest.js");
-if (!fs.existsSync(MF)) { console.error(`нема маніфесту: ${MF}`); process.exit(3); }
+const BOOKDIR = M7.bookDirOf(BOOK);
+if (!BOOKDIR) { console.error(`нема книги «${BOOK}» у root/ — перевір слуг (root/shelf.json)`); process.exit(3); }
+const MF = path.relative(process.cwd(), path.join(BOOKDIR, "manifest.json"));
 
 const BATCH = val("batch") || path.join("scripts", "_finish", `_batch-${BOOK}.json`);
 let dirs = [];
@@ -70,7 +72,7 @@ process.on("exit", () => { try { const j = JSON.parse(fs.readFileSync(LOCK, "utf
 process.env.GATE_LOCK_INHERITED = "1";
 
 /* ── 1. гейт ───────────────────────────────────────────────────────────────── */
-console.log(`\n=== ГЕЙТ: ${dirs.length} тем батчу ${KIND}/${BOOK} ===`);
+console.log(`\n=== ГЕЙТ: ${dirs.length} тем батчу ${BOOK} ===`);
 let gateCode = 0, gateOut = "";
 try { gateOut = execSync(`node scripts/checks/gate.js --topics ${dirs.map((d) => `"${d}"`).join(" ")} --quiet --cache`, { maxBuffer: 64 * 1024 * 1024, timeout: 3600000, killSignal: "SIGKILL" }).toString(); }
 catch (e) { gateCode = e.status || 1; gateOut = ((e.stdout || "") + (e.stderr || "")).toString(); }
@@ -88,114 +90,70 @@ console.log(`✓ усі ${dirs.length} тем пройшли всі 17 пере�
    ока. У "done" її переводить людина, а не батч. */
 const WRITTEN_STATUS = process.env.AG_WRITTEN_STATUS || "recheck";
 
-/* ── 2. операції з диску ───────────────────────────────────────────────────── */
+/* ── 2. операції з диску ─────────────────────────────────────────────────────
+   Тема в v7 лежить ПЛАСКО: root/<вид>/<книга>/<тема>/ — групи й розділу в шляху
+   немає, вони тільки в маніфесті. Тому «секцію з теки» більше не вгадуємо: для
+   вже записаної теми адресу знає маніфест, для нової — черга newtopic.js.        */
 const ops = [];
 const seen = [];
-const mismatched = [];
-const sb = {};
-new Function("window", fs.readFileSync(MF, "utf8"))(sb);
-const isGuide = Array.isArray(sb.__GUIDES__) && sb.__GUIDES__.length;
-const m = (isGuide ? sb.__GUIDES__ : sb.__BOOKS__ || [])[0];
-/* Слуг → секція, у якій тема ВЖЕ записана в маніфесті. Саме звідси беремо секцію для
-   операцій: тека на диску може з нею розходитись (тему написали не в ту теку, або секцію
-   в маніфесті перейменували), і тоді manifest-patch шукав би тему не там, де вона є.
-   Раніше тут стояла ручна табличка підміни на одну книгу — вона лікувала симптом одного
-   батчу й мовчки ламалася на будь-якому іншому розходженні. */
-const sectionBySlug = new Map();
-if (isGuide) {
-  (m.modules || m.sections || []).forEach((mod) => {
-    (mod.chapters || [{ steps: mod.steps || mod.topics || [] }]).forEach((ch) => {
-      (ch.steps || ch.topics || []).forEach((s) => {
-        if (s && s.slug && !s.ref) sectionBySlug.set(s.slug, mod.slug);
-      });
-    });
-  });
-} else {
-  (m.sections || []).forEach((s) => (s.topics || []).forEach((t) => sectionBySlug.set(t.slug, s.slug)));
-}
-const existingSlugs = new Set(sectionBySlug.keys());
-/* Для НОВОЇ теми секції в маніфесті ще нема — тоді (і лише тоді) беремо назву теки. */
-const sectionOf = (slug, dirSection) => sectionBySlug.get(slug) || dirSection;
+const unaddressed = [];
+const book0 = M7.loadBook(BOOKDIR);
+const known = new Map();                       // слуг → {group, chapter}
+if (book0) for (const t of M7.allTopics(book0)) if (t.own) known.set(t.slug, { group: t.group, chapter: t.chapter });
 
 for (const dir of dirs) {
   const slug = path.basename(dir);
-  const dirSection = path.basename(path.dirname(dir));
-  const section = sectionOf(slug, dirSection);
-  if (existingSlugs.has(slug) && section !== dirSection) {
-    mismatched.push(`${slug}: тека ${dirSection} ≠ маніфест ${section}`);
-  }
   const files = fs.readdirSync(dir).filter((f) => f.endsWith(".md"));
   const hasD = files.includes(`${slug}-d.md`);
   const hasB = files.includes(`${slug}.md`);
+  const inserts = files.filter((f) => /^(hist|comp|math|proj|api)-/.test(f));
 
-  if (!existingSlugs.has(slug)) {
-    let title = slug;
-    const mainFile = hasD ? `${slug}-d.md` : (hasB ? `${slug}.md` : null);
-    if (mainFile && fs.existsSync(path.join(dir, mainFile))) {
-      const content = fs.readFileSync(path.join(dir, mainFile), "utf8");
-      const match = content.match(/^#\s+(.+)$/m);
-      if (match) title = match[1].trim();
-    }
-    ops.push({ op: "topic", section, slug, title, basic: hasB ? WRITTEN_STATUS : "empty", detailed: hasD ? WRITTEN_STATUS : "pending" });
-    existingSlugs.add(slug);
+  if (!known.has(slug)) {
+    /* Написана тема, якої немає в маніфесті. Адресу взяти нізвідки — у шляху її
+       більше немає. Кладемо в чергу «без адреси» й кажемо вголос: заводити тему
+       наосліп у випадкову групу гірше, ніж не завести. */
+    unaddressed.push(slug);
+    continue;
   }
-
+  const a = known.get(slug);
   if (hasD) ops.push({ op: "status", slug, ver: "detailed", status: WRITTEN_STATUS });
   if (hasB) ops.push({ op: "status", slug, ver: "basic", status: WRITTEN_STATUS });
   else ops.push({ op: "status-if", slug, ver: "basic", from: "pending", to: "empty" });
-  files.filter((f) => /^(hist|comp|math|proj|api)-/.test(f)).forEach((f) =>
-    ops.push({ op: "insert", slug, type: f.split("-")[0], file: f, status: WRITTEN_STATUS, section }));
-  seen.push(`${slug}: детальна ${hasD ? WRITTEN_STATUS : "—"} · базова ${hasB ? WRITTEN_STATUS : "empty"} · вставок ${files.filter((f) => /^(hist|comp|math|proj|api)-/.test(f)).length}`);
+  inserts.forEach((f) => ops.push({ op: "insert", slug, type: f.split("-")[0], file: f, status: WRITTEN_STATUS }));
+  seen.push(`${slug} [${a.group}/${a.chapter}]: детальна ${hasD ? WRITTEN_STATUS : "—"} · базова ${hasB ? WRITTEN_STATUS : "empty"} · вставок ${inserts.length}`);
 }
 
-/* ── 3. черга нових тем ────────────────────────────────────────────────────── */
+/* ── 3. черга нових тем ──────────────────────────────────────────────────────
+   Кожен запис несе повну адресу (група + розділ) і, коли їх ще немає, назви для
+   них. applyOps створить групу й розділ САМ — саме цього не вміла жодна ланка v6,
+   через що тема з новою групою тихо гинула.                                     */
 const QDIRP = path.join("scripts", "_finish");
 const QFILE = path.join(QDIRP, `_ag-newtopics-${BOOK}.json`);
 let queue = [];
 try { queue = JSON.parse(fs.readFileSync(QFILE, "utf8")); } catch { }
 const fresh = queue.filter((t) => !t.applied);
-fresh.forEach((t) => ops.push({ op: "topic", section: t.section, slug: t.slug, title: t.title, basic: "empty", detailed: "pending" }));
+fresh.forEach((t) => ops.push({
+  op: "topic", group: t.group, chapter: t.chapter, slug: t.slug, title: t.title,
+  basic: "empty", detailed: "pending",
+  groupTitle: t.groupTitle, groupScope: t.groupScope, chapterTitle: t.chapterTitle,
+}));
 
-if (mismatched.length) {
-  console.log(`\n⚠ ТЕКА ≠ СЕКЦІЯ МАНІФЕСТУ (${mismatched.length}) — статуси підуть у секцію з маніфесту,`);
-  console.log(`  але розкладку варто полагодити: або git mv теки, або перенести тему в маніфесті.`);
-  mismatched.forEach((x) => console.log(`     • ${x}`));
+if (unaddressed.length) {
+  console.log(`\n⚠ НАПИСАНО, АЛЕ АДРЕСИ НЕМА (${unaddressed.length}) — статуси НЕ запишемо:`);
+  unaddressed.forEach((s) => console.log(`     • ${s}`));
+  console.log(`  Тема є на диску, але її немає в маніфесті, а група й розділ у шлях не входять,`);
+  console.log(`  тож вгадати адресу нізвідки. Заведи її явно:`);
+  console.log(`    node scripts/antigravity/newtopic.js --book ${BOOK} --group <група> --chapter <розділ> …`);
 }
+
 console.log(`\n=== ЩО ЗАПИСУЄМО ===`);
 seen.forEach((s) => console.log("  " + s));
 if (fresh.length) {
   console.log(`  нові теми з черги (у чергу письма підуть ДЕТАЛЬНІ, наступним батчем):`);
-  fresh.forEach((t) => console.log(`    + [${t.section}] ${t.slug} — ${t.title}   ← ${t.why}`));
+  fresh.forEach((t) => console.log(`    + [${t.group}/${t.chapter}] ${t.slug} — ${t.title}   ← ${t.why}`));
 } else console.log("  нових тем у черзі немає");
 
-/* Скільки тем написали — і скільки залежностей при цьому помітили. Нуль нових тем на
-   великому батчі майже завжди означає не закриту книгу, а те, що 16-та відповідала на
-   власний preknowlist: автор оголошує наявне, суддя підтверджує, що воно наявне, і
-   поняття, якого ніхто не оголосив, лишається невидимим. Це не блокує запис — це те,
-   що людина мусить побачити, поки батч ще свіжий. */
-const queuedTotal = queue.length;
-console.log("");
-console.log(`  залежності: написано тем ${dirs.length} · заведено нових тем ${fresh.length} (усього в черзі ${queuedTotal})`);
 
-/* Облік важеля, а не самих тем. «Нуль нових тем» саме по собі нічого не каже: воно
-   означає і закриту книгу, і те, що до newtopic.js ніхто не дотягнувся. Розрізняє їх
-   журнал відмов — якщо і черга порожня, і відмов нема, важіль просто не вживали.
-   2026-08-15 саме так і було: батч фізики дав нуль тем при порожньому журналі. */
-let refused = [];
-try { refused = JSON.parse(fs.readFileSync(path.join("scripts", "_finish", "_ag-newtopic-refused.json"), "utf8")); } catch { }
-const mine = refused.filter((r) => r.book === BOOK);
-const byWhy = {};
-mine.forEach((r) => (byWhy[r.why] = (byWhy[r.why] || 0) + 1));
-const elsewhere = [];
-for (const f of fs.existsSync(path.join("scripts", "_finish")) ? fs.readdirSync(path.join("scripts", "_finish")) : []) {
-  const m = f.match(/^_ag-newtopics-(.+)\.json$/);
-  if (!m || m[1] === BOOK) continue;
-  try {
-    JSON.parse(fs.readFileSync(path.join("scripts", "_finish", f), "utf8"))
-      .filter((t) => !t.applied && t.from && t.from.includes(`/${BOOK}/`))
-      .forEach((t) => elsewhere.push(`${m[1]}/${t.slug}`));
-  } catch { }
-}
 /* ── Одне поняття, пояснене у вставках кількох тем ───────────────────────────
    §6: вставка розширює свою тему, а не пояснює чужу; назване поняття, пояснене
    вставкою вдруге, — це тема. Але автор виконати це правило сам не може: під час
@@ -247,19 +205,24 @@ if (fresh.length === 0 && mine.length === 0 && dirs.length >= 5) {
   console.log(`    Подивись у scripts/_finish/_ag-newtopic-refused.json, чи справедливо.`);
 }
 
-/* ── 4. маніфест ───────────────────────────────────────────────────────────── */
-const OPS = path.join("scripts", "_finish", `_mfops-ag-${BOOK}.json`);
-fs.mkdirSync(path.dirname(OPS), { recursive: true });
-const topicOps = ops.filter((o) => o.op === "topic");
-const otherOps = ops.filter((o) => o.op !== "topic");
-const sortedOps = [...topicOps, ...otherOps];
-fs.writeFileSync(OPS, JSON.stringify(sortedOps, null, 2), "utf8");
-console.log(`\n=== manifest-patch (${APPLY ? "ЗАПИС" : "DRY — нічого не пишемо"}) ===`);
-let code = 0, out = "";
-try { out = execSync(`node scripts/manifest-patch.js "${MF}" --ops "${OPS}"${APPLY ? "" : " --dry"}`, { maxBuffer: 32 * 1024 * 1024, timeout: 600000, killSignal: "SIGKILL" }).toString(); }
-catch (e) { code = e.status || 1; out = ((e.stdout || "") + (e.stderr || "")).toString(); }
-console.log(out.trimEnd());
-if (code) { console.error(`\n✖ manifest-patch повернув ${code} — маніфест не змінено`); process.exit(code); }
+/* ── 4. маніфест ─────────────────────────────────────────────────────────────
+   Пишемо через manifest7: JSON парситься й серіалізується, тож редагування
+   безпечне за побудовою — на відміну від v6, де manifest-patch правив ТЕКСТ
+   JS-файла рядок за рядком і мусив сам стежити за комами.                        */
+console.log(`\n=== МАНІФЕСТ (${APPLY ? "ЗАПИС" : "DRY — нічого не пишемо"}) ===`);
+const rep = M7.applyOps(BOOKDIR, ops, { dry: !APPLY });
+console.log(`  ${MF}`);
+console.log(`  груп +${rep.group || 0} · розділів +${rep.chapter || 0} · тем +${rep.topic || 0} · статусів ${rep.status || 0} · вставок ${rep.insert || 0}`);
+if ((rep.skipped || []).length) {
+  console.log(`  пропущено (уже так): ${rep.skipped.length}`);
+  rep.skipped.slice(0, 10).forEach((s) => console.log(`     · ${s}`));
+}
+if ((rep.errors || []).length) {
+  console.error(`\n✖ помилок ${rep.errors.length} — маніфест не змінено`);
+  rep.errors.forEach((e) => console.error(`     ✖ ${e}`));
+  process.exit(4);
+}
+
 
 if (APPLY && fresh.length) {
   fresh.forEach((t) => { t.applied = true; t.appliedAt = new Date().toISOString(); });
@@ -288,14 +251,14 @@ for (const f of fs.existsSync(QDIRP) ? fs.readdirSync(QDIRP) : []) {
 if (Object.keys(foreign).length) {
   console.log(`\n=== ТЕМИ, ВІДДАНІ ЧУЖИМ КНИГАМ ===`);
   for (const [book, F] of Object.entries(foreign)) {
-    const kind = F.take[0].kind || "book";
-    const mf = path.join(kind, book, "manifest.js");
-    if (!fs.existsSync(mf)) { console.log(`  ✖ ${book}: нема маніфесту ${mf} — лишаємо в черзі`); continue; }
-    const src = fs.readFileSync(mf, "utf8");
+    const fbd = M7.bookDirOf(book);
+    const mf = fbd ? path.relative(process.cwd(), path.join(fbd, "manifest.json")) : `root/?/${book}/manifest.json`;
+    const fbk = fbd ? M7.loadBook(fbd) : null;
+    if (!fbk) { console.log(`  ✖ ${book}: нема маніфесту ${mf} — лишаємо в черзі`); continue; }
+    const fgroups = M7.groupSlugs(fbk);
     const ok = [], noSection = [];
-    for (const t of F.take)
-      (new RegExp(`slug\\s*:\\s*["']${t.section}["']`).test(src) ? ok : noSection).push(t);
-    noSection.forEach((t) => console.log(`  ✖ ${book}/${t.slug}: секції «${t.section}» у ${mf} немає — лишаємо в черзі`));
+    for (const t of F.take) ((t.group && fgroups.has(t.group)) || t.groupTitle ? ok : noSection).push(t);
+    noSection.forEach((t) => console.log(`  ✖ ${book}/${t.slug}: групи «${t.group}» у ${mf} немає і назви для неї не дано — лишаємо в черзі`));
     if (!ok.length) continue;
     const fops = path.join(QDIRP, `_mfops-ag-foreign-${book}.json`);
     fs.writeFileSync(fops, JSON.stringify(ok.map((t) => ({ op: "topic", section: t.section, slug: t.slug, title: t.title, basic: "empty", detailed: "pending" })), null, 2), "utf8");

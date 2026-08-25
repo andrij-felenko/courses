@@ -6,9 +6,9 @@
    дізнається, що вставка існує.
 
    За типами файлу:
-     detailed — мусить мати <preknowlist> із topic:-лінками (§6);
+     detailed — мусить мати <preknowlist> із root:-лінками (§6);
      basic    — <preknowlist> не вимагаємо: базова і є входом;
-     вставки  — кожна мусить бути згадана topic:-лінком у прозі теми (у базовій
+     вставки  — кожна мусить бути згадана root:-лінком у прозі теми (у базовій
                 АБО в детальній — читач заходить із будь-якої).
 
    Биті лінки судимо ЛИШЕ свої: агент не має права чіпати чужі теки, тож
@@ -58,7 +58,7 @@ if (T.detailed) {
   else {
     const block = m[1];
     if (/<details|<summary/i.test(block)) bad.push("усередині <preknowlist> зайва обгортка <details>/<summary> — рушій читає блок порядково, теги стануть фальшивими пунктами");
-    if (!/\]\(topic:/.test(block)) bad.push("пункти <preknowlist> без topic:-лінків — читач не має куди піти по передумову");
+    if (!/\]\(root:/.test(block)) bad.push("пункти <preknowlist> без root:-лінків — читач не має куди піти по передумову");
     const lines = block.split(/\r?\n/).filter((l) => l.trim());
     if (lines.length < 2) bad.push("<preknowlist> порожній або з одного рядка — назви справжні передумови");
   }
@@ -71,15 +71,15 @@ T.inserts.forEach((ins) => {
     bad.push(`${ins.file} (${ins.label}): вставку не згадано в прозі теми — читач її не відкриє ніколи`);
     return;
   }
-  const linked = new RegExp(`\\]\\(topic:[^)]*${ins.file.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\)`).test(proseAll);
-  if (!linked) bad.push(`${ins.file} (${ins.label}): згадка є, але не topic:-лінком — попап не відкриється (§6)`);
+  const linked = new RegExp(`\\]\\(root:[^)]*${ins.file.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\)`).test(proseAll);
+  if (!linked) bad.push(`${ins.file} (${ins.label}): згадка є, але не root:-лінком — попап не відкриється (§6)`);
 });
 
 /* (4) зовнішніх .md-лінків усередині теми бути не має — лише topic: */
 T.files.forEach((f) => {
   [...f.text.matchAll(/\[[^\]]*\]\(([^)]+\.md)\)/g)].forEach((m) => {
     if (!m[1].startsWith("topic:"))
-      bad.push(`${f.file} (${f.label}): відносний .md-лінк «${m[1].slice(0, 70)}» — за каноном це topic:-попап`);
+      bad.push(`${f.file} (${f.label}): відносний .md-лінк «${m[1].slice(0, 70)}» — за каноном це root:-попап`);
   });
 });
 

@@ -1,41 +1,50 @@
 #!/usr/bin/env node
-/* mark-recheck.js — одноразова міграція: усі DONE-версії статей (basic/detailed) у маніфестах
-   book/ · catalog/ · guide/ → status "recheck" (черга recheck-кампанії).
-   Вставки НЕ чіпає (у них об'єкт {file,status} — префікс не basic/detailed).
-   Тільки "done" → "recheck"; pending/empty/update/deeper — не чіпає.
-   Запуск:  node scripts/mark-recheck.js            (dry-run: лише лічить)
-            node scripts/mark-recheck.js --apply     (застосувати запис) */
-"use strict";
-const fs = require("fs");
-const path = require("path");
-const ROOT = path.resolve(__dirname, "..");
-const APPLY = process.argv.includes("--apply");
+/* ============================================================================
+   mark-recheck.js — позначити написані версії статусом `recheck`.
 
-function manifests() {
-  const out = [];
-  for (const kind of ["book", "catalog", "reference", "guide"]) {
-    const base = path.join(ROOT, kind);
-    if (!fs.existsSync(base)) continue;
-    for (const d of fs.readdirSync(base)) {
-      const mf = path.join(base, d, "manifest.js");
-      if (fs.existsSync(mf)) out.push(mf);
+   `recheck` (AUTHORING §9) = «передивитися за чинними правилами й привести у
+   відповідність». Скрипт масово переводить `done` → `recheck`, коли канон
+   змінився й корпус треба перечитати.
+
+   ЩО ЗМІНИЛОСЯ. Раніше він різав ТЕКСТ `.js`-маніфесту регуляркою по
+   `basic:{status:"done"}`. У v7 маніфест — JSON, і правка йде операціями через
+   `scripts/lib/manifest7.js`: те саме, але без ризику зіпсувати файл.
+
+   Ужиток:  node scripts/claude/mark-recheck.js                (звіт по всіх книгах)
+            node scripts/claude/mark-recheck.js --apply
+            node scripts/claude/mark-recheck.js --book sf-apps --apply
+   ========================================================================== */
+"use strict";
+const path = require("path");
+const M = require("../lib/manifest7.js");
+
+const argv = process.argv.slice(2);
+const APPLY = argv.includes("--apply");
+const val = (n) => { const i = argv.indexOf("--" + n); return i >= 0 ? argv[i + 1] : null; };
+const ONLY = val("book");
+
+let books = 0, hits = 0, changed = 0;
+for (const [bslug, meta] of M.books()) {
+  if (ONLY && bslug !== ONLY) continue;
+  const bk = M.loadBook(meta.bookDir);
+  if (!bk) continue;
+  books++;
+
+  const ops = [];
+  for (const t of M.allTopics(bk)) {
+    if (!t.own) continue;
+    for (const ver of ["basic", "detailed"]) {
+      const st = (t.node[ver] && t.node[ver].status) || "empty";
+      if (st === "done") ops.push({ op: "status", slug: t.slug, ver, status: "recheck" });
     }
   }
-  return out;
+  if (!ops.length) continue;
+  hits += ops.length;
+  const rep = M.applyOps(meta.bookDir, ops, { dry: !APPLY });
+  changed += rep.status || 0;
+  console.log(`  ${bslug.padEnd(22)} done→recheck: ${String(ops.length).padStart(4)}${(rep.errors || []).length ? "   ✖ помилок " + rep.errors.length : ""}`);
+  (rep.errors || []).forEach((e) => console.error(`     ✖ ${e}`));
 }
 
-// ТІЛЬКИ версії basic/detailed (об'єкт лише зі status); вставки {file:"…",status:"done"} — не матчаться (перед { стоїть не basic/detailed)
-const RE = /((?:basic|detailed)\s*:\s*\{\s*status\s*:\s*)"done"(\s*\})/g;
-
-let totalFiles = 0, totalHits = 0;
-for (const mf of manifests()) {
-  const src = fs.readFileSync(mf, "utf8");
-  let hits = 0;
-  const out = src.replace(RE, (m, a, b) => { hits++; return a + '"recheck"' + b; });
-  if (hits) {
-    totalFiles++; totalHits += hits;
-    console.log(`${APPLY ? "✎" : "•"} ${path.relative(ROOT, mf).replace(/\\/g, "/")}: ${hits} версій done→recheck`);
-    if (APPLY) fs.writeFileSync(mf, out);
-  }
-}
-console.log(`\n${APPLY ? "ЗАСТОСОВАНО" : "DRY-RUN (без запису; додай --apply)"}: ${totalHits} версій у ${totalFiles} маніфестах`);
+console.log(`\n${APPLY ? "ЗАСТОСОВАНО" : "ЗВІТ (нічого не записано)"} · книг ${books} · версій ${hits}`);
+if (!APPLY && hits) console.log(`Щоб записати: node scripts/claude/mark-recheck.js${ONLY ? " --book " + ONLY : ""} --apply`);

@@ -163,7 +163,7 @@ if (BOOK && cleanTopics.length && !DRY) {
   const ops = `scripts/_finish/_review-ops-${BOOK}.json`;
   const run = (a) => console.log(execFileSync("node", a, { cwd: ROOT, encoding: "utf8" }).trim());
   run([path.join("scripts", "claude", "review-queue.js"), "--book", BOOK, "--kind", KIND, "--ops-done", "--json", ops, "--slugs", slugs]);
-  run([path.join("scripts", "manifest-patch.js"), `${KIND}/${BOOK}/manifest.js`, "--ops", path.join(ROOT, ops), "--apply"]);
+  run([path.join("scripts", "manifest-patch.js"), BOOK, "--ops", path.join(ROOT, ops), "--apply"]);
 } else if (BOOK && cleanTopics.length) {
   console.log(`\n[сухий] у done пішло б тем: ${cleanTopics.length}`);
 }

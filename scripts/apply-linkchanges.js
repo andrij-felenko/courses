@@ -5,7 +5,7 @@
        щоб не зачепити довші лінки-надмножини);
    (2) НОРМАЛІЗУВАТИ застарілий синтаксис детальної версії: будь-який лінк «…/<x>-d.md» → «…/detail»
        (нова єдина адреса детальної; рушій розуміє /detail і -d.md, але канон — /detail).
-   Обидва — по всіх .md (book/ catalog/ guide/).
+   Обидва — по всіх .md дерева root/.
    Запуск:  node scripts/apply-linkchanges.js           (dry-run)
             node scripts/apply-linkchanges.js --apply    (запис)   →   потім: node scripts/linkcheck.js */
 "use strict";
@@ -46,7 +46,7 @@ function walk(dir, out) {
   }
   return out;
 }
-const files = [].concat(walk(path.join(ROOT, "book"), []), walk(path.join(ROOT, "catalog"), []), walk(path.join(ROOT, "reference"), []), walk(path.join(ROOT, "guide"), []));
+const files = walk(path.join(ROOT, "root"), []);
 
 let ruleHits = 0, normHits = 0, filesChanged = 0;
 const perRule = new Map();

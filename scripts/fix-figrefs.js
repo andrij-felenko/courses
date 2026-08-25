@@ -2,8 +2,8 @@
    Патерн збою: агент зробив git mv fig-NN-MM-<name>.svg → <name>.svg, але НЕ оновив ![..](img/fig-...) у .md.
    Скрипт: для кожного битого img-рефа в .md дістає описовий «хвіст» (після fig-<індекси>-), і якщо <хвіст>.svg
    існує в img/ теми — переписує реф на корене-абсолютний /book/.../img/<хвіст>.svg. Якщо файлу нема — лишає, репортує.
-   Запуск:  node scripts/fix-figrefs.js            (усе book/)
-            node scripts/fix-figrefs.js book/electronics/digital/dac   (одна тека) */
+   Запуск:  node scripts/fix-figrefs.js            (усе root/)
+            node scripts/fix-figrefs.js root/hw/hw-digital/dac   (одна тека) */
 const fs = require("fs");
 const path = require("path");
 const ROOT = path.resolve(__dirname, "..");
@@ -17,7 +17,7 @@ function walkMd(dir, out) {
   }
 }
 const mdFiles = [];
-walkMd(arg ? path.resolve(ROOT, arg) : path.join(ROOT, "book"), mdFiles);
+walkMd(arg ? path.resolve(ROOT, arg) : path.join(ROOT, "root"), mdFiles);
 
 const reImg = /!\[[^\]]*\]\(([^)]+\.svg)\)/g;
 let fixed = 0, stillBroken = [];

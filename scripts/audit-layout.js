@@ -1,106 +1,76 @@
 #!/usr/bin/env node
 /* ============================================================================
-   audit-layout.js — розлади «диск ↔ маніфест» по всьому корпусу.
+   audit-layout.js — чи збігається ДИСК із МАНІФЕСТОМ у дереві v7.
 
-   Ужиток:
-     node scripts/audit-layout.js                 # усі книги
-     node scripts/audit-layout.js reference/unix-linux
+   Це гейт «тек == тем» із `PLAN.md §4` (Фаза 2). У v7 тема лежить пласко під
+   книгою, тож перевірка стала простою і повною:
 
-   Коди виходу: 0 — чисто · 1 — є розлади (перелічено).
+     • тека теми є, а в маніфесті теми немає        → сирота на диску
+     • тема в маніфесті є, а теки немає             → порожній запис
+     • група в `manifest.json`, а файла `<група>.json` немає
+     • файл `<група>.json` лежить, а в переліку груп його немає
+     • той самий слуг двічі в одній книзі
+     • тема без жодної версії (`basic` і `detailed` обидва `empty`)
 
-   ЩО ЛОВИТЬ і чому це болить:
-     • тека-секція, якої нема в маніфесті — теми в ній не побачить ні читач, ні гейт;
-     • тема лежить не в тій секції, де записана — manifest-patch шукає її не там,
-       і батч гине на одній темі («finish-batch: секція з маніфесту» це терпить,
-       але розкладка лишається брехливою);
-     • ОДИН слуг у ДВОХ теках — найгірше: дві копії статті живуть паралельно, правки
-       йдуть в одну, читач бачить іншу;
-     • тека теми без запису в маніфесті — стаття написана, але для книги її нема;
-     • секція в маніфесті без теки — норм, якщо просто ще не писали (не дефект).
-
-   Теки, що починаються з «_» (напр. `_analysis`), — службові, їх не рахуємо.
+   Ужиток:  node scripts/audit-layout.js              (усе дерево)
+            node scripts/audit-layout.js sf-apps      (одна книга)
    ========================================================================== */
 "use strict";
 const fs = require("fs");
 const path = require("path");
+const M = require("./lib/manifest7.js");
 
-const ROOT = path.resolve(__dirname, "..");
-const only = process.argv[2] ? path.resolve(ROOT, process.argv[2]) : null;
+const only = process.argv[2] || null;
+const SKIP = new Set(["img"]);
+let bad = 0, books = 0;
 
-const dirsIn = (p) => fs.existsSync(p)
-  ? fs.readdirSync(p).filter((f) => !f.startsWith("_") && fs.statSync(path.join(p, f)).isDirectory())
-  : [];
+for (const [bslug, meta] of M.books()) {
+  if (only && bslug !== only) continue;
+  books++;
+  const say = (s) => { console.log(`✖ ${meta.dir}/${bslug}: ${s}`); bad++; };
 
-function loadManifest(mf) {
-  const sb = {};
-  new Function("window", fs.readFileSync(mf, "utf8"))(sb);
-  const guides = sb.__GUIDES__ || [], books = sb.__BOOKS__ || [];
-  return guides.length ? { m: guides[0], guide: true } : { m: books[0], guide: false };
-}
+  const bk = M.loadBook(meta.bookDir);
+  if (!bk) { say("нема або не парситься manifest.json"); continue; }
 
-let bad = 0;
-for (const kind of ["book", "catalog", "reference", "guide"]) {
-  const kp = path.join(ROOT, kind);
-  if (!fs.existsSync(kp)) continue;
-  for (const slug of dirsIn(kp)) {
-    const bp = path.join(kp, slug);
-    if (only && path.resolve(bp) !== only) continue;
-    const mf = path.join(bp, "manifest.js");
-    if (!fs.existsSync(mf)) { console.log(`✖ ${kind}/${slug}: нема manifest.js`); bad++; continue; }
+  /* групи: перелік у шапці проти файлів на диску */
+  const listed = new Set(bk.manifest.groups || []);
+  for (const g of listed) if (!bk.groups.has(g)) say(`група «${g}» у переліку, а файла ${g}.json немає`);
+  for (const f of fs.readdirSync(meta.bookDir)) {
+    if (!f.endsWith(".json") || f === "manifest.json") continue;
+    const g = f.slice(0, -5);
+    if (!listed.has(g)) say(`файл ${f} лежить, а в переліку груп його немає`);
+  }
 
-    let m, guide;
-    try { ({ m, guide } = loadManifest(mf)); } catch (e) {
-      console.log(`✖ ${kind}/${slug}: маніфест не парситься — ${e.message}`); bad++; continue;
+  /* теми: маніфест проти тек */
+  const inManifest = new Map();
+  const dupes = [];
+  for (const t of M.allTopics(bk)) {
+    if (!t.own) continue;
+    if (inManifest.has(t.slug)) dupes.push(t.slug);
+    else inManifest.set(t.slug, t);
+  }
+  [...new Set(dupes)].forEach((s) => say(`слуг «${s}» у маніфесті двічі`));
+
+  const onDisk = new Set();
+  for (const e of fs.readdirSync(meta.bookDir, { withFileTypes: true })) {
+    if (!e.isDirectory() || SKIP.has(e.name)) continue;
+    onDisk.add(e.name);
+  }
+
+  for (const s of onDisk) if (!inManifest.has(s)) say(`тека «${s}» є, а теми в маніфесті немає`);
+  const WRITTEN = new Set(["done", "recheck", "update", "deeper"]);
+  for (const [s, t] of inManifest) {
+    const bs = (t.node.basic && t.node.basic.status) || "empty";
+    const ds = (t.node.detailed && t.node.detailed.status) || "empty";
+    if (!onDisk.has(s)) {
+      /* pending без теки — це черга письма, а не поломка. Лається лише тоді, коли
+         маніфест каже «написано», а на диску порожньо. */
+      if (WRITTEN.has(bs) || WRITTEN.has(ds)) say(`тема «${s}» [${t.group}/${t.chapter}] значиться написаною (basic:${bs} detailed:${ds}), а теки немає`);
+      continue;
     }
-    if (!m) { console.log(`✖ ${kind}/${slug}: у маніфесті нема книги`); bad++; continue; }
-
-    const groups = guide ? (m.modules || []) : (m.sections || []);
-    const groupSlugs = new Set(groups.map((g) => g.slug));
-    const topicsOf = (g) => guide
-      ? (g.chapters || []).flatMap((c) => (c.steps || []).filter((s) => s.slug).map((s) => s.slug))
-      : (g.topics || []).map((t) => t.slug);
-    const inManifest = new Map();
-    groups.forEach((g) => topicsOf(g).forEach((t) => inManifest.set(t, g.slug)));
-
-    const diskGroups = dirsIn(bp);
-    const onDisk = new Map();                       // слуг → [теки]
-    for (const g of diskGroups) {
-      for (const t of dirsIn(path.join(bp, g))) {
-        if (!fs.readdirSync(path.join(bp, g, t)).some((f) => f.endsWith(".md"))) continue;
-        if (!onDisk.has(t)) onDisk.set(t, []);
-        onDisk.get(t).push(g);
-      }
-    }
-
-    const extraGroups = diskGroups.filter((g) => !groupSlugs.has(g));
-    const doubled = [...onDisk.entries()].filter(([, gs]) => gs.length > 1);
-    const misplaced = [...onDisk.entries()]
-      .filter(([t, gs]) => gs.length === 1 && inManifest.has(t) && inManifest.get(t) !== gs[0]);
-    const unregistered = [...onDisk.keys()].filter((t) => !inManifest.has(t));
-    const emptyGroups = [...groupSlugs].filter((g) => !diskGroups.includes(g));
-
-    if (!extraGroups.length && !doubled.length && !misplaced.length && !unregistered.length) continue;
-    console.log(`\n── ${kind}/${slug}`);
-    if (extraGroups.length) { console.log(`  тека-секція не в маніфесті: ${extraGroups.join(", ")}`); bad++; }
-    if (doubled.length) {
-      console.log(`  ⚠ ОДИН СЛУГ У ДВОХ ТЕКАХ (дві копії статті):`);
-      doubled.forEach(([t, gs]) => console.log(`     · ${t} → ${gs.join(" + ")}`));
-      bad++;
-    }
-    if (misplaced.length) {
-      console.log(`  тема не у своїй секції:`);
-      misplaced.forEach(([t, gs]) => console.log(`     · ${t}: тека ${gs[0]} ≠ маніфест ${inManifest.get(t)}`));
-      bad++;
-    }
-    if (unregistered.length) {
-      console.log(`  тек тем без запису в маніфесті: ${unregistered.length}`);
-      unregistered.slice(0, 10).forEach((t) => console.log(`     · ${onDisk.get(t)[0]}/${t}`));
-      if (unregistered.length > 10) console.log(`     … ще ${unregistered.length - 10}`);
-      bad++;
-    }
-    if (emptyGroups.length) console.log(`  (секція без теки — не дефект, просто ще не писали: ${emptyGroups.join(", ")})`);
+    if (bs === "empty" && ds === "empty") say(`тема «${s}» без жодної версії (обидві empty) — або писати, або прибрати`);
   }
 }
 
-console.log(bad ? `\nрозладів: ${bad} — лагодити ДО батчу, а не посеред нього` : "\nрозкладка й маніфести збігаються");
+console.log(`\nперевірено книг: ${books} · зауважень: ${bad}`);
 process.exit(bad ? 1 : 0);
