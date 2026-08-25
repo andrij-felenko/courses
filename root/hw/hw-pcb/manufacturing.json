@@ -1,0 +1,208 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-pcb",
+  "slug": "manufacturing",
+  "title": "Виробництво й монтаж",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "fab-order",
+      "title": "Замовлення на фабриці",
+      "topics": [
+        {
+          "slug": "vybir-fabryky-i-chytannia-chuzhoho-dfm-zvitu",
+          "title": "Вибір фабрики й читання чужого DFM-звіту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "panel-frezeruvannia-markuvannia-testovi-kupony",
+          "title": "Панель, фрезерування, маркування, тестові купони",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "shcho-haniaie-tsinu-platy",
+          "title": "Що ганяє ціну плати: шари, розмір, отвори, клас, покриття, строк",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "bom",
+          "title": "Перелік компонентів (BOM)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-bom-consistency.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "paste-and-prep",
+      "title": "Паста й підготовка",
+      "topics": [
+        {
+          "slug": "komplekt-dlia-montazhu",
+          "title": "Комплект для монтажу: паста, трафарет, pick&place, складальне креслення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "smd-stencil",
+          "title": "Трафаретний друк пасти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "moisture-sensitivity-levels",
+          "title": "Рівні чутливості до вологи (MSL)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "soldering",
+      "title": "Пайка",
+      "topics": [
+        {
+          "slug": "basic-soldering",
+          "title": "Мінімальна пайка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-tin-whiskers.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "eutectic-alloys",
+          "title": "Евтектика: чому суміш плавиться нижче за обидва метали",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "reflow-soldering",
+          "title": "Паяння оплавленням",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "bga-assembly",
+          "title": "BGA: монтаж і контроль",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "static-protection",
+      "title": "Статика й захист від неї",
+      "topics": [
+        {
+          "slug": "antistatic-workplace",
+          "title": "Антистатичне місце",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-wrist-strap.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "esd-packaging",
+          "title": "ESD-пакування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-ionizer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "esd-sensitivity-levels",
+          "title": "Класи чутливості до ESD",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "esd-hot-plug",
+          "title": "ESD і гаряче підключення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

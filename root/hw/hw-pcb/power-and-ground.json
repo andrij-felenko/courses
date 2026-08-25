@@ -1,0 +1,154 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-pcb",
+  "slug": "power-and-ground",
+  "title": "Живлення й земля",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "return-path",
+      "title": "Зворотний струм і шар землі",
+      "topics": [
+        {
+          "slug": "ground-plane",
+          "title": "Шар землі (ground plane)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "current-return-path",
+          "title": "Шлях зворотного струму",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "ground-plane-design",
+          "title": "Проєктування площини землі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-split-ground.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-return-current.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "shared-ground",
+      "title": "Спільна земля",
+      "topics": [
+        {
+          "slug": "common-ground",
+          "title": "Спільна земля",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "ground-loops",
+          "title": "Земляні петлі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-star-ground.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "power-network",
+      "title": "Мережа живлення",
+      "topics": [
+        {
+          "slug": "power-integrity",
+          "title": "Цілісність живлення (Power Integrity)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-target-impedance.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pdn-impedance.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pdn-calculator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pdn-impedance",
+          "title": "Імпеданс шини живлення (PDN)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "via-inductance",
+          "title": "Індуктивність перехідного отвору",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "rozvodka-rozviazky",
+          "title": "Розводка розв'язки: площа петлі й де насправді стоїть конденсатор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,204 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-pcb",
+  "slug": "copper-layout",
+  "title": "Малюнок міді",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "from-schematic-to-board",
+      "title": "Від схеми до міді",
+      "topics": [
+        {
+          "slug": "vid-skhemy-do-platy",
+          "title": "Від схеми до плати: нетлист, футпринти, класи ланцюгів, DRC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "pcb-layout",
+          "title": "Друкована плата (PCB layout)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-eisler-pcb.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "canvas-and-rules",
+      "title": "Полотно й правила",
+      "topics": [
+        {
+          "slug": "pravyla-fabryky-iak-vkhidni-pravyla-proiektu",
+          "title": "Правила фабрики як вхідні правила проєкту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "kontur-platy-kriplennia-i-zony-zaborony",
+          "title": "Контур плати, кріплення й зони заборони",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "pcb-stackup",
+          "title": "Шарування плати (PCB stackup)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "creepage-clearance",
+          "title": "Зазори на платі: creepage та clearance",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "placement",
+      "title": "Розміщення",
+      "topics": [
+        {
+          "slug": "poriadok-rozmishchennia",
+          "title": "Порядок розміщення: спочатку те, що не рухається",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "rozmishchennia-vuzla-zhyvlennia",
+          "title": "Розміщення вузла живлення: гаряча петля перетворювача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "kvarts-opora-i-analohovi-vkhody",
+          "title": "Кварц, опора й аналогові входи: тихі куточки плати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "footprints",
+      "title": "Посадкове місце",
+      "topics": [
+        {
+          "slug": "footprint-design",
+          "title": "Посадкові місця (footprint)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "guard-ring-pcb",
+          "title": "Охоронне кільце на платі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-triaxial-cable.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-guard-bootstrapping.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-surface-leakage.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "current-and-heat",
+      "title": "Струм і тепло в міді",
+      "topics": [
+        {
+          "slug": "shyryna-dorizhky-strum-i-nahriv",
+          "title": "Ширина доріжки, струм і нагрів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "perekhidnyi-otvir-i-polihon-pid-strum",
+          "title": "Перехідний отвір і полігон під струм",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "thermal-vias",
+          "title": "Теплові перехідні отвори (thermal vias)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,222 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-pcb",
+  "slug": "signal-integrity",
+  "title": "Швидкі сигнали й завади",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "transmission-line",
+      "title": "Лінія передачі й ВЧ",
+      "topics": [
+        {
+          "slug": "pcb-stackup-rf",
+          "title": "Стек PCB і характеристичний опір мікросмужки",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "wavelength-in-medium",
+          "title": "Ефективна довжина хвилі у діелектрику",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-rf-substrates.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-microstrip-dispersion.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-quarterwave-designer.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "rf-board-reading",
+          "title": "Читання ВЧ-плати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "fast-buses",
+      "title": "Швидкі шини",
+      "topics": [
+        {
+          "slug": "dyferentsiini-pary-i-shvydki-shyny-na-vlasnii-plati",
+          "title": "Диференційні пари й швидкі шини на власній платі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "eye-diagram",
+          "title": "Діаграма ока",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sigsaly-eye.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "crosstalk",
+      "title": "Перехресні завади",
+      "topics": [
+        {
+          "slug": "crosstalk",
+          "title": "Перехресна завада (crosstalk)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-coupling-derivation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pcb-crosstalk",
+          "title": "Перехресні перешкоди на платі (crosstalk)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "ground-bounce",
+          "title": "Стрибок землі (ground bounce)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ac-family.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bounce-magnitude.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "shielding-and-grounding",
+      "title": "Екран і його заземлення",
+      "topics": [
+        {
+          "slug": "shielding",
+          "title": "Екранування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "shielded-cable",
+          "title": "Екранований кабель",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "hybrid-shield-grounding",
+          "title": "Гібридне заземлення екрана",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "own-noise-and-emc",
+      "title": "Власний шум і сумісність",
+      "topics": [
+        {
+          "slug": "impulsnyi-peretvoriuvach-iak-naihuchnishyi-vuzol",
+          "title": "Імпульсний перетворювач як найгучніший вузол",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "shliakh-esd-vid-roziemu-do-zemli",
+          "title": "Шлях ESD від роз'єму до землі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "electromagnetic-compatibility",
+          "title": "Електромагнітна сумісність (EMC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

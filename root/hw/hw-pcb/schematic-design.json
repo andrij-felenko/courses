@@ -1,0 +1,318 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-pcb",
+  "slug": "schematic-design",
+  "title": "Задум і схема",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "device-concept",
+      "title": "Задум пристрою",
+      "topics": [
+        {
+          "slug": "blok-skhema-prystroiu",
+          "title": "Блок-схема пристрою: вузли, зв'язки, межі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "karta-piniv",
+          "title": "Карта пінів: розподіл функцій до першої лінії схеми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "mekhanichnyi-konvert",
+          "title": "Механічний конверт: габарити, кріплення, боки з роз'ємами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "schematic-language",
+      "title": "Мова креслення",
+      "topics": [
+        {
+          "slug": "schematic-purpose",
+          "title": "Принципова схема",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-instruments.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-workbench.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "component-symbols",
+          "title": "Умовні позначення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "nodes-connections",
+          "title": "Вузли й з'єднання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-netlist-erc.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ground-power-rails",
+          "title": "Земля й шини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-earth-return.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "schematic-line-conventions",
+          "title": "Лінії та з'єднання на схемі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-schematic-standards.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-netlist-build.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "net-bus-notation",
+          "title": "Шини і векторні ланцюги",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-bus-expand.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "symbols-and-library",
+      "title": "Символи й бібліотека",
+      "topics": [
+        {
+          "slug": "transformer-symbols",
+          "title": "Символи трансформаторів і зв'язаних котушок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "ic-schematic-symbol",
+          "title": "Символ мікросхеми на схемі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-opamp-triangle.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "svii-symvol-i-svii-komponent-u-bibliotetsi",
+          "title": "Свій символ і свій компонент у бібліотеці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "hierarchy-and-hygiene",
+      "title": "Ієрархія й гігієна",
+      "topics": [
+        {
+          "slug": "block-diagram",
+          "title": "Блок-схема системи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-block-diagram.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-block-algebra.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hierarchical-schematics",
+          "title": "Ієрархічні схеми і листи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sheet-symbols.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "multi-sheet-schematics",
+          "title": "Багатоаркушна схема: устрій набору, штамп, нумерація й міжаркушеві конектори",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sheet-numbering.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hihiiena-skhemy",
+          "title": "Гігієна схеми: аркуші, ієрархія, мітки, позначення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "debah-roziem-testovi-tochky-i-navmysni-avariini",
+          "title": "Дебаг-роз'єм, тестові точки й навмисні аварійні виходи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "tools-and-simulation",
+      "title": "Інструмент і симуляція",
+      "topics": [
+        {
+          "slug": "eda-tools",
+          "title": "Засоби проєктування плат (EDA)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "spice-simulation",
+          "title": "Симуляція кіл (SPICE)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-spice-berkeley.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-nodal-mna.md",
+              "status": "done"
+            },
+            {
+              "file": "math-time-integration.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
