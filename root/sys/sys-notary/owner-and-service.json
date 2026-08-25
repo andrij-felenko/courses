@@ -1,0 +1,192 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-notary",
+  "slug": "owner-and-service",
+  "title": "Власник і служба",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "promises-to-owner",
+      "title": "Обіцянки власникові",
+      "topics": [
+        {
+          "slug": "harantiia",
+          "title": "Гарантія: що обіцяно, на скільки і що її анулює",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "umovy-korystuvannia-i-dani-vlasnyka",
+          "title": "Умови користування й дані власника: що збираємо, навіщо, як відмовитися",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "instruktsiia-iaku-chytaiut-pislia-polamky",
+          "title": "Інструкція, яку читають після поламки, а не до",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "repair-and-handover",
+      "title": "Ремонт і передача",
+      "topics": [
+        {
+          "slug": "remont-pravo-vlasnyka-i-mezha-zamykannia-vyrobu",
+          "title": "Ремонт, право власника й межа замикання виробу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "kinets-ekzempliara",
+          "title": "Кінець екземпляра: передача власності, справжнє скидання, видалення даних, утилізація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "unit-in-service",
+      "title": "Екземпляр у сервісі",
+      "topics": [
+        {
+          "slug": "povernennia-remont-i-defektu-ne-vyiavleno",
+          "title": "Повернення, ремонт і «дефекту не виявлено»",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "servisnyi-rezhym-i-diahnostyka-v-rukakh-tekhnika",
+          "title": "Сервісний режим і діагностика в руках техніка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "kliuchi-i-osobysti-dani-v-povernenomu-ekzempliari",
+          "title": "Ключі й особисті дані в поверненому екземплярі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "billing-and-plans",
+      "title": "Плата за користування",
+      "topics": [
+        {
+          "slug": "metering-and-billing",
+          "title": "Metering і billing як вузол",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-telecom-cdr.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rating-models.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-metering-pipeline.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "entitlements",
+          "title": "Entitlements / feature-gating за планом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-entitlement-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-entitlements.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "payments-integration",
+          "title": "Платіжний провайдер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-payment-gateways.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-payment-gateway-flow.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-payment-lifecycle.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

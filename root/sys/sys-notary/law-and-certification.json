@@ -1,0 +1,284 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-notary",
+  "slug": "law-and-certification",
+  "title": "Закон і сертифікація",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "market-entry",
+      "title": "Допуск на ринок",
+      "topics": [
+        {
+          "slug": "deklaratsiia-vidpovidnosti-i-tekhnichnyi-fail",
+          "title": "Декларація відповідності й технічний файл",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "normatyvni-vymohy-do-bezpeky-kodu",
+          "title": "Нормативні вимоги до безпеки коду: CRA, RED 3.3, EN 303 645",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "remote-id",
+          "title": "Remote ID: апарат, що називає себе",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "chuzhi-reiestry-i-chlenstva",
+          "title": "Чужі реєстри й членства: OUI для MAC, USB VID/PID, Bluetooth SIG, Wi-Fi Alliance",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "substances-and-export",
+      "title": "Речовини й вивіз",
+      "topics": [
+        {
+          "slug": "rechovyny-i-utylizatsiia",
+          "title": "Речовини й утилізація: RoHS, REACH, WEEE",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "batareia-u-vyrobi",
+          "title": "Батарея у виробі: UN 38.3, транспорт, пакування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "eksportnyi-kontrol-i-podviine-pryznachennia",
+          "title": "Експортний контроль і подвійне призначення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "spectrum-rules",
+      "title": "Правила ефіру",
+      "topics": [
+        {
+          "slug": "ism-bands",
+          "title": "ISM-діапазони",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ism-allocation.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-duty-cycle.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lbt-simulator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "time-on-air",
+          "title": "Час у ефірі (time on air)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-duty-cycle.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-toa-equations.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-toa-calculator.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sx126x-toa.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fpv-channels",
+          "title": "Канали 5.8 ГГц для FPV (Raceband і смуги A/B/E/F)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-imd.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-freq-planner.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bands.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "radio-certification",
+      "title": "Радіомодуль і випроби",
+      "topics": [
+        {
+          "slug": "rf-module",
+          "title": "Радіомодуль",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rf-modularization.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-tcxo-reference.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cascade-noise-figure.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rf-module-driver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "emc-certification",
+          "title": "Модульна сертифікація: FCC, CE та EMC-випроби",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-spectrum-order.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "regulatory-radio-certification",
+          "title": "Радіосертифікація: FCC, CE, SRRC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-spectrum-regulation.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-regulatory-frameworks.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-eirp-sar-budget.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-spurious-emissions-mask.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-certification-workflow.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
