@@ -39,7 +39,7 @@ r.out.split(/\r?\n/).forEach((line) => {
   if (/^===/.test(line)) { inBroken = /БИТІ/.test(line); return; }
   if (!inBroken || !line.trim()) return;
   if (!needle.some((n) => line.includes(n))) return;
-  const seg = (line.match(/(?:book|guide):([^\s—]+)/) || [])[1];
+  const seg = (line.match(/(?:root|book|guide):([^\s—]+)/) || [])[1];
   const rawTarget = seg ? seg.split("/").pop() : null;
   const targetSlug = rawTarget ? rawTarget.replace(/\.md$/, "") : null;
   const isLocalFile = rawTarget && T.files.some((f) => path.basename(f.file) === rawTarget || path.basename(f.file, ".md") === targetSlug);

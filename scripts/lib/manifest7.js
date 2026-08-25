@@ -123,9 +123,11 @@ function ensureManifest(bookDir) {
   write(mfPath, { schema: 7, kind: (k && k.kind) || kindDir, slug, title: slug, groups: [] });
 }
 
+/* Формат корпусу — ДВА пробіли й кінцевий перевід рядка. Писали одним — і правка
+   одного статусу переформатувала б увесь файл, роздувши diff до нечитабельного. */
 function write(p, data) {
   const tmp = p + ".tmp";
-  fs.writeFileSync(tmp, JSON.stringify(data, null, 1) + "\n", "utf8");
+  fs.writeFileSync(tmp, JSON.stringify(data, null, 2) + "\n", "utf8");
   fs.renameSync(tmp, p);
 }
 
