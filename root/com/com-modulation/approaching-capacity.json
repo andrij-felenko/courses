@@ -1,0 +1,312 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-modulation",
+  "slug": "approaching-capacity",
+  "title": "Наближення до межі",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "trellis-codes",
+      "title": "Згорткові коди й ґратка",
+      "topics": [
+        {
+          "slug": "convolutional-codes",
+          "title": "Згорткові коди",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-elias-viterbi.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-generator-polynomials.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-viterbi-decoder.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "viterbi-algorithm",
+          "title": "Алгоритм Вітербі",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-branch-metric.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hmm-viterbi.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "viterbi-decoder",
+          "title": "Декодер Вітербі",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-ml-metric.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-survivor-memory.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "punctured-codes",
+          "title": "Виколоті коди (puncturing)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rcpc-cain-hagenauer.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-punctured-distance.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-punctured-viterbi.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "iterative-decoding",
+      "title": "Ітеративне декодування",
+      "topics": [
+        {
+          "slug": "turbo-codes",
+          "title": "Турбокоди",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-turbo-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-iterative-decoding.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-turbo-decoder.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ldpc",
+          "title": "LDPC: код розрідженої перевірки паритету",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gallager.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-belief-propagation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bit-flipping-decoder.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ldpc-codes",
+          "title": "Коди з низькою щільністю перевірок на парність (LDPC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gallager-ldpc.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-belief-propagation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ldpc-decoder.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ldpc-codec.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "polar-codes",
+          "title": "Полярні коди",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-arikan.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-channel-polarization.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-successive-cancellation.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "composed-codes",
+      "title": "Складені й фонтанні",
+      "topics": [
+        {
+          "slug": "concatenated-codes",
+          "title": "Конкатеновані коди",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-forney-concatenation.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-concatenation-params.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-concatenated-pipeline.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "product-codes",
+          "title": "Добуткові коди",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "fountain-codes",
+          "title": "Фонтанні коди",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-digital-fountain.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-soliton-distribution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lt-codec.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

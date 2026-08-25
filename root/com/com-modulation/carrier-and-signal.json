@@ -1,0 +1,418 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-modulation",
+  "slug": "carrier-and-signal",
+  "title": "Сигнал на несучій",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "bandwidth-and-envelope",
+      "title": "Смуга й обвідна",
+      "topics": [
+        {
+          "slug": "bandwidth",
+          "title": "Смуга пропускання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-3db-origin.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-enbw-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bandwidth-estimator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "baseband-passband",
+          "title": "База й смугова область",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-superheterodyne.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-complex-envelope.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-iq-modulator-demodulator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "iq-representation",
+          "title": "IQ-подання сигналу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-iq-origin.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-iq-transform.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-iq-demodulator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "analytic-signal",
+          "title": "Аналітичний сигнал і перетворення Гільберта",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hilbert-transform.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-hilbert-properties.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hilbert-transform.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "amplitude-frequency-phase",
+      "title": "Амплітуда, частота, фаза",
+      "topics": [
+        {
+          "slug": "why-modulation",
+          "title": "Навіщо модуляція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-armstrong.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "am-fm",
+          "title": "AM і FM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-am-fm-synthesis.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dsb-sc",
+          "title": "Двосмугова модуляція з придушеною несучою (DSB-SC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ring-modulator.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-balanced-modulator.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-costas-loop.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dsb-sc-sdr.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ssb-modulation",
+          "title": "Односмугова модуляція (SSB)",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ssb-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-phasing-cancellation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "carson-rule",
+          "title": "Правило Карсона",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-carson-armstrong.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bessel-expansion.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-carson-spectrum-sim.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fm-capture-effect",
+          "title": "Ефект захоплення FM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-armstrong-capture.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-capture-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-capture-simulation.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "keying-and-subcarriers",
+      "title": "Маніпуляція й піднесні",
+      "topics": [
+        {
+          "slug": "fsk-psk",
+          "title": "FSK і PSK",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-iq-plane.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "qam",
+          "title": "Квадратурна амплітудна модуляція (QAM)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-qam-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-qam-constellation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-qam-demodulator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ofdm",
+          "title": "OFDM: мультиплексування з ортогональними піднесними",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ofdm-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-orthogonality-ifft.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ofdm-modem.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "adaptive-modulation",
+          "title": "Адаптивна модуляція і кодування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-amc-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-snr-mcs-thresholds.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-amc-loop.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "carrier-ir-modulation",
+          "title": "Модуляція несучої для відсіву перешкод (38 кГц як у ІЧ-пультах)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ir-remote-birth.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-ir-receiver.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bandpass-snr.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ir-nec-modem.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,344 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-modulation",
+  "slug": "redundancy-and-blocks",
+  "title": "Надлишковість і блоки",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "redundancy-basics",
+      "title": "Основи надлишковості",
+      "topics": [
+        {
+          "slug": "fec-codes",
+          "title": "Коди виправлення помилок (FEC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-shannon-to-polar.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-fec-families.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-coding-gain.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fec-pipeline.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "fec-channel-coding",
+          "title": "FEC для потокового відео",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fountain-codes.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fec-overhead.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-packet-fec.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hamming-distance",
+          "title": "Відстань Геммінга",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hamming-1950.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "hamming-family",
+      "title": "Геммінг і його рідня",
+      "topics": [
+        {
+          "slug": "hamming-code",
+          "title": "Код Геммінга",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-hamming-codec.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "secded",
+          "title": "SECDED: виправити один біт, виявити два",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hsiao-code.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-secded-distance.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-secded-codec.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "golay-code",
+          "title": "Коди Голея",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-golay-construction.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-golay-codec.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "reed-muller-code",
+          "title": "Коди Ріда–Маллера",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mars-mariner.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-plotkin-recursion.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-majority-decoder.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "perfect-codes",
+          "title": "Досконалі коди",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-golay-codes.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sphere-packing-bound.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-perfect-code-check.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "linear-code-algebra",
+      "title": "Алгебра лінійного коду",
+      "topics": [
+        {
+          "slug": "linearity-as-code-property",
+          "title": "Лінійність коду: підпростір, дуальність і межа класу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-subspace-duality.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "generator-and-parity-check-matrices",
+          "title": "Твірна й перевірна матриці: кодування й синдром блокового коду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-slepian-group-codes.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-linear-codec.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "algebraic-codes",
+      "title": "Циклічні й алгебричні коди",
+      "topics": [
+        {
+          "slug": "cyclic-codes",
+          "title": "Циклічні коди",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-prange.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-generator-polynomial.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cyclic-codec.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bch-codes",
+          "title": "Коди BCH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bch-origins.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bch-bound.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bch-codec.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "reed-solomon",
+          "title": "Рід–Соломон",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-voyager-codes.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

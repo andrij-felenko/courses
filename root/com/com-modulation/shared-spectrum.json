@@ -1,0 +1,350 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-modulation",
+  "slug": "shared-spectrum",
+  "title": "Спільний ефір",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "spectrum-spreading",
+      "title": "Розширення спектра",
+      "topics": [
+        {
+          "slug": "spread-spectrum",
+          "title": "Розширений спектр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hedy-lamarr.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "chirp-coding",
+          "title": "Чирп і кодований сигнал",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-radar-to-lora.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pulse-compression.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-css-sim.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pn-sequences",
+          "title": "PN-послідовності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-golomb-m-sequences.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lfsr-polynomials.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pn-generator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fhss-sync",
+          "title": "Синхронізація в FHSS-лінку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-have-quick-sincgars.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-drift-bounds.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fhss-sync-sim.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "partial-band-jamming",
+          "title": "Типи завад і протидія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ew-battle.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ber-jamming.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-jamming-sim.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "multiple-access",
+      "title": "Множинний доступ",
+      "topics": [
+        {
+          "slug": "cdma",
+          "title": "CDMA: код як адреса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-spread-spectrum.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-walsh-hadamard.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dss-simulation.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ofdma",
+          "title": "OFDMA: множинний доступ на ортогональних піднесних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ofdma-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-multiuser-diversity.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ofdma-scheduler.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "mimo",
+          "title": "MIMO",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mimo-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-mimo-modes.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-alamouti-2x2.md",
+              "status": "recheck"
+            },
+            {
+              "file": "math-mimo-capacity.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mimo-detector.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "wifi-6-basics",
+          "title": "Wi-Fi 6: ключові ідеї",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-wifi6-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ofdma-ru-timing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-wifi6-ru-scheduler.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-nl80211-he-config.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "radio-links",
+      "title": "Радіолінки зблизька",
+      "topics": [
+        {
+          "slug": "lora",
+          "title": "LoRa",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "elrs-architecture",
+          "title": "Архітектура ExpressLRS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-elrs-origin.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "nfc-protocols",
+          "title": "Протоколи NFC: ISO 14443, NDEF і режими роботи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-nfc-standardization.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-nfc-controller-frontend.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-load-modulation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ndef-parser-builder.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-iso14443-commands.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,252 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-modulation",
+  "slug": "wireline-signals",
+  "title": "Біти на дроті",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "line-codes",
+      "title": "Лінійне кодування",
+      "topics": [
+        {
+          "slug": "line-coding",
+          "title": "Лінійне кодування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-manchester-drum.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pam4",
+          "title": "PAM4: чотирирівнева амплітудна модуляція",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "serialization",
+      "title": "Серіалізація",
+      "topics": [
+        {
+          "slug": "clock-data-recovery",
+          "title": "Відновлення такту з даних (CDR)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cdr-lineage.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "serdes",
+          "title": "SerDes (серіалізатор-десеріалізатор)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-8b10b.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-8b10b-disparity.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "parallel-to-serial",
+          "title": "Перетворення паралельного сигналу на послідовний",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-serial-telegraph.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "composite-signal",
+      "title": "Композитний відеосигнал",
+      "topics": [
+        {
+          "slug": "analog-video",
+          "title": "Аналогове відео",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "composite-video",
+          "title": "Композитний відеосигнал (CVBS)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "cvbs-signal",
+          "title": "Композитний відеосигнал CVBS: рівні, тайминг, IRE",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-quadrature-color.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cvbs-generator.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "scan-and-color",
+      "title": "Розгортка й колір",
+      "topics": [
+        {
+          "slug": "interlacing",
+          "title": "Черезрядкова розгортка (interlacing): поля, зубчастий vsync, twitter",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ballard-interlace.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-serrated-integrator.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-deinterlacer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pal-ntsc-color",
+          "title": "PAL і NTSC: колірна квадратура і фазовий маятник",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ntsc-pal-secam-war.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pal-phase-pendulum.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pal-demodulator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "osd-overlay",
+          "title": "OSD-накладання телеметрії на аналоговий відеосигнал",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-osd-evolution.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-analog-keyer.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pixel-timing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-osd-spi-injector.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-max7456-registers.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

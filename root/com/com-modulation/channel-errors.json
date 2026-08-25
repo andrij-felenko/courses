@@ -1,0 +1,298 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-modulation",
+  "slug": "channel-errors",
+  "title": "Помилки в каналі",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "error-nature",
+      "title": "Природа помилок",
+      "topics": [
+        {
+          "slug": "ber-snr-curve",
+          "title": "BER і SNR: крива надійності каналу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-q-function-ber.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ber-monte-carlo.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "burst-error",
+          "title": "Пакетна помилка (burst error)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fire-code.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-reiger-bound.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-burst-simulation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gilbert-elliott-model",
+          "title": "Модель Гілберта–Елліота: пакетні помилки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gilbert-elliott.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-burst-statistics.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-channel-simulator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gilbert-elliott-channel",
+          "title": "Модель каналу Гілберта–Елліота",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-markov-channel.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-burst-harq-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "interleaving",
+          "title": "Перемішування (interleaving)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-interleaving-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-interleaving-depth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-interleaver-code.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "integrity-check",
+      "title": "Перевірка цілості",
+      "topics": [
+        {
+          "slug": "parity-bit",
+          "title": "Біт парності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-parity-in-code.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "2d-parity",
+          "title": "Двовимірна парність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tape-vrc-lrc.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-2d-parity.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "checksums",
+          "title": "Контрольні суми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-checksum-arithmetic.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-checksums-in-code.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "adler-32",
+          "title": "Adler-32",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-adler-zlib.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-adler32-in-code.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "internet-checksum",
+          "title": "Інтернет-контрольна сума (IP/TCP/UDP)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-internet-checksum.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-incremental-update.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tcp-udp-checksum.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "crc",
+          "title": "CRC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-hardware-crc.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gf2-polynomials.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-crc-implementation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "crc-algorithm",
+          "title": "Алгоритм CRC: таблиця залишків і побітний метод",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
