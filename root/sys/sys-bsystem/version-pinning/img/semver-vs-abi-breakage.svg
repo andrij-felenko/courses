@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ілюзія безпеки SemVer у C/C++: чому PATCH ламає бінарний контракт</text>
+<text x="480.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Семантичне версіонування гарантує синтаксис API, але безсиле перед двійковим ABI та законом Хайрума</text>
+<rect x="30.0" y="75.0" width="425.0" height="395.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+<text x="242.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Обіцянка SemVer (Рівень вихідного коду API)</text>
+<rect x="50.0" y="130.0" width="385.0" height="135.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="65.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Версія 1.4.0 (Оригінальна)</text>
+<text x="65.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="start">struct Session {</text>
+<text x="85.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">uint64_t id;       // 8 байтів</text>
+<text x="85.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">char token[32];    // 32 байти</text>
+<text x="65.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">}; // Загальний sizeof: 40 байтів</text>
+<rect x="50.0" y="290.0" width="385.0" height="160.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="65.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Версія 1.4.1 (PATCH: «лише багфікс»)</text>
+<text x="65.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="start">struct Session {</text>
+<text x="85.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">uint64_t id;       // 8 байтів</text>
+<text x="85.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">char token[32];    // 32 байти</text>
+<text x="85.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">bool is_authenticated; // +1 байт (вирівн. до 48)</text>
+<text x="65.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">}; // Сигнатури функцій ті самі! Але sizeof = 48</text>
+<rect x="495.0" y="75.0" width="435.0" height="395.0" rx="8" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="712.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Фізична пам'ять процесу (ABI Collision)</text>
+<rect x="541.4" y="146.8" width="341.2" height="76.4" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/><text x="712.0" y="166.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="712.0" dy="0.0">Головна програма (скомпільована з v1.4.0)</tspan><tspan x="712.0" dy="15.0">Виділяє на стеку об'єкт Session</tspan><tspan x="712.0" dy="15.0">Розмір у стековому кадрі: рівно 40 байтів</tspan><tspan x="712.0" dy="15.0">[ 0..7: id ] [ 8..39: token ] [ 40..47: RetAddr ]</tspan></text>
+<line x1="712.0" y1="235.0" x2="712.0" y2="275.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="712.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Передавання вказівника Session* у v1.4.1</text>
+<rect x="545.1" y="314.4" width="333.7" height="91.3" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/><text x="712.0" y="334.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="712.0" dy="0.0">Динамічна бібліотека (підмінена на v1.4.1)</tspan><tspan x="712.0" dy="15.0">Виконує: session-&gt;is_authenticated = true;</tspan><tspan x="712.0" dy="15.0">Запис відбувається за зміщенням +40 байтів!</tspan><tspan x="712.0" dy="15.0">Перезапис адреси повернення / пам'яті стека!</tspan><tspan x="712.0" dy="15.0">Результат: Негайний краш SIGSEGV / RCE</tspan></text>
+</svg>

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр CI/CD: детермінізм збірки та захист ланцюга постачання</text>
+<text x="480.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Як режим заборони мутацій замків унеможливлює атаки типу Dependency Confusion та отруєння репозиторіїв</text>
+<rect x="25.0" y="95.0" width="210.0" height="160.0" rx="8" fill="#eef2f7" stroke="#475569" stroke-width="1.8"/>
+<text x="130.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#475569" text-anchor="middle" font-weight="700">1. Робоча станція</text>
+<line x1="45.0" y1="140.0" x2="215.0" y2="140.0" stroke="#475569" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="130.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Розробник оновлює версії:</text>
+<text x="130.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">cargo update / conan lock</text>
+<text x="130.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Фіксація diff у Git PR</text>
+<rect x="260.0" y="95.0" width="210.0" height="160.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="365.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">2. CI Gate: --locked</text>
+<line x1="280.0" y1="140.0" x2="450.0" y2="140.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="365.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Суворий режим білд-агента:</text>
+<text x="365.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">--frozen-lockfile / --locked</text>
+<text x="365.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Заборона будь-яких мутацій!</text>
+<rect x="495.0" y="95.0" width="210.0" height="160.0" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.8"/>
+<text x="600.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">3. Аудит безпеки</text>
+<line x1="515.0" y1="140.0" x2="685.0" y2="140.0" stroke="#d97706" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="600.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Сканування зафіксованих SHA:</text>
+<text x="600.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">cargo-audit / osv-scanner</text>
+<text x="600.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Перевірка CVE бази даних</text>
+<rect x="725.0" y="95.0" width="210.0" height="160.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="830.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">4. Герметична збірка</text>
+<line x1="745.0" y1="140.0" x2="915.0" y2="140.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="830.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Стягування виключно за хешами:</text>
+<text x="830.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Верифікація цілісності SHA-256</text>
+<text x="830.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Детермінований артефакт</text>
+<line x1="240.0" y1="175.0" x2="255.0" y2="175.0" stroke="#475569" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="475.0" y1="175.0" x2="490.0" y2="175.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="710.0" y1="175.0" x2="720.0" y2="175.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="25.0" y="290.0" width="910.0" height="175.0" rx="8" fill="#fafafa" stroke="#64748b" stroke-width="1.5"/>
+<text x="480.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Які вектори атак блокує незмінний замковий файл у CI/CD</text>
+<rect x="35.0" y="340.0" width="280.0" height="105.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="175.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Dependency Confusion</text>
+<text x="175.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Спроба підсунути шкідливий пакет із</text>
+<text x="175.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">публічного реєстру замість приватного</text>
+<text x="175.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">блокується точним хешем та зафіксованим</text>
+<rect x="340.0" y="340.0" width="280.0" height="105.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="480.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Typosquatting &amp; Account Hijack</text>
+<text x="480.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Якщо зловмисник захопив акаунт мейнтейнера</text>
+<text x="480.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">й випустив шкідливий патч v1.2.1,</text>
+<text x="480.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">CI не завантажить його без явного</text>
+<rect x="645.0" y="340.0" width="280.0" height="105.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="785.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">XZ-Style Tarball Injection</text>
+<text x="785.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Підміна архіву на серверах джерела</text>
+<text x="785.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">виявляється миттєво: SHA-256 хеш завантаженого</text>
+<text x="785.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">файлу не збігається із записом у lockfile.</text>
+</svg>

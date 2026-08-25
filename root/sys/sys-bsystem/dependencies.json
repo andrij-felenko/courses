@@ -1,172 +1,262 @@
 {
-  "schema": 7,
-  "kind": "sys",
-  "book": "sys-bsystem",
-  "slug": "dependencies",
-  "title": "Залежності",
-  "scope": "",
-  "chapters": [
+ "schema": 7,
+ "kind": "sys",
+ "book": "sys-bsystem",
+ "slug": "dependencies",
+ "title": "Залежності",
+ "scope": "",
+ "chapters": [
+  {
+   "slug": "managers-and-versions",
+   "title": "Менеджери й версії",
+   "topics": [
     {
-      "slug": "managers-and-versions",
-      "title": "Менеджери й версії",
-      "topics": [
-        {
-          "slug": "dependency-manager-model",
-          "title": "Модель менеджера залежностей C++",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "recheck"
-          },
-          "hist": [
-            {
-              "file": "hist-c-cpp-packaging.md",
-              "status": "recheck"
-            }
-          ],
-          "proj": [
-            {
-              "file": "proj-package-id-hash.md",
-              "status": "recheck"
-            }
-          ],
-          "api": [
-            {
-              "file": "api-dependency-graph-contract.md",
-              "status": "recheck"
-            }
-          ]
-        },
-        {
-          "slug": "conan",
-          "title": "Conan: рецепти, профілі, бінарні пакети",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "recheck"
-          },
-          "hist": [
-            {
-              "file": "hist-conan-evolution.md",
-              "status": "recheck"
-            }
-          ],
-          "proj": [
-            {
-              "file": "proj-multi-package-workflow.md",
-              "status": "recheck"
-            }
-          ],
-          "api": [
-            {
-              "file": "api-conanfile-methods.md",
-              "status": "recheck"
-            }
-          ]
-        },
-        {
-          "slug": "vcpkg",
-          "title": "vcpkg: порти, тріплети, маніфестний режим",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
-          }
-        },
-        {
-          "slug": "vendoring-submodules",
-          "title": "Вендоринг і git-сабмодулі",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
-          }
-        },
-        {
-          "slug": "version-pinning",
-          "title": "Закріплення версій і замки залежностей",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
-          }
-        }
-      ]
+     "slug": "dependency-manager-model",
+     "title": "Модель менеджера залежностей C++",
+     "basic": {
+      "status": "empty"
+     },
+     "detailed": {
+      "status": "recheck"
+     },
+     "hist": [
+      {
+       "file": "hist-c-cpp-packaging.md",
+       "status": "recheck"
+      }
+     ],
+     "proj": [
+      {
+       "file": "proj-package-id-hash.md",
+       "status": "recheck"
+      }
+     ],
+     "api": [
+      {
+       "file": "api-dependency-graph-contract.md",
+       "status": "recheck"
+      }
+     ]
     },
     {
-      "slug": "system-packages",
-      "title": "Системні пакунки й установлення",
-      "topics": [
-        {
-          "slug": "dev-packages-and-pkg-config",
-          "title": "Заголовки й -dev пакунки: pkg-config і де лежить чужий API",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
-          }
-        },
-        {
-          "slug": "install-prefix-and-destdir",
-          "title": "Куди ставиться програма: prefix, DESTDIR і /usr/local",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
-          }
-        }
-      ]
+     "slug": "conan",
+     "title": "Conan: рецепти, профілі, бінарні пакети",
+     "basic": {
+      "status": "empty"
+     },
+     "detailed": {
+      "status": "recheck"
+     },
+     "hist": [
+      {
+       "file": "hist-conan-evolution.md",
+       "status": "recheck"
+      }
+     ],
+     "proj": [
+      {
+       "file": "proj-multi-package-workflow.md",
+       "status": "recheck"
+      }
+     ],
+     "api": [
+      {
+       "file": "api-conanfile-methods.md",
+       "status": "recheck"
+      }
+     ]
     },
     {
-      "slug": "reproducibility",
-      "title": "Відтворюваність",
-      "topics": [
-        {
-          "slug": "reproducible-builds",
-          "title": "Відтворювані збірки",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "recheck"
-          },
-          "hist": [
-            {
-              "file": "hist-reproducible-builds.md",
-              "status": "recheck"
-            }
-          ],
-          "proj": [
-            {
-              "file": "proj-repro-check.md",
-              "status": "recheck"
-            }
-          ],
-          "api": [
-            {
-              "file": "api-repro-flags.md",
-              "status": "recheck"
-            }
-          ]
-        },
-        {
-          "slug": "hermetic-builds",
-          "title": "Герметичні системи збірки: модель Bazel та Buck2",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
-          }
-        }
-      ]
+     "slug": "vcpkg",
+     "title": "vcpkg: порти, тріплети, маніфестний режим",
+     "basic": {
+      "status": "empty"
+     },
+     "detailed": {
+      "status": "recheck"
+     },
+     "api": [
+      {
+       "file": "api-vcpkg-portfile-helpers.md",
+       "status": "recheck"
+      }
+     ],
+     "hist": [
+      {
+       "file": "hist-vcpkg-evolution.md",
+       "status": "recheck"
+      }
+     ],
+     "proj": [
+      {
+       "file": "proj-custom-port-overlay.md",
+       "status": "recheck"
+      }
+     ]
+    },
+    {
+     "slug": "vendoring-submodules",
+     "title": "Вендоринг і git-сабмодулі",
+     "basic": {
+      "status": "empty"
+     },
+     "detailed": {
+      "status": "recheck"
+     },
+     "api": [
+      {
+       "file": "api-submodule-subtree-commands.md",
+       "status": "recheck"
+      }
+     ],
+     "hist": [
+      {
+       "file": "hist-vendoring-evolution.md",
+       "status": "recheck"
+      }
+     ],
+     "proj": [
+      {
+       "file": "proj-vendoring-cmake-pipeline.md",
+       "status": "recheck"
+      }
+     ]
+    },
+    {
+     "slug": "version-pinning",
+     "title": "Закріплення версій і замки залежностей",
+     "basic": {
+      "status": "empty"
+     },
+     "detailed": {
+      "status": "recheck"
+     },
+     "api": [
+      {
+       "file": "api-lockfile-specifications.md",
+       "status": "recheck"
+      }
+     ],
+     "hist": [
+      {
+       "file": "hist-lockfiles-and-supply-chain.md",
+       "status": "recheck"
+      }
+     ],
+     "proj": [
+      {
+       "file": "proj-lockfile-ci-checker.md",
+       "status": "recheck"
+      }
+     ]
     }
-  ]
+   ]
+  },
+  {
+   "slug": "system-packages",
+   "title": "Системні пакунки й установлення",
+   "topics": [
+    {
+     "slug": "dev-packages-and-pkg-config",
+     "title": "Заголовки й -dev пакунки: pkg-config і де лежить чужий API",
+     "basic": {
+      "status": "empty"
+     },
+     "detailed": {
+      "status": "recheck"
+     },
+     "api": [
+      {
+       "file": "api-pc-file-spec.md",
+       "status": "recheck"
+      }
+     ],
+     "hist": [
+      {
+       "file": "hist-pkg-config-birth.md",
+       "status": "recheck"
+      }
+     ],
+     "proj": [
+      {
+       "file": "proj-pc-authoring.md",
+       "status": "recheck"
+      }
+     ]
+    },
+    {
+     "slug": "install-prefix-and-destdir",
+     "title": "Куди ставиться програма: prefix, DESTDIR і /usr/local",
+     "basic": {
+      "status": "empty"
+     },
+     "detailed": {
+      "status": "recheck"
+     },
+     "api": [
+      {
+       "file": "api-gnu-install-dirs.md",
+       "status": "recheck"
+      }
+     ],
+     "hist": [
+      {
+       "file": "hist-slash-usr-split.md",
+       "status": "recheck"
+      }
+     ],
+     "proj": [
+      {
+       "file": "proj-destdir-staging.md",
+       "status": "recheck"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "reproducibility",
+   "title": "Відтворюваність",
+   "topics": [
+    {
+     "slug": "reproducible-builds",
+     "title": "Відтворювані збірки",
+     "basic": {
+      "status": "empty"
+     },
+     "detailed": {
+      "status": "recheck"
+     },
+     "hist": [
+      {
+       "file": "hist-reproducible-builds.md",
+       "status": "recheck"
+      }
+     ],
+     "proj": [
+      {
+       "file": "proj-repro-check.md",
+       "status": "recheck"
+      }
+     ],
+     "api": [
+      {
+       "file": "api-repro-flags.md",
+       "status": "recheck"
+      }
+     ]
+    },
+    {
+     "slug": "hermetic-builds",
+     "title": "Герметичні системи збірки: модель Bazel та Buck2",
+     "basic": {
+      "status": "empty"
+     },
+     "detailed": {
+      "status": "pending"
+     }
+    }
+   ]
+  }
+ ]
 }
