@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 951.5 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="951.5" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="910.0" height="450.0" rx="8" fill="#fcfdfe" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="470.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Канонічні зведення задач до максимального потоку (Reductions &amp; Gadgets)</text>
+<rect x="35.0" y="65.0" width="275.0" height="335.0" rx="6" fill="#f6f8fa" stroke="#dfe4ea" stroke-width="1.2"/>
+<text x="172.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Пропускна спроможність вершин</text>
+<circle cx="95.0" cy="160.0" r="16.0" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="95.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">u</text>
+<line x1="111.0" y1="160.0" x2="144.0" y2="160.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="160.0" cy="160.0" r="16.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="160.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">v_in</text>
+<line x1="176.0" y1="160.0" x2="209.0" y2="160.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="192.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">c(v)</text>
+<circle cx="225.0" cy="160.0" r="16.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="225.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">v_out</text>
+<line x1="241.0" y1="160.0" x2="274.0" y2="160.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="290.0" cy="160.0" r="16.0" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="290.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">w</text>
+<rect x="45.0" y="220.0" width="255.0" height="165.0" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/><text x="172.5" y="282.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="172.5" dy="0.0">Розщеплення вузла v:</tspan><tspan x="172.5" dy="11.7">• Вершина v замінюється парою (v_in, v_out).</tspan><tspan x="172.5" dy="11.7">• Внутрішнє ребро (v_in, v_out) отримує місткість c(v).</tspan><tspan x="172.5" dy="11.7">• Усі вхідні дуги ведуть у v_in, вихідні — з v_out.</tspan><tspan x="172.5" dy="11.7">Гарантує обмеження наскрізного трафіку через вузол.</tspan></text>
+<rect x="330.0" y="65.0" width="275.0" height="335.0" rx="6" fill="#f6f8fa" stroke="#dfe4ea" stroke-width="1.2"/>
+<text x="467.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Кілька джерел і стоків</text>
+<circle cx="365.0" cy="160.0" r="16.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="365.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">S*</text>
+<line x1="381.0" y1="155.0" x2="414.0" y2="135.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="395.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">S1</text>
+<line x1="381.0" y1="165.0" x2="414.0" y2="185.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="395.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">S2</text>
+<circle cx="430.0" cy="130.0" r="14.0" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="430.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">s1</text>
+<circle cx="430.0" cy="190.0" r="14.0" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="430.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">s2</text>
+<circle cx="510.0" cy="130.0" r="14.0" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="510.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">t1</text>
+<circle cx="510.0" cy="190.0" r="14.0" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="510.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">t2</text>
+<line x1="524.0" y1="135.0" x2="557.0" y2="155.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="545.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">T1</text>
+<line x1="524.0" y1="185.0" x2="557.0" y2="165.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="545.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">T2</text>
+<circle cx="575.0" cy="160.0" r="16.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="575.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">T*</text>
+<rect x="340.0" y="220.0" width="255.0" height="165.0" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/><text x="460.5" y="282.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="460.5" dy="0.0">Суперджерело та суперстік:</tspan><tspan x="460.5" dy="11.7">• Вводиться спільний витік S* та стік T*.</tspan><tspan x="460.5" dy="11.7">• Ребра (S*, s_i) мають місткості генерації S_i.</tspan><tspan x="460.5" dy="11.7">• Ребра (t_j, T*) мають місткості споживання T_j.</tspan><tspan x="460.5" dy="11.7">Зводить задачу багатьох терміналів до класичного s-t потоку.</tspan></text>
+<rect x="625.0" y="65.0" width="280.0" height="335.0" rx="6" fill="#f6f8fa" stroke="#dfe4ea" stroke-width="1.2"/>
+<text x="765.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Двочасткове паросполучення</text>
+<circle cx="655.0" cy="160.0" r="16.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="655.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">s</text>
+<line x1="671.0" y1="160.0" x2="706.0" y2="125.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<circle cx="720.0" cy="125.0" r="13.0" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="720.0" y="128.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">L1</text>
+<line x1="671.0" y1="160.0" x2="706.0" y2="160.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<circle cx="720.0" cy="160.0" r="13.0" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="720.0" y="163.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">L2</text>
+<line x1="671.0" y1="160.0" x2="706.0" y2="195.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<circle cx="720.0" cy="195.0" r="13.0" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="720.0" y="198.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">L3</text>
+<line x1="733.0" y1="125.0" x2="797.0" y2="125.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="733.0" y1="125.0" x2="797.0" y2="160.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="733.0" y1="160.0" x2="797.0" y2="160.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="733.0" y1="195.0" x2="797.0" y2="160.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="733.0" y1="195.0" x2="797.0" y2="195.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<circle cx="810.0" cy="125.0" r="13.0" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="810.0" y="128.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">R1</text>
+<line x1="823.0" y1="125.0" x2="860.0" y2="160.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<circle cx="810.0" cy="160.0" r="13.0" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="810.0" y="163.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">R2</text>
+<line x1="823.0" y1="160.0" x2="860.0" y2="160.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<circle cx="810.0" cy="195.0" r="13.0" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="810.0" y="198.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">R3</text>
+<line x1="823.0" y1="195.0" x2="860.0" y2="160.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<circle cx="875.0" cy="160.0" r="16.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="875.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">t</text>
+<rect x="635.0" y="220.0" width="260.0" height="165.0" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/><text x="765.0" y="288.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="765.0" dy="0.0">Зведення паросполучення:</tspan><tspan x="765.0" dy="11.7">• Всі ребра отримують одиничну місткість c=1.</tspan><tspan x="765.0" dy="11.7">• Цілочисельність гарантує f(e) ∈ {0, 1}.</tspan><tspan x="765.0" dy="11.7">• Насичені дуги між L та R утворюють максимальне незалежне паросполучення.</tspan></text>
+<rect x="35.0" y="415.0" width="870.0" height="45.0" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/>
+<text x="470.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конструктивні зведення дозволяють розв'язувати десятки прикладних задач дискретної оптимізації через єдиний розв'язувач потоку.</text>
+</svg>

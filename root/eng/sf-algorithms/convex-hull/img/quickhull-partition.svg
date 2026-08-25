@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритм Quickhull: розділення площини та відкидання точок</text>
+<polygon points="110.0,240.0 460.0,80.0 810.0,240.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4 3"/>
+<line x1="110.0" y1="240.0" x2="810.0" y2="240.0" stroke="#1a1a1a" stroke-width="2.2"/>
+<line x1="460.0" y1="80.0" x2="460.0" y2="240.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+<text x="472.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">h_max (макс. відстань)</text>
+<circle cx="320.0" cy="200.0" r="4.5" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="317.0" y1="197.0" x2="323.0" y2="203.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="317.0" y1="203.0" x2="323.0" y2="197.0" stroke="#c0392b" stroke-width="1.2"/>
+<circle cx="430.0" cy="180.0" r="4.5" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="427.0" y1="177.0" x2="433.0" y2="183.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="427.0" y1="183.0" x2="433.0" y2="177.0" stroke="#c0392b" stroke-width="1.2"/>
+<circle cx="520.0" cy="190.0" r="4.5" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="517.0" y1="187.0" x2="523.0" y2="193.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="517.0" y1="193.0" x2="523.0" y2="187.0" stroke="#c0392b" stroke-width="1.2"/>
+<circle cx="610.0" cy="210.0" r="4.5" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="607.0" y1="207.0" x2="613.0" y2="213.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="607.0" y1="213.0" x2="613.0" y2="207.0" stroke="#c0392b" stroke-width="1.2"/>
+<circle cx="460.0" cy="220.0" r="4.5" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="457.0" y1="217.0" x2="463.0" y2="223.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="457.0" y1="223.0" x2="463.0" y2="217.0" stroke="#c0392b" stroke-width="1.2"/>
+<circle cx="370.0" cy="225.0" r="4.5" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="367.0" y1="222.0" x2="373.0" y2="228.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="367.0" y1="228.0" x2="373.0" y2="222.0" stroke="#c0392b" stroke-width="1.2"/>
+<circle cx="220.0" cy="120.0" r="5.0" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<circle cx="310.0" cy="95.0" r="5.0" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<circle cx="260.0" cy="150.0" r="5.0" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<circle cx="620.0" cy="110.0" r="5.0" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<circle cx="700.0" cy="140.0" r="5.0" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<circle cx="660.0" cy="85.0" r="5.0" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<circle cx="280.0" cy="310.0" r="5.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<circle cx="490.0" cy="340.0" r="5.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<circle cx="680.0" cy="290.0" r="5.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<circle cx="110.0" cy="240.0" r="7.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<circle cx="810.0" cy="240.0" r="7.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<circle cx="460.0" cy="80.0" r="7.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.8"/>
+<text x="98.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">P_min (min x)</text>
+<text x="822.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">P_max (max x)</text>
+<text x="460.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">C (найвіддаленіша точка над AB)</text>
+<rect x="156.8" y="48.5" width="206.4" height="23.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="260.0" y="63.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle"><tspan x="260.0" dy="0.0">Підмножина S1 (рекурсія над AC)</tspan></text>
+<rect x="556.8" y="48.5" width="206.4" height="23.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="660.0" y="63.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle"><tspan x="660.0" dy="0.0">Підмножина S2 (рекурсія над CB)</tspan></text>
+<text x="460.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Точки всередині ΔABC відкидаються</text>
+<text x="460.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Підмножина нижніх точок (рекурсія під AB)</text>
+</svg>

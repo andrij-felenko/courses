@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Декомпозиція на трикутники від початку координат: скасування зовнішньої площі</text>
+<circle cx="90.0" cy="360.0" r="5.5" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="76.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">O (0,0)</text>
+<line x1="90.0" y1="360.0" x2="770.0" y2="360.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="785.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="start" font-weight="700">x</text>
+<line x1="90.0" y1="360.0" x2="90.0" y2="60.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="90.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">y</text>
+<polygon points="90,360 260,130 650,110" fill="#eaf7ed" stroke="#27ae60" stroke-width="1.6" stroke-dasharray="4 3"/>
+<polygon points="90,360 590,270 310,240" fill="#fdecea" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="4 3"/>
+<polygon points="310,240 590,270 650,110 260,130" fill="#c3e6cb" fill-opacity="0.85" stroke="#1a1a1a" stroke-width="2.5"/>
+<line x1="90.0" y1="360.0" x2="310.0" y2="240.0" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="3 3"/>
+<line x1="90.0" y1="360.0" x2="590.0" y2="270.0" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="3 3"/>
+<line x1="90.0" y1="360.0" x2="650.0" y2="110.0" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="3 3"/>
+<line x1="90.0" y1="360.0" x2="260.0" y2="130.0" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="3 3"/>
+<line x1="310.0" y1="240.0" x2="590.0" y2="270.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="590.0" y1="270.0" x2="650.0" y2="110.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="650.0" y1="110.0" x2="260.0" y2="130.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="260.0" y1="130.0" x2="310.0" y2="240.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<circle cx="310.0" cy="240.0" r="4.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="298.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">V₀</text>
+<circle cx="590.0" cy="270.0" r="4.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="606.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">V₁</text>
+<circle cx="650.0" cy="110.0" r="4.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="666.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">V₂</text>
+<circle cx="260.0" cy="130.0" r="4.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="246.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">V₃</text>
+<rect x="600.2" y="170.4" width="179.7" height="59.2" rx="6" fill="#eaf7ed" stroke="#27ae60" stroke-width="1.5"/><text x="690.0" y="188.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="690.0" dy="0.0">+ Ребра V₁→V₂ та V₂→V₃</tspan><tspan x="690.0" dy="15.6">додають додатну площу</tspan><tspan x="690.0" dy="15.6">Δ(O, V_i, V_{i+1}) &gt; 0</tspan></text>
+<rect x="600.2" y="280.4" width="179.7" height="59.2" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="690.0" y="298.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="690.0" dy="0.0">− Ребро V₃→V₀ та V₀→V₁</tspan><tspan x="690.0" dy="15.6">віднімають зайву площу</tspan><tspan x="690.0" dy="15.6">Δ(O, V_i, V_{i+1}) &lt; 0</tspan></text>
+<text x="440.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#155724" text-anchor="middle" font-weight="700">Результуюча площа S</text>
+<text x="440.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#155724" text-anchor="middle" font-style="italic">(зовнішні сектори взаємно скоротилися)</text>
+</svg>

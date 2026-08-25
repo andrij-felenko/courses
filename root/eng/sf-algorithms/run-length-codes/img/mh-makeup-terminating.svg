@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розбиття серії L у Modified Huffman (MH)</text>
+<rect x="40.0" y="55.0" width="680.0" height="52.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="60.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Серія L = 142 пікселі</text>
+<text x="250.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start">=  128 (Make-up)  +  14 (Terminating)</text>
+<text x="690.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end" font-weight="700">L = 64·M + T</text>
+<line x1="260.0" y1="110.0" x2="190.0" y2="145.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="500.0" y1="110.0" x2="570.0" y2="145.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="40.0" y="150.0" width="330.0" height="120.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="205.0" y="192.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="205.0" dy="0.0">Складений код нарощення (Make-up)</tspan><tspan x="205.0" dy="14.3">Кратно 64: {64, 128, 192, ..., 1728}</tspan><tspan x="205.0" dy="14.3">Для L=128 (біла серія):</tspan><tspan x="205.0" dy="14.3">Код префікса: 10010 (5 бітів)</tspan></text>
+<rect x="390.0" y="150.0" width="330.0" height="120.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="555.0" y="192.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="555.0" dy="0.0">Термінальний код (Terminating)</tspan><tspan x="555.0" dy="14.3">Залишок 0 &lt;= T &lt;= 63 пікселі</tspan><tspan x="555.0" dy="14.3">Для T=14 (біла серія):</tspan><tspan x="555.0" dy="14.3">Код префікса: 011001 (6 бітів)</tspan></text>
+<text x="380.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сумарний код довжини L=142:  10010 + 011001  (разом 11 бітів замість 142)</text>
+</svg>

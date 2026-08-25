@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 350" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="350" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Каскад потокового оновлення центральних моментів вибірки</text>
+<rect x="40.0" y="90.0" width="180.0" height="150.0" rx="6" fill="#f0f4f8" stroke="#333333" stroke-width="1.6"/>
+<text x="130.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#333333" text-anchor="middle" font-weight="700">n (Лічильник)</text>
+<text x="130.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Розмір вибірки</text>
+<line x1="55.0" y1="155.0" x2="205.0" y2="155.0" stroke="#333333" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="130.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Формула оновлення:</text>
+<text x="130.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">n_k = n_{k−1} + 1</text>
+<rect x="240.0" y="90.0" width="180.0" height="150.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="330.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">M1 (Середнє)</text>
+<text x="330.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Центр розподілу</text>
+<line x1="255.0" y1="155.0" x2="405.0" y2="155.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="330.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Формула оновлення:</text>
+<text x="330.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">μ_k = μ_{k−1} + δ / k</text>
+<rect x="450.0" y="90.0" width="180.0" height="150.0" rx="6" fill="#f4faf6" stroke="#27ae60" stroke-width="1.6"/>
+<text x="540.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">M2 (Дисперсія)</text>
+<text x="540.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Розкид навколо μ</text>
+<line x1="465.0" y1="155.0" x2="615.0" y2="155.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="540.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Формула оновлення:</text>
+<text x="540.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">M2 += δ · (x_k − μ_k)</text>
+<rect x="660.0" y="90.0" width="180.0" height="150.0" rx="6" fill="#fdf6ea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="750.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">M3, M4 (Форма)</text>
+<text x="750.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Асиметрія та ексцес</text>
+<line x1="675.0" y1="155.0" x2="825.0" y2="155.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="750.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Формула оновлення:</text>
+<text x="750.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Оновлення через δ² та δ³</text>
+<line x1="220.0" y1="165.0" x2="240.0" y2="165.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="420.0" y1="165.0" x2="450.0" y2="165.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="630.0" y1="165.0" x2="660.0" y2="165.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="440.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кожен вищий момент M_{m} залежить виключно від поточного значення x_k та нижчих моментів M_{&lt;m}</text>
+<text x="440.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Потоковий розрахунок усіх 4 моментів за один прохід із пам'яттю O(1) і часом O(1) на точку</text>
+</svg>

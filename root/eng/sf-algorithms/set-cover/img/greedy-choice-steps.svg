@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 835 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="835" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Покрокова робота жадібного алгоритму: мінімізація питомої вартості</text>
+<rect x="25.0" y="50.0" width="240.0" height="300.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="145.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Крок 1</text>
+<text x="145.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вибір найефективнішої S₁</text>
+<line x1="35.0" y1="104.0" x2="255.0" y2="104.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="37.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Оцінка w(S) / |S \ C|:</text>
+<rect x="33.0" y="130.0" width="224.0" height="20.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="37.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">▶ S₁: w=4, нових=5 → 4/5 = 0.80</text>
+<text x="39.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  S₂: w=5, нових=3 → 5/3 = 1.67</text>
+<text x="39.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  S₃: w=6, нових=4 → 6/4 = 1.50</text>
+<text x="39.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  S₄: w=3, нових=4 → 3/4 = 0.75</text>
+<line x1="35.0" y1="245.0" x2="255.0" y2="245.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="3,3"/>
+<rect x="53.8" y="258.5" width="182.5" height="23.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="145.0" y="273.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="145.0" dy="0.0">Обрано S₁ (покрито 5 ел.)</tspan></text>
+<text x="145.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Покрито: {e₁, e₂, e₃, e₄, e₅}</text>
+<text x="145.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Залишилось: 5 елементів</text>
+<line x1="270.0" y1="200.0" x2="295.0" y2="200.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="300.0" y="50.0" width="240.0" height="300.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="420.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Крок 2</text>
+<text x="420.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перерахунок для решти U</text>
+<line x1="310.0" y1="104.0" x2="530.0" y2="104.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="312.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Оцінка w(S) / |S \ C|:</text>
+<rect x="308.0" y="130.0" width="224.0" height="20.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="312.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">▶ S₄: w=3, нових=3 → 3/3 = 1.00</text>
+<text x="314.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  S₂: w=5, нових=1 → 5/1 = 5.00</text>
+<text x="314.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  S₃: w=6, нових=2 → 6/2 = 3.00</text>
+<text x="314.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  S₅: w=4, нових=2 → 4/2 = 2.00</text>
+<line x1="310.0" y1="245.0" x2="530.0" y2="245.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="3,3"/>
+<rect x="318.5" y="258.5" width="203.0" height="23.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="420.0" y="273.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">Обрано S₄ (нові: e₆, e₇, e₈)</tspan></text>
+<text x="420.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Покрито: {e₁,..,e₅} ∪ {e₆,e₇,e₈}</text>
+<text x="420.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Залишилось: {e₉, e₁₀}</text>
+<line x1="545.0" y1="200.0" x2="570.0" y2="200.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="575.0" y="50.0" width="240.0" height="300.0" rx="6" fill="#fefce8" stroke="#ca8a04" stroke-width="1.5"/>
+<text x="695.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ca8a04" text-anchor="middle" font-weight="700">Крок 3</text>
+<text x="695.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фінальне закриття залишку</text>
+<line x1="585.0" y1="104.0" x2="805.0" y2="104.0" stroke="#ca8a04" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="587.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Оцінка w(S) / |S \ C|:</text>
+<rect x="583.0" y="130.0" width="224.0" height="20.0" rx="3" fill="#ffffff" stroke="#ca8a04" stroke-width="1.0"/>
+<text x="587.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ca8a04" text-anchor="start" font-weight="700">▶ S₅: w=4, нових=2 → 4/2 = 2.00</text>
+<text x="589.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  S₆: w=5, нових=1 → 5/1 = 5.00</text>
+<text x="589.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  S₇: w=6, нових=1 → 6/1 = 6.00</text>
+<text x="589.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">  — решта не мають нових —</text>
+<line x1="585.0" y1="245.0" x2="805.0" y2="245.0" stroke="#ca8a04" stroke-width="1.0" stroke-dasharray="3,3"/>
+<rect x="603.8" y="258.5" width="182.5" height="23.0" rx="6" fill="#ffffff" stroke="#ca8a04" stroke-width="1.5"/><text x="695.0" y="273.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="695.0" dy="0.0">Обрано S₅ (нові: e₉, e₁₀)</tspan></text>
+<text x="695.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Покрито: ВСІ 10 елементів</text>
+<text x="695.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ca8a04" text-anchor="middle" font-weight="700">Покриття множини ЗАВЕРШЕНО</text>
+</svg>

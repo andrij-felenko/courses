@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1000 600" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1000" height="600" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="980.0" height="580.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="490.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Покрокова робота алгоритму Краскала на графі з 6 вершин</text>
+<rect x="15.0" y="45.0" width="465.0" height="250.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="29.0" y="67.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e293b" text-anchor="start" font-weight="700">Крок 1: Сортування ребер і старт</text>
+<text x="29.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="start">Всі 6 вершин у власних компонентах; список 9 ребер відсортовано.</text>
+<line x1="75.0" y1="130.0" x2="170.0" y2="110.0" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="122.5" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">1</text>
+<line x1="75.0" y1="230.0" x2="170.0" y2="250.0" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="122.5" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">2</text>
+<line x1="170.0" y1="110.0" x2="265.0" y2="130.0" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="217.5" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">3</text>
+<line x1="75.0" y1="130.0" x2="75.0" y2="230.0" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="61.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">4</text>
+<line x1="170.0" y1="110.0" x2="170.0" y2="250.0" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="182.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">5</text>
+<line x1="265.0" y1="130.0" x2="170.0" y2="250.0" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="207.5" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">6</text>
+<line x1="265.0" y1="130.0" x2="265.0" y2="230.0" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="279.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">7</text>
+<line x1="170.0" y1="250.0" x2="265.0" y2="230.0" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="217.5" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">8</text>
+<path d="M 75.0 130.0 Q 170.0 100.0 265.0 130.0" fill="none" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="170.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">9</text>
+<circle cx="75.0" cy="130.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="75.0" y="134.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">A</text>
+<circle cx="170.0" cy="110.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="170.0" y="114.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">B</text>
+<circle cx="265.0" cy="130.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="265.0" y="134.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">C</text>
+<circle cx="75.0" cy="230.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="75.0" y="234.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">D</text>
+<circle cx="170.0" cy="250.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="170.0" y="254.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">E</text>
+<circle cx="265.0" cy="230.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="265.0" y="234.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">F</text>
+<rect x="310.0" y="110.0" width="155.0" height="170.0" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="387.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="middle" font-weight="700">Стан DSU / Стек</text>
+<text x="320.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">{A}, {B}, {C},</text>
+<text x="320.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">{D}, {E}, {F}</text>
+<text x="320.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">Компонент: 6</text>
+<text x="320.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">Ребер у MST: 0/5</text>
+<text x="320.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">Черга:</text>
+<text x="320.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">1,2,3,4,5,6,7,8,9</text>
+<rect x="500.0" y="45.0" width="465.0" height="250.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="514.0" y="67.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e293b" text-anchor="start" font-weight="700">Крок 2: Додавання безпечних ребер</text>
+<text x="514.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="start">Додано (A,B:1), (D,E:2), (B,C:3), (A,D:4). Лишилось 2 компоненти.</text>
+<line x1="560.0" y1="130.0" x2="655.0" y2="110.0" stroke="#1e824c" stroke-width="2.8"/>
+<text x="607.5" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e824c" text-anchor="middle" font-weight="700">1</text>
+<line x1="560.0" y1="230.0" x2="655.0" y2="250.0" stroke="#1e824c" stroke-width="2.8"/>
+<text x="607.5" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e824c" text-anchor="middle" font-weight="700">2</text>
+<line x1="655.0" y1="110.0" x2="750.0" y2="130.0" stroke="#1e824c" stroke-width="2.8"/>
+<text x="702.5" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e824c" text-anchor="middle" font-weight="700">3</text>
+<line x1="560.0" y1="130.0" x2="560.0" y2="230.0" stroke="#1e824c" stroke-width="2.8"/>
+<text x="546.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e824c" text-anchor="middle" font-weight="700">4</text>
+<line x1="655.0" y1="110.0" x2="655.0" y2="250.0" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="667.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">5</text>
+<line x1="750.0" y1="130.0" x2="655.0" y2="250.0" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="692.5" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">6</text>
+<line x1="750.0" y1="130.0" x2="750.0" y2="230.0" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="764.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">7</text>
+<line x1="655.0" y1="250.0" x2="750.0" y2="230.0" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="702.5" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">8</text>
+<path d="M 560.0 130.0 Q 655.0 100.0 750.0 130.0" fill="none" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="655.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">9</text>
+<circle cx="560.0" cy="130.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="560.0" y="134.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">A</text>
+<circle cx="655.0" cy="110.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="655.0" y="114.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">B</text>
+<circle cx="750.0" cy="130.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="750.0" y="134.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">C</text>
+<circle cx="560.0" cy="230.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="560.0" y="234.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">D</text>
+<circle cx="655.0" cy="250.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="655.0" y="254.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">E</text>
+<circle cx="750.0" cy="230.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="750.0" y="234.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">F</text>
+<rect x="795.0" y="110.0" width="155.0" height="170.0" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="872.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="middle" font-weight="700">Стан DSU / Стек</text>
+<text x="805.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">Об'єднано:</text>
+<text x="805.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">{A, B, C, D, E},</text>
+<text x="805.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">{F}</text>
+<text x="805.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">Компонент: 2</text>
+<text x="805.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">Ребер у MST: 4/5</text>
+<text x="805.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">Вага: 1+2+3+4 = 10</text>
+<rect x="15.0" y="310.0" width="465.0" height="250.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="29.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e293b" text-anchor="start" font-weight="700">Крок 3: Виявлення та відхилення циклів</text>
+<text x="29.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="start">Ребра (B,E:5) та (C,E:6) утворюють цикли в {A,B,C,D,E} — ВІДХИЛЕНО.</text>
+<line x1="75.0" y1="395.0" x2="170.0" y2="375.0" stroke="#1e824c" stroke-width="2.8"/>
+<text x="122.5" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e824c" text-anchor="middle" font-weight="700">1</text>
+<line x1="75.0" y1="495.0" x2="170.0" y2="515.0" stroke="#1e824c" stroke-width="2.8"/>
+<text x="122.5" y="522.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e824c" text-anchor="middle" font-weight="700">2</text>
+<line x1="170.0" y1="375.0" x2="265.0" y2="395.0" stroke="#1e824c" stroke-width="2.8"/>
+<text x="217.5" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e824c" text-anchor="middle" font-weight="700">3</text>
+<line x1="75.0" y1="395.0" x2="75.0" y2="495.0" stroke="#1e824c" stroke-width="2.8"/>
+<text x="61.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e824c" text-anchor="middle" font-weight="700">4</text>
+<line x1="170.0" y1="375.0" x2="170.0" y2="515.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4 3"/>
+<text x="182.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">5</text>
+<line x1="265.0" y1="395.0" x2="170.0" y2="515.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4 3"/>
+<text x="207.5" y="466.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">6</text>
+<line x1="265.0" y1="395.0" x2="265.0" y2="495.0" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="279.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">7</text>
+<line x1="170.0" y1="515.0" x2="265.0" y2="495.0" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="217.5" y="522.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">8</text>
+<path d="M 75.0 395.0 Q 170.0 365.0 265.0 395.0" fill="none" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="170.0" y="361.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">9</text>
+<circle cx="75.0" cy="395.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="75.0" y="399.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">A</text>
+<circle cx="170.0" cy="375.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="170.0" y="379.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">B</text>
+<circle cx="265.0" cy="395.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="265.0" y="399.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">C</text>
+<circle cx="75.0" cy="495.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="75.0" y="499.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">D</text>
+<circle cx="170.0" cy="515.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="170.0" y="519.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">E</text>
+<circle cx="265.0" cy="495.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="265.0" y="499.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">F</text>
+<rect x="310.0" y="375.0" width="155.0" height="170.0" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="387.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="middle" font-weight="700">Стан DSU / Стек</text>
+<text x="320.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">Перевірка:</text>
+<text x="320.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">(B,E:5) -&gt; Цикл!</text>
+<text x="320.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">(C,E:6) -&gt; Цикл!</text>
+<text x="320.0" y="478.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">find(B)==find(E)</text>
+<text x="320.0" y="499.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">Компонент: 2</text>
+<text x="320.0" y="520.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">Ребер у MST: 4/5</text>
+<rect x="500.0" y="310.0" width="465.0" height="250.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="514.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e293b" text-anchor="start" font-weight="700">Крок 4: Завершення кістякового дерева</text>
+<text x="514.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="start">Ребро (C,F:7) об'єднує компоненти. MST містить 5 ребер, вага = 17.</text>
+<line x1="560.0" y1="395.0" x2="655.0" y2="375.0" stroke="#1e824c" stroke-width="2.8"/>
+<text x="607.5" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e824c" text-anchor="middle" font-weight="700">1</text>
+<line x1="560.0" y1="495.0" x2="655.0" y2="515.0" stroke="#1e824c" stroke-width="2.8"/>
+<text x="607.5" y="522.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e824c" text-anchor="middle" font-weight="700">2</text>
+<line x1="655.0" y1="375.0" x2="750.0" y2="395.0" stroke="#1e824c" stroke-width="2.8"/>
+<text x="702.5" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e824c" text-anchor="middle" font-weight="700">3</text>
+<line x1="560.0" y1="395.0" x2="560.0" y2="495.0" stroke="#1e824c" stroke-width="2.8"/>
+<text x="546.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e824c" text-anchor="middle" font-weight="700">4</text>
+<line x1="655.0" y1="375.0" x2="655.0" y2="515.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4 3"/>
+<text x="667.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">5</text>
+<line x1="750.0" y1="395.0" x2="655.0" y2="515.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4 3"/>
+<text x="692.5" y="466.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">6</text>
+<line x1="750.0" y1="395.0" x2="750.0" y2="495.0" stroke="#1e824c" stroke-width="2.8"/>
+<text x="764.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e824c" text-anchor="middle" font-weight="700">7</text>
+<line x1="655.0" y1="515.0" x2="750.0" y2="495.0" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="702.5" y="522.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">8</text>
+<path d="M 560.0 395.0 Q 655.0 365.0 750.0 395.0" fill="none" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="655.0" y="361.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">9</text>
+<circle cx="560.0" cy="395.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="560.0" y="399.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">A</text>
+<circle cx="655.0" cy="375.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="655.0" y="379.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">B</text>
+<circle cx="750.0" cy="395.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="750.0" y="399.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">C</text>
+<circle cx="560.0" cy="495.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="560.0" y="499.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">D</text>
+<circle cx="655.0" cy="515.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="655.0" y="519.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">E</text>
+<circle cx="750.0" cy="495.0" r="14.0" fill="#ffffff" stroke="#2c3e50" stroke-width="1.8"/>
+<text x="750.0" y="499.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">F</text>
+<rect x="795.0" y="375.0" width="155.0" height="170.0" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="872.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="middle" font-weight="700">Стан DSU / Стек</text>
+<text x="805.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">Додано (C,F:7)</text>
+<text x="805.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">MST побудовано!</text>
+<text x="805.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">Всі вузли зв'язані</text>
+<text x="805.0" y="478.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">Компонент: 1</text>
+<text x="805.0" y="499.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">Ребер у MST: 5/5</text>
+<text x="805.0" y="520.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start">Загальна вага: 17</text>
+</svg>

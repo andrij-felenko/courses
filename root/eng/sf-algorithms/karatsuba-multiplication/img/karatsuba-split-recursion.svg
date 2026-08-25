@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Декомпозиція множення: 3 множення Карацуби замість 4 класичних</text>
+<text x="240.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхідні операнди (розбиття навпіл по m = n/2 лімбів)</text>
+<text x="60.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Число X :</text>
+<rect x="140.0" y="85.0" width="150.0" height="40.0" rx="5" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.8"/>
+<text x="215.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">X_h  (старші n/2)</text>
+<rect x="290.0" y="85.0" width="150.0" height="40.0" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="1.8"/>
+<text x="365.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">X_l  (молодші n/2)</text>
+<text x="60.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Число Y :</text>
+<rect x="140.0" y="140.0" width="150.0" height="40.0" rx="5" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.8"/>
+<text x="215.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Y_h  (старші n/2)</text>
+<rect x="290.0" y="140.0" width="150.0" height="40.0" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="1.8"/>
+<text x="365.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Y_l  (молодші n/2)</text>
+<line x1="480.0" y1="50.0" x2="480.0" y2="490.0" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="4 4"/>
+<rect x="510.0" y="50.0" width="395.0" height="200.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.4"/>
+<text x="707.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Шкільний підхід (4 множення)</text>
+<rect x="530.0" y="94.0" width="160.0" height="26.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="610.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Z2  = X_h · Y_h</text>
+<text x="705.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">← старший блок</text>
+<rect x="530.0" y="128.0" width="160.0" height="26.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="610.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Z1a = X_h · Y_l</text>
+<text x="705.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">← перехресний добуток 1</text>
+<rect x="530.0" y="162.0" width="160.0" height="26.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="610.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Z1b = X_l · Y_h</text>
+<text x="705.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">← перехресний добуток 2</text>
+<rect x="530.0" y="196.0" width="160.0" height="26.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="610.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Z0  = X_l · Y_l</text>
+<text x="705.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">← молодший блок</text>
+<rect x="510.0" y="270.0" width="395.0" height="220.0" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.6"/>
+<text x="707.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle" font-weight="700">Трюк Карацуби (3 множення)</text>
+<rect x="525.0" y="314.0" width="215.0" height="26.0" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.2"/>
+<text x="632.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">Z2   = X_h · Y_h</text>
+<text x="748.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">← 1-й рекурсивний добуток</text>
+<rect x="525.0" y="348.0" width="215.0" height="26.0" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.2"/>
+<text x="632.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">Z0   = X_l · Y_l</text>
+<text x="748.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">← 2-й рекурсивний добуток</text>
+<rect x="525.0" y="382.0" width="215.0" height="26.0" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.2"/>
+<text x="632.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">Zmid = (X_h + X_l) · (Y_h + Y_l)</text>
+<text x="748.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">← 3-й рекурсивний добуток</text>
+<rect x="525.0" y="435.0" width="365.0" height="40.0" rx="5" fill="#ffffff" stroke="#16a34a" stroke-width="1.3"/>
+<text x="707.0" y="459.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">Z1 = Zmid − Z2 − Z0   (лише 2 віднімання!)</text>
+<rect x="45.0" y="240.0" width="410.0" height="250.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.4"/>
+<text x="250.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Збирання результату зсувами (B = 2^32 або 2^64)</text>
+<rect x="65.0" y="295.0" width="370.0" height="36.0" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.3"/>
+<text x="250.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0369a1" text-anchor="middle" font-weight="700">Z2 · B^(2m)   [зсув на 2m слів вліво]</text>
+<text x="250.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<rect x="65.0" y="360.0" width="370.0" height="36.0" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.3"/>
+<text x="250.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">Z1 · B^m      [зсув на m слів вліво]</text>
+<text x="250.0" y="413.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<rect x="65.0" y="425.0" width="370.0" height="36.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.3"/>
+<text x="250.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">Z0            [без зсуву, молодша частина]</text>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="270.0" height="280.0" rx="8" fill="#fbfcfd" stroke="#d0d7de" stroke-width="1.0"/>
+<text x="150.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крок 1: 0-симплекс (Точка)</text>
+<polygon points="50,160 110,90 200,80 250,170 200,240 80,230" fill="#fff8e1" stroke="#ffb300" stroke-width="1.5" stroke-dasharray="3,3"/>
+<circle cx="130.0" cy="160.0" r="4.5" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="145.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">O</text>
+<circle cx="200.0" cy="80.0" r="5.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<text x="205.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">A</text>
+<line x1="200.0" y1="80.0" x2="135.0" y2="155.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="185.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">d₁ = O − A</text>
+<text x="150.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Пошук нової точки вздовж d₁</text>
+<rect x="305.0" y="15.0" width="270.0" height="280.0" rx="8" fill="#fbfcfd" stroke="#d0d7de" stroke-width="1.0"/>
+<text x="440.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крок 2: 1-симплекс (Відрізок)</text>
+<polygon points="340,160 400,90 490,80 540,170 490,240 370,230" fill="#fff8e1" stroke="#ffb300" stroke-width="1.5" stroke-dasharray="3,3"/>
+<circle cx="420.0" cy="160.0" r="4.5" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="435.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">O</text>
+<circle cx="490.0" cy="80.0" r="4.0" fill="#6b7280" stroke="#6b7280" stroke-width="1.0"/>
+<text x="500.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">B</text>
+<circle cx="370.0" cy="230.0" r="5.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<text x="355.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">A</text>
+<line x1="490.0" y1="80.0" x2="370.0" y2="230.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="430.0" y1="155.0" x2="410.0" y2="140.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="475.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">d₂ ⊥ AB</text>
+<text x="440.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Пошук третьої точки вздовж d₂</text>
+<rect x="595.0" y="15.0" width="270.0" height="280.0" rx="8" fill="#fbfcfd" stroke="#d0d7de" stroke-width="1.0"/>
+<text x="730.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крок 3: 2-симплекс (Трикутник)</text>
+<polygon points="630,160 690,90 780,80 830,170 780,240 660,230" fill="#fff8e1" stroke="#ffb300" stroke-width="1.5" stroke-dasharray="3,3"/>
+<circle cx="780.0" cy="80.0" r="4.0" fill="#6b7280" stroke="#6b7280" stroke-width="1.0"/>
+<text x="790.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">C</text>
+<circle cx="660.0" cy="230.0" r="4.0" fill="#6b7280" stroke="#6b7280" stroke-width="1.0"/>
+<text x="645.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">B</text>
+<circle cx="630.0" cy="140.0" r="5.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<text x="615.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">A</text>
+<polygon points="780,80 660,230 630,140" fill="#e8f5e9" stroke="#27ae60" stroke-width="2.5" fill-opacity="0.6"/>
+<circle cx="710.0" cy="160.0" r="5.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="730.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">O ∈ ABC</text>
+<text x="730.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">O всередині -&gt; КОЛІЗІЯ</text>
+</svg>

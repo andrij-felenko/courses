@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура 3-блокового Xor-фільтра та операція перевірки належності</text>
+<rect x="40.0" y="48.0" width="800.0" height="44.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="440.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Умова належності: B[h₀(x)] ⊕ B[h₁(x)] ⊕ B[h₂(x)] == fingerprint(x)</text>
+<text x="440.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Хеш-функції h₀, h₁, h₂ відображають ключ у три неперетинні сегменти масиву B₀, B₁, B₂</text>
+<rect x="40.0" y="116.0" width="170.0" height="70.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="125.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Ключ запиту x</text>
+<text x="125.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">рядок, UUID або int64</text>
+<text x="125.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">x = &quot;session-9481&quot;</text>
+<rect x="260.0" y="110.0" width="190.0" height="130.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="355.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хешування ключа</text>
+<line x1="270.0" y1="138.0" x2="440.0" y2="138.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="276.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">h₀(x) ∈ [0, L)</text>
+<text x="276.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">h₁(x) ∈ [L, 2L)</text>
+<text x="276.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">h₂(x) ∈ [2L, 3L)</text>
+<text x="276.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8b5cf6" text-anchor="start" font-weight="700">f(x) = fingerprint (r біт)</text>
+<line x1="210.0" y1="151.0" x2="260.0" y2="155.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="500.0" y="110.0" width="340.0" height="240.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.8"/>
+<text x="670.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Масив слотів B (розмір M = 3 × L, де L = 0.41 · N)</text>
+<rect x="510.0" y="144.0" width="320.0" height="58.0" rx="4" fill="#fef2f2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="520.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Блок B₀ [0 .. L-1]</text>
+<text x="520.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Слот h₀(x) = 0x4A</text>
+<text x="810.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">B[h₀(x)] = 0x5C</text>
+<rect x="510.0" y="210.0" width="320.0" height="58.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="520.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Блок B₁ [L .. 2L-1]</text>
+<text x="520.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Слот h₁(x) = L + 0x12</text>
+<text x="810.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">B[h₁(x)] = 0x3F</text>
+<rect x="510.0" y="276.0" width="320.0" height="58.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="520.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Блок B₂ [2L .. 3L-1]</text>
+<text x="520.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Слот h₂(x) = 2L + 0x7B</text>
+<text x="810.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="end" font-weight="700">B[h₂(x)] = 0x86</text>
+<line x1="450.0" y1="155.0" x2="510.0" y2="169.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="450.0" y1="177.0" x2="510.0" y2="235.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="450.0" y1="199.0" x2="510.0" y2="301.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="240.0" y="270.0" width="210.0" height="80.0" rx="6" fill="#faf5ff" stroke="#8b5cf6" stroke-width="1.5"/>
+<text x="345.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b21a8" text-anchor="middle" font-weight="700">Операція XOR (⊕)</text>
+<text x="345.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0x5C ⊕ 0x3F ⊕ 0x86</text>
+<text x="345.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b21a8" text-anchor="middle" font-weight="700">= 0xE5 (обчислений відбиток)</text>
+<line x1="510.0" y1="189.0" x2="450.0" y2="290.0" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="510.0" y1="255.0" x2="450.0" y2="310.0" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="510.0" y1="321.0" x2="450.0" y2="330.0" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="40.0" y="270.0" width="170.0" height="80.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="125.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння з f(x)</text>
+<text x="125.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0xE5 == f(x) (0xE5)?</text>
+<text x="125.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ТАК: елемент є</text>
+<line x1="240.0" y1="310.0" x2="210.0" y2="310.0" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="40.0" y="390.0" width="800.0" height="70.0" rx="6" fill="#f1f5f9" stroke="#333333" stroke-width="1.2"/>
+<text x="440.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гарантії: Якщо x ∈ S, фільтр завжди повертає ТАК (0% хибнонегативних помилок)</text>
+<text x="440.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Якщо x ∉ S, результат XOR є псевдовипадковим 8-бітним числом; ймовірність збігу ε = 1/256 ≈ 0.39%</text>
+<text x="440.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Усього 3 звернення до пам'яті (B₀, B₁, B₂) без розгалужень та складних переходів</text>
+</svg>

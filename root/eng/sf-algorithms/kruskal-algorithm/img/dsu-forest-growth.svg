@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 960 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="960" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="940.0" height="400.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Еволюція структури DSU (Union-Find) під час виконання алгоритму Краскала</text>
+<rect x="15.0" y="48.0" width="215.0" height="335.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="122.5" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">1. Старт (Make-Set)</text>
+<text x="122.5" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle"><tspan x="122.5" dy="0.0">6 ізольованих коренів</tspan><tspan x="122.5" dy="13.7">parent[i] = i, rank = 0</tspan></text>
+<rect x="245.0" y="48.0" width="215.0" height="335.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="352.5" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">2. union(A,B), union(D,E)</text>
+<text x="352.5" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle"><tspan x="352.5" dy="0.0">2 дерева глибини 1</tspan><tspan x="352.5" dy="13.7">rank[A]=1, rank[D]=1</tspan></text>
+<rect x="475.0" y="48.0" width="215.0" height="335.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="582.5" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">3. union(A,D), union(B,C)</text>
+<text x="582.5" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle"><tspan x="582.5" dy="0.0">Об'єднання за рангом</tspan><tspan x="582.5" dy="13.7">rank[A]=2 (корінь лісу)</tspan></text>
+<rect x="705.0" y="48.0" width="220.0" height="335.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="815.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">4. find(E) + Compression</text>
+<text x="815.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle"><tspan x="815.0" dy="0.0">Стиснення шляху:</tspan><tspan x="815.0" dy="13.7">E вказує напряму на A</tspan></text>
+<circle cx="122.0" cy="145.0" r="11.0" fill="#ffffff" stroke="#3b82f6" stroke-width="1.6"/>
+<text x="122.0" y="148.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">A</text>
+<text x="157.0" y="148.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">p=A</text>
+<circle cx="122.0" cy="181.0" r="11.0" fill="#ffffff" stroke="#3b82f6" stroke-width="1.6"/>
+<text x="122.0" y="184.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">B</text>
+<text x="157.0" y="184.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">p=B</text>
+<circle cx="122.0" cy="217.0" r="11.0" fill="#ffffff" stroke="#3b82f6" stroke-width="1.6"/>
+<text x="122.0" y="220.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">C</text>
+<text x="157.0" y="220.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">p=C</text>
+<circle cx="122.0" cy="253.0" r="11.0" fill="#ffffff" stroke="#3b82f6" stroke-width="1.6"/>
+<text x="122.0" y="256.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">D</text>
+<text x="157.0" y="256.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">p=D</text>
+<circle cx="122.0" cy="289.0" r="11.0" fill="#ffffff" stroke="#3b82f6" stroke-width="1.6"/>
+<text x="122.0" y="292.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">E</text>
+<text x="157.0" y="292.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">p=E</text>
+<circle cx="122.0" cy="325.0" r="11.0" fill="#ffffff" stroke="#3b82f6" stroke-width="1.6"/>
+<text x="122.0" y="328.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">F</text>
+<text x="157.0" y="328.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">p=F</text>
+<circle cx="312.0" cy="150.0" r="12.0" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.8"/>
+<text x="312.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1d4ed8" text-anchor="middle" font-weight="700">A</text>
+<circle cx="312.0" cy="205.0" r="11.0" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="312.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">B</text>
+<line x1="312.0" y1="194.0" x2="312.0" y2="163.0" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="392.0" cy="150.0" r="12.0" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.8"/>
+<text x="392.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1d4ed8" text-anchor="middle" font-weight="700">D</text>
+<circle cx="392.0" cy="205.0" r="11.0" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="392.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">E</text>
+<line x1="392.0" y1="194.0" x2="392.0" y2="163.0" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="322.0" cy="275.0" r="11.0" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="322.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">C</text>
+<circle cx="382.0" cy="275.0" r="11.0" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="382.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">F</text>
+<circle cx="582.0" cy="140.0" r="13.0" fill="#dcfce7" stroke="#15803d" stroke-width="2.0"/>
+<text x="582.0" y="144.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="middle" font-weight="700">A</text>
+<circle cx="537.0" cy="200.0" r="11.0" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="537.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">B</text>
+<line x1="542.0" y1="190.0" x2="572.0" y2="150.0" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="627.0" cy="200.0" r="11.0" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="627.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">D</text>
+<line x1="622.0" y1="190.0" x2="592.0" y2="150.0" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="537.0" cy="265.0" r="11.0" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="537.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">C</text>
+<line x1="537.0" y1="254.0" x2="537.0" y2="212.0" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="627.0" cy="265.0" r="11.0" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="627.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">E</text>
+<line x1="627.0" y1="254.0" x2="627.0" y2="212.0" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="582.0" cy="320.0" r="11.0" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="582.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">F</text>
+<circle cx="815.0" cy="140.0" r="13.0" fill="#dcfce7" stroke="#15803d" stroke-width="2.0"/>
+<text x="815.0" y="144.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="middle" font-weight="700">A</text>
+<circle cx="755.0" cy="215.0" r="11.0" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="755.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">B</text>
+<line x1="755.0" y1="204.0" x2="803.0" y2="153.0" stroke="#64748b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<circle cx="795.0" cy="215.0" r="11.0" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="795.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">C</text>
+<line x1="795.0" y1="204.0" x2="811.0" y2="153.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="835.0" cy="215.0" r="11.0" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="835.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">D</text>
+<line x1="835.0" y1="204.0" x2="819.0" y2="153.0" stroke="#64748b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<circle cx="875.0" cy="215.0" r="11.0" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="875.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">E</text>
+<line x1="875.0" y1="204.0" x2="827.0" y2="153.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="815.0" cy="285.0" r="11.0" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="815.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700">F</text>
+<text x="815.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">Глибина дерева -&gt; O(1)</text>
+</svg>

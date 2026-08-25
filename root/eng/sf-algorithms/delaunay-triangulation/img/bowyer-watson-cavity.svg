@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="910.0" height="460.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="470.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритм Бойєра–Ватсона: вставка точки P та утворення зірчастої каверни</text>
+<rect x="30.0" y="75.0" width="275.0" height="380.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="167.5" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e40af" text-anchor="middle" font-weight="700">Крок 1: Точка P у колах</text>
+<polygon points="60,160 140,140 135,235" fill="#fee2e2" stroke="#dc2626" stroke-width="1.2"/>
+<polygon points="140,140 215,175 135,235" fill="#fee2e2" stroke="#dc2626" stroke-width="1.2"/>
+<polygon points="215,175 210,310 135,235" fill="#fee2e2" stroke="#dc2626" stroke-width="1.2"/>
+<polygon points="210,310 120,330 135,235" fill="#fee2e2" stroke="#dc2626" stroke-width="1.2"/>
+<polygon points="120,330 55,270 135,235" fill="#fee2e2" stroke="#dc2626" stroke-width="1.2"/>
+<polygon points="55,270 60,160 135,235" fill="#fee2e2" stroke="#dc2626" stroke-width="1.2"/>
+<circle cx="135" cy="235" r="82" fill="none" stroke="#dc2626" stroke-width="1.4" stroke-dasharray="4 3"/>
+<circle cx="137.0" cy="240.0" r="6.0" fill="#c0392b" stroke="#ffffff" stroke-width="2.0"/>
+<text x="151.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">P (нова)</text>
+<text x="167.5" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Знаходимо всі трикутники,</text>
+<text x="167.5" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">чиє коло містить P (InCircle &gt; 0)</text>
+<text x="167.5" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вони більше не є Делоне</text>
+<rect x="335.0" y="75.0" width="275.0" height="380.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="472.5" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d97706" text-anchor="middle" font-weight="700">Крок 2: Порожнина (каверна)</text>
+<polygon points="365,160 445,140 520,175 515,310 425,330 360,270" fill="#fef3c7" stroke="none"/>
+<line x1="365.0" y1="160.0" x2="445.0" y2="140.0" stroke="#d97706" stroke-width="2.5"/>
+<line x1="445.0" y1="140.0" x2="520.0" y2="175.0" stroke="#d97706" stroke-width="2.5"/>
+<line x1="520.0" y1="175.0" x2="515.0" y2="310.0" stroke="#d97706" stroke-width="2.5"/>
+<line x1="515.0" y1="310.0" x2="425.0" y2="330.0" stroke="#d97706" stroke-width="2.5"/>
+<line x1="425.0" y1="330.0" x2="360.0" y2="270.0" stroke="#d97706" stroke-width="2.5"/>
+<line x1="360.0" y1="270.0" x2="365.0" y2="160.0" stroke="#d97706" stroke-width="2.5"/>
+<line x1="440.0" y1="235.0" x2="365.0" y2="160.0" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="440.0" y1="235.0" x2="445.0" y2="140.0" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="440.0" y1="235.0" x2="520.0" y2="175.0" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="440.0" y1="235.0" x2="515.0" y2="310.0" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="440.0" y1="235.0" x2="425.0" y2="330.0" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="440.0" y1="235.0" x2="360.0" y2="270.0" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="3 3"/>
+<circle cx="442.0" cy="240.0" r="6.0" fill="#c0392b" stroke="#ffffff" stroke-width="2.0"/>
+<text x="456.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">P</text>
+<text x="472.5" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Видаляємо недійсні грані</text>
+<text x="472.5" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">Зберігаємо межові ребра,</text>
+<text x="472.5" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">що належали лише одному трикутнику</text>
+<rect x="640.0" y="75.0" width="275.0" height="380.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="777.5" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#166534" text-anchor="middle" font-weight="700">Крок 3: Нові трикутники</text>
+<polygon points="747,240 670,160 750,140" fill="#dcfce7" stroke="#16a34a" stroke-width="1.6"/>
+<polygon points="747,240 750,140 825,175" fill="#dcfce7" stroke="#16a34a" stroke-width="1.6"/>
+<polygon points="747,240 825,175 820,310" fill="#dcfce7" stroke="#16a34a" stroke-width="1.6"/>
+<polygon points="747,240 820,310 730,330" fill="#dcfce7" stroke="#16a34a" stroke-width="1.6"/>
+<polygon points="747,240 730,330 665,270" fill="#dcfce7" stroke="#16a34a" stroke-width="1.6"/>
+<polygon points="747,240 665,270 670,160" fill="#dcfce7" stroke="#16a34a" stroke-width="1.6"/>
+<line x1="670.0" y1="160.0" x2="750.0" y2="140.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="750.0" y1="140.0" x2="825.0" y2="175.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="825.0" y1="175.0" x2="820.0" y2="310.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="820.0" y1="310.0" x2="730.0" y2="330.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="730.0" y1="330.0" x2="665.0" y2="270.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="665.0" y1="270.0" x2="670.0" y2="160.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<circle cx="747.0" cy="240.0" r="6.0" fill="#16a34a" stroke="#ffffff" stroke-width="2.0"/>
+<text x="761.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#166534" text-anchor="middle" font-weight="700">P</text>
+<text x="777.5" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">З'єднуємо P з кожним ребром</text>
+<text x="777.5" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#166534" text-anchor="middle" font-weight="700">Каверна зірчаста відносно P,</text>
+<text x="777.5" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">тому нові трикутники не перетинаються</text>
+</svg>

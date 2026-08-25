@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-16.36 -10 876.36 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-16.36" y="-10" width="876.36" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Векторна таблиця замін усередині SIMD-регістра</text>
+<text x="430.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Векторна таблиця замін усередині регістра (SIMD In-Register LUT)</text>
+<text x="120.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Таблиця LUT у регістрі (XMM0)</text>
+<rect x="120.0" y="90.0" width="620.0" height="40.0" rx="4" fill="#ebf5fb" stroke="#2457d6" stroke-width="1.6"/>
+<line x1="120.0" y1="90.0" x2="120.0" y2="130.0" stroke="#aed6f1" stroke-width="1.0"/>
+<text x="139.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">v0</text>
+<text x="139.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0</text>
+<line x1="158.8" y1="90.0" x2="158.8" y2="130.0" stroke="#aed6f1" stroke-width="1.0"/>
+<text x="177.8" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">v1</text>
+<text x="177.8" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1</text>
+<line x1="197.5" y1="90.0" x2="197.5" y2="130.0" stroke="#aed6f1" stroke-width="1.0"/>
+<text x="216.5" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">v2</text>
+<text x="216.5" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">2</text>
+<line x1="236.2" y1="90.0" x2="236.2" y2="130.0" stroke="#aed6f1" stroke-width="1.0"/>
+<text x="255.2" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">v3</text>
+<text x="255.2" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">3</text>
+<line x1="275.0" y1="90.0" x2="275.0" y2="130.0" stroke="#aed6f1" stroke-width="1.0"/>
+<text x="294.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">v4</text>
+<text x="294.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4</text>
+<line x1="313.8" y1="90.0" x2="313.8" y2="130.0" stroke="#aed6f1" stroke-width="1.0"/>
+<text x="332.8" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">v5</text>
+<text x="332.8" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">5</text>
+<line x1="352.5" y1="90.0" x2="352.5" y2="130.0" stroke="#aed6f1" stroke-width="1.0"/>
+<text x="371.5" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">v6</text>
+<text x="371.5" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">6</text>
+<line x1="391.2" y1="90.0" x2="391.2" y2="130.0" stroke="#aed6f1" stroke-width="1.0"/>
+<text x="410.2" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">v7</text>
+<text x="410.2" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">7</text>
+<line x1="430.0" y1="90.0" x2="430.0" y2="130.0" stroke="#aed6f1" stroke-width="1.0"/>
+<text x="449.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">v8</text>
+<text x="449.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">8</text>
+<line x1="468.8" y1="90.0" x2="468.8" y2="130.0" stroke="#aed6f1" stroke-width="1.0"/>
+<text x="487.8" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">v9</text>
+<text x="487.8" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">9</text>
+<line x1="507.5" y1="90.0" x2="507.5" y2="130.0" stroke="#aed6f1" stroke-width="1.0"/>
+<text x="526.5" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">v10</text>
+<text x="526.5" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">10</text>
+<line x1="546.2" y1="90.0" x2="546.2" y2="130.0" stroke="#aed6f1" stroke-width="1.0"/>
+<text x="565.2" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">v11</text>
+<text x="565.2" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">11</text>
+<line x1="585.0" y1="90.0" x2="585.0" y2="130.0" stroke="#aed6f1" stroke-width="1.0"/>
+<text x="604.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">v12</text>
+<text x="604.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">12</text>
+<line x1="623.8" y1="90.0" x2="623.8" y2="130.0" stroke="#aed6f1" stroke-width="1.0"/>
+<text x="642.8" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">v13</text>
+<text x="642.8" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">13</text>
+<line x1="662.5" y1="90.0" x2="662.5" y2="130.0" stroke="#aed6f1" stroke-width="1.0"/>
+<text x="681.5" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">v14</text>
+<text x="681.5" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">14</text>
+<line x1="701.2" y1="90.0" x2="701.2" y2="130.0" stroke="#aed6f1" stroke-width="1.0"/>
+<text x="720.2" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">v15</text>
+<text x="720.2" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">15</text>
+<text x="120.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Вхідний вектор 4-бітних індексів (XMM1)</text>
+<rect x="120.0" y="175.0" width="620.0" height="40.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/>
+<line x1="120.0" y1="175.0" x2="120.0" y2="215.0" stroke="#a9dfbf" stroke-width="1.0"/>
+<text x="139.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">3</text>
+<line x1="158.8" y1="175.0" x2="158.8" y2="215.0" stroke="#a9dfbf" stroke-width="1.0"/>
+<text x="177.8" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">0</text>
+<line x1="197.5" y1="175.0" x2="197.5" y2="215.0" stroke="#a9dfbf" stroke-width="1.0"/>
+<text x="216.5" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">15</text>
+<line x1="236.2" y1="175.0" x2="236.2" y2="215.0" stroke="#a9dfbf" stroke-width="1.0"/>
+<text x="255.2" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">7</text>
+<line x1="275.0" y1="175.0" x2="275.0" y2="215.0" stroke="#a9dfbf" stroke-width="1.0"/>
+<text x="294.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">2</text>
+<line x1="313.8" y1="175.0" x2="313.8" y2="215.0" stroke="#a9dfbf" stroke-width="1.0"/>
+<text x="332.8" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">8</text>
+<line x1="352.5" y1="175.0" x2="352.5" y2="215.0" stroke="#a9dfbf" stroke-width="1.0"/>
+<text x="371.5" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">1</text>
+<line x1="391.2" y1="175.0" x2="391.2" y2="215.0" stroke="#a9dfbf" stroke-width="1.0"/>
+<text x="410.2" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">14</text>
+<line x1="430.0" y1="175.0" x2="430.0" y2="215.0" stroke="#a9dfbf" stroke-width="1.0"/>
+<text x="449.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">4</text>
+<line x1="468.8" y1="175.0" x2="468.8" y2="215.0" stroke="#a9dfbf" stroke-width="1.0"/>
+<text x="487.8" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">11</text>
+<line x1="507.5" y1="175.0" x2="507.5" y2="215.0" stroke="#a9dfbf" stroke-width="1.0"/>
+<text x="526.5" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">6</text>
+<line x1="546.2" y1="175.0" x2="546.2" y2="215.0" stroke="#a9dfbf" stroke-width="1.0"/>
+<text x="565.2" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">9</text>
+<line x1="585.0" y1="175.0" x2="585.0" y2="215.0" stroke="#a9dfbf" stroke-width="1.0"/>
+<text x="604.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">13</text>
+<line x1="623.8" y1="175.0" x2="623.8" y2="215.0" stroke="#a9dfbf" stroke-width="1.0"/>
+<text x="642.8" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">5</text>
+<line x1="662.5" y1="175.0" x2="662.5" y2="215.0" stroke="#a9dfbf" stroke-width="1.0"/>
+<text x="681.5" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">12</text>
+<line x1="701.2" y1="175.0" x2="701.2" y2="215.0" stroke="#a9dfbf" stroke-width="1.0"/>
+<text x="720.2" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">10</text>
+<line x1="430.0" y1="220.0" x2="430.0" y2="255.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="445.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">_mm_shuffle_epi8 (pshufb) / vqtbl1q_u8 — 1 такт!</text>
+<text x="120.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Вихідний вектор замінених байтів (XMM2)</text>
+<rect x="120.0" y="280.0" width="620.0" height="40.0" rx="4" fill="#fdf2f0" stroke="#c0392b" stroke-width="1.6"/>
+<line x1="120.0" y1="280.0" x2="120.0" y2="320.0" stroke="#f5b7b1" stroke-width="1.0"/>
+<text x="139.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">v3</text>
+<line x1="158.8" y1="280.0" x2="158.8" y2="320.0" stroke="#f5b7b1" stroke-width="1.0"/>
+<text x="177.8" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">v0</text>
+<line x1="197.5" y1="280.0" x2="197.5" y2="320.0" stroke="#f5b7b1" stroke-width="1.0"/>
+<text x="216.5" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">v15</text>
+<line x1="236.2" y1="280.0" x2="236.2" y2="320.0" stroke="#f5b7b1" stroke-width="1.0"/>
+<text x="255.2" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">v7</text>
+<line x1="275.0" y1="280.0" x2="275.0" y2="320.0" stroke="#f5b7b1" stroke-width="1.0"/>
+<text x="294.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">v2</text>
+<line x1="313.8" y1="280.0" x2="313.8" y2="320.0" stroke="#f5b7b1" stroke-width="1.0"/>
+<text x="332.8" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">v8</text>
+<line x1="352.5" y1="280.0" x2="352.5" y2="320.0" stroke="#f5b7b1" stroke-width="1.0"/>
+<text x="371.5" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">v1</text>
+<line x1="391.2" y1="280.0" x2="391.2" y2="320.0" stroke="#f5b7b1" stroke-width="1.0"/>
+<text x="410.2" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">v14</text>
+<line x1="430.0" y1="280.0" x2="430.0" y2="320.0" stroke="#f5b7b1" stroke-width="1.0"/>
+<text x="449.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">v4</text>
+<line x1="468.8" y1="280.0" x2="468.8" y2="320.0" stroke="#f5b7b1" stroke-width="1.0"/>
+<text x="487.8" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">v11</text>
+<line x1="507.5" y1="280.0" x2="507.5" y2="320.0" stroke="#f5b7b1" stroke-width="1.0"/>
+<text x="526.5" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">v6</text>
+<line x1="546.2" y1="280.0" x2="546.2" y2="320.0" stroke="#f5b7b1" stroke-width="1.0"/>
+<text x="565.2" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">v9</text>
+<line x1="585.0" y1="280.0" x2="585.0" y2="320.0" stroke="#f5b7b1" stroke-width="1.0"/>
+<text x="604.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">v13</text>
+<line x1="623.8" y1="280.0" x2="623.8" y2="320.0" stroke="#f5b7b1" stroke-width="1.0"/>
+<text x="642.8" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">v5</text>
+<line x1="662.5" y1="280.0" x2="662.5" y2="320.0" stroke="#f5b7b1" stroke-width="1.0"/>
+<text x="681.5" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">v12</text>
+<line x1="701.2" y1="280.0" x2="701.2" y2="320.0" stroke="#f5b7b1" stroke-width="1.0"/>
+<text x="720.2" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">v10</text>
+</svg>

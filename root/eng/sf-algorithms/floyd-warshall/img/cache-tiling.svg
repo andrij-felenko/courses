@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Блокова кеш-оптимізація матричного алгоритму Флойда–Уоршелла</text>
+<text x="175.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матриця V × V розбита на блоки B × B</text>
+<rect x="70.0" y="55.0" width="42.0" height="42.0" rx="3" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="91.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фаза 3</text>
+<rect x="112.0" y="55.0" width="42.0" height="42.0" rx="3" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="133.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фаза 3</text>
+<rect x="154.0" y="55.0" width="42.0" height="42.0" rx="3" fill="#fff7ee" stroke="#e08a1e" stroke-width="1.8"/>
+<text x="175.0" y="73.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e08a1e" text-anchor="middle" font-weight="700">Фаза 2</text>
+<text x="175.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e08a1e" text-anchor="middle" font-weight="700">B(i,k)</text>
+<rect x="196.0" y="55.0" width="42.0" height="42.0" rx="3" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="217.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фаза 3</text>
+<rect x="238.0" y="55.0" width="42.0" height="42.0" rx="3" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="259.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фаза 3</text>
+<rect x="70.0" y="97.0" width="42.0" height="42.0" rx="3" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="91.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фаза 3</text>
+<rect x="112.0" y="97.0" width="42.0" height="42.0" rx="3" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="133.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фаза 3</text>
+<rect x="154.0" y="97.0" width="42.0" height="42.0" rx="3" fill="#fff7ee" stroke="#e08a1e" stroke-width="1.8"/>
+<text x="175.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e08a1e" text-anchor="middle" font-weight="700">Фаза 2</text>
+<text x="175.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e08a1e" text-anchor="middle" font-weight="700">B(i,k)</text>
+<rect x="196.0" y="97.0" width="42.0" height="42.0" rx="3" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="217.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фаза 3</text>
+<rect x="238.0" y="97.0" width="42.0" height="42.0" rx="3" fill="#eaf7ee" stroke="#27ae60" stroke-width="2.0"/>
+<text x="259.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Фаза 3</text>
+<text x="259.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">B(i,j)</text>
+<rect x="70.0" y="139.0" width="42.0" height="42.0" rx="3" fill="#fff7ee" stroke="#e08a1e" stroke-width="1.8"/>
+<text x="91.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e08a1e" text-anchor="middle" font-weight="700">Фаза 2</text>
+<text x="91.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e08a1e" text-anchor="middle" font-weight="700">B(k,j)</text>
+<rect x="112.0" y="139.0" width="42.0" height="42.0" rx="3" fill="#fff7ee" stroke="#e08a1e" stroke-width="1.8"/>
+<text x="133.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e08a1e" text-anchor="middle" font-weight="700">Фаза 2</text>
+<text x="133.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e08a1e" text-anchor="middle" font-weight="700">B(k,j)</text>
+<rect x="154.0" y="139.0" width="42.0" height="42.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="2.2"/>
+<text x="175.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Фаза 1</text>
+<text x="175.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">B(k,k)</text>
+<rect x="196.0" y="139.0" width="42.0" height="42.0" rx="3" fill="#fff7ee" stroke="#e08a1e" stroke-width="1.8"/>
+<text x="217.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e08a1e" text-anchor="middle" font-weight="700">Фаза 2</text>
+<text x="217.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e08a1e" text-anchor="middle" font-weight="700">B(k,j)</text>
+<rect x="238.0" y="139.0" width="42.0" height="42.0" rx="3" fill="#fff7ee" stroke="#e08a1e" stroke-width="1.8"/>
+<text x="259.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e08a1e" text-anchor="middle" font-weight="700">Фаза 2</text>
+<text x="259.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e08a1e" text-anchor="middle" font-weight="700">B(k,j)</text>
+<rect x="70.0" y="181.0" width="42.0" height="42.0" rx="3" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="91.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фаза 3</text>
+<rect x="112.0" y="181.0" width="42.0" height="42.0" rx="3" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="133.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фаза 3</text>
+<rect x="154.0" y="181.0" width="42.0" height="42.0" rx="3" fill="#fff7ee" stroke="#e08a1e" stroke-width="1.8"/>
+<text x="175.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e08a1e" text-anchor="middle" font-weight="700">Фаза 2</text>
+<text x="175.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e08a1e" text-anchor="middle" font-weight="700">B(i,k)</text>
+<rect x="196.0" y="181.0" width="42.0" height="42.0" rx="3" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="217.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фаза 3</text>
+<rect x="238.0" y="181.0" width="42.0" height="42.0" rx="3" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="259.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фаза 3</text>
+<rect x="70.0" y="223.0" width="42.0" height="42.0" rx="3" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="91.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фаза 3</text>
+<rect x="112.0" y="223.0" width="42.0" height="42.0" rx="3" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="133.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фаза 3</text>
+<rect x="154.0" y="223.0" width="42.0" height="42.0" rx="3" fill="#fff7ee" stroke="#e08a1e" stroke-width="1.8"/>
+<text x="175.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e08a1e" text-anchor="middle" font-weight="700">Фаза 2</text>
+<text x="175.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e08a1e" text-anchor="middle" font-weight="700">B(i,k)</text>
+<rect x="196.0" y="223.0" width="42.0" height="42.0" rx="3" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="217.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фаза 3</text>
+<rect x="238.0" y="223.0" width="42.0" height="42.0" rx="3" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="259.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фаза 3</text>
+<rect x="370.0" y="55.0" width="340.0" height="210.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="540.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три фази обчислення кроку k:</text>
+<circle cx="394.0" cy="117.0" r="10.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="394.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<text x="414.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Оновлення блоку B(k, k) у кеші L1</text>
+<circle cx="394.0" cy="162.0" r="10.0" fill="#fff7ee" stroke="#e08a1e" stroke-width="1.5"/>
+<text x="394.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e08a1e" text-anchor="middle" font-weight="700">2</text>
+<text x="414.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Оновлення хрестовини B(i,k) та B(k,j)</text>
+<circle cx="394.0" cy="207.0" r="10.0" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="394.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">3</text>
+<text x="414.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Паралельне оновлення всіх інших B(i, j)</text>
+<text x="414.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">(повна незалежність, OpenMP/SIMD)</text>
+<rect x="35.5" y="295.2" width="689.0" height="39.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="380.0" y="311.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">Тайлінг усуває кеш-промахи: блок B × B повністю вміщується у швидкій пам'яті L1 Data Cache,</tspan><tspan x="380.0" dy="15.6">забезпечуючи прискорення у 3–6 разів на великих матрицях (V &gt; 1000).</tspan></text>
+</svg>

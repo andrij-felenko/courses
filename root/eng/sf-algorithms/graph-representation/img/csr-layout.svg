@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="820.0" height="70.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="40.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Граф із 4 вершинами (|V| = 4, |E| = 5):</text>
+<text x="40.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">Сусіди 0 → {1, 2};  Сусіди 1 → {2};  Сусіди 2 → {0, 3};  Сусіди 3 → ∅</text>
+<text x="40.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Масив зміщень offsets (|V| + 1 = 5 елементів):</text>
+<text x="75.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">idx 0</text>
+<rect x="40.0" y="160.0" width="70.0" height="38.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="75.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">0</text>
+<text x="155.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">idx 1</text>
+<rect x="120.0" y="160.0" width="70.0" height="38.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="155.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">2</text>
+<text x="235.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">idx 2</text>
+<rect x="200.0" y="160.0" width="70.0" height="38.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="235.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">3</text>
+<text x="315.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">idx 3</text>
+<rect x="280.0" y="160.0" width="70.0" height="38.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="315.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">5</text>
+<text x="395.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">idx 4</text>
+<rect x="360.0" y="160.0" width="70.0" height="38.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="395.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">5</text>
+<text x="455.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">← offsets[u+1] - offsets[u] = deg(u)</text>
+<text x="40.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Масив ребер edges (|E| = 5 елементів):</text>
+<text x="72.5" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">pos 0</text>
+<rect x="40.0" y="260.0" width="65.0" height="38.0" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="72.5" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<text x="72.5" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(з 0)</text>
+<text x="149.5" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">pos 1</text>
+<rect x="117.0" y="260.0" width="65.0" height="38.0" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="149.5" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">2</text>
+<text x="149.5" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(з 0)</text>
+<text x="226.5" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">pos 2</text>
+<rect x="194.0" y="260.0" width="65.0" height="38.0" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="226.5" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">2</text>
+<text x="226.5" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(з 1)</text>
+<text x="303.5" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">pos 3</text>
+<rect x="271.0" y="260.0" width="65.0" height="38.0" rx="5" fill="#e0e7ff" stroke="#4338ca" stroke-width="1.5"/>
+<text x="303.5" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<text x="303.5" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(з 2)</text>
+<text x="380.5" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">pos 4</text>
+<rect x="348.0" y="260.0" width="65.0" height="38.0" rx="5" fill="#e0e7ff" stroke="#4338ca" stroke-width="1.5"/>
+<text x="380.5" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">3</text>
+<text x="380.5" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(з 2)</text>
+<line x1="75.0" y1="198.0" x2="55.0" y2="255.0" stroke="#2457d6" stroke-width="1.4" stroke-dasharray="3,3"/>
+<line x1="155.0" y1="198.0" x2="189.0" y2="255.0" stroke="#2457d6" stroke-width="1.4" stroke-dasharray="3,3"/>
+<rect x="20.0" y="350.0" width="820.0" height="70.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/><text x="430.0" y="381.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">Діапазон сусідів вершини u зберігається неперервно у зрізі edges[offsets[u] .. offsets[u+1]].</tspan><tspan x="430.0" dy="15.0">Пам'ять: рівно два пласкі масиви (4·(V+1) + 4·E байтів). Жодного вказівника, 100% кеш-локальність.</tspan></text>
+</svg>

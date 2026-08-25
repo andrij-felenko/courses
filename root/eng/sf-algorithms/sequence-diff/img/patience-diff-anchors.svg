@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 880 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="880" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="860.0" height="500.0" rx="6" fill="#ffffff" stroke="#e0e0e0" stroke-width="1.0"/>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Patience Diff проти Myers: збереження семантичних меж коду</text>
+<rect x="40.0" y="65.0" width="380.0" height="410.0" rx="6" fill="#fffafb" stroke="#fca5a5" stroke-width="1.2"/>
+<text x="230.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#991b1b" text-anchor="middle" font-weight="700">Стандартний Myers (LCS)</text>
+<text x="230.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Жадібне зіставлення перших однакових дужок '}'</text>
+<rect x="55.0" y="118.0" width="350.0" height="20.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="62.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">  void init() {</text>
+<rect x="55.0" y="140.0" width="350.0" height="20.0" rx="6" fill="#fee2e2" stroke="none" stroke-width="1.5"/>
+<text x="62.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="start">-     setup_cache();</text>
+<rect x="55.0" y="162.0" width="350.0" height="20.0" rx="6" fill="#dcfce7" stroke="none" stroke-width="1.5"/>
+<text x="62.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="start">+     setup_cache();</text>
+<rect x="55.0" y="184.0" width="350.0" height="20.0" rx="6" fill="#dcfce7" stroke="none" stroke-width="1.5"/>
+<text x="62.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="start">+     init_metrics();</text>
+<rect x="55.0" y="206.0" width="350.0" height="20.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="62.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">  }</text>
+<rect x="55.0" y="228.0" width="350.0" height="20.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="62.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="start"> </text>
+<rect x="55.0" y="250.0" width="350.0" height="20.0" rx="6" fill="#fee2e2" stroke="none" stroke-width="1.5"/>
+<text x="62.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="start">- void process() {</text>
+<rect x="55.0" y="272.0" width="350.0" height="20.0" rx="6" fill="#fee2e2" stroke="none" stroke-width="1.5"/>
+<text x="62.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="start">-     compute();</text>
+<rect x="55.0" y="294.0" width="350.0" height="20.0" rx="6" fill="#fee2e2" stroke="none" stroke-width="1.5"/>
+<text x="62.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="start">- }</text>
+<rect x="55.0" y="316.0" width="350.0" height="20.0" rx="6" fill="#dcfce7" stroke="none" stroke-width="1.5"/>
+<text x="62.0" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="start">+ void handle_req() {</text>
+<rect x="55.0" y="338.0" width="350.0" height="20.0" rx="6" fill="#dcfce7" stroke="none" stroke-width="1.5"/>
+<text x="62.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="start">+     process();</text>
+<rect x="55.0" y="360.0" width="350.0" height="20.0" rx="6" fill="#dcfce7" stroke="none" stroke-width="1.5"/>
+<text x="62.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="start">+ }</text>
+<rect x="55.0" y="400.0" width="350.0" height="60.0" rx="4" fill="#fef2f2" stroke="#f87171" stroke-width="1.0"/>
+<text x="230.0" y="419.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle" font-weight="700">⚠️ Проблема жадібного збігу</text>
+<text x="230.0" y="437.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7f1d1d" text-anchor="middle">Дужка '}' функції process() зіставляється</text>
+<text x="230.0" y="451.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7f1d1d" text-anchor="middle">із закривальною дужкою старої функції init().</text>
+<rect x="440.0" y="65.0" width="380.0" height="410.0" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.2"/>
+<text x="630.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#166534" text-anchor="middle" font-weight="700">Patience Diff (LIS унікальних рядків)</text>
+<text x="630.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фіксація сигнатур функцій як непорушних якорів</text>
+<rect x="455.0" y="118.0" width="350.0" height="20.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="715.0" y="119.0" width="85.0" height="18.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="758.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1d4ed8" text-anchor="middle" font-weight="700">Унікальний якір</text>
+<text x="462.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">  void init() {</text>
+<rect x="455.0" y="140.0" width="350.0" height="20.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="462.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">      setup_cache();</text>
+<rect x="455.0" y="162.0" width="350.0" height="20.0" rx="6" fill="#dcfce7" stroke="none" stroke-width="1.5"/>
+<text x="462.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="start">+     init_metrics();</text>
+<rect x="455.0" y="184.0" width="350.0" height="20.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="462.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">  }</text>
+<rect x="455.0" y="206.0" width="350.0" height="20.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="462.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="start"> </text>
+<rect x="455.0" y="228.0" width="350.0" height="20.0" rx="6" fill="#fee2e2" stroke="none" stroke-width="1.5"/>
+<rect x="715.0" y="229.0" width="85.0" height="18.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="758.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1d4ed8" text-anchor="middle" font-weight="700">Унікальний якір</text>
+<text x="462.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="start">- void process() {</text>
+<rect x="455.0" y="250.0" width="350.0" height="20.0" rx="6" fill="#fee2e2" stroke="none" stroke-width="1.5"/>
+<text x="462.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="start">-     compute();</text>
+<rect x="455.0" y="272.0" width="350.0" height="20.0" rx="6" fill="#fee2e2" stroke="none" stroke-width="1.5"/>
+<text x="462.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="start">- }</text>
+<rect x="455.0" y="294.0" width="350.0" height="20.0" rx="6" fill="#dcfce7" stroke="none" stroke-width="1.5"/>
+<rect x="715.0" y="295.0" width="85.0" height="18.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="758.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1d4ed8" text-anchor="middle" font-weight="700">Унікальний якір</text>
+<text x="462.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="start">+ void handle_req() {</text>
+<rect x="455.0" y="316.0" width="350.0" height="20.0" rx="6" fill="#dcfce7" stroke="none" stroke-width="1.5"/>
+<text x="462.0" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="start">+     process();</text>
+<rect x="455.0" y="338.0" width="350.0" height="20.0" rx="6" fill="#dcfce7" stroke="none" stroke-width="1.5"/>
+<text x="462.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="start">+ }</text>
+<rect x="455.0" y="400.0" width="350.0" height="60.0" rx="4" fill="#ecfdf5" stroke="#34d399" stroke-width="1.0"/>
+<text x="630.0" y="419.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#065f46" text-anchor="middle" font-weight="700">✓ Семантична цілісність блоків</text>
+<text x="630.0" y="437.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#047857" text-anchor="middle">Опорні точки (сигнатури) фіксують контекст,</text>
+<text x="630.0" y="451.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#047857" text-anchor="middle">дужки не плутаються між сусідніми функціями.</text>
+</svg>

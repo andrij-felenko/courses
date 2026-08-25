@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спектр компромісу між обчисленням і пам'яттю</text>
+<text x="430.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спектр інженерного компромісу: обчислення проти пам'яті</text>
+<line x1="70.0" y1="85.0" x2="790.0" y2="85.0" stroke="#333333" stroke-width="3.0"/>
+<text x="70.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Чисте обчислення (ALU)</text>
+<text x="790.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="end" font-weight="700">Чиста пам'ять (LUT)</text>
+<rect x="60.0" y="105.0" width="170.0" height="185.0" rx="6" fill="#fdf2f0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="145.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Аналітичний розрахунок</text>
+<line x1="70.0" y1="139.0" x2="220.0" y2="139.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="145.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="145.0" dy="0.0">Ряди Тейлора, CORDIC,</tspan><tspan x="145.0" dy="14.3">ітераційні цикли</tspan></text>
+<rect x="68.0" y="199.0" width="154.0" height="22.0" rx="3" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.0"/>
+<text x="145.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Високе навантаження АЛП</text>
+<rect x="68.0" y="227.0" width="154.0" height="22.0" rx="3" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.0"/>
+<text x="145.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0 байтів пам'яті</text>
+<rect x="68.0" y="255.0" width="154.0" height="22.0" rx="3" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.0"/>
+<text x="145.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">40–150 тактів CPU</text>
+<rect x="250.0" y="105.0" width="170.0" height="185.0" rx="6" fill="#fef9e7" stroke="#d35400" stroke-width="1.8"/>
+<text x="335.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">Гібрид: LUT + інтерполяція</text>
+<line x1="260.0" y1="139.0" x2="410.0" y2="139.0" stroke="#d35400" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="335.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="335.0" dy="0.0">Таблиця вузлових точок +</tspan><tspan x="335.0" dy="14.3">лінійна інтерполяція</tspan></text>
+<rect x="258.0" y="199.0" width="154.0" height="22.0" rx="3" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.0"/>
+<text x="335.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Помірне (1–2 множення)</text>
+<rect x="258.0" y="227.0" width="154.0" height="22.0" rx="3" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.0"/>
+<text x="335.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Компактна (128 Б – 4 КБ)</text>
+<rect x="258.0" y="255.0" width="154.0" height="22.0" rx="3" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.0"/>
+<text x="335.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">6–15 тактів CPU</text>
+<rect x="440.0" y="105.0" width="170.0" height="185.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="525.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Пряма точна таблиця</text>
+<line x1="450.0" y1="139.0" x2="600.0" y2="139.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="525.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="525.0" dy="0.0">Попередній розрахунок</tspan><tspan x="525.0" dy="14.3">усіх дискретних значень</tspan></text>
+<rect x="448.0" y="199.0" width="154.0" height="22.0" rx="3" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.0"/>
+<text x="525.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0 операцій АЛП</text>
+<rect x="448.0" y="227.0" width="154.0" height="22.0" rx="3" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.0"/>
+<text x="525.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Помірна (256 Б – 64 КБ)</text>
+<rect x="448.0" y="255.0" width="154.0" height="22.0" rx="3" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.0"/>
+<text x="525.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">1 читання (4–5 тактів L1)</text>
+<rect x="630.0" y="105.0" width="170.0" height="185.0" rx="6" fill="#ebf5fb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="715.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Повна багатовимірна LUT</text>
+<line x1="640.0" y1="139.0" x2="790.0" y2="139.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="715.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="715.0" dy="0.0">3D LUT, гігантські масиви,</tspan><tspan x="715.0" dy="14.3">апаратні ROM / FPGA</tspan></text>
+<rect x="638.0" y="199.0" width="154.0" height="22.0" rx="3" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.0"/>
+<text x="715.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0 операцій АЛП</text>
+<rect x="638.0" y="227.0" width="154.0" height="22.0" rx="3" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.0"/>
+<text x="715.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Велика (мегабайти / ГБ)</text>
+<rect x="638.0" y="255.0" width="154.0" height="22.0" rx="3" fill="#ffffff" stroke="#d5dbdb" stroke-width="1.0"/>
+<text x="715.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Ризик DRAM (150+ тактів)</text>
+<text x="430.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="430.0" dy="0.0">Просторово-часовий компроміс: зменшення обчислень вимагає пам'яті.</tspan><tspan x="430.0" dy="16.8">Ефективність залежить від того, чи залишається таблиця в швидкому кеші L1 процесора.</tspan></text>
+</svg>

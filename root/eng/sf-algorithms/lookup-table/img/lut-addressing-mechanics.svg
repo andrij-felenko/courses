@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механіка прямої адресації в таблиці замін</text>
+<text x="440.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механіка прямої адресації в таблиці замін (LUT)</text>
+<rect x="40.0" y="75.0" width="140.0" height="85.0" rx="6" fill="#fef9e7" stroke="#d35400" stroke-width="1.8"/>
+<text x="110.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">Вхідний аргумент</text>
+<text x="110.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">x = 0x3A (58)</text>
+<text x="110.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">значення з сенсора/коду</text>
+<line x1="180.0" y1="117.0" x2="220.0" y2="117.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="200.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">маска</text>
+<rect x="225.0" y="75.0" width="170.0" height="85.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="310.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Індексація масиву</text>
+<text x="310.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">idx = x &amp; 0xFF</text>
+<text x="310.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">індекс = 58 (в межах [0..255])</text>
+<line x1="395.0" y1="117.0" x2="435.0" y2="117.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="415.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">зміщення</text>
+<rect x="440.0" y="75.0" width="200.0" height="85.0" rx="6" fill="#ebf5fb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="540.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Обчислення адреси</text>
+<text x="540.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Addr = Base + idx × 4</text>
+<text x="540.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0x2000_1000 + 58 × 4</text>
+<line x1="640.0" y1="117.0" x2="675.0" y2="117.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="680.0" y="75.0" width="160.0" height="85.0" rx="6" fill="#fdf2f0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="760.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Результат LUT</text>
+<text x="760.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">LUT[58] = 0x00A4</text>
+<text x="760.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">готове значення f(x)</text>
+<rect x="140.0" y="190.0" width="600.0" height="95.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="440.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура таблиці LUT у пам'яті (256 елементів по 4 байти = 1 КБ)</text>
+<rect x="170.0" y="226.0" width="80.0" height="42.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.4"/><text x="210.0" y="251.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">f(0)</text>
+<text x="210.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">idx: 0</text>
+<rect x="260.0" y="226.0" width="80.0" height="42.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.4"/><text x="300.0" y="251.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">f(1)</text>
+<text x="300.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">idx: 1</text>
+<rect x="350.0" y="226.0" width="80.0" height="42.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.4"/><text x="390.0" y="251.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">...</text>
+<text x="390.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">idx: ...</text>
+<rect x="440.0" y="226.0" width="80.0" height="42.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/><text x="480.0" y="251.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">f(58)</text>
+<text x="480.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">idx: 58</text>
+<rect x="530.0" y="226.0" width="80.0" height="42.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.4"/><text x="570.0" y="251.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">...</text>
+<text x="570.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">idx: ...</text>
+<rect x="620.0" y="226.0" width="80.0" height="42.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.4"/><text x="660.0" y="251.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">f(255)</text>
+<text x="660.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">idx: 255</text>
+<line x1="540.0" y1="160.0" x2="480.0" y2="226.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="440.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">Трансляція індексу в адресу виконується апаратно за один такт командою непрямої адресації з масштабуванням.</tspan><tspan x="440.0" dy="16.8">Складність будь-якої функції O(1) перетворюється на звичайне читання з оперативної пам'яті чи кеша.</tspan></text>
+</svg>

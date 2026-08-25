@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Геометрія лінійної інтерполяції та похибка апроксимації</text>
+<text x="420.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Похибка табличної апроксимації та лінійна інтерполяція</text>
+<line x1="80.0" y1="270.0" x2="760.0" y2="270.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="750.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">x (аргумент)</text>
+<line x1="100.0" y1="280.0" x2="100.0" y2="60.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="80.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">f(x)</text>
+<path d="M 140,260 Q 380,80 620,95" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+<text x="460.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Справжня функція f(x)</text>
+<line x1="200.0" y1="230.0" x2="560.0" y2="100.0" stroke="#2457d6" stroke-width="2.0" stroke-dasharray="5 3"/>
+<text x="460.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Лінійна інтерполяція L(x)</text>
+<line x1="200.0" y1="230.0" x2="560.0" y2="230.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+<text x="300.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ступінчаста апроксимація y = yᵢ</text>
+<circle cx="200.0" cy="230.0" r="5.0" fill="#c0392b" stroke="#ffffff" stroke-width="2.0"/>
+<circle cx="560.0" cy="100.0" r="5.0" fill="#c0392b" stroke="#ffffff" stroke-width="2.0"/>
+<text x="200.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">xᵢ</text>
+<text x="560.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">xᵢ₊₁</text>
+<line x1="200.0" y1="230.0" x2="200.0" y2="270.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2 2"/>
+<line x1="560.0" y1="100.0" x2="560.0" y2="270.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2 2"/>
+<line x1="200.0" y1="305.0" x2="560.0" y2="305.0" stroke="#333333" stroke-width="1.2"/>
+<text x="380.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крок сітки h = xᵢ₊₁ − xᵢ</text>
+<line x1="200.0" y1="300.0" x2="200.0" y2="310.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="560.0" y1="300.0" x2="560.0" y2="310.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="380.0" y1="270.0" x2="380.0" y2="135.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="380.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">x</text>
+<line x1="380.0" y1="135.0" x2="380.0" y2="165.0" stroke="#c0392b" stroke-width="2.5"/>
+<circle cx="380.0" cy="135.0" r="3.5" fill="#27ae60" stroke="#333333" stroke-width="1.0"/>
+<circle cx="380.0" cy="165.0" r="3.5" fill="#2457d6" stroke="#333333" stroke-width="1.0"/>
+<rect x="590.0" y="160.0" width="210.0" height="75.0" rx="5" fill="#fdf2f0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="695.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Похибка інтерполяції E(x)</text>
+<text x="695.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">E(x) = |f(x) − L(x)|</text>
+<text x="695.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">E(x) ≤ (M₂ / 8) · h²</text>
+</svg>

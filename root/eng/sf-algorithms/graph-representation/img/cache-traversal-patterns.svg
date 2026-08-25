@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="880.0" height="440.0" rx="8" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.2"/>
+<text x="460.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Прохід сусідів вершини u: поведінка кеш-пам'яті L1/L2 CPU</text>
+<rect x="35.0" y="70.0" width="270.0" height="370.0" rx="6" fill="#fff5f5" stroke="#fca5a5" stroke-width="1.2"/>
+<text x="170.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Зв'язані списки вузлів</text>
+<text x="170.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Pointer Chasing</text>
+<rect x="50.0" y="130.0" width="240.0" height="110.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="60.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Купа (Heap RAM):</text>
+<rect x="60.0" y="160.0" width="50.0" height="24.0" rx="3" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="85.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Node A</text>
+<rect x="195.0" y="200.0" width="50.0" height="24.0" rx="3" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="220.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Node B</text>
+<line x1="110.0" y1="172.0" x2="195.0" y2="208.0" stroke="#c0392b" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="47.0" y="255.0" width="246.0" height="160.0" rx="6" fill="#ffffff" stroke="#fca5a5" stroke-width="1.5"/><text x="170.0" y="304.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">Вузли виділені у випадкових</tspan><tspan x="170.0" dy="13.7">адресах динамічної купи.</tspan><tspan x="170.0" dy="13.7">Кожен перехід за вказівником</tspan><tspan x="170.0" dy="13.7">next спричиняє промах кешу.</tspan><tspan x="170.0" dy="13.7">Процесор простоює сотні</tspan><tspan x="170.0" dy="13.7">тактів під час читання RAM.</tspan></text>
+<rect x="325.0" y="70.0" width="270.0" height="370.0" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.2"/>
+<text x="460.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Матриця (Рядок u)</text>
+<text x="460.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Strided Scan</text>
+<rect x="340.0" y="130.0" width="240.0" height="110.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="350.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Рядок A[u] (64 байти лінія кешу):</text>
+<rect x="347.0" y="165.0" width="25.0" height="23.0" rx="2" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="359.5" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0</text>
+<rect x="375.0" y="165.0" width="25.0" height="23.0" rx="2" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="387.5" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0</text>
+<rect x="403.0" y="165.0" width="25.0" height="23.0" rx="2" fill="#dbeafe" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="415.5" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">1</text>
+<rect x="431.0" y="165.0" width="25.0" height="23.0" rx="2" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="443.5" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0</text>
+<rect x="459.0" y="165.0" width="25.0" height="23.0" rx="2" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="471.5" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0</text>
+<rect x="487.0" y="165.0" width="25.0" height="23.0" rx="2" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="499.5" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0</text>
+<rect x="515.0" y="165.0" width="25.0" height="23.0" rx="2" fill="#dbeafe" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="527.5" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">1</text>
+<rect x="543.0" y="165.0" width="25.0" height="23.0" rx="2" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="555.5" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0</text>
+<text x="460.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">99% нулів = зайві зчитування</text>
+<rect x="337.0" y="255.0" width="246.0" height="160.0" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/><text x="460.0" y="304.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">Пам'ять читається послідовно</tspan><tspan x="460.0" dy="13.7">(добре для Prefetcher).</tspan><tspan x="460.0" dy="13.7">Але у розрідженому графі</tspan><tspan x="460.0" dy="13.7">99.9% комірок — нулі.</tspan><tspan x="460.0" dy="13.7">Кеш забивається непотрібними</tspan><tspan x="460.0" dy="13.7">даними (Cache Pollution).</tspan></text>
+<rect x="615.0" y="70.0" width="270.0" height="370.0" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.2"/>
+<text x="750.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">CSR / Неперервний вектор</text>
+<text x="750.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Contiguous Stream</text>
+<rect x="630.0" y="130.0" width="240.0" height="110.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="640.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Щільний зріз edges[u]:</text>
+<rect x="640.0" y="165.0" width="32.0" height="23.0" rx="2" fill="#dcfce7" stroke="#27ae60" stroke-width="1.0"/>
+<text x="656.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">2</text>
+<rect x="676.0" y="165.0" width="32.0" height="23.0" rx="2" fill="#dcfce7" stroke="#27ae60" stroke-width="1.0"/>
+<text x="692.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">5</text>
+<rect x="712.0" y="165.0" width="32.0" height="23.0" rx="2" fill="#dcfce7" stroke="#27ae60" stroke-width="1.0"/>
+<text x="728.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">8</text>
+<rect x="748.0" y="165.0" width="32.0" height="23.0" rx="2" fill="#dcfce7" stroke="#27ae60" stroke-width="1.0"/>
+<text x="764.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">14</text>
+<rect x="784.0" y="165.0" width="32.0" height="23.0" rx="2" fill="#dcfce7" stroke="#27ae60" stroke-width="1.0"/>
+<text x="800.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">21</text>
+<rect x="820.0" y="165.0" width="32.0" height="23.0" rx="2" fill="#dcfce7" stroke="#27ae60" stroke-width="1.0"/>
+<text x="836.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">33</text>
+<text x="750.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">100% корисних даних у кеші</text>
+<rect x="627.0" y="255.0" width="246.0" height="160.0" rx="6" fill="#ffffff" stroke="#86efac" stroke-width="1.5"/><text x="750.0" y="304.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="750.0" dy="0.0">Усі сусіди лежать впритул</tspan><tspan x="750.0" dy="13.7">один до одного в масиві.</tspan><tspan x="750.0" dy="13.7">64-байтна лінія L1 кешу читає</tspan><tspan x="750.0" dy="13.7">одразу 16 сусідів (uint32_t).</tspan><tspan x="750.0" dy="13.7">Максимальна пропускна</tspan><tspan x="750.0" dy="13.7">здатність SIMD та Prefetcher.</tspan></text>
+</svg>

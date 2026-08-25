@@ -51,8 +51,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-cilk-openmp-dag.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-dynamic-multithreading.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-brent-theorem.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-work-stealing-pool.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -67,8 +91,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-set-cover.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-set-cover-bounds.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-set-cover-solvers.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "simulated-annealing",
@@ -77,8 +119,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-annealing-optimizer.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-simulated-annealing.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-markov-convergence.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -201,18 +261,66 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-bignum-karatsuba.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-karatsuba-kolmogorov.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-karatsuba-complexity.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-karatsuba-bignum.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "montgomery-multiplication",
           "title": "Множення за Монтгомері",
           "basic": {
-            "status": "pending"
+            "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-montgomery-context.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-peter-montgomery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cios-correctness.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cios-montgomery.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     }

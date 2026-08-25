@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конструкція найгіршого випадку: чому жадібний алгоритм досягає бар'єра ln(n)</text>
+<rect x="30.0" y="52.0" width="360.0" height="280.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="210.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Оптимальний розв'язок (OPT = 2)</text>
+<text x="210.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Дві множини покривають весь універсум за вартість 2</text>
+<rect x="50.0" y="122.0" width="320.0" height="85.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.2"/>
+<text x="65.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">O₁ (вартість 1)</text>
+<text x="65.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Містить n/2 лівих елементів {e₁, ..., e_{n/2}}</text>
+<rect x="50.0" y="222.0" width="320.0" height="85.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.2"/>
+<text x="65.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">O₂ (вартість 1)</text>
+<text x="65.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Містить n/2 правих елементів {e_{n/2+1}, ..., e_n}</text>
+<text x="210.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Сумарна вартість OPT = 1 + 1 = 2</text>
+<rect x="425.0" y="52.0" width="365.0" height="280.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="607.5" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Вибір жадібного алгоритму (GREEDY = k)</text>
+<text x="607.5" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">На кожному кроці обирається множина з трохи більшою часткою</text>
+<rect x="440.0" y="120.0" width="335.0" height="36.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="450.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">G₁ (вартість 1)</text>
+<text x="765.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">покриває n/2 елементів (по n/4 з O₁ та O₂)</text>
+<rect x="440.0" y="164.0" width="335.0" height="36.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="450.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">G₂ (вартість 1)</text>
+<text x="765.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">покриває n/4 елементів (по n/8 з O₁ та O₂)</text>
+<rect x="440.0" y="208.0" width="335.0" height="36.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="450.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">G₃ (вартість 1)</text>
+<text x="765.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">покриває n/8 елементів (по n/16 з O₁ та O₂)</text>
+<rect x="440.0" y="252.0" width="335.0" height="36.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="450.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">... G_k (вартість 1)</text>
+<text x="765.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">покриває останні 2 елементи</text>
+<text x="607.5" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">GREEDY = k = log₂(n) множин → Ratio ≈ 0.5 · ln(n)</text>
+</svg>

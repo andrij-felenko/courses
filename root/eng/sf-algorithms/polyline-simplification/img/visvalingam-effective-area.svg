@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<polygon points="80.0,260.0 200.0,130.0 350.0,220.0" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="190.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Площа A₁</text>
+<polygon points="200.0,130.0 350.0,220.0 500.0,80.0" fill="#e0e7ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="350.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Площа A₂ (min)</text>
+<polygon points="350.0,220.0 500.0,80.0 640.0,240.0" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="510.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Площа A₃ (max)</text>
+<polyline points="80.0,260.0 200.0,130.0 350.0,220.0 500.0,80.0 640.0,240.0 740.0,180.0" fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="200.0" y1="130.0" x2="500.0" y2="80.0" stroke="#2457d6" stroke-width="2.0" stroke-dasharray="4,4"/>
+<text x="360.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Новий сегмент P₁P₃</text>
+<circle cx="80.0" cy="260.0" r="5.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.5"/>
+<text x="80.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">P0</text>
+<circle cx="200.0" cy="130.0" r="5.0" fill="#c0392b" stroke="#c0392b" stroke-width="0.5"/>
+<text x="200.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">P1</text>
+<circle cx="350.0" cy="220.0" r="5.0" fill="#2457d6" stroke="#2457d6" stroke-width="0.5"/>
+<text x="350.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">P2</text>
+<circle cx="500.0" cy="80.0" r="5.0" fill="#27ae60" stroke="#27ae60" stroke-width="0.5"/>
+<text x="500.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">P3</text>
+<circle cx="640.0" cy="240.0" r="5.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.5"/>
+<text x="640.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">P4</text>
+<circle cx="740.0" cy="180.0" r="5.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.5"/>
+<text x="740.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">P5</text>
+<rect x="26.1" y="310.4" width="747.9" height="59.2" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="400.0" y="328.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">Ефективна площа трикутника: A(Pᵢ) = ½ |(Pᵢ₋₁ − Pᵢ₊₁) × (Pᵢ − Pᵢ₊₁)|</tspan><tspan x="400.0" dy="15.6">Пріоритетна черга послідовно видаляє вершину з найменшою площею трикутника (P₂), з'єднуючи сусідів P₁ і P₃.</tspan><tspan x="400.0" dy="15.6">Це згладжує дрібний шум без утворення гострих неприродних зламів.</tspan></text>
+</svg>

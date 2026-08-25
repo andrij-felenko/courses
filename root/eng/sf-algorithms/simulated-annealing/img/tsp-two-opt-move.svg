@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="740.0" height="370.0" rx="8" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.0"/>
+<text x="380.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Окільний оператор 2-opt для задачі комівояжера (TSP)</text>
+<text x="380.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Усунення перехрещення ребер розворотом підмаршруту та інкрементний розрахунок ΔE за O(1)</text>
+<rect x="30.0" y="80.0" width="330.0" height="280.0" rx="6" fill="#fafafa" stroke="#e2e8f0" stroke-width="1.2"/>
+<text x="195.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">До 2-opt (стан s): Перехресні ребра</text>
+<line x1="90.0" y1="150.0" x2="300.0" y2="270.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="90.0" y1="270.0" x2="300.0" y2="150.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="90.0" y1="150.0" x2="90.0" y2="270.0" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="4,4"/>
+<line x1="300.0" y1="270.0" x2="300.0" y2="150.0" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="4,4"/>
+<circle cx="90.0" cy="150.0" r="14.0" fill="#ffffff" stroke="#333333" stroke-width="1.8"/>
+<text x="90.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<circle cx="300.0" cy="270.0" r="14.0" fill="#ffffff" stroke="#333333" stroke-width="1.8"/>
+<text x="300.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">B</text>
+<circle cx="90.0" cy="270.0" r="14.0" fill="#ffffff" stroke="#333333" stroke-width="1.8"/>
+<text x="90.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">C</text>
+<circle cx="300.0" cy="150.0" r="14.0" fill="#ffffff" stroke="#333333" stroke-width="1.8"/>
+<text x="300.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">D</text>
+<text x="195.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Перехрещення!</text>
+<text x="195.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Видаляються ребра (A, B) та (C, D)</text>
+<line x1="375.0" y1="220.0" x2="415.0" y2="220.0" stroke="#333333" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="395.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">2-opt</text>
+<rect x="430.0" y="80.0" width="300.0" height="280.0" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.2"/>
+<text x="580.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Після 2-opt (стан s'): Розплутаний тур</text>
+<line x1="480.0" y1="150.0" x2="680.0" y2="150.0" stroke="#27ae60" stroke-width="2.8"/>
+<line x1="480.0" y1="270.0" x2="680.0" y2="270.0" stroke="#27ae60" stroke-width="2.8"/>
+<line x1="480.0" y1="150.0" x2="480.0" y2="270.0" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="4,4"/>
+<line x1="680.0" y1="270.0" x2="680.0" y2="150.0" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="4,4"/>
+<circle cx="480.0" cy="150.0" r="14.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="480.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">A</text>
+<circle cx="680.0" cy="270.0" r="14.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="680.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">B</text>
+<circle cx="480.0" cy="270.0" r="14.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="480.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">C</text>
+<circle cx="680.0" cy="150.0" r="14.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="680.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">D</text>
+<rect x="465.4" y="187.2" width="229.2" height="55.6" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/><text x="580.0" y="204.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="580.0" dy="0.0">Інкрементна зміна вартості:</tspan><tspan x="580.0" dy="14.3">ΔE = (d_AD + d_CB) − (d_AB + d_CD)</tspan><tspan x="580.0" dy="14.3">Складність розрахунку: O(1)</tspan></text>
+<text x="580.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Додаються ребра (A, D) та (C, B)</text>
+</svg>

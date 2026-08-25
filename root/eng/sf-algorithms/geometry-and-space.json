@@ -176,11 +176,23 @@
           "slug": "shoelace-area",
           "title": "Орієнтована площа многокутника (формула шнурівки)",
           "basic": {
-            "status": "pending"
+            "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-shoelace-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-shoelace-derivation.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "polygon-offset",
@@ -189,8 +201,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-offset-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-offset-geometry.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-contour-offset.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "polyline-simplification",
@@ -199,8 +229,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-douglas-peucker.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-perpendicular-distance.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-douglas-peucker.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -215,8 +263,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sweep-line.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sweep-predicates.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "gjk-collision",
@@ -225,8 +285,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gjk-birth.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-minkowski-difference.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gjk-collision-2d.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "convex-hull",
@@ -235,8 +313,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-convex-hull.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-orientation-test.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-convex-hull.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "voronoi-diagram",
@@ -245,8 +341,54 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-voronoi-birth.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-voronoi-duality.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fortune-algorithm.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "delaunay-triangulation",
+          "title": "Тріангуляція Делоне",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-delaunay-birth.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-incircle-determinant.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bowyer-watson.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },

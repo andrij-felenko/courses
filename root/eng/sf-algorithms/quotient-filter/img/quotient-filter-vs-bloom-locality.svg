@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Локальність кешу та дискового I/O: Фільтр Блума проти Квошієнтного фільтра</text>
+<rect x="50.0" y="65.0" width="400.0" height="390.0" rx="8" fill="#fdfdfe" stroke="#6b7280" stroke-width="1.0"/>
+<text x="250.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Фільтр Блума (k = 4 хеш-функції)</text>
+<rect x="77.8" y="111.2" width="344.3" height="51.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="250.0" y="126.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">Запит ключа x вимагає k випадкових бітових проб.</tspan><tspan x="250.0" dy="14.3">Кожна проба потрапляє в окрему лінію кешу (L3 / RAM).</tspan><tspan x="250.0" dy="14.3">Для SSD/NVMe: k випадкових зчитувань сторінок!</tspan></text>
+<rect x="70.0" y="195.0" width="360.0" height="32.0" rx="3" fill="#fff1f0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="85.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Кеш-лінія #12:</text>
+<text x="415.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">h_1(x) → 1 біт (Cache Miss)</text>
+<rect x="70.0" y="237.0" width="360.0" height="32.0" rx="3" fill="#fff1f0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="85.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Кеш-лінія #148:</text>
+<text x="415.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">h_2(x) → 1 біт (Cache Miss)</text>
+<rect x="70.0" y="279.0" width="360.0" height="32.0" rx="3" fill="#fff1f0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="85.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Кеш-лінія #590:</text>
+<text x="415.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">h_3(x) → 1 біт (Cache Miss)</text>
+<rect x="70.0" y="321.0" width="360.0" height="32.0" rx="3" fill="#fff1f0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="85.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Кеш-лінія #891:</text>
+<text x="415.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">h_4(x) → 1 біт (Cache Miss)</text>
+<rect x="65.3" y="381.4" width="369.4" height="37.3" rx="6" fill="#fafbfc" stroke="#6b7280" stroke-width="1.5"/><text x="250.0" y="396.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">Швидкість: обмежується затримкою пам'яті (Memory Latency)</tspan><tspan x="250.0" dy="14.3">Утилізація кеш-лінії: лише 1 біт із 64 байтів (0.2%)</tspan></text>
+<rect x="490.0" y="65.0" width="400.0" height="390.0" rx="8" fill="#fdfdfe" stroke="#6b7280" stroke-width="1.0"/>
+<text x="690.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Квошієнтний фільтр (1 хеш-функція)</text>
+<rect x="505.3" y="111.2" width="369.4" height="51.6" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/><text x="690.0" y="126.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">Запит ключа x обчислює 1 адресу слота f_q.</tspan><tspan x="690.0" dy="14.3">Пошук набігу сканує сусідні слоти лінійним зондуванням.</tspan><tspan x="690.0" dy="14.3">Усі перевірки відбуваються в ОДНІЙ 64-байтовій кеш-лінії!</tspan></text>
+<rect x="510.0" y="195.0" width="360.0" height="140.0" rx="4" fill="#f6ffed" stroke="#27ae60" stroke-width="1.5"/>
+<text x="690.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Єдина 64-байтова кеш-лінія ЦП / 4КБ сторінка SSD</text>
+<rect x="525.0" y="235.0" width="76.0" height="50.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="563.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Слот [2]</text>
+<text x="563.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">O C S rem</text>
+<rect x="607.0" y="235.0" width="76.0" height="50.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="645.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Слот [3]</text>
+<text x="645.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">O C S rem</text>
+<rect x="689.0" y="235.0" width="76.0" height="50.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="727.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Слот [4]</text>
+<text x="727.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">O C S rem</text>
+<rect x="771.0" y="235.0" width="76.0" height="50.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="809.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Слот [5]</text>
+<text x="809.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">O C S rem</text>
+<line x1="540.0" y1="310.0" x2="840.0" y2="310.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="690.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Лінійний скан у межах однієї кеш-лінії</text>
+<rect x="495.9" y="381.4" width="388.2" height="37.3" rx="6" fill="#fafbfc" stroke="#6b7280" stroke-width="1.5"/><text x="690.0" y="396.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">Швидкість: повна пропускна здатність кешу L1/L2 (Cache Hits)</tspan><tspan x="690.0" dy="14.3">Утилізація: апаратний префетчер підвантажує сусідні слоти</tspan></text>
+<rect x="94.1" y="473.5" width="751.9" height="23.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="470.0" y="488.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">Квошієнтний фільтр забезпечує на порядки вищу пропускну здатність на SSD та Flash-пам'яті завдяки послідовному доступу</tspan></text>
+</svg>

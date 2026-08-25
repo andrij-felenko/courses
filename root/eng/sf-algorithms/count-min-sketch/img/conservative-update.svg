@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння звичайного та консервативного оновлення</text>
+<text x="215.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Стандартне оновлення Count-Min</text>
+<text x="215.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Кожен лічильник інкрементується: C[j, h_j(x)] += 1</text>
+<text x="60.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">Рядок 1 (h₁=2):</text>
+<rect x="200.0" y="102.0" width="52.0" height="30.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="226.0" y="121.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">10</text>
+<text x="270.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">→</text>
+<rect x="295.0" y="102.0" width="52.0" height="30.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="321.0" y="121.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">11</text>
+<text x="60.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">Рядок 2 (h₂=5):</text>
+<rect x="200.0" y="147.0" width="52.0" height="30.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="226.0" y="165.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">15 (шум)</text>
+<text x="270.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">→</text>
+<rect x="295.0" y="147.0" width="52.0" height="30.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="321.0" y="166.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">16</text>
+<text x="60.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">Рядок 3 (h₃=1):</text>
+<rect x="200.0" y="192.0" width="52.0" height="30.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="226.0" y="211.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">10</text>
+<text x="270.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">→</text>
+<rect x="295.0" y="192.0" width="52.0" height="30.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="321.0" y="211.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">11</text>
+<text x="215.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Результат: min(11, 16, 11) = 11</text>
+<text x="215.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">Шум у рядку 2 зріс з 15 до 16 даремно</text>
+<line x1="440.0" y1="45.0" x2="440.0" y2="325.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<text x="645.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Консервативне оновлення (CU)</text>
+<text x="645.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Інкремент лише тих, де C[j, h_j(x)] == поточний min</text>
+<text x="490.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">Рядок 1 (h₁=2):</text>
+<rect x="630.0" y="102.0" width="52.0" height="30.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="656.0" y="121.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">10</text>
+<text x="700.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">→</text>
+<rect x="725.0" y="102.0" width="52.0" height="30.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/><text x="751.0" y="121.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">11</text>
+<text x="490.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">Рядок 2 (h₂=5):</text>
+<rect x="630.0" y="147.0" width="52.0" height="30.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="656.0" y="165.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">15 (шум)</text>
+<text x="700.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">→</text>
+<rect x="725.0" y="147.0" width="52.0" height="30.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="751.0" y="166.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">15</text>
+<text x="490.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">Рядок 3 (h₃=1):</text>
+<rect x="630.0" y="192.0" width="52.0" height="30.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="656.0" y="211.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">10</text>
+<text x="700.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">→</text>
+<rect x="725.0" y="192.0" width="52.0" height="30.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/><text x="751.0" y="211.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">11</text>
+<text x="645.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Результат: min(11, 15, 11) = 11</text>
+<text x="645.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Шум у рядку 2 НЕ зріс (збережено 15)</text>
+</svg>

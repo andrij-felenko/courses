@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Організація пам'яті: єдиний скретчпад лінійного розміру замість рекурсивних алокацій</text>
+<rect x="45.0" y="55.0" width="400.0" height="180.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="245.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Наївний підхід: виділення malloc() у кожному вузлі</text>
+<rect x="65.0" y="105.0" width="360.0" height="36.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="245.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Рівень 0: malloc(2n) для результатів Z2, Z0, Zmid</text>
+<rect x="85.0" y="148.0" width="320.0" height="34.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.1"/>
+<text x="245.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Рівень 1: 3 × malloc(n) для підзадач...</text>
+<text x="245.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">⚠️ O(n^1.585) викликів алокатора руйнують продуктивність!</text>
+<rect x="495.0" y="55.0" width="400.0" height="180.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="695.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Оптимальний підхід: єдиний скретчпад (Scratchpad)</text>
+<rect x="515.0" y="105.0" width="360.0" height="36.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.2"/>
+<text x="695.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Один буфер розміром ≈ 3n слів на самому початку</text>
+<rect x="515.0" y="148.0" width="360.0" height="34.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.1"/>
+<text x="695.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вузол рекурсії лише зміщує покажчик: scratch + offset</text>
+<text x="695.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">✓ 0 викликів malloc під час рекурсії; кеш-локальність L1/L2</text>
+<rect x="45.0" y="260.0" width="850.0" height="200.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="470.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія лінійного скретчпада розміром S(n) ≤ 3n слів</text>
+<rect x="70.0" y="315.0" width="304.0" height="55.0" rx="5" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.6"/>
+<text x="222.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0369a1" text-anchor="middle" font-weight="700">Тимчасовий добуток Zmid</text>
+<text x="222.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">розмір: n слів (2 · m)</text>
+<rect x="374.0" y="315.0" width="176.0" height="55.0" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="1.6"/>
+<text x="462.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#92400e" text-anchor="middle" font-weight="700">Суми половин</text>
+<text x="462.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">m + 1 слів кожна</text>
+<rect x="550.0" y="315.0" width="320.0" height="55.0" rx="5" fill="#f3e8ff" stroke="#8e44ad" stroke-width="1.6"/>
+<text x="710.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b21a8" text-anchor="middle" font-weight="700">Вкладений скретчпад наступного рівня</text>
+<text x="710.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">розмір: S(n/2) ≈ 1.5 n слів</text>
+<rect x="70.0" y="395.0" width="800.0" height="48.0" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="470.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рекурентність пам'яті: S(n) = n + (m + 1) + S(n/2) = 1.5n + S(n/2) + 1  ⇒  Сума прогресії S(n) &lt; 3n слів</text>
+<text x="470.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Пам'ять перевикористовується між послідовними рекурсивними гілками Z2, Z0 та Zmid</text>
+</svg>

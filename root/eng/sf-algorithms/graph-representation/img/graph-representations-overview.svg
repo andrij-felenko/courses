@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="50.0" width="235.0" height="440.0" rx="8" fill="#fbfdff" stroke="#dfe4ea" stroke-width="1.3"/>
+<text x="137.5" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Граф G = (V, E)</text>
+<text x="137.5" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">|V| = 4, |E| = 5</text>
+<line x1="107.0" y1="170.0" x2="168.0" y2="170.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="107.8" y1="180.4" x2="186.4" y2="285.2" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="190.0" y1="192.0" x2="190.0" y2="288.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="186.4" y1="285.2" x2="107.8" y2="180.4" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="168.0" y1="310.0" x2="107.0" y2="310.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="85.0" cy="170.0" r="19.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="85.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<circle cx="190.0" cy="170.0" r="19.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="190.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<circle cx="190.0" cy="310.0" r="19.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="190.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">2</text>
+<circle cx="85.0" cy="310.0" r="19.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="85.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">3</text>
+<rect x="30.0" y="380.0" width="215.0" height="95.0" rx="6" fill="#ffffff" stroke="#cdd6e0" stroke-width="1.5"/><text x="137.5" y="409.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="137.5" dy="0.0">Вершини: {0, 1, 2, 3}</tspan><tspan x="137.5" dy="14.3">Орієнтовані ребра:</tspan><tspan x="137.5" dy="14.3">0→1, 0→2, 1→2,</tspan><tspan x="137.5" dy="14.3">2→0, 2→3</tspan></text>
+<rect x="275.0" y="50.0" width="235.0" height="440.0" rx="8" fill="#fbfdff" stroke="#dfe4ea" stroke-width="1.3"/>
+<text x="392.5" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Матриця суміжності</text>
+<text x="392.5" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Таблиця |V| × |V| (Θ(V²))</text>
+<text x="342.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<text x="376.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">1</text>
+<text x="410.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">2</text>
+<text x="444.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">3</text>
+<text x="311.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<text x="311.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">1</text>
+<text x="311.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">2</text>
+<text x="311.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">3</text>
+<rect x="327.0" y="162.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="342.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">0</text>
+<rect x="361.0" y="162.0" width="30.0" height="30.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="376.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1</text>
+<rect x="395.0" y="162.0" width="30.0" height="30.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="410.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1</text>
+<rect x="429.0" y="162.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="444.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">0</text>
+<rect x="327.0" y="196.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="342.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">0</text>
+<rect x="361.0" y="196.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="376.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">0</text>
+<rect x="395.0" y="196.0" width="30.0" height="30.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="410.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1</text>
+<rect x="429.0" y="196.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="444.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">0</text>
+<rect x="327.0" y="230.0" width="30.0" height="30.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="342.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1</text>
+<rect x="361.0" y="230.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="376.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">0</text>
+<rect x="395.0" y="230.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="410.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">0</text>
+<rect x="429.0" y="230.0" width="30.0" height="30.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="444.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1</text>
+<rect x="327.0" y="264.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="342.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">0</text>
+<rect x="361.0" y="264.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="376.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">0</text>
+<rect x="395.0" y="264.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="410.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">0</text>
+<rect x="429.0" y="264.0" width="30.0" height="30.0" rx="3" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.0"/>
+<text x="444.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">0</text>
+<rect x="285.0" y="360.0" width="215.0" height="115.0" rx="6" fill="#ffffff" stroke="#cdd6e0" stroke-width="1.5"/><text x="392.5" y="393.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="392.5" dy="0.0">Плюс: зв'язок за O(1).</tspan><tspan x="392.5" dy="13.7">Мінус: пам'ять Θ(V²),</tspan><tspan x="392.5" dy="13.7">пошук сусідів Θ(V).</tspan><tspan x="392.5" dy="13.7">Для розріджених</tspan><tspan x="392.5" dy="13.7">графів майже всі 0.</tspan></text>
+<rect x="530.0" y="50.0" width="235.0" height="440.0" rx="8" fill="#fbfdff" stroke="#dfe4ea" stroke-width="1.3"/>
+<text x="647.5" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Списки суміжності</text>
+<text x="647.5" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Масив списків (Θ(V + E))</text>
+<rect x="545.0" y="130.0" width="36.0" height="32.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="563.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">[0]</text>
+<line x1="581.0" y1="146.0" x2="602.0" y2="146.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="606.0" y="132.0" width="34.0" height="28.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="623.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<line x1="640.0" y1="146.0" x2="654.0" y2="146.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="658.0" y="132.0" width="34.0" height="28.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="675.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2</text>
+<rect x="545.0" y="174.0" width="36.0" height="32.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="563.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">[1]</text>
+<line x1="581.0" y1="190.0" x2="602.0" y2="190.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="606.0" y="176.0" width="34.0" height="28.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="623.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2</text>
+<rect x="545.0" y="218.0" width="36.0" height="32.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="563.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">[2]</text>
+<line x1="581.0" y1="234.0" x2="602.0" y2="234.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="606.0" y="220.0" width="34.0" height="28.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="623.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<line x1="640.0" y1="234.0" x2="654.0" y2="234.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="658.0" y="220.0" width="34.0" height="28.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="675.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">3</text>
+<rect x="545.0" y="262.0" width="36.0" height="32.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="563.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">[3]</text>
+<line x1="581.0" y1="278.0" x2="602.0" y2="278.0" stroke="#6b7280" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="606.0" y="264.0" width="45.0" height="28.0" rx="3" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="628.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">null</text>
+<rect x="540.0" y="360.0" width="215.0" height="115.0" rx="6" fill="#ffffff" stroke="#cdd6e0" stroke-width="1.5"/><text x="647.5" y="393.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="647.5" dy="0.0">Плюс: пам'ять O(V + E),</tspan><tspan x="647.5" dy="13.7">сусіди за O(deg(u)).</tspan><tspan x="647.5" dy="13.7">Мінус: перевірка (u, v)</tspan><tspan x="647.5" dy="13.7">вимагає O(deg(u)),</tspan><tspan x="647.5" dy="13.7">промахи кешу RAM.</tspan></text>
+<rect x="785.0" y="50.0" width="235.0" height="440.0" rx="8" fill="#fbfdff" stroke="#dfe4ea" stroke-width="1.3"/>
+<text x="902.5" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. Список ребер</text>
+<text x="902.5" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Масив кортежів (Θ(E))</text>
+<rect x="805.0" y="130.0" width="195.0" height="28.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="825.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">e[0]:</text>
+<text x="900.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">(0  →  1)</text>
+<rect x="805.0" y="166.0" width="195.0" height="28.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="825.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">e[1]:</text>
+<text x="900.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">(0  →  2)</text>
+<rect x="805.0" y="202.0" width="195.0" height="28.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="825.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">e[2]:</text>
+<text x="900.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">(1  →  2)</text>
+<rect x="805.0" y="238.0" width="195.0" height="28.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="825.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">e[3]:</text>
+<text x="900.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">(2  →  0)</text>
+<rect x="805.0" y="274.0" width="195.0" height="28.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="825.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">e[4]:</text>
+<text x="900.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">(2  →  3)</text>
+<rect x="795.0" y="360.0" width="215.0" height="115.0" rx="6" fill="#ffffff" stroke="#cdd6e0" stroke-width="1.5"/><text x="902.5" y="393.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="902.5" dy="0.0">Плюс: лише O(E) пам'яті,</tspan><tspan x="902.5" dy="13.7">зручно для сортування</tspan><tspan x="902.5" dy="13.7">ребер (Краскал).</tspan><tspan x="902.5" dy="13.7">Мінус: пошук ребра або</tspan><tspan x="902.5" dy="13.7">сусідів вимагає O(E).</tspan></text>
+</svg>

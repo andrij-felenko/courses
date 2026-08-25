@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-24.24 -10 864.24 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-24.24" y="-10" width="864.24" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="800.0" height="420.0" rx="8" fill="#ffffff" stroke="#dfe4ea" stroke-width="1.2"/>
+<text x="420.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Витрати оперативної пам'яті залежно від кількості ребер |E| (для |V| = 10 000)</text>
+<line x1="80.0" y1="360.0" x2="560.0" y2="360.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="80.0" y1="360.0" x2="80.0" y2="60.0" stroke="#333333" stroke-width="1.8"/>
+<text x="565.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">|E| (густина)</text>
+<text x="70.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Пам'ять (RAM)</text>
+<text x="80.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">0</text>
+<text x="195.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">25M (25%)</text>
+<text x="310.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">50M (50%)</text>
+<text x="425.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">75M (75%)</text>
+<text x="540.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">100M (|V|²)</text>
+<line x1="80.0" y1="253.6" x2="540.0" y2="253.6" stroke="#2457d6" stroke-width="2.5"/>
+<text x="460.0" y="243.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Матриця суміжності: Θ(V²)</text>
+<line x1="80.0" y1="345.0" x2="379.0" y2="80.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="287.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Списки суміжності (vector): Θ(V + E)</text>
+<line x1="80.0" y1="352.0" x2="540.0" y2="122.0" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="4,2"/>
+<text x="510.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">CSR: 4V + 4E</text>
+<circle cx="153.6" cy="253.6" r="5.0" fill="#c0392b" stroke="#ffffff" stroke-width="2.0"/>
+<line x1="153.6" y1="360.0" x2="153.6" y2="253.6" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="153.6" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Точка перетину (~2-5%)</text>
+<rect x="580.0" y="80.0" width="230.0" height="310.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="595.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Висновки для вибору:</text>
+<text x="595.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"><tspan x="595.0" dy="0.0">• Розріджені графи (d &lt; 5%):</tspan><tspan x="595.0" dy="14.9">  Реальні мережі (дороги, web,</tspan><tspan x="595.0" dy="14.9">  соцмережі) мають d ≪ 1%.</tspan><tspan x="595.0" dy="14.9">  Списки суміжності або CSR</tspan><tspan x="595.0" dy="14.9">  економлять гігабайти RAM.</tspan><tspan x="595.0" dy="14.9"></tspan><tspan x="595.0" dy="14.9">• Щільні графи (d &gt; 15%):</tspan><tspan x="595.0" dy="14.9">  Матриця виграє за рахунок</tspan><tspan x="595.0" dy="14.9">  O(1) перевірки зв'язку та</tspan><tspan x="595.0" dy="14.9">  відсутності оверхеду вказівників.</tspan><tspan x="595.0" dy="14.9"></tspan><tspan x="595.0" dy="14.9">• CSR (Packed Array):</tspan><tspan x="595.0" dy="14.9">  У 3-5 разів компактніший за</tspan><tspan x="595.0" dy="14.9">  std::vector&lt;std::vector&gt;.</tspan></text>
+</svg>

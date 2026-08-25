@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Геометричне відтинання пошуку за нерівністю трикутника</text>
+<rect x="30.0" y="45.0" width="400.0" height="355.0" rx="6" fill="#fcfcfc" stroke="#d0d0d0" stroke-width="1.0"/>
+<text x="230.0" y="67.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розбиття простору опорною точкою P</text>
+<circle cx="210.0" cy="240.0" r="110.0" fill="#edf7ed" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="5,5"/>
+<text x="210.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Сферична межа розбиття R_split</text>
+<circle cx="355.0" cy="140.0" r="50.0" fill="#fde8e8" fill-opacity="0.6" stroke="#c0392b" stroke-width="1.8"/>
+<circle cx="355.0" cy="140.0" r="5.0" fill="#c0392b" stroke="#333333" stroke-width="1.2"/>
+<text x="367.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Запит q</text>
+<text x="411.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-style="italic">Радіус r (d_min)</text>
+<circle cx="210.0" cy="240.0" r="5.0" fill="#2457d6" stroke="#333333" stroke-width="1.2"/>
+<text x="198.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="end" font-weight="700">Опорна точка P</text>
+<line x1="210.0" y1="240.0" x2="355.0" y2="140.0" stroke="#333333" stroke-width="1.5" stroke-dasharray="3,3"/>
+<text x="267.5" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">d(q, P)</text>
+<circle cx="160.0" cy="200.0" r="3.5" fill="#27ae60" stroke="#333333" stroke-width="1.0"/>
+<circle cx="180.0" cy="290.0" r="3.5" fill="#27ae60" stroke="#333333" stroke-width="1.0"/>
+<circle cx="250.0" cy="270.0" r="3.5" fill="#27ae60" stroke="#333333" stroke-width="1.0"/>
+<circle cx="150.0" cy="260.0" r="3.5" fill="#27ae60" stroke="#333333" stroke-width="1.0"/>
+<text x="170.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-style="italic">Піддерево: d(P, x) ≤ R</text>
+<circle cx="80.0" cy="115.0" r="3.5" fill="#6b7280" stroke="#333333" stroke-width="1.0"/>
+<circle cx="360.0" cy="325.0" r="3.5" fill="#6b7280" stroke="#333333" stroke-width="1.0"/>
+<circle cx="110.0" cy="355.0" r="3.5" fill="#6b7280" stroke="#333333" stroke-width="1.0"/>
+<text x="120.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Піддерево: d(P, x) &gt; R</text>
+<rect x="450.0" y="45.0" width="360.0" height="355.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="630.0" y="67.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Правило відсікання піддерева</text>
+<rect x="512.1" y="101.2" width="235.8" height="47.6" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/><text x="630.0" y="121.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="630.0" dy="0.0">Нерівність трикутника:</tspan><tspan x="630.0" dy="15.6">|d(q, P) − d(P, x)| ≤ d(q, x)</tspan></text>
+<rect x="532.2" y="188.1" width="195.6" height="73.9" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/><text x="630.0" y="207.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="630.0" dy="0.0">Умова повного пропуску кулі:</tspan><tspan x="630.0" dy="14.3">Якщо d(q, P) − R_split &gt; r,</tspan><tspan x="630.0" dy="14.3">то для всіх внутрішніх x:</tspan><tspan x="630.0" dy="14.3">d(q, x) &gt; r (немає ближчих!)</tspan></text>
+<rect x="497.7" y="305.2" width="264.5" height="59.6" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/><text x="630.0" y="324.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="630.0" dy="0.0">Результат: усе внутрішнє піддерево</tspan><tspan x="630.0" dy="14.3">відкидається за ОДНЕ обчислення d(q, P)</tspan><tspan x="630.0" dy="14.3">без перевірки окремих точок.</tspan></text>
+</svg>
