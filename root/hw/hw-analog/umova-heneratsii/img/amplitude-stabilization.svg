@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння методів стабілізації амплітуди автогенератора</text>
+<rect x="30.0" y="20.0" width="330.0" height="380.0" rx="8" fill="#fdf7f7" stroke="#c0392b" stroke-width="1.5"/>
+<text x="200.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">1. Насичення транзистора / ОП</text>
+<text x="200.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(Природне амплітудне обмеження)</text>
+<line x1="110.0" y1="145.0" x2="290.0" y2="145.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="200.0" y1="95.0" x2="200.0" y2="195.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<path d="M 120 185 L 155 185 Q 175 180 190 155 L 210 135 Q 225 110 245 105 L 280 105" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+<text x="200.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Характеристика передачі (кліпінг)</text>
+<rect x="58.3" y="268.1" width="283.3" height="73.9" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/><text x="200.0" y="287.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">• Підсилення падає через зрізання верхівок</tspan><tspan x="200.0" dy="14.3">• Проста схема без додаткових компонентів</tspan><tspan x="200.0" dy="14.3">• Високий рівень спотворень (THD 3–15%)</tspan><tspan x="200.0" dy="14.3">• Багатий спектр паразитних гармонік</tspan></text>
+<rect x="390.0" y="20.0" width="340.0" height="380.0" rx="8" fill="#f4fbf6" stroke="#27ae60" stroke-width="1.5"/>
+<text x="560.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">2. Активна АРП / Лампа розжарення</text>
+<text x="560.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(Параметричне регулювання підсилення)</text>
+<rect x="470.0" y="95.0" width="180.0" height="80.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="560.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Петля від'ємного ЗЗ</text>
+<text x="560.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">R_зз(V_rms) або r_ds(U_з)</text>
+<text x="560.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">A = 1 + R2 / R_керов</text>
+<rect x="424.6" y="268.1" width="270.8" height="73.9" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/><text x="560.0" y="287.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">• Підсилювач працює в лінійному режимі</tspan><tspan x="560.0" dy="14.3">• Опір підлаштовується середнім розмахом</tspan><tspan x="560.0" dy="14.3">• Наднизькі спотворення (THD &lt; 0.05%)</tspan><tspan x="560.0" dy="14.3">• Ідеально чиста вихідна синусоїда</tspan></text>
+</svg>
