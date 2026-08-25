@@ -1,0 +1,356 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-digital",
+  "slug": "clocking-and-timing",
+  "title": "Такт і час",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "clock-source",
+      "title": "Джерело такту й поділ частоти",
+      "topics": [
+        {
+          "slug": "clock-signal",
+          "title": "Тактовий сигнал",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-piezo-resonators.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-clock-sources.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ring-oscillator",
+          "title": "Кільцевий генератор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "frequency-divider",
+          "title": "Дільник частоти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-odd-symmetry.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "prescaler",
+          "title": "Прескейлер і синтез частоти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pll-synthesis.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pulse-swallow.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "clock-domain",
+          "title": "Тактова частота і тактовий домен",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cycling-unit.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "clock-distribution",
+      "title": "Розводка такту",
+      "topics": [
+        {
+          "slug": "clock-skew",
+          "title": "Перекіс тактового сигналу (clock skew)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-clock-tree-synthesis.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "clock-gating",
+          "title": "Тактове стробування (clock gating)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "spread-spectrum-clocking",
+          "title": "Модуляція тактового спектру (SSC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-lexmark-1994.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "timing-budget",
+      "title": "Часовий бюджет",
+      "topics": [
+        {
+          "slug": "gate-timing",
+          "title": "Часові параметри вентилів: затримки і фронти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-ring-oscillator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "critical-path-and-slack",
+          "title": "Критичний шлях і слек: setup, hold і межа частоти синхронної схеми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-critical-path.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-static-timing-analysis.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hold-violation",
+          "title": "Порушення hold-часу в цифрових схемах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-hold-slack.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "static-timing-analysis",
+          "title": "Статичний часовий аналіз (STA)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "time-borrowing",
+          "title": "Позичання часу в латч-конвеєрах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-borrow-budget.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "domain-crossing",
+      "title": "Перетин тактових доменів",
+      "topics": [
+        {
+          "slug": "metastability-timing",
+          "title": "Метастабільність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-metastability.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-synchronizer.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-timing-budget.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-two-ff-synchronizer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "clock-domain-crossing",
+          "title": "Перетин тактових доменів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-gray-cummings.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-handshake.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "async-fifo",
+          "title": "Асинхронна черга FIFO",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cummings-fifo.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ring-buffer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "shadow-register",
+          "title": "Тіньовий регістр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dual-port-ram",
+          "title": "Двопортова пам'ять",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-vram.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mailbox-semaphore.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dpram-ic.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

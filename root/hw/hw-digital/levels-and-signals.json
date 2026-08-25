@@ -1,0 +1,270 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-digital",
+  "slug": "levels-and-signals",
+  "title": "Рівні й сигнали",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "logic-levels",
+      "title": "Межа нуля й одиниці",
+      "topics": [
+        {
+          "slug": "why-digital",
+          "title": "Навіщо цифра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-shannon.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "logic-levels-as-ranges",
+          "title": "Рівні «0» і «1»",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "logic-thresholds",
+          "title": "Логічні пороги",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "noise-margin",
+          "title": "Запас завадостійкості",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-noise-margin.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "threshold-schmitt",
+          "title": "Поріг і Шмітт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-schmitt-name.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-software-hysteresis.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-74hc14-oscillator.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-74hc14.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "dc-characteristics",
+      "title": "Електричні характеристики",
+      "topics": [
+        {
+          "slug": "datasheet-dc-characteristics",
+          "title": "Як читати DC Characteristics у даташиті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-read-datasheet.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cmos-transfer-curve",
+          "title": "Передавальна характеристика CMOS-інвертора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-vm-derivation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "io-standards",
+          "title": "Стандарти вхід/вихід (LVCMOS, LVTTL, SSTL, HSTL)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ttl-levels.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-jedec.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "logic-series",
+      "title": "Логічні сімейства",
+      "topics": [
+        {
+          "slug": "logic-74",
+          "title": "Логіка 74",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-suhl-to-7400.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "logic-families",
+          "title": "Логічні сімейства",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-5-volts.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "logic-subfamilies",
+          "title": "Підродини логіки: 74LS, 74HC, 74HCT, 74AHC, LVC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-single-gate-logic.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-drive-fanout.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "level-translation",
+      "title": "Стикування рівнів",
+      "topics": [
+        {
+          "slug": "level-shifter",
+          "title": "Перетворювач рівнів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "voltage-domain-interface",
+          "title": "Стик доменів живлення: пороги, поломки й пасивний зсув",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "voltage-divider-digital",
+          "title": "Дільник напруги як зсувач рівнів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-compensated-divider.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ttl-rs232",
+          "title": "TTL і RS-232",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    }
+  ]
+}

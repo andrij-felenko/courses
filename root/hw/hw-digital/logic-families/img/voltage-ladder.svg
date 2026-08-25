@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="430" viewBox="0 0 860 430">
+<rect width="860" height="430" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aAmber" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#caa24a"/></marker>
+</defs>
+<text x="430.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Драбина напруг: чому логіка століттями «спускається»</text>
+<text x="430.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">нижче живлення → менше енергії (E ∝ C·V²), але менший абсолютний запас</text>
+<rect x="150.0" y="130.0" width="120.0" height="46.0" rx="8" fill="#fafafa" stroke="#1b1b1b" stroke-width="1.6"/>
+<text x="210.0" y="152.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="16" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">5.0 В</text>
+<text x="210.0" y="169.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">класика TTL/CMOS</text>
+<line x1="270.0" y1="153.0" x2="270.0" y2="199.0" stroke="#8a8a8a" stroke-width="1.8" marker-end="url(#aInk)"/>
+<rect x="270.0" y="182.0" width="120.0" height="46.0" rx="8" fill="#eef4ff" stroke="#c0271e" stroke-width="2"/>
+<text x="330.0" y="204.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="16" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">3.3 В</text>
+<text x="330.0" y="221.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">сучасний стандарт, ESP32</text>
+<line x1="390.0" y1="205.0" x2="390.0" y2="251.0" stroke="#8a8a8a" stroke-width="1.8" marker-end="url(#aInk)"/>
+<rect x="390.0" y="234.0" width="120.0" height="46.0" rx="8" fill="#fafafa" stroke="#1b1b1b" stroke-width="1.6"/>
+<text x="450.0" y="256.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="16" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">2.5 В</text>
+<text x="450.0" y="273.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">ядра ПЛІС</text>
+<line x1="510.0" y1="257.0" x2="510.0" y2="303.0" stroke="#8a8a8a" stroke-width="1.8" marker-end="url(#aInk)"/>
+<rect x="510.0" y="286.0" width="120.0" height="46.0" rx="8" fill="#fafafa" stroke="#1b1b1b" stroke-width="1.6"/>
+<text x="570.0" y="308.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="16" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">1.8 В</text>
+<text x="570.0" y="325.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">флеш, периферія</text>
+<line x1="630.0" y1="309.0" x2="630.0" y2="355.0" stroke="#8a8a8a" stroke-width="1.8" marker-end="url(#aInk)"/>
+<rect x="630.0" y="338.0" width="120.0" height="46.0" rx="8" fill="#fafafa" stroke="#1b1b1b" stroke-width="1.6"/>
+<text x="690.0" y="360.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="16" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">1.2 В</text>
+<text x="690.0" y="377.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">ядра процесорів</text>
+<line x1="720.0" y1="150.0" x2="720.0" y2="360.0" stroke="#1f8a3b" stroke-width="2" marker-end="url(#aGreen)"/>
+<text x="732.0" y="250.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">↓ менше енергії</text>
+<text x="732.0" y="268.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="start" font-weight="normal" font-style="normal">↓ вища швидкість</text>
+<line x1="120.0" y1="360.0" x2="120.0" y2="150.0" stroke="#caa24a" stroke-width="2" marker-end="url(#aAmber)"/>
+<text x="108.0" y="250.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#caa24a" text-anchor="end" font-weight="bold" font-style="normal">↑ більший запас</text>
+<text x="108.0" y="268.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#caa24a" text-anchor="end" font-weight="normal" font-style="normal">↑ простіше живити</text>
+</svg>

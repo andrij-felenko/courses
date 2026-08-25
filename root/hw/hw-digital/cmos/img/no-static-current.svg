@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="340" viewBox="0 0 560 340">
+<rect width="560" height="340" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="280.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="14.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Магія: у спокої наскрізного струму немає</text>
+<line x1="120.0" y1="72.0" x2="380.0" y2="72.0" stroke="#c0271e" stroke-width="2" stroke-linecap="round"/>
+<text x="114.0" y="76.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#c0271e" text-anchor="end" font-weight="bold" font-style="normal">+V</text>
+<line x1="120.0" y1="300.0" x2="380.0" y2="300.0" stroke="#1b1b1b" stroke-width="1.6" stroke-linecap="round"/>
+<text x="114.0" y="304.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">GND</text>
+<rect x="198.0" y="100.0" width="104.0" height="50.0" rx="6" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.6"/>
+<text x="250.0" y="122.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">відкритий</text>
+<text x="250.0" y="138.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">(проводить)</text>
+<line x1="250.0" y1="72.0" x2="250.0" y2="100.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<rect x="198.0" y="222.0" width="104.0" height="50.0" rx="6" fill="#fbeeef" stroke="#c0271e" stroke-width="1.6"/>
+<text x="250.0" y="244.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">ЗАКРИТИЙ</text>
+<text x="250.0" y="260.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">(перекриває)</text>
+<line x1="250.0" y1="272.0" x2="250.0" y2="300.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="250.0" y1="150.0" x2="250.0" y2="222.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="232.0" y1="247.0" x2="268.0" y2="271.0" stroke="#c0271e" stroke-width="3" stroke-linecap="round"/>
+<line x1="232.0" y1="271.0" x2="268.0" y2="247.0" stroke="#c0271e" stroke-width="3" stroke-linecap="round"/>
+<circle cx="250.0" cy="186.0" r="3.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="2"/>
+<line x1="250.0" y1="186.0" x2="360.0" y2="186.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<text x="366.0" y="190.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">вихід</text>
+<text x="118.0" y="186.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="16" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">I ≈ 0</text>
+<line x1="154.0" y1="186.0" x2="190.0" y2="186.0" stroke="#1f8a3b" stroke-width="2" stroke-dasharray="3 2" marker-end="url(#aGreen)"/>
+<text x="280.0" y="328.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Один транзистор пари завжди закритий → шлях +V→земля перекрито → тримати стан задарма.</text>
+</svg>

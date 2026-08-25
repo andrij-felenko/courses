@@ -1,0 +1,318 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-digital",
+  "slug": "sequential-logic",
+  "title": "Пам'ять стану",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "flip-flops",
+      "title": "Тригери й засувки",
+      "topics": [
+        {
+          "slug": "state-memory",
+          "title": "Пам'ять стану",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-flip-flop.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sr-latch",
+          "title": "SR-засувка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "gated-sr-latch",
+          "title": "Гейтована SR-засувка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-gated-latch.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "edge-vs-level",
+          "title": "Фронт і рівень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-edge-triggering.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-edge-level-interrupt.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "d-flip-flop",
+          "title": "D-тригер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "jk-flip-flop",
+          "title": "JK-тригер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-jk-name.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "t-flip-flop",
+          "title": "T-тригер і ділення частоти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-jk-flip-flop.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "registers-and-counters",
+      "title": "Регістри й лічильники",
+      "topics": [
+        {
+          "slug": "register",
+          "title": "Регістр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-shift-register-ics.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-74hc165.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "shift-register",
+          "title": "Зсувний регістр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "shift-register-clocked",
+          "title": "Тактований зсувний регістр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-delay-line.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fir-tapped-delay.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "counters",
+          "title": "Лічильники",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cmos-counters.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-software-counter.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-4017-4040.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-4017-4040.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "synchronous-counter",
+          "title": "Синхронний лічильник",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-sync-counter-ics.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-max-frequency.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ring-counter",
+          "title": "Кільцевий і Johnson-лічильник",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-johnson.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-4017.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lfsr",
+          "title": "LFSR — лінійний регістр зі зворотним зв'язком",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-golomb.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-max-length.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "state-machines",
+      "title": "Автомати",
+      "topics": [
+        {
+          "slug": "finite-state-machines",
+          "title": "Скінченні автомати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-moore-mealy.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fsm-in-code.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "protocol-decoder-internals",
+          "title": "Внутрішня логіка декодера протоколів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    }
+  ]
+}

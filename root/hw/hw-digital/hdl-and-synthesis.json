@@ -1,0 +1,284 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-digital",
+  "slug": "hdl-and-synthesis",
+  "title": "Опис і синтез схеми",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "hardware-description",
+      "title": "Опис апаратури текстом",
+      "topics": [
+        {
+          "slug": "hdl",
+          "title": "HDL",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-hdl.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-verilog-first-projects.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "vhdl",
+          "title": "VHDL: мова опису апаратури від Пентагону",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-vhdl-birth.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "systemverilog",
+          "title": "SystemVerilog: сучасний стандарт HDL",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-systemverilog.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "blocking-nonblocking",
+          "title": "Блокуючі й неблокуючі присвоєння",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-nonblocking-origin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pipeline-serializer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hdl-simulation",
+          "title": "Симуляція HDL: testbench і перевірка до синтезу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-simulator-origins.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-selfcheck-testbench.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "synthesis-flow",
+      "title": "Від виразу до комірок",
+      "topics": [
+        {
+          "slug": "logic-synthesis",
+          "title": "Логічний синтез: від HDL до вентилів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-synthesis.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "binary-decision-diagram",
+          "title": "Двійкова діаграма рішень (BDD)",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-model-checking.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-canonicity.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-apply.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lut-mapping",
+          "title": "Логічний синтез: від булевого виразу до LUT-дерева",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bdd.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bdd-build.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "synthesis-optimization",
+          "title": "Оптимізація синтезу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-minimization.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-two-level.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "np-hard-placement",
+          "title": "NP-важкість задачі розміщення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-placement-annealing.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-placement-nphard.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-annealing-placer.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "timing-closure-flow",
+      "title": "Доведення до частоти",
+      "topics": [
+        {
+          "slug": "fpga-constraints",
+          "title": "Файл обмежень FPGA (SDC/XDC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sdc-origin.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fpga-timing-and-routing",
+          "title": "Таймінг на FPGA: маршрут, обмеження й петля до потрібної частоти",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "timing-closure",
+          "title": "Timing closure",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-physical-synthesis.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

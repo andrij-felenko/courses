@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="860" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Як тригер навчився клацати рівно раз за такт</text>
+<text x="430.0" y="51.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">ланцюг рішень: зворотний зв'язок прибирає заборону, але породжує гонитву — її гасить майстер-слейв</text>
+<line x1="250.0" y1="86.0" x2="250.0" y2="430.0" stroke="#6b7280" stroke-width="3.0"/>
+<circle cx="250.0" cy="120.0" r="7.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.6"/>
+<text x="228.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end" font-weight="700">крок 1</text>
+<text x="274.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">SR-засувка</text>
+<text x="274.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-style="italic">S=set, R=reset — але пара S=R=1 заборонена: суперечлива команда ламає комірку</text>
+<circle cx="250.0" cy="194.0" r="7.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.6"/>
+<text x="228.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end" font-weight="700">крок 2</text>
+<text x="274.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">зворотний зв'язок → JK</text>
+<text x="274.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-style="italic">виходи заведено назад на входи через AND: S і R ніколи не разом — заборона зникає</text>
+<circle cx="250.0" cy="268.0" r="10.0" fill="#ffffff" stroke="#c0392b" stroke-width="3.2"/>
+<circle cx="250.0" cy="268.0" r="4.5" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="228.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end" font-weight="700">халепа</text>
+<text x="274.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700">гонитва по колу</text>
+<text x="274.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-style="italic">та сама петля: за J=K=1 прозорий тригер біжить сам за собою, поки такт високий</text>
+<circle cx="250.0" cy="342.0" r="7.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.6"/>
+<text x="228.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end" font-weight="700">лік #1</text>
+<text x="274.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">майстер-слейв</text>
+<text x="274.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-style="italic">дві засувки в протифазі; відкрита завжди одна → за такт рівно одне оновлення</text>
+<circle cx="250.0" cy="416.0" r="7.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.6"/>
+<text x="228.0" y="421.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end" font-weight="700">лік #2</text>
+<text x="274.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">прямий edge-тригер</text>
+<text x="274.0" y="431.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-style="italic">ловить лише коротку мить фронту; майстер-слейв стає необов'язковим (та лишається в старих IC)</text>
+</svg>

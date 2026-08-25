@@ -1,0 +1,194 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-digital",
+  "slug": "fpga",
+  "title": "Програмована логіка",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "fabric",
+      "title": "Тканина кристала",
+      "topics": [
+        {
+          "slug": "programmable-logic",
+          "title": "Програмована логіка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-xilinx.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-fpga-in-the-wild.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "inside-fpga",
+          "title": "Усередині FPGA",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ice40-gowin-origins.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-hobby-fpga-boards.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lut",
+          "title": "LUT",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-lut-math.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lut-ram",
+          "title": "LUT як розподілена пам'ять (Distributed RAM і SRL)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-selectram-srl.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cores-and-clock-network",
+      "title": "Ядра й тактова мережа",
+      "topics": [
+        {
+          "slug": "soft-core",
+          "title": "М'яке ядро",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "soc-fpga",
+          "title": "SoC FPGA: тверде ядро + тканина",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-soc-fpga.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fpga-clock-network",
+          "title": "Тактова мережа FPGA",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-clock-management-block.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "configuration-and-jtag",
+      "title": "Конфігурація і тестовий доступ",
+      "topics": [
+        {
+          "slug": "fpga-configuration",
+          "title": "Конфігурація FPGA: бітстрім, Flash, JTAG",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-fpga-loader.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "config-memory",
+          "title": "Конфігураційна пам'ять програмованої логіки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-config-scrub.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "jtag-boundary-scan",
+          "title": "JTAG і граничне сканування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-jtag-origin.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

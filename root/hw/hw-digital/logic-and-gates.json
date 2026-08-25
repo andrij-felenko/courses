@@ -1,0 +1,368 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-digital",
+  "slug": "logic-and-gates",
+  "title": "Логіка й вентилі",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "gates",
+      "title": "Вентилі",
+      "topics": [
+        {
+          "slug": "basic-gates",
+          "title": "Базові вентилі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-74hc-breadboard.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bitwise-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "nand-nor",
+          "title": "NAND і NOR",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-apollo-nor.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "xor-comparison",
+          "title": "XOR",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-xor-tricks.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "logic-gates-symbols",
+          "title": "Символи логічних вентилів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "transistor-gates",
+      "title": "Вентиль на транзисторах",
+      "topics": [
+        {
+          "slug": "cmos",
+          "title": "CMOS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cmos.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cmos-gate",
+          "title": "CMOS-вентиль",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "transmission-gate",
+          "title": "Передавальний вентиль (CMOS transmission gate)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-ron-derivation.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cmos-transmission-gate",
+          "title": "CMOS-прохідний ключ (transmission gate)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-transmission-gate.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dynamichna-potuzhnist-kmon",
+          "title": "Динамічна потужність КМОН",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "combinational-blocks",
+      "title": "Вузли без пам'яті",
+      "topics": [
+        {
+          "slug": "combinational-circuits",
+          "title": "Комбінаційні схеми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-gate-simulator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "multiplexer",
+          "title": "Мультиплексор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-multiplex-telegraph.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mux-boolean.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mux-lut-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "demultiplexer",
+          "title": "Демультиплексор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-demux-write-strobe.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "encoder",
+          "title": "Шифратор (енкодер)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-encoder-family.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-74148.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gates-to-functions",
+          "title": "Складні функції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-alu-slice.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "glitch-combinational",
+          "title": "Глітчі в комбінаційних схемах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-huffman.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-consensus.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "minimization",
+      "title": "Мінімізація функцій",
+      "topics": [
+        {
+          "slug": "logic-minimization",
+          "title": "Мінімізація логічних функцій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-minimization.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-prime-implicants.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "karnaugh-maps",
+          "title": "Карти Карно",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-quine-mccluskey.md",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "slug": "karnaugh-map",
+          "title": "Карта Карно і мінімізація схем",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-quine-mccluskey.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-prime-implicants.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "quine-mccluskey-algorithm",
+          "title": "Метод Квайна–Мак-Класкі для мінімізації логіки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-petrick-method.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-qm-solver.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,376 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-digital",
+  "slug": "pins-and-lines",
+  "title": "Виводи й лінії",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "general-purpose-port",
+      "title": "Порт загального призначення",
+      "topics": [
+        {
+          "slug": "gpio",
+          "title": "GPIO — вивід загального призначення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-programmable-port.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gpio-expander",
+          "title": "GPIO-розширювач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "output-drivers",
+      "title": "Типи виходу",
+      "topics": [
+        {
+          "slug": "push-pull-output",
+          "title": "Push-pull вихід",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "open-drain-output",
+          "title": "Вихід open-drain: тягне вниз або відпускає",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "hi-z-state",
+          "title": "Стан високого опору (Hi-Z)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-three-state.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "active-low",
+          "title": "Active-low: логіка «0 = увімкнено»",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "shared-line",
+      "title": "Монтажна логіка",
+      "topics": [
+        {
+          "slug": "wired-logic",
+          "title": "Монтажна логіка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-wired-logic.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-and-or-duality.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "wired-and",
+          "title": "Шина wired-AND",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "wired-or",
+          "title": "Монтажне «АБО» і переривання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-open-collector.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "pull-ups",
+      "title": "Підтяжки й вхід",
+      "topics": [
+        {
+          "slug": "floating-pullups",
+          "title": "Підтяжки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-pullup-value.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "active-pullup",
+          "title": "Активна підтяжка і струмове джерело",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ttl-totem-pole.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rc-vs-ramp.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "open-drain-bus-pullup-sizing",
+          "title": "Підтяжка спільної шини: фронти, ємність і вибір Rp",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "contact-debounce",
+          "title": "Брязкіт контактів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-relay-bounce.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-tact-button.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-debounce.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "drive-and-slew",
+      "title": "Сила й крутість фронту",
+      "topics": [
+        {
+          "slug": "drive-strength",
+          "title": "Сила виходу GPIO",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-drive-droop.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pin-drive-limits",
+          "title": "Навантажувальна здатність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-pin-budget.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "edges-rise-time",
+          "title": "Фронти й час наростання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-series-termination.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rise-time.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "slew-rate-control",
+          "title": "Керування крутістю фронту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-line-transceiver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "slew-rate-gpio",
+          "title": "Slew rate виходу: швидкість і шум",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-emc-edges.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-trapezoid-spectrum.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "protection-and-safe-state",
+      "title": "Захист і безпечний стан",
+      "topics": [
+        {
+          "slug": "esd-gpio-protection",
+          "title": "Захист входів GPIO від перенапруги",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-esd-models.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "digital-isolator",
+          "title": "Цифровий ізолятор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "safe-state-hardware",
+          "title": "Апаратне забезпечення безпечного стану",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-failsafe-railway.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

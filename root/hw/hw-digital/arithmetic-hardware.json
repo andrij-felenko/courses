@@ -1,0 +1,252 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-digital",
+  "slug": "arithmetic-hardware",
+  "title": "Арифметика в залізі",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "number-codes",
+      "title": "Числа в бітах",
+      "topics": [
+        {
+          "slug": "binary-arithmetic",
+          "title": "Арифметика в двійковій системі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-binary-logic-gates.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-carry-lookahead.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-binary-alu-simulator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "twos-complement-hardware",
+          "title": "Доповняльний код у залізі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-complement-method.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bcd-encoding",
+          "title": "BCD: двійково-кодоване десяткове",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-bcd-decimal-machines.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bcd-arithmetic.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-double-dabble.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gray-code",
+          "title": "Код Грея",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-gray-baudot.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "adders-and-comparators",
+      "title": "Суматори й компаратори",
+      "topics": [
+        {
+          "slug": "sumator-i-perenos",
+          "title": "Суматор і перенос",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "carry-lookahead-adder",
+          "title": "Суматор із прискореним переносом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-weinberger-smith.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "parallel-prefix-addition",
+          "title": "Паралельне префіксне додавання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-weinberger-smith.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-prefix-tree.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cla-4bit-simulator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "digital-comparator",
+          "title": "Цифровий компаратор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-magnitude-comparator.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-comparator-patterns.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "multipliers",
+      "title": "Апаратне множення",
+      "topics": [
+        {
+          "slug": "booth-recoding-radix4",
+          "title": "Рекодування Бута: класичний алгоритм і Radix-4",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-andrew-booth-arc.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-booth-algebraic-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-booth-radix4-sim.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "booth-hardware-multiplier",
+          "title": "Апаратний помножувач Бута: кодер, мультиплексори і дерево компресорів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-andrew-booth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-booth-reencoding.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-booth-multiplier-sim.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-booth-radix4-sim.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
