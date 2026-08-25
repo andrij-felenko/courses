@@ -1,0 +1,174 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-information",
+  "slug": "information-measure",
+  "title": "Міра інформації",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "source-entropy",
+      "title": "Ентропія джерела",
+      "topics": [
+        {
+          "slug": "entropy",
+          "title": "Ентропія",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "shannon-entropy",
+          "title": "Ентропія Шеннона",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-entropy-name.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-entropy-axioms.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "information-entropy",
+          "title": "Інформаційна ентропія Шеннона",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "joint-and-relative-entropy",
+      "title": "Спільна й відносна непевність",
+      "topics": [
+        {
+          "slug": "conditional-entropy",
+          "title": "Умовна ентропія",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-equivocation.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-chain-rule.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-conditional-entropy.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mutual-information",
+          "title": "Взаємна інформація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-naming.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mi-identities.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-estimate-mutual-information.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kl-divergence",
+          "title": "Розбіжність Кульбака–Лейблера",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "bits-and-values",
+      "title": "Розрядність і місткість",
+      "topics": [
+        {
+          "slug": "binary-logarithm",
+          "title": "Двійковий логарифм",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-binary-logarithm.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-change-of-base.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ilog2.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "address-space",
+          "title": "Адресний простір",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    }
+  ]
+}

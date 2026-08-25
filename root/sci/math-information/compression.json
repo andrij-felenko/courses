@@ -1,0 +1,160 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-information",
+  "slug": "compression",
+  "title": "Стиснення без втрат",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "redundancy",
+      "title": "Надлишок у даних",
+      "topics": [
+        {
+          "slug": "why-compress",
+          "title": "Навіщо стискати",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dct.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lossless-huffman-lz",
+          "title": "Стиснення без втрат",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "source-limit",
+      "title": "Межа стиснення джерела",
+      "topics": [
+        {
+          "slug": "source-coding-theorem",
+          "title": "Теорема Шеннона про кодування джерела",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "kraft-inequality",
+          "title": "Нерівність Крафта",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "uniquely-decodable-codes",
+          "title": "Однозначно декодовні коди",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "rary-codes",
+          "title": "Коди над r-арним алфавітом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "entropy-coding",
+      "title": "Ентропійне кодування",
+      "topics": [
+        {
+          "slug": "prefix-codes",
+          "title": "Префіксні коди та декодованість",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "huffman-coding",
+          "title": "Код Гаффмана",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-huffman-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "shannon-fano",
+          "title": "Код Шеннона–Фано",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "shannon-fano-elias",
+          "title": "Код Шеннона–Фано–Еліаса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "arithmetic-coding",
+          "title": "Арифметичне кодування",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "asymmetric-numeral-systems",
+          "title": "ANS: асиметричні системи числення",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    }
+  ]
+}

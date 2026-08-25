@@ -1,0 +1,252 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-information",
+  "slug": "channel-and-codes",
+  "title": "Канал і завадостійкість",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "channel-models",
+      "title": "Моделі каналу",
+      "topics": [
+        {
+          "slug": "awgn-channel",
+          "title": "Канал AWGN",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-johnson-nyquist.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gaussian-noise.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-awgn-simulation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "binary-symmetric-channel",
+          "title": "Двійковий симетричний канал",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-capacity-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bsc-simulation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "binary-erasure-channel",
+          "title": "Двійковий канал зі стиранням",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-elias-erasure.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-capacity-erasure.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "erasure-channel-and-packet-loss",
+          "title": "Канал зі стиранням: позначена втрата й утрачені пакети",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-elias-erasure.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-erasure-recovery.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "log-likelihood-ratio",
+          "title": "Логарифм відношення правдоподібностей (LLR)",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-likelihood-ratio.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-llr-demapper.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "channel-capacity",
+      "title": "Пропускна здатність",
+      "topics": [
+        {
+          "slug": "bandwidth-capacity",
+          "title": "Смуга і межа Шеннона",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-shannon-capacity.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "shannon-capacity",
+          "title": "Ємність каналу за Шенноном",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-shannon-hartley.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-shannon-limit.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-link-budget-capacity.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "channel-coding-theorem",
+          "title": "Теорема Шеннона про кодування каналу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-approaching-the-limit.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-random-coding.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-simulate-threshold.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "code-bounds",
+      "title": "Межі завадостійких кодів",
+      "topics": [
+        {
+          "slug": "hamming-bounds",
+          "title": "Відстань Геммінга: кулі, межі й ціна надлишковості",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-popcount-distance.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "coding-bounds",
+          "title": "Межі на коди: Сінглтон, Плоткін, Гілберт–Варшамов",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "weight-distribution",
+          "title": "Ваговий розподіл коду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
