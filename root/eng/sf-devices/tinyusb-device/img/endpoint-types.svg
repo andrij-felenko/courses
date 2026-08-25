@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Типи кінцевих точок і навіщо кожен</text>
+<rect x="40.0" y="64.0" width="200.0" height="44.0" rx="7" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.8"/>
+<text x="140.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Control (EP0)</text>
+<text x="260.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">діалог і енумерація; є на кожному пристрої</text>
+<text x="260.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">приклад: запити Setup</text>
+<rect x="40.0" y="122.0" width="200.0" height="44.0" rx="7" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.8"/>
+<text x="140.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Bulk</text>
+<text x="260.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">великий обсяг, без гарантії часу — MSC, CDC-дані</text>
+<text x="260.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">приклад: файли, диск</text>
+<rect x="40.0" y="180.0" width="200.0" height="44.0" rx="7" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.8"/>
+<text x="140.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Interrupt</text>
+<text x="260.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">мало даних, але вчасно й регулярно — HID</text>
+<text x="260.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">приклад: звіти клавіш</text>
+<rect x="40.0" y="238.0" width="200.0" height="44.0" rx="7" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.8"/>
+<text x="140.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">Isochronous</text>
+<text x="260.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">сталий потік без повторів — звук, відео</text>
+<text x="260.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">приклад: аудіо-кадри</text>
+<rect x="40.0" y="304.0" width="680.0" height="36.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/><text x="380.0" y="325.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">Кожна точка тримає буфер у пам'яті чипа — більше класів і точок означає більше витраченої RAM</tspan></text>
+</svg>

@@ -1,0 +1,186 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-devices",
+  "slug": "firmware-flow",
+  "title": "Хід прошивки",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "firmware-skeleton",
+      "title": "Каркас прошивки",
+      "topics": [
+        {
+          "slug": "super-loop",
+          "title": "Super-loop",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-time-sharing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cooperative-loop.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "freertos",
+          "title": "FreeRTOS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-freertos.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-dual-core.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "time-sharing-history",
+          "title": "Розподіл часу: від мейнфреймів до мікроконтролерів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "capstone-task",
+          "title": "Капстоун",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "tasks-and-queues",
+      "title": "Задачі й черги",
+      "topics": [
+        {
+          "slug": "task-states",
+          "title": "Автомат станів задачі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "work-queue",
+          "title": "Черга робіт: відкладене виконання на спільному потоці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "timing",
+      "title": "Час у програмі",
+      "topics": [
+        {
+          "slug": "millis-micros",
+          "title": "Точний час",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-millis-patterns.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "nonblocking-time",
+          "title": "Неблокуючий час",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-coop-scheduler.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "periodic-scheduling",
+          "title": "Періодичні події",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-timer-wheel.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "uptime-clock-sync",
+          "title": "Синхронізація uptime з реальним часом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "ram-layout",
+      "title": "Оперативна пам'ять",
+      "topics": [
+        {
+          "slug": "heap-layout",
+          "title": "Структура динамічної пам'яті на MCU",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,160 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-devices",
+  "slug": "bringup-and-maintenance",
+  "title": "Запуск і супровід",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "board-bringup",
+      "title": "Перший запуск",
+      "topics": [
+        {
+          "slug": "first-bringup",
+          "title": "Перший запуск",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-smoke-test.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "introspection",
+      "title": "Погляд усередину",
+      "topics": [
+        {
+          "slug": "printf-na-prystroi",
+          "title": "printf на пристрої: послідовний монітор і його ціна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "nalahodzhennia-na-khosti",
+          "title": "Налагодження на хості: gdb і санітайзери",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "chytannia-dyzasemblera",
+          "title": "Читання дизасемблера: від рядка C до інструкцій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "crash-analysis",
+      "title": "Розбір аварії",
+      "topics": [
+        {
+          "slug": "hardfault",
+          "title": "Розбір HardFault",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "panic-handler-arch",
+          "title": "Архітектура обробника паніки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "stack-walking",
+          "title": "Розмотування стека: frame pointer і DWARF",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "image-update",
+      "title": "Оновлення образу",
+      "topics": [
+        {
+          "slug": "ota-update",
+          "title": "OTA-оновлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "ota-slots",
+          "title": "OTA-слоти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "ota-rollback",
+          "title": "Відкат OTA-прошивки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "delta-ota",
+          "title": "Дельта-оновлення прошивки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "ota-image-signing",
+          "title": "Підписування OTA-образу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

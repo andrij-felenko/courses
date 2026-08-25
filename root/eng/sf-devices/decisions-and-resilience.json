@@ -1,0 +1,242 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-devices",
+  "slug": "decisions-and-resilience",
+  "title": "Рішення й живучість",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "threshold-and-hysteresis",
+      "title": "Поріг і гістерезис",
+      "topics": [
+        {
+          "slug": "umova-diia-i-chomu-prystrii-klatsaie",
+          "title": "Умова, дія і чому пристрій клацає: поріг із гістерезисом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "n-z-m-i-histerezys-na-podiiakh",
+          "title": "N з M і гістерезис на подіях",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "minimalnyi-chas-stanu-zatrymka-i-antydrebezh",
+          "title": "Мінімальний час стану, затримка й антидребезг рішення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "act-or-plan",
+      "title": "Реакція, план і дозвіл",
+      "topics": [
+        {
+          "slug": "reaktsiia-chy-plan",
+          "title": "Реакція чи план: два шари рішення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "blokuvannia-i-umovy-dopusku-interlock",
+          "title": "Блокування й умови допуску (interlock)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "backlash-compensation",
+          "title": "Компенсація люфту в прошивці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "supervision",
+      "title": "Нагляд і самоперевірка",
+      "topics": [
+        {
+          "slug": "watchdog",
+          "title": "Watchdog",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-esp32-watchdogs.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-watchdog-feed.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "health-monitor",
+          "title": "Монітор здоров'я пристрою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "samotest-pry-starti-post-bist",
+          "title": "Самотест при старті (POST/BIST)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "failure-response",
+      "title": "Коли зламалося",
+      "topics": [
+        {
+          "slug": "safe-mode",
+          "title": "Безпечний стан",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-fail-safe.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "graceful-degradation",
+          "title": "Деградація з гідністю",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-health-aggregator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "limp-home-mode",
+          "title": "Кульгавий режим: урізана потужність до сервісу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "redundancy",
+          "title": "Надлишковість",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-tmr.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "common-cause-failure",
+          "title": "Відмова від спільної причини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "restart",
+      "title": "Перезапуск",
+      "topics": [
+        {
+          "slug": "reboot-strategy",
+          "title": "Перезавантаження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-restart-recovery.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "reboot-counter",
+          "title": "Лічильник перезавантажень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-robust-counter.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Де в системі живе TinyUSB</text>
+<rect x="40.0" y="56.0" width="640.0" height="56.0" rx="9" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="360.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Твій код: дескриптори + tud_*-колбеки</text>
+<text x="360.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">пишеш ти — однаково для будь-якого підтриманого МК</text>
+<line x1="360.0" y1="112.0" x2="360.0" y2="124.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 3"/>
+<rect x="40.0" y="126.0" width="640.0" height="56.0" rx="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="360.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">TinyUSB: енумерація, класи CDC / HID / MSC, черги</text>
+<text x="360.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">портований стек — той самий код на ESP32, RP2040, STM32, nRF</text>
+<line x1="360.0" y1="182.0" x2="360.0" y2="194.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 3"/>
+<rect x="40.0" y="196.0" width="640.0" height="56.0" rx="9" fill="#f4f6f8" stroke="#6b7280" stroke-width="2.0"/>
+<text x="360.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">Портовий шар (dcd): драйвер USB-блоку чипа</text>
+<text x="360.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">тонка прокладка під конкретне залізо — пишуть автори порту</text>
+<line x1="360.0" y1="252.0" x2="360.0" y2="264.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 3"/>
+<rect x="40.0" y="266.0" width="640.0" height="56.0" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="360.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Апаратний USB-блок МК + D+ / D−</text>
+<text x="360.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">регістри, FIFO, переривання — у кожного чипа свої</text>
+</svg>

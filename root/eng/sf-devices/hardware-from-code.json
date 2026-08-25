@@ -1,0 +1,272 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-devices",
+  "slug": "hardware-from-code",
+  "title": "Залізо з коду",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "pins-and-registers",
+      "title": "Виводи й регістри",
+      "topics": [
+        {
+          "slug": "gpio-registers",
+          "title": "GPIO-регістри",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-bitbang.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pin-multiplexing",
+          "title": "Мультиплексування виводів МК",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "konfihuratsiia-piniv-iak-iedyne-dzherelo-pravdy",
+          "title": "Конфігурація пінів як єдине джерело правди",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "module-model",
+          "title": "Модель модуля",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-key-matrix.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "pin-signals",
+      "title": "Сигнал на ніжці",
+      "topics": [
+        {
+          "slug": "switch-debounce",
+          "title": "Усунення брязкоту контактів (debounce)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "bitbang-protocol",
+          "title": "Bit-bang протоколи на GPIO",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "driver-layer",
+      "title": "Шар драйвера",
+      "topics": [
+        {
+          "slug": "driver-pattern",
+          "title": "Шаблон драйвера периферії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "cmsis",
+          "title": "CMSIS: стандартний інтерфейс ПЗ для Cortex-M",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cmsis.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-register-struct.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cmsis-core.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "virtual-dispatch-cpp",
+          "title": "Таблиця віртуальних методів C++",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "chip-driver",
+      "title": "Драйвер чужого чипа",
+      "topics": [
+        {
+          "slug": "draiver-chypa",
+          "title": "Драйвер чипа: від регістрової карти до значення у SI",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "riven-tranzaktsii",
+          "title": "Рівень транзакцій: відділити чип від шини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "poslidovnist-initsializatsii-iakoi-nikhto",
+          "title": "Послідовність ініціалізації, якої ніхто не пояснює",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "opytuvannia-pereryvannia-chy-dma-u-draiveri",
+          "title": "Опитування, переривання чи DMA у драйвері",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "taimauty-pomylky-i-povtorna-initsializatsiia-chypa",
+          "title": "Таймаути, помилки й повторна ініціалізація чипа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "usb-stack",
+      "title": "USB на чипі",
+      "topics": [
+        {
+          "slug": "esp32-usb",
+          "title": "USB в ESP32",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "tinyusb-device",
+          "title": "TinyUSB: пристрій",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "network-stack",
+      "title": "Мережа на чипі",
+      "topics": [
+        {
+          "slug": "lwip-internals",
+          "title": "Архітектура lwIP",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "web-server-mcu",
+          "title": "Веб-сервер на МК",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "display-gui",
+      "title": "Екран і графіка",
+      "topics": [
+        {
+          "slug": "hrafichnyi-interfeis",
+          "title": "Графічний інтерфейс на МК: LVGL і перемальовування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
