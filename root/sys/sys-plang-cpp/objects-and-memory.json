@@ -1,0 +1,440 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-plang-cpp",
+  "slug": "objects-and-memory",
+  "title": "Об'єкти й пам'ять",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "storage-and-lifetime",
+      "title": "Сховище й час життя",
+      "topics": [
+        {
+          "slug": "object-lifetime",
+          "title": "Час життя об'єкта",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-manual-lifetime.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-temporary-extension.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "new-delete-allocation",
+          "title": "new, delete й шляхи виділення пам'яті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-array-cookies-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-tracking-allocator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-allocation-functions.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "alignment-placement-new",
+          "title": "Вирівнювання й розміщувальний new",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-arena-allocator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-alignment-utilities.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "custom-allocators",
+          "title": "Власні алокатори й пам'ять під контролем",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-allocator-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bump-pool-allocators.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-allocator-traits.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "std-launder",
+          "title": "std::launder і повторне використання сховища",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-p0137-p0532.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-inplace-storage.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-launder-contract.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "ownership",
+      "title": "Володіння ресурсом",
+      "topics": [
+        {
+          "slug": "ownership-semantics",
+          "title": "Володіння в сигнатурі: що означає тип параметра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ownership-conventions.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ownership-refactor.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-parameter-passing.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "unique-ptr",
+          "title": "unique_ptr: одноосібне володіння",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-auto-ptr.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-c-handle-owner.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "shared-weak-ptr",
+          "title": "shared_ptr і weak_ptr: спільне володіння й розрив циклів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-shared-ptr-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-weak-cache.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-shared-weak.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "scope-guard",
+          "title": "Охоронець області: відкат через деструктор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-scope-guard.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-transactional-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-scope-guards.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "dangling-references",
+          "title": "Висячі посилання й звернення після звільнення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-asan-shadow-memory.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-lifetime-attributes.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "class-hierarchies",
+      "title": "Класи й ієрархії",
+      "topics": [
+        {
+          "slug": "virtual-destructor",
+          "title": "Віртуальний деструктор і поліморфне видалення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-virtual-destructor.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-polymorphic-destruction.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-destruction-dispatch.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "multiple-and-virtual-inheritance",
+          "title": "Множинне й віртуальне спадкування: розкладка підобʼєктів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-multiple-inheritance.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-layout-inspector.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-abi-layout-rules.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "rtti-and-dynamic-cast",
+          "title": "RTTI: typeid і dynamic_cast",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rtti-proposal.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-llvm-style-rtti.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-typeid-dynamic-cast.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "empty-base-optimization",
+          "title": "Оптимізація порожньої бази й [[no_unique_address]]",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ebo-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-compressed-pair.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "crtp",
+          "title": "CRTP: статичний поліморфізм",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-crtp-origin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-crtp-mixin.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-crtp-patterns.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "deducing-this",
+          "title": "Явний параметр об'єкта (deducing this)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-deducing-this.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-self-deduced-mixin.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

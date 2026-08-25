@@ -1,0 +1,240 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-plang-cpp",
+  "slug": "errors-and-guarantees",
+  "title": "Помилки й гарантії",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "exceptions",
+      "title": "Винятки",
+      "topics": [
+        {
+          "slug": "exceptions-mechanism",
+          "title": "Винятки: кидання, розкрутка стека, перехоплення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-exceptions-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-exception-boundary.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-unwind-abi.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "std-exception-hierarchy",
+          "title": "Ієрархія std::exception і власні типи винятків",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-exception-hierarchy.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-exception-tree.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-exception-classes.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "exception-safety-guarantees",
+          "title": "Гарантії безпеки винятків: базова, сильна, nothrow",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cargill-abrahams.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-throwing-test.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-stdlib-guarantees.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "noexcept",
+          "title": "noexcept: обіцянка й наслідки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-exception-specifications.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-noexcept-vector-growth.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "error-values",
+      "title": "Помилка як значення",
+      "topics": [
+        {
+          "slug": "expected-error-handling",
+          "title": "expected: помилка як значення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-error-handling-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-expected-pipeline.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-expected-monadic-ops.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "contracts",
+          "title": "Контракти в C++: преумови, постумови та інваріанти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-contracts-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bounded-buffer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-contracts.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "coding-rules",
+      "title": "Узгоджені правила коду",
+      "topics": [
+        {
+          "slug": "core-guidelines",
+          "title": "Core Guidelines: узгоджені правила стилю й безпеки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-guidelines-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-linter-pipeline.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "gsl-support-library",
+          "title": "GSL: not_null, owner і решта підпірок Core Guidelines",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gsl-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gsl-refactoring.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-gsl-reference.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

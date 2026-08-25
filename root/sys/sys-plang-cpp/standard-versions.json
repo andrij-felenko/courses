@@ -1,0 +1,222 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-plang-cpp",
+  "slug": "standard-versions",
+  "title": "Версії стандарту",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "language-releases",
+      "title": "Випуски мови",
+      "topics": [
+        {
+          "slug": "cpp11-cpp14",
+          "title": "C++11 і C++14: перелом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cxx11-cxx14-revolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-modernizing-cpp98-codebase.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cxx11-cxx14-reference.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cpp17-features",
+          "title": "Що приніс C++17",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cpp17-standardization.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cpp17-features.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cpp20-features",
+          "title": "Що приніс C++20",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cpp20-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cpp20-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cpp20-features-matrix.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cpp23-features",
+          "title": "Що приніс C++23",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cpp23-covid-cycle.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cpp23-reference.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cpp26-features",
+          "title": "Що готує C++26: рефлексія, контракти, senders/receivers",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cpp26-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-reflection-and-senders.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cpp26-core-library.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "standard-in-practice",
+      "title": "Стандарт у роботі",
+      "topics": [
+        {
+          "slug": "standardization-process",
+          "title": "Як робиться стандарт C++: комітет, папери, цикл",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cxx0x-to-train-model.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-wg21-reference.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "compiler-support",
+          "title": "Підтримка стандартів компіляторами й прапорці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-feature-detection.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-flags-reference.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "migrating-standards",
+          "title": "Перехід проєкту на новіший стандарт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-breaking-changes-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-migration-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-migration-tooling.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

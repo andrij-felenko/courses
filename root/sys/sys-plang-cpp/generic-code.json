@@ -1,0 +1,386 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-plang-cpp",
+  "slug": "generic-code",
+  "title": "Узагальнений код",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "templates",
+      "title": "Шаблони",
+      "topics": [
+        {
+          "slug": "templates-basics",
+          "title": "Шаблони: параметризація типом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-templates-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-generic-ring-buffer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-templates-syntax.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "template-argument-deduction",
+          "title": "Виведення аргументів шаблону",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ctad-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-deduction-guide.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-deduction-rules.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "specialization-overload",
+          "title": "Спеціалізація й перевантаження шаблонів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-specialization-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-customization-dispatch.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-specialization-rules.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "variadic-and-folds",
+          "title": "Шаблони змінної арності й вирази згортки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-variadic-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tuple-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fold-operators.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "instantiation-cost",
+          "title": "Ціна інстанціювання: час компіляції й розмір бінарника",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-template-bloat.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-instantiation-profiling.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-compiler-diagnostics.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "expression-templates",
+          "title": "Шаблони виразів: коли вираз стає деревом типів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-expression-templates.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-expression-vector.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-expression-interface.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "constraints",
+      "title": "Обмеження й статичний вибір",
+      "topics": [
+        {
+          "slug": "sfinae-and-enable-if",
+          "title": "SFINAE й enable_if: відбір перевантажень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sfinae-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-detection-idiom.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-enable-if.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "concepts-constraints",
+          "title": "Концепти й обмеження шаблонів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-concepts-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-concepts.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-concepts-reference.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "constexpr-if",
+          "title": "if constexpr: гілка, якої не існує",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-constexpr-if-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tuple-traversal-dispatch.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-constexpr-if-syntax.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "compile-time",
+      "title": "Обчислення до запуску",
+      "topics": [
+        {
+          "slug": "constexpr-and-consteval",
+          "title": "constexpr і consteval: обчислення під час компіляції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-constexpr-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-compile-time-table.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-constexpr-by-version.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "constinit",
+          "title": "constinit: ініціалізація до запуску без обіцянки незмінності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-constinit-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-safe-registry.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-constinit-rules.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "type-traits",
+          "title": "Риси типів (type traits)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-type-traits-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-trait-impl.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-type-traits-ref.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "static-reflection",
+          "title": "Статична рефлексія C++26: оператор ^^, splice і consteval-метафункції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-json-serializer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-meta-functions.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,492 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-plang-cpp",
+  "slug": "language-core",
+  "title": "Основи мови",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "declarations-and-types",
+      "title": "Оголошення й типи",
+      "topics": [
+        {
+          "slug": "const-correctness",
+          "title": "Коректність за const",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-const-origin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-logical-const-cache.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-const-toolbox.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "auto-type-deduction",
+          "title": "auto й виведення типу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-auto-decltype.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-deduction-lab.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "initialization-forms",
+          "title": "Форми ініціалізації та найприкріший розбір",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-uniform-init.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-which-ctor.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "decltype",
+          "title": "decltype: тип виразу разом із його категорією",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-expression-detection.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-transparent-wrapper.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "structured-bindings",
+          "title": "Структуровані зв'язування: auto [a, b]",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-structured-bindings.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tuple-like.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cast-operators",
+          "title": "Оператори приведення: static_cast, reinterpret_cast, const_cast",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-named-casts.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-type-punning.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-casts-reference.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "values-and-moves",
+      "title": "Значення й переміщення",
+      "topics": [
+        {
+          "slug": "value-categories",
+          "title": "Категорії значень: lvalue, prvalue, xvalue",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-value-categories.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-category-probe.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "references-binding",
+          "title": "Посилання і правила зв'язування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-references-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-binding-lab.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "move-semantics",
+          "title": "Семантика переміщення і rvalue-посилання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-move-proposal.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-buffer-move.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "rule-of-five-zero",
+          "title": "Правило п'яти й правило нуля",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-three-five-zero.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-copy-and-swap.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-special-members.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "copy-elision",
+          "title": "Усунення копій і гарантований RVO",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-guaranteed-elision.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-copy-probe.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "perfect-forwarding",
+          "title": "Ідеальне передавання й універсальні посилання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-forwarding-problem.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-forwarding-factory.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "name-lookup",
+      "title": "Пошук імені",
+      "topics": [
+        {
+          "slug": "namespaces-and-adl",
+          "title": "Простори імен і пошук, залежний від аргументів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-koenig-lookup.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-adl-lab.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "using-and-name-hiding",
+          "title": "Затуляння імен і using-оголошення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-name-lookup-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-overload-set-builder.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-using-syntax-reference.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "two-phase-name-lookup",
+          "title": "Двофазний пошук імен у шаблонах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-two-phase-lookup.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lookup-diagnostics.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-two-phase-rules.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "overload-selection",
+      "title": "Вибір перевантаження",
+      "topics": [
+        {
+          "slug": "overload-resolution",
+          "title": "Розв'язання перевантажень: як обирається функція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-overloading-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-overload-lab.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ranking-rules.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "three-way-comparison",
+          "title": "Тричленне порівняння (operator<=>) і переписані кандидати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-three-way-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-comparisons.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-comparison-types.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "swap-operation",
+          "title": "Обмін значеннями: swap, ADL-пошук і зобов'язання не кидати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-swap-idiom.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-swap-facilities.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "customization-points",
+          "title": "Точки налаштування й об'єкти-CPO",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-customization-evolution.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cpo-implementations.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

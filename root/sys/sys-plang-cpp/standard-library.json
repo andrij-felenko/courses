@@ -1,0 +1,566 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-plang-cpp",
+  "slug": "standard-library",
+  "title": "Стандартна бібліотека",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "containers-and-iteration",
+      "title": "Контейнери й обхід",
+      "topics": [
+        {
+          "slug": "stl-containers-choice",
+          "title": "Контейнери STL: вибір під задачу і ціна операцій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-stl-design.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-container-benchmarks.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-invalidation-rules.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "iterators-model",
+          "title": "Ітератори: категорії й модель обходу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-iterator-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-range-iterator.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-iterator-traits.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "range-based-for",
+          "title": "Цикл for за діапазоном і в що він розгортається",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-range-for-papers.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sentinel-range.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "stl-algorithms",
+          "title": "Алгоритми STL замість ручних циклів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-stl-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-iterator-algo.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-algorithms-toolbox.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ranges-pipelines",
+          "title": "Ranges: конвеєри перетворень і ліниві види",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ranges-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-range-adaptor.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-range-adaptors.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "iterator-invalidation",
+          "title": "Інвалідація ітераторів: коли посилання на елемент стає недійсним",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-iterator-invalidation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-invalidation-detector.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-invalidation-matrix.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "vocabulary-types",
+      "title": "Словникові типи",
+      "topics": [
+        {
+          "slug": "string-and-string-view",
+          "title": "string і string_view: володіти чи дивитися",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-string-view.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-parser.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-string-view-ops.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "span-contiguous",
+          "title": "span: невласницький вид на суцільні дані",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-span-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-zero-copy-buffer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-span-interface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "optional",
+          "title": "optional: значення, якого може не бути",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-optional-origin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-optional-pipeline.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-optional-ops.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "variant-and-visit",
+          "title": "variant і visit: одне з кількох",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-variant-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ast-visitor.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-variant-interface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "tuple-and-pair",
+          "title": "tuple і pair: кортеж значень різних типів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tuple-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tuple-utilities.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tuple-and-pair.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "callables",
+      "title": "Функція як значення",
+      "topics": [
+        {
+          "slug": "lambdas-and-captures",
+          "title": "Лямбди й захоплення: що живе скільки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lambda-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-callback-registry.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-capture-forms.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "std-function-type-erasure",
+          "title": "std::function і стирання типу: ціна колбека",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-type-erasure-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-type-erasure.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-std-function-toolbox.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "coroutines",
+          "title": "Корутини: призупинення функції й час життя кадру",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-coroutines-in-cpp.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-generator.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-promise-and-awaiter.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "std-generator",
+          "title": "std::generator: лінива послідовність на корутині",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-coroutines-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lazy-pipeline.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-generator-ref.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "library-subsystems",
+      "title": "Готові підсистеми",
+      "topics": [
+        {
+          "slug": "chrono",
+          "title": "chrono: годинники, точки часу й тривалості",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-chrono-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-high-res-timer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-chrono-type-system.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "std-filesystem",
+          "title": "filesystem: шляхи й дії з файлами переносно",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-boost-filesystem.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-file-analyzer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-path-and-ops.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "format-and-print",
+          "title": "format і print: типобезпечне форматування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-format-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-formatter.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-format-specifiers.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "std-random",
+          "title": "random: рушії, розподіли й відтворюваність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pcg-mersenne.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-distributions.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-random-benchmarks.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-random-toolbox.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,392 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-plang-cpp",
+  "slug": "concurrency",
+  "title": "Паралельність",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "threads",
+      "title": "Потоки й синхронізація",
+      "topics": [
+        {
+          "slug": "std-thread-jthread",
+          "title": "thread і jthread: запуск, приєднання, скасування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-thread-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-jthread-pipeline.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-thread-jthread.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mutex-and-raii-locks",
+          "title": "М'ютекс і RAII-замки: lock_guard, unique_lock, scoped_lock",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mutex-origins.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bank-transfer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-locks-reference.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "condition-variable",
+          "title": "Умовна змінна: чекати подію, а не крутитися",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cv-origin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bounded-queue.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cv-reference.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "shared-mutex",
+          "title": "shared_mutex: багато читачів, один письменник",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-shared-mutex.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-shared-cache.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-shared-mutex.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "thread-local",
+          "title": "thread_local: стан, приватний для потоку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tls-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-per-thread-arena.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tls-models.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "call-once-lazy-init",
+          "title": "call_once і once_flag: одноразова ініціалізація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-once-flag.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lazy-registry.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-call-once.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "latch-barrier-semaphore",
+          "title": "latch, barrier і counting_semaphore",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sync-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-parallel-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sync-primitives.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "async-results",
+      "title": "Асинхронний результат",
+      "topics": [
+        {
+          "slug": "future-promise",
+          "title": "future й promise: результат з іншого потоку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-future-promise.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-future.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-future-promise.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "async-and-packaged-task",
+          "title": "async і packaged_task: запуск із результатом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-async-task-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-task-executor.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-async-packaged-task.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "stop-token",
+          "title": "stop_token: кооперативне скасування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-stop-token.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cancellation-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-stop-token.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "parallel-algorithms",
+          "title": "Політики виконання й паралельні алгоритми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-parallel-algorithms.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-parallel-filter-reduce.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-execution-policies.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "p2300-senders-receivers",
+          "title": "Senders і Receivers: асинхронна модель P2300",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-p2300-senders-receivers.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-sender-receiver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-p2300-senders-receivers.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "memory-order",
+      "title": "Порядок пам'яті",
+      "topics": [
+        {
+          "slug": "std-atomic",
+          "title": "std::atomic і порядок пам'яті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cpp11-memory-model.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-happens-before.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-spsc-ring-buffer.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

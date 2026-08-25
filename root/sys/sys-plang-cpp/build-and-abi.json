@@ -1,0 +1,236 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-plang-cpp",
+  "slug": "build-and-abi",
+  "title": "Збірка й двійковий інтерфейс",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "linkage-and-symbols",
+      "title": "Зв'язування й символи",
+      "topics": [
+        {
+          "slug": "odr-and-linkage",
+          "title": "Правило одного визначення й зв'язування імен",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-odr-break.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-linkage-table.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "name-mangling",
+          "title": "Спотворення імен: як символ несе сигнатуру",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mangling-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-symbol-demangler.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-demangle.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "abi-stability-cpp",
+          "title": "Стабільність ABI у C++ і що її ламає",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-abi-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-abi-break-detect.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-abi-inspection.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "extern-c-interop",
+          "title": "extern \"C\" і сумісність із C-інтерфейсами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-linkage-specification.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-c-wrapper.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "translation-units",
+      "title": "Одиниці трансляції",
+      "topics": [
+        {
+          "slug": "header-hygiene",
+          "title": "Гігієна заголовків і час перезбірки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-include-model.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-iwyu-pch-setup.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-build-profiling.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "pimpl",
+          "title": "PIMPL: сховати реалізацію за вказівником",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cheshire-cat.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fast-pimpl.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cpp-modules",
+          "title": "Модулі C++20: інтерфейс замість заголовка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-modules-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cmake-modular-library.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-module-declarations.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "freestanding",
+      "title": "Мова без операційної системи",
+      "topics": [
+        {
+          "slug": "chomu-c-na-mikrokontroleri",
+          "title": "Чому C++ на мікроконтролері",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "shcho-z-c-ne-tiahnut-u-proshyvku",
+          "title": "Що з C++ не тягнуть у прошивку: винятки, RTTI, купа, віртуальні виклики",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "std-typy-bez-kupy",
+          "title": "std-типи без купи: array, span, string_view, optional",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
