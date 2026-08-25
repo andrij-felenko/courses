@@ -1,0 +1,182 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-probability",
+  "slug": "measurement-and-error",
+  "title": "Вимір і похибка",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "sample-estimates",
+      "title": "Оцінки за вибіркою",
+      "topics": [
+        {
+          "slug": "averaging",
+          "title": "Усереднення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "weighted-average",
+          "title": "Зважене середнє",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "sample-variance",
+          "title": "Вибіркова дисперсія і поправка Бесселя",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "exponential-smoothing",
+          "title": "Експоненційне згладжування (EMA)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "order-and-robustness",
+      "title": "Порядок і стійкість",
+      "topics": [
+        {
+          "slug": "order-statistics",
+          "title": "Порядкові статистики",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "percentiles-quantiles",
+          "title": "Перцентилі й хвости",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-percentiles.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-estimation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-streaming-quantile.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "robust-estimators",
+          "title": "Робастні оцінки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "error-of-result",
+      "title": "Похибка результату",
+      "topics": [
+        {
+          "slug": "accuracy",
+          "title": "Точність і похибка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "error-propagation",
+          "title": "Додавання похибок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "error-budget",
+          "title": "Бюджет похибок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "monte-carlo-propagation",
+          "title": "Метод Монте-Карло для поширення похибок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "circular-error-probable",
+          "title": "Кругова ймовірна похибка: CEP, CE90 і перехід від еліпса до кола",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "system-reliability",
+      "title": "Надійність систем",
+      "topics": [
+        {
+          "slug": "system-reliability-math",
+          "title": "Математика надійності систем",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    }
+  ]
+}

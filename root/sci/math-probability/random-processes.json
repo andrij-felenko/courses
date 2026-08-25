@@ -1,0 +1,162 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-probability",
+  "slug": "random-processes",
+  "title": "Випадковість у часі",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "markov-chains",
+      "title": "Ланцюги Маркова",
+      "topics": [
+        {
+          "slug": "markov-chain",
+          "title": "Ланцюги Маркова",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-markov.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-stationary.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pagerank.md",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "slug": "perron-frobenius-theorem",
+          "title": "Теорема Перрона — Фробеніуса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-perron-frobenius.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dominant-eigenvector-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pagerank-power-iteration.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hidden-markov-model",
+          "title": "Прихована марковська модель",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "walks-and-trajectories",
+      "title": "Блукання й траєкторії",
+      "topics": [
+        {
+          "slug": "random-walk",
+          "title": "Випадкове блукання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "martingale",
+          "title": "Мартингал",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "branching-process",
+          "title": "Процес розгалуження (Гальтона–Ватсона)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "event-streams-and-queues",
+      "title": "Потоки подій і черги",
+      "topics": [
+        {
+          "slug": "poisson-process",
+          "title": "Пуассонівський процес",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "littles-law",
+          "title": "Закон Літтла",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-littles-law.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sample-path-proof.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-queue-simulator.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,156 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-probability",
+  "slug": "limit-laws",
+  "title": "Граничні закони й нерівності",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "convergence-to-mean",
+      "title": "Збіжність до середнього",
+      "topics": [
+        {
+          "slug": "law-of-large-numbers",
+          "title": "Закон великих чисел",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "central-limit",
+          "title": "Центральна гранична теорема",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "characteristic-functions",
+          "title": "Характеристичні функції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "tail-bounds",
+      "title": "Оцінки зверху",
+      "topics": [
+        {
+          "slug": "chebyshev-inequality",
+          "title": "Нерівність Чебишова",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "chernoff-bound",
+          "title": "Нерівність Чернова",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-chernoff.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-chernoff-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-chernoff-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-chernoff-bounds.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "bonferroni-inequalities",
+          "title": "Нерівності Бонферроні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bonferroni-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bonferroni-proof.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bonferroni-solver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bonferroni-bounds.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "collisions-and-coverage",
+      "title": "Збіги й покриття",
+      "topics": [
+        {
+          "slug": "birthday-paradox",
+          "title": "Парадокс днів народжень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "coupon-collector",
+          "title": "Задача про збирача купонів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
