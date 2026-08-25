@@ -1,0 +1,208 @@
+{
+  "schema": 7,
+  "kind": "cat",
+  "book": "cat-hw-actuators",
+  "slug": "motion",
+  "title": "Рух",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "rotating-motors",
+      "title": "Обертові мотори",
+      "topics": [
+        {
+          "slug": "fan-5v",
+          "title": "5V безколекторні вентилятори",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-4wire-pwm.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fan-control.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fan-control.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "n20-motor",
+          "title": "N20 мікромотор з редуктором",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-n20-name.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gear-torque.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-drive-n20.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bldc-motor-module",
+          "title": "Безколекторний мотор (модуль)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-esc-control.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "28byj-48-stepper",
+          "title": "28BYJ-48 — кроковий мотор (5V)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-arduino.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "servos",
+      "title": "Серва й кріплення",
+      "topics": [
+        {
+          "slug": "sg90-servo",
+          "title": "Tower Pro SG90 — мікросерво 9g",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-servo-standard.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-servo.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hd-1370a-servo",
+          "title": "Power HD HD-1370A — серво",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-drive.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "powerhd-family",
+          "title": "Родина Power HD (HuiDa RC) — серва й мотори",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-powerhd-brand.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pick-servo.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "servo-horns",
+          "title": "Серво-роги (запасні)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "linear-stroke",
+      "title": "Лінійний хід",
+      "topics": [
+        {
+          "slug": "jf-0530b-solenoid",
+          "title": "Соленоїд JF-0530B (12 В, push-pull)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-freewheeling-diode.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-drive-solenoid.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

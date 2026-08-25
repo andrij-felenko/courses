@@ -1,0 +1,340 @@
+{
+  "schema": 7,
+  "kind": "cat",
+  "book": "cat-hw-actuators",
+  "slug": "signal-and-display",
+  "title": "Сигнал і показ",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "leds",
+      "title": "Світлодіоди",
+      "topics": [
+        {
+          "slug": "led-5mm-kit",
+          "title": "Набір 5мм світлодіодів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-first-visible-led.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-led-resistor.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ky-016-rgb",
+          "title": "KY-016 — RGB-світлодіод",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-color-mixing.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rgb-control.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ky-009-rgb-smd",
+          "title": "KY-009 — RGB SMD-модуль",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-ky009-color.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ky-034-flash",
+          "title": "KY-034 — 7-кольоровий миготливий LED",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-self-flashing-led.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ky034-blink.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ky-027-magic-cup",
+          "title": "KY-027 — Magic Light Cup",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mercury-to-ball.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-magic-cup.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "sound",
+      "title": "Звук",
+      "topics": [
+        {
+          "slug": "ky-006-buzzer",
+          "title": "KY-006 — пасивний зумер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-ky006-buzzer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ky-012-buzzer",
+          "title": "KY-012 — активний зумер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-blink-beep.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "buzzer-standalone",
+          "title": "Зумер (окремий)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-piezo-buzzer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-buzzer-drive.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "laser-beam",
+      "title": "Лазерний промінь",
+      "topics": [
+        {
+          "slug": "ky-008-laser",
+          "title": "KY-008 — лазерний модуль",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-laser-control.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "segments-and-matrix",
+      "title": "Сегменти й матриця",
+      "topics": [
+        {
+          "slug": "seg-5641as",
+          "title": "Семисегментний індикатор 5641AS (4 розряди)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-scan-driver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "seg-5161as",
+          "title": "Семисегментний індикатор 5161AS (1 розряд)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-drive.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "led-matrix-8x8",
+          "title": "Світлодіодна матриця 8×8 (1588BS)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-scroll-text.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-driver.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "screens",
+      "title": "Екрани",
+      "topics": [
+        {
+          "slug": "lcd-1602",
+          "title": "Символьний дисплей LCD 1602A",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-hd44780.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-thermometer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-liquidcrystal.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "i2c-lcd-adapter",
+          "title": "I2C-адаптер для LCD 1602 (PCF8574)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-lcd-i2c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "oled-ssd1306",
+          "title": "OLED-дисплей 0.96″ SSD1306 (I2C, 128×64)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ssd1306.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ssd1306-hud.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ssd1306.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
