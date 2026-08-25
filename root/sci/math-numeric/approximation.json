@@ -1,0 +1,214 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-numeric",
+  "slug": "approximation",
+  "title": "Наближення функцій і сітки",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "interpolation",
+      "title": "Інтерполяція",
+      "topics": [
+        {
+          "slug": "lagrange-interpolation",
+          "title": "Інтерполяція Лагранжа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lagrange.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-barycentric-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lagrange-algorithm.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-interpolator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "chebyshev-polynomials",
+          "title": "Поліноми Чебишова",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-chebyshev.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-chebyshev-minimax.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-clenshaw-algorithm.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "vandermonde-determinant",
+          "title": "Визначник Вандермонда",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-vandermonde-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-vandermonde-proof.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-vandermonde-solver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cubic-splines",
+          "title": "Кубічні сплайни",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "bilinear-interpolation",
+          "title": "Білінійна інтерполяція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "quadrature",
+      "title": "Похідні та квадратури",
+      "topics": [
+        {
+          "slug": "numerical-differentiation",
+          "title": "Чисельне диференціювання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "numerical-integration",
+          "title": "Чисельне інтегрування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "monte-carlo-method",
+          "title": "Метод Монте-Карло",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "grid-schemes",
+      "title": "Сіткові схеми",
+      "topics": [
+        {
+          "slug": "finite-difference-method",
+          "title": "Метод скінченних різниць",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "von-neumann-stability",
+          "title": "Аналіз стійкості за фон Нейманом",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "time-stepping",
+      "title": "Крок у часі",
+      "topics": [
+        {
+          "slug": "numerical-ode",
+          "title": "Числові методи розв'язку ОДУ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "symplectic-integrators",
+          "title": "Симплектичні інтегратори (Верле, leapfrog)",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

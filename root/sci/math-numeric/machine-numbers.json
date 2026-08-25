@@ -1,0 +1,120 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-numeric",
+  "slug": "machine-numbers",
+  "title": "Машинне число й похибка",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "floating-point",
+      "title": "Плаваюча кома",
+      "topics": [
+        {
+          "slug": "ieee754",
+          "title": "IEEE 754",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "float-formats",
+          "title": "Формати чисел із рухомою комою (IEEE 754)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "float-arithmetic-error",
+          "title": "Модель похибки операцій з плаваючою комою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "kahan-summation",
+          "title": "Компенсоване підсумовування (Кехен)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "conditioning",
+      "title": "Зумовленість і стійкість",
+      "topics": [
+        {
+          "slug": "condition-number",
+          "title": "Число обумовленості",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-condition-number.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-condition-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-matrix-conditioning.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "numeric-stability",
+          "title": "Чисельна стійкість алгоритмів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "inverse-problem",
+          "title": "Обернена задача вимірювання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "shadowing-lemma",
+          "title": "Лема про тінь: чи справжня порахована траєкторія",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
