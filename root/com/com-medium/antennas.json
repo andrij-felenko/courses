@@ -1,0 +1,536 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-medium",
+  "slug": "antennas",
+  "title": "Антени",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "radiation",
+      "title": "Випромінювання",
+      "topics": [
+        {
+          "slug": "antenna",
+          "title": "Антена",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-marconi.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "resonance-dipole",
+          "title": "Резонанс і диполь",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "radiation-resistance",
+          "title": "Опір випромінювання антени",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-radiation-resistance.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-antenna-loss.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dipole-radiation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rad-resistance-calc.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "radiation-zones",
+          "title": "Ближня і далека зони випромінювання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hertz-zones.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-emc-near-field-probes.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-near-far-fields.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gain-and-pattern",
+      "title": "Підсилення й діаграма",
+      "topics": [
+        {
+          "slug": "antenna-gain",
+          "title": "Підсилення антени",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "directivity",
+          "title": "Спрямованість антени",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-kraus.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-directivity.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "radiation-pattern-3d",
+          "title": "Тривимірна діаграма спрямованості",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-3d-directivity.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pattern-integrator.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-vtu-export.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "effective-aperture",
+          "title": "Ефективна апертура антени",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-aperture.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-aperture-gain.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-aperture-calculator.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "antenna-types",
+      "title": "Типи антен",
+      "topics": [
+        {
+          "slug": "parabolic-antenna",
+          "title": "Параболічна антена",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-grote-reber.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-feed-types.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-parabola-phase.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pattern-sim.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "yagi-uda-antenna",
+          "title": "Антена Яґі-Уда",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-yagi-uda.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-yagi-matching.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-yagi-uda.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-yagi-calc.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "helix-antenna",
+          "title": "Спіральна антена",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kraus.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-axial-helix.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-helix-geometry.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-helix-calc.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "antenna-feed",
+      "title": "Живлення антени",
+      "topics": [
+        {
+          "slug": "antenna-feed",
+          "title": "Живлення антен: балун, гама-узгоджувач, узгодження імпедансів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-balun-evolution.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-balun-chokes.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gamma-match.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gamma-match-calc.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "antenna-feedline-matching-and-balun",
+          "title": "Узгодження антени з фідером: КСХ, L/λ-4 вузли та балун",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-smith-chart.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-matching-components.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-l-network.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-l-match-calc.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "balun",
+          "title": "Балун",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-balun-evolution.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-ferrite-baluns.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mode-decomposition.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-balun-designer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "loading-coil",
+          "title": "Завантажувальна котушка: укорочення антени індуктивністю",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-loading-coil.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-coil-design.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-coil-calc.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "polarization",
+      "title": "Поляризація",
+      "topics": [
+        {
+          "slug": "antenna-polarization",
+          "title": "Поляризація антени",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-mismatch.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "circular-polarization",
+          "title": "Кругова та еліптична поляризація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-polarization-discovery.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-cp-generators.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-polarization-ellipse.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-polarization-analyzer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "propagation-polarization",
+          "title": "Поширення й поляризація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "polarization-diversity",
+          "title": "Поляризаційне різноманіття",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-dual-slant-antenna.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-diversity-gain.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-diversity-sim.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

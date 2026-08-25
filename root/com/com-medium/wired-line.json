@@ -1,0 +1,508 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-medium",
+  "slug": "wired-line",
+  "title": "Провідна лінія",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "wave-in-wire",
+      "title": "Хвиля в лінії",
+      "topics": [
+        {
+          "slug": "transmission-line",
+          "title": "Лінія передачі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-heaviside-telephony.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-telegrapher-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-line-transient-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-line-parameters.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "transmission-lines",
+          "title": "Лінії передачі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "characteristic-impedance",
+          "title": "Характеристичний імпеданс",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-telegrapher-model.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-telegrapher-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-line-impedance-calc.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-t-line-parameters.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "velocity-factor",
+          "title": "Коефіцієнт укорочення: хвиля в діелектрику",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dielectric-speed.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-effective-permittivity.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tdr-calculator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dielectric-materials.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "reflection-and-matching",
+      "title": "Відбиття й узгодження",
+      "topics": [
+        {
+          "slug": "reflection-coefficient",
+          "title": "Коефіцієнт відбиття",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-reflection-coefficient.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-directional-coupler.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gamma-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gamma-calculator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "vswr",
+          "title": "Відбиття і КСХ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "return-loss",
+          "title": "Зворотні втрати (return loss)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-return-loss-conversions.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-return-loss-vna.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "termination",
+          "title": "Термінування ліній передачі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-heaviside-reflections.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-reflection.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "smith-chart",
+          "title": "Діаграма Сміта",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-smith-transform.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-smith-calculator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "tdr",
+          "title": "Рефлектометрія у часовій області (TDR)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tdr-radar-origins.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-reflection-impedance.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tdr-analyzer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tdr-scpi.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "rf-matching-network-design",
+          "title": "Проєктування узгоджувальних кіл ВЧ-тракту: L/П/T, шумове узгодження, паразити плати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-matching-networks.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-matching-topologies.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-l-network.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-l-network-calc.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rf-matching.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "balanced-transmission",
+      "title": "Симетрична передача",
+      "topics": [
+        {
+          "slug": "single-ended-line-limits",
+          "title": "Межі односторонніх ліній",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "differential-pair",
+          "title": "Диференційна пара",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "usb-ethernet-differential",
+          "title": "USB та Ethernet пари",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "current-loop",
+          "title": "Струмова петля: послідовний цифровий та аналоговий інтерфейс",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-teletype-to-midi.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-optocouplers.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-current-loop-uart.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "serial-field-lines",
+      "title": "Промислові послідовні лінії",
+      "topics": [
+        {
+          "slug": "rs422-full-duplex-link",
+          "title": "RS-422: повнодуплексна диференційна лінія — рівні, дальність, діагностика",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-v11-standardization.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-differential-interfaces.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rs422-transceiver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pinout-and-signals.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "rs-485-multidrop-bus",
+          "title": "Шина RS-485: багатоточкове підключення й керування напрямком",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "rs485-multidrop-bus",
+          "title": "RS-485: багатоточкова шина з керуванням напрямком (і чим вона різна від RS-422)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-standardization.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-transceivers.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dir-control.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-spec-comparison.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cable-interference",
+      "title": "Кабель і завади",
+      "topics": [
+        {
+          "slug": "cable-emi",
+          "title": "Кабель як антена завад",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "twisted-pair",
+          "title": "Вита пара",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-twisted-pair.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ferrite-clamp",
+          "title": "Феритова клема",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    }
+  ]
+}

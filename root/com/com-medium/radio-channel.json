@@ -1,0 +1,452 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-medium",
+  "slug": "radio-channel",
+  "title": "Радіоканал",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "propagation-loss",
+      "title": "Поширення й загасання",
+      "topics": [
+        {
+          "slug": "frequency-bands",
+          "title": "Діапазони частот",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "free-space-loss",
+          "title": "Загасання у просторі",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-fspl-derivation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "friis-transmission",
+          "title": "Рівняння Фріїса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-friis-origin.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-friis-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-friis-calculator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fresnel-zones",
+          "title": "Зони Френеля й умова вільного простору",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fresnel-discovery.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fresnel-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fresnel-calculator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "atmospheric-absorption",
+          "title": "Атмосферне поглинання хвиль",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-atmospheric-absorption.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-van-vleck-weisskopf.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-atmospheric-calculator.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "ionosphere",
+      "title": "Іоносфера",
+      "topics": [
+        {
+          "slug": "ionospheric-propagation",
+          "title": "Іоносферне поширення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-heaviside-kennelly.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-plasma-frequency.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ionosphere-muf-calculator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ionospheric-delay",
+          "title": "Іоносферна затримка радіосигналу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ionosphere-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dispersion-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-klobuchar-calc.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-gnss-iono-corrections.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "multipath",
+      "title": "Багатопроменевість",
+      "topics": [
+        {
+          "slug": "multipath-fading",
+          "title": "Багатопроменевість",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-rayleigh-fading.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fading-statistics",
+          "title": "Статистика завмирань: Релей, Раєна, Накагамі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fading-statistics.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fading-distributions.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fading-simulator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "delay-spread",
+          "title": "Delay spread і когерентна смуга",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-delay-spread.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pdp-moments.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pdp-calculator.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "link-budget",
+      "title": "Бюджет лінку",
+      "topics": [
+        {
+          "slug": "power-decibels",
+          "title": "Потужність і децибели",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-decibel-origin.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-log-decibel.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "db-reference-variants",
+          "title": "Варіанти децибельних одиниць (dBW, dBc, dBFS, dBu…)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-reference-origins.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-db-conversions.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-db-calculator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "link-budget",
+          "title": "Бюджет лінку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-link-budget.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-link-budget.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-link-budget-calc.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-link-budget-lib.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "link-quality",
+      "title": "Якість лінку",
+      "topics": [
+        {
+          "slug": "rssi-signal-strength",
+          "title": "RSSI і вимірювання рівня сигналу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rssi-origin.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rsrp-rsrq-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rssi-filter-c.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cellular-at-commands.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "link-quality-metrics",
+          "title": "Метрики якості лінку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ber-testing.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ber-snr-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-link-monitor.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-link-metrics-parser.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "telemetry-link",
+          "title": "Канал земля-борт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-rf-frontend.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

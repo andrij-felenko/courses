@@ -1,0 +1,368 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-medium",
+  "slug": "copper-and-fiber",
+  "title": "Мідь і волокно",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "copper-link",
+      "title": "Мідний лінк",
+      "topics": [
+        {
+          "slug": "utp-cable",
+          "title": "UTP-кабель",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "ethernet-link-phy",
+          "title": "Фізика лінка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-mdio-driver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-phy-interfaces.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "mdi-mdix",
+          "title": "MDI/MDI-X і авто-погодження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-link-monitor.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-autoneg-registers.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "auto-negotiation",
+          "title": "Автопогодження Ethernet",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-an-fsm.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mii-registers.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "power-and-control",
+      "title": "Живлення й керування по кабелю",
+      "topics": [
+        {
+          "slug": "poe",
+          "title": "PoE — живлення по витій парі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-poe-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-pd-interface.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cable-heating.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "mdi-mdio-bus",
+          "title": "Шина MDC/MDIO",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mii-management.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mdio-bitbang.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-clause22-clause45-registers.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "fiber-physics",
+      "title": "Фізика волокна",
+      "topics": [
+        {
+          "slug": "optical-fiber",
+          "title": "Оптоволокно",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "chromatic-dispersion",
+          "title": "Хроматична дисперсія у волокні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-zero-dispersion.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-dcf-module.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dispersion-pulse.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dispersion-calc.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "optical-line",
+      "title": "Оптична лінія",
+      "topics": [
+        {
+          "slug": "fiber-in-network",
+          "title": "Оптоволокно в мережі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-optical-networking.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-optical-transceivers.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-optical-budget.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-link-budget-calc.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sfp-dom.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fiber-splicing",
+          "title": "Зрощення та конектори оптоволокна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-arc-fusion.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-fusion-splicer.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-splice-loss.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-otdr-trace.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "optical-amplifier",
+          "title": "Оптичний підсилювач (EDFA)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-edfa.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gain-saturation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-edfa-sim.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "wdm",
+          "title": "Хвильове мультиплексування (WDM/DWDM)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-wdm.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-awg.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-wdm-capacity.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-wdm-sim.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dwdm-grid.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "light-without-fiber",
+      "title": "Світло без волокна",
+      "topics": [
+        {
+          "slug": "ir-communication",
+          "title": "ІЧ-зв'язок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
