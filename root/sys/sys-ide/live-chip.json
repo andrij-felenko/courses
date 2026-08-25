@@ -1,0 +1,192 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-ide",
+  "slug": "live-chip",
+  "title": "Живий чип",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "flashing",
+      "title": "Заливання в чип",
+      "topics": [
+        {
+          "slug": "flashing",
+          "title": "Прошивка у Flash",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-flash-protocol.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "isp-programming",
+          "title": "ISP-програмування мікроконтролерів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "avr-fuses",
+          "title": "Fuse-біти AVR",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "probe-and-interface",
+      "title": "Зонд і інтерфейс",
+      "topics": [
+        {
+          "slug": "why-debugger",
+          "title": "Навіщо відлагоджувач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-jtag.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "swd-jtag-internals",
+          "title": "SWD і JTAG зсередини",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "svd-format",
+          "title": "Формат SVD (System View Description)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "halt-and-step",
+      "title": "Зупинка й крок",
+      "topics": [
+        {
+          "slug": "breakpoints-watchpoints",
+          "title": "Брейкпоінти й вотчпоінти",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "step-debugging",
+          "title": "Кроком по коду",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "rtos-debug-awareness",
+          "title": "Відлагодження RTOS: видимість задач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "vscode-debugging",
+      "title": "Відлагодження в редакторі",
+      "topics": [
+        {
+          "slug": "debug-vscode",
+          "title": "Налагодження у VS Code",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dap-protocol",
+          "title": "Debug Adapter Protocol",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "tracing",
+      "title": "Трасування",
+      "topics": [
+        {
+          "slug": "trace-itm-swo",
+          "title": "Трасування: ITM, SWO, ETM",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "rtt",
+          "title": "RTT (Real-Time Transfer)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "semihosting",
+          "title": "Семіхостинг",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    }
+  ]
+}

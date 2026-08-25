@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="740" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="370.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">DWT: вотчпоінт на ЗНАЧЕННЯ зчіплює два компаратори</text>
+<rect x="40.0" y="60.0" width="320.0" height="110.0" rx="12" fill="#eef4ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="200.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">«спинись на ДОСТУПІ до адреси»</text>
+<rect x="60.0" y="100.0" width="280.0" height="30.0" rx="5" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="200.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">CMP0: addr == 0x20000110</text>
+<text x="200.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">1 компаратор → лишилось 3</text>
+<rect x="40.0" y="190.0" width="320.0" height="110.0" rx="12" fill="#fff6f5" stroke="#c0392b" stroke-width="2.0"/>
+<text x="200.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">«спинись, коли стане == 0xFF»</text>
+<rect x="60.0" y="230.0" width="280.0" height="24.0" rx="5" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="200.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">CMP0: addr == 0x20000110</text>
+<rect x="60.0" y="258.0" width="280.0" height="24.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="200.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">CMP1: value == 0xFF</text>
+<rect x="400.0" y="190.0" width="320.0" height="110.0" rx="12" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.6"/>
+<text x="560.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">2 компаратори → лишилось 2</text>
+<text x="560.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">На чотирьох DWT-комірках це</text>
+<text x="560.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">лише ДВІ пастки-на-значення</text>
+<text x="560.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">одночасно.</text>
+<rect x="400.0" y="60.0" width="320.0" height="110.0" rx="12" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.6"/>
+<text x="560.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Звідси правило:</text>
+<text x="560.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">якщо досить «будь-який запис»,</text>
+<text x="560.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">не проси збіг значення —</text>
+<text x="560.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">збережеш дефіцитний компаратор.</text>
+</svg>

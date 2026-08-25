@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Що таке «крок» насправді: одна апаратна дія ядра</text>
+<rect x="50.0" y="90.0" width="180.0" height="220.0" rx="6" fill="#f6f7f9" stroke="#1a1a1a" stroke-width="1.5"/><text x="140.0" y="204.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0"></tspan></text>
+<text x="140.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хост (GDB)</text>
+<text x="62.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">1. знає адресу й</text>
+<text x="62.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">   таблицю рядків .elf</text>
+<text x="62.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">2. просить «1 крок»</text>
+<text x="62.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">3. читає PC після halt</text>
+<text x="62.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">4. той самий рядок?</text>
+<text x="62.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">   ні → стоп;</text>
+<text x="62.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">   так → повторити</text>
+<rect x="320.0" y="140.0" width="150.0" height="120.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.6"/><text x="395.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="395.0" dy="0.0">Зонд</tspan><tspan x="395.0" dy="15.6">(SWD / JTAG)</tspan><tspan x="395.0" dy="15.6"></tspan><tspan x="395.0" dy="15.6">переклад</tspan><tspan x="395.0" dy="15.6">команда ↔ дріт</tspan></text>
+<rect x="600.0" y="90.0" width="170.0" height="220.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="685.0" y="204.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="685.0" dy="0.0"></tspan></text>
+<text x="685.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Ядро Cortex-M</text>
+<rect x="614.0" y="128.0" width="142.0" height="50.0" rx="6" fill="#fff0f0" stroke="#c0392b" stroke-width="1.2"/><text x="685.0" y="142.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="685.0" dy="0.0">DHCSR: C_STEP = 1</tspan><tspan x="685.0" dy="14.3">(регістр керування</tspan><tspan x="685.0" dy="14.3">відлагодженням)</tspan></text>
+<text x="685.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">виконати РІВНО</text>
+<text x="685.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">одну інструкцію</text>
+<rect x="614.0" y="234.0" width="142.0" height="40.0" rx="6" fill="#fff0f0" stroke="#c0392b" stroke-width="1.2"/><text x="685.0" y="250.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="685.0" dy="0.0">→ знову halt</tspan><tspan x="685.0" dy="14.3">(зупинка ядра)</tspan></text>
+<line x1="230.0" y1="170.0" x2="320.0" y2="170.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="275.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">крок</text>
+<line x1="470.0" y1="170.0" x2="600.0" y2="170.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="535.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">C_STEP</text>
+<line x1="600.0" y1="250.0" x2="470.0" y2="250.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="320.0" y1="250.0" x2="230.0" y2="250.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="535.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">halt + PC</text>
+<text x="275.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">PC</text>
+<path d="M80 300 C 80 360, 740 360, 740 300" fill="none" stroke="#6b7280" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text x="410.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">один рядок C = багато машинних кроків → хост повторює цикл (або просить range-step одразу)</text>
+</svg>

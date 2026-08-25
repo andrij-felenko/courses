@@ -1,0 +1,80 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-ide",
+  "slug": "version-control",
+  "title": "Керування версіями",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "git-history-graph",
+      "title": "Граф комітів",
+      "topics": [
+        {
+          "slug": "git-branching-and-history",
+          "title": "Гілки, злиття, ребейз і пошук регресії",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-bisect-scoring.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-history-commands.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "git-blame-and-archaeology",
+          "title": "Археологія коду: чому цей рядок такий",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "git-hooks",
+      "title": "Гачки репозиторію",
+      "topics": [
+        {
+          "slug": "git-hooks",
+          "title": "Гачки git: перевірки, вбудовані в дії репозиторію",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "git-submodules",
+      "title": "Складені репозиторії",
+      "topics": [
+        {
+          "slug": "git-submodules",
+          "title": "Підмодулі git",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
