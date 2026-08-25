@@ -1,0 +1,436 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-components",
+  "slug": "magnetics",
+  "title": "Магнетизм і моткові деталі",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "inductors",
+      "title": "Котушки й дроселі",
+      "topics": [
+        {
+          "slug": "power-inductor",
+          "title": "Силовий дросель",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "inductor-types",
+          "title": "Типи котушок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "ferrite-bead",
+          "title": "Феритова намистина",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "common-mode-choke",
+          "title": "Синфазний дросель",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "inductors-series-parallel",
+          "title": "Котушки: з'єднання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-coupled-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-coupled-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "inductor-kickback",
+          "title": "Брикання котушки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-rc-snubber.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "real-inductor",
+      "title": "Неідеальна котушка",
+      "topics": [
+        {
+          "slug": "inductor-parasitics",
+          "title": "Паразити котушки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-shielding-construction.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dowell-proximity.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-srf-impedance-analyzer.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "inductor-q-factor",
+          "title": "Q-фактор котушки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-q-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-loss-breakdown.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-q-measurement.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "self-resonant-frequency",
+          "title": "Власна резонансна частота (SRF) конденсатора і котушки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-srf-pdn-emc.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-srf-derivation.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cores",
+      "title": "Осердя й магнітні матеріали",
+      "topics": [
+        {
+          "slug": "magnetic-circuit",
+          "title": "Магнітне коло",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hopkinson-rowland.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fringing-flux.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-reluctance-network.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "core-geometry",
+          "title": "Форми осердь",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-core-shapes.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-area-product.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "soft-magnetic-materials",
+          "title": "М'які магнітні матеріали",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-silicon-steel-to-nanocrystal.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-powder-core-comparison.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-steinmetz-losses.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-core-loss-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ferrite-materials",
+          "title": "Матеріали феритових осердь",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "core-losses",
+          "title": "Ферит і втрати в осерді",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "nonlinear-inductor",
+          "title": "Нелінійна індуктивність і насичення осердя",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-core-saturation-profiles.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-differential-inductance.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-saturation-tester.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "transformers",
+      "title": "Трансформатори",
+      "topics": [
+        {
+          "slug": "transformer",
+          "title": "Трансформатор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dot-convention",
+          "title": "Дотова конвенція (полярність обмоток)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "autotransformer",
+          "title": "Автотрансформатор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "coupled-inductors",
+          "title": "Зв'язані котушки в силовій електроніці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "flyback-transformer",
+          "title": "Трансформатор зворотноходового перетворювача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "winding-losses",
+          "title": "Втрати в обмотках трансформатора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "galvanic-isolation",
+          "title": "Гальванічна розв'язка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "permanent-magnets",
+      "title": "Постійні магніти",
+      "topics": [
+        {
+          "slug": "magnet-grades",
+          "title": "Класи магнітів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "halbach-array",
+          "title": "Масив Гальбаха",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-halbach-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-halbach-field.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-halbach-sim.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,356 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-components",
+  "slug": "power-devices",
+  "title": "Силові прилади",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "power-mosfet",
+      "title": "Силовий MOSFET",
+      "topics": [
+        {
+          "slug": "mosfet-power-switch",
+          "title": "Силовий ключ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-thermal-calc.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "logic-level-mosfet",
+          "title": "Logic-level MOSFET",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "mosfet-cell-structure",
+          "title": "Комірчаста архітектура силового MOSFET",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-baliga-limit.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "silicon-1d-limit-physics",
+          "title": "Одновимірна кремнієва межа: електростатика дрейфової зони, лавина, суперперехід",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-superjunction-revolution.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-superjunction-vs-planar.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-1d-limit-derivation.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "body-diode-and-avalanche",
+      "title": "Body-діод і лавина",
+      "topics": [
+        {
+          "slug": "body-diode",
+          "title": "Body-діод",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "body-diode-reverse-recovery",
+          "title": "Body-діод MOSFET і зворотне відновлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-recovery-dynamics.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "mosfet-avalanche",
+          "title": "Лавинна робота MOSFET",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-avalanche-clamping.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-uis-energy.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "igbt-and-wide-bandgap",
+      "title": "IGBT і широкозонні прилади",
+      "topics": [
+        {
+          "slug": "igbt",
+          "title": "IGBT",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-igbt-baliga.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sic-mosfet-power",
+          "title": "SiC-MOSFET в силовій електроніці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sic-devices.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-baliga-fom.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sic-vs-igbt-losses.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gallium-nitride-switch",
+          "title": "GaN-транзистор у силовій електроніці",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-gan-power-birth.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "thermal-limits",
+      "title": "Теплові межі",
+      "topics": [
+        {
+          "slug": "safe-operating-area",
+          "title": "Зона безпечної роботи (SOA) і вторинний пробій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-second-breakdown.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "soa-power-devices",
+          "title": "Безпечна робоча область (SOA)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-second-breakdown.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-thermal-instability.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-soa-guard.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "thermal-runaway",
+          "title": "Тепловий розгін транзистора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-germanium-runaway.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-runaway-criterion.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bjt-thermal-runaway",
+          "title": "Тепловий розгін у BJT-схемах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-stability-factor.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "power-derating",
+          "title": "Derating: зниження допустимої потужності з температурою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-derating-discipline.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "heat-removal",
+      "title": "Відведення тепла",
+      "topics": [
+        {
+          "slug": "heatsink",
+          "title": "Радіатор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "thermal-chain",
+          "title": "Тепловий ланцюжок: θJC, θCS, θSA",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-thermal-vias.md",
+              "status": "recheck"
+            },
+            {
+              "file": "math-transient-thermal.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "peltier",
+          "title": "Елемент Пельтьє",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,314 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-components",
+  "slug": "memory",
+  "title": "Пам'ять",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "memory-cell",
+      "title": "Комірка пам'яті",
+      "topics": [
+        {
+          "slug": "sram-cell",
+          "title": "SRAM-комірка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sram.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sram-snm.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "dram-cell",
+          "title": "DRAM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-dram-refresh.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "trench-capacitor",
+          "title": "Траншейний і стекований конденсатор DRAM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-trench-vs-stacked.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-charge-sharing.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "nor-flash-cell",
+          "title": "NOR Flash: комірка, побайтове читання і блокове стирання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-masuoka-nor-flash.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-nor-vs-nand-flash.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fn-tunneling-che.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-nor-flash-driver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "rowhammer",
+          "title": "Rowhammer: перемикання бітів збуренням сусідніх рядків DRAM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rowhammer.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rowhammer-leakage.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rowhammer-sweep.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "flash-cell",
+      "title": "Флеш-комірка",
+      "topics": [
+        {
+          "slug": "why-persist",
+          "title": "Навіщо зберігати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-flash.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-flash-ring-log.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "flash-internals",
+          "title": "Flash зсередини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "flash-cell-types",
+          "title": "SLC, MLC, TLC, QLC: типи Flash-комірок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "nand-cell-levels",
+          "title": "Рівні комірки NAND (SLC/MLC/TLC/QLC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "wear-and-ecc",
+      "title": "Знос і виправлення",
+      "topics": [
+        {
+          "slug": "nand-ecc",
+          "title": "ECC у NAND-флеші",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-hamming.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bch.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "flash-wear-leveling",
+          "title": "Вирівнювання зносу Flash",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "nand-flash-controller",
+          "title": "Контролер NAND-флеші",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ftl-birth.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-ftl-mapping-schemes.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-waf-overprovisioning.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ftl-mapping.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "memory-chips",
+      "title": "Мікросхеми пам'яті",
+      "topics": [
+        {
+          "slug": "spi-flash",
+          "title": "SPI-флеш",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "nor-flash-spi-protocol",
+          "title": "Протокол SPI NOR Flash",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "eeprom",
+          "title": "EEPROM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "sfdp",
+          "title": "SFDP — автовиявлення флеші",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

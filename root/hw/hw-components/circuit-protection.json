@@ -1,0 +1,368 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-components",
+  "slug": "circuit-protection",
+  "title": "Захист кола",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "fuses",
+      "title": "Запобіжники",
+      "topics": [
+        {
+          "slug": "fuse-operation",
+          "title": "Принцип роботи запобіжника",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-edison-fuse.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-i2t-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fuse-sizing.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "fuse-types",
+          "title": "Типи запобіжників",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "circuit-breaker",
+          "title": "Автомат захисту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-edison-to-stotz.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-breaker-types.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bimetal-trip-time.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-efuse-controller.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "i2t-energy",
+          "title": "Енергія I²t і координація захисту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-joule-integral.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-fuse-classes.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-adiabatic-heating.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-inrush-derating.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "overcurrent-protection",
+          "title": "Захист від надструму",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "resettable-and-inrush",
+      "title": "Самовідновні й пускові",
+      "topics": [
+        {
+          "slug": "ptc-fuse",
+          "title": "Самовідновний запобіжник",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-polyswitch.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-fuse-technologies.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ptc-thermal-model.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ptc-datasheet.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ptc-ceramic",
+          "title": "PTC-кераміка (BaTiO₃)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "inrush-ntc",
+          "title": "Inrush NTC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "surge-clamps",
+      "title": "Обмежувачі перенапруги",
+      "topics": [
+        {
+          "slug": "tvs-diode",
+          "title": "TVS-діод",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "varistor",
+          "title": "Варистор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-from-thyrite-to-zno.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-mov-module.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-power-law.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gdt",
+          "title": "Газорозрядник",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "pcb-spark-gap",
+          "title": "Друкований іскровий проміжок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-tip-field.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-spark-gap-coordination.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "esd-and-arc",
+      "title": "Статика й дуга",
+      "topics": [
+        {
+          "slug": "esd-protection",
+          "title": "ESD-захист",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-hybrid-stage-coordination.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tlp-clamping-model.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-esd-selection-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "arc-suppression",
+          "title": "Гасіння дуги та снабери",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-paschen-switching-arc.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-contact-protection.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-snubber-design.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-snubber-calc.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "signal-isolation",
+      "title": "Розв'язка сигналу",
+      "topics": [
+        {
+          "slug": "optocoupler",
+          "title": "Оптопара",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-phototransistor-optocoupler.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "isolation-amplifier",
+          "title": "Ізоляційний підсилювач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

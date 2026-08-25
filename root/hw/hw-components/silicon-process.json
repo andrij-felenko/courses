@@ -1,0 +1,430 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-components",
+  "slug": "silicon-process",
+  "title": "Кремній і техпроцес",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "crystal-materials",
+      "title": "Кристал і матеріали",
+      "topics": [
+        {
+          "slug": "silicon-monocrystal",
+          "title": "Кремній і монокристал",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "float-zone-silicon",
+          "title": "Зонна плавка кремнію (Float Zone)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-float-zone-birth.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-float-zone-physics.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "heteroepitaxy",
+          "title": "Гетероепітаксія: кристал на чужій підкладці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-heteroepitaxy.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-matthews-blakeslee.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "transparent-conductor",
+          "title": "Прозорі провідники",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-transparent-electrodes.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-drude-plasma.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "process-steps",
+      "title": "Кроки процесу",
+      "topics": [
+        {
+          "slug": "planar-process",
+          "title": "Планарний процес",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-mesa-vs-planar.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-deal-grove.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "photolithography",
+          "title": "Фотолітографія",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-asml-euv.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-place-and-route.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "doping-etching-metal",
+          "title": "Шар за шаром",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "pn-isolation",
+          "title": "p-n ізоляція компонентів на кристалі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kurt-lehovec.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-latchup-guard-rings.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-isolation-capacitance.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "mems-fabrication",
+          "title": "Мікрофабрикація MEMS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bosch-process.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-anisotropic-etch.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "scaling",
+      "title": "Норми й масштабування",
+      "topics": [
+        {
+          "slug": "process-node",
+          "title": "Техпроцес",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "mosfet-scaling",
+          "title": "Масштабування MOSFET і закон Денарда",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "hkmg",
+          "title": "High-k діелектрик і металевий затвор (HKMG)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hkmg.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-eot.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "finfet",
+          "title": "FinFET: тривимірний транзистор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-finfet-invention.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-electrostatic-scaling.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "gaafet",
+          "title": "GAAFET і наношари: транзистори з круговим затвором",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gaafet-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-gaafet-nanosheet-cell.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gaafet-electrostatics.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "chip-design",
+      "title": "Проєктування кристала",
+      "topics": [
+        {
+          "slug": "standard-cell",
+          "title": "Стандартні комірки (standard cell)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-standard-cell.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cell-delay.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-liberty-lef.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "power-gating",
+          "title": "Power gating і clock gating",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-power-wall.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-inrush-bounce.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-power-controller.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "system-on-chip",
+          "title": "Система-на-кристалі (SoC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-soc-revolution.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-amba-axi.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-noc-latency.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-soc-power-dvfs.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "chiplets",
+          "title": "Чиплети та advanced packaging",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-chiplet-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-reticle-yield.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-d2d-link-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ucie-spec.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

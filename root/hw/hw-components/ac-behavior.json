@@ -1,0 +1,190 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-components",
+  "slug": "ac-behavior",
+  "title": "Змінний струм і реактивність",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "reactive-impedance",
+      "title": "Реактивний опір",
+      "topics": [
+        {
+          "slug": "reactance",
+          "title": "Реактивність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-tuned-circuit.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "capacitive-reactance",
+          "title": "Опір конденсатора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-capacitive-dropper.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "inductive-reactance",
+          "title": "Опір котушки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-lc-supply-filter.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "phase-shift",
+          "title": "Зсув фаз",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-impedance.md",
+              "status": "done"
+            },
+            {
+              "file": "math-power-triangle.md",
+              "status": "done"
+            },
+            {
+              "file": "math-sine-derivative.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lissajous.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "admittance",
+          "title": "Адмітанс",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mho-siemens.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-y-from-z.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "skin-effect",
+          "title": "Скін-ефект",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-skin-effect.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-litz-wire.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-skin-depth.md",
+              "status": "done"
+            },
+            {
+              "file": "math-anomalous-skin-effect.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-skin-effect-sim.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "energy-storage",
+      "title": "Накопичення енергії",
+      "topics": [
+        {
+          "slug": "capacitor-derivative",
+          "title": "Похідна конденсатора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "rl-ode",
+          "title": "ОДУ RL-кола",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "thomson-formula",
+          "title": "Формула Томсона",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

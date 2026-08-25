@@ -1,0 +1,272 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-components",
+  "slug": "reliability",
+  "title": "Надійність і відмови",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "failure-nature",
+      "title": "Природа відмов",
+      "topics": [
+        {
+          "slug": "odynychna-tochka-vidmovy",
+          "title": "Одинична точка відмови",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "pidrobni-i-peremarkovani-komponenty",
+          "title": "Підробні й перемарковані компоненти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "obsluhovuvannia-i-resurs",
+          "title": "Обслуговування й ресурс: що зношується в апараті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "aging-and-margin",
+      "title": "Старіння й запас",
+      "topics": [
+        {
+          "slug": "arrhenius-lifetime",
+          "title": "Закон Арреніуса і ресурс компонентів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-failure-mechanisms-ea.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-arrhenius-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lifetime-calculator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "capacitor-aging",
+          "title": "Старіння конденсаторів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-de-aging-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-aging-mechanisms.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-aging-kinetics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lifetime-estimator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "electrochemical-migration",
+          "title": "Електрохімічна міграція в електроніці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "derating",
+          "title": "Дератинг компонентів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-derating-standards.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-arrhenius-derating.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-derating-checker.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "silicon-degradation",
+      "title": "Деградація кремнію",
+      "topics": [
+        {
+          "slug": "tddb",
+          "title": "Часо-залежний пробій оксиду (TDDB)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-weibull-percolation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lifetime-extrapolation.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "esd-damage",
+          "title": "ESD-пошкодження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dust-explosions.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-esd-gun.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-spark-energy.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cdm-esd-model",
+          "title": "CDM-модель ESD (заряджений прилад)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-cdm-transient.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "latch-up",
+          "title": "Лatch-up у CMOS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-guard-rings.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-latchup-criterion.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "test-standards",
+      "title": "Стандарти випробувань",
+      "topics": [
+        {
+          "slug": "esd-standards",
+          "title": "Стандарти ESD-тестування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "surge-protection-standards",
+          "title": "Стандарти захисту від перенапруги",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

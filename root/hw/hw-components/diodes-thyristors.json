@@ -1,0 +1,294 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-components",
+  "slug": "diodes-thyristors",
+  "title": "Діоди й тиристори",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "diode",
+      "title": "Діод у колі",
+      "topics": [
+        {
+          "slug": "diode-bias",
+          "title": "Зміщення діода",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "diode-iv-curve",
+          "title": "ВАХ діода",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-shockley-equation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-diode-thermometer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "diode-types",
+          "title": "Типи діодів і їхні відмінності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "diode-breakdown",
+          "title": "Пробій діода: лавинний і тунельний",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "reverse-recovery",
+          "title": "Зворотне відновлення діода",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          }
+        },
+        {
+          "slug": "varicap",
+          "title": "Варикап (діод керованої ємності)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "negative-resistance",
+      "title": "Від'ємний опір",
+      "topics": [
+        {
+          "slug": "tunnel-diode",
+          "title": "Тунельний діод (діод Есакі)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-esaki.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tunnel-current.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tunnel-pulse-generator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ujt-relaxation",
+          "title": "Уніпереходний транзистор і релаксаційний генератор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-double-base-diode.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-ujt-vs-put.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-relaxation-frequency.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-scr-phase-control.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "thyristors",
+      "title": "Тиристорні прилади",
+      "topics": [
+        {
+          "slug": "thyristor-scr",
+          "title": "Тиристор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-latch-condition.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "triac",
+          "title": "Симістор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-triac-driver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "diac",
+          "title": "DIAC: двобічний прилад-поріг",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-diac-birth.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-threshold-triggers.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dimmer-dynamics.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "gto-thyristor",
+          "title": "GTO: тиристор із керованим вимиканням",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gto-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-gto-igct-igbt.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gto-gate-driver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "forced-commutation",
+          "title": "Примусова комутація тиристора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-mcmurray-calc.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-commutation-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "quadrant-triggering",
+          "title": "Квадранти запуску симістора: фізика і вибір режиму",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-three-quadrant-triac.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mcu-quadrant-drive.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,332 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-components",
+  "slug": "switching",
+  "title": "Ключовий режим",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "transistor-as-switch",
+      "title": "Транзистор як ключ",
+      "topics": [
+        {
+          "slug": "transistor-switch",
+          "title": "Транзистор як ключ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-switch-losses.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-switch-picker.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mosfet-switch",
+          "title": "MOSFET як ключ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-gate-drive.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rdson-heat.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bjt-switch",
+          "title": "BJT-ключ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-high-side-pnp.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-base-resistor.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bjt-switching-speed",
+          "title": "BJT: швидкість комутації та заряд бази",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-charge-control.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "load-switching",
+      "title": "Комутація навантаження",
+      "topics": [
+        {
+          "slug": "pnp-high-side-driver",
+          "title": "PNP-ключ і схема high-side",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "open-collector-output",
+          "title": "Вихід з відкритим колектором",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ttl-open-collector.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-open-collector-pinout.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pullup-sizing.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "switching-transients",
+          "title": "Перехідні процеси в ключах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-gate-capacitance-load.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "relay",
+          "title": "Реле",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-telegraph-relay.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "on-state",
+      "title": "Відкритий канал",
+      "topics": [
+        {
+          "slug": "rds-on",
+          "title": "Опір Rds(on)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-hexfet.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "output-characteristics",
+          "title": "Вихідні характеристики транзистора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "specific-on-resistance-metric",
+          "title": "Питомий опір Ron·A як міра: площа кристала проти опору",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-baliga-fom.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ron-a-derivation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "conductivity-modulation",
+          "title": "Модуляція провідності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hall-pin-rectifier.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-lifetime-engineering.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ambipolar-transport.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gate-drive",
+      "title": "Затвор і його заряд",
+      "topics": [
+        {
+          "slug": "gate-capacitance",
+          "title": "Ємність затвора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-gate-charge.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gate-charge-curve-phases",
+          "title": "Крива заряду затвора: фази переходу й розрахунок драйвера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-switching-phases.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-driver-sizing.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "output-capacitance",
+          "title": "Вихідна ємність MOSFET (C_oss)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-fet-technologies.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-energy-charge.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "switching-losses",
+          "title": "Втрати перемикання в силових ключах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    }
+  ]
+}

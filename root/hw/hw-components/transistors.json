@@ -1,0 +1,348 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-components",
+  "slug": "transistors",
+  "title": "Транзистор",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "bipolar-operation",
+      "title": "Біполярний транзистор",
+      "topics": [
+        {
+          "slug": "transistor-idea",
+          "title": "Транзистор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-traitorous-eight.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-transistor.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bjt-operation",
+          "title": "Робота BJT",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "bjt-gain",
+          "title": "Підсилення β",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-measure-hfe.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bjt-regions",
+          "title": "Режими BJT",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "bipolar-structure",
+      "title": "Будова BJT",
+      "topics": [
+        {
+          "slug": "bjt",
+          "title": "BJT-транзистори",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-darlington-uln.md",
+              "status": "done"
+            },
+            {
+              "file": "comp-small-signal-npn.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bjt-structure",
+          "title": "Будова BJT",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "lateral-pnp",
+          "title": "Бічний PNP-транзистор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lateral-pnp.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-ic-pnp-topologies.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lateral-transport.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "field-effect",
+      "title": "Керування полем",
+      "topics": [
+        {
+          "slug": "field-control",
+          "title": "Керування полем",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mosfet.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "jfet",
+          "title": "JFET",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-shockley-dacey-ross.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-shockley-law.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mosfet-modes",
+          "title": "MOSFET: підсилювальний і збіднювальний режим",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-square-law.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mosfet-saturation-triode",
+          "title": "Насичення й тріодний режим MOSFET",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-region-names.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-region-solver.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "mosfet-anatomy",
+      "title": "Будова MOSFET",
+      "topics": [
+        {
+          "slug": "mosfet-structure",
+          "title": "Будова MOSFET",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "mosfet-threshold",
+          "title": "Поріг MOSFET",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-square-law.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "nmos-pmos",
+          "title": "NMOS/PMOS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "depletion-mode-mosfet",
+          "title": "Збіднений MOSFET (depletion-mode)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-depletion-load.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-depletion-load.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "channel-limits",
+      "title": "Межі каналу",
+      "topics": [
+        {
+          "slug": "body-effect",
+          "title": "Ефект підкладки (body effect)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-body-charge.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "subthreshold-leakage",
+          "title": "Підпороговий струм і витік",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-subthreshold-swing.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "hemt-2deg",
+          "title": "HEMT і двовимірний електронний газ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hemt-birth.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-gan-hemt-cascode.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-2deg-quantization.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

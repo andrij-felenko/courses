@@ -1,0 +1,640 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-components",
+  "slug": "passive-parts",
+  "title": "Пасивні деталі",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "resistors",
+      "title": "Резистори",
+      "topics": [
+        {
+          "slug": "resistor",
+          "title": "Резистор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "resistor-types",
+          "title": "Типи резисторів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "resistor-tolerance",
+          "title": "Допуск і розкид резисторів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-renard-iec60063.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-resistor-technologies.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tolerance-propagation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tolerance-analysis.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "shunt-resistor",
+          "title": "Шунт-резистор: фізика й вибір",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "bleeder",
+          "title": "Розрядний резистор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "i2c-pull-up-resistor",
+          "title": "Резистори підтяжки I2C",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "value-series",
+      "title": "Ряди й допуски",
+      "topics": [
+        {
+          "slug": "e-series",
+          "title": "Ряди E",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "tolerance",
+          "title": "Допуски",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "tolerance-stackup",
+          "title": "Складання допусків",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "capacitor-in-circuit",
+      "title": "Конденсатор у колі",
+      "topics": [
+        {
+          "slug": "capacitor",
+          "title": "Конденсатор",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-leyden-jar.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-mlcc.md",
+              "status": "done"
+            },
+            {
+              "file": "comp-marking-sizes.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "capacitor-uses",
+          "title": "Застосування конденсаторів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "capacitors-series-parallel",
+          "title": "Конденсатори: з'єднання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "decoupling",
+          "title": "Decoupling-конденсатор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-mlcc.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "capacitor-families",
+      "title": "Родини конденсаторів",
+      "topics": [
+        {
+          "slug": "mlcc",
+          "title": "MLCC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "capacitor-dielectrics",
+          "title": "Діелектрики конденсаторів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "electrolytic-cap",
+          "title": "Електролітичний конденсатор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "anodization",
+          "title": "Анодування металів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-valve-metals.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-valve-dielectrics.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-barrier-kinetics.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "tantalum-capacitor",
+          "title": "Твердотільний танталовий конденсатор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "niobium-capacitor",
+          "title": "Ніобієвий конденсатор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tantalum-crisis-nbo.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-niobium-vs-tantalum.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-self-healing-kinetics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-niobium-inrush-protection.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "polymer-capacitor",
+          "title": "Полімерний конденсатор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-conductive-polymers.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-polymer-families.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-vrm-filter.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "supercapacitors",
+      "title": "Суперконденсатори",
+      "topics": [
+        {
+          "slug": "supercapacitor",
+          "title": "Суперконденсатор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-supercap.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-backup-circuit.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "edlc-impedance",
+          "title": "Імпеданс EDLC і модель пористого електрода",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "pseudocapacitance",
+          "title": "Псевдоємність і гібридні суперконденсатори",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "real-capacitor",
+      "title": "Неідеальний конденсатор",
+      "topics": [
+        {
+          "slug": "capacitor-parasitics",
+          "title": "Паразити конденсатора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-capacitor-plague.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "capacitor-esr-impedance",
+          "title": "ESR та імпеданс конденсатора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-dielectric-technologies.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-impedance-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pdn-impedance-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "dielectric-losses",
+          "title": "Діелектричні втрати та ESR",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-dielectrics-esr.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-debye-relaxation.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "dc-bias-capacitance",
+          "title": "DC-bias ефект у конденсаторах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-dcdc-derating-calc.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "dielectric-absorption",
+          "title": "Діелектрична абсорбція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-soakage-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-dielectric-table.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-debye-relaxation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-measure-soakage.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ceramic-capacitor-acoustics",
+          "title": "Акустичний шум керамічних конденсаторів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-acoustic-quiet-capacitors.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-acoustic-sound-pressure.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-acoustic-risk-calculator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "soft-termination-cap",
+          "title": "Soft-termination конденсатори",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-failsafe-mlcc-architectures.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pcb-strain-deflection.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-flex-test-monitor.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "adjustable-parts",
+      "title": "Регульовані деталі",
+      "topics": [
+        {
+          "slug": "potentiometer",
+          "title": "Потенціометр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-potentiometer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-potentiometer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "digipot",
+          "title": "Цифровий потенціометр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "rotary-encoder",
+          "title": "Енкодер поворотний",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "wire-and-cable",
+      "title": "Провід і кабель",
+      "topics": [
+        {
+          "slug": "wire-gauge",
+          "title": "Калібр проводу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "wire-insulation",
+          "title": "Ізоляція проводів і кабелів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

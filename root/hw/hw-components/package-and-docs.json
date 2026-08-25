@@ -1,0 +1,424 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-components",
+  "slug": "package-and-docs",
+  "title": "Корпус і документація",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "package-sizes",
+      "title": "Корпуси й типорозміри",
+      "topics": [
+        {
+          "slug": "packages",
+          "title": "Корпуси",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-packages.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "packages-pinout",
+          "title": "Корпуси й розпіновка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-inch-grid.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "packaging",
+          "title": "Корпусування",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-package-guide.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "eia-package-system",
+          "title": "Система корпусів EIA для пасивних SMD-компонентів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-reverse-geometry.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ipc7351-land-pattern.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "part-marking",
+      "title": "Маркування деталей",
+      "topics": [
+        {
+          "slug": "resistor-marking",
+          "title": "Маркування резисторів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "smd-marking",
+          "title": "Маркування SMD",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-dual-diode-sot23.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "capacitor-code-and-package-reading",
+          "title": "Читання маркування конденсатора: код «104» і типорозміри 0402/0603/0805",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-electrolytic-tantalum.md",
+              "status": "done"
+            },
+            {
+              "file": "comp-mlcc.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "capacitor-standard-code-tables",
+          "title": "Кодові таблиці EIA / IEC 60062: допуски, температурні класи, коди напруги",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-capacitor-decoder.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "datasheet-sections",
+      "title": "Розділи даташита",
+      "topics": [
+        {
+          "slug": "datasheet-structure",
+          "title": "Структура даташита",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-databooks.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "datasheet-pinout",
+          "title": "Розпіновка й даташит",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "abs-max-ratings",
+          "title": "Граничні режими",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-abs-max-failures.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "datasheet-graphs",
+          "title": "Графіки даташита",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-derating.md",
+              "status": "done"
+            },
+            {
+              "file": "math-thermal-resistance.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-log-graph-reading.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "test-conditions-anatomy",
+          "title": "Анатомія умов тесту в даташиті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-test-traps.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pulsed-junction.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pulsed-iv-curve.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "guarantee-levels",
+          "title": "Рівні гарантій параметрів: tested, sampled, design",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ate-revolution.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-guarantee-matrix.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cpk-six-sigma.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pat-outlier-filter.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "datasheet-fine-print",
+          "title": "Дрібний шрифт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pentium-fdiv.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "numbers-and-diagrams",
+      "title": "Числа й діаграми",
+      "topics": [
+        {
+          "slug": "min-typ-max",
+          "title": "Min/typ/max",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-tolerance-statistics.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "absolute-maximum-ratings",
+          "title": "Absolute maximum ratings: що можна, а що знищить прилад",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "worst-case-analysis",
+          "title": "Worst-case analysis: проектування під найгірший прилад",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "chasova-diahrama-v-datashyti",
+          "title": "Часова діаграма в даташиті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "selection-and-support",
+      "title": "Вибір і супровід",
+      "topics": [
+        {
+          "slug": "vybir-i-dostupnist-komponentiv",
+          "title": "Вибір і доступність компонентів: BOM, аналоги, життєвий цикл",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "application-notes",
+          "title": "Прикладні нотатки та референсні дизайни",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-compensation-calc.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-switching-loop-calc.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "silicon-revision-management",
+          "title": "Управління ревізіями кремнію",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-stepping-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-silicon-quirks.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pcn-ppap-matrix.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

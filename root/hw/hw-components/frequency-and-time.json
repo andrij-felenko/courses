@@ -1,0 +1,300 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-components",
+  "slug": "frequency-and-time",
+  "title": "Кварц і час",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "crystal-resonator",
+      "title": "Кварцовий резонатор",
+      "topics": [
+        {
+          "slug": "quartz-resonator",
+          "title": "Кварцовий резонатор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-q-stability.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "quartz-rlc-model",
+          "title": "RLC-модель кварцу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "quartz-cut-types",
+          "title": "Зрізи кварцу: AT, BT, SC та інші",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-cut-matrix.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-frequency-temperature.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cut-calculator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "quartz-overtone",
+          "title": "Обертонні кварцові резонатори",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "quartz-frequency-pulling",
+          "title": "Підтягування частоти (frequency pulling) кварцу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "activity-dip",
+          "title": "Activity dip кварцового резонатора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "frequency-stability",
+      "title": "Стабільність частоти",
+      "topics": [
+        {
+          "slug": "frequency-accuracy-ppm",
+          "title": "Точність ppm",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-ppm-math.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-measure-drift.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "phase-noise",
+          "title": "Фазовий шум генераторів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-leeson-1966.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-leeson-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-phase-noise-to-jitter.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "allan-deviation",
+          "title": "Девіація Аллана і стабільність частоти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-allan-1966.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-allan-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-compute-adev.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "quartz-aging",
+          "title": "Старіння кварцового резонатора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "reference-oscillators",
+      "title": "Опорні генератори",
+      "topics": [
+        {
+          "slug": "vcxo-design",
+          "title": "VCXO: керований напругою кварцовий генератор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "comp-ocxo",
+          "title": "OCXO: термостатований кварцовий генератор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "gpsdo",
+          "title": "GPS-дисциплінований генератор (GPSDO)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "timekeeping",
+      "title": "Відлік часу",
+      "topics": [
+        {
+          "slug": "crystal",
+          "title": "Кварц",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "watch-crystal-rtc",
+          "title": "Годинниковий кварц",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-quartz-crisis.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "rtc-timekeeping",
+          "title": "RTC і точний відлік часу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-tcxo-rtc.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-drift-calc.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rtc-driver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "backup-power-domain",
+          "title": "Домен резервного живлення (VBAT)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

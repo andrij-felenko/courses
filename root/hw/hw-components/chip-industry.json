@@ -1,0 +1,256 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-components",
+  "slug": "chip-industry",
+  "title": "Кремнієва індустрія",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "road-to-ic",
+      "title": "Шлях до мікросхеми",
+      "topics": [
+        {
+          "slug": "vacuum-tube",
+          "title": "Електронна лампа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-edison-fleming-deforest.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-loadline.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "integrated-circuit",
+          "title": "Інтегральна схема",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-matching.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ic-invention",
+          "title": "Винайдення інтегральної схеми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "traitorous-eight",
+          "title": "Зрадницька вісімка і народження Кремнієвої долини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "moore-law",
+          "title": "Закон Мура",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-moore-prediction.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-doubling.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "legendary-ics",
+          "title": "Легендарні ІМС",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-camenzind-555.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-ic-naming.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "yield-and-test",
+      "title": "Вихід і придатність",
+      "topics": [
+        {
+          "slug": "yield",
+          "title": "Yield",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-yield-math.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "yield-ramp",
+          "title": "Дозрівання виходу (yield ramp)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-yield-learning.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-yield-models.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-yield-learning.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "testing-binning",
+          "title": "Тестування й binning",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-chip-markings.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-scan-chain.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "who-makes-chips",
+      "title": "Хто робить чип",
+      "topics": [
+        {
+          "slug": "fabs-fabless",
+          "title": "Фаби й fabless",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-tsmc.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-moore-dennard.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ip-licensing",
+          "title": "Ліцензування IP-ядер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-arm-business-model.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-soft-firm-hard-ip.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ip-build-vs-buy.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "semiconductor-supply-chain",
+          "title": "Ланцюг постачання чіпів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    }
+  ]
+}
