@@ -1,0 +1,106 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-fw",
+  "slug": "esp-idf",
+  "title": "ESP-IDF",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "flash-layout-and-settings",
+      "title": "Розкладка флешу й налаштування",
+      "topics": [
+        {
+          "slug": "partition-table",
+          "title": "Таблиця розділів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-partition-table.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "nvs",
+          "title": "NVS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-nvs-internals.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "content-encryption",
+      "title": "Шифрування вмісту",
+      "topics": [
+        {
+          "slug": "flash-encryption",
+          "title": "Шифрування Flash (Flash Encryption)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "nvs-encryption",
+          "title": "Шифрування NVS на ESP32",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "dynamic-memory",
+      "title": "Динамічна пам'ять",
+      "topics": [
+        {
+          "slug": "freertos-heap",
+          "title": "Алокатори пам'яті FreeRTOS (heap_1–heap_5)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "radio-through-host",
+      "title": "Радіо через хост",
+      "topics": [
+        {
+          "slug": "esp-hosted",
+          "title": "ESP-Hosted",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    }
+  ]
+}
