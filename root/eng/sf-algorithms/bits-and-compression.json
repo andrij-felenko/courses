@@ -1,0 +1,292 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-algorithms",
+  "slug": "bits-and-compression",
+  "title": "Біти й стиснення",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "bit-manipulation",
+      "title": "Побітові операції",
+      "topics": [
+        {
+          "slug": "bitwise-operations",
+          "title": "Побітові операції та маски",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bit-hacks.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bloom-filter.md",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "slug": "bits-bytes-endianness",
+          "title": "Біти й порядок байтів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-sensor-byte-order.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-serialization.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "popcount",
+          "title": "Підрахунок одиничних бітів (popcount)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-popcount-origins.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-swar-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bitset-rank.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bit-scan-clz-ctz",
+          "title": "Пошук крайнього одиничного біта (CLZ/CTZ)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bit-scan-isa.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tree-encoder.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-chess-bitboard.md",
+              "status": "pending"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bit-intrinsics.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "bitsets",
+      "title": "Бітові множини",
+      "topics": [
+        {
+          "slug": "bitset",
+          "title": "Бітова множина: множина як набір бітів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bitmap-indexing.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dynamic-bitset.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "chess-bitboard",
+          "title": "Бітборди та бітові черги (Bitboards)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bitboard-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-magic-bitboards.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sliding-and-scheduler.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bit-queue.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "popcount-rank",
+          "title": "Popcount у стислих структурах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-popcount.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-popcount.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rank-bitset.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-popcount.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "run-lengths",
+      "title": "Повторення й серії",
+      "topics": [
+        {
+          "slug": "rle",
+          "title": "RLE (довжини серій)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "run-length-codes",
+          "title": "Коди довжин серій (Modified Huffman, MR)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "dictionary-coding",
+      "title": "Словникові методи",
+      "topics": [
+        {
+          "slug": "lz77",
+          "title": "LZ77",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-lz77-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lzw",
+          "title": "LZW",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "deflate",
+          "title": "DEFLATE",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pkzip.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

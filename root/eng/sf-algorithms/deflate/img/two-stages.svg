@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="700" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="350.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">DEFLATE = LZ77, тоді Гаффман</text>
+<rect x="35.0" y="65.0" width="150.0" height="49.9" rx="6" fill="#eaf2fb" stroke="#1a1a1a" stroke-width="1.8"/><text x="110.0" y="86.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">сирі байти</tspan><tspan x="110.0" dy="16.9">…рядок рядок…</tspan></text>
+<rect x="255.0" y="65.0" width="190.0" height="49.9" rx="6" fill="#d7f0de" stroke="#27ae60" stroke-width="1.9"/><text x="350.0" y="86.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="350.0" dy="0.0">LZ77</tspan><tspan x="350.0" dy="16.9">словник повторів</tspan></text>
+<rect x="495.0" y="65.0" width="190.0" height="49.9" rx="6" fill="#f3c6bf" stroke="#c0392b" stroke-width="1.9"/><text x="590.0" y="86.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="590.0" dy="0.0">Гаффман</tspan><tspan x="590.0" dy="16.9">ентропійне кодування</tspan></text>
+<line x1="190.0" y1="90.0" x2="252.0" y2="90.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="448.0" y1="90.0" x2="492.0" y2="90.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="221.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">байти</text>
+<text x="470.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">символи</text>
+<rect x="190.0" y="161.2" width="320.0" height="47.6" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.4"/><text x="350.0" y="181.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">потік символів:</tspan><tspan x="350.0" dy="15.6">літера · (довжина, відступ) · літера</tspan></text>
+<line x1="350.0" y1="116.0" x2="350.0" y2="162.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+<rect x="515.0" y="161.2" width="150.0" height="47.6" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.4"/><text x="590.0" y="181.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="590.0" dy="0.0">щільні біти</tspan><tspan x="590.0" dy="15.6">0110…</tspan></text>
+<line x1="590.0" y1="116.0" x2="590.0" y2="162.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="350.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">LZ77 викидає повтори; Гаффман дешево записує те, що лишилось</text>
+</svg>

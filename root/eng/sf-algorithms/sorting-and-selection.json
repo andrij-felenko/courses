@@ -1,0 +1,332 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-algorithms",
+  "slug": "sorting-and-selection",
+  "title": "Сортування й вибір",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "simple-sorts",
+      "title": "Прості сортування",
+      "topics": [
+        {
+          "slug": "insertion-sort",
+          "title": "Сортування вставками (Insertion Sort)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-insertion-sort.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-inversions.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-insertion-variants.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-insertion-sort.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "bubble-sort",
+          "title": "Сортування бульбашкою (Bubble Sort)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bubble-sort.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-inversions-bubble.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bubble-variants.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bubble-sort.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "selection-sort",
+          "title": "Сортування вибором (selection sort)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-selection-sort.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-selection-sort.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-selection-sort.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-selection-sort.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "fast-sorts",
+      "title": "Швидкі сортування",
+      "topics": [
+        {
+          "slug": "quicksort",
+          "title": "Швидке сортування (quicksort)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-quicksort.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-quicksort.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-quicksort.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "heapsort",
+          "title": "Сортування купою (heapsort)",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-heapsort.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-heapsort.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-heapsort.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "timsort",
+          "title": "Timsort",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-timsort.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-timsort.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-timsort.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "order-and-networks",
+      "title": "Порядок і мережі",
+      "topics": [
+        {
+          "slug": "sorting-stability",
+          "title": "Стійкість сортування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sorting-stability.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-stability-proofs.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-stable-sorting.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sorting-networks",
+          "title": "Сортувальні мережі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sorting-networks.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-zero-one-principle.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bitonic-sort.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "search-and-selection",
+      "title": "Пошук і вибір",
+      "topics": [
+        {
+          "slug": "binary-search",
+          "title": "Двійковий пошук",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-binary-search.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-log-complexity.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-binary-search-variants.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "quickselect",
+          "title": "Швидкий вибір: k-й за порядком за лінійний час",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-quickselect.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-quickselect.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-quickselect.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

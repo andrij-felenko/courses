@@ -1,0 +1,490 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-algorithms",
+  "slug": "core-structures",
+  "title": "Базові структури",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "sequences",
+      "title": "Послідовності",
+      "topics": [
+        {
+          "slug": "array",
+          "title": "Масив",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-array.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-array-addressing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-array-operations.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-array-vector.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "linked-list",
+          "title": "Зв'язаний список",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-linked-list.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pointer-chasing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-doubly-linked-list.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-linked-list.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "deque",
+          "title": "Двобічна черга (deque)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-deque-origin.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-amortized-deque.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-circular-deque.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "queue-fifo",
+          "title": "Черга: FIFO і кільцевий буфер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-queue-discipline.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-two-stack-queue.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ring-buffer",
+          "title": "Кільцевий буфер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-ring-buffer-indexing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ring-buffer-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "over-provisioning",
+          "title": "Over-provisioning",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-over-provisioning.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-amortized-growth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-over-provisioning.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-capacity-interface.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "heaps-and-priorities",
+      "title": "Купи й пріоритети",
+      "topics": [
+        {
+          "slug": "priority-queue-adt",
+          "title": "Черга з пріоритетом: абстракція та вибір структури",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-heap-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-heap-analysis.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-binary-heap.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "binary-heap-implementation",
+          "title": "Двійкова купа: реалізація, індексація та оптимізації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-binary-heap.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-floyd-heapify.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-indexed-binary-heap.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-binary-heap.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "binomial-heap",
+          "title": "Біноміальна купа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-binomial-heap.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-binomial-tree.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-binomial-heap.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-binomial-heap.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fibonacci-heap",
+          "title": "Фібоначчієва купа",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fredman-tarjan.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fibonacci-bound.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fib-heap.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "timer-wheel",
+          "title": "Колесо таймерів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-timer-wheel.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-timer-wheel.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-timer-wheel.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-timer-wheel.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "disjoint-sets",
+      "title": "Неперетинні множини",
+      "topics": [
+        {
+          "slug": "union-find",
+          "title": "Система неперетинних множин (union-find)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-disjoint-sets.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ackermann-analysis.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dsu-impl.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dsu.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hoshen-kopelman",
+          "title": "Алгоритм Гошена–Копельмана",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hoshen-kopelman.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-percolation-statistics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hoshen-kopelman.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-hoshen-kopelman.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "immutable-structures",
+      "title": "Незмінні структури",
+      "topics": [
+        {
+          "slug": "copy-on-write-structures",
+          "title": "Copy-on-write у структурах даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cow-lineage.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-path-copying.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-persistent-bst.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hash-array-mapped-trie",
+          "title": "Геш-дерево з бітовими мапами (HAMT)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hamt.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-hamt-popcount.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hamt.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

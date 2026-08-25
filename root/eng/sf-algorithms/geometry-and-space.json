@@ -1,0 +1,288 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-algorithms",
+  "slug": "geometry-and-space",
+  "title": "Геометрія й простір",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "spatial-indexes",
+      "title": "Просторові індекси",
+      "topics": [
+        {
+          "slug": "spatial-index",
+          "title": "Просторовий індекс: R-дерево і квадродерево",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-spatial-index-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-window-query-cost.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rtree-insert.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "r-tree",
+          "title": "R-дерево",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-r-tree.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-r-tree-mbr.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-r-tree-search-split.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "kd-tree",
+          "title": "kd-дерево: поділ площини по черзі за координатами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kd-tree-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-kd-range-cost.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kd-nearest.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "k-d-tree",
+          "title": "K-d дерево",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kd-tree-bentley.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-kd-tree-complexity.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kd-tree-impl.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "z-order-curve",
+          "title": "Крива Мортона (Z-порядок): просторова близькість у лінійному ключі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-morton.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-morton.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-z-order.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-z-order.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "polygons-and-contours",
+      "title": "Многокутники й контури",
+      "topics": [
+        {
+          "slug": "point-in-polygon",
+          "title": "Належність точки багатокутнику (метод променя)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "shoelace-area",
+          "title": "Орієнтована площа многокутника (формула шнурівки)",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "polygon-offset",
+          "title": "Зсув контуру (еквідистанта): розширення й звуження многокутника та ламаної",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "polyline-simplification",
+          "title": "Спрощення ламаної: Дуглас–Пекер і жадібні проходи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "intersections-and-hulls",
+      "title": "Перетини й оболонки",
+      "topics": [
+        {
+          "slug": "sweep-line",
+          "title": "Замітальна пряма: події, статус і геометрія за один прохід",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "gjk-collision",
+          "title": "Алгоритм GJK: перетин опуклих тіл через множину різниць",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "convex-hull",
+          "title": "Опукла оболонка множини точок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "voronoi-diagram",
+          "title": "Діаграма Вороного",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "model-fitting",
+      "title": "Підгонка моделі",
+      "topics": [
+        {
+          "slug": "ransac",
+          "title": "RANSAC: згода на випадковій вибірці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ransac.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-iterations.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ransac-linefit.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

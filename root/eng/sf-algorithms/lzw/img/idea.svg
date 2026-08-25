@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Душа LZW: словник росте з даних, а не передається</text>
+<text x="40.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">вхідний потік байтів</text>
+<rect x="40.0" y="72.0" width="30.0" height="30.0" rx="6" fill="#eef4ff" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="55.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<rect x="70.0" y="72.0" width="30.0" height="30.0" rx="6" fill="#eef4ff" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="85.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">B</text>
+<rect x="100.0" y="72.0" width="30.0" height="30.0" rx="6" fill="#eef4ff" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="115.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<rect x="130.0" y="72.0" width="30.0" height="30.0" rx="6" fill="#eef4ff" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="145.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">B</text>
+<rect x="160.0" y="72.0" width="30.0" height="30.0" rx="6" fill="#eef4ff" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="175.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<rect x="190.0" y="72.0" width="30.0" height="30.0" rx="6" fill="#eef4ff" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="205.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">B</text>
+<rect x="220.0" y="72.0" width="30.0" height="30.0" rx="6" fill="#eef4ff" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="235.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<rect x="411.0" y="85.3" width="138.0" height="61.4" rx="6" fill="#f6f4ec" stroke="#27ae60" stroke-width="1.6"/><text x="480.0" y="105.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">словник, що РОСТЕ</tspan><tspan x="480.0" dy="15.0">з уже прочитаного:</tspan><tspan x="480.0" dy="15.0">2→AB  3→BA  4→ABA</tspan></text>
+<text x="480.0" y="77.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">будується на льоту, у файл НЕ йде</text>
+<line x1="360.0" y1="130.0" x2="360.0" y2="168.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="40.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">у файл — лише номери (словник не передається):</text>
+<rect x="41.0" y="207.0" width="46.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/><text x="64.0" y="228.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="64.0" dy="0.0">0</tspan></text>
+<rect x="103.0" y="207.0" width="46.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/><text x="126.0" y="228.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="126.0" dy="0.0">1</tspan></text>
+<rect x="165.0" y="207.0" width="46.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/><text x="188.0" y="228.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="188.0" dy="0.0">2</tspan></text>
+<rect x="227.0" y="207.0" width="46.0" height="34.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/><text x="250.0" y="228.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">4</tspan></text>
+<text x="294.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">→ декодер відтворить той самий словник сам</text>
+</svg>

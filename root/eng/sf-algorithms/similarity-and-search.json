@@ -1,0 +1,294 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-algorithms",
+  "slug": "similarity-and-search",
+  "title": "Схожість і пошук",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "similarity-measures",
+      "title": "Міри схожості",
+      "topics": [
+        {
+          "slug": "cosine-distance",
+          "title": "Косинусна відстань",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cosine-distance.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cosine-properties.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-simd-cosine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cosine-metrics.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "jaccard-index",
+          "title": "Індекс Жаккара",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-jaccard.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-jaccard-properties.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-jaccard-search.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-jaccard-engine.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "levenshtein-distance",
+          "title": "Відстань Левенштейна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-levenshtein.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-levenshtein-metric.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-levenshtein-dp.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fuzzy-search.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "text-and-indexes",
+      "title": "Тексти й індекси",
+      "topics": [
+        {
+          "slug": "regex-engine",
+          "title": "Рушій регулярних виразів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-regex-engine.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-regex-engine.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sequence-diff",
+          "title": "Порівняння двох послідовностей: найдовша спільна підпослідовність і алгоритми diff",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "inverted-index",
+          "title": "Інвертований індекс",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ir-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bm25-ranking.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-search-engine.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "nearest-neighbors",
+      "title": "Пошук найближчого",
+      "topics": [
+        {
+          "slug": "nearest-neighbor-search",
+          "title": "Пошук найближчого сусіда: точний перебір, індекс і наближена відповідь",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "k-nearest-neighbors",
+          "title": "Пошук найближчих сусідів (k-NN)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-metric-pruning.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ball-tree-knn.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "curse-of-dimensionality",
+          "title": "Прокляття розмірності: чому геометрія ламається у високих вимірах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-curse-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-distance-concentration.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-contrast-measure.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "random-projection",
+          "title": "Випадкова проєкція і лема Джонсона — Лінденштрауса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "locality-sensitive-hashing",
+          "title": "Локально чутливе хешування (LSH): близькі точки в один кошик",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lsh.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lsh-family.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lsh-index.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-lsh.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

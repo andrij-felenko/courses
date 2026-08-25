@@ -1,0 +1,584 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-algorithms",
+  "slug": "graphs",
+  "title": "Графи",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "representation-and-traversal",
+      "title": "Подання й обходи",
+      "topics": [
+        {
+          "slug": "graph-representation",
+          "title": "Представлення графів: матриця та списки суміжності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "adjacency-matrix",
+          "title": "Матриця суміжності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-matrix-graph.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-spectral-properties.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-graph-matrix.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-matrix-interface.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "breadth-first-search",
+          "title": "Пошук у ширину (BFS)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-breadth-first-search.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bfs-correctness.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bfs-applications.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bfs-traversal.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "depth-first-search",
+          "title": "Пошук у глибину (DFS)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dfs.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dfs.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dfs.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dfs.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "reachability-and-order",
+      "title": "Досяжність і порядок",
+      "topics": [
+        {
+          "slug": "topological-sort",
+          "title": "Топологічне сортування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-topological-sort.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "strongly-connected-components",
+          "title": "Сильно зв'язні компоненти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-strongly-connected-components.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-scc-condensation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tarjan-scc.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-scc.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "transitive-closure",
+          "title": "Транзитивне замикання графа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-warshall.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-boolean-algebra.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-transitive-closure.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-reachability.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "shortest-paths",
+      "title": "Найкоротші шляхи",
+      "topics": [
+        {
+          "slug": "dijkstra",
+          "title": "Алгоритм Дейкстри",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dijkstra.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bellman-ford",
+          "title": "Алгоритм Беллмана–Форда",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bellman-ford.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bellman-ford.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bellman-ford.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "floyd-warshall",
+          "title": "Алгоритм Флойда–Уоршелла",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "spanning-trees",
+      "title": "Кістякові дерева",
+      "topics": [
+        {
+          "slug": "minimum-spanning-tree",
+          "title": "Мінімальне кістякове дерево",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "kruskal-algorithm",
+          "title": "Алгоритм Краскала",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "network-flow",
+      "title": "Потоки в мережі",
+      "topics": [
+        {
+          "slug": "maximum-flow",
+          "title": "Задача про максимальний потік",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dinic-algorithm",
+          "title": "Алгоритм Дініца",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dinitz-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-blocking-flow-bounds.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dinic-solver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dinic-flow.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "matching",
+      "title": "Паросполучення",
+      "topics": [
+        {
+          "slug": "bipartite-graph",
+          "title": "Двочастковий граф",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bipartite-graphs.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bipartite-equivalence.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bipartite-checker.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bipartite-graph.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "bipartite-matching",
+          "title": "Двочасткові графи й досконале паросполучення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bipartite-matching.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-könig-hall.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kuhn-matching.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bipartite-matching.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "perfect-matching",
+          "title": "Досконале паросполучення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-matching-theory.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tutte-theorem.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-matching-algorithms.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-matching-solver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "edmonds-algorithm",
+          "title": "Алгоритм Едмондса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-edmonds-blossoms.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-blossom-duality.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-edmonds-matching.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-matching-solver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "edmonds-blossom-algorithm",
+          "title": "Алгоритм Едмондса (Blossom Algorithm)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "hungarian-algorithm",
+          "title": "Алгоритм Угорського методу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "isomorphism-and-centrality",
+      "title": "Ізоморфізм і центральність",
+      "topics": [
+        {
+          "slug": "graph-isomorphism",
+          "title": "Ізоморфізм графів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-babai-algorithm.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-weisfeiler-leman.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-vf2-algorithm.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-nauty-tracer.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "pagerank-algorithm",
+          "title": "Алгоритм ранжування графів PageRank",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pagerank-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-perron-frobenius.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pagerank-engine.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

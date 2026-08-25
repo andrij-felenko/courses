@@ -1,0 +1,220 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-algorithms",
+  "slug": "limits-and-hard-problems",
+  "title": "Межі й важкі задачі",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "speedup-limits",
+      "title": "Межа пришвидшення",
+      "topics": [
+        {
+          "slug": "amdahls-law",
+          "title": "Закон Амдала",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gene-amdahl.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-scaling-laws.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-parallel-bench.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-profiling-metrics.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "work-span-model",
+          "title": "Робота і глибина: критичний шлях як межа паралельності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "hard-problems",
+      "title": "Наближені розв'язки",
+      "topics": [
+        {
+          "slug": "set-cover",
+          "title": "Задача про покриття множини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "simulated-annealing",
+          "title": "Імітація відпалу (simulated annealing)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "constraint-solvers",
+      "title": "Розв'язувачі обмежень",
+      "topics": [
+        {
+          "slug": "dpll-cdcl",
+          "title": "Алгоритми DPLL та CDCL у SAT-солверах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dpll-cdcl.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dpll-cdcl.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dpll-cdcl.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dpll-cdcl.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "watched-literals",
+          "title": "Техніка двох спостережуваних літералів (Watched Literals)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-two-watched-literals.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-watched-literals-invariant.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-watched-literals-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-watched-literals-interface.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "smt-solvers-lia",
+          "title": "SMT-солівери та лінійна арифметика Пресбургера (LIA)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-presburger-smt.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-presburger-complexity.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lia-solver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-smt-lib.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "bignum-arithmetic",
+      "title": "Арифметика великих чисел",
+      "topics": [
+        {
+          "slug": "karatsuba-multiplication",
+          "title": "Множення Карацуби",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "montgomery-multiplication",
+          "title": "Множення за Монтгомері",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,270 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-algorithms",
+  "slug": "hashing-and-tables",
+  "title": "Хешування й таблиці",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "key-value-storage",
+      "title": "Сховища за ключем",
+      "topics": [
+        {
+          "slug": "key-value-store",
+          "title": "Сховище «ключ — значення»",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-associative-to-dynamo.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-load-factor.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hash-kv-store.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hash-table",
+          "title": "Хеш-таблиця",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hashing-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-open-addressing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-open-addressing.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cuckoo-hashing",
+          "title": "Хешування зозулею (Cuckoo Hashing)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cuckoo-birth.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cuckoo-graph.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cuckoo-table.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cuckoo-map.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "hash-functions",
+      "title": "Хеш-функції",
+      "topics": [
+        {
+          "slug": "universal-hashing",
+          "title": "Універсальне хешування",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-carter-wegman.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-universal-family.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-universal-hash.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-universal-hash-spec.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "non-cryptographic-hash",
+          "title": "Некриптографічні хеш-функції: FNV, Murmur, xxHash",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hash-functions.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-avalanche-distribution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fast-hash.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-hash-bench.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "rolling-hash",
+          "title": "Ковзний хеш (rolling hash)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rabin-karp.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-poly-hash-mod.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rolling-hash-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "consistent-hashing",
+          "title": "Консистентне хешування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-consistent-hashing.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ring-distribution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-consistent-hash-ring.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "merkle-tree",
+          "title": "Дерево Меркла",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-merkle.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-merkle-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-merkle-tree.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-merkle-tree.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

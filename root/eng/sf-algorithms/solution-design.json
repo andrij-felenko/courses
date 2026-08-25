@@ -1,0 +1,262 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-algorithms",
+  "slug": "solution-design",
+  "title": "Побудова розв'язку",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "general-schemes",
+      "title": "Загальні каркаси",
+      "topics": [
+        {
+          "slug": "recursion",
+          "title": "Рекурсія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-recursion.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-recurrence.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-recursion-to-iteration.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "divide-and-conquer",
+          "title": "Розділяй і володарюй",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-divide-and-conquer.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-recurrence.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mergesort.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "greedy-algorithms",
+          "title": "Жадібні алгоритми",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-greedy-algorithms.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-matroid-greedy.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-greedy-examples.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "backtracking",
+          "title": "Пошук із поверненням (backtracking)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-backtracking.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-state-space-tree.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-backtracking-nqueens.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "subproblem-reuse",
+      "title": "Динамічне програмування",
+      "topics": [
+        {
+          "slug": "dynamic-programming",
+          "title": "Динамічне програмування",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bellman.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-optimal-substructure.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-knapsack.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "memoization",
+          "title": "Мемоізація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-memo-functions.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-subproblem-count.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-edit-distance.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kadane-algorithm",
+          "title": "Алгоритм Кадане (Kadane's Algorithm)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kadane-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-kadane-proof.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kadane-variants.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "memory-for-computation",
+      "title": "Пам'ять замість обчислення",
+      "topics": [
+        {
+          "slug": "cache-oblivious",
+          "title": "Кеш-незалежні алгоритми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ideal-cache.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-matmul.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lookup-table",
+          "title": "Таблиця замін (LUT)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

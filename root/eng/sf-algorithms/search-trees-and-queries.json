@@ -1,0 +1,560 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-algorithms",
+  "slug": "search-trees-and-queries",
+  "title": "Дерева пошуку й запити",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "search-trees",
+      "title": "Дерева пошуку",
+      "topics": [
+        {
+          "slug": "binary-tree",
+          "title": "Двійкове дерево",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-binary-tree.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-binary-tree.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-binary-tree.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "binary-search-tree",
+          "title": "Двійкове дерево пошуку (BST)",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bst-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bst-height.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bst-operations.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "tree-rotation",
+          "title": "Обертання дерева",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tree-rotation.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rotation-invariants.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tree-rotation.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tree-rotation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "avl-tree",
+          "title": "AVL-дерево",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-avl.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-height-bound.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-avl-tree.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-interface.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "self-balancing",
+      "title": "Самобалансовані структури",
+      "topics": [
+        {
+          "slug": "red-black-tree",
+          "title": "Червоно-чорне дерево",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rbt.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rb-bounds.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rbt-impl.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rbt.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "2-3-4-tree",
+          "title": "2-3-4 дерево",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-234-tree.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-234-bounds.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-234-tree.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "splay-tree",
+          "title": "Splay-дерево",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-splay.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-splay-potential.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-splay-tree.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-splay-tree.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "treap",
+          "title": "Декартове дерево (Treap)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-treap.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-treap-bounds.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-treap-operations.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-treap.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "skip-list",
+          "title": "Пропускний список (Skip List)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pugh-skiplist.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-probabilistic-analysis.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-skip-list.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-skip-list.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "range-queries",
+      "title": "Запити на діапазонах",
+      "topics": [
+        {
+          "slug": "prefix-sums",
+          "title": "Префіксні суми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-discrete-calculus.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-subsegment-divisibility.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-prefix-sum-algorithms.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-prefix-ops.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fenwick-tree",
+          "title": "Дерево Фенвіка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fenwick-origin.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fenwick-algebra.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fenwick-implementation.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fenwick-interface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "segment-tree",
+          "title": "Відрізкове дерево (Segment Tree)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-segment-tree.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-segment-tree.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-segment-tree.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-segment-tree.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "sparse-table",
+          "title": "Таблиця заміни (Sparse Table)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sparse-table.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-idempotency-algebra.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sparse-table.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sparse-table.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "interval-tree",
+          "title": "Дерево інтервалів: які відрізки накривають задану точку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-interval-tree.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-interval-correctness.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-interval-tree.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-interval-tree.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "tree-queries",
+      "title": "Запити на деревах",
+      "topics": [
+        {
+          "slug": "lowest-common-ancestor",
+          "title": "Найменший спільний предок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lowest-common-ancestor.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lca-properties.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lca-algorithms.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-lca-interface.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "heavy-light-decomposition",
+          "title": "Heavy-Light декомпозиція (HLD)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hld-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-hld-bounds.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hld-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-hld-interface.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

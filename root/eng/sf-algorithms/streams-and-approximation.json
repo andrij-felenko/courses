@@ -1,0 +1,262 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-algorithms",
+  "slug": "streams-and-approximation",
+  "title": "Потоки й наближені відповіді",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "probabilistic-filters",
+      "title": "Ймовірнісні фільтри",
+      "topics": [
+        {
+          "slug": "bloom-filter",
+          "title": "Фільтр Блума",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bloom-filter.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-false-positive.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bloom-filter.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bloom-filter.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "counting-bloom-filter",
+          "title": "Підрахунковий фільтр Блума (Counting Bloom Filter)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-counting-bloom.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-overflow-probability.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-counting-bloom-filter.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-counting-bloom-filter.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cuckoo-filter",
+          "title": "Фільтр Кукушки (Cuckoo Filter)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cuckoo-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fingerprint-capacity.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cuckoo-filter.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cuckoo-filter.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "quotient-filter",
+          "title": "Квошієнтний фільтр (Quotient Filter)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "xor-filter",
+          "title": "Xor-фільтр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "ribbon-filter",
+          "title": "Стрічковий фільтр (Ribbon Filter)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ribbon-filter.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-band-elimination.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ribbon-filter.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ribbon-filter.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "single-pass-counters",
+      "title": "Один прохід потоком",
+      "topics": [
+        {
+          "slug": "count-min-sketch",
+          "title": "Count-Min Sketch: приблизні лічильники частот за фіксовану пам'ять",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "majority-vote-boyer-moore",
+          "title": "Голосування більшості (Бойєр — Мур): переможець за один прохід і фіксовану пам'ять",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "reservoir-sampling",
+          "title": "Вибірка з резервуара (Reservoir Sampling)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-reservoir-sampling.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-reservoir-proof.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-reservoir-stream.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "robust-statistics",
+      "title": "Стійка статистика",
+      "topics": [
+        {
+          "slug": "median-filter",
+          "title": "Медіанний фільтр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "trimmed-mean",
+          "title": "Усічене середнє",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "welford-online",
+          "title": "Онлайн-алгоритм Велфорда",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
