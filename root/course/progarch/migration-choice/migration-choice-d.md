@@ -1,10 +1,10 @@
 # Вибір стратегії переходу великого
 
 <preknowlist>
-- [Ерозія архітектури](topic:programming/architecture-erosion) — розходження між задуманою та реалізованою архітектурою під тиском років.
-- [Rewrite vs refactor](topic:programming/rewrite-vs-refactor) — дилема між повним переписуванням та локальним відновленням системи.
-- [Strangler fig](topic:programming/strangler-fig) — патерн поступового витіснення монолітного коду за допомогою огороджувального проксі.
-- [Deprecation як керований процес](topic:programming/deprecation-policy) — виведення з експлуатації застарілих інтерфейсів та сервісів.
+- [Ерозія архітектури](topic:sf-apps/architecture-erosion) — розходження між задуманою та реалізованою архітектурою під тиском років.
+- [Rewrite vs refactor](topic:sf-apps/rewrite-vs-refactor) — дилема між повним переписуванням та локальним відновленням системи.
+- [Strangler fig](topic:sf-apps/strangler-fig) — патерн поступового витіснення монолітного коду за допомогою огороджувального проксі.
+- [Deprecation як керований процес](topic:sf-apps/deprecation-policy) — виведення з експлуатації застарілих інтерфейсів та сервісів.
 - [Прийшов у чужу систему](root:progarch/legacy-and-evolution/reading-unknown-system) — методи кодової археології та побудови мапи незнайомого legacy.
 </preknowlist>
 

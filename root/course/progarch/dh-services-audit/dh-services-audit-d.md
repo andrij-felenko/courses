@@ -3,7 +3,7 @@
 <preknowlist>
 - [Коли виділяти сервіс](root:progarch/monolith-vs-microservices/when-to-extract-service) — чотири обґрунтовані критерії виділення мережевої межі проти п'яти хибних приводів.
 - [Від модульного моноліта до сервісів](root:progarch/monolith-vs-microservices/modular-monolith-to-services) — покрокова стратегія виділення швів та використання патерну Strangler Fig.
-- [Обмежений контекст](topic:programming/bounded-context) — DDD-поняття автономної моделі та її мовних меж.
+- [Обмежений контекст](topic:sf-apps/bounded-context) — DDD-поняття автономної моделі та її мовних меж.
 - [Зчеплення та зв'язність](topic:programming/coupling-and-cohesion) — фундаментальні метрики якості модульної архітектури.
 </preknowlist>
 

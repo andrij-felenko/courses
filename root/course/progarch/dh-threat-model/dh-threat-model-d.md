@@ -1,10 +1,10 @@
 # Threat model Digital Homes
 
 <preknowlist>
-- [Моделювання загроз](topic:programming/threat-modeling) — чотири питання декомпозиції системи та аналіз STRIDE.
-- [Межі довіри](topic:programming/trust-boundaries) — точки перетину кордонів між компонентами різного рівня привілеїв.
-- [Zero-trust](topic:programming/zero-trust) — відсутність периметральної довіри та сувора перевірка кожного запиту.
-- [C4-модель](topic:programming/c4-model) — декомпозиція системи на контекст, контейнери та компоненти.
+- [Моделювання загроз](topic:sf-security/threat-modeling) — чотири питання декомпозиції системи та аналіз STRIDE.
+- [Межі довіри](topic:sf-security/trust-boundaries) — точки перетину кордонів між компонентами різного рівня привілеїв.
+- [Zero-trust](topic:sf-security/zero-trust) — відсутність периметральної довіри та сувора перевірка кожного запиту.
+- [C4-модель](topic:sf-apps/c4-model) — декомпозиція системи на контекст, контейнери та компоненти.
 - [Розділення конфігу й секретів](root:progarch/config-secrets-boundary) — оборотність конфігурацій проти переживаності витоків.
 </preknowlist>
 

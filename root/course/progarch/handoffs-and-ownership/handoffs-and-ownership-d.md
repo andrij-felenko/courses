@@ -1,8 +1,8 @@
 # Передачі й володіння як джерело затримки
 
 <preknowlist>
-- [Закон Конвея](topic:programming/conways-law) — структура системи відображає комунікаційну структуру організації.
-- [Team Topologies](topic:programming/team-topologies) — класифікація команд (Stream-Aligned, Platform, Enabling, Complicated-Subsystem) та типів взаємодії.
+- [Закон Конвея](topic:sf-apps/conways-law) — структура системи відображає комунікаційну структуру організації.
+- [Team Topologies](topic:sf-apps/team-topologies) — класифікація команд (Stream-Aligned, Platform, Enabling, Complicated-Subsystem) та типів взаємодії.
 - [Когнітивне навантаження як критерій розкрою](root:progarch/conway-and-teams/cognitive-load-as-boundary) — обмеження пам'яті та уваги команди як межа відповідальності сервісу.
 </preknowlist>
 

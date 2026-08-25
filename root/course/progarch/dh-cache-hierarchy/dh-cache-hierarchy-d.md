@@ -1,8 +1,8 @@
 # Стан дому і список пристроїв крізь яруси кешу
 
 <preknowlist>
-- [Розподілений кеш](topic:programming/distributed-cache) — принципи кешування, ключі, TTL, гарячі ключі та вимивання (eviction).
-- [CDN і кеш на краю](topic:programming/cdn) — кешування веб-ресурсів та API-відповідей на географічно розподілених вузлах edge, заголовки Cache-Control.
+- [Розподілений кеш](topic:sf-distributed/distributed-cache) — принципи кешування, ключі, TTL, гарячі ключі та вимивання (eviction).
+- [CDN і кеш на краю](topic:sf-distributed/cdn) — кешування веб-ресурсів та API-відповідей на географічно розподілених вузлах edge, заголовки Cache-Control.
 - [Когерентність кешу та інвалідація](topic:programming/distributed-systems/cache-consistency) — проблема асинхронної неузгодженості між копіями даних та стратегії підтримання свіжості (invalidation vs expiration).
 </preknowlist>
 

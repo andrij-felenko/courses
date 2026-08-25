@@ -1,11 +1,11 @@
 # DH: фінал тактик змін і кешування
 
 <preknowlist>
-- [Zero-downtime міграції даних](topic:programming/zero-downtime-migration) — трифазний підхід expand-migrate-contract та подвійний запис.
-- [Branch by abstraction](topic:programming/branch-by-abstraction) — ізоляція змін за абстрактним швом у коді.
-- [Кеш-когерентність між сервісами](topic:programming/cache-coherence-services) — події-інвалідатори проти TTL та версійні ключі.
-- [Лаг read-model як контракт](topic:programming/read-model-lag) — припущення CQRS і чесний показ застарілих даних у UX.
-- [Thundering herd і захист кешу](topic:programming/cache-stampede) — request coalescing, TTL jitter та soft TTL.
+- [Zero-downtime міграції даних](topic:sf-release/zero-downtime-migration) — трифазний підхід expand-migrate-contract та подвійний запис.
+- [Branch by abstraction](topic:sf-apps/branch-by-abstraction) — ізоляція змін за абстрактним швом у коді.
+- [Кеш-когерентність між сервісами](topic:sf-distributed/cache-coherence-services) — події-інвалідатори проти TTL та версійні ключі.
+- [Лаг read-model як контракт](topic:sf-distributed/read-model-lag) — припущення CQRS і чесний показ застарілих даних у UX.
+- [Thundering herd і захист кешу](topic:sf-distributed/cache-stampede) — request coalescing, TTL jitter та soft TTL.
 </preknowlist>
 
 У продакшені Digital Homes v2 працює 1.2 мільйона активних домашніх хабів та понад 4.5 мільйона мобільних застосунків. Кожної секунди платформа обробляє 85 000 телеметричних подій — від датчиків температури й руху до розумних замків і систем виявлення протікання води. Стан кожного дому обслуговується монолітним сервісом цифрових твінів («Варіант Б»), який тримає поточний стан у централізованій базі даних PostgreSQL та в пам'яті спільного кластера Redis. Під вечірнім піковим навантаженням синхронні записи в PostgreSQL створюють високу затримку (latency P99 перевалює за 850 мілісекунд), а будь-яка спроба інвалідації кешу приводить до каскадного вичерпання пулу з'єднань.

@@ -2,9 +2,9 @@
 
 <preknowlist>
 - [Якісні атрибути й сценарії](root:progarch/mindset/attribute-scenarios) — вимірювані вимоги до системи як основа прийняття рішень.
-- [Зворотні й незворотні рішення](topic:programming/reversible-irreversible-decisions) — розрізнення 1-way та 2-way door рішень при оцінці перед продакшном.
+- [Зворотні й незворотні рішення](topic:sf-apps/reversible-irreversible-decisions) — розрізнення 1-way та 2-way door рішень при оцінці перед продакшном.
 - [Смак архітектора](root:progarch/legacy-and-evolution/architect-taste) — баланс простоти, прагматизму та чесності в інженерних судженнях.
-- [Deprecation як керований процес](topic:programming/deprecation-policy) — життєвий цикл змін та збереження зворотної сумісності.
+- [Deprecation як керований процес](topic:sf-apps/deprecation-policy) — життєвий цикл змін та збереження зворотної сумісності.
 - [Оцінка та управління технічним боргом](topic:programming/architecture-discipline/technical-debt-management) — облік і компроміси системного боргу.
 </preknowlist>
 

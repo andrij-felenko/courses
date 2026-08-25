@@ -2,7 +2,7 @@
 
 <preknowlist>
 - [Навантаження спалахами (Flash Crowds)](topic:programming/distributed-systems/flash-crowds) — феномен масового одночасного трафіку та чому звичайне масштабування (autoscaling) не встигає реагувати.
-- [Управління потоком (Rate Limiting та Throttling)](topic:programming/distributed-systems/rate-limiting) — алгоритми обмеження частоти запитів (Token Bucket, Leaky Bucket, Sliding Window).
+- [Управління потоком (Rate Limiting та Throttling)](topic:sf-security/rate-limiting) — алгоритми обмеження частоти запитів (Token Bucket, Leaky Bucket, Sliding Window).
 - [Токени доступу та криптографічні підписи](topic:programming/security/crypto-tokens) — формування JWT/HMAC токенів для безпечного перенаправлення без зберігання стану на Edge.
 </preknowlist>
 
