@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="360" viewBox="0 0 900 360">
+<rect width="900" height="360" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aOrange" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#e08030"/></marker>
+  <marker id="aPurple" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#7a3fb0"/></marker>
+  <marker id="aCopper" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#cf8b5e"/></marker>
+</defs>
+<text x="450.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Стрілка показує на магнітну, а не географічну північ: відмінювання</text>
+<text x="450.0" y="52.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">магнітні полюси не збігаються з географічними й повільно дрейфують; різниця кутів — «відмінювання» (declination)</text>
+<circle cx="450.0" cy="210.0" r="14.0" fill="#fff" stroke="#8a8a8a" stroke-width="1.4"/>
+<line x1="450.0" y1="210.0" x2="450.0" y2="80.0" stroke="#1f8a3b" stroke-width="2.6" marker-end="url(#aGreen)"/>
+<text x="450.0" y="70.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">географічна Пн</text>
+<line x1="450.0" y1="210.0" x2="490.2" y2="86.4" stroke="#1f47b5" stroke-width="2.6" marker-end="url(#aBlue)"/>
+<text x="500.2" y="86.4" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">магнітна Пн (стрілка)</text>
+<path d="M 450.0 140.0 A 70.0 70.0 0 0 1 471.6 143.4" fill="none" stroke="#e08030" stroke-width="2.0" marker-end="url(#aInk)"/>
+<text x="500.0" y="126.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#e08030" text-anchor="start" font-weight="bold" font-style="normal">δ — відмінювання</text>
+<text x="450.0" y="344.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Тому для точної навігації до показу компаса додають місцеве відмінювання (з карт/таблиць).</text>
+</svg>

@@ -1,0 +1,482 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-electromagnetism",
+  "slug": "charge-and-electrostatic-field",
+  "title": "Заряд і електростатичне поле",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "charge-and-its-field",
+      "title": "Заряд і його поле",
+      "topics": [
+        {
+          "slug": "electric-charge",
+          "title": "Заряд",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-millikan.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-electricity.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "charge-conservation",
+          "title": "Закон збереження заряду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "elementary-charge",
+          "title": "Елементарний заряд і квантування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "coulomb-law",
+          "title": "Закон Кулона",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-coulomb.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-van-de-graaff.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-vectors.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "electric-field",
+          "title": "Електричне поле",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-faraday.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "flux-and-conductors",
+      "title": "Потік і провідник",
+      "topics": [
+        {
+          "slug": "gauss-law",
+          "title": "Закон Гаусса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gauss.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gauss-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gauss-solver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-electrostatic-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "field-line-geometry",
+          "title": "Геометрія силових ліній і еквіпотенціалей",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-faraday-lines.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-conformal-grid.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-field-tracer.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "charge-induction",
+          "title": "Електростатична індукція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-electrophorus.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-method-of-images.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-electrostatic-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-field-meter.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "faraday-cage",
+          "title": "Клітка Фарадея",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-everyday-shields.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "potential-and-energy",
+      "title": "Потенціал і енергія",
+      "topics": [
+        {
+          "slug": "electric-potential",
+          "title": "Потенціал",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-work-integral.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "potential-energy-electric",
+          "title": "Потенціальна енергія в електричному полі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-potential-concept.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-field-energy-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-charge-system-energy.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "conservative-field",
+          "title": "Потенціальне поле й циркуляція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-potential-field.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-curl-circulation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-circulation-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-field-operators.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "interaction-energy-of-charges-and-conductors",
+          "title": "Енергія взаємодії системи зарядів і провідників",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-electrostatic-energy.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-self-energy-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-charge-system-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-charge-energy-calc.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "electric-field-energy-density",
+          "title": "Об'ємна густина енергії електричного поля",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-field-vs-action.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-continuous-charge-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-field-energy-solver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-electrostatic-energy-calc.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "boundary-problems",
+      "title": "Крайові задачі",
+      "topics": [
+        {
+          "slug": "poisson-laplace-eq",
+          "title": "Рівняння Пуассона і Лапласа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-poisson-laplace.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-uniqueness-theorem.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-grid-solver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-boundary-conditions.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "image-theory",
+          "title": "Метод дзеркальних зображень в електродинаміці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kelvin.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-uniqueness.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-image-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-image-solver.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "capacitance",
+      "title": "Ємність",
+      "topics": [
+        {
+          "slug": "capacitance",
+          "title": "Ємність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-derivative-current.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-touch-sensing.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "capacitor-energy",
+          "title": "Енергія конденсатора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    }
+  ]
+}

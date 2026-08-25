@@ -1,0 +1,332 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-electromagnetism",
+  "slug": "maxwell-and-waves",
+  "title": "Рівняння Максвелла і хвилі",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "maxwell-system",
+      "title": "Замкнений набір рівнянь",
+      "topics": [
+        {
+          "slug": "maxwell-equations",
+          "title": "Рівняння Максвелла",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-maxwell-unification.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-maxwell-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fdtd-solver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fdtd-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "displacement-current",
+          "title": "Струм зміщення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-maxwell-displacement.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-displacement-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fdtd-capacitor.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dielectric-parameters.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "gauge-symmetry",
+          "title": "Калібрувальна симетрія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-weyl-gauge.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gauge-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gauge-solver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-gauge-tensors.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "energy-transport",
+      "title": "Перенесення енергії",
+      "topics": [
+        {
+          "slug": "poynting-vector",
+          "title": "Вектор Пойнтінга",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-poynting.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-poynting-theorem.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-poynting-calculator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-poynting-field.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "energy-density-field",
+          "title": "Густина енергії електромагнітного поля",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-field-energy.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-poynting-theorem.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-poynting-field-sim.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "waves",
+      "title": "Вільна хвиля",
+      "topics": [
+        {
+          "slug": "em-wave",
+          "title": "Електромагнітна хвиля",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hertz.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hertz-dipole",
+          "title": "Осцилювальний диполь Герца",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hertz-dipole-theory.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-hertz-dipole-fields.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dipole-field-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dipole-antenna-calc.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "em-spectrum",
+          "title": "Електромагнітний спектр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-spectrum-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dispersion-regimes.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-spectrum-calculator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "phase-group-velocity",
+          "title": "Фазова й групова швидкість",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dispersion.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-wave-packet.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-phase-group-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "faraday-rotation",
+          "title": "Фарадеєвське обертання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dispersion.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-faraday-rotator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-magneto-optical-materials.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

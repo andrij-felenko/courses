@@ -1,0 +1,364 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-electromagnetism",
+  "slug": "induction",
+  "title": "Індукція",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "induction-law",
+      "title": "Закон індукції",
+      "topics": [
+        {
+          "slug": "electromagnetic-induction",
+          "title": "Електромагнітна індукція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "faraday-law",
+          "title": "Закон електромагнітної індукції Фарадея",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-faraday-lenz.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-faraday-derivation.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "lenz-law",
+          "title": "Правило Ленца",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lenz-law.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lenz-law.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-eddy-current-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-induction-braking.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "faraday-law-differential",
+          "title": "Закон Фарадея у диференціальній формі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-maxwell-heaviside.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-stokes-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-faraday-solver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-field-operators.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "coils",
+      "title": "Котушка та її поле",
+      "topics": [
+        {
+          "slug": "inductor-coil",
+          "title": "Котушка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-oersted-ampere.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-induction.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "inductance",
+          "title": "Індуктивність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "inductor-energy",
+          "title": "Енергія котушки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "mutual-inductance",
+          "title": "Взаємоіндукція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-transformer.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-turns-ratio.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "eddy-currents-and-shielding",
+      "title": "Вихрові струми й екранування",
+      "topics": [
+        {
+          "slug": "eddy-currents",
+          "title": "Вихрові струми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-foucault-eddy-currents.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-laminated-cores-ferrites.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-skin-effect-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-eddy-current-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-eddy-current-params.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "induction-heating",
+          "title": "Індукційний нагрів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-induction-heating.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-skin-depth.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-induction-heater.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-induction-inverter.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "steinmetz-equation",
+          "title": "Рівняння Штейнмеця",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-steinmetz-equation.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-steinmetz-loss.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-steinmetz-calculator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-steinmetz-coefficients.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "magnetic-shielding",
+          "title": "Магнітне екранування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mu-metal-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-shielding-materials.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-shielding-factor-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-shielding-simulation.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "crosstalk",
+      "title": "Наводки між провідниками",
+      "topics": [
+        {
+          "slug": "capacitive-coupling",
+          "title": "Ємнісна наводка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-induction-coordination.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "inductive-coupling",
+          "title": "Індуктивна наводка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    }
+  ]
+}

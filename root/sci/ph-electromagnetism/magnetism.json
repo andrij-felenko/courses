@@ -1,0 +1,532 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-electromagnetism",
+  "slug": "magnetism",
+  "title": "Магнетизм",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "field-of-current",
+      "title": "Поле струму",
+      "topics": [
+        {
+          "slug": "magnetic-field",
+          "title": "Магнітне поле",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lodestone-oersted.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "oersted-experiment",
+          "title": "Дослід Ерстеда",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-biot-savart.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "electromagnet",
+          "title": "Електромагніт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-ampere-turns.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "magnetic-flux",
+          "title": "Магнітний потік",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-weber.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-flux-geometry.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-flux-quadrature.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fluxmeter.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "right-hand-rule",
+          "title": "Правило правої руки і псевдовектори",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-parity-violation.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pseudovector-algebra.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-axial-transform.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "magnetic-forces",
+      "title": "Сили в полі",
+      "topics": [
+        {
+          "slug": "ampere-force",
+          "title": "Сила Ампера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-cross-product.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lorentz-force",
+          "title": "Сила Лоренца",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lorentz.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cyclotron.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-particle-tracer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-hall-sensor.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "two-wire-force",
+          "title": "Сила між паралельними провідниками",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ampere-definition.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ampere-force-integration.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-busbar-force.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-wire-force-calculator.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "field-calculation",
+      "title": "Розрахунок поля",
+      "topics": [
+        {
+          "slug": "biot-savart-law",
+          "title": "Закон Біо–Савара",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-integrations.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-biot-savart-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ampere-circuital-law",
+          "title": "Теорема про циркуляцію (закон Ампера)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ampere-circuital-law.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-stokes-ampere.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ampere-loop-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "magnetic-reluctance",
+          "title": "Магнітний опір і магнітне коло",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hopkinson.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-air-gap.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-magnetic-circuit.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-core-params.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "moment-and-dipole",
+      "title": "Момент і диполь",
+      "topics": [
+        {
+          "slug": "magnetic-moment",
+          "title": "Магнітний момент",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-magnetic-moment.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-magnetic-multipole.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-magnetic-dipole-field.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-magnetic-measurement.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "magnetic-dipole",
+          "title": "Магнітний диполь",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ampere-gilbert.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dipole-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dipole-field-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-magnetic-dipole-calc.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "magnetic-monopole",
+          "title": "Магнітний монополь",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dirac-monopole.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dirac-quantization.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-monopole-trajectory.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-duality-tensor.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "planet-field",
+      "title": "Поле Землі",
+      "topics": [
+        {
+          "slug": "earth-magnetic-field",
+          "title": "Поле Землі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "geodynamo",
+          "title": "Геодинамо",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-geodynamo-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-induction-equation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dynamo-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-geomagnetic-models.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "magnetic-inclination",
+          "title": "Магнітний нахил і вектор поля Землі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dip-circle.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-geomagnetic-vector.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tilt-compensated-compass.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-wmm-model.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "magnetic-declination",
+          "title": "Магнітне схилення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-halley-isogons.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-declination-transform.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-declination-compass.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

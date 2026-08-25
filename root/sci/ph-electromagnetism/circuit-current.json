@@ -1,0 +1,454 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-electromagnetism",
+  "slug": "circuit-current",
+  "title": "Струм у колі",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "current",
+      "title": "Струм",
+      "topics": [
+        {
+          "slug": "electric-current",
+          "title": "Струм",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ampere.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-conduction.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-derivative.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "current-direction",
+          "title": "Напрямок струму",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "current-continuity",
+          "title": "Неперервність струму",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "current-density",
+          "title": "Щільність струму",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-current-density.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-continuity-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-current-density-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pcb-current-calculator.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "voltage-and-loop",
+      "title": "Напруга і замкнена петля",
+      "topics": [
+        {
+          "slug": "voltage",
+          "title": "Напруга",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "emf",
+          "title": "Електрорушійна сила (ЕРС)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-volta-galvani.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-emf-circulation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-battery-internal-resistance.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "closed-circuit",
+          "title": "Замкнене коло",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-switches.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dc-vs-ac",
+          "title": "DC і AC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-war-of-currents.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "lumped-approximation",
+      "title": "Схема замість поля",
+      "topics": [
+        {
+          "slug": "lumped-circuit-model",
+          "title": "Модель зосереджених елементів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lumped-abstraction.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-quasistationary-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lumped-vs-distributed-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-spice-netlist.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "surface-charge-guiding-field",
+          "title": "Поверхневий заряд провідника: як метал напрямляє власне поле",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-surface-charge.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-surface-charge-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-surface-charge-field.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-surface-charge-solver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "surface-charge-distribution-in-loop",
+          "title": "Розподіл поверхневого заряду вздовж замкненого кола",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-circuit-charges.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-surface-charge-field.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-circuit-poynting-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "signal-speed",
+          "title": "Швидкість сигналу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-atlantic-cable.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "power-and-losses",
+      "title": "Потужність і втрати",
+      "topics": [
+        {
+          "slug": "electric-power",
+          "title": "Електрична потужність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-watt.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "joule-heating",
+          "title": "Джоулеве тепло",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "instantaneous-power",
+          "title": "Миттєва та середня потужність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-power-history.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-power-decomposition.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-power-meter.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-hlw8012.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "rms-value",
+          "title": "Діюче значення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-rms-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-true-rms.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "efficiency",
+          "title": "Коефіцієнт корисної дії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-efficiency-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-maximum-power-vs-efficiency.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-efficiency-calc.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-efficiency-metrics.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "phasors-and-impedance",
+      "title": "Фазори та імпеданс",
+      "topics": [
+        {
+          "slug": "phasors",
+          "title": "Фазори",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "impedance",
+          "title": "Імпеданс",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-heaviside-steinmetz.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "power-triangle",
+          "title": "Трикутник потужності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    }
+  ]
+}

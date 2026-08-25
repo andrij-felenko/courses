@@ -1,0 +1,418 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-electromagnetism",
+  "slug": "matter-in-field",
+  "title": "Речовина в полі",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "dipole-and-polarization",
+      "title": "Диполь і поляризація",
+      "topics": [
+        {
+          "slug": "electric-dipole-moment-and-field",
+          "title": "Електричний диполь: момент, потенціал і власне поле",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dipole.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dipole-field.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dipole-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dipole-calc.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "dipole-interactions-in-matter",
+          "title": "Дипольні взаємодії в речовині: ван-дер-ваальсові сили, дебаївська релаксація, діелектрофорез",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dipole-concept.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dipole-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dipole-field-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dipole-calc.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "electric-polarization",
+          "title": "Поляризація діелектрика",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-polarization.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-dielectric-materials.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-langevin-debye.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-polarization-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "permittivity",
+          "title": "Діелектрична проникність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-polarization.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-clausius-mossotti.md",
+              "status": "recheck"
+            },
+            {
+              "file": "math-debye-relaxation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-permittivity-meter.md",
+              "status": "recheck"
+            },
+            {
+              "file": "proj-dielectric-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dielectric-materials.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "electric-displacement-field",
+          "title": "Електричний зсув (вектор D)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-displacement-field.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-boundary-conditions.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dielectric-solver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dielectric-tensors.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "insulation-and-breakdown",
+      "title": "Ізоляція та її межа",
+      "topics": [
+        {
+          "slug": "charge-relaxation",
+          "title": "Час релаксації заряду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-maxwell-relaxation.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-relaxation-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-charge-relaxation-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-relaxation-calculator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "surface-conductivity",
+          "title": "Поверхнева провідність діелектриків",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-surface-leakage.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-guard-ring.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-guard-ring-pcb.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-surface-test.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "electric-insulation",
+          "title": "Ізоляція провідників",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-insulation-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-breakdown-field.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-insulation-calc.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-insulation-standards.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "dielectric-breakdown",
+          "title": "Пробій діелектрика",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-breakdown-theories.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-avalanche-kinetics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-breakdown-sim.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "static-charge",
+      "title": "Статика на тілах",
+      "topics": [
+        {
+          "slug": "triboelectricity",
+          "title": "Трибоелектрика",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-franklin-richmann.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "body-charge",
+          "title": "Заряд тіла",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-hbm.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "humidity-static-control",
+          "title": "Вологість і статика",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "electrostatic-discharge",
+          "title": "Електростатичний розряд (ESD)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-esd-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-esd-protection.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-esd-transient-modeling.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-esd-transient-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-esd-testing-standards.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

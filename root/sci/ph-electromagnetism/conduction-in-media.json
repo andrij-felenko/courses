@@ -1,0 +1,274 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-electromagnetism",
+  "slug": "conduction-in-media",
+  "title": "Провідність середовищ",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "ions-in-liquid",
+      "title": "Іони в рідині",
+      "topics": [
+        {
+          "slug": "ionic-conduction",
+          "title": "Іонна провідність",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-arrhenius.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-galvanic-corrosion.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "electrolysis",
+          "title": "Електроліз",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-faraday-laws.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-electrolytic-cell.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-faraday-electrolysis.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-electrolysis-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "electrophoresis",
+          "title": "Електрофорез",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-electrophoresis.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-electrophoresis-system.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-double-layer.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gel-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "bioelectricity",
+          "title": "Біоелектрика",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-galvani-volta.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-nernst-goldman.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hodgkin-huxley-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-biopotential-signals.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gas-discharge",
+      "title": "Розряд у газі",
+      "topics": [
+        {
+          "slug": "air-breakdown",
+          "title": "Пробій повітря",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-paschen.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "corona-discharge",
+          "title": "Коронний розряд",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-st-elmo-fire.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-peek-law.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ionizer-driver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-corona-spec.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "plasma-physics",
+          "title": "Плазма",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-langmuir.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-debye-shielding.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-plasma-sim.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "atmospheric-electricity",
+      "title": "Електрика атмосфери",
+      "topics": [
+        {
+          "slug": "lightning",
+          "title": "Блискавка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-spark-gap-gdt.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "atmospheric-electricity",
+          "title": "Атмосферна електрика",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-global-circuit.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fair-weather-model.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-schumann-monitor.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
