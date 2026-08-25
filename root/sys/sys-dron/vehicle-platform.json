@@ -1,0 +1,250 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-dron",
+  "slug": "vehicle-platform",
+  "title": "Апарат і його борт",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "onboard-computers",
+      "title": "Дві машини на борту",
+      "topics": [
+        {
+          "slug": "flight-controller",
+          "title": "Політний контролер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "fc-vs-companion",
+          "title": "Контролер vs комп'ютер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "companion-computer",
+          "title": "Бортовий комп'ютер (companion)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "platform-kinematics",
+      "title": "Кінематика платформи",
+      "topics": [
+        {
+          "slug": "rover-steering",
+          "title": "Ровер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ackermann.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pure-pursuit.md",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "slug": "boat-underwater",
+          "title": "Човен і підводний",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-acoustic-positioning.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-depth-hold-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bicycle-kinematic-model",
+          "title": "Кінематична велосипедна модель",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "platform-choice",
+      "title": "Вибір апарата",
+      "topics": [
+        {
+          "slug": "platform-selection",
+          "title": "Вибір платформи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "one-stack-many-bodies",
+          "title": "Один стек",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "airframe-and-wiring",
+      "title": "Рама, джгут, компонування",
+      "topics": [
+        {
+          "slug": "kompozyty",
+          "title": "Композити: вуглепластик і склопластик",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "rizba-pid-vibratsiieiu",
+          "title": "Різьба під вібрацією: самовідкручування й фіксація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "komponuvannia-bortu",
+          "title": "Компонування борту: розміщення, джгут, розв'язка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dzhhut-obtysk-i-rozvantazhennia-natiahu",
+          "title": "Джгут, обтиск і розвантаження натягу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "manipulator",
+      "title": "Маніпулятор і захват",
+      "topics": [
+        {
+          "slug": "kinematyka-manipuliatora",
+          "title": "Кінематика маніпулятора: пряма й обернена",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "robochyi-prostir-i-synhuliarnosti",
+          "title": "Робочий простір і сингулярності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "piddatlyve-keruvannia",
+          "title": "Піддатливе керування: сила замість положення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "zakhvat-typy-syla-utrymannia",
+          "title": "Захват: типи, сила, утримання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "payload",
+      "title": "Корисне навантаження",
+      "topics": [
+        {
+          "slug": "stabilizovanyi-pidvis",
+          "title": "Стабілізований підвіс: осі, приводи, стабілізація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "parashut",
+          "title": "Парашут: опір і швидкість спуску",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,250 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-dron",
+  "slug": "autonomy",
+  "title": "Автономні рішення",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "behaviour-logic",
+      "title": "Логіка поведінок",
+      "topics": [
+        {
+          "slug": "avtomat-tsilei",
+          "title": "Автомат цілей: стани, переходи, охоронні умови",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "derevo-povedinky",
+          "title": "Дерево поведінки: чому воно витіснило автомат",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "priorytet-i-vytisnennia-povedinok",
+          "title": "Пріоритет і витіснення поведінок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "taimaut-na-kozhnu-povedinku",
+          "title": "Таймаут на кожну поведінку: скільки чекати, перш ніж здатися",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "zatsyklennia-tremtinnia-i-tupyk-u-lohitsi-tsilei",
+          "title": "Зациклення, тремтіння й тупик у логіці цілей",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "parametry-povedinky",
+          "title": "Параметри поведінки: що налаштовне, а що зашите",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "path-planning",
+      "title": "Планування шляху",
+      "topics": [
+        {
+          "slug": "configuration-space",
+          "title": "Конфігураційний простір: рух тіла як рух точки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "boustrophedon-coverage",
+          "title": "Бустрофедонний клітинний розклад та покриття площ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-morse-decomposition.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-boustrophedon-c.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bcd-planner.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "survey-grid-coverage",
+          "title": "Покриття полігону галсами: планування зйомки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-boustrophedon.md",
+              "status": "pending"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-min-width.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-coverage-c.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "obstacle-avoidance",
+      "title": "Обхід перешкоди",
+      "topics": [
+        {
+          "slug": "karta-zainiatosti-z-dalekomira",
+          "title": "Карта зайнятості з далекоміра: стоп, об'їзд, набір висоти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "tsina-klitynky",
+          "title": "Ціна клітинки: чому найкоротший шлях не найкращий",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "pereplanuvannia-na-khodu",
+          "title": "Перепланування на ходу: карта змінилася",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "biudzhet-chasu-planuvalnyka",
+          "title": "Бюджет часу планувальника: коли думати ніколи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "hlukhyi-kut-i-pastka-lokalnoho-obkhodu",
+          "title": "Глухий кут і пастка локального обходу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "slipi-zony-i-khybne-halmuvannia",
+          "title": "Сліпі зони й хибне гальмування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "target-tracking",
+      "title": "Ціль у кадрі",
+      "topics": [
+        {
+          "slug": "suprovid-tsili",
+          "title": "Супровід цілі: follow-me й утримання в кадрі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "navedennia-na-rukhomu-tsil",
+          "title": "Наведення на рухому ціль",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "tsil-zahublena",
+          "title": "Ціль загублена: пошук, таймаут, відмова від супроводу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

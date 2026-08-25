@@ -1,0 +1,212 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-dron",
+  "slug": "safety-and-failure",
+  "title": "Запобіжники й відмови",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "preflight-gates",
+      "title": "Перед стартом",
+      "topics": [
+        {
+          "slug": "arming-checks",
+          "title": "Arming-перевірки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-arming-interlocks.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-safety-switch.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "preflight-safety",
+          "title": "Безпека до польоту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-safe-and-arm.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "preflight-checklists",
+          "title": "Передпольотні чеклисти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-model299.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "geofence-limits",
+      "title": "Геозона й межі",
+      "topics": [
+        {
+          "slug": "geofence",
+          "title": "Геозона (geofence) в автопілоті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "geofence-algorithm",
+          "title": "Алгоритм геозони",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "failsafe-ladder",
+      "title": "Драбина failsafe",
+      "topics": [
+        {
+          "slug": "failsafe",
+          "title": "Failsafe",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "failure-priorities",
+          "title": "Пріоритети відмов",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dynamics-dependent-failsafe",
+          "title": "Failsafe за динамікою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "link-loss",
+      "title": "Втрата зв'язку",
+      "topics": [
+        {
+          "slug": "rc-failsafe-modes",
+          "title": "Режими failsafe RC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-failsafe-origin.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gcs-failsafe",
+          "title": "Failsafe на стороні GCS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-heartbeat-watchdog.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mavlink-failsafe.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "emergency-actions",
+      "title": "Аварійні дії",
+      "topics": [
+        {
+          "slug": "kerovana-terminatsiia",
+          "title": "Керована термінація: коли правильна дія — впасти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "vidmova-pryvodu",
+          "title": "Відмова приводу: мотор, серво, кермо",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "nyzka-batareia",
+          "title": "Низька батарея: три пороги й що по кожному",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

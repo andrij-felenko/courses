@@ -1,0 +1,364 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-dron",
+  "slug": "planning-and-monitoring",
+  "title": "Планування й спостереження",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "qgc-plan",
+      "title": "Складники плану",
+      "topics": [
+        {
+          "slug": "plan-model",
+          "title": "Модель плану: місія, геозона, точки збору",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-plan-json-roundtrip.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-plan-file.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mission-items",
+          "title": "Елементи місії й команди",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-coordinate-precision.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-plan-to-items.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mission-command-json.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "survey-patterns",
+          "title": "Патерни зйомки: полігон, коридор, структура",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-footprint-arithmetic.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-transect-generator.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-transect-commands.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "terrain-and-altitude",
+          "title": "Рельєф і режими висоти в плані",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-terrain-follow-path.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-terrain-query.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "qgc-plan-exchange",
+      "title": "План на карті й на борту",
+      "topics": [
+        {
+          "slug": "mission-planning-map",
+          "title": "Планування на карті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "plan-exchange",
+          "title": "Обмін планом із апаратом: вивантаження й звірка",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mission-protocol-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-plan-upload.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mission-protocol.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "qgc-map",
+      "title": "Карта й тайли",
+      "topics": [
+        {
+          "slug": "map-engine",
+          "title": "Рушій карти: провайдери, тайли, рівні масштабу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-custom-map-source.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-map-provider.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "offline-maps",
+          "title": "Офлайн-карти й кеш тайлів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-seed-cache.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tile-cache-db.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "qgc-video",
+      "title": "Жива картинка",
+      "topics": [
+        {
+          "slug": "video-manager",
+          "title": "Відеопідсистема: джерела, керування, запис",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-telemetry-subtitles.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-source-resolution.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-videomanager.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "video-pipeline",
+          "title": "Відеотракт станції на GStreamer",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-video-sink.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-min-video-pipeline.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-gst-receiver.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "qgc-logs",
+      "title": "Записи польоту",
+      "topics": [
+        {
+          "slug": "telemetry-logging",
+          "title": "Запис телеметрії й відтворення логів",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-tlog-reader.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tlog-format.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "vehicle-logs",
+          "title": "Бортові логи апарата: завантаження й потокове передавання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-log-protocol-origins.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-log-downloader.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-log-protocol.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "log-viewer",
+          "title": "Переглядач логів: графіки й повідомлення з бортового файлу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-log-analysis-outside.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dataflash-reader.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-log-formats.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ground-station-logs",
+          "title": "Записи станції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

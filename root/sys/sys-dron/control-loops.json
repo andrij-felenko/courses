@@ -1,0 +1,254 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-dron",
+  "slug": "control-loops",
+  "title": "Контури керування",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "flight-modes",
+      "title": "Режими польоту",
+      "topics": [
+        {
+          "slug": "manual-stabilized-modes",
+          "title": "Ручні режими",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "position-modes",
+          "title": "Режими з позицією",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "mode-state-machine",
+          "title": "Автомат режимів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "rc-input",
+      "title": "Сигнал від пульта",
+      "topics": [
+        {
+          "slug": "rc-link",
+          "title": "RC-лінк",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-sbus-decode.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "rc-signal-protocol",
+          "title": "RC-сигнал: PWM, PPM і S.BUS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-sbus-frame-parser.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "crsf-protocol",
+          "title": "Протокол CRSF",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-crsf-origin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-crsf-parser.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "attitude-control",
+      "title": "Керування орієнтацією",
+      "topics": [
+        {
+          "slug": "roll-pitch-yaw-control",
+          "title": "Керування roll/pitch/yaw",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "quaternion-attitude-control",
+          "title": "Кватерніонне керування орієнтацією",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hamilton.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-half-angle.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-error-quaternion-c.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "actuator-mixing",
+      "title": "Розподіл по приводах",
+      "topics": [
+        {
+          "slug": "motor-mixer",
+          "title": "Мікшер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "actuator-allocation",
+          "title": "Розподіл керування по приводах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "path-following",
+      "title": "Ведення по шляху",
+      "topics": [
+        {
+          "slug": "pure-pursuit-navigation",
+          "title": "Навігація pure pursuit",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-pursuit-geometry.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pursuit-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "vid-tochky-marshrutu-do-ustavky",
+          "title": "Від точки маршруту до уставки: радіус досягнення, зріз кута",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "vidkhylennia-vid-linii-shliakhu-cross-track",
+          "title": "Відхилення від лінії шляху (cross-track)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "utrymannia-kursu-vysoty-i-pozytsii",
+          "title": "Утримання курсу, висоти й позиції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "utrymannia-pozytsii-i-povernennia-na-liniiu",
+          "title": "Утримання позиції й повернення на лінію",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "viter-i-znos",
+          "title": "Вітер і знос: чому апарат летить не туди, куди дивиться",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

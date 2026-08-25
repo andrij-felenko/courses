@@ -1,0 +1,210 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-dron",
+  "slug": "flight-phases",
+  "title": "Фази польоту",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "takeoff-and-landing",
+      "title": "Зліт і посадка",
+      "topics": [
+        {
+          "slug": "zlit-iak-protsedura",
+          "title": "Зліт як процедура: озброєння, набір висоти, точка старту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "start-dlia-rovera-i-chovna",
+          "title": "Старт для ровера й човна: вихід із дока, відчалювання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "avtoposadka",
+          "title": "Автопосадка: зниження, детект землі, розброєння",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "skasovana-posadka-i-druha-sproba",
+          "title": "Скасована посадка й друга спроба",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "mission-execution",
+      "title": "Виконання завдання",
+      "topics": [
+        {
+          "slug": "missions-waypoints",
+          "title": "Місії й точки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "waypoint-route-sequencing",
+          "title": "Маршрут як список точок: черга, поточна ціль, перемикання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "rally-points",
+          "title": "Точки збору (rally points) в автопілоті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "diia-na-tochtsi",
+          "title": "Дія на точці: камера, скидання, підвіс",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "pauza-zmina-i-prodovzhennia-misii-na-khodu",
+          "title": "Пауза, зміна й продовження місії на ходу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "end-to-end-mission",
+          "title": "Місія від початку до кінця",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-mission-fsm.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "return-home",
+      "title": "Повернення",
+      "topics": [
+        {
+          "slug": "povernennia-dodomu",
+          "title": "Повернення додому: висота, шлях, поведінка на місці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "domashnia-tochka-i-shcho-z-neiu-ne-tak",
+          "title": "Домашня точка й що з нею не так",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dim-nedosiazhnyi",
+          "title": "Дім недосяжний: запасні майданчики й вибір між ними",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "povernennia-na-dok-i-na-zariadku",
+          "title": "Повернення на док і на зарядку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "autonomy-testing",
+      "title": "Випробування автономності",
+      "topics": [
+        {
+          "slug": "perehrash-zhurnalu",
+          "title": "Переграш журналу: рішення на записаних даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "rehresiia-avtonomii",
+          "title": "Регресія автономії: той самий маршрут після кожної зміни",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "stsenarii-vidmov-u-symuliatori",
+          "title": "Сценарії відмов у симуляторі: обрив лінка, глушіння GNSS, мертвий мотор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

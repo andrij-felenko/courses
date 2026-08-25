@@ -1,0 +1,648 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-dron",
+  "slug": "link-and-mavlink",
+  "title": "Лінія зв'язку й MAVLink",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "radio-links",
+      "title": "Ролі радіоліній",
+      "topics": [
+        {
+          "slug": "control-telemetry",
+          "title": "Керування й телеметрія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mavlink.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "telemetry-stream",
+          "title": "Телеметрія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-telemetry-radio.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "mavlink-frame",
+      "title": "Кадр і адресація",
+      "topics": [
+        {
+          "slug": "mavlink-packet",
+          "title": "Пакет MAVLink",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "mavlink-component-id",
+          "title": "Компоненти MAVLink: sysid, compid і адресація вузлів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-mavlink-router.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-component-ids.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mavlink-v2-signing",
+          "title": "MAVLink v2 і підпис",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-signing-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-packet-signer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-signing-structures.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "mavlink-dictionary",
+      "title": "Словник і діалекти",
+      "topics": [
+        {
+          "slug": "mavlink-message-dictionary",
+          "title": "Словник MAVLink",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-common-messages.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "mavlink-dialect",
+          "title": "Діалекти MAVLink",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-custom-dialect-integration.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dialect-xml-schema.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "mavlink-xml-codegen",
+          "title": "Генерація коду з XML-опису MAVLink",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-crc-extra.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mavgen.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "mavlink-presence",
+      "title": "Присутність і вміння вузла",
+      "topics": [
+        {
+          "slug": "mavlink-heartbeat",
+          "title": "HEARTBEAT: як апарат оголошує себе",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-heartbeat-monitor.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-heartbeat-struct.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "mavlink-capabilities",
+          "title": "Можливості апарата: бітова маска AUTOPILOT_VERSION",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-capabilities-negotiation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-capability-parser.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-autopilot-version.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "mavlink-telemetry-streams",
+      "title": "Потоки телеметрії",
+      "topics": [
+        {
+          "slug": "stream-rates",
+          "title": "Частоти потоків",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-bandwidth-budget.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dynamic-throttling.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-message-interval.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "mavlink-high-latency",
+          "title": "Протокол великої затримки MAVLink",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-satellite-telemetry.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-latency-bandwidth.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-satellite-bridge.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-high-latency-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "mavlink-events-protocol",
+          "title": "Протокол подій MAVLink: подія як ідентифікатор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-event-decoder.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-events-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "mavlink-missions",
+      "title": "Місії й команди",
+      "topics": [
+        {
+          "slug": "mavlink-mission-protocol",
+          "title": "Протокол місій MAVLink",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-coordinate-precision.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mission-uploader.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mission-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "mavlink-mission-items",
+          "title": "MAVLink: місія й команди польоту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-mission-builder.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mission-commands.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "mavlink-commands",
+          "title": "Команди MAVLink",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "mavlink-parameters",
+      "title": "Параметри апарата",
+      "topics": [
+        {
+          "slug": "mavlink-param-protocol-model",
+          "title": "Протокол параметрів MAVLink: модель даних і синхронізація конфігурації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-param-sync.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-param-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "mavlink-param-tuning-and-diagnostics",
+          "title": "Параметри MAVLink на борту: темп передачі, налаштування в польоті та діагностика",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-param-sync.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-param-messages.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "mavlink-payload-control",
+      "title": "Камера й підвіс",
+      "topics": [
+        {
+          "slug": "mavlink-camera-gimbal",
+          "title": "Протоколи камери й підвісу MAVLink",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mount-to-gimbal-v2.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gimbal-point-and-shoot.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-camera-definition.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "mavlink-bulk-transfer",
+      "title": "Файли й дані на борт",
+      "topics": [
+        {
+          "slug": "mavlink-ftp",
+          "title": "MAVFTP: передача файлів поверх MAVLink",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-mavftp-client.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mavftp-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "mavlink-terrain-protocol",
+          "title": "Протокол рельєфу MAVLink: TERRAIN_REQUEST, TERRAIN_DATA, TERRAIN_REPORT",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-terrain-interpolator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-terrain-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "flight-log-formats",
+          "title": "Формати бортових логів: ULog і DataFlash",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-log-buffering.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-flight-log-parser.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ulog-dataflash-specs.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "mavlink-channels",
+      "title": "Канали й маршрутизація",
+      "topics": [
+        {
+          "slug": "mavlink-channel",
+          "title": "Канал MAVLink",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "mavlink-stream-processing",
+          "title": "Обробка потоку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "mavlink-routing",
+          "title": "Роутинг MAVLink",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "multi-vehicle-one-station",
+          "title": "Кілька апаратів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "mavlink-practice",
+      "title": "Практика протоколу",
+      "topics": [
+        {
+          "slug": "pymavlink",
+          "title": "pymavlink і діалекти MAVLink",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "telemetry-log-parsing",
+          "title": "Розбір журналів телеметрії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "mavlink-pitfalls",
+          "title": "Граблі MAVLink",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-coordinate-precision.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mavlink-uart-dma.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

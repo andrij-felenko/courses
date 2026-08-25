@@ -1,0 +1,486 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-dron",
+  "slug": "station-internals",
+  "title": "Станція зсередини",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "qgc-purpose",
+      "title": "Призначення й ролі",
+      "topics": [
+        {
+          "slug": "what-is-qgc",
+          "title": "QGroundControl: що це і яку задачу розв'язує",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-qgc-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-minimal-gcs.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "user-roles",
+          "title": "Три користувачі станції: пілот, налаштувальник, розробник",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-role-gated-control.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-visibility-knobs.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gcs-as-system",
+          "title": "GCS як система",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "qgc-app-structure",
+      "title": "Будова застосунку",
+      "topics": [
+        {
+          "slug": "app-composition",
+          "title": "З чого складається застосунок: шари й запуск",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-toolbox.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-byte-to-fact.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "threading-model",
+          "title": "Модель потоків: де живуть лінк, розбір і відмальовка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-link-worker.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-thread-crossing.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "qgc-links",
+      "title": "З'єднання з апаратом",
+      "topics": [
+        {
+          "slug": "link-manager",
+          "title": "Менеджер каналів: облік і життєвий цикл з'єднань",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-channel-allocator.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-linkmanager.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "link-types",
+          "title": "Типи каналів: серійний, UDP, TCP, Bluetooth",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-serial-adapters.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-udp-endpoint.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-link-config.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "qgc-mavlink",
+      "title": "Протокол у застосунку",
+      "topics": [
+        {
+          "slug": "mavlink-handling",
+          "title": "Обробка MAVLink: розбір, версії, канали",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-loss-counting.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-parse-channel.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "message-routing",
+          "title": "Маршрутизація за sysid і compid",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-router-dispatch.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mavlink-ids.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mavlink-inspector",
+          "title": "Інспектор MAVLink: перегляд сирого трафіку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-rate-estimator.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-inspector-tap.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-inspector-qml.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "qgc-vehicle-model",
+      "title": "Модель апарата",
+      "topics": [
+        {
+          "slug": "vehicle-object",
+          "title": "Vehicle: модель апарата всередині застосунку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-message-to-property.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-vehicle-qml.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "multi-vehicle",
+          "title": "Кілька апаратів в одному застосунку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-vehicle-lookup.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-multivehiclemanager.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "firmware-plugin",
+          "title": "Плагін прошивки: як станція ховає різницю між автопілотами",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-custom-firmware-plugin.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-firmware-plugin.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "qgc-parameters",
+      "title": "Параметри й налаштування",
+      "topics": [
+        {
+          "slug": "fact-system",
+          "title": "FactSystem: факт, метадані й зв'язок зі станом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-custom-factgroup.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fact.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "parameter-manager",
+          "title": "Менеджер параметрів: завантаження, кеш, запис",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-param-sync.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-param-pck.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-param-manager.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "settings-persistence",
+          "title": "Налаштування й що переживає перезапуск",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-settings-group.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-settings-file.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "actuator-config",
+          "title": "Налаштування виконавчих механізмів: геометрія, виходи, перевірка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mixer-files.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-actuator-test-client.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-actuator-metadata.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "qgc-onboard-metadata",
+      "title": "Метадані з борту",
+      "topics": [
+        {
+          "slug": "component-information",
+          "title": "Відомості про компонент: метадані з борту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-metadata-client.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-component-metadata.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "events-interface",
+          "title": "Інтерфейс подій: коди з борту як людські повідомлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-statustext-to-events.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-event-receiver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-events-messages.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

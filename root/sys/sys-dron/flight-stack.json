@@ -1,0 +1,180 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-dron",
+  "slug": "flight-stack",
+  "title": "Польотний стек",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "ardupilot-and-px4-layers",
+      "title": "Шари ArduPilot і PX4",
+      "topics": [
+        {
+          "slug": "ardupilot-layers",
+          "title": "Шари ArduPilot",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-hal-backend.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "px4-architecture",
+          "title": "Архітектура PX4: uORB, модулі, режими",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-px4-uorb.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-uorb-module.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-uorb.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "nuttx",
+          "title": "NuttX: POSIX-подібна операційна система реального часу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "ardupilot-mavlink-dispatch",
+          "title": "MAVLink: диспетчер і шари",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "ardupilot-parameters",
+      "title": "Параметри на борту",
+      "topics": [
+        {
+          "slug": "ap-param-storage",
+          "title": "Зберігання параметрів у флеші: AP_Param",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "params-gcs",
+          "title": "Параметри й GCS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-param-protocol.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "offboard-control",
+      "title": "Своя логіка поверх стека",
+      "topics": [
+        {
+          "slug": "sense-decide-act-loop",
+          "title": "Контур offboard",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "closing-the-loop",
+          "title": "Замкнути контур",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "motion-control-setpoints",
+          "title": "Керування рухом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-mavlink-setpoints.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "ardupilot-sitl",
+      "title": "Симулятор у контурі",
+      "topics": [
+        {
+          "slug": "sitl-simulator",
+          "title": "SITL: симулятор у контурі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "sitl-simulation",
+          "title": "SITL",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    }
+  ]
+}

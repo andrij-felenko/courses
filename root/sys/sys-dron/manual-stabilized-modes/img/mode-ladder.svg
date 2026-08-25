@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Драбина режимів: кожен шар додає автоматику й нову залежність</text>
+<rect x="40.0" y="60.0" width="640.0" height="68.0" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<rect x="40.0" y="60.0" width="46.0" height="68.0" rx="8" fill="#c0392b" stroke="#c0392b" stroke-width="0.0"/>
+<text x="63.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#ffffff" text-anchor="middle" font-weight="700">0</text>
+<text x="100.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700">Ручний (manual)</text>
+<text x="100.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">стік → напряму на серво/мотор</text>
+<text x="666.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-style="italic">нічого (лише приймач)</text>
+<line x1="660.0" y1="128.0" x2="660.0" y2="140.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="140.0" width="640.0" height="68.0" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="40.0" y="140.0" width="46.0" height="68.0" rx="8" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.0"/>
+<text x="63.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#ffffff" text-anchor="middle" font-weight="700">1</text>
+<text x="100.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">Кутова швидкість (rate/acro)</text>
+<text x="100.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">тримає задану кутову швидкість</text>
+<text x="666.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-style="italic">гіроскоп</text>
+<line x1="660.0" y1="208.0" x2="660.0" y2="220.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="220.0" width="640.0" height="68.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<rect x="40.0" y="220.0" width="46.0" height="68.0" rx="8" fill="#27ae60" stroke="#27ae60" stroke-width="0.0"/>
+<text x="63.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#ffffff" text-anchor="middle" font-weight="700">2</text>
+<text x="100.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="start" font-weight="700">Кут (angle/stabilize)</text>
+<text x="100.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">тримає заданий кут, сам вирівнює</text>
+<text x="666.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-style="italic">+ акселерометр (оцінка кута)</text>
+<line x1="660.0" y1="288.0" x2="660.0" y2="300.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="300.0" width="640.0" height="68.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="40.0" y="300.0" width="46.0" height="68.0" rx="8" fill="#2457d6" stroke="#2457d6" stroke-width="0.0"/>
+<text x="63.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#ffffff" text-anchor="middle" font-weight="700">3</text>
+<text x="100.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="start" font-weight="700">Утримання висоти</text>
+<text x="100.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">сам тримає висоту</text>
+<text x="666.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-style="italic">+ барометр</text>
+<line x1="660.0" y1="368.0" x2="660.0" y2="380.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="380.0" width="640.0" height="68.0" rx="8" fill="#ffffff" stroke="#8e44ad" stroke-width="2.0"/>
+<rect x="40.0" y="380.0" width="46.0" height="68.0" rx="8" fill="#8e44ad" stroke="#8e44ad" stroke-width="0.0"/>
+<text x="63.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#ffffff" text-anchor="middle" font-weight="700">4</text>
+<text x="100.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#8e44ad" text-anchor="start" font-weight="700">Утримання позиції</text>
+<text x="100.0" y="423.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">сам висить на місці</text>
+<text x="666.0" y="423.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-style="italic">+ GNSS (супутники)</text>
+<text x="20.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">менше</text>
+<text x="20.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">більше</text>
+</svg>

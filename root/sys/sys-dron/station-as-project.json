@@ -1,0 +1,216 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-dron",
+  "slug": "station-as-project",
+  "title": "Станція як проєкт",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "qgc-build",
+      "title": "Збірка з джерел",
+      "topics": [
+        {
+          "slug": "building-qgc",
+          "title": "Збірка QGroundControl: залежності й кроки",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-qmake-to-cmake.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mavlink-codegen.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-build-options.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "platform-targets",
+          "title": "Цілі платформ: Linux, Windows, Android",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-android-serial-bridge.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-platform-knobs.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "qgc-customization",
+      "title": "Власна станція",
+      "topics": [
+        {
+          "slug": "core-plugin",
+          "title": "Ядрове розширення: головна точка кастомізації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-custom-plugin.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-core-plugin.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "custom-build",
+          "title": "Власна збірка: набір функцій і бренд",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-custom-overlay-repo.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-custom-overrides.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "custom-mavlink-messages",
+          "title": "Власні MAVLink-повідомлення в застосунку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-crc-extra.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-message.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dialect-xml.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "qgc-releases",
+      "title": "Релізи й внесок",
+      "topics": [
+        {
+          "slug": "contributing",
+          "title": "Внесок в апстрим: процес, вимоги, рев'ю",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-local-gate.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-contrib-gates.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "project-and-forks",
+          "title": "Проєкт, ліцензія й вендорські форки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-qgc-origins.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fork-divergence.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "release-model",
+          "title": "Модель релізів: стабільні, денні збірки, версії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-version-lines.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-version-from-git.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
