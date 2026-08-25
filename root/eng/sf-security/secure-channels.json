@@ -1,0 +1,460 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-security",
+  "slug": "secure-channels",
+  "title": "Захищені канали й сховище",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "tls-and-sessions",
+      "title": "Рукостискання й сесія",
+      "topics": [
+        {
+          "slug": "tls",
+          "title": "TLS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ssl-to-tls13.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-tls12-vs-tls13.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-hkdf-keyschedule.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-record-codec.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-record-wire.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "tls-handshake",
+          "title": "TLS Handshake: рукостискання й узгодження ключів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tls-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-hkdf-ecdhe.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-openssl-handshake.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tls-records.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "end-to-end-encryption",
+          "title": "Наскрізне шифрування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-otr-to-signal.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-double-ratchet.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-double-ratchet.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-signal-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "replay-protection",
+          "title": "Захист від повтору (replay)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-keeloq-and-early-replay.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sliding-bitmap.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sliding-window.md",
+              "status": "recheck"
+            },
+            {
+              "file": "proj-timestamp-nonce-cache.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-replay-defense.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "radio-links",
+      "title": "Радіоканали",
+      "topics": [
+        {
+          "slug": "wpa-security",
+          "title": "WPA2 і WPA3: захист бездротового ефіру",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-wep-to-wpa.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dragonfly-sae.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-wpa2-ptk-derivation.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "bt-pairing-security",
+          "title": "Безпека спарювання Bluetooth",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pairing-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pairing-crypto.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pairing-matrix.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ble-security",
+          "title": "Безпека й спарювання BLE",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-smp-crypto.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-smp-pdus.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "rfid-security",
+          "title": "Безпека NFC/RFID: атаки та захист",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mifare-crypto1.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-nfc-secure-element.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-relay-distance-bounding.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-nfc-relay-emulator.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-iso14443-crypto-frame.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mavlink-security",
+          "title": "Безпека MAVLink",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-uav-security.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-secure-mavlink.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-signing-spec.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "media-protection",
+      "title": "Медіапотік і DRM",
+      "topics": [
+        {
+          "slug": "srtp",
+          "title": "SRTP: шифрування й автентичність медіапотоку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-srtp-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-srtp-crypto.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-srtp-packet.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "common-encryption",
+          "title": "Спільне шифрування медіа (CENC): одні сегменти, різні системи ключів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cenc-standard.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cenc-decrypt.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cenc-boxes.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "drm-key-delivery",
+          "title": "DRM: як ключ контенту потрапляє в пристрій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-drm-wars.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-tee-secure-path.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-license-exchange.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-eme-interfaces.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "data-at-rest",
+      "title": "Дані у спокої",
+      "topics": [
+        {
+          "slug": "encryption-at-rest",
+          "title": "Шифрування у спокої й ключі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-crypto-shredding.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-envelope-limits.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-envelope-crypto.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kms-envelope.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "aes-xts",
+          "title": "AES-XTS: шифрування блокових пристроїв",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

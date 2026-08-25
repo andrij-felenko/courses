@@ -1,0 +1,244 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-security",
+  "slug": "integrity-and-proofs",
+  "title": "Цілісність і докази",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "message-authentication",
+      "title": "Коди автентичності",
+      "topics": [
+        {
+          "slug": "keyed-hash-mac",
+          "title": "Ключований хеш і код автентичності (MAC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "hmac",
+          "title": "HMAC і коди автентичності повідомлень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mac-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bck-security.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hmac-impl.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-hmac-interfaces.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "authenticated-encryption",
+          "title": "Автентифіковане шифрування (AEAD): тег, асоційовані дані й одна операція замість двох",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-composition-flaws.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ghash-poly1305.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-aead-packet.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "digital-signature",
+      "title": "Цифровий підпис",
+      "topics": [
+        {
+          "slug": "hash-and-digital-signature",
+          "title": "Хеш і цифровий підпис",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "pkcs7-signed-message",
+          "title": "PKCS#7/CMS: підписане повідомлення як самоописовий контейнер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cms-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pkcs7-sign-verify.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cms-asn1.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "zero-knowledge",
+      "title": "Докази без розкриття",
+      "topics": [
+        {
+          "slug": "zero-knowledge-proofs",
+          "title": "Протоколи нульового розголошення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-zkp-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-simulation-paradigm.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-schnorr-zkp.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-zk-verifier.md",
+              "status": "recheck"
+            },
+            {
+              "file": "api-schnorr-protocol.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fiat-shamir-transform",
+          "title": "Евристика Фіата — Шаміра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fiat-shamir.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fiat-shamir-soundness.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fiat-shamir-signature.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fiat-shamir-transform.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cryptographic-commitment",
+          "title": "Криптографічне зобов'язання (Commitment Scheme)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cryptographic-commitment.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cryptographic-commitment.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pedersen-commitment.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cryptographic-commitment.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

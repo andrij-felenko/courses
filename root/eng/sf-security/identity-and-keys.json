@@ -1,0 +1,478 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-security",
+  "slug": "identity-and-keys",
+  "title": "Особа, ключі й сертифікати",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "proof-of-identity",
+      "title": "Доказ особи",
+      "topics": [
+        {
+          "slug": "authentication",
+          "title": "Автентифікація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-first-password.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-login-flow.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mfa",
+          "title": "Багатофакторна автентифікація (MFA)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mfa-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-totp-engine.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "passkeys",
+          "title": "Passkeys і WebAuthn",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fido-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-passkey-verification.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-webauthn-ceremonies.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "challenge-response-protocols",
+      "title": "Виклик і відповідь",
+      "topics": [
+        {
+          "slug": "challenge-response",
+          "title": "Виклик-відповідь: доказ знання секрету без його передавання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-identification-friend-foe.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-zkp-schnorr.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-challenge-auth.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-challenge-protocols.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "digest-authentication",
+          "title": "Дайджест-автентифікація: одноразове число, виклик і доказ без пароля в мережі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-digest-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-digest-client.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-digest-headers.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "scram-authentication",
+          "title": "SCRAM: солений виклик-відповідь замість дайджесту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-scram-standard.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-scram-crypto.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-scram-attributes.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "kerberos-authentication",
+          "title": "Kerberos: квитки й автентифікація в мережі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kerberos-athena.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ticket-verification.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kerberos-structures.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "sasl-framework",
+          "title": "Каркас автентифікації SASL (RFC 4422)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sasl-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sasl-negotiation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sasl-mechanisms.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "delegated-access",
+      "title": "Делегований доступ",
+      "topics": [
+        {
+          "slug": "oauth2-delegated-authorization",
+          "title": "OAuth 2.0: делегований доступ, області й потоки видачі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-oauth-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-oauth-flow.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-oauth-endpoints.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "openid-connect",
+          "title": "OpenID Connect: єдиний вхід поверх OAuth 2.0",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-openid-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-oidc-rp-auth.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-oidc-endpoints.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "oauth2-token-lifecycle-hardening",
+          "title": "Токени OAuth 2.0 у продакшені: формати, ротація, відкликання, OAuth 2.1",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-oauth-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pkce-exchange.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-oidc-discovery.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "signed-dns",
+      "title": "Підписані зони DNS",
+      "topics": [
+        {
+          "slug": "dnssec",
+          "title": "DNSSEC: підписи зони і ланцюг довіри до відповіді DNS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kaminsky-attack.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-nsec3-hash.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dnssec-val.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dnssec-records.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "dns-sec",
+          "title": "DNSSEC: цифровий підпис і ланцюг довіри в системі доменних імен",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dnssec.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dnssec-crypto.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dnssec-val.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dnssec-records.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "key-lifecycle",
+      "title": "Життя ключа",
+      "topics": [
+        {
+          "slug": "osobystist-prystroiu",
+          "title": "Особистість пристрою: серійник, ключ, сертифікат",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "de-zhyve-pryvatnyi-kliuch",
+          "title": "Де живе приватний ключ: токен, HSM, «ноутбук Петра»",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "pidpys-u-konveieri-bez-kliucha-v-konveieri",
+          "title": "Підпис у конвеєрі без ключа в конвеєрі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "vidklykannia-kliucha-i-sertyfikata-peredbachene",
+          "title": "Відкликання ключа й сертифіката, передбачене заздалегідь",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "secrets-management",
+          "title": "Секрети й ротація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-secrets-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-secret-rotation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-vault-transit.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

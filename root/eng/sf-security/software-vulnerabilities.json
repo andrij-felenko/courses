@@ -1,0 +1,162 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-security",
+  "slug": "software-vulnerabilities",
+  "title": "Вразливості програм",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "memory-corruption",
+      "title": "Псування пам'яті",
+      "topics": [
+        {
+          "slug": "buffer-overflow-security",
+          "title": "Переповнення буфера як вразливість",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "use-after-free",
+          "title": "Використання після звільнення (use-after-free)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "code-reuse-attacks",
+          "title": "Атаки з повторним використанням коду: return-to-libc і ROP",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "exploit-mitigations",
+      "title": "Бар'єри експлуатації",
+      "topics": [
+        {
+          "slug": "aslr",
+          "title": "ASLR: рандомізація розкладки адресного простору",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "no-execute-memory",
+          "title": "Пам'ять без права виконання: біт NX і правило W^X",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "control-flow-integrity",
+          "title": "Цілісність потоку керування (CFI): чому захисту даних самого по собі мало",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "web-attacks",
+      "title": "Атаки на веб-застосунок",
+      "topics": [
+        {
+          "slug": "web-vulnerability-classes",
+          "title": "Вразливість = зламана межа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-owasp-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-boundary-validation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-security-headers.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "xss",
+          "title": "XSS (міжсайтовий скриптинг)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "csrf",
+          "title": "CSRF (міжсайтова підробка запиту)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "check-and-use",
+      "title": "Перевірка й дія",
+      "topics": [
+        {
+          "slug": "confused-deputy",
+          "title": "Заплутаний заступник (confused deputy)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "toctou-race",
+          "title": "Гонка між перевіркою й використанням (TOCTOU)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

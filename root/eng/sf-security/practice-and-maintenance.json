@@ -1,0 +1,178 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-security",
+  "slug": "practice-and-maintenance",
+  "title": "Практика й супровід",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "policy-and-audit",
+      "title": "Політики й аудит",
+      "topics": [
+        {
+          "slug": "policy-as-code",
+          "title": "Політики як код",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pac-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rego-eval.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rego-contract.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "audit-logging",
+          "title": "Аудит-лог як вузол",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-orange-book-and-audit.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-merkle-audit-proof.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tamper-evident-log.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-audit-schema.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "supply-chain",
+      "title": "Ланцюг постачання",
+      "topics": [
+        {
+          "slug": "supply-chain-security",
+          "title": "Ланцюг постачання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-supply-chain-attacks.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-artifact-attestation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-slsa-provenance.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "strichky-cve-proty-vlasnoho-sbom",
+          "title": "Стрічки CVE проти власного SBOM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "vulnerability-scoring-cvss",
+          "title": "Оцінювання вразливостей: CVSS, EPSS і межі бальної системи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "disclosure",
+      "title": "Розкриття вразливостей",
+      "topics": [
+        {
+          "slug": "kudy-pysaty-pro-dirku",
+          "title": "Куди писати про дірку: контакт безпеки й політика розкриття",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "uzhodzhene-rozkryttia-i-stroky",
+          "title": "Узгоджене розкриття й строки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "oboviazok-povidomyty",
+          "title": "Обов'язок повідомити: регулятор, власники, партнери",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "biuleten-bezpeky",
+          "title": "Бюлетень безпеки: що написати й чого не писати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,354 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-security",
+  "slug": "device-and-hardware",
+  "title": "Пристрій і залізо",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "root-of-trust",
+      "title": "Корінь довіри",
+      "topics": [
+        {
+          "slug": "firmware-secure-boot",
+          "title": "Secure boot і шифрування Flash у прошивці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "tpm-root-of-trust",
+          "title": "TPM: апаратний корінь довіри й запечатування ключів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "tpm2-software-stack",
+          "title": "Стек TPM 2.0 та апаратне зберігання ключів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-tpm-12-to-20.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tpm2-esys-unseal.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tss2-esapi.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sigstruct-and-sgx-enclaves",
+          "title": "Апаратні енклави Intel SGX та сигнатури SIGSTRUCT",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-launch-control-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-enclave-loader.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sigstruct.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "remote-attestation",
+          "title": "Віддалена атестація: як довести чужій стороні, у якому ти стані",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "measured-integrity",
+      "title": "Вимірювання й підписи файлів",
+      "topics": [
+        {
+          "slug": "ima-measurement-vs-appraisal",
+          "title": "IMA: вимірювання проти оцінки — два споживачі одного хеша",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ima-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-replay-measurements.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ima-policy.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ima-evm-deployment-and-tooling",
+          "title": "Розгортання IMA/EVM: захист метаданих, ключі, evmctl і підписи в пакунках",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-evm-tpm-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-inspect-ima-evm.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-evm-xattr-format.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "side-channels",
+      "title": "Побічні канали виконання",
+      "topics": [
+        {
+          "slug": "side-channel-attacks",
+          "title": "Атаки по побічних каналах у криптографії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-side-channel-attacks.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-side-channel-attacks.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-constant-time-crypto.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-constant-time.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "timing-attack",
+          "title": "Атаки за часом (timing side-channel)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "cache-side-channel",
+          "title": "Кеш як побічний канал: Flush+Reload і Prime+Probe",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "flush-reload",
+          "title": "Сайд-канал атаки Flush+Reload",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-flush-reload.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-timing-threshold.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-flush-reload-probe.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cache-flush.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "speculative-execution-attacks",
+          "title": "Атаки через спекулятивне виконання: Meltdown і Spectre",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-flush-reload.md",
+              "status": "pending"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-speculation-control.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "montgomery-ladder",
+          "title": "Сходи Монтгомері та алгоритми константного часу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-peter-montgomery.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ladder-invariant-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-montgomery-ladder-sim.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "physical-attacks",
+      "title": "Атаки на кристал",
+      "topics": [
+        {
+          "slug": "ataky-na-krystal",
+          "title": "Атаки на кристал: збої й побічні канали",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "zbiini-ataky-hlitchynh-dekapsuliatsiia-i-chomu",
+          "title": "Збійні атаки, глітчинг, декапсуляція — і чому обфускація майже нічого не варта",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "tamper-iak-prystrii-pomichaie-shcho-ioho-rozkryly",
+          "title": "Тампер: як пристрій помічає, що його розкрили",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "radioslid-prystroiu",
+          "title": "Радіослід пристрою: як його знаходять",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
