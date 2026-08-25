@@ -1,0 +1,374 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "embedded-ultra",
+  "slug": "microcontroller-and-firmware",
+  "title": "Мікроконтролер",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "chip-as-a-whole",
+      "title": "Чип у цілому",
+      "topics": [
+        {
+          "ref": "hw-arch/microcontroller",
+          "title": "Мікроконтролер"
+        },
+        {
+          "ref": "hw-arch/mcu-blocks",
+          "title": "Складові МК"
+        },
+        {
+          "ref": "hw-arch/flash-vs-ram",
+          "title": "Flash і RAM"
+        },
+        {
+          "ref": "hw-arch/memory-map",
+          "title": "Карта пам'яті"
+        }
+      ]
+    },
+    {
+      "slug": "hardware-through-registers",
+      "title": "Залізо через регістри",
+      "topics": [
+        {
+          "ref": "hw-arch/memory-mapped-io",
+          "title": "Memory-mapped IO"
+        },
+        {
+          "slug": "peripherals-through-registers",
+          "title": "Периферія через регістри",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "sf-devices/gpio-registers",
+          "title": "GPIO-регістри"
+        },
+        {
+          "ref": "sf-lang/volatile",
+          "title": "volatile"
+        }
+      ]
+    },
+    {
+      "slug": "pin-and-line",
+      "title": "Ніжка і лінія",
+      "topics": [
+        {
+          "ref": "hw-digital/gpio",
+          "title": "GPIO — вивід загального призначення"
+        },
+        {
+          "ref": "hw-digital/push-pull-output",
+          "title": "Push-pull вихід"
+        },
+        {
+          "ref": "hw-digital/open-drain-output",
+          "title": "Вихід open-drain"
+        },
+        {
+          "ref": "hw-digital/floating-pullups",
+          "title": "Підтяжки"
+        },
+        {
+          "ref": "hw-digital/pin-drive-limits",
+          "title": "Навантажувальна здатність"
+        }
+      ]
+    },
+    {
+      "slug": "interrupts-and-time",
+      "title": "Переривання і час",
+      "topics": [
+        {
+          "ref": "hw-arch/interrupts",
+          "title": "Переривання"
+        },
+        {
+          "ref": "hw-arch/isr",
+          "title": "ISR"
+        },
+        {
+          "ref": "hw-arch/interrupt-priorities",
+          "title": "Пріоритети переривань"
+        },
+        {
+          "ref": "embedded/polling-vs-interrupts",
+          "title": "Polling vs переривання"
+        },
+        {
+          "ref": "hw-arch/timer-counter",
+          "title": "Таймер-лічильник"
+        }
+      ]
+    },
+    {
+      "slug": "analog-and-stream",
+      "title": "Аналог і потік",
+      "topics": [
+        {
+          "ref": "hw-analog/pwm",
+          "title": "Широтно-імпульсна модуляція (ШІМ)"
+        },
+        {
+          "ref": "hw-arch/pwm-on-mcu",
+          "title": "ШІМ на мікроконтролері"
+        },
+        {
+          "ref": "hw-analog/adc",
+          "title": "АЦП"
+        },
+        {
+          "ref": "hw-arch/dma",
+          "title": "Прямий доступ до пам'яті (DMA)"
+        },
+        {
+          "ref": "embedded/dma-adc",
+          "title": "DMA + АЦП"
+        }
+      ]
+    },
+    {
+      "slug": "three-buses",
+      "title": "Три шини",
+      "topics": [
+        {
+          "ref": "embedded/why-buses",
+          "title": "Як чипи розмовляють: навіщо шини"
+        },
+        {
+          "ref": "com-devices/uart-frame",
+          "title": "Кадр UART"
+        },
+        {
+          "ref": "com-devices/i2c",
+          "title": "Шина I²C"
+        },
+        {
+          "ref": "com-devices/spi-bus",
+          "title": "Шина SPI"
+        },
+        {
+          "slug": "three-buses-compared",
+          "title": "Три шини поряд",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "start-and-sleep",
+      "title": "Старт і сон",
+      "topics": [
+        {
+          "ref": "hw-arch/reset-causes",
+          "title": "Причини reset"
+        },
+        {
+          "ref": "hw-arch/bootloader",
+          "title": "Bootloader"
+        },
+        {
+          "ref": "hw-arch/clock-power",
+          "title": "Тактування й живлення"
+        },
+        {
+          "ref": "hw-arch/sleep-modes",
+          "title": "Режими сну"
+        }
+      ]
+    },
+    {
+      "slug": "language-of-firmware",
+      "title": "Мова прошивки",
+      "topics": [
+        {
+          "ref": "embedded/c-first-program",
+          "title": "Перша програма: пишемо, збираємо, запускаємо"
+        },
+        {
+          "slug": "c-for-firmware",
+          "title": "Мова C для прошивки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "sf-lang/addresses-pointers",
+          "title": "Адреси й покажчики"
+        },
+        {
+          "ref": "embedded/c-bit-operations",
+          "title": "Бітові операції"
+        }
+      ]
+    },
+    {
+      "slug": "text-to-chip",
+      "title": "Від тексту до чипа",
+      "topics": [
+        {
+          "ref": "sf-lang/compilation",
+          "title": "Компіляція"
+        },
+        {
+          "ref": "sf-lang/linking",
+          "title": "Лінкування"
+        },
+        {
+          "ref": "sf-lang/firmware-image",
+          "title": "Образ прошивки"
+        },
+        {
+          "ref": "sys-bsystem/toolchain",
+          "title": "Тулчейн"
+        },
+        {
+          "ref": "sys-ide/flashing",
+          "title": "Прошивка у Flash"
+        },
+        {
+          "ref": "embedded/first-blink-project",
+          "title": "Перший проєкт: світлодіод блимає"
+        }
+      ]
+    },
+    {
+      "slug": "memory-of-firmware",
+      "title": "Пам'ять прошивки",
+      "topics": [
+        {
+          "ref": "sf-lang/stack-lifo",
+          "title": "Стек"
+        },
+        {
+          "ref": "sf-lang/stack-overflow",
+          "title": "Переповнення стека"
+        },
+        {
+          "ref": "sf-lang/heap-dynamic-memory",
+          "title": "Купа"
+        },
+        {
+          "ref": "embedded/memory-budget-mcu",
+          "title": "Бюджет пам'яті мікроконтролера"
+        },
+        {
+          "ref": "sys-bsystem/map-fail",
+          "title": "Map-файл: що з'їло флеш і RAM"
+        }
+      ]
+    },
+    {
+      "slug": "firmware-skeleton",
+      "title": "Каркас прошивки",
+      "topics": [
+        {
+          "ref": "sf-devices/super-loop",
+          "title": "Super-loop"
+        },
+        {
+          "ref": "embedded/super-loop-limits",
+          "title": "Межі super-loop"
+        },
+        {
+          "ref": "sf-devices/nonblocking-time",
+          "title": "Неблокуючий час"
+        },
+        {
+          "ref": "sf-devices/periodic-scheduling",
+          "title": "Періодичні події"
+        },
+        {
+          "ref": "sf-devices/freertos",
+          "title": "FreeRTOS"
+        },
+        {
+          "slug": "superloop-or-rtos-choice",
+          "title": "Super-loop чи RTOS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "two-threads-one-byte",
+      "title": "Дві нитки над одним байтом",
+      "topics": [
+        {
+          "ref": "sf-tasks/task-ipc",
+          "title": "Черги й семафори"
+        },
+        {
+          "ref": "sf-tasks/atomicity-races",
+          "title": "Атомарність і гонки"
+        },
+        {
+          "ref": "sf-tasks/double-buffering",
+          "title": "Подвійна буферизація"
+        },
+        {
+          "ref": "sf-lang/task-stacks",
+          "title": "Стеки задач"
+        }
+      ]
+    },
+    {
+      "slug": "state-across-reboot",
+      "title": "Стан, що переживає перезапуск",
+      "topics": [
+        {
+          "ref": "sys-fw/nvs",
+          "title": "NVS"
+        },
+        {
+          "ref": "sf-devices/ota-update",
+          "title": "OTA-оновлення"
+        },
+        {
+          "ref": "sf-devices/ota-slots",
+          "title": "OTA-слоти"
+        }
+      ]
+    },
+    {
+      "slug": "look-inside",
+      "title": "Заглянути всередину",
+      "topics": [
+        {
+          "ref": "sys-ide/why-debugger",
+          "title": "Навіщо відлагоджувач"
+        },
+        {
+          "ref": "sys-ide/swd-jtag-internals",
+          "title": "SWD і JTAG зсередини"
+        },
+        {
+          "ref": "sys-ide/step-debugging",
+          "title": "Кроком по коду"
+        },
+        {
+          "ref": "embedded/openocd-gdb",
+          "title": "OpenOCD і GDB"
+        }
+      ]
+    }
+  ]
+}

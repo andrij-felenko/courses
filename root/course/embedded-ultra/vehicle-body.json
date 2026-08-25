@@ -1,0 +1,292 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "embedded-ultra",
+  "slug": "vehicle-body",
+  "title": "Тіло апарата",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "rail-and-its-source",
+      "title": "Шина і її джерело",
+      "topics": [
+        {
+          "ref": "hw-power/ldo",
+          "title": "LDO"
+        },
+        {
+          "ref": "hw-power/buck",
+          "title": "Buck-перетворювач"
+        },
+        {
+          "ref": "hw-power/converter-efficiency-curve",
+          "title": "Крива ефективності перетворювача"
+        },
+        {
+          "ref": "hw-power/power-rails",
+          "title": "Шини живлення"
+        }
+      ]
+    },
+    {
+      "slug": "power-tree",
+      "title": "Дерево живлення",
+      "topics": [
+        {
+          "slug": "device-power-design",
+          "title": "Живлення апарата як ціле",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "embedded/power-tree-reading",
+          "title": "Читання дерева живлення"
+        },
+        {
+          "ref": "hw-power/inrush-current",
+          "title": "Кидок струму при вмиканні"
+        },
+        {
+          "ref": "hw-power/reverse-polarity-protection",
+          "title": "Захист від переполюсування"
+        }
+      ]
+    },
+    {
+      "slug": "battery",
+      "title": "Батарея",
+      "topics": [
+        {
+          "ref": "embedded/battery-chemistries",
+          "title": "Хімії батарей"
+        },
+        {
+          "ref": "hw-power/battery-sag",
+          "title": "Просадка під навантаженням"
+        },
+        {
+          "ref": "hw-power/li-ion-charger",
+          "title": "Зарядка Li-ion"
+        },
+        {
+          "ref": "hw-power/state-of-charge",
+          "title": "Заряд, що лишився"
+        },
+        {
+          "ref": "hw-power/bms",
+          "title": "Захист і BMS"
+        }
+      ]
+    },
+    {
+      "slug": "how-long-it-lasts",
+      "title": "Скільки протримається",
+      "topics": [
+        {
+          "ref": "embedded/power-budget",
+          "title": "Бюджет потужності пристрою"
+        },
+        {
+          "ref": "embedded/duty-cycle-current",
+          "title": "Цикл і середній струм"
+        },
+        {
+          "ref": "embedded/measure-consumption",
+          "title": "Виміряти споживання"
+        },
+        {
+          "ref": "embedded/sleep-current-audit",
+          "title": "Аудит струму спокою плати"
+        }
+      ]
+    },
+    {
+      "slug": "vehicle-state",
+      "title": "Стан апарата",
+      "topics": [
+        {
+          "slug": "vehicle-state-as-numbers",
+          "title": "Стан апарата як числа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "hw-sensing/what-is-a-sensor",
+          "title": "Що таке давач"
+        },
+        {
+          "ref": "embedded/signal-acquisition",
+          "title": "Зчитування сигналу"
+        },
+        {
+          "ref": "hw-sensing/measurement-errors",
+          "title": "Похибки вимірювань"
+        }
+      ]
+    },
+    {
+      "slug": "sensor-to-number",
+      "title": "Від давача до числа",
+      "topics": [
+        {
+          "ref": "embedded/signal-conditioning",
+          "title": "Кондиціонування сигналу"
+        },
+        {
+          "ref": "hw-sensing/ratiometric-measurement",
+          "title": "Рейтіометричне вимірювання"
+        },
+        {
+          "ref": "hw-sensing/adc-errors",
+          "title": "Похибки АЦП"
+        },
+        {
+          "ref": "embedded/calibration-procedure",
+          "title": "Процедура калібрування давача"
+        }
+      ]
+    },
+    {
+      "slug": "inertia-and-altitude",
+      "title": "Інерція і висота",
+      "topics": [
+        {
+          "ref": "hw-sensing/imu",
+          "title": "IMU-давач"
+        },
+        {
+          "ref": "hw-sensing/imu-noise-bias-drift",
+          "title": "Шум і дрейф IMU"
+        },
+        {
+          "ref": "embedded/imu-mounting-materials",
+          "title": "Матеріали для кріплення IMU"
+        },
+        {
+          "ref": "embedded/barometric-altimeter",
+          "title": "Барометр-альтиметр"
+        }
+      ]
+    },
+    {
+      "slug": "where-am-i",
+      "title": "Де я",
+      "topics": [
+        {
+          "ref": "hw-sensing/gnss",
+          "title": "GNSS"
+        },
+        {
+          "ref": "embedded/gnss-receiver-integration",
+          "title": "GNSS-приймач у прошивці: NMEA і UBX"
+        },
+        {
+          "ref": "math-geometry/wgs84-datum",
+          "title": "WGS-84: еліпсоїд і датум"
+        },
+        {
+          "ref": "math-geometry/ecef-ned-enu",
+          "title": "ECEF, NED і ENU"
+        }
+      ]
+    },
+    {
+      "slug": "fusing-measurements",
+      "title": "Злиття вимірів",
+      "topics": [
+        {
+          "slug": "why-one-sensor-is-not-state",
+          "title": "Чому один давач не дає стану",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "com-signal/moving-average",
+          "title": "Ковзне середнє"
+        },
+        {
+          "ref": "com-signal/complementary-filter",
+          "title": "Комплементарний фільтр"
+        },
+        {
+          "ref": "com-signal/predict-vs-measure",
+          "title": "Передбачення vs вимір"
+        },
+        {
+          "ref": "embedded/kalman-filter",
+          "title": "Фільтр Калмана"
+        },
+        {
+          "ref": "embedded/attitude-estimation",
+          "title": "Оцінка орієнтації"
+        }
+      ]
+    },
+    {
+      "slug": "thrust-and-turn",
+      "title": "Тяга і поворот",
+      "topics": [
+        {
+          "ref": "hw-motion/brushed-dc-motor",
+          "title": "DC-мотор"
+        },
+        {
+          "ref": "hw-motion/dc-motor-driver",
+          "title": "Драйвер DC-моторів"
+        },
+        {
+          "ref": "hw-motion/bldc-motor",
+          "title": "BLDC-мотор"
+        },
+        {
+          "ref": "hw-motion/esc",
+          "title": "ESC-регулятор"
+        }
+      ]
+    },
+    {
+      "slug": "close-the-loop",
+      "title": "Замкнути петлю",
+      "topics": [
+        {
+          "ref": "embedded/open-vs-closed-loop",
+          "title": "Зворотний зв'язок"
+        },
+        {
+          "ref": "embedded/proportional-control",
+          "title": "П-регулятор"
+        },
+        {
+          "ref": "com-signal/discrete-pid",
+          "title": "Дискретний ПІД"
+        },
+        {
+          "slug": "pid-on-a-real-vehicle",
+          "title": "ПІД на реальному апараті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "embedded/output-mixing",
+          "title": "Узгодження сигналів керування"
+        }
+      ]
+    }
+  ]
+}

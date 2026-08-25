@@ -1,0 +1,282 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "embedded-ultra",
+  "slug": "circuit-and-logic",
+  "title": "Схема",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "what-flows",
+      "title": "Що тече по дротах",
+      "topics": [
+        {
+          "slug": "embedded-system-overview",
+          "title": "Вбудована система оглядом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "ph-electromagnetism/voltage",
+          "title": "Напруга"
+        },
+        {
+          "ref": "ph-electromagnetism/electric-current",
+          "title": "Струм"
+        },
+        {
+          "ref": "ph-electromagnetism/closed-circuit",
+          "title": "Замкнене коло"
+        },
+        {
+          "ref": "hw-analog/ohms-law",
+          "title": "Закон Ома"
+        },
+        {
+          "ref": "ph-electromagnetism/electric-power",
+          "title": "Електрична потужність"
+        }
+      ]
+    },
+    {
+      "slug": "circuit-you-can-compute",
+      "title": "Коло, яке рахують",
+      "topics": [
+        {
+          "ref": "hw-analog/series-connection",
+          "title": "Послідовне з'єднання"
+        },
+        {
+          "ref": "hw-analog/parallel-connection",
+          "title": "Паралельне з'єднання"
+        },
+        {
+          "ref": "hw-analog/voltage-divider",
+          "title": "Дільник напруги"
+        },
+        {
+          "ref": "hw-analog/kirchhoff-laws",
+          "title": "Закони Кірхгофа"
+        },
+        {
+          "ref": "hw-analog/thevenin",
+          "title": "Теорема Тевеніна"
+        },
+        {
+          "slug": "circuit-under-real-load",
+          "title": "Коло під навантаженням",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "parts-in-hand",
+      "title": "Деталь у руках",
+      "topics": [
+        {
+          "ref": "hw-components/resistor",
+          "title": "Резистор"
+        },
+        {
+          "ref": "hw-components/capacitor",
+          "title": "Конденсатор"
+        },
+        {
+          "ref": "hw-components/inductor-kickback",
+          "title": "Брикання котушки"
+        },
+        {
+          "ref": "embedded/reading-schematics",
+          "title": "Читання схем"
+        }
+      ]
+    },
+    {
+      "slug": "time-in-circuit",
+      "title": "Час у колі",
+      "topics": [
+        {
+          "ref": "hw-analog/rc-time-constant",
+          "title": "Стала RC"
+        },
+        {
+          "ref": "hw-analog/rc-low-pass",
+          "title": "RC-ФНЧ"
+        },
+        {
+          "ref": "hw-components/decoupling",
+          "title": "Decoupling-конденсатор"
+        }
+      ]
+    },
+    {
+      "slug": "switch-and-amplifier",
+      "title": "Ключ і підсилювач",
+      "topics": [
+        {
+          "ref": "hw-components/diode-iv-curve",
+          "title": "ВАХ діода"
+        },
+        {
+          "ref": "hw-components/transistor-idea",
+          "title": "Транзистор"
+        },
+        {
+          "ref": "hw-components/mosfet-switch",
+          "title": "MOSFET як ключ"
+        },
+        {
+          "ref": "hw-analog/opamp",
+          "title": "Оппідсилювач"
+        },
+        {
+          "ref": "hw-analog/schmitt-trigger",
+          "title": "Тригер Шмітта"
+        }
+      ]
+    },
+    {
+      "slug": "circuit-on-the-bench",
+      "title": "Коло на столі",
+      "topics": [
+        {
+          "ref": "hw-sensing/multimeter",
+          "title": "Мультиметр"
+        },
+        {
+          "ref": "hw-sensing/oscilloscope",
+          "title": "Осцилограф"
+        },
+        {
+          "ref": "embedded/breadboard-prototyping",
+          "title": "Макетка й перший монтаж"
+        }
+      ]
+    },
+    {
+      "slug": "two-levels",
+      "title": "Два рівні",
+      "topics": [
+        {
+          "ref": "hw-digital/why-digital",
+          "title": "Навіщо цифра"
+        },
+        {
+          "ref": "hw-digital/logic-levels-as-ranges",
+          "title": "Рівні «0» і «1»"
+        },
+        {
+          "ref": "hw-digital/noise-margin",
+          "title": "Запас завадостійкості"
+        },
+        {
+          "ref": "hw-digital/logic-families",
+          "title": "Логічні сімейства"
+        },
+        {
+          "ref": "hw-digital/level-shifter",
+          "title": "Перетворювач рівнів"
+        }
+      ]
+    },
+    {
+      "slug": "gate-and-state",
+      "title": "Вентиль і стан",
+      "topics": [
+        {
+          "ref": "hw-digital/basic-gates",
+          "title": "Базові вентилі"
+        },
+        {
+          "ref": "hw-digital/combinational-circuits",
+          "title": "Комбінаційні схеми"
+        },
+        {
+          "ref": "hw-digital/d-flip-flop",
+          "title": "D-тригер"
+        },
+        {
+          "ref": "hw-digital/finite-state-machines",
+          "title": "Скінченні автомати"
+        }
+      ]
+    },
+    {
+      "slug": "clock-and-timing",
+      "title": "Такт і час",
+      "topics": [
+        {
+          "ref": "hw-digital/clock-signal",
+          "title": "Тактовий сигнал"
+        },
+        {
+          "ref": "hw-digital/frequency-divider",
+          "title": "Дільник частоти"
+        },
+        {
+          "ref": "hw-digital/counters",
+          "title": "Лічильники"
+        }
+      ]
+    },
+    {
+      "slug": "numbers-in-bits",
+      "title": "Числа в бітах",
+      "topics": [
+        {
+          "ref": "sf-algorithms/bits-bytes-endianness",
+          "title": "Біти й порядок байтів"
+        },
+        {
+          "ref": "hw-digital/binary-arithmetic",
+          "title": "Арифметика в двійковій системі"
+        },
+        {
+          "ref": "hw-arch/twos-complement",
+          "title": "Доповняльний код"
+        },
+        {
+          "ref": "sf-lang/integer-types-c",
+          "title": "Цілі типи в C/C++"
+        },
+        {
+          "ref": "sf-lang/overflow-wraparound",
+          "title": "Переповнення"
+        }
+      ]
+    },
+    {
+      "slug": "gate-to-processor",
+      "title": "Від вентиля до чипа",
+      "topics": [
+        {
+          "ref": "hw-arch/what-is-processor",
+          "title": "Що таке процесор"
+        },
+        {
+          "ref": "hw-arch/fetch-decode-execute",
+          "title": "Цикл виконання"
+        },
+        {
+          "slug": "from-gates-to-programmable-chip",
+          "title": "Від вентиля до програмованого чипа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

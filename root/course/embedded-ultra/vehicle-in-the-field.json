@@ -1,0 +1,342 @@
+{
+  "schema": 7,
+  "kind": "course",
+  "book": "embedded-ultra",
+  "slug": "vehicle-in-the-field",
+  "title": "Апарат у полі",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "wave-carries-data",
+      "title": "Хвиля несе дані",
+      "topics": [
+        {
+          "ref": "com-modulation/why-modulation",
+          "title": "Навіщо модуляція"
+        },
+        {
+          "ref": "com-modulation/spread-spectrum",
+          "title": "Розширений спектр"
+        },
+        {
+          "ref": "com-medium/frequency-bands",
+          "title": "Діапазони частот"
+        },
+        {
+          "ref": "com-modulation/elrs-architecture",
+          "title": "Архітектура ExpressLRS"
+        }
+      ]
+    },
+    {
+      "slug": "antenna-and-margin",
+      "title": "Антена і запас",
+      "topics": [
+        {
+          "ref": "com-medium/antenna",
+          "title": "Антена"
+        },
+        {
+          "ref": "com-medium/antenna-gain",
+          "title": "Підсилення антени"
+        },
+        {
+          "ref": "com-medium/free-space-loss",
+          "title": "Загасання у просторі"
+        },
+        {
+          "ref": "embedded/link-budget",
+          "title": "Чутливість, шум, запас: бюджет лінка як число"
+        }
+      ]
+    },
+    {
+      "slug": "network-on-board",
+      "title": "Мережа на борті",
+      "topics": [
+        {
+          "ref": "com-transport/tcp-vs-udp",
+          "title": "TCP проти UDP"
+        },
+        {
+          "ref": "com-transport/udp-datagram-semantics",
+          "title": "Семантика датаграми UDP"
+        },
+        {
+          "ref": "com-transport/wifi",
+          "title": "Wi-Fi"
+        },
+        {
+          "ref": "sf-devices/web-server-mcu",
+          "title": "Веб-сервер на МК"
+        }
+      ]
+    },
+    {
+      "slug": "your-own-packet",
+      "title": "Свій пакет",
+      "topics": [
+        {
+          "ref": "com-transport/packet-design",
+          "title": "Проєктування пакета"
+        },
+        {
+          "ref": "com-protocol/tcp-message-framing",
+          "title": "Кадрування повідомлень у потоці TCP"
+        },
+        {
+          "ref": "com-protocol/wire-format-packing",
+          "title": "Пакування бінарного протоколу"
+        },
+        {
+          "ref": "com-modulation/crc",
+          "title": "CRC"
+        },
+        {
+          "slug": "own-packet-over-the-link",
+          "title": "Свій пакет на лінку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "mavlink",
+      "title": "MAVLink",
+      "topics": [
+        {
+          "slug": "why-mavlink-looks-like-this",
+          "title": "Чому MAVLink саме такий",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "sys-dron/mavlink-packet",
+          "title": "Пакет MAVLink"
+        },
+        {
+          "ref": "sys-dron/mavlink-heartbeat",
+          "title": "HEARTBEAT: як апарат оголошує себе"
+        },
+        {
+          "ref": "sys-dron/stream-rates",
+          "title": "Частоти потоків"
+        },
+        {
+          "ref": "sys-dron/mavlink-commands",
+          "title": "Команди MAVLink"
+        }
+      ]
+    },
+    {
+      "slug": "ground-station",
+      "title": "Станція на землі",
+      "topics": [
+        {
+          "ref": "sys-dron/what-is-qgc",
+          "title": "QGroundControl: що це і яку задачу розв'язує"
+        },
+        {
+          "ref": "sys-dron/vehicle-object",
+          "title": "Vehicle: модель апарата всередині застосунку"
+        },
+        {
+          "ref": "sys-dron/link-manager",
+          "title": "Менеджер каналів"
+        },
+        {
+          "ref": "sys-dron/params-gcs",
+          "title": "Параметри й GCS"
+        },
+        {
+          "ref": "sys-dron/plan-model",
+          "title": "Модель плану"
+        }
+      ]
+    },
+    {
+      "slug": "picture-from-board",
+      "title": "Картинка з борта",
+      "topics": [
+        {
+          "ref": "com-signal/h264-nal-structure",
+          "title": "H.264: NAL-одиниці, SPS/PPS і ключові кадри"
+        },
+        {
+          "ref": "com-protocol/rtp-rtcp",
+          "title": "RTP і RTCP"
+        },
+        {
+          "ref": "com-protocol/video-latency",
+          "title": "Затримка відео"
+        },
+        {
+          "ref": "sys-dron/video-pipeline",
+          "title": "Відеотракт станції на GStreamer"
+        }
+      ]
+    },
+    {
+      "slug": "nature-of-failure",
+      "title": "Природа відмов",
+      "topics": [
+        {
+          "slug": "why-vehicles-crash",
+          "title": "Чому апарати падають",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "embedded/troubleshooting-methodology",
+          "title": "Систематичний пошук несправності"
+        },
+        {
+          "ref": "embedded/fmea-embedded",
+          "title": "FMEA у вбудованих системах"
+        }
+      ]
+    },
+    {
+      "slug": "noise-and-pickup",
+      "title": "Завада і наводка",
+      "topics": [
+        {
+          "ref": "embedded/noise-interference",
+          "title": "Шум і завади"
+        },
+        {
+          "ref": "hw-analog/ground-loop",
+          "title": "Петля по землі"
+        },
+        {
+          "ref": "embedded/noise-hunting",
+          "title": "Полювання на заваду"
+        },
+        {
+          "ref": "embedded/esd-protection-circuits",
+          "title": "Розряд у працюючий пристрій"
+        }
+      ]
+    },
+    {
+      "slug": "power-lets-you-down",
+      "title": "Живлення підводить",
+      "topics": [
+        {
+          "ref": "hw-arch/brownout",
+          "title": "Brown-out"
+        },
+        {
+          "ref": "embedded/power-fail-safety",
+          "title": "Захист від зникнення живлення"
+        },
+        {
+          "ref": "embedded/inductive-load-switching",
+          "title": "Комутація індуктивного навантаження"
+        }
+      ]
+    },
+    {
+      "slug": "firmware-crashed",
+      "title": "Прошивка впала",
+      "topics": [
+        {
+          "ref": "sf-devices/watchdog",
+          "title": "Watchdog"
+        },
+        {
+          "ref": "sf-devices/hardfault",
+          "title": "Розбір HardFault"
+        },
+        {
+          "ref": "embedded/core-dump",
+          "title": "Посмертний аналіз"
+        },
+        {
+          "ref": "embedded/addr2line-workflow",
+          "title": "Декодування адрес аварії: addr2line та символи"
+        },
+        {
+          "ref": "sf-devices/safe-mode",
+          "title": "Безпечний стан"
+        }
+      ]
+    },
+    {
+      "slug": "link-is-gone",
+      "title": "Лінк пропав",
+      "topics": [
+        {
+          "ref": "embedded/jamming-fhss",
+          "title": "Лінк під глушінням"
+        },
+        {
+          "ref": "sys-dron/failsafe",
+          "title": "Failsafe"
+        },
+        {
+          "ref": "sys-dron/geofence",
+          "title": "Геозона (geofence) в автопілоті"
+        },
+        {
+          "ref": "sys-dron/preflight-safety",
+          "title": "Безпека до польоту"
+        }
+      ]
+    },
+    {
+      "slug": "first-run-and-postmortem",
+      "title": "Перший запуск і розбір",
+      "topics": [
+        {
+          "ref": "sf-devices/first-bringup",
+          "title": "Перший запуск"
+        },
+        {
+          "ref": "embedded/fc-setup-calibration",
+          "title": "Первинне налаштування: калібрування давачів і радіо"
+        },
+        {
+          "ref": "sys-dron/arming-checks",
+          "title": "Arming-перевірки"
+        },
+        {
+          "slug": "vehicle-fully-assembled",
+          "title": "Апарат у зборі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "ref": "embedded/flight-log-analysis",
+          "title": "Аналіз логів польоту/поїздки"
+        },
+        {
+          "slug": "first-crash-postmortem",
+          "title": "Розбір першого падіння",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
