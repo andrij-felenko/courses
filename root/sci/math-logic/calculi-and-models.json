@@ -1,0 +1,280 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-logic",
+  "slug": "calculi-and-models",
+  "title": "Числення й моделі",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "syntax-and-semantics",
+      "title": "Синтаксис і семантика",
+      "topics": [
+        {
+          "slug": "propositional-logic",
+          "title": "Числення висловлювань (пропозиційна логіка)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-propositional-logic.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-deduction-theorem.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sat-dpll-solver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "first-order-logic",
+          "title": "Логіка першого порядку (предикати та квантори)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-first-order-logic.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-prenex-skolem.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-first-order-unifier.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "model-theory-basics",
+          "title": "Теорія моделей: інтерпретації та теорема Левенгейма–Сколема",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-lowenheim-skolem.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-skolem-paradox.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-model-evaluator.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "deduction-systems",
+      "title": "Системи виводу",
+      "topics": [
+        {
+          "slug": "proof-systems-gentzen",
+          "title": "Системи дедукції: секвенційне числення Ґентцена та системи Гільберта",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-gentzen-proof-theory.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cut-elimination-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sequent-calculus-prover.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "resolution-principle",
+          "title": "Принцип резолюцій та автоматичне доведення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-robinson-resolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-refutation-completeness.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-resolution-prover.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "constructivity-and-types",
+      "title": "Конструктивність і типи",
+      "topics": [
+        {
+          "slug": "intuitionistic-logic",
+          "title": "Інтуїціоністська (конструктивна) логіка та семантика Кріпке",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-brouwer-intuitionism.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-kripke-frames.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kripke-evaluator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kripke-semantics",
+          "title": "Семантика та фрейми Кріпке",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-saul-kripke.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-modal-correspondence.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kripke-model-checker.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "type-theory-lambda",
+          "title": "Просто типізоване лямбда-числення та теорія типів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-church-stlc.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-curry-howard.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-type-checker.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "curry-howard-isomorphism",
+          "title": "Ізоморфізм Каррі — Говарда",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-curry-howard.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dependent-types.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-proof-assistant-mini.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,324 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-logic",
+  "slug": "sets-and-infinity",
+  "title": "Множини й нескінченність",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "set-axioms",
+      "title": "Аксіоми множин",
+      "topics": [
+        {
+          "slug": "set-theory",
+          "title": "Теорія множин",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cantor.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-everything-is-a-set.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sets-in-code.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "russell-paradox",
+          "title": "Парадокс Рассела",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-frege-letter.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "zfc-set-theory",
+          "title": "Аксіоматика Цермело-Френкеля (ZFC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-zermelo-fraenkel-1908.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "axiom-of-choice",
+          "title": "Аксіома вибору",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-nonmeasurable.md",
+              "status": "done"
+            },
+            {
+              "file": "math-zorn-equivalence.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "relations-and-quotients",
+      "title": "Відношення й фактори",
+      "topics": [
+        {
+          "slug": "equivalence-relation",
+          "title": "Відношення еквівалентності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-equivalence-concept.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-quotient-sets.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-equivalence-partitioner.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "quotient-sets",
+          "title": "Фактор-множини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-dedekind-quotient.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-canonical-projection.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-quotient-builder.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "tarski-knaster-theorem",
+          "title": "Теорема Тарського — Кнастера про нерухому точку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tarski-knaster.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fixed-point-proof.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-abstract-interpretation.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cardinals-and-ordinals",
+      "title": "Потужності й ординали",
+      "topics": [
+        {
+          "slug": "countable-sets",
+          "title": "Зліченні та незліченні множини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-cantor-infinity.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cantor-diagonal",
+          "title": "Діагональний метод Кантора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-cantor-1891-paper.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cardinal-numbers",
+          "title": "Кардинальні числа (потужність)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "ordinal-numbers",
+          "title": "Порядкові числа (ординали)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cantor-ordinals.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ordinal-arithmetic.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-goodstein.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "independence",
+      "title": "Незалежність від аксіом",
+      "topics": [
+        {
+          "slug": "continuum-hypothesis",
+          "title": "Гіпотеза континууму",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-cantor-cohen.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cohen-forcing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-forcing-simulator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cohen-forcing",
+          "title": "Метод форсингу Коена",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-paul-cohen.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-generic-filters.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-forcing-conditions.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

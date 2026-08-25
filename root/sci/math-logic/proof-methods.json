@@ -1,0 +1,238 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-logic",
+  "slug": "proof-methods",
+  "title": "Доведення",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "reasoning-schemes",
+      "title": "Схеми міркування",
+      "topics": [
+        {
+          "slug": "mathematical-proof",
+          "title": "Математичне доведення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-birth-of-proof.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-proof-methods.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-proof-checker.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "proof-by-contradiction",
+          "title": "Доведення від супротивного",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-pythagoras-sqrt2.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mathematical-induction",
+          "title": "Математична індукція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-induction-history.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-code-correctness.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "descent-and-ordering",
+      "title": "Спуск і впорядкування",
+      "topics": [
+        {
+          "slug": "well-ordering-principle",
+          "title": "Принцип повного впорядкування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-zermelo.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-well-founded.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-termination.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "infinite-descent",
+          "title": "Нескінченний спуск Ферма",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fermat-descent.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-right-triangle-area.md",
+              "status": "done"
+            },
+            {
+              "file": "math-two-squares-descent.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "loop-variant",
+          "title": "Варіант циклу",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-termination-proofs.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-well-founded.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-variant-bounds.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "counting-principles",
+      "title": "Принципи підрахунку",
+      "topics": [
+        {
+          "slug": "pigeonhole-principle",
+          "title": "Принцип Діріхле",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dirichlet-box.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-generalized-pigeonhole.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pigeonhole-apps.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "konigs-lemma",
+          "title": "Лема Кеніґа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-konig-infinity.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-wkl-compactness.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-infinite-tree-search.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tree-explorer.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

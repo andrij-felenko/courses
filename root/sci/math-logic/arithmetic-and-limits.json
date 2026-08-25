@@ -1,0 +1,392 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-logic",
+  "slug": "arithmetic-and-limits",
+  "title": "Арифметика та її межі",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "number-axioms",
+      "title": "Аксіоми чисел",
+      "topics": [
+        {
+          "slug": "natural-numbers",
+          "title": "Натуральні числа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-peano-axioms.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-recursive-arithmetic.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-peano-numbers.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "peano-arithmetic",
+          "title": "Арифметика Пеано",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-peano-dedekind.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-nonstandard-models.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-peano-interpreter.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-peano-proof-checker.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "bounded-arithmetic",
+          "title": "Обмежена арифметика Bounded Arithmetic",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "unintended-models",
+      "title": "Небажані моделі",
+      "topics": [
+        {
+          "slug": "non-standard-models",
+          "title": "Нестандартні моделі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-skolem-tennenbaum.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tennenbaum-proof.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-nonstandard-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-nonstandard-model.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "skolem-paradox",
+          "title": "Парадокс Сколема",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-skolem-1922.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-skolemization.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-skolem-relativizer.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "incompleteness",
+      "title": "Неповнота",
+      "topics": [
+        {
+          "slug": "godel-incompleteness",
+          "title": "Теореми Геделя про неповноту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hilbert-program.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-godel-numbering.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-self-reference-code.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-godel-numbering-evaluator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-proof-checker.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "tarski-undefinability",
+          "title": "Теорема Тарського про невизначність істини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-tarski-1936-paper.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "paris-harrington-theorem",
+          "title": "Теорема Паріса — Гаррінгтона",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-paris-harrington.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-strengthened-ramsey.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ramsey-checker.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ramsey-solver.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "growth-hierarchies",
+      "title": "Ієрархії зростання",
+      "topics": [
+        {
+          "slug": "fast-growing-hierarchy",
+          "title": "Швидкозростаюча ієрархія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fgh-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fundamental-sequences.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fgh-evaluator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fgh-evaluator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "slow-growing-hierarchy",
+          "title": "Повільнозростаюча ієрархія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-girard-hierarchy.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-slow-growing-proofs.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sgh-evaluator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sgh-evaluator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "veblen-hierarchy",
+          "title": "Ієрархія Веблена",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-veblen-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-veblen-fixed-points.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-veblen-ordinals.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-veblen-tree.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "kalmar-elementary-functions",
+          "title": "Елементарні функції за Кальмаром",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kalmar-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-kalmar-closure.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-elementary-evaluator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-elementary-spec.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

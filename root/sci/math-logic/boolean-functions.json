@@ -1,0 +1,298 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-logic",
+  "slug": "boolean-functions",
+  "title": "Булеві функції",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "truth-and-completeness",
+      "title": "Запис і повнота",
+      "topics": [
+        {
+          "slug": "truth-tables",
+          "title": "Таблиці істинності та логічні зв'язки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-truth-tables.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-boolean-eval.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-truth-table-generator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "boolean-algebra",
+          "title": "Булева алгебра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-boole.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-axioms-proofs.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "functional-completeness",
+          "title": "Функціональна повнота",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-post.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-post-criterion.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-completeness-check.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "decompositions",
+      "title": "Розклад функції",
+      "topics": [
+        {
+          "slug": "shannon-expansion",
+          "title": "Теорема Шеннона про розкладання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-boole-shannon.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cofactors.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-recursive-expansion.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "zhegalkin-polynomial",
+          "title": "Поліном Жегалкіна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-arithmetization.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mobius-transform.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-anf-transform.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "normal-forms-and-sat",
+      "title": "Нормальні форми й задовільненість",
+      "topics": [
+        {
+          "slug": "dnf-cnf",
+          "title": "Диз'юнктивні та кон'юнктивні нормальні форми (ДНФ і КНФ)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dnf-cnf.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dnf-cnf-duality.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cnf-dnf-converter.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cnf-dnf-ast.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "tseytin-transformation",
+          "title": "Перетворення Цейтіна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tseytin.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tseytin-equisatisfiability.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tseytin-encoder.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dimacs-cnf.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "resolution-proof-system",
+          "title": "Система резолюційних виводів (Resolution Proof System)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-resolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-completeness.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-solver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-proof-format.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "horn-sat",
+          "title": "Задовільненість хорнівських диз'юнктів (Horn-SAT)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-horn-sat.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-horn-solvability.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-horn-solver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-horn-solver.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
