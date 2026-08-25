@@ -1,0 +1,320 @@
+{
+  "schema": 7,
+  "kind": "cat",
+  "book": "cat-hw-boards",
+  "slug": "microcontroller-boards",
+  "title": "Мікроконтролерні плати",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "families",
+      "title": "Родини й лінійки",
+      "topics": [
+        {
+          "slug": "arduino-family",
+          "title": "Родина Arduino",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-name-arduin.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-avr-atmel.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-open-hardware.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-framework.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "esp32-family",
+          "title": "Родина ESP32/ESP8266 (Espressif)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-generations.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "arduino",
+      "title": "Arduino",
+      "topics": [
+        {
+          "slug": "arduino-uno",
+          "title": "Arduino UNO R3 (CH340)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-blink-io.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "arduino-nano",
+          "title": "Arduino Nano (ATmega, USB-C)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-arduino-nano.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "multifunction-shield",
+          "title": "Multi-function Shield для Arduino UNO",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-multifunction-shield-counter.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-multifunction-shield.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "esp32",
+      "title": "ESP32",
+      "topics": [
+        {
+          "slug": "esp32-c6-zero",
+          "title": "Waveshare ESP32-C6-Zero",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-quickstart.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "esp32-s3-pico",
+          "title": "Waveshare ESP32-S3-Pico",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-quickstart.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "esp32-s3-supermini",
+          "title": "ESP32-S3 SuperMini",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-supermini.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "esp32-cam",
+          "title": "ESP32-CAM (OV2640 + microSD)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ov2640-cheap-cam.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-snapshot-to-sd.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-esp32-cam-camera-sd-io.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "esp8266",
+      "title": "ESP8266",
+      "topics": [
+        {
+          "slug": "esp-01",
+          "title": "ESP-01 (Wi-Fi, ESP8266)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-blink-web.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-flashing.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "esp-01s",
+          "title": "ESP-01S (Wi-Fi, ESP8266)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-wifi-web-led.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-flash-esp01s.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "stm32",
+      "title": "STM32",
+      "topics": [
+        {
+          "slug": "stm32f072b-disco",
+          "title": "STM32F072B-DISCO (Discovery, Cortex-M0)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-firmware.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "flight-controllers",
+      "title": "Польотні контролери",
+      "topics": [
+        {
+          "slug": "pixhawk-6c",
+          "title": "Pixhawk 6C — польотний контролер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-mavlink-protocol.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mavlink-protocol.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pixhawk-pwm-adapter",
+          "title": "PWM-адаптер для Pixhawk",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-pwm-config.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

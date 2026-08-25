@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="980" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр MAVLink 2: тонка обгортка навколо корисних байтів</text>
+<rect x="85.0" y="100.0" width="66.0" height="52.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="118.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">STX</text>
+<text x="118.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0xFD</text>
+<text x="118.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">магія:</text>
+<text x="118.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1→0xFE, 2→0xFD</text>
+<rect x="155.0" y="100.0" width="52.0" height="52.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="2.0"/>
+<text x="181.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">LEN</text>
+<text x="181.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">n</text>
+<text x="181.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">довжина</text>
+<text x="181.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">корисних</text>
+<rect x="211.0" y="100.0" width="62.0" height="52.0" rx="6" fill="#ffffff" stroke="#8e44ad" stroke-width="2.0"/>
+<text x="242.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">inc</text>
+<text x="242.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">flags</text>
+<text x="242.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">несумісні</text>
+<text x="242.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">прапорці</text>
+<rect x="277.0" y="100.0" width="62.0" height="52.0" rx="6" fill="#ffffff" stroke="#8e44ad" stroke-width="2.0"/>
+<text x="308.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700">cmp</text>
+<text x="308.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">flags</text>
+<text x="308.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">сумісні</text>
+<text x="308.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">прапорці</text>
+<rect x="343.0" y="100.0" width="64.0" height="52.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="2.0"/>
+<text x="375.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">SEQ</text>
+<text x="375.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0–255</text>
+<text x="375.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">лічильник —</text>
+<text x="375.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ловить утрату</text>
+<rect x="411.0" y="100.0" width="64.0" height="52.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="443.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">SYS</text>
+<text x="443.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">sysid</text>
+<text x="443.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">чий апарат</text>
+<text x="443.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(1 = автопілот)</text>
+<rect x="479.0" y="100.0" width="68.0" height="52.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="513.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">CMP</text>
+<text x="513.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">compid</text>
+<text x="513.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">який блок</text>
+<text x="513.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(1 = FMU)</text>
+<rect x="551.0" y="100.0" width="74.0" height="52.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="588.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">MSGID</text>
+<text x="588.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">24 біт</text>
+<text x="588.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">що це за</text>
+<text x="588.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">повідомлення</text>
+<rect x="629.0" y="100.0" width="140.0" height="52.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="699.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">PAYLOAD</text>
+<text x="699.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0…255 Б</text>
+<text x="699.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">самі дані:</text>
+<text x="699.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">команда чи телеметрія</text>
+<rect x="773.0" y="100.0" width="56.0" height="52.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="2.0"/>
+<text x="801.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">CRC</text>
+<text x="801.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">2 Б</text>
+<text x="801.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">контроль</text>
+<text x="801.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">цілості</text>
+<rect x="833.0" y="100.0" width="62.0" height="52.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="864.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">SIG</text>
+<text x="864.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">13 Б?</text>
+<text x="864.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">підпис —</text>
+<text x="864.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">необов'язковий</text>
+<line x1="85.0" y1="82.0" x2="625.0" y2="82.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="85.0" y1="82.0" x2="85.0" y2="90.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<line x1="625.0" y1="82.0" x2="625.0" y2="90.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="355.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">заголовок (10 байтів) — маршрутизація й версія</text>
+<rect x="123.8" y="404.5" width="732.5" height="43.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="490.0" y="423.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">уся «розмова» з дроном — потік таких кадрів. MAVLink 1 (0xFE) не має полів прапорців і підпису й шле весь</tspan><tspan x="490.0" dy="13.0">хвіст payload; MAVLink 2 (0xFD) додав їх і обрізає нульові байти з кінця. Бібліотека, що чекає іншу магію, кадру НЕ побачить.</tspan></text>
+</svg>

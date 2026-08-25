@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="540" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дисплей: два 74HC595 у каскаді — сегменти й вибір розряду</text>
+<rect x="40.0" y="96.0" width="118.0" height="240.0" rx="10" fill="#eef2f8" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="99.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Arduino</text>
+<text x="99.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">UNO</text>
+<text x="99.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">D8  дані</text>
+<text x="99.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">D7  такт</text>
+<text x="99.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">D4  латч</text>
+<rect x="300.0" y="96.0" width="150.0" height="150.0" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="375.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">74HC595 №1</text>
+<text x="375.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">байт сегментів</text>
+<text x="375.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">a b c d e f g dp</text>
+<text x="375.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">→ дільники струму</text>
+<text x="375.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">→ сегменти цифри</text>
+<rect x="300.0" y="292.0" width="150.0" height="150.0" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="375.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">74HC595 №2</text>
+<text x="375.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">вибір розряду</text>
+<text x="375.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0xF1 0xF2 0xF4 0xF8</text>
+<text x="375.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">→ один спільний</text>
+<text x="375.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">анод під напругу</text>
+<line x1="158.0" y1="192.0" x2="300.0" y2="156.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="229.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">дані</text>
+<line x1="158.0" y1="244.0" x2="280.0" y2="244.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="158.0" y1="296.0" x2="270.0" y2="296.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="221.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">такт+латч —</text>
+<text x="221.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">спільні на обидва</text>
+<line x1="280.0" y1="244.0" x2="280.0" y2="332.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="270.0" y1="296.0" x2="270.0" y2="362.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="280.0" y1="244.0" x2="300.0" y2="180.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="270.0" y1="296.0" x2="300.0" y2="200.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="280.0" y1="332.0" x2="300.0" y2="332.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="270.0" y1="362.0" x2="300.0" y2="362.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="375.0" y1="246.0" x2="375.0" y2="292.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="441.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">перенос</text>
+<text x="441.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">даних</text>
+<rect x="600.0" y="150.0" width="260.0" height="150.0" rx="10" fill="#111318" stroke="#1a1a1a" stroke-width="1.8"/>
+<rect x="614.0" y="174.0" width="46.0" height="90.0" rx="4" fill="#181b21" stroke="#242830" stroke-width="1.2"/>
+<text x="637.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="46" fill="#3a4048" text-anchor="middle" font-weight="700">8</text>
+<rect x="674.0" y="174.0" width="46.0" height="90.0" rx="4" fill="#181b21" stroke="#242830" stroke-width="1.2"/>
+<text x="697.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="46" fill="#27ae60" text-anchor="middle" font-weight="700">8</text>
+<rect x="734.0" y="174.0" width="46.0" height="90.0" rx="4" fill="#181b21" stroke="#242830" stroke-width="1.2"/>
+<text x="757.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="46" fill="#3a4048" text-anchor="middle" font-weight="700">8</text>
+<rect x="794.0" y="174.0" width="46.0" height="90.0" rx="4" fill="#181b21" stroke="#242830" stroke-width="1.2"/>
+<text x="817.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="46" fill="#3a4048" text-anchor="middle" font-weight="700">8</text>
+<text x="730.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">4-розрядний дисплей (спільний анод)</text>
+<text x="730.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">світиться один розряд — решта згашені</text>
+<line x1="450.0" y1="171.0" x2="600.0" y2="190.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="525.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">8 ліній сегментів</text>
+<line x1="450.0" y1="367.0" x2="600.0" y2="270.0" stroke="#c77f0a" stroke-width="2.0"/>
+<text x="525.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c77f0a" text-anchor="middle" font-weight="700">4 лінії аноду</text>
+<rect x="99.1" y="496.2" width="701.7" height="31.5" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="450.0" y="516.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">око не встигає за швидким перебором розрядів — і бачить усі чотири цифри разом; це і є мультиплексування</tspan></text>
+</svg>
