@@ -1,9 +1,9 @@
 # Компакт-вибір типу зв'язку для зміни
 
 <preknowlist>
-- [Zero-downtime міграції даних](root:progarch/zero-downtime-migration) — розширення та звуження схем, подвійний запис без простою.
-- [Зчеплення та зв'язність](topic:sf-apps/coupling-cohesion) — базові типи зчеплення між модулями та розподіленими вузлами.
-- [Outbox-патерн](topic:programming/transactional-outbox) — транзакційна публікація подій без проблеми подвійного запису.
+- [Zero-downtime міграції даних](root:sf-release/zero-downtime-migration) — розширення та звуження схем, подвійний запис без простою.
+- [Зчеплення та зв'язність](root:sf-apps/coupling-cohesion) — базові типи зчеплення між модулями та розподіленими вузлами.
+- [Outbox-патерн](root:sf-distributed/outbox-pattern) — транзакційна публікація подій без проблеми подвійного запису.
 - [Вибір стилю API](root:progarch/api-style-choice) — REST, gRPC та GraphQL на мережевих межах.
 - [Еволюція API](root:progarch/api-evolution-dh) — поблажливий читач та адитивність контракту.
 </preknowlist>

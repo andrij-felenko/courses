@@ -57,11 +57,11 @@
 
 | значення | шлях типово | шифрування | `lock` | облік місця |
 |---|---|---|---|---|
-| `luks` | `/home/$USER.home` | [LUKS2 в образі](topic:sys-unix/dm-crypt) | так | розмір образу |
-| `fscrypt` | `/home/$USER.homedir` | [засобами файлової системи](topic:sys-unix/fscrypt) | ні | ні |
-| `subvolume` | `/home/$USER.homedir` | немає | ні | [квота підтому](topic:sys-unix/disk-quotas) |
+| `luks` | `/home/$USER.home` | [LUKS2 в образі](root:sys-unix/dm-crypt) | так | розмір образу |
+| `fscrypt` | `/home/$USER.homedir` | [засобами файлової системи](root:sys-unix/fscrypt) | ні | ні |
+| `subvolume` | `/home/$USER.homedir` | немає | ні | [квота підтому](root:sys-unix/disk-quotas) |
 | `directory` | `/home/$USER.homedir` | немає | ні | ні |
-| `cifs` | не визначено | канал [SMB](topic:sys-unix/network-filesystems) | ні | ні |
+| `cifs` | не визначено | канал [SMB](root:sys-unix/network-filesystems) | ні | ні |
 
 `lock` визначено лише для LUKS2: решті сховищ просто нема чого викидати з пам'яті ядра. Типове значення бере `homed.conf`.
 
@@ -72,7 +72,7 @@
 | перемикач | значення | типово |
 |---|---|---|
 | `--disk-size=` | байти з суфіксами `K`/`M`/`G`/`T`, відсоток, `min`, `max` | 85% вільного місця для LUKS2; для решти квоти немає |
-| `--fs-type=` | [`btrfs`, `ext4`, `xfs`](topic:sys-unix/filesystem-families) — лише всередині LUKS2 | з `homed.conf` |
+| `--fs-type=` | [`btrfs`, `ext4`, `xfs`](root:sys-unix/filesystem-families) — лише всередині LUKS2 | з `homed.conf` |
 | `--image-path=` | де покласти образ чи теку | `/home/$USER.home` для LUKS, `/home/$USER.homedir` для решти |
 | `--auto-resize-mode=` | `off`, `grow`, `shrink-and-grow` | `shrink-and-grow` для LUKS2 з btrfs, інакше `off` |
 | `--rebalance-weight=` | ціле 1…10000 або `off` | `100` |
@@ -91,7 +91,7 @@
 | `--pkcs11-token-uri=` | URI за RFC 7512 до токена (YubiKey, картка PIV) рівно з однією парою «сертифікат X.509 + приватний ключ»; також `list`, `auto` |
 | `--recovery-key=` | завести згенерований машиною ключ відновлення на випадок забутого пароля чи втраченого токена |
 
-Жоден із них не заступає пароль — кожен додає ще один спосіб дійти до того самого ключа тому. Пристрої [FIDO2](topic:sf-security/passkeys) тут ужито не для входу на сайт, а для виведення ключа: токен рахує відповідь, з якої й постає ключовий матеріал.
+Жоден із них не заступає пароль — кожен додає ще один спосіб дійти до того самого ключа тому. Пристрої [FIDO2](root:sf-security/passkeys) тут ужито не для входу на сайт, а для виведення ключа: токен рахує відповідь, з якої й постає ключовий матеріал.
 
 **Прив'язка до машини**
 
@@ -111,14 +111,14 @@
 
 | елемент | значення |
 |---|---|
-| тип [розділу GPT](topic:sys-unix/disk-partitions) | `773f91ef-66d4-49b5-bd83-d683bf40ad16` |
+| тип [розділу GPT](root:sys-unix/disk-partitions) | `773f91ef-66d4-49b5-bd83-d683bf40ad16` |
 | мітка розділу й мітка файлової системи | ім'я користувача — обов'язково |
 | файлова система всередині LUKS2 | `ext4`, `btrfs` або `xfs` |
 | образ LUKS2 | `/home/<ім'я>.home` |
 | тека решти сховищ | `/home/<ім'я>.homedir` |
 | запис усередині домівки | `~/.identity` |
 
-Маркер у заголовку LUKS2 — звичайний [об'єкт JSON](topic:sf-data/json-format) у слоті маркерів, з полем `type`, що дорівнює `systemd-homed`:
+Маркер у заголовку LUKS2 — звичайний [об'єкт JSON](root:sf-data/json-format) у слоті маркерів, з полем `type`, що дорівнює `systemd-homed`:
 
 ```json
 {
@@ -141,7 +141,7 @@
 | `local.public` | його відкрита пара |
 | `*.public` | додаткові відкриті ключі; запис, підписаний будь-яким із них, пускають до локального входу |
 
-Підпис — Ed25519. У записі він лежить у секції `signature`: поле `data` — сам підпис у base64, поле `key` — копія відкритого ключа в PEM. Накрито ним лише секції `regular`, `perMachine` і `privileged`; усе інше перед обчисленням із запису прибирають — інакше [підпис](topic:sf-security/hash-and-digital-signature) розсипався б від кожної місцевої дрібниці на кшталт зміненого стану домівки.
+Підпис — Ed25519. У записі він лежить у секції `signature`: поле `data` — сам підпис у base64, поле `key` — копія відкритого ключа в PEM. Накрито ним лише секції `regular`, `perMachine` і `privileged`; усе інше перед обчисленням із запису прибирають — інакше [підпис](root:sf-security/hash-and-digital-signature) розсипався б від кожної місцевої дрібниці на кшталт зміненого стану домівки.
 
 Перенесення з машини `foobar` на `quux` — це три команди, і жодна з них не чіпає вмісту образу:
 
@@ -159,10 +159,10 @@ homectl adopt /home/andrij.home
 
 | поле | що тримає |
 |---|---|
-| `uid`, `gid` | [числа ідентичності](topic:sys-unix/uid-gid-identity-model) на цій машині |
+| `uid`, `gid` | [числа ідентичності](root:sys-unix/uid-gid-identity-model) на цій машині |
 | `storage` | яке зі сховищ ужито |
 | `imagePath` | шлях до образу чи теки |
-| `homeDirectory` | куди домівку [монтують](topic:sys-unix/mount-model) |
+| `homeDirectory` | куди домівку [монтують](root:sys-unix/mount-model) |
 | `fileSystemType` | `ext4`, `btrfs`, `xfs` |
 | `partitionUuid`, `luksUuid`, `fileSystemUuid` | UUID розділу, тому LUKS2 і файлової системи |
 | `luksCipher`, `luksCipherMode`, `luksVolumeKeySize` | параметри шифру, якими том створено |
@@ -173,7 +173,7 @@ homectl adopt /home/andrij.home
 
 | що | значення |
 |---|---|
-| ім'я на [шині](topic:sys-unix/dbus) | `org.freedesktop.home1` |
+| ім'я на [шині](root:sys-unix/dbus) | `org.freedesktop.home1` |
 | об'єкт-керівник | `/org/freedesktop/home1` |
 | інтерфейс керівника | `org.freedesktop.home1.Manager` |
 | об'єкт однієї домівки | під `/org/freedesktop/home1/home/…` |
@@ -197,14 +197,14 @@ homectl adopt /home/andrij.home
 
 Аргумент `secret` — не голий рядок пароля, а запис JSON, у якому заповнено секцію `secret`: туди кладуть пароль, PIN токена або ключ відновлення. Один формат замість окремого аргументу на кожен спосіб автентифікації.
 
-`AcquireHome` варта окремого рядка, бо не схожа на решту: вона повертає **дескриптор файла**. Поки той відкритий, домівка лишається діяльною; закрився останній — служба її розмонтовує. Саме так `pam_systemd_home` рахує сеанси, не ведучи власного лічильника, який мусив би пережити падіння будь-якого процесу. Дії над **чужою** домівкою проходять через [polkit](topic:sys-unix/polkit).
+`AcquireHome` варта окремого рядка, бо не схожа на решту: вона повертає **дескриптор файла**. Поки той відкритий, домівка лишається діяльною; закрився останній — служба її розмонтовує. Саме так `pam_systemd_home` рахує сеанси, не ведучи власного лічильника, який мусив би пережити падіння будь-якого процесу. Дії над **чужою** домівкою проходять через [polkit](root:sys-unix/polkit).
 
 ## Решта поверхні
 
 | канал | адреса |
 |---|---|
-| [userdb](topic:sys-unix/userdb-varlink) | сокет `io.systemd.Home` у `/run/systemd/userdb/` |
-| [PAM](topic:sys-unix/pam-stack) | модуль `pam_systemd_home`; фази `auth`, `account`, `session`, `password` |
+| [userdb](root:sys-unix/userdb-varlink) | сокет `io.systemd.Home` у `/run/systemd/userdb/` |
+| [PAM](root:sys-unix/pam-stack) | модуль `pam_systemd_home`; фази `auth`, `account`, `session`, `password` |
 | налаштування | `/etc/systemd/homed.conf` і вставки `*.conf` у `homed.conf.d/` під `/etc`, `/run`, `/usr/local/lib`, `/usr/lib` |
 
 Модуль PAM має рівно два параметри:

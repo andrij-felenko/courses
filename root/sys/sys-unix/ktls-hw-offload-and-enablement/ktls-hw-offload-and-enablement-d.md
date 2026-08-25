@@ -1,17 +1,17 @@
 # Ядерне прискорення TLS (kTLS / TLS_HW / TLS_SW)
 
 <preknowlist>
-- [Сокети в Linux](topic:sys-unix/socket-api-linux) — створення TCP-сокетів, виклики `setsockopt` та конфігурація опцій розширення.
-- [Мережевий стек ядра Linux](topic:sys-unix/network-stack-architecture) — проходження `sk_buff` крізь підсистему ULP та TCP-стек.
-- [Передача без копіювання: sendfile і splice](topic:sys-unix/zero-copy) — передача сторінок Page Cache без виходу у простір користувача.
-- [Протокол TLS](topic:sf-security/tls) — формат TLS-записів (Record Header), симетричні шиفري AEAD та розмежування Handshake і Data Plane.
+- [Сокети в Linux](root:sys-unix/socket-api-linux) — створення TCP-сокетів, виклики `setsockopt` та конфігурація опцій розширення.
+- [Мережевий стек ядра Linux](root:sys-unix/network-stack-architecture) — проходження `sk_buff` крізь підсистему ULP та TCP-стек.
+- [Передача без копіювання: sendfile і splice](root:sys-unix/zero-copy) — передача сторінок Page Cache без виходу у простір користувача.
+- [Протокол TLS](root:sf-security/tls) — формат TLS-записів (Record Header), симетричні шиفري AEAD та розмежування Handshake і Data Plane.
 </preknowlist>
 
 Коли мережевий трафік глобального інтернету стає повністю шифрованим, навантаження на сервери доставки контенту (CDN), стримінгові відеоплатформи та базовані на Linux балансувальники навантаження зростає по експоненті. Традиційна модель обробки протоколу Transport Layer Security (TLS), у якій вся шифрувальна робота відбувається всередині користувацьких бібліотек у просторі користувача (userspace), створює фатальне вузьке місце для продуктивності системного вводу-виводу.
 
 Для подолання цих обмежень у ядрі Linux було впроваджено технологію **Kernel TLS (kTLS)**. kTLS виносить симетричне шифрування та дешифрування TLS-записів безпосередньо у стек мережевих сокетів ядра. Це усуває зайве копіювання пам'яті, повертає ефективність системному виклику `sendfile()` і відкриває можливість повного апаратного розвантаження шифрування (Hardware Offload) на сучасні мережеві карти SmartNIC.
 
-Детальний перебіг розробки kTLS та виклики 100-гігабітних мереж висвітлено у вставці [Історія виникнення kTLS](topic:sys-unix/ktls-hw-offload-and-enablement/hist-ktls-evolution.md).
+Детальний перебіг розробки kTLS та виклики 100-гігабітних мереж висвітлено у вставці [Історія виникнення kTLS](root:sys-unix/ktls-hw-offload-and-enablement/hist-ktls-evolution.md).
 
 ---
 
@@ -230,7 +230,7 @@ struct tls_context {
 
 ## 6. Програмування kTLS (API сокетів та Socket Options)
 
-Повний довідник структур даних, прапорців та опцій сокетів можна знайти у вставці [Інтерфейс сокетів kTLS](topic:sys-unix/ktls-hw-offload-and-enablement/api-ktls-ulp-and-setsockopt.md).
+Повний довідник структур даних, прапорців та опцій сокетів можна знайти у вставці [Інтерфейс сокетів kTLS](root:sys-unix/ktls-hw-offload-and-enablement/api-ktls-ulp-and-setsockopt.md).
 
 Нижче наведено базовий алгоритм налаштування сокета.
 
@@ -388,7 +388,7 @@ void send_tls_alert_cpp(int sock_fd, uint8_t alert_code) {
 
 ## 7. Практичне застосування: Синергія kTLS + `sendfile()`
 
-Найбільший практичний ефект kTLS дає у зв'язці з викликом `sendfile()`. Повний практичний проект із початковим кодом сервера та конфігурацією OpenSSL 3.0 наведено у вставці [Практична реалізація kTLS](topic:sys-unix/ktls-hw-offload-and-enablement/proj-ktls-c-cpp-socket.md).
+Найбільший практичний ефект kTLS дає у зв'язці з викликом `sendfile()`. Повний практичний проект із початковим кодом сервера та конфігурацією OpenSSL 3.0 наведено у вставці [Практична реалізація kTLS](root:sys-unix/ktls-hw-offload-and-enablement/proj-ktls-c-cpp-socket.md).
 
 Коли сокет переведено в режим kTLS, програміст викликає `sendfile()` звичним чином:
 

@@ -34,7 +34,7 @@ $ cat /sys/power/mem_sleep
 # echo mem  > /sys/power/state      # повернеться вранці
 ```
 
-Якщо `deep` у переліку **немає** — прошивка не оголосила S3, і жодним налаштуванням його не додати. Початковий вибір задає параметр [командного рядка ядра](topic:sys-unix/bootloader-and-cmdline) `mem_sleep_default=s2idle|shallow|deep`.
+Якщо `deep` у переліку **немає** — прошивка не оголосила S3, і жодним налаштуванням його не додати. Початковий вибір задає параметр [командного рядка ядра](root:sys-unix/bootloader-and-cmdline) `mem_sleep_default=s2idle|shallow|deep`.
 
 ## Гібернація: disk, image_size, resume
 
@@ -60,7 +60,7 @@ $ cat /sys/power/mem_sleep
 resume=UUID=6f2c-… resume_offset=34816
 ```
 
-Файли в sysfs потрібні іншому клієнту: [initramfs](topic:sys-unix/initramfs), який відкрив [зашифрований том](topic:sys-unix/dm-crypt) і аж тепер може назвати пристрій. Зсув для файла підкачки береться з номера першого фізичного блоку — `filefrag -v /swapfile`; для [розділу підкачки](topic:sys-unix/swap-and-reclaim) `resume_offset` не потрібен зовсім.
+Файли в sysfs потрібні іншому клієнту: [initramfs](root:sys-unix/initramfs), який відкрив [зашифрований том](root:sys-unix/dm-crypt) і аж тепер може назвати пристрій. Зсув для файла підкачки береться з номера першого фізичного блоку — `filefrag -v /swapfile`; для [розділу підкачки](root:sys-unix/swap-and-reclaim) `resume_offset` не потрібен зовсім.
 
 ## Гонка засинання: wakeup_count
 
@@ -77,7 +77,7 @@ echo mem > /sys/power/state
 
 ## Хто має право будити: атрибути в дереві пристроїв
 
-Кожен пристрій, здатний будити, має в [sysfs](topic:sys-unix/sysfs-device-model) теку `power/`. Порожнє значення замість числа означає «пробудження для цього пристрою вимкнено».
+Кожен пристрій, здатний будити, має в [sysfs](root:sys-unix/sysfs-device-model) теку `power/`. Порожнє значення замість числа означає «пробудження для цього пристрою вимкнено».
 
 | атрибут | приймає / показує |
 |---|---|
@@ -88,9 +88,9 @@ echo mem > /sys/power/state
 | `power/wakeup_active` | `1`, поки подія в обробці |
 | `power/wakeup_total_time_ms`, `power/wakeup_max_time_ms`, `power/wakeup_last_time_ms` | сумарний, найдовший і останній час обробки |
 | `power/wakeup_prevent_sleep_time_ms` | скільки цей пристрій сумарно не давав системі заснути |
-| `power/control` | `auto` / `on` — [присипляння на ходу](topic:sys-unix/runtime-power-management), окрема від системного сну річ |
+| `power/control` | `auto` / `on` — [присипляння на ходу](root:sys-unix/runtime-power-management), окрема від системного сну річ |
 
-Зведення по всіх джерелах одразу лежить у [debugfs](topic:sys-unix/pseudo-filesystems): `/sys/kernel/debug/wakeup_sources` — таблиця з ім'ям джерела, лічильниками подій і зривів та часом останньої зміни. Це перше місце, куди дивляться, коли машина «сама прокидається».
+Зведення по всіх джерелах одразу лежить у [debugfs](root:sys-unix/pseudo-filesystems): `/sys/kernel/debug/wakeup_sources` — таблиця з ім'ям джерела, лічильниками подій і зривів та часом останньої зміни. Це перше місце, куди дивляться, коли машина «сама прокидається».
 
 ```sh
 # echo enabled > /sys/bus/usb/devices/1-2/power/wakeup
@@ -112,7 +112,7 @@ echo mem > /sys/power/state
 
 ## Шар systemd
 
-Служби роблять рівно те, що вручну робить `echo`, — плюс порядок і сповіщення. [Ціль](topic:sys-unix/systemd-model) `sleep.target` спільна для всіх різновидів: юніт із `WantedBy=sleep.target` запускається перед сном і спиняється після пробудження.
+Служби роблять рівно те, що вручну робить `echo`, — плюс порядок і сповіщення. [Ціль](root:sys-unix/systemd-model) `sleep.target` спільна для всіх різновидів: юніт із `WantedBy=sleep.target` запускається перед сном і спиняється після пробудження.
 
 | ціль | служба | що зрештою пише |
 |---|---|---|
@@ -147,7 +147,7 @@ esac
 
 Для `suspend-then-hibernate` другий аргумент лишається незмінним усі рази, а котра саме фаза йде — каже змінна оточення `SYSTEMD_SLEEP_ACTION`: `suspend`, `hibernate` або `suspend-after-failed-hibernate`. Два обмеження варто знати наперед: сеанси користувача на цей момент уже заморожені, тож достукатися до них гачок не може, і **скасувати сон гачок не здатен** — його ненульовий код лише потрапить у журнал.
 
-Скасовує сон інший механізм — **заборонники**. `systemd-inhibit` бере в [logind](topic:sys-unix/logind-sessions-seats) блокування й тримає його, поки живе запущена ним команда (технічно — поки відкритий файловий дескриптор, виданий через [D-Bus](topic:sys-unix/dbus)).
+Скасовує сон інший механізм — **заборонники**. `systemd-inhibit` бере в [logind](root:sys-unix/logind-sessions-seats) блокування й тримає його, поки живе запущена ним команда (технічно — поки відкритий файловий дескриптор, виданий через [D-Bus](root:sys-unix/dbus)).
 
 ```sh
 $ systemd-inhibit --what=sleep --who=backup --why="триває копіювання" \
@@ -158,7 +158,7 @@ $ systemd-inhibit --list
 | ключ | значення |
 |---|---|
 | `--what=` | `shutdown`, `sleep`, `idle`, `handle-power-key`, `handle-suspend-key`, `handle-hibernate-key`, `handle-lid-switch`, `handle-reboot-key`; типово `idle:sleep:shutdown` |
-| `--mode=block` | заборона без строку; обійти може лише привілейований клієнт — рішення ухвалює [polkit](topic:sys-unix/polkit) |
+| `--mode=block` | заборона без строку; обійти може лише привілейований клієнт — рішення ухвалює [polkit](root:sys-unix/polkit) |
 | `--mode=block-weak` | те саме, але власника блокування й привілейовані запити воно не стримує |
 | `--mode=delay` | лише відкладає, і лише `sleep` та `shutdown`; межа — `InhibitDelayMaxSec=` з `logind.conf` |
 

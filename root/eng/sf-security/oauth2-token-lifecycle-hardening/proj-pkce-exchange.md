@@ -309,7 +309,7 @@ Pragma: no-cache
 
 ### Етап 3: Розбір JWKS та криптографічна валідація ID-токена
 
-Отриманий `id_token` — це підписаний [JWT](topic:sf-web/jwt-tokens). Він складається з трьох частин: `Header.Payload.Signature`.
+Отриманий `id_token` — це підписаний [JWT](root:sf-web/jwt-tokens). Він складається з трьох частин: `Header.Payload.Signature`.
 
 Процес валідації вимагає динамічного отримання відкритих ключів провайдера за адресою `jwks_uri` (наприклад `https://idp.example.com/.well-known/jwks.json`). Документ JWKS містить масив ключів у форматі RFC 7517:
 

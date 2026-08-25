@@ -47,29 +47,29 @@
           }
         },
         {
-          "ref": "algorithms/sense-decide-act-loop",
+          "ref": "sys-dron/sense-decide-act-loop",
           "title": "Контур offboard: вимір → рішення → дія"
         },
         {
-          "ref": "algorithms/reaktsiia-chy-plan",
+          "ref": "sf-devices/reaktsiia-chy-plan",
           "title": "Реакція чи план: два шари рішення",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
         },
         {
-          "ref": "programming/umova-diia-i-chomu-prystrii-klatsaie",
+          "ref": "sf-devices/umova-diia-i-chomu-prystrii-klatsaie",
           "title": "Умова, дія і чому пристрій клацає: поріг із гістерезисом",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
         },
         {
-          "ref": "programming/minimalnyi-chas-stanu-zatrymka-i-antydrebezh",
+          "ref": "sf-devices/minimalnyi-chas-stanu-zatrymka-i-antydrebezh",
           "title": "Мінімальний час стану, затримка й антидребезг рішення",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
         },
         {
-          "ref": "programming/blokuvannia-i-umovy-dopusku-interlock",
+          "ref": "sf-devices/blokuvannia-i-umovy-dopusku-interlock",
           "title": "Блокування й умови допуску (interlock)",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
@@ -85,19 +85,19 @@
           }
         },
         {
-          "ref": "algorithms/bumpless-transfer",
+          "ref": "com-signal/bumpless-transfer",
           "title": "Безударне перемикання регулятора"
         },
         {
-          "ref": "algorithms/latency-sync",
+          "ref": "com-signal/latency-sync",
           "title": "Затримки й синхро"
         },
         {
-          "ref": "programming/safe-mode",
+          "ref": "sf-devices/safe-mode",
           "title": "Безпечний стан"
         },
         {
-          "ref": "programming/fail-open-fail-closed",
+          "ref": "sf-distributed/fail-open-fail-closed",
           "title": "Fail-open проти fail-closed"
         },
         {
@@ -117,51 +117,51 @@
       "title": "Наведення на точку",
       "topics": [
         {
-          "ref": "programming/waypoint-route-sequencing",
+          "ref": "sys-dron/waypoint-route-sequencing",
           "title": "Навігація за маршрутними точками"
         },
         {
-          "ref": "algorithms/vid-tochky-marshrutu-do-ustavky",
+          "ref": "sys-dron/vid-tochky-marshrutu-do-ustavky",
           "title": "Від точки маршруту до уставки: радіус досягнення, зріз кута",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
         },
         {
-          "ref": "algorithms/pure-pursuit-navigation",
+          "ref": "sys-dron/pure-pursuit-navigation",
           "title": "Навігація pure pursuit"
         },
         {
-          "ref": "algorithms/vidkhylennia-vid-linii-shliakhu-cross-track",
+          "ref": "sys-dron/vidkhylennia-vid-linii-shliakhu-cross-track",
           "title": "Курс, шлях і бічне відхилення",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
         },
         {
-          "ref": "algorithms/utrymannia-pozytsii-i-povernennia-na-liniiu",
+          "ref": "sys-dron/utrymannia-pozytsii-i-povernennia-na-liniiu",
           "title": "Утримання позиції й повернення на лінію",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
         },
         {
-          "ref": "programming/position-modes",
+          "ref": "sys-dron/position-modes",
           "title": "Режими з позицією"
         },
         {
-          "ref": "algorithms/viter-i-znos",
+          "ref": "sys-dron/viter-i-znos",
           "title": "Вітер і знос: чому апарат летить не туди, куди дивиться",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
         },
         {
-          "ref": "algorithms/motion-profiles",
+          "ref": "com-signal/motion-profiles",
           "title": "Профілі руху"
         },
         {
-          "ref": "algorithms/bicycle-kinematic-model",
+          "ref": "sys-dron/bicycle-kinematic-model",
           "title": "Кінематична велосипедна модель"
         },
         {
-          "ref": "algorithms/one-stack-many-bodies",
+          "ref": "sys-dron/one-stack-many-bodies",
           "title": "Один стек, різні тіла"
         },
         {
@@ -175,7 +175,7 @@
           }
         },
         {
-          "ref": "algorithms/navedennia-na-rukhomu-tsil",
+          "ref": "sys-dron/navedennia-na-rukhomu-tsil",
           "title": "Наведення на рухому ціль",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
@@ -197,11 +197,11 @@
           }
         },
         {
-          "ref": "algorithms/missions-waypoints",
+          "ref": "sys-dron/missions-waypoints",
           "title": "Місії й точки"
         },
         {
-          "ref": "qgroundcontrol/mission-items",
+          "ref": "sys-dron/mission-items",
           "title": "Елементи місії"
         },
         {
@@ -215,27 +215,27 @@
           }
         },
         {
-          "ref": "qgroundcontrol/survey-patterns",
+          "ref": "sys-dron/survey-patterns",
           "title": "Патерни зйомки"
         },
         {
-          "ref": "algorithms/survey-grid-coverage",
+          "ref": "sys-dron/survey-grid-coverage",
           "title": "Покриття полігону галсами"
         },
         {
-          "ref": "algorithms/boustrophedon-coverage",
+          "ref": "sys-dron/boustrophedon-coverage",
           "title": "Бустрофедонний розклад і покриття площ"
         },
         {
-          "ref": "qgroundcontrol/terrain-and-altitude",
+          "ref": "sys-dron/terrain-and-altitude",
           "title": "Рельєф і режими висоти"
         },
         {
-          "ref": "programming/geofence",
+          "ref": "sys-dron/geofence",
           "title": "Геозона (geofence) в автопілоті"
         },
         {
-          "ref": "algorithms/geofence-algorithm",
+          "ref": "sys-dron/geofence-algorithm",
           "title": "Алгоритм геозони"
         },
         {
@@ -249,13 +249,13 @@
           }
         },
         {
-          "ref": "algorithms/pauza-zmina-i-prodovzhennia-misii-na-khodu",
+          "ref": "sys-dron/pauza-zmina-i-prodovzhennia-misii-na-khodu",
           "title": "Пауза, зміна й продовження місії на ходу",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
         },
         {
-          "ref": "algorithms/diia-na-tochtsi",
+          "ref": "sys-dron/diia-na-tochtsi",
           "title": "Дія на точці: камера, скидання, підвіс",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
@@ -277,41 +277,41 @@
       "title": "Старт і повернення",
       "topics": [
         {
-          "ref": "programming/arming-checks",
+          "ref": "sys-dron/arming-checks",
           "title": "Arming-перевірки"
         },
         {
-          "ref": "programming/arming-checks",
+          "ref": "sys-dron/arming-checks",
           "title": "Гейт озброєння: чому апарат відмовляється стартувати",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
         },
         {
-          "ref": "algorithms/zlit-iak-protsedura",
+          "ref": "sys-dron/zlit-iak-protsedura",
           "title": "Зліт як процедура: озброєння, набір висоти, точка старту",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
         },
         {
-          "ref": "algorithms/start-dlia-rovera-i-chovna",
+          "ref": "sys-dron/start-dlia-rovera-i-chovna",
           "title": "Старт для ровера й човна: вихід із дока, відчалювання",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
         },
         {
-          "ref": "algorithms/domashnia-tochka-i-shcho-z-neiu-ne-tak",
+          "ref": "sys-dron/domashnia-tochka-i-shcho-z-neiu-ne-tak",
           "title": "Домашня точка й що з нею не так",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
         },
         {
-          "ref": "algorithms/povernennia-dodomu",
+          "ref": "sys-dron/povernennia-dodomu",
           "title": "Повернення додому: висота, шлях, поведінка на місці",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
         },
         {
-          "ref": "programming/battery-budget",
+          "ref": "hw-power/battery-budget",
           "title": "Бюджет батареї"
         },
         {
@@ -325,19 +325,19 @@
           }
         },
         {
-          "ref": "programming/nyzka-batareia",
+          "ref": "sys-dron/nyzka-batareia",
           "title": "Низька батарея: три пороги й що по кожному",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
         },
         {
-          "ref": "algorithms/avtoposadka",
+          "ref": "sys-dron/avtoposadka",
           "title": "Автопосадка: зниження, детект землі, розброєння",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
         },
         {
-          "ref": "algorithms/skasovana-posadka-i-druha-sproba",
+          "ref": "sys-dron/skasovana-posadka-i-druha-sproba",
           "title": "Скасована посадка й друга спроба",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
@@ -353,19 +353,19 @@
           }
         },
         {
-          "ref": "algorithms/povernennia-na-dok-i-na-zariadku",
+          "ref": "sys-dron/povernennia-na-dok-i-na-zariadku",
           "title": "Повернення на док і на зарядку",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
         },
         {
-          "ref": "algorithms/dim-nedosiazhnyi",
+          "ref": "sys-dron/dim-nedosiazhnyi",
           "title": "Дім недосяжний: запасні майданчики й вибір між ними",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
         },
         {
-          "ref": "algorithms/kerovana-terminatsiia",
+          "ref": "sys-dron/kerovana-terminatsiia",
           "title": "Керована термінація: коли правильна дія — впасти",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
@@ -377,7 +377,7 @@
       "title": "Поведінка при відмові",
       "topics": [
         {
-          "ref": "programming/failsafe",
+          "ref": "sys-dron/failsafe",
           "title": "Failsafe"
         },
         {
@@ -391,57 +391,57 @@
           }
         },
         {
-          "ref": "programming/failure-priorities",
+          "ref": "sys-dron/failure-priorities",
           "title": "Пріоритети відмов"
         },
         {
-          "ref": "programming/dynamics-dependent-failsafe",
+          "ref": "sys-dron/dynamics-dependent-failsafe",
           "title": "Failsafe за динамікою"
         },
         {
-          "ref": "communications/rc-failsafe-modes",
+          "ref": "sys-dron/rc-failsafe-modes",
           "title": "Режими failsafe RC"
         },
         {
-          "ref": "programming/failure-detection",
+          "ref": "sf-distributed/failure-detection",
           "title": "Виявлення відмов: чому мертвий вузол не відрізнити від повільного"
         },
         {
-          "ref": "programming/failsafe",
+          "ref": "sys-dron/failsafe",
           "title": "Втрата зв'язку: чекати, вертатись чи продовжувати",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
         },
         {
-          "ref": "algorithms/dead-reckoning",
+          "ref": "com-signal/dead-reckoning",
           "title": "Інерціальне числення позиції"
         },
         {
-          "ref": "algorithms/innovation-gate",
+          "ref": "com-signal/innovation-gate",
           "title": "Ворота несподіванки (innovation gating)"
         },
         {
-          "ref": "algorithms/sensor-insufficiency",
+          "ref": "com-signal/sensor-insufficiency",
           "title": "Недостатність давача"
         },
         {
-          "ref": "programming/redundancy",
+          "ref": "sf-devices/redundancy",
           "title": "Надлишковість"
         },
         {
-          "ref": "programming/graceful-degradation",
+          "ref": "sf-devices/graceful-degradation",
           "title": "Деградація з гідністю"
         },
         {
-          "ref": "programming/limp-home-mode",
+          "ref": "sf-devices/limp-home-mode",
           "title": "Кульгавий режим (limp mode)"
         },
         {
-          "ref": "programming/health-monitor",
+          "ref": "sf-devices/health-monitor",
           "title": "Монітор здоров'я пристрою"
         },
         {
-          "ref": "algorithms/vidmova-pryvodu",
+          "ref": "sys-dron/vidmova-pryvodu",
           "title": "Відмова приводу: мотор, серво, кермо",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
@@ -453,13 +453,13 @@
       "title": "Обхід перешкоди",
       "topics": [
         {
-          "ref": "algorithms/graph-representation",
+          "ref": "sf-algorithms/graph-representation",
           "title": "Граф як структура даних",
           "todo": "нова тема",
           "hint": "algorithms/data-structures"
         },
         {
-          "ref": "algorithms/dijkstra",
+          "ref": "sf-algorithms/dijkstra",
           "title": "Алгоритм Дейкстри"
         },
         {
@@ -473,7 +473,7 @@
           }
         },
         {
-          "ref": "algorithms/configuration-space",
+          "ref": "sys-dron/configuration-space",
           "title": "Конфігураційний простір: рух тіла як рух точки"
         },
         {
@@ -487,13 +487,13 @@
           }
         },
         {
-          "ref": "algorithms/karta-zainiatosti-z-dalekomira",
+          "ref": "sys-dron/karta-zainiatosti-z-dalekomira",
           "title": "Карта зайнятості з далекоміра: стоп, об'їзд, набір висоти",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
         },
         {
-          "ref": "algorithms/tsina-klitynky",
+          "ref": "sys-dron/tsina-klitynky",
           "title": "Ціна клітинки: чому найкоротший шлях не найкращий",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
@@ -509,25 +509,25 @@
           }
         },
         {
-          "ref": "algorithms/slipi-zony-i-khybne-halmuvannia",
+          "ref": "sys-dron/slipi-zony-i-khybne-halmuvannia",
           "title": "Сліпі зони й хибне гальмування",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
         },
         {
-          "ref": "algorithms/hlukhyi-kut-i-pastka-lokalnoho-obkhodu",
+          "ref": "sys-dron/hlukhyi-kut-i-pastka-lokalnoho-obkhodu",
           "title": "Глухий кут і пастка локального обходу",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
         },
         {
-          "ref": "algorithms/biudzhet-chasu-planuvalnyka",
+          "ref": "sys-dron/biudzhet-chasu-planuvalnyka",
           "title": "Бюджет часу планувальника: коли думати ніколи",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
         },
         {
-          "ref": "algorithms/pereplanuvannia-na-khodu",
+          "ref": "sys-dron/pereplanuvannia-na-khodu",
           "title": "Перепланування на ходу: карта змінилася",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
@@ -539,47 +539,47 @@
       "title": "Своя логіка на борту",
       "topics": [
         {
-          "ref": "programming/fc-vs-companion",
+          "ref": "sys-dron/fc-vs-companion",
           "title": "Контролер vs комп'ютер"
         },
         {
-          "ref": "algorithms/companion-computer",
+          "ref": "sys-dron/companion-computer",
           "title": "Бортовий комп'ютер (companion)"
         },
         {
-          "ref": "programming/fc-vs-companion",
+          "ref": "sys-dron/fc-vs-companion",
           "title": "Дві ролі на борту"
         },
         {
-          "ref": "programming/mode-state-machine",
+          "ref": "sys-dron/mode-state-machine",
           "title": "Автомат режимів"
         },
         {
-          "ref": "algorithms/avtomat-tsilei",
+          "ref": "sys-dron/avtomat-tsilei",
           "title": "Автомат цілей: стани, переходи, охоронні умови",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
         },
         {
-          "ref": "algorithms/derevo-povedinky",
+          "ref": "sys-dron/derevo-povedinky",
           "title": "Дерево поведінки: чому воно витіснило автомат",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
         },
         {
-          "ref": "algorithms/priorytet-i-vytisnennia-povedinok",
+          "ref": "sys-dron/priorytet-i-vytisnennia-povedinok",
           "title": "Пріоритет і витіснення поведінок",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
         },
         {
-          "ref": "algorithms/zatsyklennia-tremtinnia-i-tupyk-u-lohitsi-tsilei",
+          "ref": "sys-dron/zatsyklennia-tremtinnia-i-tupyk-u-lohitsi-tsilei",
           "title": "Зациклення, тремтіння й тупик у логіці цілей",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
         },
         {
-          "ref": "algorithms/taimaut-na-kozhnu-povedinku",
+          "ref": "sys-dron/taimaut-na-kozhnu-povedinku",
           "title": "Таймаут на кожну поведінку: скільки чекати, перш ніж здатися",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
@@ -615,7 +615,7 @@
           }
         },
         {
-          "ref": "programming/parametry-povedinky",
+          "ref": "sys-dron/parametry-povedinky",
           "title": "Параметри поведінки: що налаштовне, а що зашите",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
@@ -627,53 +627,53 @@
       "title": "Як модель вчиться",
       "topics": [
         {
-          "ref": "algorithms/pravylo-chy-model",
+          "ref": "sf-ml/pravylo-chy-model",
           "title": "Правило чи модель: коли навчання виправдане",
           "todo": "нова тема",
           "hint": "algorithms/machine-learning"
         },
         {
-          "ref": "algorithms/what-is-ml",
+          "ref": "sf-ml/what-is-ml",
           "title": "Що таке ML"
         },
         {
-          "ref": "algorithms/train-vs-inference",
+          "ref": "sf-ml/train-vs-inference",
           "title": "Навчання vs вивід"
         },
         {
-          "ref": "algorithms/supervised-learning",
+          "ref": "sf-ml/supervised-learning",
           "title": "Навчання з учителем"
         },
         {
-          "ref": "algorithms/unsupervised-learning",
+          "ref": "sf-ml/unsupervised-learning",
           "title": "Навчання без учителя"
         },
         {
-          "ref": "algorithms/reinforcement-learning",
+          "ref": "sf-ml/reinforcement-learning",
           "title": "Навчання з підкріпленням"
         },
         {
-          "ref": "algorithms/neuron-layer",
+          "ref": "sf-ml/neuron-layer",
           "title": "Нейрон і шар"
         },
         {
-          "ref": "algorithms/activation-functions",
+          "ref": "sf-ml/activation-functions",
           "title": "Функції активації"
         },
         {
-          "ref": "algorithms/loss-functions",
+          "ref": "sf-ml/loss-functions",
           "title": "Функції втрат у машинному навчанні"
         },
         {
-          "ref": "algorithms/gradient-descent",
+          "ref": "sf-ml/gradient-descent",
           "title": "Градієнтний спуск"
         },
         {
-          "ref": "algorithms/backpropagation",
+          "ref": "sf-ml/backpropagation",
           "title": "Зворотне поширення помилки"
         },
         {
-          "ref": "algorithms/cnn",
+          "ref": "sf-ml/cnn",
           "title": "Згорткові мережі"
         }
       ]
@@ -703,43 +703,43 @@
           }
         },
         {
-          "ref": "algorithms/data-augmentation",
+          "ref": "sf-ml/data-augmentation",
           "title": "Аугментація даних"
         },
         {
-          "ref": "algorithms/overfitting",
+          "ref": "sf-ml/overfitting",
           "title": "Перенавчання"
         },
         {
-          "ref": "algorithms/regularization",
+          "ref": "sf-ml/regularization",
           "title": "Регуляризація"
         },
         {
-          "ref": "algorithms/cross-validation",
+          "ref": "sf-ml/cross-validation",
           "title": "Крос-валідація"
         },
         {
-          "ref": "algorithms/transfer-learning",
+          "ref": "sf-ml/transfer-learning",
           "title": "Transfer learning (перенесення навчання)"
         },
         {
-          "ref": "algorithms/knowledge-distillation",
+          "ref": "sf-ml/knowledge-distillation",
           "title": "Дистиляція знань"
         },
         {
-          "ref": "algorithms/weight-pruning",
+          "ref": "sf-ml/weight-pruning",
           "title": "Прорідження мережі"
         },
         {
-          "ref": "algorithms/model-quantization",
+          "ref": "sf-ml/model-quantization",
           "title": "Квантування нейромереж"
         },
         {
-          "ref": "algorithms/autoencoder",
+          "ref": "sf-ml/autoencoder",
           "title": "Автокодер"
         },
         {
-          "ref": "algorithms/odnakovyi-vkhid-u-navchanni-i-na-bortu",
+          "ref": "sf-ml/odnakovyi-vkhid-u-navchanni-i-na-bortu",
           "title": "Однаковий вхід у навчанні й на борту: препроцесинг, що розходиться",
           "todo": "нова тема",
           "hint": "algorithms/machine-learning"
@@ -751,7 +751,7 @@
       "title": "Модель на борту",
       "topics": [
         {
-          "ref": "algorithms/tinyml",
+          "ref": "sf-ml/tinyml",
           "title": "TinyML"
         },
         {
@@ -765,7 +765,7 @@
           }
         },
         {
-          "ref": "programming/esp32-s3-ai",
+          "ref": "hw-arch/esp32-s3-ai",
           "title": "AI-прискорення в ESP32-S3"
         },
         {
@@ -779,11 +779,11 @@
           }
         },
         {
-          "ref": "algorithms/inference-latency",
+          "ref": "sf-ml/inference-latency",
           "title": "Латентність інференсу"
         },
         {
-          "ref": "algorithms/compute-cost",
+          "ref": "hw-arch/compute-cost",
           "title": "Вартість обчислень"
         },
         {
@@ -797,7 +797,7 @@
           }
         },
         {
-          "ref": "algorithms/model-u-petli-realnoho-chasu",
+          "ref": "sf-ml/model-u-petli-realnoho-chasu",
           "title": "Модель у петлі реального часу: що робити, коли вивід не встиг",
           "todo": "нова тема",
           "hint": "algorithms/machine-learning"
@@ -823,11 +823,11 @@
           }
         },
         {
-          "ref": "programming/model-artifact",
+          "ref": "sf-release/model-artifact",
           "title": "Модель як версійований артефакт"
         },
         {
-          "ref": "programming/onovlennia-modeli-v-poli",
+          "ref": "sf-ml/onovlennia-modeli-v-poli",
           "title": "Оновлення моделі в полі: модель як частина прошивки",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
@@ -839,11 +839,11 @@
       "title": "Ціль у кадрі",
       "topics": [
         {
-          "ref": "algorithms/object-detection",
+          "ref": "sf-visual/object-detection",
           "title": "Виявлення об'єктів"
         },
         {
-          "ref": "algorithms/nn-detectors",
+          "ref": "sf-visual/nn-detectors",
           "title": "Нейродетектори"
         },
         {
@@ -857,35 +857,35 @@
           }
         },
         {
-          "ref": "algorithms/nms-algorithm",
+          "ref": "sf-visual/nms-algorithm",
           "title": "Non-Maximum Suppression"
         },
         {
-          "ref": "algorithms/detection-metrics",
+          "ref": "sf-visual/detection-metrics",
           "title": "Метрики детектора"
         },
         {
-          "ref": "algorithms/tracking",
+          "ref": "sf-visual/tracking",
           "title": "Трекінг"
         },
         {
-          "ref": "algorithms/sort-tracking-algorithm",
+          "ref": "sf-visual/sort-tracking-algorithm",
           "title": "Алгоритм трекінгу об'єктів SORT"
         },
         {
-          "ref": "algorithms/tracking",
+          "ref": "sf-visual/tracking",
           "title": "Трекінг багатьох цілей"
         },
         {
-          "ref": "algorithms/homography",
+          "ref": "sf-visual/homography",
           "title": "Гомографія: перетворення площини в площину"
         },
         {
-          "ref": "algorithms/pose-estimation",
+          "ref": "sf-visual/pose-estimation",
           "title": "Відновлення пози за точками (PnP)"
         },
         {
-          "ref": "algorithms/image-georeferencing",
+          "ref": "sf-visual/image-georeferencing",
           "title": "Геоприв'язка аерознімка: від пози камери до координат на землі"
         },
         {
@@ -909,13 +909,13 @@
           }
         },
         {
-          "ref": "algorithms/suprovid-tsili",
+          "ref": "sys-dron/suprovid-tsili",
           "title": "Супровід цілі: follow-me й утримання в кадрі",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
         },
         {
-          "ref": "algorithms/tsil-zahublena",
+          "ref": "sys-dron/tsil-zahublena",
           "title": "Ціль загублена: пошук, таймаут, відмова від супроводу",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
@@ -937,33 +937,33 @@
           }
         },
         {
-          "ref": "algorithms/metryky-iakosti-modeli",
+          "ref": "sf-ml/metryky-iakosti-modeli",
           "title": "Метрики якості моделі: точність, повнота, матриця плутанини",
           "todo": "нова тема",
           "hint": "algorithms/machine-learning"
         },
         {
-          "ref": "algorithms/porih-i-tsina-pomylky",
+          "ref": "sf-ml/porih-i-tsina-pomylky",
           "title": "Поріг і ціна помилки: хибне спрацювання проти пропуску",
           "todo": "нова тема",
           "hint": "algorithms/machine-learning"
         },
         {
-          "ref": "algorithms/confidence-calibration",
+          "ref": "sf-ml/confidence-calibration",
           "title": "Калібрування впевненості моделі"
         },
         {
-          "ref": "algorithms/ne-znaiu",
+          "ref": "sf-ml/ne-znaiu",
           "title": "«Не знаю»: відмова від рішення як штатна відповідь",
           "todo": "нова тема",
           "hint": "algorithms/machine-learning"
         },
         {
-          "ref": "algorithms/smoothing-vs-lag",
+          "ref": "com-signal/smoothing-vs-lag",
           "title": "Згладжування й затримка"
         },
         {
-          "ref": "algorithms/n-z-m-i-histerezys-na-podiiakh",
+          "ref": "sf-devices/n-z-m-i-histerezys-na-podiiakh",
           "title": "N з M і гістерезис на подіях",
           "todo": "нова тема",
           "hint": "algorithms/machine-learning"
@@ -989,7 +989,7 @@
           }
         },
         {
-          "ref": "programming/parallel-run",
+          "ref": "sf-release/parallel-run",
           "title": "Parallel run"
         },
         {
@@ -1003,17 +1003,17 @@
           }
         },
         {
-          "ref": "algorithms/distribution-shift",
+          "ref": "sf-ml/distribution-shift",
           "title": "Зсув розподілу даних"
         },
         {
-          "ref": "algorithms/dreif-u-poli",
+          "ref": "sf-ml/dreif-u-poli",
           "title": "Дрейф у полі: як помітити його на борту",
           "todo": "нова тема",
           "hint": "algorithms/machine-learning"
         },
         {
-          "ref": "algorithms/ml-limits-ethics",
+          "ref": "sf-ml/ml-limits-ethics",
           "title": "Межі й етика"
         }
       ]
@@ -1023,37 +1023,37 @@
       "title": "Випробування автономності",
       "topics": [
         {
-          "ref": "programming/sitl-simulation",
+          "ref": "sys-dron/sitl-simulation",
           "title": "SITL"
         },
         {
-          "ref": "programming/sitl-simulator",
+          "ref": "sys-dron/sitl-simulator",
           "title": "Політ у симуляторі: SITL, HITL і станція"
         },
         {
-          "ref": "programming/chaos-engineering",
+          "ref": "sf-release/chaos-engineering",
           "title": "Хаос-інженерія"
         },
         {
-          "ref": "programming/stsenarii-vidmov-u-symuliatori",
+          "ref": "sys-dron/stsenarii-vidmov-u-symuliatori",
           "title": "Сценарії відмов у симуляторі: обрив лінка, глушіння GNSS, мертвий мотор",
           "todo": "нова тема",
           "hint": "programming/software-engineering"
         },
         {
-          "ref": "programming/rehresiia-avtonomii",
+          "ref": "sys-dron/rehresiia-avtonomii",
           "title": "Регресія автономії: той самий маршрут після кожної зміни",
           "todo": "нова тема",
           "hint": "programming/software-engineering"
         },
         {
-          "ref": "programming/perehrash-zhurnalu",
+          "ref": "sys-dron/perehrash-zhurnalu",
           "title": "Переграш журналу: рішення на записаних даних",
           "todo": "нова тема",
           "hint": "programming/software-engineering"
         },
         {
-          "ref": "programming/structured-logging",
+          "ref": "sf-release/structured-logging",
           "title": "Структуровані логи"
         },
         {
@@ -1077,7 +1077,7 @@
           }
         },
         {
-          "ref": "programming/postmortems",
+          "ref": "sf-release/postmortems",
           "title": "Постмортем без винних"
         },
         {
@@ -1091,7 +1091,7 @@
           }
         },
         {
-          "ref": "programming/end-to-end-mission",
+          "ref": "sys-dron/end-to-end-mission",
           "title": "Місія від початку до кінця"
         },
         {

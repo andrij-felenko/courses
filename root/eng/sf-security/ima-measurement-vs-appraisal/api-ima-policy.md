@@ -4,7 +4,7 @@
 
 ## Куди писати й що читати
 
-Файли лежать у [псевдофайловій системі](topic:sys-unix/pseudo-filesystems) `securityfs`, зазвичай примонтованій у `/sys/kernel/security`. Справжня тека — `integrity/ima`, а `ima` поруч із нею — символьне посилання, лишене задля сумісності зі старими скриптами.
+Файли лежать у [псевдофайловій системі](root:sys-unix/pseudo-filesystems) `securityfs`, зазвичай примонтованій у `/sys/kernel/security`. Справжня тека — `integrity/ima`, а `ima` поруч із нею — символьне посилання, лишене задля сумісності зі старими скриптами.
 
 | Шлях під `/sys/kernel/security` | Що це |
 |---|---|
@@ -47,7 +47,7 @@ echo /etc/ima/ima-policy > /sys/kernel/security/ima/policy
 |---|---|
 | `measure` / `dont_measure` | дописує запис у журнал і розширює PCR |
 | `appraise` / `dont_appraise` | порівнює з еталоном і при розбіжності відмовляє |
-| `audit` / `dont_audit` | кладе хеш файлу в [журнал аудиту](topic:sys-unix/audit-framework), нічого не забороняючи |
+| `audit` / `dont_audit` | кладе хеш файлу в [журнал аудиту](root:sys-unix/audit-framework), нічого не забороняючи |
 | `hash` / `dont_hash` | рахує хеш і зберігає його в `security.ima`, не оцінюючи |
 
 Гачок `func=` називає мить, коли правило приміряють. Це, по суті, повний перелік місць, де байти в системі стають чимось довіреним:
@@ -65,7 +65,7 @@ echo /etc/ima/ima-policy > /sys/kernel/security/ima/policy
 | `KEXEC_INITRAMFS_CHECK` | його initramfs |
 | `KEXEC_CMDLINE` | командний рядок, з яким стартує наступне ядро |
 | `POLICY_CHECK` | сама політика IMA |
-| `KEY_CHECK` | ключ, що лягає в [кільце ядра](topic:sys-unix/kernel-keyrings) |
+| `KEY_CHECK` | ключ, що лягає в [кільце ядра](root:sys-unix/kernel-keyrings) |
 | `CRITICAL_DATA` | шматок пам'яті, який підсистема ядра сама оголосила критичним |
 | `SETXATTR_CHECK` | спроба записати `security.ima` |
 
@@ -80,7 +80,7 @@ echo /etc/ima/ima-policy > /sys/kernel/security/ima/policy
 | `fsuuid=` | UUID конкретного розділу |
 | `uid=` `euid=` `gid=` `egid=` | хто відкриває; приймають `=`, `<` і `>` |
 | `fowner=` `fgroup=` | чий файл; ті самі оператори |
-| `obj_user=` `obj_role=` `obj_type=` | мітка [SELinux](topic:sys-unix/mac-selinux-apparmor) на файлі (треба `CONFIG_IMA_LSM_RULES`) |
+| `obj_user=` `obj_role=` `obj_type=` | мітка [SELinux](root:sys-unix/mac-selinux-apparmor) на файлі (треба `CONFIG_IMA_LSM_RULES`) |
 | `subj_user=` `subj_role=` `subj_type=` | мітка на тому, хто відкриває |
 | `keyrings=` | лише з `func=KEY_CHECK`: назви кілець через `\|` |
 | `label=` | лише з `func=CRITICAL_DATA`: ім'я, під яким підсистема подала дані |
@@ -97,7 +97,7 @@ echo /etc/ima/ima-policy > /sys/kernel/security/ima/policy
 | `appraise_type=sigv3` | підпис третьої версії — над коренем fs-verity, а не над хешем вмісту |
 | `appraise_flag=check_blacklist` | звірятися з кільцем `.ima_blacklist` (застаріле: тепер робиться завжди) |
 | `appraise_algos=` | лише з `func=SETXATTR_CHECK`: перелік алгоритмів, які взагалі дозволено записати |
-| `digest_type=verity` | еталоном вважати корінь [fs-verity](topic:sys-unix/fs-verity), а не хеш усього файлу |
+| `digest_type=verity` | еталоном вважати корінь [fs-verity](root:sys-unix/fs-verity), а не хеш усього файлу |
 | `template=` | інший шаблон запису для цього правила (тільки для `measure`) |
 | `pcr=` | інший регістр TPM замість типового десятого |
 
@@ -117,7 +117,7 @@ measure func=CRITICAL_DATA label=device-mapper template=ima-buf
 
 ## Готові набори з командного рядка ядра
 
-Вбудовані політики вмикають [параметром завантаження](topic:sys-unix/bootloader-and-cmdline) — тоді вони діють із першої секунди, ще до того, як хоч що-небудь із простору користувача встигне виконатися. Кілька імен складають через `|`, наприклад `ima_policy="tcb|appraise_tcb"`.
+Вбудовані політики вмикають [параметром завантаження](root:sys-unix/bootloader-and-cmdline) — тоді вони діють із першої секунди, ще до того, як хоч що-небудь із простору користувача встигне виконатися. Кілька імен складають через `|`, наприклад `ima_policy="tcb|appraise_tcb"`.
 
 | Параметр | Значення й наслідок |
 |---|---|
@@ -190,7 +190,7 @@ struct signature_v2_hdr {
 } __packed;
 ```
 
-Різниця між HMAC і переносним підписом EVM не лише в криптографії. HMAC рахують над метаданими [inode](topic:sys-unix/inode-model) **разом з номером inode, його поколінням і UUID файлової системи** — така мітка чинна рівно на цьому томі. Переносний підпис ці три поля навмисно пропускає, тому переживає копіювання образу на іншу машину: за це його й названо переносним.
+Різниця між HMAC і переносним підписом EVM не лише в криптографії. HMAC рахують над метаданими [inode](root:sys-unix/inode-model) **разом з номером inode, його поколінням і UUID файлової системи** — така мітка чинна рівно на цьому томі. Переносний підпис ці три поля навмисно пропускає, тому переживає копіювання образу на іншу машину: за це його й названо переносним.
 
 ## Кільце `.ima`
 

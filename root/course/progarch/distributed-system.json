@@ -21,15 +21,15 @@
           }
         },
         {
-          "ref": "programming/single-source-of-truth",
+          "ref": "sf-apps/single-source-of-truth",
           "title": "Єдине джерело правди"
         },
         {
-          "ref": "algorithms/two-generals-problem",
+          "ref": "sf-distributed/two-generals-problem",
           "title": "Задача двох генералів"
         },
         {
-          "ref": "programming/failure-detection",
+          "ref": "sf-distributed/failure-detection",
           "title": "Виявлення відмов: мертвий не відрізнити від повільного"
         },
         {
@@ -49,23 +49,23 @@
       "title": "Копія даних",
       "topics": [
         {
-          "ref": "programming/replication-leader-follower",
+          "ref": "sf-distributed/replication-leader-follower",
           "title": "Лідер-фоловер / мультилідер / leaderless"
         },
         {
-          "ref": "programming/read-replicas-replication",
+          "ref": "sf-data/read-replicas-replication",
           "title": "Репліки читання та реплікація"
         },
         {
-          "ref": "programming/replication-lag",
+          "ref": "sf-distributed/replication-lag",
           "title": "Реплікаційний лаг і сесійні гарантії"
         },
         {
-          "ref": "programming/split-brain",
+          "ref": "sf-distributed/split-brain",
           "title": "Failover і розщеплення мозку"
         },
         {
-          "ref": "programming/database-clustering",
+          "ref": "sf-data/database-clustering",
           "title": "Кластеризація баз даних"
         },
         {
@@ -105,23 +105,23 @@
       "title": "Час і порядок",
       "topics": [
         {
-          "ref": "algorithms/lamport-clocks",
+          "ref": "sf-distributed/lamport-clocks",
           "title": "Чому wall-clock бреше (дрейф, NTP-стрибки) і годинник Лампорта"
         },
         {
-          "ref": "communications/ntp-sync",
+          "ref": "com-protocol/ntp-sync",
           "title": "NTP: мережевий протокол синхронізації часу"
         },
         {
-          "ref": "communications/leap-second",
+          "ref": "hw-sensing/leap-second",
           "title": "Високосна секунда"
         },
         {
-          "ref": "algorithms/vector-clocks",
+          "ref": "sf-distributed/vector-clocks",
           "title": "Векторні годинники й обходи розбіжності"
         },
         {
-          "ref": "programming/hybrid-logical-clocks",
+          "ref": "sf-distributed/hybrid-logical-clocks",
           "title": "Гібридні логічні годинники (HLC)"
         },
         {
@@ -135,17 +135,17 @@
           }
         },
         {
-          "ref": "programming/uuid-and-guid",
+          "ref": "sf-data/uuid-and-guid",
           "title": "Ідентифікатор без спільного лічильника"
         },
         {
-          "ref": "algorithms/distributed-snapshot",
+          "ref": "sf-distributed/distributed-snapshot",
           "title": "Узгоджений знімок розподіленої системи",
           "todo": "нова тема",
           "hint": "algorithms/parallel-distributed"
         },
         {
-          "ref": "programming/bounded-clock-uncertainty",
+          "ref": "sf-distributed/bounded-clock-uncertainty",
           "title": "Обмежена невизначеність годинника",
           "todo": "нова тема",
           "hint": "programming/distributed-systems"
@@ -157,27 +157,27 @@
       "title": "Дві правди",
       "topics": [
         {
-          "ref": "programming/multi-leader-replication",
+          "ref": "sf-distributed/multi-leader-replication",
           "title": "Мультилідерна реплікація"
         },
         {
-          "ref": "programming/quorum-and-leaderless",
+          "ref": "sf-distributed/quorum-and-leaderless",
           "title": "Кворуми"
         },
         {
-          "ref": "programming/anti-entropy-repair",
+          "ref": "sf-distributed/anti-entropy-repair",
           "title": "Анти-ентропія"
         },
         {
-          "ref": "algorithms/merkle-tree",
+          "ref": "sf-algorithms/merkle-tree",
           "title": "Дерево Меркла"
         },
         {
-          "ref": "programming/gossip-protocols",
+          "ref": "sf-distributed/gossip-protocols",
           "title": "Gossip-протоколи"
         },
         {
-          "ref": "programming/gossip-in-action",
+          "ref": "sf-distributed/gossip-in-action",
           "title": "Gossip на практиці (Cassandra, Consul, Dynamo)"
         },
         {
@@ -191,11 +191,11 @@
           }
         },
         {
-          "ref": "algorithms/crdt",
+          "ref": "sf-distributed/crdt",
           "title": "Безконфліктні типи даних (CRDT)"
         },
         {
-          "ref": "programming/vector-clocks-vs-crdt",
+          "ref": "sf-distributed/vector-clocks-vs-crdt",
           "title": "Векторні годинники та CRDT: причинність проти автозбіжності"
         }
       ]
@@ -205,23 +205,23 @@
       "title": "Ціна узгодженості",
       "topics": [
         {
-          "ref": "programming/consistency-models",
+          "ref": "sf-distributed/consistency-models",
           "title": "Спектр консистентності"
         },
         {
-          "ref": "programming/cap-theorem",
+          "ref": "sf-distributed/cap-theorem",
           "title": "CAP (і чому не «оберіть 2») + PACELC"
         },
         {
-          "ref": "programming/eventual-consistency",
+          "ref": "sf-distributed/eventual-consistency",
           "title": "Кінцева узгодженість на практиці"
         },
         {
-          "ref": "programming/soft-state",
+          "ref": "sf-distributed/soft-state",
           "title": "М'який стан: запис, що живе, доки його оновлюють"
         },
         {
-          "ref": "programming/read-model-lag",
+          "ref": "sf-distributed/read-model-lag",
           "title": "Лаг read-model як контракт"
         },
         {
@@ -261,35 +261,35 @@
       "title": "Згода вузлів",
       "topics": [
         {
-          "ref": "algorithms/consensus-problem",
+          "ref": "sf-distributed/consensus-problem",
           "title": "Задача консенсусу і чому вона важка (FLP оглядово)"
         },
         {
-          "ref": "algorithms/raft",
+          "ref": "sf-distributed/raft",
           "title": "Raft"
         },
         {
-          "ref": "programming/leader-election",
+          "ref": "sf-distributed/leader-election",
           "title": "Вибори лідера як прикладний патерн"
         },
         {
-          "ref": "programming/distributed-locks",
+          "ref": "sf-distributed/distributed-locks",
           "title": "Розподілені замки й лізи"
         },
         {
-          "ref": "programming/fencing-tokens",
+          "ref": "sf-distributed/fencing-tokens",
           "title": "Fencing-токени розподілених блокувань"
         },
         {
-          "ref": "programming/gossip-membership",
+          "ref": "sf-distributed/gossip-membership",
           "title": "Плітки й членство в кластері (gossip, SWIM)"
         },
         {
-          "ref": "programming/phi-accrual-failure-detector",
+          "ref": "sf-distributed/phi-accrual-failure-detector",
           "title": "Детектор відмов Phi Accrual"
         },
         {
-          "ref": "algorithms/byzantine-fault-tolerance",
+          "ref": "sf-distributed/byzantine-fault-tolerance",
           "title": "Коли вузли брешуть",
           "todo": "нова тема",
           "hint": "algorithms/parallel-distributed"
@@ -321,19 +321,19 @@
       "title": "Поділ даних",
       "topics": [
         {
-          "ref": "programming/partitioning-sharding",
+          "ref": "sf-distributed/partitioning-sharding",
           "title": "Шардинг"
         },
         {
-          "ref": "algorithms/consistent-hashing",
+          "ref": "sf-algorithms/consistent-hashing",
           "title": "Консистентне хешування"
         },
         {
-          "ref": "programming/maglev-hashing",
+          "ref": "sf-distributed/maglev-hashing",
           "title": "Алгоритм хешування Maglev"
         },
         {
-          "ref": "programming/database-sharding",
+          "ref": "sf-data/database-sharding",
           "title": "Шардинг баз даних"
         },
         {
@@ -373,31 +373,31 @@
       "title": "Розподілена транзакція",
       "topics": [
         {
-          "ref": "programming/end-to-end-argument",
+          "ref": "sf-apps/end-to-end-argument",
           "title": "Наскрізний аргумент (end-to-end argument)"
         },
         {
-          "ref": "algorithms/two-phase-commit",
+          "ref": "sf-distributed/two-phase-commit",
           "title": "Двофазний коміт і його страх"
         },
         {
-          "ref": "programming/saga-pattern",
+          "ref": "sf-distributed/saga-pattern",
           "title": "Сага"
         },
         {
-          "ref": "programming/outbox-pattern",
+          "ref": "sf-distributed/outbox-pattern",
           "title": "Transactional outbox"
         },
         {
-          "ref": "programming/inbox-pattern",
+          "ref": "sf-distributed/inbox-pattern",
           "title": "Вхідна скринька (inbox)"
         },
         {
-          "ref": "programming/idempotent-consumers-deep",
+          "ref": "sf-distributed/idempotent-consumers-deep",
           "title": "Ідемпотентні консюмери, глибоко"
         },
         {
-          "ref": "programming/durable-workflows",
+          "ref": "sf-distributed/durable-workflows",
           "title": "Durable workflows"
         },
         {
@@ -427,7 +427,7 @@
       "title": "Географія системи",
       "topics": [
         {
-          "ref": "programming/cdn",
+          "ref": "sf-distributed/cdn",
           "title": "CDN"
         },
         {
@@ -499,15 +499,15 @@
       "title": "Правда на краю",
       "topics": [
         {
-          "ref": "programming/offline-first-client",
+          "ref": "sf-apps/offline-first-client",
           "title": "Офлайн-перший клієнт: локальна правда й узгодження з сервером"
         },
         {
-          "ref": "programming/store-and-forward",
+          "ref": "com-transport/store-and-forward",
           "title": "Збережи-й-перешли (store-and-forward)"
         },
         {
-          "ref": "programming/client-crash-recovery",
+          "ref": "sf-apps/client-crash-recovery",
           "title": "Документ переживає крах: автозбереження і журнал"
         },
         {

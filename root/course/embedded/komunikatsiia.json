@@ -11,43 +11,43 @@
       "title": "Дріт між пристроями",
       "topics": [
         {
-          "ref": "communications/single-ended-line-limits",
+          "ref": "com-medium/single-ended-line-limits",
           "title": "Де вмирає шина з плати"
         },
         {
-          "ref": "communications/differential-pair",
+          "ref": "com-medium/differential-pair",
           "title": "Диференційна пара і вита пара"
         },
         {
-          "ref": "communications/rs-485-multidrop-bus",
+          "ref": "com-medium/rs-485-multidrop-bus",
           "title": "RS-485 і RS-422"
         },
         {
-          "ref": "communications/termination",
+          "ref": "com-medium/termination",
           "title": "Термінація і відбиття в кабелі"
         },
         {
-          "ref": "communications/half-duplex-uart",
+          "ref": "com-devices/half-duplex-uart",
           "title": "Напівдуплекс: хто керує напрямком"
         },
         {
-          "ref": "electronics/common-ground",
+          "ref": "hw-pcb/common-ground",
           "title": "Земля, якої немає: спільна земля й земляні петлі"
         },
         {
-          "ref": "electronics/digital-isolator",
+          "ref": "hw-digital/digital-isolator",
           "title": "Гальванічна розв'язка"
         },
         {
-          "ref": "electronics/shielding",
+          "ref": "hw-pcb/shielding",
           "title": "Кабель, екран, ферит"
         },
         {
-          "ref": "communications/can-arbitration",
+          "ref": "com-devices/can-arbitration",
           "title": "CAN: шина, арбітраж, кадр помилки"
         },
         {
-          "ref": "communications/current-loop",
+          "ref": "com-medium/current-loop",
           "title": "Струмова петля 4–20 мА і LIN: дріт там, де завади сильніші за дані"
         },
         {
@@ -67,23 +67,23 @@
       "title": "Кадр і підтвердження",
       "topics": [
         {
-          "ref": "programming/stream-parser",
+          "ref": "com-protocol/stream-parser",
           "title": "Потік байтів проти повідомлення"
         },
         {
-          "ref": "communications/cobs-framing",
+          "ref": "com-transport/cobs-framing",
           "title": "Кадрування: маркер, стафінг, COBS, SLIP"
         },
         {
-          "ref": "communications/packet-design",
+          "ref": "com-transport/packet-design",
           "title": "Проєктування пакета"
         },
         {
-          "ref": "communications/crc",
+          "ref": "com-modulation/crc",
           "title": "Контрольна сума і CRC"
         },
         {
-          "ref": "communications/fec-codes",
+          "ref": "com-modulation/fec-codes",
           "title": "Коли повтор задорогий: коди, що виправляють"
         },
         {
@@ -97,7 +97,7 @@
           }
         },
         {
-          "ref": "communications/osi-model",
+          "ref": "com-transport/osi-model",
           "title": "Рівні: чому обмін розкладають шарами"
         },
         {
@@ -111,11 +111,11 @@
           }
         },
         {
-          "ref": "communications/sequence-numbering",
+          "ref": "com-transport/sequence-numbering",
           "title": "Номер послідовності, дублікати, безлад"
         },
         {
-          "ref": "programming/timeouts-deadlines",
+          "ref": "sf-distributed/timeouts-deadlines",
           "title": "Таймаут як частина протоколу"
         },
         {
@@ -129,7 +129,7 @@
           }
         },
         {
-          "ref": "communications/modbus",
+          "ref": "com-protocol/modbus",
           "title": "Чужий протокол у розборі: Modbus RTU і CANopen"
         },
         {
@@ -149,39 +149,39 @@
       "title": "Локальна мережа",
       "topics": [
         {
-          "ref": "communications/ethernet-frame",
+          "ref": "com-transport/ethernet-frame",
           "title": "Кадр Ethernet"
         },
         {
-          "ref": "communications/ethernet-link-phy",
+          "ref": "com-medium/ethernet-link-phy",
           "title": "Фізика лінка: пари, магнітка, швидкості"
         },
         {
-          "ref": "communications/utp-cable",
+          "ref": "com-medium/utp-cable",
           "title": "Кабель і роз'єм"
         },
         {
-          "ref": "communications/auto-negotiation",
+          "ref": "com-medium/auto-negotiation",
           "title": "Автопогодження, дуплекс, MDI/MDI-X"
         },
         {
-          "ref": "communications/csma-cd",
+          "ref": "com-transport/csma-cd",
           "title": "Комутатор і широкомовний домен; куди поділися колізії"
         },
         {
-          "ref": "communications/poe",
+          "ref": "com-medium/poe",
           "title": "PoE: живлення тією самою парою"
         },
         {
-          "ref": "programming/ethernet-on-mcu",
+          "ref": "com-protocol/ethernet-on-mcu",
           "title": "Ethernet на МК: MAC, PHY, RMII, MDIO"
         },
         {
-          "ref": "communications/vlan-and-trunking",
+          "ref": "com-transport/vlan-and-trunking",
           "title": "VLAN: два світи в одному дроті"
         },
         {
-          "ref": "communications/stp-rstp",
+          "ref": "com-transport/stp-rstp",
           "title": "Петля в мережі й STP"
         }
       ]
@@ -191,59 +191,59 @@
       "title": "Стек IP",
       "topics": [
         {
-          "ref": "communications/mac-ip-arp",
+          "ref": "com-transport/mac-ip-arp",
           "title": "MAC, IP і ARP"
         },
         {
-          "ref": "communications/subnet-addressing",
+          "ref": "com-transport/subnet-addressing",
           "title": "Адреса, маска, префікс"
         },
         {
-          "ref": "communications/dhcp",
+          "ref": "com-transport/dhcp",
           "title": "DHCP: адреса, якої ти не призначав"
         },
         {
-          "ref": "communications/dns-srv-naptr",
+          "ref": "com-transport/dns-srv-naptr",
           "title": "DNS: ім'я замість числа"
         },
         {
-          "ref": "communications/ip-routing",
+          "ref": "com-transport/ip-routing",
           "title": "Маршрутизація"
         },
         {
-          "ref": "programming/udp-datagram-semantics",
+          "ref": "com-transport/udp-datagram-semantics",
           "title": "TCP проти UDP, семантика датаграми"
         },
         {
-          "ref": "communications/tcp-connection-lifecycle",
+          "ref": "com-transport/tcp-connection-lifecycle",
           "title": "Життєвий цикл TCP-з'єднання"
         },
         {
-          "ref": "programming/tcp-message-framing",
+          "ref": "com-protocol/tcp-message-framing",
           "title": "Кадрування повідомлень у TCP"
         },
         {
-          "ref": "programming/socket-options",
+          "ref": "sf-os/socket-options",
           "title": "Сокети й опції сокета"
         },
         {
-          "ref": "communications/mtu-and-fragmentation",
+          "ref": "com-transport/mtu-and-fragmentation",
           "title": "MTU, фрагментація і чому «воно працює до 1400 байтів»"
         },
         {
-          "ref": "communications/nat",
+          "ref": "com-transport/nat",
           "title": "NAT: чому до пристрою не достукатися"
         },
         {
-          "ref": "communications/jitter",
+          "ref": "com-transport/jitter",
           "title": "Затримка, джитер, черги"
         },
         {
-          "ref": "programming/socket-options",
+          "ref": "sf-os/socket-options",
           "title": "Дрібні пакети й мовчазна мережа: Нейгл, відкладене ACK, помилки ICMP"
         },
         {
-          "ref": "programming/multicast-and-discovery",
+          "ref": "com-transport/multicast-and-discovery",
           "title": "Виявлення сусіда: багатоадресна розсилка, mDNS і DNS-SD"
         },
         {
@@ -263,27 +263,27 @@
       "title": "Радіоканал",
       "topics": [
         {
-          "ref": "physics/em-wave",
+          "ref": "ph-electromagnetism/em-wave",
           "title": "Електромагнітна хвиля: чому струм відривається від дроту"
         },
         {
-          "ref": "communications/frequency-bands",
+          "ref": "com-medium/frequency-bands",
           "title": "Діапазони: що дає 433, 868, 2400, 5800"
         },
         {
-          "ref": "communications/power-decibels",
+          "ref": "com-medium/power-decibels",
           "title": "Децибели як робоча одиниця"
         },
         {
-          "ref": "communications/antenna",
+          "ref": "com-medium/antenna",
           "title": "Антена: залізо, яке стало хвилею"
         },
         {
-          "ref": "communications/antenna-gain",
+          "ref": "com-medium/antenna-gain",
           "title": "Підсилення, діаграма, поляризація"
         },
         {
-          "ref": "communications/antenna-feedline-matching-and-balun",
+          "ref": "com-medium/antenna-feedline-matching-and-balun",
           "title": "Узгодження, КСХ, балун"
         },
         {
@@ -313,7 +313,7 @@
           }
         },
         {
-          "ref": "communications/free-space-loss",
+          "ref": "com-medium/free-space-loss",
           "title": "Загасання у просторі й рівняння Фрііса"
         },
         {
@@ -363,7 +363,7 @@
           }
         },
         {
-          "ref": "communications/multipath-fading",
+          "ref": "com-medium/multipath-fading",
           "title": "Багатопроменевість і завмирання"
         },
         {
@@ -374,7 +374,31 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "hist": [
+            {
+              "file": "hist-link-budget.md",
+              "status": "pending"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-link-budget.md",
+              "status": "pending"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-link-budget-calc.md",
+              "status": "pending"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-link-budget-lib.md",
+              "status": "pending"
+            }
+          ]
         },
         {
           "slug": "frequency-budget-analysis",
@@ -415,27 +439,27 @@
       "title": "Спільний ефір",
       "topics": [
         {
-          "ref": "communications/why-modulation",
+          "ref": "com-modulation/why-modulation",
           "title": "Навіщо модуляція"
         },
         {
-          "ref": "communications/am-fm",
+          "ref": "com-modulation/am-fm",
           "title": "AM і FM"
         },
         {
-          "ref": "communications/fsk-psk",
+          "ref": "com-modulation/fsk-psk",
           "title": "FSK, PSK та IQ-подання"
         },
         {
-          "ref": "communications/bandwidth-capacity",
+          "ref": "math-information/bandwidth-capacity",
           "title": "Швидкість, смуга, чутливість: за що платиш дальністю"
         },
         {
-          "ref": "communications/spread-spectrum",
+          "ref": "com-modulation/spread-spectrum",
           "title": "Розширений спектр і чирп"
         },
         {
-          "ref": "communications/fhss-sync",
+          "ref": "com-modulation/fhss-sync",
           "title": "Стрибки частоти й синхронізація"
         },
         {
@@ -471,15 +495,15 @@
           ]
         },
         {
-          "ref": "communications/guard-band-duplexing",
+          "ref": "com-transport/guard-band-duplexing",
           "title": "Дуплекс і захисні смуги"
         },
         {
-          "ref": "communications/ism-bands",
+          "ref": "sys-notary/ism-bands",
           "title": "ISM-діапазони й правила ефіру: смуга, потужність, робочий цикл"
         },
         {
-          "ref": "communications/regulatory-radio-certification",
+          "ref": "sys-notary/regulatory-radio-certification",
           "title": "Сертифікація радіо"
         },
         {
@@ -571,15 +595,15 @@
           ]
         },
         {
-          "ref": "connect/nrf24-radio",
+          "ref": "cat-hw-connect/nrf24-radio",
           "title": "Пропрієтарні 2,4 ГГц: nRF24 і його труби"
         },
         {
-          "ref": "communications/esp-now",
+          "ref": "com-transport/esp-now",
           "title": "ESP-NOW: пакет без мережі"
         },
         {
-          "ref": "communications/channel-band-packet",
+          "ref": "com-transport/channel-band-packet",
           "title": "Sub-GHz: чому 868 далі за 2400"
         },
         {
@@ -593,7 +617,7 @@
           }
         },
         {
-          "ref": "connect/bluetooth-hc05",
+          "ref": "cat-hw-connect/bluetooth-hc05",
           "title": "Керування модулем: AT-порт проти регістрів по SPI"
         },
         {
@@ -607,7 +631,7 @@
           }
         },
         {
-          "ref": "connect/fpv-telemetry-air",
+          "ref": "cat-hw-connect/fpv-telemetry-air",
           "title": "Готовий телеметрійний лінк: що купують для апарата"
         },
         {
@@ -675,27 +699,27 @@
       "title": "Зв'язок із телефоном",
       "topics": [
         {
-          "ref": "communications/bluetooth-classic-stack",
+          "ref": "com-transport/bluetooth-classic-stack",
           "title": "Bluetooth і BLE: два різні світи"
         },
         {
-          "ref": "communications/ble-gap",
+          "ref": "com-transport/ble-gap",
           "title": "Реклама й ролі: GAP"
         },
         {
-          "ref": "communications/ble-link-layer",
+          "ref": "com-transport/ble-link-layer",
           "title": "Канальний рівень: стрибки й події з'єднання"
         },
         {
-          "ref": "communications/ble-gatt",
+          "ref": "com-protocol/ble-gatt",
           "title": "ATT і GATT: віддалена регістрова карта"
         },
         {
-          "ref": "communications/ble-security",
+          "ref": "sf-security/ble-security",
           "title": "Спарювання, прив'язка, приватність"
         },
         {
-          "ref": "communications/ble-beacon-formats",
+          "ref": "com-transport/ble-beacon-formats",
           "title": "Маячки: передати, не з'єднуючись"
         },
         {
@@ -735,7 +759,7 @@
       "title": "Wi-Fi",
       "topics": [
         {
-          "ref": "communications/wifi",
+          "ref": "com-transport/wifi",
           "title": "Wi-Fi: точка доступу, STA, приєднання"
         },
         {
@@ -755,11 +779,11 @@
           ]
         },
         {
-          "ref": "communications/wpa-security",
+          "ref": "sf-security/wpa-security",
           "title": "WPA2 і WPA3"
         },
         {
-          "ref": "communications/arp-security",
+          "ref": "com-transport/arp-security",
           "title": "Відкрита точка й чому це дірка"
         },
         {
@@ -805,17 +829,17 @@
           }
         },
         {
-          "ref": "programming/wi-fi-power-modes",
+          "ref": "hw-power/wi-fi-power-modes",
           "title": "Скільки коштує Wi-Fi: DTIM, сон, час у ефірі"
         },
         {
-          "ref": "communications/rukh-mizh-tochkamy-dostupu",
+          "ref": "com-transport/rukh-mizh-tochkamy-dostupu",
           "title": "Рух між точками доступу",
           "todo": "нова тема",
           "hint": "communications/networks"
         },
         {
-          "ref": "programming/esp-hosted",
+          "ref": "sys-fw/esp-hosted",
           "title": "Wi-Fi-чип як периферія до чужого МК"
         },
         {
@@ -835,11 +859,11 @@
       "title": "Пристрій і сервер",
       "topics": [
         {
-          "ref": "communications/public-key-crypto",
+          "ref": "sf-security/public-key-crypto",
           "title": "Асиметричний ключ, підпис, сертифікат"
         },
         {
-          "ref": "communications/tls",
+          "ref": "sf-security/tls",
           "title": "TLS: рукостискання й ланцюг довіри"
         },
         {
@@ -853,37 +877,37 @@
           }
         },
         {
-          "ref": "communications/ntp-sync",
+          "ref": "com-protocol/ntp-sync",
           "title": "Час, без якого сертифікат не перевірити"
         },
         {
-          "ref": "programming/http",
+          "ref": "com-protocol/http",
           "title": "HTTP: запит, відповідь, коди, тіло"
         },
         {
-          "ref": "programming/web-server-mcu",
+          "ref": "sf-devices/web-server-mcu",
           "title": "Веб-сервер на МК"
         },
         {
-          "ref": "communications/mqtt",
+          "ref": "com-protocol/mqtt",
           "title": "MQTT: брокер, тема, QoS, заповіт"
         },
         {
-          "ref": "communications/coap-rest-dlia-obmezhenykh-prystroiv",
+          "ref": "com-protocol/coap-rest-dlia-obmezhenykh-prystroiv",
           "title": "CoAP: REST для обмежених пристроїв",
           "todo": "нова тема",
           "hint": "communications/protocols"
         },
         {
-          "ref": "programming/data-serialization",
+          "ref": "com-protocol/data-serialization",
           "title": "Що всередині повідомлення: JSON, CBOR, бінарний"
         },
         {
-          "ref": "programming/streaming-push-transports",
+          "ref": "com-protocol/streaming-push-transports",
           "title": "Потік у зворотний бік: WebSocket, SSE, long-poll"
         },
         {
-          "ref": "programming/authentication",
+          "ref": "sf-security/authentication",
           "title": "Хто цей пристрій: токен, ключ, клієнтський сертифікат"
         },
         {
@@ -913,7 +937,7 @@
           }
         },
         {
-          "ref": "communications/lorawan",
+          "ref": "com-transport/lorawan",
           "title": "LoRaWAN: приєднання, класи, ADR, шлюз"
         },
         {
@@ -939,37 +963,37 @@
           ]
         },
         {
-          "ref": "communications/stilnykova-merezha",
+          "ref": "com-transport/stilnykova-merezha",
           "title": "Стільникова мережа: сота, реєстрація, естафета",
           "todo": "нова тема",
           "hint": "communications/networks"
         },
         {
-          "ref": "communications/pokolinnia",
+          "ref": "com-transport/pokolinnia",
           "title": "Покоління: від GSM до 5G і що з них лишилося пристроям",
           "todo": "нова тема",
           "hint": "communications/networks"
         },
         {
-          "ref": "communications/lte-m-i-nb-iot",
+          "ref": "com-transport/lte-m-i-nb-iot",
           "title": "LTE-M і NB-IoT",
           "todo": "нова тема",
           "hint": "communications/networks"
         },
         {
-          "ref": "communications/sim-imsi-apn",
+          "ref": "com-transport/sim-imsi-apn",
           "title": "SIM, IMSI, APN: як пристрій входить у мережу оператора",
           "todo": "нова тема",
           "hint": "communications/networks"
         },
         {
-          "ref": "communications/modem-i-at-komandy",
+          "ref": "com-transport/modem-i-at-komandy",
           "title": "Модем і AT-команди",
           "todo": "нова тема",
           "hint": "communications/interfaces"
         },
         {
-          "ref": "communications/slip-protocol",
+          "ref": "com-transport/slip-protocol",
           "title": "IP через модем: PPP і вбудований стек"
         },
         {
@@ -983,7 +1007,7 @@
           }
         },
         {
-          "ref": "communications/suputnykovyi-kanal-dlia-prystroiv",
+          "ref": "com-transport/suputnykovyi-kanal-dlia-prystroiv",
           "title": "Супутниковий канал для пристроїв",
           "todo": "нова тема",
           "hint": "communications/networks"
@@ -1005,7 +1029,7 @@
       "title": "Життя з'єднання",
       "topics": [
         {
-          "ref": "programming/distributed-fallacies",
+          "ref": "sf-distributed/distributed-fallacies",
           "title": "Вісім оман про мережу"
         },
         {
@@ -1019,11 +1043,11 @@
           }
         },
         {
-          "ref": "programming/failure-detection",
+          "ref": "sf-distributed/failure-detection",
           "title": "Мертвий чи повільний: виявлення обриву"
         },
         {
-          "ref": "programming/retries-backoff",
+          "ref": "sf-distributed/retries-backoff",
           "title": "Відступ і тремтіння: як перепідключатися, не вбиваючи мережу"
         },
         {
@@ -1037,15 +1061,15 @@
           }
         },
         {
-          "ref": "programming/idempotency",
+          "ref": "sf-distributed/idempotency",
           "title": "Дублікати після повернення: ідемпотентність"
         },
         {
-          "ref": "communications/timestamps",
+          "ref": "sf-distributed/timestamps",
           "title": "Час у журналі, коли годинника немає"
         },
         {
-          "ref": "programming/graceful-degradation",
+          "ref": "sf-devices/graceful-degradation",
           "title": "Деградація: працювати гірше, але працювати"
         },
         {
@@ -1059,7 +1083,7 @@
           }
         },
         {
-          "ref": "communications/telemetry-stream",
+          "ref": "sys-dron/telemetry-stream",
           "title": "Телеметрія як потік: частота, пріоритет, проріджування"
         },
         {
@@ -1089,7 +1113,7 @@
           }
         },
         {
-          "ref": "programming/wire-format-packing",
+          "ref": "com-protocol/wire-format-packing",
           "title": "Порядок байтів, вирівнювання, пакування"
         },
         {
@@ -1103,7 +1127,7 @@
           }
         },
         {
-          "ref": "programming/service-discovery",
+          "ref": "sf-distributed/service-discovery",
           "title": "Виявлення й рукостискання"
         },
         {
@@ -1117,7 +1141,7 @@
           }
         },
         {
-          "ref": "communications/authenticated-encryption",
+          "ref": "sf-security/authenticated-encryption",
           "title": "Автентичність свого каналу"
         },
         {

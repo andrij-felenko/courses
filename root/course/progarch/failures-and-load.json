@@ -21,37 +21,37 @@
           }
         },
         {
-          "ref": "programming/profiling",
+          "ref": "sf-release/profiling",
           "title": "Профілювання: де насправді час"
         },
         {
-          "ref": "programming/microbenchmarking",
+          "ref": "sf-release/microbenchmarking",
           "title": "Мікробенчмарк: як не збрехати собі виміром"
         },
         {
-          "ref": "programming/load-testing",
+          "ref": "sf-release/load-testing",
           "title": "Навантажувальний тест: відкритий і закритий контур",
           "todo": "нова тема",
           "hint": "programming/software-engineering"
         },
         {
-          "ref": "math/littles-law",
+          "ref": "math-probability/littles-law",
           "title": "Закон Літтла"
         },
         {
-          "ref": "communications/queue-theory-networks",
+          "ref": "com-transport/queue-theory-networks",
           "title": "Черги: затримка і втрати"
         },
         {
-          "ref": "programming/capacity-planning",
+          "ref": "sf-release/capacity-planning",
           "title": "Планування потужностей і headroom"
         },
         {
-          "ref": "math/order-of-magnitude-estimation",
+          "ref": "math-numeric/order-of-magnitude-estimation",
           "title": "Оцінка порядку величини"
         },
         {
-          "ref": "unix-linux/load-and-pressure",
+          "ref": "sys-unix/load-and-pressure",
           "title": "Середнє навантаження й тиск на ресурси (PSI)"
         },
         {
@@ -71,15 +71,15 @@
       "title": "Хвости латентності",
       "topics": [
         {
-          "ref": "math/percentiles-quantiles",
+          "ref": "math-probability/percentiles-quantiles",
           "title": "Перцентилі й хвости"
         },
         {
-          "ref": "math/heavy-tail-distributions",
+          "ref": "math-probability/heavy-tail-distributions",
           "title": "Розподіли з важкими хвостами"
         },
         {
-          "ref": "programming/ui-response-time-limits",
+          "ref": "sf-apps/ui-response-time-limits",
           "title": "Пороги відгуку 0.1 · 1 · 10 с"
         },
         {
@@ -93,15 +93,15 @@
           }
         },
         {
-          "ref": "programming/hedged-requests",
+          "ref": "sf-distributed/hedged-requests",
           "title": "Хеджовані запити"
         },
         {
-          "ref": "communications/happy-eyeballs",
+          "ref": "com-transport/happy-eyeballs",
           "title": "Happy Eyeballs: той самий хедж на з'єднаннях"
         },
         {
-          "ref": "programming/garbage-collection",
+          "ref": "sf-lang/garbage-collection",
           "title": "Збирання сміття: пауза, якої немає в жодному профілі середнього"
         }
       ]
@@ -111,31 +111,31 @@
       "title": "Черги й зворотний тиск",
       "topics": [
         {
-          "ref": "programming/queue-load-leveling",
+          "ref": "sf-distributed/queue-load-leveling",
           "title": "Черга як вирівнювач"
         },
         {
-          "ref": "programming/backpressure-end-to-end",
+          "ref": "sf-distributed/backpressure-end-to-end",
           "title": "Наскрізний протитиск"
         },
         {
-          "ref": "programming/admission-control",
+          "ref": "sf-distributed/admission-control",
           "title": "Admission control"
         },
         {
-          "ref": "programming/load-shedding",
+          "ref": "sf-distributed/load-shedding",
           "title": "Скидання навантаження й плавна деградація"
         },
         {
-          "ref": "programming/adaptive-concurrency",
+          "ref": "sf-distributed/adaptive-concurrency",
           "title": "Адаптивні ліміти конкурентності"
         },
         {
-          "ref": "programming/rate-limiting",
+          "ref": "sf-security/rate-limiting",
           "title": "Обмеження швидкості як архітектура"
         },
         {
-          "ref": "programming/fairness-quotas",
+          "ref": "sf-distributed/fairness-quotas",
           "title": "Чесність розподілу"
         },
         {
@@ -149,7 +149,7 @@
           }
         },
         {
-          "ref": "programming/debouncing-throttling",
+          "ref": "sf-apps/debouncing-throttling",
           "title": "Дебаунс і тротлінг"
         }
       ]
@@ -187,7 +187,7 @@
           ]
         },
         {
-          "ref": "programming/autoscaling",
+          "ref": "sf-release/autoscaling",
           "title": "Автоскейл"
         },
         {
@@ -225,7 +225,7 @@
           ]
         },
         {
-          "ref": "programming/load-balancing",
+          "ref": "sf-distributed/load-balancing",
           "title": "Балансування L4 vs L7"
         },
         {
@@ -307,43 +307,43 @@
           }
         },
         {
-          "ref": "programming/failure-detection",
+          "ref": "sf-distributed/failure-detection",
           "title": "Виявлення відмов: мертвий вузол не відрізнити від повільного"
         },
         {
-          "ref": "programming/phi-accrual-failure-detector",
+          "ref": "sf-distributed/phi-accrual-failure-detector",
           "title": "Детектор відмов Phi Accrual"
         },
         {
-          "ref": "programming/health-checks",
+          "ref": "sf-distributed/health-checks",
           "title": "Перевірки живості й готовності"
         },
         {
-          "ref": "math/system-reliability-math",
+          "ref": "math-probability/system-reliability-math",
           "title": "Математика надійності систем"
         },
         {
-          "ref": "programming/redundancy",
+          "ref": "sf-devices/redundancy",
           "title": "Надлишковість: дубль, мажоритарність"
         },
         {
-          "ref": "programming/common-cause-failure",
+          "ref": "sf-devices/common-cause-failure",
           "title": "Відмова від спільної причини"
         },
         {
-          "ref": "algorithms/fmea",
+          "ref": "sf-release/fmea",
           "title": "FMEA: аналіз видів і наслідків відмов"
         },
         {
-          "ref": "algorithms/fault-tree-analysis",
+          "ref": "sf-release/fault-tree-analysis",
           "title": "Дерево відмов"
         },
         {
-          "ref": "programming/bulkhead-isolation",
+          "ref": "sf-distributed/bulkhead-isolation",
           "title": "Перебірки (bulkhead)"
         },
         {
-          "ref": "programming/cell-based-architecture",
+          "ref": "sf-distributed/cell-based-architecture",
           "title": "Комірки і штампи"
         },
         {
@@ -373,7 +373,7 @@
           }
         },
         {
-          "ref": "unix-linux/tcp-connection-liveness",
+          "ref": "sys-unix/tcp-connection-liveness",
           "title": "Мертве TCP-з'єднання: keepalive, TCP_USER_TIMEOUT"
         },
         {
@@ -407,15 +407,15 @@
           }
         },
         {
-          "ref": "programming/cooperative-cancellation",
+          "ref": "sf-tasks/cooperative-cancellation",
           "title": "Кооперативне скасування"
         },
         {
-          "ref": "communications/arq",
+          "ref": "com-transport/arq",
           "title": "ARQ: та сама ідея повтору поверхом нижче"
         },
         {
-          "ref": "algorithms/timer-wheel",
+          "ref": "sf-algorithms/timer-wheel",
           "title": "Колесо таймерів"
         }
       ]
@@ -425,7 +425,7 @@
       "title": "Запобіжники й деградація",
       "topics": [
         {
-          "ref": "programming/circuit-breaker-pattern",
+          "ref": "sf-distributed/circuit-breaker-pattern",
           "title": "Запобіжник"
         },
         {
@@ -439,7 +439,7 @@
           }
         },
         {
-          "ref": "programming/graceful-degradation-primary",
+          "ref": "sf-distributed/graceful-degradation-primary",
           "title": "Деградація як ПЕРВИННА стратегія"
         },
         {
@@ -453,19 +453,19 @@
           }
         },
         {
-          "ref": "programming/fail-open-fail-closed",
+          "ref": "sf-distributed/fail-open-fail-closed",
           "title": "Fail-open проти fail-closed"
         },
         {
-          "ref": "programming/secure-defaults",
+          "ref": "sf-security/secure-defaults",
           "title": "Безпечні дефолти й відмова захисту"
         },
         {
-          "ref": "programming/availability-tactics",
+          "ref": "sf-apps/availability-tactics",
           "title": "Тактики доступності"
         },
         {
-          "ref": "programming/graceful-shutdown",
+          "ref": "sf-release/graceful-shutdown",
           "title": "Штатне вимкнення і drain"
         },
         {
@@ -485,7 +485,7 @@
       "title": "Каскад відмов",
       "topics": [
         {
-          "ref": "programming/metastable-failures",
+          "ref": "sf-distributed/metastable-failures",
           "title": "Метастабільні відмови"
         },
         {
@@ -499,19 +499,19 @@
           }
         },
         {
-          "ref": "programming/thundering-herd",
+          "ref": "sf-distributed/thundering-herd",
           "title": "Гримуча отара"
         },
         {
-          "ref": "programming/request-coalescing",
+          "ref": "sf-distributed/request-coalescing",
           "title": "Request coalescing / single-flight"
         },
         {
-          "ref": "communications/tcp-congestion-control",
+          "ref": "com-transport/tcp-congestion-control",
           "title": "Керування заторами TCP"
         },
         {
-          "ref": "unix-linux/overcommit-and-oom",
+          "ref": "sys-unix/overcommit-and-oom",
           "title": "Overcommit і OOM-killer"
         },
         {
@@ -559,7 +559,7 @@
           ]
         },
         {
-          "ref": "programming/threat-modeling",
+          "ref": "sf-security/threat-modeling",
           "title": "Моделювання загроз"
         },
         {
@@ -635,19 +635,19 @@
           }
         },
         {
-          "ref": "programming/ddos-abuse-defense",
+          "ref": "sf-security/ddos-abuse-defense",
           "title": "DDoS і зловживання"
         },
         {
-          "ref": "algorithms/regex-engine",
+          "ref": "sf-algorithms/regex-engine",
           "title": "Рушій регулярних виразів (ReDoS)"
         },
         {
-          "ref": "algorithms/universal-hashing",
+          "ref": "sf-algorithms/universal-hashing",
           "title": "Універсальне хешування"
         },
         {
-          "ref": "algorithms/count-min-sketch",
+          "ref": "sf-algorithms/count-min-sketch",
           "title": "Приблизні лічильники"
         },
         {
@@ -671,7 +671,7 @@
           }
         },
         {
-          "ref": "unix-linux/cgroups-resource-model",
+          "ref": "sys-unix/cgroups-resource-model",
           "title": "cgroups: облік і обмеження ресурсів"
         }
       ]
@@ -681,15 +681,15 @@
       "title": "Недовірений вхід",
       "topics": [
         {
-          "ref": "programming/trust-boundaries",
+          "ref": "sf-security/trust-boundaries",
           "title": "Межі довіри"
         },
         {
-          "ref": "programming/web-vulnerability-classes",
+          "ref": "sf-security/web-vulnerability-classes",
           "title": "Вразливість = зламана межа"
         },
         {
-          "ref": "programming/json-schema",
+          "ref": "sf-data/json-schema",
           "title": "Схема як декларативна валідація"
         },
         {
@@ -703,27 +703,27 @@
           }
         },
         {
-          "ref": "programming/http-request-smuggling",
+          "ref": "com-protocol/http-request-smuggling",
           "title": "Контрабанда запитів"
         },
         {
-          "ref": "programming/toctou-race",
+          "ref": "sf-security/toctou-race",
           "title": "Перевірив і використав: гонка між двома митями"
         },
         {
-          "ref": "programming/out-of-order-tolerance",
+          "ref": "sf-distributed/out-of-order-tolerance",
           "title": "Толерантність до безладу"
         },
         {
-          "ref": "programming/poison-message",
+          "ref": "sf-distributed/poison-message",
           "title": "Poison message / карантин"
         },
         {
-          "ref": "programming/replay-protection-tactics",
+          "ref": "sf-distributed/replay-protection-tactics",
           "title": "Захист від переграних повідомлень"
         },
         {
-          "ref": "communications/checksums",
+          "ref": "com-modulation/checksums",
           "title": "Контрольні суми"
         },
         {
@@ -743,11 +743,11 @@
       "title": "Хто ти і що тобі можна",
       "topics": [
         {
-          "ref": "programming/authentication",
+          "ref": "sf-security/authentication",
           "title": "Автентифікація"
         },
         {
-          "ref": "programming/session-management",
+          "ref": "sf-web/session-management",
           "title": "Сесія автентифікації"
         },
         {
@@ -795,7 +795,7 @@
           ]
         },
         {
-          "ref": "programming/authorization-models",
+          "ref": "sf-security/authorization-models",
           "title": "Моделі авторизації"
         },
         {
@@ -937,15 +937,15 @@
       "title": "Перевірка стійкості",
       "topics": [
         {
-          "ref": "programming/fuzzing",
+          "ref": "sf-release/fuzzing",
           "title": "Фаззинг: змусити парсер зламатися"
         },
         {
-          "ref": "programming/fault-injection",
+          "ref": "sf-release/fault-injection",
           "title": "Інжекція збоїв"
         },
         {
-          "ref": "programming/chaos-engineering",
+          "ref": "sf-release/chaos-engineering",
           "title": "Хаос-інженерія"
         },
         {

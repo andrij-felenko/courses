@@ -1,7 +1,7 @@
 <preknowlist>
-- [Доповняльний код (Two's Complement)](/book/math/number-theory/twos-complement/twos-complement-d.md)
-- [Бітові зсуви та арифметичні операції](topic:hw-digital/binary-arithmetic)
-- [Основи двійкової арифметики (додавання та віднімання)](/book/math/number-theory/binary-arithmetic/binary-arithmetic-d.md)
+- [Доповняльний код (Two's Complement)](root:hw-arch/twos-complement)
+- [Бітові зсуви та арифметичні операції](root:hw-digital/binary-arithmetic)
+- [Основи двійкової арифметики (додавання та віднімання)](root:hw-digital/binary-arithmetic)
 </preknowlist>
 
 # Алгоритм та рекодування Бута

@@ -1,11 +1,11 @@
 # 📜 Schema-on-write проти Schema-on-read
 
 <preknowlist>
-- [Реляційна модель даних](topic:sf-data/relational-model)
-- [Міграції схеми баз даних та нульовий час простою (Zero-Downtime)](topic:sf-data/database-migrations)
-- [Ландшафт NoSQL: Key-Value, Document, Column-Family та Graph](topic:sf-data/nosql-landscape)
-- [Моделювання даних під шаблони доступу (Access-Pattern-First)](topic:sf-data/access-pattern-first)
-- [Поліглотне збереження даних (Polyglot Persistence)](topic:sf-data/polyglot-persistence)
+- [Реляційна модель даних](root:sf-data/relational-model)
+- [Міграції схеми баз даних та нульовий час простою (Zero-Downtime)](root:sf-data/database-migrations)
+- [Ландшафт NoSQL: Key-Value, Document, Column-Family та Graph](root:sf-data/nosql-landscape)
+- [Моделювання даних під шаблони доступу (Access-Pattern-First)](root:sf-data/access-pattern-first)
+- [Поліглотне збереження даних (Polyglot Persistence)](root:sf-data/polyglot-persistence)
 </preknowlist>
 
 У будь-якій інформаційній системі дані володіють структурою: іменами атрибутів, типами значень, обмеженнями діапазонів та взаємними зв'язками. Проте момент, у який ця структура фіксується, перевіряється та застосовується до бітів пам'яті, розділяє всі технології збереження на дві фундаментальні парадигми: **Schema-on-write (Схема під час запису)** та **Schema-on-read (Схема під час читання)**.
@@ -66,7 +66,7 @@
 * **Приховані помилки в додатку**: Оскільки схема не контролюється базою, виправлення помилок перекладається на код додатку. Якщо в одному документі поле записано як `"age": 25`, а в іншому як `"age": "twenty-five"`, запит впаде з помилкою під час виконання (Runtime Exception).
 * **Data Swamp (Болото даних)**: Без суворого контролю сховище з часом перетворюється на звалище несумісних версій даних, де ніхто в організації не знає точного значення та формату наявних файлів.
 
-Історичну трансформацію від CODASYL до сучасних озер даних викладено у вставці [Історія та еволюція підходів Schema-on-write та Schema-on-read](topic:sf-data/schema-on-read-write/hist-schema-evolution.md).
+Історичну трансформацію від CODASYL до сучасних озер даних викладено у вставці [Історія та еволюція підходів Schema-on-write та Schema-on-read](root:sf-data/schema-on-read-write/hist-schema-evolution.md).
 
 ---
 
@@ -81,7 +81,7 @@
 | **Гарантія типів** | 100% сувора типізація ядра | Відсутня (вимагає захисного програмування в додатку) |
 | **Ефективність стиснення** | Екстремальна (однорідні бінарні стовпці) | Середня (текстовий шум та нерівномірний синтаксис) |
 
-Математичний аналіз складності парсингу та розрахунок оверхеду пам'яті наведено у вставці [Математичний аналіз складності доступу та накладних витрат: Schema-on-write проти Schema-on-read](topic:sf-data/schema-on-read-write/math-schema-parsing-complexity.md).
+Математичний аналіз складності парсингу та розрахунок оверхеду пам'яті наведено у вставці [Математичний аналіз складності доступу та накладних витрат: Schema-on-write проти Schema-on-read](root:sf-data/schema-on-read-write/math-schema-parsing-complexity.md).
 
 ---
 
@@ -104,7 +104,7 @@ Apache Parquet поєднує гнучкість документоорієнт�
 #### 4. Транзакційні шари Lakehouse (Delta Lake, Apache Iceberg)
 Формати таблиць Delta Lake та Iceberg накладають сувору перевірку схем (Schema Enforcement) поверх сирих файлів Parquet у сховищах Amazon S3, відхиляючи некоректні записи під час операцій запису й водночас підтримуючи автоматичну еволюцію схеми (Schema Evolution) через конфігураційні прапорці.
 
-Матрицю режимів еволюції та правила зміни полів викладено у вставці [Довідник еволюції схем даних: Матриця сумісності та формати](topic:sf-data/schema-on-read-write/api-schema-evolution-matrix.md).
+Матрицю режимів еволюції та правила зміни полів викладено у вставці [Довідник еволюції схем даних: Матриця сумісності та формати](root:sf-data/schema-on-read-write/api-schema-evolution-matrix.md).
 
 ---
 
@@ -176,7 +176,7 @@ std::optional<double> extract_balance(std::string_view payload) {
 ```
 :::
 
-Повний стенд тестування з вимірюванням латентності та кеш-промахів на 100 000 записах наведено у практичному проєкті [Розробка та порівняльний бенчмарк парсерів Schema-on-write та Schema-on-read на C та C++](topic:sf-data/schema-on-read-write/proj-schema-parsers-benchmark.md).
+Повний стенд тестування з вимірюванням латентності та кеш-промахів на 100 000 записах наведено у практичному проєкті [Розробка та порівняльний бенчмарк парсерів Schema-on-write та Schema-on-read на C та C++](root:sf-data/schema-on-read-write/proj-schema-parsers-benchmark.md).
 
 ---
 

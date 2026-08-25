@@ -228,4 +228,4 @@ TAF = exp( (E_a / k_B) · (1/T₁ - 1/T₂) )
 
 ---
 
-*Повернутися до основної статті: [Знос Flash: charge trapping і ресурс запису](topic:ph-condensed/flash-wear-model).*
+*Повернутися до основної статті: [Знос Flash: charge trapping і ресурс запису](root:ph-condensed/flash-wear-model).*

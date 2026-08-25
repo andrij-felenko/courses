@@ -1,9 +1,9 @@
 # Сучасні оверхеди трасування: BPF Trampoline та fprobe
 
 <preknowlist>
-- [Динамічне зондування: kprobes та uprobes](topic:sys-unix/uprobes-and-kprobes) — точки переривання INT3, out-of-line виконання та збереження pt_regs.
-- [Трасування ядра ftrace](topic:sys-unix/ftrace-kernel-tracing) — мочки `__fentry__`, nop-інструкції та механізм live patching.
-- [Архітектура eBPF](topic:sys-unix/ebpf-programming-model-and-toolchain) — віртуальна машина ядра, верифікатор типізованого коду та JIT-компіляція.
+- [Динамічне зондування: kprobes та uprobes](root:sys-unix/uprobes-and-kprobes) — точки переривання INT3, out-of-line виконання та збереження pt_regs.
+- [Трасування ядра ftrace](root:sys-unix/ftrace-kernel-tracing) — мочки `__fentry__`, nop-інструкції та механізм live patching.
+- [Архітектура eBPF](root:sys-unix/ebpf-programming-model-and-toolchain) — віртуальна машина ядра, верифікатор типізованого коду та JIT-компіляція.
 </preknowlist>
 
 При трасуванні високочастотної функції ядра Linux, що викликається мільйони разів на секунду (наприклад, `ip_rcv` у мережевому стеку 10GbE-адаптера або `schedule` у планировщику задач), встановлення класичного зонда `kprobe` призводить до миттєвого падіння пропускної здатності мережі або зсуву затримок процесора на 20–30%. Причина лежить у системному механізмі переривань: кожна точка `kprobe` базується на вставці інструкції `INT3`, яка примушує процесор скидати конвеєр інструкцій, генерувати програмне виключення `#BP`, перемикати контекст стек-кадру в режим NMI/exception та зберігати понад 200 байтів регістрового стану у структуру `pt_regs`.
@@ -59,7 +59,7 @@ struct pt_regs {
 
 Спроба оптимізації через Optprobes (заміна `INT3` на 5-байтний відносний стрибок `JMP`) частково зменшила затримки, але створила нові проблеми: не всі функції ядра мають 5-байтні атомарно замінні інструкції на початку, а введення захисту від Spectre v2 (Retpolines) зробило непрямі стрибки через OOL-буфери знову вартісними через регулярний скид передбачувача переходів (branch predictor).
 
-Детальний аналіз хронології розвитку систем трасування наведено у матеріалі [Історія еволюції оверхедів трасування](topic:sys-unix/bpf-trampoline-and-fprobe/hist-tracing-overhead.md).
+Детальний аналіз хронології розвитку систем трасування наведено у матеріалі [Історія еволюції оверхедів трасування](root:sys-unix/bpf-trampoline-and-fprobe/hist-tracing-overhead.md).
 
 ---
 
@@ -270,7 +270,7 @@ bpftool btf dump file /sys/kernel/btf/vmlinux format raw | grep "do_sys_openat2"
 
 ## 8. Зведена таблиця порівняння механізмів
 
-Повний перелік системних інтерфейсів, структур та прапорців секцій наведено у [Довіднику системних інтерфейсів та макросів](topic:sys-unix/bpf-trampoline-and-fprobe/api-bpf-trampoline-and-fprobe.md).
+Повний перелік системних інтерфейсів, структур та прапорців секцій наведено у [Довіднику системних інтерфейсів та макросів](root:sys-unix/bpf-trampoline-and-fprobe/api-bpf-trampoline-and-fprobe.md).
 
 | Критерій порівняння | Kprobe (`INT3`) | Optprobe (`JMP`) | ftrace (`mcount`) | BPF Trampoline (`fentry`/`fexit`) | fprobe (`kprobe.multi`) |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -282,7 +282,7 @@ bpftool btf dump file /sys/kernel/btf/vmlinux format raw | grep "do_sys_openat2"
 | **Масштабованість (цілі)** | Низька | Обмежена | Середня | До сотень функцій | **Тисячі функцій (10 000+)** |
 | **Вимоги до ядра** | Будь-яке ядро | x86_64, ARM64 | `CONFIG_FUNCTION_TRACER` | Linux 5.5+ & BTF | Linux 5.18+ |
 
-Практичну реалізацію та порівняльне вимірювання затримок на реальному C/C++ коді наведено у матеріалі [Практичний бенчмарк kprobe проти fentry](topic:sys-unix/bpf-trampoline-and-fprobe/proj-fentry-tracing-benchmark.md).
+Практичну реалізацію та порівняльне вимірювання затримок на реальному C/C++ коді наведено у матеріалі [Практичний бенчмарк kprobe проти fentry](root:sys-unix/bpf-trampoline-and-fprobe/proj-fentry-tracing-benchmark.md).
 
 ---
 

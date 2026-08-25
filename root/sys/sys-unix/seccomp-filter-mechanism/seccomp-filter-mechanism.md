@@ -1,9 +1,9 @@
 # Фільтрація системних викликів (seccomp)
 
 <preknowlist>
-- [Концепції ядра Linux](topic:sys-unix/kernel-and-userspace) — базові поняття системних викликів.
-- [Процес: що це насправді](topic:sys-unix/process-model) — одиниця, до якої чіпляють обмеження.
-- [Можливості (capabilities) замість всесильного root](topic:sys-unix/capabilities) — повноваження `CAP_SYS_ADMIN`.
+- [Концепції ядра Linux](root:sys-unix/kernel-and-userspace) — базові поняття системних викликів.
+- [Процес: що це насправді](root:sys-unix/process-model) — одиниця, до якої чіпляють обмеження.
+- [Можливості (capabilities) замість всесильного root](root:sys-unix/capabilities) — повноваження `CAP_SYS_ADMIN`.
 </preknowlist>
 
 Сучасні операційні системи на базі ядра Linux пропонують потужний механізм безпеки для ізоляції процесів — **seccomp** (Secure Computing Mode). 

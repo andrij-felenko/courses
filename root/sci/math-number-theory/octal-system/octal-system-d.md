@@ -1,6 +1,6 @@
 <preknowlist>
-- [Двійкова система](topic:math-number-theory/why-binary)
-- [Позиційні системи числення](topic:math-number-theory/positional-systems)
+- [Двійкова система](root:math-number-theory/why-binary)
+- [Позиційні системи числення](root:math-number-theory/positional-systems)
 </preknowlist>
 
 # Вісімкова система числення

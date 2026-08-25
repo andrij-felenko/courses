@@ -31,17 +31,17 @@
           }
         },
         {
-          "ref": "programming/hard-constraints",
+          "ref": "sf-apps/hard-constraints",
           "title": "Обмеження, які не обговорюються: строк, бюджет, команда, закон",
           "todo": "нова тема",
           "hint": "programming/architecture-discipline"
         },
         {
-          "ref": "programming/modifiability-tactics",
+          "ref": "sf-apps/modifiability-tactics",
           "title": "Тактики змінюваності"
         },
         {
-          "ref": "programming/set-based-design",
+          "ref": "sf-apps/set-based-design",
           "title": "Тримати кілька форм-кандидатів живими"
         }
       ]
@@ -61,21 +61,21 @@
           }
         },
         {
-          "ref": "programming/modular-monolith",
+          "ref": "sf-apps/modular-monolith",
           "title": "Модульний моноліт"
         },
         {
-          "ref": "programming/layers-vs-tiers",
+          "ref": "sf-apps/layers-vs-tiers",
           "title": "Логічна межа проти фізичної: шар, ярус, одиниця розгортання",
           "todo": "нова тема",
           "hint": "programming/software-design"
         },
         {
-          "ref": "programming/worse-is-better",
+          "ref": "sf-apps/worse-is-better",
           "title": "«Гірше — це краще»"
         },
         {
-          "ref": "programming/second-system-effect",
+          "ref": "sf-apps/second-system-effect",
           "title": "Ефект другої системи"
         },
         {
@@ -105,23 +105,23 @@
           }
         },
         {
-          "ref": "programming/end-to-end-argument",
+          "ref": "sf-apps/end-to-end-argument",
           "title": "Де має жити функція: на кінцях чи посередині"
         },
         {
-          "ref": "programming/acyclic-dependencies",
+          "ref": "sf-apps/acyclic-dependencies",
           "title": "Шар без правила напрямку залежностей не шар"
         },
         {
-          "ref": "programming/framework-vs-library",
+          "ref": "sf-apps/framework-vs-library",
           "title": "Напрямок виклику: хто кого кличе"
         },
         {
-          "ref": "programming/microkernel",
+          "ref": "sf-os/microkernel",
           "title": "Ядро як набір серверів: звідки взявся стиль «мікроядро»"
         },
         {
-          "ref": "programming/com-component-model",
+          "ref": "com-protocol/com-component-model",
           "title": "Бінарний контракт для чужого коду"
         },
         {
@@ -141,23 +141,23 @@
       "title": "Потоки й події",
       "topics": [
         {
-          "ref": "programming/pipes-and-filters",
+          "ref": "sf-distributed/pipes-and-filters",
           "title": "Труби й фільтри"
         },
         {
-          "ref": "programming/event-driven-architecture-distributed",
+          "ref": "sf-apps/event-driven-architecture-distributed",
           "title": "Подієва архітектура між сервісами"
         },
         {
-          "ref": "programming/message-bus-topology",
+          "ref": "sf-distributed/message-bus-topology",
           "title": "Хаб у центрі проти однорангової шини"
         },
         {
-          "ref": "programming/canonical-data-model",
+          "ref": "com-protocol/canonical-data-model",
           "title": "Ціна спільної моделі посередині"
         },
         {
-          "ref": "programming/orchestration-vs-choreography",
+          "ref": "sf-distributed/orchestration-vs-choreography",
           "title": "Оркестрація проти хореографії: хто веде багатокроковий процес",
           "todo": "нова тема",
           "hint": "programming/software-design"
@@ -229,11 +229,11 @@
           }
         },
         {
-          "ref": "programming/design-structure-matrix",
+          "ref": "sf-apps/design-structure-matrix",
           "title": "Матриця залежностей: побачити шов, а не вгадати"
         },
         {
-          "ref": "programming/logical-coupling",
+          "ref": "sf-apps/logical-coupling",
           "title": "Шов, який видно лише в історії змін"
         },
         {
@@ -273,7 +273,7 @@
       "title": "Сервіси й функції",
       "topics": [
         {
-          "ref": "programming/microservices",
+          "ref": "sf-apps/microservices",
           "title": "Мікросервіси"
         },
         {
@@ -287,23 +287,23 @@
           }
         },
         {
-          "ref": "programming/soap-web-services",
+          "ref": "com-protocol/soap-web-services",
           "title": "SOA на дроті: SOAP і важкий апарат веб-служб"
         },
         {
-          "ref": "programming/enterprise-service-bus",
+          "ref": "sf-distributed/enterprise-service-bus",
           "title": "Шина в центрі: що орієнтація на сервіси обіцяла"
         },
         {
-          "ref": "programming/serverless-faas",
+          "ref": "sf-release/serverless-faas",
           "title": "Serverless/FaaS"
         },
         {
-          "ref": "programming/edge-functions",
+          "ref": "sf-web/edge-functions",
           "title": "Функція на краю мережі"
         },
         {
-          "ref": "programming/twelve-factor",
+          "ref": "sf-apps/twelve-factor",
           "title": "Яким має бути застосунок, щоб платформа його прийняла"
         },
         {
@@ -333,35 +333,35 @@
           }
         },
         {
-          "ref": "programming/service-locator",
+          "ref": "sf-apps/service-locator",
           "title": "Локатор служб і чому його лають"
         },
         {
-          "ref": "programming/service-discovery",
+          "ref": "sf-distributed/service-discovery",
           "title": "Виявлення сервісів"
         },
         {
-          "ref": "programming/mdns-dns-sd",
+          "ref": "com-transport/mdns-dns-sd",
           "title": "Імена й служби без сервера"
         },
         {
-          "ref": "programming/api-gateway",
+          "ref": "sf-web/api-gateway",
           "title": "API-шлюз"
         },
         {
-          "ref": "programming/gateway",
+          "ref": "sf-apps/gateway",
           "title": "Шлюз (PoEAA)"
         },
         {
-          "ref": "programming/bff-pattern",
+          "ref": "sf-web/bff-pattern",
           "title": "BFF (backend-for-frontend)"
         },
         {
-          "ref": "programming/convention-over-configuration",
+          "ref": "sf-apps/convention-over-configuration",
           "title": "Угода замість конфігурації"
         },
         {
-          "ref": "programming/corba-object-broker",
+          "ref": "com-protocol/corba-object-broker",
           "title": "Брокер, IDL і служба імен"
         }
       ]
@@ -371,11 +371,11 @@
       "title": "Оцінка архітектури",
       "topics": [
         {
-          "ref": "programming/architecture-review",
+          "ref": "sf-apps/architecture-review",
           "title": "Рев'ю архітектури як практика"
         },
         {
-          "ref": "programming/atam-architecture-evaluation",
+          "ref": "sf-apps/atam-architecture-evaluation",
           "title": "Повний ATAM"
         },
         {
@@ -389,11 +389,11 @@
           }
         },
         {
-          "ref": "programming/fitness-functions",
+          "ref": "sf-apps/fitness-functions",
           "title": "Фітнес-функції"
         },
         {
-          "ref": "programming/dependency-graph-checker",
+          "ref": "sf-apps/dependency-graph-checker",
           "title": "Граф залежностей як автоматична сторожа шва"
         }
       ]

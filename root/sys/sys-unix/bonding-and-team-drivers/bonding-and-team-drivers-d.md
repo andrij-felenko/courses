@@ -1,8 +1,8 @@
 # Агрегація каналів: Bonding та Team
 
 <preknowlist>
-- [Мережеві інтерфейси та IP-адресація](topic:sys-unix/interfaces-and-addresses) — віртуальні й фізичні мережеві пристрої `struct net_device`, налаштування IP-адрес та таблиць MAC.
-- [Протокол Netlink та rtnetlink](topic:sys-unix/netlink-protocol) — механізм взаємодії ядра з простором користувача через `NETLINK_ROUTE` для створення та керування мережевими пристроями.
+- [Мережеві інтерфейси та IP-адресація](root:sys-unix/interfaces-and-addresses) — віртуальні й фізичні мережеві пристрої `struct net_device`, налаштування IP-адрес та таблиць MAC.
+- [Протокол Netlink та rtnetlink](root:sys-unix/netlink-protocol) — механізм взаємодії ядра з простором користувача через `NETLINK_ROUTE` для створення та керування мережевими пристроями.
 </preknowlist>
 
 У сучасній високопродуктивній мережевій інфраструктурі дата-центрів один фізичний мережевий кабель, порт комутатора або мережевий адаптер (Network Interface Card, NIC) є кричущою точкою єдиної відмови (Single Point of Failure, SPOF). Випадковий обрив оптичного кабелю, апаратний збій трансивера SFP+, вихід з ладу порту комутатора або переповнення внутрішнього буфера мережевої карти миттєво ізолюють сервер від зовнішнього світу, що призводить до простою критично важливих бізнес-сервісів.
@@ -182,7 +182,7 @@ port_idx = hash mod N_slaves
 - **Підміна MAC у ARP**: Драйвер змінює MAC-адресу джерела у ARP-відповіді для різних клієнтів. Клієнт A отримує MAC-адресу `eth0`, а клієнт B — MAC-адресу `eth1`. У результаті вхідний трафік від різних клієнтів розподіляється між різними фізичними портами на рівні L2.
 
 Деталізований висвітлений історичний шлях розробки та кризу монолітного коду винесено в окремий матеріал:
-📜 [Історія агрегації каналів у Linux: від Beowulf до teamd](topic:sys-unix/bonding-and-team-drivers/hist-bonding-to-team.md).
+📜 [Історія агрегації каналів у Linux: від Beowulf до teamd](root:sys-unix/bonding-and-team-drivers/hist-bonding-to-team.md).
 
 ---
 
@@ -287,7 +287,7 @@ teamdctl team0 config dump
 ```
 
 Для глибшого вивчення структур даних, низькорівневих бінарних атрибутів `rtnetlink` та викликів системного API зверніться до спеціалізованого довідника:
-📋 [Інтерфейси керування Bonding та Team: sysfs, rtnetlink та teamd JSON/DBus](topic:sys-unix/bonding-and-team-drivers/api-bonding-team-netlink.md).
+📋 [Інтерфейси керування Bonding та Team: sysfs, rtnetlink та teamd JSON/DBus](root:sys-unix/bonding-and-team-drivers/api-bonding-team-netlink.md).
 
 Для практичної розробки власних мережевих контролерів мовами C та C++, які виконують автоматичне створення bonding-пристроїв через сокети `AF_NETLINK`, підготовлено практичний проект:
-⚙️ [Практична реалізація: керування bonding-інтерфейсом через rtnetlink у C та C++](topic:sys-unix/bonding-and-team-drivers/proj-netlink-bond-controller.md).
+⚙️ [Практична реалізація: керування bonding-інтерфейсом через rtnetlink у C та C++](root:sys-unix/bonding-and-team-drivers/proj-netlink-bond-controller.md).

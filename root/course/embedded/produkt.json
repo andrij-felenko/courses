@@ -21,57 +21,57 @@
           }
         },
         {
-          "ref": "programming/git-submodules",
+          "ref": "sys-ide/git-submodules",
           "title": "Звідки в образі чужий код: підмодуль, вендоринг, менеджер пакетів"
         },
         {
-          "ref": "programming/open-source-licenses",
+          "ref": "sys-notary/open-source-licenses",
           "title": "Ліцензії відкритого коду: пермісивні й копілефтні"
         },
         {
-          "ref": "programming/shcho-same-ty-zoboviazanyi-viddaty-z-korobkoiu",
+          "ref": "sys-notary/shcho-same-ty-zoboviazanyi-viddaty-z-korobkoiu",
           "title": "Що саме ти зобов'язаний віддати з коробкою: атрибуція, тексти ліцензій, письмова пропозиція джерел",
           "todo": "нова тема",
           "hint": "programming/code"
         },
         {
-          "ref": "programming/pastka-lgpl",
+          "ref": "sys-notary/pastka-lgpl",
           "title": "Пастка LGPL: статичне лінкування й вимога дати переліновку",
           "todo": "нова тема",
           "hint": "programming/code"
         },
         {
-          "ref": "programming/gplv3-proty-pidpysanoho-zavantazhuvacha",
+          "ref": "sys-notary/gplv3-proty-pidpysanoho-zavantazhuvacha",
           "title": "GPLv3 проти підписаного завантажувача: антитайвоізація",
           "todo": "нова тема",
           "hint": "programming/code"
         },
         {
-          "ref": "qgroundcontrol/project-and-forks",
+          "ref": "sys-dron/project-and-forks",
           "title": "Ліцензія проєкту, який ти форкнув: розбір QGroundControl"
         },
         {
-          "ref": "programming/fork-and-upstream",
+          "ref": "sf-release/fork-and-upstream",
           "title": "Форк і апстрим: як не жити з вічним патчем"
         },
         {
-          "ref": "programming/software-patents-and-pools",
+          "ref": "sys-notary/software-patents-and-pools",
           "title": "Патенти на ПЗ і патентні пули: чому кодек не безкоштовний"
         },
         {
-          "ref": "programming/ne-tilky-kod",
+          "ref": "sys-notary/ne-tilky-kod",
           "title": "Не тільки код: вендорський HAL, шрифти, ваги моделі",
           "todo": "нова тема",
           "hint": "programming/code"
         },
         {
-          "ref": "programming/sbom-perelik-skladnykiv-obrazu-i-navishcho-ioho",
+          "ref": "sys-notary/sbom-perelik-skladnykiv-obrazu-i-navishcho-ioho",
           "title": "SBOM: перелік складників образу і навіщо його ведуть",
           "todo": "нова тема",
           "hint": "programming/code"
         },
         {
-          "ref": "programming/developer-certificate-of-origin",
+          "ref": "sf-release/developer-certificate-of-origin",
           "title": "Під якою ліцензією випускати своє: DCO, CLA, подвійне ліцензування"
         },
         {
@@ -101,21 +101,21 @@
           }
         },
         {
-          "ref": "communications/public-key-crypto",
+          "ref": "sf-security/public-key-crypto",
           "title": "Ключі, підпис і ланцюг сертифікатів"
         },
         {
-          "ref": "algorithms/csprng",
+          "ref": "sf-security/csprng",
           "title": "Звідки береться випадковість, з якої народжується ключ"
         },
         {
-          "ref": "programming/de-zhyve-pryvatnyi-kliuch",
+          "ref": "sf-security/de-zhyve-pryvatnyi-kliuch",
           "title": "Де живе приватний ключ: токен, HSM, «ноутбук Петра»",
           "todo": "нова тема",
           "hint": "programming/security"
         },
         {
-          "ref": "programming/secrets-management",
+          "ref": "sf-security/secrets-management",
           "title": "Секрети як предмет обліку: сховище, доступ, ротація"
         },
         {
@@ -129,25 +129,25 @@
           }
         },
         {
-          "ref": "communications/pkcs7-signed-message",
+          "ref": "sf-security/pkcs7-signed-message",
           "title": "Формат підписаного випуску: маніфест, ланцюг, мітка часу"
         },
         {
-          "ref": "programming/pidpys-u-konveieri-bez-kliucha-v-konveieri",
+          "ref": "sf-security/pidpys-u-konveieri-bez-kliucha-v-konveieri",
           "title": "Підпис у конвеєрі без ключа в конвеєрі",
           "todo": "нова тема",
           "hint": "programming/security"
         },
         {
-          "ref": "programming/uuid-and-guid",
+          "ref": "sf-data/uuid-and-guid",
           "title": "Ідентичність екземпляра: серійний номер і машинний ідентифікатор"
         },
         {
-          "ref": "programming/remote-attestation",
+          "ref": "sf-security/remote-attestation",
           "title": "Чим екземпляр доводить, що він — він: віддалена атестація"
         },
         {
-          "ref": "programming/key-derivation-function",
+          "ref": "sf-security/key-derivation-function",
           "title": "Ключ на екземпляр: похідні ключі, квота, облік"
         },
         {
@@ -161,7 +161,7 @@
           }
         },
         {
-          "ref": "programming/vidklykannia-kliucha-i-sertyfikata-peredbachene",
+          "ref": "sf-security/vidklykannia-kliucha-i-sertyfikata-peredbachene",
           "title": "Відкликання ключа й сертифіката, передбачене заздалегідь",
           "todo": "нова тема",
           "hint": "programming/security"
@@ -173,49 +173,49 @@
       "title": "Захист від копіювання",
       "topics": [
         {
-          "ref": "programming/threat-modeling",
+          "ref": "sf-security/threat-modeling",
           "title": "Модель загроз виробу: від кого й за скільки"
         },
         {
-          "ref": "programming/attack-surface",
+          "ref": "sf-security/attack-surface",
           "title": "Поверхня атаки виробу: порти, роз'єми, радіо, сервісний режим"
         },
         {
-          "ref": "programming/avr-fuses",
+          "ref": "sys-ide/avr-fuses",
           "title": "Замкнути зневаджувач: фьюзи й рівні захисту читання"
         },
         {
-          "ref": "programming/flash-encryption",
+          "ref": "sys-fw/flash-encryption",
           "title": "Шифрування Flash: що дає й чого не дає"
         },
         {
-          "ref": "programming/nvs-encryption",
+          "ref": "sys-fw/nvs-encryption",
           "title": "Дані у спокої на пристрої: шифрування сховища параметрів"
         },
         {
-          "ref": "programming/zbiini-ataky-hlitchynh-dekapsuliatsiia-i-chomu",
+          "ref": "sf-security/zbiini-ataky-hlitchynh-dekapsuliatsiia-i-chomu",
           "title": "Збійні атаки, глітчинг, декапсуляція — і чому обфускація майже нічого не варта",
           "todo": "нова тема",
           "hint": "programming/security"
         },
         {
-          "ref": "programming/timing-attack",
+          "ref": "sf-security/timing-attack",
           "title": "Побічні канали: час і кеш"
         },
         {
-          "ref": "programming/entitlements",
+          "ref": "sys-notary/entitlements",
           "title": "Платні функції на екземпляр: право як дані"
         },
         {
-          "ref": "communications/challenge-response",
+          "ref": "sf-security/challenge-response",
           "title": "Доказ права без передавання секрету"
         },
         {
-          "ref": "communications/drm-key-delivery",
+          "ref": "sf-security/drm-key-delivery",
           "title": "Як ключ функції потрапляє в пристрій"
         },
         {
-          "ref": "programming/remont-pravo-vlasnyka-i-mezha-zamykannia-vyrobu",
+          "ref": "sys-notary/remont-pravo-vlasnyka-i-mezha-zamykannia-vyrobu",
           "title": "Ремонт, право власника й межа замикання виробу",
           "todo": "нова тема",
           "hint": "programming/code"
@@ -247,55 +247,55 @@
           }
         },
         {
-          "ref": "programming/reuse-release-equivalence",
+          "ref": "sf-apps/reuse-release-equivalence",
           "title": "Що таке одиниця випуску й чому вона не збігається з модулем"
         },
         {
-          "ref": "programming/semantic-versioning",
+          "ref": "sf-release/semantic-versioning",
           "title": "Семантичне версіонування"
         },
         {
-          "ref": "programming/reviziia-platy-versiia-proshyvky",
+          "ref": "sf-release/reviziia-platy-versiia-proshyvky",
           "title": "Ревізія плати × версія прошивки: одна прошивка на три ревізії",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
         },
         {
-          "ref": "programming/versiia-zi-stanu-repozytoriiu",
+          "ref": "sf-release/versiia-zi-stanu-repozytoriiu",
           "title": "Версія зі стану репозиторію: тег, хеш, «брудна» збірка",
           "todo": "нова тема",
           "hint": "programming/software-engineering"
         },
         {
-          "ref": "build-systems/reproducible-builds",
+          "ref": "sys-bsystem/reproducible-builds",
           "title": "Відтворювана збірка: той самий байт завтра й через п'ять років"
         },
         {
-          "ref": "programming/release-channels",
+          "ref": "sf-release/release-channels",
           "title": "Канали постачання: стабільний, тестовий, нічний"
         },
         {
-          "ref": "programming/release-candidate-and-freeze",
+          "ref": "sf-release/release-candidate-and-freeze",
           "title": "Реліз-кандидат і заморозка коду"
         },
         {
-          "ref": "programming/notatky-vypusku",
+          "ref": "sf-release/notatky-vypusku",
           "title": "Нотатки випуску: що власник має дізнатися з оновлення",
           "todo": "нова тема",
           "hint": "programming/software-engineering"
         },
         {
-          "ref": "programming/artefakty-vypusku",
+          "ref": "sf-release/artefakty-vypusku",
           "title": "Артефакти випуску: образ, мапа, символи, SBOM, звіти тестів",
           "todo": "нова тема",
           "hint": "programming/software-engineering"
         },
         {
-          "ref": "programming/branching-models",
+          "ref": "sf-release/branching-models",
           "title": "Гілка супроводу й бекпорт виправлення"
         },
         {
-          "ref": "programming/audit-logging",
+          "ref": "sf-security/audit-logging",
           "title": "Хто має право випустити: ролі, доступ, журнал дій"
         }
       ]
@@ -315,7 +315,7 @@
           }
         },
         {
-          "ref": "build-systems/hermetic-builds",
+          "ref": "sys-bsystem/hermetic-builds",
           "title": "Герметична збірка: від чистого клону до образу однією командою"
         },
         {
@@ -345,41 +345,41 @@
           ]
         },
         {
-          "ref": "build-systems/cross-compilation",
+          "ref": "sys-bsystem/cross-compilation",
           "title": "Крос-компіляція й закріплений тулчейн"
         },
         {
-          "ref": "build-systems/build-flags",
+          "ref": "sys-bsystem/build-flags",
           "title": "Прапорці збірки: оптимізація, символи, попередження"
         },
         {
-          "ref": "build-systems/version-pinning",
+          "ref": "sys-bsystem/version-pinning",
           "title": "Залежності під замком: закріплення версій і замки"
         },
         {
-          "ref": "build-systems/cmake-presets",
+          "ref": "sys-bsystem/cmake-presets",
           "title": "Конфігурації як декларація: пресети й варіанти виробу"
         },
         {
-          "ref": "programming/vorota-biudzhetu",
+          "ref": "sf-release/vorota-biudzhetu",
           "title": "Ворота бюджету: флеш, RAM, стек, час завантаження",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
         },
         {
-          "ref": "programming/static-analysis",
+          "ref": "sf-release/static-analysis",
           "title": "Статичний аналіз і санітайзери у воротах"
         },
         {
-          "ref": "programming/infrastructure-as-code",
+          "ref": "sf-release/infrastructure-as-code",
           "title": "Сервер збірки, який можна відтворити"
         },
         {
-          "ref": "build-systems/cpack",
+          "ref": "sys-bsystem/cpack",
           "title": "Пакет інструментів для сервісу й заводу"
         },
         {
-          "ref": "programming/publikatsiia-vypusku-na-server-onovlen",
+          "ref": "sf-release/publikatsiia-vypusku-na-server-onovlen",
           "title": "Публікація випуску на сервер оновлень",
           "todo": "нова тема",
           "hint": "programming/operations"
@@ -417,7 +417,7 @@
           ]
         },
         {
-          "ref": "programming/integration-testing",
+          "ref": "sf-release/integration-testing",
           "title": "Піраміда перевірок: хост, симуляція, справжній чип"
         },
         {
@@ -441,15 +441,15 @@
           }
         },
         {
-          "ref": "electronics/scpi-protocol",
+          "ref": "hw-sensing/scpi-protocol",
           "title": "Прилади стенда з коду: SCPI"
         },
         {
-          "ref": "programming/python-test-automation",
+          "ref": "sf-release/python-test-automation",
           "title": "Python для автоматизації тестування"
         },
         {
-          "ref": "build-systems/ctest",
+          "ref": "sys-bsystem/ctest",
           "title": "Тести як реєстр: CTest і запуск набору на стенді"
         },
         {
@@ -463,29 +463,29 @@
           }
         },
         {
-          "ref": "programming/sitl-simulator",
+          "ref": "sys-dron/sitl-simulator",
           "title": "SITL як ланка конвеєра"
         },
         {
-          "ref": "programming/fuzzing",
+          "ref": "sf-release/fuzzing",
           "title": "Фаззинг парсерів: там, де живуть дірки"
         },
         {
-          "ref": "programming/contract-testing",
+          "ref": "sf-release/contract-testing",
           "title": "Контрактні тести між прошивкою, застосунком і сервером"
         },
         {
-          "ref": "programming/fault-injection",
+          "ref": "sf-release/fault-injection",
           "title": "Навмисні збої: обрив живлення посеред оновлення"
         },
         {
-          "ref": "programming/nichni-prohony-i-rehresiia-spozhyvannia-chasu",
+          "ref": "sf-release/nichni-prohony-i-rehresiia-spozhyvannia-chasu",
           "title": "Нічні прогони й регресія споживання, часу відгуку та пам'яті",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
         },
         {
-          "ref": "programming/flaky-tests",
+          "ref": "sf-release/flaky-tests",
           "title": "Миготливі тести: чому стенд бреше і що з цим робити"
         }
       ]
@@ -495,7 +495,7 @@
       "title": "Серія на заводі",
       "topics": [
         {
-          "ref": "electronics/fabs-fabless",
+          "ref": "hw-components/fabs-fabless",
           "title": "Свій завод чи чужий: модель «проєктую я, роблять інші»"
         },
         {
@@ -509,25 +509,25 @@
           }
         },
         {
-          "ref": "programming/cost-as-attribute",
+          "ref": "sf-apps/cost-as-attribute",
           "title": "Собівартість: BOM-костинг, ціна партії, ціна тесту"
         },
         {
-          "ref": "electronics/semiconductor-supply-chain",
+          "ref": "hw-components/semiconductor-supply-chain",
           "title": "Закупівля й доступність деталей: BOM, аналоги, дефіцит"
         },
         {
-          "ref": "electronics/guarantee-levels",
+          "ref": "hw-components/guarantee-levels",
           "title": "Що насправді гарантує даташит: tested, sampled, design"
         },
         {
-          "ref": "electronics/vkhidnyi-kontrol-i-pidrobni-komponenty",
+          "ref": "sys-notary/vkhidnyi-kontrol-i-pidrobni-komponenty",
           "title": "Вхідний контроль і підробні компоненти",
           "todo": "нова тема",
           "hint": "electronics/pcb"
         },
         {
-          "ref": "electronics/etalonnyi-zrazok-i-pershe-vyrobnyche",
+          "ref": "sys-notary/etalonnyi-zrazok-i-pershe-vyrobnyche",
           "title": "Еталонний зразок і перше виробниче",
           "todo": "нова тема",
           "hint": "electronics/pcb"
@@ -553,15 +553,15 @@
           }
         },
         {
-          "ref": "electronics/calibration",
+          "ref": "hw-sensing/calibration",
           "title": "Калібрувальні дані на екземпляр: де їх беруть і де зберігають"
         },
         {
-          "ref": "electronics/testing-binning",
+          "ref": "hw-components/testing-binning",
           "title": "Кожен екземпляр перевірено; вихід придатних і дозрівання партії"
         },
         {
-          "ref": "electronics/arrhenius-lifetime",
+          "ref": "hw-components/arrhenius-lifetime",
           "title": "Надійність числом: MTBF, прискорені випробування, вибірка"
         },
         {
@@ -575,7 +575,7 @@
           }
         },
         {
-          "ref": "electronics/moisture-sensitivity-levels",
+          "ref": "hw-pcb/moisture-sensitivity-levels",
           "title": "Зберігання, ESD і пакування до відвантаження"
         }
       ]
@@ -595,55 +595,55 @@
           }
         },
         {
-          "ref": "communications/emc-certification",
+          "ref": "sys-notary/emc-certification",
           "title": "Модульна сертифікація: FCC, CE та EMC-випроби"
         },
         {
-          "ref": "communications/regulatory-radio-certification",
+          "ref": "sys-notary/regulatory-radio-certification",
           "title": "Радіосертифікація: FCC, CE, SRRC"
         },
         {
-          "ref": "communications/emc-certification",
+          "ref": "sys-notary/emc-certification",
           "title": "Готовий сертифікований радіомодуль проти власного радіо",
           "todo": "нова тема",
           "hint": "communications/radio-engineering"
         },
         {
-          "ref": "electronics/near-field-probing",
+          "ref": "hw-sensing/near-field-probing",
           "title": "Передвипробування на столі: near-field пробник і типові провали"
         },
         {
-          "ref": "electronics/batareia-u-vyrobi",
+          "ref": "sys-notary/batareia-u-vyrobi",
           "title": "Батарея у виробі: UN 38.3, транспорт, пакування",
           "todo": "нова тема",
           "hint": "electronics/compliance"
         },
         {
-          "ref": "electronics/rechovyny-i-utylizatsiia",
+          "ref": "sys-notary/rechovyny-i-utylizatsiia",
           "title": "Речовини й утилізація: RoHS, REACH, WEEE",
           "todo": "нова тема",
           "hint": "electronics/compliance"
         },
         {
-          "ref": "electronics/normatyvni-vymohy-do-bezpeky-kodu",
+          "ref": "sys-notary/normatyvni-vymohy-do-bezpeky-kodu",
           "title": "Нормативні вимоги до безпеки коду: CRA, RED 3.3, EN 303 645",
           "todo": "нова тема",
           "hint": "electronics/compliance"
         },
         {
-          "ref": "electronics/deklaratsiia-vidpovidnosti-i-tekhnichnyi-fail",
+          "ref": "sys-notary/deklaratsiia-vidpovidnosti-i-tekhnichnyi-fail",
           "title": "Декларація відповідності й технічний файл",
           "todo": "нова тема",
           "hint": "electronics/compliance"
         },
         {
-          "ref": "electronics/chuzhi-reiestry-i-chlenstva",
+          "ref": "sys-notary/chuzhi-reiestry-i-chlenstva",
           "title": "Чужі реєстри й членства: OUI для MAC, USB VID/PID, Bluetooth SIG, Wi-Fi Alliance",
           "todo": "нова тема",
           "hint": "electronics/compliance"
         },
         {
-          "ref": "electronics/eksportnyi-kontrol-i-podviine-pryznachennia",
+          "ref": "sys-notary/eksportnyi-kontrol-i-podviine-pryznachennia",
           "title": "Експортний контроль і подвійне призначення",
           "todo": "нова тема",
           "hint": "electronics/compliance"
@@ -685,25 +685,25 @@
           }
         },
         {
-          "ref": "programming/instruktsiia-iaku-chytaiut-pislia-polamky",
+          "ref": "sys-notary/instruktsiia-iaku-chytaiut-pislia-polamky",
           "title": "Інструкція, яку читають після поламки, а не до",
           "todo": "нова тема",
           "hint": "programming/software-engineering"
         },
         {
-          "ref": "electronics/harantiia",
+          "ref": "sys-notary/harantiia",
           "title": "Гарантія: що обіцяно, на скільки і що її анулює",
           "todo": "нова тема",
           "hint": "electronics/compliance"
         },
         {
-          "ref": "programming/umovy-korystuvannia-i-dani-vlasnyka",
+          "ref": "sys-notary/umovy-korystuvannia-i-dani-vlasnyka",
           "title": "Умови користування й дані власника: що збираємо, навіщо, як відмовитися",
           "todo": "нова тема",
           "hint": "programming/security"
         },
         {
-          "ref": "programming/i18n-as-architecture",
+          "ref": "sf-apps/i18n-as-architecture",
           "title": "Локалізація документів і інтерфейсу"
         },
         {
@@ -743,31 +743,31 @@
           }
         },
         {
-          "ref": "programming/canary-deployment",
+          "ref": "sf-release/canary-deployment",
           "title": "Поступове викочування й канарки"
         },
         {
-          "ref": "programming/deployment-strategies",
+          "ref": "sf-release/deployment-strategies",
           "title": "Хвилі, кільця й перемикання без простою"
         },
         {
-          "ref": "programming/long-running-operations",
+          "ref": "com-protocol/long-running-operations",
           "title": "Кампанія як довга операція: стан, повтор, ідемпотентність команди"
         },
         {
-          "ref": "programming/keruvannia-kampaniieiu",
+          "ref": "sf-release/keruvannia-kampaniieiu",
           "title": "Керування кампанією: хвилі, ліміти, показники — скільки взяли, скільки повернулися, скільки замовкли",
           "todo": "нова тема",
           "hint": "programming/operations"
         },
         {
-          "ref": "programming/zupynka-kampanii-i-park-onovlenyi-napolovynu",
+          "ref": "sf-release/zupynka-kampanii-i-park-onovlenyi-napolovynu",
           "title": "Зупинка кампанії й парк, оновлений наполовину",
           "todo": "нова тема",
           "hint": "programming/operations"
         },
         {
-          "ref": "programming/ota-rollback",
+          "ref": "sf-devices/ota-rollback",
           "title": "Відкат OTA"
         },
         {
@@ -791,7 +791,7 @@
           }
         },
         {
-          "ref": "programming/prymusove-onovlennia-i-zhoda-vlasnyka",
+          "ref": "sf-release/prymusove-onovlennia-i-zhoda-vlasnyka",
           "title": "Примусове оновлення й згода власника",
           "todo": "нова тема",
           "hint": "programming/code"
@@ -833,15 +833,15 @@
           }
         },
         {
-          "ref": "programming/slo-sli-sla",
+          "ref": "sf-release/slo-sli-sla",
           "title": "Обіцянка в цифрах: час відповіді, доступність, бюджет помилок"
         },
         {
-          "ref": "programming/incident-response",
+          "ref": "sf-release/incident-response",
           "title": "Реагування на інцидент у полі: черговий, ескалація, зв'язок із власниками"
         },
         {
-          "ref": "programming/servisnyi-rezhym-i-diahnostyka-v-rukakh-tekhnika",
+          "ref": "sys-notary/servisnyi-rezhym-i-diahnostyka-v-rukakh-tekhnika",
           "title": "Сервісний режим і діагностика в руках техніка",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
@@ -857,23 +857,23 @@
           }
         },
         {
-          "ref": "programming/povernennia-remont-i-defektu-ne-vyiavleno",
+          "ref": "sys-notary/povernennia-remont-i-defektu-ne-vyiavleno",
           "title": "Повернення, ремонт і «дефекту не виявлено»",
           "todo": "нова тема",
           "hint": "programming/operations"
         },
         {
-          "ref": "programming/kliuchi-i-osobysti-dani-v-povernenomu-ekzempliari",
+          "ref": "sys-notary/kliuchi-i-osobysti-dani-v-povernenomu-ekzempliari",
           "title": "Ключі й особисті дані в поверненому екземплярі",
           "todo": "нова тема",
           "hint": "programming/security"
         },
         {
-          "ref": "programming/postmortems",
+          "ref": "sf-release/postmortems",
           "title": "База відмов і що з неї потрапляє в наступну ревізію"
         },
         {
-          "ref": "electronics/capacitor-aging",
+          "ref": "hw-components/capacitor-aging",
           "title": "Що зношується само по собі: конденсатор, кварц, батарея"
         },
         {
@@ -893,31 +893,31 @@
       "title": "Вразливості й розкриття",
       "topics": [
         {
-          "ref": "programming/strichky-cve-proty-vlasnoho-sbom",
+          "ref": "sf-security/strichky-cve-proty-vlasnoho-sbom",
           "title": "Стрічки CVE проти власного SBOM",
           "todo": "нова тема",
           "hint": "programming/security"
         },
         {
-          "ref": "programming/vulnerability-scoring-cvss",
+          "ref": "sf-security/vulnerability-scoring-cvss",
           "title": "Оцінювання вразливості: CVSS, EPSS і межі бальної системи"
         },
         {
-          "ref": "programming/supply-chain-security",
+          "ref": "sf-security/supply-chain-security",
           "title": "Ланцюг постачання як поверхня атаки"
         },
         {
-          "ref": "programming/replay-protection",
+          "ref": "sf-security/replay-protection",
           "title": "Старий підписаний образ як зброя: повтор і відкат"
         },
         {
-          "ref": "programming/kudy-pysaty-pro-dirku",
+          "ref": "sf-security/kudy-pysaty-pro-dirku",
           "title": "Куди писати про дірку: контакт безпеки й політика розкриття",
           "todo": "нова тема",
           "hint": "programming/security"
         },
         {
-          "ref": "programming/uzhodzhene-rozkryttia-i-stroky",
+          "ref": "sf-security/uzhodzhene-rozkryttia-i-stroky",
           "title": "Узгоджене розкриття й строки",
           "todo": "нова тема",
           "hint": "programming/security"
@@ -933,13 +933,13 @@
           }
         },
         {
-          "ref": "electronics/oboviazok-povidomyty",
+          "ref": "sf-security/oboviazok-povidomyty",
           "title": "Обов'язок повідомити: регулятор, власники, партнери",
           "todo": "нова тема",
           "hint": "electronics/compliance"
         },
         {
-          "ref": "programming/biuleten-bezpeky",
+          "ref": "sf-security/biuleten-bezpeky",
           "title": "Бюлетень безпеки: що написати й чого не писати",
           "todo": "нова тема",
           "hint": "programming/security"
@@ -971,11 +971,11 @@
           }
         },
         {
-          "ref": "programming/legacy-archaeology",
+          "ref": "sf-apps/legacy-archaeology",
           "title": "Археологія власного проєкту через п'ять років"
         },
         {
-          "ref": "programming/rewrite-vs-refactor",
+          "ref": "sf-apps/rewrite-vs-refactor",
           "title": "Ревізія Б чи новий виріб"
         },
         {
@@ -989,21 +989,21 @@
           }
         },
         {
-          "ref": "programming/vendor-lock-in",
+          "ref": "sys-bsystem/vendor-lock-in",
           "title": "Прив'язка до платформи, якої більше немає"
         },
         {
-          "ref": "programming/lock-in-exit-cost",
+          "ref": "sf-apps/lock-in-exit-cost",
           "title": "Чужа хмара й чужий сервіс, які закрилися"
         },
         {
-          "ref": "communications/vymknena-merezha",
+          "ref": "sys-notary/vymknena-merezha",
           "title": "Вимкнена мережа: 2G, 3G і те, що вимкнуть далі",
           "todo": "нова тема",
           "hint": "communications/networks"
         },
         {
-          "ref": "electronics/komponent-zniato-z-vypusku",
+          "ref": "sys-notary/komponent-zniato-z-vypusku",
           "title": "Компонент знято з випуску: останнє замовлення й «сумісна» заміна",
           "todo": "нова тема",
           "hint": "electronics/components"
@@ -1019,13 +1019,13 @@
           }
         },
         {
-          "ref": "electronics/skilky-rokiv-ty-obitsiaiesh-onovlennia-bezpeky",
+          "ref": "sys-notary/skilky-rokiv-ty-obitsiaiesh-onovlennia-bezpeky",
           "title": "Скільки років ти обіцяєш оновлення безпеки",
           "todo": "нова тема",
           "hint": "electronics/compliance"
         },
         {
-          "ref": "programming/deprecation-policy",
+          "ref": "sf-apps/deprecation-policy",
           "title": "Оголошення кінця життя як керований процес"
         },
         {
@@ -1039,13 +1039,13 @@
           }
         },
         {
-          "ref": "programming/vidkryty-dzherela-naprykintsi-zhyttia",
+          "ref": "sys-notary/vidkryty-dzherela-naprykintsi-zhyttia",
           "title": "Відкрити джерела наприкінці життя: що це вирішує і чого не вирішує",
           "todo": "нова тема",
           "hint": "programming/code"
         },
         {
-          "ref": "electronics/kinets-ekzempliara",
+          "ref": "sys-notary/kinets-ekzempliara",
           "title": "Кінець екземпляра: передача власності, справжнє скидання, видалення даних, утилізація",
           "todo": "нова тема",
           "hint": "electronics/compliance"

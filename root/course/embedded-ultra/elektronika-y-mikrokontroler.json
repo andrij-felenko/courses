@@ -11,19 +11,19 @@
       "title": "Величини",
       "topics": [
         {
-          "ref": "physics/electromagnetism/voltage",
+          "ref": "ph-electromagnetism/voltage",
           "title": "Напруга"
         },
         {
-          "ref": "physics/electromagnetism/electric-current",
+          "ref": "ph-electromagnetism/electric-current",
           "title": "Струм"
         },
         {
-          "ref": "electronics/analog/ohms-law",
+          "ref": "hw-analog/ohms-law",
           "title": "Закон Ома"
         },
         {
-          "ref": "physics/electromagnetism/electric-power",
+          "ref": "ph-electromagnetism/electric-power",
           "title": "Потужність"
         }
       ]
@@ -33,7 +33,7 @@
       "title": "Найкорисніше коло",
       "topics": [
         {
-          "ref": "electronics/analog/voltage-divider",
+          "ref": "hw-analog/voltage-divider",
           "title": "Дільник напруги"
         }
       ]
@@ -43,15 +43,15 @@
       "title": "Конденсатор і час",
       "topics": [
         {
-          "ref": "electronics/components/capacitor",
+          "ref": "hw-components/capacitor",
           "title": "Конденсатор"
         },
         {
-          "ref": "electronics/analog/rc-time-constant",
+          "ref": "hw-analog/rc-time-constant",
           "title": "Стала RC"
         },
         {
-          "ref": "electronics/analog/rc-low-pass",
+          "ref": "hw-analog/rc-low-pass",
           "title": "RC-ФНЧ"
         }
       ]
@@ -61,7 +61,7 @@
       "title": "Побачити сигнал",
       "topics": [
         {
-          "ref": "electronics/metrology/oscilloscope",
+          "ref": "hw-sensing/oscilloscope",
           "title": "Осцилограф"
         }
       ]
@@ -71,15 +71,15 @@
       "title": "Діод і транзистор",
       "topics": [
         {
-          "ref": "electronics/components/diode-iv-curve",
+          "ref": "hw-components/diode-iv-curve",
           "title": "ВАХ діода"
         },
         {
-          "ref": "electronics/analog/transistor-idea",
+          "ref": "hw-components/transistor-idea",
           "title": "Транзистор"
         },
         {
-          "ref": "electronics/analog/mosfet-switch",
+          "ref": "hw-components/mosfet-switch",
           "title": "MOSFET як ключ"
         }
       ]
@@ -89,7 +89,7 @@
       "title": "Аналогова цеглина",
       "topics": [
         {
-          "ref": "electronics/analog/opamp",
+          "ref": "hw-analog/opamp",
           "title": "Оппідсилювач"
         }
       ]
@@ -99,11 +99,11 @@
       "title": "Перетворювачі",
       "topics": [
         {
-          "ref": "electronics/power-electronics/ldo",
+          "ref": "hw-power/ldo",
           "title": "LDO"
         },
         {
-          "ref": "electronics/power-electronics/buck",
+          "ref": "hw-power/buck",
           "title": "Buck-перетворювач"
         }
       ]
@@ -113,11 +113,11 @@
       "title": "Чиста шина й батарея",
       "topics": [
         {
-          "ref": "electronics/components/decoupling",
+          "ref": "hw-components/decoupling",
           "title": "Decoupling-конденсатор"
         },
         {
-          "ref": "electronics/power-electronics/li-ion-charger",
+          "ref": "hw-power/li-ion-charger",
           "title": "Зарядка Li-ion"
         }
       ]
@@ -127,15 +127,15 @@
       "title": "Рівні й вентилі",
       "topics": [
         {
-          "ref": "electronics/digital/why-digital",
+          "ref": "hw-digital/why-digital",
           "title": "Навіщо цифра"
         },
         {
-          "ref": "electronics/digital/logic-levels-as-ranges",
+          "ref": "hw-digital/logic-levels-as-ranges",
           "title": "Рівні «0» і «1»"
         },
         {
-          "ref": "electronics/digital/basic-gates",
+          "ref": "hw-digital/basic-gates",
           "title": "Базові вентилі"
         }
       ]
@@ -145,7 +145,7 @@
       "title": "Такт",
       "topics": [
         {
-          "ref": "electronics/digital/clock-signal",
+          "ref": "hw-digital/clock-signal",
           "title": "Тактовий сигнал"
         }
       ]
@@ -155,15 +155,15 @@
       "title": "Як залізо бачить числа",
       "topics": [
         {
-          "ref": "programming/computer-architecture/bits-bytes-endianness",
+          "ref": "sf-algorithms/bits-bytes-endianness",
           "title": "Біти й порядок байтів"
         },
         {
-          "ref": "programming/computer-architecture/integer-types-c",
+          "ref": "sf-lang/integer-types-c",
           "title": "Цілі типи в C/C++"
         },
         {
-          "ref": "programming/computer-architecture/overflow-wraparound",
+          "ref": "sf-lang/overflow-wraparound",
           "title": "Переповнення"
         }
       ]
@@ -173,7 +173,7 @@
       "title": "Від тексту до прошивки",
       "topics": [
         {
-          "ref": "programming/languages/compilation",
+          "ref": "sf-lang/compilation",
           "title": "Компіляція"
         }
       ]
@@ -183,15 +183,15 @@
       "title": "Зібрати й перевірити",
       "topics": [
         {
-          "ref": "build-systems/fundamentals/build-system-role",
+          "ref": "sys-bsystem/build-system-role",
           "title": "Що робить система збірки"
         },
         {
-          "ref": "build-systems/cmake/cmake-language",
+          "ref": "sys-bsystem/cmake-language",
           "title": "Мова CMakeLists"
         },
         {
-          "ref": "programming/software-engineering/unit-testing",
+          "ref": "sf-release/unit-testing",
           "title": "Модульний тест"
         }
       ]
@@ -201,15 +201,15 @@
       "title": "Адреси й карта",
       "topics": [
         {
-          "ref": "programming/systems/addresses-pointers",
+          "ref": "sf-lang/addresses-pointers",
           "title": "Адреси й покажчики"
         },
         {
-          "ref": "programming/systems/memory-map",
+          "ref": "hw-arch/memory-map",
           "title": "Карта пам'яті"
         },
         {
-          "ref": "programming/systems/flash-vs-ram",
+          "ref": "hw-arch/flash-vs-ram",
           "title": "Flash і RAM"
         }
       ]
@@ -219,7 +219,7 @@
       "title": "Класична аварія",
       "topics": [
         {
-          "ref": "programming/systems/stack-overflow",
+          "ref": "sf-lang/stack-overflow",
           "title": "Переповнення стека"
         }
       ]
@@ -229,11 +229,11 @@
       "title": "Що це",
       "topics": [
         {
-          "ref": "programming/embedded-systems/microcontroller",
+          "ref": "hw-arch/microcontroller",
           "title": "Мікроконтролер"
         },
         {
-          "ref": "programming/computer-architecture/mcu-blocks",
+          "ref": "hw-arch/mcu-blocks",
           "title": "Складові МК"
         }
       ]
@@ -243,15 +243,15 @@
       "title": "Як ним керують",
       "topics": [
         {
-          "ref": "programming/embedded-systems/memory-mapped-io",
+          "ref": "hw-arch/memory-mapped-io",
           "title": "Memory-mapped IO"
         },
         {
-          "ref": "programming/embedded-systems/gpio-registers",
+          "ref": "sf-devices/gpio-registers",
           "title": "GPIO-регістри"
         },
         {
-          "ref": "electronics/digital/floating-pullups",
+          "ref": "hw-digital/floating-pullups",
           "title": "Підтяжки"
         }
       ]
@@ -261,7 +261,7 @@
       "title": "Залити код",
       "topics": [
         {
-          "ref": "programming/embedded-systems/flashing",
+          "ref": "sys-ide/flashing",
           "title": "Прошивка у Flash"
         }
       ]
@@ -271,15 +271,15 @@
       "title": "Час і події",
       "topics": [
         {
-          "ref": "programming/embedded-systems/interrupts",
+          "ref": "hw-arch/interrupts",
           "title": "Переривання"
         },
         {
-          "ref": "programming/embedded-systems/timer-counter",
+          "ref": "hw-arch/timer-counter",
           "title": "Таймер-лічильник"
         },
         {
-          "ref": "programming/embedded-systems/pwm",
+          "ref": "hw-analog/pwm",
           "title": "ШІМ"
         }
       ]
@@ -289,11 +289,11 @@
       "title": "Аналог і потік",
       "topics": [
         {
-          "ref": "electronics/digital/adc",
+          "ref": "hw-analog/adc",
           "title": "АЦП"
         },
         {
-          "ref": "programming/computer-architecture/dma-controller",
+          "ref": "hw-arch/dma-controller",
           "title": "DMA-контролер"
         }
       ]
@@ -303,15 +303,15 @@
       "title": "Три шини",
       "topics": [
         {
-          "ref": "communications/buses/uart-frame",
+          "ref": "com-devices/uart-frame",
           "title": "Кадр UART"
         },
         {
-          "ref": "communications/buses/i2c-bus",
+          "ref": "com-devices/i2c-bus",
           "title": "Шина I2C"
         },
         {
-          "ref": "communications/buses/spi-bus",
+          "ref": "com-devices/spi-bus",
           "title": "Шина SPI"
         }
       ]
@@ -321,7 +321,7 @@
       "title": "Як говорять із чипом",
       "topics": [
         {
-          "ref": "communications/buses/register-map",
+          "ref": "com-devices/register-map",
           "title": "Регістрова карта"
         }
       ]
@@ -331,15 +331,15 @@
       "title": "Задачі й дані",
       "topics": [
         {
-          "ref": "programming/embedded-systems/freertos",
+          "ref": "sf-devices/freertos",
           "title": "FreeRTOS"
         },
         {
-          "ref": "programming/systems/task-ipc",
+          "ref": "sf-tasks/task-ipc",
           "title": "Черги й семафори"
         },
         {
-          "ref": "programming/embedded-systems/nvs",
+          "ref": "sys-fw/nvs",
           "title": "NVS"
         }
       ]
@@ -349,11 +349,11 @@
       "title": "Оновлення й сон",
       "topics": [
         {
-          "ref": "programming/embedded-systems/ota-update",
+          "ref": "sf-devices/ota-update",
           "title": "OTA-оновлення"
         },
         {
-          "ref": "programming/embedded-systems/sleep-modes",
+          "ref": "hw-arch/sleep-modes",
           "title": "Режими сну"
         }
       ]
@@ -363,15 +363,15 @@
       "title": "Правильний цикл",
       "topics": [
         {
-          "ref": "programming/embedded-systems/nonblocking-time",
+          "ref": "sf-devices/nonblocking-time",
           "title": "Неблокуючий час"
         },
         {
-          "ref": "programming/systems/atomicity-races",
+          "ref": "sf-tasks/atomicity-races",
           "title": "Атомарність і гонки"
         },
         {
-          "ref": "programming/languages/std-atomic",
+          "ref": "sys-plang-cpp/std-atomic",
           "title": "std::atomic і порядок пам'яті"
         }
       ]
@@ -381,11 +381,11 @@
       "title": "Коли падає",
       "topics": [
         {
-          "ref": "programming/embedded-systems/watchdog",
+          "ref": "sf-devices/watchdog",
           "title": "Watchdog"
         },
         {
-          "ref": "programming/embedded-systems/hardfault",
+          "ref": "sf-devices/hardfault",
           "title": "Розбір HardFault"
         }
       ]
@@ -395,11 +395,11 @@
       "title": "Давачі",
       "topics": [
         {
-          "ref": "electronics/sensors/what-is-a-sensor",
+          "ref": "hw-sensing/what-is-a-sensor",
           "title": "Що таке давач"
         },
         {
-          "ref": "electronics/sensors/imu",
+          "ref": "hw-sensing/imu",
           "title": "IMU-давач"
         }
       ]
@@ -409,7 +409,7 @@
       "title": "Привід",
       "topics": [
         {
-          "ref": "electronics/power-electronics/dc-motor-driver",
+          "ref": "hw-motion/dc-motor-driver",
           "title": "Драйвер DC-моторів"
         }
       ]
@@ -419,11 +419,11 @@
       "title": "Бездротовий зв'язок",
       "topics": [
         {
-          "ref": "communications/networks/wifi",
+          "ref": "com-transport/wifi",
           "title": "Wi-Fi"
         },
         {
-          "ref": "communications/protocols/ble-gatt",
+          "ref": "com-protocol/ble-gatt",
           "title": "BLE GATT"
         }
       ]

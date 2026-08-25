@@ -1,8 +1,8 @@
 # Вибір моделі fan-out сповіщень DH
 
 <preknowlist>
-- [Вузол сповіщень](topic:sf-web/notification-fanout) — фундаментальна задача розсилки сповіщень підписникам через гетерогенні канали.
-- [Fan-out on-write vs on-read](topic:sf-distributed/fan-out-strategies) — дві базові моделі мультиплікації подій у розподілених системах.
+- [Вузол сповіщень](root:sf-web/notification-fanout) — фундаментальна задача розсилки сповіщень підписникам через гетерогенні канали.
+- [Fan-out on-write vs on-read](root:sf-distributed/fan-out-strategies) — дві базові моделі мультиплікації подій у розподілених системах.
 - [Дедуп, злиття й throttling сповіщень](root:progarch/notification-dedup-throttle) — відсіювання, злиття та обмеження темпу потоків перед розсилкою.
 </preknowlist>
 
@@ -165,7 +165,7 @@ Throughput_out = E × N   [визначення вихідного потоку 
 3. **Tier 3: System-Wide Broadcast (`N > 5 000`)**
    - *Контекст*: Оновлення прошивок хабів, зміна умов обслуговування платформи, глобальний статус систем DH.
    - *Модель*: **On-Read Broadcast Only + Topic Push**.
-   - *Механіка*: Рівно 1 запис у глобальний журнал `system_announcements`. Жодного матеріалізованого запису в inboxes мешканців. За необхідності push-повідомлення надсилається через мейнстрімний broadcast-топік FCM (`topic://global-announcements`), не створюючи жодної внутрішньої задачі в черзі DH.
+   - *Механіка*: Рівно 1 запис у глобальний журнал `system_announcements`. Жодного матеріалізованого запису в inboxes мешканців. За необхідності push-повідомлення надсилається через мейнстрімний broadcast-топік FCM (`root://global-announcements`), не створюючи жодної внутрішньої задачі в черзі DH.
 
 Повна програма реалізації цього роутера мовами C++, Go та TypeScript з обробкою граничних випадків та ізоляцією пулів представлена в [практичному проєкті трирівневого fan-out роутера](root:progarch/notification-fanout-choice/proj-fanout-engine.md).
 

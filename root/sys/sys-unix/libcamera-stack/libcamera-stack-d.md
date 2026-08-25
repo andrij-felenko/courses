@@ -1,11 +1,11 @@
 # libcamera: користувацький стек камери над V4L2 та Media Controller
 
 <preknowlist>
-- [Відео-підсистема V4L2 та Media Controller API](topic:sys-unix/v4l2-subdev-routing-request-and-zero-copy) — апаратний граф медіапристроїв, pads, links та subdevs у ядрі Linux.
-- [Спільні буфери dma-buf](topic:sys-unix/dma-buf) — передача фізичних сторінок пам'яті між драйверами без копіювання CPU.
-- [Підсистема шин I2C та SMBus](topic:sys-unix/i2c-and-smbus-subsystem) — керування регістрами сенсорів камери та драйверами котушок фокусування (VCM).
-- [Інтерфейс ioctl](topic:sys-unix/ioctl-interface) — механізм синхронного обміну керуючими структурами між простором користувача та ядром.
-- [Модель пристроїв Linux](topic:sys-unix/sysfs-device-model) — представлення kobject, шин та драйверів у файловій системі sysfs.
+- [Відео-підсистема V4L2 та Media Controller API](root:sys-unix/v4l2-subdev-routing-request-and-zero-copy) — апаратний граф медіапристроїв, pads, links та subdevs у ядрі Linux.
+- [Спільні буфери dma-buf](root:sys-unix/dma-buf) — передача фізичних сторінок пам'яті між драйверами без копіювання CPU.
+- [Підсистема шин I2C та SMBus](root:sys-unix/i2c-and-smbus-subsystem) — керування регістрами сенсорів камери та драйверами котушок фокусування (VCM).
+- [Інтерфейс ioctl](root:sys-unix/ioctl-interface) — механізм синхронного обміну керуючими структурами між простором користувача та ядром.
+- [Модель пристроїв Linux](root:sys-unix/sysfs-device-model) — представлення kobject, шин та драйверів у файловій системі sysfs.
 </preknowlist>
 
 Коли оптичний сенсор Sony IMX477 на платі Raspberry Pi чи промисловому комп'ютері захоплює 12-мегапіксельний кадр із частотою 60 кадрів/с, по чотирьох диференційних лініях шини MIPI CSI-2 у процесор надходить потік сирих даних (RAW12) зі швидкістю понад 6 Гбіт/с. На відміну від стандартної USB-вебкамери, де вбудований у пластиковий корпус чип віддає готовий стиснений потік `YUYV` або `MJPEG`, у сенсорі вбудованої камери немає жодного процесора обробки зображень (ISP, від англ. *Image Signal Processor*, від лат. *processus* — просування). Світлочутлива кремнієва матриця генерує лише електричні потенціали, вкриті мозаїчним колірним фільтром Байєра (Bayer filter), а зміщення оптичних лінз автофокусу виконується окремою котушкою Voice Coil Motor (VCM), що керується через повільну шину I2C.
@@ -112,7 +112,7 @@ void configureSubdevFormat(int subdevFd, uint32_t pad, uint32_t width, uint32_t 
 
 Ядро Linux вирішило апаратну частину проблеми, впровадивши **Media Request API** (`MEDIA_IOC_REQUEST_ALLOC`). Цей інтерфейс дозволяє створювати в ядрі атомарні файлові дескриптори запитів `request_fd`, до яких прив'язуються конкретні буфери кадру `struct v4l2_buffer` із прапорцем `V4L2_BUF_FLAG_REQUEST_FD` та набір керуючих параметрів `VIDIOC_S_EXT_CTRLS`. Проте все завдання побудови черги запитів, сканування медіаграфа, синхронізації та обчислення 3A лягло на простір користувача.
 
-Детальний перебіг становлення системної підсистеми камер від перших плат Video4Linux до відкриття проєкту libcamera викладено в історичному нарисі [📜 Від монолітного V4L2 та Android CameraHAL до libcamera](topic:sys-unix/libcamera-stack/hist-complex-cameras-and-libcamera.md).
+Детальний перебіг становлення системної підсистеми камер від перших плат Video4Linux до відкриття проєкту libcamera викладено в історичному нарисі [📜 Від монолітного V4L2 та Android CameraHAL до libcamera](root:sys-unix/libcamera-stack/hist-complex-cameras-and-libcamera.md).
 
 ---
 
@@ -152,7 +152,7 @@ void configureSubdevFormat(int subdevFd, uint32_t pad, uint32_t width, uint32_t 
 - `allocateBuffers(Camera *camera, Stream *stream)`: створює буфери Videobuf2 на відеовузлах ядра за допомогою системного виклику `VIDIOC_REQBUFS`.
 - `queueRequestDevice(Camera *camera, Request *request)`: перетворює об'єкт `libcamera::Request` у виклики `MEDIA_IOC_REQUEST_ALLOC` ядра Linux, додає буфери у черги V4L2 і передає запити на обробку в модуль IPA.
 
-Повний довідник класів ядра, перелік елементів керування та статичних властивостей наведено у вичерпному посібнику [📋 Довідник класів, елементів керування та IPA-інтерфейсів](topic:sys-unix/libcamera-stack/api-libcamera-core.md).
+Повний довідник класів ядра, перелік елементів керування та статичних властивостей наведено у вичерпному посібнику [📋 Довідник класів, елементів керування та IPA-інтерфейсів](root:sys-unix/libcamera-stack/api-libcamera-core.md).
 
 ---
 
@@ -237,7 +237,7 @@ void configureSubdevFormat(int subdevFd, uint32_t pad, uint32_t width, uint32_t 
 4. **Фаза завершення та виклику зворотного зв'язку:**
    Pipeline Handler заповнює вихідні метадані в об'єкті `Request` і генерує сигнал `camera->requestCompleted`. Застосунок отримує повідомлення у своєму циклі подій, зчитує готові пікселі з буферів, після чого викликає `request->reuse(Request::ReuseBuffers)` і повертає запит у чергу для наступних кадрів.
 
-Повну практичну реалізацію програми на C++, що керує конвеєром захоплення двох паралельних потоків із динамічною експозицією, наведено в матеріалі [⚙️ Практична реалізація конвеєра захоплення на C++](topic:sys-unix/libcamera-stack/proj-libcamera-capture-pipeline.md).
+Повну практичну реалізацію програми на C++, що керує конвеєром захоплення двох паралельних потоків із динамічною експозицією, наведено в матеріалі [⚙️ Практична реалізація конвеєра захоплення на C++](root:sys-unix/libcamera-stack/proj-libcamera-capture-pipeline.md).
 
 ---
 

@@ -1,9 +1,9 @@
 # Прискорені суматори з паралельним переносом (Carry-Lookahead Adder)
 
 <preknowlist>
-- [Двійкова арифметика: Додавання та віднімання](topic:hw-digital/binary-arithmetic)
-- [Логічні вентилі та булева алгебра](topic:math-logic/boolean-algebra)
-- [Каскадні суматори (Ripple-Carry Adder) та їх обмеження](topic:hw-digital/parallel-prefix-addition)
+- [Двійкова арифметика: Додавання та віднімання](root:hw-digital/binary-arithmetic)
+- [Логічні вентилі та булева алгебра](root:math-logic/boolean-algebra)
+- [Каскадні суматори (Ripple-Carry Adder) та їх обмеження](root:hw-digital/parallel-prefix-addition)
 </preknowlist>
 
 > 🔧 **Навіщо це.**

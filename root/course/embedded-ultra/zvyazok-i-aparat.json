@@ -11,19 +11,19 @@
       "title": "Два транспорти",
       "topics": [
         {
-          "ref": "communications/protocols/tcp-vs-udp",
+          "ref": "com-transport/tcp-vs-udp",
           "title": "TCP проти UDP"
         },
         {
-          "ref": "programming/networking/sockets-tcp-udp",
+          "ref": "sf-os/sockets-tcp-udp",
           "title": "Сокети TCP/UDP"
         },
         {
-          "ref": "programming/networking/udp-datagram-semantics",
+          "ref": "com-transport/udp-datagram-semantics",
           "title": "Семантика датаграми UDP"
         },
         {
-          "ref": "programming/networking/tcp-message-framing",
+          "ref": "com-protocol/tcp-message-framing",
           "title": "Кадрування повідомлень у TCP"
         }
       ]
@@ -33,15 +33,15 @@
       "title": "Що під ними",
       "topics": [
         {
-          "ref": "communications/networks/mac-ip-arp",
+          "ref": "com-transport/mac-ip-arp",
           "title": "MAC, IP і ARP"
         },
         {
-          "ref": "communications/networks/ip-routing",
+          "ref": "com-transport/ip-routing",
           "title": "Маршрутизація"
         },
         {
-          "ref": "communications/coding-theory/internet-checksum",
+          "ref": "com-modulation/internet-checksum",
           "title": "Інтернет-контрольна сума"
         }
       ]
@@ -51,15 +51,15 @@
       "title": "Байти на дроті",
       "topics": [
         {
-          "ref": "programming/embedded-systems/data-serialization",
+          "ref": "com-protocol/data-serialization",
           "title": "Серіалізація даних"
         },
         {
-          "ref": "communications/protocols/packet-design",
+          "ref": "com-transport/packet-design",
           "title": "Проєктування пакета"
         },
         {
-          "ref": "programming/networking/wire-format-packing",
+          "ref": "com-protocol/wire-format-packing",
           "title": "Пакування бінарного протоколу"
         }
       ]
@@ -69,11 +69,11 @@
       "title": "Цілісність",
       "topics": [
         {
-          "ref": "communications/coding-theory/checksums",
+          "ref": "com-modulation/checksums",
           "title": "Контрольні суми"
         },
         {
-          "ref": "communications/coding-theory/crc",
+          "ref": "com-modulation/crc",
           "title": "CRC"
         }
       ]
@@ -83,11 +83,11 @@
       "title": "Земля-борт",
       "topics": [
         {
-          "ref": "communications/protocols/control-telemetry",
+          "ref": "sys-dron/control-telemetry",
           "title": "Керування й телеметрія"
         },
         {
-          "ref": "communications/protocols/telemetry-stream",
+          "ref": "sys-dron/telemetry-stream",
           "title": "Телеметрія"
         }
       ]
@@ -97,15 +97,15 @@
       "title": "MAVLink",
       "topics": [
         {
-          "ref": "communications/protocols/mavlink-packet",
+          "ref": "sys-dron/mavlink-packet",
           "title": "Пакет MAVLink"
         },
         {
-          "ref": "communications/protocols/mavlink-commands",
+          "ref": "embedded/mavlink-commands",
           "title": "Команди MAVLink"
         },
         {
-          "ref": "communications/protocols/mavlink-xml-codegen",
+          "ref": "sys-dron/mavlink-xml-codegen",
           "title": "Генерація коду з XML MAVLink"
         }
       ]
@@ -115,7 +115,7 @@
       "title": "Бортова шина",
       "topics": [
         {
-          "ref": "communications/buses/dronecan",
+          "ref": "com-devices/dronecan",
           "title": "DroneCAN"
         }
       ]
@@ -125,11 +125,11 @@
       "title": "Хвиля несе дані",
       "topics": [
         {
-          "ref": "communications/modulation/why-modulation",
+          "ref": "com-modulation/why-modulation",
           "title": "Навіщо модуляція"
         },
         {
-          "ref": "communications/modulation/spread-spectrum",
+          "ref": "com-modulation/spread-spectrum",
           "title": "Розширений спектр"
         }
       ]
@@ -139,11 +139,11 @@
       "title": "Антена",
       "topics": [
         {
-          "ref": "communications/antennas/antenna",
+          "ref": "com-medium/antenna",
           "title": "Антена"
         },
         {
-          "ref": "communications/antennas/antenna-gain",
+          "ref": "com-medium/antenna-gain",
           "title": "Підсилення антени"
         }
       ]
@@ -153,7 +153,7 @@
       "title": "Лінк до борта",
       "topics": [
         {
-          "ref": "communications/radio-engineering/telemetry-link",
+          "ref": "com-medium/telemetry-link",
           "title": "Канал земля-борт"
         }
       ]
@@ -163,19 +163,19 @@
       "title": "Де я",
       "topics": [
         {
-          "ref": "communications/synchronization/gnss",
+          "ref": "hw-sensing/gnss",
           "title": "GNSS"
         },
         {
-          "ref": "math/geometry/wgs84-datum",
+          "ref": "math-geometry/wgs84-datum",
           "title": "WGS-84: еліпсоїд і датум"
         },
         {
-          "ref": "math/geometry/geoid-and-amsl",
+          "ref": "math-geometry/geoid-and-amsl",
           "title": "Геоїд, AMSL і висота"
         },
         {
-          "ref": "math/geometry/ecef-ned-enu",
+          "ref": "math-geometry/ecef-ned-enu",
           "title": "ECEF, NED і ENU"
         }
       ]
@@ -185,11 +185,11 @@
       "title": "Злиття давачів",
       "topics": [
         {
-          "ref": "algorithms/signal-robotics/sensor-fusion",
+          "ref": "com-signal/sensor-fusion",
           "title": "Поєднання давачів"
         },
         {
-          "ref": "algorithms/signal-robotics/complementary-filter",
+          "ref": "com-signal/complementary-filter",
           "title": "Комплементарний фільтр"
         }
       ]
@@ -199,15 +199,15 @@
       "title": "Фільтр Калмана",
       "topics": [
         {
-          "ref": "algorithms/signal-robotics/predict-vs-measure",
+          "ref": "com-signal/predict-vs-measure",
           "title": "Передбачення vs вимір"
         },
         {
-          "ref": "algorithms/signal-robotics/kalman-filter",
+          "ref": "embedded/kalman-filter",
           "title": "Фільтр Калмана"
         },
         {
-          "ref": "algorithms/signal-robotics/kalman-ekf",
+          "ref": "com-signal/kalman-ekf",
           "title": "Розширений Калман (EKF)"
         }
       ]
@@ -217,11 +217,11 @@
       "title": "Чому літає",
       "topics": [
         {
-          "ref": "physics/mechanics/propeller-geometry",
+          "ref": "ph-mechanics/propeller-geometry",
           "title": "Гвинт"
         },
         {
-          "ref": "physics/mechanics/fixed-wing-lift",
+          "ref": "ph-mechanics/fixed-wing-lift",
           "title": "Літак"
         }
       ]
@@ -231,11 +231,11 @@
       "title": "Утримати курс",
       "topics": [
         {
-          "ref": "algorithms/signal-robotics/discrete-pid",
+          "ref": "com-signal/discrete-pid",
           "title": "Дискретний ПІД"
         },
         {
-          "ref": "algorithms/signal-robotics/quaternion-attitude-control",
+          "ref": "sys-dron/quaternion-attitude-control",
           "title": "Кватерніонне керування орієнтацією"
         }
       ]
@@ -245,19 +245,19 @@
       "title": "Бортовий автопілот",
       "topics": [
         {
-          "ref": "programming/embedded-systems/flight-controller",
+          "ref": "sys-dron/flight-controller",
           "title": "Політний контролер"
         },
         {
-          "ref": "programming/embedded-systems/px4-architecture",
+          "ref": "sys-dron/px4-architecture",
           "title": "Архітектура PX4"
         },
         {
-          "ref": "programming/embedded-systems/failsafe",
+          "ref": "sys-dron/failsafe",
           "title": "Failsafe"
         },
         {
-          "ref": "programming/embedded-systems/params-gcs",
+          "ref": "sys-dron/params-gcs",
           "title": "Параметри й GCS"
         }
       ]
@@ -267,11 +267,11 @@
       "title": "Тяга",
       "topics": [
         {
-          "ref": "electronics/electromechanics/bldc-motor",
+          "ref": "hw-motion/bldc-motor",
           "title": "BLDC-мотор"
         },
         {
-          "ref": "electronics/power-electronics/esc",
+          "ref": "hw-motion/esc",
           "title": "ESC-регулятор"
         }
       ]
@@ -281,11 +281,11 @@
       "title": "Батарея під навантаженням",
       "topics": [
         {
-          "ref": "electronics/power-electronics/battery-sag",
+          "ref": "hw-power/battery-sag",
           "title": "Просадка під навантаженням"
         },
         {
-          "ref": "electronics/power-electronics/bms",
+          "ref": "hw-power/bms",
           "title": "Захист і BMS"
         }
       ]
@@ -295,15 +295,15 @@
       "title": "Стиснути",
       "topics": [
         {
-          "ref": "algorithms/data-compression/jpeg-intra",
+          "ref": "com-signal/jpeg-intra",
           "title": "JPEG"
         },
         {
-          "ref": "algorithms/data-compression/inter-frame",
+          "ref": "com-signal/inter-frame",
           "title": "Міжкадрове стиснення"
         },
         {
-          "ref": "algorithms/data-compression/h264-nal-structure",
+          "ref": "com-signal/h264-nal-structure",
           "title": "H.264: NAL, SPS/PPS"
         }
       ]
@@ -313,23 +313,23 @@
       "title": "Донести і встигнути",
       "topics": [
         {
-          "ref": "communications/networks/video-transmission",
+          "ref": "com-transport/video-transmission",
           "title": "Передача відео"
         },
         {
-          "ref": "programming/embedded-systems/video-latency",
+          "ref": "com-protocol/video-latency",
           "title": "Затримка відео"
         },
         {
-          "ref": "communications/protocols/rtp-rtcp",
+          "ref": "com-protocol/rtp-rtcp",
           "title": "RTP і RTCP"
         },
         {
-          "ref": "media-vision/gstreamer/pipeline-model",
+          "ref": "sys-media/pipeline-model",
           "title": "Конвеєр GStreamer"
         },
         {
-          "ref": "media-vision/gstreamer/appsink-appsrc",
+          "ref": "sys-media/appsink-appsrc",
           "title": "appsink і appsrc"
         }
       ]
@@ -339,23 +339,23 @@
       "title": "Станція зсередини",
       "topics": [
         {
-          "ref": "qgroundcontrol/overview/what-is-qgc",
+          "ref": "sys-dron/what-is-qgc",
           "title": "Що таке QGroundControl"
         },
         {
-          "ref": "qgroundcontrol/architecture/vehicle-object",
+          "ref": "sys-dron/vehicle-object",
           "title": "Vehicle: модель апарата"
         },
         {
-          "ref": "qgroundcontrol/links/link-manager",
+          "ref": "sys-dron/link-manager",
           "title": "Менеджер каналів"
         },
         {
-          "ref": "qgroundcontrol/architecture/fact-system",
+          "ref": "sys-dron/fact-system",
           "title": "FactSystem: параметри апарата"
         },
         {
-          "ref": "qgroundcontrol/links/mavlink-handling",
+          "ref": "sys-dron/mavlink-handling",
           "title": "Обробка MAVLink у станції"
         }
       ]
@@ -365,23 +365,23 @@
       "title": "План і карта",
       "topics": [
         {
-          "ref": "qgroundcontrol/planning/plan-model",
+          "ref": "sys-dron/plan-model",
           "title": "Модель плану місії"
         },
         {
-          "ref": "qgroundcontrol/planning/plan-exchange",
+          "ref": "sys-dron/plan-exchange",
           "title": "Обмін планом із апаратом"
         },
         {
-          "ref": "algorithms/signal-robotics/survey-grid-coverage",
+          "ref": "sys-dron/survey-grid-coverage",
           "title": "Покриття полігону галсами"
         },
         {
-          "ref": "qgroundcontrol/map-video/map-engine",
+          "ref": "sys-dron/map-engine",
           "title": "Рушій карти"
         },
         {
-          "ref": "math/geometry/web-mercator-tiles",
+          "ref": "math-geometry/web-mercator-tiles",
           "title": "Web Mercator і тайли"
         }
       ]
@@ -391,7 +391,7 @@
       "title": "Відео у станції",
       "topics": [
         {
-          "ref": "qgroundcontrol/map-video/video-pipeline",
+          "ref": "sys-dron/video-pipeline",
           "title": "Відеотракт на GStreamer"
         }
       ]

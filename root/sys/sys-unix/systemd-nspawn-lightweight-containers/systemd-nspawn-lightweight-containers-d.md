@@ -1,10 +1,10 @@
 # Контейнеризація у systemd: інструмент systemd-nspawn
 
 <preknowlist>
-- [Простори імен: глибокий семантичний розбір](topic:sys-unix/namespaces) — ізоляція PID, mount, net, ipc, uts та user у ядрі Linux.
-- [Роль init і особливість PID 1](topic:sys-unix/init-and-pid1) — прибирання зомбі-процесів, обробка сигналів та ініціалізація дерева системних служб.
-- [Контролери Cgroups v2](topic:sys-unix/cgroup-v2-controllers) — обмеження та облік CPU, RAM та I/O для ієрархічних груп процесів.
-- [Можливості на практиці](topic:sys-unix/capabilities-in-practice) — розщеплення привілеїв root через привілеї CAP_SYS_ADMIN, CAP_NET_ADMIN та безпечне пониження прав.
+- [Простори імен: глибокий семантичний розбір](root:sys-unix/namespaces) — ізоляція PID, mount, net, ipc, uts та user у ядрі Linux.
+- [Роль init і особливість PID 1](root:sys-unix/init-and-pid1) — прибирання зомбі-процесів, обробка сигналів та ініціалізація дерева системних служб.
+- [Контролери Cgroups v2](root:sys-unix/cgroup-v2-controllers) — обмеження та облік CPU, RAM та I/O для ієрархічних груп процесів.
+- [Можливості на практиці](root:sys-unix/capabilities-in-practice) — розщеплення привілеїв root через привілеї CAP_SYS_ADMIN, CAP_NET_ADMIN та безпечне пониження прав.
 </preknowlist>
 
 Спроба запустити повноцінну операційну систему або менеджер ініціалізації systemd усередині класичної директорії `chroot` призводить до миттєвого краху системного оточення хоста. Оскільки `chroot` змінює лише шлях до кореня файлової системи у підсистемі VFS, новий процес ініціалізації зчитує неізольовану псевдофайлову систему `/proc` хоста, бачить усі сторонні процеси, намагається підключитися до хостової системної шини D-Bus, надсилає сигнали завершення чужим службам та модифікує загальний мережевий стек. Для безпечного тестування збірок ОС, ізоляції системних служб та створення легковагових контейнерів у системному менеджері systemd розроблено інструмент `systemd-nspawn`.
@@ -26,7 +26,7 @@
 ![Порівняння межі ізоляції: chroot проти systemd-nspawn](img/chroot-vs-nspawn.svg)
 *Порівняння конструкції ізоляції chroot та systemd-nspawn.*
 
-Історичні передумови виникнення інструменту `systemd-nspawn` та еволюція від системного виклику `chroot` 1979 року до сучасних ядерних просторів імен детально висвітлені у вставці [Від chroot до systemd-nspawn: еволюція контейнеризації у Linux](topic:sys-unix/systemd-nspawn-lightweight-containers/hist-chroot-to-nspawn.md).
+Історичні передумови виникнення інструменту `systemd-nspawn` та еволюція від системного виклику `chroot` 1979 року до сучасних ядерних просторів імен детально висвітлені у вставці [Від chroot до systemd-nspawn: еволюція контейнеризації у Linux](root:sys-unix/systemd-nspawn-lightweight-containers/hist-chroot-to-nspawn.md).
 
 ---
 
@@ -171,7 +171,7 @@ machinectl shell web-node1
 machinectl poweroff web-node1
 ```
 
-Повний опис параметрів командного рядка, синтаксису конфігураційних файлів `.nspawn` та специфікація D-Bus методів експортованих `systemd-machined` наведено у вставці [Інтерфейс та конфігурація systemd-nspawn: параметри CLI, файли .nspawn та D-Bus](topic:sys-unix/systemd-nspawn-lightweight-containers/api-nspawn-cli-and-nspawn-file.md).
+Повний опис параметрів командного рядка, синтаксису конфігураційних файлів `.nspawn` та специфікація D-Bus методів експортованих `systemd-machined` наведено у вставці [Інтерфейс та конфігурація systemd-nspawn: параметри CLI, файли .nspawn та D-Bus](root:sys-unix/systemd-nspawn-lightweight-containers/api-nspawn-cli-and-nspawn-file.md).
 
 ---
 
@@ -275,7 +275,7 @@ sudo trace-cmd record -e sched:sched_process_fork -e syscalls:sys_enter_clone
 2. **Створення дискових образів (mkosi):** Інструмент `mkosi` (Make Operating System Images) використовує `systemd-nspawn` для безпечного розгортання та побудови системних образів у ізольованому середовищі.
 3. **Ізоляція складних системних служб:** Запуск застарілих або потенційно небезпечних системних служб у ізольованому контейнері через шаблонований юніт `systemd-nspawn@.service`.
 
-Практичні приклади розгортання контейнера, конфігурування мережевих інтерфейсів та написання програмного коду інспектування мовами C та C++ наведено у вставці [Практичне створення та програмне управління контейнером systemd-nspawn](topic:sys-unix/systemd-nspawn-lightweight-containers/proj-nspawn-custom-container.md).
+Практичні приклади розгортання контейнера, конфігурування мережевих інтерфейсів та написання програмного коду інспектування мовами C та C++ наведено у вставці [Практичне створення та програмне управління контейнером systemd-nspawn](root:sys-unix/systemd-nspawn-lightweight-containers/proj-nspawn-custom-container.md).
 
 #### Межі застосування та порівняння з OCI/Docker runtimes:
 `systemd-nspawn` **свідомо не позиціонується** як заміна мульти-тенантних контейнерних середовищ (таких як Docker, Podman, containerd або Kubernetes).

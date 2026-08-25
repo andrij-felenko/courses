@@ -275,7 +275,7 @@ std::expected<PageRankResult, std::string> compute_pagerank(
 
 ### Покрокове чисельне трасування на тестовому графі
 
-Розглянемо виконання алгоритму на графі з 4 вершин із [основної статті](topic:sf-algorithms/pagerank-algorithm/pagerank-algorithm-d.md):
+Розглянемо виконання алгоритму на графі з 4 вершин із [основної статті](root:sf-algorithms/pagerank-algorithm/pagerank-algorithm-d.md):
 - Вузол `A` (індекс 0) має посилання на `B` (1) та `C` (2). `out_degree[A] = 2`.
 - Вузол `B` (індекс 1) має посилання на `D` (3). `out_degree[B] = 1`.
 - Вузол `C` (індекс 2) має посилання на `D` (3). `out_degree[C] = 1`.

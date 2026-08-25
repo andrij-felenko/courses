@@ -11,23 +11,23 @@
       "title": "Вимірювальний тракт",
       "topics": [
         {
-          "ref": "electronics/what-is-a-sensor",
+          "ref": "hw-sensing/what-is-a-sensor",
           "title": "Що таке давач"
         },
         {
-          "ref": "electronics/transducer-classes",
+          "ref": "hw-sensing/transducer-classes",
           "title": "Класи перетворювачів"
         },
         {
-          "ref": "electronics/sensor-characteristics",
+          "ref": "hw-sensing/sensor-characteristics",
           "title": "Характеристики давача"
         },
         {
-          "ref": "electronics/piezo-optical-semiconductor",
+          "ref": "hw-sensing/piezo-optical-semiconductor",
           "title": "П'єзо й оптичні перетворювачі"
         },
         {
-          "ref": "electronics/sensor-input-matching",
+          "ref": "hw-sensing/sensor-input-matching",
           "title": "Узгодження давача з входом"
         },
         {
@@ -41,7 +41,7 @@
           }
         },
         {
-          "ref": "electronics/voltage-reference-sources",
+          "ref": "hw-analog/voltage-reference-sources",
           "title": "Опора вимірювання"
         },
         {
@@ -55,19 +55,19 @@
           }
         },
         {
-          "ref": "communications/nyquist-aliasing",
+          "ref": "com-signal/nyquist-aliasing",
           "title": "Найквіст і аліасинг"
         },
         {
-          "ref": "electronics/adc-quantization",
+          "ref": "hw-analog/adc-quantization",
           "title": "Скільки біт справжні"
         },
         {
-          "ref": "physics/flicker-noise",
+          "ref": "ph-condensed/flicker-noise",
           "title": "Шумова підлога тракту"
         },
         {
-          "ref": "electronics/offset-voltage",
+          "ref": "hw-analog/offset-voltage",
           "title": "Дрейф нуля й боротьба з ним"
         },
         {
@@ -87,23 +87,23 @@
       "title": "Похибка й калібрування",
       "topics": [
         {
-          "ref": "electronics/measurement-errors",
+          "ref": "hw-sensing/measurement-errors",
           "title": "Похибки вимірювань"
         },
         {
-          "ref": "electronics/measurement-uncertainty",
+          "ref": "hw-sensing/measurement-uncertainty",
           "title": "Точність, роздільність, повторюваність"
         },
         {
-          "ref": "math/error-budget",
+          "ref": "math-probability/error-budget",
           "title": "Бюджет похибки"
         },
         {
-          "ref": "electronics/drift-hysteresis-noise",
+          "ref": "hw-sensing/drift-hysteresis-noise",
           "title": "Дрейф і гістерезис"
         },
         {
-          "ref": "math/averaging",
+          "ref": "math-probability/averaging",
           "title": "Виграш від усереднення"
         },
         {
@@ -117,15 +117,15 @@
           }
         },
         {
-          "ref": "electronics/calibration",
+          "ref": "hw-sensing/calibration",
           "title": "Дві точки, багато точок, крива"
         },
         {
-          "ref": "electronics/traceability",
+          "ref": "hw-sensing/traceability",
           "title": "Простежуваність і повірка за еталоном"
         },
         {
-          "ref": "electronics/worst-case-analysis",
+          "ref": "hw-components/worst-case-analysis",
           "title": "Проєктування під найгірший екземпляр"
         },
         {
@@ -145,43 +145,43 @@
       "title": "Виносний давач",
       "topics": [
         {
-          "ref": "communications/single-ended-line-limits",
+          "ref": "com-medium/single-ended-line-limits",
           "title": "Чому давач на дроті бреше"
         },
         {
-          "ref": "electronics/common-mode-noise",
+          "ref": "hw-analog/common-mode-noise",
           "title": "Синфазна завада й диференційний вхід"
         },
         {
-          "ref": "electronics/ground-loops",
+          "ref": "hw-pcb/ground-loops",
           "title": "Земляні петлі"
         },
         {
-          "ref": "electronics/shielding",
+          "ref": "hw-pcb/shielding",
           "title": "Екранування"
         },
         {
-          "ref": "electronics/current-loop-4-20ma",
+          "ref": "hw-analog/current-loop-4-20ma",
           "title": "Струмова петля 4–20 мА"
         },
         {
-          "ref": "electronics/kelvin-connection",
+          "ref": "hw-sensing/kelvin-connection",
           "title": "Чотири дроти замість двох"
         },
         {
-          "ref": "electronics/digital-isolator",
+          "ref": "hw-digital/digital-isolator",
           "title": "Гальванічна розв'язка вимірювання"
         },
         {
-          "ref": "electronics/input-protection-analog",
+          "ref": "hw-analog/input-protection-analog",
           "title": "Захист входу"
         },
         {
-          "ref": "communications/modbus",
+          "ref": "com-protocol/modbus",
           "title": "Давач як вузол шини"
         },
         {
-          "ref": "communications/tdr",
+          "ref": "com-medium/tdr",
           "title": "Пошук обриву в кабелі"
         },
         {
@@ -201,49 +201,49 @@
       "title": "Тепло",
       "topics": [
         {
-          "ref": "electronics/ntc-thermistor",
+          "ref": "hw-sensing/ntc-thermistor",
           "title": "NTC-термістор"
         },
         {
-          "ref": "electronics/steinhart-hart",
+          "ref": "hw-sensing/steinhart-hart",
           "title": "Лінеаризація термістора"
         },
         {
-          "ref": "electronics/rtd-sensor",
+          "ref": "hw-sensing/rtd-sensor",
           "title": "RTD: платина замість оксиду"
         },
         {
-          "ref": "electronics/thermocouple",
+          "ref": "hw-sensing/thermocouple",
           "title": "Термопара"
         },
         {
-          "ref": "physics/efekt-zeiebeka",
+          "ref": "hw-sensing/efekt-zeiebeka",
           "title": "Ефект Зеєбека",
           "todo": "нова тема",
           "hint": "physics/condensed-matter-physics"
         },
         {
-          "ref": "electronics/kholodnyi-spai-i-ioho-kompensatsiia",
+          "ref": "hw-sensing/kholodnyi-spai-i-ioho-kompensatsiia",
           "title": "Холодний спай і його компенсація",
           "todo": "нова тема",
           "hint": "electronics/sensors"
         },
         {
-          "ref": "sensors/ds18b20",
+          "ref": "cat-hw-sensors/ds18b20",
           "title": "Цифровий давач температури"
         },
         {
-          "ref": "physics/heat-transfer",
+          "ref": "ph-thermodynamics/heat-transfer",
           "title": "Тепло, що доходить до давача"
         },
         {
-          "ref": "electronics/ich-termometriia-i-vyprominiuvalna-zdatnist",
+          "ref": "hw-sensing/ich-termometriia-i-vyprominiuvalna-zdatnist",
           "title": "ІЧ-термометрія й випромінювальна здатність",
           "todo": "нова тема",
           "hint": "electronics/sensors"
         },
         {
-          "ref": "electronics/teplovizor",
+          "ref": "hw-sensing/teplovizor",
           "title": "Тепловізор: матриця мікроболометрів",
           "todo": "нова тема",
           "hint": "electronics/sensors"
@@ -265,47 +265,47 @@
       "title": "Світло",
       "topics": [
         {
-          "ref": "electronics/photo-sensors",
+          "ref": "hw-sensing/photo-sensors",
           "title": "Фотодавачі"
         },
         {
-          "ref": "electronics/photodetector-physics",
+          "ref": "hw-sensing/photodetector-physics",
           "title": "Фізика фотоприймача"
         },
         {
-          "ref": "electronics/dark-current",
+          "ref": "hw-sensing/dark-current",
           "title": "Фотострум у напругу"
         },
         {
-          "ref": "physics/liumen-liuks-kandela",
+          "ref": "hw-sensing/liumen-liuks-kandela",
           "title": "Люмен, люкс, кандела: фотометрія проти радіометрії",
           "todo": "нова тема",
           "hint": "physics/optics"
         },
         {
-          "ref": "electronics/davach-osvitlenosti-als",
+          "ref": "hw-sensing/davach-osvitlenosti-als",
           "title": "Давач освітленості (ALS)",
           "todo": "нова тема",
           "hint": "electronics/sensors"
         },
         {
-          "ref": "electronics/color-sensor",
+          "ref": "hw-sensing/color-sensor",
           "title": "Колір як вимірювання"
         },
         {
-          "ref": "electronics/uv-light-sensor",
+          "ref": "hw-sensing/uv-light-sensor",
           "title": "УФ-індекс"
         },
         {
-          "ref": "electronics/ir-communication",
+          "ref": "com-medium/ir-communication",
           "title": "Модульований ІЧ: як не осліпнути від сонця"
         },
         {
-          "ref": "electronics/avalanche-photodiode",
+          "ref": "hw-sensing/avalanche-photodiode",
           "title": "Лавинний режим і лічба фотонів"
         },
         {
-          "ref": "sensors/ky-026-flame",
+          "ref": "cat-hw-sensors/ky-026-flame",
           "title": "Полум'я, дим і чому це оптика"
         }
       ]
@@ -315,49 +315,49 @@
       "title": "Повітря",
       "topics": [
         {
-          "ref": "electronics/environment-sensors",
+          "ref": "hw-sensing/environment-sensors",
           "title": "Давачі оточення"
         },
         {
-          "ref": "electronics/capacitive-humidity-sensor",
+          "ref": "hw-sensing/capacitive-humidity-sensor",
           "title": "Вологість: ємність, що змінюється"
         },
         {
-          "ref": "physics/dew-point",
+          "ref": "ph-thermodynamics/dew-point",
           "title": "Точка роси й конденсат у приладі"
         },
         {
-          "ref": "electronics/mems-pressure-sensor",
+          "ref": "hw-sensing/mems-pressure-sensor",
           "title": "Тиск як давач"
         },
         {
-          "ref": "electronics/pitot-tube",
+          "ref": "hw-sensing/pitot-tube",
           "title": "Швидкість потоку"
         },
         {
-          "ref": "electronics/ndir-sensor",
+          "ref": "hw-sensing/ndir-sensor",
           "title": "CO₂ по-справжньому: NDIR"
         },
         {
-          "ref": "electronics/mox-gas-sensor",
+          "ref": "hw-sensing/mox-gas-sensor",
           "title": "Напівпровідниковий давач газу й що таке eCO₂"
         },
         {
-          "ref": "electronics/electrochemical-cell",
+          "ref": "hw-sensing/electrochemical-cell",
           "title": "Електрохімічна комірка: CO, O₂"
         },
         {
-          "ref": "electronics/dust-aerosol-sensor",
+          "ref": "hw-sensing/dust-aerosol-sensor",
           "title": "Пил PM2.5",
           "todo": "нова тема",
           "hint": "physics/optics"
         },
         {
-          "ref": "electronics/cross-sensitivity-compensation",
+          "ref": "hw-sensing/cross-sensitivity-compensation",
           "title": "Крос-чутливість і температурна поправка"
         },
         {
-          "ref": "electronics/indeks-iakosti-povitria",
+          "ref": "hw-sensing/indeks-iakosti-povitria",
           "title": "Індекс якості повітря",
           "todo": "нова тема",
           "hint": "electronics/sensors"
@@ -389,29 +389,29 @@
           }
         },
         {
-          "ref": "physics/optyka-linza-fokusna-vidstan-pole-zoru",
+          "ref": "ph-waves/optyka-linza-fokusna-vidstan-pole-zoru",
           "title": "Оптика: лінза, фокусна відстань, поле зору",
           "todo": "нова тема",
           "hint": "physics/optics"
         },
         {
-          "ref": "electronics/reflection-absorption",
+          "ref": "hw-sensing/reflection-absorption",
           "title": "Відбиття IR і оптичний бар'єр"
         },
         {
-          "ref": "electronics/pir-sensor",
+          "ref": "hw-sensing/pir-sensor",
           "title": "PIR: рух як зміна тепла"
         },
         {
-          "ref": "electronics/ultrasonic-rangefinder-module",
+          "ref": "hw-sensing/ultrasonic-rangefinder-module",
           "title": "Ультразвук"
         },
         {
-          "ref": "electronics/tof-laser",
+          "ref": "hw-sensing/tof-laser",
           "title": "Лазерний ToF"
         },
         {
-          "ref": "electronics/triangulation",
+          "ref": "hw-sensing/triangulation",
           "title": "Тріангуляція"
         },
         {
@@ -443,7 +443,7 @@
           ]
         },
         {
-          "ref": "electronics/fmcw-radar",
+          "ref": "com-signal/fmcw-radar",
           "title": "Радар на 24/60 ГГц"
         },
         {
@@ -457,11 +457,11 @@
           }
         },
         {
-          "ref": "electronics/capacitive-sensing",
+          "ref": "hw-sensing/capacitive-sensing",
           "title": "Близькість без відстані"
         },
         {
-          "ref": "electronics/distance-errors",
+          "ref": "hw-sensing/distance-errors",
           "title": "Похибки відстані"
         },
         {
@@ -503,47 +503,47 @@
       "title": "Поля й випромінювання",
       "topics": [
         {
-          "ref": "physics/em-spectrum",
+          "ref": "ph-electromagnetism/em-spectrum",
           "title": "Електромагнітний спектр як карта давачів"
         },
         {
-          "ref": "electronics/hall-sensor",
+          "ref": "hw-sensing/hall-sensor",
           "title": "Магнітне поле й Холл"
         },
         {
-          "ref": "electronics/hall-current-sensor",
+          "ref": "hw-sensing/hall-current-sensor",
           "title": "Струм без розриву кола"
         },
         {
-          "ref": "physics/earth-magnetic-field",
+          "ref": "ph-electromagnetism/earth-magnetic-field",
           "title": "Поле Землі й що йому заважає"
         },
         {
-          "ref": "electronics/near-field-probing",
+          "ref": "hw-sensing/near-field-probing",
           "title": "Ближня зона: зондування плати"
         },
         {
-          "ref": "electronics/vymiriuvach-napruzhenosti-polia",
+          "ref": "hw-sensing/vymiriuvach-napruzhenosti-polia",
           "title": "Вимірювач напруженості поля",
           "todo": "нова тема",
           "hint": "electronics/metrology"
         },
         {
-          "ref": "communications/rssi-signal-strength",
+          "ref": "com-medium/rssi-signal-strength",
           "title": "RSSI як вимірювання, а не як індикатор"
         },
         {
-          "ref": "communications/pryimach-iz-prohramnoiu-obrobkoiu-sdr-iak-prylad",
+          "ref": "hw-sensing/pryimach-iz-prohramnoiu-obrobkoiu-sdr-iak-prylad",
           "title": "Приймач із програмною обробкою (SDR) як прилад",
           "todo": "нова тема",
           "hint": "communications/radio-engineering"
         },
         {
-          "ref": "physics/atmospheric-electricity",
+          "ref": "ph-electromagnetism/atmospheric-electricity",
           "title": "Гроза за 40 кілометрів"
         },
         {
-          "ref": "electronics/geiger-muller-counter",
+          "ref": "hw-sensing/geiger-muller-counter",
           "title": "Іонізуюче тло"
         }
       ]
@@ -553,53 +553,53 @@
       "title": "Вимірювання електромережі",
       "topics": [
         {
-          "ref": "physics/ac-power-grid",
+          "ref": "hw-power/ac-power-grid",
           "title": "Що таке мережа під навантаженням"
         },
         {
-          "ref": "electronics/mains-safety",
+          "ref": "hw-power/mains-safety",
           "title": "Спершу — як не загинути"
         },
         {
-          "ref": "electronics/insulation-classes",
+          "ref": "hw-power/insulation-classes",
           "title": "Ізоляція вимірювального каналу"
         },
         {
-          "ref": "electronics/kelvin-shunt",
+          "ref": "hw-sensing/kelvin-shunt",
           "title": "Шунт"
         },
         {
-          "ref": "electronics/current-transformer",
+          "ref": "hw-sensing/current-transformer",
           "title": "Трансформатор струму й котушка Роговського"
         },
         {
-          "ref": "electronics/current-monitor",
+          "ref": "hw-sensing/current-monitor",
           "title": "Підсилювач вимірювання струму"
         },
         {
-          "ref": "electronics/true-rms",
+          "ref": "hw-sensing/true-rms",
           "title": "Справжній RMS проти середньовипрямленого"
         },
         {
-          "ref": "physics/instantaneous-power",
+          "ref": "ph-electromagnetism/instantaneous-power",
           "title": "Миттєва потужність, активна, реактивна, повна"
         },
         {
-          "ref": "electronics/harmonic-distortion",
+          "ref": "hw-analog/harmonic-distortion",
           "title": "Спотворений струм: гармоніки й THD"
         },
         {
-          "ref": "electronics/zero-cross-switching",
+          "ref": "hw-power/zero-cross-switching",
           "title": "Синхронізація з мережею"
         },
         {
-          "ref": "electronics/kilovat-hodyna",
+          "ref": "hw-sensing/kilovat-hodyna",
           "title": "Кіловат-година: облік енергії в пристрої",
           "todo": "нова тема",
           "hint": "electronics/metrology"
         },
         {
-          "ref": "electronics/mikroskhema-lichylnyk-enerhii",
+          "ref": "hw-sensing/mikroskhema-lichylnyk-enerhii",
           "title": "Мікросхема-лічильник енергії",
           "todo": "нова тема",
           "hint": "electronics/metrology"
@@ -621,27 +621,27 @@
       "title": "Потік вимірювань",
       "topics": [
         {
-          "ref": "programming/dma-problem",
+          "ref": "hw-arch/dma-problem",
           "title": "Проблема потоку даних"
         },
         {
-          "ref": "programming/periodic-scheduling",
+          "ref": "sf-devices/periodic-scheduling",
           "title": "Розклад опитування десяти давачів"
         },
         {
-          "ref": "communications/measurement-time",
+          "ref": "hw-sensing/measurement-time",
           "title": "Коли саме сталося вимірювання"
         },
         {
-          "ref": "communications/synchronous-multi-sensor-read",
+          "ref": "hw-sensing/synchronous-multi-sensor-read",
           "title": "Спільна шкала часу"
         },
         {
-          "ref": "algorithms/moving-average",
+          "ref": "com-signal/moving-average",
           "title": "Дешеве згладжування"
         },
         {
-          "ref": "algorithms/smoothing-vs-lag",
+          "ref": "com-signal/smoothing-vs-lag",
           "title": "Ціна згладжування"
         },
         {
@@ -723,19 +723,19 @@
           }
         },
         {
-          "ref": "algorithms/sensor-insufficiency",
+          "ref": "com-signal/sensor-insufficiency",
           "title": "Давач збрехав"
         },
         {
-          "ref": "communications/decimation",
+          "ref": "com-signal/decimation",
           "title": "Проріджування без утрати події"
         },
         {
-          "ref": "math/percentiles-quantiles",
+          "ref": "math-probability/percentiles-quantiles",
           "title": "Подія замість потоку"
         },
         {
-          "ref": "programming/self-describing-format",
+          "ref": "sf-data/self-describing-format",
           "title": "Формат вимірювання на дроті"
         },
         {
@@ -765,11 +765,11 @@
       "title": "Звук",
       "topics": [
         {
-          "ref": "electronics/microphone-speaker",
+          "ref": "hw-motion/microphone-speaker",
           "title": "Мікрофон і динамік"
         },
         {
-          "ref": "electronics/mems-microphone",
+          "ref": "hw-sensing/mems-microphone",
           "title": "MEMS-мікрофон"
         },
         {
@@ -817,11 +817,11 @@
           ]
         },
         {
-          "ref": "algorithms/cic-filter",
+          "ref": "com-signal/cic-filter",
           "title": "PDM і децимація"
         },
         {
-          "ref": "physics/riven-u-detsybelakh",
+          "ref": "ph-waves/riven-u-detsybelakh",
           "title": "Рівень у децибелах",
           "todo": "нова тема",
           "hint": "physics/oscillations-waves"
@@ -847,7 +847,7 @@
           }
         },
         {
-          "ref": "math/windowing-leakage",
+          "ref": "com-signal/windowing-leakage",
           "title": "Вікно, витік і роздільність спектра",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
@@ -947,7 +947,7 @@
           ]
         },
         {
-          "ref": "algorithms/mikrofonnyi-masyv",
+          "ref": "ph-waves/mikrofonnyi-masyv",
           "title": "Мікрофонний масив: напрям на джерело",
           "todo": "нова тема",
           "hint": "algorithms/signal-robotics"
@@ -969,25 +969,25 @@
       "title": "Камера",
       "topics": [
         {
-          "ref": "electronics/image-sensor",
+          "ref": "hw-sensing/image-sensor",
           "title": "Сенсор зображення"
         },
         {
-          "ref": "physics/obiektyv-i-ekspozytsiia",
+          "ref": "ph-waves/obiektyv-i-ekspozytsiia",
           "title": "Об'єктив і експозиція: поле зору, діафрагма, витримка, підсилення",
           "todo": "нова тема",
           "hint": "physics/optics"
         },
         {
-          "ref": "electronics/cmos-matrix",
+          "ref": "hw-sensing/cmos-matrix",
           "title": "CMOS-матриця"
         },
         {
-          "ref": "electronics/rolling-shutter",
+          "ref": "hw-sensing/rolling-shutter",
           "title": "Рядкова заслінка"
         },
         {
-          "ref": "electronics/dynamic-range-noise",
+          "ref": "hw-sensing/dynamic-range-noise",
           "title": "Шум і динамічний діапазон кадру"
         },
         {
@@ -1001,7 +1001,7 @@
           }
         },
         {
-          "ref": "algorithms/bayer-demosaic",
+          "ref": "sf-visual/bayer-demosaic",
           "title": "Демозаїка"
         },
         {
@@ -1015,15 +1015,15 @@
           }
         },
         {
-          "ref": "algorithms/white-balance",
+          "ref": "sf-visual/white-balance",
           "title": "Баланс білого"
         },
         {
-          "ref": "algorithms/pixel-formats",
+          "ref": "sf-visual/pixel-formats",
           "title": "Формати пікселів і буферів зображення"
         },
         {
-          "ref": "algorithms/camera-model",
+          "ref": "sf-visual/camera-model",
           "title": "Модель камери й калібрування"
         },
         {
@@ -1043,27 +1043,27 @@
       "title": "Кадр як дані",
       "topics": [
         {
-          "ref": "algorithms/image-as-data",
+          "ref": "sf-visual/image-as-data",
           "title": "Зображення як дані"
         },
         {
-          "ref": "algorithms/histogram",
+          "ref": "sf-visual/histogram",
           "title": "Гістограма"
         },
         {
-          "ref": "algorithms/convolution-filters",
+          "ref": "sf-visual/convolution-filters",
           "title": "Згортки й фільтри"
         },
         {
-          "ref": "algorithms/edge-detection",
+          "ref": "sf-visual/edge-detection",
           "title": "Виділення меж"
         },
         {
-          "ref": "algorithms/threshold-morphology",
+          "ref": "sf-visual/threshold-morphology",
           "title": "Пороги й морфологія"
         },
         {
-          "ref": "algorithms/background-subtraction",
+          "ref": "sf-visual/background-subtraction",
           "title": "Різниця кадрів: рух без нейромережі"
         },
         {
@@ -1077,19 +1077,19 @@
           }
         },
         {
-          "ref": "algorithms/template-matching",
+          "ref": "sf-visual/template-matching",
           "title": "Мітка як опора"
         },
         {
-          "ref": "electronics/structured-light-3d",
+          "ref": "hw-sensing/structured-light-3d",
           "title": "Глибина з кадру"
         },
         {
-          "ref": "algorithms/why-compress",
+          "ref": "math-information/why-compress",
           "title": "Кадр у байти"
         },
         {
-          "ref": "algorithms/rate-control-algorithms",
+          "ref": "com-signal/rate-control-algorithms",
           "title": "Ціна якості"
         },
         {

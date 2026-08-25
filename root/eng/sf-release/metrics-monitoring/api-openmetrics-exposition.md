@@ -1,7 +1,7 @@
 # 📋 Специфікація текстового формату OpenMetrics / Prometheus
 
 <preknowlist>
-- [Метрики й числовий моніторинг](topic:sf-release/metrics-monitoring) — базове розуміння типів метрик (Counter, Gauge, Histogram, Summary) та багатовимірних міток.
+- [Метрики й числовий моніторинг](root:sf-release/metrics-monitoring) — базове розуміння типів метрик (Counter, Gauge, Histogram, Summary) та багатовимірних міток.
 </preknowlist>
 
 Формат передачі числових показників OpenMetrics (IETF RFC Draft) та сумісний із ним текстовий формат Prometheus Exposition Format v0.0.4 є промисловими стандартами для експорту та збору телеметрії. Формат оптимізований для простоти генерації в користувацьких процесах, потокового парсингу без виділення пам'яті (streaming parsing) та ефективного стиснення при передачі через HTTP.

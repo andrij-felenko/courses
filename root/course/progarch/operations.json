@@ -21,33 +21,33 @@
           }
         },
         {
-          "ref": "programming/structured-logging",
+          "ref": "sf-release/structured-logging",
           "title": "Структуровані логи"
         },
         {
-          "ref": "programming/metrics-monitoring",
+          "ref": "sf-release/metrics-monitoring",
           "title": "Метрики"
         },
         {
-          "ref": "programming/distributed-tracing",
+          "ref": "sf-release/distributed-tracing",
           "title": "Розподілений трейсинг"
         },
         {
-          "ref": "programming/call-context-propagation",
+          "ref": "sf-apps/call-context-propagation",
           "title": "Наскрізний контекст виклику: хто, для кого, у якому запиті",
           "todo": "нова тема",
           "hint": "programming/software-design"
         },
         {
-          "ref": "programming/twelve-factor",
+          "ref": "sf-apps/twelve-factor",
           "title": "Дванадцять факторів: лог як потік подій"
         },
         {
-          "ref": "unix-linux/syslog-protocol",
+          "ref": "sys-unix/syslog-protocol",
           "title": "Syslog: пріоритет, засоби й формат"
         },
         {
-          "ref": "algorithms/reservoir-sampling",
+          "ref": "sf-algorithms/reservoir-sampling",
           "title": "Вибірка з резервуара"
         },
         {
@@ -77,11 +77,11 @@
       "title": "Рівень служби",
       "topics": [
         {
-          "ref": "programming/slo-sli-sla",
+          "ref": "sf-release/slo-sli-sla",
           "title": "SLI/SLO/SLA і бюджет помилок"
         },
         {
-          "ref": "math/system-reliability-math",
+          "ref": "math-probability/system-reliability-math",
           "title": "Математика надійності систем: дев'ятки й композиція"
         },
         {
@@ -95,17 +95,17 @@
           }
         },
         {
-          "ref": "programming/alerting",
+          "ref": "sf-release/alerting",
           "title": "Алерти"
         },
         {
-          "ref": "programming/dashboard-design",
+          "ref": "sf-release/dashboard-design",
           "title": "Панель, з якої видно, що робити",
           "todo": "нова тема",
           "hint": "programming/operations"
         },
         {
-          "ref": "algorithms/plot-downsampling",
+          "ref": "com-signal/plot-downsampling",
           "title": "Прорідження часового ряду для екрана"
         },
         {
@@ -125,25 +125,25 @@
       "title": "Тривоги й чергування",
       "topics": [
         {
-          "ref": "programming/on-call-rotation",
+          "ref": "sf-release/on-call-rotation",
           "title": "Чергування: ротація, передача, межа витривалості",
           "todo": "нова тема",
           "hint": "programming/operations"
         },
         {
-          "ref": "programming/runbooks",
+          "ref": "sf-release/runbooks",
           "title": "Посібник чергового: що має бути в руці о третій ночі",
           "todo": "нова тема",
           "hint": "programming/operations"
         },
         {
-          "ref": "programming/toil-and-automation",
+          "ref": "sf-release/toil-and-automation",
           "title": "Рутина, яку треба вбити (toil)",
           "todo": "нова тема",
           "hint": "programming/operations"
         },
         {
-          "ref": "programming/preflight-checklists",
+          "ref": "sys-dron/preflight-checklists",
           "title": "Передпольотні чеклисти"
         },
         {
@@ -173,39 +173,39 @@
       "title": "Конвеєр змін",
       "topics": [
         {
-          "ref": "programming/ci-cd",
+          "ref": "sf-release/ci-cd",
           "title": "CI/CD"
         },
         {
-          "ref": "programming/branching-models",
+          "ref": "sf-release/branching-models",
           "title": "Моделі гілкування: стовбурна розробка"
         },
         {
-          "ref": "build-systems/build-system-role",
+          "ref": "sys-bsystem/build-system-role",
           "title": "Від дерева файлів до артефакту"
         },
         {
-          "ref": "build-systems/reproducible-builds",
+          "ref": "sys-bsystem/reproducible-builds",
           "title": "Відтворювані збірки"
         },
         {
-          "ref": "programming/semantic-versioning",
+          "ref": "sf-release/semantic-versioning",
           "title": "Семантичне версіонування"
         },
         {
-          "ref": "programming/release-channels",
+          "ref": "sf-release/release-channels",
           "title": "Канали постачання: стабільний, тестовий, нічний"
         },
         {
-          "ref": "programming/flaky-tests",
+          "ref": "sf-release/flaky-tests",
           "title": "Миготливі тести: ворота, які брешуть"
         },
         {
-          "ref": "programming/containers",
+          "ref": "sf-os/containers",
           "title": "Контейнери"
         },
         {
-          "ref": "programming/model-artifact",
+          "ref": "sf-release/model-artifact",
           "title": "Модель як версійований артефакт"
         },
         {
@@ -225,19 +225,19 @@
       "title": "Середовища й прапорці",
       "topics": [
         {
-          "ref": "programming/environments-and-parity",
+          "ref": "sf-release/environments-and-parity",
           "title": "Середовища: dev, stage, prod і чому stage бреше",
           "todo": "нова тема",
           "hint": "programming/operations"
         },
         {
-          "ref": "programming/non-prod-data",
+          "ref": "sf-release/non-prod-data",
           "title": "Дані для не-прод середовищ: маскування, зменшення, синтетика",
           "todo": "нова тема",
           "hint": "programming/operations"
         },
         {
-          "ref": "programming/feature-flags",
+          "ref": "sf-release/feature-flags",
           "title": "Прапорці функцій"
         },
         {
@@ -251,15 +251,15 @@
           }
         },
         {
-          "ref": "programming/infrastructure-as-code",
+          "ref": "sf-release/infrastructure-as-code",
           "title": "Інфраструктура як код"
         },
         {
-          "ref": "programming/container-orchestration",
+          "ref": "sf-release/container-orchestration",
           "title": "Оркестрація"
         },
         {
-          "ref": "unix-linux/namespaces",
+          "ref": "sys-unix/namespaces",
           "title": "Простори імен: ізоляція погляду на систему"
         },
         {
@@ -317,15 +317,15 @@
       "title": "Викочування й відкат",
       "topics": [
         {
-          "ref": "programming/deployment-strategies",
+          "ref": "sf-release/deployment-strategies",
           "title": "Стратегії деплою"
         },
         {
-          "ref": "programming/blue-green-deployment",
+          "ref": "sf-release/blue-green-deployment",
           "title": "Синьо-зелене розгортання"
         },
         {
-          "ref": "programming/canary-deployment",
+          "ref": "sf-release/canary-deployment",
           "title": "Канаркове розгортання"
         },
         {
@@ -339,11 +339,11 @@
           }
         },
         {
-          "ref": "programming/dark-launch",
+          "ref": "sf-release/dark-launch",
           "title": "Темний запуск і feature-flag-міграція"
         },
         {
-          "ref": "programming/parallel-run",
+          "ref": "sf-release/parallel-run",
           "title": "Parallel run"
         },
         {
@@ -357,15 +357,15 @@
           }
         },
         {
-          "ref": "programming/zero-downtime-migration",
+          "ref": "sf-release/zero-downtime-migration",
           "title": "Zero-downtime міграції даних"
         },
         {
-          "ref": "programming/graceful-shutdown",
+          "ref": "sf-release/graceful-shutdown",
           "title": "Штатне вимкнення і drain"
         },
         {
-          "ref": "programming/ota-update",
+          "ref": "sf-devices/ota-update",
           "title": "OTA-оновлення"
         },
         {
@@ -395,7 +395,7 @@
       "title": "Інцидент",
       "topics": [
         {
-          "ref": "programming/incident-response",
+          "ref": "sf-release/incident-response",
           "title": "Реагування на інциденти"
         },
         {
@@ -409,7 +409,7 @@
           }
         },
         {
-          "ref": "programming/incident-communication",
+          "ref": "sf-release/incident-communication",
           "title": "Що казати назовні, поки лагодиш",
           "todo": "нова тема",
           "hint": "programming/operations"
@@ -451,11 +451,11 @@
       "title": "Посмертний розбір",
       "topics": [
         {
-          "ref": "programming/postmortems",
+          "ref": "sf-release/postmortems",
           "title": "Постмортем без винних"
         },
         {
-          "ref": "algorithms/fault-tree-analysis",
+          "ref": "sf-release/fault-tree-analysis",
           "title": "Аналіз дерева відмов (FTA)"
         },
         {
@@ -505,7 +505,7 @@
       "title": "Придатність до діагностики",
       "topics": [
         {
-          "ref": "programming/operability-tactics",
+          "ref": "sf-apps/operability-tactics",
           "title": "Тактики експлуатованості й розгортуваності"
         },
         {
@@ -519,25 +519,25 @@
           }
         },
         {
-          "ref": "programming/debug-endpoints",
+          "ref": "sf-release/debug-endpoints",
           "title": "Діагностичний інтерфейс застосунку: що відкривати в проді",
           "todo": "нова тема",
           "hint": "programming/operations"
         },
         {
-          "ref": "unix-linux/perf-events",
+          "ref": "sys-unix/perf-events",
           "title": "perf: лічильники й вибірковий профіль"
         },
         {
-          "ref": "unix-linux/systemtap-and-bpftrace",
+          "ref": "sys-unix/systemtap-and-bpftrace",
           "title": "Трасування живої системи без перезбирання"
         },
         {
-          "ref": "unix-linux/core-dump",
+          "ref": "embedded/core-dump",
           "title": "Аварійний дамп: як налаштувати й що видно"
         },
         {
-          "ref": "programming/heisenbug",
+          "ref": "sf-release/heisenbug",
           "title": "Гейзенбаги й спостережницький ефект"
         },
         {

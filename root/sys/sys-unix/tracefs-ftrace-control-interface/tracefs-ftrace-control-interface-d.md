@@ -1,8 +1,8 @@
 # Налагодові ВФС: debugfs та tracefs
 
 <preknowlist>
-- [Віртуальна файлова система procfs](topic:sys-unix/proc-reading-process-and-kernel-state) — псевдофайлова система /proc та відображення внутрішнього стану процесів.
-- [Об'єкти та атрибути sysfs](topic:sys-unix/sysfs-device-model) — ієрархія kobjects, пристроїв та суворі обмеження на опис атрибутів.
+- [Віртуальна файлова система procfs](root:sys-unix/proc-reading-process-and-kernel-state) — псевдофайлова система /proc та відображення внутрішнього стану процесів.
+- [Об'єкти та атрибути sysfs](root:sys-unix/sysfs-device-model) — ієрархія kobjects, пристроїв та суворі обмеження на опис атрибутів.
 </preknowlist>
 
 Під час розробки або глибокого налагодження драйвера периферійного пристрою в ядрі Linux інженер стикається з необхідністю вивантажити багатокілобайтний дамп внутрішніх регістрів, таблиць DMA та лічильників блокувань. Спроба експортувати ці дані через `sysfs` негайно виявляє архітектурне обмеження **«один атрибут — одне значення»** (one value per file), порушення якого блокується рецензентами ядра, а використання `procfs` призводить до некоординованого захаращення простору назв процесів. Саме для задач внутрішнього аналізу ядра без обмежень на формат виводу та без зобов'язань щодо стабільності ABI розроблено спеціалізовані псевдофайлові системи `debugfs` та `tracefs`.
@@ -37,7 +37,7 @@
 
 У ядрі Linux 4.1 (червень 2015 року) Стівен Ростедт (Steven Rostedt) виокремив підсистему трасування у незалежну ВФС **tracefs** із точкою монтування `/sys/kernel/tracing` — відтоді права на трасування роздають окремо від решти `debugfs`.
 
-Хронологію патчів, імена учасників і безпекове тло цього розділення розібрано у вставці [Історія виокремлення debugfs та tracefs](topic:sys-unix/tracefs-ftrace-control-interface/hist-debugfs-tracefs-evolution.md).
+Хронологію патчів, імена учасників і безпекове тло цього розділення розібрано у вставці [Історія виокремлення debugfs та tracefs](root:sys-unix/tracefs-ftrace-control-interface/hist-debugfs-tracefs-evolution.md).
 
 ![Архітектурне розділення ВФС ядра](img/debugfs-tracefs-architecture.svg)
 *Архітектурне розділення ВФС ядра Linux: procfs для процесів, sysfs для ієрархії пристроїв із гарантіями ABI, debugfs для сирого налагодження драйверів та tracefs для підсистеми ftrace.*
@@ -97,7 +97,7 @@ debugfs_create_u32("error_count", 0644, my_debug_dir, &error_counter);
 
 У високопродуктивних драйверах розробники іноді використовують виклик `debugfs_create_file_unsafe()`, який цей проксі-шар обходить задля економії тактів процесора, проте тоді драйвер сам відповідає за те, щоб файл не зник з-під обробника.
 
-Практичний приклад розробки модуля ядра з вузлами `debugfs` та утиліти зчитування наведено у вставці [Розробка драйвера з інтерфейсом debugfs та зчитування tracefs](topic:sys-unix/tracefs-ftrace-control-interface/proj-kernel-debugfs-module.md).
+Практичний приклад розробки модуля ядра з вузлами `debugfs` та утиліти зчитування наведено у вставці [Розробка драйвера з інтерфейсом debugfs та зчитування tracefs](root:sys-unix/tracefs-ftrace-control-interface/proj-kernel-debugfs-module.md).
 
 ### Модель безпеки та режим Kernel Lockdown
 
@@ -156,7 +156,7 @@ $ mount -t tracefs nodev /sys/kernel/tracing
 5. **set_ftrace_pid** — фільтрація трасування за ідентифікатором процесу (PID).
 6. **buffer_size_kb** — обсяг кільцевого буфера в кілобайтах, і саме **на кожне** процесорне ядро окремо, а не на всю систему.
 
-Детальний довідник усіх параметрів керування та C API наведено у вставці [Специфікація API debugfs та файлів керування tracefs](topic:sys-unix/tracefs-ftrace-control-interface/api-debugfs-tracefs-control.md).
+Детальний довідник усіх параметрів керування та C API наведено у вставці [Специфікація API debugfs та файлів керування tracefs](root:sys-unix/tracefs-ftrace-control-interface/api-debugfs-tracefs-control.md).
 
 ### Два способи читання: trace проти trace_pipe
 

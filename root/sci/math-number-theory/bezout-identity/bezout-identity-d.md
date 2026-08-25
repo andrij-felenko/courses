@@ -1,8 +1,8 @@
 <preknowlist>
-- **[Найбільший спільний дільник (НСД)](topic:math-number-theory/gcd-euclidean):** Поняття спільного дільника та алгоритм Евкліда.
-- **[Основна теорема арифметики](topic:math-number-theory/fundamental-theorem-arithmetic):** Розклад натуральних чисел на прості множники.
-- **[Група оборотних елементів кільця лишків](topic:math-number-theory/multiplicative-group-zn):** Поняття оборотних елементів у кільцях Z/nZ.
-- **[Діофантові рівняння](topic:math-number-theory/linear-diophantine):** Цілочисельні лінійні рівняння та умові існування розв'язків.
+- **[Найбільший спільний дільник (НСД)](root:math-number-theory/gcd-euclidean):** Поняття спільного дільника та алгоритм Евкліда.
+- **[Основна теорема арифметики](root:math-number-theory/fundamental-theorem-arithmetic):** Розклад натуральних чисел на прості множники.
+- **[Група оборотних елементів кільця лишків](root:math-number-theory/multiplicative-group-zn):** Поняття оборотних елементів у кільцях Z/nZ.
+- **[Діофантові рівняння](root:math-number-theory/linear-diophantine):** Цілочисельні лінійні рівняння та умові існування розв'язків.
 </preknowlist>
 
 > 🔧 **Навіщо це.**

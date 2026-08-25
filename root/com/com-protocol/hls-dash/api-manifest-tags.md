@@ -50,7 +50,7 @@
 
 `METHOD` у `EXT-X-KEY` — `NONE`, `AES-128`, `SAMPLE-AES`, `SAMPLE-AES-CTR` (у новіших редакціях додано й `AES-256-GCM`); `URI` — звідки взяти ключ (обов'язковий, крім `METHOD=NONE`); `IV` — 128-бітний вектор ініціалізації; `KEYFORMAT` і `KEYFORMATVERSIONS` — чий це ключ і якого покоління.
 
-Формат `BYTERANGE` тут той самий, що й у заголовку `Range` — [часткові запити HTTP](topic:com-protocol/http-range-requests) дозволяють попросити довільний відрізок файла й отримати у відповідь код 206; саме на них тримається спосіб «усі сегменти в одному файлі».
+Формат `BYTERANGE` тут той самий, що й у заголовку `Range` — [часткові запити HTTP](root:com-protocol/http-range-requests) дозволяють попросити довільний відрізок файла й отримати у відповідь код 206; саме на них тримається спосіб «усі сегменти в одному файлі».
 
 ### HLS: теги низької затримки
 
@@ -71,7 +71,7 @@
 
 ### DASH: ієрархія одного документа
 
-MPD — це [XML](topic:sf-data/xml-markup), тобто дерево іменованих елементів з атрибутами; усе, що нижче, — вкладені елементи, і кожен рівень успадковує атрибути від батьківського.
+MPD — це [XML](root:sf-data/xml-markup), тобто дерево іменованих елементів з атрибутами; усе, що нижче, — вкладені елементи, і кожен рівень успадковує атрибути від батьківського.
 
 | Рівень | Ключові атрибути | Що задає |
 |---|---|---|
@@ -86,9 +86,9 @@ MPD — це [XML](topic:sf-data/xml-markup), тобто дерево імено
 | `UTCTiming` | `@schemeIdUri`, `@value` | Звідки взяти точний час |
 | `ContentProtection` | `@schemeIdUri`, `@value`, `cenc:default_KID` | Що зашифровано і якою системою ключів |
 
-Часові атрибути записані двома різними способами, і плутати їх не можна: моменти (`@availabilityStartTime`, `@publishTime`) — це мітки [ISO 8601](topic:sf-data/iso-8601) виду `2026-08-08T09:00:00Z`, а тривалості (`@minimumUpdatePeriod`, `@timeShiftBufferDepth`) — записи виду `PT6S`, `PT2M`, `PT1H30M` з того самого стандарту.
+Часові атрибути записані двома різними способами, і плутати їх не можна: моменти (`@availabilityStartTime`, `@publishTime`) — це мітки [ISO 8601](root:sf-data/iso-8601) виду `2026-08-08T09:00:00Z`, а тривалості (`@minimumUpdatePeriod`, `@timeShiftBufferDepth`) — записи виду `PT6S`, `PT2M`, `PT1H30M` з того самого стандарту.
 
-Значення `@schemeIdUri` для `UTCTiming` беруться з фіксованого переліку: `urn:mpeg:dash:utc:http-xsdate:2014` і `…:http-iso:2014` (сервер віддає час текстом), `…:http-head:2014` (час беруть із заголовка `Date` відповіді на `HEAD`), `…:direct:2014` (час вписано просто в MPD), `…:ntp:2014`. Для `ContentProtection` перший елемент зазвичай `urn:mpeg:dash:mp4protection:2011` зі `value="cenc"` і атрибутом `cenc:default_KID`, а далі йде по елементу на кожну систему ключів: `urn:uuid:edef8ba9-79d6-4ace-a3c8-27dcd51d21ed` — Widevine, `urn:uuid:9a04f079-9840-4286-ab92-e65be0885f95` — PlayReady. Самі байти сегментів при цьому зашифровані однаково для всіх систем — див. [спільне шифрування медіа](topic:sf-security/common-encryption).
+Значення `@schemeIdUri` для `UTCTiming` беруться з фіксованого переліку: `urn:mpeg:dash:utc:http-xsdate:2014` і `…:http-iso:2014` (сервер віддає час текстом), `…:http-head:2014` (час беруть із заголовка `Date` відповіді на `HEAD`), `…:direct:2014` (час вписано просто в MPD), `…:ntp:2014`. Для `ContentProtection` перший елемент зазвичай `urn:mpeg:dash:mp4protection:2011` зі `value="cenc"` і атрибутом `cenc:default_KID`, а далі йде по елементу на кожну систему ключів: `urn:uuid:edef8ba9-79d6-4ace-a3c8-27dcd51d21ed` — Widevine, `urn:uuid:9a04f079-9840-4286-ab92-e65be0885f95` — PlayReady. Самі байти сегментів при цьому зашифровані однаково для всіх систем — див. [спільне шифрування медіа](root:sf-security/common-encryption).
 
 ### DASH: шаблон адреси і арифметика клієнта
 

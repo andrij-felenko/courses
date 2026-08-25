@@ -9,16 +9,16 @@
 | `devices/` | канонічне дерево — єдине місце, де вузли є справжніми каталогами; шлях повторює під'єднання | `devices/pci0000:00/0000:00:14.0/usb1/1-2` |
 | `bus/` | по каталогу на тип шини, усередині `devices/` і `drivers/` — самі посилання | `bus/usb/devices/1-2`, `bus/pci/drivers/nvme/` |
 | `class/` | групування за призначенням, а не за під'єднанням; теж посилання | `class/net/eth0`, `class/backlight/intel_backlight` |
-| `block/` | посилання на кожен [блоковий пристрій](topic:sys-unix/block-device-model) верхнього рівня та його розділи | `block/sdb`, `block/sdb/sdb1` |
-| `dev/char/`, `dev/block/` | посилання з іменем `<старший>:<молодший>` — вхід у дерево за [номерами пристрою](topic:sys-unix/major-minor-numbers) | `dev/block/8:16 → ../../devices/…/sdb` |
-| `module/` | по каталогу на кожен [модуль](topic:sys-unix/kernel-modules); усередині `parameters/`, `refcnt`, `holders/`, `initstate` | `module/usb_storage/parameters/delay_use` |
+| `block/` | посилання на кожен [блоковий пристрій](root:sys-unix/block-device-model) верхнього рівня та його розділи | `block/sdb`, `block/sdb/sdb1` |
+| `dev/char/`, `dev/block/` | посилання з іменем `<старший>:<молодший>` — вхід у дерево за [номерами пристрою](root:sys-unix/major-minor-numbers) | `dev/block/8:16 → ../../devices/…/sdb` |
+| `module/` | по каталогу на кожен [модуль](root:sys-unix/kernel-modules); усередині `parameters/`, `refcnt`, `holders/`, `initstate` | `module/usb_storage/parameters/delay_use` |
 | `firmware/` | те, що ядру розповіла прошивка машини | `firmware/dmi/id/product_name`, `firmware/acpi/tables/DSDT`, `firmware/devicetree/base/` |
-| `fs/` | каталоги, які файлові системи завели самі для себе | `fs/cgroup/` ([cgroups](topic:sys-unix/cgroups-resource-model)), `fs/ext4/sda1/`, `fs/pstore/` |
+| `fs/` | каталоги, які файлові системи завели самі для себе | `fs/cgroup/` ([cgroups](root:sys-unix/cgroups-resource-model)), `fs/ext4/sda1/`, `fs/pstore/` |
 | `kernel/` | стан і важелі самого ядра, а також точки монтування для сусідніх ФС | `kernel/uevent_seqnum`, `kernel/mm/`, `kernel/debug/`, `kernel/tracing/` |
 | `power/` | сон машини **цілком**, а не окремого пристрою | `power/state`, `power/mem_sleep`, `power/wakeup_count` |
 | `hypervisor/` | є лише тоді, коли система працює під гіпервізором | `hypervisor/type` |
 
-Дві поправки, без яких мапа оманлива. По-перше, справжні каталоги лежать тільки в `devices/`; усе інше — символьні посилання на них, тому однакового вмісту можна дійти кількома шляхами. По-друге, `kernel/debug` і `kernel/tracing` — узагалі не sysfs, а [окремі псевдо-ФС](topic:sys-unix/pseudo-filesystems) debugfs і tracefs (там живе [ftrace](topic:sys-unix/ftrace-kernel-tracing)), просто змонтовані під `/sys` заради зручності; правило «одне значення на файл» на них не поширюється. Так само `firmware/efi/efivars` — окрема ФС efivarfs.
+Дві поправки, без яких мапа оманлива. По-перше, справжні каталоги лежать тільки в `devices/`; усе інше — символьні посилання на них, тому однакового вмісту можна дійти кількома шляхами. По-друге, `kernel/debug` і `kernel/tracing` — узагалі не sysfs, а [окремі псевдо-ФС](root:sys-unix/pseudo-filesystems) debugfs і tracefs (там живе [ftrace](root:sys-unix/ftrace-kernel-tracing)), просто змонтовані під `/sys` заради зручності; правило «одне значення на файл» на них не поширюється. Так само `firmware/efi/efivars` — окрема ФС efivarfs.
 
 ## Контракт атрибута
 
@@ -40,7 +40,7 @@
 | `driver` | link | на каталог драйвера; **відсутність цього посилання й означає «не прив'язано»** |
 | `driver_override` | rw | ім'я драйвера, якому єдиному дозволено прив'язатися; порожній рядок скасовує |
 | `power/` | dir | керування живленням цього вузла |
-| `of_node` | link | на вузол [дерева пристроїв](topic:sys-unix/device-tree), якщо машину описано ним |
+| `of_node` | link | на вузол [дерева пристроїв](root:sys-unix/device-tree), якщо машину описано ним |
 | `online` | rw | `1`, `y` або `Y` — увімкнути логічно; `0`, `n` або `N` — вимкнути (ядра процесора, блоки пам'яті) |
 | `remove`, `delete` | w | зняти вузол із дерева: `remove` на PCI, `delete` на SCSI-пристроях |
 
@@ -60,7 +60,7 @@ MODALIAS=usb:v0781p5583d0100dc00dsc00dp00ic08isc06ip50in00
 
 ## Каталог `power/`
 
-Ці атрибути стосуються [присипляння пристрою на ходу](topic:sys-unix/runtime-power-management) — механізму, за яким кожен вузол засинає окремо, щойно ним перестали користуватися, не чекаючи на сон усієї машини.
+Ці атрибути стосуються [присипляння пристрою на ходу](root:sys-unix/runtime-power-management) — механізму, за яким кожен вузол засинає окремо, щойно ним перестали користуватися, не чекаючи на сон усієї машини.
 
 | Файл | Режим | Значення |
 |---|---|---|
@@ -68,7 +68,7 @@ MODALIAS=usb:v0781p5583d0100dc00dsc00dp00ic08isc06ip50in00
 | `runtime_status` | r | `active` · `suspended` · `suspending` · `resuming` · `error` (фатальна помилка) · `unsupported` (механізм вимкнено) |
 | `autosuspend_delay_ms` | rw | скільки простою чекати перед засинанням; від'ємне значення забороняє засинати |
 | `runtime_active_time`, `runtime_suspended_time` | r | сумарний час у кожному зі станів, мілісекунди |
-| `wakeup` | rw | `enabled` / `disabled` — чи вільно цьому пристрою будити [приспану систему](topic:sf-os/suspend-and-resume) |
+| `wakeup` | rw | `enabled` / `disabled` — чи вільно цьому пристрою будити [приспану систему](root:sf-os/suspend-and-resume) |
 | `wakeup_count`, `wakeup_active_count`, `wakeup_abort_count` | r | лічильники подій пробудження |
 | `async` | rw | `enabled` / `disabled` — чи можна присипляти й будити цей вузол паралельно з сусідами |
 
@@ -132,7 +132,7 @@ $ echo 0000:03:00.0 | sudo tee /sys/bus/pci/drivers_probe
 
 ## Синтетична подія
 
-Запис у `uevent` змушує ядро розіслати повідомлення ще раз — так перевіряють нові [правила udev](topic:sys-unix/udev-rules), не бігаючи до роз'єму. Формат:
+Запис у `uevent` змушує ядро розіслати повідомлення ще раз — так перевіряють нові [правила udev](root:sys-unix/udev-rules), не бігаючи до роз'єму. Формат:
 
 ```
 ДІЯ [UUID [КЛЮЧ=ЗНАЧЕННЯ …]]
@@ -147,7 +147,7 @@ $ echo 'change 4c8a2f1e-0000-4000-8000-1a2b3c4d5e6f A=1' | sudo tee …/uevent
 
 ## Наскільки на все це можна спиратися
 
-Кожен інтерфейс `/sys` описано окремим файлом у дереві ядра, у каталозі `Documentation/ABI/`, і сам підкаталог є оцінкою [сталості](topic:sys-unix/kernel-abi-stability):
+Кожен інтерфейс `/sys` описано окремим файлом у дереві ядра, у каталозі `Documentation/ABI/`, і сам підкаталог є оцінкою [сталості](root:sys-unix/kernel-abi-stability):
 
 | Підкаталог | Що обіцяють |
 |---|---|

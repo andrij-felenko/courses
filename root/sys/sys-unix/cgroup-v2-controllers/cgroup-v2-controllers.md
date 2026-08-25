@@ -1,5 +1,5 @@
 <preknowlist>
-- topic:reference/unix-linux/cgroups-v2-unified-hierarchy
+- root:reference/unix-linux/cgroups-v2-unified-hierarchy
 </preknowlist>
 
 # Контролери Cgroups v2: ліміти ресурсів

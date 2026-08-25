@@ -1,8 +1,8 @@
 # 📋 Довідник інтерфейсу: утиліта netlabelctl, Generic Netlink та структури ядра
 
 <preknowlist>
-- [Фреймворк модулів безпеки ядра Linux (LSM)](topic:sys-unix/lsm-framework) — структури ядра для збереження контекстів безпеки.
-- [SELinux: Type Enforcement та контексти безпеки](topic:sys-unix/selinux-type-enforcement) — представлення числових рівнів і категорій MLS.
+- [Фреймворк модулів безпеки ядра Linux (LSM)](root:sys-unix/lsm-framework) — структури ядра для збереження контекстів безпеки.
+- [SELinux: Type Enforcement та контексти безпеки](root:sys-unix/selinux-type-enforcement) — представлення числових рівнів і категорій MLS.
 </preknowlist>
 
 Підсистема NetLabel надає два взаємопов'язані рівні інтерфейсу:

@@ -1,10 +1,10 @@
 # Файлова система hugetlbfs та прозорі великі сторінки THP
 
 <preknowlist>
-- [Псевдо-ФС: procfs, sysfs, tmpfs](topic:sys-unix/pseudo-filesystems) — віртуальні файлові системи ядра Linux без дискового носія.
-- [Інтерфейс тюнінгу ядра sysctl та /proc/sys](topic:sys-unix/sysctl-parameter-map-and-tooling) — динамічне налаштування параметрів ядра під час виконання.
-- [Модель об'єктів sysfs](topic:sys-unix/sysfs-kobject-sysfs-dirent) — структури kobject та керування атрибутами у піддереві /sys/kernel/mm.
-- [Відображення процесів у procfs](topic:sys-unix/procfs-kernel-implementation) — аналіз використання оперативної пам'яті процесів у /proc/[pid]/smaps.
+- [Псевдо-ФС: procfs, sysfs, tmpfs](root:sys-unix/pseudo-filesystems) — віртуальні файлові системи ядра Linux без дискового носія.
+- [Інтерфейс тюнінгу ядра sysctl та /proc/sys](root:sys-unix/sysctl-parameter-map-and-tooling) — динамічне налаштування параметрів ядра під час виконання.
+- [Модель об'єктів sysfs](root:sys-unix/sysfs-kobject-sysfs-dirent) — структури kobject та керування атрибутами у піддереві /sys/kernel/mm.
+- [Відображення процесів у procfs](root:sys-unix/procfs-kernel-implementation) — аналіз використання оперативної пам'яті процесів у /proc/[pid]/smaps.
 </preknowlist>
 
 База даних PostgreSQL під час виділення 128 ГіБ оперативної пам'яті створює понад 33 мільйони сторінок стандартного розміру 4 КіБ. Для збереження такої кількості трансляцій адрес дерево таблиць сторінок (*page tables*) процесу споживає понад 256 МіБ оперативної пам'яті ядра, а буфер асоціативної трансляції процесора (*Translation Lookaside Buffer*, TLB) зазнає постійних промахів (*TLB misses*). За вимірами на серверних навантаженнях із великим робочим набором частка часу, витраченого процесором на обхід таблиць сторінок замість корисної роботи, сягає десятків відсотків. Перехід на великі сторінки пам'яті розміром 2 МіБ зменшує кількість записів у таблицях сторінок у 512 разів: те саме дерево трансляцій стає на рівень нижчим, а робочий набір знову вміщається у TLB.
@@ -42,7 +42,7 @@
 ![Архітектурні відмінності hugetlbfs та Transparent Huge Pages](img/hugetlbfs-vs-thp-architecture.svg)
 *Порівняння механізмів виділення та керування пам'яттю у hugetlbfs та THP.*
 
-[Еволюцію підтримки великих сторінок пам'яті від Pentium Pro до mTHP](topic:sys-unix/hugetlbfs-thp-kernel-interfaces/hist-hugepages-evolution.md) зумовили практичні потреби додатків із високими вимогами до пам'яті.
+[Еволюцію підтримки великих сторінок пам'яті від Pentium Pro до mTHP](root:sys-unix/hugetlbfs-thp-kernel-interfaces/hist-hugepages-evolution.md) зумовили практичні потреби додатків із високими вимогами до пам'яті.
 
 Порівняння ключових характеристик обох підходів:
 
@@ -160,7 +160,7 @@ auto* ptr = static_cast<uint8_t*>(::mmap(nullptr, size, PROT_READ | PROT_WRITE, 
 
 Від ядра 6.8 доступне розширення Multi-size THP (mTHP): воно дозволяє прозоро виділяти анонімні сторінки проміжних розмірів — 16, 32, 64, 128, 256, 512 та 1024 КіБ, — щоб не платити за суцільний блок 2 МіБ там, де його не заповнять. Кожен розмір вмикається окремо, своїм каталогом у `/sys/kernel/mm/transparent_hugepage/`.
 
-[Повний довідник інтерфейсів /sys/kernel/mm/ та /proc/meminfo](topic:sys-unix/hugetlbfs-thp-kernel-interfaces/api-hugetlb-thp-sysfs.md) містить структурований опис усіх параметрів конфігурації.
+[Повний довідник інтерфейсів /sys/kernel/mm/ та /proc/meminfo](root:sys-unix/hugetlbfs-thp-kernel-interfaces/api-hugetlb-thp-sysfs.md) містить структурований опис усіх параметрів конфігурації.
 
 ## Дефрагментація пам'яті, розщеплення та затримки
 
@@ -225,7 +225,7 @@ MMUPageSize:           4 kB
 
 Додатково стан використання пам'яті по вузлах NUMA можна перевірити через команду `numastat -c` та аналіз файлів у директорії `/sys/devices/system/node/node*/numastat`. Системні адміністратори часто перевіряють баланс розподілу сторінок за допомогою інструменту `numactl --hardware`. Утиліта `perf` дозволяє зняти низькорівневу статистику промахів кешу трансляцій за допомогою апаратних лічильників подій `dTLB-loads` та `dTLB-load-misses`. Контроль системних параметрів здійснюється через утиліту `sysctl`.
 
-[Практична реалізація бенчмарку пам'яті на C та C++ з порівнянням продуктивності](topic:sys-unix/hugetlbfs-thp-kernel-interfaces/proj-hugepages-allocator.md) демонструє вимірювання затримок доступу та аналіз результатів у реальному часі.
+[Практична реалізація бенчмарку пам'яті на C та C++ з порівнянням продуктивності](root:sys-unix/hugetlbfs-thp-kernel-interfaces/proj-hugepages-allocator.md) демонструє вимірювання затримок доступу та аналіз результатів у реальному часі.
 
 ## Стратегія вибору та практичні рекомендації
 

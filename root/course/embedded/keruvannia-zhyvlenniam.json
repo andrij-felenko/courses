@@ -81,7 +81,7 @@
           }
         },
         {
-          "ref": "electronics/current-monitor",
+          "ref": "hw-sensing/current-monitor",
           "title": "Монітор струму"
         },
         {
@@ -101,15 +101,15 @@
       "title": "Вхід живлення",
       "topics": [
         {
-          "ref": "electronics/wall-adapter",
+          "ref": "hw-power/wall-adapter",
           "title": "Мережевий адаптер: що купуємо і на що дивимось"
         },
         {
-          "ref": "electronics/mains-safety",
+          "ref": "hw-power/mains-safety",
           "title": "Безпека з мережею й класи ізоляції"
         },
         {
-          "ref": "electronics/mains-transients",
+          "ref": "hw-power/mains-transients",
           "title": "Кидки в мережі: TVS, варистор, розрядник"
         },
         {
@@ -197,11 +197,11 @@
           ]
         },
         {
-          "ref": "communications/poe",
+          "ref": "com-medium/poe",
           "title": "PoE: живлення по витій парі"
         },
         {
-          "ref": "electronics/bort-aparata",
+          "ref": "hw-power/bort-aparata",
           "title": "Борт апарата: 12/24 В, скидання навантаження, холодний пуск",
           "todo": "нова тема",
           "hint": "electronics/power-electronics"
@@ -227,7 +227,7 @@
           }
         },
         {
-          "ref": "electronics/power-oring",
+          "ref": "hw-power/power-oring",
           "title": "Два джерела одразу: ORing, резерв, гаряча заміна"
         }
       ]
@@ -319,23 +319,23 @@
           }
         },
         {
-          "ref": "electronics/ldo",
+          "ref": "hw-power/ldo",
           "title": "LDO"
         },
         {
-          "ref": "electronics/buck",
+          "ref": "hw-power/buck",
           "title": "Buck-перетворювач"
         },
         {
-          "ref": "electronics/boost",
+          "ref": "hw-power/boost",
           "title": "Boost-перетворювач"
         },
         {
-          "ref": "electronics/buck-boost",
+          "ref": "hw-power/buck-boost",
           "title": "Buck-boost, SEPIC і зарядна помпа"
         },
         {
-          "ref": "electronics/flyback-isolated",
+          "ref": "hw-power/flyback-isolated",
           "title": "Ізольований перетворювач: flyback і навіщо ізоляція"
         },
         {
@@ -371,15 +371,15 @@
           }
         },
         {
-          "ref": "electronics/converter-efficiency-curve",
+          "ref": "hw-power/converter-efficiency-curve",
           "title": "ККД — не одне число: крива, струм спокою, легке навантаження"
         },
         {
-          "ref": "electronics/power-inductor",
+          "ref": "hw-components/power-inductor",
           "title": "Обв'язка імпульсника: котушка й конденсатори"
         },
         {
-          "ref": "electronics/switching-noise",
+          "ref": "hw-power/switching-noise",
           "title": "Пульсації, шум і хвороби перетворювача"
         },
         {
@@ -393,7 +393,7 @@
           }
         },
         {
-          "ref": "power/xc6206",
+          "ref": "cat-hw-power/xc6206",
           "title": "Готовий модуль замість своєї схеми"
         }
       ]
@@ -413,11 +413,11 @@
           }
         },
         {
-          "ref": "electronics/thermal-chain",
+          "ref": "hw-components/thermal-chain",
           "title": "Тепловий ланцюжок: θJC, θCS, θSA"
         },
         {
-          "ref": "electronics/heatsink",
+          "ref": "hw-components/heatsink",
           "title": "Радіатор"
         },
         {
@@ -431,15 +431,15 @@
           }
         },
         {
-          "ref": "electronics/thermal-vias",
+          "ref": "hw-pcb/thermal-vias",
           "title": "Теплові перехідні отвори"
         },
         {
-          "ref": "electronics/power-derating",
+          "ref": "hw-components/power-derating",
           "title": "Дерейтинг: скільки насправді можна навантажити"
         },
         {
-          "ref": "electronics/safe-operating-area",
+          "ref": "hw-components/safe-operating-area",
           "title": "Зона безпечної роботи й тепловий розгін"
         }
       ]
@@ -459,19 +459,19 @@
           }
         },
         {
-          "ref": "electronics/power-rails",
+          "ref": "hw-power/power-rails",
           "title": "Шини живлення й силові домени"
         },
         {
-          "ref": "electronics/power-rail-sequencing",
+          "ref": "hw-power/power-rail-sequencing",
           "title": "Секвенування шин живлення"
         },
         {
-          "ref": "electronics/load-switch",
+          "ref": "hw-power/load-switch",
           "title": "Ключі навантаження: вимикати те, що зараз не працює"
         },
         {
-          "ref": "electronics/decoupling",
+          "ref": "hw-components/decoupling",
           "title": "Decoupling-конденсатор"
         },
         {
@@ -485,11 +485,11 @@
           }
         },
         {
-          "ref": "electronics/converter-layout",
+          "ref": "hw-power/converter-layout",
           "title": "Розведення вузла живлення: петля комутації й зворотний струм"
         },
         {
-          "ref": "electronics/uvlo",
+          "ref": "hw-power/uvlo",
           "title": "UVLO й супервізор напруги"
         },
         {
@@ -529,21 +529,21 @@
       "title": "Провідники й зазори",
       "topics": [
         {
-          "ref": "electronics/wire-gauge",
+          "ref": "hw-components/wire-gauge",
           "title": "Калібр проводу: переріз, нагрів, падіння"
         },
         {
-          "ref": "electronics/creepage-clearance",
+          "ref": "hw-pcb/creepage-clearance",
           "title": "Зазори на платі: creepage і clearance"
         },
         {
-          "ref": "electronics/perekhidnyi-otvir-i-polihon-pid-strum",
+          "ref": "hw-pcb/perekhidnyi-otvir-i-polihon-pid-strum",
           "title": "Перехідний отвір і полігон під струм",
           "todo": "нова тема",
           "hint": "electronics/pcb"
         },
         {
-          "ref": "components/xt-connectors",
+          "ref": "cat-hw-parts/xt-connectors",
           "title": "Роз'єми під ампери: XT, контактний опір, обтиск"
         },
         {
@@ -557,11 +557,11 @@
           }
         },
         {
-          "ref": "electronics/i2t-energy",
+          "ref": "hw-components/i2t-energy",
           "title": "Координація захисту: I²t і автомат"
         },
         {
-          "ref": "electronics/korotke-zamykannia-paketa",
+          "ref": "hw-power/korotke-zamykannia-paketa",
           "title": "Коротке замикання пакета: струм, дуга, що згорить першим",
           "todo": "нова тема",
           "hint": "electronics/power-electronics"
@@ -613,29 +613,29 @@
           }
         },
         {
-          "ref": "electronics/c-rate",
+          "ref": "hw-power/c-rate",
           "title": "Паспорт комірки: ємність, C-рейт, внутрішній опір"
         },
         {
-          "ref": "physics/battery-discharge-curve",
+          "ref": "hw-power/battery-discharge-curve",
           "title": "Просадка під навантаженням"
         },
         {
-          "ref": "electronics/peukert-effect",
+          "ref": "hw-power/peukert-effect",
           "title": "Ємність, якої немає: холод, вік, струм розряду"
         },
         {
-          "ref": "power/videx-14500",
+          "ref": "cat-hw-power/videx-14500",
           "title": "Формати комірок: 18650, pouch, монетка"
         },
         {
-          "ref": "electronics/pervynni-elementy",
+          "ref": "hw-power/pervynni-elementy",
           "title": "Первинні елементи: літій-тіоніл, лужні, монетка",
           "todo": "нова тема",
           "hint": "electronics/power-electronics"
         },
         {
-          "ref": "electronics/state-of-charge",
+          "ref": "hw-power/state-of-charge",
           "title": "Скільки лишилося: OCV, кулонометр, fuel gauge"
         },
         {
@@ -665,19 +665,19 @@
       "title": "Складання батарей",
       "topics": [
         {
-          "ref": "electronics/topolohiia-s-p-pid-potribnu-napruhu-i-strum",
+          "ref": "hw-power/topolohiia-s-p-pid-potribnu-napruhu-i-strum",
           "title": "Топологія S/P під потрібну напругу й струм",
           "todo": "нова тема",
           "hint": "electronics/power-electronics"
         },
         {
-          "ref": "electronics/dobir-komirok",
+          "ref": "hw-power/dobir-komirok",
           "title": "Добір комірок: партія, матчинг, вимір внутрішнього опору",
           "todo": "нова тема",
           "hint": "electronics/power-electronics"
         },
         {
-          "ref": "electronics/spot-welding-batteries",
+          "ref": "hw-power/spot-welding-batteries",
           "title": "Контактне зварювання в батарейних збірках"
         },
         {
@@ -721,17 +721,17 @@
           }
         },
         {
-          "ref": "electronics/battery-mechanics",
+          "ref": "hw-power/battery-mechanics",
           "title": "Механіка, корпус і маркування пакета"
         },
         {
-          "ref": "electronics/povodzhennia-z-li-ion",
+          "ref": "hw-power/povodzhennia-z-li-ion",
           "title": "Поводження з Li-ion: заряд, зберігання, ушкоджена комірка",
           "todo": "нова тема",
           "hint": "electronics/power-electronics"
         },
         {
-          "ref": "electronics/battery-transport-regs",
+          "ref": "hw-power/battery-transport-regs",
           "title": "Зберігання й перевезення літію"
         },
         {
@@ -751,41 +751,41 @@
       "title": "Заряджання",
       "topics": [
         {
-          "ref": "electronics/li-ion-charger",
+          "ref": "hw-power/li-ion-charger",
           "title": "Зарядка Li-ion: CC/CV"
         },
         {
-          "ref": "electronics/li-ion-precharge",
+          "ref": "hw-power/li-ion-precharge",
           "title": "Попередній заряд і термінація заряду"
         },
         {
-          "ref": "electronics/charger-ic-architecture",
+          "ref": "hw-power/charger-ic-architecture",
           "title": "Мікросхема зарядки: вибір, струм, термістор"
         },
         {
-          "ref": "electronics/power-path",
+          "ref": "hw-power/power-path",
           "title": "Power path: працювати й заряджатися одночасно"
         },
         {
-          "ref": "electronics/fast-charging",
+          "ref": "hw-power/fast-charging",
           "title": "Прискорений заряд і його ціна"
         },
         {
-          "ref": "electronics/zariad-svyntsiu-i-nimh",
+          "ref": "hw-power/zariad-svyntsiu-i-nimh",
           "title": "Заряд свинцю й NiMH",
           "todo": "нова тема",
           "hint": "electronics/power-electronics"
         },
         {
-          "ref": "electronics/wireless-power-transfer",
+          "ref": "hw-power/wireless-power-transfer",
           "title": "Бездротова зарядка Qi"
         },
         {
-          "ref": "electronics/smbus-smart-battery",
+          "ref": "hw-power/smbus-smart-battery",
           "title": "Smart Battery і SMBus"
         },
         {
-          "ref": "electronics/powerbank-source",
+          "ref": "hw-power/powerbank-source",
           "title": "Свій павербанк"
         }
       ]
@@ -795,35 +795,35 @@
       "title": "Сонячне живлення",
       "topics": [
         {
-          "ref": "physics/solar-cell-physics",
+          "ref": "ph-condensed/solar-cell-physics",
           "title": "Фотоелемент"
         },
         {
-          "ref": "physics/solar-cell-efficiency",
+          "ref": "ph-condensed/solar-cell-efficiency",
           "title": "Типи панелей і межа ККД"
         },
         {
-          "ref": "electronics/panel-iv-mpp",
+          "ref": "hw-power/panel-iv-mpp",
           "title": "ВАХ панелі й точка максимуму"
         },
         {
-          "ref": "electronics/mppt-algorithms",
+          "ref": "hw-power/mppt-algorithms",
           "title": "Алгоритми стеження за MPP"
         },
         {
-          "ref": "electronics/real-sun-mppt",
+          "ref": "hw-power/real-sun-mppt",
           "title": "Контролер заряду: PWM проти MPPT"
         },
         {
-          "ref": "physics/solar-irradiance-model",
+          "ref": "ph-waves/solar-irradiance-model",
           "title": "Скільки дає панель насправді: інсоляція, сезон, нахил"
         },
         {
-          "ref": "electronics/panel-temperature-coeff",
+          "ref": "hw-power/panel-temperature-coeff",
           "title": "Температура й затінення: коефіцієнти й байпасні діоди"
         },
         {
-          "ref": "electronics/montazh-paneli-v-poli",
+          "ref": "hw-power/montazh-paneli-v-poli",
           "title": "Монтаж панелі в полі: кріплення, бруд, град, тварини",
           "todo": "нова тема",
           "hint": "electronics/power-electronics"
@@ -865,35 +865,35 @@
           }
         },
         {
-          "ref": "physics/mala-vitroustanovka",
+          "ref": "hw-power/mala-vitroustanovka",
           "title": "Мала вітроустановка: ротор, межа Бетца, крива потужності",
           "todo": "нова тема",
           "hint": "physics/mechanics"
         },
         {
-          "ref": "electronics/elektryka-vitriaka",
+          "ref": "hw-power/elektryka-vitriaka",
           "title": "Електрика вітряка: генератор, випрямляч, баласт, гальмування",
           "todo": "нова тема",
           "hint": "electronics/power-electronics"
         },
         {
-          "ref": "physics/termoelektrychnyi-henerator",
+          "ref": "hw-power/termoelektrychnyi-henerator",
           "title": "Термоелектричний генератор: ефект Зеєбека",
           "todo": "нова тема",
           "hint": "physics/condensed-matter-physics"
         },
         {
-          "ref": "physics/piezoelectric-tensor-and-materials",
+          "ref": "ph-condensed/piezoelectric-tensor-and-materials",
           "title": "П'єзо й вібрація"
         },
         {
-          "ref": "electronics/rf-zbyrachi-i-kimnatne-svitlo",
+          "ref": "hw-power/rf-zbyrachi-i-kimnatne-svitlo",
           "title": "RF-збирачі й кімнатне світло",
           "todo": "нова тема",
           "hint": "electronics/power-electronics"
         },
         {
-          "ref": "electronics/nakopychuvach-zbyracha-i-kholodnyi-start",
+          "ref": "hw-power/nakopychuvach-zbyracha-i-kholodnyi-start",
           "title": "Накопичувач збирача й холодний старт",
           "todo": "нова тема",
           "hint": "electronics/power-electronics"
@@ -915,11 +915,11 @@
       "title": "Автономність",
       "topics": [
         {
-          "ref": "programming/sleep-modes",
+          "ref": "hw-arch/sleep-modes",
           "title": "Режими сну"
         },
         {
-          "ref": "programming/wakeup-sources",
+          "ref": "hw-arch/wakeup-sources",
           "title": "Джерела пробудження"
         },
         {
@@ -943,7 +943,7 @@
           }
         },
         {
-          "ref": "electronics/power-gating",
+          "ref": "hw-components/power-gating",
           "title": "Гейтинг тактів і живлення, дільники, DVFS"
         },
         {
@@ -967,11 +967,11 @@
           }
         },
         {
-          "ref": "programming/rtc-memory",
+          "ref": "hw-arch/rtc-memory",
           "title": "Стан крізь сон: RTC-пам'ять, ULP-співпроцесор, ціна холодного старту"
         },
         {
-          "ref": "programming/son-pid-rtos",
+          "ref": "sf-tasks/son-pid-rtos",
           "title": "Сон під RTOS: tickless і задача, яка нічого не робить",
           "todo": "нова тема",
           "hint": "programming/systems"
@@ -987,7 +987,7 @@
           }
         },
         {
-          "ref": "programming/graceful-degradation",
+          "ref": "sf-devices/graceful-degradation",
           "title": "Що вимикати першим: деградація з гідністю при низькому заряді"
         }
       ]

@@ -19,7 +19,7 @@
 | `FS_IOC_MEASURE_VERITY` | `struct fsverity_digest *` | 5.4 | `0` |
 | `FS_IOC_READ_VERITY_METADATA` | `struct fsverity_read_metadata_arg *` | 5.12 | кількість прочитаних байтів |
 
-Усі три — звичайні [ioctl](topic:sys-unix/ioctl-interface) на дескрипторі відкритого файлу, і всі три за відмови повертають `-1` та ставлять `errno`. Підтримка з боку файлових систем: ext4 і f2fs — з ядра 5.4, btrfs — з 5.15.
+Усі три — звичайні [ioctl](root:sys-unix/ioctl-interface) на дескрипторі відкритого файлу, і всі три за відмови повертають `-1` та ставлять `errno`. Підтримка з боку файлових систем: ext4 і f2fs — з ядра 5.4, btrfs — з 5.15.
 
 ## Увімкнення
 
@@ -167,7 +167,7 @@ struct fsverity_formatted_digest {
 
 Магічний рядок тут не прикраса: він прив'язує підпис до fs-verity, щоб той самий ключ, підписавши щось в іншому контексті, не дав випадково придатного для fs-verity підпису.
 
-Довіру до підпису задають ззовні, двома діями. Сертифікат кладуть у [кільце ключів](topic:sys-unix/kernel-keyrings) на ім'я `.fs-verity`, яке ядро заводить при завантаженні, а обов'язковість підпису вмикають [параметром ядра](topic:sys-unix/sysctl-tunables):
+Довіру до підпису задають ззовні, двома діями. Сертифікат кладуть у [кільце ключів](root:sys-unix/kernel-keyrings) на ім'я `.fs-verity`, яке ядро заводить при завантаженні, а обов'язковість підпису вмикають [параметром ядра](root:sys-unix/sysctl-tunables):
 
 ```
 # keyctl padd asymmetric '' %keyring:.fs-verity < cert.der
@@ -178,7 +178,7 @@ struct fsverity_formatted_digest {
 
 ## Побачити ззовні, не відкриваючи файл
 
-`statx` виставляє прапорець `STATX_ATTR_VERITY` (0x00100000) у `stx_attributes` — з ядра 5.5. Прапорці атрибутів у [statx](topic:sys-unix/statx-mask-and-unknown-values) читають тільки разом із маскою: біт поза `stx_attributes_mask` означає не «вимкнено», а «ядро про такий не знає».
+`statx` виставляє прапорець `STATX_ATTR_VERITY` (0x00100000) у `stx_attributes` — з ядра 5.5. Прапорці атрибутів у [statx](root:sys-unix/statx-mask-and-unknown-values) читають тільки разом із маскою: біт поза `stx_attributes_mask` означає не «вимкнено», а «ядро про такий не знає».
 
 ```c
 struct statx st;

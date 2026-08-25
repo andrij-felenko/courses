@@ -25,7 +25,7 @@
 sb->s_iflags |= SB_I_CGROUPWB;   /* include/linux/fs.h, 0x00000001 */
 ```
 
-Прапорець живе на **суперблоці**, а не на типі файлової системи, і це не дрібниця. У першій редакції серії (2015) було поле `FS_CGROUP_WRITEBACK` в `fs_type->fs_flags`, але його прибрали ще до випуску 4.2 — у жодному випущеному ядрі такої константи немає. Причина: одна й та сама ФС буває змонтована так, що облік працює, і так, що ні. Живий приклад — ext4, де прапорець ставлять лише в гілці `else`: монтування з [журналюванням самих даних](topic:sys-unix/journaling-consistency) (`data=journal`) залишає весь фоновий запис кореневій групі, і попередження про це не друкують.
+Прапорець живе на **суперблоці**, а не на типі файлової системи, і це не дрібниця. У першій редакції серії (2015) було поле `FS_CGROUP_WRITEBACK` в `fs_type->fs_flags`, але його прибрали ще до випуску 4.2 — у жодному випущеному ядрі такої константи немає. Причина: одна й та сама ФС буває змонтована так, що облік працює, і так, що ні. Живий приклад — ext4, де прапорець ставлять лише в гілці `else`: монтування з [журналюванням самих даних](root:sys-unix/journaling-consistency) (`data=journal`) залишає весь фоновий запис кореневій групі, і попередження про це не друкують.
 
 Сьогодні прапорець ставлять ext2, btrfs, f2fs, XFS та ext4 (крім `data=journal`).
 
@@ -35,7 +35,7 @@ sb->s_iflags |= SB_I_CGROUPWB;   /* include/linux/fs.h, 0x00000001 */
 static inline void wbc_init_bio(struct writeback_control *wbc, struct bio *bio);
 ```
 
-Викликати **після** того, як [bio](topic:sys-unix/block-device-model) прив'язали до пристрою, і **до** подання. Усередині — `bio_associate_blkg_from_css(bio, wbc->wb->blkcg_css)`: саме тут запит дістає групу вводу-виводу, якій виписувати рахунок. Коли `wbc->wb` порожній (шлях `pageout()`), виклик не робить нічого — навмисно, щоб витіснення не блокувалося за повільною групою.
+Викликати **після** того, як [bio](root:sys-unix/block-device-model) прив'язали до пристрою, і **до** подання. Усередині — `bio_associate_blkg_from_css(bio, wbc->wb->blkcg_css)`: саме тут запит дістає групу вводу-виводу, якій виписувати рахунок. Коли `wbc->wb` порожній (шлях `pageout()`), виклик не робить нічого — навмисно, щоб витіснення не блокувалося за повільною групою.
 
 **3. Голос за кожен діапазон даних:**
 
@@ -91,7 +91,7 @@ static void io_submit_add_bh(struct ext4_io_submit *io, struct inode *inode,
 | `wb_id` | `int` | id групи пам'яті нинішнього власника |
 | `wb_bytes` | `size_t` | байти, зараховані власникові |
 | `wb_lcand_id`, `wb_lcand_bytes` | `int`, `size_t` | переможець минулого обходу і його байти |
-| `wb_tcand_id`, `wb_tcand_bytes` | `int`, `size_t` | кандидат цього обходу за [голосуванням більшості](topic:sf-algorithms/majority-vote-boyer-moore) — один id і один лічильник замість таблиці на групу |
+| `wb_tcand_id`, `wb_tcand_bytes` | `int`, `size_t` | кандидат цього обходу за [голосуванням більшості](root:sf-algorithms/majority-vote-boyer-moore) — один id і один лічильник замість таблиці на групу |
 
 `struct inode` (`include/linux/fs.h`) — те, що переживає сесію:
 
@@ -148,7 +148,7 @@ sync
 cat /sys/fs/cgroup/probe/io.stat                     # wbytes тут ≈ 512 МіБ
 ```
 
-**Ручки в `/proc/sys/vm/`** ([sysctl](topic:sys-unix/sysctl-tunables)):
+**Ручки в `/proc/sys/vm/`** ([sysctl](root:sys-unix/sysctl-tunables)):
 
 | Ручка | Типове | Дія на групу |
 |---|---|---|
@@ -158,7 +158,7 @@ cat /sys/fs/cgroup/probe/io.stat                     # wbytes тут ≈ 512 М�
 | `vm.dirty_expire_centisecs` | 3000 | вік брудної сторінки, після якого її беруть — 30 с |
 | `vm.dirty_writeback_centisecs` | 500 | період пробудження потоків — 5 с |
 
-**Пристрій — [debugfs](topic:sys-unix/debugfs-kernel-debug-vfs).** Файл `/sys/kernel/debug/bdi/<maj:min>/stats` дає підсумок по всьому пристрою: `BdiWriteback`, `BdiReclaimable`, `BdiDirtyThresh`, `DirtyThresh`, `BackgroundThresh`, `BdiDirtied`, `BdiWritten` (усе в кБ), `BdiWriteBandwidth` (кБ/с) і довжини черг `b_dirty`, `b_io`, `b_more_io`, `b_dirty_time`.
+**Пристрій — [debugfs](root:sys-unix/debugfs-kernel-debug-vfs).** Файл `/sys/kernel/debug/bdi/<maj:min>/stats` дає підсумок по всьому пристрою: `BdiWriteback`, `BdiReclaimable`, `BdiDirtyThresh`, `DirtyThresh`, `BackgroundThresh`, `BdiDirtied`, `BdiWritten` (усе в кБ), `BdiWriteBandwidth` (кБ/с) і довжини черг `b_dirty`, `b_io`, `b_more_io`, `b_dirty_time`.
 
 Значно цікавіший сусідній файл `wb_stats` (з ядра 6.10): він друкує окремий блок **на кожен wb** пристрою, і перший рядок блоку — `WbCgIno`, номер inode-а тієї cgroup-теки:
 

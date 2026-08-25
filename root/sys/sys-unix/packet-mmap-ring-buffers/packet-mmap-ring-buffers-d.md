@@ -1,9 +1,9 @@
 # Механізм PACKET_MMAP (TPACKET_V3 ring buffers)
 
 <preknowlist>
-- [Ядро й простір користувача](topic:sys-unix/kernel-and-userspace) — межі адресного простору, перемикання контексту системних викликів та розділення пам'яті.
-- [Системний виклик: як програма просить ядро](topic:sys-unix/syscall-mechanics) — механіка переходу в режим ядра через виклики socket(), setsockopt() та mmap().
-- [Файлова система sysfs, kobject та sysfs_dirent](topic:sys-unix/sysfs-kobject-sysfs-dirent) — отримання індексів мережевих інтерфейсів та метрик через псевдофайлові системи.
+- [Ядро й простір користувача](root:sys-unix/kernel-and-userspace) — межі адресного простору, перемикання контексту системних викликів та розділення пам'яті.
+- [Системний виклик: як програма просить ядро](root:sys-unix/syscall-mechanics) — механіка переходу в режим ядра через виклики socket(), setsockopt() та mmap().
+- [Файлова система sysfs, kobject та sysfs_dirent](root:sys-unix/sysfs-kobject-sysfs-dirent) — отримання індексів мережевих інтерфейсів та метрик через псевдофайлові системи.
 </preknowlist>
 
 При спробі перехопити мережевий трафік на швидкості 10 Gbit/s із розміром пакетів 64 байти (що становить 14.88 мільйона пакетів на секунду у повному дуплексі) стандартний підхід із регулярним викликом системної функції `recvfrom()` призводить до 100% завантаження центрального процесора лише на перемикання контексту та копіювання пам'яті. Система витрачає мільярди тактів CPU на марну системну рутину, внаслідок чого черги мережевої карти переповнюються, і ядро скидає понад 80% вхідного трафіку (packet drops).
@@ -73,7 +73,7 @@ int fd = ::socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
 
 ## 3. Еволюція TPACKET: від V1/V2 до V3
 
-Механізм PACKET_MMAP проходив еволюцію через три версії API (TPACKET), які детально описані у документальному екскурсі [Історія еволюції PACKET_MMAP](topic:sys-unix/packet-mmap-ring-buffers/hist-tpacket-evolution.md).
+Механізм PACKET_MMAP проходив еволюцію через три версії API (TPACKET), які детально описані у документальному екскурсі [Історія еволюції PACKET_MMAP](root:sys-unix/packet-mmap-ring-buffers/hist-tpacket-evolution.md).
 
 ### Порівняльний аналіз версій TPACKET
 
@@ -105,7 +105,7 @@ int fd = ::socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
 
 ## 4. Конфігурація та внутрішня структура TPACKET_V3
 
-Для створення кільцевого буфера TPACKET_V3 використовується структура `tpacket_req3`. Повний опис її полів наведено у довіднику [Довідник структур даних та API TPACKET_V3](topic:sys-unix/packet-mmap-ring-buffers/api-tpacket-v3.md).
+Для створення кільцевого буфера TPACKET_V3 використовується структура `tpacket_req3`. Повний опис її полів наведено у довіднику [Довідник структур даних та API TPACKET_V3](root:sys-unix/packet-mmap-ring-buffers/api-tpacket-v3.md).
 
 ### Налаштування параметрів буфера у коді
 
@@ -293,7 +293,7 @@ if (::setsockopt(socket_fd, SOL_PACKET, PACKET_FANOUT, &option, sizeof(option)) 
 
 ## 10. Повний практичний проект
 
-Детальний приклад реалізації багатопотокового аналізатора мережевого трафіку з використанням TPACKET_V3 та PACKET_FANOUT винесено у практичний проект [Практичний проект: Багатопотоковий аналізатор трафіку](topic:sys-unix/packet-mmap-ring-buffers/proj-packet-mmap-capture.md).
+Детальний приклад реалізації багатопотокового аналізатора мережевого трафіку з використанням TPACKET_V3 та PACKET_FANOUT винесено у практичний проект [Практичний проект: Багатопотоковий аналізатор трафіку](root:sys-unix/packet-mmap-ring-buffers/proj-packet-mmap-capture.md).
 
 ---
 

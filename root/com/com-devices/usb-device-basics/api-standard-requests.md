@@ -86,7 +86,7 @@
 | `OTHER_SPEED_CONFIGURATION` | 7 · `0x07` | конфігурацію на іншій швидкості |
 | `INTERFACE_ASSOCIATION` | 11 · `0x0B` | групу інтерфейсів однієї функції (композит) |
 
-На практиці окремими запитами просять лише `DEVICE`, `CONFIGURATION` та `STRING` (а на High-Speed ще `DEVICE_QUALIFIER` й `OTHER_SPEED_CONFIGURATION`). Типи `INTERFACE` та `ENDPOINT` окремо не запитують — вони приходять вкладеними всередині відповіді на `CONFIGURATION`, одним суцільним блоком. Побайтову розкладку самих дескрипторів розібрано в [статті про енумерацію](topic:com-devices/usb-enumeration).
+На практиці окремими запитами просять лише `DEVICE`, `CONFIGURATION` та `STRING` (а на High-Speed ще `DEVICE_QUALIFIER` й `OTHER_SPEED_CONFIGURATION`). Типи `INTERFACE` та `ENDPOINT` окремо не запитують — вони приходять вкладеними всередині відповіді на `CONFIGURATION`, одним суцільним блоком. Побайтову розкладку самих дескрипторів розібрано в [статті про енумерацію](root:com-devices/usb-enumeration).
 
 ### `SET_ADDRESS` — видати пристрою адресу
 

@@ -11,23 +11,23 @@
       "title": "Процес",
       "topics": [
         {
-          "ref": "unix-linux/process-model",
+          "ref": "sys-unix/process-model",
           "title": "Процес"
         },
         {
-          "ref": "unix-linux/pid-and-hierarchy",
+          "ref": "sys-unix/pid-and-hierarchy",
           "title": "PID і дерево процесів"
         },
         {
-          "ref": "unix-linux/process-states",
+          "ref": "sys-unix/process-states",
           "title": "Стани процесу"
         },
         {
-          "ref": "unix-linux/procfs-process-reflection",
+          "ref": "sys-unix/procfs-process-reflection",
           "title": "Відображення процесів у procfs"
         },
         {
-          "ref": "unix-linux/resource-limits",
+          "ref": "sys-unix/resource-limits",
           "title": "Ліміти ресурсів: rlimit і ulimit"
         }
       ]
@@ -37,23 +37,23 @@
       "title": "Життєвий цикл процесу",
       "topics": [
         {
-          "ref": "unix-linux/fork-semantics",
+          "ref": "sys-unix/fork-semantics",
           "title": "fork"
         },
         {
-          "ref": "unix-linux/exec-semantics",
+          "ref": "sys-unix/exec-semantics",
           "title": "exec"
         },
         {
-          "ref": "unix-linux/binfmt-misc",
+          "ref": "sys-unix/binfmt-misc",
           "title": "binfmt_misc: як ядро вчиться запускати чужі формати"
         },
         {
-          "ref": "unix-linux/argv-and-environment",
+          "ref": "sys-unix/argv-and-environment",
           "title": "argv і оточення"
         },
         {
-          "ref": "unix-linux/spawn-alternatives",
+          "ref": "sys-unix/spawn-alternatives",
           "title": "vfork, posix_spawn і clone: чим ще народжують процес"
         },
         {
@@ -67,11 +67,11 @@
           }
         },
         {
-          "ref": "unix-linux/exit-wait-zombies",
+          "ref": "sys-unix/exit-wait-zombies",
           "title": "Завершення, wait і зомбі"
         },
         {
-          "ref": "unix-linux/orphan-reparenting",
+          "ref": "sys-unix/orphan-reparenting",
           "title": "Сироти й перепідпорядкування"
         },
         {
@@ -91,19 +91,19 @@
       "title": "Дескриптори",
       "topics": [
         {
-          "ref": "unix-linux/file-descriptor",
+          "ref": "sys-unix/file-descriptor",
           "title": "Файловий дескриптор"
         },
         {
-          "ref": "unix-linux/open-file-description",
+          "ref": "sys-unix/open-file-description",
           "title": "Опис відкритого файлу"
         },
         {
-          "ref": "unix-linux/close-on-exec",
+          "ref": "sys-unix/close-on-exec",
           "title": "Закриття при exec: FD_CLOEXEC"
         },
         {
-          "ref": "unix-linux/socket-as-descriptor",
+          "ref": "sys-unix/socket-as-descriptor",
           "title": "Сокет як дескриптор"
         },
         {
@@ -123,31 +123,31 @@
       "title": "Сигнали",
       "topics": [
         {
-          "ref": "unix-linux/signal-model",
+          "ref": "sys-unix/signal-model",
           "title": "Сигнал"
         },
         {
-          "ref": "unix-linux/signal-disposition",
+          "ref": "sys-unix/signal-disposition",
           "title": "Диспозиція сигналу"
         },
         {
-          "ref": "unix-linux/async-signal-safety",
+          "ref": "sys-unix/async-signal-safety",
           "title": "Безпека в обробнику"
         },
         {
-          "ref": "unix-linux/signal-mask-signalfd",
+          "ref": "sys-unix/signal-mask-signalfd",
           "title": "Маскування і signalfd"
         },
         {
-          "ref": "unix-linux/eintr-and-restart",
+          "ref": "sys-unix/eintr-and-restart",
           "title": "EINTR"
         },
         {
-          "ref": "unix-linux/realtime-signals",
+          "ref": "sys-unix/realtime-signals",
           "title": "Реальночасові сигнали: черга, порядок доставки й siginfo"
         },
         {
-          "ref": "unix-linux/process-timers",
+          "ref": "sys-unix/process-timers",
           "title": "Таймери процесу: alarm, setitimer, POSIX-таймери й timerfd"
         },
         {
@@ -167,23 +167,23 @@
       "title": "Адресний простір",
       "topics": [
         {
-          "ref": "unix-linux/virtual-address-space",
+          "ref": "sf-os/virtual-address-space",
           "title": "Віртуальний адресний простір"
         },
         {
-          "ref": "programming/stack-overflow",
+          "ref": "sf-lang/stack-overflow",
           "title": "Переповнення стека"
         },
         {
-          "ref": "unix-linux/allocator-and-kernel",
+          "ref": "sys-unix/allocator-and-kernel",
           "title": "Алокатор і ядро"
         },
         {
-          "ref": "unix-linux/address-space-randomization",
+          "ref": "sys-unix/address-space-randomization",
           "title": "Рандомізація адресного простору: рівні та вимикачі"
         },
         {
-          "ref": "unix-linux/memory-accounting",
+          "ref": "sys-unix/memory-accounting",
           "title": "VSZ, RSS, PSS"
         },
         {
@@ -203,35 +203,35 @@
       "title": "Сторінкова пам'ять",
       "topics": [
         {
-          "ref": "unix-linux/paging-and-mmu",
+          "ref": "sf-os/paging-and-mmu",
           "title": "Сторінки й MMU"
         },
         {
-          "ref": "unix-linux/page-fault",
+          "ref": "sf-os/page-fault",
           "title": "Сторінковий збій"
         },
         {
-          "ref": "unix-linux/copy-on-write",
+          "ref": "sf-os/copy-on-write",
           "title": "Копіювання при записі"
         },
         {
-          "ref": "unix-linux/huge-pages-tlb-reach",
+          "ref": "sys-unix/huge-pages-tlb-reach",
           "title": "Великі сторінки: HugeTLB і прозорі великі сторінки"
         },
         {
-          "ref": "unix-linux/kernel-page-table-isolation",
+          "ref": "sys-unix/kernel-page-table-isolation",
           "title": "Ізоляція таблиць сторінок ядра (KPTI)"
         },
         {
-          "ref": "unix-linux/mmap-model",
+          "ref": "sys-unix/mmap-model",
           "title": "mmap"
         },
         {
-          "ref": "unix-linux/memfd-create",
+          "ref": "sys-unix/memfd-create",
           "title": "memfd_create: безіменний файл у пам'яті й пломби"
         },
         {
-          "ref": "unix-linux/tmpfs-shmem-ram-filesystem",
+          "ref": "sys-unix/tmpfs-shmem-ram-filesystem",
           "title": "Тимчасова ВФС tmpfs і підсистема shmem"
         },
         {
@@ -251,27 +251,27 @@
       "title": "Пам'ять під тиском",
       "topics": [
         {
-          "ref": "programming/working-set",
+          "ref": "sf-os/working-set",
           "title": "Робоча множина"
         },
         {
-          "ref": "unix-linux/swap-and-reclaim",
+          "ref": "sys-unix/swap-and-reclaim",
           "title": "Свопінг і витіснення"
         },
         {
-          "ref": "unix-linux/overcommit-and-oom",
+          "ref": "sys-unix/overcommit-and-oom",
           "title": "Overcommit і OOM-killer"
         },
         {
-          "ref": "unix-linux/memory-locking",
+          "ref": "sys-unix/memory-locking",
           "title": "Прибивання пам'яті: mlock, mlockall"
         },
         {
-          "ref": "unix-linux/physical-page-allocator",
+          "ref": "sys-unix/physical-page-allocator",
           "title": "Фізичні сторінки в ядрі: зони, блоки за порядками й ущільнення"
         },
         {
-          "ref": "unix-linux/kernel-memory-slab",
+          "ref": "sys-unix/kernel-memory-slab",
           "title": "Пам'ять ядра: slab і зменшувачі кешів"
         }
       ]
@@ -281,31 +281,31 @@
       "title": "Потоки",
       "topics": [
         {
-          "ref": "unix-linux/threads-as-tasks",
+          "ref": "sys-unix/threads-as-tasks",
           "title": "Потоки як задачі"
         },
         {
-          "ref": "programming/data-races-locks",
+          "ref": "sf-tasks/data-races-locks",
           "title": "Перегони даних і замки"
         },
         {
-          "ref": "algorithms/monitor-sync",
+          "ref": "sf-tasks/monitor-sync",
           "title": "Монітори й умовні змінні"
         },
         {
-          "ref": "programming/deadlock",
+          "ref": "sf-tasks/deadlock",
           "title": "Дедлок"
         },
         {
-          "ref": "programming/thread-safety",
+          "ref": "sf-tasks/thread-safety",
           "title": "Потокова безпека"
         },
         {
-          "ref": "programming/thread-pool",
+          "ref": "sf-tasks/thread-pool",
           "title": "Пул потоків і його розмір"
         },
         {
-          "ref": "unix-linux/kernel-threads",
+          "ref": "sys-unix/kernel-threads",
           "title": "Потоки ядра: задачі без простору користувача"
         }
       ]
@@ -315,19 +315,19 @@
       "title": "Планувальник",
       "topics": [
         {
-          "ref": "unix-linux/scheduler-model",
+          "ref": "sys-unix/scheduler-model",
           "title": "Планувальник"
         },
         {
-          "ref": "unix-linux/priority-nice-realtime",
+          "ref": "sys-unix/priority-nice-realtime",
           "title": "Пріоритети й nice"
         },
         {
-          "ref": "unix-linux/cpu-time-accounting",
+          "ref": "sys-unix/cpu-time-accounting",
           "title": "Облік процесорного часу: як ядро набирає user і sys"
         },
         {
-          "ref": "unix-linux/cpu-affinity",
+          "ref": "sys-unix/cpu-affinity",
           "title": "Прив'язка задач до ядер: affinity, taskset і cpuset"
         },
         {

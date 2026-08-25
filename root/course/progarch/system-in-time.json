@@ -11,21 +11,21 @@
       "title": "Ерозія архітектури",
       "topics": [
         {
-          "ref": "programming/architecture-erosion",
+          "ref": "sf-apps/architecture-erosion",
           "title": "Ерозія архітектури"
         },
         {
-          "ref": "programming/lehman-laws",
+          "ref": "sf-apps/lehman-laws",
           "title": "Закони еволюції програм",
           "todo": "нова тема",
           "hint": "programming/software-design"
         },
         {
-          "ref": "programming/logical-coupling",
+          "ref": "sf-apps/logical-coupling",
           "title": "Логічне зчеплення: залежність, видима лише в історії змін"
         },
         {
-          "ref": "programming/dependency-graph-checker",
+          "ref": "sf-apps/dependency-graph-checker",
           "title": "Аналіз ерозії архітектури: граф залежностей"
         },
         {
@@ -55,15 +55,15 @@
       "title": "Зміна за абстракцією",
       "topics": [
         {
-          "ref": "programming/branch-by-abstraction",
+          "ref": "sf-apps/branch-by-abstraction",
           "title": "Branch by abstraction"
         },
         {
-          "ref": "programming/dark-launch",
+          "ref": "sf-release/dark-launch",
           "title": "Темний запуск і feature-flag-міграція"
         },
         {
-          "ref": "programming/parallel-run",
+          "ref": "sf-release/parallel-run",
           "title": "Parallel run"
         },
         {
@@ -77,7 +77,7 @@
           }
         },
         {
-          "ref": "unix-linux/livepatch",
+          "ref": "sys-unix/livepatch",
           "title": "Живе латання ядра: livepatch і модель узгодженості"
         }
       ]
@@ -87,23 +87,23 @@
       "title": "Обіцянка сумісності",
       "topics": [
         {
-          "ref": "programming/semantic-versioning",
+          "ref": "sf-release/semantic-versioning",
           "title": "Семантичне версіонування (SemVer)"
         },
         {
-          "ref": "programming/hyrums-law",
+          "ref": "sf-release/hyrums-law",
           "title": "Закон Гайрама (Hyrum's Law)"
         },
         {
-          "ref": "unix-linux/kernel-abi-stability",
+          "ref": "sys-unix/kernel-abi-stability",
           "title": "«Не ламати простір користувача»: сталість ABI ядра"
         },
         {
-          "ref": "unix-linux/library-abi-compat",
+          "ref": "sys-unix/library-abi-compat",
           "title": "Сумісність ABI бібліотеки й що її ламає"
         },
         {
-          "ref": "programming/release-channels",
+          "ref": "sf-release/release-channels",
           "title": "Канали постачання: стабільний, тестовий, нічний"
         },
         {
@@ -117,7 +117,7 @@
           }
         },
         {
-          "ref": "programming/deprecation-policy",
+          "ref": "sf-apps/deprecation-policy",
           "title": "Deprecation як керований процес"
         }
       ]
@@ -127,7 +127,7 @@
       "title": "Міграція без зупинки",
       "topics": [
         {
-          "ref": "programming/zero-downtime-migration",
+          "ref": "sf-release/zero-downtime-migration",
           "title": "Zero-downtime міграції даних"
         },
         {
@@ -157,23 +157,23 @@
       "title": "Старіння залежностей",
       "topics": [
         {
-          "ref": "python/python-versions-eol",
+          "ref": "sys-plang-python/python-versions-eol",
           "title": "Версії Python, сумісність і кінець підтримки"
         },
         {
-          "ref": "unix-linux/kernel-release-model",
+          "ref": "sys-unix/kernel-release-model",
           "title": "Модель випусків ядра: вікно злиття, -rc і стабільні гілки"
         },
         {
-          "ref": "unix-linux/kernel-cve-and-security-fixes",
+          "ref": "sys-unix/kernel-cve-and-security-fixes",
           "title": "CVE в ядрі: потік номерів і що з ним робити"
         },
         {
-          "ref": "unix-linux/time-representation-y2038",
+          "ref": "sys-unix/time-representation-y2038",
           "title": "Час як число: time_t, епоха і межа 2038 року"
         },
         {
-          "ref": "programming/fork-and-upstream",
+          "ref": "sf-release/fork-and-upstream",
           "title": "Форк і апстрим: життя похідного репозиторію"
         },
         {
@@ -193,11 +193,11 @@
       "title": "Заміна частинами",
       "topics": [
         {
-          "ref": "programming/rewrite-vs-refactor",
+          "ref": "sf-apps/rewrite-vs-refactor",
           "title": "Rewrite vs refactor"
         },
         {
-          "ref": "programming/second-system-effect",
+          "ref": "sf-apps/second-system-effect",
           "title": "Ефект другої системи"
         },
         {
@@ -211,7 +211,7 @@
           }
         },
         {
-          "ref": "programming/strangler-fig",
+          "ref": "sf-apps/strangler-fig",
           "title": "Фікус-душитель (Strangler fig)"
         },
         {
@@ -241,13 +241,13 @@
       "title": "Великий переїзд",
       "topics": [
         {
-          "ref": "programming/data-gravity",
+          "ref": "sys-notary/data-gravity",
           "title": "Тяжіння даних",
           "todo": "нова тема",
           "hint": "programming/distributed-systems"
         },
         {
-          "ref": "programming/live-migration",
+          "ref": "sf-os/live-migration",
           "title": "Жива міграція віртуальної машини"
         },
         {
@@ -307,7 +307,7 @@
           }
         },
         {
-          "ref": "programming/adr",
+          "ref": "sf-apps/adr",
           "title": "Запис архітектурного рішення (ADR)"
         },
         {
@@ -321,7 +321,7 @@
           }
         },
         {
-          "ref": "programming/bus-factor",
+          "ref": "sf-release/bus-factor",
           "title": "Автобусний фактор",
           "todo": "нова тема",
           "hint": "programming/software-engineering"
@@ -353,7 +353,7 @@
       "title": "Кінець життя",
       "topics": [
         {
-          "ref": "programming/decommissioning",
+          "ref": "sys-notary/decommissioning",
           "title": "Виведення системи з експлуатації",
           "todo": "нова тема",
           "hint": "programming/architecture-discipline"
@@ -369,7 +369,7 @@
           }
         },
         {
-          "ref": "programming/planned-blackout-read-only",
+          "ref": "sys-notary/planned-blackout-read-only",
           "title": "Планове затемнення й режим лише-читання",
           "todo": "нова тема",
           "hint": "programming/operations"

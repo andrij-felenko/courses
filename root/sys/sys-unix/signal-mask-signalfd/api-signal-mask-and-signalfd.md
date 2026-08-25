@@ -141,19 +141,19 @@ int signalfd(int fd, const sigset_t *mask, int flags);
 | `ssi_code` | `s32` | завжди — походження сигналу; **саме воно каже, які інші поля дійсні** |
 | `ssi_pid` | `u32` | `SI_USER`, `SI_QUEUE`, `SI_TKILL` — PID відправника; `SIGCHLD` — PID дитини |
 | `ssi_uid` | `u32` | там само — реальний UID відправника чи дитини |
-| `ssi_fd` | `s32` | `SIGIO`/`SIGPOLL` від [керованого сигналами вводу-виводу](topic:sys-unix/signal-driven-io) з `F_SETSIG` |
-| `ssi_tid` | `u32` | `SI_TIMER` — внутрішній ідентифікатор [таймера POSIX](topic:sys-unix/process-timers) |
+| `ssi_fd` | `s32` | `SIGIO`/`SIGPOLL` від [керованого сигналами вводу-виводу](root:sys-unix/signal-driven-io) з `F_SETSIG` |
+| `ssi_tid` | `u32` | `SI_TIMER` — внутрішній ідентифікатор [таймера POSIX](root:sys-unix/process-timers) |
 | `ssi_band` | `u32` | `SIGIO`/`SIGPOLL` — набір подій у бітах `POLL*`, як у `poll()` |
 | `ssi_overrun` | `u32` | `SI_TIMER` — скільки спрацювань таймера пропущено |
 | `ssi_trapno` | `u32` | апаратна пастка на архітектурах, що це підтримують (x86 — ні) |
 | `ssi_status` | `s32` | `SIGCHLD`: код виходу при `CLD_EXITED`, інакше номер сигналу |
-| `ssi_int` | `s32` | `SI_QUEUE`, `SI_MESGQ` — `sival_int` від `sigqueue()` чи [сповіщення черги](topic:sys-unix/message-queues) |
+| `ssi_int` | `s32` | `SI_QUEUE`, `SI_MESGQ` — `sival_int` від `sigqueue()` чи [сповіщення черги](root:sys-unix/message-queues) |
 | `ssi_ptr` | `u64` | там само — `sival_ptr` |
 | `ssi_utime` | `u64` | `SIGCHLD` — користувацький час дитини в тактах `sysconf(_SC_CLK_TCK)` |
-| `ssi_stime` | `u64` | `SIGCHLD` — системний час дитини, [у тих самих тактах](topic:sys-unix/cpu-time-accounting) |
+| `ssi_stime` | `u64` | `SIGCHLD` — системний час дитини, [у тих самих тактах](root:sys-unix/cpu-time-accounting) |
 | `ssi_addr` | `u64` | `SIGSEGV`, `SIGBUS`, `SIGILL`, `SIGFPE` — адреса, що спричинила пастку |
 | `ssi_addr_lsb` | `u16` | `SIGBUS` з `BUS_MCEERR_*` — двійковий логарифм розміру ураженої сторінки (з 2.6.37) |
-| `ssi_syscall` | `s32` | `SIGSYS` від [фільтра seccomp](topic:sys-unix/seccomp-filter-mechanism) — номер системного виклику (з 4.18) |
+| `ssi_syscall` | `s32` | `SIGSYS` від [фільтра seccomp](root:sys-unix/seccomp-filter-mechanism) — номер системного виклику (з 4.18) |
 | `ssi_call_addr` | `u64` | `SIGSYS` — адреса інструкції виклику (з 4.18) |
 | `ssi_arch` | `u32` | `SIGSYS` — архітектура виклику, значення `AUDIT_ARCH_*` (з 4.18) |
 
@@ -179,7 +179,7 @@ int signalfd(int fd, const sigset_t *mask, int flags);
 
 Реальночасовий сигнал, поставлений у чергу тричі, дасть три структури; звичайний сигнал, надісланий тричі поспіль під маскою, — одну, бо в наборі очікуваних він займає один біт.
 
-`SFD_NONBLOCK` — це просто початкове значення `O_NONBLOCK`, і його, як на будь-якому [дескрипторі](topic:sys-unix/file-descriptor), можна перемкнути потім через `fcntl(sfd, F_SETFL, …)`. У [epoll](topic:sys-unix/select-poll-epoll) читати варто до `EAGAIN` за обох режимів спрацювання: за фронтовим (`EPOLLET`) інакше загубляться сигнали, за рівневим — цикл просто робитиме зайвий оберт на кожен непрочитаний.
+`SFD_NONBLOCK` — це просто початкове значення `O_NONBLOCK`, і його, як на будь-якому [дескрипторі](root:sys-unix/file-descriptor), можна перемкнути потім через `fcntl(sfd, F_SETFL, …)`. У [epoll](root:sys-unix/select-poll-epoll) читати варто до `EAGAIN` за обох режимів спрацювання: за фронтовим (`EPOLLET`) інакше загубляться сигнали, за рівневим — цикл просто робитиме зайвий оберт на кожен непрочитаний.
 
 ## Що видно ззовні
 

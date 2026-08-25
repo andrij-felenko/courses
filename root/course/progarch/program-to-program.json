@@ -21,7 +21,7 @@
           }
         },
         {
-          "ref": "unix-linux/ipc-landscape",
+          "ref": "sys-unix/ipc-landscape",
           "title": "Дві програми на одній машині"
         },
         {
@@ -35,7 +35,7 @@
           }
         },
         {
-          "ref": "programming/distributed-fallacies",
+          "ref": "sf-distributed/distributed-fallacies",
           "title": "Вісім оман розподілених обчислень"
         },
         {
@@ -59,7 +59,7 @@
           }
         },
         {
-          "ref": "programming/remote-interface-granularity",
+          "ref": "sf-distributed/remote-interface-granularity",
           "title": "Дробність віддаленого інтерфейсу",
           "todo": "нова тема",
           "hint": "programming/distributed-systems"
@@ -101,7 +101,7 @@
           }
         },
         {
-          "ref": "programming/rest-api",
+          "ref": "com-protocol/rest-api",
           "title": "REST"
         },
         {
@@ -115,11 +115,11 @@
           }
         },
         {
-          "ref": "programming/graphql",
+          "ref": "com-protocol/graphql",
           "title": "GraphQL: схема як контракт"
         },
         {
-          "ref": "programming/interface-definition-language",
+          "ref": "com-protocol/interface-definition-language",
           "title": "Опис контракту схемою й згенерований клієнт"
         },
         {
@@ -169,23 +169,23 @@
           }
         },
         {
-          "ref": "programming/json-format",
+          "ref": "sf-data/json-format",
           "title": "JSON"
         },
         {
-          "ref": "programming/self-describing-format",
+          "ref": "sf-data/self-describing-format",
           "title": "Схема всередині чи зовні"
         },
         {
-          "ref": "programming/json-schema",
+          "ref": "sf-data/json-schema",
           "title": "Опис і валідація структури"
         },
         {
-          "ref": "programming/zero-copy-serialization",
+          "ref": "sf-data/zero-copy-serialization",
           "title": "Двійкові формати без копіювання"
         },
         {
-          "ref": "programming/serialization-pitfalls",
+          "ref": "com-protocol/serialization-pitfalls",
           "title": "Пастки серіалізації",
           "todo": "нова тема",
           "hint": "programming/representation"
@@ -207,33 +207,33 @@
       "title": "Запит і відповідь",
       "topics": [
         {
-          "ref": "programming/http",
+          "ref": "com-protocol/http",
           "title": "HTTP: методи, коди стану, заголовки"
         },
         {
-          "ref": "programming/rpc",
+          "ref": "com-protocol/rpc",
           "title": "RPC і серіалізація"
         },
         {
-          "ref": "programming/connection-management",
+          "ref": "com-protocol/connection-management",
           "title": "Керування з'єднаннями"
         },
         {
-          "ref": "programming/http-caching",
+          "ref": "com-protocol/http-caching",
           "title": "Кеш як частина контракту: ETag і умовний запит"
         },
         {
-          "ref": "programming/pagination-and-large-responses",
+          "ref": "com-protocol/pagination-and-large-responses",
           "title": "Сторінкування, фільтри й великі відповіді",
           "todo": "нова тема",
           "hint": "programming/web-backend"
         },
         {
-          "ref": "programming/streaming-push-transports",
+          "ref": "com-protocol/streaming-push-transports",
           "title": "Довгий поллінг, SSE, WebSocket"
         },
         {
-          "ref": "programming/long-running-operations",
+          "ref": "com-protocol/long-running-operations",
           "title": "Довга операція"
         },
         {
@@ -253,15 +253,15 @@
       "title": "Невідомий результат",
       "topics": [
         {
-          "ref": "programming/timeouts-deadlines",
+          "ref": "sf-distributed/timeouts-deadlines",
           "title": "Таймаути і бюджет часу"
         },
         {
-          "ref": "programming/monotonic-vs-wall-time",
+          "ref": "sf-apps/monotonic-vs-wall-time",
           "title": "Монотонний проти настінного часу для дедлайнів"
         },
         {
-          "ref": "programming/retries-backoff",
+          "ref": "sf-distributed/retries-backoff",
           "title": "Повтори"
         },
         {
@@ -275,11 +275,11 @@
           }
         },
         {
-          "ref": "algorithms/two-generals-problem",
+          "ref": "sf-distributed/two-generals-problem",
           "title": "Задача двох генералів"
         },
         {
-          "ref": "unix-linux/tcp-connection-liveness",
+          "ref": "sys-unix/tcp-connection-liveness",
           "title": "Мертве з'єднання"
         },
         {
@@ -299,11 +299,11 @@
       "title": "Ідемпотентність",
       "topics": [
         {
-          "ref": "programming/idempotency",
+          "ref": "sf-distributed/idempotency",
           "title": "Ідемпотентність"
         },
         {
-          "ref": "programming/api-idempotency",
+          "ref": "com-protocol/api-idempotency",
           "title": "Ідемпотентність методів як частина контракту"
         },
         {
@@ -317,7 +317,7 @@
           }
         },
         {
-          "ref": "programming/replay-protection",
+          "ref": "sf-security/replay-protection",
           "title": "Захист від повтору (replay)"
         },
         {
@@ -357,35 +357,35 @@
           }
         },
         {
-          "ref": "programming/message-queue",
+          "ref": "sf-distributed/message-queue",
           "title": "Черга повідомлень (point-to-point)"
         },
         {
-          "ref": "programming/publish-subscribe",
+          "ref": "sf-distributed/publish-subscribe",
           "title": "Pub/sub (тема)"
         },
         {
-          "ref": "programming/event-log",
+          "ref": "sf-distributed/event-log",
           "title": "Журнал подій (Kafka-модель)"
         },
         {
-          "ref": "programming/competing-consumers",
+          "ref": "sf-distributed/competing-consumers",
           "title": "Конкурентні споживачі"
         },
         {
-          "ref": "communications/mqtt",
+          "ref": "com-protocol/mqtt",
           "title": "MQTT: брокер на межі дому"
         },
         {
-          "ref": "programming/message-router",
+          "ref": "sf-distributed/message-router",
           "title": "Маршрутизатор повідомлень"
         },
         {
-          "ref": "programming/message-translator",
+          "ref": "sf-distributed/message-translator",
           "title": "Транслятор повідомлень і канонічна модель"
         },
         {
-          "ref": "programming/claim-check",
+          "ref": "sf-distributed/claim-check",
           "title": "Квитанція в камері схову"
         },
         {
@@ -415,7 +415,7 @@
       "title": "Гарантії доставки",
       "topics": [
         {
-          "ref": "programming/delivery-guarantees",
+          "ref": "sf-distributed/delivery-guarantees",
           "title": "At-most-once / at-least-once / effectively-once"
         },
         {
@@ -429,31 +429,31 @@
           }
         },
         {
-          "ref": "programming/out-of-order-tolerance",
+          "ref": "sf-distributed/out-of-order-tolerance",
           "title": "Толерантність до безладу"
         },
         {
-          "ref": "programming/dead-letter-queue",
+          "ref": "sf-distributed/dead-letter-queue",
           "title": "Мертва черга"
         },
         {
-          "ref": "programming/poison-message",
+          "ref": "sf-distributed/poison-message",
           "title": "Poison message / карантин"
         },
         {
-          "ref": "programming/outbox-pattern",
+          "ref": "sf-distributed/outbox-pattern",
           "title": "Transactional outbox"
         },
         {
-          "ref": "programming/inbox-pattern",
+          "ref": "sf-distributed/inbox-pattern",
           "title": "Вхідна скринька (inbox)"
         },
         {
-          "ref": "programming/idempotent-consumers-deep",
+          "ref": "sf-distributed/idempotent-consumers-deep",
           "title": "Ідемпотентні консюмери, глибоко"
         },
         {
-          "ref": "programming/end-to-end-argument",
+          "ref": "sf-apps/end-to-end-argument",
           "title": "Наскрізний аргумент: перевіряти на кінцях"
         }
       ]
@@ -463,11 +463,11 @@
       "title": "Фонова робота",
       "topics": [
         {
-          "ref": "programming/background-jobs",
+          "ref": "sf-web/background-jobs",
           "title": "Черга задач"
         },
         {
-          "ref": "programming/distributed-cron",
+          "ref": "sf-distributed/distributed-cron",
           "title": "Розподілений cron"
         },
         {
@@ -587,7 +587,7 @@
       "title": "Подія як контракт",
       "topics": [
         {
-          "ref": "programming/event-driven-architecture-distributed",
+          "ref": "sf-apps/event-driven-architecture-distributed",
           "title": "Подієва архітектура між сервісами"
         },
         {
@@ -601,11 +601,11 @@
           }
         },
         {
-          "ref": "programming/cqrs",
+          "ref": "sf-apps/cqrs",
           "title": "CQRS"
         },
         {
-          "ref": "programming/event-sourcing",
+          "ref": "sf-apps/event-sourcing",
           "title": "Event sourcing"
         },
         {
@@ -635,7 +635,7 @@
       "title": "Вебхуки",
       "topics": [
         {
-          "ref": "programming/webhooks",
+          "ref": "sf-web/webhooks",
           "title": "Вебхуки: бік споживача"
         },
         {
@@ -649,15 +649,15 @@
           }
         },
         {
-          "ref": "programming/webhook-provider",
+          "ref": "sf-web/webhook-provider",
           "title": "Вебхуки як провайдер"
         },
         {
-          "ref": "programming/webhook-security",
+          "ref": "sf-web/webhook-security",
           "title": "Підпис і верифікація вебхука"
         },
         {
-          "ref": "programming/webhook-as-product",
+          "ref": "sf-web/webhook-as-product",
           "title": "Вебхук як продукт"
         }
       ]
@@ -773,33 +773,33 @@
       "title": "Зміна контракту",
       "topics": [
         {
-          "ref": "programming/api-versioning",
+          "ref": "com-protocol/api-versioning",
           "title": "Версіонування API"
         },
         {
-          "ref": "programming/semantic-versioning",
+          "ref": "sf-release/semantic-versioning",
           "title": "Що означає «ламає»"
         },
         {
-          "ref": "programming/expand-contract",
+          "ref": "sf-release/expand-contract",
           "title": "Expand–contract (parallel change) для API"
         },
         {
-          "ref": "programming/deprecation-basics",
+          "ref": "com-protocol/deprecation-basics",
           "title": "Деприкейшн API як частина контракту"
         },
         {
-          "ref": "programming/hyrums-law",
+          "ref": "sf-release/hyrums-law",
           "title": "Усе спостережуване стає контрактом"
         },
         {
-          "ref": "programming/postels-law",
+          "ref": "com-protocol/postels-law",
           "title": "Терпимий читач і сувора обіцянка",
           "todo": "нова тема",
           "hint": "programming/software-design"
         },
         {
-          "ref": "programming/schema-registry",
+          "ref": "com-protocol/schema-registry",
           "title": "Еволюція схем і schema-registry"
         },
         {
@@ -839,19 +839,19 @@
       "title": "Зміни без релізу",
       "topics": [
         {
-          "ref": "programming/config-design",
+          "ref": "sf-apps/config-design",
           "title": "Конфігурація"
         },
         {
-          "ref": "programming/twelve-factor",
+          "ref": "sf-apps/twelve-factor",
           "title": "Конфіг у середовищі: дванадцять факторів"
         },
         {
-          "ref": "programming/feature-flags",
+          "ref": "sf-release/feature-flags",
           "title": "Прапорці функцій"
         },
         {
-          "ref": "programming/extension-points",
+          "ref": "sf-apps/extension-points",
           "title": "Плагіни й точки розширення назовні"
         },
         {

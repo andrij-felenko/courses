@@ -1,13 +1,13 @@
 # Драйвери Macvlan та Macvtap
 
 <preknowlist>
-- [Мережеві простори імен, veth і мости](topic:sys-unix/network-namespaces) — механізми ізоляції L2-мереж та функціонування програмного мосту Linux Bridge.
-- [TUN/TAP: віртуальні інтерфейси](topic:sys-unix/tun-tap) — віртуальні мережеві пристрої юзерспейсу для передачі пакетів у гіпервізори.
+- [Мережеві простори імен, veth і мости](root:sys-unix/network-namespaces) — механізми ізоляції L2-мереж та функціонування програмного мосту Linux Bridge.
+- [TUN/TAP: віртуальні інтерфейси](root:sys-unix/tun-tap) — віртуальні мережеві пристрої юзерспейсу для передачі пакетів у гіпервізори.
 </preknowlist>
 
 При використанні програмного мосту Linux Bridge для об'єднання віртуальних мережевих інтерфейсів контейнерів кожен мережевий пакет проходить через таблицю Forwarding Database (FDB), механізми Spanning Tree Protocol (STP), перевірки налаштувань фільтрації netfilter (`iptables` / `nftables`) та зазнає блокувань на внутрішніх замок списків пристроїв. У високонавантажених системах із тисячами пакетів на секунду ця багатошарова обробка створює помітні накладні витрати центрального процесора та збільшує затримку (latency). Драйвери **Macvlan** та **Macvtap** реалізують альтернативний, прямоточний підхід до віртуалізації канального рівня (L2), усуваючи з шляху пакета мостовий стек ядра і забезпечуючи безпосередню прив'язку віртуальних MAC-адрес до фізичного мережевого адаптера.
 
-[Історія виникнення Macvlan та Macvtap](topic:sys-unix/macvlan-macvtap-drivers/hist-macvlan-genesis.md) демонструє, як ядро Linux еволюціонувало від важких програмних комутаторів до виділених демультиплексорів кадрів.
+[Історія виникнення Macvlan та Macvtap](root:sys-unix/macvlan-macvtap-drivers/hist-macvlan-genesis.md) демонструє, як ядро Linux еволюціонувало від важких програмних комутаторів до виділених демультиплексорів кадрів.
 
 ![Порівняння обробки пакетів: Linux Bridge та Macvlan](img/macvlan-vs-bridge.svg)
 *Порівняння традиційної мостової архітектури Linux Bridge та прямоточного демультиплексування Macvlan.*
@@ -220,7 +220,7 @@
 
 ## Практична конфігурація: iproute2, Network Namespaces та Libvirt
 
-[Специфікація RTNetlink ABI та sysfs-структур Macvlan/Macvtap](topic:sys-unix/macvlan-macvtap-drivers/api-macvlan-netlink-sysfs.md) містить повний перелік бінарних атрибутів, а нижче наведено практичні команди консольного керування.
+[Специфікація RTNetlink ABI та sysfs-структур Macvlan/Macvtap](root:sys-unix/macvlan-macvtap-drivers/api-macvlan-netlink-sysfs.md) містить повний перелік бінарних атрибутів, а нижче наведено практичні команди консольного керування.
 
 ### 1. Створення та налаштування Macvlan у консолі
 
@@ -261,7 +261,7 @@ sudo ip netns exec ns-app ip addr add 192.168.1.150/24 dev macvlan0
 sudo ip netns exec ns-app ip route add default via 192.168.1.1
 ```
 
-[Створення та керування Macvlan через RTNetlink](topic:sys-unix/macvlan-macvtap-drivers/proj-macvlan-creator.md) демонструє, як виконувати ці самі операції програмно мовами C та C++ без виклику зовнішньої утиліти `ip`.
+[Створення та керування Macvlan через RTNetlink](root:sys-unix/macvlan-macvtap-drivers/proj-macvlan-creator.md) демонструє, як виконувати ці самі операції програмно мовами C та C++ без виклику зовнішньої утиліти `ip`.
 
 ### 3. Конфігурація Macvtap у Libvirt (KVM)
 

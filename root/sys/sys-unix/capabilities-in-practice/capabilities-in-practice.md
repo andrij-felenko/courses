@@ -1,8 +1,8 @@
 # Можливості на практиці: базовий огляд
 
 <preknowlist>
-- [Можливості (capabilities) замість всесильного root](topic:sys-unix/capabilities)
-- [Systemd: модель і юніти](topic:sys-unix/systemd-model)
+- [Можливості (capabilities) замість всесильного root](root:sys-unix/capabilities)
+- [Systemd: модель і юніти](root:sys-unix/systemd-model)
 </preknowlist>
 
 Є два основні шляхи надати непривілейованій програмі окремі права (можливості) без використання `root`: через файлові атрибути або через менеджер служб (Systemd).

@@ -16,7 +16,7 @@ mode_t umask(mode_t mask);
 | аргумент | нова маска; ядро бере `mask & 0777` — тобто вживає **лише дев'ять бітів прав**, а старші (setuid, setgid, sticky) мовчки відкидає |
 | повертає | **попереднє** значення маски |
 | помилки | ERRORS у сторінці посібника немає взагалі: «This system call always succeeds» — `errno` виклик не чіпає |
-| область дії | одне поле процесу, спільне для всіх [потоків](topic:sys-unix/threads-as-tasks): маска лежить у тій самій структурі, що робочий каталог і корінь, а її потоки одного процесу ділять |
+| область дії | одне поле процесу, спільне для всіх [потоків](root:sys-unix/threads-as-tasks): маска лежить у тій самій структурі, що робочий каталог і корінь, а її потоки одного процесу ділять |
 | час життя | копіюється при `fork`, переживає `exec`, зникає з процесом |
 | привілеї | не потрібні жодні: будь-який процес ставить собі будь-яке значення |
 
@@ -29,7 +29,7 @@ umask(old);              /* і тільки тепер повернулася */
 
 Між цими рядками маска дорівнює нулю **для всього процесу**. Сусідній потік, якому саме в цю мить трапилося створювати файл, отримає його без жодного звуження — і жодного сліду про це не лишиться.
 
-Linux закрив діру з боку читання. З версії 4.7 маска будь-якого процесу видна як поле `Umask` у [`/proc/<pid>/status`](topic:sys-unix/proc-reading-process-and-kernel-state) — «expressed in octal with a leading zero»:
+Linux закрив діру з боку читання. З версії 4.7 маска будь-якого процесу видна як поле `Umask` у [`/proc/<pid>/status`](root:sys-unix/proc-reading-process-and-kernel-state) — «expressed in octal with a leading zero»:
 
 ```sh
 $ grep Umask /proc/self/status
@@ -78,12 +78,12 @@ POSIX вимагає форму `umask [-S] [маска]`; `-p` — розшир
 | `/etc/login.defs` | `UMASK 022` | значення для сеансів входу; «If not specified, the mask will be initialized to 022» |
 | `/etc/login.defs` | `USERGROUPS_ENAB yes` | для не-root, у кого UID = GID і ім'я збігається з іменем первинної групи, біти групи в масці прирівнюються до бітів власника: `022` → `002`, `077` → `007` |
 | `/etc/login.defs` | `HOME_MODE 0700` | режим нової домівки в `useradd`; без цього рядка режим виводять із `UMASK` |
-| [стек PAM](topic:sys-unix/pam-stack) | `session optional pam_umask.so umask=027 usergroups` | будь-який сеанс, що проходить крізь PAM: консоль, `ssh`, графічний вхід |
-| [стартові файли оболонки](topic:sys-unix/session-environment) | рядок `umask 027` у `/etc/profile`, `~/.profile`, `~/.bashrc` | лише процеси, народжені з цієї оболонки |
-| юніт [systemd](topic:sys-unix/systemd-model) | `UMask=0027` у секції `[Service]` | процеси служби |
+| [стек PAM](root:sys-unix/pam-stack) | `session optional pam_umask.so umask=027 usergroups` | будь-який сеанс, що проходить крізь PAM: консоль, `ssh`, графічний вхід |
+| [стартові файли оболонки](root:sys-unix/session-environment) | рядок `umask 027` у `/etc/profile`, `~/.profile`, `~/.bashrc` | лише процеси, народжені з цієї оболонки |
+| юніт [systemd](root:sys-unix/systemd-model) | `UMask=0027` у секції `[Service]` | процеси служби |
 | `user@.service` | `UMask=` у drop-in для екземпляра | менеджер користувача — і все, що він запускає |
 
-**`pam_umask` шукає значення в чотирьох місцях по черзі**, і перше знайдене виграє: `umask=` у полі GECOS [облікового запису](topic:sys-unix/user-database-nss) → аргумент `umask=` самого модуля → `UMASK` із `/etc/login.defs` → `UMASK=` із `/etc/default/login`. Опцій у модуля п'ять: `umask=маска` (вісімкою, теж застосовує `& 0777`), `usergroups` і протилежна їй `nousergroups`, `debug`, `silent`.
+**`pam_umask` шукає значення в чотирьох місцях по черзі**, і перше знайдене виграє: `umask=` у полі GECOS [облікового запису](root:sys-unix/user-database-nss) → аргумент `umask=` самого модуля → `UMASK` із `/etc/login.defs` → `UMASK=` із `/etc/default/login`. Опцій у модуля п'ять: `umask=маска` (вісімкою, теж застосовує `& 0777`), `usergroups` і протилежна їй `nousergroups`, `debug`, `silent`.
 
 **`UMask=` у systemd типово `0022` для системних юнітів.** Для юнітів користувача типове значення успадковується від менеджера користувача, чиє власне — від системного менеджера, тобто теж зазвичай `0022`, доки його не перевизначить модуль PAM. Задати його для всього сеансу можна через `UMask=` в юніті `user@.service` або через запис користувача JSON, якщо обліковими записами відає `systemd-homed`.
 
@@ -95,15 +95,15 @@ POSIX вимагає форму `umask [-S] [маска]`; `-p` — розшир
 
 | виклик | що народжується | результат |
 |---|---|---|
-| `open`, [`openat`](topic:sys-unix/at-family-syscalls), `creat` з `O_CREAT` | звичайний файл | `mode & ~umask` |
-| `open` з [`O_TMPFILE`](topic:sys-unix/o-tmpfile) | безіменний файл | `mode & ~umask` |
+| `open`, [`openat`](root:sys-unix/at-family-syscalls), `creat` з `O_CREAT` | звичайний файл | `mode & ~umask` |
+| `open` з [`O_TMPFILE`](root:sys-unix/o-tmpfile) | безіменний файл | `mode & ~umask` |
 | `mkdir`, `mkdirat` | каталог | `mode & ~umask & 0777` |
 | `mknod`, `mknodat` | вузол пристрою або FIFO | `mode & ~umask` |
-| `mkfifo`, `mkfifoat` | [іменований канал](topic:sys-unix/pipe-and-fifo) | `mode & ~umask` |
-| `bind` для `AF_UNIX` з іменем у файловій системі | [вузол сокета](topic:sys-unix/unix-domain-sockets) | усі права, крім знятих маскою |
-| `mq_open` з `O_CREAT` | [черга повідомлень](topic:sys-unix/message-queues) | `mode & ~umask`; до Linux 2.6.14 маску тут **не застосовували** |
-| `sem_open` з `O_CREAT` | [іменований семафор](topic:sys-unix/posix-semaphores) | `mode & ~umask` |
-| `shm_open` з `O_CREAT` | [об'єкт спільної пам'яті](topic:sys-unix/posix-shared-memory) | молодші дев'ять бітів `mode` мінус зняте маскою |
+| `mkfifo`, `mkfifoat` | [іменований канал](root:sys-unix/pipe-and-fifo) | `mode & ~umask` |
+| `bind` для `AF_UNIX` з іменем у файловій системі | [вузол сокета](root:sys-unix/unix-domain-sockets) | усі права, крім знятих маскою |
+| `mq_open` з `O_CREAT` | [черга повідомлень](root:sys-unix/message-queues) | `mode & ~umask`; до Linux 2.6.14 маску тут **не застосовували** |
+| `sem_open` з `O_CREAT` | [іменований семафор](root:sys-unix/posix-semaphores) | `mode & ~umask` |
+| `shm_open` з `O_CREAT` | [об'єкт спільної пам'яті](root:sys-unix/posix-shared-memory) | молодші дев'ять бітів `mode` мінус зняте маскою |
 
 І не застосовують — усе інше:
 
@@ -112,13 +112,13 @@ POSIX вимагає форму `umask [-S] [маска]`; `-p` — розшир
 | `chmod`, `fchmod`, `fchmodat` | режим наявного об'єкта, а не народження |
 | `open` без `O_CREAT` і `O_TMPFILE` | «then mode is ignored» — аргумент не читають зовсім |
 | `open` з `O_CREAT` на вже наявний файл | нічого не створюється, режим не міняється |
-| каталог із типовим [ACL](topic:sys-unix/acl-and-xattr) | формула діє лише «in the absence of a default ACL»; інакше права беруть з успадкованого ACL |
+| каталог із типовим [ACL](root:sys-unix/acl-and-xattr) | формула діє лише «in the absence of a default ACL»; інакше права беруть з успадкованого ACL |
 | `mkdir -m`, `install -m`, `cp -p`, `tar -p` | створюють об'єкт, а потім ставлять режим окремим `chmod` |
-| [спеціальні біти](topic:sys-unix/setuid-and-privilege) | ядро бере `mask & 0777` — старших бітів у масці просто немає |
+| [спеціальні біти](root:sys-unix/setuid-and-privilege) | ядро бере `mask & 0777` — старших бітів у масці просто немає |
 
 ## Однойменні параметри монтування
 
-FAT, exFAT і NTFS [бітів прав](topic:sys-unix/permission-bits) не зберігають, тому режим для них вигадує драйвер під час [монтування](topic:sys-unix/mount-model). Імена параметрів збігаються з іменем маски, механізм інший.
+FAT, exFAT і NTFS [бітів прав](root:sys-unix/permission-bits) не зберігають, тому режим для них вигадує драйвер під час [монтування](root:sys-unix/mount-model). Імена параметрів збігаються з іменем маски, механізм інший.
 
 | параметр | стосується | типове |
 |---|---|---|

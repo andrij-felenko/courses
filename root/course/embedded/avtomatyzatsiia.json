@@ -21,7 +21,7 @@
           }
         },
         {
-          "ref": "programming/ui-response-time-limits",
+          "ref": "sf-apps/ui-response-time-limits",
           "title": "Пороги часу відгуку інтерфейсу: 0.1 с, 1 с, 10 с"
         },
         {
@@ -45,11 +45,11 @@
           }
         },
         {
-          "ref": "programming/video-latency",
+          "ref": "com-protocol/video-latency",
           "title": "Затримка відео"
         },
         {
-          "ref": "algorithms/jitter-buffer",
+          "ref": "com-signal/jitter-buffer",
           "title": "Буфер джитера"
         },
         {
@@ -63,27 +63,27 @@
           }
         },
         {
-          "ref": "communications/osd-overlay",
+          "ref": "com-modulation/osd-overlay",
           "title": "OSD-накладання телеметрії на аналоговий відеосигнал"
         },
         {
-          "ref": "communications/control-telemetry",
+          "ref": "sys-dron/control-telemetry",
           "title": "Керування й телеметрія"
         },
         {
-          "ref": "communications/telemetry-stream",
+          "ref": "sys-dron/telemetry-stream",
           "title": "Телеметрія"
         },
         {
-          "ref": "communications/stream-rates",
+          "ref": "sys-dron/stream-rates",
           "title": "бюджет каналу"
         },
         {
-          "ref": "communications/telemetry-link",
+          "ref": "com-medium/telemetry-link",
           "title": "Канал земля-борт"
         },
         {
-          "ref": "communications/mavlink-high-latency",
+          "ref": "sys-dron/mavlink-high-latency",
           "title": "Протокол великої затримки MAVLink"
         },
         {
@@ -113,15 +113,15 @@
       "title": "Наземна станція",
       "topics": [
         {
-          "ref": "qgroundcontrol/what-is-qgc",
+          "ref": "sys-dron/what-is-qgc",
           "title": "Що таке QGroundControl"
         },
         {
-          "ref": "qgroundcontrol/user-roles",
+          "ref": "sys-dron/user-roles",
           "title": "Три користувачі станції: пілот, налаштувальник, розробник"
         },
         {
-          "ref": "qgroundcontrol/app-composition",
+          "ref": "sys-dron/app-composition",
           "title": "З чого складається застосунок"
         },
         {
@@ -135,7 +135,7 @@
           }
         },
         {
-          "ref": "qgroundcontrol/platform-targets",
+          "ref": "sys-dron/platform-targets",
           "title": "Linux, Windows, Android"
         },
         {
@@ -149,15 +149,15 @@
           }
         },
         {
-          "ref": "qgroundcontrol/link-types",
+          "ref": "sys-dron/link-types",
           "title": "Типи каналів"
         },
         {
-          "ref": "qgroundcontrol/link-manager",
+          "ref": "sys-dron/link-manager",
           "title": "Менеджер каналів"
         },
         {
-          "ref": "qgroundcontrol/message-routing",
+          "ref": "sys-dron/message-routing",
           "title": "Маршрутизація за sysid/compid"
         },
         {
@@ -171,15 +171,15 @@
           }
         },
         {
-          "ref": "programming/params-gcs",
+          "ref": "sys-dron/params-gcs",
           "title": "Параметри й GCS"
         },
         {
-          "ref": "qgroundcontrol/parameter-manager",
+          "ref": "sys-dron/parameter-manager",
           "title": "Менеджер параметрів: завантаження, кеш, запис"
         },
         {
-          "ref": "qgroundcontrol/settings-persistence",
+          "ref": "sys-dron/settings-persistence",
           "title": "Налаштування й що переживає перезапуск"
         },
         {
@@ -199,7 +199,7 @@
       "title": "Команда і підтвердження",
       "topics": [
         {
-          "ref": "programming/distributed-fallacies",
+          "ref": "sf-distributed/distributed-fallacies",
           "title": "Вісім оман розподілених обчислень"
         },
         {
@@ -233,39 +233,39 @@
           }
         },
         {
-          "ref": "programming/delivery-guarantees",
+          "ref": "sf-distributed/delivery-guarantees",
           "title": "At-most-once / at-least-once / effectively-once"
         },
         {
-          "ref": "programming/idempotency",
+          "ref": "sf-distributed/idempotency",
           "title": "Ідемпотентність"
         },
         {
-          "ref": "programming/retries-backoff",
+          "ref": "sf-distributed/retries-backoff",
           "title": "Повтори"
         },
         {
-          "ref": "programming/timeouts-deadlines",
+          "ref": "sf-distributed/timeouts-deadlines",
           "title": "Таймаути і бюджет часу"
         },
         {
-          "ref": "programming/long-running-operations",
+          "ref": "com-protocol/long-running-operations",
           "title": "Довга операція"
         },
         {
-          "ref": "communications/mavlink-pitfalls",
+          "ref": "sys-dron/mavlink-pitfalls",
           "title": "Граблі MAVLink"
         },
         {
-          "ref": "qgroundcontrol/mavlink-handling",
+          "ref": "sys-dron/mavlink-handling",
           "title": "Обробка MAVLink у станції"
         },
         {
-          "ref": "qgroundcontrol/plan-exchange",
+          "ref": "sys-dron/plan-exchange",
           "title": "Обмін планом із апаратом"
         },
         {
-          "ref": "communications/mavlink-camera-gimbal",
+          "ref": "sys-dron/mavlink-camera-gimbal",
           "title": "Протоколи камери й підвісу"
         }
       ]
@@ -275,23 +275,23 @@
       "title": "Пульт оператора",
       "topics": [
         {
-          "ref": "communications/rc-link",
+          "ref": "sys-dron/rc-link",
           "title": "RC-лінк"
         },
         {
-          "ref": "communications/rc-signal-protocol",
+          "ref": "sys-dron/rc-signal-protocol",
           "title": "RC-сигнал: PWM, PPM і S.BUS"
         },
         {
-          "ref": "communications/crsf-protocol",
+          "ref": "sys-dron/crsf-protocol",
           "title": "Протокол CRSF"
         },
         {
-          "ref": "communications/elrs-architecture",
+          "ref": "com-modulation/elrs-architecture",
           "title": "Архітектура ExpressLRS"
         },
         {
-          "ref": "communications/motion-control-setpoints",
+          "ref": "sys-dron/motion-control-setpoints",
           "title": "Керування рухом"
         },
         {
@@ -305,7 +305,7 @@
           }
         },
         {
-          "ref": "algorithms/smoothing-vs-lag",
+          "ref": "com-signal/smoothing-vs-lag",
           "title": "Згладжування й затримка"
         },
         {
@@ -335,11 +335,11 @@
       "title": "Режими й повноваження",
       "topics": [
         {
-          "ref": "programming/manual-stabilized-modes",
+          "ref": "sys-dron/manual-stabilized-modes",
           "title": "Ручні режими"
         },
         {
-          "ref": "programming/position-modes",
+          "ref": "sys-dron/position-modes",
           "title": "Режими з позицією"
         },
         {
@@ -353,15 +353,15 @@
           }
         },
         {
-          "ref": "programming/arming-checks",
+          "ref": "sys-dron/arming-checks",
           "title": "Arming-перевірки"
         },
         {
-          "ref": "programming/preflight-safety",
+          "ref": "sys-dron/preflight-safety",
           "title": "Безпека до польоту"
         },
         {
-          "ref": "programming/preflight-checklists",
+          "ref": "sys-dron/preflight-checklists",
           "title": "Передпольотні чеклисти"
         },
         {
@@ -395,23 +395,23 @@
           }
         },
         {
-          "ref": "communications/mavlink-heartbeat",
+          "ref": "sys-dron/mavlink-heartbeat",
           "title": "серцебиття"
         },
         {
-          "ref": "programming/distributed-locks",
+          "ref": "sf-distributed/distributed-locks",
           "title": "Розподілені замки й лізи"
         },
         {
-          "ref": "programming/failsafe",
+          "ref": "sys-dron/failsafe",
           "title": "Failsafe"
         },
         {
-          "ref": "communications/rc-failsafe-modes",
+          "ref": "sys-dron/rc-failsafe-modes",
           "title": "Режими failsafe RC"
         },
         {
-          "ref": "communications/gcs-failsafe",
+          "ref": "sys-dron/gcs-failsafe",
           "title": "Failsafe на стороні GCS"
         },
         {
@@ -441,7 +441,7 @@
           }
         },
         {
-          "ref": "programming/policy-as-code",
+          "ref": "sf-security/policy-as-code",
           "title": "Політики як код"
         },
         {
@@ -455,15 +455,15 @@
           }
         },
         {
-          "ref": "programming/debouncing-throttling",
+          "ref": "sf-apps/debouncing-throttling",
           "title": "витримку й тремтіння"
         },
         {
-          "ref": "programming/time-and-scheduling",
+          "ref": "sf-apps/time-and-scheduling",
           "title": "Прикладний час"
         },
         {
-          "ref": "programming/recurrence-scheduling",
+          "ref": "sf-apps/recurrence-scheduling",
           "title": "щовівторка"
         },
         {
@@ -487,11 +487,11 @@
           }
         },
         {
-          "ref": "programming/geofence",
+          "ref": "sys-dron/geofence",
           "title": "Геозона (geofence) в автопілоті"
         },
         {
-          "ref": "math/point-in-polygon",
+          "ref": "sf-algorithms/point-in-polygon",
           "title": "Належність точки багатокутнику"
         },
         {
@@ -521,63 +521,63 @@
       "title": "Карта і план",
       "topics": [
         {
-          "ref": "qgroundcontrol/map-engine",
+          "ref": "sys-dron/map-engine",
           "title": "Рушій карти"
         },
         {
-          "ref": "math/map-projections",
+          "ref": "math-geometry/map-projections",
           "title": "Картографічні проєкції"
         },
         {
-          "ref": "math/web-mercator-tiles",
+          "ref": "math-geometry/web-mercator-tiles",
           "title": "Web Mercator і тайли"
         },
         {
-          "ref": "programming/map-tile-pipeline",
+          "ref": "sf-visual/map-tile-pipeline",
           "title": "Тайловий конвеєр карти"
         },
         {
-          "ref": "programming/offline-tile-cache",
+          "ref": "sf-visual/offline-tile-cache",
           "title": "Кеш тайлів"
         },
         {
-          "ref": "qgroundcontrol/offline-maps",
+          "ref": "sys-dron/offline-maps",
           "title": "Офлайн-карти"
         },
         {
-          "ref": "math/great-circle-distance",
+          "ref": "math-geometry/great-circle-distance",
           "title": "Відстань великого кола (гаверсинуси)"
         },
         {
-          "ref": "programming/terrain-elevation-model",
+          "ref": "sf-visual/terrain-elevation-model",
           "title": "Модель рельєфу"
         },
         {
-          "ref": "communications/mavlink-terrain-protocol",
+          "ref": "sys-dron/mavlink-terrain-protocol",
           "title": "Протокол рельєфу MAVLink: TERRAIN_REQUEST, TERRAIN_DATA, TERRAIN_REPORT"
         },
         {
-          "ref": "programming/geo-data-formats",
+          "ref": "sf-data/geo-data-formats",
           "title": "GeoJSON, KML, GPX"
         },
         {
-          "ref": "algorithms/spatial-index",
+          "ref": "sf-algorithms/spatial-index",
           "title": "Просторовий індекс"
         },
         {
-          "ref": "qgroundcontrol/plan-model",
+          "ref": "sys-dron/plan-model",
           "title": "Модель плану"
         },
         {
-          "ref": "qgroundcontrol/mission-items",
+          "ref": "sys-dron/mission-items",
           "title": "Елементи місії"
         },
         {
-          "ref": "qgroundcontrol/terrain-and-altitude",
+          "ref": "sys-dron/terrain-and-altitude",
           "title": "Рельєф і режими висоти"
         },
         {
-          "ref": "programming/undo-redo-command-stack",
+          "ref": "sf-apps/undo-redo-command-stack",
           "title": "Скасування й повтор дії"
         }
       ]
@@ -617,15 +617,15 @@
           }
         },
         {
-          "ref": "programming/optimistic-ui-update",
+          "ref": "sf-apps/optimistic-ui-update",
           "title": "зроблено"
         },
         {
-          "ref": "communications/mavlink-events-protocol",
+          "ref": "sys-dron/mavlink-events-protocol",
           "title": "Протокол подій MAVLink: подія як ідентифікатор"
         },
         {
-          "ref": "qgroundcontrol/events-interface",
+          "ref": "sys-dron/events-interface",
           "title": "Інтерфейс подій: коди з борту як людські повідомлення"
         },
         {
@@ -639,7 +639,7 @@
           }
         },
         {
-          "ref": "programming/alerting",
+          "ref": "sf-release/alerting",
           "title": "Алерти"
         },
         {
@@ -653,7 +653,7 @@
           }
         },
         {
-          "ref": "communications/coordinate-frames-units",
+          "ref": "com-protocol/coordinate-frames-units",
           "title": "метри проти футів, AMSL проти відносної"
         },
         {
@@ -673,47 +673,47 @@
       "title": "Будова станції",
       "topics": [
         {
-          "ref": "programming/desktop-app-architecture",
+          "ref": "sf-apps/desktop-app-architecture",
           "title": "Архітектура десктопного застосунку"
         },
         {
-          "ref": "qgroundcontrol/vehicle-object",
+          "ref": "sys-dron/vehicle-object",
           "title": "Vehicle: модель апарата"
         },
         {
-          "ref": "qgroundcontrol/firmware-plugin",
+          "ref": "sys-dron/firmware-plugin",
           "title": "Плагін прошивки: як станція ховає різницю між автопілотами"
         },
         {
-          "ref": "qgroundcontrol/fact-system",
+          "ref": "sys-dron/fact-system",
           "title": "FactSystem"
         },
         {
-          "ref": "qgroundcontrol/threading-model",
+          "ref": "sys-dron/threading-model",
           "title": "Модель потоків станції"
         },
         {
-          "ref": "programming/process-vs-thread",
+          "ref": "sf-os/process-vs-thread",
           "title": "Потоки настільної ОС проти задач RTOS"
         },
         {
-          "ref": "programming/event-loop",
+          "ref": "sf-tasks/event-loop",
           "title": "Цикл подій"
         },
         {
-          "ref": "programming/ui-thread-offloading",
+          "ref": "sf-apps/ui-thread-offloading",
           "title": "Розвантаження потоку інтерфейсу"
         },
         {
-          "ref": "qgroundcontrol/video-manager",
+          "ref": "sys-dron/video-manager",
           "title": "Відеопідсистема станції"
         },
         {
-          "ref": "qgroundcontrol/video-pipeline",
+          "ref": "sys-dron/video-pipeline",
           "title": "Відеотракт на GStreamer"
         },
         {
-          "ref": "media-vision/pipeline-debugging",
+          "ref": "sys-media/pipeline-debugging",
           "title": "Діагностика конвеєра: графи, рівні журналу, типові затики"
         }
       ]
@@ -723,43 +723,43 @@
       "title": "Власна станція",
       "topics": [
         {
-          "ref": "programming/build-vs-buy",
+          "ref": "sf-apps/build-vs-buy",
           "title": "коли брати готову станцію, а коли писати свою"
         },
         {
-          "ref": "communications/mavlink-message-dictionary",
+          "ref": "sys-dron/mavlink-message-dictionary",
           "title": "Словник MAVLink"
         },
         {
-          "ref": "communications/mavlink-dialect",
+          "ref": "sys-dron/mavlink-dialect",
           "title": "Діалекти MAVLink"
         },
         {
-          "ref": "communications/mavlink-xml-codegen",
+          "ref": "sys-dron/mavlink-xml-codegen",
           "title": "Генерація коду з XML MAVLink"
         },
         {
-          "ref": "qgroundcontrol/custom-mavlink-messages",
+          "ref": "sys-dron/custom-mavlink-messages",
           "title": "Власні MAVLink-повідомлення в QGC"
         },
         {
-          "ref": "communications/mavlink-capabilities",
+          "ref": "sys-dron/mavlink-capabilities",
           "title": "Можливості апарата: бітова маска AUTOPILOT_VERSION"
         },
         {
-          "ref": "qgroundcontrol/mavlink-inspector",
+          "ref": "sys-dron/mavlink-inspector",
           "title": "не приходить"
         },
         {
-          "ref": "qgroundcontrol/core-plugin",
+          "ref": "sys-dron/core-plugin",
           "title": "Ядрове розширення: головна точка кастомізації"
         },
         {
-          "ref": "qgroundcontrol/custom-build",
+          "ref": "sys-dron/custom-build",
           "title": "Власна збірка станції"
         },
         {
-          "ref": "qgroundcontrol/contributing",
+          "ref": "sys-dron/contributing",
           "title": "Внесок в апстрим: процес, вимоги, рев'ю"
         },
         {
@@ -819,11 +819,11 @@
           }
         },
         {
-          "ref": "qgroundcontrol/multi-vehicle",
+          "ref": "sys-dron/multi-vehicle",
           "title": "Кілька апаратів в одному застосунку"
         },
         {
-          "ref": "communications/mavlink-component-id",
+          "ref": "sys-dron/mavlink-component-id",
           "title": "адресацію й групи"
         },
         {
@@ -837,15 +837,15 @@
           }
         },
         {
-          "ref": "programming/authorization-models",
+          "ref": "sf-security/authorization-models",
           "title": "Моделі авторизації"
         },
         {
-          "ref": "programming/least-privilege",
+          "ref": "sf-security/least-privilege",
           "title": "Найменші привілеї й deny-by-default"
         },
         {
-          "ref": "communications/mavlink-v2-signing",
+          "ref": "sys-dron/mavlink-v2-signing",
           "title": "MAVLink v2 і підпис"
         },
         {
@@ -859,15 +859,15 @@
           }
         },
         {
-          "ref": "programming/background-jobs",
+          "ref": "sf-web/background-jobs",
           "title": "Черга задач"
         },
         {
-          "ref": "programming/reconciliation",
+          "ref": "sf-distributed/reconciliation",
           "title": "Звірка"
         },
         {
-          "ref": "programming/canary-deployment",
+          "ref": "sf-release/canary-deployment",
           "title": "Канаркове розгортання"
         }
       ]
@@ -887,31 +887,31 @@
           }
         },
         {
-          "ref": "programming/audit-logging",
+          "ref": "sf-security/audit-logging",
           "title": "Аудит-лог як вузол"
         },
         {
-          "ref": "communications/flight-log-formats",
+          "ref": "sys-dron/flight-log-formats",
           "title": "Формати бортових логів: ULog і DataFlash"
         },
         {
-          "ref": "qgroundcontrol/vehicle-logs",
+          "ref": "sys-dron/vehicle-logs",
           "title": "Бортові логи апарата: завантаження й потокове передавання"
         },
         {
-          "ref": "communications/mavlink-ftp",
+          "ref": "sys-dron/mavlink-ftp",
           "title": "MAVFTP: передача файлів поверх MAVLink"
         },
         {
-          "ref": "qgroundcontrol/telemetry-logging",
+          "ref": "sys-dron/telemetry-logging",
           "title": "Запис і відтворення телеметрії"
         },
         {
-          "ref": "qgroundcontrol/log-viewer",
+          "ref": "sys-dron/log-viewer",
           "title": "Переглядач логів: графіки й повідомлення з бортового файлу"
         },
         {
-          "ref": "communications/clock-offset-drift",
+          "ref": "sf-distributed/clock-offset-drift",
           "title": "Дрейф годинників"
         },
         {
@@ -935,11 +935,11 @@
           }
         },
         {
-          "ref": "math/hash-and-digital-signature",
+          "ref": "sf-security/hash-and-digital-signature",
           "title": "Хеш і цифровий підпис"
         },
         {
-          "ref": "programming/postmortems",
+          "ref": "sf-release/postmortems",
           "title": "оператор помилився"
         }
       ]

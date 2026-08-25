@@ -21,15 +21,15 @@
           }
         },
         {
-          "ref": "programming/logical-coupling",
+          "ref": "sf-apps/logical-coupling",
           "title": "Логічне зчеплення"
         },
         {
-          "ref": "programming/common-closure-principle",
+          "ref": "sf-apps/common-closure-principle",
           "title": "Що міняється разом, лежить разом"
         },
         {
-          "ref": "programming/design-structure-matrix",
+          "ref": "sf-apps/design-structure-matrix",
           "title": "Матриця залежностей"
         },
         {
@@ -49,7 +49,7 @@
       "title": "Шари",
       "topics": [
         {
-          "ref": "programming/layered-architecture",
+          "ref": "sf-apps/layered-architecture",
           "title": "Шарова архітектура"
         },
         {
@@ -83,11 +83,11 @@
           }
         },
         {
-          "ref": "programming/anemic-domain-model",
+          "ref": "sf-apps/anemic-domain-model",
           "title": "Анемічна модель як типовий наслідок шарів без середини"
         },
         {
-          "ref": "programming/end-to-end-argument",
+          "ref": "sf-apps/end-to-end-argument",
           "title": "Наскрізний аргумент"
         }
       ]
@@ -97,7 +97,7 @@
       "title": "Порти й адаптери",
       "topics": [
         {
-          "ref": "programming/hexagonal-architecture",
+          "ref": "sf-apps/hexagonal-architecture",
           "title": "Порти й адаптери"
         },
         {
@@ -127,21 +127,21 @@
           ]
         },
         {
-          "ref": "programming/hardware-abstraction-layer",
+          "ref": "sf-apps/hardware-abstraction-layer",
           "title": "HAL: той самий порт у залізному світі"
         },
         {
-          "ref": "programming/application-entry-points",
+          "ref": "sf-apps/application-entry-points",
           "title": "Точки входу застосунку: служба, команда, робітник, бібліотека",
           "todo": "нова тема",
           "hint": "programming/software-design"
         },
         {
-          "ref": "unix-linux/exit-status",
+          "ref": "sys-unix/exit-status",
           "title": "Код виходу як інтерфейс програми"
         },
         {
-          "ref": "unix-linux/daemonize",
+          "ref": "sys-unix/daemonize",
           "title": "Відхід у фон: форма процесу-служби"
         },
         {
@@ -171,21 +171,21 @@
       "title": "Дерево коду",
       "topics": [
         {
-          "ref": "programming/package-by-layer-vs-feature",
+          "ref": "sf-apps/package-by-layer-vs-feature",
           "title": "Розкладка коду: за шарами чи за можливостями",
           "todo": "нова тема",
           "hint": "programming/software-design"
         },
         {
-          "ref": "programming/acyclic-dependencies",
+          "ref": "sf-apps/acyclic-dependencies",
           "title": "Цикл між пакетами й два способи його розірвати"
         },
         {
-          "ref": "programming/common-reuse-principle",
+          "ref": "sf-apps/common-reuse-principle",
           "title": "Що не вживають разом, не пакують разом"
         },
         {
-          "ref": "programming/reuse-release-equivalence",
+          "ref": "sf-apps/reuse-release-equivalence",
           "title": "Одиниця повторного вжитку є одиницею випуску"
         },
         {
@@ -199,7 +199,7 @@
           }
         },
         {
-          "ref": "programming/dependency-graph-checker",
+          "ref": "sf-apps/dependency-graph-checker",
           "title": "Граф залежностей як інструмент"
         },
         {
@@ -219,19 +219,19 @@
       "title": "Прикладна логіка",
       "topics": [
         {
-          "ref": "programming/service-layer",
+          "ref": "sf-apps/service-layer",
           "title": "Сервісний шар"
         },
         {
-          "ref": "programming/transaction-script",
+          "ref": "sf-apps/transaction-script",
           "title": "Сценарій транзакції"
         },
         {
-          "ref": "programming/domain-model",
+          "ref": "sf-apps/domain-model",
           "title": "Предметна модель"
         },
         {
-          "ref": "programming/table-module",
+          "ref": "sf-apps/table-module",
           "title": "Модуль таблиці"
         },
         {
@@ -245,7 +245,7 @@
           }
         },
         {
-          "ref": "programming/tell-dont-ask",
+          "ref": "sf-apps/tell-dont-ask",
           "title": "«Кажи, не питай»"
         },
         {
@@ -265,11 +265,11 @@
       "title": "Наскрізні зрізи",
       "topics": [
         {
-          "ref": "programming/cross-cutting-concerns",
+          "ref": "sf-apps/cross-cutting-concerns",
           "title": "Наскрізні зрізи"
         },
         {
-          "ref": "programming/separation-of-concerns",
+          "ref": "sf-apps/separation-of-concerns",
           "title": "Розділення відповідальностей"
         },
         {
@@ -283,17 +283,17 @@
           }
         },
         {
-          "ref": "programming/pipes-and-filters",
+          "ref": "sf-distributed/pipes-and-filters",
           "title": "Канали й фільтри"
         },
         {
-          "ref": "programming/call-context-propagation",
+          "ref": "sf-apps/call-context-propagation",
           "title": "Наскрізний контекст виклику: хто, для кого, у якому запиті",
           "todo": "нова тема",
           "hint": "programming/software-design"
         },
         {
-          "ref": "programming/i18n-as-architecture",
+          "ref": "sf-apps/i18n-as-architecture",
           "title": "i18n як архітектура (не переклад)"
         },
         {
@@ -323,25 +323,25 @@
           }
         },
         {
-          "ref": "programming/error-handling",
+          "ref": "sf-apps/error-handling",
           "title": "Жодна помилка не мовчить"
         },
         {
-          "ref": "programming/error-as-value-vs-exception",
+          "ref": "sf-apps/error-as-value-vs-exception",
           "title": "Виняток чи значення-результат",
           "todo": "нова тема",
           "hint": "programming/software-engineering"
         },
         {
-          "ref": "programming/assert-panic",
+          "ref": "sf-apps/assert-panic",
           "title": "Чим програмна помилка відрізняється від очікуваної відмови"
         },
         {
-          "ref": "programming/defensive-programming",
+          "ref": "sf-apps/defensive-programming",
           "title": "Захисне програмування і його межа"
         },
         {
-          "ref": "programming/exception-safety",
+          "ref": "sf-lang/exception-safety",
           "title": "Гарантії цілості, коли виняток пролітає крізь напівзроблену роботу"
         },
         {
@@ -361,27 +361,27 @@
       "title": "Композиційний корінь",
       "topics": [
         {
-          "ref": "programming/dependency-injection",
+          "ref": "sf-apps/dependency-injection",
           "title": "Впровадження залежностей та IoC-контейнер"
         },
         {
-          "ref": "programming/di-container",
+          "ref": "sf-apps/di-container",
           "title": "DI-контейнер і composition root"
         },
         {
-          "ref": "programming/framework-vs-library",
+          "ref": "sf-apps/framework-vs-library",
           "title": "Каркас проти бібліотеки: напрямок виклику"
         },
         {
-          "ref": "programming/service-locator",
+          "ref": "sf-apps/service-locator",
           "title": "Локатор служб як анти-двійник кореня"
         },
         {
-          "ref": "programming/global-state",
+          "ref": "sf-apps/global-state",
           "title": "Глобальний стан як прихована залежність"
         },
         {
-          "ref": "programming/cpp-static-init-order",
+          "ref": "sf-lang/cpp-static-init-order",
           "title": "Порядок ініціалізації статики"
         },
         {
@@ -411,7 +411,7 @@
       "title": "Конфігурація",
       "topics": [
         {
-          "ref": "programming/config-design",
+          "ref": "sf-apps/config-design",
           "title": "Конфігурація"
         },
         {
@@ -425,23 +425,23 @@
           }
         },
         {
-          "ref": "programming/twelve-factor",
+          "ref": "sf-apps/twelve-factor",
           "title": "Дванадцять факторів"
         },
         {
-          "ref": "programming/convention-over-configuration",
+          "ref": "sf-apps/convention-over-configuration",
           "title": "Найдешевший конфіг той, якого немає"
         },
         {
-          "ref": "unix-linux/argv-and-environment",
+          "ref": "sys-unix/argv-and-environment",
           "title": "argv і оточення"
         },
         {
-          "ref": "programming/app-data-directories",
+          "ref": "sf-os/app-data-directories",
           "title": "Теки застосунку: конфіг, дані, кеш"
         },
         {
-          "ref": "programming/feature-flags",
+          "ref": "sf-release/feature-flags",
           "title": "Прапорці функцій"
         },
         {
@@ -471,33 +471,33 @@
           }
         },
         {
-          "ref": "programming/health-checks",
+          "ref": "sf-distributed/health-checks",
           "title": "Перевірки живості й готовності"
         },
         {
-          "ref": "unix-linux/service-notify-protocol",
+          "ref": "sys-unix/service-notify-protocol",
           "title": "READY=1: як програма каже наглядачеві, що вона готова"
         },
         {
-          "ref": "programming/graceful-shutdown",
+          "ref": "sf-release/graceful-shutdown",
           "title": "Штатне вимкнення і drain"
         },
         {
-          "ref": "programming/cooperative-cancellation",
+          "ref": "sf-tasks/cooperative-cancellation",
           "title": "Кооперативне скасування довгої роботи"
         },
         {
-          "ref": "programming/reboot-strategy",
+          "ref": "sf-devices/reboot-strategy",
           "title": "Перезапуск як стратегія, а не як аварія"
         },
         {
-          "ref": "programming/state-machine-as-design",
+          "ref": "sf-apps/state-machine-as-design",
           "title": "Автомат станів як інструмент дизайну",
           "todo": "нова тема",
           "hint": "programming/software-design"
         },
         {
-          "ref": "media-vision/states-lifecycle",
+          "ref": "sys-media/states-lifecycle",
           "title": "Стани конвеєра й переходи між ними"
         },
         {
@@ -517,27 +517,27 @@
       "title": "Точки розширення",
       "topics": [
         {
-          "ref": "programming/plugin-architecture",
+          "ref": "sf-apps/plugin-architecture",
           "title": "Плагіни / точки розширення"
         },
         {
-          "ref": "programming/event-driven-architecture",
+          "ref": "sf-apps/event-driven-architecture",
           "title": "Подієва архітектура всередині застосунку"
         },
         {
-          "ref": "programming/expression-problem",
+          "ref": "sf-apps/expression-problem",
           "title": "Що дешево додавати, а що дорого: нові типи проти нових дій"
         },
         {
-          "ref": "media-vision/plugin-model",
+          "ref": "sys-media/plugin-model",
           "title": "Реєстр елементів як гніздо для чужого коду"
         },
         {
-          "ref": "unix-linux/dynamic-loader",
+          "ref": "sys-unix/dynamic-loader",
           "title": "Динамічний завантажувач і dlopen"
         },
         {
-          "ref": "programming/hyrums-law",
+          "ref": "sf-release/hyrums-law",
           "title": "Усе видиме стає контрактом"
         },
         {
@@ -567,11 +567,11 @@
       "title": "Клієнтський застосунок",
       "topics": [
         {
-          "ref": "programming/desktop-app-architecture",
+          "ref": "sf-apps/desktop-app-architecture",
           "title": "Шари, потоки й стан у застосунку з інтерфейсом"
         },
         {
-          "ref": "programming/mvc",
+          "ref": "sf-apps/mvc",
           "title": "MVC: звідки все пішло"
         },
         {
@@ -585,19 +585,19 @@
           }
         },
         {
-          "ref": "programming/unidirectional-data-flow",
+          "ref": "sf-apps/unidirectional-data-flow",
           "title": "Однонапрямлений потік як відповідь на плутанину зворотних зв'язків"
         },
         {
-          "ref": "programming/ui-thread-offloading",
+          "ref": "sf-apps/ui-thread-offloading",
           "title": "Розвантаження потоку інтерфейсу"
         },
         {
-          "ref": "programming/ui-response-time-limits",
+          "ref": "sf-apps/ui-response-time-limits",
           "title": "0.1 с, 1 с, 10 с: числа, що диктують форму"
         },
         {
-          "ref": "programming/android-app-model",
+          "ref": "sf-apps/android-app-model",
           "title": "Коли життєвий цикл нав'язує ОС"
         },
         {

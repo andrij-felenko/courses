@@ -1,6 +1,6 @@
 {
   "schema": 7,
-  "note": "Реєстр нового дерева. Один запис на вид; books — ті книги, що вже переїхали в root/<dir>/.",
+  "note": "Реєстр нового дерева. Один запис на вид; books — книги виду за реєстром BOOKS.md. Тека книги — root/<dir>/<книга>/, теми лежать у ній пласко; група й розділ живуть у маніфесті.",
   "kinds": [
     {
       "kind": "sci",
@@ -12,7 +12,24 @@
         "chapter": "розділ"
       },
       "asks": "чому світ такий",
-      "books": []
+      "books": [
+        "computability",
+        "math-algebra",
+        "math-analysis",
+        "math-combinatorics",
+        "math-geometry",
+        "math-information",
+        "math-logic",
+        "math-number-theory",
+        "math-numeric",
+        "math-probability",
+        "ph-condensed",
+        "ph-electromagnetism",
+        "ph-mechanics",
+        "ph-quantum",
+        "ph-thermodynamics",
+        "ph-waves"
+      ]
     },
     {
       "kind": "eng",
@@ -24,7 +41,21 @@
         "chapter": "розділ"
       },
       "asks": "як це роблять",
-      "books": []
+      "books": [
+        "sf-algorithms",
+        "sf-apps",
+        "sf-data",
+        "sf-devices",
+        "sf-distributed",
+        "sf-lang",
+        "sf-ml",
+        "sf-os",
+        "sf-release",
+        "sf-security",
+        "sf-tasks",
+        "sf-visual",
+        "sf-web"
+      ]
     },
     {
       "kind": "course",
@@ -54,7 +85,16 @@
         "chapter": "різновид"
       },
       "asks": "що це за штука",
-      "books": []
+      "books": [
+        "hw-analog",
+        "hw-arch",
+        "hw-components",
+        "hw-digital",
+        "hw-motion",
+        "hw-pcb",
+        "hw-power",
+        "hw-sensing"
+      ]
     },
     {
       "kind": "sys",
@@ -66,7 +106,58 @@
         "chapter": "компонент"
       },
       "asks": "а в якій версії",
-      "books": []
+      "books": [
+        "sys-bsystem",
+        "sys-dron",
+        "sys-fw",
+        "sys-ide",
+        "sys-media",
+        "sys-notary",
+        "sys-plang-cpp",
+        "sys-plang-python",
+        "sys-unix"
+      ]
+    },
+    {
+      "kind": "cat",
+      "dir": "cat",
+      "shelf": "Каталог",
+      "words": {
+        "book": "каталог",
+        "group": "родина",
+        "chapter": "полиця"
+      },
+      "asks": "що саме купити",
+      "books": [
+        "cat-hw-actuators",
+        "cat-hw-boards",
+        "cat-hw-connect",
+        "cat-hw-controls",
+        "cat-hw-drivers",
+        "cat-hw-instruments",
+        "cat-hw-parts",
+        "cat-hw-power",
+        "cat-hw-sensors"
+      ]
+    },
+    {
+      "kind": "com",
+      "dir": "com",
+      "shelf": "Зв'язок",
+      "words": {
+        "book": "книга",
+        "group": "рівень",
+        "chapter": "розділ"
+      },
+      "asks": "як воно долає відстань",
+      "books": [
+        "com-devices",
+        "com-medium",
+        "com-modulation",
+        "com-protocol",
+        "com-signal",
+        "com-transport"
+      ]
     }
   ],
   "address": {

@@ -1,8 +1,8 @@
 # Теорема Тарського про невизначуваність істини
 
 <preknowlist>
-- topic:math/godel-incompleteness
-- topic:math/classical-logic-axioms
+- root:math/godel-incompleteness
+- root:math/classical-logic-axioms
 </preknowlist>
 
 Чи може математика або будь-яка формальна логічна система містити всередині себе точний інструмент для перевірки власної істинності? Чи здатна комп'ютерна програма, яка аналізує твердження своєї ж мови, ідеально і безпомилково сортувати їх на «істинні» та «хибні»? 

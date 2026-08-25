@@ -12,7 +12,7 @@
 
 *Ціль платформи вибирають один раз — командою, що створює теку збірки; решта ручок осідає в кеші CMake цієї теки.*
 
-Практичний наслідок один: `-DQGC_ENABLE_GST_VIDEOSTREAMING=OFF`, доданий до вже сконфігурованої теки, спрацює після повторної конфігурації, а от переїзд із Linux на Android у тій самій теці не спрацює ніколи — потрібна нова. Механіка кешу описана окремо: [кеш і опції CMake](topic:sys-bsystem/cache-and-options).
+Практичний наслідок один: `-DQGC_ENABLE_GST_VIDEOSTREAMING=OFF`, доданий до вже сконфігурованої теки, спрацює після повторної конфігурації, а от переїзд із Linux на Android у тій самій теці не спрацює ніколи — потрібна нова. Механіка кешу описана окремо: [кеш і опції CMake](root:sys-bsystem/cache-and-options).
 
 ## Мінімальний робочий виклик
 
@@ -57,7 +57,7 @@ cmake --build build
 | `ANDROID_NDK`, `ANDROID_PLATFORM` | — | — | з оточення або з пресета |
 | генератор | `Ninja` | `Ninja` або `Ninja Multi-Config` | `Ninja` |
 
-> 🔧 **Навіщо це.** `QT_HOST_PATH` — найчастіша причина падіння першої Android-збірки. Qt має інструменти, які **виконуються під час збірки**: `moc`, `rcc`, компілятор QML. Вони мусять працювати на машині розробника, тобто на x86-64, а цільовий Qt зібраний під ARM і не запуститься. Без цієї змінної CMake шукає `moc` серед цільових двійників і зупиняється на першій же спробі його викликати. Загальна механіка розділення хоста й цілі — у [файлі тулчейна](topic:sys-bsystem/cmake-toolchain-file).
+> 🔧 **Навіщо це.** `QT_HOST_PATH` — найчастіша причина падіння першої Android-збірки. Qt має інструменти, які **виконуються під час збірки**: `moc`, `rcc`, компілятор QML. Вони мусять працювати на машині розробника, тобто на x86-64, а цільовий Qt зібраний під ARM і не запуститься. Без цієї змінної CMake шукає `moc` серед цільових двійників і зупиняється на першій же спробі його викликати. Загальна механіка розділення хоста й цілі — у [файлі тулчейна](root:sys-bsystem/cmake-toolchain-file).
 
 ## Пресети замість довгих командних рядків
 
@@ -99,7 +99,7 @@ cmake --workflow --preset Linux        # конфігурація + збірка
 | `Android`, `Android-debug` | `../build/Android[-debug]` | `ANDROID_ABI=arm64-v8a`, `ANDROID_NDK`, `ANDROID_PLATFORM`, `QT_HOST_PATH` |
 | `default`, `default-release` | `./build` | без прив'язки до платформи |
 
-Приховані пресети (`debug`, `release`, `coverage`, `ccache`, `sccache`) самі не викликаються — від них успадковують. `debug` вмикає `QGC_BUILD_TESTING=ON` і `QGC_DEBUG_QML=ON`, `release` — вимикає обидва. Ширше про сам механізм — [пресети CMake](topic:sys-bsystem/cmake-presets).
+Приховані пресети (`debug`, `release`, `coverage`, `ccache`, `sccache`) самі не викликаються — від них успадковують. `debug` вмикає `QGC_BUILD_TESTING=ON` і `QGC_DEBUG_QML=ON`, `release` — вимикає обидва. Ширше про сам механізм — [пресети CMake](root:sys-bsystem/cmake-presets).
 
 ## Опції `-DQGC_…`
 
@@ -157,7 +157,7 @@ cmake --workflow --preset Linux        # конфігурація + збірка
 | `QGC_PACKAGE_NAME` | `"org.mavlink.qgroundcontrol"` |
 | `QGC_SETTINGS_VERSION` | `"9"` |
 
-Змінювати їх поодинці має сенс лише для перевірки; повний спосіб зробити власну збірку з іншим набором функцій і брендом — окрема тема, [власна збірка](topic:sys-dron/custom-build).
+Змінювати їх поодинці має сенс лише для перевірки; повний спосіб зробити власну збірку з іншим набором функцій і брендом — окрема тема, [власна збірка](root:sys-dron/custom-build).
 
 ## Android: змінні, властивості, маніфест
 
@@ -203,7 +203,7 @@ armeabi-v7a:  BB=34  M=5  I=0  PP=03  DDD=007  →  345003007
 тегований реліз: DDD=000        денна збірка: DDD = коміти після тега, стеля 999
 ```
 
-Поле `DDD` — саме те, що робить кожну денну збірку «новішою» за попередню без правки номера версії; зв'язок цієї схеми з каналами постачання — у [моделі релізів](topic:sys-dron/release-model). Дозволи Android формує той самий `cmake/platform/Android.cmake`: Bluetooth (`SCAN`, `CONNECT`), мережа (`INTERNET`, `ACCESS_NETWORK_STATE`, `CHANGE_WIFI_MULTICAST_STATE`), сховище (`READ_EXTERNAL_STORAGE`, `WRITE_EXTERNAL_STORAGE`, `MANAGE_EXTERNAL_STORAGE`), розташування (`ACCESS_FINE_LOCATION`, `ACCESS_COARSE_LOCATION`), `VIBRATE`, `WAKE_LOCK`. Дописаний руками в `AndroidManifest.xml` дозвіл зникне з наступною генерацією — правити треба список у CMake.
+Поле `DDD` — саме те, що робить кожну денну збірку «новішою» за попередню без правки номера версії; зв'язок цієї схеми з каналами постачання — у [моделі релізів](root:sys-dron/release-model). Дозволи Android формує той самий `cmake/platform/Android.cmake`: Bluetooth (`SCAN`, `CONNECT`), мережа (`INTERNET`, `ACCESS_NETWORK_STATE`, `CHANGE_WIFI_MULTICAST_STATE`), сховище (`READ_EXTERNAL_STORAGE`, `WRITE_EXTERNAL_STORAGE`, `MANAGE_EXTERNAL_STORAGE`), розташування (`ACCESS_FINE_LOCATION`, `ACCESS_COARSE_LOCATION`), `VIBRATE`, `WAKE_LOCK`. Дописаний руками в `AndroidManifest.xml` дозвіл зникне з наступною генерацією — правити треба список у CMake.
 
 ## `.github/build-config.json` → `QGC_CONFIG_*`
 
@@ -231,9 +231,9 @@ armeabi-v7a:  BB=34  M=5  I=0  PP=03  DDD=007  →  345003007
 | `gstreamer.plugins.*` | — (сценарій збірки GStreamer) | списки плагінів на платформу |
 | `gstreamer.checksums.<версія>.<платформа>` | — (звірка після завантаження) | `sha256` архіву |
 
-Файл описаний власною схемою `build-config.schema.json` поруч — тож помилка в ключі ловиться редактором, а не за півгодини збірки. Про сам підхід «одне число, прочитане звідусіль» — [закріплення версій](topic:sys-bsystem/version-pinning).
+Файл описаний власною схемою `build-config.schema.json` поруч — тож помилка в ключі ловиться редактором, а не за півгодини збірки. Про сам підхід «одне число, прочитане звідусіль» — [закріплення версій](root:sys-bsystem/version-pinning).
 
-Списки плагінів GStreamer у цьому ж файлі показують, де саме розходяться платформи: спільна частина (`rtp`, `rtsp`, `udp`, `videoparsersbad`, `openh264`, `playback`, `libav`, `opengl` і решта) плюс платформна добавка — `androidmedia` й `dav1d` для Android, `d3d11`, `d3d12`, `nvcodec`, `dav1d` для Windows, `va`, `qsv`, `vulkan`, `nvcodec` для Linux, `applemedia` для Apple. Що ці елементи роблять у конвеєрі — у [відеотракті станції](topic:sys-dron/video-pipeline).
+Списки плагінів GStreamer у цьому ж файлі показують, де саме розходяться платформи: спільна частина (`rtp`, `rtsp`, `udp`, `videoparsersbad`, `openh264`, `playback`, `libav`, `opengl` і решта) плюс платформна добавка — `androidmedia` й `dav1d` для Android, `d3d11`, `d3d12`, `nvcodec`, `dav1d` для Windows, `va`, `qsv`, `vulkan`, `nvcodec` для Linux, `applemedia` для Apple. Що ці елементи роблять у конвеєрі — у [відеотракті станції](root:sys-dron/video-pipeline).
 
 ## Пакування й імена артефактів
 
@@ -263,7 +263,7 @@ cmake --install build --config Release          # → тека payload
 cmake --build build --target qgc-package        # → нативний пакет за QGC_CPACK_GENERATOR
 ```
 
-Мітка встановлення `appimage` навмисно винесена в окремий компонент: `cmake --install` без неї дає звичайне дерево файлів, а AppImage збирається лише тоді, коли його справді просять. Загальна модель установлення й пакування — [install і export](topic:sys-bsystem/install-and-export) та [CPack](topic:sys-bsystem/cpack).
+Мітка встановлення `appimage` навмисно винесена в окремий компонент: `cmake --install` без неї дає звичайне дерево файлів, а AppImage збирається лише тоді, коли його справді просять. Загальна модель установлення й пакування — [install і export](root:sys-bsystem/install-and-export) та [CPack](root:sys-bsystem/cpack).
 
 ## Підготовка залежностей
 

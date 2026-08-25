@@ -11,29 +11,29 @@
       "title": "Команди й межі",
       "topics": [
         {
-          "ref": "programming/hard-constraints",
+          "ref": "sf-apps/hard-constraints",
           "title": "Обмеження, які не обговорюються: строк, бюджет, команда, закон",
           "todo": "нова тема",
           "hint": "programming/architecture-discipline"
         },
         {
-          "ref": "programming/conways-law",
+          "ref": "sf-apps/conways-law",
           "title": "Закон Конвея"
         },
         {
-          "ref": "programming/communication-paths",
+          "ref": "sf-apps/communication-paths",
           "title": "Комунікаційні шляхи як обмеження архітектури"
         },
         {
-          "ref": "programming/inverse-conway",
+          "ref": "sf-apps/inverse-conway",
           "title": "Inverse Conway maneuver"
         },
         {
-          "ref": "programming/cognitive-load-teams",
+          "ref": "sf-apps/cognitive-load-teams",
           "title": "Когнітивне навантаження команди як межа розміру сервісу"
         },
         {
-          "ref": "programming/team-topologies",
+          "ref": "sf-apps/team-topologies",
           "title": "Team topologies"
         },
         {
@@ -93,33 +93,33 @@
           }
         },
         {
-          "ref": "programming/code-ownership-models",
+          "ref": "sf-release/code-ownership-models",
           "title": "Моделі володіння кодом: сильне, слабке, колективне",
           "todo": "нова тема",
           "hint": "programming/software-engineering"
         },
         {
-          "ref": "programming/monorepo-vs-polyrepo",
+          "ref": "sf-release/monorepo-vs-polyrepo",
           "title": "Один репозиторій чи багато",
           "todo": "нова тема",
           "hint": "programming/code"
         },
         {
-          "ref": "programming/branching-models",
+          "ref": "sf-release/branching-models",
           "title": "Моделі гілкування: стовбурна розробка, гілки задач, релізні гілки"
         },
         {
-          "ref": "programming/inner-source",
+          "ref": "sf-release/inner-source",
           "title": "Внутрішній опенсорс: правка від чужої команди",
           "todo": "нова тема",
           "hint": "programming/software-engineering"
         },
         {
-          "ref": "programming/logical-coupling",
+          "ref": "sf-apps/logical-coupling",
           "title": "Логічне зчеплення: залежність, видима лише в історії змін"
         },
         {
-          "ref": "programming/bus-factor",
+          "ref": "sf-release/bus-factor",
           "title": "Фактор автобуса й сирітський код",
           "todo": "нова тема",
           "hint": "programming/software-engineering"
@@ -141,7 +141,7 @@
       "title": "Внутрішня платформа",
       "topics": [
         {
-          "ref": "programming/platform-engineering",
+          "ref": "sf-apps/platform-engineering",
           "title": "Платформна інженерія"
         },
         {
@@ -155,7 +155,7 @@
           }
         },
         {
-          "ref": "programming/developer-experience",
+          "ref": "sf-apps/developer-experience",
           "title": "Досвід розробника як атрибут якості",
           "todo": "нова тема",
           "hint": "programming/architecture-discipline"
@@ -197,7 +197,7 @@
       "title": "Ціна системи",
       "topics": [
         {
-          "ref": "programming/cost-as-attribute",
+          "ref": "sf-apps/cost-as-attribute",
           "title": "Вартість як атрибут"
         },
         {
@@ -231,7 +231,7 @@
           }
         },
         {
-          "ref": "programming/second-system-effect",
+          "ref": "sf-apps/second-system-effect",
           "title": "Ефект другої системи"
         },
         {
@@ -299,11 +299,11 @@
           ]
         },
         {
-          "ref": "programming/metering-and-billing",
+          "ref": "sys-notary/metering-and-billing",
           "title": "Metering і billing як вузол"
         },
         {
-          "ref": "programming/double-entry-ledger",
+          "ref": "sf-data/double-entry-ledger",
           "title": "Гросбух"
         },
         {
@@ -335,7 +335,7 @@
           ]
         },
         {
-          "ref": "programming/payments-integration",
+          "ref": "sys-notary/payments-integration",
           "title": "Платіжний провайдер"
         }
       ]
@@ -345,21 +345,21 @@
       "title": "Рахунок за хмару",
       "topics": [
         {
-          "ref": "programming/cloud-cost-model",
+          "ref": "sf-apps/cloud-cost-model",
           "title": "Cloud cost як архітектурний драйвер"
         },
         {
-          "ref": "programming/finops-levers",
+          "ref": "sf-apps/finops-levers",
           "title": "FinOps-важелі"
         },
         {
-          "ref": "programming/observability-cost",
+          "ref": "sf-release/observability-cost",
           "title": "Спостережність коштує грошей",
           "todo": "нова тема",
           "hint": "programming/operations"
         },
         {
-          "ref": "programming/storage-tiers-and-retention",
+          "ref": "sf-data/storage-tiers-and-retention",
           "title": "Яруси зберігання й строк життя даних",
           "todo": "нова тема",
           "hint": "programming/operations"
@@ -375,7 +375,7 @@
           }
         },
         {
-          "ref": "programming/capacity-planning",
+          "ref": "sf-release/capacity-planning",
           "title": "Планування потужностей і headroom"
         },
         {
@@ -405,7 +405,7 @@
       "title": "Купити чи зробити",
       "topics": [
         {
-          "ref": "programming/build-vs-buy",
+          "ref": "sf-apps/build-vs-buy",
           "title": "Build vs buy (і оренда/SaaS/adopt)"
         },
         {
@@ -419,11 +419,11 @@
           }
         },
         {
-          "ref": "programming/open-source-licenses",
+          "ref": "sys-notary/open-source-licenses",
           "title": "Ліцензії відкритого коду: дозвільні, копілефт, сумісність"
         },
         {
-          "ref": "programming/software-patents-and-pools",
+          "ref": "sys-notary/software-patents-and-pools",
           "title": "Патенти на ПЗ і патентні пули"
         },
         {
@@ -437,7 +437,7 @@
           }
         },
         {
-          "ref": "programming/vendor-sla-and-credits",
+          "ref": "sys-notary/vendor-sla-and-credits",
           "title": "SLA постачальника: кредити, винятки, складена доступність",
           "todo": "нова тема",
           "hint": "programming/operations"
@@ -469,7 +469,7 @@
       "title": "Ціна виходу",
       "topics": [
         {
-          "ref": "programming/lock-in-exit-cost",
+          "ref": "sf-apps/lock-in-exit-cost",
           "title": "Прив'язка і вартість виходу"
         },
         {
@@ -483,7 +483,7 @@
           }
         },
         {
-          "ref": "programming/data-gravity",
+          "ref": "sys-notary/data-gravity",
           "title": "Гравітація даних",
           "todo": "нова тема",
           "hint": "programming/distributed-systems"
@@ -535,7 +535,7 @@
           }
         },
         {
-          "ref": "programming/estimation-uncertainty",
+          "ref": "sf-release/estimation-uncertainty",
           "title": "Оцінка й конус невизначеності",
           "todo": "нова тема",
           "hint": "programming/software-engineering"
@@ -581,7 +581,7 @@
           }
         },
         {
-          "ref": "programming/set-based-design",
+          "ref": "sf-apps/set-based-design",
           "title": "Множинне (set-based) проєктування"
         },
         {
@@ -611,7 +611,7 @@
       "title": "Технічний борг",
       "topics": [
         {
-          "ref": "programming/technical-debt",
+          "ref": "sf-apps/technical-debt",
           "title": "Технічний борг і вартість зміни"
         },
         {
@@ -635,7 +635,7 @@
           }
         },
         {
-          "ref": "programming/code-metrics",
+          "ref": "sf-release/code-metrics",
           "title": "Метрики якості коду"
         },
         {
@@ -685,11 +685,11 @@
           }
         },
         {
-          "ref": "programming/tech-radar",
+          "ref": "sf-apps/tech-radar",
           "title": "Техрадар"
         },
         {
-          "ref": "programming/dependency-graph-checker",
+          "ref": "sf-apps/dependency-graph-checker",
           "title": "Аналіз ерозії архітектури: граф залежностей"
         },
         {
@@ -703,7 +703,7 @@
           }
         },
         {
-          "ref": "programming/regulatory-drivers",
+          "ref": "sf-apps/regulatory-drivers",
           "title": "Закон як вимога до архітектури",
           "todo": "нова тема",
           "hint": "programming/architecture-discipline"
@@ -745,7 +745,7 @@
           }
         },
         {
-          "ref": "programming/worse-is-better",
+          "ref": "sf-apps/worse-is-better",
           "title": "«Гірше — це краще»"
         },
         {

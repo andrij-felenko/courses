@@ -237,5 +237,5 @@ S_v(0) = 4 · k_B · T / γ = 4 · D
 
 Це доводить, що низькочастотна спектральна густина швидкості броунівської частинки прямо дорівнює потрійному (або потрійному залежно від нормування) коефіцієнту дифузії `4 D`.
 
-Практичну симуляцію цих рівнянь розібрано у вставці [Симуляція броунівського руху](topic:ph-thermodynamics/brownian-motion/proj-brownian-simulation.md), а готові C/C++ структури даних для аналізу траєкторій — у вставці [Інтерфейс бібліотеки симуляції](topic:ph-thermodynamics/brownian-motion/api-simulation-lib.md).
+Практичну симуляцію цих рівнянь розібрано у вставці [Симуляція броунівського руху](root:ph-thermodynamics/brownian-motion/proj-brownian-simulation.md), а готові C/C++ структури даних для аналізу траєкторій — у вставці [Інтерфейс бібліотеки симуляції](root:ph-thermodynamics/brownian-motion/api-simulation-lib.md).
 

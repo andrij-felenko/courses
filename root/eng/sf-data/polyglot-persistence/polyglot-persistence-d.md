@@ -1,11 +1,11 @@
 # 📜 Поліглотне збереження даних (Polyglot Persistence)
 
 <preknowlist>
-- [Реляційна модель даних](topic:sf-data/relational-model)
-- [Ландшафт NoSQL: Key-Value, Document, Column-Family та Graph](topic:sf-data/nosql-landscape)
-- [Моделювання даних під шаблони доступу (Access-Pattern-First)](topic:sf-data/access-pattern-first)
-- [Транзакції та властивості ACID](topic:sf-data/transactions-acid)
-- [Цикл подій (Event Loop) та асинхронні моделі](topic:sf-tasks/event-loop)
+- [Реляційна модель даних](root:sf-data/relational-model)
+- [Ландшафт NoSQL: Key-Value, Document, Column-Family та Graph](root:sf-data/nosql-landscape)
+- [Моделювання даних під шаблони доступу (Access-Pattern-First)](root:sf-data/access-pattern-first)
+- [Транзакції та властивості ACID](root:sf-data/transactions-acid)
+- [Цикл подій (Event Loop) та асинхронні моделі](root:sf-tasks/event-loop)
 </preknowlist>
 
 Протягом кількох десятиліть домінуючою практикою в індустрії програмного забезпечення була концепція єдиної універсальної бази даних (One Size Fits All): усі бізнес-процеси організації спиралися на централізовану реляційну СУБД. Реляційна модель пропонувала надійні гарантії ACID та гнучкість мови SQL, що вважалося достатнім для вирішення будь-яких прикладних задач.
@@ -55,7 +55,7 @@
 * **СУБД**: Qdrant, Milvus, pgvector.
 * **Причина вибору**: Обчислення схожості між мільйонами ембедінгів вимагає спеціальних графів HNSW (Hierarchical Navigable Small World), непідтримуваних класичними B-Tree індексами.
 
-Історію виникнення концепції та внесок Мартіна Фаулера викладено у вставці [Історія та еволюція концепції Polyglot Persistence](topic:sf-data/polyglot-persistence/hist-polyglot-persistence.md).
+Історію виникнення концепції та внесок Мартіна Фаулера викладено у вставці [Історія та еволюція концепції Polyglot Persistence](root:sf-data/polyglot-persistence/hist-polyglot-persistence.md).
 
 ---
 
@@ -91,7 +91,7 @@ def create_order(order_data):
 1. **Невідновна розбіжність (Data Inconsistency)**: Замовлення збереглося в базі, але відсутнє в пошуковому індексі. Клієнт не бачить створеного замовлення в пошуку, а повторна спроба створює дублікат.
 2. **Стани гонитви (Race Conditions)**: При одночасному оновленні замовлення двома користувачами порядок оновлення в PostgreSQL та Elasticsearch може переплутатися, залишаючи в пошуку застарілий стан.
 
-Математичне доведення неминучості розбіжностей при Dual-Write викладено у вставці [Математичний аналіз розбіжності даних при подвійному записі (Dual-Write)](topic:sf-data/polyglot-persistence/math-dual-write-consistency.md).
+Математичне доведення неминучості розбіжностей при Dual-Write викладено у вставці [Математичний аналіз розбіжності даних при подвійному записі (Dual-Write)](root:sf-data/polyglot-persistence/math-dual-write-consistency.md).
 
 ---
 
@@ -194,7 +194,7 @@ private:
 ```
 :::
 
-Повну виробничу реалізацію сервісу замовлень з інвертованим індексом та підтримкою версіонування наведено у практичному проєкті [Розробка поліглотного сервісу замовлень на C та C++](topic:sf-data/polyglot-persistence/proj-polyglot-order-service.md).
+Повну виробничу реалізацію сервісу замовлень з інвертованим індексом та підтримкою версіонування наведено у практичному проєкті [Розробка поліглотного сервісу замовлень на C та C++](root:sf-data/polyglot-persistence/proj-polyglot-order-service.md).
 
 ---
 
@@ -217,7 +217,7 @@ private:
 
 Якщо різниця становить лише 20–30%, задачу слід вирішувати оптимізацією запитів, додаванням індексів або розширеннями поточної СУБД (наприклад, `pg_trgm` для повнотекстового пошуку в PostgreSQL або `UNLOGGED` таблиць для швидких тимчасових сесій).
 
-Повну матрицю оцінки характеристик навантажень наведено у вставці [Довідник архітектури Polyglot Persistence: Матриця вибору сховищ](topic:sf-data/polyglot-persistence/api-polyglot-integration-matrix.md).
+Повну матрицю оцінки характеристик навантажень наведено у вставці [Довідник архітектури Polyglot Persistence: Матриця вибору сховищ](root:sf-data/polyglot-persistence/api-polyglot-integration-matrix.md).
 
 ---
 

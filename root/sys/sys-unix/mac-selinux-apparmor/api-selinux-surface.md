@@ -63,7 +63,7 @@ type_transition httpd_t var_run_t : file httpd_var_run_t "httpd.pid";
 | `dir` | `search add_name remove_name rmdir` — і `search` потрібен на **кожному** складнику шляху |
 | `process` | `transition sigchld signal ptrace setexec execmem execstack dyntransition` |
 | `tcp_socket` · `udp_socket` | `create connect listen accept` · `name_bind` (стати на порт) · `name_connect` (з'єднатися з портом) |
-| `capability` | `dac_override net_bind_service sys_admin` — ті самі [можливості](topic:sys-unix/capabilities), але під наглядом політики |
+| `capability` | `dac_override net_bind_service sys_admin` — ті самі [можливості](root:sys-unix/capabilities), але під наглядом політики |
 | `filesystem` | `mount unmount associate` |
 | `unix_stream_socket` | `connectto` — постукати в чужий сокет |
 
@@ -93,7 +93,7 @@ seinfo -b | grep httpd        # усі булеві вимикачі
 
 ## Мітки: база, xattr і чому `chcon` недовговічний
 
-Мітка на файлі живе у [розширеному атрибуті](topic:sys-unix/acl-and-xattr) `security.selinux`, і саме її ядро читає на кожній перевірці. Але поруч є друге сховище — база відповідностей «зразок шляху → тип», з якої мітку **відновлюють**.
+Мітка на файлі живе у [розширеному атрибуті](root:sys-unix/acl-and-xattr) `security.selinux`, і саме її ядро читає на кожній перевірці. Але поруч є друге сховище — база відповідностей «зразок шляху → тип», з якої мітку **відновлюють**.
 
 ![Два сховища, у яких лежить мітка. Ліворуч дві команди. Верхня, semanage fcontext з типом і зразком шляху, стрілкою веде до блоку бази відповідностей: file_contexts і локальні додатки, правило виду зразок шляху дає тип. Від бази вниз іде стрілка з підписом праворуч: restorecon читає базу й переписує мітку. Стрілка веде до другого блоку — мітка на самому inode у розширеному атрибуті security.selinux, і саме її читає ядро на перевірці. Нижня команда, chcon із типом і файлом, веде стрілкою прямо в цей другий блок, оминаючи базу. Унизу підсумок: переставляння міток бере тип із бази й переписує ним xattr, тому мітка від chcon, не занесена в базу, зникає](img/label-stores.svg)
 
@@ -127,7 +127,7 @@ seinfo -b | grep httpd        # усі булеві вимикачі
 
 ## Порти
 
-Стати на порт — це дозвіл `name_bind` класу `tcp_socket` над типом самого номера порту. Тому у [`bind`](topic:sys-unix/socket-api-linux) на нетиповий номер відмовляють не через права на файл, а через мітку порту.
+Стати на порт — це дозвіл `name_bind` класу `tcp_socket` над типом самого номера порту. Тому у [`bind`](root:sys-unix/socket-api-linux) на нетиповий номер відмовляють не через права на файл, а через мітку порту.
 
 ```
 semanage port -l | grep http           # які номери яким типом мічено
@@ -140,7 +140,7 @@ semanage port -d -p tcp 8080                  # прибрати локальн�
 
 ## Від запису в журналі до модуля
 
-Кожна відмова лягає в [підсистему аудиту](topic:sys-unix/audit-framework) записом `AVC`.
+Кожна відмова лягає в [підсистему аудиту](root:sys-unix/audit-framework) записом `AVC`.
 
 ```
 ausearch -m AVC,USER_AVC,SELINUX_ERR -ts recent

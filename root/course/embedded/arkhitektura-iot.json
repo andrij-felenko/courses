@@ -41,7 +41,7 @@
           }
         },
         {
-          "ref": "communications/esp-now",
+          "ref": "com-transport/esp-now",
           "title": "ESP-NOW: обмін без інфраструктури"
         },
         {
@@ -65,15 +65,15 @@
           }
         },
         {
-          "ref": "programming/distributed-fallacies",
+          "ref": "sf-distributed/distributed-fallacies",
           "title": "Вісім оман розподілених обчислень"
         },
         {
-          "ref": "programming/back-of-envelope",
+          "ref": "sf-apps/back-of-envelope",
           "title": "Прикидка «на серветці»: скільки байтів, пристроїв, грошей"
         },
         {
-          "ref": "communications/osi-model",
+          "ref": "com-transport/osi-model",
           "title": "Семирівнева модель OSI як карта місцевості"
         },
         {
@@ -103,19 +103,19 @@
           }
         },
         {
-          "ref": "programming/module-model",
+          "ref": "sf-devices/module-model",
           "title": "Модель модуля"
         },
         {
-          "ref": "programming/layered-architecture",
+          "ref": "sf-apps/layered-architecture",
           "title": "Шарова архітектура"
         },
         {
-          "ref": "programming/hexagonal-architecture",
+          "ref": "sf-apps/hexagonal-architecture",
           "title": "Порти й адаптери: HAL як межа переносності"
         },
         {
-          "ref": "programming/information-hiding",
+          "ref": "sf-apps/information-hiding",
           "title": "Приховування інформації"
         },
         {
@@ -129,7 +129,7 @@
           }
         },
         {
-          "ref": "programming/blocking-vs-nonblocking-io",
+          "ref": "sf-tasks/blocking-vs-nonblocking-io",
           "title": "Блокуючий і неблокуючий ввід-вивід"
         },
         {
@@ -143,7 +143,7 @@
           }
         },
         {
-          "ref": "programming/object-pool",
+          "ref": "sf-apps/object-pool",
           "title": "Пул об'єктів"
         },
         {
@@ -157,15 +157,15 @@
           }
         },
         {
-          "ref": "programming/design-by-contract",
+          "ref": "sf-release/design-by-contract",
           "title": "Проєктування за контрактом"
         },
         {
-          "ref": "programming/safe-mode",
+          "ref": "sf-devices/safe-mode",
           "title": "Живучість: безпечний стан, перезавантаження, лічильник перезавантажень"
         },
         {
-          "ref": "programming/graceful-degradation",
+          "ref": "sf-devices/graceful-degradation",
           "title": "Деградація з гідністю"
         },
         {
@@ -185,47 +185,47 @@
       "title": "Багатозадачність і реальний час",
       "topics": [
         {
-          "ref": "programming/scheduler",
+          "ref": "sf-os/scheduler",
           "title": "Планувальник і витісняльність"
         },
         {
-          "ref": "programming/task-stacks",
+          "ref": "sf-lang/task-stacks",
           "title": "Стеки задач"
         },
         {
-          "ref": "programming/priority-inversion",
+          "ref": "sf-os/priority-inversion",
           "title": "Пріоритети й інверсія пріоритетів"
         },
         {
-          "ref": "programming/task-ipc",
+          "ref": "sf-tasks/task-ipc",
           "title": "Черги й семафори"
         },
         {
-          "ref": "programming/data-races-locks",
+          "ref": "sf-tasks/data-races-locks",
           "title": "Перегони даних і замки"
         },
         {
-          "ref": "programming/deadlock",
+          "ref": "sf-tasks/deadlock",
           "title": "Дедлок"
         },
         {
-          "ref": "algorithms/ring-buffer",
+          "ref": "sf-algorithms/ring-buffer",
           "title": "Кільцевий буфер між перериванням і задачею"
         },
         {
-          "ref": "programming/producer-consumer",
+          "ref": "sf-tasks/producer-consumer",
           "title": "Виробник–споживач"
         },
         {
-          "ref": "programming/memory-ordering-barriers",
+          "ref": "sf-tasks/memory-ordering-barriers",
           "title": "Упорядкування пам'яті, бар'єри й volatile"
         },
         {
-          "ref": "programming/lock-free-basics",
+          "ref": "sf-tasks/lock-free-basics",
           "title": "Без замків: коли можна й чого це коштує"
         },
         {
-          "ref": "programming/realtime-determinism",
+          "ref": "sf-tasks/realtime-determinism",
           "title": "Детермінованість і бюджет затримки"
         },
         {
@@ -239,7 +239,7 @@
           }
         },
         {
-          "ref": "programming/supervision-trees",
+          "ref": "sf-tasks/supervision-trees",
           "title": "Дерева нагляду: хто перезапускає задачу, яка впала"
         }
       ]
@@ -249,11 +249,11 @@
       "title": "Протоколи обміну",
       "topics": [
         {
-          "ref": "programming/publish-subscribe",
+          "ref": "sf-distributed/publish-subscribe",
           "title": "Запит-відповідь проти публікації-підписки"
         },
         {
-          "ref": "communications/mqtt",
+          "ref": "com-protocol/mqtt",
           "title": "MQTT"
         },
         {
@@ -267,39 +267,39 @@
           }
         },
         {
-          "ref": "programming/message-queue",
+          "ref": "sf-distributed/message-queue",
           "title": "Черга повідомлень"
         },
         {
-          "ref": "programming/message-broker",
+          "ref": "sf-distributed/message-broker",
           "title": "Брокер повідомлень"
         },
         {
-          "ref": "programming/http",
+          "ref": "com-protocol/http",
           "title": "HTTP: запит, відповідь, коди, тіло"
         },
         {
-          "ref": "programming/rest-api",
+          "ref": "com-protocol/rest-api",
           "title": "REST"
         },
         {
-          "ref": "communications/coap-rest-dlia-obmezhenykh-prystroiv",
+          "ref": "com-protocol/coap-rest-dlia-obmezhenykh-prystroiv",
           "title": "CoAP: HTTP, що влазить у датаграму",
           "todo": "нова тема",
           "hint": "communications/protocols"
         },
         {
-          "ref": "communications/lwm2m-keruvannia-prystroiem-iak-standart",
+          "ref": "com-protocol/lwm2m-keruvannia-prystroiem-iak-standart",
           "title": "LwM2M: керування пристроєм як стандарт",
           "todo": "нова тема",
           "hint": "communications/protocols"
         },
         {
-          "ref": "programming/streaming-push-transports",
+          "ref": "com-protocol/streaming-push-transports",
           "title": "WebSocket, SSE й довгий запит"
         },
         {
-          "ref": "communications/ble-gatt",
+          "ref": "com-protocol/ble-gatt",
           "title": "BLE GATT як прикладний профіль"
         },
         {
@@ -313,11 +313,11 @@
           }
         },
         {
-          "ref": "communications/lorawan",
+          "ref": "com-transport/lorawan",
           "title": "LoRaWAN і мережевий сервер"
         },
         {
-          "ref": "programming/mdns-dns-sd",
+          "ref": "com-transport/mdns-dns-sd",
           "title": "Виявлення служби в мережі: mDNS і DNS-SD",
           "todo": "нова тема",
           "hint": "communications/protocols"
@@ -339,43 +339,43 @@
       "title": "Формат даних",
       "topics": [
         {
-          "ref": "programming/data-serialization",
+          "ref": "com-protocol/data-serialization",
           "title": "Серіалізація даних"
         },
         {
-          "ref": "programming/wire-format-packing",
+          "ref": "com-protocol/wire-format-packing",
           "title": "Пакування бінарного протоколу"
         },
         {
-          "ref": "programming/json-format",
+          "ref": "sf-data/json-format",
           "title": "JSON"
         },
         {
-          "ref": "programming/json-schema",
+          "ref": "sf-data/json-schema",
           "title": "JSON Schema: опис і перевірка структури"
         },
         {
-          "ref": "programming/cbor-i-messagepack",
+          "ref": "com-protocol/cbor-i-messagepack",
           "title": "CBOR і MessagePack: JSON, що влазить у пакет",
           "todo": "нова тема",
           "hint": "programming/representation"
         },
         {
-          "ref": "programming/protocol-buffers-i-skhemni-formaty",
+          "ref": "com-protocol/protocol-buffers-i-skhemni-formaty",
           "title": "Protocol Buffers і схемні формати",
           "todo": "нова тема",
           "hint": "programming/representation"
         },
         {
-          "ref": "programming/zero-copy-serialization",
+          "ref": "sf-data/zero-copy-serialization",
           "title": "Формати без копіювання"
         },
         {
-          "ref": "communications/cobs-framing",
+          "ref": "com-transport/cobs-framing",
           "title": "Кадрування потоку: COBS, довжина, CRC"
         },
         {
-          "ref": "programming/memory-alignment",
+          "ref": "sf-apps/memory-alignment",
           "title": "Порядок байтів і вирівнювання"
         },
         {
@@ -399,7 +399,7 @@
           }
         },
         {
-          "ref": "programming/uuid-and-guid",
+          "ref": "sf-data/uuid-and-guid",
           "title": "Ідентифікатор пристрою й повідомлення"
         }
       ]
@@ -409,23 +409,23 @@
       "title": "Ненадійна мережа",
       "topics": [
         {
-          "ref": "programming/timeouts-deadlines",
+          "ref": "sf-distributed/timeouts-deadlines",
           "title": "Таймаути й бюджет часу"
         },
         {
-          "ref": "programming/retries-backoff",
+          "ref": "sf-distributed/retries-backoff",
           "title": "Повтори й експоненційний відступ"
         },
         {
-          "ref": "programming/idempotency",
+          "ref": "sf-distributed/idempotency",
           "title": "Ідемпотентність"
         },
         {
-          "ref": "programming/delivery-guarantees",
+          "ref": "sf-distributed/delivery-guarantees",
           "title": "Гарантії доставки: щонайбільше раз, щонайменше раз, фактично раз"
         },
         {
-          "ref": "programming/connection-management",
+          "ref": "com-protocol/connection-management",
           "title": "Керування з'єднаннями й перепідключення"
         },
         {
@@ -449,35 +449,35 @@
           }
         },
         {
-          "ref": "programming/backpressure-end-to-end",
+          "ref": "sf-distributed/backpressure-end-to-end",
           "title": "Наскрізний протитиск"
         },
         {
-          "ref": "programming/queue-load-leveling",
+          "ref": "sf-distributed/queue-load-leveling",
           "title": "Черга як вирівнювач навантаження"
         },
         {
-          "ref": "programming/load-shedding",
+          "ref": "sf-distributed/load-shedding",
           "title": "Скидання навантаження й плавна деградація"
         },
         {
-          "ref": "programming/circuit-breaker-pattern",
+          "ref": "sf-distributed/circuit-breaker-pattern",
           "title": "Запобіжник"
         },
         {
-          "ref": "programming/dead-letter-queue",
+          "ref": "sf-distributed/dead-letter-queue",
           "title": "Мертва черга й отруйне повідомлення"
         },
         {
-          "ref": "programming/out-of-order-tolerance",
+          "ref": "sf-distributed/out-of-order-tolerance",
           "title": "Толерантність до безладу"
         },
         {
-          "ref": "programming/failure-detection",
+          "ref": "sf-distributed/failure-detection",
           "title": "Виявлення відмов: мертвий вузол не відрізнити від повільного"
         },
         {
-          "ref": "programming/eventual-consistency",
+          "ref": "sf-distributed/eventual-consistency",
           "title": "Кінцева узгодженість на практиці"
         }
       ]
@@ -497,19 +497,19 @@
           }
         },
         {
-          "ref": "programming/monotonic-vs-wall-time",
+          "ref": "sf-apps/monotonic-vs-wall-time",
           "title": "Монотонний проти настінного часу"
         },
         {
-          "ref": "communications/clock-offset-drift",
+          "ref": "sf-distributed/clock-offset-drift",
           "title": "Дрейф годинників"
         },
         {
-          "ref": "communications/ntp-sync",
+          "ref": "com-protocol/ntp-sync",
           "title": "NTP і SNTP"
         },
         {
-          "ref": "communications/ptp-1588",
+          "ref": "sf-distributed/ptp-1588",
           "title": "PTP: коли мілісекунди замало"
         },
         {
@@ -523,15 +523,15 @@
           }
         },
         {
-          "ref": "programming/iso-8601",
+          "ref": "sf-data/iso-8601",
           "title": "ISO 8601, часові пояси й прикладний час"
         },
         {
-          "ref": "algorithms/lamport-clocks",
+          "ref": "sf-distributed/lamport-clocks",
           "title": "Порядок подій із різних джерел"
         },
         {
-          "ref": "communications/sensor-latency-compensation",
+          "ref": "hw-sensing/sensor-latency-compensation",
           "title": "Затримка давача й компенсація"
         }
       ]
@@ -551,11 +551,11 @@
           }
         },
         {
-          "ref": "python/http-server-minimal",
+          "ref": "sys-plang-python/http-server-minimal",
           "title": "Найпростіший HTTP-сервер"
         },
         {
-          "ref": "python/flask-and-fastapi",
+          "ref": "sys-plang-python/flask-and-fastapi",
           "title": "Flask і FastAPI"
         },
         {
@@ -569,47 +569,47 @@
           }
         },
         {
-          "ref": "programming/authentication",
+          "ref": "sf-security/authentication",
           "title": "Автентифікація й токени"
         },
         {
-          "ref": "python/tls-certificates",
+          "ref": "sf-web/tls-certificates",
           "title": "TLS і перевірка сертифікатів з боку служби"
         },
         {
-          "ref": "python/asyncio-event-loop",
+          "ref": "sys-plang-python/asyncio-event-loop",
           "title": "Цикл подій asyncio"
         },
         {
-          "ref": "python/blocking-in-async",
+          "ref": "sys-plang-python/blocking-in-async",
           "title": "Блокувальний виклик у циклі подій"
         },
         {
-          "ref": "python/cpython-gil",
+          "ref": "sys-plang-python/cpython-gil",
           "title": "GIL і коли потоки не прискорюють"
         },
         {
-          "ref": "python/mqtt-paho",
+          "ref": "sys-plang-python/mqtt-paho",
           "title": "Приймач MQTT на сервері"
         },
         {
-          "ref": "programming/background-jobs",
+          "ref": "sf-web/background-jobs",
           "title": "Черга задач і фоновий робітник"
         },
         {
-          "ref": "programming/secrets-management",
+          "ref": "sf-security/secrets-management",
           "title": "Конфігурація й секрети"
         },
         {
-          "ref": "programming/containers",
+          "ref": "sf-os/containers",
           "title": "Контейнер, служба, штатне вимкнення"
         },
         {
-          "ref": "programming/rate-limiting",
+          "ref": "sf-security/rate-limiting",
           "title": "Обмеження швидкості й захист від зловживання"
         },
         {
-          "ref": "programming/web-server-mcu",
+          "ref": "sf-devices/web-server-mcu",
           "title": "Веб-сервер на МК: коли служба — це сам пристрій"
         }
       ]
@@ -619,53 +619,53 @@
       "title": "Сховище даних",
       "topics": [
         {
-          "ref": "programming/access-pattern-first",
+          "ref": "sf-data/access-pattern-first",
           "title": "Форма доступу диктує модель"
         },
         {
-          "ref": "programming/relational-model",
+          "ref": "sf-data/relational-model",
           "title": "Реляційна модель і нормалізація"
         },
         {
-          "ref": "programming/nosql-landscape",
+          "ref": "sf-data/nosql-landscape",
           "title": "Ландшафт NoSQL"
         },
         {
-          "ref": "programming/chasovi-riady",
+          "ref": "sf-data/chasovi-riady",
           "title": "Часові ряди: темп запису, зріджування, строк зберігання",
           "todo": "нова тема",
           "hint": "programming/databases"
         },
         {
-          "ref": "programming/database-indexes",
+          "ref": "sf-data/database-indexes",
           "title": "Індекси"
         },
         {
-          "ref": "programming/transactions-acid",
+          "ref": "sf-data/transactions-acid",
           "title": "Транзакції та ACID"
         },
         {
-          "ref": "algorithms/lsm-tree",
+          "ref": "sf-data/lsm-tree",
           "title": "B-дерево проти LSM-дерева"
         },
         {
-          "ref": "programming/write-ahead-log",
+          "ref": "sf-data/write-ahead-log",
           "title": "Журнал попереднього запису"
         },
         {
-          "ref": "programming/database-migrations",
+          "ref": "sf-data/database-migrations",
           "title": "Міграції схеми"
         },
         {
-          "ref": "programming/materialized-views",
+          "ref": "sf-data/materialized-views",
           "title": "Агрегація й матеріалізовані в'ю"
         },
         {
-          "ref": "programming/consistency-models",
+          "ref": "sf-distributed/consistency-models",
           "title": "Спектр консистентності, CAP і PACELC"
         },
         {
-          "ref": "programming/data-contracts",
+          "ref": "sf-data/data-contracts",
           "title": "Data-контракт між пристроєм і сховищем"
         },
         {
@@ -685,7 +685,7 @@
       "title": "Парк пристроїв",
       "topics": [
         {
-          "ref": "programming/osobystist-prystroiu",
+          "ref": "sf-security/osobystist-prystroiu",
           "title": "Особистість пристрою: серійник, ключ, сертифікат",
           "todo": "нова тема",
           "hint": "programming/security"
@@ -739,7 +739,7 @@
           }
         },
         {
-          "ref": "programming/bazhanyi-i-zvitovanyi-stan",
+          "ref": "sf-data/bazhanyi-i-zvitovanyi-stan",
           "title": "Бажаний і звітований стан",
           "todo": "нова тема",
           "hint": "programming/distributed-systems"
@@ -755,7 +755,7 @@
           }
         },
         {
-          "ref": "programming/config-design",
+          "ref": "sf-apps/config-design",
           "title": "Конфігурація"
         },
         {
@@ -769,11 +769,11 @@
           }
         },
         {
-          "ref": "programming/feature-flags",
+          "ref": "sf-release/feature-flags",
           "title": "Прапорці функцій"
         },
         {
-          "ref": "programming/canary-deployment",
+          "ref": "sf-release/canary-deployment",
           "title": "Канаркове викочування"
         },
         {
@@ -803,15 +803,15 @@
           }
         },
         {
-          "ref": "programming/semantic-versioning",
+          "ref": "sf-release/semantic-versioning",
           "title": "Семантичне версіонування"
         },
         {
-          "ref": "programming/trust-boundaries",
+          "ref": "sf-security/trust-boundaries",
           "title": "Межі довіри й поверхня атаки"
         },
         {
-          "ref": "programming/least-privilege",
+          "ref": "sf-security/least-privilege",
           "title": "Найменші привілеї й захист від повтору"
         },
         {
@@ -831,7 +831,7 @@
       "title": "Спостережність",
       "topics": [
         {
-          "ref": "programming/structured-logging",
+          "ref": "sf-release/structured-logging",
           "title": "Структуровані логи"
         },
         {
@@ -845,23 +845,23 @@
           }
         },
         {
-          "ref": "programming/metrics-monitoring",
+          "ref": "sf-release/metrics-monitoring",
           "title": "Метрики"
         },
         {
-          "ref": "programming/distributed-tracing",
+          "ref": "sf-release/distributed-tracing",
           "title": "Розподілений трейсинг"
         },
         {
-          "ref": "programming/slo-sli-sla",
+          "ref": "sf-release/slo-sli-sla",
           "title": "SLI, SLO й бюджет помилок"
         },
         {
-          "ref": "programming/alerting",
+          "ref": "sf-release/alerting",
           "title": "Алерти"
         },
         {
-          "ref": "programming/health-checks",
+          "ref": "sf-distributed/health-checks",
           "title": "Перевірки живості й готовності"
         },
         {
@@ -895,11 +895,11 @@
           }
         },
         {
-          "ref": "programming/incident-response",
+          "ref": "sf-release/incident-response",
           "title": "Реагування на інциденти й постмортем"
         },
         {
-          "ref": "programming/chaos-engineering",
+          "ref": "sf-release/chaos-engineering",
           "title": "Хаос-інженерія: рвати зв'язок навмисно"
         }
       ]
@@ -909,27 +909,27 @@
       "title": "Архітектурне мислення",
       "topics": [
         {
-          "ref": "programming/architect-role",
+          "ref": "sf-apps/architect-role",
           "title": "Роль архітектора"
         },
         {
-          "ref": "programming/quality-attributes",
+          "ref": "sf-apps/quality-attributes",
           "title": "Якісні атрибути"
         },
         {
-          "ref": "programming/architectural-drivers",
+          "ref": "sf-apps/architectural-drivers",
           "title": "Архітектурні драйвери й сценарії атрибутів"
         },
         {
-          "ref": "programming/tradeoff-analysis",
+          "ref": "sf-apps/tradeoff-analysis",
           "title": "Trade-off-аналіз"
         },
         {
-          "ref": "programming/coupling-cohesion",
+          "ref": "sf-apps/coupling-cohesion",
           "title": "Зчеплення і зв'язність"
         },
         {
-          "ref": "programming/dependency-inversion",
+          "ref": "sf-apps/dependency-inversion",
           "title": "Інверсія залежностей"
         },
         {
@@ -955,35 +955,35 @@
           ]
         },
         {
-          "ref": "programming/dry-kiss-yagni",
+          "ref": "sf-apps/dry-kiss-yagni",
           "title": "YAGNI, DRY, KISS і ціна передчасної абстракції"
         },
         {
-          "ref": "programming/technical-debt",
+          "ref": "sf-apps/technical-debt",
           "title": "Технічний борг і вартість зміни"
         },
         {
-          "ref": "programming/reversible-irreversible-decisions",
+          "ref": "sf-apps/reversible-irreversible-decisions",
           "title": "Зворотні й незворотні рішення"
         },
         {
-          "ref": "programming/architecture-decision-records",
+          "ref": "sf-apps/architecture-decision-records",
           "title": "Запис архітектурного рішення"
         },
         {
-          "ref": "programming/c4-model",
+          "ref": "sf-apps/c4-model",
           "title": "C4 і архітектурні в'ю"
         },
         {
-          "ref": "programming/walking-skeleton",
+          "ref": "sf-apps/walking-skeleton",
           "title": "Walking skeleton"
         },
         {
-          "ref": "programming/evolutionary-architecture",
+          "ref": "sf-apps/evolutionary-architecture",
           "title": "Еволюційна архітектура й фітнес-функції"
         },
         {
-          "ref": "programming/availability-tactics",
+          "ref": "sf-apps/availability-tactics",
           "title": "Тактики: доступність, продуктивність, змінюваність"
         },
         {

@@ -21,7 +21,7 @@
           }
         },
         {
-          "ref": "programming/single-source-of-truth",
+          "ref": "sf-apps/single-source-of-truth",
           "title": "Джерело істини й копії"
         },
         {
@@ -35,7 +35,7 @@
           }
         },
         {
-          "ref": "programming/sequences-counters",
+          "ref": "sf-data/sequences-counters",
           "title": "Ідентифікатор запису: людські номери, сурогати, UUID"
         },
         {
@@ -85,35 +85,35 @@
           }
         },
         {
-          "ref": "unix-linux/page-cache-durability",
+          "ref": "sys-unix/page-cache-durability",
           "title": "Кеш сторінок, fsync і довговічність запису"
         },
         {
-          "ref": "programming/atomic-file-replace",
+          "ref": "sf-data/atomic-file-replace",
           "title": "Атомарна заміна файлу"
         },
         {
-          "ref": "unix-linux/journaling-consistency",
+          "ref": "sys-unix/journaling-consistency",
           "title": "Журналювання й узгодженість після збою"
         },
         {
-          "ref": "programming/log-structured-storage",
+          "ref": "sf-data/log-structured-storage",
           "title": "Дописувати замість правити: журнальне сховище"
         },
         {
-          "ref": "algorithms/write-amplification",
+          "ref": "sf-data/write-amplification",
           "title": "Носій під сховищем: знос, підсилення запису, TRIM"
         },
         {
-          "ref": "unix-linux/lvm-and-snapshots",
+          "ref": "sys-unix/lvm-and-snapshots",
           "title": "Знімок тому як інструмент"
         },
         {
-          "ref": "algorithms/raid-levels",
+          "ref": "sf-data/raid-levels",
           "title": "Дзеркало й парність на одній машині"
         },
         {
-          "ref": "unix-linux/btrfs-checksums-scrubbing-raid",
+          "ref": "sys-unix/btrfs-checksums-scrubbing-raid",
           "title": "Тиха порча даних і скрабінг"
         }
       ]
@@ -133,39 +133,39 @@
           }
         },
         {
-          "ref": "unix-linux/buffered-and-direct-io",
+          "ref": "sys-unix/buffered-and-direct-io",
           "title": "Чому база не довіряє кешу ОС"
         },
         {
-          "ref": "algorithms/b-tree",
+          "ref": "sf-data/b-tree",
           "title": "B-дерево"
         },
         {
-          "ref": "programming/database-indexes",
+          "ref": "sf-data/database-indexes",
           "title": "Індекси"
         },
         {
-          "ref": "algorithms/spatial-index",
+          "ref": "sf-algorithms/spatial-index",
           "title": "Індекс під інші питання: просторовий"
         },
         {
-          "ref": "algorithms/bloom-filter",
+          "ref": "sf-algorithms/bloom-filter",
           "title": "Не питати даремно: фільтр Блума"
         },
         {
-          "ref": "algorithms/lsm-tree",
+          "ref": "sf-data/lsm-tree",
           "title": "B-tree vs LSM-tree / log-structured"
         },
         {
-          "ref": "programming/write-ahead-log",
+          "ref": "sf-data/write-ahead-log",
           "title": "Журнал попереднього запису (WAL)"
         },
         {
-          "ref": "programming/query-planner",
+          "ref": "sf-data/query-planner",
           "title": "Планувальник запитів і EXPLAIN"
         },
         {
-          "ref": "programming/database-cursor",
+          "ref": "sf-data/database-cursor",
           "title": "Читати багато: курсор і сторінкування"
         },
         {
@@ -185,7 +185,7 @@
       "title": "Транзакція",
       "topics": [
         {
-          "ref": "programming/transactions-acid",
+          "ref": "sf-data/transactions-acid",
           "title": "Транзакції та ACID"
         },
         {
@@ -199,7 +199,7 @@
           }
         },
         {
-          "ref": "programming/isolation-levels",
+          "ref": "sf-data/isolation-levels",
           "title": "Рівні ізоляції та аномалії"
         },
         {
@@ -213,15 +213,15 @@
           }
         },
         {
-          "ref": "programming/mvcc",
+          "ref": "sf-data/mvcc",
           "title": "MVCC"
         },
         {
-          "ref": "programming/optimistic-locking",
+          "ref": "sf-data/optimistic-locking",
           "title": "Оптимістичне блокування"
         },
         {
-          "ref": "programming/pessimistic-locking",
+          "ref": "sf-data/pessimistic-locking",
           "title": "Песимістичне блокування"
         },
         {
@@ -271,19 +271,19 @@
       "title": "Реляційна модель",
       "topics": [
         {
-          "ref": "programming/relational-model",
+          "ref": "sf-data/relational-model",
           "title": "Реляційна модель і нормалізація як рішення"
         },
         {
-          "ref": "algorithms/codd-relational-model",
+          "ref": "sf-data/codd-relational-model",
           "title": "Чому мова вміє саме це: алгебра й числення"
         },
         {
-          "ref": "programming/sql",
+          "ref": "sf-data/sql",
           "title": "SQL як мова запитів"
         },
         {
-          "ref": "programming/sql-null-three-valued",
+          "ref": "sf-data/sql-null-three-valued",
           "title": "NULL і тризначна логіка"
         },
         {
@@ -297,7 +297,7 @@
           }
         },
         {
-          "ref": "programming/tree-in-a-table",
+          "ref": "sf-data/tree-in-a-table",
           "title": "Дерево в таблиці: список суміжності, шлях, замикання",
           "todo": "нова тема",
           "hint": "programming/databases"
@@ -323,7 +323,7 @@
           }
         },
         {
-          "ref": "programming/tenant-isolation",
+          "ref": "sf-distributed/tenant-isolation",
           "title": "Мультиарендність"
         },
         {
@@ -353,35 +353,35 @@
       "title": "Код і сховище",
       "topics": [
         {
-          "ref": "programming/object-relational-mismatch",
+          "ref": "sf-data/object-relational-mismatch",
           "title": "Об'єктно-реляційна неузгодженість"
         },
         {
-          "ref": "programming/active-record",
+          "ref": "sf-data/active-record",
           "title": "Active Record"
         },
         {
-          "ref": "programming/data-mapper",
+          "ref": "sf-data/data-mapper",
           "title": "Data Mapper"
         },
         {
-          "ref": "programming/repository",
+          "ref": "sf-apps/repository",
           "title": "Репозиторій"
         },
         {
-          "ref": "programming/identity-map",
+          "ref": "sf-data/identity-map",
           "title": "Identity map"
         },
         {
-          "ref": "programming/unit-of-work",
+          "ref": "sf-data/unit-of-work",
           "title": "Unit of Work"
         },
         {
-          "ref": "programming/lazy-loading",
+          "ref": "sf-data/lazy-loading",
           "title": "Ліниве завантаження"
         },
         {
-          "ref": "programming/orm",
+          "ref": "sf-data/orm",
           "title": "ORM"
         },
         {
@@ -395,15 +395,15 @@
           }
         },
         {
-          "ref": "programming/prepared-statements",
+          "ref": "sf-data/prepared-statements",
           "title": "Підготовлений вираз і чужий рядок у запиті"
         },
         {
-          "ref": "programming/connection-pool",
+          "ref": "sf-data/connection-pool",
           "title": "Пул з'єднань"
         },
         {
-          "ref": "programming/integration-testing",
+          "ref": "sf-release/integration-testing",
           "title": "Тест, що ходить у базу"
         },
         {
@@ -433,27 +433,27 @@
           }
         },
         {
-          "ref": "programming/json-format",
+          "ref": "sf-data/json-format",
           "title": "JSON і його межі"
         },
         {
-          "ref": "programming/json-schema",
+          "ref": "sf-data/json-schema",
           "title": "Схема для JSON"
         },
         {
-          "ref": "programming/self-describing-format",
+          "ref": "sf-data/self-describing-format",
           "title": "Самоописовий формат"
         },
         {
-          "ref": "programming/zero-copy-serialization",
+          "ref": "sf-data/zero-copy-serialization",
           "title": "Формат без копіювання"
         },
         {
-          "ref": "programming/schema-on-read-write",
+          "ref": "sf-data/schema-on-read-write",
           "title": "Schema-on-write vs schema-on-read"
         },
         {
-          "ref": "programming/schema-registry",
+          "ref": "com-protocol/schema-registry",
           "title": "Еволюція схем і schema-registry"
         },
         {
@@ -477,7 +477,7 @@
           }
         },
         {
-          "ref": "programming/iso-8601",
+          "ref": "sf-data/iso-8601",
           "title": "ISO 8601 і подання дати"
         },
         {
@@ -497,41 +497,41 @@
       "title": "Сховища під задачу",
       "topics": [
         {
-          "ref": "programming/nosql-landscape",
+          "ref": "sf-data/nosql-landscape",
           "title": "Ландшафт NoSQL"
         },
         {
-          "ref": "programming/access-pattern-first",
+          "ref": "sf-data/access-pattern-first",
           "title": "Форма доступу диктує модель"
         },
         {
-          "ref": "algorithms/key-value-store",
+          "ref": "sf-algorithms/key-value-store",
           "title": "Сховище «ключ — значення»"
         },
         {
-          "ref": "programming/columnar-storage",
+          "ref": "sf-data/columnar-storage",
           "title": "Стовпцеве зберігання"
         },
         {
-          "ref": "programming/time-series-storage",
+          "ref": "sf-data/time-series-storage",
           "title": "Часові ряди: сховище під потік вимірів",
           "todo": "нова тема",
           "hint": "programming/databases"
         },
         {
-          "ref": "algorithms/inverted-index",
+          "ref": "sf-algorithms/inverted-index",
           "title": "Інвертований індекс"
         },
         {
-          "ref": "programming/object-storage",
+          "ref": "sf-data/object-storage",
           "title": "Об'єктне сховище"
         },
         {
-          "ref": "programming/embedded-database",
+          "ref": "sf-data/embedded-database",
           "title": "Вбудована база в процесі застосунку"
         },
         {
-          "ref": "programming/polyglot-persistence",
+          "ref": "sf-data/polyglot-persistence",
           "title": "Polyglot persistence і його ціна"
         },
         {
@@ -571,7 +571,7 @@
       "title": "Міграція живої схеми",
       "topics": [
         {
-          "ref": "programming/database-migrations",
+          "ref": "sf-data/database-migrations",
           "title": "Міграції схеми"
         },
         {
@@ -595,19 +595,19 @@
           }
         },
         {
-          "ref": "programming/zero-downtime-migration",
+          "ref": "sf-release/zero-downtime-migration",
           "title": "Zero-downtime міграції даних"
         },
         {
-          "ref": "programming/branch-by-abstraction",
+          "ref": "sf-apps/branch-by-abstraction",
           "title": "Branch by abstraction"
         },
         {
-          "ref": "programming/dark-launch",
+          "ref": "sf-release/dark-launch",
           "title": "Темний запуск і feature-flag-міграція"
         },
         {
-          "ref": "programming/parallel-run",
+          "ref": "sf-release/parallel-run",
           "title": "Parallel run"
         },
         {
@@ -621,7 +621,7 @@
           }
         },
         {
-          "ref": "programming/idempotent-reprocessing",
+          "ref": "sf-data/idempotent-reprocessing",
           "title": "Ідемпотентний перерахунок історії"
         },
         {
@@ -681,7 +681,7 @@
       "title": "Кеш",
       "topics": [
         {
-          "ref": "programming/cache",
+          "ref": "hw-arch/cache",
           "title": "Кеш"
         },
         {
@@ -695,39 +695,39 @@
           }
         },
         {
-          "ref": "programming/caching-strategies",
+          "ref": "sf-data/caching-strategies",
           "title": "Патерни кешування"
         },
         {
-          "ref": "programming/cache-invalidation-intro",
+          "ref": "sf-data/cache-invalidation-intro",
           "title": "Кеш вводить друге джерело правди"
         },
         {
-          "ref": "programming/cache-consistency-tradeoff",
+          "ref": "sf-data/cache-consistency-tradeoff",
           "title": "Свіжість проти навантаження"
         },
         {
-          "ref": "programming/cache-eviction-policies",
+          "ref": "sf-data/cache-eviction-policies",
           "title": "Політики витіснення: LRU, LFU, CLOCK"
         },
         {
-          "ref": "programming/cache-key-design",
+          "ref": "sf-distributed/cache-key-design",
           "title": "Дизайн ключів і гарячі ключі"
         },
         {
-          "ref": "programming/cache-invalidation-patterns",
+          "ref": "sf-distributed/cache-invalidation-patterns",
           "title": "Патерни інвалідації"
         },
         {
-          "ref": "programming/cache-stampede",
+          "ref": "sf-distributed/cache-stampede",
           "title": "Thundering herd / cache stampede"
         },
         {
-          "ref": "programming/cache-tactics",
+          "ref": "sf-data/cache-tactics",
           "title": "Дрібні кеш-тактики, що рятують проди"
         },
         {
-          "ref": "programming/what-not-to-cache",
+          "ref": "sf-data/what-not-to-cache",
           "title": "Що НЕ кешувати і чому"
         },
         {
@@ -835,7 +835,7 @@
       "title": "Похідні дані",
       "topics": [
         {
-          "ref": "programming/materialized-views",
+          "ref": "sf-data/materialized-views",
           "title": "Матеріалізовані в'ю як похідні дані"
         },
         {
@@ -849,31 +849,31 @@
           }
         },
         {
-          "ref": "programming/read-model-lag",
+          "ref": "sf-distributed/read-model-lag",
           "title": "Лаг read-model як контракт"
         },
         {
-          "ref": "programming/search-subsystem",
+          "ref": "sf-data/search-subsystem",
           "title": "Пошук як друга правда"
         },
         {
-          "ref": "programming/audit-logging",
+          "ref": "sf-security/audit-logging",
           "title": "Аудит-лог як вузол"
         },
         {
-          "ref": "programming/change-data-capture",
+          "ref": "sf-data/change-data-capture",
           "title": "CDC"
         },
         {
-          "ref": "programming/etl-elt",
+          "ref": "sf-data/etl-elt",
           "title": "ETL/ELT"
         },
         {
-          "ref": "programming/data-contracts",
+          "ref": "sf-data/data-contracts",
           "title": "Data-контракти між продюсером і сховищем"
         },
         {
-          "ref": "programming/data-lineage",
+          "ref": "sf-data/data-lineage",
           "title": "Lineage «звідки це число»"
         },
         {
@@ -943,11 +943,11 @@
           }
         },
         {
-          "ref": "programming/soft-delete-tombstones",
+          "ref": "sf-data/soft-delete-tombstones",
           "title": "М'яке видалення і надгробки"
         },
         {
-          "ref": "programming/personal-data-class",
+          "ref": "sf-data/personal-data-class",
           "title": "Персональні дані як клас: класифікація, мінімізація, псевдонімізація",
           "todo": "нова тема",
           "hint": "programming/security"
@@ -963,7 +963,7 @@
           }
         },
         {
-          "ref": "programming/crypto-shredding",
+          "ref": "sf-data/crypto-shredding",
           "title": "Крипто-шредінг: видалення через знищення ключа",
           "todo": "нова тема",
           "hint": "programming/security"

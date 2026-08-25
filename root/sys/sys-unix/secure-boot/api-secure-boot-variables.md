@@ -25,7 +25,7 @@
 
 ## efivarfs: чотири байти атрибутів попереду
 
-Змінні видно як файли в [псевдофайловій системі](topic:sys-unix/pseudo-filesystems) `efivarfs`, змонтованій на `/sys/firmware/efi/efivars`. Ім'я файлу — `<Назва>-<GUID>`, а перші **чотири байти вмісту — це не дані, а атрибути** (UINT32, молодшим байтом уперед).
+Змінні видно як файли в [псевдофайловій системі](root:sys-unix/pseudo-filesystems) `efivarfs`, змонтованій на `/sys/firmware/efi/efivars`. Ім'я файлу — `<Назва>-<GUID>`, а перші **чотири байти вмісту — це не дані, а атрибути** (UINT32, молодшим байтом уперед).
 
 ```sh
 $ hexdump -C /sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c
@@ -110,7 +110,7 @@ WIN_CERTIFICATE_UEFI_GUID   AuthInfo      dwLength · wRevision = 0x0200 ·
 EFI_SIGNATURE_LIST[]        корисне навантаження
 ```
 
-Підписують не сам список, а склейку `Назва || GUID постачальника || Атрибути || TimeStamp || Дані`. Через це пакет прив'язаний до однієї конкретної змінної: те, що підписали для `db`, у `dbx` уже не приймуть. Позначка часу мусить бути **строго пізнішою** за збережену, інакше прошивка вважає це повтором старого пакета й відповідає `EFI_SECURITY_VIOLATION`. При `APPEND_WRITE` перевірку часу пропускають — саме тому в офіційних оновленнях `dbx` роками стоїть та сама дата, 6 березня 2010 року. Про сам підпис і ланцюг сертифікатів — [окрема тема](topic:sf-security/public-key-crypto).
+Підписують не сам список, а склейку `Назва || GUID постачальника || Атрибути || TimeStamp || Дані`. Через це пакет прив'язаний до однієї конкретної змінної: те, що підписали для `db`, у `dbx` уже не приймуть. Позначка часу мусить бути **строго пізнішою** за збережену, інакше прошивка вважає це повтором старого пакета й відповідає `EFI_SECURITY_VIOLATION`. При `APPEND_WRITE` перевірку часу пропускають — саме тому в офіційних оновленнях `dbx` роками стоїть та сама дата, 6 березня 2010 року. Про сам підпис і ланцюг сертифікатів — [окрема тема](root:sf-security/public-key-crypto).
 
 ## Команди: читати й правити змінні
 
@@ -174,7 +174,7 @@ $ sign-efi-sig-list -c PK.crt -k PK.key PK PK.esl PK.auth
 | `--mokx` | усі дії — над списком заборон `MokListX`, а не над `MokList` |
 | `--disable-validation` · `--enable-validation` | вимкнути й повернути перевірку **всередині shim**, не чіпаючи прошивку (`MokSBState`) |
 | `--set-sbat-policy latest\|previous\|delete` | керує `SbatPolicy` — чи підтягувати свіжий рубіж поколінь у `SbatLevel` |
-| `--trust-mok` · `--untrust-mok` | чи вважати ключі з MOK придатними для перевірки [підписів модулів](topic:sys-unix/kernel-modules) (`MokListTrusted`) |
+| `--trust-mok` · `--untrust-mok` | чи вважати ключі з MOK придатними для перевірки [підписів модулів](root:sys-unix/kernel-modules) (`MokListTrusted`) |
 
 Кожна змінна shim існує парою: `MokList` — енергонезалежна й доступна лише до старту ОС, `MokListRT` — її копія, віддана вже запущеній системі. Розділення тут не формальне. Права на запис у `MokList` нема ні в кого, крім самого shim, а видима система бачить лише копію, зміна якої нічого не означає, — тож жодна команда з-під root не додає ключ безпосередньо. `mokutil --import` кладе **заявку** в окрему змінну й на цьому зупиняється; ключ вносить MokManager при наступному завантаженні, спитавши одноразовий пароль з фізичної клавіатури.
 
@@ -201,7 +201,7 @@ grub,3
 | `Security Violation` при записі змінної | прошивка | позначка часу не пізніша за збережену, підпис не тим ключем, що має право на це сховище, або в `EFI_TIME` не занулені службові поля |
 | `Operation not permitted` на файлі в `efivars` | ядро | на файлі стоїть ознака незмінності — спершу `chattr -i` |
 | `Invalid argument` на файлі в `efivars` | ядро | немає чотирьох байтів атрибутів попереду, виставлено невідомий біт або запис пішов кількома `write()` |
-| `Key was rejected by service` від `insmod` | ядро, `-EKEYREJECTED` | модуль не підписаний тим, що лежить у [кільцях ключів ядра](topic:sys-unix/kernel-keyrings); у журналі поруч — `Loading of unsigned module is rejected` |
+| `Key was rejected by service` від `insmod` | ядро, `-EKEYREJECTED` | модуль не підписаний тим, що лежить у [кільцях ключів ядра](root:sys-unix/kernel-keyrings); у журналі поруч — `Loading of unsigned module is rejected` |
 | `Something has gone seriously wrong: SBAT self-check failed: Security Policy Violation` | shim | покоління самого shim нижче за рубіж, записаний у `SbatLevel` |
 | `Invalid MOK detected! Ignoring MOK List.` | MokManager | вміст `MokList` не розбирається як список підписів |
 | `This system doesn't support Secure Boot` | mokutil | змінної `SecureBoot` немає: машина стартувала в режимі сумісності з BIOS або `efivarfs` не змонтовано |

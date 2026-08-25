@@ -11,39 +11,39 @@
       "title": "Домовитися між процесами",
       "topics": [
         {
-          "ref": "unix-linux/ipc-landscape",
+          "ref": "sys-unix/ipc-landscape",
           "title": "Огляд засобів взаємодії"
         },
         {
-          "ref": "unix-linux/pipe-kernel-internals",
+          "ref": "sys-unix/pipe-kernel-internals",
           "title": "Канали й FIFO"
         },
         {
-          "ref": "unix-linux/unix-domain-sockets",
+          "ref": "sys-unix/unix-domain-sockets",
           "title": "Сокети домену Unix"
         },
         {
-          "ref": "unix-linux/posix-shared-memory",
+          "ref": "sys-unix/posix-shared-memory",
           "title": "Спільна пам'ять"
         },
         {
-          "ref": "unix-linux/memfd-create",
+          "ref": "sys-unix/memfd-create",
           "title": "memfd_create: безіменний файл у пам'яті й пломби (seals)"
         },
         {
-          "ref": "unix-linux/posix-semaphores",
+          "ref": "sys-unix/posix-semaphores",
           "title": "Семафори POSIX: іменовані й безіменні"
         },
         {
-          "ref": "unix-linux/message-queues",
+          "ref": "sys-unix/message-queues",
           "title": "Черги повідомлень"
         },
         {
-          "ref": "unix-linux/eventfd-and-futex",
+          "ref": "sys-unix/eventfd-and-futex",
           "title": "eventfd і futex"
         },
         {
-          "ref": "unix-linux/dbus",
+          "ref": "sys-unix/dbus",
           "title": "D-Bus: шина повідомлень простору користувача"
         },
         {
@@ -63,39 +63,39 @@
       "title": "Очікування на подію",
       "topics": [
         {
-          "ref": "unix-linux/blocking-and-nonblocking",
+          "ref": "sys-unix/blocking-and-nonblocking",
           "title": "Блокуючий і неблокуючий режим"
         },
         {
-          "ref": "unix-linux/readiness-vs-completion",
+          "ref": "sys-unix/readiness-vs-completion",
           "title": "Готовність проти завершення"
         },
         {
-          "ref": "unix-linux/select-poll-epoll",
+          "ref": "sys-unix/select-poll-epoll",
           "title": "select, poll, epoll"
         },
         {
-          "ref": "unix-linux/linux-aio-io-submit",
+          "ref": "sys-unix/linux-aio-io-submit",
           "title": "Асинхронний ввід-вивід ядра: io_submit і його межі"
         },
         {
-          "ref": "unix-linux/io-uring-rings-model",
+          "ref": "sys-unix/io-uring-rings-model",
           "title": "io_uring"
         },
         {
-          "ref": "unix-linux/eintr-and-restart",
+          "ref": "sys-unix/eintr-and-restart",
           "title": "EINTR"
         },
         {
-          "ref": "unix-linux/stdio-buffering",
+          "ref": "sys-unix/stdio-buffering",
           "title": "Буферизація stdio: порядкова, поблокова, без буфера"
         },
         {
-          "ref": "unix-linux/buffered-and-direct-io",
+          "ref": "sys-unix/buffered-and-direct-io",
           "title": "Буферизований і прямий ввід-вивід"
         },
         {
-          "ref": "unix-linux/zero-copy",
+          "ref": "sys-unix/zero-copy",
           "title": "Передача без копіювання"
         },
         {
@@ -125,53 +125,53 @@
       "title": "Особа в системі",
       "topics": [
         {
-          "ref": "unix-linux/uid-gid-identity-model",
+          "ref": "sys-unix/uid-gid-identity-model",
           "title": "Користувачі й групи"
         },
         {
-          "ref": "unix-linux/user-database-nss",
+          "ref": "sys-unix/user-database-nss",
           "title": "База облікових записів: passwd, group, shadow і шар NSS"
         },
         {
-          "ref": "unix-linux/account-administration",
+          "ref": "sys-unix/account-administration",
           "title": "Завести й прибрати обліковий запис: useradd, /etc/skel, блокування й термін дії",
           "todo": "нова тема",
           "hint": "unix-linux/permissions"
         },
         {
-          "ref": "programming/password-hashing",
+          "ref": "sf-security/password-hashing",
           "title": "Зберігання паролів: чому в shadow геш, а не пароль"
         },
         {
-          "ref": "unix-linux/ldap-directory",
+          "ref": "sys-unix/ldap-directory",
           "title": "Каталог LDAP як мережеве джерело облікових записів"
         },
         {
-          "ref": "unix-linux/process-credential-checks-and-transitions",
+          "ref": "sys-unix/process-credential-checks-and-transitions",
           "title": "Креденшели процесу: real, effective і saved UID/GID"
         },
         {
-          "ref": "unix-linux/setuid-and-privilege",
+          "ref": "sys-unix/setuid-and-privilege",
           "title": "setuid і підвищення прав"
         },
         {
-          "ref": "unix-linux/su-switch-user",
+          "ref": "sys-unix/su-switch-user",
           "title": "su: перемикання на іншого користувача"
         },
         {
-          "ref": "unix-linux/sudo",
+          "ref": "sys-unix/sudo",
           "title": "sudo: підвищення прав за правилами sudoers"
         },
         {
-          "ref": "unix-linux/polkit",
+          "ref": "sys-unix/polkit",
           "title": "polkit: хто дозволяє непривілейованому процесу привілейовану дію"
         },
         {
-          "ref": "unix-linux/pam-stack",
+          "ref": "sys-unix/pam-stack",
           "title": "PAM: стек модулів автентифікації"
         },
         {
-          "ref": "unix-linux/logind-sessions-seats",
+          "ref": "sys-unix/logind-sessions-seats",
           "title": "systemd-logind: сеанси, місця й хто зараз за комп'ютером"
         },
         {
@@ -191,51 +191,51 @@
       "title": "Політика прав",
       "topics": [
         {
-          "ref": "unix-linux/permission-bits",
+          "ref": "sys-unix/permission-bits",
           "title": "Біти прав"
         },
         {
-          "ref": "unix-linux/umask-and-defaults",
+          "ref": "sys-unix/umask-and-defaults",
           "title": "umask"
         },
         {
-          "ref": "unix-linux/acl-and-xattr",
+          "ref": "sys-unix/acl-and-xattr",
           "title": "ACL і xattr"
         },
         {
-          "ref": "unix-linux/inode-flags-chattr",
+          "ref": "sys-unix/inode-flags-chattr",
           "title": "Прапорці inode: immutable, append-only, chattr"
         },
         {
-          "ref": "unix-linux/capabilities",
+          "ref": "sys-unix/capabilities",
           "title": "Можливості (capabilities)"
         },
         {
-          "ref": "unix-linux/capabilities-in-practice",
+          "ref": "sys-unix/capabilities-in-practice",
           "title": "Можливості на практиці: файли, процеси й systemd"
         },
         {
-          "ref": "unix-linux/device-access-groups",
+          "ref": "sys-unix/device-access-groups",
           "title": "Групи доступу до пристроїв"
         },
         {
-          "ref": "unix-linux/privilege-separation",
+          "ref": "sys-unix/privilege-separation",
           "title": "Розділення привілеїв: маленький довірений процес і решта"
         },
         {
-          "ref": "unix-linux/lsm-framework",
+          "ref": "sys-unix/lsm-framework",
           "title": "LSM: каркас гачків безпеки в ядрі"
         },
         {
-          "ref": "unix-linux/mac-selinux-apparmor",
+          "ref": "sys-unix/mac-selinux-apparmor",
           "title": "SELinux і AppArmor"
         },
         {
-          "ref": "unix-linux/seccomp-filter-mechanism",
+          "ref": "sys-unix/seccomp-filter-mechanism",
           "title": "seccomp: фільтрація системних викликів"
         },
         {
-          "ref": "unix-linux/landlock-self-restriction-model",
+          "ref": "sys-unix/landlock-self-restriction-model",
           "title": "Landlock: обмежити себе, не маючи прав root"
         },
         {
@@ -265,53 +265,53 @@
       "title": "Прилади спостереження",
       "topics": [
         {
-          "ref": "unix-linux/proc-reading-process-and-kernel-state",
+          "ref": "sys-unix/proc-reading-process-and-kernel-state",
           "title": "/proc"
         },
         {
-          "ref": "unix-linux/sysctl-tunables",
+          "ref": "sys-unix/sysctl-tunables",
           "title": "sysctl: параметри ядра, які крутять на ходу"
         },
         {
-          "ref": "unix-linux/live-system-tools",
+          "ref": "sys-unix/live-system-tools",
           "title": "Подивитися на живу систему: ps, top, lsof",
           "todo": "нова тема",
           "hint": "unix-linux/observability"
         },
         {
-          "ref": "unix-linux/kernel-log-printk",
+          "ref": "sys-unix/kernel-log-printk",
           "title": "Журнал ядра: printk, рівні важливості й dmesg"
         },
         {
-          "ref": "unix-linux/journald-structured-entry-model",
+          "ref": "sys-unix/journald-structured-entry-model",
           "title": "journald"
         },
         {
-          "ref": "unix-linux/syslog-protocol",
+          "ref": "sys-unix/syslog-protocol",
           "title": "Syslog: пріоритет, засоби (facility) і формат повідомлення"
         },
         {
-          "ref": "unix-linux/audit-framework",
+          "ref": "sys-unix/audit-framework",
           "title": "Підсистема аудиту: правила, події й auditd"
         },
         {
-          "ref": "unix-linux/perf-events",
+          "ref": "sys-unix/perf-events",
           "title": "perf"
         },
         {
-          "ref": "unix-linux/ftrace-tracepoints",
+          "ref": "sys-unix/ftrace-tracepoints",
           "title": "ftrace і трасувальні точки"
         },
         {
-          "ref": "unix-linux/uprobes-and-kprobes",
+          "ref": "sys-unix/uprobes-and-kprobes",
           "title": "kprobes і uprobes: причепитися до того, чого точки не мають"
         },
         {
-          "ref": "unix-linux/ebpf-verifier-internals-and-runtime-cost",
+          "ref": "sys-unix/ebpf-verifier-internals-and-runtime-cost",
           "title": "eBPF"
         },
         {
-          "ref": "unix-linux/systemtap-and-bpftrace",
+          "ref": "sys-unix/systemtap-and-bpftrace",
           "title": "bpftrace: трасування одним рядком"
         }
       ]
@@ -321,47 +321,47 @@
       "title": "Машина під навантаженням",
       "topics": [
         {
-          "ref": "math/littles-law",
+          "ref": "math-probability/littles-law",
           "title": "Закон Літтла: черга, зайнятість і чому затримка вибухає до 100%"
         },
         {
-          "ref": "unix-linux/resource-limits",
+          "ref": "sys-unix/resource-limits",
           "title": "Ліміти ресурсів: rlimit і ulimit"
         },
         {
-          "ref": "unix-linux/cgroups-resource-model",
+          "ref": "sys-unix/cgroups-resource-model",
           "title": "cgroups"
         },
         {
-          "ref": "unix-linux/cgroups-v2-unified-hierarchy",
+          "ref": "sys-unix/cgroups-v2-unified-hierarchy",
           "title": "Cgroups v2: єдина ієрархія"
         },
         {
-          "ref": "unix-linux/cgroup-v2-controllers",
+          "ref": "sys-unix/cgroup-v2-controllers",
           "title": "Контролери cgroups v2: чим саме ділять CPU, пам'ять і ввід-вивід"
         },
         {
-          "ref": "unix-linux/io-cgroup-control",
+          "ref": "sys-unix/io-cgroup-control",
           "title": "Обмеження блокового вводу-виводу по cgroup: io.max, io.latency, iocost"
         },
         {
-          "ref": "unix-linux/io-schedulers",
+          "ref": "sys-unix/io-schedulers",
           "title": "Планувальники блокового вводу-виводу: none, mq-deadline, BFQ, Kyber"
         },
         {
-          "ref": "unix-linux/io-priorities",
+          "ref": "sys-unix/io-priorities",
           "title": "Пріоритет вводу-виводу: ionice і ioprio_set"
         },
         {
-          "ref": "unix-linux/cpu-affinity",
+          "ref": "sys-unix/cpu-affinity",
           "title": "Прив'язка задач до ядер: affinity, taskset, cpuset"
         },
         {
-          "ref": "unix-linux/cpufreq-and-cpuidle",
+          "ref": "sys-unix/cpufreq-and-cpuidle",
           "title": "Частота й тепло: cpufreq, cpuidle і чому машина сама себе пригальмовує"
         },
         {
-          "ref": "unix-linux/load-and-pressure",
+          "ref": "sys-unix/load-and-pressure",
           "title": "Навантаження й тиск на ресурси"
         }
       ]
@@ -371,35 +371,35 @@
       "title": "Старт системи",
       "topics": [
         {
-          "ref": "unix-linux/boot-chain",
+          "ref": "sys-unix/boot-chain",
           "title": "Ланцюг завантаження"
         },
         {
-          "ref": "unix-linux/uefi-firmware",
+          "ref": "sys-unix/uefi-firmware",
           "title": "UEFI: прошивка як середовище виконання"
         },
         {
-          "ref": "unix-linux/bootloader-and-cmdline",
+          "ref": "sys-unix/bootloader-and-cmdline",
           "title": "Завантажувач і cmdline"
         },
         {
-          "ref": "unix-linux/kernel-boot-process-from-reset-vector-to-start-kernel",
+          "ref": "sys-unix/kernel-boot-process-from-reset-vector-to-start-kernel",
           "title": "Від вектора скидання процесора до start_kernel"
         },
         {
-          "ref": "unix-linux/initramfs",
+          "ref": "sys-unix/initramfs",
           "title": "initramfs"
         },
         {
-          "ref": "unix-linux/dracut-and-mkinitcpio-toolchains",
+          "ref": "sys-unix/dracut-and-mkinitcpio-toolchains",
           "title": "Генератори initramfs: dracut, mkinitcpio, initramfs-tools"
         },
         {
-          "ref": "unix-linux/init-and-pid1",
+          "ref": "sys-unix/init-and-pid1",
           "title": "init і PID 1"
         },
         {
-          "ref": "unix-linux/secure-boot",
+          "ref": "sys-unix/secure-boot",
           "title": "Secure Boot: перевірений ланцюг завантаження"
         },
         {
@@ -419,47 +419,47 @@
       "title": "Служби",
       "topics": [
         {
-          "ref": "unix-linux/systemd-model",
+          "ref": "sys-unix/systemd-model",
           "title": "systemd"
         },
         {
-          "ref": "unix-linux/systemd-systemctl-and-unit-files",
+          "ref": "sys-unix/systemd-systemctl-and-unit-files",
           "title": "Юніти й systemctl"
         },
         {
-          "ref": "unix-linux/systemd-target-units-and-boot-targets",
+          "ref": "sys-unix/systemd-target-units-and-boot-targets",
           "title": "Цільові юніти й рівні виконання"
         },
         {
-          "ref": "unix-linux/service-lifecycle",
+          "ref": "sys-unix/service-lifecycle",
           "title": "Життєвий цикл служби"
         },
         {
-          "ref": "unix-linux/service-notify-protocol",
+          "ref": "sys-unix/service-notify-protocol",
           "title": "Протокол сповіщення менеджера: NOTIFY_SOCKET, READY=1, Type=notify"
         },
         {
-          "ref": "unix-linux/socket-activation",
+          "ref": "sys-unix/socket-activation",
           "title": "Активація за сокетом"
         },
         {
-          "ref": "unix-linux/daemonize",
+          "ref": "sys-unix/daemonize",
           "title": "Демонізація: як це робили до systemd і що з того лишилось"
         },
         {
-          "ref": "unix-linux/service-sandboxing",
+          "ref": "sys-unix/service-sandboxing",
           "title": "Пісочниця служби: ProtectSystem, PrivateTmp і решта обмежень юніта"
         },
         {
-          "ref": "unix-linux/dynamic-service-users",
+          "ref": "sys-unix/dynamic-service-users",
           "title": "DynamicUser: обліковий запис, що живе рівно стільки, скільки служба"
         },
         {
-          "ref": "unix-linux/systemd-sysusers-and-sysctl-d",
+          "ref": "sys-unix/systemd-sysusers-and-sysctl-d",
           "title": "Декларативне налаштування: systemd-sysusers, systemd-sysctl і старшинство каталогів .d"
         },
         {
-          "ref": "unix-linux/orderly-shutdown",
+          "ref": "sys-unix/orderly-shutdown",
           "title": "Впорядковане вимкнення: як система зупиняється"
         },
         {
@@ -479,25 +479,25 @@
       "title": "Час і розклад",
       "topics": [
         {
-          "ref": "unix-linux/kernel-timekeeping",
+          "ref": "sys-unix/kernel-timekeeping",
           "title": "Час у ядрі: тики, монотонний годинник і джерела часу"
         },
         {
-          "ref": "unix-linux/time-representation-y2038",
+          "ref": "sys-unix/time-representation-y2038",
           "title": "Час як число: time_t, епоха й межа 2038 року"
         },
         {
-          "ref": "unix-linux/wall-clock-and-timezones",
+          "ref": "sys-unix/wall-clock-and-timezones",
           "title": "Годинник машини: RTC, часові пояси, tzdata, timedatectl",
           "todo": "нова тема",
           "hint": "unix-linux/foundations"
         },
         {
-          "ref": "communications/ntp-sync",
+          "ref": "com-protocol/ntp-sync",
           "title": "NTP: мережевий протокол синхронізації часу"
         },
         {
-          "ref": "unix-linux/scheduled-jobs-cron-anacron",
+          "ref": "sys-unix/scheduled-jobs-cron-anacron",
           "title": "Робота за розкладом: cron, crontab і anacron",
           "todo": "нова тема",
           "hint": "unix-linux/boot-init"
@@ -519,59 +519,59 @@
       "title": "Пристрої",
       "topics": [
         {
-          "ref": "unix-linux/device-file-model",
+          "ref": "sys-unix/device-file-model",
           "title": "Файл пристрою"
         },
         {
-          "ref": "unix-linux/character-and-block-devices",
+          "ref": "sys-unix/character-and-block-devices",
           "title": "Символьні та блокові пристрої"
         },
         {
-          "ref": "unix-linux/major-minor-numbers",
+          "ref": "sys-unix/major-minor-numbers",
           "title": "Старший і молодший номери"
         },
         {
-          "ref": "unix-linux/ioctl-interface",
+          "ref": "sys-unix/ioctl-interface",
           "title": "Керуючий канал до драйвера: ioctl"
         },
         {
-          "ref": "unix-linux/sysfs-device-model",
+          "ref": "sys-unix/sysfs-device-model",
           "title": "Модель пристроїв у sysfs"
         },
         {
-          "ref": "unix-linux/pci-config-space-and-enumeration",
+          "ref": "sys-unix/pci-config-space-and-enumeration",
           "title": "PCI у Linux: конфігураційний простір, вікна BAR і перелічення"
         },
         {
-          "ref": "unix-linux/driver-probe-and-binding",
+          "ref": "sys-unix/driver-probe-and-binding",
           "title": "Прив'язка драйвера до пристрою: probe, збіг за таблицею й відкладена спроба"
         },
         {
-          "ref": "unix-linux/kernel-modules",
+          "ref": "sys-unix/kernel-modules",
           "title": "Модулі ядра"
         },
         {
-          "ref": "unix-linux/udev-rules",
+          "ref": "sys-unix/udev-rules",
           "title": "udev"
         },
         {
-          "ref": "unix-linux/predictable-network-interface-names",
+          "ref": "sys-unix/predictable-network-interface-names",
           "title": "Передбачувані імена мережевих інтерфейсів: enp3s0 замість eth0"
         },
         {
-          "ref": "unix-linux/usb-in-linux",
+          "ref": "sys-unix/usb-in-linux",
           "title": "USB у Linux"
         },
         {
-          "ref": "unix-linux/random-devices",
+          "ref": "sys-unix/random-devices",
           "title": "Джерело випадковості в ядрі: /dev/random, /dev/urandom, getrandom"
         },
         {
-          "ref": "unix-linux/interrupts-bottom-halves",
+          "ref": "sys-unix/interrupts-bottom-halves",
           "title": "Переривання й softirq"
         },
         {
-          "ref": "unix-linux/dma-and-buffers",
+          "ref": "sys-unix/dma-and-buffers",
           "title": "DMA і буфери"
         },
         {
@@ -591,61 +591,61 @@
       "title": "Мережа",
       "topics": [
         {
-          "ref": "unix-linux/network-stack-architecture",
+          "ref": "sys-unix/network-stack-architecture",
           "title": "Мережевий стек"
         },
         {
-          "ref": "unix-linux/interfaces-and-addresses",
+          "ref": "sys-unix/interfaces-and-addresses",
           "title": "Інтерфейси й адреси"
         },
         {
-          "ref": "communications/mac-ip-arp",
+          "ref": "com-transport/mac-ip-arp",
           "title": "MAC, IP і ARP"
         },
         {
-          "ref": "communications/cidr",
+          "ref": "com-transport/cidr",
           "title": "Підмережа й CIDR"
         },
         {
-          "ref": "unix-linux/netlink-protocol",
+          "ref": "sys-unix/netlink-protocol",
           "title": "Обмін із ядром через netlink: звідки ip бере дані"
         },
         {
-          "ref": "unix-linux/network-configuration-daemons",
+          "ref": "sys-unix/network-configuration-daemons",
           "title": "Хто налаштовує мережу: DHCP-клієнт, NetworkManager, systemd-networkd",
           "todo": "нова тема",
           "hint": "unix-linux/networking"
         },
         {
-          "ref": "communications/dhcp-dns",
+          "ref": "com-transport/dhcp-dns",
           "title": "DHCP і DNS"
         },
         {
-          "ref": "unix-linux/name-resolution-path",
+          "ref": "sys-unix/name-resolution-path",
           "title": "Шлях розв'язання імені: NSS, resolv.conf, systemd-resolved"
         },
         {
-          "ref": "unix-linux/routing-decision",
+          "ref": "sys-unix/routing-decision",
           "title": "Рішення про маршрут"
         },
         {
-          "ref": "unix-linux/socket-api-linux",
+          "ref": "sys-unix/socket-api-linux",
           "title": "Сокети в Linux"
         },
         {
-          "ref": "communications/tcp-connection-lifecycle",
+          "ref": "com-transport/tcp-connection-lifecycle",
           "title": "TCP: життя з'єднання"
         },
         {
-          "ref": "communications/mtu-and-fragmentation",
+          "ref": "com-transport/mtu-and-fragmentation",
           "title": "MTU і фрагментація"
         },
         {
-          "ref": "unix-linux/netfilter-model",
+          "ref": "sys-unix/netfilter-model",
           "title": "netfilter"
         },
         {
-          "ref": "communications/nat",
+          "ref": "com-transport/nat",
           "title": "NAT"
         },
         {
@@ -665,67 +665,67 @@
       "title": "Доступ здалеку",
       "topics": [
         {
-          "ref": "communications/public-key-crypto",
+          "ref": "sf-security/public-key-crypto",
           "title": "Криптографія з відкритим ключем"
         },
         {
-          "ref": "communications/challenge-response",
+          "ref": "sf-security/challenge-response",
           "title": "Виклик-відповідь: доказ знання секрету без його передавання"
         },
         {
-          "ref": "unix-linux/ssh-remote-session",
+          "ref": "sys-unix/ssh-remote-session",
           "title": "Віддалений сеанс: SSH — модель, автентифікація, канал",
           "todo": "нова тема",
           "hint": "unix-linux/networking"
         },
         {
-          "ref": "unix-linux/ssh-keys-and-host-trust",
+          "ref": "sys-unix/ssh-keys-and-host-trust",
           "title": "Ключі, known_hosts і довіра до хоста",
           "todo": "нова тема",
           "hint": "unix-linux/networking"
         },
         {
-          "ref": "unix-linux/ssh-agent-and-config",
+          "ref": "sys-unix/ssh-agent-and-config",
           "title": "Агент, ~/.ssh/config і перехід через бастіон (ProxyJump)",
           "todo": "нова тема",
           "hint": "unix-linux/networking"
         },
         {
-          "ref": "unix-linux/ssh-port-forwarding",
+          "ref": "sys-unix/ssh-port-forwarding",
           "title": "Прокидання портів: локальне, віддалене, динамічне",
           "todo": "нова тема",
           "hint": "unix-linux/networking"
         },
         {
-          "ref": "unix-linux/file-transfer-over-ssh",
+          "ref": "sys-unix/file-transfer-over-ssh",
           "title": "Перенесення файлів: scp, sftp і rsync поверх SSH",
           "todo": "нова тема",
           "hint": "unix-linux/networking"
         },
         {
-          "ref": "unix-linux/sshd-configuration-and-hardening",
+          "ref": "sys-unix/sshd-configuration-and-hardening",
           "title": "sshd: конфігурація й загартування",
           "todo": "нова тема",
           "hint": "unix-linux/networking"
         },
         {
-          "ref": "unix-linux/netfilter-nftables-expression-engine",
+          "ref": "sys-unix/netfilter-nftables-expression-engine",
           "title": "Фільтр на вході: nftables проти iptables"
         },
         {
-          "ref": "unix-linux/tcp-connection-liveness",
+          "ref": "sys-unix/tcp-connection-liveness",
           "title": "Виявлення мертвого TCP-з'єднання: keepalive, TCP_USER_TIMEOUT"
         },
         {
-          "ref": "unix-linux/tun-tap",
+          "ref": "sys-unix/tun-tap",
           "title": "TUN/TAP"
         },
         {
-          "ref": "unix-linux/wireguard-kernel-architecture",
+          "ref": "sys-unix/wireguard-kernel-architecture",
           "title": "WireGuard: ядерний тунель"
         },
         {
-          "ref": "unix-linux/network-inspection-tools",
+          "ref": "sys-unix/network-inspection-tools",
           "title": "Подивитися на мережу: ss, tcpdump, traceroute",
           "todo": "нова тема",
           "hint": "unix-linux/networking"
@@ -747,31 +747,31 @@
       "title": "Ізоляція",
       "topics": [
         {
-          "ref": "unix-linux/namespaces",
+          "ref": "sys-unix/namespaces",
           "title": "Простори імен"
         },
         {
-          "ref": "unix-linux/user-namespaces-uid-mapping",
+          "ref": "sys-unix/user-namespaces-uid-mapping",
           "title": "Юзер-простори імен і відображення UID"
         },
         {
-          "ref": "unix-linux/chroot",
+          "ref": "sys-unix/chroot",
           "title": "chroot і його межі"
         },
         {
-          "ref": "unix-linux/pivot-root",
+          "ref": "sys-unix/pivot-root",
           "title": "pivot_root: підміна кореневого монтування"
         },
         {
-          "ref": "unix-linux/overlay-filesystems",
+          "ref": "sys-unix/overlay-filesystems",
           "title": "Накладені файлові системи: overlayfs, шари й «білило»"
         },
         {
-          "ref": "unix-linux/network-namespaces",
+          "ref": "sys-unix/network-namespaces",
           "title": "Мережеві простори імен"
         },
         {
-          "ref": "unix-linux/linux-bridge",
+          "ref": "sys-unix/linux-bridge",
           "title": "Linux Bridge і veth: своя мережа з примітивів"
         },
         {
@@ -785,25 +785,25 @@
           }
         },
         {
-          "ref": "programming/containers",
+          "ref": "sf-os/containers",
           "title": "Контейнер як він є: простори, cgroups, шари, межі безпеки"
         },
         {
-          "ref": "unix-linux/container-image-and-registry",
+          "ref": "sf-release/container-image-and-registry",
           "title": "Образ і реєстр: тег, дайджест, шари й звідки береться pull",
           "todo": "нова тема",
           "hint": "unix-linux/virtualization-and-containers"
         },
         {
-          "ref": "unix-linux/rootless-containers",
+          "ref": "sys-unix/rootless-containers",
           "title": "Безкорінна контейнеризація"
         },
         {
-          "ref": "unix-linux/systemd-nspawn-lightweight-containers",
+          "ref": "sys-unix/systemd-nspawn-lightweight-containers",
           "title": "systemd-nspawn: контейнер силами init"
         },
         {
-          "ref": "unix-linux/kvm-and-qemu-architecture",
+          "ref": "sys-unix/kvm-and-qemu-architecture",
           "title": "Віртуальна машина: архітектура KVM і QEMU"
         },
         {
@@ -833,39 +833,39 @@
           }
         },
         {
-          "ref": "unix-linux/kernel-taint",
+          "ref": "sys-unix/kernel-taint",
           "title": "Заплямоване ядро: прапорці taint і що вони означають при розборі"
         },
         {
-          "ref": "unix-linux/kernel-oops-panic",
+          "ref": "sys-unix/kernel-oops-panic",
           "title": "Oops і паніка: що система робить, коли падає саме ядро"
         },
         {
-          "ref": "unix-linux/lockup-detectors",
+          "ref": "sys-unix/lockup-detectors",
           "title": "Детектори зависань: soft lockup, hard lockup, NMI-watchdog"
         },
         {
-          "ref": "unix-linux/magic-sysrq",
+          "ref": "sys-unix/magic-sysrq",
           "title": "Магічний SysRq: аварійні команди ядра з клавіатури"
         },
         {
-          "ref": "unix-linux/kexec-and-kdump",
+          "ref": "sys-unix/kexec-and-kdump",
           "title": "kexec і kdump: зняти дамп ядра, що впало"
         },
         {
-          "ref": "unix-linux/machine-check-and-ras",
+          "ref": "sys-unix/machine-check-and-ras",
           "title": "Апаратні помилки: машинна перевірка (MCE) і RAS"
         },
         {
-          "ref": "unix-linux/watchdog-timer-subsystem",
+          "ref": "sys-unix/watchdog-timer-subsystem",
           "title": "Сторожовий таймер: /dev/watchdog і машина, що перезавантажує себе сама"
         },
         {
-          "ref": "unix-linux/livepatch",
+          "ref": "sys-unix/livepatch",
           "title": "Живе латання ядра: livepatch"
         },
         {
-          "ref": "unix-linux/kernel-cve-and-security-fixes",
+          "ref": "sys-unix/kernel-cve-and-security-fixes",
           "title": "CVE в ядрі: потік номерів і що з ним робити"
         },
         {
@@ -879,11 +879,11 @@
           }
         },
         {
-          "ref": "programming/disaster-recovery",
+          "ref": "sf-release/disaster-recovery",
           "title": "Бекапи і план відновлення"
         },
         {
-          "ref": "programming/postmortems",
+          "ref": "sf-release/postmortems",
           "title": "Постмортем без винних"
         }
       ]

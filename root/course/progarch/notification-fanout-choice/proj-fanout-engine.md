@@ -130,7 +130,7 @@ private:
 
     void dispatch_broadcast_onread(const NotificationEvent& event) const {
         std::cout << "  └─ [Tier 3] Збережено 1 глобальний запис у системну стрічку. "
-                  << "Відправлено 1 multicast push у топік: topic://" << event.scope_id << "\n";
+                  << "Відправлено 1 multicast push у топік: root://" << event.scope_id << "\n";
     }
 };
 
@@ -234,7 +234,7 @@ func (r *FanOutRouter) ExecuteDispatch(event NotificationEvent) {
 		fmt.Printf("  └─ [Tier 2] Збережено 1 запис стрічки ЖК %s. Згенеровано %d push-батчів по %d рецепторів.\n",
 			event.ScopeID, numChunks, decision.BatchSize)
 	case BroadcastOnRead:
-		fmt.Printf("  └─ [Tier 3] Збережено 1 глобальний запис у системну стрічку. Multicast push у topic://%s\n", event.ScopeID)
+		fmt.Printf("  └─ [Tier 3] Збережено 1 глобальний запис у системну стрічку. Multicast push у root://%s\n", event.ScopeID)
 	}
 }
 
@@ -313,7 +313,7 @@ class FanOutRouter {
       const numChunks = Math.ceil(event.recipientCount / decision.batchSize);
       console.log(`  └─ [Tier 2] Збережено 1 запис стрічки ЖК ${event.scopeId}. Згенеровано ${numChunks} push-батчів по ${decision.batchSize}.`);
     } else {
-      console.log(`  └─ [Tier 3] Збережено 1 глобальний запис у системну стрічку. Multicast push у topic://${event.scopeId}`);
+      console.log(`  └─ [Tier 3] Збережено 1 глобальний запис у системну стрічку. Multicast push у root://${event.scopeId}`);
     }
   }
 }

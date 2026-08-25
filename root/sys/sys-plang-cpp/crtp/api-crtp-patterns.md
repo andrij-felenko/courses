@@ -1,9 +1,9 @@
 # 📋 Довідник паттернів CRTP та їх модернізація у C++23
 
 <preknowlist>
-- [Шаблони: параметризація типом](topic:sys-plang-cpp/templates-basics) — синтаксис та вимоги підстановки аргументів.
-- [Коректність за const](topic:sys-plang-cpp/const-correctness) — правила виклику const/non-const методів.
-- [Явний параметр об'єкта](topic:sys-plang-cpp/deducing-this) — синтаксис deducing this у C++23.
+- [Шаблони: параметризація типом](root:sys-plang-cpp/templates-basics) — синтаксис та вимоги підстановки аргументів.
+- [Коректність за const](root:sys-plang-cpp/const-correctness) — правила виклику const/non-const методів.
+- [Явний параметр об'єкта](root:sys-plang-cpp/deducing-this) — синтаксис deducing this у C++23.
 </preknowlist>
 
 Цей довідник систематизує стандартні й прикладні конструкти на основі CRTP, показує їхні сигнатури, інваріанти й захисні механізми та наводить таблицю еквівалентів у C++23.

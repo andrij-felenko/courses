@@ -11,21 +11,21 @@
       "title": "Задум Unix",
       "topics": [
         {
-          "ref": "unix-linux/unix-philosophy",
+          "ref": "sys-unix/unix-philosophy",
           "title": "Філософія Unix"
         },
         {
-          "ref": "unix-linux/classic-filters",
+          "ref": "sys-unix/classic-filters",
           "title": "Класичні фільтри: grep, sed, awk, sort",
           "todo": "нова тема",
           "hint": "unix-linux/shell"
         },
         {
-          "ref": "unix-linux/everything-is-a-file",
+          "ref": "sys-unix/everything-is-a-file",
           "title": "«Усе є файлом»"
         },
         {
-          "ref": "unix-linux/kernel-and-userspace",
+          "ref": "sys-unix/kernel-and-userspace",
           "title": "Ядро й простір користувача"
         },
         {
@@ -55,25 +55,25 @@
       "title": "Межа з ядром",
       "topics": [
         {
-          "ref": "unix-linux/syscall-mechanics",
+          "ref": "sys-unix/syscall-mechanics",
           "title": "Системний виклик"
         },
         {
-          "ref": "unix-linux/manual-pages",
+          "ref": "sys-unix/manual-pages",
           "title": "Сторінки довідки: розділи man і як читати сигнатуру",
           "todo": "нова тема",
           "hint": "unix-linux/foundations"
         },
         {
-          "ref": "unix-linux/libc-as-gateway",
+          "ref": "sys-unix/libc-as-gateway",
           "title": "libc як шлюз"
         },
         {
-          "ref": "programming/errno",
+          "ref": "sf-apps/errno",
           "title": "errno та POSIX-коди помилок"
         },
         {
-          "ref": "unix-linux/monolithic-with-modules",
+          "ref": "sys-unix/monolithic-with-modules",
           "title": "Монолітне ядро з модулями"
         },
         {
@@ -93,23 +93,23 @@
       "title": "Родовід і стандарт",
       "topics": [
         {
-          "ref": "unix-linux/unix-lineage",
+          "ref": "sys-unix/unix-lineage",
           "title": "Родовід Unix"
         },
         {
-          "ref": "unix-linux/posix-standard",
+          "ref": "sys-unix/posix-standard",
           "title": "POSIX"
         },
         {
-          "ref": "unix-linux/kernel-abi-stability",
+          "ref": "sys-unix/kernel-abi-stability",
           "title": "«Не ламати простір користувача»: сталість ABI ядра"
         },
         {
-          "ref": "unix-linux/userspace-abi-stability",
+          "ref": "sys-unix/userspace-abi-stability",
           "title": "Що саме заморожено: ABI до простору користувача"
         },
         {
-          "ref": "unix-linux/compat-32-on-64",
+          "ref": "sys-unix/compat-32-on-64",
           "title": "32-бітні програми на 64-бітному ядрі"
         }
       ]
@@ -119,23 +119,23 @@
       "title": "Ядро й дистрибутив",
       "topics": [
         {
-          "ref": "unix-linux/kernel-vs-distribution",
+          "ref": "sys-unix/kernel-vs-distribution",
           "title": "Ядро, дистрибутив і що між ними"
         },
         {
-          "ref": "unix-linux/gnu-userland",
+          "ref": "sys-unix/gnu-userland",
           "title": "Інструментарій GNU"
         },
         {
-          "ref": "unix-linux/fhs-layout",
+          "ref": "sys-unix/fhs-layout",
           "title": "Ієрархія файлової системи"
         },
         {
-          "ref": "unix-linux/kernel-release-model",
+          "ref": "sys-unix/kernel-release-model",
           "title": "Модель випусків ядра"
         },
         {
-          "ref": "unix-linux/kernel-cve-and-security-fixes",
+          "ref": "sys-unix/kernel-cve-and-security-fixes",
           "title": "CVE в ядрі: потік номерів і що з ним робити"
         }
       ]
@@ -145,7 +145,7 @@
       "title": "Незнайома машина",
       "topics": [
         {
-          "ref": "unix-linux/finding-answers-in-the-system",
+          "ref": "sys-unix/finding-answers-in-the-system",
           "title": "Де в системі лежить правда",
           "todo": "нова тема",
           "hint": "unix-linux/foundations"
@@ -161,7 +161,7 @@
           }
         },
         {
-          "ref": "unix-linux/kernel-config-and-build",
+          "ref": "sys-unix/kernel-config-and-build",
           "title": "Конфігурація й збірка ядра: що саме ввімкнено в цьому ядрі"
         },
         {

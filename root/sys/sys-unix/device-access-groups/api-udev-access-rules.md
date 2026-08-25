@@ -24,7 +24,7 @@
 | `ACTION` | тип події | `ACTION=="add"` |
 | `SUBSYSTEM` | підсистема **самого** пристрою | `SUBSYSTEM=="tty"` |
 | `KERNEL` | ім'я, яке дало ядро | `KERNEL=="ttyUSB[0-9]*"` |
-| `ATTR{…}` | атрибут [sysfs](topic:sys-unix/sysfs-device-model) **самого** пристрою | `ATTR{dev}=="188:0"` |
+| `ATTR{…}` | атрибут [sysfs](root:sys-unix/sysfs-device-model) **самого** пристрою | `ATTR{dev}=="188:0"` |
 | `SUBSYSTEMS`, `KERNELS`, `DRIVERS`, `ATTRS{…}` | те саме, але **вгору по ланцюгу предків** | `ATTRS{idVendor}=="1a86"` |
 | `ENV{…}` | властивість, яку вже проставили **попередні** правила | `ENV{ID_SERIAL_SHORT}=="A5069RR4"` |
 | `TAG` | мітка, вже почеплена раніше | `TAG=="uaccess"` |
@@ -41,7 +41,7 @@
 |---|---|
 | `OWNER="root"` | власник вузла (UID) |
 | `GROUP="dialout"` | група вузла (GID) |
-| `MODE="0660"` | [біти прав](topic:sys-unix/permission-bits) вісімковим числом |
+| `MODE="0660"` | [біти прав](root:sys-unix/permission-bits) вісімковим числом |
 | `SYMLINK+="ttyPROG"` | додає ще одне ім'я в `/dev`, що вказує на цей вузол |
 | `TAG+="uaccess"` | мітка «віддати тому, хто зараз сидить за цим комп'ютером» |
 | `ENV{ключ}="…"` | властивість для наступних правил |
@@ -49,7 +49,7 @@
 
 `OWNER`, `GROUP` і `MODE` перекривають вбудовану типову величину; що саме буде, якщо їх не писати, задає файл `50-udev-default.rules` — саме він розкладає вузли по групах: послідовні `ttyUSB*`, `ttyACM*`, `ttyS*` → `dialout` (а сама підсистема `tty`, тобто консолі й псевдотермінали, — у групу `tty`), `video4linux` → `video`, `block` → `disk`, `input` → `input`.
 
-`TAG+="uaccess"` працює інакше за всі інші: сам по собі він нічого не змінює. Мітку пізніше читає правило `73-seat-late.rules` і запускає вбудовану дію `uaccess`, а та питає [systemd-logind](topic:sys-unix/logind-sessions-seats), чий сеанс зараз активний на цьому місці, і дописує на вузол [запис ACL](topic:sys-unix/acl-and-xattr) для конкретної людини.
+`TAG+="uaccess"` працює інакше за всі інші: сам по собі він нічого не змінює. Мітку пізніше читає правило `73-seat-late.rules` і запускає вбудовану дію `uaccess`, а та питає [systemd-logind](root:sys-unix/logind-sessions-seats), чий сеанс зараз активний на цьому місці, і дописує на вузол [запис ACL](root:sys-unix/acl-and-xattr) для конкретної людини.
 
 Мінімальне робоче правило:
 
@@ -125,7 +125,7 @@ crw-rw---- 1 root dialout 188, 0 Aug  8 11:42 /dev/ttyUSB0
 
 ## Другий бік: рядок групи й членство
 
-Рядок [бази облікових записів](topic:sys-unix/user-database-nss) має чотири поля через двокрапку — назва, пароль, число, перелік:
+Рядок [бази облікових записів](root:sys-unix/user-database-nss) має чотири поля через двокрапку — назва, пароль, число, перелік:
 
 ```
 dialout:x:20:andrij,maria

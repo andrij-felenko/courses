@@ -11,43 +11,43 @@
       "title": "Ім'я та вміст",
       "topics": [
         {
-          "ref": "unix-linux/inode-model",
+          "ref": "sys-unix/inode-model",
           "title": "Inode"
         },
         {
-          "ref": "unix-linux/directory-as-mapping",
+          "ref": "sys-unix/directory-as-mapping",
           "title": "Каталог як відображення"
         },
         {
-          "ref": "unix-linux/hard-and-symbolic-links",
+          "ref": "sys-unix/hard-and-symbolic-links",
           "title": "Жорсткі й символьні посилання"
         },
         {
-          "ref": "unix-linux/dentry-cache",
+          "ref": "sys-unix/dentry-cache",
           "title": "Кеш каталогових записів: dentry й негативні записи"
         },
         {
-          "ref": "unix-linux/path-resolution",
+          "ref": "sys-unix/path-resolution",
           "title": "Розбір шляху"
         },
         {
-          "ref": "unix-linux/readdir-getdents64-directory-traversal",
+          "ref": "sys-unix/readdir-getdents64-directory-traversal",
           "title": "Обхід каталогу з програми: readdir, getdents64"
         },
         {
-          "ref": "programming/toctou-race",
+          "ref": "sf-security/toctou-race",
           "title": "Гонка між перевіркою й використанням (TOCTOU)"
         },
         {
-          "ref": "unix-linux/at-family-syscalls",
+          "ref": "sys-unix/at-family-syscalls",
           "title": "Сімейство *at: шлях від дескриптора каталогу"
         },
         {
-          "ref": "unix-linux/o-tmpfile",
+          "ref": "sys-unix/o-tmpfile",
           "title": "O_TMPFILE: вміст без жодного імені"
         },
         {
-          "ref": "unix-linux/file-handles",
+          "ref": "sys-unix/file-handles",
           "title": "Стійке посилання на файл: name_to_handle_at"
         },
         {
@@ -67,35 +67,35 @@
       "title": "Атрибути й позначки часу",
       "topics": [
         {
-          "ref": "unix-linux/statx-mask-and-unknown-values",
+          "ref": "sys-unix/statx-mask-and-unknown-values",
           "title": "statx: розширений запит атрибутів"
         },
         {
-          "ref": "programming/file-timestamps",
+          "ref": "sf-os/file-timestamps",
           "title": "Часові позначки файлів: mtime, ctime, роздільність"
         },
         {
-          "ref": "unix-linux/sparse-files",
+          "ref": "sys-unix/sparse-files",
           "title": "Розріджені файли: діри замість нулів"
         },
         {
-          "ref": "unix-linux/large-file-support",
+          "ref": "sys-unix/large-file-support",
           "title": "Великі файли: off_t, LFS і _FILE_OFFSET_BITS"
         },
         {
-          "ref": "unix-linux/inode-flags-chattr",
+          "ref": "sys-unix/inode-flags-chattr",
           "title": "Прапорці inode: immutable, append-only, chattr"
         },
         {
-          "ref": "unix-linux/inotify-and-fanotify",
+          "ref": "sys-unix/inotify-and-fanotify",
           "title": "Стеження за змінами: inotify і fanotify"
         },
         {
-          "ref": "unix-linux/reflink-copies",
+          "ref": "sys-unix/reflink-copies",
           "title": "Копії з поділом блоків: reflink і copy_file_range"
         },
         {
-          "ref": "unix-linux/copying-trees-preserving-metadata",
+          "ref": "sys-unix/copying-trees-preserving-metadata",
           "title": "Копіювання дерева без втрат: cp, tar, rsync",
           "todo": "нова тема",
           "hint": "unix-linux/files"
@@ -107,31 +107,31 @@
       "title": "Монтування",
       "topics": [
         {
-          "ref": "unix-linux/vfs-layer",
+          "ref": "sys-unix/vfs-layer",
           "title": "VFS"
         },
         {
-          "ref": "unix-linux/mount-model",
+          "ref": "sys-unix/mount-model",
           "title": "Монтування"
         },
         {
-          "ref": "unix-linux/systemd-generator-architecture",
+          "ref": "sys-unix/systemd-generator-architecture",
           "title": "Генератори systemd: як fstab стає юнітами"
         },
         {
-          "ref": "unix-linux/chroot",
+          "ref": "sys-unix/chroot",
           "title": "chroot і його межі"
         },
         {
-          "ref": "unix-linux/pivot-root",
+          "ref": "sys-unix/pivot-root",
           "title": "pivot_root: підміна кореневого монтування"
         },
         {
-          "ref": "unix-linux/fhs-layout",
+          "ref": "sys-unix/fhs-layout",
           "title": "Ієрархія файлової системи"
         },
         {
-          "ref": "programming/app-data-directories",
+          "ref": "sf-os/app-data-directories",
           "title": "Теки застосунку: конфіг, дані, кеш"
         }
       ]
@@ -141,47 +141,47 @@
       "title": "Файлові системи без носія",
       "topics": [
         {
-          "ref": "unix-linux/pseudo-filesystems",
+          "ref": "sys-unix/pseudo-filesystems",
           "title": "Псевдо-ФС"
         },
         {
-          "ref": "unix-linux/procfs-kernel-implementation",
+          "ref": "sys-unix/procfs-kernel-implementation",
           "title": "Архітектура procfs і /proc/[pid]"
         },
         {
-          "ref": "unix-linux/sysfs-kobject-sysfs-dirent",
+          "ref": "sys-unix/sysfs-kobject-sysfs-dirent",
           "title": "sysfs, kobject і sysfs_dirent"
         },
         {
-          "ref": "unix-linux/kernfs-vfs-abstraction-layer",
+          "ref": "sys-unix/kernfs-vfs-abstraction-layer",
           "title": "kernfs: спільний каркас під procfs, sysfs і cgroupfs"
         },
         {
-          "ref": "unix-linux/devtmpfs-kernel-device-node-management",
+          "ref": "sys-unix/devtmpfs-kernel-device-node-management",
           "title": "devtmpfs: вузли пристроїв з'являються самі"
         },
         {
-          "ref": "unix-linux/tmpfs-shmem-ram-filesystem",
+          "ref": "sys-unix/tmpfs-shmem-ram-filesystem",
           "title": "tmpfs і shmem: файли, яких немає на диску"
         },
         {
-          "ref": "unix-linux/configfs-user-space-kernel-object-creation",
+          "ref": "sys-unix/configfs-user-space-kernel-object-creation",
           "title": "configfs: файли, які створюють об'єкти ядра"
         },
         {
-          "ref": "unix-linux/overlay-filesystems",
+          "ref": "sys-unix/overlay-filesystems",
           "title": "Накладені файлові системи: overlayfs і «білило»"
         },
         {
-          "ref": "unix-linux/read-only-image-filesystems",
+          "ref": "sys-unix/read-only-image-filesystems",
           "title": "Стиснені образи лише для читання: SquashFS і EROFS"
         },
         {
-          "ref": "unix-linux/network-filesystems",
+          "ref": "sys-unix/network-filesystems",
           "title": "Мережеві файлові системи: NFS, SMB і чого від них чекати"
         },
         {
-          "ref": "unix-linux/fuse-userspace-filesystems",
+          "ref": "sys-unix/fuse-userspace-filesystems",
           "title": "FUSE: файлова система в просторі користувача"
         }
       ]
@@ -191,47 +191,47 @@
       "title": "Довговічність запису",
       "topics": [
         {
-          "ref": "unix-linux/page-cache-durability",
+          "ref": "sys-unix/page-cache-durability",
           "title": "Кеш сторінок і fsync"
         },
         {
-          "ref": "unix-linux/readahead",
+          "ref": "sys-unix/readahead",
           "title": "Випереджувальне читання"
         },
         {
-          "ref": "unix-linux/writeback-throttling",
+          "ref": "sys-unix/writeback-throttling",
           "title": "Гальмування фонового запису"
         },
         {
-          "ref": "unix-linux/buffered-and-direct-io",
+          "ref": "sys-unix/buffered-and-direct-io",
           "title": "Буферизований і прямий ввід-вивід"
         },
         {
-          "ref": "unix-linux/fsync-fdatasync-sync-file-range",
+          "ref": "sys-unix/fsync-fdatasync-sync-file-range",
           "title": "Гарантії скидання: fsync, fdatasync, sync_file_range"
         },
         {
-          "ref": "programming/torn-reads",
+          "ref": "sf-tasks/torn-reads",
           "title": "Розривне читання: чому запис буває наполовину"
         },
         {
-          "ref": "unix-linux/journaling-consistency",
+          "ref": "sys-unix/journaling-consistency",
           "title": "Журналювання"
         },
         {
-          "ref": "programming/client-crash-recovery",
+          "ref": "sf-apps/client-crash-recovery",
           "title": "Документ переживає крах: автозбереження і журнал"
         },
         {
-          "ref": "unix-linux/file-locking",
+          "ref": "sys-unix/file-locking",
           "title": "Блокування файлів: flock, POSIX- і OFD-замки"
         },
         {
-          "ref": "unix-linux/file-leases",
+          "ref": "sys-unix/file-leases",
           "title": "Оренда файлу: F_SETLEASE"
         },
         {
-          "ref": "programming/write-ahead-log",
+          "ref": "sf-data/write-ahead-log",
           "title": "Журнал попереднього запису (WAL)"
         },
         {
@@ -251,51 +251,51 @@
       "title": "Блочний пристрій",
       "topics": [
         {
-          "ref": "unix-linux/character-and-block-devices",
+          "ref": "sys-unix/character-and-block-devices",
           "title": "Символьні та блочні пристрої"
         },
         {
-          "ref": "unix-linux/block-device-model",
+          "ref": "sys-unix/block-device-model",
           "title": "Блоковий пристрій: сектори, блоки й черга запитів"
         },
         {
-          "ref": "unix-linux/disk-partitions",
+          "ref": "sys-unix/disk-partitions",
           "title": "Розділи диска: таблиця, вирівнювання, що бачить ядро"
         },
         {
-          "ref": "unix-linux/loop-device",
+          "ref": "sys-unix/loop-device",
           "title": "Loop-пристрій: файл у вигляді блокового пристрою"
         },
         {
-          "ref": "unix-linux/usb-mass-storage",
+          "ref": "sys-unix/usb-mass-storage",
           "title": "Накопичувачі по USB: mass storage, usb-storage, UAS"
         },
         {
-          "ref": "unix-linux/userspace-block-devices",
+          "ref": "sys-unix/userspace-block-devices",
           "title": "Блоковий пристрій із простору користувача: NBD і ublk"
         },
         {
-          "ref": "unix-linux/block-layer-mq",
+          "ref": "sys-unix/block-layer-mq",
           "title": "Багаточергова підсистема blk-mq"
         },
         {
-          "ref": "unix-linux/io-schedulers",
+          "ref": "sys-unix/io-schedulers",
           "title": "Планувальники блокового вводу-виводу"
         },
         {
-          "ref": "unix-linux/io-priorities",
+          "ref": "sys-unix/io-priorities",
           "title": "Пріоритет вводу-виводу: ionice, ioprio_set"
         },
         {
-          "ref": "unix-linux/nvme-in-linux",
+          "ref": "sys-unix/nvme-in-linux",
           "title": "NVMe в Linux: черги й простори імен"
         },
         {
-          "ref": "unix-linux/persistent-memory-devices",
+          "ref": "sys-unix/persistent-memory-devices",
           "title": "Постійна пам'ять як пристрій: NVDIMM і /dev/pmem"
         },
         {
-          "ref": "unix-linux/dax-direct-access",
+          "ref": "sys-unix/dax-direct-access",
           "title": "DAX: файли без сторінкового кешу"
         }
       ]
@@ -305,55 +305,55 @@
       "title": "Здоров'я носія",
       "topics": [
         {
-          "ref": "programming/flash-internals",
+          "ref": "hw-components/flash-internals",
           "title": "Flash зсередини: сторінка, блок стирання, читання"
         },
         {
-          "ref": "programming/flash-cell-types",
+          "ref": "hw-components/flash-cell-types",
           "title": "SLC, MLC, TLC, QLC: типи комірок і ресурс"
         },
         {
-          "ref": "programming/wear-leveling",
+          "ref": "sf-data/wear-leveling",
           "title": "Вирівнювання зносу"
         },
         {
-          "ref": "algorithms/ftl-flash-translation",
+          "ref": "sf-data/ftl-flash-translation",
           "title": "Шар трансляції флешу (FTL)"
         },
         {
-          "ref": "algorithms/write-amplification",
+          "ref": "sf-data/write-amplification",
           "title": "Підсилення запису (Write Amplification Factor)"
         },
         {
-          "ref": "algorithms/over-provisioning",
+          "ref": "sf-algorithms/over-provisioning",
           "title": "Надлишкова ємність (over-provisioning)"
         },
         {
-          "ref": "algorithms/flash-garbage-collection",
+          "ref": "sf-data/flash-garbage-collection",
           "title": "Збирання сміття у флеш-сховищах"
         },
         {
-          "ref": "communications/flash-ecc-budget",
+          "ref": "hw-arch/flash-ecc-budget",
           "title": "Flash: бюджет помилок ECC і знос"
         },
         {
-          "ref": "unix-linux/discard-and-trim",
+          "ref": "sf-data/discard-and-trim",
           "title": "Discard і TRIM"
         },
         {
-          "ref": "unix-linux/smart-self-monitoring",
+          "ref": "sf-data/smart-self-monitoring",
           "title": "SMART: що носій знає про власне здоров'я"
         },
         {
-          "ref": "unix-linux/libata",
+          "ref": "sys-unix/libata",
           "title": "libata: як ATA-диск потрапляє під SCSI-шар"
         },
         {
-          "ref": "unix-linux/scsi-subsystem",
+          "ref": "sys-unix/scsi-subsystem",
           "title": "Підсистема SCSI: команди, сенс-коди, обробка помилок"
         },
         {
-          "ref": "unix-linux/secure-erase-and-sanitize",
+          "ref": "sf-data/secure-erase-and-sanitize",
           "title": "Надійне стирання: ATA Secure Erase, Sanitize"
         }
       ]
@@ -363,59 +363,59 @@
       "title": "Складені носії",
       "topics": [
         {
-          "ref": "unix-linux/device-mapper",
+          "ref": "sys-unix/device-mapper",
           "title": "Device mapper: пристрій, зібраний із шарів"
         },
         {
-          "ref": "algorithms/raid-levels",
+          "ref": "sf-data/raid-levels",
           "title": "RAID: смуги, дзеркала й парність"
         },
         {
-          "ref": "unix-linux/md-raid",
+          "ref": "sys-unix/md-raid",
           "title": "Програмний RAID: md, рівні масиву, відновлення"
         },
         {
-          "ref": "unix-linux/md-reshape",
+          "ref": "sys-unix/md-reshape",
           "title": "Перебудова масиву наживо: --grow і reshape"
         },
         {
-          "ref": "communications/reed-solomon",
+          "ref": "com-modulation/reed-solomon",
           "title": "Ріда — Соломона: чому RAID 6 витримує два диски"
         },
         {
-          "ref": "unix-linux/lvm-and-snapshots",
+          "ref": "sys-unix/lvm-and-snapshots",
           "title": "LVM: логічні томи й миттєві знімки"
         },
         {
-          "ref": "unix-linux/filesystem-freeze",
+          "ref": "sys-unix/filesystem-freeze",
           "title": "Заморожування ФС: узгоджений момент для знімка"
         },
         {
-          "ref": "unix-linux/dm-thin-provisioning",
+          "ref": "sys-unix/dm-thin-provisioning",
           "title": "Тонке виділення: dm-thin, спільний пул, повернення місця"
         },
         {
-          "ref": "unix-linux/dm-crypt",
+          "ref": "sys-unix/dm-crypt",
           "title": "dm-crypt: прозоре шифрування блокового пристрою"
         },
         {
-          "ref": "unix-linux/luks-format",
+          "ref": "sys-unix/luks-format",
           "title": "LUKS2: формат заголовка шифрованого тому"
         },
         {
-          "ref": "programming/aes-xts",
+          "ref": "sf-security/aes-xts",
           "title": "AES-XTS: чому для дисків саме цей режим"
         },
         {
-          "ref": "unix-linux/fscrypt",
+          "ref": "sys-unix/fscrypt",
           "title": "fscrypt: шифрування на рівні файлової системи"
         },
         {
-          "ref": "unix-linux/dm-integrity",
+          "ref": "sys-unix/dm-integrity",
           "title": "dm-integrity: контрольні суми на записуваному пристрої"
         },
         {
-          "ref": "unix-linux/dm-verity",
+          "ref": "sys-unix/dm-verity",
           "title": "dm-verity: пристрій під деревом Меркла"
         }
       ]
@@ -425,51 +425,51 @@
       "title": "Устрій файлової системи",
       "topics": [
         {
-          "ref": "unix-linux/filesystem-families",
+          "ref": "sys-unix/filesystem-families",
           "title": "Родини файлових систем"
         },
         {
-          "ref": "unix-linux/file-block-allocation",
+          "ref": "sys-unix/file-block-allocation",
           "title": "Розміщення блоків файлу: екстенти, відкладене виділення"
         },
         {
-          "ref": "algorithms/b-tree",
+          "ref": "sf-data/b-tree",
           "title": "B-дерево"
         },
         {
-          "ref": "unix-linux/btrfs-b-tree-architecture",
+          "ref": "sys-unix/btrfs-b-tree-architecture",
           "title": "Btrfs: архітектура B-дерев"
         },
         {
-          "ref": "algorithms/copy-on-write-structures",
+          "ref": "sf-algorithms/copy-on-write-structures",
           "title": "Copy-on-write у структурах даних"
         },
         {
-          "ref": "unix-linux/btrfs-copy-on-write-and-subvolumes",
+          "ref": "sys-unix/btrfs-copy-on-write-and-subvolumes",
           "title": "Btrfs: копіювання при записі, субтоми, знімки"
         },
         {
-          "ref": "unix-linux/btrfs-checksums-scrubbing-raid",
+          "ref": "sys-unix/btrfs-checksums-scrubbing-raid",
           "title": "Btrfs: контрольні суми, scrub і RAID"
         },
         {
-          "ref": "algorithms/lsm-tree",
+          "ref": "sf-data/lsm-tree",
           "title": "B-tree проти LSM-дерева"
         },
         {
-          "ref": "unix-linux/log-structured-filesystems",
+          "ref": "sys-unix/log-structured-filesystems",
           "title": "Лог-структуровані файлові системи"
         },
         {
-          "ref": "unix-linux/zfs-pool-architecture",
+          "ref": "sys-unix/zfs-pool-architecture",
           "title": "Архітектура пулів ZFS"
         },
         {
-          "ref": "unix-linux/zfs-on-linux-arc",
+          "ref": "sys-unix/zfs-on-linux-arc",
           "title": "ZFS у Linux: ARC і ZIL"
         },
         {
-          "ref": "programming/fat-filesystem",
+          "ref": "sf-data/fat-filesystem",
           "title": "Файлова система FAT"
         },
         {
@@ -499,23 +499,23 @@
           }
         },
         {
-          "ref": "unix-linux/disk-quotas",
+          "ref": "sys-unix/disk-quotas",
           "title": "Дискові квоти: облік місця за власником"
         },
         {
-          "ref": "unix-linux/fsck-and-repair",
+          "ref": "sys-unix/fsck-and-repair",
           "title": "fsck: перевірка й ремонт файлової системи"
         },
         {
-          "ref": "unix-linux/dm-persistent-data",
+          "ref": "sys-unix/dm-persistent-data",
           "title": "persistent-data: транзакційні метадані device mapper"
         },
         {
-          "ref": "unix-linux/scsi-transport-timeouts",
+          "ref": "sys-unix/scsi-transport-timeouts",
           "title": "Таймери транспорту SCSI: коли диск перестав відповідати"
         },
         {
-          "ref": "programming/disaster-recovery",
+          "ref": "sf-release/disaster-recovery",
           "title": "Бекапи і DR"
         },
         {

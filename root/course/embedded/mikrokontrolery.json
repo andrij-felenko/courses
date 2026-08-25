@@ -11,31 +11,31 @@
       "title": "Будова мікроконтролера",
       "topics": [
         {
-          "ref": "programming/microcontroller",
+          "ref": "hw-arch/microcontroller",
           "title": "Мікроконтролер"
         },
         {
-          "ref": "programming/what-is-processor",
+          "ref": "hw-arch/what-is-processor",
           "title": "Що таке процесор"
         },
         {
-          "ref": "programming/processor-parts",
+          "ref": "hw-arch/processor-parts",
           "title": "Складові процесора"
         },
         {
-          "ref": "programming/fetch-decode-execute",
+          "ref": "hw-arch/fetch-decode-execute",
           "title": "Цикл виконання"
         },
         {
-          "ref": "programming/isa",
+          "ref": "hw-arch/isa",
           "title": "Набір інструкцій"
         },
         {
-          "ref": "programming/isa-encoding",
+          "ref": "hw-arch/isa-encoding",
           "title": "Кодування інструкцій: як команда стає числом"
         },
         {
-          "ref": "programming/mcu-blocks",
+          "ref": "hw-arch/mcu-blocks",
           "title": "Складові МК"
         },
         {
@@ -59,11 +59,11 @@
           }
         },
         {
-          "ref": "programming/processor-word-size",
+          "ref": "hw-arch/processor-word-size",
           "title": "Розрядність процесора й режими сумісності"
         },
         {
-          "ref": "electronics/system-on-chip",
+          "ref": "hw-components/system-on-chip",
           "title": "Система-на-кристалі (SoC)"
         },
         {
@@ -93,19 +93,19 @@
           ]
         },
         {
-          "ref": "programming/dsp-architecture",
+          "ref": "hw-arch/dsp-architecture",
           "title": "Архітектура DSP-процесора"
         },
         {
-          "ref": "electronics/sram-cell",
+          "ref": "hw-components/sram-cell",
           "title": "SRAM-комірка"
         },
         {
-          "ref": "electronics/nor-flash-cell",
+          "ref": "hw-components/nor-flash-cell",
           "title": "NOR Flash: комірка, побайтове читання, блокове стирання"
         },
         {
-          "ref": "electronics/packaging",
+          "ref": "hw-components/packaging",
           "title": "Корпусування"
         },
         {
@@ -126,10 +126,16 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "hist": [
+            {
+              "file": "hist-generations.md",
+              "status": "pending"
+            }
+          ]
         },
         {
-          "ref": "programming/esp32-architecture",
+          "ref": "hw-arch/esp32-architecture",
           "title": "Архітектура ESP32"
         },
         {
@@ -143,27 +149,27 @@
           }
         },
         {
-          "ref": "programming/avr",
+          "ref": "hw-arch/avr",
           "title": "AVR-клас"
         },
         {
-          "ref": "programming/cortex-m",
+          "ref": "hw-arch/cortex-m",
           "title": "ARM Cortex-M"
         },
         {
-          "ref": "programming/stm32",
+          "ref": "hw-arch/stm32",
           "title": "STM32-клас"
         },
         {
-          "ref": "programming/nrf-radio-mcu",
+          "ref": "hw-arch/nrf-radio-mcu",
           "title": "nRF-клас"
         },
         {
-          "ref": "programming/esp32-p4",
+          "ref": "hw-arch/esp32-p4",
           "title": "ESP32-P4"
         },
         {
-          "ref": "programming/mcu-ecosystem",
+          "ref": "sys-bsystem/mcu-ecosystem",
           "title": "Екосистема МК"
         },
         {
@@ -233,51 +239,51 @@
           }
         },
         {
-          "ref": "programming/toolchain",
+          "ref": "sys-bsystem/toolchain",
           "title": "Тулчейн"
         },
         {
-          "ref": "build-systems/cross-compilation",
+          "ref": "sys-bsystem/cross-compilation",
           "title": "Крос-компіляція: хост, ціль, чому компілятор для ПК не годиться",
           "todo": "нова тема",
           "hint": "build-systems/toolchains"
         },
         {
-          "ref": "programming/compiler-stages",
+          "ref": "sf-lang/compiler-stages",
           "title": "Стадії компілятора"
         },
         {
-          "ref": "programming/compilation",
+          "ref": "sf-lang/compilation",
           "title": "Компіляція"
         },
         {
-          "ref": "programming/linking",
+          "ref": "sf-lang/linking",
           "title": "Лінкування"
         },
         {
-          "ref": "build-systems/build-system-role",
+          "ref": "sys-bsystem/build-system-role",
           "title": "Що робить система збірки"
         },
         {
-          "ref": "build-systems/dependency-graph",
+          "ref": "sys-bsystem/dependency-graph",
           "title": "Граф залежностей і порядок робіт"
         },
         {
-          "ref": "build-systems/incremental-build",
+          "ref": "sys-bsystem/incremental-build",
           "title": "Інкрементальна збірка"
         },
         {
-          "ref": "build-systems/cmake-toolchain-file",
+          "ref": "sys-bsystem/cmake-toolchain-file",
           "title": "Файл тулчейна: як CMake дізнається про чужу платформу"
         },
         {
-          "ref": "build-systems/esp-idf-struktura-proiektu-komponenty-menuconfig",
+          "ref": "sys-bsystem/esp-idf-struktura-proiektu-komponenty-menuconfig",
           "title": "ESP-IDF: структура проєкту, компоненти, menuconfig",
           "todo": "нова тема",
           "hint": "build-systems/toolchains"
         },
         {
-          "ref": "programming/flashing",
+          "ref": "sys-ide/flashing",
           "title": "Прошивка у Flash"
         },
         {
@@ -353,7 +359,7 @@
           }
         },
         {
-          "ref": "programming/why-debugger",
+          "ref": "sys-ide/why-debugger",
           "title": "Навіщо відлагоджувач"
         },
         {
@@ -367,11 +373,11 @@
           }
         },
         {
-          "ref": "programming/swd-jtag-internals",
+          "ref": "sys-ide/swd-jtag-internals",
           "title": "SWD і JTAG зсередини"
         },
         {
-          "ref": "electronics/jtag-boundary-scan",
+          "ref": "hw-digital/jtag-boundary-scan",
           "title": "JTAG і граничне сканування"
         },
         {
@@ -385,15 +391,15 @@
           }
         },
         {
-          "ref": "programming/debug-vscode",
+          "ref": "sys-ide/debug-vscode",
           "title": "Налагодження у VS Code"
         },
         {
-          "ref": "programming/step-debugging",
+          "ref": "sys-ide/step-debugging",
           "title": "Кроком по коду"
         },
         {
-          "ref": "programming/breakpoints-watchpoints",
+          "ref": "sys-ide/breakpoints-watchpoints",
           "title": "Брейкпоінти й вотчпоінти"
         },
         {
@@ -443,7 +449,7 @@
           }
         },
         {
-          "ref": "programming/variable-scope",
+          "ref": "sf-lang/variable-scope",
           "title": "Область видимості змінної"
         },
         {
@@ -457,11 +463,11 @@
           }
         },
         {
-          "ref": "algorithms/array",
+          "ref": "sf-algorithms/array",
           "title": "Масив"
         },
         {
-          "ref": "algorithms/linked-list",
+          "ref": "sf-algorithms/linked-list",
           "title": "Зв'язаний список"
         },
         {
@@ -485,35 +491,35 @@
           }
         },
         {
-          "ref": "programming/addresses-pointers",
+          "ref": "sf-lang/addresses-pointers",
           "title": "Адреси й покажчики"
         },
         {
-          "ref": "programming/integer-types-c",
+          "ref": "sf-lang/integer-types-c",
           "title": "Цілі типи в C/C++"
         },
         {
-          "ref": "programming/integer-promotion",
+          "ref": "sf-lang/integer-promotion",
           "title": "Просування цілих типів у C/C++"
         },
         {
-          "ref": "programming/sign-extension",
+          "ref": "sf-lang/sign-extension",
           "title": "Знакове розширення"
         },
         {
-          "ref": "programming/twos-complement",
+          "ref": "hw-arch/twos-complement",
           "title": "Доповняльний код"
         },
         {
-          "ref": "programming/overflow-wraparound",
+          "ref": "sf-lang/overflow-wraparound",
           "title": "Переповнення"
         },
         {
-          "ref": "programming/unsigned-overflow",
+          "ref": "sf-lang/unsigned-overflow",
           "title": "Беззнакове переповнення й модульна арифметика"
         },
         {
-          "ref": "programming/saturating-arithmetic",
+          "ref": "sf-lang/saturating-arithmetic",
           "title": "Насичувальна арифметика"
         },
         {
@@ -527,39 +533,39 @@
           }
         },
         {
-          "ref": "programming/bitwise-operations",
+          "ref": "sf-algorithms/bitwise-operations",
           "title": "Побітові операції та маски"
         },
         {
-          "ref": "programming/bitset",
+          "ref": "sf-algorithms/bitset",
           "title": "Бітова множина"
         },
         {
-          "ref": "programming/bit-scan-clz-ctz",
+          "ref": "sf-algorithms/bit-scan-clz-ctz",
           "title": "Пошук крайнього одиничного біта (CLZ/CTZ)"
         },
         {
-          "ref": "programming/popcount",
+          "ref": "sf-algorithms/popcount",
           "title": "popcount"
         },
         {
-          "ref": "programming/fixed-point",
+          "ref": "hw-arch/fixed-point",
           "title": "Фіксована кома"
         },
         {
-          "ref": "algorithms/fixed-point-implementation",
+          "ref": "com-signal/fixed-point-implementation",
           "title": "Реалізація fixed-point"
         },
         {
-          "ref": "programming/floating-point",
+          "ref": "hw-arch/floating-point",
           "title": "Плаваюча кома"
         },
         {
-          "ref": "programming/fpu",
+          "ref": "hw-arch/fpu",
           "title": "Блок дробових чисел (FPU)"
         },
         {
-          "ref": "programming/half-precision",
+          "ref": "hw-arch/half-precision",
           "title": "Напівточність"
         },
         {
@@ -573,7 +579,7 @@
           }
         },
         {
-          "ref": "programming/preprocessor-macros",
+          "ref": "sf-lang/preprocessor-macros",
           "title": "Препроцесор і макроси"
         },
         {
@@ -587,49 +593,49 @@
           }
         },
         {
-          "ref": "programming/translation-unit",
+          "ref": "sf-lang/translation-unit",
           "title": "Одиниця трансляції: static, extern, inline"
         },
         {
-          "ref": "programming/weak-symbols",
+          "ref": "sf-lang/weak-symbols",
           "title": "Слабкі символи"
         },
         {
-          "ref": "programming/undefined-behavior",
+          "ref": "sf-lang/undefined-behavior",
           "title": "Невизначена поведінка (UB)"
         },
         {
-          "ref": "programming/strict-aliasing",
+          "ref": "sf-lang/strict-aliasing",
           "title": "Суворе аліасування"
         },
         {
-          "ref": "programming/sentinel-values",
+          "ref": "sf-lang/sentinel-values",
           "title": "Вартові значення: як позначити «нічого» всередині типу"
         },
         {
-          "ref": "programming/chomu-c-na-mikrokontroleri",
+          "ref": "sys-plang-cpp/chomu-c-na-mikrokontroleri",
           "title": "Чому C++ на мікроконтролері",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
         },
         {
-          "ref": "programming/raii",
+          "ref": "sf-lang/raii",
           "title": "Класи, час життя й RAII"
         },
         {
-          "ref": "programming/constructors-destructors",
+          "ref": "sf-lang/constructors-destructors",
           "title": "Конструктор і деструктор"
         },
         {
-          "ref": "programming/zero-cost-abstractions",
+          "ref": "sf-lang/zero-cost-abstractions",
           "title": "Шаблони й нульова вартість абстракції"
         },
         {
-          "ref": "programming/constexpr",
+          "ref": "sf-lang/constexpr",
           "title": "constexpr: обчислення на етапі компіляції"
         },
         {
-          "ref": "programming/shcho-z-c-ne-tiahnut-u-proshyvku",
+          "ref": "sys-plang-cpp/shcho-z-c-ne-tiahnut-u-proshyvku",
           "title": "Що з C++ не тягнуть у прошивку: винятки, RTTI, купа, віртуальні виклики",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
@@ -645,13 +651,13 @@
           }
         },
         {
-          "ref": "cpp-standards/std-typy-bez-kupy",
+          "ref": "sys-plang-cpp/std-typy-bez-kupy",
           "title": "std-типи без купи: array, span, string_view, optional",
           "todo": "нова тема",
           "hint": "cpp-standards/library"
         },
         {
-          "ref": "programming/object-system-in-c",
+          "ref": "sf-lang/object-system-in-c",
           "title": "Об'єктна система поверх C: клас, примірник, реєстрація типу"
         }
       ]
@@ -661,37 +667,37 @@
       "title": "Пам'ять і образ програми",
       "topics": [
         {
-          "ref": "programming/memory-as-array",
+          "ref": "hw-arch/memory-as-array",
           "title": "Пам'ять як масив"
         },
         {
-          "ref": "programming/memory-map",
+          "ref": "hw-arch/memory-map",
           "title": "Карта пам'яті"
         },
         {
-          "ref": "programming/flash-vs-ram",
+          "ref": "hw-arch/flash-vs-ram",
           "title": "Flash і RAM"
         },
         {
-          "ref": "electronics/memory-hierarchy",
+          "ref": "hw-arch/memory-hierarchy",
           "title": "Ієрархія пам'яті"
         },
         {
-          "ref": "programming/firmware-image",
+          "ref": "sf-lang/firmware-image",
           "title": "Образ прошивки (.text, .rodata, .data, .bss)"
         },
         {
-          "ref": "programming/elf-format",
+          "ref": "sf-lang/elf-format",
           "title": "ELF-формат прошивки"
         },
         {
-          "ref": "programming/linker-script",
+          "ref": "sf-lang/linker-script",
           "title": "Скрипт лінкера: як секції лягають в адреси",
           "todo": "нова тема",
           "hint": "build-systems/toolchains"
         },
         {
-          "ref": "build-systems/map-fail",
+          "ref": "sys-bsystem/map-fail",
           "title": "Map-файл: що з'їло флеш і RAM",
           "todo": "нова тема",
           "hint": "build-systems/toolchains"
@@ -707,27 +713,27 @@
           }
         },
         {
-          "ref": "programming/c-runtime",
+          "ref": "sf-lang/c-runtime",
           "title": "C-рантайм"
         },
         {
-          "ref": "programming/stack-lifo",
+          "ref": "sf-lang/stack-lifo",
           "title": "Стек"
         },
         {
-          "ref": "programming/stack-overflow",
+          "ref": "sf-lang/stack-overflow",
           "title": "Переповнення стека"
         },
         {
-          "ref": "programming/calling-convention",
+          "ref": "hw-arch/calling-convention",
           "title": "Угода про виклик (ABI)"
         },
         {
-          "ref": "programming/abi-calling-convention",
+          "ref": "sf-lang/abi-calling-convention",
           "title": "ABI та calling convention"
         },
         {
-          "ref": "programming/heap-dynamic-memory",
+          "ref": "sf-lang/heap-dynamic-memory",
           "title": "Купа: чому на МК її здебільшого немає"
         },
         {
@@ -741,59 +747,59 @@
           }
         },
         {
-          "ref": "programming/memory-alignment",
+          "ref": "sf-apps/memory-alignment",
           "title": "Вирівнювання даних у пам'яті"
         },
         {
-          "ref": "programming/alignment-hardware",
+          "ref": "hw-arch/alignment-hardware",
           "title": "апаратні вимоги"
         },
         {
-          "ref": "programming/bits-bytes-endianness",
+          "ref": "sf-algorithms/bits-bytes-endianness",
           "title": "Біти й порядок байтів"
         },
         {
-          "ref": "programming/memory-mapped-io",
+          "ref": "hw-arch/memory-mapped-io",
           "title": "Memory-mapped IO"
         },
         {
-          "ref": "programming/port-mapped-io",
+          "ref": "hw-arch/port-mapped-io",
           "title": "Port-mapped IO"
         },
         {
-          "ref": "electronics/address-decoding",
+          "ref": "hw-arch/address-decoding",
           "title": "Адресна дешифрація шини"
         },
         {
-          "ref": "electronics/system-bus",
+          "ref": "hw-arch/system-bus",
           "title": "Системна шина"
         },
         {
-          "ref": "programming/cmsis",
+          "ref": "sf-devices/cmsis",
           "title": "CMSIS: стандартний інтерфейс ПЗ для Cortex-M"
         },
         {
-          "ref": "programming/xip-memory-mapped-flash",
+          "ref": "hw-arch/xip-memory-mapped-flash",
           "title": "XIP: виконання коду з флеші на місці"
         },
         {
-          "ref": "programming/flash-internals",
+          "ref": "hw-components/flash-internals",
           "title": "Flash зсередини"
         },
         {
-          "ref": "programming/nvs",
+          "ref": "sys-fw/nvs",
           "title": "NVS: де зберегти калібрування, щоб пережило скидання"
         },
         {
-          "ref": "electronics/mpu-cortex-m",
+          "ref": "hw-arch/mpu-cortex-m",
           "title": "Блок захисту пам'яті (MPU) в Cortex-M"
         },
         {
-          "ref": "programming/protection-rings",
+          "ref": "hw-arch/protection-rings",
           "title": "Кільця захисту й рівні привілеїв"
         },
         {
-          "ref": "programming/address-space-separation",
+          "ref": "hw-arch/address-space-separation",
           "title": "Розділення адресних просторів"
         },
         {
@@ -813,21 +819,21 @@
       "title": "Такт і скидання",
       "topics": [
         {
-          "ref": "electronics/minimalna-obviazka",
+          "ref": "hw-arch/minimalna-obviazka",
           "title": "Мінімальна обв'язка МК: живлення, скидання, boot-піни, кварц",
           "todo": "нова тема",
           "hint": "electronics/pcb"
         },
         {
-          "ref": "programming/reset-causes",
+          "ref": "hw-arch/reset-causes",
           "title": "Причини reset"
         },
         {
-          "ref": "programming/brownout",
+          "ref": "hw-arch/brownout",
           "title": "Brown-out"
         },
         {
-          "ref": "programming/strapping-piny-i-rezhymy-zavantazhennia",
+          "ref": "hw-arch/strapping-piny-i-rezhymy-zavantazhennia",
           "title": "Strapping-піни й режими завантаження",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
@@ -853,91 +859,91 @@
           }
         },
         {
-          "ref": "electronics/ring-oscillator",
+          "ref": "hw-digital/ring-oscillator",
           "title": "Кільцевий генератор (внутрішній RC)"
         },
         {
-          "ref": "programming/stm32-clock-tree",
+          "ref": "hw-arch/stm32-clock-tree",
           "title": "Дерево тактування МК: джерела, PLL, дільники, увімкнення периферії",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
         },
         {
-          "ref": "electronics/clock-domain",
+          "ref": "hw-digital/clock-domain",
           "title": "Тактова частота і тактовий домен"
         },
         {
-          "ref": "electronics/frequency-divider",
+          "ref": "hw-digital/frequency-divider",
           "title": "Дільник частоти"
         },
         {
-          "ref": "electronics/prescaler",
+          "ref": "hw-digital/prescaler",
           "title": "Прескейлер і синтез частоти"
         },
         {
-          "ref": "programming/clock-frequency",
+          "ref": "hw-arch/clock-frequency",
           "title": "Частота процесора"
         },
         {
-          "ref": "electronics/zatrymky-chytannia-flesh-pamiati-i-taktova-chastota",
+          "ref": "hw-arch/zatrymky-chytannia-flesh-pamiati-i-taktova-chastota",
           "title": "Затримки читання флеш-пам'яті й тактова частота",
           "todo": "нова тема",
           "hint": "electronics/digital"
         },
         {
-          "ref": "programming/pipeline",
+          "ref": "hw-arch/pipeline",
           "title": "Конвеєр"
         },
         {
-          "ref": "programming/cache",
+          "ref": "hw-arch/cache",
           "title": "Кеш"
         },
         {
-          "ref": "programming/clock-power",
+          "ref": "hw-arch/clock-power",
           "title": "Тактування й живлення"
         },
         {
-          "ref": "electronics/clock-gating",
+          "ref": "hw-digital/clock-gating",
           "title": "Тактове стробування"
         },
         {
-          "ref": "electronics/power-gating",
+          "ref": "hw-components/power-gating",
           "title": "Power gating і clock gating"
         },
         {
-          "ref": "programming/sleep-modes",
+          "ref": "hw-arch/sleep-modes",
           "title": "Режими сну"
         },
         {
-          "ref": "programming/wakeup-sources",
+          "ref": "hw-arch/wakeup-sources",
           "title": "Джерела пробудження"
         },
         {
-          "ref": "programming/dvfs",
+          "ref": "hw-arch/dvfs",
           "title": "Динамічне масштабування напруги і частоти (DVFS)"
         },
         {
-          "ref": "programming/ulp-coprocessor",
+          "ref": "hw-arch/ulp-coprocessor",
           "title": "ULP-співпроцесор"
         },
         {
-          "ref": "programming/rtc-memory",
+          "ref": "hw-arch/rtc-memory",
           "title": "RTC-память"
         },
         {
-          "ref": "electronics/rtc-domain-power",
+          "ref": "hw-arch/rtc-domain-power",
           "title": "Домен живлення RTC в SoC"
         },
         {
-          "ref": "programming/watchdog",
+          "ref": "sf-devices/watchdog",
           "title": "Watchdog"
         },
         {
-          "ref": "programming/reboot-counter",
+          "ref": "sf-devices/reboot-counter",
           "title": "Лічильник перезавантажень"
         },
         {
-          "ref": "electronics/spread-spectrum-clocking",
+          "ref": "hw-digital/spread-spectrum-clocking",
           "title": "Модуляція тактового спектру (SSC)"
         }
       ]
@@ -947,39 +953,39 @@
       "title": "Цифрові виводи",
       "topics": [
         {
-          "ref": "electronics/gpio",
+          "ref": "hw-digital/gpio",
           "title": "GPIO — вивід загального призначення"
         },
         {
-          "ref": "programming/gpio-registers",
+          "ref": "sf-devices/gpio-registers",
           "title": "GPIO-регістри"
         },
         {
-          "ref": "electronics/push-pull-output",
+          "ref": "hw-digital/push-pull-output",
           "title": "Push-pull вихід"
         },
         {
-          "ref": "electronics/open-drain-output",
+          "ref": "hw-digital/open-drain-output",
           "title": "Open-drain"
         },
         {
-          "ref": "electronics/open-drain-bus-pullup-sizing",
+          "ref": "hw-digital/open-drain-bus-pullup-sizing",
           "title": "Відкритий колектор"
         },
         {
-          "ref": "electronics/wired-or",
+          "ref": "hw-digital/wired-or",
           "title": "Монтажне «АБО»"
         },
         {
-          "ref": "electronics/hi-z-state",
+          "ref": "hw-digital/hi-z-state",
           "title": "Стан високого опору (Hi-Z)"
         },
         {
-          "ref": "electronics/floating-pullups",
+          "ref": "hw-digital/floating-pullups",
           "title": "Підтяжки"
         },
         {
-          "ref": "electronics/active-low",
+          "ref": "hw-digital/active-low",
           "title": "Active-low: логіка «0 = увімкнено»"
         },
         {
@@ -1003,27 +1009,27 @@
           }
         },
         {
-          "ref": "electronics/pin-drive-limits",
+          "ref": "hw-digital/pin-drive-limits",
           "title": "Навантажувальна здатність"
         },
         {
-          "ref": "electronics/drive-strength",
+          "ref": "hw-digital/drive-strength",
           "title": "Сила виходу GPIO"
         },
         {
-          "ref": "electronics/slew-rate-gpio",
+          "ref": "hw-digital/slew-rate-gpio",
           "title": "Slew rate виходу: швидкість і шум"
         },
         {
-          "ref": "electronics/esd-gpio-protection",
+          "ref": "hw-digital/esd-gpio-protection",
           "title": "Захист входів GPIO від перенапруги"
         },
         {
-          "ref": "electronics/threshold-schmitt",
+          "ref": "hw-digital/threshold-schmitt",
           "title": "Поріг і Шмітт"
         },
         {
-          "ref": "electronics/contact-debounce",
+          "ref": "hw-digital/contact-debounce",
           "title": "Брязкіт контактів"
         }
       ]
@@ -1043,31 +1049,31 @@
           }
         },
         {
-          "ref": "programming/interrupts",
+          "ref": "hw-arch/interrupts",
           "title": "Переривання"
         },
         {
-          "ref": "programming/isr",
+          "ref": "hw-arch/isr",
           "title": "ISR"
         },
         {
-          "ref": "programming/interrupt-vector",
+          "ref": "hw-arch/interrupt-vector",
           "title": "Контролер і вектор"
         },
         {
-          "ref": "programming/cpu-exception-handling",
+          "ref": "hw-arch/cpu-exception-handling",
           "title": "Обробка виключень у процесорі"
         },
         {
-          "ref": "electronics/edge-vs-level",
+          "ref": "hw-digital/edge-vs-level",
           "title": "Фронт і рівень"
         },
         {
-          "ref": "programming/interrupt-priorities",
+          "ref": "hw-arch/interrupt-priorities",
           "title": "Пріоритети переривань"
         },
         {
-          "ref": "programming/latentnist-pereryvannia",
+          "ref": "hw-arch/latentnist-pereryvannia",
           "title": "Латентність переривання: від фронту до першої інструкції",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
@@ -1083,11 +1089,11 @@
           }
         },
         {
-          "ref": "programming/atomicity-races",
+          "ref": "sf-tasks/atomicity-races",
           "title": "Атомарність і гонки"
         },
         {
-          "ref": "programming/data-races-locks",
+          "ref": "sf-tasks/data-races-locks",
           "title": "Перегони даних і замки"
         },
         {
@@ -1101,33 +1107,33 @@
           }
         },
         {
-          "ref": "programming/volatile",
+          "ref": "sf-lang/volatile",
           "title": "volatile"
         },
         {
-          "ref": "programming/volatile-register",
+          "ref": "sf-tasks/volatile-register",
           "title": "volatile, бар'єри й доступ до регістрів з C",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
         },
         {
-          "ref": "programming/memory-ordering-barriers",
+          "ref": "sf-tasks/memory-ordering-barriers",
           "title": "Упорядкування пам'яті та бар'єри"
         },
         {
-          "ref": "programming/memory-barrier-instructions",
+          "ref": "hw-arch/memory-barrier-instructions",
           "title": "Інструкції DMB/DSB/ISB"
         },
         {
-          "ref": "programming/std-atomic",
+          "ref": "sys-plang-cpp/std-atomic",
           "title": "std::atomic і порядок пам'яті"
         },
         {
-          "ref": "algorithms/ring-buffer",
+          "ref": "sf-algorithms/ring-buffer",
           "title": "Кільцевий буфер: ISR пише, головний цикл читає"
         },
         {
-          "ref": "algorithms/queue-fifo",
+          "ref": "sf-algorithms/queue-fifo",
           "title": "Черга: FIFO і кільцевий буфер"
         }
       ]
@@ -1137,63 +1143,63 @@
       "title": "Таймери",
       "topics": [
         {
-          "ref": "programming/timer-counter",
+          "ref": "hw-arch/timer-counter",
           "title": "Таймер-лічильник"
         },
         {
-          "ref": "programming/timer-peripheral-overview",
+          "ref": "hw-arch/timer-peripheral-overview",
           "title": "Таймери"
         },
         {
-          "ref": "electronics/synchronous-counter",
+          "ref": "hw-digital/synchronous-counter",
           "title": "Синхронний лічильник"
         },
         {
-          "ref": "programming/timer-overflow",
+          "ref": "hw-arch/timer-overflow",
           "title": "Період і переповнення"
         },
         {
-          "ref": "programming/millis-micros",
+          "ref": "sf-devices/millis-micros",
           "title": "Точний час"
         },
         {
-          "ref": "programming/nonblocking-time",
+          "ref": "sf-devices/nonblocking-time",
           "title": "Неблокуючий час"
         },
         {
-          "ref": "programming/periodic-scheduling",
+          "ref": "sf-devices/periodic-scheduling",
           "title": "Періодичні події"
         },
         {
-          "ref": "algorithms/timer-wheel",
+          "ref": "sf-algorithms/timer-wheel",
           "title": "Колесо таймерів: багато програмних таймерів на одному апаратному"
         },
         {
-          "ref": "programming/capture-compare",
+          "ref": "hw-arch/capture-compare",
           "title": "Захоплення й порівняння"
         },
         {
-          "ref": "electronics/shadow-register",
+          "ref": "hw-digital/shadow-register",
           "title": "Тіньовий регістр (preload)"
         },
         {
-          "ref": "electronics/pwm",
+          "ref": "hw-analog/pwm",
           "title": "ШІМ"
         },
         {
-          "ref": "programming/hardware-pwm",
+          "ref": "hw-arch/hardware-pwm",
           "title": "Апаратний PWM"
         },
         {
-          "ref": "programming/pwm-on-mcu",
+          "ref": "hw-arch/pwm-on-mcu",
           "title": "ШІМ на мікроконтролері"
         },
         {
-          "ref": "programming/pwm-resolution",
+          "ref": "hw-arch/pwm-resolution",
           "title": "Шпаруватість і роздільність"
         },
         {
-          "ref": "electronics/complementary-pwm-generation",
+          "ref": "hw-power/complementary-pwm-generation",
           "title": "Комплементарний ШІМ і мертвий час",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
@@ -1209,27 +1215,27 @@
           }
         },
         {
-          "ref": "programming/enkodernyi-rezhym-taimera",
+          "ref": "hw-arch/enkodernyi-rezhym-taimera",
           "title": "Енкодерний режим таймера",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
         },
         {
-          "ref": "electronics/gray-code",
+          "ref": "hw-digital/gray-code",
           "title": "Код Грея"
         },
         {
-          "ref": "programming/zviazani-taimery",
+          "ref": "hw-arch/zviazani-taimery",
           "title": "Зв'язані таймери: майстер, підлеглий, внутрішній тригер",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
         },
         {
-          "ref": "programming/rtc",
+          "ref": "hw-arch/rtc",
           "title": "RTC"
         },
         {
-          "ref": "electronics/rtc-timekeeping",
+          "ref": "hw-components/rtc-timekeeping",
           "title": "RTC і календарний час: батарейка, дрейф, мітки часу",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
@@ -1241,41 +1247,41 @@
       "title": "Аналог у чипі",
       "topics": [
         {
-          "ref": "electronics/adc",
+          "ref": "hw-analog/adc",
           "title": "АЦП"
         },
         {
-          "ref": "electronics/adc-types",
+          "ref": "hw-analog/adc-types",
           "title": "Типи АЦП"
         },
         {
-          "ref": "electronics/pipeline-adc",
+          "ref": "hw-analog/pipeline-adc",
           "title": "Конвеєрний АЦП"
         },
         {
-          "ref": "electronics/adc-sample-hold",
+          "ref": "hw-analog/adc-sample-hold",
           "title": "Вибірка і зберігання в АЦП"
         },
         {
-          "ref": "electronics/adc-sample-hold",
+          "ref": "hw-analog/adc-sample-hold",
           "title": "Час вибірки АЦП і опір джерела",
           "todo": "нова тема",
           "hint": "electronics/digital"
         },
         {
-          "ref": "electronics/adc-resolution",
+          "ref": "hw-analog/adc-resolution",
           "title": "Роздільність АЦП"
         },
         {
-          "ref": "electronics/enob",
+          "ref": "hw-analog/enob",
           "title": "ENOB: скільки розрядів справді працюють"
         },
         {
-          "ref": "electronics/adc-errors",
+          "ref": "hw-sensing/adc-errors",
           "title": "Похибки АЦП"
         },
         {
-          "ref": "electronics/voltage-reference",
+          "ref": "hw-sensing/voltage-reference",
           "title": "Опорна напруга"
         },
         {
@@ -1289,31 +1295,31 @@
           }
         },
         {
-          "ref": "programming/vnutrishni-dzherela-atsp",
+          "ref": "hw-arch/vnutrishni-dzherela-atsp",
           "title": "Внутрішні джерела АЦП: опора, датчик температури, VBAT",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
         },
         {
-          "ref": "electronics/analog-mux",
+          "ref": "hw-analog/analog-mux",
           "title": "Аналоговий мультиплексор і черга каналів"
         },
         {
-          "ref": "electronics/aperture-jitter",
+          "ref": "hw-analog/aperture-jitter",
           "title": "Апертурна невизначеність (jitter)"
         },
         {
-          "ref": "electronics/oversampling-decimation",
+          "ref": "hw-analog/oversampling-decimation",
           "title": "Передискретизація й децимація"
         },
         {
-          "ref": "programming/analohovi-bloky",
+          "ref": "hw-arch/analohovi-bloky",
           "title": "Аналогові блоки в МК: компаратор, ОП, програмований поріг",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
         },
         {
-          "ref": "electronics/dac",
+          "ref": "hw-analog/dac",
           "title": "ЦАП"
         },
         {
@@ -1333,83 +1339,83 @@
       "title": "Контролери обміну",
       "topics": [
         {
-          "ref": "programming/dma-problem",
+          "ref": "hw-arch/dma-problem",
           "title": "Проблема потоку даних"
         },
         {
-          "ref": "programming/dma-controller",
+          "ref": "hw-arch/dma-controller",
           "title": "DMA-контролер"
         },
         {
-          "ref": "programming/dma-channels",
+          "ref": "hw-arch/dma-channels",
           "title": "Канали й дескриптори"
         },
         {
-          "ref": "programming/dma-channels-gdma",
+          "ref": "hw-arch/dma-channels-gdma",
           "title": "GDMA: загальний пул каналів"
         },
         {
-          "ref": "algorithms/scatter-gather",
+          "ref": "hw-arch/scatter-gather",
           "title": "Scatter-gather DMA"
         },
         {
-          "ref": "programming/double-buffering",
+          "ref": "sf-tasks/double-buffering",
           "title": "Подвійна буферизація"
         },
         {
-          "ref": "programming/ahb-apb-bus",
+          "ref": "hw-arch/ahb-apb-bus",
           "title": "Шинна ієрархія AHB/APB"
         },
         {
-          "ref": "programming/bus-matrix",
+          "ref": "hw-arch/bus-matrix",
           "title": "Матриця шин"
         },
         {
-          "ref": "programming/bus-arbitration",
+          "ref": "hw-arch/bus-arbitration",
           "title": "Арбітраж шини"
         },
         {
-          "ref": "programming/dma-cache-races",
+          "ref": "sf-tasks/dma-cache-races",
           "title": "Пастки DMA"
         },
         {
-          "ref": "programming/cache-coherency-dma",
+          "ref": "hw-arch/cache-coherency-dma",
           "title": "Когерентність кеша і DMA"
         },
         {
-          "ref": "electronics/cache-coherency-mcu",
+          "ref": "hw-arch/cache-coherency-mcu",
           "title": "Кеш-коерентність у МК"
         },
         {
-          "ref": "communications/uart",
+          "ref": "com-devices/uart",
           "title": "UART: апаратний модуль і периферійний контролер"
         },
         {
-          "ref": "communications/baud-rate",
+          "ref": "com-devices/baud-rate",
           "title": "Швидкість baud"
         },
         {
-          "ref": "communications/baud-vs-bitrate",
+          "ref": "com-devices/baud-vs-bitrate",
           "title": "Baud проти біт/с"
         },
         {
-          "ref": "communications/clock-tolerance-uart",
+          "ref": "com-devices/clock-tolerance-uart",
           "title": "Допуск годинника UART"
         },
         {
-          "ref": "communications/fifo-register",
+          "ref": "com-devices/fifo-register",
           "title": "FIFO-регістри"
         },
         {
-          "ref": "electronics/async-fifo",
+          "ref": "hw-digital/async-fifo",
           "title": "Асинхронна черга FIFO"
         },
         {
-          "ref": "communications/half-duplex-uart",
+          "ref": "com-devices/half-duplex-uart",
           "title": "Напівдуплекс UART"
         },
         {
-          "ref": "communications/break-signal-uart",
+          "ref": "com-devices/break-signal-uart",
           "title": "Break-сигнал UART"
         },
         {
@@ -1433,41 +1439,41 @@
           }
         },
         {
-          "ref": "programming/stream-parser",
+          "ref": "com-protocol/stream-parser",
           "title": "Розбір потоку"
         },
         {
-          "ref": "programming/crc-in-firmware",
+          "ref": "com-protocol/crc-in-firmware",
           "title": "CRC у прошивці"
         },
         {
-          "ref": "programming/podiieva-matrytsia",
+          "ref": "hw-arch/podiieva-matrytsia",
           "title": "Подієва матриця: периферія запускає периферію",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
         },
         {
-          "ref": "programming/rp2040-pio",
+          "ref": "hw-arch/rp2040-pio",
           "title": "RP2040 і PIO: програмована периферія"
         },
         {
-          "ref": "communications/usb-device-basics",
+          "ref": "com-devices/usb-device-basics",
           "title": "Пристрій на шині USB: хост, енумерація, кінцеві точки"
         },
         {
-          "ref": "programming/usb-endpoints",
+          "ref": "com-devices/usb-endpoints",
           "title": "Кінцеві точки USB"
         },
         {
-          "ref": "programming/esp32-usb",
+          "ref": "sf-devices/esp32-usb",
           "title": "USB в ESP32"
         },
         {
-          "ref": "communications/quad-spi-commands-and-controller",
+          "ref": "com-devices/quad-spi-commands-and-controller",
           "title": "Зовнішня пам'ять контролером: QSPI-флеш, PSRAM, FMC"
         },
         {
-          "ref": "programming/ethernet-on-mcu",
+          "ref": "com-protocol/ethernet-on-mcu",
           "title": "Ethernet на МК"
         }
       ]
@@ -1477,7 +1483,7 @@
       "title": "Будова прошивки",
       "topics": [
         {
-          "ref": "programming/super-loop",
+          "ref": "sf-devices/super-loop",
           "title": "Super-loop"
         },
         {
@@ -1491,7 +1497,7 @@
           }
         },
         {
-          "ref": "programming/blocking-vs-nonblocking-io",
+          "ref": "sf-tasks/blocking-vs-nonblocking-io",
           "title": "Блокуючий і неблокуючий ввід-вивід"
         },
         {
@@ -1505,27 +1511,27 @@
           }
         },
         {
-          "ref": "programming/state",
+          "ref": "sf-apps/state",
           "title": "Стан (патерн)"
         },
         {
-          "ref": "programming/event-loop",
+          "ref": "sf-tasks/event-loop",
           "title": "Цикл подій"
         },
         {
-          "ref": "programming/producer-consumer",
+          "ref": "sf-tasks/producer-consumer",
           "title": "Виробник–споживач"
         },
         {
-          "ref": "algorithms/priority-queue-adt",
+          "ref": "sf-algorithms/priority-queue-adt",
           "title": "Черга з пріоритетом"
         },
         {
-          "ref": "programming/backpressure-local",
+          "ref": "sf-tasks/backpressure-local",
           "title": "Backpressure: що робити, коли не встигаєш"
         },
         {
-          "ref": "programming/module-model",
+          "ref": "sf-devices/module-model",
           "title": "Модель модуля"
         },
         {
@@ -1539,7 +1545,7 @@
           }
         },
         {
-          "ref": "programming/graceful-degradation",
+          "ref": "sf-devices/graceful-degradation",
           "title": "Деградація з гідністю"
         }
       ]
@@ -1549,39 +1555,39 @@
       "title": "Багатозадачність",
       "topics": [
         {
-          "ref": "programming/tasks",
+          "ref": "sf-os/tasks",
           "title": "Задачі"
         },
         {
-          "ref": "programming/process-vs-thread",
+          "ref": "sf-os/process-vs-thread",
           "title": "Процеси й потоки"
         },
         {
-          "ref": "programming/potoky-nastilnoi-os-proty-zadach-rtos",
+          "ref": "sf-tasks/potoky-nastilnoi-os-proty-zadach-rtos",
           "title": "Потоки настільної ОС проти задач RTOS",
           "todo": "нова тема",
           "hint": "programming/systems"
         },
         {
-          "ref": "programming/scheduler",
+          "ref": "sf-os/scheduler",
           "title": "Планувальник"
         },
         {
-          "ref": "programming/context-switch",
+          "ref": "sf-os/context-switch",
           "title": "Перемикання контексту"
         },
         {
-          "ref": "programming/tyk-planuvalnyka-i-rezhym-bez-tyku-tickless",
+          "ref": "sf-tasks/tyk-planuvalnyka-i-rezhym-bez-tyku-tickless",
           "title": "Тик планувальника й режим без тику (tickless)",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
         },
         {
-          "ref": "programming/task-stacks",
+          "ref": "sf-lang/task-stacks",
           "title": "Стеки задач"
         },
         {
-          "ref": "programming/task-ipc",
+          "ref": "sf-tasks/task-ipc",
           "title": "Черги й семафори"
         },
         {
@@ -1595,29 +1601,29 @@
           }
         },
         {
-          "ref": "programming/priority-inversion",
+          "ref": "sf-os/priority-inversion",
           "title": "Інверсія пріоритетів"
         },
         {
-          "ref": "programming/deadlock",
+          "ref": "sf-tasks/deadlock",
           "title": "Дедлок"
         },
         {
-          "ref": "programming/readers-writer-lock",
+          "ref": "sf-tasks/readers-writer-lock",
           "title": "Багато читачів, один письменник"
         },
         {
-          "ref": "programming/vyklyky-rtos-iz-pereryvannia-fromisr",
+          "ref": "sf-tasks/vyklyky-rtos-iz-pereryvannia-fromisr",
           "title": "Виклики RTOS із переривання (FromISR)",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
         },
         {
-          "ref": "programming/realtime-determinism",
+          "ref": "sf-tasks/realtime-determinism",
           "title": "Детермінованість"
         },
         {
-          "ref": "programming/freertos",
+          "ref": "sf-devices/freertos",
           "title": "FreeRTOS"
         },
         {
@@ -1631,11 +1637,11 @@
           }
         },
         {
-          "ref": "programming/multicore",
+          "ref": "hw-arch/multicore",
           "title": "Багатоядерні процесори"
         },
         {
-          "ref": "programming/lock-free-basics",
+          "ref": "sf-tasks/lock-free-basics",
           "title": "Без замків"
         }
       ]
@@ -1655,7 +1661,7 @@
           }
         },
         {
-          "ref": "programming/hardfault",
+          "ref": "sf-devices/hardfault",
           "title": "Розбір HardFault"
         },
         {
@@ -1666,7 +1672,25 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "hist": [
+            {
+              "file": "hist-magnetic-core.md",
+              "status": "pending"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-core-pattern.md",
+              "status": "pending"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gdb-core-analysis.md",
+              "status": "pending"
+            }
+          ]
         },
         {
           "slug": "addr2line-workflow",
@@ -1679,13 +1703,13 @@
           }
         },
         {
-          "ref": "programming/chytannia-dyzasemblera",
+          "ref": "sf-devices/chytannia-dyzasemblera",
           "title": "Читання дизасемблера: від рядка C до інструкцій",
           "todo": "нова тема",
           "hint": "programming/languages"
         },
         {
-          "ref": "programming/inline-assembly",
+          "ref": "sf-lang/inline-assembly",
           "title": "Вбудований асемблер у C/C++"
         },
         {
@@ -1699,15 +1723,15 @@
           }
         },
         {
-          "ref": "programming/compiler-optimizations",
+          "ref": "sf-lang/compiler-optimizations",
           "title": "Оптимізації компілятора"
         },
         {
-          "ref": "programming/as-if-rule",
+          "ref": "sf-lang/as-if-rule",
           "title": "Правило «ніби»"
         },
         {
-          "ref": "programming/link-time-optimization",
+          "ref": "sf-lang/link-time-optimization",
           "title": "Оптимізація на етапі лінкування"
         },
         {
@@ -1721,25 +1745,25 @@
           }
         },
         {
-          "ref": "programming/dynamic-sanitizers",
+          "ref": "sf-lang/dynamic-sanitizers",
           "title": "Динамічні санітайзери: ASan, UBSan"
         },
         {
-          "ref": "programming/nalahodzhennia-na-khosti",
+          "ref": "sf-devices/nalahodzhennia-na-khosti",
           "title": "Налагодження на хості: gdb і санітайзери",
           "todo": "нова тема",
           "hint": "programming/software-engineering"
         },
         {
-          "ref": "programming/assert-panic",
+          "ref": "sf-apps/assert-panic",
           "title": "Assert і паніка"
         },
         {
-          "ref": "programming/defensive-programming",
+          "ref": "sf-apps/defensive-programming",
           "title": "Захисне програмування"
         },
         {
-          "ref": "programming/error-handling",
+          "ref": "sf-apps/error-handling",
           "title": "Жодна помилка не мовчить"
         },
         {
@@ -1753,33 +1777,33 @@
           }
         },
         {
-          "ref": "programming/printf-na-prystroi",
+          "ref": "sf-devices/printf-na-prystroi",
           "title": "printf на пристрої: послідовний монітор і його ціна",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
         },
         {
-          "ref": "programming/semihosting",
+          "ref": "sys-ide/semihosting",
           "title": "Семіхостинг"
         },
         {
-          "ref": "programming/rtt",
+          "ref": "sys-ide/rtt",
           "title": "RTT"
         },
         {
-          "ref": "programming/trace-itm-swo",
+          "ref": "sys-ide/trace-itm-swo",
           "title": "Трасування: ITM, SWO, ETM"
         },
         {
-          "ref": "programming/profiling",
+          "ref": "sf-release/profiling",
           "title": "Профілювання"
         },
         {
-          "ref": "electronics/logic-analyzer",
+          "ref": "hw-sensing/logic-analyzer",
           "title": "Логічний аналізатор"
         },
         {
-          "ref": "electronics/protocol-decoder-internals",
+          "ref": "hw-digital/protocol-decoder-internals",
           "title": "Внутрішня логіка декодера протоколів"
         },
         {

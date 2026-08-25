@@ -21,51 +21,51 @@
           }
         },
         {
-          "ref": "electronics/pin-drive-limits",
+          "ref": "hw-digital/pin-drive-limits",
           "title": "Навантажувальна здатність виводу"
         },
         {
-          "ref": "electronics/active-low",
+          "ref": "hw-digital/active-low",
           "title": "Active-low: коли вмикає «нуль»"
         },
         {
-          "ref": "electronics/mosfet-threshold",
+          "ref": "hw-components/mosfet-threshold",
           "title": "Поріг MOSFET"
         },
         {
-          "ref": "electronics/gate-driver",
+          "ref": "hw-power/gate-driver",
           "title": "Драйвер затвора"
         },
         {
-          "ref": "electronics/pnp-high-side-driver",
+          "ref": "hw-components/pnp-high-side-driver",
           "title": "PNP-ключ і схема high-side"
         },
         {
-          "ref": "electronics/mosfet-array-driver",
+          "ref": "hw-power/mosfet-array-driver",
           "title": "MOSFET-масив як драйвер нижнього плеча"
         },
         {
-          "ref": "power/uln2003-driver",
+          "ref": "cat-hw-drivers/uln2003-driver",
           "title": "ULN2003 — драйвер (плата)"
         },
         {
-          "ref": "electronics/relay",
+          "ref": "hw-components/relay",
           "title": "Реле"
         },
         {
-          "ref": "power/relay-5v",
+          "ref": "cat-hw-drivers/relay-5v",
           "title": "5V реле-модуль (Songle SRD-05VDC)"
         },
         {
-          "ref": "electronics/solid-state-relay",
+          "ref": "hw-power/solid-state-relay",
           "title": "Твердотільне реле"
         },
         {
-          "ref": "electronics/inductor-kickback",
+          "ref": "hw-components/inductor-kickback",
           "title": "Брикання котушки"
         },
         {
-          "ref": "electronics/led-driver",
+          "ref": "hw-power/led-driver",
           "title": "Драйвер LED: стабілізатор струму"
         },
         {
@@ -167,43 +167,43 @@
       "title": "Аналогові входи",
       "topics": [
         {
-          "ref": "electronics/sensor-input-matching",
+          "ref": "hw-sensing/sensor-input-matching",
           "title": "Узгодження давача"
         },
         {
-          "ref": "sensors/ky-013-thermistor",
+          "ref": "cat-hw-sensors/ky-013-thermistor",
           "title": "KY-013 — аналоговий давач температури (термістор)"
         },
         {
-          "ref": "electronics/voltage-reference-sources",
+          "ref": "hw-analog/voltage-reference-sources",
           "title": "Джерела опорної напруги"
         },
         {
-          "ref": "electronics/adc-sample-hold",
+          "ref": "hw-analog/adc-sample-hold",
           "title": "Вибірка і зберігання в АЦП"
         },
         {
-          "ref": "electronics/enob",
+          "ref": "hw-analog/enob",
           "title": "ENOB: скільки розрядів справді працюють"
         },
         {
-          "ref": "electronics/strain-gauges",
+          "ref": "hw-sensing/strain-gauges",
           "title": "Тензодавачі й міст"
         },
         {
-          "ref": "communications/current-loop",
+          "ref": "com-medium/current-loop",
           "title": "Струмова петля 4–20 мА"
         },
         {
-          "ref": "electronics/ground-loop",
+          "ref": "hw-analog/ground-loop",
           "title": "Петля по землі"
         },
         {
-          "ref": "sensors/soil-moisture",
+          "ref": "cat-hw-sensors/soil-moisture",
           "title": "Давач вологості ґрунту з LM393: коли модуль сам ставить поріг"
         },
         {
-          "ref": "electronics/sigma-delta-adc",
+          "ref": "hw-analog/sigma-delta-adc",
           "title": "Sigma-delta АЦП"
         },
         {
@@ -217,11 +217,11 @@
           }
         },
         {
-          "ref": "electronics/pwm-dac-filter",
+          "ref": "hw-analog/pwm-dac-filter",
           "title": "ШІМ як ЦАП: фільтр і пульсації"
         },
         {
-          "ref": "electronics/dac-r-2r",
+          "ref": "hw-analog/dac-r-2r",
           "title": "Драбинковий ЦАП R-2R"
         }
       ]
@@ -241,13 +241,13 @@
           }
         },
         {
-          "ref": "electronics/vybir-i-dostupnist-komponentiv",
+          "ref": "hw-components/vybir-i-dostupnist-komponentiv",
           "title": "Вибір і доступність компонентів: BOM, аналоги, життєвий цикл",
           "todo": "нова тема",
           "hint": "electronics/components"
         },
         {
-          "ref": "sensors/gy-series",
+          "ref": "cat-hw-sensors/gy-series",
           "title": "GY-серія: що несе плата-носій"
         },
         {
@@ -261,49 +261,49 @@
           }
         },
         {
-          "ref": "electronics/datasheet-structure",
+          "ref": "hw-components/datasheet-structure",
           "title": "Структура даташита"
         },
         {
-          "ref": "electronics/abs-max-ratings",
+          "ref": "hw-components/abs-max-ratings",
           "title": "Граничні режими"
         },
         {
-          "ref": "electronics/test-conditions-anatomy",
+          "ref": "hw-components/test-conditions-anatomy",
           "title": "Анатомія умов тесту в даташиті"
         },
         {
-          "ref": "electronics/guarantee-levels",
+          "ref": "hw-components/guarantee-levels",
           "title": "Рівні гарантій параметрів: tested, sampled, design"
         },
         {
-          "ref": "electronics/datasheet-graphs",
+          "ref": "hw-components/datasheet-graphs",
           "title": "Графіки даташита"
         },
         {
-          "ref": "electronics/datasheet-fine-print",
+          "ref": "hw-components/datasheet-fine-print",
           "title": "Дрібний шрифт"
         },
         {
-          "ref": "electronics/chasova-diahrama-v-datashyti",
+          "ref": "hw-components/chasova-diahrama-v-datashyti",
           "title": "Часова діаграма в даташиті",
           "todo": "нова тема",
           "hint": "electronics/digital"
         },
         {
-          "ref": "communications/register-map",
+          "ref": "com-devices/register-map",
           "title": "Регістрова карта"
         },
         {
-          "ref": "electronics/packages-pinout",
+          "ref": "hw-components/packages-pinout",
           "title": "Корпуси й розпіновка"
         },
         {
-          "ref": "electronics/silicon-revision-management",
+          "ref": "hw-components/silicon-revision-management",
           "title": "Управління ревізіями кремнію та errata"
         },
         {
-          "ref": "electronics/application-notes",
+          "ref": "hw-components/application-notes",
           "title": "Прикладні нотатки та референсні дизайни"
         }
       ]
@@ -313,43 +313,43 @@
       "title": "Живлення й рівні",
       "topics": [
         {
-          "ref": "electronics/logic-thresholds",
+          "ref": "hw-digital/logic-thresholds",
           "title": "Логічні пороги"
         },
         {
-          "ref": "electronics/logic-families",
+          "ref": "hw-digital/logic-families",
           "title": "Логічні сімейства"
         },
         {
-          "ref": "electronics/datasheet-dc-characteristics",
+          "ref": "hw-digital/datasheet-dc-characteristics",
           "title": "Як читати DC Characteristics"
         },
         {
-          "ref": "electronics/level-shifter",
+          "ref": "hw-digital/level-shifter",
           "title": "Перетворювач рівнів"
         },
         {
-          "ref": "electronics/voltage-divider-digital",
+          "ref": "hw-digital/voltage-divider-digital",
           "title": "Дільник напруги як зсувач рівнів"
         },
         {
-          "ref": "electronics/open-drain-bus-pullup-sizing",
+          "ref": "hw-digital/open-drain-bus-pullup-sizing",
           "title": "Відкритий колектор"
         },
         {
-          "ref": "electronics/active-pullup",
+          "ref": "hw-digital/active-pullup",
           "title": "Активна підтяжка і струмове джерело"
         },
         {
-          "ref": "electronics/esd-gpio-protection",
+          "ref": "hw-digital/esd-gpio-protection",
           "title": "Захист входів GPIO від перенапруги"
         },
         {
-          "ref": "electronics/latch-up",
+          "ref": "hw-components/latch-up",
           "title": "Latch-up у CMOS"
         },
         {
-          "ref": "power/xc6206",
+          "ref": "cat-hw-power/xc6206",
           "title": "XC6206 (662K) — LDO 3,3 В"
         },
         {
@@ -395,47 +395,47 @@
           }
         },
         {
-          "ref": "communications/i2c-bus-capacity",
+          "ref": "com-devices/i2c-bus-capacity",
           "title": "Ємність шини I²C і вибір підтяжок"
         },
         {
-          "ref": "communications/i2c-addressing",
+          "ref": "com-devices/i2c-addressing",
           "title": "Адресація I2C"
         },
         {
-          "ref": "communications/i2c-clock-stretching-timing-budget",
+          "ref": "com-devices/i2c-clock-stretching-timing-budget",
           "title": "Розтягування такту в I²C"
         },
         {
-          "ref": "communications/i2c-speeds",
+          "ref": "com-devices/i2c-speeds",
           "title": "Режими швидкості I2C"
         },
         {
-          "ref": "communications/chip-select",
+          "ref": "com-devices/chip-select",
           "title": "Вибір кристала"
         },
         {
-          "ref": "communications/spi-cs-timing",
+          "ref": "com-devices/spi-cs-timing",
           "title": "Часові параметри CS у SPI"
         },
         {
-          "ref": "communications/daisy-chain-spi",
+          "ref": "com-devices/daisy-chain-spi",
           "title": "Daisy-chain у SPI"
         },
         {
-          "ref": "communications/one-wire",
+          "ref": "com-devices/one-wire",
           "title": "1-Wire — шина на одному дроті"
         },
         {
-          "ref": "sensors/ds18b20",
+          "ref": "cat-hw-sensors/ds18b20",
           "title": "DS18B20 — цифровий давач температури (1-Wire)"
         },
         {
-          "ref": "communications/bus-resource-conflicts",
+          "ref": "com-devices/bus-resource-conflicts",
           "title": "Конфлікти шин"
         },
         {
-          "ref": "communications/single-ended-line-limits",
+          "ref": "com-medium/single-ended-line-limits",
           "title": "Межі односторонніх ліній"
         },
         {
@@ -465,27 +465,27 @@
       "title": "Оживлення мікросхеми",
       "topics": [
         {
-          "ref": "electronics/logic-analyzer",
+          "ref": "hw-sensing/logic-analyzer",
           "title": "Логічний аналізатор"
         },
         {
-          "ref": "electronics/protocol-decoder-internals",
+          "ref": "hw-digital/protocol-decoder-internals",
           "title": "Внутрішня логіка декодера протоколів"
         },
         {
-          "ref": "electronics/edges-rise-time",
+          "ref": "hw-digital/edges-rise-time",
           "title": "Фронти й час наростання"
         },
         {
-          "ref": "electronics/ground-bounce",
+          "ref": "hw-pcb/ground-bounce",
           "title": "Стрибок землі"
         },
         {
-          "ref": "electronics/smd-marking",
+          "ref": "hw-components/smd-marking",
           "title": "Маркування SMD: чи то взагалі той чип"
         },
         {
-          "ref": "electronics/pidrobni-i-peremarkovani-komponenty",
+          "ref": "hw-components/pidrobni-i-peremarkovani-komponenty",
           "title": "Підробки й перемарковані чипи",
           "todo": "нова тема",
           "hint": "electronics/components"
@@ -521,7 +521,7 @@
           }
         },
         {
-          "ref": "electronics/i2c-bus-recovery",
+          "ref": "com-devices/i2c-bus-recovery",
           "title": "Залипла шина I²C і її відновлення",
           "todo": "нова тема",
           "hint": "communications/buses"
@@ -533,7 +533,7 @@
       "title": "Драйвер пристрою",
       "topics": [
         {
-          "ref": "programming/module-model",
+          "ref": "sf-devices/module-model",
           "title": "Модель модуля"
         },
         {
@@ -557,11 +557,11 @@
           }
         },
         {
-          "ref": "communications/burst-read",
+          "ref": "com-devices/burst-read",
           "title": "Пакетне зчитування регістрів"
         },
         {
-          "ref": "programming/alignment-hardware",
+          "ref": "hw-arch/alignment-hardware",
           "title": "Вирівнювання даних: апаратні вимоги"
         },
         {
@@ -575,15 +575,15 @@
           }
         },
         {
-          "ref": "programming/blocking-vs-nonblocking-io",
+          "ref": "sf-tasks/blocking-vs-nonblocking-io",
           "title": "Блокуючий і неблокуючий ввід-вивід"
         },
         {
-          "ref": "programming/dma-cache-races",
+          "ref": "sf-tasks/dma-cache-races",
           "title": "Пастки DMA"
         },
         {
-          "ref": "programming/error-handling",
+          "ref": "sf-apps/error-handling",
           "title": "Жодна помилка не мовчить"
         },
         {
@@ -597,7 +597,7 @@
           }
         },
         {
-          "ref": "programming/stream-parser",
+          "ref": "com-protocol/stream-parser",
           "title": "Розбір потоку"
         },
         {
@@ -627,43 +627,43 @@
       "title": "Давачі на шині",
       "topics": [
         {
-          "ref": "electronics/what-is-a-sensor",
+          "ref": "hw-sensing/what-is-a-sensor",
           "title": "Що таке давач"
         },
         {
-          "ref": "electronics/sensor-characteristics",
+          "ref": "hw-sensing/sensor-characteristics",
           "title": "Характеристики давача"
         },
         {
-          "ref": "electronics/transducer-classes",
+          "ref": "hw-sensing/transducer-classes",
           "title": "Класи перетворювачів"
         },
         {
-          "ref": "electronics/environment-sensors",
+          "ref": "hw-sensing/environment-sensors",
           "title": "Давачі оточення"
         },
         {
-          "ref": "sensors/dht11",
+          "ref": "cat-hw-sensors/dht11",
           "title": "DHT11 — температура/вологість"
         },
         {
-          "ref": "sensors/gy-bmp280",
+          "ref": "cat-hw-sensors/gy-bmp280",
           "title": "GY-BMP280 — барометр/висотомір"
         },
         {
-          "ref": "electronics/drift-hysteresis-noise",
+          "ref": "hw-sensing/drift-hysteresis-noise",
           "title": "Дрейф і гістерезис"
         },
         {
-          "ref": "electronics/cross-sensitivity-compensation",
+          "ref": "hw-sensing/cross-sensitivity-compensation",
           "title": "Перехресна чутливість"
         },
         {
-          "ref": "communications/drdy-pattern",
+          "ref": "com-devices/drdy-pattern",
           "title": "Шаблон DRDY і переривання давача"
         },
         {
-          "ref": "communications/fifo-register",
+          "ref": "com-devices/fifo-register",
           "title": "FIFO-регістри в давачах"
         },
         {
@@ -693,43 +693,43 @@
       "title": "Ввід від людини",
       "topics": [
         {
-          "ref": "sensors/keypad-4x4-membrane",
+          "ref": "cat-hw-controls/keypad-4x4-membrane",
           "title": "Матрична клавіатура 4×4"
         },
         {
-          "ref": "electronics/quadrature",
+          "ref": "hw-sensing/quadrature",
           "title": "Квадратура"
         },
         {
-          "ref": "electronics/rotary-encoder",
+          "ref": "hw-components/rotary-encoder",
           "title": "Енкодер поворотний"
         },
         {
-          "ref": "sensors/ky-040-encoder",
+          "ref": "cat-hw-controls/ky-040-encoder",
           "title": "KY-040 — поворотний енкодер"
         },
         {
-          "ref": "electronics/gray-code",
+          "ref": "hw-digital/gray-code",
           "title": "Код Грея"
         },
         {
-          "ref": "electronics/touch-controller",
+          "ref": "cat-hw-controls/touch-controller",
           "title": "Сенсорний контролер"
         },
         {
-          "ref": "sensors/ttp223-touch",
+          "ref": "cat-hw-controls/ttp223-touch",
           "title": "TTP223 — сенсорний давач дотику"
         },
         {
-          "ref": "electronics/touch-tech",
+          "ref": "hw-motion/touch-tech",
           "title": "Сенсорний ввід"
         },
         {
-          "ref": "electronics/ir-communication",
+          "ref": "com-medium/ir-communication",
           "title": "ІЧ-зв'язок"
         },
         {
-          "ref": "connect/vs1838b-ir-rx",
+          "ref": "cat-hw-connect/vs1838b-ir-rx",
           "title": "VS1838B — ІЧ-приймач"
         },
         {
@@ -749,7 +749,7 @@
       "title": "Індикація",
       "topics": [
         {
-          "ref": "electronics/addressable-leds",
+          "ref": "hw-motion/addressable-leds",
           "title": "Адресні світлодіоди"
         },
         {
@@ -763,19 +763,19 @@
           }
         },
         {
-          "ref": "boards/seg-5641as",
+          "ref": "cat-hw-actuators/seg-5641as",
           "title": "Семисегментний індикатор 5641AS"
         },
         {
-          "ref": "boards/led-matrix-8x8",
+          "ref": "cat-hw-actuators/led-matrix-8x8",
           "title": "Світлодіодна матриця 8×8 (1588BS)"
         },
         {
-          "ref": "electronics/charlieplexing",
+          "ref": "hw-motion/charlieplexing",
           "title": "Чарліплексинг"
         },
         {
-          "ref": "actuators/ky-006-buzzer",
+          "ref": "cat-hw-actuators/ky-006-buzzer",
           "title": "KY-006 — пасивний зумер"
         }
       ]
@@ -795,7 +795,7 @@
           }
         },
         {
-          "ref": "electronics/panel-interfaces",
+          "ref": "hw-motion/panel-interfaces",
           "title": "Інтерфейси панелей"
         },
         {
@@ -809,15 +809,15 @@
           }
         },
         {
-          "ref": "boards/lcd-1602",
+          "ref": "cat-hw-actuators/lcd-1602",
           "title": "Символьний дисплей LCD 1602A"
         },
         {
-          "ref": "boards/i2c-lcd-adapter",
+          "ref": "cat-hw-actuators/i2c-lcd-adapter",
           "title": "I2C-адаптер для LCD 1602 (PCF8574)"
         },
         {
-          "ref": "electronics/display-controller",
+          "ref": "hw-motion/display-controller",
           "title": "Контролер дисплея"
         },
         {
@@ -831,7 +831,7 @@
           }
         },
         {
-          "ref": "boards/oled-ssd1306",
+          "ref": "cat-hw-actuators/oled-ssd1306",
           "title": "OLED-дисплей 0.96″ SSD1306"
         },
         {
@@ -873,19 +873,19 @@
           ]
         },
         {
-          "ref": "electronics/display-double-buffering",
+          "ref": "hw-motion/display-double-buffering",
           "title": "Подвійна буферизація на дисплеї"
         },
         {
-          "ref": "electronics/fonts",
+          "ref": "sf-visual/fonts",
           "title": "Шрифти"
         },
         {
-          "ref": "electronics/eink-refresh",
+          "ref": "hw-motion/eink-refresh",
           "title": "E-ink оновлення"
         },
         {
-          "ref": "programming/hrafichnyi-interfeis",
+          "ref": "sf-devices/hrafichnyi-interfeis",
           "title": "Графічний інтерфейс на МК: LVGL і перемальовування",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
@@ -907,35 +907,35 @@
       "title": "Пам'ять і годинник",
       "topics": [
         {
-          "ref": "programming/persistent-storage",
+          "ref": "hw-arch/persistent-storage",
           "title": "Енергонезалежне зберігання"
         },
         {
-          "ref": "programming/spi-flash",
+          "ref": "hw-components/spi-flash",
           "title": "SPI-флеш"
         },
         {
-          "ref": "programming/psram",
+          "ref": "hw-arch/psram",
           "title": "PSRAM"
         },
         {
-          "ref": "programming/flash-filesystems",
+          "ref": "sf-data/flash-filesystems",
           "title": "Файлові системи Flash"
         },
         {
-          "ref": "electronics/sd-card",
+          "ref": "hw-arch/sd-card",
           "title": "SD-картка"
         },
         {
-          "ref": "boards/microsd-card",
+          "ref": "cat-hw-boards/microsd-card",
           "title": "microSD-модуль"
         },
         {
-          "ref": "electronics/sd-card-init-state-machine",
+          "ref": "hw-arch/sd-card-init-state-machine",
           "title": "Автомат станів ініціалізації SD-картки"
         },
         {
-          "ref": "programming/fat-filesystem",
+          "ref": "sf-data/fat-filesystem",
           "title": "Файлова система FAT: том, таблиця, каталог"
         },
         {
@@ -949,23 +949,23 @@
           }
         },
         {
-          "ref": "programming/rtc",
+          "ref": "hw-arch/rtc",
           "title": "RTC"
         },
         {
-          "ref": "sensors/ds1302-rtc",
+          "ref": "cat-hw-boards/ds1302-rtc",
           "title": "DS1302 — RTC-модуль (CR2032)"
         },
         {
-          "ref": "electronics/backup-power-domain",
+          "ref": "hw-components/backup-power-domain",
           "title": "Домен резервного живлення (VBAT)"
         },
         {
-          "ref": "electronics/watch-crystal-rtc",
+          "ref": "hw-components/watch-crystal-rtc",
           "title": "Годинниковий кварц"
         },
         {
-          "ref": "programming/rtc-i-kalendarnyi-chas",
+          "ref": "hw-components/rtc-calendar-time",
           "title": "Годинник і мітки часу: RTC, дрейф, монотонність",
           "todo": "нова тема",
           "hint": "programming/embedded-systems"
@@ -977,35 +977,35 @@
       "title": "Кілька мікросхем разом",
       "topics": [
         {
-          "ref": "electronics/gpio-expander",
+          "ref": "hw-digital/gpio-expander",
           "title": "GPIO-розширювач"
         },
         {
-          "ref": "communications/i2c-expander",
+          "ref": "com-devices/i2c-expander",
           "title": "I²C-розширювач"
         },
         {
-          "ref": "electronics/74hc595",
+          "ref": "cat-hw-parts/74hc595",
           "title": "74HC595"
         },
         {
-          "ref": "electronics/74hc165",
+          "ref": "cat-hw-parts/74hc165",
           "title": "74HC165"
         },
         {
-          "ref": "electronics/74hc138",
+          "ref": "cat-hw-parts/74hc138",
           "title": "74HC138"
         },
         {
-          "ref": "electronics/digipot",
+          "ref": "hw-components/digipot",
           "title": "Цифровий потенціометр"
         },
         {
-          "ref": "electronics/hi-z-state",
+          "ref": "hw-digital/hi-z-state",
           "title": "Стан високого опору"
         },
         {
-          "ref": "electronics/wired-or",
+          "ref": "hw-digital/wired-or",
           "title": "Монтажне «АБО» і спільна лінія переривання"
         },
         {
