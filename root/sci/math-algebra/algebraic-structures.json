@@ -1,0 +1,340 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-algebra",
+  "slug": "algebraic-structures",
+  "title": "Алгебраїчні структури",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "groups-and-subgroups",
+      "title": "Групи й підгрупи",
+      "topics": [
+        {
+          "slug": "group-theory",
+          "title": "Групи, підгрупи й теорема Лагранжа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-group-concept.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lagrange-converse.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-group-computation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "normal-subgroup",
+          "title": "Нормальні підгрупи й фактор-групи",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "group-isomorphism",
+          "title": "Ізоморфізм груп",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "finite-group-structure",
+      "title": "Будова скінченних груп",
+      "topics": [
+        {
+          "slug": "cauchy-theorem",
+          "title": "Теорема Коші (теорія груп)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "sylow-theorems",
+          "title": "Теореми Силова",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "computational-group-theory",
+          "title": "Обчислювальна теорія груп",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "continuous-groups",
+      "title": "Неперервні групи",
+      "topics": [
+        {
+          "slug": "lie-group-so3",
+          "title": "Група SO(3) і її подвійне покриття SU(2)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-so3-su2.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rodrigues-exponential.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-slerp-interpolation.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "pontryagin-duality",
+          "title": "Двоїстість Понтрягіна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pontryagin-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-character-groups.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fourier-dual-groups.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "rings-and-fields",
+      "title": "Кільця й поля",
+      "topics": [
+        {
+          "slug": "rings",
+          "title": "Кільця: додавання й множення в одній структурі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ring-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-consequences.md",
+              "status": "done"
+            },
+            {
+              "file": "math-znz-structure.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-modular-ring.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "integral-domain",
+          "title": "Область цілісності",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "ideal",
+          "title": "Ідеали та фактор-кільця",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "field",
+          "title": "Поле",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "gaussian-integers",
+          "title": "Гауссові цілі числа ℤ[i]",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gauss-biquadratic.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gaussian-primes-factorization.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gaussian-arithmetic.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "without-inverses",
+      "title": "Структури без обернення",
+      "topics": [
+        {
+          "slug": "monoid",
+          "title": "Моноїд",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-monoid-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-free-monoid-universal.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-parallel-fold.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "semiring",
+          "title": "Напівкільце: додавання без віднімання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "semilattice",
+          "title": "Напіврешітка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-semilattice-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-semilattice-poset-equivalence.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-crdt-semilattice.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "complete-lattice",
+          "title": "Повна ґратка й теорема Кнастера–Тарського",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
