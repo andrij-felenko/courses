@@ -1,0 +1,296 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-mechanics",
+  "slug": "flight",
+  "title": "Політ",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "lift",
+      "title": "Підіймальна сила",
+      "topics": [
+        {
+          "slug": "circulation-lift-theorem",
+          "title": "Циркуляція та підіймальна сила",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "fixed-wing-lift",
+          "title": "Літак",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lift-theory.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "wing",
+      "title": "Крило",
+      "topics": [
+        {
+          "slug": "profil-kryla",
+          "title": "Профіль крила",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "kut-ataky-i-poliara",
+          "title": "Кут атаки й поляра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "navantazhennia-na-krylo-i-shvydkist-zvaliuvannia",
+          "title": "Навантаження на крило й швидкість звалювання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "propeller-and-thrust",
+      "title": "Гвинт і тяга",
+      "topics": [
+        {
+          "slug": "propeller-geometry",
+          "title": "Гвинт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-propeller.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-blade-element.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "teoriia-impulsu-hvynta",
+          "title": "Теорія імпульсу гвинта: потужність висіння й навантаження на диск",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "statychna-i-dynamichna-tiaha",
+          "title": "Статична й динамічна тяга",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "thrust-vs-weight",
+          "title": "Тяга проти ваги",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-actuator-disk.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "reaction-torque",
+          "title": "Реактивний момент",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tail-rotor.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-yaw-mixer.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "propeller-wake-and-noise",
+      "title": "Слід гвинта й шум",
+      "topics": [
+        {
+          "slug": "efekt-zemli-i-vykhorove-kiltse",
+          "title": "Ефект землі й вихорове кільце",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "shum-hvynta",
+          "title": "Шум гвинта: звідки він і чому важить",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "range-and-efficiency",
+      "title": "Дальність і якість",
+      "topics": [
+        {
+          "slug": "lift-to-drag-ratio",
+          "title": "Аеродинамічна якість (L/D)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cayley.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-drag-polar.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-speed-to-fly.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "breguet-range-endurance",
+          "title": "Рівняння дальності й тривалості Бреге",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-breguet.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-breguet-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-endurance-calculator.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "airframe-layouts",
+      "title": "Схеми апаратів",
+      "topics": [
+        {
+          "slug": "frame-configurations",
+          "title": "Рами й конфігурації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-multirotor.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mixer-matrix.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "vtol-transition",
+          "title": "VTOL-гібриди",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tiltrotor.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

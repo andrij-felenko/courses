@@ -1,0 +1,402 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-mechanics",
+  "slug": "motion-description",
+  "title": "Опис руху",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "position-and-velocity",
+      "title": "Положення і швидкість",
+      "topics": [
+        {
+          "slug": "position",
+          "title": "Положення і радіус-вектор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-coordinates.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-coordinate-transform.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "displacement",
+          "title": "Переміщення і шлях",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-path-length.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-odometry.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "velocity",
+          "title": "Швидкість",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-velocity.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-velocity-derivative.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-velocity-from-samples.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "acceleration",
+      "title": "Прискорення",
+      "topics": [
+        {
+          "slug": "acceleration",
+          "title": "Прискорення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-acceleration.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-acceleration.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "centripetal-acceleration",
+          "title": "Центрострімке прискорення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-huygens-newton.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-centripetal-derivation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "jerk",
+          "title": "Ривок (похідна прискорення)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-jerk-naming.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-higher-derivatives.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-scurve-profile.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "projectile-motion",
+          "title": "Рух тіла, кинутого під кутом (балістична траєкторія)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ballistics.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-projectile-range.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-trajectory-drag.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "reference-frames",
+      "title": "Системи відліку",
+      "topics": [
+        {
+          "slug": "inertial-frame",
+          "title": "Інерціальна система відліку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-inertial-frame.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fictitious-forces.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rotating-frame.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "galilean-relativity",
+          "title": "Принцип відносності Ґалілея",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-galileo-ship.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-galilean-transformation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "centrifugal-force",
+          "title": "Відцентрова сила",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-huygens-newton.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-effective-gravity.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rotating-habitat.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "coriolis-effect",
+          "title": "Ефект Коріоліса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-coriolis.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-mems-gyro.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-coriolis.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mems-gyro.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mems-gyro.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "proper-acceleration",
+      "title": "Власне прискорення",
+      "topics": [
+        {
+          "slug": "proper-acceleration",
+          "title": "Власне прискорення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-four-acceleration.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-imu-gravity.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "specific-force",
+          "title": "Питома сила і strapdown-інтеграція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-strapdown.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-strapdown-mechanization.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-strapdown-demo.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "equivalence-principle",
+          "title": "Принцип еквівалентності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-equivalence-tests.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-eotvos-parameter.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-accelerometer-equivalence.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

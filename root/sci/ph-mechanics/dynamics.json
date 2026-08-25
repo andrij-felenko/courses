@@ -1,0 +1,412 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-mechanics",
+  "slug": "dynamics",
+  "title": "Сили й динаміка",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "newton-laws",
+      "title": "Закони Ньютона",
+      "topics": [
+        {
+          "slug": "newtons-first-law",
+          "title": "Перший закон Ньютона",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-law-of-inertia.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "newtons-second-law",
+          "title": "Другий закон Ньютона",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-second-law.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-force-momentum.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-numerical-integration.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "newtons-third-law",
+          "title": "Третій закон Ньютона",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-third-law.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-momentum-conservation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-collision-sim.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "force",
+          "title": "Сила",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-force-concept.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-free-body-equilibrium.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mass",
+          "title": "Маса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mass-concept.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-inertial-mass.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "weight",
+          "title": "Вага",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-weight.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-apparent-weight.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-elevator-ride.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "friction-and-contact",
+      "title": "Тертя й контакт",
+      "topics": [
+        {
+          "slug": "normal-force",
+          "title": "Нормальна сила",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-solidity.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-constraint-reaction.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-contact-solver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "friction",
+          "title": "Тертя",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-friction-laws.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-real-contact-area.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-stick-slip.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "rolling-resistance",
+          "title": "Тертя кочення",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-coulomb-dupuit.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-force-shift.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rolling-vs-drag.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hertz-contact",
+          "title": "Контакт Герца",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hertz-contact.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-hertz-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hertz-solver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-hertz-solver.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gravitation-and-orbits",
+      "title": "Тяжіння й орбіти",
+      "topics": [
+        {
+          "slug": "newton-gravitation",
+          "title": "Закон всесвітнього тяжіння",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-newton-principia.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-cavendish.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-orbits-kepler.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-orbit-integrator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "free-fall",
+          "title": "Вільне падіння",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-galileo-fall.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fall-kinematics.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-terminal-velocity.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "keplers-laws",
+          "title": "Закони Кеплера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kepler-mars.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-orbital-ellipse.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kepler-equation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "three-body-problem",
+          "title": "Задача трьох тіл",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-three-body-problem.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-restricted-three-body.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-three-body-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-celestial-mechanics-formats.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

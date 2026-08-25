@@ -1,0 +1,516 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-mechanics",
+  "slug": "fluids",
+  "title": "Плин і течія",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "fluid-properties",
+      "title": "Властивості плину",
+      "topics": [
+        {
+          "slug": "density",
+          "title": "Густина",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-archimedes-crown.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-atomic-density.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "viscosity",
+          "title": "В'язкість",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-viscosity.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-momentum-diffusion.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-falling-ball-viscometer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "surface-tension",
+          "title": "Поверхневий натяг",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-surface-tension.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-young-laplace.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "pressure-and-buoyancy",
+      "title": "Тиск і плавучість",
+      "topics": [
+        {
+          "slug": "pressure",
+          "title": "Тиск",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pressure.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pressure-scalar.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "atmospheric-pressure",
+          "title": "Атмосферний тиск",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-barometer.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-barometric-formula.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "buoyancy",
+          "title": "Виштовхувальна сила (закон Архімеда)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-floating-bodies.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-buoyancy-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-floating-buoy.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "flow-laws",
+      "title": "Закони течії",
+      "topics": [
+        {
+          "slug": "flow-continuity",
+          "title": "Нерозривність течії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-continuity-flow.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-continuity-equation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-flow-network.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dynamic-pressure",
+          "title": "Динамічний тиск і число Бернуллі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bernoulli.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bernoulli-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pitot-airspeed.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "navier-stokes",
+          "title": "Рівняння Нав'є–Стокса",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-navier-stokes.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-stress-tensor.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cfd-cavity.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "potential-flow",
+          "title": "Потенціальна течія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dalembert-euler.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-complex-potential.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-potential-flow-solver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-potential-flow-elements.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "viscous-flow",
+      "title": "В'язка течія",
+      "topics": [
+        {
+          "slug": "poiseuille-flow",
+          "title": "Течія Пуазейля",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hagen-poiseuille.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-poiseuille-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hydraulic-network.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "darcys-law",
+          "title": "Закон Дарсі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-darcy-dijon.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-darcy-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-groundwater-solver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-permeability-units.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "flow-regimes",
+      "title": "Режими й подібність",
+      "topics": [
+        {
+          "slug": "reynolds-number",
+          "title": "Число Рейнольдса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-reynolds-experiment.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-reynolds-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-reynolds-regime.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "froude-number",
+          "title": "Число Фруда",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-froude-history.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-froude-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-froude-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-froude-calculator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "prandtl-number",
+          "title": "Число Прандтля",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-prandtl-number.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-prandtl-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-prandtl-boundary-layer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-prandtl-solver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "knudsen-number",
+          "title": "Число Кнудсена",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-knudsen.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-knudsen-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-knudsen-regime.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-gas-regimes.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "similarity-scaling",
+          "title": "Подібність і масштабування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-galileo-scaling.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-model-scaling.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

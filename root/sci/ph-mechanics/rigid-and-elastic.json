@@ -1,0 +1,318 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-mechanics",
+  "slug": "rigid-and-elastic",
+  "title": "Тверде тіло й міцність",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "body-and-freedom",
+      "title": "Тіло і ступені вільності",
+      "topics": [
+        {
+          "slug": "rigid-body",
+          "title": "Абсолютно тверде тіло",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rigid-body-mechanics.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rigid-body-kinematics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rigid-body-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rigid-body-state.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "degrees-of-freedom",
+          "title": "Ступені вільності",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-freezing-out.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-counting-constraints.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "moment-of-inertia",
+          "title": "Момент інерції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-oscillation-center.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-inertia-tensor.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-inertia-calculator.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "rotation",
+      "title": "Обертання",
+      "topics": [
+        {
+          "slug": "angular-velocity",
+          "title": "Кутова швидкість і прискорення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-radian.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-omega-cross-r.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gyro-to-angle.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "torque",
+          "title": "Момент сили",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lever.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rotational-second-law.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "angular-momentum",
+          "title": "Момент імпульсу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-angular-momentum.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-angular-momentum.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tennis-racket.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gyroscopic-precession",
+          "title": "Гіроскопічна прецесія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gyroscope.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-precession-rate.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-top-simulation.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "elasticity",
+      "title": "Пружність і деформація",
+      "topics": [
+        {
+          "slug": "hookes-law",
+          "title": "Закон Гука",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-hooke-anagram.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-parabolic-minimum.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "viscoelasticity",
+          "title": "В'язкопружність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-viscoelasticity.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-viscoelasticity.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-viscoelasticity.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-viscoelasticity.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "fatigue-and-life",
+      "title": "Втома й ресурс",
+      "topics": [
+        {
+          "slug": "material-fatigue",
+          "title": "Втома матеріалу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fatigue-discovery.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fatigue-laws.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rainflow-miner.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cycle-counting-palmgren-miner",
+          "title": "Rainflow і правило Майнера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,452 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-mechanics",
+  "slug": "real-flow",
+  "title": "Реальна течія",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "boundary-layer-and-drag",
+      "title": "Примежовий шар і опір",
+      "topics": [
+        {
+          "slug": "boundary-layer",
+          "title": "Примежовий шар",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-prandtl.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-blasius.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-flat-plate-drag.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "momentum-integral",
+          "title": "Інтегральне рівняння імпульсу примежового шару",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-von-karman.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-thwaites-method.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-solver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "flow-separation",
+          "title": "Відрив потоку",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "math": [
+            {
+              "file": "math-adverse-gradient.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-thwaites-separation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "aerodynamic-drag",
+          "title": "Аеродинамічний опір (сила опору повітря)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-drag-theory.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-drag-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-drag-trajectory.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "turbulence",
+      "title": "Турбулентність",
+      "topics": [
+        {
+          "slug": "hydrodynamic-instability",
+          "title": "Гідродинамічна нестійкість",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-instability-discoveries.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-linear-stability.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-instability-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-stability-solver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "turbulence",
+          "title": "Турбулентність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-turbulence.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-kolmogorov-scaling.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dns-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rans-models.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "vorticity",
+      "title": "Вихореність",
+      "topics": [
+        {
+          "slug": "kelvin-circulation-theorem",
+          "title": "Теорема Кельвіна про циркуляцію",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-vortex-atom.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bjerknes-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-vortex-tracker.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-vorticity-solver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "helmholtz-vortex-theorems",
+          "title": "Теореми Гельмгольца про вихори",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-helmholtz-vortex.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-helmholtz-proofs.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-vortex-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-vortex-solver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ertel-potential-vorticity",
+          "title": "Потенціальна вихореність Ертеля",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ertel-pv.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ertel-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ertel-pv-calc.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pv-diagnostics.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "baroclinic-effect",
+          "title": "Бароклінний ефект",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-baroclinic-effect.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-baroclinic-effect.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-baroclinic-effect.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-baroclinic-effect.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "compressible-flow",
+      "title": "Стисливі течії",
+      "topics": [
+        {
+          "slug": "mach-number",
+          "title": "Число Маха",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mach-cone.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-compressible-flow.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mach-calculator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-gasdynamics-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "laval-nozzle",
+          "title": "Сопло Лаваля",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-laval-nozzle.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-isentropic-nozzle.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-nozzle-solver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-nozzle-calc.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "prandtl-meyer-expansion",
+          "title": "Течія Прандтля — Майєра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-prandtl-meyer.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-prandtl-meyer.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-prandtl-meyer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-prandtl-meyer.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
