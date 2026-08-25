@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="400" viewBox="0 0 920 400">
+<rect width="920" height="400" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aOrange" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#e08030"/></marker>
+</defs>
+<text x="460.0" y="28.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Звідки береться синус: проєкція рівномірного руху по колу</text>
+<text x="460.0" y="50.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">точка біжить колом зі сталою швидкістю; її «тінь» на вертикальній осі гойдається саме синусоїдою</text>
+<circle cx="195.0" cy="215.0" r="120.0" fill="none" stroke="#e4e4e4" stroke-width="1.8"/>
+<line x1="47.0" y1="215.0" x2="345.0" y2="215.0" stroke="#8a8a8a" stroke-width="1.3" stroke-linecap="round"/>
+<line x1="195.0" y1="365.0" x2="195.0" y2="61.0" stroke="#8a8a8a" stroke-width="1.4" marker-end="url(#aInk)"/>
+<text x="211.0" y="69.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="bold" font-style="italic">y</text>
+<line x1="195.0" y1="215.0" x2="286.9" y2="137.9" stroke="#c0271e" stroke-width="3.0" marker-end="url(#aRed)"/>
+<text x="229.0" y="168.4" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="italic">Vm</text>
+<circle cx="286.9" cy="137.9" r="4.5" fill="#c0271e" stroke="#c0271e" stroke-width="1"/>
+<path d="M 235.0 215.0 A 40.0 40.0 0 0 0 225.6 189.3" fill="none" stroke="#1f8a3b" stroke-width="1.8" marker-end="url(#aGreen)"/>
+<text x="245.0" y="197.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="italic">ωt</text>
+<line x1="286.9" y1="137.9" x2="195.0" y2="137.9" stroke="#1f47b5" stroke-width="1.6" stroke-dasharray="4,3" stroke-linecap="round"/>
+<circle cx="195.0" cy="137.9" r="4.5" fill="#1f47b5" stroke="#1f47b5" stroke-width="1"/>
+<text x="185.0" y="131.9" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1f47b5" text-anchor="end" font-weight="bold" font-style="normal">y = Vm·sin(ωt)</text>
+<text x="195.0" y="389.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">висота точки над горизонтом</text>
+<line x1="400.0" y1="215.0" x2="882.0" y2="215.0" stroke="#8a8a8a" stroke-width="1.4" marker-end="url(#aInk)"/>
+<line x1="400.0" y1="349.0" x2="400.0" y2="81.0" stroke="#8a8a8a" stroke-width="1.4" marker-end="url(#aInk)"/>
+<text x="878.0" y="233.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="bold" font-style="italic">t</text>
+<text x="392.0" y="87.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#8a8a8a" text-anchor="end" font-weight="bold" font-style="italic">y</text>
+<polyline points="400.0,215.0 403.9,205.0 407.8,195.0 411.8,185.2 415.7,175.5 419.6,166.2 423.5,157.2 427.4,148.6 431.3,140.5 435.2,132.9 439.2,125.8 443.1,119.4 447.0,113.7 450.9,108.7 454.8,104.4 458.8,100.9 462.7,98.2 466.6,96.3 470.5,95.2 474.4,95.0 478.3,95.7 482.2,97.1 486.2,99.4 490.1,102.5 494.0,106.4 497.9,111.1 501.8,116.5 505.8,122.5 509.7,129.3 513.6,136.6 517.5,144.5 521.4,152.8 525.3,161.6 529.2,170.8 533.2,180.3 537.1,190.1 541.0,200.0 544.9,210.0 548.8,220.0 552.8,230.0 556.7,239.9 560.6,249.7 564.5,259.2 568.4,268.4 572.3,277.2 576.2,285.5 580.2,293.4 584.1,300.7 588.0,307.5 591.9,313.5 595.8,318.9 599.8,323.6 603.7,327.5 607.6,330.6 611.5,332.9 615.4,334.3 619.3,335.0 623.2,334.8 627.2,333.7 631.1,331.8 635.0,329.1 638.9,325.6 642.8,321.3 646.8,316.3 650.7,310.6 654.6,304.2 658.5,297.1 662.4,289.5 666.3,281.4 670.2,272.8 674.2,263.8 678.1,254.5 682.0,244.8 685.9,235.0 689.8,225.0 693.8,215.0 697.7,205.0 701.6,195.0 705.5,185.2 709.4,175.5 713.3,166.2 717.2,157.2 721.2,148.6 725.1,140.5 729.0,132.9 732.9,125.8 736.8,119.4 740.8,113.7 744.7,108.7 748.6,104.4 752.5,100.9 756.4,98.2 760.3,96.3 764.2,95.2 768.2,95.0 772.1,95.7 776.0,97.1 779.9,99.4 783.8,102.5 787.8,106.4 791.7,111.1 795.6,116.5 799.5,122.5 803.4,129.3 807.3,136.6 811.2,144.5 815.2,152.8 819.1,161.6 823.0,170.8 826.9,180.3 830.8,190.1 834.8,200.0 838.7,210.0 842.6,220.0 846.5,230.0 850.4,239.9 854.3,249.7 858.2,259.2 862.2,268.4 866.1,277.2 870.0,285.5" fill="none" stroke="#c0271e" stroke-width="2.8"/>
+<line x1="195.0" y1="137.9" x2="400.0" y2="137.9" stroke="#1f47b5" stroke-width="1.3" stroke-dasharray="4,3" stroke-linecap="round"/>
+<circle cx="400.0" cy="137.9" r="4.5" fill="#1f47b5" stroke="#1f47b5" stroke-width="1"/>
+<line x1="400.0" y1="95.0" x2="870.0" y2="95.0" stroke="#e4e4e4" stroke-width="1.2" stroke-dasharray="3,3" stroke-linecap="round"/>
+<line x1="400.0" y1="335.0" x2="870.0" y2="335.0" stroke="#e4e4e4" stroke-width="1.2" stroke-dasharray="3,3" stroke-linecap="round"/>
+<text x="866.0" y="90.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#c0271e" text-anchor="end" font-weight="bold" font-style="italic">+Vm</text>
+<text x="866.0" y="349.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f47b5" text-anchor="end" font-weight="bold" font-style="italic">−Vm</text>
+<text x="635.0" y="389.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">та сама висота, розгорнута в часі — це і є синусоїда</text>
+</svg>

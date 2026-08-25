@@ -1,0 +1,310 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-waves",
+  "slug": "light-and-color",
+  "title": "Світловий потік і колір",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "light-budget",
+      "title": "Світловий бюджет",
+      "topics": [
+        {
+          "slug": "lambert-cosine-law",
+          "title": "Закон косинуса Ламберта",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-photometria.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lambert-integration.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-diffuse-shader.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "solar-irradiance-model",
+          "title": "Модель сонячної інсоляції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-solar-constant.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-airmass-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-irradiance-calculator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "am15-solar-spectrum",
+          "title": "Стандартний сонячний спектр AM1.5G",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-smarts-standard.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-spectral-integration.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-am15-analyzer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-astm-g173.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "photon-budget-optical",
+          "title": "Фотонний бюджет оптичної системи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-photon-counting.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-photon-budget.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-photon-budget-calc.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-optical-budget-specs.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "color-perception",
+      "title": "Колір і сприйняття",
+      "topics": [
+        {
+          "slug": "weber-fechner",
+          "title": "Закон Вебера–Фехнера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-psychophysics-birth.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-weber-fechner-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sensory-scale-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "colorimetry-basics",
+          "title": "Кольорометрія: CIE, колірна температура і CRI",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cie1931.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-colorimetry-integrals.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-spectrum-analyzer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-colorimetry-calc.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "color-gamut",
+          "title": "Колірний охоплення і хроматичність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cie1931-gamut.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-chromaticity-transform.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gamut-checker.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-gamut-standards.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "color-spaces",
+          "title": "Колірні простори",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-color-spaces.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-color-transformations.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-color-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-color-profiles.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "luminance-chrominance",
+          "title": "Яскравість і колірність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tv-color.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-luminance-transform.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-color-converter.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pixel-formats.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

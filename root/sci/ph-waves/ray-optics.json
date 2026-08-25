@@ -1,0 +1,448 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-waves",
+  "slug": "ray-optics",
+  "title": "Геометрична оптика",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "boundary-of-media",
+      "title": "Межа середовищ",
+      "topics": [
+        {
+          "slug": "fermat-principle",
+          "title": "Принцип Ферма (найменшого часу)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fermat-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fermat-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ray-tracer.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "snells-law",
+          "title": "Закон Снелла",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-snell-ibn-sahl.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-snell-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ray-tracer-refraction.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "refractive-index",
+          "title": "Показник заломлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-refractive-index-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dispersion-lorentz-oscillator.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dispersion-calculator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-refractometer-specs.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "fresnel-equations",
+          "title": "Рівняння Френеля",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fresnel-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fresnel-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fresnel-reflectance.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "optical-dispersion",
+          "title": "Оптична дисперсія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dispersion-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lorentz-oscillator.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dispersion-calc.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-glass-catalog.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "rayleigh-scattering",
+          "title": "Релеєвське розсіяння світла",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rayleigh-sky.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rayleigh-cross-section.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sky-color-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-scattering-params.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "guided-light",
+      "title": "Ведене світло",
+      "topics": [
+        {
+          "slug": "total-internal-reflection",
+          "title": "Повне внутрішнє відбиття",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tir-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-evanescent-wave.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tir-simulator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "evanescent-wave",
+          "title": "Еванесцентна хвиля",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-evanescent-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-evanescent-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-evanescent-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "fiber-optics-principles",
+          "title": "Принципи волоконної оптики",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fiber-optics.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-step-index-modes.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fiber-calc.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fiber-standards.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "optical-waveguide",
+          "title": "Оптичні хвилеводи та інтегральна фотоніка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-photonic-integration.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-planar-waveguide-modes.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-waveguide-mode-solver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-waveguide-design.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "lenses-and-imaging",
+      "title": "Лінзи й зображення",
+      "topics": [
+        {
+          "slug": "optyka-linza-fokusna-vidstan-pole-zoru",
+          "title": "Оптика: лінза, фокусна відстань, поле зору",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "obiektyv-i-ekspozytsiia",
+          "title": "Об'єктив і експозиція: поле зору, діафрагма, витримка, підсилення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "fresnel-lens",
+          "title": "Лінза Френеля",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fresnel-lighthouse.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fresnel-geometry.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fresnel-tracer.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "retroreflector",
+          "title": "Ретрорефлектор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-apollo-retroreflector.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-corner-reflection.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-retro-simulator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "optical-aberrations",
+          "title": "Оптичні аберації: сферична, хроматична та кома",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-seidel-aberrations.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-seidel-polynomials.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ray-tracer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-zernike-polynomials.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

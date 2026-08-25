@@ -1,0 +1,252 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-waves",
+  "slug": "acoustics",
+  "title": "Звук",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "sound-in-air",
+      "title": "Звук у повітрі",
+      "topics": [
+        {
+          "slug": "speed-of-sound",
+          "title": "Швидкість звуку",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-speed-of-sound.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-speed-of-sound-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-speed-of-sound-calc.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-acoustic-constants.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "outdoor-sound-propagation-loss",
+          "title": "Втрати звуку на відкритому повітрі: геометрія, поглинання, ISO 9613-1",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sound-attenuation.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sound-attenuation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sound-attenuation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sound-attenuation.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "molecular-relaxation-sound-absorption",
+          "title": "Молекулярна релаксація й дисипація звуку в газах: механізм, дисперсія, вимірювання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-stokes-kirchhoff.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-attenuation-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-iso9613-calc.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-iso9613.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "sound-radiation",
+      "title": "Випромінювання звуку",
+      "topics": [
+        {
+          "slug": "acoustic-impedance",
+          "title": "Акустичний імпеданс",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-acoustic-impedance.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-reflection-transmission.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-impedance-matching.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-acoustic-materials.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "exponential-horn",
+          "title": "Експоненційний рупор",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-exponential-horn.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-horn-equation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-horn-simulator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-horn-parameters.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "beam-pattern",
+          "title": "Діаграма спрямованості перетворювача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sonar-langevin.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-piston-beam-pattern.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-beam-pattern-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-transducer-beam-spec.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "loudness-and-direction",
+      "title": "Гучність і напрям",
+      "topics": [
+        {
+          "slug": "riven-u-detsybelakh",
+          "title": "Рівень у децибелах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "mikrofonnyi-masyv",
+          "title": "Мікрофонний масив: напрям на джерело",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

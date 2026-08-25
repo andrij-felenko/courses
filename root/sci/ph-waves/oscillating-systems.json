@@ -1,0 +1,562 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-waves",
+  "slug": "oscillating-systems",
+  "title": "Коливні системи",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "describing-oscillation",
+      "title": "Мова коливання",
+      "topics": [
+        {
+          "slug": "sine-wave",
+          "title": "Синусоїда",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-steinmetz.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-trigonometry.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-phase-accumulator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "amplitude-frequency",
+          "title": "Амплітуда й частота",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-50-60-hz.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-signal-generator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "phase",
+          "title": "Фаза й зсув фаз",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "wavelength",
+          "title": "Довжина хвилі",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-measuring-light-wave.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-wave-vector-dispersion.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-wavelength-calc.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-wave-bands.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "formy-syhnalu-i-shparuvatist",
+          "title": "Форми сигналу й шпаруватість",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "frequency-spectrum",
+          "title": "Частотний спектр",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-helmholtz.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fft-spectrum.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lissajous",
+          "title": "Фігури Ліссажу",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lissajous.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-lissajous-bowditch.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lissajous-geometry.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lissajous.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-lissajous-scope.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-oscilloscope-xy.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "oscillators",
+      "title": "Осцилятор",
+      "topics": [
+        {
+          "slug": "harmonic-oscillator",
+          "title": "Гармонічний осцилятор",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-oscillator.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-small-oscillations.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "damped-oscillator",
+          "title": "Загасний осцилятор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-damping.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-damped-solution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ringdown.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pendulum",
+          "title": "Маятник",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pendulum.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pendulum-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pendulum-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pendulum-solver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "coupled-oscillators",
+          "title": "Зв'язані осцилятори й нормальні моди",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-huygens-clocks.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-normal-modes.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-coupled-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-modal-solver.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "resonance-and-q",
+      "title": "Резонанс і добротність",
+      "topics": [
+        {
+          "slug": "resonance",
+          "title": "Резонанс",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-resonance-catastrophes.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-driven-oscillator.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-resonance-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-biquad-filter.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "q-factor",
+          "title": "Добротність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-q-factor.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-q-factor.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-q-measurement.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-q-specs.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "lc-circuit",
+          "title": "LC-контур",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-oscillation-discovery.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lc-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lc-simulation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "helmholtz-resonator",
+          "title": "Резонатор Гельмгольца",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-helmholtz-resonator.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-helmholtz-resonator.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-helmholtz-resonator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-helmholtz-resonator.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "vibration-damping",
+      "title": "Вібрація і гасіння",
+      "topics": [
+        {
+          "slug": "mechanical-resonance",
+          "title": "Механічний резонанс",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bridges.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-forced-oscillator.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-resonance-sweep.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "vibration-transmissibility",
+          "title": "Передавання вібрації (transmissibility)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-soft-mounting.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-transmissibility.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-isolator-design.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "squeeze-film-damping",
+          "title": "Squeeze-film демпфування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-squeeze-film.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-reynolds-squeeze.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-squeeze-calculator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "tuned-mass-damper",
+          "title": "Настроєний гаситель коливань (tuned mass damper)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-frahm-den-hartog.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-den-hartog-tuning.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tmd-simulation.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

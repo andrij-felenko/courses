@@ -1,0 +1,468 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-waves",
+  "slug": "wave-optics",
+  "title": "Хвильова оптика",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "diffraction",
+      "title": "Дифракційні явища",
+      "topics": [
+        {
+          "slug": "huygens-principle",
+          "title": "Принцип Гюйгенса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-huygens-wave-theory.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-huygens-fresnel-integral.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-wavefront-simulator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "diffraction",
+          "title": "Дифракція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fresnel-arago.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fresnel-kirchhoff.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-diffraction-calc.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-diffraction-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "diffraction-grating",
+          "title": "Дифракційна ґратка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fraunhofer-rowland.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-grating-equation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-spectrum-simulator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-grating-specs.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "thin-film-interference",
+          "title": "Інтерференція в тонкій плівці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-thin-film-interference.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-thin-film-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-thin-film-simulation.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "double-slit-experiment",
+          "title": "Двощілинний експеримент",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-young-experiment.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-interference-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-double-slit-simulation.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "polarization",
+      "title": "Поляризація",
+      "topics": [
+        {
+          "slug": "light-polarization",
+          "title": "Поляризація світла",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-malus-polarization.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-polarization-ellipse.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-polarization-simulator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "birefringence",
+          "title": "Двозаломлення в анізотропних середовищах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-birefringence-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fresnel-ellipsoid.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-birefringence-raytracer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-polarizing-optics.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "polarization-matrix-calculus",
+          "title": "Матричне числення поляризації: Джонс і Мюллер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-polarization-matrices.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-poincare-sphere.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-polarization-calculator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-polarization-lib.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "pockels-effect",
+          "title": "Електрооптичний ефект Поккельса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pockels.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-indicatrix-tensor.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pockels-modulator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-eom-driver.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "interferometry",
+      "title": "Інтерферометрія",
+      "topics": [
+        {
+          "slug": "michelson-interferometer",
+          "title": "Інтерферометр Майкельсона",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-michelson-morley.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-michelson-interferometry.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-michelson-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-interferometer-specs.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "mach-zehnder-interferometer",
+          "title": "Інтерферометр Маха — Цендера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mach-zehnder-history.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mach-zehnder-matrix.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mach-zehnder-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "fabry-perot-interferometer",
+          "title": "Інтерферометр Фабрі — Перо",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fabry-perot.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fabry-perot.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fabry-perot-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-etalon-specs.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "optical-heterodyne-detection",
+          "title": "Оптичне гетеродинне детектування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-optical-heterodyning.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-heterodyne-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-heterodyne-demodulator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "speed-of-light-measurement",
+          "title": "Вимірювання швидкості світла",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-speed-of-light.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-speed-of-light.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-speed-of-light-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-speed-of-light-setup.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
