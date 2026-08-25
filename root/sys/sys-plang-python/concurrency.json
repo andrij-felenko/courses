@@ -1,0 +1,204 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-plang-python",
+  "slug": "concurrency",
+  "title": "Одночасність",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "threads",
+      "title": "Потоки й замки",
+      "topics": [
+        {
+          "slug": "threading-basics",
+          "title": "Потоки в threading",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "threads-io-vs-cpu-bound",
+          "title": "Коли потоки прискорюють: увід-вивід, C-розширення й чисті обчислення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "locks-and-conditions",
+          "title": "Замки, RLock і умовні змінні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "queue-module",
+          "title": "Черга між потоками",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "atomicity-and-races",
+          "title": "Що атомарне, а що ні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "global-lock",
+      "title": "Глобальний замок",
+      "topics": [
+        {
+          "slug": "cpython-gil",
+          "title": "GIL у CPython",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "global-interpreter-lock",
+          "title": "Глобальне блокування інтерпретатора (GIL)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "free-threaded-python",
+          "title": "Збірка без GIL",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "process-pools",
+      "title": "Процеси й пули",
+      "topics": [
+        {
+          "slug": "concurrent-futures",
+          "title": "Пули в concurrent.futures",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "multiprocessing-module",
+          "title": "Процеси замість потоків",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "ipc-between-processes",
+          "title": "Обмін даними між процесами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "event-loop",
+      "title": "Цикл подій і корутини",
+      "topics": [
+        {
+          "slug": "asyncio-event-loop",
+          "title": "Цикл подій asyncio",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "coroutines-and-await",
+          "title": "Корутини й await",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "tasks-and-taskgroup",
+          "title": "Задачі, gather і TaskGroup",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "asyncio-cancellation",
+          "title": "Скасування задач і таймаути",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "blocking-in-async",
+          "title": "Блокувальний виклик у циклі подій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "asyncio-streams",
+          "title": "Асинхронні сокети й сервери",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

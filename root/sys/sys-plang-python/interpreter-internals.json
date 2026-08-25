@@ -1,0 +1,160 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-plang-python",
+  "slug": "interpreter-internals",
+  "title": "Устрій інтерпретатора й швидкодія",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "bytecode",
+      "title": "Виконання байткоду",
+      "topics": [
+        {
+          "slug": "cpython-execution-model",
+          "title": "Шлях від тексту до байткоду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "bytecode-and-dis",
+          "title": "Байткод і модуль dis",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "interpreter-startup",
+          "title": "Запуск інтерпретатора й час старту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "interpreter-memory",
+      "title": "Пам'ять інтерпретатора",
+      "topics": [
+        {
+          "slug": "object-layout",
+          "title": "Устрій об'єкта в пам'яті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "refcount-and-cycle-gc",
+          "title": "Підрахунок посилань і збирач циклів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "pymalloc-arenas",
+          "title": "Аллокатор pymalloc і повернення пам'яті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "speed",
+      "title": "Де витрачається час",
+      "topics": [
+        {
+          "slug": "performance-model",
+          "title": "Чому Python повільний і де саме",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "adaptive-interpreter-jit",
+          "title": "Спеціалізація й JIT у сучасному CPython",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "measurement",
+      "title": "Профілювання й витоки",
+      "topics": [
+        {
+          "slug": "profiling-cprofile",
+          "title": "Профілювання cProfile і timeit",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "tracemalloc-leaks",
+          "title": "tracemalloc і витік пам'яті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "c-boundary",
+      "title": "Межа з мовою C",
+      "topics": [
+        {
+          "slug": "c-extensions",
+          "title": "Розширення на C і Python/C API",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "ctypes-and-cffi",
+          "title": "ctypes і cffi",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
