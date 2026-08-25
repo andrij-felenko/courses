@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Запис стану транзитних повідомлень у FIFO-каналі зв'язку</text>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фіксація транзитних повідомлень у FIFO-каналі</text>
+<rect x="20.0" y="50.0" width="920.0" height="350.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="40.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Вузол A (відправник):</text>
+<line x1="40.0" y1="130.0" x2="900.0" y2="130.0" stroke="#333333" stroke-width="2.0"/>
+<text x="40.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Вузол B (отримувач):</text>
+<line x1="40.0" y1="290.0" x2="900.0" y2="290.0" stroke="#333333" stroke-width="2.0"/>
+<circle cx="120.0" cy="130.0" r="5.0" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="120.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">send(msg1)</text>
+<circle cx="260.0" cy="130.0" r="6.0" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="177.6" y="85.5" width="164.9" height="19.0" rx="6" fill="#e8f5e9" stroke="#c0392b" stroke-width="1.5"/><text x="260.0" y="98.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="260.0" dy="0.0">Знімок A + send(Marker)</tspan></text>
+<circle cx="460.0" cy="130.0" r="5.0" fill="#6b7280" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="460.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">send(msg2)</text>
+<circle cx="160.0" cy="290.0" r="6.0" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="36.7" y="315.5" width="246.7" height="19.0" rx="6" fill="#e1f5fe" stroke="#27ae60" stroke-width="1.5"/><text x="160.0" y="328.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="160.0" dy="0.0">Знімок B (старт запису каналу C_AB)</tspan></text>
+<circle cx="360.0" cy="290.0" r="5.0" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="360.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">recv(msg1)</text>
+<circle cx="620.0" cy="290.0" r="6.0" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="510.3" y="315.5" width="219.4" height="19.0" rx="6" fill="#e8f5e9" stroke="#c0392b" stroke-width="1.5"/><text x="620.0" y="328.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">recv(Marker) — стоп запису C_AB</tspan></text>
+<circle cx="780.0" cy="290.0" r="5.0" fill="#6b7280" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="780.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">recv(msg2)</text>
+<line x1="120.0" y1="130.0" x2="360.0" y2="290.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="116.1" y="191.8" width="207.8" height="16.5" rx="6" fill="#e8f5e9" stroke="#c0392b" stroke-width="1.5"/><text x="220.0" y="203.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="220.0" dy="0.0">msg1 (у польоті під час знімка)</tspan></text>
+<line x1="260.0" y1="130.0" x2="620.0" y2="290.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="293.5" y="206.8" width="272.9" height="16.5" rx="6" fill="#fff9db" stroke="#333333" stroke-width="1.5"/><text x="430.0" y="200.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="430.0" dy="0.0">Маркер M (кордон між минулим і майбутнім)</tspan></text>
+<line x1="460.0" y1="130.0" x2="780.0" y2="290.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="570.1" y="191.8" width="119.7" height="16.5" rx="6" fill="#f6f8fa" stroke="#6b7280" stroke-width="1.5"/><text x="630.0" y="203.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="630.0" dy="0.0">msg2 (після знімка)</tspan></text>
+<rect x="160.0" y="255.0" width="460.0" height="20.0" rx="3" fill="#e8f5e9" stroke="#c0392b" stroke-width="1.0"/>
+<text x="390.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ІНТЕРВАЛ ЗАПИСУ КАНАЛУ C_AB: фіксується стан = { msg1 }</text>
+</svg>

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Узгоджений та неузгоджений перерізи розподіленої системи</text>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Поняття перерізу розподіленої системи (Global Cut)</text>
+<rect x="20.0" y="50.0" width="450.0" height="400.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<rect x="30.0" y="60.0" width="430.0" height="36.0" rx="6" fill="#fdf2ee" stroke="#2457d6" stroke-width="1.5"/><text x="245.0" y="82.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="245.0" dy="0.0">Неузгоджений переріз (Inconsistent Cut)</tspan></text>
+<text x="35.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">P1</text>
+<line x1="60.0" y1="126.0" x2="450.0" y2="126.0" stroke="#333333" stroke-width="1.8"/>
+<text x="35.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">P2</text>
+<line x1="60.0" y1="206.0" x2="450.0" y2="206.0" stroke="#333333" stroke-width="1.8"/>
+<text x="35.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">P3</text>
+<line x1="60.0" y1="286.0" x2="450.0" y2="286.0" stroke="#333333" stroke-width="1.8"/>
+<circle cx="110.0" cy="126.0" r="5.0" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.2"/>
+<circle cx="310.0" cy="126.0" r="5.0" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="310.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">send(m1)</text>
+<circle cx="200.0" cy="206.0" r="5.0" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="200.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">recv(m1)</text>
+<circle cx="140.0" cy="286.0" r="5.0" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="310.0" y1="126.0" x2="200.0" y2="206.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="240.0" y1="100.0" x2="260.0" y2="170.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="260.0" y1="170.0" x2="240.0" y2="250.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="240.0" y1="250.0" x2="270.0" y2="320.0" stroke="#2457d6" stroke-width="2.5"/>
+<text x="255.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Переріз A (хибний)</text>
+<rect x="30.0" y="350.0" width="430.0" height="85.0" rx="6" fill="#fef8f6" stroke="#2457d6" stroke-width="1.5"/><text x="245.0" y="374.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="245.0" dy="0.0">Порушення причинності (наслідок без причини):</tspan><tspan x="245.0" dy="14.3">Подія recv(m1) потрапила у знімок на P2, але подія send(m1)</tspan><tspan x="245.0" dy="14.3">на P1 лишилася в майбутньому за межами перерізу.</tspan><tspan x="245.0" dy="14.3">Система зафіксувала отримання повідомлення-привида.</tspan></text>
+<rect x="490.0" y="50.0" width="450.0" height="400.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<rect x="500.0" y="60.0" width="430.0" height="36.0" rx="6" fill="#f2f8f4" stroke="#c0392b" stroke-width="1.5"/><text x="715.0" y="82.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="715.0" dy="0.0">Узгоджений переріз (Consistent Cut)</tspan></text>
+<text x="505.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">P1</text>
+<line x1="530.0" y1="126.0" x2="920.0" y2="126.0" stroke="#333333" stroke-width="1.8"/>
+<text x="505.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">P2</text>
+<line x1="530.0" y1="206.0" x2="920.0" y2="206.0" stroke="#333333" stroke-width="1.8"/>
+<text x="505.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">P3</text>
+<line x1="530.0" y1="286.0" x2="920.0" y2="286.0" stroke="#333333" stroke-width="1.8"/>
+<circle cx="580.0" cy="126.0" r="5.0" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="580.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">send(m2)</text>
+<circle cx="840.0" cy="206.0" r="5.0" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="840.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">recv(m2)</text>
+<circle cx="620.0" cy="286.0" r="5.0" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="580.0" y1="126.0" x2="840.0" y2="206.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="717.2" y="130.8" width="105.7" height="18.5" rx="6" fill="#e8f5e9" stroke="#c0392b" stroke-width="1.5"/><text x="770.0" y="143.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="770.0" dy="0.0">m2 у каналі C₁₂</tspan></text>
+<line x1="660.0" y1="100.0" x2="690.0" y2="170.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="690.0" y1="170.0" x2="660.0" y2="250.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="660.0" y1="250.0" x2="690.0" y2="320.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="675.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Переріз B (узгоджений)</text>
+<rect x="500.0" y="350.0" width="430.0" height="85.0" rx="6" fill="#f4faf6" stroke="#c0392b" stroke-width="1.5"/><text x="715.0" y="374.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="715.0" dy="0.0">Причинна замкненість (Causal Consistency):</tspan><tspan x="715.0" dy="14.3">Для кожної події в перерізі всі її причини також у перерізі.</tspan><tspan x="715.0" dy="14.3">Повідомлення m2 відправлене до перерізу, а отримане після нього,</tspan><tspan x="715.0" dy="14.3">тому m2 фіксується у стані каналу зв'язку C₁₂.</tspan></text>
+</svg>

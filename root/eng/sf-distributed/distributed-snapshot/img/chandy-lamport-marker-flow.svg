@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Поширення маркерів та фіксація станів каналів за алгоритмом Чанді-Лампорта</text>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритм Чанді-Лампорта: поширення маркерів та фіксація станів</text>
+<rect x="20.0" y="50.0" width="295.0" height="350.0" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<rect x="30.0" y="60.0" width="275.0" height="32.0" rx="6" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5"/><text x="167.5" y="80.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="167.5" dy="0.0">1. Ініціація на вузлі P1</tspan></text>
+<rect x="330.0" y="50.0" width="295.0" height="350.0" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<rect x="340.0" y="60.0" width="275.0" height="32.0" rx="6" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5"/><text x="477.5" y="80.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="477.5" dy="0.0">2. Отримання на вузлі P2</tspan></text>
+<rect x="640.0" y="50.0" width="295.0" height="350.0" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<rect x="650.0" y="60.0" width="275.0" height="32.0" rx="6" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5"/><text x="787.5" y="80.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="787.5" dy="0.0">3. Завершення знімка</tspan></text>
+<circle cx="70.0" cy="150.0" r="22.0" fill="#e1f5fe" stroke="#27ae60" stroke-width="2.0"/>
+<text x="70.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">P1</text>
+<text x="70.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Стан P1 збережено</text>
+<circle cx="250.0" cy="150.0" r="22.0" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="250.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">P2</text>
+<circle cx="160.0" cy="270.0" r="22.0" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="160.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">P3</text>
+<line x1="92.0" y1="150.0" x2="228.0" y2="150.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="132.2" y="127.0" width="55.6" height="16.0" rx="6" fill="#e8f5e9" stroke="#c0392b" stroke-width="1.5"/><text x="160.0" y="138.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="160.0" dy="0.0">Маркер M</tspan></text>
+<line x1="85.0" y1="168.0" x2="145.0" y2="252.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="98.9" y="212.0" width="12.2" height="16.0" rx="6" fill="#e8f5e9" stroke="#c0392b" stroke-width="1.5"/><text x="105.0" y="223.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="105.0" dy="0.0">M</tspan></text>
+<rect x="30.0" y="305.0" width="275.0" height="85.0" rx="6" fill="#fbfdff" stroke="#27ae60" stroke-width="1.5"/><text x="167.5" y="330.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="167.5" dy="0.0">• P1 фіксує власний локальний стан.</tspan><tspan x="167.5" dy="13.7">• P1 надсилає Маркер M в усі</tspan><tspan x="167.5" dy="13.7">  вихідні канали (C₁₂, C₁₃).</tspan><tspan x="167.5" dy="13.7">• P1 починає запис вхідних каналів.</tspan></text>
+<circle cx="380.0" cy="150.0" r="22.0" fill="#e1f5fe" stroke="#27ae60" stroke-width="2.0"/>
+<text x="380.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">P1</text>
+<circle cx="560.0" cy="150.0" r="22.0" fill="#e1f5fe" stroke="#27ae60" stroke-width="2.0"/>
+<text x="560.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">P2</text>
+<text x="560.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Стан P2 збережено</text>
+<circle cx="470.0" cy="270.0" r="22.0" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="470.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">P3</text>
+<line x1="402.0" y1="150.0" x2="538.0" y2="150.0" stroke="#333333" stroke-width="1.5" stroke-dasharray="3,3"/>
+<rect x="429.9" y="127.0" width="80.1" height="16.0" rx="6" fill="#f6f8fa" stroke="#6b7280" stroke-width="1.5"/><text x="470.0" y="138.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="470.0" dy="0.0">C₁₂: стан = ∅</tspan></text>
+<line x1="550.0" y1="168.0" x2="485.0" y2="252.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="502.2" y="212.0" width="55.6" height="16.0" rx="6" fill="#e8f5e9" stroke="#c0392b" stroke-width="1.5"/><text x="530.0" y="223.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="530.0" dy="0.0">Маркер M</tspan></text>
+<rect x="340.0" y="305.0" width="275.0" height="85.0" rx="6" fill="#fbfdff" stroke="#27ae60" stroke-width="1.5"/><text x="477.5" y="330.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="477.5" dy="0.0">• P2 вперше отримав M від P1.</tspan><tspan x="477.5" dy="13.7">• P2 фіксує свій локальний стан.</tspan><tspan x="477.5" dy="13.7">• Стан каналу C₁₂ фіксується як ∅.</tspan><tspan x="477.5" dy="13.7">• P2 ретранслює M у всі свої канали.</tspan></text>
+<circle cx="690.0" cy="150.0" r="22.0" fill="#e8f5e9" stroke="#c0392b" stroke-width="2.0"/>
+<text x="690.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">P1</text>
+<circle cx="870.0" cy="150.0" r="22.0" fill="#e8f5e9" stroke="#c0392b" stroke-width="2.0"/>
+<text x="870.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">P2</text>
+<circle cx="780.0" cy="270.0" r="22.0" fill="#e8f5e9" stroke="#c0392b" stroke-width="2.0"/>
+<text x="780.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">P3</text>
+<line x1="712.0" y1="150.0" x2="848.0" y2="150.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="705.0" y1="168.0" x2="765.0" y2="252.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="855.0" y1="168.0" x2="795.0" y2="252.0" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="694.6" y="185.8" width="170.8" height="18.5" rx="6" fill="#e8f5e9" stroke="#c0392b" stroke-width="1.5"/><text x="780.0" y="198.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="780.0" dy="0.0">Глобальний знімок готовий</tspan></text>
+<rect x="650.0" y="305.0" width="275.0" height="85.0" rx="6" fill="#f4faf6" stroke="#c0392b" stroke-width="1.5"/><text x="787.5" y="330.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="787.5" dy="0.0">• Усі вузли зберегли локальні стани.</tspan><tspan x="787.5" dy="13.7">• Кожен вузол отримав M з усіх</tspan><tspan x="787.5" dy="13.7">  своїх вхідних каналів.</tspan><tspan x="787.5" dy="13.7">• Знімок завершено без блокування!</tspan></text>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 896 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="896" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шкала TrueTime: інтервал невизначеності [earliest, latest]</text>
+<line x1="50.0" y1="230.0" x2="710.0" y2="230.0" stroke="#333333" stroke-width="2.0"/>
+<text x="720.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start">t (фізичний еталонний час)</text>
+<line x1="120.0" y1="225.0" x2="120.0" y2="235.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="260.0" y1="225.0" x2="260.0" y2="235.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="400.0" y1="225.0" x2="400.0" y2="235.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="540.0" y1="225.0" x2="540.0" y2="235.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="680.0" y1="225.0" x2="680.0" y2="235.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="425.0" y1="80.0" x2="425.0" y2="230.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4 3"/>
+<circle cx="425.0" cy="230.0" r="5.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="299.1" y="44.5" width="251.9" height="31.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="425.0" y="63.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="425.0" dy="0.0">t_real (істинний невідомий момент)</tspan></text>
+<rect x="240.0" y="145.0" width="280.0" height="36.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="380.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">t_local (показ лічильника)</text>
+<line x1="240.0" y1="133.0" x2="520.0" y2="133.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="240.0" y1="128.0" x2="240.0" y2="138.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="520.0" y1="128.0" x2="520.0" y2="138.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="380.0" y1="128.0" x2="380.0" y2="138.0" stroke="#333333" stroke-width="1.2"/>
+<text x="310.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#333333" text-anchor="middle" font-weight="700">−ε</text>
+<text x="450.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#333333" text-anchor="middle" font-weight="700">+ε</text>
+<line x1="240.0" y1="181.0" x2="240.0" y2="230.0" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="520.0" y1="181.0" x2="520.0" y2="230.0" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3 3"/>
+<circle cx="240.0" cy="230.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<circle cx="520.0" cy="230.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<text x="240.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">earliest = t_local − ε</text>
+<text x="520.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">latest = t_local + ε</text>
+<rect x="59.8" y="299.2" width="640.3" height="31.5" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="380.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">Фундаментальний інваріант: earliest ≤ t_real ≤ latest (похибка гарантовано обмежена ±ε)</tspan></text>
+</svg>

@@ -113,8 +113,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-two-generals.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-two-generals-proof.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "byzantine-fault-tolerance",
@@ -123,8 +135,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-pbft-node-interface.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-lamport-byzantine-generals.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-byzantine-bounds-and-quorums.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pbft-consensus.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },

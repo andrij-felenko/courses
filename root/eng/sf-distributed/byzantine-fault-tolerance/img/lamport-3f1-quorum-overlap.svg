@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 980 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="980" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Межа Лампорта та перетин кворумів у візантійських системах</text>
+<rect x="0.0" y="0.0" width="960.0" height="440.0" rx="6" fill="#ffffff" stroke="#ffffff" stroke-width="0.0"/>
+<text x="480.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Межа Лампорта N ≥ 3f + 1 та перетин візантійських кворумів</text>
+<rect x="30.0" y="55.0" width="895.0" height="365.0" rx="8" fill="#fafbfc" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="50.0" y="75.0" width="855.0" height="95.0" rx="6" fill="#ffffff" stroke="#b0b8c4" stroke-width="1.5"/>
+<text x="477.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Загальний пул реплік системи N = 3f + 1 (прикладом для f = 1 маємо N = 4)</text>
+<rect x="70.0" y="112.0" width="250.0" height="44.0" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.5"/>
+<text x="195.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Чесні вузли групи A (f + 1 = 2)</text>
+<rect x="350.0" y="112.0" width="250.0" height="44.0" rx="6" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="475.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Чесні вузли групи B (f = 1)</text>
+<rect x="630.0" y="112.0" width="270.0" height="44.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="765.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Візантійські вузли (f = 1, зрадники)</text>
+<rect x="50.0" y="190.0" width="410.0" height="210.0" rx="6" fill="#ffffff" stroke="#c3e6cb" stroke-width="1.5"/>
+<rect x="50.0" y="190.0" width="410.0" height="30.0" rx="6" fill="#e2f5e8" stroke="#c3e6cb" stroke-width="1.5"/>
+<text x="255.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Кворум Q1 (розмір 2f + 1 = 3)</text>
+<rect x="65.0" y="230.0" width="380.0" height="155.0" rx="6" fill="#f8fbf9" stroke="#d4edda" stroke-width="1.5"/><text x="255.0" y="293.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="255.0" dy="0.0">Властивість живучості (Liveness):</tspan><tspan x="255.0" dy="11.7">• Кворум складається з (f + 1) чесних вузлів A та f візантійських.</tspan><tspan x="255.0" dy="11.7">• Система не чекає на f вузлів групи B, бо вони можуть бути повільними або зупиненими.</tspan><tspan x="255.0" dy="11.7">• Розмір 2f + 1 гарантує завершення без участі f відсутніх вузлів.</tspan></text>
+<rect x="495.0" y="190.0" width="410.0" height="210.0" rx="6" fill="#ffffff" stroke="#b8daff" stroke-width="1.5"/>
+<rect x="495.0" y="190.0" width="410.0" height="30.0" rx="6" fill="#e3f0fd" stroke="#b8daff" stroke-width="1.5"/>
+<text x="700.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Перетин кворумів |Q1 ∩ Q2| ≥ f + 1</text>
+<rect x="510.0" y="230.0" width="380.0" height="155.0" rx="6" fill="#f7fafd" stroke="#cfe2ff" stroke-width="1.5"/><text x="700.0" y="293.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="700.0" dy="0.0">Властивість безпеки (Safety):</tspan><tspan x="700.0" dy="11.7">• Перетин: 2(2f + 1) - (3f + 1) = f + 1 вузол.</tspan><tspan x="700.0" dy="11.7">• Навіть якщо всі f візантійських вузлів голосують двічі й брешуть у двох кворумах одночасно,</tspan><tspan x="700.0" dy="11.7">у перетині лишається (f + 1) - f = 1 чесний вузол, який унеможливить два різні рішення.</tspan></text>
+</svg>

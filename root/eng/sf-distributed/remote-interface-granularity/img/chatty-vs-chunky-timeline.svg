@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1130 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1130" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="20.0" width="1040.0" height="44.0" rx="6" fill="#e8f0fe" stroke="#333333" stroke-width="1.5"/><text x="560.0" y="46.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="560.0" dy="0.0">БАЛАКУЧИЙ (CHATTY) ПРОТИ ПАКЕТОВАНОГО (CHUNKY) ІНТЕРФЕЙСУ НА ШКАЛІ ЧАСУ</tspan></text>
+<rect x="40.0" y="75.0" width="505.0" height="410.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="292.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Балакучий інтерфейс (5 послідовних RPC)</text>
+<text x="292.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Сумарна затримка: 5 × (RTT + системні витрати) ≈ 510 мс</text>
+<rect x="55.0" y="145.0" width="160.0" height="42.0" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="135.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт (Потік)</text>
+<line x1="220.0" y1="159.0" x2="350.0" y2="159.0" stroke="#c0392b" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="285.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Пакет 1</text>
+<line x1="350.0" y1="175.0" x2="220.0" y2="175.0" stroke="#27ae60" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="285.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">RTT: 50 мс</text>
+<rect x="355.0" y="145.0" width="175.0" height="42.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="442.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">getUserProfile(id)</text>
+<text x="442.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">обробка: ~1 мс</text>
+<rect x="55.0" y="203.0" width="160.0" height="42.0" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="135.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт (Потік)</text>
+<line x1="220.0" y1="217.0" x2="350.0" y2="217.0" stroke="#c0392b" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="285.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Пакет 2</text>
+<line x1="350.0" y1="233.0" x2="220.0" y2="233.0" stroke="#27ae60" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="285.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">RTT: 50 мс</text>
+<rect x="355.0" y="203.0" width="175.0" height="42.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="442.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">getUserAddress(id)</text>
+<text x="442.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">обробка: ~1 мс</text>
+<rect x="55.0" y="261.0" width="160.0" height="42.0" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="135.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт (Потік)</text>
+<line x1="220.0" y1="275.0" x2="350.0" y2="275.0" stroke="#c0392b" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="285.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Пакет 3</text>
+<line x1="350.0" y1="291.0" x2="220.0" y2="291.0" stroke="#27ae60" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="285.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">RTT: 50 мс</text>
+<rect x="355.0" y="261.0" width="175.0" height="42.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="442.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">getUserOrders(id)</text>
+<text x="442.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">обробка: ~1 мс</text>
+<rect x="55.0" y="319.0" width="160.0" height="42.0" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="135.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт (Потік)</text>
+<line x1="220.0" y1="333.0" x2="350.0" y2="333.0" stroke="#c0392b" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="285.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Пакет 4</text>
+<line x1="350.0" y1="349.0" x2="220.0" y2="349.0" stroke="#27ae60" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="285.0" y="361.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">RTT: 50 мс</text>
+<rect x="355.0" y="319.0" width="175.0" height="42.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="442.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">getOrderItems(orderId)</text>
+<text x="442.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">обробка: ~1 мс</text>
+<rect x="55.0" y="377.0" width="160.0" height="42.0" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="135.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт (Потік)</text>
+<line x1="220.0" y1="391.0" x2="350.0" y2="391.0" stroke="#c0392b" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="285.0" y="387.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Пакет 5</text>
+<line x1="350.0" y1="407.0" x2="220.0" y2="407.0" stroke="#27ae60" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="285.0" y="419.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">RTT: 50 мс</text>
+<rect x="355.0" y="377.0" width="175.0" height="42.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="442.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">getDiscountLevel(id)</text>
+<text x="442.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">обробка: ~1 мс</text>
+<rect x="55.0" y="442.0" width="475.0" height="34.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="292.5" y="462.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle"><tspan x="292.5" dy="0.0">5 переходів через ядро OS, 5 черг TCP, ризик обриву на кожному кроці</tspan></text>
+<rect x="575.0" y="75.0" width="505.0" height="410.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="827.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Пакетований віддалений фасад (1 Chunky RPC)</text>
+<text x="827.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Сумарна затримка: 1 × RTT + паралельна обробка ≈ 103 мс</text>
+<rect x="590.0" y="150.0" width="140.0" height="260.0" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="660.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт</text>
+<text x="660.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">1 блокування
+на сокеті</text>
+<line x1="735.0" y1="200.0" x2="810.0" y2="200.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="772.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">getDashboard()</text>
+<line x1="810.0" y1="360.0" x2="735.0" y2="360.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="772.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">DashboardDTO (100 мс RTT)</text>
+<rect x="815.0" y="145.0" width="250.0" height="270.0" rx="6" fill="#f8f9fa" stroke="#27ae60" stroke-width="1.4"/>
+<text x="940.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Сервер: Remote Facade</text>
+<rect x="825.0" y="185.0" width="230.0" height="32.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.0"/>
+<text x="940.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">In-Memory Profile Fetch (10 мкс)</text>
+<rect x="825.0" y="225.0" width="230.0" height="32.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.0"/>
+<text x="940.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">In-Memory Address Lookup (8 мкс)</text>
+<rect x="825.0" y="265.0" width="230.0" height="32.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.0"/>
+<text x="940.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">In-Memory Orders Query (500 мкс)</text>
+<rect x="825.0" y="305.0" width="230.0" height="32.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.0"/>
+<text x="940.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">In-Memory Items Extraction (20 мкс)</text>
+<rect x="825.0" y="345.0" width="230.0" height="32.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.0"/>
+<text x="940.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">In-Memory Discount Calc (5 мкс)</text>
+<rect x="590.0" y="442.0" width="475.0" height="34.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/><text x="827.5" y="462.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle"><tspan x="827.5" dy="0.0">1 перехід через мережу; вся композиція виконується в локальній пам'яті</tspan></text>
+<rect x="40.0" y="498.0" width="1040.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="560.0" y="518.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">Висновок: об'єднання дрібних запитів у консолідований фасад скорочує накладні витрати на 80%,</tspan><tspan x="560.0" dy="15.0">ліквідує черги в сокетах і зводить імовірність мережевого збою до одного кругового рейсу.</tspan></text>
+</svg>
