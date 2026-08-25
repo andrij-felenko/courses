@@ -1,0 +1,288 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-lang",
+  "slug": "linking-and-runtime",
+  "title": "Зв'язування й рантайм",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "symbols-and-linkage",
+      "title": "Символи й зв'язування",
+      "topics": [
+        {
+          "slug": "linking",
+          "title": "Лінкування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-linker-errors.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "translation-unit",
+          "title": "Одиниця трансляції та зв'язування: static, extern, inline",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-inline-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-init-order-fiasco.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "weak-symbols",
+          "title": "Слабкі символи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "weak-symbol",
+          "title": "Слабкий символ і перевизначення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dynamic-linking",
+          "title": "Динамічне лінкування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "program-image",
+      "title": "Образ програми",
+      "topics": [
+        {
+          "slug": "elf-format",
+          "title": "ELF-формат прошивки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-elf-origin.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-dwarf.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "elf-image",
+          "title": "ELF-образ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "firmware-image",
+          "title": "Образ прошивки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-image-checksums.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-firmware-version.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-map-file.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-size-opt.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "linker-script",
+          "title": "Лінкер-скрипт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "runtime",
+      "title": "Рантайм",
+      "topics": [
+        {
+          "slug": "c-runtime",
+          "title": "C-рантайм",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-newlib-syscalls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cpp-static-init-order",
+          "title": "Static initialization order fiasco",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "newlib",
+          "title": "newlib — libc для вбудованих систем",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "binary-interface",
+      "title": "Двійковий інтерфейс",
+      "topics": [
+        {
+          "slug": "abi-calling-convention",
+          "title": "ABI та calling convention",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cpp-abi.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-struct-packing.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "foreign-function-interface",
+          "title": "Виклик рідного коду з іншої мови (FFI)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ffi-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-c-bridge-memory.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-libffi-dynamic-call.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "inline-assembly",
+          "title": "Вбудований асемблер у C/C++",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-inline-asm-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-benchmark-barrier.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-extended-asm-constraints.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

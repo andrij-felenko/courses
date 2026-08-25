@@ -1,0 +1,316 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-lang",
+  "slug": "data-in-memory",
+  "title": "Дані в пам'яті",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "integers",
+      "title": "Цілі числа",
+      "topics": [
+        {
+          "slug": "overflow-wraparound",
+          "title": "Переповнення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ariane5.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-overflow-checks.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sign-extension",
+          "title": "Знакове розширення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "integer-types-c",
+          "title": "Цілі типи в C/C++",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "integer-promotion",
+          "title": "Просування цілих типів у C/C++",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "saturating-arithmetic",
+          "title": "Насичувальна арифметика",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mmx-dsp.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-saturate-clamp.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "arbitrary-precision",
+          "title": "Довга арифметика",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-bignum.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-division-estimate.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bignum-c.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "pointers-and-layout",
+      "title": "Покажчики й розкладка",
+      "topics": [
+        {
+          "slug": "addresses-pointers",
+          "title": "Адреси й покажчики",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-heartbleed.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pointer-arithmetic.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "function-pointers",
+          "title": "Покажчики на функції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "pointer-aliasing",
+          "title": "Аліасинг покажчиків і UB",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "c-bitfields",
+          "title": "Бітові поля в C/C++ і їхня розкладка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "stack",
+      "title": "Стек",
+      "topics": [
+        {
+          "slug": "stack-lifo",
+          "title": "Стек",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-stack-painting.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-stack-watermark.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "stack-overflow",
+          "title": "Переповнення стека",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "comp-history-mpu.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-morris-worm.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-mpu.md",
+              "status": "done"
+            },
+            {
+              "file": "comp-history-mpu.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "task-stacks",
+          "title": "Стеки задач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-no-free.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-stack-overflow.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "heap",
+      "title": "Купа",
+      "topics": [
+        {
+          "slug": "heap-dynamic-memory",
+          "title": "Купа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-fragmentation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-block-pools.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-toy-allocator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "memory-allocator-internals",
+          "title": "Внутрішня будова алокатора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "memory-fragmentation",
+          "title": "Фрагментація пам'яті: зовнішня і внутрішня",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "memory-leak",
+          "title": "Витік пам'яті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

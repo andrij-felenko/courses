@@ -1,0 +1,286 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-lang",
+  "slug": "optimization-and-guarantees",
+  "title": "Оптимізація й гарантії",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "guarantees-and-undefined",
+      "title": "Гарантії й невизначеність",
+      "topics": [
+        {
+          "slug": "as-if-rule",
+          "title": "Правило «ніби» (as-if rule)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-as-if.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-as-if-defeat.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "undefined-behavior",
+          "title": "Невизначена поведінка (UB)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-nasal-demons.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-null-check-removal.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "strict-aliasing",
+          "title": "Суворе аліасування (strict aliasing)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-gcc-strict-aliasing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-restrict.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "volatile",
+          "title": "volatile",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-volatile-asm.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "unsigned-overflow",
+          "title": "Беззнакове переповнення і модульна арифметика",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-modular-patterns.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "code-transformations",
+      "title": "Перетворення коду",
+      "topics": [
+        {
+          "slug": "compiler-optimizations",
+          "title": "Оптимізації компілятора",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-frances-allen.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dataflow-analysis",
+          "title": "Аналіз потоків даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gary-kildall.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-monotone-framework.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-iterative-solver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "inlining",
+          "title": "Інлайнінг функцій (Function Inlining)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "zero-cost-abstractions",
+          "title": "Абстракції без витрат: шаблони й inline",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-zero-overhead.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-monomorphization.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "link-time-optimization",
+          "title": "Оптимізація на етапі лінкування (LTO)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lto-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cross-tu-inline.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-lto-flags.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "instrumentation",
+      "title": "Інструментування",
+      "topics": [
+        {
+          "slug": "dynamic-sanitizers",
+          "title": "Динамічні санітайзери: ASan, TSan, MSan, UBSan",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-valgrind-to-asan.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-shadow-memory.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-flags-and-options.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "profile-guided-optimization",
+          "title": "Оптимізація за профілем виконання (PGO)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pgo-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pgo-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pgo-toolchains.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

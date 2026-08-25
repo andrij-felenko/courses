@@ -1,0 +1,452 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-lang",
+  "slug": "compiler-internals",
+  "title": "Пристрій перекладача",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "translator-passes",
+      "title": "Проходи перекладача",
+      "topics": [
+        {
+          "slug": "compilation",
+          "title": "Компіляція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-grace-hopper.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "compiler-stages",
+          "title": "Стадії компілятора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-gcc.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-optimizer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lexer-design",
+          "title": "Лексичний аналіз",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-lex-yacc.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "llvm-clang",
+          "title": "LLVM і Clang",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-llvm-clang.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "compiler-bootstrapping",
+          "title": "Самопідняття компілятора (bootstrapping)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-bootstrap-origins.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-trusting-trust.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-cross-compiler.md",
+              "status": "done"
+            },
+            {
+              "file": "comp-reproducible-builds.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gcc-bootstrap.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "parsing",
+      "title": "Розбір тексту",
+      "topics": [
+        {
+          "slug": "abstract-syntax-tree",
+          "title": "Абстрактне синтаксичне дерево (AST)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ast-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tree-traversal.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ast-parser.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "shunting-yard",
+          "title": "Сортувальна станція Дейкстри",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-shunting-yard.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-operator-precedence.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-shunting-evaluator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cyk-algorithm",
+          "title": "Алгоритм Кока–Янгера–Касамі (CYK)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cocke-younger-kasami.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cnf-and-complexity.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cyk-parser.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cnf-grammar.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "regular-expressions",
+          "title": "Регулярні вирази: BRE, ERE, PCRE",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "ir-and-analysis",
+      "title": "Проміжне подання й аналіз",
+      "topics": [
+        {
+          "slug": "intermediate-representation",
+          "title": "Проміжне представлення (IR)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-uncol.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "control-flow-graph",
+          "title": "Граф потоку керування (CFG)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "single-static-assignment",
+          "title": "Форма єдиного статичного присвоєння (SSA)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dominator-tree",
+          "title": "Дерево домінування (Dominator Tree)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "register-allocation",
+          "title": "Розподіл регістрів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-register-allocation.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-register-allocation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-register-allocation.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "code-over-code",
+      "title": "Код над кодом",
+      "topics": [
+        {
+          "slug": "preprocessor-macros",
+          "title": "Препроцесор і макроси",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-preprocessor-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-xmacros.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-preprocessor.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "constexpr",
+          "title": "constexpr: обчислення на етапі компіляції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-constexpr.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-constexpr-lut.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-constexpr-specifiers.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "reflection-metaprogramming",
+          "title": "Рефлексія й метапрограмування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-reflection-mop.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-metaobject-system.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-reflection-matrix.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "static-assert",
+          "title": "Перевірки на етапі компіляції (_Static_assert)",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "bytecode-and-vms",
+      "title": "Байткод і віртуальні машини",
+      "topics": [
+        {
+          "slug": "bytecode-vm",
+          "title": "Байткод і віртуальна машина",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pcode-jvm.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "jit-compilation",
+          "title": "JIT-компіляція: машинний код, породжений під час виконання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dynamic-translation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-jit-engine.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

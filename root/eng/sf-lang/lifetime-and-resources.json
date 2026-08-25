@@ -1,0 +1,150 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-lang",
+  "slug": "lifetime-and-resources",
+  "title": "Час життя й ресурси",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "construction-and-release",
+      "title": "Створення і звільнення",
+      "topics": [
+        {
+          "slug": "constructors-destructors",
+          "title": "Конструктор і деструктор: народження й смерть об'єкта",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-constructors-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-placement-new-pool.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "raii",
+          "title": "RAII: ресурс прив'язаний до часу життя",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-raii-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-custom-handle.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "ownership",
+      "title": "Володіння й збирання",
+      "topics": [
+        {
+          "slug": "rust-ownership",
+          "title": "Модель власності Rust",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-rust-origins.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "reference-counting",
+          "title": "Підрахунок посилань",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-refcounting-origins.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-shared-ptr.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "weak-references",
+          "title": "Слабкі й м'які посилання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "garbage-collection",
+          "title": "Збирання сміття",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "nonlocal-exit",
+      "title": "Нелокальний вихід",
+      "topics": [
+        {
+          "slug": "exception-safety",
+          "title": "Гарантії цілості при винятках",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "nonlocal-jump",
+          "title": "Нелокальний перехід: setjmp і longjmp",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

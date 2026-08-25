@@ -1,0 +1,284 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-lang",
+  "slug": "paradigms-and-semantics",
+  "title": "Парадигми й семантика",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "paradigms",
+      "title": "Парадигми",
+      "topics": [
+        {
+          "slug": "declarative-vs-imperative",
+          "title": "Декларативне й імперативне",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-declarative-lineage.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-declarative-query-engine.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "first-class-functions",
+          "title": "Функції як значення першого класу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-strachey.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-closure-runtime.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "lazy-evaluation",
+          "title": "Ліниве обчислення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lazy-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-reduction-order.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-thunk-runtime.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "closures",
+          "title": "Замикання: функція разом із захопленим оточенням",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "names-and-types",
+      "title": "Імена й типи",
+      "topics": [
+        {
+          "slug": "variable-scope",
+          "title": "Область видимості змінної: де ім'я має значення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-algol-lisp-scoping.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-nested-symbol-table.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "static-vs-dynamic-typing",
+          "title": "Статична й динамічна типізація: коли виявляється помилка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hindley-milner.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-nan-boxing.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "type-inference",
+          "title": "Виведення типів: як компілятор здогадується сам",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hindley-milner.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-unification.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-algorithm-w.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "values-and-references",
+      "title": "Значення й посилання",
+      "topics": [
+        {
+          "slug": "deep-shallow-copy",
+          "title": "Глибока й поверхнева копія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "value-equality-identity",
+          "title": "Рівність значень і тотожність посилань",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "sentinel-values",
+          "title": "Вартові значення: як позначити «нічого» всередині типу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-billion-dollar-mistake.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-niche-filling.md",
+              "status": "recheck"
+            },
+            {
+              "file": "proj-sentinel-nodes.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "language-portraits",
+      "title": "Портрети мов",
+      "topics": [
+        {
+          "slug": "lisp",
+          "title": "Lisp: програма як список",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lisp-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mini-lisp.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-macro-toolkit.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "tcl",
+          "title": "Tcl",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-shell-origins.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-embed-interp.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

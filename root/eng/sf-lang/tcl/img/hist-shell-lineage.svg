@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 476" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="476" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Родовід підстановки: труба → зворотні лапки Борна → дужки Tcl</text>
+<text x="44.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">Труба «|» — потік між двома процесами</text>
+<rect x="44.0" y="68.0" width="792.0" height="92.0" rx="10" fill="#eef2fb" stroke="#2457d6" stroke-width="1.8"/>
+<rect x="86.0" y="88.0" width="250.0" height="40.0" rx="6" fill="#13202a" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="211.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#eef6ef" text-anchor="middle" font-weight="700">процес A</text>
+<rect x="544.0" y="88.0" width="250.0" height="40.0" rx="6" fill="#13202a" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="669.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#eef6ef" text-anchor="middle" font-weight="700">процес B</text>
+<text x="440.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">потік даних</text>
+<line x1="348.0" y1="114.0" x2="532.0" y2="114.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="440.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">вихід A стає входом B; обидва живуть паралельно, дані течуть потоком</text>
+<text x="44.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7a6312" text-anchor="start" font-weight="700">Оболонка Борна (1979): зворотні лапки — вихід у рядок</text>
+<rect x="44.0" y="210.0" width="792.0" height="92.0" rx="10" fill="#f6f4ec" stroke="#7a6312" stroke-width="1.8"/>
+<rect x="86.0" y="230.0" width="250.0" height="40.0" rx="6" fill="#13202a" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="211.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#eef6ef" text-anchor="middle" font-weight="700">`date`</text>
+<rect x="544.0" y="230.0" width="250.0" height="40.0" rx="6" fill="#13202a" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="669.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#eef6ef" text-anchor="middle" font-weight="700">echo &quot;сьогодні …&quot;</text>
+<text x="440.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7a6312" text-anchor="middle" font-weight="700">текст у рядок</text>
+<line x1="348.0" y1="256.0" x2="532.0" y2="256.0" stroke="#7a6312" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="440.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">команду виконати, її ВИХІД вставити в рядок як звичайні слова</text>
+<text x="44.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Tcl (1988): квадратні дужки — те саме, але в повній мові</text>
+<rect x="44.0" y="352.0" width="792.0" height="92.0" rx="10" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="86.0" y="372.0" width="250.0" height="40.0" rx="6" fill="#13202a" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="211.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#eef6ef" text-anchor="middle" font-weight="700">[clock format …]</text>
+<rect x="544.0" y="372.0" width="250.0" height="40.0" rx="6" fill="#13202a" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="669.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#eef6ef" text-anchor="middle" font-weight="700">set d …</text>
+<text x="440.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">текст у рядок</text>
+<line x1="348.0" y1="398.0" x2="532.0" y2="398.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="440.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">один із дванадцяти базових приписів мови, а не трюк терміналу</text>
+<text x="440.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спільне трьох шарів: вихід команди повертається як текст. Різне: глибина того, у що рядок розгортається.</text>
+</svg>

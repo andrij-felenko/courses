@@ -1,0 +1,178 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-lang",
+  "slug": "types-and-polymorphism",
+  "title": "Типи й поліморфізм",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "type-relations",
+      "title": "Спорідненість типів",
+      "topics": [
+        {
+          "slug": "polymorphism",
+          "title": "Поліморфізм і динамічне зв'язування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cardelli-wegner.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-virtual-dispatch.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "inheritance",
+          "title": "Спадкування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-simula-cfront.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-c3-linearization.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-subobject-offsets.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "abstract-class",
+          "title": "Абстрактний клас і метод",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pure-virtual.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pure-virtual-crash.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "object-system-in-c",
+          "title": "Об'єктна система поверх C: клас, примірник, реєстрація типу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gobject-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dynamic-vtable-runtime.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-gobject-kobject-core.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "substitution",
+      "title": "Підстановка типів",
+      "topics": [
+        {
+          "slug": "covariance-contravariance",
+          "title": "Коваріантність і контраваріантність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "behavioral-subtyping",
+          "title": "Поведінкова підтипізація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "type-erasure",
+          "title": "Стирання типу: один параметр замість переліку типів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "overloading",
+      "title": "Перевантаження й вибір виклику",
+      "topics": [
+        {
+          "slug": "function-overloading",
+          "title": "Перевантаження функцій і вибір найкращого кандидата",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "operator-overloading",
+          "title": "Перевантаження операторів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
