@@ -17,7 +17,7 @@ export const meta = {
 let _a = args
 if (typeof _a === 'string') { try { _a = JSON.parse(_a) } catch (e) { _a = {} } }
 const BOOK = _a && _a.book ? String(_a.book) : ''
-const KIND = (_a && _a.kind) || 'book'             // book | catalog | reference | guide (= назва теки верхнього рівня)
+let KIND = (_a && _a.kind) || 'book'          // v7: перевизначиться з дерева, щойно знайдемо книгу             // book | catalog | reference | guide (= назва теки верхнього рівня)
 const SELF = KIND === 'guide' ? 'guide' : 'book'   // префікс лінка на ВЛАСНУ книгу/курс (§6: префікс завжди topic:)
 // Рівень версій. ДЕФОЛТ — МІШАНИЙ батч: спершу добираємо detailed-pending, тоді basic-pending добиває
 // решту до LIMIT (детальна — ОСНОВНА версія §3: <slug>-d.md; базова <slug>.md лишається великим хвостом).
@@ -84,6 +84,7 @@ if (SKIP_ARTICLES && !UNITS_IN) throw new Error('skipArticles потребує a
 const ROOT = 'E:\\develop\\courses'
 const M7 = require(`${ROOT}\\scripts\\lib\\manifest7.js`)
 const BOOKDIR = M7.bookDirOf(BOOK)                  // root/<вид>/<книга> — вид випливає з книги
+KIND = (M7.books().get(BOOK) || {}).kind || KIND   // вид книги — зі shelf.json
 const KINDDIR = BOOKDIR ? require('path').basename(require('path').dirname(BOOKDIR)) : '?'   // тека виду — лише для абсолютних img-шляхів
 const MF = BOOKDIR ? require('path').relative(ROOT, BOOKDIR).replace(/\\/g, '/') + '/manifest.json' : `root/?/${BOOK}/manifest.json`
 const MFWIN = `${ROOT}\\${MF.replace(/\//g, '\\')}`
@@ -93,7 +94,7 @@ const LIMIT_WAIT = 10 * 60 * 1000, LIMIT_MAX = 48   // стара поведін
 const PROBE_WAIT = 5 * 60 * 1000                    // контрольна пауза перед вироком «стіна» (див. callAgent)
 
 // опційні правила книги/курсу/каталогу: якщо у корені є _canon.md — читаємо ПЕРШОЮ дією й тримаємось (перевага над загальним)
-const RULESNOTE = `\n\n📕 ADDITIONAL RULES for this ${KIND === 'guide' ? 'course' : KIND === 'catalog' ? 'catalog book' : KIND === 'reference' ? 'reference book' : 'book'} (optional). AS YOUR FIRST ACTION, Bash-check whether the file ${ROOT}\\${KIND}\\${BOOK}\\_canon.md exists. IF IT DOES — READ it IN FULL and follow it strictly: these are rules specific to «${BOOK}» on top of the general canon (a running example, unified terms and names, the language of examples, stylistic conventions); where _canon refines the general rule — _canon WINS. IF the file is ABSENT — there are no additional rules for this book, write by the general canon.`
+const RULESNOTE = `\n\n📕 ADDITIONAL RULES for this ${KIND === 'guide' ? 'course' : KIND === 'catalog' ? 'catalog book' : KIND === 'reference' ? 'reference book' : 'book'} (optional). AS YOUR FIRST ACTION, Bash-check whether the file ${BOOKDIR}\\_canon.md exists. IF IT DOES — READ it IN FULL and follow it strictly: these are rules specific to «${BOOK}» on top of the general canon (a running example, unified terms and names, the language of examples, stylistic conventions); where _canon refines the general rule — _canon WINS. IF the file is ABSENT — there are no additional rules for this book, write by the general canon.`
 
 /* ── Канон письма (загальні правила; повне — AUTHORING.md) ── */
 const CANON = `WRITING CANON (condensed; full — ${ROOT}\\AUTHORING.write.en.md). ⚠️ OUTPUT LANGUAGE: the article/insert prose is written in UKRAINIAN — the rules below are in English, the text you produce is Ukrainian (see «Living Ukrainian»).
@@ -163,7 +164,7 @@ async function callAgent(prompt, opts) {
         if (!WALL) {
           WALL = { label: (opts && opts.label) || '?', at: emsg.slice(0, 120) }
           log(`⛔ СТІНА ЛІМІТУ на «${WALL.label}» — після контрольної спроби тиша. Прогін ЗУПИНЯЮ, нові агенти не стартують.`)
-          log(`   Написане лишається на диску. Стан підняти локально: node scripts\\batch-state.js --book ${BOOK} --kind ${KIND}`)
+          log(`   Написане лишається на диску. Стан підняти локально: node scripts\\batch-state.js --book ${BOOK}`)
         }
         return null
       }
@@ -547,10 +548,10 @@ if (OPS.size) {
 phase('Контроль')
   const ctrl = await callAgent(
     `Ти — агент-контролер якості у репо ${ROOT}. Працюй МОВЧКИ (лише Bash). НІЧОГО НЕ ПИШИ й НЕ ПРАВ — тільки перевір і звітуй.
-Цей батч написав теми (${BOOK}), теки (відносно кореня репо): ${JSON.stringify(DONE_DIRS.map((d) => `${KIND}/${BOOK}/${d}`))}
-ПЕРЕВІРКА 1 — ОБСЯГ §3: Bash «node ${ROOT}\\scripts\\wordcount.js ${KIND}/${BOOK} --all». У виводі знайди ЛИШЕ файли з ТЕК цього батчу, що позначені як поза смугою (замало/забагато слів за §3: базова 500–1200, детальна 1000–6500, вставка 400–5000; допуск ±10%, у виводі це «~» — не порушення). ОКРЕМО подивись блок «ПАРИ базова↔детальна»: рядок «✖ ПОРУШЕННЯ» для теми ЦЬОГО батчу — це порушення заліза §3 (базова МУСИТЬ бути ≤ ½ прози своєї детальної); занось його у problems як issue «базова >½ детальної (NN%) — скоротити базову або basic:empty».
-ПЕРЕВІРКА 2 — ФІГУРИ: для КОЖНОЇ теки батчу зроби Bash «python ${ROOT}\\scripts\\svgcheck.py ${ROOT}\\${KIND}\\${BOOK}\\<секція>\\<slug> --min-font 8» і знайди фігури «із зауваженнями» (не 0).
-ПЕРЕВІРКА 3 — МОВА КОДУ (§5: є C — має бути й C++): для КОЖНОЇ теки батчу зроби Bash «node ${ROOT}\\scripts\\checks\\17-cpp.js ${KIND}/${BOOK}/<секція>/<slug>». Код 0 — гаразд. Код 2 — скрипт перелічив C-блоки без пари C++; занось КОЖЕН рядок переліку у problems як issue «C-блок без вкладки C++ — §5». ВИНЯТКИ §5, які НЕ є порушенням і в problems не йдуть (перевір сам, глянувши блок): код простору ядра (#include <linux/…>, MODULE_LICENSE, збірка в .ko) · приклад про сам C як мову (препроцесор, ABI, _Generic) · чужий заголовок, показаний як цитата · випадок, коли після перекладу різнились би лише рядки #include (сирий syscall()/ioctl() над POSIX-структурою). Не виправляй — лише назви.
+Цей батч написав теми (${BOOK}), теки (відносно кореня репо): ${JSON.stringify(DONE_DIRS.map((d) => `${require('path').relative(ROOT, BOOKDIR).replace(/\\\\/g, '/')}/${d}`))}
+ПЕРЕВІРКА 1 — ОБСЯГ §3: Bash «node ${ROOT}\\scripts\\wordcount.js ${BOOKDIR} --all». У виводі знайди ЛИШЕ файли з ТЕК цього батчу, що позначені як поза смугою (замало/забагато слів за §3: базова 500–1200, детальна 1000–6500, вставка 400–5000; допуск ±10%, у виводі це «~» — не порушення). ОКРЕМО подивись блок «ПАРИ базова↔детальна»: рядок «✖ ПОРУШЕННЯ» для теми ЦЬОГО батчу — це порушення заліза §3 (базова МУСИТЬ бути ≤ ½ прози своєї детальної); занось його у problems як issue «базова >½ детальної (NN%) — скоротити базову або basic:empty».
+ПЕРЕВІРКА 2 — ФІГУРИ: для КОЖНОЇ теки батчу зроби Bash «python ${ROOT}\\scripts\\svgcheck.py ${BOOKDIR}\\<slug> --min-font 8» і знайди фігури «із зауваженнями» (не 0).
+ПЕРЕВІРКА 3 — МОВА КОДУ (§5: є C — має бути й C++): для КОЖНОЇ теки батчу зроби Bash «node ${ROOT}\\scripts\\checks\\17-cpp.js ${BOOKDIR}/<slug>». Код 0 — гаразд. Код 2 — скрипт перелічив C-блоки без пари C++; занось КОЖЕН рядок переліку у problems як issue «C-блок без вкладки C++ — §5». ВИНЯТКИ §5, які НЕ є порушенням і в problems не йдуть (перевір сам, глянувши блок): код простору ядра (#include <linux/…>, MODULE_LICENSE, збірка в .ko) · приклад про сам C як мову (препроцесор, ABI, _Generic) · чужий заголовок, показаний як цитата · випадок, коли після перекладу різнились би лише рядки #include (сирий syscall()/ioctl() над POSIX-структурою). Не виправляй — лише назви.
 Поверни problems:[{file, issue}] — лише РЕАЛЬНІ порушення у теках цього батчу (порожньо, якщо все гаразд). НЕ виправляй.`,
     { label: 'контроль', phase: 'Контроль', model: 'sonnet', schema: CTRL_RET })
   PROBLEMS = (ctrl && ctrl.problems) || []
@@ -565,8 +566,8 @@ const svgUnresolved = svgResults.filter((r) => !r.ok).map((r) => r.d)
 const PLANNED = WORK.length + BASIC_FROM_DETAILED.length     // скаут + базові, додані етапом «Детальні»
 if (WALL) {
   log(`⛔ ПРОГІН ОБІРВАНО СТІНОЮ ЛІМІТУ (на «${WALL.label}»). Написане — на диску, але фази «Фігури» й «Маніфест» НЕ відпрацювали:`)
-  log(`   1) node scripts\\batch-state.js --book ${BOOK} --kind ${KIND}          → що готове / чого бракує + payload на доробку`)
-  log(`   2) node scripts\\batch-state.js --book ${BOOK} --kind ${KIND} --apply  → зареєструвати написане в маніфесті (локально, без агентів)`)
+  log(`   1) node scripts\\batch-state.js --book ${BOOK}          → що готове / чого бракує + payload на доробку`)
+  log(`   2) node scripts\\batch-state.js --book ${BOOK} --apply  → зареєструвати написане в маніфесті (локально, без агентів)`)
   log(`   Відновлювати прогін — лише за твоєю командою, свіжим батчем зі скриптовим payload.`)
 }
 return { aborted: !!WALL, wall: WALL || undefined, book: BOOK, kind: KIND, level: FORCE_LEVEL || 'mixed', byLevel: { detailed: doneArticles.filter((u) => u.level === 'detailed').length, basic: doneArticles.filter((u) => u.level === 'basic').length }, scouted: WORK.length, basicFromDetailed: BASIC_FROM_DETAILED.length, basicKept: BASIC_KEPT.length, articles: okN, articlesFailed: Math.max(0, PLANNED - okN - BASIC_EMPTY.length), basicSkipped: BASIC_EMPTY.length, basicNotNeeded: BASIC_NOT_NEEDED.length, inserts: insWritten, insertsRegisteredOnly: (INSERTS_DONE_IN || []).length, insertsFailed: INSERTS.length - insWritten, newTopics: NEWTOPICS.length, detailedQueued: DETAILED_QUEUE.length, svgFixed: svgFixedTotal, svgUnresolved, problems: PROBLEMS }

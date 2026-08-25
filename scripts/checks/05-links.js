@@ -75,10 +75,10 @@ T.inserts.forEach((ins) => {
   if (!linked) bad.push(`${ins.file} (${ins.label}): згадка є, але не root:-лінком — попап не відкриється (§6)`);
 });
 
-/* (4) зовнішніх .md-лінків усередині теми бути не має — лише topic: */
+/* (4) зовнішніх відносних .md-лінків бути не має — лише root: або topic: */
 T.files.forEach((f) => {
   [...f.text.matchAll(/\[[^\]]*\]\(([^)]+\.md)\)/g)].forEach((m) => {
-    if (!m[1].startsWith("topic:"))
+    if (!m[1].startsWith("topic:") && !m[1].startsWith("root:"))
       bad.push(`${f.file} (${f.label}): відносний .md-лінк «${m[1].slice(0, 70)}» — за каноном це root:-попап`);
   });
 });

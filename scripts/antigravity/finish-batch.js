@@ -186,8 +186,23 @@ if (doubled.length) {
   console.log(`
   ⚠ ОДНЕ ПОНЯТТЯ — ВСТАВКИ В КІЛЬКОХ ТЕМАХ БАТЧУ (§6):`);
   doubled.forEach(([n, v]) => console.log(`     «${n}» у ${new Set(v.map((x) => x.topic)).size} темах: ${v.map((x) => x.topic + "/" + x.f).join(", ")}`));
-  console.log(`     Якщо це поняття, а не діяч в історії, — воно має бути ТЕМОЮ, а не поясненим двічі.`);
-  console.log(`     Заведи через newtopic.js і лиши у вставках по реченню з лінком.`);
+    console.log(`     Заведи через newtopic.js і лиши у вставках по реченню з лінком.`);
+}
+
+let refused = [];
+try { refused = JSON.parse(fs.readFileSync(path.join("scripts", "_finish", "_ag-newtopic-refused.json"), "utf8")); } catch { }
+const mine = refused.filter((r) => r.book === BOOK);
+const byWhy = {};
+mine.forEach((r) => (byWhy[r.why] = (byWhy[r.why] || 0) + 1));
+const elsewhere = [];
+for (const f of fs.existsSync(path.join("scripts", "_finish")) ? fs.readdirSync(path.join("scripts", "_finish")) : []) {
+  const m = f.match(/^_ag-newtopics-(.+)\.json$/);
+  if (!m || m[1] === BOOK) continue;
+  try {
+    JSON.parse(fs.readFileSync(path.join("scripts", "_finish", f), "utf8"))
+      .filter((t) => !t.applied && t.from && t.from.includes(`/${BOOK}/`))
+      .forEach((t) => elsewhere.push(`${m[1]}/${t.slug}`));
+  } catch { }
 }
 
 console.log(`  важіль newtopic: заведено ${fresh.length} · відмовлено ${mine.length}${mine.length ? " (" + Object.entries(byWhy).map(([k, v]) => `${k}: ${v}`).join(", ") + ")" : ""}`);
