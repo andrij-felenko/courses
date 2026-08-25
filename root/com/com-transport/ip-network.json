@@ -1,0 +1,408 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-transport",
+  "slug": "ip-network",
+  "title": "Мережа IP",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "address-space",
+      "title": "Адресний простір",
+      "topics": [
+        {
+          "slug": "cidr",
+          "title": "CIDR і префікси",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-classful-exhaustion.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-radix-lpm.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cidr-calc.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "subnet-addressing",
+          "title": "Адресація підмереж",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rfc950-subnetting.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-vlsm-geometry.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-vlsm-allocator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "nat",
+          "title": "NAT",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-nat-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-checksum-update.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-conntrack-nat.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "routing",
+      "title": "Маршрутизація",
+      "topics": [
+        {
+          "slug": "routing-algorithms",
+          "title": "Алгоритми маршрутизації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-routing-protocols.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dv-convergence.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-distance-vector.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ip-routing",
+          "title": "Маршрутизація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "ospf",
+          "title": "OSPF: протокол стану каналів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ospf-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-spf-dijkstra.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ospf-lab.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ospf-packets.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ipv6-routing",
+          "title": "Маршрутизація IPv6",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ipv6-birth.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ndp-neighbor-probe.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ndp-icmpv6.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "source-specific-multicast",
+          "title": "Фільтрація за джерелом: IGMPv3, MLDv2 і SSM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-multicast-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ssm-receiver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-igmpv3-mldv2-records.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "interdomain-routing",
+      "title": "Маршрути між доменами",
+      "topics": [
+        {
+          "slug": "bgp-protocol-mechanics",
+          "title": "BGP: механіка протоколу та інженерія трафіку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-bgp-best-path.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bgp-attributes.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "bgp-peering-economics-and-security",
+          "title": "BGP: транзит, піринг і безпека маршрутів (hijacking, RPKI)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bgp-origins.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bgp-peering.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bgp-messages.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "anycast",
+          "title": "Anycast і глобальне балансування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-root-dns-anycast.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-maglev-consistent-hash.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bgp-anycast-config.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "packet-path",
+      "title": "Шлях пакета",
+      "topics": [
+        {
+          "slug": "ip-fragmentation-mtu",
+          "title": "MTU і фрагментація IP",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fragmentation-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ip-reassembly.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ip-fragmentation.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "mtu-and-fragmentation",
+          "title": "MTU й фрагментація IP",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-1500-bytes.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pmtud-probe.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tunnel-overhead.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "middleboxes",
+          "title": "Проміжні коробки (middlebox): фаєрволи, проксі, кеші, транслятори на шляху пакета",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-end-to-end-erosion.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-middlebox-probe.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-middlebox-taxonomy.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

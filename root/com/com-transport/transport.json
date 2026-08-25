@@ -1,0 +1,384 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-transport",
+  "slug": "transport",
+  "title": "Транспорт",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "tcp-udp-sctp",
+      "title": "TCP, UDP і SCTP",
+      "topics": [
+        {
+          "slug": "tcp-vs-udp",
+          "title": "TCP проти UDP",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-headers.md",
+              "status": "done"
+            },
+            {
+              "file": "api-sockets.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "tcp-connection-lifecycle",
+          "title": "Життєвий цикл TCP-з'єднання: встановлення, напівзакриття, TIME_WAIT",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-three-way-handshake.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-half-close.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tcp-tunables.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "sctp",
+          "title": "SCTP: протокол передачі з контролем потоку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sigtran-birth.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sctp-chat.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-socket-sctp.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "quic-and-http3",
+      "title": "QUIC і HTTP/3",
+      "topics": [
+        {
+          "slug": "quic-wire-format-and-design",
+          "title": "Устрій протоколу QUIC: закостенілість мережі, заголовки, фрейми й криптографічні епохи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-quic-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rtt-loss-detection.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-quic-packet-parser.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-quic-frames.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "http3-deployment-and-tuning",
+          "title": "HTTP/3 у бою: розгортання QUIC-стеку, керування перевантаженням і вимірювання",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-quic-gquic-to-rfc9000.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-quic-stream-multiplexer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-quic-frame-spec.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "pacing-and-window",
+      "title": "Темп і вікно",
+      "topics": [
+        {
+          "slug": "flow-control",
+          "title": "Керування потоком",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-ring-buffer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sliding-window-sizing-bdp",
+          "title": "Розмір ковзного вікна: BDP, Window Scale й налаштування вікна в реальних стеках",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sliding-window.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-window-limits.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sliding-window.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-hdlc-framing.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "congestion",
+      "title": "Затори",
+      "topics": [
+        {
+          "slug": "congestion-control",
+          "title": "Управління перевантаженням мережі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-congestion-control.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-maxmin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-backpressure-routing.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-traffic-shaper.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "tcp-congestion-control",
+          "title": "Керування заторами TCP",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tcp-collapse.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-aimd-stability.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cc-algo-sim.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tcp-cc-socket.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "stack-behavior-in-code",
+      "title": "Поведінка стека в коді",
+      "topics": [
+        {
+          "slug": "udp-datagram-semantics",
+          "title": "Семантика датаграми UDP: втрати, дублі, переставляння",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-udp-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-loss-amplification.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-antireplay-window.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "icmp-errors-in-code",
+          "title": "Помилки ICMP у коді: коли мережа відповідає не даними",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "streaming-video",
+      "title": "Потокове відео",
+      "topics": [
+        {
+          "slug": "video-transmission",
+          "title": "Передача відео",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "adaptive-bitrate",
+          "title": "Адаптивний бітрейт (ABR)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-streaming-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-abr-algorithms.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-abr-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-manifest-formats.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

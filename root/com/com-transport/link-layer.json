@@ -1,0 +1,340 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-transport",
+  "slug": "link-layer",
+  "title": "Канальний рівень",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "ethernet-and-arp",
+      "title": "Ethernet і ARP",
+      "topics": [
+        {
+          "slug": "ethernet-frame",
+          "title": "Кадр Ethernet",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dix-to-ieee.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-frame-parser.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-frame-headers.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "mac-ip-arp",
+          "title": "MAC, IP і ARP",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "arp-security",
+          "title": "Безпека ARP",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-arp-trust-model.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-arp-monitor.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-arp-frame.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "segment-switching",
+      "title": "Комутація сегмента",
+      "topics": [
+        {
+          "slug": "vlan-and-trunking",
+          "title": "VLAN та транкінг",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-vlan-history.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-vlan-handling.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-8021q-header.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "stp-rstp",
+          "title": "Spanning Tree Protocol (STP) та Rapid Spanning Tree Protocol (RSTP): захист від мережевих петель у комутованих мережах L2",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-spanning-tree.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rstp-state-machine.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bpdu-frame.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "medium-access",
+      "title": "Доступ до середовища",
+      "topics": [
+        {
+          "slug": "csma-cd",
+          "title": "CSMA/CD: колізії у спільному дроті Ethernet",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ethernet-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-slot-time.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-csma-simulation.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "csma-ca",
+          "title": "CSMA/CA: уникнення колізій у спільному ефірі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-maca-80211.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-backoff-throughput.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-csma-simulator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-frame-control-nav.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "rfid-anticollision",
+          "title": "Антиколізія RFID: кілька міток в одному полі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "link-reliability",
+      "title": "Надійність лінка",
+      "topics": [
+        {
+          "slug": "reliable-link",
+          "title": "Надійний обмін",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-stop-and-wait.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sequence-numbering",
+          "title": "Нумерація послідовності пакетів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sequence-numbers.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sequence-arithmetic.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-reorder-buffer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-seq-protocols.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "arq",
+          "title": "ARQ: автоматичний запит на повтор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-throughput-efficiency.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-arq-simulator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-harq-mac.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "arq-retransmission-schemes",
+          "title": "Схеми ARQ: Stop-and-Wait, Go-Back-N, Selective Repeat і гібридний HARQ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-arq-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-channel-utilization.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sliding-window.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tcp-sack-fields.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

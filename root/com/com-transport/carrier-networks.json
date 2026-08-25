@@ -1,0 +1,150 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-transport",
+  "slug": "carrier-networks",
+  "title": "Мережі операторів",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "cellular-network",
+      "title": "Стільникова мережа",
+      "topics": [
+        {
+          "slug": "pokolinnia",
+          "title": "Покоління: від GSM до 5G і що з них лишилося пристроям",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "stilnykova-merezha",
+          "title": "Стільникова мережа: сота, реєстрація, естафета",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "sim-imsi-apn",
+          "title": "SIM, IMSI, APN: як пристрій входить у мережу оператора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "device-modem",
+      "title": "Модем і підключення пристрою",
+      "topics": [
+        {
+          "slug": "modem-i-at-komandy",
+          "title": "Модем і AT-команди",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "lte-m-i-nb-iot",
+          "title": "LTE-M і NB-IoT",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "suputnykovyi-kanal-dlia-prystroiv",
+          "title": "Супутниковий канал для пристроїв",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "telephone-legacy",
+      "title": "Телефонна спадщина",
+      "topics": [
+        {
+          "slug": "pstn-e164",
+          "title": "Телефонна мережа й нумерація E.164",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pstn-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-enum-resolver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-isup-messages.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "modem-standards-v-series",
+          "title": "Стандарти модемів серії V (ITU-T)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-vseries-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-v90-pcm-capacity.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-v21-fsk-modem.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-v24-v28-signals.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

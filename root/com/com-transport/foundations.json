@@ -1,0 +1,258 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-transport",
+  "slug": "foundations",
+  "title": "Основи обміну",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "switching-and-layers",
+      "title": "Комутація й рівні",
+      "topics": [
+        {
+          "slug": "osi-model",
+          "title": "Семирівнева модель OSI: рівні, стос і чому він виявився важким",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-protocol-wars.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-clnp-parser.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-osi-pdu-structures.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "circuit-vs-packet-switching",
+          "title": "Комутація каналів проти комутації пакетів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-switching-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-statistical-multiplexing.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-switching-simulation.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "store-and-forward",
+          "title": "Збережи-й-перешли (store-and-forward)",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "path-quality",
+      "title": "Якість шляху",
+      "topics": [
+        {
+          "slug": "latency-reliability",
+          "title": "Затримка й надійність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "bandwidth-loss",
+          "title": "Пропускна й втрати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "jitter",
+          "title": "Джитер: варіація затримки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-rtp-jitter.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-jitter-buffer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rtcp-jitter.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "queue-theory-networks",
+          "title": "Черги в мережах: затримка і втрати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bufferbloat.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pollaczek-khinchine.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-codel-simulation.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "message-framing",
+      "title": "Межі повідомлення",
+      "topics": [
+        {
+          "slug": "packet-design",
+          "title": "Проєктування пакета",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-crc-table.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cobs-framing",
+          "title": "Кадрування COBS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cobs-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cobs-overhead.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cobs-codec.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cobs-codec.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cobs-encoding",
+          "title": "Кодування COBS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "slip-protocol",
+          "title": "Протокол SLIP: кадрування послідовного потоку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-slip-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-framing-methods.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-slip-codec.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

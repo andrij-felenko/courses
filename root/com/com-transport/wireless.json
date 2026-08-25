@@ -1,0 +1,346 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-transport",
+  "slug": "wireless",
+  "title": "Бездротовий зв'язок",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "shared-air",
+      "title": "Спільний ефір",
+      "topics": [
+        {
+          "slug": "on-chip-radio",
+          "title": "Радіо на чіпі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bluetooth-name.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "channel-band-packet",
+          "title": "Канал і пакет",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-listen-before-talk.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "guard-band-duplexing",
+          "title": "Захисні смуги і дуплекс",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-fdd-tdd.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-guard-period.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-spectral-mask-aclr.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "wifi-networks",
+      "title": "Wi-Fi",
+      "topics": [
+        {
+          "slug": "wifi",
+          "title": "Wi-Fi",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-wifi-name.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-csiro-ofdm.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "rukh-mizh-tochkamy-dostupu",
+          "title": "Рух між точками доступу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "esp-now",
+          "title": "ESP-NOW",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "bluetooth-stack",
+      "title": "Bluetooth",
+      "topics": [
+        {
+          "slug": "bluetooth-classic-stack",
+          "title": "Стек Bluetooth Classic",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-fhss-slots.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-l2cap-sar.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-hci-uart.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "rfcomm",
+          "title": "RFCOMM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gsm-to-rfcomm.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bluez-rfcomm.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "bluetooth-spp",
+          "title": "Bluetooth SPP",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-command-parser.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "ble-stack",
+      "title": "BLE",
+      "topics": [
+        {
+          "slug": "ble-gap",
+          "title": "BLE GAP",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-adv-parser.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ad-structures.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ble-link-layer",
+          "title": "BLE Link Layer: канальний стрибок і connection events",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-hopping-csa.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ll-fsm-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ll-pdu.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ble-beacon-formats",
+          "title": "Формати BLE-маячків",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-rssi-ranging.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-beacon-parser.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-beacon-payloads.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "low-power-networks",
+      "title": "Мережі малої потужності",
+      "topics": [
+        {
+          "slug": "lorawan",
+          "title": "LoRaWAN",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lorawan-standard.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-adr-link-budget.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lorawan-mic-cipher.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-lorawan-mac-commands.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "thread-mesh",
+          "title": "Thread: IPv6-mesh для IoT",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-thread-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-openthread-node.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mle-tlv.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

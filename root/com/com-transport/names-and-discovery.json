@@ -1,0 +1,274 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-transport",
+  "slug": "names-and-discovery",
+  "title": "Імена та пошук вузлів",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "names-to-addresses",
+      "title": "Адреса за іменем",
+      "topics": [
+        {
+          "slug": "dhcp",
+          "title": "DHCP: динамічне призначення IP-адрес",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dhcp-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dhcp-packet.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dhcp-options.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "dhcp-dns",
+          "title": "DHCP і DNS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bootp-and-hosts.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dns-client.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dhcp-options-dns-records.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "happy-eyeballs",
+          "title": "Happy Eyeballs: паралельні спроби IPv6 і IPv4",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-broken-ipv6.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-happy-eyeballs.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rfc8305-params.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "service-lookup",
+      "title": "Пошук служб",
+      "topics": [
+        {
+          "slug": "dns-srv-naptr",
+          "title": "Записи DNS SRV і NAPTR: пошук сервера служби за іменем домену",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-service-location.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-srv-resolver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-srv-naptr-records.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "svcb-https-records",
+          "title": "Записи SVCB і HTTPS: параметри служби в одній відповіді DNS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-svcb-https-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-svcb-parser.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-svcb-https-params.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "multicast-and-discovery",
+          "title": "Багатоадресна розсилка й виявлення вузлів",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-multicast.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-discovery-daemon.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-multicast-sockopts.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mdns-dns-sd",
+          "title": "mDNS і DNS-SD: імена та служби без сервера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "through-nat",
+      "title": "Крізь трансляцію адрес",
+      "topics": [
+        {
+          "slug": "nat-traversal",
+          "title": "NAT-траверсаль",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-traversal-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ice-priority.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-udp-hole-punching.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-stun-turn-headers.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "webrtc",
+          "title": "WebRTC: медіа напряму між кінцевими вузлами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-webrtc-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-twcc-delay-gradient.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-webrtc-datachannel.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sdp-structure.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
