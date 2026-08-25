@@ -105,6 +105,56 @@
               "status": "recheck"
             }
           ]
+        },
+        {
+          "slug": "database-failover-and-ha",
+          "title": "Відмовостійкість бази: failover і HA",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          },
+          "hist": [
+            {
+              "file": "hist-evolution-of-ha.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ha-availability-and-quorum.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-failover-orchestrator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "database-read-write-splitting",
+          "title": "Розділення читання й запису",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          },
+          "hist": [
+            {
+              "file": "hist-read-write-splitting-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-read-write-router.md",
+              "status": "done"
+            }
+          ]
         }
       ]
     },
