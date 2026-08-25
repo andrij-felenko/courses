@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл пари Access/Refresh токенів та автоматичне оновлення на клієнті</text>
+<rect x="10.0" y="10.0" width="980.0" height="500.0" rx="8" fill="#fafbfc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="500.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл пари Access/Refresh токенів та автоматичне оновлення</text>
+<rect x="65.0" y="56.3" width="170.0" height="37.3" rx="6" fill="#e8f0fe" stroke="#2457d6" stroke-width="1.5"/><text x="150.0" y="71.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">Клієнтський застосунок</tspan><tspan x="150.0" dy="14.3">(HTTP Interceptor)</tspan></text>
+<rect x="415.0" y="56.3" width="170.0" height="37.3" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.5"/><text x="500.0" y="71.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">Ресурсний сервер</tspan><tspan x="500.0" dy="14.3">(API Gateway / Data)</tspan></text>
+<rect x="765.0" y="56.3" width="170.0" height="37.3" rx="6" fill="#fff3cd" stroke="#c0392b" stroke-width="1.5"/><text x="850.0" y="71.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="850.0" dy="0.0">Сервер авторизації</tspan><tspan x="850.0" dy="14.3">(OAuth2 Token Endpoint)</tspan></text>
+<line x1="150.0" y1="110.0" x2="150.0" y2="480.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="500.0" y1="110.0" x2="500.0" y2="480.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="850.0" y1="110.0" x2="850.0" y2="480.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="150.0" y1="140.0" x2="850.0" y2="140.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="500.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">1. POST /oauth/token (креденціали або Auth Code)</text>
+<line x1="850.0" y1="175.0" x2="150.0" y2="175.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="500.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">2. 200 OK: { access_token_1 (exp: 15m), refresh_token_1 (exp: 30d) }</text>
+<line x1="150.0" y1="220.0" x2="500.0" y2="220.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="325.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">3. GET /api/orders (Authorization: Bearer access_token_1)</text>
+<line x1="500.0" y1="250.0" x2="150.0" y2="250.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="325.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">4. 200 OK (дані замовлень)</text>
+<rect x="60.0" y="273.0" width="880.0" height="24.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="500.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">⏰ Минуло 15 хвилин: access_token_1 прострочився (expired)</text>
+<line x1="150.0" y1="330.0" x2="500.0" y2="330.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="325.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">5. GET /api/profile (Bearer access_token_1)</text>
+<line x1="500.0" y1="360.0" x2="150.0" y2="360.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="325.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">6. 401 Unauthorized (WWW-Authenticate: error=&quot;invalid_token&quot;)</text>
+<line x1="150.0" y1="400.0" x2="850.0" y2="400.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="500.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">7. POST /oauth/token { grant_type: &quot;refresh_token&quot;, refresh_token_1 }</text>
+<line x1="850.0" y1="430.0" x2="150.0" y2="430.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="500.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">8. 200 OK: { access_token_2, refresh_token_2 (ротація) }</text>
+<line x1="150.0" y1="465.0" x2="500.0" y2="465.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="325.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">9. Повтор: GET /api/profile (Bearer access_token_2) ➔ 200 OK</text>
+</svg>

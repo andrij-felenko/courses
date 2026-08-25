@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перевірка статусу відкликання: прямий OCSP проти OCSP Stapling</text>
+<rect x="40.0" y="55.0" width="410.0" height="350.0" rx="8" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="245.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Традиційний прямий OCSP</text>
+<text x="245.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Клієнт самостійно запитує сервер CA</text>
+<rect x="60.0" y="125.0" width="110.0" height="45.0" rx="5" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="115.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт</text>
+<rect x="320.0" y="125.0" width="110.0" height="45.0" rx="5" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="375.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Веб-сервер</text>
+<rect x="190.0" y="205.0" width="120.0" height="45.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="250.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">OCSP Responder (CA)</text>
+<line x1="170.0" y1="140.0" x2="320.0" y2="140.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="245.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1. TLS Handshake</text>
+<line x1="115.0" y1="170.0" x2="210.0" y2="205.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="130.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">2. OCSP Запит</text>
+<line x1="270.0" y1="205.0" x2="150.0" y2="170.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="235.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">3. OCSP Відповідь</text>
+<rect x="60.0" y="275.5" width="370.0" height="69.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="245.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="245.0" dy="0.0">Вади:</tspan><tspan x="245.0" dy="13.0">• Затримка: +1 додатковий RTT до CA</tspan><tspan x="245.0" dy="13.0">• Приватність: CA бачить відвідувані сайти користувача</tspan><tspan x="245.0" dy="13.0">• Soft-fail: якщо CA лежить, браузер пропускає перевірку</tspan></text>
+<rect x="490.0" y="55.0" width="410.0" height="350.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="695.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">OCSP Stapling (RFC 6066)</text>
+<text x="695.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Сервер кешує підписану відповідь від CA</text>
+<rect x="510.0" y="125.0" width="110.0" height="45.0" rx="5" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="565.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт</text>
+<rect x="770.0" y="125.0" width="110.0" height="45.0" rx="5" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="825.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Веб-сервер</text>
+<rect x="765.0" y="205.0" width="120.0" height="45.0" rx="5" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="825.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">OCSP Responder (CA)</text>
+<line x1="825.0" y1="170.0" x2="825.0" y2="205.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="835.0" y1="205.0" x2="835.0" y2="170.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="875.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фонове
+оновлення</text>
+<line x1="620.0" y1="140.0" x2="770.0" y2="140.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="770.0" y1="155.0" x2="620.0" y2="155.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="695.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1. TLS Handshake + status_request</text>
+<text x="695.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">2. Сервер надсилає вкладений OCSP підпис</text>
+<rect x="510.0" y="275.5" width="370.0" height="69.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="695.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="695.0" dy="0.0">Переваги:</tspan><tspan x="695.0" dy="13.0">• Нульова затримка: клієнт не робить запитів до CA</tspan><tspan x="695.0" dy="13.0">• Повна приватність: CA не знає, хто відвідує сервер</tspan><tspan x="695.0" dy="13.0">• Hard-fail захист: прикріплений штамп часу від CA</tspan></text>
+</svg>

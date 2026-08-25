@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнтський самозахист: Бюджет повторів (Retry Budget) та Запобіжник (Circuit Breaker)</text>
+<rect x="30.0" y="55.0" width="435.0" height="380.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="247.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Бюджет повторів (Retry Budget)</text>
+<text x="247.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Обмеження частки повторів у загальному трафіку</text>
+<rect x="50.0" y="130.0" width="395.0" height="140.0" rx="6" fill="#f0f4ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="247.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Кошик токенів повторів (Token Bucket)</text>
+<text x="247.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Успішний запит (2xx) → додає +0.2 токена в пул</text>
+<text x="247.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Повторна спроба (Retry) → списує 1.0 токен з пулу</text>
+<text x="247.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">• Пул порожній → повтор блокується, віддається помилка</text>
+<text x="247.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Гарантія: частка повторів ніколи не перевищить 20% трафіку</text>
+<rect x="49.5" y="315.2" width="395.0" height="59.6" rx="6" fill="#f4f6f8" stroke="#d1d5db" stroke-width="1.5"/><text x="247.0" y="334.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="247.0" dy="0.0">Захищає бекенд від самознищення клієнтами:</tspan><tspan x="247.0" dy="14.3">Якщо збої масові, клієнти не генерують шквал retry,</tspan><tspan x="247.0" dy="14.3">а швидко відсікають надлишок, даючи серверу відновитися.</tspan></text>
+<rect x="495.0" y="55.0" width="435.0" height="380.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="712.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Запобіжник (Circuit Breaker)</text>
+<text x="712.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Автоматичне відсікання безнадійних мережевих викликів</text>
+<rect x="515.0" y="130.0" width="115.0" height="75.0" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.5"/>
+<text x="572.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">CLOSED</text>
+<text x="572.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Нормальний</text>
+<text x="572.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">обмін запитами</text>
+<rect x="800.0" y="130.0" width="115.0" height="75.0" rx="6" fill="#ffebee" stroke="#c0392b" stroke-width="1.5"/>
+<text x="857.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">OPEN</text>
+<text x="857.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Розрив кола</text>
+<text x="857.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Швидкий fail-fast</text>
+<rect x="655.0" y="235.0" width="120.0" height="70.0" rx="6" fill="#fff8e1" stroke="#f39c12" stroke-width="1.5"/>
+<text x="715.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle" font-weight="700">HALF-OPEN</text>
+<text x="715.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Пробний запит</text>
+<text x="715.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Перевірка зв'язку</text>
+<line x1="630.0" y1="155.0" x2="800.0" y2="155.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="715.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">&gt;50% помилок</text>
+<line x1="857.0" y1="205.0" x2="775.0" y2="255.0" stroke="#f39c12" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="840.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d35400" text-anchor="middle">Тайм-аут остигання</text>
+<line x1="655.0" y1="270.0" x2="572.0" y2="205.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="595.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Успіх</text>
+<rect x="514.5" y="335.2" width="395.0" height="59.6" rx="6" fill="#f4f6f8" stroke="#d1d5db" stroke-width="1.5"/><text x="712.0" y="354.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="712.0" dy="0.0">Fail-Fast поведінка:</tspan><tspan x="712.0" dy="14.3">У стані OPEN запити не йдуть у мережу взагалі,</tspan><tspan x="712.0" dy="14.3">захищаючи клієнтські потоки від зависання на тайм-аутах.</tspan></text>
+</svg>

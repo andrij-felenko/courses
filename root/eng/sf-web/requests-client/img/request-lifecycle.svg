@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл запиту: конвеєр обробки та перетворень</text>
+<rect x="30.0" y="60.0" width="200.0" height="180.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="130.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Створення Request</text>
+<text x="130.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">method: 'POST'</text>
+<text x="130.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">url: 'https://api...'</text>
+<text x="130.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">json: {'key': 'val'}</text>
+<text x="130.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">headers, auth, params</text>
+<text x="130.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0284c7" text-anchor="middle" font-weight="700">Декларативний опис</text>
+<text x="130.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">запиту користувача</text>
+<rect x="270.0" y="60.0" width="200.0" height="180.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="370.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">2. PreparedRequest</text>
+<text x="370.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">URL кодовано (UTF-8)</text>
+<text x="370.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">CaseInsensitiveDict</text>
+<text x="370.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Тіло серіалізовано</text>
+<text x="370.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Content-Length: 15</text>
+<text x="370.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Cookie: sid=abc; ...</text>
+<text x="370.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Готовий до відправки</text>
+<rect x="510.0" y="60.0" width="200.0" height="180.0" rx="6" fill="#fefce8" stroke="#ca8a04" stroke-width="1.5"/>
+<text x="610.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#a16207" text-anchor="middle" font-weight="700">3. HTTPAdapter.send()</text>
+<text x="610.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Пошук пулу для хоста</text>
+<text x="610.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Взяття TCP-з'єднання</text>
+<text x="610.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Таймаути (з'єднання/читання)</text>
+<text x="610.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Відправка HTTP-байтів</text>
+<text x="610.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ca8a04" text-anchor="middle" font-weight="700">urllib3.urlopen()</text>
+<text x="610.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Мережевий I/O обмін</text>
+<rect x="750.0" y="60.0" width="180.0" height="180.0" rx="6" fill="#fdf2f8" stroke="#db2777" stroke-width="1.5"/>
+<text x="840.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#be185d" text-anchor="middle" font-weight="700">4. urllib3 Response</text>
+<text x="840.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">status: 200 OK</text>
+<text x="840.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">raw: сокетний потік</text>
+<text x="840.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">декомпресія (gzip)</text>
+<text x="840.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">заголовки сервера</text>
+<text x="840.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#db2777" text-anchor="middle" font-weight="700">Низькорівневий потік</text>
+<text x="840.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">даних відповіді</text>
+<line x1="230.0" y1="150.0" x2="270.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="470.0" y1="150.0" x2="510.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="710.0" y1="150.0" x2="750.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="840.0" y1="240.0" x2="840.0" y2="290.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="510.0" y="290.0" width="420.0" height="160.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="720.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1d4ed8" text-anchor="middle" font-weight="700">5. Обробка статусів і перенаправлень (Session.resolve_redirects)</text>
+<text x="720.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Статус 3xx та allow_redirects=True?</text>
+<text x="720.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">→ ТАК: зміна методу (303 → GET), очищення Authorization при зміні хоста</text>
+<text x="720.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">→ збереження проміжної відповіді в response.history, повторний запит</text>
+<text x="720.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">→ НІ: завершення конвеєра, повернення об'єкта requests.Response</text>
+<text x="720.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Оновлення CookieJar з заголовків Set-Cookie</text>
+<rect x="30.0" y="290.0" width="440.0" height="160.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="250.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">6. Фінальний об'єкт requests.Response у користувача</text>
+<text x="250.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">response.status_code  •  response.headers (CaseInsensitiveDict)</text>
+<text x="250.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">response.content: байти (жадібне читання, сокет повертається в пул)</text>
+<text x="250.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">response.text: декодування за response.encoding (chardet / Content-Type)</text>
+<text x="250.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">response.json(): парсинг JSON  •  response.raise_for_status()</text>
+<text x="250.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">response.history: список проміжних 3xx-відповідей</text>
+<line x1="510.0" y1="370.0" x2="470.0" y2="370.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

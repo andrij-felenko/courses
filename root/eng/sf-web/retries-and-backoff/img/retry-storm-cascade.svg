@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння реакцій системи: наївний повторний шторм проти розсіювання з джитером</text>
+<rect x="30.0" y="55.0" width="435.0" height="400.0" rx="8" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="247.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Наївний негайний повтор (Retry Storm)</text>
+<text x="247.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Повтор одразу після збою множить навантаження</text>
+<rect x="50.0" y="130.0" width="150.0" height="110.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="125.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1000 клієнтів</text>
+<text x="125.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Тайм-аут запиту</text>
+<text x="125.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Негайний retry: ×3</text>
+<text x="125.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0 мс паузи</text>
+<rect x="295.0" y="130.0" width="150.0" height="110.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="370.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Сервер у кризі</text>
+<text x="370.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">CPU / пул БД 100%</text>
+<text x="370.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Черга accept переповнена</text>
+<text x="370.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">RST / 503 / 504</text>
+<line x1="200.0" y1="160.0" x2="295.0" y2="160.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="200.0" y1="185.0" x2="295.0" y2="185.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="200.0" y1="210.0" x2="295.0" y2="210.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="247.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">3000 req/s</text>
+<rect x="49.5" y="293.9" width="395.0" height="92.2" rx="6" fill="#ffebee" stroke="#c0392b" stroke-width="1.5"/><text x="247.0" y="315.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="247.0" dy="0.0">Каскадний колапс:</tspan><tspan x="247.0" dy="14.3">1. Сервер не встигає обробити первинні запити.</tspan><tspan x="247.0" dy="14.3">2. Хвиля повторів добиває залишки пам'яті та черг.</tspan><tspan x="247.0" dy="14.3">3. Балансувальник маркує вузол як мертвий.</tspan><tspan x="247.0" dy="14.3">4. Трафік падає на сусідні вузли, знищуючи весь кластер.</tspan></text>
+<rect x="495.0" y="55.0" width="435.0" height="400.0" rx="8" fill="#f4faf6" stroke="#27ae60" stroke-width="1.5"/>
+<text x="712.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Експоненційний відступ із Jitter</text>
+<text x="712.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Збільшення пауз і рандомізація розсіюють удар</text>
+<rect x="515.0" y="130.0" width="150.0" height="110.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="590.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1000 клієнтів</text>
+<text x="590.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Тайм-аут запиту</text>
+<text x="590.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Backoff: 2ⁱ · base</text>
+<text x="590.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Full Jitter: [0, t]</text>
+<rect x="760.0" y="130.0" width="150.0" height="110.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="835.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Сервер відновлюється</text>
+<text x="835.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Обробка черги</text>
+<text x="835.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Звільнення воркерів</text>
+<text x="835.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">200 OK на повторах</text>
+<line x1="665.0" y1="160.0" x2="760.0" y2="160.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="665.0" y1="185.0" x2="760.0" y2="185.0" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="665.0" y1="210.0" x2="760.0" y2="210.0" stroke="#27ae60" stroke-width="1.0" marker-end="url(#arrow)"/>
+<text x="712.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Розмитий потік</text>
+<rect x="514.5" y="293.9" width="395.0" height="92.2" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.5"/><text x="712.0" y="315.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="712.0" dy="0.0">Стабілізація системи:</tspan><tspan x="712.0" dy="14.3">1. Кожен клієнт відступає з експоненційним зростанням.</tspan><tspan x="712.0" dy="14.3">2. Випадкове тремтіння (Jitter) ліквідує синхронні піки.</tspan><tspan x="712.0" dy="14.3">3. Сервер встигає звільнити сокети та завершити транзакції.</tspan><tspan x="712.0" dy="14.3">4. Повторні спроби успішно проходять без перевантаження.</tspan></text>
+</svg>

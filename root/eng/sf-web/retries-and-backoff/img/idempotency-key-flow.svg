@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл ідемпотентного повтору: захист від подвійної обробки транзакцій</text>
+<rect x="40.0" y="55.0" width="230.0" height="420.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="155.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Клієнт (HTTP Client)</text>
+<text x="155.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Генерує UUID і робить retry</text>
+<rect x="365.0" y="55.0" width="230.0" height="420.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="480.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Серверний обробник (API)</text>
+<text x="480.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Перевірка ключа й атомарна дія</text>
+<rect x="690.0" y="55.0" width="230.0" height="420.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="805.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сховище ключів (Redis / DB)</text>
+<text x="805.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Таблиця idempotency_keys</text>
+<line x1="155.0" y1="115.0" x2="155.0" y2="455.0" stroke="#d1d5db" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="480.0" y1="115.0" x2="480.0" y2="455.0" stroke="#d1d5db" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="805.0" y1="115.0" x2="805.0" y2="455.0" stroke="#d1d5db" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="155.0" y1="140.0" x2="480.0" y2="140.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="317.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. POST /payments [Key: 7b9e-4c21]</text>
+<line x1="480.0" y1="160.0" x2="805.0" y2="160.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="642.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">2. SET key status=PROCESSING NX</text>
+<line x1="805.0" y1="185.0" x2="480.0" y2="185.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="642.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">3. OK (ключ новий, захоплено)</text>
+<rect x="400.0" y="205.0" width="160.0" height="40.0" rx="4" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.0"/>
+<text x="480.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Виконання оплати в БД</text>
+<text x="480.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Запис 200 OK у кеш ключів</text>
+<line x1="480.0" y1="260.0" x2="805.0" y2="260.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="642.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">4. UPDATE status=COMPLETED, body=...</text>
+<line x1="480.0" y1="285.0" x2="260.0" y2="285.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4,3"/>
+<text x="280.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">✕ Мережевий обрив (TCP RST / Drop)</text>
+<line x1="155.0" y1="330.0" x2="480.0" y2="330.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="317.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">5. RETRY: POST /payments [Key: 7b9e-4c21]</text>
+<line x1="480.0" y1="355.0" x2="805.0" y2="355.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="642.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">6. GET key</text>
+<line x1="805.0" y1="385.0" x2="480.0" y2="385.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="642.0" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">7. status=COMPLETED + збережене тіло</text>
+<line x1="480.0" y1="420.0" x2="155.0" y2="420.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="317.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">8. 200 OK (повернено оригінал без списання)</text>
+<rect x="45.0" y="458.5" width="870.0" height="23.0" rx="6" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/><text x="480.0" y="473.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">Результат: оплату проведено рівно 1 раз; клієнт отримав успішну відповідь на повторі.</tspan></text>
+</svg>

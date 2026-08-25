@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння схем передачі автентифікаційних даних у HTTP-заголовках</text>
+<rect x="10.0" y="10.0" width="980.0" height="460.0" rx="8" fill="#fafbfc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="500.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схеми передачі облікових даних у HTTP-заголовках</text>
+<rect x="30.0" y="65.0" width="305.0" height="385.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+<text x="182.5" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">HTTP Basic Auth</text>
+<text x="182.5" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">RFC 7617 (успадковано від RFC 1945)</text>
+<rect x="42.0" y="134.0" width="281.0" height="52.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="182.5" y="150.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="182.5" dy="0.0">Заголовок:</tspan><tspan x="182.5" dy="13.0">Authorization: Basic dXNlcjpwYXNz</tspan><tspan x="182.5" dy="13.0">(Base64 від «user:password»)</tspan></text>
+<text x="46.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Механізм:</text>
+<text x="46.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Сирий пароль у кожному запиті</text>
+<text x="46.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">• Base64 — не шифрування!</text>
+<text x="46.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Сервер перевіряє хеш у БД щоразу</text>
+<text x="46.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Переваги та недоліки:</text>
+<text x="46.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">✓ Гранично простий у реалізації</text>
+<text x="46.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">✗ Пароль постійно зберігається в клієнті</text>
+<text x="46.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">✗ Неможливо відкликати сесію без зміни пароля</text>
+<text x="46.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">✗ Немає гранулярних прав (scopes)</text>
+<text x="182.5" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Застосування: внутрішні утиліти, legacy</text>
+<rect x="347.0" y="65.0" width="305.0" height="385.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+<text x="499.5" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">API Keys (Ключі API)</text>
+<text x="499.5" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Де-факто стандарт machine-to-machine</text>
+<rect x="359.0" y="134.0" width="281.0" height="52.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="499.5" y="150.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="499.5" dy="0.0">Заголовок:</tspan><tspan x="499.5" dy="13.0">X-API-Key: ak_live_9f82b7c4d1</tspan><tspan x="499.5" dy="13.0">(або Authorization: ApiKey ...)</tspan></text>
+<text x="363.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Механізм:</text>
+<text x="363.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Довгий криптостійкий псевдовипадковий ключ</text>
+<text x="363.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Прив'язаний до акаунту або сервісу</text>
+<text x="363.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Пошук у сховищі ключів / пам'яті шлюзу</text>
+<text x="363.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Переваги та недоліки:</text>
+<text x="363.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">✓ Не розкриває головний пароль обліковки</text>
+<text x="363.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">✓ Легко прив'язати до rate-limit лімітів</text>
+<text x="363.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">✗ Статичний: витік вимагає ручної ротації</text>
+<text x="363.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">✗ Безстроковий або має дуже тривалий TTL</text>
+<text x="499.5" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Застосування: B2B API, CLI, автоматизація</text>
+<rect x="665.0" y="65.0" width="305.0" height="385.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+<text x="817.5" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Bearer Token (OAuth 2.0 / JWT)</text>
+<text x="817.5" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">RFC 6750, RFC 7519</text>
+<rect x="677.0" y="134.0" width="281.0" height="52.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="817.5" y="150.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="817.5" dy="0.0">Заголовок:</tspan><tspan x="817.5" dy="13.0">Authorization: Bearer eyJhbGciOi...</tspan><tspan x="817.5" dy="13.0">(Access Token: криптопідпис + claims)</tspan></text>
+<text x="681.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Механізм:</text>
+<text x="681.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Короткоживучий токен (TTL = 5–15 хв)</text>
+<text x="681.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Автономна перевірка підпису на шлюзі</text>
+<text x="681.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Оновлюється через Refresh Token</text>
+<text x="681.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Переваги та недоліки:</text>
+<text x="681.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">✓ Мінімальне вікно компрометації</text>
+<text x="681.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">✓ Тонкі права (scopes), ідентичність у payload</text>
+<text x="681.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">✓ Без запитів до бази на кожен HTTP-виклик</text>
+<text x="681.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">✗ Вимагає клієнтської логіки оновлення</text>
+<text x="817.5" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Застосування: SPA, мобільні клієнти, мікросервіси</text>
+</svg>

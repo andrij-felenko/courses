@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура клієнтської сесії та пулу з'єднань (Connection Pool)</text>
+<rect x="30.0" y="50.0" width="900.0" height="400.0" rx="8" fill="#fafbfc" stroke="#333333" stroke-width="1.5"/>
+<text x="160.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Об'єкт Session (стан застосунку)</text>
+<rect x="50.0" y="95.0" width="265.0" height="80.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="182.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Cookie Jar (Сховище куків)</text>
+<text x="182.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Автоматичний парсинг Set-Cookie</text>
+<text x="182.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Фільтрація за Host/Path та ін'єкція Cookie</text>
+<rect x="345.0" y="95.0" width="270.0" height="80.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="480.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Default Headers &amp; Auth</text>
+<text x="480.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Authorization: Bearer &lt;token&gt;</text>
+<text x="480.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">User-Agent, Accept, Accept-Encoding</text>
+<rect x="645.0" y="95.0" width="265.0" height="80.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="777.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">TLS Context &amp; Proxies</text>
+<text x="777.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Клієнтські сертифікати (mTLS)</text>
+<text x="777.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">CA bundles (verify), налаштування проксі</text>
+<line x1="480.0" y1="180.0" x2="480.0" y2="205.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="50.0" y="210.0" width="860.0" height="225.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/>
+<text x="190.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">PoolManager (Диспетчер підпулів)</text>
+<text x="620.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Маршрутизація запитів за ключем Origin: (scheme, host, port)</text>
+<rect x="70.0" y="255.0" width="380.0" height="165.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="260.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Підпул: ('https', 'api.example.com', 443)</text>
+<text x="260.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">pool_maxsize = 10, timeout = 30s</text>
+<rect x="85.0" y="310.0" width="160.0" height="95.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.0"/>
+<text x="165.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">LIFO Черга вільних</text>
+<text x="165.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Socket #1 [IDLE: 1.2s]</text>
+<text x="165.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Socket #2 [IDLE: 0.4s]</text>
+<text x="165.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Найновіший зверху)</text>
+<rect x="265.0" y="310.0" width="170.0" height="95.0" rx="4" fill="#fdf2e9" stroke="#e67e22" stroke-width="1.0"/>
+<text x="350.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">Орендовані потоками</text>
+<text x="350.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Socket #3 -&gt; Потік A</text>
+<text x="350.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Socket #4 -&gt; Потік B</text>
+<text x="350.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Семафор: 2 зайняті / 8 вільних</text>
+<rect x="480.0" y="255.0" width="410.0" height="165.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="685.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Підпул: ('https', 'auth.example.com', 443)</text>
+<text x="685.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">pool_maxsize = 5, timeout = 30s</text>
+<rect x="495.0" y="310.0" width="185.0" height="95.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="587.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">LIFO Черга вільних</text>
+<text x="587.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Socket #5 [IDLE: 4.1s]</text>
+<text x="587.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(1 готовий сокет)</text>
+<rect x="695.0" y="310.0" width="180.0" height="95.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="785.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Орендовані потоками</text>
+<text x="785.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Немає активних запитів</text>
+<text x="785.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Семафор: 0 зайнято / 5 вільних</text>
+<text x="480.0" y="472.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Сесія керує станом застосунку (куки, заголовки), а диспетчер пулів ізолює з'єднання за доменами</text>
+</svg>
