@@ -1,0 +1,180 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-os",
+  "slug": "processes-and-cpu-time",
+  "title": "Процеси й процесорний час",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "kernel-and-program",
+      "title": "Ядро й програма",
+      "topics": [
+        {
+          "slug": "process-vs-thread",
+          "title": "Процеси й потоки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-process-to-thread.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-process-vs-thread-benchmark.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-posix-threads-processes.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "microkernel",
+          "title": "Мікроядро: ядро як набір серверів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "posix-signals",
+          "title": "Сигнали POSIX",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "tasks-and-switching",
+      "title": "Задачі й перемикання",
+      "topics": [
+        {
+          "slug": "tasks",
+          "title": "Задачі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-fsm-instead.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "scheduler",
+          "title": "Планувальник",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-tick-latency.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-clz-bitmap.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-context-switch.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "context-switch",
+          "title": "Перемикання контексту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "priorities-and-deadlines",
+      "title": "Пріоритети й строки",
+      "topics": [
+        {
+          "slug": "task-priorities",
+          "title": "Пріоритети задач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "priority-inversion",
+          "title": "Інверсія пріоритетів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pathfinder.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-protocols.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "smp-scheduling",
+          "title": "SMP-планування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "edf-scheduling",
+          "title": "EDF-планування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

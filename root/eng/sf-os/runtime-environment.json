@@ -1,0 +1,230 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-os",
+  "slug": "runtime-environment",
+  "title": "Середовище виконання",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "sockets",
+      "title": "Сокети",
+      "topics": [
+        {
+          "slug": "sockets-tcp-udp",
+          "title": "Сокети TCP/UDP",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "socket-options",
+          "title": "Опції сокета: буфери, таймаути, TCP_NODELAY, TTL",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-nagle-nodelay.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-socket-tuning.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-setsockopt.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ancillary-data-cmsg",
+          "title": "Допоміжні дані сокета: recvmsg, sendmsg і cmsg",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "application-files",
+      "title": "Файли застосунку",
+      "topics": [
+        {
+          "slug": "app-data-directories",
+          "title": "Теки застосунку: конфіг, дані, кеш",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "file-timestamps",
+          "title": "Часові позначки файлів: mtime, ctime і роздільність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "containers-and-vms",
+      "title": "Контейнери й віртуальні машини",
+      "topics": [
+        {
+          "slug": "containers",
+          "title": "Контейнери",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-chroot-to-oci.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mini-container.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-container-runtime.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "live-migration",
+          "title": "Жива міграція віртуальної машини: перенести працюючий гість без зупинки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-live-migration.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-live-migration-convergence.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dirty-memory-tracker.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-qemu-migration.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "vm-snapshot-and-clone",
+          "title": "Знімок і клон віртуальної машини: збереження стану, відкіт і роздвоєння історії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-snapshot-io-amplification.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cow-overlay.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-snapshot-control.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "platform-and-power",
+      "title": "Платформа й живлення",
+      "topics": [
+        {
+          "slug": "suspend-and-resume",
+          "title": "Призупинення й пробудження: suspend, hibernate і стан пристроїв",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-swsusp.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-suspend-aware-program.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sleep-controls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "acpi-tables",
+          "title": "Таблиці ACPI: як прошивка описує залізо",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,188 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-os",
+  "slug": "memory",
+  "title": "Пам'ять",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "pages-and-frames",
+      "title": "Сторінки, кадри й таблиці",
+      "topics": [
+        {
+          "slug": "virtual-address-space",
+          "title": "Віртуальний адресний простір процесу",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-one-level-store.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-address-space-probe.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-maps-format.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "paging-and-mmu",
+          "title": "Сторінки, таблиці сторінок і MMU",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-page-table-cost.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-virt-to-phys.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pte-format.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "buddy-allocator",
+          "title": "Алокатор двійкових близнюків (Buddy Allocator)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-buddy-allocator.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-buddy-arithmetic.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-buddy-c.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-buddy-allocator.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "lazy-memory",
+      "title": "Лінива пам'ять",
+      "topics": [
+        {
+          "slug": "page-fault",
+          "title": "Сторінковий збій: чому все ліниве",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-demand-paging.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fault-cost.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fault-counters.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "copy-on-write",
+          "title": "Копіювання при записі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dirty-cow.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cow-controls.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "locality-and-working-set",
+      "title": "Локальність і робоча множина",
+      "topics": [
+        {
+          "slug": "locality-of-reference",
+          "title": "Локальність звернень: чому недавнє минуле передбачає майбутнє",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "working-set",
+          "title": "Робоча множина",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
