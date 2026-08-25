@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конструкція Меркла–Дамґорда та функція стиснення Девіса–Мейєра</text>
+<rect x="20.0" y="48.0" width="780.0" height="110.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="35.0" y="61.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="start" font-weight="700">Ланцюг обробки блоків</text>
+<rect x="29.3" y="85.3" width="81.4" height="45.3" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="70.0" y="104.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="70.0" dy="0.0">IV</tspan><tspan x="70.0" dy="14.3">256 бітів</tspan></text>
+<line x1="110.0" y1="108.0" x2="155.0" y2="108.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="132.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">h₀</text>
+<rect x="125.8" y="57.0" width="128.3" height="30.0" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/><text x="190.0" y="75.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="190.0" dy="0.0">Блок M₀ (512 бітів)</tspan></text>
+<line x1="190.0" y1="84.0" x2="190.0" y2="96.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="149.3" y="95.3" width="81.4" height="45.3" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/><text x="190.0" y="114.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="190.0" dy="0.0">Функція f</tspan><tspan x="190.0" dy="14.3">стиснення</tspan></text>
+<line x1="235.0" y1="118.0" x2="295.0" y2="118.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="265.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">h₁</text>
+<rect x="265.9" y="57.0" width="128.3" height="30.0" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/><text x="330.0" y="75.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">Блок M₁ (512 бітів)</tspan></text>
+<line x1="330.0" y1="84.0" x2="330.0" y2="96.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="289.3" y="95.3" width="81.4" height="45.3" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/><text x="330.0" y="114.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="330.0" dy="0.0">Функція f</tspan><tspan x="330.0" dy="14.3">стиснення</tspan></text>
+<line x1="375.0" y1="118.0" x2="435.0" y2="118.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="405.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">...</text>
+<line x1="435.0" y1="118.0" x2="485.0" y2="118.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="460.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">hₙ₋₁</text>
+<rect x="461.8" y="57.0" width="156.4" height="30.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="540.0" y="75.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="540.0" dy="0.0">Mₙ₋₁ || 10* || Довжина</tspan></text>
+<line x1="540.0" y1="84.0" x2="540.0" y2="96.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="499.3" y="95.3" width="81.4" height="45.3" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/><text x="540.0" y="114.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="540.0" dy="0.0">Функція f</tspan><tspan x="540.0" dy="14.3">стиснення</tspan></text>
+<line x1="595.0" y1="118.0" x2="655.0" y2="118.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="625.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">hₙ</text>
+<rect x="658.9" y="95.3" width="122.3" height="45.3" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/><text x="720.0" y="114.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="720.0" dy="0.0">Підсумковий геш</tspan><tspan x="720.0" dy="14.3">(256 бітів)</tspan></text>
+<rect x="20.0" y="172.0" width="780.0" height="125.0" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="35.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Внутрішня будова функції Девіса–Мейєра: f(hᵢ₋₁, Mᵢ) = E(Mᵢ, hᵢ₋₁) ⊕ hᵢ₋₁</text>
+<rect x="46.7" y="217.3" width="126.6" height="45.3" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="110.0" y="236.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">Стан hᵢ₋₁</tspan><tspan x="110.0" dy="14.3">(відкритий текст)</tspan></text>
+<circle cx="200.0" cy="240.0" r="3.5" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<line x1="170.0" y1="240.0" x2="200.0" y2="240.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="200.0" y1="240.0" x2="280.0" y2="240.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="200.0" y1="240.0" x2="200.0" y2="275.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="200.0" y1="275.0" x2="520.0" y2="275.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="520.0" y1="275.0" x2="520.0" y2="252.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="360.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Прямий зв'язок (feed-forward) робить блоковий шифр незворотним</text>
+<rect x="221.8" y="183.0" width="276.5" height="30.0" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/><text x="360.0" y="201.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Блок Mᵢ (використовується як ключ шифрування)</tspan></text>
+<line x1="360.0" y1="210.0" x2="360.0" y2="222.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="257.9" y="217.3" width="204.1" height="45.3" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/><text x="360.0" y="236.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">Блоковий шифр E</tspan><tspan x="360.0" dy="14.3">(наприклад, раунди SHA-256)</tspan></text>
+<line x1="450.0" y1="240.0" x2="510.0" y2="240.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="520.0" cy="240.0" r="10.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="520.0" y="244.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#c0392b" text-anchor="middle" font-weight="700">+</text>
+<line x1="532.0" y1="240.0" x2="620.0" y2="240.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="594.8" y="217.3" width="190.5" height="45.3" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="690.0" y="236.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="690.0" dy="0.0">Новий стан hᵢ</tspan><tspan x="690.0" dy="14.3">(наступне chaining value)</tspan></text>
+</svg>

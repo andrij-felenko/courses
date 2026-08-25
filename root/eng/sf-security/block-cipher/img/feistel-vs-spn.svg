@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння архітектур: Мережа Фейстеля проти SP-мережі (AES)</text>
+<rect x="30.0" y="48.0" width="470.0" height="436.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="265.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мережа Фейстеля (DES, Blowfish)</text>
+<text x="265.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Асиметричний раунд: перетворення половини блоку</text>
+<rect x="70.0" y="110.0" width="160.0" height="36.0" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/><text x="150.0" y="132.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">Ліва половина L[i-1]</tspan></text>
+<rect x="300.0" y="110.0" width="160.0" height="36.0" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/><text x="380.0" y="132.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Права половина R[i-1]</tspan></text>
+<line x1="150.0" y1="146.0" x2="150.0" y2="240.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="380.0" y1="146.0" x2="380.0" y2="175.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="380.0" y1="175.0" x2="305.0" y2="175.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="195.0" y="160.0" width="110.0" height="44.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="250.0" y="185.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="250.0" dy="0.0">Функція F(R, K)</tspan></text>
+<line x1="140.0" y1="182.0" x2="195.0" y2="182.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="105.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Ключ K[i]</text>
+<circle cx="150.0" cy="252.0" r="12.0" fill="#f5f3ff" stroke="#6b21a8" stroke-width="1.5"/>
+<text x="150.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#6b21a8" text-anchor="middle" font-weight="700">⊕</text>
+<line x1="250.0" y1="204.0" x2="150.0" y2="240.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="380.0" y1="175.0" x2="380.0" y2="310.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="150.0" y1="264.0" x2="150.0" y2="310.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="380.0" y1="310.0" x2="150.0" y2="370.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="150.0" y1="310.0" x2="380.0" y2="370.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="70.0" y="380.0" width="160.0" height="36.0" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/><text x="150.0" y="402.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">L[i] = R[i-1]</tspan></text>
+<rect x="300.0" y="380.0" width="160.0" height="36.0" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/><text x="380.0" y="401.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">R[i] = L[i-1] ⊕ F(R, K)</tspan></text>
+<rect x="50.0" y="430.0" width="430.0" height="38.0" rx="6" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/><text x="265.0" y="452.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="265.0" dy="0.0">Властивість: F не обов'язково оборотна; дешифрування ідентичне</tspan></text>
+<rect x="540.0" y="48.0" width="470.0" height="436.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="775.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">SP-мережа (AES / Rijndael)</text>
+<text x="775.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Симетричний раунд: паралельна зміна всього стану</text>
+<rect x="645.0" y="110.0" width="260.0" height="36.0" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/><text x="775.0" y="131.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="775.0" dy="0.0">Вхідний стан State (128 бітів / 16 байтів)</tspan></text>
+<line x1="775.0" y1="146.0" x2="775.0" y2="170.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="615.0" y="170.0" width="320.0" height="44.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="775.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="775.0" dy="0.0">Шар підстановки: SubBytes (S-Box GF(2⁸))</tspan><tspan x="775.0" dy="13.0">Конфузія: нелінійне збурення кожного байта</tspan></text>
+<line x1="775.0" y1="214.0" x2="775.0" y2="238.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="615.0" y="238.0" width="320.0" height="52.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="775.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="775.0" dy="0.0">Шар дифузії: ShiftRows + MixColumns (MDS)</tspan><tspan x="775.0" dy="13.0">Дифузія: розмазування байтів по матриці стану</tspan></text>
+<line x1="775.0" y1="290.0" x2="775.0" y2="314.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="615.0" y="314.0" width="320.0" height="44.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="775.0" y="333.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="775.0" dy="0.0">Шар ключа: AddRoundKey (State ⊕ RoundKey)</tspan><tspan x="775.0" dy="11.7">Введення секрету: лінійне накладання раундового ключа</tspan></text>
+<line x1="775.0" y1="358.0" x2="775.0" y2="380.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="645.0" y="380.0" width="260.0" height="36.0" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/><text x="775.0" y="401.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="775.0" dy="0.0">Вихідний стан раунду (повна дифузія за 2 раунди)</tspan></text>
+<rect x="560.0" y="430.0" width="430.0" height="38.0" rx="6" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/><text x="775.0" y="452.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="775.0" dy="0.0">Властивість: усі операції оборотно розраховуються; повний паралелізм</tspan></text>
+</svg>

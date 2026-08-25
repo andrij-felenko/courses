@@ -1,342 +1,384 @@
 {
-  "schema": 7,
-  "kind": "eng",
-  "book": "sf-security",
-  "slug": "foundations",
-  "title": "Засади захисту",
-  "scope": "",
-  "chapters": [
+ "schema": 7,
+ "kind": "eng",
+ "book": "sf-security",
+ "slug": "foundations",
+ "title": "Засади захисту",
+ "scope": "",
+ "chapters": [
+  {
+   "slug": "threat-model",
+   "title": "Модель загрози",
+   "topics": [
     {
-      "slug": "threat-model",
-      "title": "Модель загрози",
-      "topics": [
-        {
-          "slug": "threat-modeling",
-          "title": "Моделювання загроз",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "recheck"
-          },
-          "hist": [
-            {
-              "file": "hist-origins-of-threat-modeling.md",
-              "status": "recheck"
-            }
-          ],
-          "math": [
-            {
-              "file": "math-attack-tree-evaluation.md",
-              "status": "recheck"
-            }
-          ],
-          "proj": [
-            {
-              "file": "proj-attack-tree-evaluator.md",
-              "status": "recheck"
-            }
-          ],
-          "api": [
-            {
-              "file": "api-threat-model-schema.md",
-              "status": "recheck"
-            }
-          ]
-        },
-        {
-          "slug": "trust-boundaries",
-          "title": "Межі довіри",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "recheck"
-          },
-          "hist": [
-            {
-              "file": "hist-privilege-separation.md",
-              "status": "recheck"
-            }
-          ],
-          "math": [
-            {
-              "file": "math-boundary-surface.md",
-              "status": "recheck"
-            }
-          ],
-          "proj": [
-            {
-              "file": "proj-seccomp-sandbox.md",
-              "status": "recheck"
-            }
-          ],
-          "api": [
-            {
-              "file": "api-boundary-contract.md",
-              "status": "recheck"
-            }
-          ]
-        },
-        {
-          "slug": "attack-surface",
-          "title": "Поверхня атаки",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "recheck"
-          },
-          "hist": [
-            {
-              "file": "hist-attack-surface-concept.md",
-              "status": "recheck"
-            }
-          ],
-          "math": [
-            {
-              "file": "math-attack-surface-metric.md",
-              "status": "recheck"
-            }
-          ],
-          "proj": [
-            {
-              "file": "proj-attack-surface-reducer.md",
-              "status": "recheck"
-            }
-          ],
-          "api": [
-            {
-              "file": "api-attack-surface-control.md",
-              "status": "recheck"
-            }
-          ]
-        }
-      ]
+     "slug": "threat-modeling",
+     "title": "Моделювання загроз",
+     "basic": {
+      "status": "empty"
+     },
+     "detailed": {
+      "status": "recheck"
+     },
+     "hist": [
+      {
+       "file": "hist-origins-of-threat-modeling.md",
+       "status": "recheck"
+      }
+     ],
+     "math": [
+      {
+       "file": "math-attack-tree-evaluation.md",
+       "status": "recheck"
+      }
+     ],
+     "proj": [
+      {
+       "file": "proj-attack-tree-evaluator.md",
+       "status": "recheck"
+      }
+     ],
+     "api": [
+      {
+       "file": "api-threat-model-schema.md",
+       "status": "recheck"
+      }
+     ]
     },
     {
-      "slug": "access-control",
-      "title": "Підстава для доступу",
-      "topics": [
-        {
-          "slug": "zero-trust",
-          "title": "Zero-trust",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "recheck"
-          },
-          "hist": [
-            {
-              "file": "hist-beyondcorp-and-perimeter-death.md",
-              "status": "recheck"
-            }
-          ],
-          "math": [
-            {
-              "file": "math-dynamic-trust-scoring.md",
-              "status": "recheck"
-            }
-          ],
-          "proj": [
-            {
-              "file": "proj-spire-workload-mtls.md",
-              "status": "recheck"
-            }
-          ],
-          "api": [
-            {
-              "file": "api-spiffe-workload-contract.md",
-              "status": "recheck"
-            }
-          ]
-        },
-        {
-          "slug": "least-privilege",
-          "title": "Найменші привілеї й deny-by-default",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "recheck"
-          },
-          "hist": [
-            {
-              "file": "hist-saltzer-schroeder.md",
-              "status": "recheck"
-            }
-          ],
-          "math": [
-            {
-              "file": "math-privilege-matrix.md",
-              "status": "recheck"
-            }
-          ],
-          "proj": [
-            {
-              "file": "proj-privilege-separation.md",
-              "status": "recheck"
-            }
-          ],
-          "api": [
-            {
-              "file": "api-linux-privileges.md",
-              "status": "recheck"
-            }
-          ]
-        },
-        {
-          "slug": "secure-defaults",
-          "title": "Безпечні дефолти й відмова захисту",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "recheck"
-          },
-          "hist": [
-            {
-              "file": "hist-saltzer-schroeder-defaults.md",
-              "status": "recheck"
-            }
-          ],
-          "math": [
-            {
-              "file": "math-failsafe-automata.md",
-              "status": "recheck"
-            }
-          ],
-          "proj": [
-            {
-              "file": "proj-failsafe-auth-engine.md",
-              "status": "recheck"
-            }
-          ],
-          "api": [
-            {
-              "file": "api-secure-defaults-checklist.md",
-              "status": "recheck"
-            }
-          ]
-        },
-        {
-          "slug": "authorization-models",
-          "title": "Моделі авторизації",
-          "basic": {
-            "status": "done"
-          },
-          "detailed": {
-            "status": "empty"
-          },
-          "hist": [
-            {
-              "file": "hist-access-models.md",
-              "status": "done"
-            }
-          ],
-          "proj": [
-            {
-              "file": "proj-rebac-check.md",
-              "status": "done"
-            }
-          ]
-        },
-        {
-          "slug": "capability-based-security",
-          "title": "Повноваження (capabilities) як модель доступу",
-          "basic": {
-            "status": "pending"
-          },
-          "detailed": {
-            "status": "pending"
-          }
-        },
-        {
-          "slug": "mandatory-access-control",
-          "title": "Обов'язковий доступ і мітки таємності (MAC)",
-          "basic": {
-            "status": "pending"
-          },
-          "detailed": {
-            "status": "pending"
-          }
-        }
-      ]
+     "slug": "trust-boundaries",
+     "title": "Межі довіри",
+     "basic": {
+      "status": "empty"
+     },
+     "detailed": {
+      "status": "recheck"
+     },
+     "hist": [
+      {
+       "file": "hist-privilege-separation.md",
+       "status": "recheck"
+      }
+     ],
+     "math": [
+      {
+       "file": "math-boundary-surface.md",
+       "status": "recheck"
+      }
+     ],
+     "proj": [
+      {
+       "file": "proj-seccomp-sandbox.md",
+       "status": "recheck"
+      }
+     ],
+     "api": [
+      {
+       "file": "api-boundary-contract.md",
+       "status": "recheck"
+      }
+     ]
     },
     {
-      "slug": "abuse-resilience",
-      "title": "Стійкість до зловживань",
-      "topics": [
-        {
-          "slug": "ddos-abuse-defense",
-          "title": "DDoS і зловживання",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "recheck"
-          },
-          "hist": [
-            {
-              "file": "hist-syn-cookie-and-early-ddos.md",
-              "status": "recheck"
-            }
-          ],
-          "math": [
-            {
-              "file": "math-syn-cookie-entropy.md",
-              "status": "recheck"
-            }
-          ],
-          "proj": [
-            {
-              "file": "proj-syn-cookie-eval.md",
-              "status": "recheck"
-            }
-          ],
-          "api": [
-            {
-              "file": "api-scrubbing-pipeline.md",
-              "status": "recheck"
-            }
-          ]
-        },
-        {
-          "slug": "rate-limiting",
-          "title": "Обмеження швидкості як архітектура",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "recheck"
-          },
-          "hist": [
-            {
-              "file": "hist-traffic-shaping-to-api.md",
-              "status": "recheck"
-            }
-          ],
-          "math": [
-            {
-              "file": "math-bucket-dynamics.md",
-              "status": "recheck"
-            }
-          ],
-          "proj": [
-            {
-              "file": "proj-token-bucket.md",
-              "status": "recheck"
-            }
-          ],
-          "api": [
-            {
-              "file": "api-rate-limit-headers.md",
-              "status": "recheck"
-            }
-          ]
-        }
-      ]
+     "slug": "attack-surface",
+     "title": "Поверхня атаки",
+     "basic": {
+      "status": "empty"
+     },
+     "detailed": {
+      "status": "recheck"
+     },
+     "hist": [
+      {
+       "file": "hist-attack-surface-concept.md",
+       "status": "recheck"
+      }
+     ],
+     "math": [
+      {
+       "file": "math-attack-surface-metric.md",
+       "status": "recheck"
+      }
+     ],
+     "proj": [
+      {
+       "file": "proj-attack-surface-reducer.md",
+       "status": "recheck"
+      }
+     ],
+     "api": [
+      {
+       "file": "api-attack-surface-control.md",
+       "status": "recheck"
+      }
+     ]
     }
-  ]
+   ]
+  },
+  {
+   "slug": "access-control",
+   "title": "Підстава для доступу",
+   "topics": [
+    {
+     "slug": "zero-trust",
+     "title": "Zero-trust",
+     "basic": {
+      "status": "empty"
+     },
+     "detailed": {
+      "status": "recheck"
+     },
+     "hist": [
+      {
+       "file": "hist-beyondcorp-and-perimeter-death.md",
+       "status": "recheck"
+      }
+     ],
+     "math": [
+      {
+       "file": "math-dynamic-trust-scoring.md",
+       "status": "recheck"
+      }
+     ],
+     "proj": [
+      {
+       "file": "proj-spire-workload-mtls.md",
+       "status": "recheck"
+      }
+     ],
+     "api": [
+      {
+       "file": "api-spiffe-workload-contract.md",
+       "status": "recheck"
+      }
+     ]
+    },
+    {
+     "slug": "least-privilege",
+     "title": "Найменші привілеї й deny-by-default",
+     "basic": {
+      "status": "empty"
+     },
+     "detailed": {
+      "status": "recheck"
+     },
+     "hist": [
+      {
+       "file": "hist-saltzer-schroeder.md",
+       "status": "recheck"
+      }
+     ],
+     "math": [
+      {
+       "file": "math-privilege-matrix.md",
+       "status": "recheck"
+      }
+     ],
+     "proj": [
+      {
+       "file": "proj-privilege-separation.md",
+       "status": "recheck"
+      }
+     ],
+     "api": [
+      {
+       "file": "api-linux-privileges.md",
+       "status": "recheck"
+      }
+     ]
+    },
+    {
+     "slug": "secure-defaults",
+     "title": "Безпечні дефолти й відмова захисту",
+     "basic": {
+      "status": "empty"
+     },
+     "detailed": {
+      "status": "recheck"
+     },
+     "hist": [
+      {
+       "file": "hist-saltzer-schroeder-defaults.md",
+       "status": "recheck"
+      }
+     ],
+     "math": [
+      {
+       "file": "math-failsafe-automata.md",
+       "status": "recheck"
+      }
+     ],
+     "proj": [
+      {
+       "file": "proj-failsafe-auth-engine.md",
+       "status": "recheck"
+      }
+     ],
+     "api": [
+      {
+       "file": "api-secure-defaults-checklist.md",
+       "status": "recheck"
+      }
+     ]
+    },
+    {
+     "slug": "authorization-models",
+     "title": "Моделі авторизації",
+     "basic": {
+      "status": "done"
+     },
+     "detailed": {
+      "status": "empty"
+     },
+     "hist": [
+      {
+       "file": "hist-access-models.md",
+       "status": "done"
+      }
+     ],
+     "proj": [
+      {
+       "file": "proj-rebac-check.md",
+       "status": "done"
+      }
+     ]
+    },
+    {
+     "slug": "capability-based-security",
+     "title": "Повноваження (capabilities) як модель доступу",
+     "basic": {
+      "status": "empty"
+     },
+     "detailed": {
+      "status": "recheck"
+     },
+     "api": [
+      {
+       "file": "api-capsicum-rights.md",
+       "status": "recheck"
+      }
+     ],
+     "hist": [
+      {
+       "file": "hist-confused-deputy-and-capabilities.md",
+       "status": "recheck"
+      }
+     ],
+     "proj": [
+      {
+       "file": "proj-capsicum-sandbox.md",
+       "status": "recheck"
+      }
+     ]
+    },
+    {
+     "slug": "mandatory-access-control",
+     "title": "Обов'язковий доступ і мітки таємності (MAC)",
+     "basic": {
+      "status": "empty"
+     },
+     "detailed": {
+      "status": "recheck"
+     },
+     "api": [
+      {
+       "file": "api-lsm-and-selinux.md",
+       "status": "recheck"
+      }
+     ],
+     "hist": [
+      {
+       "file": "hist-orange-book-and-mac.md",
+       "status": "recheck"
+      }
+     ],
+     "math": [
+      {
+       "file": "math-lattice-security-models.md",
+       "status": "recheck"
+      }
+     ],
+     "proj": [
+      {
+       "file": "proj-mac-decision-engine.md",
+       "status": "recheck"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "abuse-resilience",
+   "title": "Стійкість до зловживань",
+   "topics": [
+    {
+     "slug": "ddos-abuse-defense",
+     "title": "DDoS і зловживання",
+     "basic": {
+      "status": "empty"
+     },
+     "detailed": {
+      "status": "recheck"
+     },
+     "hist": [
+      {
+       "file": "hist-syn-cookie-and-early-ddos.md",
+       "status": "recheck"
+      }
+     ],
+     "math": [
+      {
+       "file": "math-syn-cookie-entropy.md",
+       "status": "recheck"
+      }
+     ],
+     "proj": [
+      {
+       "file": "proj-syn-cookie-eval.md",
+       "status": "recheck"
+      }
+     ],
+     "api": [
+      {
+       "file": "api-scrubbing-pipeline.md",
+       "status": "recheck"
+      }
+     ]
+    },
+    {
+     "slug": "rate-limiting",
+     "title": "Обмеження швидкості як архітектура",
+     "basic": {
+      "status": "empty"
+     },
+     "detailed": {
+      "status": "recheck"
+     },
+     "hist": [
+      {
+       "file": "hist-traffic-shaping-to-api.md",
+       "status": "recheck"
+      }
+     ],
+     "math": [
+      {
+       "file": "math-bucket-dynamics.md",
+       "status": "recheck"
+      }
+     ],
+     "proj": [
+      {
+       "file": "proj-token-bucket.md",
+       "status": "recheck"
+      }
+     ],
+     "api": [
+      {
+       "file": "api-rate-limit-headers.md",
+       "status": "recheck"
+      }
+     ]
+    }
+   ]
+  }
+ ]
 }

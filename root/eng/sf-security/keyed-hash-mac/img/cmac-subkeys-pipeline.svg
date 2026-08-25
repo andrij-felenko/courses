@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Блоковий код автентичності CMAC (OMAC1) на базі AES</text>
+<rect x="30.0" y="55.0" width="900.0" height="115.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="50.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Генерація підключів K1 та K2 у полі GF(2¹²⁸)</text>
+<rect x="50.0" y="95.0" width="110.0" height="45.0" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/><text x="105.0" y="121.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="105.0" dy="0.0">AES_K(0¹²⁸)</tspan></text>
+<line x1="160.0" y1="117.0" x2="200.0" y2="117.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="205.0" y="95.0" width="110.0" height="45.0" rx="6" fill="#f5f3ff" stroke="#6b21a8" stroke-width="1.5"/><text x="260.0" y="114.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="260.0" dy="0.0">Базовий L</tspan><tspan x="260.0" dy="14.3">(16 байтів)</tspan></text>
+<line x1="315.0" y1="117.0" x2="355.0" y2="117.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="360.0" y="90.0" width="250.0" height="55.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="485.0" y="114.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="485.0" dy="0.0">K1 = (L &lt;&lt; 1) ⊕ (msb ? 0x87 : 0)</tspan><tspan x="485.0" dy="14.3">(для повного фінального блока)</tspan></text>
+<line x1="610.0" y1="117.0" x2="650.0" y2="117.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="655.0" y="90.0" width="260.0" height="55.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="785.0" y="114.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="785.0" dy="0.0">K2 = (K1 &lt;&lt; 1) ⊕ (msb ? 0x87 : 0)</tspan><tspan x="785.0" dy="14.3">(для неповного блока з pad 10...0)</tspan></text>
+<rect x="30.0" y="185.0" width="900.0" height="275.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="50.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Конвеєр обчислення MAC: поблокове зчеплення та диференціація фіналу</text>
+<rect x="50.0" y="230.0" width="110.0" height="40.0" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/><text x="105.0" y="253.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="105.0" dy="0.0">Блок M₁</tspan></text>
+<line x1="105.0" y1="270.0" x2="105.0" y2="300.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="105.0" cy="310.0" r="10.0" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="105.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">⊕</text>
+<text x="50.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">IV = 0</text>
+<line x1="75.0" y1="310.0" x2="95.0" y2="310.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="105.0" y1="320.0" x2="105.0" y2="350.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="55.0" y="350.0" width="100.0" height="40.0" rx="6" fill="#f5f3ff" stroke="#6b21a8" stroke-width="1.5"/><text x="105.0" y="373.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="105.0" dy="0.0">AES_K</tspan></text>
+<line x1="155.0" y1="370.0" x2="240.0" y2="310.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="200.0" y="230.0" width="110.0" height="40.0" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/><text x="255.0" y="253.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="255.0" dy="0.0">Блок M₂</tspan></text>
+<line x1="255.0" y1="270.0" x2="255.0" y2="300.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="255.0" cy="310.0" r="10.0" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="255.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">⊕</text>
+<line x1="255.0" y1="320.0" x2="255.0" y2="350.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="205.0" y="350.0" width="100.0" height="40.0" rx="6" fill="#f5f3ff" stroke="#6b21a8" stroke-width="1.5"/><text x="255.0" y="373.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="255.0" dy="0.0">AES_K</tspan></text>
+<line x1="310.0" y1="370.0" x2="430.0" y2="370.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="430.0" y1="370.0" x2="480.0" y2="310.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="440.0" y="230.0" width="110.0" height="40.0" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/><text x="495.0" y="253.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="495.0" dy="0.0">Блок M_n</tspan></text>
+<line x1="495.0" y1="270.0" x2="495.0" y2="300.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="495.0" cy="310.0" r="10.0" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="495.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">⊕</text>
+<line x1="495.0" y1="320.0" x2="495.0" y2="350.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="560.0" y="275.0" width="200.0" height="60.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="660.0" y="302.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="660.0" dy="0.0">Якщо блок повний: ⊕ K1</tspan><tspan x="660.0" dy="11.7">Якщо неповний: ⊕ K2 (pad 10*0)</tspan></text>
+<line x1="560.0" y1="305.0" x2="505.0" y2="310.0" stroke="#d97706" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="445.0" y="350.0" width="100.0" height="40.0" rx="6" fill="#f5f3ff" stroke="#6b21a8" stroke-width="1.5"/><text x="495.0" y="373.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="495.0" dy="0.0">AES_K</tspan></text>
+<line x1="545.0" y1="370.0" x2="620.0" y2="370.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="625.0" y="345.0" width="140.0" height="50.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="695.0" y="366.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="695.0" dy="0.0">CMAC Tag T</tspan><tspan x="695.0" dy="15.6">(Tlen ≤ 128 біт)</tspan></text>
+<text x="500.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Захист від атак варіювання довжини: підключі K1 та K2 діють як розділювачі доменів</text>
+</svg>

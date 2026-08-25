@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 290" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="290" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Усунення зміщення методом фон Неймана</text>
+<rect x="10.0" y="10.0" width="800.0" height="260.0" rx="8" fill="#fbfcfd" stroke="#d1d5db" stroke-width="1.2"/>
+<text x="410.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Коректор Джона фон Неймана: усунення асиметрії пари бітів</text>
+<rect x="40.0" y="83.0" width="140.0" height="73.9" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/><text x="110.0" y="102.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">Сирий потік бітів</tspan><tspan x="110.0" dy="14.3">з асиметрією:</tspan><tspan x="110.0" dy="14.3">P(1) = p ≠ 0.5</tspan><tspan x="110.0" dy="14.3">P(0) = 1 − p</tspan></text>
+<line x1="190.0" y1="120.0" x2="240.0" y2="120.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="215.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">пари (b₁, b₂)</text>
+<rect x="250.0" y="60.0" width="130.0" height="36.0" rx="4" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="315.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">01  →  Вихід «0»</text>
+<text x="460.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Ймовірність: (1 − p) · p</text>
+<rect x="250.0" y="105.0" width="130.0" height="36.0" rx="4" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="315.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">10  →  Вихід «1»</text>
+<text x="460.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Ймовірність: p · (1 − p)</text>
+<rect x="250.0" y="150.0" width="130.0" height="36.0" rx="4" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="315.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">00  →  Відкинути</text>
+<text x="460.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Ймовірність: (1 − p)²</text>
+<rect x="250.0" y="195.0" width="130.0" height="36.0" rx="4" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="315.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">11  →  Відкинути</text>
+<text x="460.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Ймовірність: p²</text>
+<line x1="620.0" y1="105.0" x2="660.0" y2="105.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="651.8" y="68.0" width="156.4" height="73.9" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.6"/><text x="730.0" y="87.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="730.0" dy="0.0">Ідеальний біт:</tspan><tspan x="730.0" dy="14.3">P(0) = P(1) = ½</tspan><tspan x="730.0" dy="14.3">Пропускна здатність:</tspan><tspan x="730.0" dy="14.3">≤ 25% від сирої</tspan></text>
+<text x="410.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">P(01) = P(10) гарантує рівномірність для незалежних бітів, ціна — скидання однакових пар</text>
+</svg>
