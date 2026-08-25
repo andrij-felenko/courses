@@ -34,6 +34,10 @@ const WRITTEN = new Set(["done", "update", "deeper", "recheck"]);
 const TARGETS = ["CLAUDE.md", "BOOKS.md"];
 const BEGIN = "<!-- STATS:BEGIN -->";
 const END = "<!-- STATS:END -->";
+/* Другий блок — поіменний реєстр книг. Його маркери має тільки BOOKS.md:
+   у CLAUDE.md шістдесят шість рядків не потрібні, там доречне зведення. */
+const B_BEGIN = "<!-- STATS:BOOKS:BEGIN -->";
+const B_END = "<!-- STATS:BOOKS:END -->";
 
 /* ── збір ──────────────────────────────────────────────────────────────────── */
 function collect() {
@@ -134,19 +138,47 @@ function markdown(kinds) {
   return L.join("\n");
 }
 
+/* ── поіменний реєстр книг ─────────────────────────────────────────────────── */
+function booksMarkdown(kinds) {
+  const L = [];
+  L.push(B_BEGIN);
+  L.push("<!-- згенеровано `node scripts/stats.js --apply` — руками не правити -->");
+  for (const k of kinds) {
+    const bs = k.books.filter((b) => !b.missing).sort((x, y) => y.topics - x.topics);
+    if (!bs.length) continue;
+    L.push("");
+    L.push(`### ${k.shelf} \`${k.kind}\` — ${k.words.book || "книга"} · ${k.words.group || "група"} · ${k.words.chapter || "розділ"}`);
+    L.push("");
+    L.push("| слуг | назва | груп | тем | написано | чекає |");
+    L.push("|---|---|---:|---:|---:|---:|");
+    for (const b of bs)
+      L.push(`| \`${b.slug}\` | ${b.title} | ${b.groups} | ${b.topics} | ${b.written} | ${b.pending} |`);
+  }
+  L.push(B_END);
+  return L.join("\n");
+}
+
 /* ── запис у файли з маркерами ─────────────────────────────────────────────── */
-function apply(block) {
+function replaceBlock(src, begin, end, block) {
+  const a = src.indexOf(begin), b = src.indexOf(end);
+  if (a < 0 || b < 0 || b < a) return null;
+  return src.slice(0, a) + block + src.slice(b + end.length);
+}
+
+function apply(block, booksBlock) {
   let touched = 0;
   for (const rel of TARGETS) {
     const p = path.join(M.ROOT, rel);
     if (!fs.existsSync(p)) { console.log(`   — ${rel}: нема файла`); continue; }
     const src = fs.readFileSync(p, "utf8");
-    const a = src.indexOf(BEGIN), b = src.indexOf(END);
-    if (a < 0 || b < 0 || b < a) { console.log(`   — ${rel}: нема маркерів ${BEGIN} … ${END}, пропущено`); continue; }
-    const next = src.slice(0, a) + block + src.slice(b + END.length);
+    let next = replaceBlock(src, BEGIN, END, block);
+    if (next === null) { console.log(`   — ${rel}: нема маркерів ${BEGIN} … ${END}, пропущено`); continue; }
+    /* Другий блок необовʼязковий: нема маркерів — просто не чіпаємо файл. */
+    const withBooks = replaceBlock(next, B_BEGIN, B_END, booksBlock);
+    if (withBooks !== null) next = withBooks;
     if (next === src) { console.log(`   = ${rel}: без змін`); continue; }
     fs.writeFileSync(p, next, "utf8");
-    console.log(`   ✓ ${rel}: блок оновлено`);
+    console.log(`   ✓ ${rel}: оновлено${withBooks !== null ? " (зведення + реєстр книг)" : " (зведення)"}`);
     touched++;
   }
   return touched;
@@ -157,9 +189,11 @@ const argv = process.argv.slice(2);
 const kinds = collect();
 if (argv.includes("--apply")) {
   console.log("stats --apply:");
-  apply(markdown(kinds));
+  apply(markdown(kinds), booksMarkdown(kinds));
 } else if (argv.includes("--md")) {
   console.log(markdown(kinds));
+  console.log("");
+  console.log(booksMarkdown(kinds));
 } else {
   console.log(report(kinds));
 }
