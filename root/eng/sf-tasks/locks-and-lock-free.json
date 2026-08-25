@@ -1,0 +1,248 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-tasks",
+  "slug": "locks-and-lock-free",
+  "title": "Замки й безблоковість",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "locks-and-critical-sections",
+      "title": "Замки й критичні секції",
+      "topics": [
+        {
+          "slug": "critical-sections",
+          "title": "Критичні секції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "data-races-locks",
+          "title": "Перегони даних і замки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-blackout2003.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-contention-scaling.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mutex-bank.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pthread-mutex.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "spinlock",
+          "title": "Спін-замок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "readers-writer-lock",
+          "title": "Багато читачів, один письменник",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-courtois.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rwlock-fairness.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rwlock-impl.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-posix-cpp.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "monitors-and-deadlock",
+      "title": "Монітори й дедлок",
+      "topics": [
+        {
+          "slug": "monitor-sync",
+          "title": "Монітори й умовні змінні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "deadlock",
+          "title": "Дедлок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-coffman-dijkstra.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-banker.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lock-hierarchy.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "thread-safe-code",
+      "title": "Потокобезпечний код",
+      "topics": [
+        {
+          "slug": "thread-safety",
+          "title": "Потокова безпека",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "reentrancy",
+          "title": "Реентерабельність: перервати й покликати знову",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "lock-free",
+      "title": "Без замків",
+      "topics": [
+        {
+          "slug": "lock-free-basics",
+          "title": "Без замків",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lock-free-milestones.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-progress-hierarchy.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-spsc-ringbuf.md",
+              "status": "recheck"
+            },
+            {
+              "file": "proj-treiber-stack.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-atomic-cas.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "seqlock",
+          "title": "Seqlock: узгоджене читання без блокування читача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "aba-problem",
+          "title": "Проблема ABA в неблокувальних структурах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "read-copy-update",
+          "title": "RCU: читання без замків і період відстрочки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

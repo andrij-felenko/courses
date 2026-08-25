@@ -1,0 +1,204 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-tasks",
+  "slug": "shared-memory",
+  "title": "Спільна пам'ять",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "races-and-atomicity",
+      "title": "Гонки й атомарність",
+      "topics": [
+        {
+          "slug": "atomicity-races",
+          "title": "Атомарність і гонки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-therac25.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-atomics-barriers.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-critical-sections.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "atomic-ops",
+          "title": "Атомарні операції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-atomic-instructions.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lockfree-ringbuffer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kernel-atomic-ops.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "torn-reads",
+          "title": "Розривне читання (torn read)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "ordering-and-visibility",
+      "title": "Порядок і видимість",
+      "topics": [
+        {
+          "slug": "memory-ordering-barriers",
+          "title": "Упорядкування пам'яті та бар'єри",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-memory-models.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "memory-barriers",
+          "title": "Бар'єри пам'яті: впорядкування операцій",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-out-of-order-cpu.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lockfree-stack.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kernel-memory-barriers.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "volatile-keyword",
+          "title": "Ключове слово volatile і модель пам'яті компілятора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "volatile-register",
+          "title": "volatile і компілятор в embedded C",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "hardware-data-exchange",
+      "title": "Обмін із залізом",
+      "topics": [
+        {
+          "slug": "dma-cache-races",
+          "title": "Пастки DMA",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-cache-dma.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "double-buffering",
+          "title": "Подвійна буферизація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-buffer-sizing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ring-buffer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fifo-buffer",
+          "title": "FIFO-буфер (черга «перший прийшов — перший пішов»)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

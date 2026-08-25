@@ -1,0 +1,218 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-tasks",
+  "slug": "message-passing",
+  "title": "Обмін повідомленнями",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "queues-and-notifications",
+      "title": "Черги й сповіщення",
+      "topics": [
+        {
+          "slug": "task-ipc",
+          "title": "Черги й семафори",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pathfinder.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-deadlock.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-priority-inheritance.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-queue-pattern.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "event-groups",
+          "title": "Групи подій (event groups)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "task-notification",
+          "title": "Сповіщення задачі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "message-buffer",
+          "title": "Потокові буфери й буфери повідомлень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "producer-consumer",
+          "title": "Виробник–споживач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dijkstra-semaphores.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-queueing-backpressure.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bounded-buffer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bounded-queue.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "actors-and-channels",
+      "title": "Актори й канали",
+      "topics": [
+        {
+          "slug": "actor-model",
+          "title": "Модель акторів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hewitt-erlang.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-actor-semantics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-actor-runtime.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-actor-primitives.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "csp-channels",
+          "title": "Канали і CSP",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hoare-csp.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-csp-algebra.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-csp-channel-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-channel-primitives.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "supervision-trees",
+          "title": "Дерева нагляду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-erlang-supervision.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-restart-intensity.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-supervisor-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-supervisor-spec.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

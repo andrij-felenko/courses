@@ -1,0 +1,256 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-tasks",
+  "slug": "async-and-load",
+  "title": "Асинхронність і навантаження",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "non-blocking-io",
+      "title": "Неблокуючий ввід-вивід",
+      "topics": [
+        {
+          "slug": "blocking-vs-nonblocking-io",
+          "title": "Блокуючий і неблокуючий ввід-вивід",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-blocking-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-nonblocking-buffer-fsm.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-io-modes-comparison.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "event-loop",
+          "title": "Цикл подій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-c10k-and-demux.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mini-event-loop.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-libuv-loop.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "async-await",
+          "title": "Колбеки → проміси → async/await",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-promises-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-monadic-promises.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-state-machine-desugaring.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-promise-concurrency.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "polling-vs-events",
+          "title": "Опитування проти події: коли перебирати стан, а коли чекати сповіщення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "cooperative-cancellation",
+          "title": "Кооперативне скасування довгої роботи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "workers-and-pace",
+      "title": "Виконавці й темп",
+      "topics": [
+        {
+          "slug": "thread-pool",
+          "title": "Пул потоків і його розмір",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-thread-pool.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pool-sizing.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-thread-pool.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "thread-per-core",
+          "title": "Thread-per-core / shared-nothing на ядрах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-c10k-to-c10m.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cacheline-bouncing.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-spsc-channel.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-core-pinning.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "backpressure-local",
+          "title": "Backpressure",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-backpressure-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-queue-latency-dynamics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ring-buffer-backpressure.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-local-backpressure.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "backpressure",
+          "title": "Протитиск (backpressure)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-backpressure.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-queue-stability.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-backpressure-demo.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

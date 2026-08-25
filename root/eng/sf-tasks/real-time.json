@@ -1,0 +1,134 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-tasks",
+  "slug": "real-time",
+  "title": "Реальний час",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "rtos-tasks",
+      "title": "Задачі під RTOS",
+      "topics": [
+        {
+          "slug": "potoky-nastilnoi-os-proty-zadach-rtos",
+          "title": "Потоки настільної ОС проти задач RTOS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "tyk-planuvalnyka-i-rezhym-bez-tyku-tickless",
+          "title": "Тик планувальника й режим без тику (tickless)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "son-pid-rtos",
+          "title": "Сон під RTOS: tickless і задача, яка нічого не робить",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "vyklyky-rtos-iz-pereryvannia-fromisr",
+          "title": "Виклики RTOS із переривання (FromISR)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "deadlines-and-determinism",
+      "title": "Терміни й детермінованість",
+      "topics": [
+        {
+          "slug": "real-time-systems",
+          "title": "Системи реального часу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "realtime-determinism",
+          "title": "Детермінованість",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-rate-monotonic.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "firmware-realtime-loop",
+          "title": "Прошивка реального часу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "worst-case-analysis",
+      "title": "Найгірший випадок",
+      "topics": [
+        {
+          "slug": "wcet-analysis",
+          "title": "WCET-аналіз",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "wcrt-analysis",
+          "title": "Аналіз найгіршого часу відповіді",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "priority-protocols",
+          "title": "Протоколи пріоритету",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
