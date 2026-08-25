@@ -1,0 +1,200 @@
+{
+  "schema": 7,
+  "kind": "cat",
+  "book": "cat-hw-power",
+  "slug": "sources-and-conversion",
+  "title": "Джерела й перетворення",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "batteries",
+      "title": "Акумулятори",
+      "topics": [
+        {
+          "slug": "videx-14500",
+          "title": "Videx 14500 — Li-ion 3.7V",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-lithium-ion.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lipo-3s",
+          "title": "LiPo-акумулятор (XT60, ~3S)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-lipo-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-c-rate.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "charging-modules",
+      "title": "Заряд і живильні плати",
+      "topics": [
+        {
+          "slug": "tp4056",
+          "title": "TP4056",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "liion-hat-rpi",
+          "title": "Li-ion Battery HAT для Raspberry Pi",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-read-battery.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "power-hat-family",
+          "title": "Родина живильних HAT-ів Waveshare (SW6106)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-i2c-fuel.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "yp-08-power",
+          "title": "YP-08 — модуль живлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-rail-monitor.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "switching-converters",
+      "title": "Імпульсні перетворювачі",
+      "topics": [
+        {
+          "slug": "dcdc-buck-boost",
+          "title": "Програмований DC-DC buck-boost (DPS/DPH)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ruideng-opendps.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-modbus-control.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bec-ubec",
+          "title": "BEC / UBEC — понижувальне живлення для серв і приймача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-battery-eliminator.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-servo-rail.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "linear-regulation",
+      "title": "Лінійне регулювання й опорна напруга",
+      "topics": [
+        {
+          "slug": "xc6206",
+          "title": "XC6206 (662K) — LDO-регулятор 3.3 В",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-torex-ldo.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "tl431",
+          "title": "TL431",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    }
+  ]
+}
