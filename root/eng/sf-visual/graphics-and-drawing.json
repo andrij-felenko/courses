@@ -1,0 +1,152 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-visual",
+  "slug": "graphics-and-drawing",
+  "title": "Графіка й малювання",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "rasterization",
+      "title": "Растеризація",
+      "topics": [
+        {
+          "slug": "bresenham-algorithm",
+          "title": "Алгоритм Брезенгема",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bresenham.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-diophantine-rasterization.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bresenham-rasterizer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "primitives-raster",
+          "title": "Растеризація",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "fonts",
+          "title": "Шрифти",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "layers-and-alpha",
+      "title": "Прозорість і шари",
+      "topics": [
+        {
+          "slug": "alpha-compositing",
+          "title": "Альфа-композитинг",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "alpha-blending",
+          "title": "Альфа-змішування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "tile-rendering",
+          "title": "Тайловий рендеринг",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "device-and-context",
+      "title": "Пристрій і контекст",
+      "topics": [
+        {
+          "slug": "graphics-api-context",
+          "title": "Графічні API і контекст: OpenGL, Vulkan, Metal, Direct3D",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "opencl-compute-model",
+          "title": "OpenCL: контекст, черга команд, ядра й буфери",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "gpu-texture-upload",
+          "title": "Текстура на GPU: завантаження, фільтрація, режими обгортання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "frame-timing",
+      "title": "Час кадру",
+      "topics": [
+        {
+          "slug": "frame-budget",
+          "title": "Бюджет кадру: 16.6 мс і що в них уміщається",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

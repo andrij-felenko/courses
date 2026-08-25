@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="470"
+     viewBox="0 0 960 470" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="470" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Навчання проти інференсу: написати рецепт чи зварити за ним</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">навчання — мільйони прикладів підганяють ваги (важко, раз, у хмарі); інференс — готова модель відповідає на кадр (на борту)</text>
+<rect x="50" y="104" width="388" height="248" rx="12" fill="#fbfbfd" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.8"/>
+<text x="244" y="128" font-size="11" fill="#b06b00" text-anchor="middle" font-weight="bold" font-style="normal">НАВЧАННЯ (раз, у хмарі)</text>
+<rect x="86" y="148" width="56" height="34" rx="8" fill="#1e293b" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<rect x="86" y="148" width="56" height="8" rx="8" fill="#0a8f3c" fill-opacity="0.4" stroke="none" stroke-width="1.6"/>
+<rect x="156" y="148" width="56" height="34" rx="8" fill="#1e293b" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<rect x="156" y="148" width="56" height="8" rx="8" fill="#0a8f3c" fill-opacity="0.4" stroke="none" stroke-width="1.6"/>
+<rect x="226" y="148" width="56" height="34" rx="8" fill="#1e293b" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<rect x="226" y="148" width="56" height="8" rx="8" fill="#0a8f3c" fill-opacity="0.4" stroke="none" stroke-width="1.6"/>
+<rect x="86" y="192" width="56" height="34" rx="8" fill="#1e293b" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<rect x="86" y="192" width="56" height="8" rx="8" fill="#0a8f3c" fill-opacity="0.4" stroke="none" stroke-width="1.6"/>
+<rect x="156" y="192" width="56" height="34" rx="8" fill="#1e293b" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<rect x="156" y="192" width="56" height="8" rx="8" fill="#0a8f3c" fill-opacity="0.4" stroke="none" stroke-width="1.6"/>
+<rect x="226" y="192" width="56" height="34" rx="8" fill="#1e293b" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<rect x="226" y="192" width="56" height="8" rx="8" fill="#0a8f3c" fill-opacity="0.4" stroke="none" stroke-width="1.6"/>
+<text x="244" y="252" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">мільйони прикладів із мітками</text>
+<text x="244" y="274" font-size="9.5" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">↓ підганяють МІЛЬЙОНИ ваг</text>
+<text x="244" y="292" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">↓ щоб помилка стала найменша</text>
+<text x="244" y="326" font-size="9" fill="#b06b00" text-anchor="middle" font-weight="bold" font-style="normal">важко, повільно · GPU / хмара</text>
+<line x1="442" y1="220" x2="518" y2="220" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="480" y="208" font-size="8.5" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">модель</text>
+<text x="480" y="240" font-size="7.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">(файл ваг)</text>
+<rect x="522" y="104" width="388" height="248" rx="12" fill="#eafaef" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.8"/>
+<text x="716" y="128" font-size="11" fill="#15803d" text-anchor="middle" font-weight="bold" font-style="normal">ІНФЕРЕНС (щокадру, на борту)</text>
+<rect x="552" y="150" width="84" height="58" rx="8" fill="#1e293b" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1"/>
+<text x="594" y="222" font-size="8.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">новий кадр</text>
+<line x1="640" y1="178" x2="686" y2="178" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="692" y="150" width="188" height="58" rx="8" fill="#eafaef" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.4"/>
+<text x="786" y="174" font-size="9" fill="#15803d" text-anchor="middle" font-weight="bold" font-style="normal">готова модель</text>
+<text x="786" y="192" font-size="9" fill="#15803d" text-anchor="middle" font-weight="normal" font-style="normal">→ відповідь</text>
+<text x="716" y="252" font-size="9" fill="#15803d" text-anchor="middle" font-weight="bold" font-style="normal">легше, швидко · на пристрої</text>
+<text x="716" y="290" font-size="9.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">рецепт пишуть РАЗ (важко);</text>
+<text x="716" y="308" font-size="9.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">варять за ним ЩОРАЗУ (легше)</text>
+<rect x="110" y="374" width="740" height="48" rx="10" fill="#fffbeb" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.5"/>
+<text x="480" y="396" font-size="10" fill="#92400e" text-anchor="middle" font-weight="bold" font-style="normal">ДРОН РОБИТЬ ЛИШЕ ІНФЕРЕНС: він запускає модель, яку навчив хтось інший —</text>
+<text x="480" y="412" font-size="9.5" fill="#92400e" text-anchor="middle" font-weight="normal" font-style="normal">і не вчиться сам у польоті.</text>
+</svg>

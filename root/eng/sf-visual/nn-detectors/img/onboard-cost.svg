@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="470"
+     viewBox="0 0 960 470" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="470" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Інференс на борту: чим і за скільки</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">навіть інференс — мільйони множень; потрібен спроможний чип (борткомп'ютер чи прискорювач), не голий МК; рятують малі й квантовані моделі</text>
+<text x="195" y="116" font-size="10.5" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">чим рахувати</text>
+<rect x="60" y="280" width="96" height="70" rx="6" fill="#cc0000" fill-opacity="0.2" stroke="#1a1a1a" stroke-width="1.4"/>
+<rect x="60" y="280" width="96" height="4" rx="8" fill="#cc0000" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<text x="108" y="302" font-size="9" fill="#cc0000" text-anchor="middle" font-weight="bold" font-style="normal">голий МК</text>
+<text x="108" y="366" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">✗ не тягне детектор</text>
+<rect x="170" y="230" width="96" height="120" rx="6" fill="#d98a00" fill-opacity="0.2" stroke="#1a1a1a" stroke-width="1.4"/>
+<rect x="170" y="230" width="96" height="4" rx="8" fill="#d98a00" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<text x="218" y="252" font-size="9" fill="#d98a00" text-anchor="middle" font-weight="bold" font-style="normal">Raspberry Pi</text>
+<text x="218" y="366" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">кілька кадрів/с</text>
+<rect x="280" y="180" width="96" height="170" rx="6" fill="#0a8f3c" fill-opacity="0.2" stroke="#1a1a1a" stroke-width="1.4"/>
+<rect x="280" y="180" width="96" height="4" rx="8" fill="#0a8f3c" fill-opacity="1.0" stroke="none" stroke-width="1.6"/>
+<text x="328" y="202" font-size="9" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">Jetson / TPU·NPU</text>
+<text x="328" y="366" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">реальний час</text>
+<line x1="55" y1="350" x2="400" y2="350" stroke="#1a1a1a" stroke-width="1.3" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="60" y="384" font-size="8.5" fill="#6b7280" text-anchor="start" font-weight="normal" font-style="normal">слабкий →</text>
+<text x="390" y="384" font-size="8.5" fill="#6b7280" text-anchor="end" font-weight="normal" font-style="normal">→ потужніший (і ненажерливіший)</text>
+<rect x="440" y="128" width="480" height="120" rx="11" fill="#eef2ff" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.5"/>
+<text x="680" y="150" font-size="10.5" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">як прискорити інференс</text>
+<text x="460" y="172" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• менша модель (напр. MobileNet) — менше шарів і ваг;</text>
+<text x="460" y="190" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• квантування: ваги 8-біт замість 32 → швидше й менше;</text>
+<text x="460" y="208" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• апаратний прискорювач (TPU / NPU) робить згортки гуртом;</text>
+<text x="460" y="226" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• нижча роздільність кадру — менше пікселів рахувати.</text>
+<rect x="440" y="262" width="480" height="138" rx="11" fill="#f4f4f5" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="680" y="284" font-size="10.5" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">за що любимо · чим платимо</text>
+<text x="460" y="306.0" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">+ загальна: ловить різноманітні цілі, яких правилом не задаси;</text>
+<text x="460" y="323.5" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">+ стійка до поз, ракурсів, освітлення;</text>
+<text x="460" y="341.0" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">− треба гори даних і обчислень (навчання);</text>
+<text x="460" y="358.5" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">− «чорна скринька»: важко знати, ЧОМУ так вирішила;</text>
+<text x="460" y="376.0" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">− буває ВПЕВНЕНО помиляється (хибна знахідка на порожньому).</text>
+<text x="480.0" y="458" font-size="10.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Інференс — теж робота: для реального часу на борту потрібен спроможний чип.</text>
+</svg>

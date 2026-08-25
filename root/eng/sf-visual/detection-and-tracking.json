@@ -1,0 +1,244 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-visual",
+  "slug": "detection-and-tracking",
+  "title": "Виявлення й супровід",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "finding-objects",
+      "title": "Пошук об'єктів",
+      "topics": [
+        {
+          "slug": "object-detection",
+          "title": "Виявлення об'єктів",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hough.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-hough.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-color-blob.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "nn-detectors",
+          "title": "Нейродетектори",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-neural-nets.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-iou-nms.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-yolo-postprocess.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "detection-architectures",
+          "title": "Архітектури детекторів: YOLO, SSD, R-CNN",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "nn-segmentation",
+          "title": "Сегментація зображень нейромережею",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "detector-output",
+      "title": "Вихід детектора",
+      "topics": [
+        {
+          "slug": "nms-algorithm",
+          "title": "Non-Maximum Suppression",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "detection-metrics",
+          "title": "Метрики детектора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "motion-in-frame",
+      "title": "Рух у кадрі",
+      "topics": [
+        {
+          "slug": "optical-flow",
+          "title": "Оптичний потік",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-two-schools.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-optical-flow-constraint.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "background-subtraction",
+          "title": "Відрахування фону",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "target-tracking",
+      "title": "Супровід цілей",
+      "topics": [
+        {
+          "slug": "tracking",
+          "title": "Трекінг",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tracking-history.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-kf-tracking-state.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sort-tracker.md",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "slug": "sort-tracking-algorithm",
+          "title": "Алгоритм трекінгу об'єктів SORT",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sort-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sort-kalman-iou.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sort-tracker.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sort-interface.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "measurement-to-track-association",
+          "title": "Прив'язка вимірів до треків під невизначеністю: махаланобісова відстань, JPDA і MHT",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "color-histogram",
+          "title": "Колірна гістограма і трекінг за кольором",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

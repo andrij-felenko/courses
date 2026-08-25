@@ -1,0 +1,350 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-visual",
+  "slug": "frame-and-color",
+  "title": "Кадр і колір",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "raster-in-memory",
+      "title": "Растр у пам'яті",
+      "topics": [
+        {
+          "slug": "image-as-data",
+          "title": "Зображення як дані",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-summer-vision.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-maxwell-rgb.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-color-spaces.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rgb-hsv-convert.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pixel-formats",
+          "title": "Формати пікселів і буферів зображення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-chroma-subsampling.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "framebuffer",
+          "title": "Кадровий буфер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-alto.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "color-formats",
+          "title": "Колір у пам'яті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-rgb565.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "camera-pipeline",
+      "title": "Конвеєр камери",
+      "topics": [
+        {
+          "slug": "bayer-demosaic",
+          "title": "Демозаїка",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bryce-bayer.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-demosaic-bilinear.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "raw-processing-pipeline",
+          "title": "Конвеєр обробки RAW",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "color-filter-array-variants",
+          "title": "Альтернативні матриці кольорових фільтрів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "white-balance",
+          "title": "Баланс білого",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-color-constancy.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-von-kries-diagonal.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-auto-white-balance.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gamma-and-tone",
+      "title": "Гама і тон",
+      "topics": [
+        {
+          "slug": "gamma-srgb",
+          "title": "Гама і sRGB",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "gamma-correction",
+          "title": "Гамма-корекція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "tone-mapping",
+          "title": "Тонмаппінг",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "color-encoding",
+      "title": "Колір у числах",
+      "topics": [
+        {
+          "slug": "video-color-standards-gamut-transfer",
+          "title": "Колірні стандарти відео: гамут, гамма й передавальні функції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-color-matrix-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-color-space-converter.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-video-color-metadata.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ycbcr-digital-pixel-formats",
+          "title": "YCbCr у цифровому конвеєрі: квантування й розкладки кадру в пам'яті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-yuv-to-ycbcr.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ycbcr-conversion.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ycbcr-fixedpoint.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "chroma-subsampling",
+          "title": "Колірне субдискретування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-yuv-color-tv.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-chroma-grid.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-chroma-converter.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "perception-limits",
+      "title": "Межі сприйняття",
+      "topics": [
+        {
+          "slug": "auditory-masking",
+          "title": "Психоакустичне маскування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "video-standards",
+      "title": "Стандарти відеокодування",
+      "topics": [
+        {
+          "slug": "h264-profiles-levels",
+          "title": "Профілі та рівні H.264",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "h265-hevc",
+          "title": "H.265 / HEVC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "av1",
+          "title": "AV1",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

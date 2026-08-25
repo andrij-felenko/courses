@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="820" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пастка ідентичності: підміна номерів при перетині траєкторій</text>
+<rect x="40.0" y="64.0" width="740.0" height="210.0" rx="8" fill="#0f172a" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="80.0" y1="99.0" x2="410.0" y2="169.0" stroke="#60a5fa" stroke-width="2.4"/>
+<line x1="80.0" y1="239.0" x2="410.0" y2="169.0" stroke="#f59e0b" stroke-width="2.4"/>
+<line x1="410.0" y1="169.0" x2="740.0" y2="239.0" stroke="#60a5fa" stroke-width="2.4" stroke-dasharray="6,4"/>
+<line x1="410.0" y1="169.0" x2="740.0" y2="99.0" stroke="#f59e0b" stroke-width="2.4" stroke-dasharray="6,4"/>
+<circle cx="80.0" cy="99.0" r="13.0" fill="#e08a1e" stroke="none" stroke-width="0.0"/>
+<text x="58.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="end" font-weight="700">A</text>
+<circle cx="80.0" cy="239.0" r="13.0" fill="#e08a1e" stroke="none" stroke-width="0.0"/>
+<text x="58.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d98a00" text-anchor="end" font-weight="700">B</text>
+<circle cx="410" cy="169" r="40" fill="none" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="3,3"/>
+<text x="410.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">рамки майже збіглись</text>
+<circle cx="740.0" cy="239.0" r="13.0" fill="#e08a1e" stroke="none" stroke-width="0.0"/>
+<text x="760.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">тепер «A»?</text>
+<circle cx="740.0" cy="99.0" r="13.0" fill="#e08a1e" stroke="none" stroke-width="0.0"/>
+<text x="760.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d98a00" text-anchor="start" font-weight="700">тепер «B»?</text>
+<text x="410.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">ID switch: переплутані номери на перетині</text>
+<rect x="40.0" y="296.0" width="740.0" height="52.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.3"/><text x="410.0" y="312.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Дві однакові цілі зближуються — прогнози перекриваються так, що IoU не каже, котра котра.</tspan><tspan x="410.0" dy="13.0">Прив'язка віддає детекцію не тому треку, і після перетину номери лишаються переставлені (пунктир).</tspan><tspan x="410.0" dy="13.0">Рятує лише ознака зовнішності (Re-ID), а не сама геометрія.</tspan></text>
+</svg>

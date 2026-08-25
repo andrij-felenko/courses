@@ -1,0 +1,208 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-visual",
+  "slug": "scene-geometry",
+  "title": "Геометрія сцени",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "pinhole-model",
+      "title": "Модель камери",
+      "topics": [
+        {
+          "slug": "camera-model",
+          "title": "Модель камери-обскури й внутрішні параметри",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "camera-calibration",
+          "title": "Калібрування камери",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "correspondences",
+      "title": "Пошук відповідностей",
+      "topics": [
+        {
+          "slug": "corner-detection",
+          "title": "Детектори кутів: Гарріс, Ші–Томасі, FAST",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-corner-lineage.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-second-moment.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "scale-space",
+          "title": "Масштабний простір і піраміда Гауса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "feature-matching",
+          "title": "Зіставлення ключових точок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sift-to-orb.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-descriptor-distance.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-orb-match-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "template-matching",
+          "title": "Зіставлення з шаблоном",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "fiducial-markers",
+      "title": "Рукотворні мітки",
+      "topics": [
+        {
+          "slug": "aruco-apriltag",
+          "title": "Фідуційні мітки ArUco та AprilTag",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fiducial-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-aruco-decode.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "pose-recovery",
+      "title": "Відновлення пози",
+      "topics": [
+        {
+          "slug": "homography",
+          "title": "Гомографія: перетворення площини в площину",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "pose-estimation",
+          "title": "Відновлення пози за точками (PnP)",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pnp-lineage.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-p3p-cosines.md",
+              "status": "done"
+            },
+            {
+              "file": "math-reprojection-jacobian.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pnp-solver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "absolute-orientation",
+          "title": "Абсолютна орієнтація (суміщення двох наборів точок)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "bundle-adjustment",
+          "title": "Оптимізація пучком (bundle adjustment)",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

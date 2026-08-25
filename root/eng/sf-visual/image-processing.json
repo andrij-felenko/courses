@@ -1,0 +1,188 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-visual",
+  "slug": "image-processing",
+  "title": "Обробка зображення",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "brightness-and-contrast",
+      "title": "Яскравість і контраст",
+      "topics": [
+        {
+          "slug": "histogram",
+          "title": "Гістограма",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hurter-driffield.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-equalization.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-histogram-lut.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "tone-curve",
+          "title": "Тонова крива й гамма-корекція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "spatial-filters",
+      "title": "Просторові фільтри",
+      "topics": [
+        {
+          "slug": "convolution-filters",
+          "title": "Згортки й фільтри",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-2d-convolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-separable-blur.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "frequency-filtering",
+          "title": "Частотна фільтрація зображень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "edges-and-shapes",
+      "title": "Межі й форми",
+      "topics": [
+        {
+          "slug": "image-gradient",
+          "title": "Градієнт зображення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "edge-detection",
+          "title": "Виділення меж",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sobel-feldman.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-canny-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hough-transform",
+          "title": "Перетворення Хафа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "masks-and-regions",
+      "title": "Маска й області",
+      "topics": [
+        {
+          "slug": "threshold-morphology",
+          "title": "Пороги й морфологія",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-otsu-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-threshold-morphology-pipeline.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "watershed-segmentation",
+          "title": "Сегментація водорозділом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "blob-analysis",
+          "title": "Аналіз плям",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

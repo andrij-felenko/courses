@@ -1,0 +1,196 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-visual",
+  "slug": "map-and-terrain",
+  "title": "Карта й місцевість",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "map-data",
+      "title": "Дані карти",
+      "topics": [
+        {
+          "slug": "vector-vs-raster-maps",
+          "title": "Векторні й растрові карти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "terrain-elevation-model",
+          "title": "Цифрова модель рельєфу і профіль висот",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-srtm.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-grid-reconstruction-error.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-terrain-profile.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "map-tiles",
+      "title": "Тайлова карта",
+      "topics": [
+        {
+          "slug": "map-tile-pipeline",
+          "title": "Тайловий конвеєр карти: завантаження, кеш, рівні деталізації",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-slippy-map.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tile-pyramid.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tile-cache.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "tile-url-schemes",
+          "title": "Адресні схеми тайлових сервісів: XYZ, TMS, WMTS, quadkey",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "offline-tile-cache",
+          "title": "Офлайн-карти й кеш тайлів",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mbtiles.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tile-budget.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tile-store.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "georeferencing",
+      "title": "Прив'язка до місцевості",
+      "topics": [
+        {
+          "slug": "image-georeferencing",
+          "title": "Геоприв'язка аерознімка: від пози камери до координат на землі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-direct-georeferencing.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-georef-error.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pixel-to-ground.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "orthorectification",
+          "title": "Ортотрансформування знімка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "ground-control-points",
+          "title": "Опорні точки на місцевості (GCP)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "operator-console",
+      "title": "Оператор за пультом",
+      "topics": [
+        {
+          "slug": "operator-ergonomics",
+          "title": "Ергономіка оператора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
