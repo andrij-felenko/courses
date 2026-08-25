@@ -1,0 +1,272 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-geometry",
+  "slug": "earth-and-map",
+  "title": "Земля й карта",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "planet-shape-and-heights",
+      "title": "Форма планети й висоти",
+      "topics": [
+        {
+          "slug": "wgs84-datum",
+          "title": "WGS-84: еліпсоїд і датум",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-figure-of-earth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-radii-of-curvature.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-datum-shift.md",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "slug": "geoid-and-amsl",
+          "title": "Геоїд, AMSL і висота над еліпсоїдом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-geoid.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-geoid-undulation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-geoid-lookup.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "vertical-datum",
+          "title": "Вертикальний датум і національні системи висот",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "reference-frames",
+      "title": "Системи відліку",
+      "topics": [
+        {
+          "slug": "ecef-ned-enu",
+          "title": "ECEF, NED і ENU: земні й локальні системи координат",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-prime-meridian.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ecef-to-geodetic.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "eci-frame",
+          "title": "ECI: геоцентрична інерціальна система координат",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "local-tangent-plane",
+          "title": "Місцева дотична площина",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "helmert-transform",
+          "title": "Семипараметричне перетворення Гельмерта (Helmert Transformation)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-friedrich-helmert.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-helmert-least-squares.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-helmert-transform.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "paths-on-sphere",
+      "title": "Шляхи по кулі",
+      "topics": [
+        {
+          "slug": "great-circle-distance",
+          "title": "Відстань великого кола (формула гаверсинусів)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "rhumb-line",
+          "title": "Локсодрома: лінія сталого курсу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "flat-projections",
+      "title": "Проєкції на площину",
+      "topics": [
+        {
+          "slug": "map-projections",
+          "title": "Картографічні проєкції та їхні спотворення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-impossible-map.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tissot.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-distortion-map.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "web-mercator-tiles",
+          "title": "Web Mercator і тайлова сітка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mercator-to-web.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-secant-integral.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tile-coords.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "point-fixing",
+      "title": "Визначення точки",
+      "topics": [
+        {
+          "slug": "trilateration",
+          "title": "Трилатерація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "triangulation-survey",
+          "title": "Тріангуляція: як міряють великі відстані кутами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
