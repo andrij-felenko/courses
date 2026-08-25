@@ -1,0 +1,250 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-motion",
+  "slug": "drive-control",
+  "title": "Керування приводом",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "power-stage",
+      "title": "Силовий каскад",
+      "topics": [
+        {
+          "slug": "dc-motor-driver",
+          "title": "Драйвер DC-моторів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "h-bridge",
+          "title": "H-міст",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-h-bridge-board.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-shoot-through.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-h-bridge-board.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "h-bridge-driver",
+          "title": "Драйвер H-моста (клас пристрою)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-isolated-gate-drivers.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-desat-protection.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "motor-current-sense",
+          "title": "Вимірювання струму мотора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-single-shunt-reconstruction.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "halmuvannia-motora",
+          "title": "Гальмування мотора: вибіг, динамічне, рекуперація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "phase-commutation",
+      "title": "Комутація фаз",
+      "topics": [
+        {
+          "slug": "stepper-driver",
+          "title": "Драйвер крокового",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-chopper-drive.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "esc",
+          "title": "ESC-регулятор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "bldc-commutation",
+          "title": "Стратегії комутації BLDC-мотора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-foc-origins.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-six-step-table.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "svpwm",
+          "title": "Просторово-векторна ШІМ (SVPWM)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-svpwm-times.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-svpwm-generator.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "closed-loop",
+      "title": "Замкнена петля",
+      "topics": [
+        {
+          "slug": "foc-control",
+          "title": "Векторне керування (FOC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "motor-back-emf-sensing",
+          "title": "Зворотна ЕРС як датчик",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "closed-loop-stepper",
+          "title": "Кроковик із замкненою петлею",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "servomechanism",
+      "title": "Сервомеханізм",
+      "topics": [
+        {
+          "slug": "servo",
+          "title": "Сервомеханізм",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "hobby-servo",
+          "title": "Хобі-серво",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "servo-digital",
+          "title": "Цифровий сервопривід",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

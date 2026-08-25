@@ -1,0 +1,162 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-motion",
+  "slug": "display-module",
+  "title": "Дисплейний модуль",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "frame-delivery",
+      "title": "Доставка кадру",
+      "topics": [
+        {
+          "slug": "display-controller",
+          "title": "Контролер дисплея",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-spi-tft.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ltdc-peripheral",
+          "title": "Периферія LTDC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dma-display",
+          "title": "DMA і відеоперефирія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "display-double-buffering",
+          "title": "Подвійна буферизація на дисплеї",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "panel-links",
+      "title": "Підключення панелі",
+      "topics": [
+        {
+          "slug": "panel-interfaces",
+          "title": "Інтерфейси панелей",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-bandwidth-budget.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mipi-dsi",
+          "title": "MIPI-DSI",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "lvds-interface",
+          "title": "LVDS-інтерфейс",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "edid",
+          "title": "EDID: як монітор розповідає про себе",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "module-assembly",
+      "title": "Складання модуля",
+      "topics": [
+        {
+          "slug": "oca-bonding",
+          "title": "Оптичне склеювання (OCA bonding)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "touch-tech",
+          "title": "Сенсорний ввід",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-touch-controllers.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "panel-sourcing",
+      "title": "Замовлення панелі",
+      "topics": [
+        {
+          "slug": "display-nre-moq",
+          "title": "NRE та MOQ у виробництві дисплеїв",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

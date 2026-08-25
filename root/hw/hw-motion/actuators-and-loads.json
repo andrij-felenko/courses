@@ -1,0 +1,228 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-motion",
+  "slug": "actuators-and-loads",
+  "title": "Актуатори й навантаження",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "actuator-choice",
+      "title": "Добір актуатора",
+      "topics": [
+        {
+          "slug": "actuator-selection",
+          "title": "Вибір актуатора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "direct-actuators",
+      "title": "Прямі актуатори",
+      "topics": [
+        {
+          "slug": "solenoid-piezo-actuators",
+          "title": "Соленоїд і п'єзо",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "solenoid-valve",
+          "title": "Електромагнітний клапан",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "piezoactuator",
+          "title": "П'єзоактуатор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "load-switching",
+      "title": "Комутація навантаження",
+      "topics": [
+        {
+          "slug": "solenoid-relay",
+          "title": "Соленоїд реле",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "relay-driver",
+          "title": "Реле і драйвер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-relay-inside.md",
+              "status": "done"
+            },
+            {
+              "file": "comp-relay-module.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "latching-relay",
+          "title": "Засувне реле",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "leds",
+      "title": "Світлодіоди в схемі",
+      "topics": [
+        {
+          "slug": "led",
+          "title": "LED",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "addressable-leds",
+          "title": "Адресні світлодіоди",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-ws2812-family.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ws2812-rmt.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ws2812-protocol.md",
+              "status": "done"
+            },
+            {
+              "file": "api-ws2812-wiring.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "charlieplexing",
+          "title": "Чарліплексинг (Charlieplexing)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-charlie-allen.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-charlieplexing.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-charlieplex-driver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-charlieplex-driver.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "audio-transducers",
+      "title": "Звукові перетворювачі",
+      "topics": [
+        {
+          "slug": "microphone-speaker",
+          "title": "Мікрофон і динамік",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "acoustic-enclosure",
+          "title": "Акустичне оформлення динаміка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-acoustic-suspension.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-box-tuning.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

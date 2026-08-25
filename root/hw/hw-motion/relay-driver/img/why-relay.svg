@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="350" viewBox="0 0 760 350">
+<rect width="760" height="350" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="380.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="16" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Навіщо реле: розв'язати кволу логіку й потужну мережу</text>
+<rect x="50.0" y="90.0" width="250.0" height="180.0" rx="10" fill="#eef6ef" stroke="#1f8a3b" stroke-width="1.8"/>
+<text x="175.0" y="116.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f6e33" text-anchor="middle" font-weight="bold" font-style="normal">бік керування</text>
+<text x="175.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1f6e33" text-anchor="middle" font-weight="bold" font-style="normal">5/12 В DC</text>
+<text x="175.0" y="178.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">котушка: десятки мА</text>
+<text x="175.0" y="200.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">тиха «логічна» земля</text>
+<text x="175.0" y="232.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">(транзистор-драйвер тут)</text>
+<rect x="330.0" y="80.0" width="50.0" height="200.0" rx="6" fill="#eef3fb" stroke="#9bb0c2" stroke-width="1.6"/>
+<text x="355.0" y="70.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#5b6b7a" text-anchor="middle" font-weight="normal" font-style="normal">магнітний зв'язок,</text>
+<text x="355.0" y="300.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#5b6b7a" text-anchor="middle" font-weight="normal" font-style="normal">контакти — НЕ дріт</text>
+<line x1="300.0" y1="180.0" x2="330.0" y2="180.0" stroke="#b5732e" stroke-width="2" marker-end="url(#aInk)"/>
+<line x1="380.0" y1="180.0" x2="410.0" y2="180.0" stroke="#b5732e" stroke-width="2" marker-end="url(#aInk)"/>
+<rect x="410.0" y="90.0" width="300.0" height="180.0" rx="10" fill="#fbecec" stroke="#c0271e" stroke-width="1.8"/>
+<text x="560.0" y="116.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">бік навантаження</text>
+<text x="560.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">230 В ~ / мотор</text>
+<text x="560.0" y="178.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">контакти: ампери</text>
+<text x="560.0" y="200.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">«брудна» силова земля</text>
+<text x="560.0" y="232.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">(гальванічно відділено)</text>
+<text x="380.0" y="336.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Котушка й контакти електрично НЕ з'єднані — реле само собою дає гальванічну розв'язку (пор. оптопару §2.5.10).</text>
+</svg>

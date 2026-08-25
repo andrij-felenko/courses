@@ -1,0 +1,170 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-motion",
+  "slug": "display-panels",
+  "title": "Панель і зображення",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "panel-technologies",
+      "title": "Технології панелей",
+      "topics": [
+        {
+          "slug": "tft",
+          "title": "TFT-дисплей",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "oled",
+          "title": "OLED-дисплей",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-ssd1306.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "microled-display",
+          "title": "MicroLED: четвертий клас дисплеїв",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "eink",
+          "title": "E-ink дисплей",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "eink-refresh",
+          "title": "E-ink оновлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-eink.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-lcd.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "transflective-display",
+          "title": "Трансфлективний дисплей",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "crt-tube",
+          "title": "Електронно-променева трубка (CRT)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "optical-stack",
+      "title": "Оптичний стек",
+      "topics": [
+        {
+          "slug": "backlight-dimming",
+          "title": "Підсвітка",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "subpixel-layout",
+          "title": "Субпіксельна структура та рендеринг",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "panel-specs",
+      "title": "Параметри й артефакти",
+      "topics": [
+        {
+          "slug": "panel-parameters",
+          "title": "Параметри панелі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-eye-resolution.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "overdrive-ringing",
+          "title": "Overdrive і артефакти відгуку LCD",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "panel-bit-depth-dithering",
+          "title": "Бітова глибина панелі та дизеринг (FRC, бендинг)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
