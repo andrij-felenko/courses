@@ -1,0 +1,418 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-quantum",
+  "slug": "nucleus-and-nuclear-energy",
+  "title": "Ядро й ядерна енергія",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "nuclear-structure",
+      "title": "Будова ядра й стійкість",
+      "topics": [
+        {
+          "slug": "isotopes",
+          "title": "Ізотопи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-discovery-isotopes.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-isotope-kinetics-fractionation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-isotope-separator-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-nuclide-properties-ref.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "binding-energy-liquid-drop",
+          "title": "Енергія зв'язку ядра та краплинна модель Вейцзеккера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-weizsacker-liquid-drop.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-weizsacker-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-weizsacker-calculator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-nuclide-mass-data.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "radioactive-decay-law",
+          "title": "Закон радіоактивного розпаду та період напіврозпаду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-decay-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-nuclide-decay-data.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "mass-spectrometry",
+          "title": "Мас-спектрометрія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mass-spectrometry.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-penning-trap-dynamics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mass-spectrum-analyzer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mass-spectrometer-specs.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "fusion-and-fission",
+      "title": "Злиття й поділ",
+      "topics": [
+        {
+          "slug": "coulomb-barrier",
+          "title": "Кулонівський бар'єр та тунелювання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gamow-alpha-decay.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gamow-factor.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-coulomb-tunneling-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-coulomb-calculator-ref.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "pp-chain",
+          "title": "Протон-протонний ланцюжок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gamow-pp.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pp-chain-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pp-reactions-ref.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "thermonuclear-fusion",
+          "title": "Термоядерний синтез та цикл Бете (CNO)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bethe-cno.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gamow-cno.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cno-solver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "nuclear-fission-chain-reaction",
+          "title": "Поділ ядер та ланцюгова ядерна реакція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-discovery-fission.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fission-energetics-kinetics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-chain-reaction-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-reactor-kinetics-ref.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "plasma-confinement",
+      "title": "Утримання й нагрів плазми",
+      "topics": [
+        {
+          "slug": "pinch-effect",
+          "title": "Пінч-ефект",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bennett.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bennett.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pinch-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "tokamak-principle",
+          "title": "Принцип токамака",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tokamak-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-grad-shafranov.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tokamak-orbit-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "magnetic-confinement",
+          "title": "Магнітне утримання плазми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tokamak-stellarator.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-grad-shafranov.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-guiding-center-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-iter-specs.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cyclotron-resonance",
+          "title": "Циклотронний резонанс у плазмі та напівпровідниках",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kittel-shockley.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-effective-mass-tensor.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cyclotron-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ecr-etcher.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
