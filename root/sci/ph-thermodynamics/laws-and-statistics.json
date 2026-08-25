@@ -1,0 +1,320 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-thermodynamics",
+  "slug": "laws-and-statistics",
+  "title": "Начала і статистична основа",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "basic-laws",
+      "title": "Начала",
+      "topics": [
+        {
+          "slug": "first-law-thermodynamics",
+          "title": "Перший закон термодинаміки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-joule-meyer-helmholtz.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-first-law-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-thermo-cycle-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-thermo-solver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "second-law-thermodynamics",
+          "title": "Другий закон термодинаміки (Клаузіус, Кельвін, Планк)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-clausius-kelvin-planck.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-carnot-theorem.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-entropy-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-thermo-cycles.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "nernst-theorem",
+          "title": "Третій закон термодинаміки (теорема Нернста)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-nernst-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-thermodynamic-consequences.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cooling-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cryogenic-benchmarks.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "carnot-cycle",
+          "title": "Цикл Карно та граничний ККД теплових машин",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-carnot.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-efficiency.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-carnot-sim.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "potentials-and-identities",
+      "title": "Потенціали й тотожності",
+      "topics": [
+        {
+          "slug": "chemical-potential",
+          "title": "Хімічний потенціал",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gibbs-chemical-potential.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-chemical-potential-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-chemical-equilibrium-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-chem-pot-solver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "maxwell-relations",
+          "title": "Співвідношення Максвелла в термодинаміці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-maxwell-thermodynamics.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-legendre-transform.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-thermo-derivatives.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "microstates-and-distributions",
+      "title": "Мікростани й розподіли",
+      "topics": [
+        {
+          "slug": "entropy-boltzmann",
+          "title": "Статистичне означення ентропії Больцмана (S = k_B ln W)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-boltzmann-tragedy.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-stirling-microstates.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lattice-gas-entropy.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "boltzmann-factor",
+          "title": "Больцманівський фактор і масштаб kT",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "equipartition-theorem",
+          "title": "Теорема рівнорозподілу енергії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-equipartition-history.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-equipartition-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-equipartition-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-equipartition-calc.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "maxwell-boltzmann-distribution",
+          "title": "Розподіл Максвелла — Больцмана за швидкостями та енергіями",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-maxwell-boltzmann.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-maxwell-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-maxwell-simulation.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

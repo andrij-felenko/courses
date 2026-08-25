@@ -1,0 +1,374 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-thermodynamics",
+  "slug": "matter-and-phases",
+  "title": "Речовина і фази",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "equations-of-state",
+      "title": "Рівняння стану",
+      "topics": [
+        {
+          "slug": "ideal-gas-law",
+          "title": "Рівняння стану ідеального газу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gas-laws.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-kinetic-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gas-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-gas-state.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "van-der-waals-equation",
+          "title": "Рівняння Ван дер Ваальса для реальних газів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-van-der-waals.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-critical-point.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-vdw-simulator.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "thermal-response",
+      "title": "Відгук на нагрів",
+      "topics": [
+        {
+          "slug": "heat-capacity",
+          "title": "Теплоємність",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-heat-capacity.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-debye-model.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-heat-capacity-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-heat-capacity-table.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "thermal-expansion",
+          "title": "Теплове розширення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-expansion-history.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-anharmonic-potential.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-expansion-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-expansion-coefficients.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "heat-capacity-dulong-petit",
+          "title": "Закон Дюлонга — Пті та квантова теорія теплоємності Ейнштейна — Дебая",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dulong-einstein.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-einstein-debye.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-heat-capacity-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-debye-tables.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "phase-coexistence",
+      "title": "Співіснування фаз",
+      "topics": [
+        {
+          "slug": "gibbs-phase-rule",
+          "title": "Правило фаз Гіббса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gibbs-phase-rule.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gibbs-phase-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-phase-diagram-solver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-phase-rule-calc.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "clapeyron-clausius-equation",
+          "title": "Рівняння Клапейрона — Клаузіуса для фазових переходів першого роду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-clapeyron-clausius.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-phase-boundary-sim.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "birth-of-a-phase",
+      "title": "Народження нової фази",
+      "topics": [
+        {
+          "slug": "nucleation",
+          "title": "Зародкоутворення та спінодальний розпад",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-nucleation-cahn.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cahn-hilliard.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-spinodal-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-phase-field-lib.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "phase-transitions-landau",
+          "title": "Теорія фазових переходів другого роду Ландау",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-landau-phase-theory.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-landau-expansion.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-landau-ising-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-landau-solver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "percolation-theory",
+          "title": "Теорія перколації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fluid-to-gelation.md",
+              "status": "recheck"
+            },
+            {
+              "file": "hist-percolation-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bethe-lattice.md",
+              "status": "recheck"
+            },
+            {
+              "file": "math-percolation-thresholds.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hoshen-kopelman.md",
+              "status": "recheck"
+            },
+            {
+              "file": "proj-newman-ziff.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-percolation-sim.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

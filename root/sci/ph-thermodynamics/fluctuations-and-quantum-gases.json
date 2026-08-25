@@ -1,0 +1,390 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-thermodynamics",
+  "slug": "fluctuations-and-quantum-gases",
+  "title": "Флуктуації і квантові гази",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "nonequilibrium-response",
+      "title": "Нерівноважність і відгук",
+      "topics": [
+        {
+          "slug": "detailed-balance",
+          "title": "Принцип детального балансу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-boltzmann-onsager.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-markov-stationarity.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mcmc-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mcmc-engine.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "onsager-reciprocal-relations",
+          "title": "Співвідношення взаємності Онсагера у нерівноважній термодинаміці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-onsager-reciprocity.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-onsager-fluctuations.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-coupled-transport.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "fluctuation-dissipation",
+          "title": "Теорема флуктуацій і дисипації",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-nyquist-callen.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-callen-welton.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-langevin-fdt.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-linear-response.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "noise-and-information",
+      "title": "Шум і ціна інформації",
+      "topics": [
+        {
+          "slug": "brownian-motion",
+          "title": "Броунівський рух",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-brown-einstein-perrin.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-langevin-einstein.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-brownian-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-simulation-lib.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "white-noise-spectrum",
+          "title": "Білий шум і спектральна щільність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-white-noise.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-wiener-khinchin.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-spectral-estimation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-spectral-analysis.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "maxwell-demon",
+          "title": "Демон Максвелла й ціна інформації",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-demon-history.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-szilard-landauer.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-demon-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-information-thermo.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "quantum-statistics",
+      "title": "Квантова статистика",
+      "topics": [
+        {
+          "slug": "bose-einstein-statistics",
+          "title": "Квантова статистика Бозе — Ейнштейна та бозе-конденсація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bose-einstein-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bose-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bec-simulation.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "fermi-dirac-statistics",
+          "title": "Квантова статистика Фермі — Дірака та квантовий вироджений газ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fermi-dirac.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fermi-integral.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fermi-gas-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fermi-gas-params.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "degeneracy-pressure",
+          "title": "Тиск виродженого фермі-газу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fermi-dirac.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fermi-gas.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-white-dwarf-mass.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "thermal-radiation",
+      "title": "Теплове випромінювання",
+      "topics": [
+        {
+          "slug": "planck-law-and-blackbody-spectrum",
+          "title": "Закон Планка і спектр чорного тіла: від порожнини до реліктового випромінювання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-planck-quanta.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-planck-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-blackbody-spectrum.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-radiation-calc.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "photon-gas-thermodynamics-and-emissivity",
+          "title": "Термодинаміка фотонного газу, коефіцієнти Ейнштейна та ступінь чорноти реальних тіл",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-planck-quanta.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-planck-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-blackbody-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-radiation-constants.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
