@@ -15,7 +15,7 @@
           "title": "Огляд засобів взаємодії"
         },
         {
-          "ref": "unix-linux/pipes-and-fifo",
+          "ref": "unix-linux/pipe-kernel-internals",
           "title": "Канали й FIFO"
         },
         {
@@ -79,7 +79,7 @@
           "title": "Асинхронний ввід-вивід ядра: io_submit і його межі"
         },
         {
-          "ref": "unix-linux/io-uring",
+          "ref": "unix-linux/io-uring-rings-model",
           "title": "io_uring"
         },
         {
@@ -125,7 +125,7 @@
       "title": "Особа в системі",
       "topics": [
         {
-          "ref": "unix-linux/uid-gid-model",
+          "ref": "unix-linux/uid-gid-identity-model",
           "title": "Користувачі й групи"
         },
         {
@@ -147,7 +147,7 @@
           "title": "Каталог LDAP як мережеве джерело облікових записів"
         },
         {
-          "ref": "unix-linux/process-credentials-uids-gids",
+          "ref": "unix-linux/process-credential-checks-and-transitions",
           "title": "Креденшели процесу: real, effective і saved UID/GID"
         },
         {
@@ -231,11 +231,11 @@
           "title": "SELinux і AppArmor"
         },
         {
-          "ref": "unix-linux/seccomp-filtering",
+          "ref": "unix-linux/seccomp-filter-mechanism",
           "title": "seccomp: фільтрація системних викликів"
         },
         {
-          "ref": "unix-linux/landlock",
+          "ref": "unix-linux/landlock-self-restriction-model",
           "title": "Landlock: обмежити себе, не маючи прав root"
         },
         {
@@ -265,7 +265,7 @@
       "title": "Прилади спостереження",
       "topics": [
         {
-          "ref": "unix-linux/proc-filesystem",
+          "ref": "unix-linux/proc-reading-process-and-kernel-state",
           "title": "/proc"
         },
         {
@@ -283,7 +283,7 @@
           "title": "Журнал ядра: printk, рівні важливості й dmesg"
         },
         {
-          "ref": "unix-linux/journald-logging",
+          "ref": "unix-linux/journald-structured-entry-model",
           "title": "journald"
         },
         {
@@ -307,7 +307,7 @@
           "title": "kprobes і uprobes: причепитися до того, чого точки не мають"
         },
         {
-          "ref": "unix-linux/ebpf",
+          "ref": "unix-linux/ebpf-verifier-internals-and-runtime-cost",
           "title": "eBPF"
         },
         {
@@ -329,7 +329,7 @@
           "title": "Ліміти ресурсів: rlimit і ulimit"
         },
         {
-          "ref": "unix-linux/cgroups",
+          "ref": "unix-linux/cgroups-resource-model",
           "title": "cgroups"
         },
         {
@@ -539,7 +539,7 @@
           "title": "Модель пристроїв у sysfs"
         },
         {
-          "ref": "unix-linux/pci-in-linux",
+          "ref": "unix-linux/pci-config-space-and-enumeration",
           "title": "PCI у Linux: конфігураційний простір, вікна BAR і перелічення"
         },
         {

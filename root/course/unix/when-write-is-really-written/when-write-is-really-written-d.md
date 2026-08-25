@@ -1,8 +1,8 @@
 # Коли запис справді записаний
 
 <preknowlist>
-- [Flash зсередини](topic:programming/flash-internals) — фізична будова NAND Flash, різниця між сторінкою запису та блоком стирання, робота FTL.
-- [Атомарна заміна файлу](topic:programming/atomic-file-replace) — техніка надійного оновлення файлів через запис у тимчасовий файл, fsync і rename.
+- [Flash зсередини](topic:hw-components/flash-internals) — фізична будова NAND Flash, різниця між сторінкою запису та блоком стирання, робота FTL.
+- [Атомарна заміна файлу](topic:sf-data/atomic-file-replace) — техніка надійного оновлення файлів через запис у тимчасовий файл, fsync і rename.
 - [Контрольні суми та CRC32](topic:programming/checksum-crc32) — алгоритми виявлення спотворень і перевірки цілісності дискових блоків.
 </preknowlist>
 
