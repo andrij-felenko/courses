@@ -1,0 +1,248 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-analysis",
+  "slug": "feedback-control",
+  "title": "Керування зі зворотним зв'язком",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "loop-and-blocks",
+      "title": "Петля і її ланки",
+      "topics": [
+        {
+          "slug": "positive-negative-feedback",
+          "title": "Додатний і від'ємний зворотний зв'язок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-feedback-control.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-linear-stability.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-feedback-sim.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "positive-feedback",
+          "title": "Додатний зворотний зв'язок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "step-response",
+          "title": "Крокова відповідь",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "block-diagram-algebra",
+          "title": "Алгебра блок-схем",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "linear-system-description",
+      "title": "Опис лінійної системи",
+      "topics": [
+        {
+          "slug": "laplace-transform",
+          "title": "Перетворення Лапласа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "state-space-representation",
+          "title": "Простір станів: опис динамічних систем",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "state-transition-matrix",
+          "title": "Матриця переходу стану",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "loop-stability",
+      "title": "Стійкість петлі",
+      "topics": [
+        {
+          "slug": "nyquist-criterion",
+          "title": "Критерій Найквіста",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "conditional-stability",
+          "title": "Умовна стійкість",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "lyapunov-stability",
+          "title": "Стійкість за Ляпуновим",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "pid-controller",
+      "title": "ПІД-регулятор",
+      "topics": [
+        {
+          "slug": "pid-calculus",
+          "title": "ПІД-регулятор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "integrator-windup",
+          "title": "Накопичувальне насичення (windup)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "anti-windup",
+          "title": "Анти-windup",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "derivative-filter",
+          "title": "Фільтрація D-члена: смугообмежений диференціатор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "relay-autotuning",
+          "title": "Relay-автоналаштування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "correction-and-modes",
+      "title": "Корекція й режими керування",
+      "topics": [
+        {
+          "slug": "feedforward",
+          "title": "Феєдфорвард",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "phase-lead-lag",
+          "title": "Фазо-випереджаючі та фазо-відстаючі ланки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "gain-scheduling",
+          "title": "Gain scheduling",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "bang-bang-control",
+          "title": "Дворежимний регулятор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
