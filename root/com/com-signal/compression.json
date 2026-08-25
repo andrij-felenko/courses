@@ -1,0 +1,240 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-signal",
+  "slug": "compression",
+  "title": "Стиснення",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "size-and-quality",
+      "title": "Обсяг і якість",
+      "topics": [
+        {
+          "slug": "resolution-framerate",
+          "title": "Роздільність і кадри",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "quality-bitrate",
+          "title": "Якість і бітрейт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fpv-digital.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "generation-loss",
+          "title": "Втрата поколінь: накопичення похибки при копіюванні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-magnetic-tape-cascade.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-noise-accumulation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-generation-cascade-c.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "transform-coding",
+      "title": "Перетворення для стиснення",
+      "topics": [
+        {
+          "slug": "dct",
+          "title": "Дискретне косинусне перетворення (DCT)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "karhunen-loeve-transform",
+          "title": "Перетворення Карунена–Лоева (KLT)",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "jpeg-intra",
+          "title": "JPEG",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-jpeg.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dct.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-jpeg-encode.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-markers.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "inter-frame-prediction",
+      "title": "Передбачення між кадрами",
+      "topics": [
+        {
+          "slug": "inter-frame",
+          "title": "Міжкадрове стиснення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mpeg.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-motion-estimation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "motion-estimation-search",
+          "title": "Пошук руху (motion estimation)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "subpixel-interpolation",
+          "title": "Субпіксельна інтерполяція у відео",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "entropy-coding",
+      "title": "Ентропійне кодування",
+      "topics": [
+        {
+          "slug": "cabac",
+          "title": "CABAC",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "cavlc",
+          "title": "CAVLC: контекстно-адаптивні коди змінної довжини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "exp-golomb",
+          "title": "Експоненційний код Голомба: ue(v) і se(v) у відеостандартах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "artifacts-and-metrics",
+      "title": "Артефакти й оцінка якості",
+      "topics": [
+        {
+          "slug": "deblocking-filter",
+          "title": "Деблокінговий фільтр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "psnr-ssim",
+          "title": "Метрики якості відео: PSNR і SSIM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

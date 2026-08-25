@@ -1,0 +1,264 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-signal",
+  "slug": "streaming",
+  "title": "Потік і доставка",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "rate-control",
+      "title": "Керування бітрейтом",
+      "topics": [
+        {
+          "slug": "rate-distortion",
+          "title": "Rate-distortion оптимізація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "rate-control-algorithms",
+          "title": "Алгоритми керування бітрейтом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "hrd-buffer-model",
+          "title": "Модель HRD-буфера відеопотоку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "codec-and-container",
+      "title": "Кодек і контейнер",
+      "topics": [
+        {
+          "slug": "h264-hardware-codec",
+          "title": "Апаратний кодек H.264",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-h264-hardware.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-h264-transform.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-h264-cabac-pipeline.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-v4l2-codec.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "h264-nal-structure",
+          "title": "H.264: NAL-одиниці, SPS/PPS і ключові кадри",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-nal-layer.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-nal-parser.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sps-pps.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "media-container",
+          "title": "Медіаконтейнер: як стиснені кадри складають у файл",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mp4-mpegts.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pts-dts-drift.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mp4-parser.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-container-demux.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "realtime-audio",
+      "title": "Звук у реальному часі",
+      "topics": [
+        {
+          "slug": "speech-codecs",
+          "title": "Мовні кодеки: G.711, G.729, Opus",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-speech-codecs.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lpc-acelp.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-g711-codec.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-opus-encoder.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "wsola-algorithm",
+          "title": "Алгоритм масштабування аудіо в часі WSOLA",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-wsola.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cross-correlation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-wsola-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-wsola-parameters.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "audio-time-scaling",
+          "title": "Зміна темпу без зміни висоти тону",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-time-scaling.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-wsola-c.md",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "slug": "packet-loss-concealment",
+          "title": "Приховування втрат пакетів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "jitter-buffer",
+          "title": "Буфер джитера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    }
+  ]
+}

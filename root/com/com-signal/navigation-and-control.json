@@ -1,0 +1,272 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-signal",
+  "slug": "navigation-and-control",
+  "title": "Навігація й керування",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "attitude-estimation",
+      "title": "Орієнтація в просторі",
+      "topics": [
+        {
+          "slug": "complementary-filter",
+          "title": "Комплементарний фільтр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-complementary-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ahrs",
+          "title": "AHRS — система відліку орієнтації й курсу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "madgwick-mahony",
+          "title": "Алгоритми Madgwick і Mahony",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "path-integration",
+      "title": "Числення шляху",
+      "topics": [
+        {
+          "slug": "odometry",
+          "title": "Одометрія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "dead-reckoning",
+          "title": "Інерціальне числення позиції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "visual-inertial-odometry",
+          "title": "Візуально-інерціальна одометрія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-msckf.md",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "slug": "msckf-odometry",
+          "title": "Візуально-інерціальна одометрія MSCKF",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-nullspace-projection.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-msckf-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-msckf.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "satellite-positioning",
+      "title": "Супутникова позиція",
+      "topics": [
+        {
+          "slug": "rtk-integer-ambiguity",
+          "title": "Розв'язання цілочислової неоднозначності RTK",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lambda.md",
+              "status": "pending"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-double-difference.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lambda-method-rtk",
+          "title": "Метод LAMBDA для розв'язання цілочислової неоднозначності RTK",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-z-transform.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lambda-search.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "controller",
+      "title": "Регулятор",
+      "topics": [
+        {
+          "slug": "discrete-pid",
+          "title": "Дискретний ПІД",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-pid-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bumpless-transfer",
+          "title": "Безударне перемикання регулятора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "loop-stability",
+      "title": "Стійкість контуру",
+      "topics": [
+        {
+          "slug": "instability-stabilization",
+          "title": "Потреба стабілізації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "phase-margin",
+          "title": "Запас по фазі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "cascaded-loops",
+      "title": "Каскади контурів",
+      "topics": [
+        {
+          "slug": "stabilization-cascade",
+          "title": "Каскад стабілізації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "three-loop-cascade",
+          "title": "Трирівневий каскад (положення–швидкість–струм)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "trajectory-profiles",
+      "title": "Профілі руху",
+      "topics": [
+        {
+          "slug": "motion-profiles",
+          "title": "Профілі руху",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

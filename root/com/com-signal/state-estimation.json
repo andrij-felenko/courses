@@ -1,0 +1,208 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-signal",
+  "slug": "state-estimation",
+  "title": "Оцінювання стану",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "fusion-basics",
+      "title": "Злиття давачів",
+      "topics": [
+        {
+          "slug": "sensor-insufficiency",
+          "title": "Недостатність давача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-draper.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "predict-vs-measure",
+          "title": "Передбачення vs вимір",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-recursive-estimation.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-optimal-fusion.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-predict-correct-tracker.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sensor-fusion",
+          "title": "Сенсорне злиття (fusion): комплементарний фільтр і Калман",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-gaussian-fusion.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fusion-compare-c.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "bayesian-filters",
+      "title": "Байєсові фільтри",
+      "topics": [
+        {
+          "slug": "kalman-filter",
+          "title": "Фільтр Калмана",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kalman.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kalman-ekf",
+          "title": "Розширений фільтр Калмана (EKF)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-fusion-in-flight.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "unscented-kalman-filter",
+          "title": "Несцентований фільтр Калмана (UKF)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "particle-filter",
+          "title": "Фільтр частинок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "imm-filter",
+          "title": "Фільтр IMM (взаємодіючі мультимоделі)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "motion-models",
+      "title": "Моделі руху",
+      "topics": [
+        {
+          "slug": "motion-model",
+          "title": "Модель руху",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-cv-ca-models.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ctrv-motion-model",
+          "title": "Модель CTRV: стала кутова швидкість і швидкість",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "measurement-validity",
+      "title": "Довіра до виміру",
+      "topics": [
+        {
+          "slug": "innovation-gate",
+          "title": "Брама нової інформації (innovation gate)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "latency-sync",
+          "title": "Затримки й синхро",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    }
+  ]
+}

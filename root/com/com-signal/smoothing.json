@@ -1,0 +1,114 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-signal",
+  "slug": "smoothing",
+  "title": "Згладжування рядів",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "moving-averages",
+      "title": "Ковзні середні",
+      "topics": [
+        {
+          "slug": "moving-average",
+          "title": "Ковзне середнє",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "weighted-moving-average",
+          "title": "Зважене ковзне середнє",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "cumulative-moving-average",
+          "title": "Кумулятивне ковзне середнє",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "ema",
+          "title": "EMA",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-ema-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "double-ema",
+          "title": "Подвійне EMA (DEMA) — компенсація тренду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "adaptive-smoothing",
+      "title": "Фільтр, що підлаштовується",
+      "topics": [
+        {
+          "slug": "adaptive-filter",
+          "title": "Адаптивний фільтр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "adaptive-ema",
+          "title": "Адаптивне EMA — змінний коефіцієнт згладжування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "smoothing-lag",
+      "title": "Ціна згладжування",
+      "topics": [
+        {
+          "slug": "smoothing-vs-lag",
+          "title": "Згладжування й затримка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    }
+  ]
+}

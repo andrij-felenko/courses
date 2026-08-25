@@ -1,0 +1,250 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-signal",
+  "slug": "sampling",
+  "title": "Дискретизація",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "sampling-and-reconstruction",
+      "title": "Відліки й відновлення",
+      "topics": [
+        {
+          "slug": "nyquist-aliasing",
+          "title": "Найквіст і аліасинг",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-alias-folding.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sampling-theorem",
+          "title": "Теорема Найквіста — Шеннона про дискретизацію",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "aliasing",
+          "title": "Аліасинг (теорема Найквіста)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "sampling-reconstruction",
+          "title": "Відновлення сигналу з відліків",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-whittaker-shannon.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sinc-reconstruction.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sinc-interpolator.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "rate-conversion",
+      "title": "Зміна частоти відліків",
+      "topics": [
+        {
+          "slug": "decimation",
+          "title": "Проріджування (decimation): фільтр і зниження частоти відліків",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-multirate-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-decimation-spectrum.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-decimator-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "interpolation-upsampling",
+          "title": "Інтерполяція (upsampling): вставлення нулів і згладжувальний фільтр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-polyphase-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-spectral-imaging.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-interpolator-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "polyphase-fir",
+          "title": "Поліфазний КІХ і мультирейт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "cic-filter",
+          "title": "CIC-фільтр (каскад інтегратор–гребінка)",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "plot-downsampling",
+          "title": "Прорідження часового ряду для екрана: огинаюча замість кожного відліку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "level-and-power",
+      "title": "Рівень і потужність",
+      "topics": [
+        {
+          "slug": "rms",
+          "title": "RMS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "half-power",
+          "title": "Точка -3 дБ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "psd",
+          "title": "Спектральна щільність потужності (PSD)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "parseval-theorem",
+          "title": "Теорема Парсеваля і RMS гармонік",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "noise-and-quantization",
+      "title": "Шум і квантування",
+      "topics": [
+        {
+          "slug": "signal-noise",
+          "title": "Шум у сигналі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-snr.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dithering",
+          "title": "Дізеринг",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

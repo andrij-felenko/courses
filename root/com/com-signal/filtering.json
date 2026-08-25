@@ -1,0 +1,310 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-signal",
+  "slug": "filtering",
+  "title": "Фільтрація",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "linear-systems",
+      "title": "Лінійні системи",
+      "topics": [
+        {
+          "slug": "convolution",
+          "title": "Згортка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "impulse-response",
+          "title": "Імпульсна характеристика",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "cascading",
+          "title": "Каскадування фільтрів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "filter-structure",
+      "title": "Будова фільтра",
+      "topics": [
+        {
+          "slug": "digital-filters",
+          "title": "Цифрові фільтри",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "fir-filter",
+          "title": "КІХ-фільтр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-fir-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "iir-filter",
+          "title": "БІХ-фільтр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-biquad-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "filter-as-spectrum-shaper",
+          "title": "Формувач спектра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "pole-zero-plot",
+          "title": "Площина полюсів-нулів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "frequency-shapes",
+      "title": "Смуги й форма характеристики",
+      "topics": [
+        {
+          "slug": "band-filters",
+          "title": "Смугові фільтри",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-type-transformations.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "shelf-filter",
+          "title": "Поличковий фільтр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "all-pass-filter",
+          "title": "Всепропускний фільтр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "filter-design",
+      "title": "Розрахунок коефіцієнтів",
+      "topics": [
+        {
+          "slug": "butterworth-filter",
+          "title": "Фільтр Баттерворта",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "chebyshev-filter",
+          "title": "Фільтр Чебишева",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "parks-mcclellan",
+          "title": "Алгоритм Parks-McClellan",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "bilinear-transform",
+          "title": "Білінійне перетворення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "filter-order-estimation",
+          "title": "Оцінка порядку фільтра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "fixed-point-filters",
+      "title": "Реалізація в цілих числах",
+      "topics": [
+        {
+          "slug": "fixed-point-implementation",
+          "title": "Реалізація fixed-point",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "direct-form-iir",
+          "title": "Форми реалізації БІХ (Direct Form)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "limit-cycles-iir",
+          "title": "Граничні цикли у БІХ-фільтрах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "multipath-equalization",
+      "title": "Багатопроменевість і вирівнювання",
+      "topics": [
+        {
+          "slug": "rake-receiver",
+          "title": "RAKE-приймач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rake-invention.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rake-combining.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rake-demodulator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "channel-equalization",
+          "title": "Вирівнювання каналу: zero-forcing і MMSE",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-equalizer-history.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mmse-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-equalizer-sim.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

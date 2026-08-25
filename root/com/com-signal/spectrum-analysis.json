@@ -1,0 +1,220 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-signal",
+  "slug": "spectrum-analysis",
+  "title": "Частотний аналіз",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "fourier-transforms",
+      "title": "Перетворення Фур'є",
+      "topics": [
+        {
+          "slug": "dft",
+          "title": "ДПФ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "dft-spectrum",
+          "title": "Дискретне перетворення Фур'є",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "fft",
+          "title": "ШПФ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fft.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "goertzel",
+          "title": "Алгоритм Гертцеля",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "overlap-add",
+          "title": "Overlap-add і потоковий спектр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "windows-and-resolution",
+      "title": "Вікно й роздільність",
+      "topics": [
+        {
+          "slug": "windowing-leakage",
+          "title": "Вікно й витік",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "window-functions",
+          "title": "Віконні функції у спектральному аналізі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "time-frequency-tradeoff",
+          "title": "Принцип невизначеності для сигналів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "zero-padding",
+          "title": "Zero-padding: інтерполяція спектра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "spectrogram",
+          "title": "Спектрограма",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "discrete-transforms",
+      "title": "Перетворення на цілих кроках",
+      "topics": [
+        {
+          "slug": "z-transform",
+          "title": "Z-перетворення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "circular-convolution",
+          "title": "Кільцева згортка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "discrete-cosine-transform",
+          "title": "Дискретне косинусне перетворення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "radar-sensing",
+      "title": "Радіолокація",
+      "topics": [
+        {
+          "slug": "fmcw-radar",
+          "title": "FMCW-радар",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-beat-frequency.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-range-doppler.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "sar-interferometry",
+          "title": "Радар із синтезованою апертурою та інтерферометрія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-synthetic-aperture.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-insar-geometry.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-range-doppler.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
