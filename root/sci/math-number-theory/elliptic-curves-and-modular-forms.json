@@ -1,0 +1,344 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-number-theory",
+  "slug": "elliptic-curves-and-modular-forms",
+  "title": "Еліптичні криві й модулярні форми",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "elliptic-curves",
+      "title": "Еліптичні криві",
+      "topics": [
+        {
+          "slug": "elliptic-curves",
+          "title": "Еліптичні криві",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-elliptic-integrals.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-group-law-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ecc-point-arithmetic.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "j-invariant",
+          "title": "j-інваріант еліптичної кривої",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-klein-modular.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-isomorphism-proof.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-isogeny-graph.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-jinv-toolkit.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "koblitz-curves",
+          "title": "Аномальні криві Кобліца",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-koblitz-anomalous.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tau-adic-expansion.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tau-naf.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-koblitz-tnaf.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "curve-computation",
+      "title": "Обчислення на кривій",
+      "topics": [
+        {
+          "slug": "glv-endomorphism",
+          "title": "Ендоморфізм GLV/GLS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-glv-method.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-babai-reduction.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-glv-scalar-mul.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-glv-decomposer.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "sextic-twist",
+          "title": "Шестикратний твіст (Sextic Twist)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pairing-twists.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sextic-transform.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sextic-twist.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-twist-interface.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "elliptic-curve-pairings",
+          "title": "Спарювання еліптичних кривих (Bilinear Pairings)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pairing-crypto.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-miller-algorithm.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-miller-pairing.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pairing-interface.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "pippenger-algorithm",
+          "title": "Алгоритм Піппенджера (MSM)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pippenger-monomials.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lower-bounds.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pippenger-msm.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-msm-engine.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "modular-forms",
+      "title": "Модулярні форми",
+      "topics": [
+        {
+          "slug": "modular-forms",
+          "title": "Модулярні форми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-modular-forms.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-valence-formula.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hecke-operators.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "eisenstein-series",
+          "title": "Ряди Ейзенштейна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-eisenstein-series.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-e2-quasi-modularity.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-eisenstein-fourier.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "jacobi-theta-functions",
+          "title": "Тета-функції Якобі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-jacobi-theta-genesis.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-jacobi-triple-product.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-jacobi-theta-calc.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

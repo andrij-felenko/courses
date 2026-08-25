@@ -1,0 +1,482 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-number-theory",
+  "slug": "diophantine-equations",
+  "title": "Діофантові рівняння",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "linear-equations",
+      "title": "Лінійні рівняння в цілих",
+      "topics": [
+        {
+          "slug": "diophantine-equations",
+          "title": "Діофантові рівняння",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-diophantus-arithmetica.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-modular-obstructions.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-diophantine-solver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "linear-diophantine",
+          "title": "Лінійні діофантові рівняння",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-diophantus.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-nonnegative-solutions.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-diophantine-solver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "frobenius-number",
+          "title": "Число Фробеніуса (задача про монети)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-frobenius-sylvester.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sylvester-formula.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-frobenius-solver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sylvester-frobenius-formula",
+          "title": "Формула Сильвестра для числа Фробеніуса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-sylvester-1884.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sylvester-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-frobenius-grid-solver.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "quadratic-equations",
+      "title": "Квадратичні рівняння в цілих",
+      "topics": [
+        {
+          "slug": "pythagorean-triples",
+          "title": "Трійки Піфагора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-plimpton.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rational-points.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-generate-triples.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "chord-method-triples",
+          "title": "Метод хорди для раціональних точок та Піфагорових трійок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-diophantus-chord.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rational-param-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pythagorean-generator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pell-equation",
+          "title": "Рівняння Пелля",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pell-name.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-chakravala.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pell-solver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sum-of-two-squares",
+          "title": "Сума двох квадратів (теорема Ферма)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fermat-euler-squares.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-descent-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cornacchia-solver.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "power-equations",
+      "title": "Рівняння в степенях",
+      "topics": [
+        {
+          "slug": "fermats-last-theorem",
+          "title": "Велика теорема Ферма",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-margin-to-wiles.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-descent-n4.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-search-and-near-misses.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "catalan-conjecture",
+          "title": "Гіпотеза Каталана (теорема Міхайлеску)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-catalan-conjecture.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mihailescu-machinery.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-catalan-verifier.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gerono-theorem",
+          "title": "Теорема Жероно",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gerono-catalan.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gerono-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gerono-solver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "nagell-ljunggren-bounds",
+          "title": "Межі Нагеля–Люнггрена",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-nagell-ljunggren-history.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-nagell-ljunggren-proofs.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-nagell-ljunggren-search.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "height-conjectures",
+      "title": "Скінченність і висоти",
+      "topics": [
+        {
+          "slug": "faltings-theorem",
+          "title": "Теорема Фальтінгса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mordell-conjecture.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-parshin-construction.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-chabauty-coleman.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "abc-conjecture",
+          "title": "Гіпотеза ABC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-abc-genesis.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mason-stothers.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-abc-search.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "szpiro-conjecture",
+          "title": "Гіпотеза Шпіро",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-szpiro-origin.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-frey-curve-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-szpiro-search.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "halls-conjecture",
+          "title": "Гіпотеза Холла",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-halls-genesis.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-davenport-bound.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-halls-search.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

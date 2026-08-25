@@ -1,0 +1,602 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-number-theory",
+  "slug": "congruences",
+  "title": "Порівняння за модулем",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "modular-arithmetic",
+      "title": "Арифметика лишків",
+      "topics": [
+        {
+          "slug": "modular-arithmetic",
+          "title": "Модульна арифметика",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "modular-inverse",
+          "title": "Обернений елемент за модулем",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-modulo-arithmetic.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ring-units.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-modular-inverse.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "modular-exponentiation",
+          "title": "Піднесення до степеня за модулем",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-diffie-hellman.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-square-and-multiply.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-modexp-fast.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "square-and-multiply-side-channels",
+          "title": "Square-and-Multiply: схеми обходу бітів і захист від атак по побічних каналах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-pingala-pow.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-side-channel-protection.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fast-pow-mod.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "chinese-remainder-theorem",
+          "title": "Китайська теорема про залишки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sunzi-to-gauss.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-crt-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-crt-solver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "montgomery-reduction",
+          "title": "Арифметика та перетворення Монтгомері",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-peter-montgomery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-redc-proof.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-montgomery-multiplication.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "unit-group",
+      "title": "Група оборотних лишків",
+      "topics": [
+        {
+          "slug": "multiplicative-group-zn",
+          "title": "Група оборотних елементів кільця лишків",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-euler-gauss-groups.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-chinese-remainder-group.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-group-zn-analyzer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fermat-little-theorem",
+          "title": "Мала теорема Ферма",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fermat-1640.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-more-proofs.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fermat-test.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "euler-totient",
+          "title": "Функція Ейлера і теорема Ейлера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-euler-fermat.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-euler-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rsa-toy.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "carmichael-function",
+          "title": "Функція Кармайкла λ(n)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-carmichael.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lambda-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lambda.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "multiplicative-order",
+          "title": "Мультиплікативний порядок",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-euler-totient.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-order-divisibility.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-order-calculator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "primitive-root",
+          "title": "Первісний корінь",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-primitive-root-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-primitive-root-proof.md",
+              "status": "done"
+            },
+            {
+              "file": "math-discrete-log-hardness.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-primitive-root-finder.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "discrete-logarithm",
+          "title": "Дискретний логарифм та його складність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-diffie-hellman-1976.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-shanks-bsgs-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bsgs-solver.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "quadratic-residues",
+      "title": "Квадратичні лишки",
+      "topics": [
+        {
+          "slug": "quadratic-residues",
+          "title": "Квадратичні лишки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-quadratic-reciprocity.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-legendre-reciprocity-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tonelli-shanks.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "quadratic-reciprocity",
+          "title": "Закон квадратичної взаємності Ґаусса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "proj": [
+            {
+              "file": "proj-legendre-jacobi-calculator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hensel-lemma",
+          "title": "Лема Гензеля",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hensel-p-adic.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-hensel-multivariate.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hensel-lifting.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "characters-and-sums",
+      "title": "Характери й суми",
+      "topics": [
+        {
+          "slug": "dirichlet-characters-l-functions",
+          "title": "Характери Діріхле та L-ряди: прості числа в прогресіях",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dirichlet-characters.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-orthogonality-relations.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dirichlet-character-table.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "additive-multiplicative-characters-gauss-sums",
+          "title": "Адитивні й мультиплікативні характери: гармонічний аналіз і суми Ґаусса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-character-genesis.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gauss-jacobi-sums.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-character-computation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gauss-sums",
+          "title": "Суми Гаусса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gauss-sums.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gauss-sign.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gauss-sums.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "jacobi-sums",
+          "title": "Суми Якобі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-jacobi-sums.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-jacobi-gauss-factorization.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-jacobi-sum-calculator.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-jacobi-sums.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "davenport-hasse-relations",
+          "title": "Співвідношення Девенпорта–Хассе",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-davenport-hasse.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-davenport-hasse-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gauss-sum-verifier.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

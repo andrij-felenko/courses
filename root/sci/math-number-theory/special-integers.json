@@ -1,0 +1,450 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-number-theory",
+  "slug": "special-integers",
+  "title": "Класи цілих чисел",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "named-primes",
+      "title": "Іменовані родини простих",
+      "topics": [
+        {
+          "slug": "mersenne-numbers",
+          "title": "Числа Мерсенна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mersenne-monk.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gcd-mersenne.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mersenne-arithmetic.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "mersenne-primes",
+          "title": "Числа Мерсенна і прості Мерсенна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mersenne-hunt.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-divisor-form.md",
+              "status": "done"
+            },
+            {
+              "file": "math-euclid-euler.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lucas-lehmer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "germain-primes",
+          "title": "Прості числа Софі Жермен",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-germain-fermat.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-germain-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-safe-prime-generator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "wieferich-primes",
+          "title": "Прості числа Віферіха",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-wieferich-flt.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-wieferich-flt-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-wieferich-search.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-wieferich-verifier.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cunningham-chain",
+          "title": "Ланцюжки Каннінгема",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cunningham-life.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-modular-obstructions.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-chain-search.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "perfect-numbers",
+      "title": "Досконалі й дружні числа",
+      "topics": [
+        {
+          "slug": "perfect-numbers",
+          "title": "Досконалі числа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-perfect-numbers.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-euler-converse.md",
+              "status": "done"
+            },
+            {
+              "file": "math-odd-perfect.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-finding-perfect.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "amicable-numbers",
+          "title": "Дружні числа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-amicable-numbers.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-thabit-rule.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-amicable-search.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "abundant-deficient-numbers",
+          "title": "Надлишкові й недостатні числа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-nicomachus-aliquot.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-density-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-abundance-analyzer.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "integer-sequences",
+      "title": "Рекурентні та фігурні числа",
+      "topics": [
+        {
+          "slug": "fibonacci-numbers",
+          "title": "Числа Фібоначчі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fibonacci.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-identities.md",
+              "status": "done"
+            },
+            {
+              "file": "math-zeckendorf.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fast-fibonacci.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lucas-numbers",
+          "title": "Числа Люка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lucas-sequences.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pell-identity-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fast-lucas-computation.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-lucas-sequence.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pisano-period",
+          "title": "Період Пізано",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pisano-period.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pisano-properties.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pisano-calculator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "zeckendorf-theorem",
+          "title": "Теорема Цекендорфа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-zeckendorf-discovery.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-zeckendorf-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-zeckendorf-code.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-zeckendorf.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "triangular-numbers",
+          "title": "Трикутні числа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tetraktys-to-eureka.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-square-triangular-pell.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-triangular-algorithms.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bernoulli-numbers",
+          "title": "Числа Бернуллі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-faulhaber-bernoulli.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-staudt-clausen-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-akiyama-tanigawa.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

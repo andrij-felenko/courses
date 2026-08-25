@@ -1,0 +1,536 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-number-theory",
+  "slug": "divisibility-and-primes",
+  "title": "Подільність і прості",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "divisibility",
+      "title": "Подільність і алгоритм Евкліда",
+      "topics": [
+        {
+          "slug": "floor-division",
+          "title": "Цілочислове ділення й підлога",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gauss-floor.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-hermite-legendre.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-division-implementations.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-language-division-table.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gcd-euclidean",
+          "title": "НСД і алгоритм Евкліда",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-euclid-algorithm.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bezout.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gcd-code.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bezout-identity",
+          "title": "Тотожність Безу та розширений алгоритм Евкліда",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-etienne-bezout.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-extended-gcd-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ext-gcd-solver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "euclidean-lemma",
+          "title": "Лема Евкліда",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-euclid-book7.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bezout-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-euclid-lemma-checker.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lcm",
+          "title": "НСК — найменше спільне кратне",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-lcm-fractions.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lcm-lattice.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lcm-calculator.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "prime-factorization",
+      "title": "Прості й розклад на множники",
+      "topics": [
+        {
+          "slug": "number-theory",
+          "title": "number theory",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "empty"
+          }
+        },
+        {
+          "slug": "primes",
+          "title": "primes",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "empty"
+          }
+        },
+        {
+          "slug": "prime-numbers",
+          "title": "Прості числа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-eratosthenes-euclid.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-prime-distribution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-segmented-sieve.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fundamental-theorem-arithmetic",
+          "title": "Основна теорема арифметики",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-gauss-disquisitiones.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-euclid-lemma.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-prime-factorizer.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "primality-testing",
+      "title": "Перевірка на простоту",
+      "topics": [
+        {
+          "slug": "sieve-of-eratosthenes",
+          "title": "Сегментоване решето Ератосфена",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sieve-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-segmentation-bounds.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-segmented-sieve.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sieve-bench.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "miller-rabin",
+          "title": "Тест простоти Міллера–Рабіна",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-miller-rabin.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-liar-bound.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-miller-rabin.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "miller-rabin-test",
+          "title": "Тест простоти Міллера — Рабіна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-miller-rabin-1980.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-strong-pseudo-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-miller-rabin-sim.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "solovay-strassen",
+          "title": "Тест простоти Соловея–Штрассена",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "solovay-strassen-primality-test",
+          "title": "Тест Соловея–Штрассена на простоту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-solovay-strassen.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-euler-criterion-jacobi.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-solovay-strassen.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "carmichael-numbers",
+          "title": "Числа Кармайкла",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-carmichael-discovery.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-korselt-criterion.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-miller-rabin-test.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "korselt-criterion",
+          "title": "Критерій Корсельта для чисел Кармайкла",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-korselt-1899.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-korselt-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-korselt-checker.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "arithmetic-functions",
+      "title": "Функції від дільників",
+      "topics": [
+        {
+          "slug": "arithmetic-functions",
+          "title": "Арифметичні функції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dirichlet-convolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dirichlet-algebra.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fast-convolution.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-common-functions.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mobius-inversion",
+          "title": "Обернення Мьобіуса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mobius-inversion.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mobius-algebra.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mobius-inversion.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mobius-properties.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "divisor-lattice",
+          "title": "Решітка дільників",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-hasse-lattice.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-boolean-sublattices.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hasse-generator.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

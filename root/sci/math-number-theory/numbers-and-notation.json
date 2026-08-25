@@ -1,0 +1,456 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-number-theory",
+  "slug": "numbers-and-notation",
+  "title": "Число та його запис",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "number-systems",
+      "title": "Розширення поняття числа",
+      "topics": [
+        {
+          "slug": "fractions",
+          "title": "Звичайні дроби",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fraction-concept.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-field-construction.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rational-arithmetic.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "negative-numbers",
+          "title": "Від'ємні числа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-negative-numbers-genesis.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-formal-construction.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-twos-complement-ops.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "irrational-numbers",
+          "title": "Ірраціональні числа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-hippasus-irrationality.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-continued-fractions.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-continued-fraction-sim.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "positional-notation",
+      "title": "Основа й позиційний запис",
+      "topics": [
+        {
+          "slug": "positional-systems",
+          "title": "Позиційні системи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hex-notation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "radix-conversion",
+          "title": "Перетворення позиційних систем числення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-radix-history.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-horner-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-universal-radix-converter.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "why-binary",
+          "title": "Чому двійкова",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-leibniz.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "radix-economy",
+          "title": "Економічність основи системи числення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-shannon-radix.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-radix-optimum-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-radix-economy-sim.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ternary-computing",
+          "title": "Трійкова основа та комп'ютер Сетунь",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-setun-computer.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-radix-economy.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-balanced-ternary-ALU.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "octal-system",
+          "title": "Вісімкова система та Unix-права",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-octal-pdp.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-radix-conversion.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-chmod-parser.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bcd",
+          "title": "BCD — двійково-десятковий код",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-bcd-computing.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bcd-arithmetic.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bcd-adder.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "fixed-width-integers",
+      "title": "Ціле у скінченному регістрі",
+      "topics": [
+        {
+          "slug": "unsigned-arithmetic",
+          "title": "Беззнакова арифметика і переповнення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "sign-magnitude",
+          "title": "Знак-величина",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-ibm-7090.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sign-magnitude-algebra.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-float-sign-bits.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ones-complement",
+          "title": "Обернений код",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-ones-complement-arch.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ones-complement-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-internet-checksum.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "twos-complement-algebra",
+          "title": "Доповняльний код: чому арифметика сходиться",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-modular-arithmetic.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-modular-arithmetic.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "twos-complement-arithmetic",
+          "title": "Арифметика доповняльного коду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-method-of-complements.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-overflow-detection.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "binary-fractions",
+      "title": "Двійкові дроби",
+      "topics": [
+        {
+          "slug": "binary-fractions",
+          "title": "Двійкові дроби та точність представлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-floating-point-crisis.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-period-length.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fixed-point-class.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "binary-period-length",
+          "title": "Періодичність раціональних двійкових дробів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-gauss-repeating-decimals.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ord-period-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-period-analyzer.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
