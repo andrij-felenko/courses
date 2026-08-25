@@ -1,0 +1,310 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-apps",
+  "slug": "services-and-teams",
+  "title": "Служби й команди",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "service-decomposition",
+      "title": "Розкрій на служби",
+      "topics": [
+        {
+          "slug": "microservices",
+          "title": "Мікросервіси",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-microservices-term.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-order-across-services.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "modular-monolith",
+          "title": "Модульний моноліт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-monolith-first.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-module-boundaries.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "conways-law",
+          "title": "Закон Конвея",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-org-to-modules.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "in-process-events",
+      "title": "Події всередині процесу",
+      "topics": [
+        {
+          "slug": "event-driven-architecture",
+          "title": "Подієва архітектура всередині застосунку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-event-driven-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-order-events-refactor.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "reactive-programming",
+          "title": "Реактивні потоки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-reactive-streams-spec.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "functional-reactive-programming",
+          "title": "Функціональне реактивне програмування (FRP)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fran-and-time.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-denotational-semantics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-glitch-free-dag.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "facts-between-services",
+      "title": "Факт як одиниця обміну",
+      "topics": [
+        {
+          "slug": "event-driven-architecture-distributed",
+          "title": "Подієва архітектура між сервісами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "cqrs",
+          "title": "CQRS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cqrs-from-cqs.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-split-command-query.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "event-sourcing",
+          "title": "Event sourcing",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-event-sourcing-lineage.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fold-determinism.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-account-replay.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "team-boundaries",
+      "title": "Межі команд",
+      "topics": [
+        {
+          "slug": "inverse-conway",
+          "title": "Inverse Conway maneuver",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-inverse-conway.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "communication-paths",
+          "title": "Комунікаційні шляхи як обмеження архітектури",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-conway-law.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-communication-paths.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "team-topologies",
+          "title": "Team topologies",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "cognitive-load-teams",
+          "title": "Когнітивне навантаження команди як межа розміру сервісу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "platform-engineering",
+          "title": "Платформна інженерія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-platform-term.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-paved-scaffold.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "developer-experience",
+          "title": "Досвід розробника як атрибут якості",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

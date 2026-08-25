@@ -1,0 +1,582 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-apps",
+  "slug": "user-interface",
+  "title": "Інтерфейс і клієнт",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "view-and-model",
+      "title": "Подання й модель",
+      "topics": [
+        {
+          "slug": "mvc",
+          "title": "Модель–подання–контролер (MVC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mvc-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-untangle-fat-controller.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "model-view-presenter",
+          "title": "Модель–подання–презентер (MVP)",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-mvp-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-passive-view.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "model-view-viewmodel",
+          "title": "Модель–подання–модель подання (MVVM)",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-mvvm-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tiny-binding.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "data-binding",
+          "title": "Прив'язка даних (data binding)",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-binding-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-signal-graph.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "unidirectional-data-flow",
+          "title": "Однонапрямлений потік даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-flux-elm-redux.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-glitch-propagation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tiny-store.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "responsiveness",
+      "title": "Відгук і плавність",
+      "topics": [
+        {
+          "slug": "ui-response-time-limits",
+          "title": "Пороги часу відгуку інтерфейсу: 0.1 с, 1 с, 10 с",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-three-thresholds.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mhp-cycle.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-optimistic-flow.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ui-thread-offloading",
+          "title": "Розвантаження потоку інтерфейсу",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-single-thread-ui.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-frame-budget.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-offloaded-search.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "debouncing-throttling",
+          "title": "Дебаунс і тротлінг: як проріджувати потік подій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-contact-bounce.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-event-rate-limiter.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rate-limiter.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "list-virtualization",
+          "title": "Віртуалізація довгих списків",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-virtual-list.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-virtual-offsets.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-virtual-scroller.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "virtual-dom",
+          "title": "Віртуальне дерево подання і звіряння (diffing)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-vdom-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-reconciliation-strategies.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tree-diff.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-vdom-engine.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "server-sync",
+      "title": "Узгодження з сервером",
+      "topics": [
+        {
+          "slug": "ajax-partial-updates",
+          "title": "Фонові запити зі сторінки: часткове оновлення без перезавантаження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ajax-revolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-partial-fetch-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-transport-protocols.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "optimistic-ui-update",
+          "title": "Оптимістичне оновлення інтерфейсу й відкат невдалої зміни",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-optimistic-ui.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-optimistic-mutation-pipeline.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "offline-first-client",
+          "title": "Офлайн-перший клієнт: локальна правда й узгодження з сервером",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-offline-first-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-conflict-resolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mutation-queue.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sync-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "document-history",
+      "title": "Історія документа",
+      "topics": [
+        {
+          "slug": "undo-redo-command-stack",
+          "title": "Скасування й повтор дії: стек команд",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-undo-invention.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-undo-cost.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-undoable-store.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "client-crash-recovery",
+          "title": "Документ переживає крах: автозбереження і журнал",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-autosave-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-checkpoint-interval.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-wal-recovery.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-storage-durability.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "platform-rules",
+      "title": "Правила платформи",
+      "topics": [
+        {
+          "slug": "desktop-app-architecture",
+          "title": "Архітектура десктопного застосунку: шари, потоки, стан",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mvc-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ui-worker-handoff.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "android-app-model",
+          "title": "Модель застосунку Android: маніфест, дозволи, наміри",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-android-component-model.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-binder-ipc.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-manifest-components.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "push-notifications",
+          "title": "Push як канал ОС",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-push-mechanisms.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-webpush-crypto.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-push-protocols.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "ui-description-and-language",
+      "title": "Опис і мова інтерфейсу",
+      "topics": [
+        {
+          "slug": "metadata-driven-ui",
+          "title": "Інтерфейс, породжений метаданими",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sdui-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sdui-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-schema-spec.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "i18n-as-architecture",
+          "title": "i18n як архітектура (не переклад)",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-i18n-numeronyms.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-plural-message-format.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

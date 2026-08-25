@@ -1,0 +1,508 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-apps",
+  "slug": "choice-and-price",
+  "title": "Вибір і його ціна",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "evaluation-and-tradeoffs",
+      "title": "Оцінювання й компроміси",
+      "topics": [
+        {
+          "slug": "tradeoff-analysis",
+          "title": "Trade-off-аналіз",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-atam-origin.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "atam-lite",
+          "title": "ATAM-лайт",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-atam.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-quantifying-tradeoffs.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lite-session.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-tradeoff-web-service.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "atam-architecture-evaluation",
+          "title": "Метод оцінки архітектури ATAM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-atam-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sensitivity-tradeoff.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-distributed-eval-harness.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "architecture-review",
+          "title": "Рев'ю архітектури як практика",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-advice-process.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-review-lineage.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-review-economics.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-review-checklist.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "back-of-envelope",
+          "title": "Прикидка «на серветці»",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-fermi.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-error-propagation.md",
+              "status": "done"
+            },
+            {
+              "file": "math-queueing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-estimation-record.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-sensitivity.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "deciding-with-unknowns",
+      "title": "Рішення під невизначеністю",
+      "topics": [
+        {
+          "slug": "deciding-under-uncertainty",
+          "title": "Рішення під невизначеністю",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "reversible-irreversible-decisions",
+          "title": "Зворотні й незворотні рішення",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-one-way-doors.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-real-options.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-expand-contract.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "last-responsible-moment",
+          "title": "Останній відповідальний момент",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-lean-construction-origin.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-deferral-economics.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-options-ledger.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "set-based-design",
+          "title": "Множинне (set-based) проєктування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-toyota-paradox.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-convergence-tracker.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "walking-skeleton",
+          "title": "Walking skeleton",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-walking-skeleton.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-integration-risk.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-keep-it-walking.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "risk-and-irreversibility",
+      "title": "Ризик і незворотність",
+      "topics": [
+        {
+          "slug": "risk-thinking",
+          "title": "Ризик-мислення",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-decision-theory.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-decision-under-risk.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-exposure-decision.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "risk-register",
+          "title": "Ризик-реєстр як живий артефакт",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-risk-register.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-risk-exposure.md",
+              "status": "done"
+            },
+            {
+              "file": "math-mitigation-economics.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-risk-register-tool.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "language-and-platform-choice",
+          "title": "Мова й платформа як рішення, яке важко відкотити",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "build-or-buy",
+      "title": "Своє чи чуже",
+      "topics": [
+        {
+          "slug": "build-vs-buy",
+          "title": "**Build vs buy** (і оренда/SaaS/adopt)",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-buy-vs-rent.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-breakeven.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-seam-adapter.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lock-in-exit-cost",
+          "title": "Прив'язка і вартість виходу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-lock-in-economics.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-exit-cost-model.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-abstraction-seam.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "tech-radar",
+          "title": "Техрадар",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-tech-radar-birth.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cost-of-the-system",
+      "title": "Вартість системи",
+      "topics": [
+        {
+          "slug": "cost-as-attribute",
+          "title": "Вартість як атрибут",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-tco.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-npv.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cbam.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cloud-cost-model",
+          "title": "Cloud cost як архітектурний драйвер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-utility-computing.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "finops-levers",
+          "title": "FinOps-важелі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-finops-foundation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-commitment-breakeven.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

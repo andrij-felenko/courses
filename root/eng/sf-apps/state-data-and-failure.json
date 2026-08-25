@@ -1,0 +1,486 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-apps",
+  "slug": "state-data-and-failure",
+  "title": "Стан, дані й збої",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "state-ownership",
+      "title": "Володіння станом",
+      "topics": [
+        {
+          "slug": "immutability",
+          "title": "Незмінність як прийом дизайну",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-immutable-string.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-value-equality.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-atomic-snapshot.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-persistent-structures.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pure-functions-side-effects",
+          "title": "Чисті функції і побічні ефекти",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-referential-transparency.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-equational-reasoning.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-effects-as-values.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-extract-pure-core.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "global-state",
+          "title": "Глобальний стан",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-globals-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-untangle-globals.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "functional-core-imperative-shell",
+          "title": "Функціональне ядро, імперативна оболонка",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-boundaries-bernhardt.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-isolation-economics.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-decision-plan-refactor.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-property-tests-core.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "command-query-separation",
+          "title": "Розділення команд і запитів (CQS)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-meyer-cqs.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-split-query-side-effect.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "single-source-of-truth",
+          "title": "Єдине джерело правди",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-codd-to-dry.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-schema-codegen.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "invariants-and-types",
+      "title": "Інваріанти й типи",
+      "topics": [
+        {
+          "slug": "type-driven-design",
+          "title": "Типи як дизайн",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-null-and-illegal-states.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-algebra-of-types.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sum-types-cpp.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-typestate-machine.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "invariants",
+          "title": "Інваріант програми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-invariant-lineage.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "assert-panic",
+          "title": "Assert і паніка",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "defensive-programming",
+          "title": "Захисне програмування",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "state-machines",
+      "title": "Автомати станів",
+      "topics": [
+        {
+          "slug": "state-machine-model",
+          "title": "Автомат станів: стани, події, переходи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "state-machine-as-design",
+          "title": "Автомат станів як інструмент дизайну",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "state-machine-embedded",
+          "title": "Автомат станів у прошивці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "error-path",
+      "title": "Шлях помилки",
+      "topics": [
+        {
+          "slug": "error-handling",
+          "title": "Жодна помилка не мовчить",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ariane5.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "error-as-value-vs-exception",
+          "title": "Виняток чи значення-результат",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "errno",
+          "title": "errno та POSIX-коди помилок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "data-layout",
+      "title": "Розкладка даних",
+      "topics": [
+        {
+          "slug": "data-oriented-design",
+          "title": "Data-Oriented Design (DOD)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-cache-traffic.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sparse-set-ecs.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-archetype-registry.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "memory-alignment",
+          "title": "Вирівнювання даних у пам'яті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-alignment-hardware.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "data-layout-aos-soa",
+          "title": "Розкладка даних у пам'яті: масив структур і структура масивів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-data-oriented-design.md",
+              "status": "pending"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-aos-soa-simd.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "time-and-calendar",
+      "title": "Час і календар",
+      "topics": [
+        {
+          "slug": "time-and-scheduling",
+          "title": "Прикладний час",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-time-standards.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-utc-boundary.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "monotonic-vs-wall-time",
+          "title": "Монотонний проти настінного часу для дедлайнів і тривалостей",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-monotonic-clocks.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-clocks.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "recurrence-scheduling",
+          "title": "Рекурентність і календарна математика",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-tzdata.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-calendar.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-expander.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rrule.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

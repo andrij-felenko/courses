@@ -1,0 +1,316 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-apps",
+  "slug": "drivers-and-tactics",
+  "title": "Драйвери й тактики",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "architect-craft",
+      "title": "Ремесло архітектора",
+      "topics": [
+        {
+          "slug": "architect-role",
+          "title": "Роль архітектора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "stakeholders",
+          "title": "Стейкхолдери та їхні системи",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-stakeholder-term.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-stakeholder-salience.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-stakeholder-register.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "quality-drivers",
+      "title": "Драйвери й атрибути",
+      "topics": [
+        {
+          "slug": "quality-attributes",
+          "title": "Якісні атрибути («-ilities»)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "attribute-scenarios",
+          "title": "Сценарії атрибутів",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-atam-lineage.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-response-measures.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-utility-tree.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "architectural-drivers",
+          "title": "Архітектурні драйвери",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-add-origin.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-driver-economics.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-driver-to-decision.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "forces-and-constraints",
+      "title": "Сили й обмеження",
+      "topics": [
+        {
+          "slug": "hard-constraints",
+          "title": "Обмеження, які не обговорюються: строк, бюджет, команда, закон",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "use-cases-as-input",
+          "title": "Сценарії використання як вхід архітектури",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "regulatory-drivers",
+          "title": "Закон як вимога до архітектури",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "quality-tactics",
+      "title": "Тактики якості",
+      "topics": [
+        {
+          "slug": "architectural-tactics",
+          "title": "Тактика проти патерна",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-tactics-lineage.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-retry-tradeoff.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-circuit-breaker.md",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "slug": "modifiability-tactics",
+          "title": "Тактики змінюваності",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-coupling-cohesion.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-modifiability-metrics.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-open-for-extension.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "testability-tactics",
+          "title": "Тактики тестовності",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-testability-term.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-testability-pie.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-test-doubles.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-deterministic-simulation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "availability-tactics",
+          "title": "Тактики доступності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dependability-taxonomy.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-failover-with-heartbeat.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "performance-tactics",
+          "title": "Тактики продуктивності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-amdahl-little.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-amdahl-little.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "operability-tactics",
+          "title": "Тактики експлуатованості й розгортуваності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-deployability-attribute.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

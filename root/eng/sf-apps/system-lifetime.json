@@ -1,0 +1,406 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-apps",
+  "slug": "system-lifetime",
+  "title": "Життя системи",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "evolution-by-default",
+      "title": "Еволюція як дефолт",
+      "topics": [
+        {
+          "slug": "evolutionary-architecture",
+          "title": "Еволюційна архітектура як дефолт",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-evolutionary-architecture.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-evolvability-economics.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fitness-harness.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fitness-functions",
+          "title": "Фітнес-функції",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-fitness-landscape.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fitness-thresholds.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-arch-fitness-suite.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dependency-graph-checker",
+          "title": "Аналіз ерозії архітектури: граф залежностей",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-architecture-drift-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dependency-metrics-and-scc.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-graph-checker-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-checker-rule-spec.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "ageing",
+      "title": "Старіння системи",
+      "topics": [
+        {
+          "slug": "architecture-erosion",
+          "title": "Ерозія архітектури",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-erosion-term.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-coupling-metrics.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dependency-checker.md",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "slug": "lehman-laws",
+          "title": "Закони еволюції програм",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "software-rot",
+          "title": "Гниття програми: що ламається без твоєї правки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "accumulated-change-cost",
+      "title": "Ціна накопиченої зміни",
+      "topics": [
+        {
+          "slug": "technical-debt",
+          "title": "Технічний борг і вартість зміни",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ward-cunningham-debt.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-debt-interest.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-debt-interest-cost.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "logical-coupling",
+          "title": "Логічне зчеплення: залежність, видима лише в історії змін",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-co-change-mining.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-coupling-metrics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-git-coupling.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "design-structure-matrix",
+          "title": "Матриця залежностей (DSM)",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-steward-dsm.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-visibility-closure.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dsm-partition.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "legacy-code",
+      "title": "Чужий старий код",
+      "topics": [
+        {
+          "slug": "legacy-archaeology",
+          "title": "Археологія legacy",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-chestertons-fence.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-software-archaeology.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-characterization-test.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "code-hotspots",
+          "title": "Гарячі точки коду: частота зміни × складність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "rewrite-vs-refactor",
+          "title": "Rewrite vs refactor",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-never-rewrite.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "replacing-in-flight",
+      "title": "Заміна на ходу",
+      "topics": [
+        {
+          "slug": "strangler-fig",
+          "title": "Strangler fig",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-fowler-strangler.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-strangler-routing.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "branch-by-abstraction",
+          "title": "Branch by abstraction",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-bba-naming.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-parallel-run-verify.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "second-system-effect",
+          "title": "Ефект другої системи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-second-system.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-taming-second-system.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "deprecation-policy",
+          "title": "Deprecation як керований процес",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-deprecation-term.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-python2-sunset.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-migration-window.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

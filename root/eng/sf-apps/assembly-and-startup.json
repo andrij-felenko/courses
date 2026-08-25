@@ -1,0 +1,392 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-apps",
+  "slug": "assembly-and-startup",
+  "title": "Складання й запуск",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "layers-and-ports",
+      "title": "Шари й порти",
+      "topics": [
+        {
+          "slug": "layered-architecture",
+          "title": "Шарова архітектура",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-layers-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-layered-refactor.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "service-layer",
+          "title": "Сервісний шар",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-service-layer.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-place-order-service.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hexagonal-architecture",
+          "title": "Порти й адаптери",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cockburn-naming.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-swap-adapters.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "storage-edge",
+      "title": "Межа сховища",
+      "topics": [
+        {
+          "slug": "repository",
+          "title": "Репозиторій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-repository-poeaa.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-in-memory-repository.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "data-access-object",
+          "title": "Об'єкт доступу до даних (DAO)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dao-j2ee.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-swappable-dao.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gateway",
+          "title": "Шлюз (PoEAA)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-fowler-gateway.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tariff-gateway.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "dependency-wiring",
+      "title": "Впровадження залежностей",
+      "topics": [
+        {
+          "slug": "dependency-injection",
+          "title": "Впровадження залежностей та IoC-контейнер (інструмент DIP); контейнер vs ручна збірка; service locator як анти-двійник (інлайн)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-fowler-di-naming.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-untangle-service-locator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "service-locator",
+          "title": "Локатор служб",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-service-locator-naming.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-typed-registry.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "di-container",
+          "title": "DI-контейнер і composition root",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-di-terms.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hand-rolled-container.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "configuration",
+      "title": "Конфігурація і конвенції",
+      "topics": [
+        {
+          "slug": "config-design",
+          "title": "Конфігурація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-twelve-factor-config.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "convention-over-configuration",
+          "title": "Конвенція понад конфігурацію",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rails-xml-hell.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-routing-resolution.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "twelve-factor",
+          "title": "Дванадцять факторів (The Twelve-Factor App)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-twelve-factor.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-refactor-to-twelve-factor.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "plug-in-sockets",
+      "title": "Точки розширення",
+      "topics": [
+        {
+          "slug": "plugin-architecture",
+          "title": "Плагіни / точки розширення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-plugin-loader.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "extension-points",
+          "title": "Плагіни й точки розширення назовні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-webhooks-appexchange.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-webhook-delivery.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "framework-vs-library",
+          "title": "Каркас проти бібліотеки: напрямок виклику",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-two-faces.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-two-loops.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "entry-and-deployment-units",
+      "title": "Вхід і одиниці розгортання",
+      "topics": [
+        {
+          "slug": "application-entry-points",
+          "title": "Точки входу застосунку: служба, команда, робітник, бібліотека",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "layers-vs-tiers",
+          "title": "Логічна межа проти фізичної: шар, ярус, одиниця розгортання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "call-context-propagation",
+          "title": "Наскрізний контекст виклику: хто, для кого, у якому запиті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

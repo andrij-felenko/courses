@@ -1,0 +1,406 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-apps",
+  "slug": "domain",
+  "title": "Предметна модель",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "nature-of-a-model",
+      "title": "Природа моделі",
+      "topics": [
+        {
+          "slug": "model-as-deliberate-simplification",
+          "title": "Модель як свідоме спрощення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "data-first-or-behaviour-first",
+          "title": "Від даних чи від поведінки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "domain-driven-design",
+          "title": "DDD-лайт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-evans-ddd.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-anemic-to-rich.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "anemic-domain-model",
+          "title": "Анемічна модель предметної області",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-fowler-anemic.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "model-building-blocks",
+      "title": "Цеглинки моделі",
+      "topics": [
+        {
+          "slug": "primitive-obsession",
+          "title": "Одержимість примітивами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "three-kinds-of-absence",
+          "title": "Три різновиди відсутності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "entity-value-object",
+          "title": "Сутність і об'єкт-значення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-value-object-lineage.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "aggregates-consistency",
+          "title": "Агрегат і корінь",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-evans-aggregate.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "business-logic-shape",
+      "title": "Форма ділової логіки",
+      "topics": [
+        {
+          "slug": "transaction-script",
+          "title": "Сценарій транзакції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-transaction-script-poeaa.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-transaction-script-refactor.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "domain-model",
+          "title": "Предметна модель",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-domain-model-lineage.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rich-domain-model.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "table-module",
+          "title": "Модуль таблиці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-table-module-recordset.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-table-module-revenue.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "business-rules",
+      "title": "Правила справи",
+      "topics": [
+        {
+          "slug": "specification-pattern",
+          "title": "Специфікація як об'єкт-правило",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "rules-engine-decision-table",
+          "title": "Двигун правил і таблиця рішень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "rule-effective-date",
+          "title": "Дата набуття чинності правила",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "domain-language",
+      "title": "Мова домену",
+      "topics": [
+        {
+          "slug": "ubiquitous-language",
+          "title": "Спільна мова коду й розмови",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "project-glossary",
+          "title": "Словник, який не гниє",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "naming-in-a-foreign-language",
+          "title": "Домен українською, код англійською",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "talking-to-experts",
+      "title": "Розмова з експертом",
+      "topics": [
+        {
+          "slug": "collaborative-modeling-session",
+          "title": "Сесія спільного моделювання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "specification-by-example",
+          "title": "Моделювання прикладами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "stated-vs-real-need",
+          "title": "Замовник просить рішення, а не називає задачу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "contexts-and-translation",
+      "title": "Контексти й переклад",
+      "topics": [
+        {
+          "slug": "bounded-context",
+          "title": "Обмежений контекст",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-bounded-context.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-context-boundary-refactor.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "context-mapping",
+          "title": "Карта контекстів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-context-map-origin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-context-map-as-code.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "anti-corruption-layer",
+          "title": "Антикорупційний шар",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-acl-origin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-build-acl.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "subdomains-strategic",
+          "title": "Стратегічний розкрій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-strategic-distillation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-decompose-courier.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

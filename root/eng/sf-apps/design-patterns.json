@@ -1,0 +1,640 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-apps",
+  "slug": "design-patterns",
+  "title": "Патерни проєктування",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "pattern-as-genre",
+      "title": "Природа патернів",
+      "topics": [
+        {
+          "slug": "what-is-pattern",
+          "title": "Що таке патерн",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-alexander-gof.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "anti-patterns",
+          "title": "Антипатерни",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-antipattern-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-refactor-god-object.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "object-creation",
+      "title": "Створення об'єктів",
+      "topics": [
+        {
+          "slug": "factory-method",
+          "title": "Фабричний метод і абстрактна фабрика",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-gof-factories.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-factory-method-variants.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-abstract-factory-impl.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "builder",
+          "title": "Будівельник",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-gof-bloch-builder.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-builder-query.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "prototype",
+          "title": "Прототип",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-prototype-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-prototype-registry.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "singleton",
+          "title": "Сінглтон",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-singleton-gof.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-double-checked-locking.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-thread-safe-singleton.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-multiton-registry.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "object-pool",
+          "title": "Пул об'єктів",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-object-pool.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-slab-allocator.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pool-sizing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-object-pool.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-concurrent-pool.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "object-composition",
+      "title": "Складання об'єктів",
+      "topics": [
+        {
+          "slug": "adapter",
+          "title": "Адаптер",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-wrapper-impedance.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-adapter-correctness.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-callback-to-async.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "decorator",
+          "title": "Декоратор",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-java-io.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-decorator-algebra.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-middleware-pipeline.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "facade",
+          "title": "Фасад",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-facade-origin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-facade-checkout.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "composite",
+          "title": "Компонувальник",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-composite-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-composite-invariants.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-composite-traversal.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-composite-cache.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "proxy",
+          "title": "Проксі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-access-proxy.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "flyweight",
+          "title": "Легковаговик",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-flyweight-glyphs.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-flyweight-savings.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-forest-flyweight.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gof-structural-microcatalog",
+          "title": "Решта структурних оглядово",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-bridge-explosion.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "varying-behaviour",
+      "title": "Змінна поведінка",
+      "topics": [
+        {
+          "slug": "strategy",
+          "title": "Стратегія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-strategy-policy.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-replace-conditional-with-strategy.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "state",
+          "title": "Стан",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-fsm-to-state.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-order-state-machine.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "template-method",
+          "title": "Шаблонний метод",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-template-method-frameworks.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-nvi-idiom.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "null-object",
+          "title": "Порожній об'єкт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-null-object-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-null-as-neutral-element.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-refactor-null-checks.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gof-behavioral-microcatalog",
+          "title": "Решта поведінкових оглядово",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "object-conversation",
+      "title": "Розмова об'єктів",
+      "topics": [
+        {
+          "slug": "observer",
+          "title": "Спостерігач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-observer-origins.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-observer-eventbus.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "command",
+          "title": "Команда",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-command-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-undo-redo-editor.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "chain-of-responsibility",
+          "title": "Ланцюжок обов'язків",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-chain-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-chain-as-fold.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-middleware-chain.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mediator",
+          "title": "Посередник",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mediator-gof.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-coupling-star.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dialog-mediator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "visitor",
+          "title": "Відвідувач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-visitor-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-visitor-ast.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "iterator",
+          "title": "Ітератор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-clu-liskov-iterator.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-iterator-fold-duality.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lazy-tree-iterator.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

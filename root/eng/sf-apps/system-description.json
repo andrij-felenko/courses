@@ -1,0 +1,248 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-apps",
+  "slug": "system-description",
+  "title": "Опис системи",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "views-and-viewpoints",
+      "title": "В'ю й точки зору",
+      "topics": [
+        {
+          "slug": "architecture-views",
+          "title": "Архітектурні в'ю",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-view-models.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "viewpoints-perspectives",
+          "title": "Viewpoints і perspectives (Rozanski/Woods)",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-4plus1.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-consistency-check.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "deployment-view",
+          "title": "В'ю розгортання і динамічні в'ю",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-interaction-diagrams.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-deploy-as-code.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "diagrams-as-code",
+          "title": "Діаграми як код",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-diagram-tools.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-text-diagram-langs.md",
+              "status": "done"
+            },
+            {
+              "file": "comp-structurizr-c4.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "c4",
+      "title": "Модель C4",
+      "topics": [
+        {
+          "slug": "c4-model",
+          "title": "C4",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-c4-origin.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-model-and-views.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-model-as-code.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "c4-architecture-model",
+          "title": "Модель опису архітектури C4",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-c4-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-c4-vs-uml-4plus1.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-c4-model-as-code.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-structurizr-dsl.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "written-decisions",
+      "title": "Записані рішення",
+      "topics": [
+        {
+          "slug": "adr",
+          "title": "Запис архітектурного рішення (ADR)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-decision-matrix.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "architecture-decision-records",
+          "title": "Журнал архітектурних рішень (ADR)",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-adr-origin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-adr-tooling.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "design-docs",
+          "title": "Design docs і RFC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rfc-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-defect-cost-curve.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rfc-linter.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-design-doc-template.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

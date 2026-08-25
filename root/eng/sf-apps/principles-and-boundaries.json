@@ -1,0 +1,686 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-apps",
+  "slug": "principles-and-boundaries",
+  "title": "Принципи й межі",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "concern-separation",
+      "title": "Розділення турбот",
+      "topics": [
+        {
+          "slug": "separation-of-concerns",
+          "title": "Розділення відповідальностей",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-soc-origins.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-untangle-ripple.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "coupling-cohesion",
+          "title": "Зчеплення і зв'язність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-metrics-connascence.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-refactor-smells.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "single-responsibility",
+          "title": "SRP",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-srp-origin.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lcom-cohesion.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-employee-split.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-cochange-analysis.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cross-cutting-concerns",
+          "title": "Наскрізні зрізи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-aop-origin.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "end-to-end-argument",
+          "title": "Наскрізний аргумент (end-to-end argument)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-e2e-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-e2e-cost.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hop-vs-end-check.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "stepwise-refinement",
+          "title": "Покрокове уточнення (stepwise refinement)",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "hiding-and-abstraction",
+      "title": "Приховане й обіцяне",
+      "topics": [
+        {
+          "slug": "abstraction-principle",
+          "title": "Принцип абстракції в програмуванні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-reynolds-dijkstra.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-abstraction-metrics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-extract-parameterized-abstraction.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "information-hiding",
+          "title": "Приховування інформації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-kwic-decomposition.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-opaque-pointer.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "interface-segregation",
+          "title": "Принцип розділення інтерфейсів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "hardware-abstraction-layer",
+          "title": "Шар абстрагування заліза (HAL)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "contract-of-a-part",
+      "title": "Контракт частини",
+      "topics": [
+        {
+          "slug": "interface-vs-implementation",
+          "title": "Інтерфейс проти реалізації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-parnas-liskov.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-opaque-handle-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "encapsulation",
+          "title": "Інкапсуляція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-information-hiding.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "law-of-demeter",
+          "title": "Закон Деметри",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-demeter-project.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "tell-dont-ask",
+          "title": "«Кажи, не питай» (Tell, Don't Ask)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-tell-dont-ask.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-refactor-ask-to-tell.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "api-shape",
+      "title": "Форма API",
+      "topics": [
+        {
+          "slug": "api-design",
+          "title": "Дизайн API модуля/бібліотеки як рішення письмом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-api-as-asset.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-change-cost.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-versioned-c-api.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-design-d.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "fluent-interface",
+          "title": "Плинний інтерфейс (fluent interface)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dto",
+          "title": "DTO",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dto.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cost.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mapping.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-versioning.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "substitution-and-extension",
+      "title": "Підстановка й розширення",
+      "topics": [
+        {
+          "slug": "liskov-substitution",
+          "title": "Принцип підстановки Лісков (LSP)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-liskov-wing.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-contract-rules.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-collection-substitution.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "open-closed",
+          "title": "OCP",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ocp-meyer-martin.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-expression-problem.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-extensible-dispatch.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-visitor-double-dispatch.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "composition-inheritance",
+          "title": "Композиція над спадкуванням",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-gof-principle.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-strategy-refactor.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-self-call-fragility.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dependency-inversion",
+          "title": "Принцип інверсії залежностей (DIP)",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dip-birth.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-hollywood-ioc.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-stability-metrics.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ports-and-adapters.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "expression-problem",
+          "title": "Проблема вираження",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "modules-and-packages",
+      "title": "Модулі й пакети",
+      "topics": [
+        {
+          "slug": "package-by-layer-vs-feature",
+          "title": "Розкладка коду: за шарами чи за можливостями",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "module-physical-boundary",
+          "title": "Модуль у мові й у збірці: пакет, простір імен, одиниця збірки, видимість",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "acyclic-dependencies",
+          "title": "Принцип ациклічності залежностей",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "common-closure-principle",
+          "title": "Принцип спільного закриття (CCP)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ccp-package-principles.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-regroup-by-change.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "common-reuse-principle",
+          "title": "Принцип спільного повторного використання (CRP)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-splitting-by-reuse.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "reuse-release-equivalence",
+          "title": "Принцип еквівалентності повторного використання й випуску (REP)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-release-and-consume.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cost-of-complexity",
+      "title": "Ціна складності",
+      "topics": [
+        {
+          "slug": "dry-kiss-yagni",
+          "title": "**YAGNI за замовчуванням**, DRY і його межа (передчасне узагальнення), KISS; складність як пасив/борг; вартість передчасної абстракції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-three-slogans.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-wrong-abstraction.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "premature-optimization",
+          "title": "Передчасна оптимізація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-measure-then-optimize.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "worse-is-better",
+          "title": "«Гірше — це краще»: простота реалізації проти повноти семантики",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gabriel-essay.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-eintr-retry.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "essential-accidental-complexity",
+          "title": "Суттєва й випадкова складність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

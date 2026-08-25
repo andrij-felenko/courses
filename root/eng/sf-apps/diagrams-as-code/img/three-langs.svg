@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="880" height="560" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один граф — три мови — та сама картинка</text>
+<text x="150.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">DOT</text>
+<rect x="45.0" y="97.0" width="210.0" height="110.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/><text x="150.0" y="117.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">digraph {</tspan><tspan x="150.0" dy="15.6">  a -&gt; b</tspan><tspan x="150.0" dy="15.6">  a -&gt; c</tspan><tspan x="150.0" dy="15.6">  b -&gt; d</tspan><tspan x="150.0" dy="15.6">  c -&gt; d</tspan><tspan x="150.0" dy="15.6">}</tspan></text>
+<text x="440.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Mermaid</text>
+<rect x="335.0" y="104.8" width="210.0" height="94.4" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/><text x="440.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">graph TD</tspan><tspan x="440.0" dy="15.6">  a --&gt; b</tspan><tspan x="440.0" dy="15.6">  a --&gt; c</tspan><tspan x="440.0" dy="15.6">  b --&gt; d</tspan><tspan x="440.0" dy="15.6">  c --&gt; d</tspan></text>
+<text x="730.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">PlantUML</text>
+<rect x="625.0" y="97.0" width="210.0" height="110.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/><text x="730.0" y="117.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="730.0" dy="0.0">@startuml</tspan><tspan x="730.0" dy="15.6">(a) --&gt; (b)</tspan><tspan x="730.0" dy="15.6">(a) --&gt; (c)</tspan><tspan x="730.0" dy="15.6">(b) --&gt; (d)</tspan><tspan x="730.0" dy="15.6">(c) --&gt; (d)</tspan><tspan x="730.0" dy="15.6">@enduml</tspan></text>
+<line x1="150.0" y1="236.0" x2="150.0" y2="268.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="440.0" y1="236.0" x2="440.0" y2="268.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="730.0" y1="236.0" x2="730.0" y2="268.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="440.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">різний синтаксис — той самий зміст</text>
+<line x1="440.0" y1="362.0" x2="330.0" y2="400.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="440.0" y1="362.0" x2="550.0" y2="400.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="330.0" y1="440.0" x2="440.0" y2="478.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="550.0" y1="440.0" x2="440.0" y2="478.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<circle cx="440.0" cy="342.0" r="20.0" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="440.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">a</text>
+<circle cx="330.0" cy="420.0" r="20.0" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="330.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">b</text>
+<circle cx="550.0" cy="420.0" r="20.0" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="550.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">c</text>
+<circle cx="440.0" cy="498.0" r="20.0" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="440.0" y="503.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">d</text>
+<text x="440.0" y="538.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">розкладку рахує рушій — ти пишеш лише зв'язки</text>
+</svg>
