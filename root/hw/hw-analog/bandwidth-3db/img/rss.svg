@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="440" viewBox="0 0 820 440">
+<rect width="820" height="440" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="410.0" y="34.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Фронти каскадів складаються, як катети: квадратично</text>
+<text x="410.0" y="56.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">t_r(тракту) = √(t_r₁² + t_r₂² + …) — Піфагор у часі</text>
+<line x1="140.0" y1="330.0" x2="380.0" y2="330.0" stroke="#b5732e" stroke-width="3" stroke-linecap="round"/>
+<line x1="380.0" y1="330.0" x2="380.0" y2="258.0" stroke="#1f47b5" stroke-width="3" stroke-linecap="round"/>
+<line x1="140.0" y1="330.0" x2="380.0" y2="258.0" stroke="#c0271e" stroke-width="3" stroke-linecap="round"/>
+<rect x="366.0" y="316.0" width="14.0" height="14.0" rx="0" fill="none" stroke="#8a8a8a" stroke-width="1.2"/>
+<text x="260.0" y="352.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#b5732e" text-anchor="middle" font-weight="bold" font-style="normal">каскад 1:  t_r = 10 нс</text>
+<text x="392.0" y="294.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">каскад 2:  3 нс</text>
+<text x="230.0" y="272.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">разом: √(100 + 9) ≈ 10.4 нс</text>
+<text x="260.0" y="130.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">повільний катет майже все і вирішує:</text>
+<text x="260.0" y="150.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">швидкий каскад додав лише 4%</text>
+<rect x="540.0" y="110.0" width="240.0" height="250.0" rx="6" fill="#ffffff" stroke="#c9d3dc" stroke-width="1.4"/>
+<text x="660.0" y="104.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">той самий Піфагор навспак</text>
+<text x="660.0" y="146.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">осцилограф (BW 100 МГц):</text>
+<text x="660.0" y="166.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">власний t_r ≈ 3.5 нс</text>
+<text x="660.0" y="198.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">на екрані фронт: 5.0 нс</text>
+<text x="660.0" y="234.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">справжній фронт сигналу:</text>
+<text x="660.0" y="262.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">√(5.0² − 3.5²) ≈ 3.6 нс</text>
+<text x="660.0" y="298.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">прилад «додав» свій фронт —</text>
+<text x="660.0" y="314.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">квадратично його й віднімаємо</text>
+<text x="410.0" y="408.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">правило точне для «гладких» характеристик і чудова оцінка для звичайних однополюсних каскадів</text>
+</svg>

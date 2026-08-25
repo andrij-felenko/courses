@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="420" viewBox="0 0 880 420">
+<rect width="880" height="420" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+</defs>
+<text x="440.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Пульсація ШІМ-ЦАП залежить від шпаруватості</text>
+<text x="440.0" y="50.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Vpp = U·D·(1−D)/(f·R·C) — парабола з піком на D = 50%</text>
+<line x1="100.0" y1="350.0" x2="100.0" y2="60.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<text x="94.0" y="58.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="end" font-weight="bold" font-style="normal">Vpp, мВ</text>
+<line x1="90.0" y1="340.0" x2="820.0" y2="340.0" stroke="#1b1b1b" stroke-width="2" marker-end="url(#aInk)"/>
+<text x="822.0" y="344.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">D, %</text>
+<line x1="94.0" y1="296.7" x2="800.0" y2="296.7" stroke="#e4e4e4" stroke-width="1.2" stroke-dasharray="3,3" stroke-linecap="round"/>
+<text x="90.0" y="300.7" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="normal">100</text>
+<line x1="94.0" y1="253.3" x2="800.0" y2="253.3" stroke="#e4e4e4" stroke-width="1.2" stroke-dasharray="3,3" stroke-linecap="round"/>
+<text x="90.0" y="257.3" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="normal">200</text>
+<line x1="94.0" y1="210.0" x2="800.0" y2="210.0" stroke="#e4e4e4" stroke-width="1.2" stroke-dasharray="3,3" stroke-linecap="round"/>
+<text x="90.0" y="214.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="normal">300</text>
+<line x1="94.0" y1="166.7" x2="800.0" y2="166.7" stroke="#e4e4e4" stroke-width="1.2" stroke-dasharray="3,3" stroke-linecap="round"/>
+<text x="90.0" y="170.7" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="normal">400</text>
+<line x1="94.0" y1="123.3" x2="800.0" y2="123.3" stroke="#e4e4e4" stroke-width="1.2" stroke-dasharray="3,3" stroke-linecap="round"/>
+<text x="90.0" y="127.3" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="normal">500</text>
+<line x1="100.0" y1="340.0" x2="100.0" y2="345.0" stroke="#1b1b1b" stroke-width="1.4" stroke-linecap="round"/>
+<text x="100.0" y="358.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">0</text>
+<line x1="170.0" y1="340.0" x2="170.0" y2="345.0" stroke="#1b1b1b" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="240.0" y1="340.0" x2="240.0" y2="345.0" stroke="#1b1b1b" stroke-width="1.4" stroke-linecap="round"/>
+<text x="240.0" y="358.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">20</text>
+<line x1="310.0" y1="340.0" x2="310.0" y2="345.0" stroke="#1b1b1b" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="380.0" y1="340.0" x2="380.0" y2="345.0" stroke="#1b1b1b" stroke-width="1.4" stroke-linecap="round"/>
+<text x="380.0" y="358.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">40</text>
+<line x1="450.0" y1="340.0" x2="450.0" y2="345.0" stroke="#1b1b1b" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="520.0" y1="340.0" x2="520.0" y2="345.0" stroke="#1b1b1b" stroke-width="1.4" stroke-linecap="round"/>
+<text x="520.0" y="358.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">60</text>
+<line x1="590.0" y1="340.0" x2="590.0" y2="345.0" stroke="#1b1b1b" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="660.0" y1="340.0" x2="660.0" y2="345.0" stroke="#1b1b1b" stroke-width="1.4" stroke-linecap="round"/>
+<text x="660.0" y="358.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">80</text>
+<line x1="730.0" y1="340.0" x2="730.0" y2="345.0" stroke="#1b1b1b" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="800.0" y1="340.0" x2="800.0" y2="345.0" stroke="#1b1b1b" stroke-width="1.4" stroke-linecap="round"/>
+<text x="800.0" y="358.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">100</text>
+<polyline points="100.0,340.0 107.0,331.4 114.0,323.0 121.0,314.8 128.0,306.7 135.0,298.8 142.0,291.1 149.0,283.6 156.0,276.2 163.0,269.0 170.0,262.0 177.0,255.2 184.0,248.5 191.0,242.0 198.0,235.7 205.0,229.5 212.0,223.5 219.0,217.7 226.0,212.1 233.0,206.6 240.0,201.3 247.0,196.2 254.0,191.3 261.0,186.5 268.0,181.9 275.0,177.5 282.0,173.3 289.0,169.2 296.0,165.3 303.0,161.6 310.0,158.0 317.0,154.6 324.0,151.4 331.0,148.4 338.0,145.5 345.0,142.8 352.0,140.3 359.0,138.0 366.0,135.8 373.0,133.8 380.0,132.0 387.0,130.4 394.0,128.9 401.0,127.6 408.0,126.5 415.0,125.5 422.0,124.7 429.0,124.1 436.0,123.7 443.0,123.4 450.0,123.3 457.0,123.4 464.0,123.7 471.0,124.1 478.0,124.7 485.0,125.5 492.0,126.5 499.0,127.6 506.0,128.9 513.0,130.4 520.0,132.0 527.0,133.8 534.0,135.8 541.0,138.0 548.0,140.3 555.0,142.8 562.0,145.5 569.0,148.4 576.0,151.4 583.0,154.6 590.0,158.0 597.0,161.6 604.0,165.3 611.0,169.2 618.0,173.3 625.0,177.5 632.0,181.9 639.0,186.5 646.0,191.3 653.0,196.2 660.0,201.3 667.0,206.6 674.0,212.1 681.0,217.7 688.0,223.5 695.0,229.5 702.0,235.7 709.0,242.0 716.0,248.5 723.0,255.2 730.0,262.0 737.0,269.0 744.0,276.2 751.0,283.6 758.0,291.1 765.0,298.8 772.0,306.7 779.0,314.8 786.0,323.0 793.0,331.4 800.0,340.0" fill="none" stroke="#c0271e" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="100.0" y1="334.4" x2="800.0" y2="334.4" stroke="#1f8a3b" stroke-width="1.8" stroke-dasharray="8,5" stroke-linecap="round"/>
+<line x1="450.0" y1="123.3" x2="450.0" y2="87.3" stroke="#c0271e" stroke-width="1.4" stroke-dasharray="4,3" stroke-linecap="round"/>
+<rect x="390.0" y="55.3" width="120.0" height="28.0" rx="6" fill="#e4e4e4" stroke="#c0271e" stroke-width="1.2"/>
+<text x="450.0" y="74.3" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">пік: ≈ 500 мВ</text>
+<rect x="680.0" y="318.4" width="118.0" height="22.0" rx="5" fill="#f0faf2" stroke="#1f8a3b" stroke-width="1.2"/>
+<text x="738.0" y="332.4" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1f8a3b" text-anchor="middle" font-weight="bold" font-style="normal">1 LSB ≈ 13 мВ (8 біт)</text>
+<line x1="104.5" y1="334.4" x2="104.5" y2="340.0" stroke="#1f8a3b" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round"/>
+<line x1="795.5" y1="334.4" x2="795.5" y2="340.0" stroke="#1f8a3b" stroke-width="1" stroke-dasharray="3,3" stroke-linecap="round"/>
+<text x="450.0" y="312.4" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9" fill="#1f8a3b" text-anchor="middle" font-weight="normal" font-style="normal">брижа &gt; 1 LSB: зайві біти ШІМ марні</text>
+<rect x="80.0" y="365.0" width="720.0" height="40.0" rx="8" fill="#fff6e0" stroke="#caa24a" stroke-width="1.4"/>
+<text x="440.0" y="381.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">U = 3.3 В, f = 5 кГц, R = 10 кОм, C = 33 нФ  →  RC = 330 мкс.</text>
+<text x="440.0" y="397.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">Пульсація НЕ стала по шкалі — проєктуй фільтр на найгіршу точку (50%).</text>
+</svg>

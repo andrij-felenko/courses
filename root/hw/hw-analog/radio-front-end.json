@@ -1,0 +1,312 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-analog",
+  "slug": "radio-front-end",
+  "title": "Радіотракт",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "rf-blocks",
+      "title": "Блоки радіотракту",
+      "topics": [
+        {
+          "slug": "rf-amplifiers",
+          "title": "Радіочастотні підсилювачі (LNA і PA)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rf-amplifiers.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-rf-front-end.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-friis-noise.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lna-pa-control.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lna-low-noise-amplifier",
+          "title": "Малошумний підсилювач (LNA)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cryo-lna.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lna-intercept.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mixer",
+          "title": "Змішувач частот",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mixer-evolution.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-active-passive-mixers.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-intermodulation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sdr-mixer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mixer-config.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "local-oscillator",
+          "title": "Гетеродин",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fessenden-heterodyne.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-tcxo-ocxo.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-reciprocal-mixing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pll-lo-calc.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "receiver-architectures",
+      "title": "Архітектури приймача",
+      "topics": [
+        {
+          "slug": "superheterodyne",
+          "title": "Супергетеродин",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "double-conversion",
+          "title": "Подвійне перетворення частоти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-double-conversion.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-dual-conversion-receiver.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-frequency-planning.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-frequency-planner.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "zero-if-receiver",
+          "title": "Zero-IF та Low-IF архітектури",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-direct-conversion.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-zero-low-if.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-iq-imbalance.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dcoc-iq-calib.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "matching-networks",
+      "title": "Узгодження опорів",
+      "topics": [
+        {
+          "slug": "impedance-matching",
+          "title": "Узгодження опорів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-jacobi-matching.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "power-matching",
+          "title": "Узгодження потужності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-50-ohm.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-terminator.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-derivative-max.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "noise-matching",
+          "title": "Узгодження за шумом у LNA",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-noise-parameters.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-noise-parameters.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lc-matching-networks",
+          "title": "Узгоджувальні Г- і П-ланки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    }
+  ]
+}

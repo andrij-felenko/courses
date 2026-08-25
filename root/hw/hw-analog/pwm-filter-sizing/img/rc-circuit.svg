@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="380" viewBox="0 0 940 380">
+<rect width="940" height="380" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aGrey" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#8a8a8a"/></marker>
+</defs>
+<text x="470.0" y="32.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Схема: резистор послідовно, конденсатор на землю</text>
+<text x="470.0" y="54.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">це фільтр низьких частот — пропускає повільне (середнє), глушить швидкі стрибки</text>
+<rect x="80.0" y="160.0" width="120.0" height="50.0" rx="8" fill="#e9eefb" stroke="#1f47b5" stroke-width="1.6"/>
+<text x="140.0" y="184.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">ніжка ШІМ</text>
+<text x="140.0" y="202.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="8.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">(стрибки)</text>
+<line x1="200.0" y1="185.0" x2="280.0" y2="185.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<rect x="280.0" y="173.0" width="90.0" height="24.0" rx="4" fill="#ffffff" stroke="#caa24a" stroke-width="1.6"/>
+<text x="325.0" y="165.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a6a14" text-anchor="middle" font-weight="bold" font-style="normal">R</text>
+<line x1="370.0" y1="185.0" x2="470.0" y2="185.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<circle cx="470.0" cy="185.0" r="4.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="0"/>
+<line x1="470.0" y1="185.0" x2="560.0" y2="185.0" stroke="#1b1b1b" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="560.0" cy="185.0" r="4.0" fill="none" stroke="#1f8a3b" stroke-width="2"/>
+<text x="566.0" y="182.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f8a3b" text-anchor="start" font-weight="bold" font-style="normal">вихід (рівна U)</text>
+<line x1="470.0" y1="185.0" x2="470.0" y2="240.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="450.0" y1="240.0" x2="490.0" y2="240.0" stroke="#1b1b1b" stroke-width="2.4" stroke-linecap="round"/>
+<line x1="450.0" y1="250.0" x2="490.0" y2="250.0" stroke="#1b1b1b" stroke-width="2.4" stroke-linecap="round"/>
+<text x="500.0" y="250.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">C</text>
+<line x1="470.0" y1="250.0" x2="470.0" y2="300.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<line x1="120.0" y1="300.0" x2="560.0" y2="300.0" stroke="#1f47b5" stroke-width="2.2" stroke-linecap="round"/>
+<text x="120.0" y="320.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">GND</text>
+<line x1="140.0" y1="210.0" x2="140.0" y2="300.0" stroke="#1b1b1b" stroke-width="2" stroke-linecap="round"/>
+<rect x="640.0" y="150.0" width="260.0" height="100.0" rx="10" fill="none" stroke="#e4e4e4" stroke-width="1.6"/>
+<text x="770.0" y="176.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="11" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">стала часу τ = R·C</text>
+<text x="656.0" y="202.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">R стримує струм у C,</text>
+<text x="656.0" y="220.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">C повільно набирає/віддає —</text>
+<text x="656.0" y="238.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">разом вони й усереднюють.</text>
+<text x="470.0" y="356.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Той самий RC, що в підтяжці й придушенні брязкоту — тут він згладжує ШІМ у напругу.</text>
+</svg>

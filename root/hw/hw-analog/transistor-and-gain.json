@@ -1,0 +1,322 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-analog",
+  "slug": "transistor-and-gain",
+  "title": "Транзистор і підсилення",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "transistor-models",
+      "title": "Моделі транзистора",
+      "topics": [
+        {
+          "slug": "transconductance",
+          "title": "Крутість (gm): як транзистор «конвертує» напругу у струм",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mutual-conductance.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bjt-small-signal",
+          "title": "Мала-сигнальна модель BJT",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-hybrid-pi.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "early-effect",
+          "title": "Ефект Ерлі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "ebers-moll",
+          "title": "Модель Еберса — Молла",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ebers-moll.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ebers-moll-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-solve-operating-point.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gummel-poon",
+          "title": "Модель Ґуммеля — Пуна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-gummel-poon.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-base-charge.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-spice-bjt-params.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "amplifier-stages",
+      "title": "Підсилювальні каскади",
+      "topics": [
+        {
+          "slug": "bjt-amplifier",
+          "title": "BJT-підсилювач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-common-emitter.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-load-line.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "class-a-amplifier",
+          "title": "Клас A: постійне зміщення й ефективність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-amplifier-classes.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-class-a-efficiency.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "darlington-pair",
+          "title": "Схема Дарлінгтона",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-darlington-sziklai.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-darlington-array-relay.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-darlington-array.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cascode",
+          "title": "Каскод",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "bootstrap-circuit",
+          "title": "Бутстреп-каскад",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-bootstrap-name.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bootstrap-impedance.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "miller-effect",
+          "title": "Ефект Міллера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-miller-1920.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-miller-derivation.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "references-and-mirrors",
+      "title": "Опорні джерела й дзеркала",
+      "topics": [
+        {
+          "slug": "voltage-reference-sources",
+          "title": "Джерела опорної напруги: стабілітрон і bandgap",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "current-mirror",
+          "title": "Дзеркало струмів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-widlar-wilson.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-mirror-variants.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ptat-current-source",
+          "title": "PTAT-джерело струму",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-ptat-derivation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bandgap-startup",
+          "title": "Старт-схема бандгеп-осередку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-startup-problem.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-firmware-check.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

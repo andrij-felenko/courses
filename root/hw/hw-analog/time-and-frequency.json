@@ -1,0 +1,532 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-analog",
+  "slug": "time-and-frequency",
+  "title": "Час і частота",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "transients",
+      "title": "Перехідні процеси",
+      "topics": [
+        {
+          "slug": "rc-time-constant",
+          "title": "Стала RC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-exponential-ode.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-capacitance-meter.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "rl-time-constant",
+          "title": "Стала RL",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-rl-ode.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-inductance-meter.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "parallel-rl",
+          "title": "Паралельне RL-коло: двоїсті перехідні процеси",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-duality.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "charge-redistribution",
+          "title": "Перерозподіл заряду між ємностями",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-two-capacitor-paradox.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-switched-capacitor.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rc-transient-loss.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-switched-capacitor.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-switched-capacitor.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "rc-charging-energy-loss",
+          "title": "Парадокс зарядки конденсатора: куди зникає половина енергії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "frequency-domain",
+      "title": "Частотна характеристика",
+      "topics": [
+        {
+          "slug": "frequency-response",
+          "title": "Частотна характеристика",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-bode.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-breadboard-parasitics.md",
+              "status": "done"
+            },
+            {
+              "file": "comp-scope-probe.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "transfer-function",
+          "title": "Передавальна функція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "decibels",
+          "title": "Децибели",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-decibel.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bode-plot",
+          "title": "Діаграма Боде",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-bode-measurement.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bandwidth-3db",
+          "title": "Смуга −3 дБ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-half-power.md",
+              "status": "done"
+            },
+            {
+              "file": "math-risetime-bandwidth.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "resonance",
+      "title": "Резонанс",
+      "topics": [
+        {
+          "slug": "lc-resonance",
+          "title": "LC-резонанс",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-thomson-formula.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-resonance-sweep.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "series-resonance",
+          "title": "Послідовний резонанс",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-series-resonance.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "parallel-resonance",
+          "title": "Паралельний резонанс",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-tank-circuit.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-parallel-resonance.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "quality-factor",
+          "title": "Добротність Q",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-tacoma.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-q-factor.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "rlc-selectivity",
+          "title": "RLC-вибірковість",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "passive-filters",
+      "title": "Пасивні фільтри",
+      "topics": [
+        {
+          "slug": "rc-low-pass",
+          "title": "RC-ФНЧ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-input-rc.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-transfer-function.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "rc-high-pass",
+          "title": "RC-ФВЧ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-coupling-cap.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "rl-filter",
+          "title": "RL-фільтри: частотна характеристика",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-rl-transfer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lc-rlc-filters",
+          "title": "LC-фільтри",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-speaker-crossover.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cascading.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "notch-filter",
+          "title": "Режекторний фільтр (notch)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-twin-t.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-twint-null.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ac-coupling",
+          "title": "AC-зв'язок (розділення сигналу конденсатором)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-coupling-evolution.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "rc-integrator-differentiator",
+          "title": "RC-інтегратор і диференціатор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-rc-transfer.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "filter-synthesis",
+      "title": "Синтез фільтра",
+      "topics": [
+        {
+          "slug": "active-filters",
+          "title": "Активні фільтри на ОП",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sallen-key.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sallen-key-transfer.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-filter-design.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "filter-pole-q",
+          "title": "Q полюсів фільтра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-pole-location.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-biquad-coeffs.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "filter-group-delay",
+          "title": "Груповий час затримки у фільтрі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-bessel-filter.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-allpass-equalize.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

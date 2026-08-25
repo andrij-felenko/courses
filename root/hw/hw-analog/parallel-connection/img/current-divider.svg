@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="360" viewBox="0 0 820 360">
+<rect width="820" height="360" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aOrange" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#e08030"/></marker>
+</defs>
+<text x="410.0" y="30.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="18" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Струм ділиться обернено: менший опір — більший струм</text>
+<text x="410.0" y="52.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">ширша «труба» пропускає більший потік — так і менший опір бере більший струм</text>
+<line x1="90.0" y1="200.0" x2="170.0" y2="200.0" stroke="#c0271e" stroke-width="3" marker-end="url(#aRed)"/>
+<text x="125.0" y="186.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">I = 9 А</text>
+<circle cx="180.0" cy="200.0" r="5.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="1"/>
+<line x1="180.0" y1="200.0" x2="320.0" y2="140.0" stroke="#cfe0f0" stroke-width="22" stroke-linecap="round"/>
+<line x1="210.0" y1="188.0" x2="320.0" y2="142.0" stroke="#1f47b5" stroke-width="3" marker-end="url(#aBlue)"/>
+<rect x="330.0" y="121.0" width="70.0" height="22.0" rx="3" fill="#fff" stroke="#1b1b1b" stroke-width="2"/>
+<text x="365.0" y="113.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="italic">R₁ = 3 Ω</text>
+<text x="470.0" y="130.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">I₁ = 6 А</text>
+<line x1="180.0" y1="200.0" x2="320.0" y2="260.0" stroke="#cfe0f0" stroke-width="12" stroke-linecap="round"/>
+<line x1="214.0" y1="212.0" x2="320.0" y2="258.0" stroke="#1f47b5" stroke-width="2.4" marker-end="url(#aBlue)"/>
+<rect x="330.0" y="241.0" width="70.0" height="18.0" rx="3" fill="#fff" stroke="#1b1b1b" stroke-width="2"/>
+<text x="365.0" y="233.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="italic">R₂ = 6 Ω</text>
+<text x="470.0" y="250.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#1f47b5" text-anchor="start" font-weight="bold" font-style="normal">I₂ = 3 А</text>
+<rect x="560.0" y="150.0" width="230.0" height="110.0" rx="12" fill="#f6f8fc" stroke="#1b1b1b" stroke-width="1.6"/>
+<text x="675.0" y="176.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">I₁ = I · R₂/(R₁+R₂)</text>
+<text x="675.0" y="200.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="normal">= 9 · 6/9 = 6 А</text>
+<text x="675.0" y="226.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">менший опір (3 Ω) бере</text>
+<text x="675.0" y="242.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">удвічі більший струм</text>
+<text x="410.0" y="348.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="middle" font-weight="normal" font-style="italic">Зверніть увагу: у формулі частки опір «чужої» гілки — поділ ОБЕРНЕНИЙ (подільник струму, §4.7).</text>
+</svg>

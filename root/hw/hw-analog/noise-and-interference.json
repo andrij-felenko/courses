@@ -1,0 +1,294 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-analog",
+  "slug": "noise-and-interference",
+  "title": "Шум і завади",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "noise-sources",
+      "title": "Джерела шуму",
+      "topics": [
+        {
+          "slug": "resistor-noise",
+          "title": "Резистор як джерело шуму",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "noise-bandwidth",
+          "title": "Шумова смуга",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "kT-over-C-noise",
+          "title": "kT/C-шум у ланцюгах вибірки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cds-white.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-kt-over-c-derivation.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "signal-quality",
+      "title": "Міри якості сигналу",
+      "topics": [
+        {
+          "slug": "signal-noise-ratio",
+          "title": "Відношення сигнал/шум",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-cascade-snr.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dynamic-range",
+          "title": "Динамічний діапазон",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "harmonic-distortion",
+          "title": "Гармонічні спотворення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-fourier-harmonics.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fourier-harmonics.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "noise-figure",
+          "title": "Коефіцієнт шуму",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-friis.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-friis-cascade.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "interference-paths",
+      "title": "Шляхи завад",
+      "topics": [
+        {
+          "slug": "ground-loop",
+          "title": "Петля по землі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pin1-problem.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-common-impedance.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "common-mode-noise",
+          "title": "Синфазна і диференціальна завади",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-common-mode-choke.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mode-conversion.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "line-protection",
+      "title": "Захист тракту",
+      "topics": [
+        {
+          "slug": "input-protection-analog",
+          "title": "Захист аналогового входу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-input-clamp-array.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "guard-ring-input-leakage",
+          "title": "Охоронне кільце проти витоку на високоомному вході",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-guard-attenuation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "driven-shield-and-triax",
+          "title": "Ведений екран: буфер, кабель і триакс",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-guard-residual.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-guard-ring-layout.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "differential-signaling",
+          "title": "Диференційна передача сигналу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-differential-lineage.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-balanced-line-driver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "current-loop-4-20ma",
+          "title": "Струмова петля 4–20 мА",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pneumatic-to-electronic.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-loop-powered-transmitter.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-galvanic-isolation.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

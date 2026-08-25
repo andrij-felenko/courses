@@ -1,0 +1,390 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-analog",
+  "slug": "oscillators-and-synthesis",
+  "title": "Генератори і синтез частоти",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "threshold-circuits",
+      "title": "Порівняння рівнів",
+      "topics": [
+        {
+          "slug": "comparator",
+          "title": "Компаратор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-comparator-ics.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "schmitt-trigger",
+          "title": "Тригер Шмітта",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-hysteresis-calc.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-light-threshold.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "window-comparator",
+          "title": "Віконний компаратор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-supervisor-ic.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "oscillator-circuits",
+      "title": "Схеми генераторів",
+      "topics": [
+        {
+          "slug": "umova-heneratsii",
+          "title": "Умова генерації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "reference-frequency",
+          "title": "Опорна частота",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pierce-ft243.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-internal-rc.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pierce-oscillator",
+          "title": "Генератор П'єрса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-crystal-layout.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-oscillator-debug.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "colpitts-oscillator",
+          "title": "Генератор Колпітца",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-colpitts-hartley.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-startup-condition.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "relaxation-oscillator",
+          "title": "Релаксаційний генератор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-relaxation-name.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-relaxation-period.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "timer-chip",
+      "title": "Таймер 555",
+      "topics": [
+        {
+          "slug": "555-internals",
+          "title": "Таймер 555",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-555-versions.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "555-astable",
+          "title": "555 астабільний",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-astable-formulas.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "555-monostable",
+          "title": "555 моностабільний",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-monostable.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "phase-locking",
+      "title": "Фазове автопідстроювання",
+      "topics": [
+        {
+          "slug": "phase-locked-loop",
+          "title": "Фазове автопідстроювання частоти (PLL)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-bellescize-pll.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-pfd-charge-pump.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pll-dynamics.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pll-sync",
+          "title": "PLL-синхронізація приймача у аналоговому відео",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-flywheel-sync.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "frequency-synthesis",
+      "title": "Синтез частоти",
+      "topics": [
+        {
+          "slug": "frequency-synthesizer",
+          "title": "Синтезатор частоти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-frequency-synthesizer.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-pll-dds-synthesizers.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pll-synthesizer.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pll-synthesizer-calc.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-synthesizer-control.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pll-fractional-n",
+          "title": "Дробовий PLL (Fractional-N)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-digiphase-deltasigma.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-delta-sigma-shaping.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dds-synthesis",
+          "title": "Пряма цифрова синтеза (DDS)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dds-origins.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-phase-truncation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "jitter-phase-noise",
+          "title": "Джиттер і фазовий шум",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-leeson-1966.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-phase-noise-to-jitter.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

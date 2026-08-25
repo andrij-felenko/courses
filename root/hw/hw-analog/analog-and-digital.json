@@ -1,0 +1,560 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-analog",
+  "slug": "analog-and-digital",
+  "title": "Аналог і цифра",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "conversion-basics",
+      "title": "Від сигналу до числа",
+      "topics": [
+        {
+          "slug": "adc",
+          "title": "АЦП",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sampling.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dac",
+          "title": "ЦАП",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-external-dac.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sampling-quantization",
+          "title": "Дискретизація й квантування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-quantization-noise.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "quantization",
+      "title": "Квантування й дискретизація",
+      "topics": [
+        {
+          "slug": "anti-aliasing-filter",
+          "title": "Антиаліасинговий фільтр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sampling-theorem.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "adc-quantization",
+          "title": "Квантування та шум АЦП",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-quantization-noise.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-quantization-noise.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "quantization-noise",
+          "title": "Шум квантування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-requantize.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "companding",
+          "title": "Логарифмічне компандування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "adc-architectures",
+      "title": "Архітектури АЦП",
+      "topics": [
+        {
+          "slug": "adc-types",
+          "title": "Типи АЦП",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-delta-sigma.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sar-search.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "adc-sample-hold",
+          "title": "Вибірка і зберігання в АЦП",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sample-hold.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-acquisition-time.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pipeline-adc",
+          "title": "Конвеєрний АЦП",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-pipeline-origin.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-redundancy.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-stage-assembly.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "conversion-accuracy",
+      "title": "Точність перетворення",
+      "topics": [
+        {
+          "slug": "adc-resolution",
+          "title": "Роздільність АЦП",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-dithering.md",
+              "status": "done"
+            },
+            {
+              "file": "math-enob.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "enob",
+          "title": "ENOB: скільки розрядів АЦП справді працюють",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "aperture-jitter",
+          "title": "Апертурна невизначеність (jitter)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-aperture-terms.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-jitter-snr.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "dac-circuits",
+      "title": "Схеми ЦАП",
+      "topics": [
+        {
+          "slug": "dac-weighted-resistors",
+          "title": "ЦАП на зважених резисторах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dac-origins.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "r2r-ladder",
+          "title": "R-2R лесенка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-gordon-epsco.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ladder-thevenin.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dac-r-2r",
+          "title": "Драбинковий ЦАП R-2R",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-multiplying-dac.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-inl-dnl-mismatch.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gpio-r2r.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "oversampling",
+      "title": "Передискретизація і сигма-дельта",
+      "topics": [
+        {
+          "slug": "oversampling-decimation",
+          "title": "Передискретизація й децимація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-oversampling-gain.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-decimate-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "noise-shaping",
+          "title": "Формування шуму",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-ntf-shaping.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-error-feedback.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sigma-delta-adc",
+          "title": "Sigma-delta АЦП",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-origins.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-noise-shaping.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sigma-delta-pwm",
+          "title": "Sigma-delta ШІМ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-noise-power.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-firmware-modulator.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "analog-switching",
+      "title": "Комутація сигналу",
+      "topics": [
+        {
+          "slug": "analog-switches-mux",
+          "title": "Аналогові ключі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-mux-scanning.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "analog-mux",
+          "title": "Аналоговий мультиплексор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "switched-cap-filter",
+          "title": "Комутований конденсатор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-maxwell-commutator.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sc-resistor.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "pulse-width-modulation",
+      "title": "Широтно-імпульсна модуляція",
+      "topics": [
+        {
+          "slug": "pwm",
+          "title": "Широтно-імпульсна модуляція (ШІМ)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-natural-sampling.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pwm-dac-filter",
+          "title": "ШІМ як ЦАП: RC-фільтр і пульсації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-ripple-derivation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pwm-filter-sizing",
+          "title": "Підбір RC-фільтра для ШІМ: зріз, порядок ланок, номінали",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-rc-design.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "class-d-amplifier",
+          "title": "Підсилювач класу D",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-class-d.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

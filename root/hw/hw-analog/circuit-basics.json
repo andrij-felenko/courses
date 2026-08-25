@@ -1,0 +1,552 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-analog",
+  "slug": "circuit-basics",
+  "title": "Основи кола",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "circuit-laws",
+      "title": "Закони кола",
+      "topics": [
+        {
+          "slug": "ohms-law",
+          "title": "Закон Ома",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "nodes-branches-loops",
+          "title": "Вузли й контури",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-euler-graphs.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-kirchhoff.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-breadboard.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-graph-traversal.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kcl",
+          "title": "Закон струмів Кірхгофа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "kvl",
+          "title": "Закон напруг Кірхгофа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "kirchhoff-laws",
+          "title": "Закони Кірхгофа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "linear-circuit",
+          "title": "Лінійність кола",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-superposition.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-superposition.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "connections-and-dividers",
+      "title": "З'єднання й дільники",
+      "topics": [
+        {
+          "slug": "series-connection",
+          "title": "Послідовне з'єднання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "parallel-connection",
+          "title": "Паралельне з'єднання",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "voltage-divider",
+          "title": "Дільник напруги",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-tolerance.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-divider-search.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "current-divider",
+          "title": "Дільник струму",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "short-circuit",
+          "title": "Коротке замикання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-fuse-lineage.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "sources",
+      "title": "Джерела в колі",
+      "topics": [
+        {
+          "slug": "internal-resistance",
+          "title": "Внутрішній опір",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-thevenin-norton.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-source-impedances.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dependent-sources",
+          "title": "Залежні джерела",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "current-source",
+          "title": "Джерело струму",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-howland-source.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-output-resistance.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-jfet-current-source.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "source-transformation",
+          "title": "Перетворення джерел",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "analysis-methods",
+      "title": "Методи розрахунку",
+      "topics": [
+        {
+          "slug": "branch-current-method",
+          "title": "Метод гілкових струмів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "mesh-analysis",
+          "title": "Метод контурних струмів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-maxwell-mesh.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mesh-matrix.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "supermesh",
+          "title": "Супер-чарунка (supermesh)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-supermesh-system.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "supernode",
+          "title": "Суперузол",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-supernode-system.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "superposition",
+          "title": "Суперпозиція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "y-delta-transform",
+          "title": "Перетворення зірка–трикутник",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-kennelly.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-derivation.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "equivalent-networks",
+      "title": "Еквівалентні заміни",
+      "topics": [
+        {
+          "slug": "thevenin",
+          "title": "Теорема Тевеніна",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "thevenin-equivalent",
+          "title": "Пошук еквівалента",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-two-load-method.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "norton",
+          "title": "Теорема Нортона",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "norton-equivalent",
+          "title": "Еквівалент Нортона",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-norton-from-measurements.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "two-terminal-network",
+          "title": "Двополюсна мережа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-linear-iv.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "two-port-network",
+          "title": "Двополюсні та чотириполюсні мережі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-port-parameters.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-parameter-conversion.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "power-in-ac",
+      "title": "Потужність у змінному колі",
+      "topics": [
+        {
+          "slug": "reactive-power",
+          "title": "Реактивна потужність і коефіцієнт потужності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-budeanu-var.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "power-factor",
+          "title": "Коефіцієнт потужності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-power-factor-term.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-true-power-factor.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "nonlinear-elements",
+      "title": "Нелінійний елемент",
+      "topics": [
+        {
+          "slug": "load-line",
+          "title": "Метод навантажувальної прямої",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-load-line.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ac-dc-lines.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "differential-resistance",
+          "title": "Диференційний опір",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-negative-resistance.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-diode-resistance.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

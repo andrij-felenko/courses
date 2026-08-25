@@ -1,0 +1,568 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-analog",
+  "slug": "operational-amplifier",
+  "title": "Операційний підсилювач",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "ideal-model",
+      "title": "Ідеальна модель",
+      "topics": [
+        {
+          "slug": "ideal-opamp",
+          "title": "Ідеальний ОП",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-opamp.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "virtual-short",
+          "title": "Віртуальне коротке",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "virtual-ground",
+          "title": "Віртуальна земля",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-virtual-ground.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-inverting-transfer.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "canonical-circuits",
+      "title": "Канонічні вмикання",
+      "topics": [
+        {
+          "slug": "inverting-noninverting",
+          "title": "Інвертуючий підсилювач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "voltage-follower",
+          "title": "Повторювач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-buffer-divider.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cap-load.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "summing-difference-amp",
+          "title": "Суматор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-signal-scaling.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "integrator-differentiator",
+          "title": "Інтегратор і диференціатор на ОП",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-analog-computer.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-miller-integrator.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-opamp-integrator-transfer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "analog-computer",
+          "title": "Аналоговий обчислювач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-differential-analyzer.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "feedback-loop",
+      "title": "Від'ємний зворотний зв'язок",
+      "topics": [
+        {
+          "slug": "negative-feedback",
+          "title": "Від'ємний ЗЗ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-harold-black.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-feedback-formula.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "loop-gain",
+          "title": "Підсилення в контурі (loop gain)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-barkhausen-bode.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-return-difference.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "noise-gain",
+          "title": "Шумове підсилення (noise gain)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-noise-summing.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-noise-gain-compensation.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "stability",
+      "title": "Стійкість",
+      "topics": [
+        {
+          "slug": "stability-margins",
+          "title": "Запас підсилення і запас фази",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-nyquist-bode.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-second-order-margins.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "opamp-stability",
+          "title": "Стійкість ОП: запас фази і компенсація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-741-compensation.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-decompensated-opamps.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pole-splitting.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "real-limits",
+      "title": "Межі реальної мікросхеми",
+      "topics": [
+        {
+          "slug": "opamp",
+          "title": "Оппідсилювач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "real-opamp-limits",
+          "title": "Реальний ОП",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-gbw-slew.md",
+              "status": "done"
+            },
+            {
+              "file": "math-noise-budget.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gain-bandwidth-product",
+          "title": "Добуток підсилення на смугу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dominant-pole.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "full-power-bandwidth",
+          "title": "Смуга повної потужності ОП",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-slew-rate.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cmrr",
+          "title": "Коефіцієнт придушення синфазного сигналу (CMRR)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-long-tailed-pair.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "phase-inversion-opamp",
+          "title": "Інверсія фази в ОП (phase inversion)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "offset-and-drift",
+      "title": "Зсув і дрейф",
+      "topics": [
+        {
+          "slug": "offset-voltage",
+          "title": "Напруга зсуву операційного підсилювача (Vos)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-offset-drift.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "input-bias-current",
+          "title": "Вхідний струм зсуву (input bias current)",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-taming-bias-current.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bias-compensation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dc-error-budget.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "auto-zero-opamp",
+          "title": "Auto-zero і чоперна стабілізація ОП",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-goldberg-chopper.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-zero-drift-opamp.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "chopper-amplifier",
+          "title": "Чопперний підсилювач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "internal-stages",
+      "title": "Внутрішні каскади",
+      "topics": [
+        {
+          "slug": "opamp-input-stage",
+          "title": "Вхідний каскад ОП: диференційна пара",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-current-mirror.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "opamp-output-stage",
+          "title": "Вихідний каскад ОП: клас AB і перехідне спотворення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-ab-biasing.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "special-amplifiers",
+      "title": "Спеціальні вмикання",
+      "topics": [
+        {
+          "slug": "instrumentation-amp",
+          "title": "Інструментальний підсилювач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-inamp-bridge.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-inamp-cmrr.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "transimpedance-amplifier",
+          "title": "Трансімпедансний підсилювач (TIA)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-tia-origin.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tia-stability.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "charge-amplifier",
+          "title": "Зарядовий підсилювач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-charge-amp.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
