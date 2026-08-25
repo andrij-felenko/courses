@@ -1,0 +1,272 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-protocol",
+  "slug": "media-and-sessions",
+  "title": "Медіа й сеанс зв'язку",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "session-signaling",
+      "title": "Сигналізація сеансу",
+      "topics": [
+        {
+          "slug": "sip",
+          "title": "SIP: сигналізація сеансів зв'язку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sip-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-invite-transaction.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sip-messages.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "h323",
+          "title": "H.323: телефонна сигналізація ITU-T поверх пакетних мереж",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-h323-vs-sip.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-h323-messages.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "isdn-q931",
+          "title": "ISDN і сигналізація Q.931",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-q931-messages.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "enum-e164",
+          "title": "ENUM: телефонний номер як ім'я в DNS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-enum-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-enum-resolver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-naptr-record.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "rtsp-sdp",
+          "title": "RTSP і SDP: керування сеансом потокового відео",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-rtsp-client.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rtsp-reference.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "media-transport",
+      "title": "Транспорт медіа",
+      "topics": [
+        {
+          "slug": "rtp-rtcp",
+          "title": "RTP і RTCP: транспорт медіа поверх UDP",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rtp-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-depacketizer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-packet-format.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mpeg-ts",
+          "title": "MPEG-TS: транспортний потік як обгортка для ефіру",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mpeg-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pcr-jitter.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ts-demuxer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ts-psi-tables.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "video-latency",
+          "title": "Затримка відео",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "segmented-delivery",
+      "title": "Сегментна доставка",
+      "topics": [
+        {
+          "slug": "hls-dash",
+          "title": "HLS і DASH: потокове відео сегментами поверх HTTP",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hls-dash-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hls-client.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-manifest-tags.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cmaf",
+          "title": "CMAF: один комплект сегментів для HLS і DASH",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cmaf-convergence.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cmaf-parser.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cmaf-boxes.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

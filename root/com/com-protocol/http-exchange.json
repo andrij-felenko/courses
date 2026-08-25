@@ -1,0 +1,222 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-protocol",
+  "slug": "http-exchange",
+  "title": "Обмін по HTTP",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "protocol-and-connection",
+      "title": "Протокол і з'єднання",
+      "topics": [
+        {
+          "slug": "http",
+          "title": "HTTP",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-http-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-http-parser.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-http-semantics.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "connection-management",
+          "title": "Керування з'єднаннями",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-http-keepalive.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-connection-pool.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tcp-keepalive-tuning.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "content-negotiation",
+          "title": "Узгодження вмісту (content negotiation)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-representation-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-content-matcher.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-negotiation-headers.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "caching-and-ranges",
+      "title": "Кеш і часткова передача",
+      "topics": [
+        {
+          "slug": "http-caching",
+          "title": "HTTP-кешування: Cache-Control, ETag й умовні запити",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-conditional-get.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cache-validator.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cache-headers.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "http-range-requests",
+          "title": "Часткові запити: Range, 206 і докачування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-range-requests.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-range-server.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-range-headers.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "long-exchange",
+      "title": "Тривалий обмін",
+      "topics": [
+        {
+          "slug": "streaming-push-transports",
+          "title": "Стрімінг результату: long-poll, SSE, WebSocket",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-comet-to-websocket.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-streaming-server.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-streaming-protocols.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "long-running-operations",
+          "title": "Довга операція",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "proj": [
+            {
+              "file": "proj-async-operation.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pagination-and-large-responses",
+          "title": "Сторінкування, фільтри й великі відповіді",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

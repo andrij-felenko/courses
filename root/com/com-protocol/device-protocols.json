@@ -1,0 +1,206 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-protocol",
+  "slug": "device-protocols",
+  "title": "Пристрої й вбудовані шини",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "device-dictionaries",
+      "title": "Словники приладів",
+      "topics": [
+        {
+          "slug": "modbus",
+          "title": "Modbus",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-modicon-1979.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-modbus-rtu-parser.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-modbus-functions.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "can-open",
+          "title": "CANopen: від CAN-кадру до стандартизованого профілю пристрою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cia.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sdo-transfer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-object-dictionary.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "nmea-0183",
+          "title": "NMEA 0183: речення супутникового приймача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-nmea-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-nmea-parser.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-nmea-sentences.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "bluetooth-le",
+      "title": "Bluetooth Low Energy",
+      "topics": [
+        {
+          "slug": "ble-att",
+          "title": "ATT-протокол BLE",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-att-parser.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-att-pdus.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ble-gatt",
+          "title": "BLE GATT",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-cccd-notify.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ble-gatt-practice",
+          "title": "BLE-практика",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "constrained-messaging",
+      "title": "Обмін для обмежених пристроїв",
+      "topics": [
+        {
+          "slug": "mqtt",
+          "title": "MQTT",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "coap-rest-dlia-obmezhenykh-prystroiv",
+          "title": "CoAP: REST для обмежених пристроїв",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "lwm2m-keruvannia-prystroiem-iak-standart",
+          "title": "LwM2M: керування пристроєм як стандарт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "device-network-link",
+      "title": "Канал до мережі",
+      "topics": [
+        {
+          "slug": "ethernet-on-mcu",
+          "title": "Ethernet на МК",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    }
+  ]
+}

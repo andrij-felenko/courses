@@ -1,0 +1,298 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-protocol",
+  "slug": "wire-encoding",
+  "title": "Кадр і кодування",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "message-boundary",
+      "title": "Межа повідомлення",
+      "topics": [
+        {
+          "slug": "stream-parser",
+          "title": "Розбір потоку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "frame-parsing",
+          "title": "Кадрування байтового потоку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "tcp-message-framing",
+          "title": "Кадрування повідомлень у потоці TCP",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-http-framing.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-framed-reader.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "http-request-smuggling",
+          "title": "Контрабанда HTTP-запитів: розбіжність у кадруванні між вузлами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "byte-layout",
+      "title": "Розкладка байтів",
+      "topics": [
+        {
+          "slug": "wire-format-packing",
+          "title": "Пакування бінарного протоколу: вирівнювання й порядок байтів",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-wire-codec.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-byteorder-primitives.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "asn1-per",
+          "title": "ASN.1 і правила кодування PER",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-encoding-rules.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-integer-packing.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-per-bitstream.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "serialization",
+      "title": "Серіалізація",
+      "topics": [
+        {
+          "slug": "data-serialization",
+          "title": "Серіалізація даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-asn1-xdr.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-varint.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-framing.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "serialization-pitfalls",
+          "title": "Пастки серіалізації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "cbor-i-messagepack",
+          "title": "CBOR і MessagePack: JSON, що влазить у пакет",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "protocol-buffers-i-skhemni-formaty",
+          "title": "Protocol Buffers і схемні формати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "data-integrity",
+      "title": "Цілісність даних",
+      "topics": [
+        {
+          "slug": "checksums-crc",
+          "title": "Контрольні суми й CRC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "crc-in-firmware",
+          "title": "CRC у прошивці",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-rocksoft.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-crc-embedded.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-hw-crc.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "shared-reference",
+      "title": "Спільна система відліку",
+      "topics": [
+        {
+          "slug": "coordinate-frames-units",
+          "title": "Координати й одиниці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-rotations-dcm.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-frame-transform.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mavlink-coordinates.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ntp-sync",
+          "title": "NTP: мережевий протокол синхронізації часу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-david-mills.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-marzullo-intervals.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sntp-client.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-packet.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

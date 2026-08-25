@@ -1,0 +1,350 @@
+{
+  "schema": 7,
+  "kind": "com",
+  "book": "com-protocol",
+  "slug": "application-interfaces",
+  "title": "Прикладний інтерфейс",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "interface-styles",
+      "title": "Стилі інтерфейсу",
+      "topics": [
+        {
+          "slug": "rest-api",
+          "title": "REST",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-rest-fielding.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rest-api-design.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "graphql",
+          "title": "GraphQL",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-graphql-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dataloader-batching.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-graphql-sdl-execution.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "soap-web-services",
+          "title": "SOAP і веб-сервіси",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-soap-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-soap-dispatcher.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-wsdl-and-soap.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "remote-calls",
+      "title": "Виклик через мережу",
+      "topics": [
+        {
+          "slug": "rpc",
+          "title": "RPC і серіалізація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rpc-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tiny-rpc.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-grpc-framing.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "interface-definition-language",
+          "title": "Мова опису інтерфейсів (IDL) і генерація коду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "corba-object-broker",
+          "title": "CORBA і брокер об'єктних запитів",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-corba-rise-fall.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mini-broker.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-idl-cpp-mapping.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "com-component-model",
+          "title": "COM: бінарна модель компонентів Windows",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-com-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-com-server-client.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-iunknown-and-apartments.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "interface-promise",
+      "title": "Обіцянка інтерфейсу",
+      "topics": [
+        {
+          "slug": "api-idempotency",
+          "title": "Ідемпотентність методів як частина контракту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-idempotency-key.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-idempotency-d.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "api-versioning",
+          "title": "Версіонування API",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-stripe-versioning.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-version-transform.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-versioning-d.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "deprecation-basics",
+          "title": "Деприкейшн API як частина контракту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-deprecation-headers.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-deprecation-middleware.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "postels-law",
+          "title": "Терпимий читач і сувора обіцянка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "message-schemas",
+      "title": "Спільна мова повідомлень",
+      "topics": [
+        {
+          "slug": "canonical-data-model",
+          "title": "Канонічна модель даних: подолання семантичного хаосу в розподіленій інтеграції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-esb-and-global-schema.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-translation-topology.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-canonical-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-canonical-envelope.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "schema-registry",
+          "title": "Еволюція схем і schema-registry",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-schema-evolution-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-schema-compatibility-ci.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-schema-registry-contract.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
