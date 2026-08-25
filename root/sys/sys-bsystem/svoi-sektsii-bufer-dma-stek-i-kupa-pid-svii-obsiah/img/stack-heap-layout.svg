@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Організація оперативної пам'яті: зустрічний рух купи та стека й захист _sbrk()</text>
+<rect x="120.0" y="60.0" width="600.0" height="420.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="2.0"/>
+<rect x="135.0" y="75.0" width="570.0" height="46.0" rx="6" fill="#e8f8f5" stroke="#16a085" stroke-width="1.5"/><text x="420.0" y="101.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">.data + .bss (статична пам'ять, межа _ebss / end = 0x20004000)</tspan></text>
+<rect x="135.0" y="130.0" width="570.0" height="75.0" rx="6" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5"/><text x="420.0" y="156.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">Купа (Heap: malloc / new)</tspan><tspan x="420.0" dy="15.0">Поточний покажчик: heap_end</tspan><tspan x="420.0" dy="15.0">Росте вгору при викликах _sbrk(incr)</tspan></text>
+<line x1="200.0" y1="210.0" x2="200.0" y2="255.0" stroke="#d35400" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="270.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="start" font-weight="700">Ріст купи (↑ _sbrk)</text>
+<rect x="135.0" y="215.0" width="570.0" height="150.0" rx="4" fill="#fbfcfc" stroke="#bdc3c7" stroke-width="1.5"/>
+<text x="420.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Вільна динамічна пам'ять (Unallocated Gap)</text>
+<text x="420.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Якщо heap_end + incr перевищить ліміт стека → _sbrk повертає ENOMEM</text>
+<line x1="640.0" y1="420.0" x2="640.0" y2="375.0" stroke="#922b21" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="570.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#922b21" text-anchor="end" font-weight="700">Ріст стека (↓ виклики, ISR)</text>
+<rect x="135.0" y="375.0" width="570.0" height="85.0" rx="6" fill="#fadbd8" stroke="#c0392b" stroke-width="1.5"/><text x="420.0" y="406.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">Стек (Stack: локальні змінні, кадри функцій, переривання)</tspan><tspan x="420.0" dy="15.0">Поточний покажчик: SP (MSP / PSP)</tspan><tspan x="420.0" dy="15.0">Гарантований резерв: _Min_Stack_Size</tspan></text>
+<line x1="120.0" y1="460.0" x2="720.0" y2="460.0" stroke="#78281f" stroke-width="2.5"/>
+<text x="420.0" y="472.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#78281f" text-anchor="middle" font-weight="700">Вершина пам'яті: _estack = ORIGIN(RAM) + LENGTH(RAM) (0x20020000)</text>
+<text x="110.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">0x20000000</text>
+<text x="110.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a085" text-anchor="end" font-weight="700">_ebss / end</text>
+<text x="110.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="end" font-weight="700">heap_end</text>
+<text x="110.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#922b21" text-anchor="end" font-weight="700">SP (поточний)</text>
+<text x="110.0" y="465.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78281f" text-anchor="end" font-weight="700">_estack</text>
+</svg>

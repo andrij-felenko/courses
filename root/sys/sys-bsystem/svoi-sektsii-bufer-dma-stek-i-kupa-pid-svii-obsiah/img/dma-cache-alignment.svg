@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Когерентність D-Cache і DMA: проблема False Sharing на рядку кешу 32 байти</text>
+<rect x="50.0" y="60.0" width="780.0" height="180.0" rx="8" fill="#fdf2e9" stroke="#e67e22" stroke-width="1.6"/>
+<text x="70.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b9770e" text-anchor="start" font-weight="700">Варіант А: Буфер не вирівняно на 32 байти (False Sharing)</text>
+<rect x="80.0" y="108.0" width="340.0" height="50.0" rx="4" fill="#f9ebea" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="90.0" y="116.0" width="110.0" height="34.0" rx="3" fill="#f5b7b1" stroke="#922b21" stroke-width="1.2"/>
+<text x="145.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#922b21" text-anchor="middle" font-weight="700">uint32_t flags</text>
+<rect x="205.0" y="116.0" width="205.0" height="34.0" rx="3" fill="#aed6f1" stroke="#2471a3" stroke-width="1.2"/>
+<text x="307.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1b4f72" text-anchor="middle" font-weight="700">dma_rx_buf[0..21]</text>
+<text x="250.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Рядок кешу 0 (32 байти: адреса 0x20000000..0x2000001F)</text>
+<rect x="440.0" y="108.0" width="360.0" height="50.0" rx="4" fill="#ebf5fb" stroke="#2980b9" stroke-width="1.5"/>
+<rect x="450.0" y="116.0" width="220.0" height="34.0" rx="3" fill="#aed6f1" stroke="#2471a3" stroke-width="1.2"/>
+<text x="560.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1b4f72" text-anchor="middle" font-weight="700">dma_rx_buf[22..63]</text>
+<rect x="675.0" y="116.0" width="115.0" height="34.0" rx="3" fill="#f5b7b1" stroke="#922b21" stroke-width="1.2"/>
+<text x="732.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#922b21" text-anchor="middle" font-weight="700">sys_counter</text>
+<text x="620.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Рядок кешу 1 (32 байти: адреса 0x20000020..0x2000003F)</text>
+<text x="440.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Inval D-Cache після DMA RX знищує зміни у flags; Clean D-Cache затирає нові дані dma_rx_buf!</text>
+<rect x="50.0" y="260.0" width="780.0" height="190.0" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/>
+<text x="70.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#196f3d" text-anchor="start" font-weight="700">Варіант Б: Буфер вирівняно на ALIGN(32) та кратно 32 байтам (Безпечно)</text>
+<rect x="80.0" y="308.0" width="220.0" height="50.0" rx="4" fill="#f9ebea" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="90.0" y="316.0" width="200.0" height="34.0" rx="3" fill="#f5b7b1" stroke="#922b21" stroke-width="1.2"/>
+<text x="190.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#922b21" text-anchor="middle" font-weight="700">Звичайні змінні CPU</text>
+<text x="190.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Кеш-рядок 0 (CPU-only)</text>
+<rect x="320.0" y="308.0" width="480.0" height="50.0" rx="4" fill="#d4efdf" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="330.0" y="316.0" width="460.0" height="34.0" rx="3" fill="#abebc6" stroke="#1e8449" stroke-width="1.4"/>
+<text x="560.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#145a32" text-anchor="middle" font-weight="700">dma_rx_buf[64] — строго ізольований у цілих рядках кешу (2 × 32B)</text>
+<text x="560.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e8449" text-anchor="middle" font-weight="700">Кеш-рядки 1 та 2 (Тільки DMA: Invalidate та Clean повністю безпечні)</text>
+<text x="440.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e8449" text-anchor="middle" font-weight="700">Повна ізоляція: операції кешу над DMA-буфером не зачіпають жодних сусідніх змінних CPU.</text>
+</svg>

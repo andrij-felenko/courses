@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розбіжності вирівнювання структур даних ABI</text>
+<text x="520.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розбіжності вирівнювання (ABI Alignment) для однакової структури C</text>
+<rect x="350.0" y="35.9" width="340.0" height="88.2" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="520.0" y="55.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">struct NetworkPacket {</tspan><tspan x="520.0" dy="14.3">    uint32_t header;  // 4 байти</tspan><tspan x="520.0" dy="14.3">    uint64_t payload; // 8 байтів</tspan><tspan x="520.0" dy="14.3">    uint16_t footer;  // 2 байти</tspan><tspan x="520.0" dy="14.3">};</tspan></text>
+<rect x="40.0" y="160.0" width="960.0" height="130.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="520.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">x86-32 ABI (вирівнювання uint64_t за 4-байтовою межею) — розмір 16 байтів</text>
+<rect x="80.0" y="205.0" width="220.0" height="45.0" rx="6" fill="#eaf5ec" stroke="#27ae60" stroke-width="1.2"/>
+<text x="190.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">header (uint32_t)</text>
+<text x="190.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Байти 0..3 (зміщення 0)</text>
+<rect x="300.0" y="205.0" width="440.0" height="45.0" rx="6" fill="#eef4fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="520.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">payload (uint64_t)</text>
+<text x="520.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Байти 4..11 (зміщення 4 — вирівняно на 4 байти)</text>
+<rect x="740.0" y="205.0" width="110.0" height="45.0" rx="6" fill="#eaf5ec" stroke="#27ae60" stroke-width="1.2"/>
+<text x="795.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">footer</text>
+<text x="795.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Байти 12..13</text>
+<rect x="850.0" y="205.0" width="110.0" height="45.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="905.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Padding (2B)</text>
+<text x="905.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Байти 14..15</text>
+<rect x="40.0" y="310.0" width="960.0" height="140.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="520.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">ARM AAPCS / x86_64 ABI (вирівнювання uint64_t строго за 8-байтовою межею) — розмір 24 байти!</text>
+<rect x="80.0" y="355.0" width="150.0" height="45.0" rx="6" fill="#eaf5ec" stroke="#27ae60" stroke-width="1.2"/>
+<text x="155.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">header (uint32_t)</text>
+<text x="155.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Байти 0..3 (зміщення 0)</text>
+<rect x="230.0" y="355.0" width="150.0" height="45.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="305.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Padding (4B!)</text>
+<text x="305.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Байти 4..7 (діра)</text>
+<rect x="380.0" y="355.0" width="300.0" height="45.0" rx="6" fill="#eef4fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="530.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">payload (uint64_t)</text>
+<text x="530.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Байти 8..15 (зміщення 8 — зсув поля!)</text>
+<rect x="680.0" y="355.0" width="100.0" height="45.0" rx="6" fill="#eaf5ec" stroke="#27ae60" stroke-width="1.2"/>
+<text x="730.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">footer</text>
+<text x="730.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Байти 16..17</text>
+<rect x="780.0" y="355.0" width="180.0" height="45.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="870.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Tail Padding (6B!)</text>
+<text x="870.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Байти 18..23 (доведення до 24B)</text>
+<text x="520.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Передача сирої пам'яті struct між x86-32 та ARM призведе до читання сміття у полі payload!</text>
+</svg>
