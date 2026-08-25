@@ -268,9 +268,9 @@
     return s;
   }
 
-  /* Крос-посилання topic:<книга>/<тема>[/<file>][#<anchor>] → дескриптор для popup (v7) */
+  /* Крос-посилання root:<книга>/<тема>[/<file>][#<anchor>] → дескриптор для popup (v7) */
   function resolveCrossBook(href) {
-    var rest = href.replace(/^topic:/i, "");
+    var rest = href.replace(/^root:/i, "");
     var frag = ""; var hi = rest.indexOf("#");
     if (hi >= 0) { frag = rest.slice(hi + 1); rest = rest.slice(0, hi); }
     var segs = rest.split("/").filter(Boolean);
@@ -284,7 +284,7 @@
   function resolveHref(href, text, ctx) {
     if (/^(https?:|mailto:|tel:)/i.test(href)) return { href: href, external: true };
     if (href.charAt(0) === "#") return { href: href, external: false };
-    if (/^topic:/i.test(href)) return resolveCrossBook(href);
+    if (/^root:/i.test(href)) return resolveCrossBook(href);
     var frag = ""; var hi = href.indexOf("#");
     if (hi >= 0) { frag = href.slice(hi + 1); href = href.slice(0, hi); }
     if (!/\.md$/i.test(href)) return { href: href, external: false };
@@ -674,12 +674,12 @@
     }
     var body = text.replace(/^(🔧|🏠|🧪|💡|📜|🧮|⚙️|⚙|🔌|📋|🔗|▶️|▶)\s*/, "");
 
-    // 🔗-вставка з topic:-лінком → УСЯ картка клікабельна → крос-попап на іншу тему
+    // 🔗-вставка з root:-лінком → УСЯ картка клікабельна → крос-попап на іншу тему
     if (kind === "xref") {
-      var bm = body.match(/\]\((topic:[^)]+)\)/i);
+      var bm = body.match(/\]\((root:[^)]+)\)/i);
       if (bm) {
         var cross = resolveCrossBook(bm[1]).cross;
-        var flatx = body.replace(/\s*\[([^\]]+)\]\(topic:[^)]+\)/ig, "").trim();
+        var flatx = body.replace(/\s*\[([^\]]+)\]\(root:[^)]+\)/ig, "").trim();
         return '<a class="callout callout-nav hist-teaser xref-teaser" href="#" data-xbook="' + escapeAttr(cross) + '" title="Відкрити повну тему">' +
           '<span class="callout-ico">🔗<span class="hist-expand" aria-hidden="true">⤢</span></span>' +
           '<div class="callout-body">' + renderInline(flatx.replace(/\n/g, " "), ctx) + "</div>" +
@@ -1443,7 +1443,7 @@
     } else { fallbackCopy(text); ok(); }
   }
 
-  /* ── Крос-попап (v7): topic:<книга>/<тема>[/<file>] ─────────────────────────────── */
+  /* ── Крос-попап (v7): root:<книга>/<тема>[/<file>] ─────────────────────────────── */
   // токен шару: «<id|guide/course>|<slug>|<file>|<frag>»
   function fillXbook(el, data) {
     var pp = data.split("|");

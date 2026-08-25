@@ -42,14 +42,32 @@
     var b = arr[0];
     if (!b) { content.innerHTML = '<div class="state error">Книгу не знайдено</div>'; return; }
 
-    // Курс без конкретної статті → доріжка модулів/кроків (book.js не потрібен).
-    if (b.kind === "course" && !atArticle && !courseSlug) { window.BOOK = b; renderGuide(b); return; }
-
     // Стаття. Якщо читаємо в контексті курсу — чіпляємо курс для навігації «наступний крок».
-    var c = arr[1] || (b.kind === "course" ? b : null);
-    if (c) b.course = { slug: c.bookSlug, title: c.title, modules: c.groups || [] };
-    window.BOOK = b;
-    var s = document.createElement("script"); s.src = "book.js?v=38"; document.body.appendChild(s);
+    var booted = false;
+    function openArticle() {
+      if (booted) return;                       // далі маршрут веде сам book.js
+      booted = true;
+      var c = arr[1] || (b.kind === "course" ? b : null);
+      if (c) b.course = { slug: c.bookSlug, title: c.title, modules: c.groups || [] };
+      window.BOOK = b;
+      var s = document.createElement("script"); s.src = "book.js?v=38"; document.body.appendChild(s);
+    }
+
+    // Курс без конкретної статті → доріжка модулів/кроків (book.js не потрібен).
+    if (b.kind === "course" && !atArticle && !courseSlug) {
+      window.BOOK = b;
+      renderGuide(b);
+      // Крок курсу веде в ЦЕЙ САМИЙ документ — різниця лише в хеші. Переходу сторінки
+      // не буде, скрипти не перечитаються, а `book.js` тут іще не завантажений, тож його
+      // власний слухач hashchange нічим не зарадить: рішення «доріжка чи стаття» треба
+      // ухвалити вдруге — інакше клік по кроку лише міняє адресу, і стаття не відкриється.
+      window.addEventListener("hashchange", function () {
+        if (/(^|[#&])ch=/.test(location.hash || "")) openArticle();
+      });
+      return;
+    }
+
+    openArticle();
   });
 })();
 </script>

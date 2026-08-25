@@ -5,6 +5,9 @@
      root/shelf.json                    види: sci · eng · course · hw · sys
      root/<dir>/<book>/manifest.json    { schema:7, kind, slug, title, groups:[…] }
      root/<dir>/<book>/<group>.json     { …, chapters:[ {slug,title,topics:[…]} ] }
+                                        необов'язкове megachapters:[{title,chapters:[слуг…]}]
+                                        — НАКЛАДКА на показ; правда лишається в chapters[],
+                                        адреса й нумерація від неї не залежать. Поки не читаємо.
      root/<dir>/<book>/<topic>/<topic>.md        базова
      root/<dir>/<book>/<topic>/<topic>-d.md      детальна
      root/<dir>/<book>/<topic>/<type>-<name>.md  вставки
