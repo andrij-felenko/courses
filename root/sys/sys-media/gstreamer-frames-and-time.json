@@ -1,0 +1,240 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-media",
+  "slug": "gstreamer-frames-and-time",
+  "title": "Кадри й час у GStreamer",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "gstreamer-buffers",
+      "title": "Кадр і пам'ять",
+      "topics": [
+        {
+          "slug": "buffers-and-memory",
+          "title": "Буфери й пам'ять: передача кадру без копіювання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-memory-model-rewrite.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-zero-copy-map.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-buffer-memory.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "appsink-appsrc",
+          "title": "appsink і appsrc: міст між конвеєром і власним кодом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-frame-loop.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-appsink-appsrc.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gstreamer-sources",
+      "title": "Джерела й апаратне декодування",
+      "topics": [
+        {
+          "slug": "network-sources",
+          "title": "Мережеві джерела: RTSP, UDP і депейлоадинг RTP",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-jitter-latency.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fu-a-reassembly.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-network-source-elements.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hardware-decode-elements",
+          "title": "Апаратне декодування: VA-API, NVDEC, V4L2, MediaCodec",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-acceleration-apis.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-verify-zero-copy.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-v4l2-m2m.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gstreamer-timing",
+      "title": "Годинник, затримка й потоки",
+      "topics": [
+        {
+          "slug": "clock-and-sync",
+          "title": "Годинник, мітки часу й синхронізація потоків",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-running-time.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-net-clock-sync.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-clock-and-time.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "latency-and-buffering",
+          "title": "Затримка й буферизація в конвеєрі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-latency-probe.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-latency-controls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "threads-and-queues",
+          "title": "Потоки виконання й черги: де конвеєр міняє потік",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-scheduler-removal.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-thread-map.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-queue-and-task.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gstreamer-debugging",
+      "title": "Діагностика конвеєра",
+      "topics": [
+        {
+          "slug": "pipeline-debugging",
+          "title": "Діагностика конвеєра: графи, рівні журналу, типові затики",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-bus-watch-diagnostics.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-gst-debug.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

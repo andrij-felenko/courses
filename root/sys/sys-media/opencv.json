@@ -1,0 +1,190 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-media",
+  "slug": "opencv",
+  "title": "OpenCV",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "opencv-build",
+      "title": "Модулі й бекенди",
+      "topics": [
+        {
+          "slug": "opencv-structure",
+          "title": "Будова OpenCV: модулі, версії, як її збирають",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-opencv-origin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-inspect-build.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-build-options.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "opencv-backends",
+          "title": "Бекенди й прискорення: UMat, OpenCL, апаратна збірка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-tapi-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-umat-boundaries.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tapi-controls.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "input-output-array",
+          "title": "InputArray і OutputArray: спільний вхід для Mat, UMat і вектора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cvarr-to-inputarray.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-universal-function.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-input-output-array.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "opencv-mat",
+      "title": "Матриця й володіння пам'яттю",
+      "topics": [
+        {
+          "slug": "mat-memory-model",
+          "title": "cv::Mat: пам'ять, лічильник посилань і володіння",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mat-vs-iplimage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gst-frame-to-mat.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mat-ownership.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mat-views-no-copy",
+          "title": "Види без копії: ROI і заголовок над чужим буфером",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-iplimage-roi.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gst-mat-zero-copy.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mat-views.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "frame-interop",
+          "title": "Стик із відеоконвеєром: формати пікселів і передача кадру",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-bgr-order.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-zero-copy-bridge.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-frame-map.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

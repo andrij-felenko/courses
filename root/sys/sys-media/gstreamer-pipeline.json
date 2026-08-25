@@ -1,0 +1,278 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-media",
+  "slug": "gstreamer-pipeline",
+  "title": "Конвеєр GStreamer",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "gstreamer-elements",
+      "title": "Елементи й з'єднання",
+      "topics": [
+        {
+          "slug": "pipeline-model",
+          "title": "Конвеєр: елементи, зв'язки й потік даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-gstreamer-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-first-pipeline.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-gst-launch-syntax.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pads-and-linking",
+          "title": "Пади і з'єднання елементів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-dynamic-linking.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pads.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "plugin-model",
+          "title": "Модель плагінів і реєстр елементів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-plugin-model.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-own-element.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-registry.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gobject-basics",
+          "title": "GObject: об'єктна система, на якій стоїть GStreamer",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-gobject-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-inspect-element.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-gobject-surface.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gstreamer-caps",
+      "title": "Узгодження формату",
+      "topics": [
+        {
+          "slug": "caps-negotiation",
+          "title": "Узгодження caps: як елементи домовляються про формат",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-negotiation-1-0.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-transform-caps.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-caps-syntax.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "autoplug-decodebin",
+          "title": "Автодобір елементів: decodebin і вибір за caps",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-autoplug-evolution.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-autoplug-select.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-decodebin-signals.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gstreamer-control",
+      "title": "Стани й повідомлення",
+      "topics": [
+        {
+          "slug": "states-lifecycle",
+          "title": "Стани конвеєра й переходи між ними",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-state-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-state-api.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bus-and-messages",
+          "title": "Шина повідомлень: події й помилки конвеєра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-bus-loop.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bus.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "events-and-queries",
+          "title": "Події й запити на падах: сигналізація вздовж конвеєра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-event-tracer.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-events-queries.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "seeking-and-flush",
+          "title": "Перемотування і скидання конвеєра: seek-події та флаш",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-seek-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-seek.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
