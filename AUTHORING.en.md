@@ -4,7 +4,7 @@
 
 Writing rules are **here**. Plan/queue/statuses — in the book/course manifest (schema — §2). Scripts — in `scripts/`.
 
-> **v5 → v6 (RULE changes; manifest schema UNCHANGED):** (1) every **new** article begins with a collapsed prerequisites block `<preknowlist>` — "what to know before reading" (§6); (2) `svgcheck.py` now also catches **text overlap** onto other text/lines (§5); (3) **code language — by domain, not always C/C++**; the same example in 2–5 languages — as `:::tabs` tabs (switcher on top, syntax highlighting) (§5); (4) **a new kind of book — `reference/` (reference books on man-made systems)**: behaves like `book/`, the same manifest schema with `type:"reference"`, linked with the `root:` prefix (§1–§2); (5) **the basic version — a hard rule on size and language**: at least **twice shorter** than its detailed (and 500–1200 words), written in **simpler language** without losing the meaning (§3). (6) **word bands cut** (§3/§8): basic **500–1200**, detailed **1000–6500** (exception — up to 9000), insert **400–5000** (exception — up to 9000); the **median orientation was REMOVED from the rules a writer reads** (the figures live only in `wordcount.js`, which reports the median per book), and the **length criterion "only what is important or useful"** was added; ~10% fewer inserts — the spin-out threshold is raised one notch (§3). **We don't touch what's already written** — apply only to new articles (and when old ones are next rewritten).
+> **v5 → v6 (RULE changes; manifest schema UNCHANGED):** (1) every **new** article begins with a collapsed prerequisites block `<preknowlist>` — "what to know before reading" (§6); (2) `svgcheck.py` now also catches **text overlap** onto other text/lines (§5); (3) **code language — by domain, not always C/C++**; the same example in 2–5 languages — as `:::tabs` tabs (switcher on top, syntax highlighting) (§5); (4) **a new kind of book — a reference book (reference books on man-made systems)**: behaves like a book, the same manifest schema with `type:"reference"`, linked with the `root:` prefix (§1–§2); (5) **the basic version — a hard rule on size and language**: at least **twice shorter** than its detailed (and 500–1200 words), written in **simpler language** without losing the meaning (§3). (6) **word bands cut** (§3/§8): basic **500–1200**, detailed **1000–6500** (exception — up to 9000), insert **400–5000** (exception — up to 9000); the **median orientation was REMOVED from the rules a writer reads** (the figures live only in `wordcount.js`, which reports the median per book), and the **length criterion "only what is important or useful"** was added; ~10% fewer inserts — the spin-out threshold is raised one notch (§3). **We don't touch what's already written** — apply only to new articles (and when old ones are next rewritten).
 
 ## §1 Structure — seven kinds under `root/`
 
@@ -40,19 +40,18 @@ manifest, the address is stale.
 **⛔ Never write the long form in prose.** That would mean rewriting the corpus on every
 re-cutting — exactly what the `root/` tree exists to avoid.
 
-*Below — the behaviour of each kind. Read the old folder names (`book/`, `guide/`, `catalog/`,
-`reference/`) as kinds: `book/`→`sci`/`eng`/`com`, `guide/`→`course`, `catalog/`→`cat`,
-`reference/`→`sys`.*
+*Below — the behaviour of each kind. Read the old folder names (book, course, catalog, reference) as kinds: a book→`sci`/`eng`/`com`, a course→`course`, the catalog→`cat`,
+a reference book→`sys`.*
 
-**`book/` — subject books.** An article sits in a **subject section** (manifest field `sections`), **without numbering**. **An article = EXACTLY ONE topic** (one concept, an **atom**). An article is **parallel** to all others: **self-contained, assumes nothing, reads on its own in any order**. It may link to another, but **uses no sequence phrases** («попередній/наступний розділ», «як ми бачили», «далі побачимо», «пригадаймо», «ми це проходили») and **does not rely on "already known"** — there is no order in the book. The `basic`/`detailed` versions — **both standalone**, differing only in depth (§3).
+**`sci` · `eng` · `com` — books of knowledge.** An article sits in a **subject section** (a manifest group), **without numbering**. **An article = EXACTLY ONE topic** (one concept, an **atom**). An article is **parallel** to all others: **self-contained, assumes nothing, reads on its own in any order**. It may link to another, but **uses no sequence phrases** («попередній/наступний розділ», «як ми бачили», «далі побачимо», «пригадаймо», «ми це проходили») and **does not rely on "already known"** — there is no order in the book. The `basic`/`detailed` versions — **both standalone**, differing only in depth (§3).
 
 8 books: `electronics` (Electronics), `physics` (Physics), `math` (Mathematics), `programming` (Programming), `algorithms` (Algorithms), `communications` (Communications), `chemistry` (Chemistry), `philosophy` (Philosophy).
 
-**`guide/` — instructional books (courses).** A course is a **sequence of steps** that **accumulates knowledge**: each step **builds on what came before, assumes prior knowledge, and deepens gradually**. This is **not a set of topics but a thread of immersion**; steps are numbered Module·Chapter·Step — **from the ORDER in the manifest** (not from a number in the slug). Each step is one of two:
-- **`ref`** — a link to an existing `book/` article, **when the standalone atom covers the step as-is and nothing needs adding**;
-- **the course's own article** — when a **cumulative angle** is needed: the same topic (or a combination of several), but presented **building on the previous steps and preparing the next ones**. We unpack it more deeply for learning, embed needed `book/` topics **as a popup insert** (§6), add **own inserts** (history/math/examples). File: `guide/<course>/<module-slug>/<slug>/<slug>.md` (folders by name, no numbers), together with its inserts and `img/`.
+**`course` — courses.** A course is a **sequence of steps** that **accumulates knowledge**: each step **builds on what came before, assumes prior knowledge, and deepens gradually**. This is **not a set of topics but a thread of immersion**; steps are numbered Module·Chapter·Step — **from the ORDER in the manifest** (not from a number in the slug). Each step is one of two:
+- **`ref`** — a link to an existing book article, **when the standalone atom covers the step as-is and nothing needs adding**;
+- **the course's own article** — when a **cumulative angle** is needed: the same topic (or a combination of several), but presented **building on the previous steps and preparing the next ones**. We unpack it more deeply for learning, embed needed book topics **as a popup insert** (§6), add **own inserts** (history/math/examples). File: `root/course/<course>/<slug>/<slug>.md` (folders by name, no numbers), together with its inserts and `img/`.
 
-**IRON RULE (book ↔ guide), obeyed 100%:** if material **assumes "already known", makes sense only in sequence, or deepens step-by-step** — it's **`guide`, NEVER `book`**. If it's **a self-contained atom that reads fully on its own** — it's **`book`**. One topic may exist twice: standalone in `book/` and as a cumulative step in `guide/` (via `ref` or an own article). **Never put sequential/cumulative material in `book/`.**
+**IRON RULE (book ↔ guide), obeyed 100%:** if material **assumes "already known", makes sense only in sequence, or deepens step-by-step** — it's **`guide`, NEVER `book`**. If it's **a self-contained atom that reads fully on its own** — it's **`book`**. One topic may exist twice: standalone in a book and as a cumulative step in a course (via `ref` or an own article). **Never put sequential/cumulative material in a book.**
 
 **A course's own article MAY duplicate a book atom** — if it presents the same thing not as a book article but in the clear context of the course. Likewise the same topic may have own articles **in different courses**: they are written separately and the substance of each is its own. This is not a violation but normal work.
 
@@ -65,7 +64,7 @@ re-cutting — exactly what the `root/` tree exists to avoid.
 **A reference book shows the IMPLEMENTATION; it does not retell the principle.** The principle lives in the book; the reference links to it and shows its own. Test: the question «and how exactly in THIS system?» must have its own substantive answer; if the answer is a retelling of the principle, there is no topic.
 
 
-Per-step decision: a standalone book atom covers it as-is → `ref`; need a cumulative angle / combination / bridge between steps → **the course's own article**. Build **only backward**; carry the thread **naturally, without forcing** it with filler connective sentences. `book/` articles are **not rewritten** for a course. A `ref` step may point into `catalog/` and `reference/` as well — all three kinds live in the same `__BOOKS__` (the first ref segment is the book's slug). 5 courses: `embedded`, `embedded-ultra`, `basic-chemistry`, `progarch`, `unix`.
+Per-step decision: a standalone book atom covers it as-is → `ref`; need a cumulative angle / combination / bridge between steps → **the course's own article**. Build **only backward**; carry the thread **naturally, without forcing** it with filler connective sentences. book articles are **not rewritten** for a course. A `ref` step may point into the catalog and a reference book as well — all kinds live in the one `root/` tree, and the first ref segment is the book's slug. 5 courses: `embedded`, `embedded-ultra`, `basic-chemistry`, `progarch`, `unix`.
 
 **A course's volume and chapter — construction rules.** *(Only the author creates a volume, §2; these rules are about what a volume and a chapter must look like when they are created.)*
 - **Volume name:** one to four words, a noun phrase. **Not a list** («Sound, image, model»), **not a slogan** («A board you can switch on»), **not a faculty label** («Fundamentals of radio engineering»), **not a colon with an explanation** («The multimeter: the first instrument that shows you a circuit»). If the name comes out as a list, the boundary was drawn wrong — you rework the boundary, not the wording.
@@ -76,9 +75,9 @@ Per-step decision: a standalone book atom covers it as-is → `ref`; need a cumu
 - Volumes and chapters may have **few topics, but never zero**. The number of a course's own articles is **not capped** — it is not «0–1 per chapter».
 
 
-**`catalog/` — catalog books.** Grouped **descriptions of concrete objects** (parts; later broader too). An entry **describes a concrete thing** rather than building a scientific idea. Behaves **like `book/`** (no order, basic+detailed versions, inserts `hist-`/`math-`/`proj-` — but **not** `comp-`, since the catalog itself is the component).
+**`cat` — catalogs.** Grouped **descriptions of concrete objects** (parts; later broader too). An entry **describes a concrete thing** rather than building a scientific idea. Behaves **like a book** (no order, basic+detailed versions, inserts `hist-`/`math-`/`proj-` — but **not** `comp-`, since the catalog itself is the component).
 
-**Catalog families** — each a separate book `catalog/<family>`, a flat list of objects:
+**Catalog families** — each a separate book `root/cat/<catalog>`, a flat list of objects:
 - **`sensors`** — sensors and measurement modules (including input/HMI: buttons, encoders, joysticks);
 - **`power`** — power: regulators, converters, drivers, relays, charging, adapters;
 - **`connect`** — radio and communications (data-transmission modules, RFID, IR);
@@ -89,7 +88,7 @@ Per-step decision: a standalone book atom covers it as-is → `ref`; need a cumu
 
 **Where to place:** by the object's **primary function** (what it does). A bare chip — into the family closest by function. Create a new family **only** when an object fits none of the existing ones. (Create a family-book as needed — when the first object appears.)
 
-**`reference/` — reference books.** They describe **a system or technology made by people** — an operating system, a language and its standards, a tool, a format, a protocol stack. This is **not a branch of science**: there is no "how the world is built" here, there is "how this thing is built and how to use it". Behaves **like `book/`**: sections (`sections`) → topic-atoms (`topics`), **no order and no numbering**, `basic`/`detailed` versions, the same inserts, the same manifest schema (§2). Opened by the reader as `read.html?book=<slug>`, linked with the **`root:`** prefix (there is no separate `reference:` prefix — same as for the catalog).
+**`sys` — reference books.** They describe **a system or technology made by people** — an operating system, a language and its standards, a tool, a format, a protocol stack. This is **not a branch of science**: there is no "how the world is built" here, there is "how this thing is built and how to use it". Behaves **like a book**: groups → chapters → topic-atoms, **no order and no numbering**, `basic`/`detailed` versions, the same inserts, the same manifest schema (§2). Opened by the reader as `read.html?book=<slug>`, linked with the **`root:`** prefix (there is no separate `reference:` prefix — same as for the catalog).
 
 **The three lines people get wrong most often.** The short version, before the detailed ones below:
 - **Universal versus concrete.** The principle lives in the book; how it is realised in one concrete system lives in the reference. «What a rollback is» — book; «how a rollback is declared in this framework» — reference. Same test: if «and in which version?» is a fair question → reference.
@@ -101,28 +100,28 @@ Per-step decision: a standalone book atom covers it as-is → `ref`; need a cumu
 **A group (section) is named by the same rules as a volume:** one to four words, a noun phrase, not a list, not a slogan, not a faculty label, not a colon with an explanation. A group must be meaningful — **there is no «Other» group**. A book's scale is one to two hundred topics; a five-topic book almost certainly means the boundary was drawn in the wrong place (and books are created by the author alone anyway, §2).
 
 **book ↔ reference — where the line runs.** Ask **whether the topic would exist without the people who made it**:
-- **`book/`** — the subject of **science or engineering theory**: a law, a phenomenon, a principle, an algorithm, a pattern. The truth doesn't depend on a version or a vendor (Ohm's law, CRC, a B-tree, the scheduler as an idea).
-- **`reference/`** — the subject of **a concrete man-made system**: something someone designed, which has versions, releases, standards, syntax and proper names (POSIX signals, `std::move`, CMake target properties). Ask "in which version?" — if the question makes sense, it's `reference/`.
-- Borderline material goes in **twice**: the principle into `book/`, its embodiment in the system into `reference/`, and they link to each other.
-- **Not to be confused with `catalog/`:** the catalog describes **a thing you can buy** (a board, a module, a part); a reference book — **an intangible system** (an OS, a language, a tool).
+- **a book** — the subject of **science or engineering theory**: a law, a phenomenon, a principle, an algorithm, a pattern. The truth doesn't depend on a version or a vendor (Ohm's law, CRC, a B-tree, the scheduler as an idea).
+- **a reference book** — the subject of **a concrete man-made system**: something someone designed, which has versions, releases, standards, syntax and proper names (POSIX signals, `std::move`, CMake target properties). Ask "in which version?" — if the question makes sense, it's a reference book.
+- Borderline material goes in **twice**: the principle into a book, its embodiment in the system into a reference book, and they link to each other.
+- **Not to be confused with the catalog:** the catalog describes **a thing you can buy** (a board, a module, a part); a reference book — **an intangible system** (an OS, a language, a tool).
 
 5 reference books: `unix-linux` (Unix and Linux), `cpp-standards` (C++ standards), `build-systems` (Build systems), `media-vision` (GStreamer and OpenCV), `qgroundcontrol` (QGroundControl).
 
-**Qt/QML — deliberately outside the corpus.** Neither a separate book nor topics: in `reference/qgroundcontrol` we describe the subsystems of the application itself (Vehicle, FactSystem, links, plan, map, video), not the framework they stand on. The rule is permanent, not temporary.
+**Qt/QML — deliberately outside the corpus.** Neither a separate book nor topics: in `sys-dron` we describe the subsystems of the application itself (Vehicle, FactSystem, links, plan, map, video), not the framework they stand on. The rule is permanent, not temporary.
 
-**`comp-` (insert) ↔ `catalog/` — mandatory decision procedure.** For each device/unit ask three questions in turn:
+**`comp-` (insert) ↔ the catalog — mandatory decision procedure.** For each device/unit ask three questions in turn:
 1. Can you **fully explain this thing without naming any concrete product, model, family, or part number** — by the operating principle alone?
 2. Is this description (behavior, purpose, way of hooking it up) **the same** for any manufacturer and any implementation?
 3. Does the behavior **follow directly from the science of one specific article** as its deepening?
 
 - **All three "yes" → `comp-<name>.md` beside that article** (generalized, no part numbers — typical pinout/wiring, typical class-wide pitfalls).
-- **Any "no" → `catalog/`**: the thing is defined by a concrete product/model/part number, and its details are specific to it and not derivable from the general principle.
+- **Any "no" → the catalog**: the thing is defined by a concrete product/model/part number, and its details are specific to it and not derivable from the general principle.
 
-Check test: if versions from different manufacturers would need **different articles** — it's `catalog/` (an article per product); if **one** article covers all implementations — it's `comp-`.
+Check test: if versions from different manufacturers would need **different articles** — it's the catalog (an article per product); if **one** article covers all implementations — it's `comp-`.
 
 ## §2 Naming, numbering, manifest
 
-**Naming — slug-only** (ASCII, **no numbers**): `book/<book>/<section>/<slug>/<slug>.md`; likewise `catalog/…`, `reference/…`, `guide/…`. Detailed — `<slug>-d.md`; inserts — `<type>-<name>.md`. Slug collisions — with a minimal qualifier.
+**Naming — slug-only** (ASCII, **no numbers**): `root/<kind>/<book>/<slug>/<slug>.md` — **flat under the book; neither group nor chapter appears in the path**. Detailed — `<slug>-d.md`; inserts — `<type>-<name>.md`. Slug collisions — with a minimal qualifier.
 
 **A slug must be such that NOTHING can later land on top of it.** This is the main requirement for a name, and it is exactly where the corpus accumulated over thirty duplicate pairs.
 - **Generic one-word — bad:** `cache`, `timers`, `linking`, `memory`, `geometry`. Sooner or later the next topic hits it, and then already-written articles have to be pulled apart.
@@ -131,7 +130,7 @@ Check test: if versions from different manufacturers would need **different arti
 - **A name that is already precise is not changed** without need.
 - When two topics are «the concept» versus «how it is done», both names must show it: not `bezier-curves` ↔ `bezier-curves-drawing`, but `bezier-curve-definition` ↔ `bezier-curve-construction`, where each makes its subject visible.
 
-**Numbering:** `book/`, `catalog/` and `reference/` — **no numbers** (not in folders, not in text, not in figure captions). `guide/` **is numbered** Module · Chapter · Step — **from the ORDER of elements in the manifest** (the engine counts from position; not from a number field, not in the slug), so inserting a new one **does not break** numbering; a module without chapters — Module · Step.
+**Numbering:** books, catalogs and reference books — **no numbers** (not in folders, not in text, not in figure captions). a course **is numbered** Module · Chapter · Step — **from the ORDER of elements in the manifest** (the engine counts from position; not from a number field, not in the slug), so inserting a new one **does not break** numbering; a module without chapters — Module · Step.
 
 **Choosing the path for a NEW topic — the spiral, top down.** You do not file a topic «where it looks similar»; you go step by step, and at EVERY step — **your own answer FIRST, and only then a look at what exists**. Otherwise what is already there drags in a topic that does not belong.
 
@@ -145,36 +144,33 @@ Check test: if versions from different manufacturers would need **different arti
 
 **The answer is an address PLUS a «why» sentence.** Along with the address always give one sentence stating on what principle the topic belongs exactly there. The sentence is not for the report: different authors name the same group in different words, and it is the «why» that reveals that two names mean one thing and must be merged. Measured on a full pass (177 sections, 5416 topics): without the registry and without the «why», a single book scattered into 1–20 different invented names.
 
-**The manifest is the single source** of navigation, plan, queue, statuses. **One manifest per book/course**; we don't invent new fields outside the schema.
+**The manifest is the single source** of navigation, plan, queue, statuses. **Schema 7, JSON, split by group**; we don't invent new fields outside the schema.
 
-**book** — `book/<book>/manifest.js`, registers `window.__BOOKS__.push({…})`:
-```js
-{ type:"book", slug, title,
-  sections:[ { slug, title, scope,              // section = subject section
-    topics:[ { slug, title,
-               basic:    { status },            // basic version — its OWN status (§9)
-               detailed: { status },            // detailed version — its OWN status (§9)
-               hist:[ {file:"hist-<name>.md", status} ],   // 📜 inserts — array per type
-               comp:[ {file:"comp-<name>.md", status} ],   // 🔌 inserts
-               math:[ {file:"math-<name>.md", status} ],   // 🧮 inserts
-               proj:[ {file:"proj-<name>.md", status} ],   // ⚙️ inserts
-               api:[ {file:"api-<name>.md", status} ] } ] } ] }   // 📋 inserts
 ```
-**catalog** — `catalog/<book>/manifest.js`, **the same schema** with `type:"catalog"` (without the `comp` array).
-
-**reference** — `reference/<book>/manifest.js`, **the same schema** with `type:"reference"`; pushes into the same `window.__BOOKS__`, `section` = a section of the reference book (not a "branch of science"), the remaining fields and statuses — as in book. The registry — `window.REFERENCE_BOOKS` in `books-index.js`.
-
-**guide** — `guide/<course>/manifest.js`, registers `window.__GUIDES__.push({…})`. Schema v6 (form unchanged from v5) — **modules → chapters → steps**; **order in the arrays = numbering** (Module i · Chapter i.j · Step i.j.k; a module without chapters — Module i · Step i.j), which the engine counts from position — we hardcode numbers nowhere, inserting a new step doesn't break numbering (the `n` field is purely informational):
-```js
-{ type:"guide", slug, title,
-  modules:[ { n, slug, title, scope:"",            // MODULE (slug without number; keep scope:"" — a module-row marker for the scout scripts)
-    chapters:[ { title, steps:[                    // CHAPTER — title only (numbered by position within the module)
-      { slug, title, basic:{status}, detailed:{status},             // course's own article (shape as book)
-        hist:[…], comp:[…], math:[…], proj:[…], api:[…] }
-    | { ref:"<book>/<section>/<slug>", title } ] } ] } ] }           // OR a pointer-step to a book article (3 segments)
+root/<kind>/<book>/manifest.json     { schema:7, kind, slug, title, groups:[slug…] }
+root/<kind>/<book>/<group>.json      { schema:7, kind, book, slug, title, scope,
+                                       chapters:[ {slug, title, topics:[…]} ],
+                                       megachapters?:[{title, chapters:[slug…]}] }
 ```
-A step is **either the course's own article** (basic/detailed/inserts, statuses §9; file `guide/<course>/<module-slug>/<slug>/<slug>.md`, folders by NAME without numbers — **the step's folder lives in its module's folder**, so moving a step between modules = `git mv` of the folder + fixing the absolute `/guide/...` figure paths), **or a `ref`** to a book atom (when a standalone covers the step). Numbering lives **only** in the manifest order.
-Fields: **each version (`basic`, `detailed`) has its own `status`** (enum §9); a version is **available to the reader ⟺ its status is `done`**. The `hist`/`comp`/`math`/`proj`/`api` arrays — inserts by type, element = `{file, status}`. Note: a `ref` in the guide MANIFEST — **3 segments `<book>/<section>/<slug>`** (the engine uses the first + last segments); `root:` links IN ARTICLE TEXT — **2 segments** as before (§6). The legacy `sections→topics` form (2-segment refs) is kept by the engine and scripts as a fallback; **all courses are already in the current form**, and we write new content only in it.
+
+A topic inside a chapter is **either its own**, or a **pointer** to someone else's (courses only):
+
+```json
+{ "slug": "…", "title": "…",
+  "basic":    { "status": "…" },
+  "detailed": { "status": "…" },
+  "hist": [ { "file": "hist-<name>.md", "status": "…" } ],
+  "comp": [ … ], "math": [ … ], "proj": [ … ], "api": [ … ] }
+
+{ "ref": "<book>/<topic>", "title": "…" }
+```
+
+**Each version (`basic`, `detailed`) has its own `status`** (enum §9); a version is available to the reader ⟺ its status is `done`. Inserts — one array per type, element `{file, status}`.
+
+**Group and chapter live ONLY here.** They are not in the path; a topic sits flat under its book. That is why re-cutting a book is one JSON edit, not a file move. A course's numbering (Module · Chapter · Step) is counted from the **order** in the manifest, not from a number field.
+
+**The manifest is never edited by hand.** One module reads and writes it — `scripts/lib/manifest7.js`; the CLI on top is `scripts/manifest-patch.js`. A writer does not touch the manifest at all: a separate batch phase sets statuses.
+
 
 ## §3 Versions and inserts
 
@@ -196,7 +192,7 @@ Fields: **each version (`basic`, `detailed`) has its own `status`** (enum §9); 
 
 **Unconditional disqualifiers** (they hold at any size): the topic is **reference-like** — its core is an API, a protocol, a format, a set of parameters, a table · the topic is **narrow**, existing only as a detail of a bigger one · the detailed **isn't written yet** (you don't decide the basic without it).
 
-> ⚠️ **"Reference-like" is about the core of THIS ARTICLE, not about the kind of book.** The disqualifier asks: is the core of **this topic** an enumeration (an API, fields, flags, error codes, a parameter table)? It does **NOT** ask whether the topic lives in `reference/` or `catalog/`. A topic like "The scheduler: how the kernel divides time" has a cause-and-effect through-line and does **NOT** trip the disqualifier — even though it sits in a reference book; a topic like "The ioctl set of subsystem X" does trip it. Reading the disqualifier as "this is a reference book → basics never apply" is **forbidden**: that kills the basic level entirely. 
+> ⚠️ **"Reference-like" is about the core of THIS ARTICLE, not about the kind of book.** The disqualifier asks: is the core of **this topic** an enumeration (an API, fields, flags, error codes, a parameter table)? It does **NOT** ask whether the topic lives in a reference book or the catalog. A topic like "The scheduler: how the kernel divides time" has a cause-and-effect through-line and does **NOT** trip the disqualifier — even though it sits in a reference book; a topic like "The ioctl set of subsystem X" does trip it. Reading the disqualifier as "this is a reference book → basics never apply" is **forbidden**: that kills the basic level entirely. 
 
 **A 50/50 hesitation means NO.** The gate's default is "no". The cost of "we didn't write a basic" is one extra step into the detailed for the reader; the cost of "we wrote a needless one" is a second text about the same thing that must be kept in sync with the first from then on.
 
@@ -225,9 +221,9 @@ The 2250 floor sits where a basic stops degenerating into a retelling: for a 225
 
 Manifest (§2): each version has its own `status` — `basic:{status}`, `detailed:{status}`. **`pending` = needs writing** (exactly what the writing scripts pick up) · **`empty` = not needed** · **`done` = written and available to the reader**. Detailed — the main queue (`pending`→`done`); basic — `empty` when the detailed is short (a duplicate), or `pending` when a large topic is worth a quick overview. **A new topic is ALWAYS registered as `basic:{status:"empty"}` + `detailed:{status:"pending"}`** (§6): the detailed goes into the queue, and the basic is decided once the detailed exists.
 
-**Inserts — subtopics, separate `.md` files in the topic's folder**, five types by the prefix `<type>-<name>.md` (in `catalog/` — without `comp`):
+**Inserts — subtopics, separate `.md` files in the topic's folder**, five types by the prefix `<type>-<name>.md` (in the catalog — without `comp`):
 - 📜 `hist-` — **history**: how the concept was born (what puzzled, who, the disputes); always real.
-- 🔌 `comp-` — **component**: a **generalized** class of device/chip (typical pinout, wiring, class-wide pitfalls) — **no part numbers**; concrete models/products go into `catalog/` (criterion — §1).
+- 🔌 `comp-` — **component**: a **generalized** class of device/chip (typical pinout, wiring, class-wide pitfalls) — **no part numbers**; concrete models/products go into the catalog (criterion — §1).
 - 🧮 `math-` — **PURELY the math of this topic:** a proof, an example, a problem, the mathematical essence and justification — **algebraically and geometrically**. Concrete math worked out for the topic, **NOT** a conceptual essay. **If it is actually an EXPLANATION of a topic** (a separate concept/theory) — it's **not an insert but a new article** (a math concept → the `math` book; another domain → its own book) + a ref link; in the math insert only the math remains. *Test:* math worked out FOR the topic (proof/example/problem/justification)? — an insert. A separate concept that must be learned and explained? — an article + link, not an insert.
 - ⚙️ `proj-` — **algorithm/code**: task → idea → working code → traps. Language — **by domain** (§5): embedded/hardware → C/C++; general/web → the stack's languages, several languages via `:::tabs` tabs when needed.
 - 📋 `api-` — **interface/reference ("what sticks out"):** the contract to connect or call. Software — the public API, signatures, parameters, errors, CLI/config; hardware — pin-by-pin wiring, registers, protocol, levels. Structural reference (tables/signatures), not a narrative. **A shared name for both domains, but do NOT mix:** if a topic needs both hardware and software — **two separate `api-` files** (e.g. `api-wiring.md` + `api-lib.md`), not one mixed. **`comp` vs `api`:** `comp` — a generalized *class* of device (how such a thing works in general, no part numbers); `api` — the concrete *contract* (signatures/pinout/registers of this specific thing or library).
@@ -408,7 +404,7 @@ Format — a **ref-insert**: a short synopsis of **1–7 sentences** "what exact
 - **an insert of this topic** — `root:<book>/<topic>/<type>-<name>.md`;
 - **a course article/step** — `root:<course>/<slug>` (general) / `root:<course>/<slug>/detail` (explicitly detailed) / `root:<course>/<slug>/<type>-<name>.md` (insert) — **mirroring `root:`**, the same popup mechanics.
 
-**Rule (always):** target in `book/` → `root:`; target in `guide/` (a course step) → `root:`. No `root:` for what's been moved into a course, and vice versa.
+**Rule (always):** target in a book → `root:`; target in a course (a course step) → `root:`. No `root:` for what's been moved into a course, and vice versa.
 
 **The popup is self-standing.** An insert (and another topic/detailed) the engine opens as a **separate file at its own path**, **regardless of the owner article's status**: an insert from a topic whose basic is still `pending`/`empty` **opens anyway** (only its folder is needed). An article (main/detailed), by contrast, shows a «у розробці» stub until its status is `done`.
 
@@ -430,7 +426,7 @@ The section isn't needed in the path. **Default — the general link `root:<book
 
 Where there's a genuine dependency — **no dangling mentions without a ref**.
 
-**The plan is not the final truth; we catch gaps DURING writing.** Don't assume the manifest already contains all the needed topics — it's precisely while writing that you best see what the plan didn't foresee. Go over the weighty concepts the article **assumes known** or **relies on**, and check whether such a topic exists in the repo (grep across the `book/` and `guide/` manifests; either ready or a stub is enough). If a weighty concept **exists nowhere** — that's a **gap in the plan**, not a reason to silently avoid the mention or leave a bare inline without a ref: **create the topic** (a `pending` stub) and place a ref, as in the procedure above. The threshold is weight (a genuine dependency without which the topic can't be understood), not every passing mention. **Better an extra stub than a silent hole.** (In the `write-batch.js` pipeline this is the article author's `newTopics` field; the "Manifest" phase registers the new as `pending` and filters out duplicates.)
+**The plan is not the final truth; we catch gaps DURING writing.** Don't assume the manifest already contains all the needed topics — it's precisely while writing that you best see what the plan didn't foresee. Go over the weighty concepts the article **assumes known** or **relies on**, and check whether such a topic exists in the repo (grep across the a book and a course manifests; either ready or a stub is enough). If a weighty concept **exists nowhere** — that's a **gap in the plan**, not a reason to silently avoid the mention or leave a bare inline without a ref: **create the topic** (a `pending` stub) and place a ref, as in the procedure above. The threshold is weight (a genuine dependency without which the topic can't be understood), not every passing mention. **Better an extra stub than a silent hole.** (In the `write-batch.js` pipeline this is the article author's `newTopics` field; the "Manifest" phase registers the new as `pending` and filters out duplicates.)
 
 ### "Before reading" — the `preknowlist` block (v6, mandatory in EVERY new article)
 
@@ -467,19 +463,19 @@ The engine renders the block as a **collapsed `<details>` at the top** of the ar
 ## §8 Technical voice and catalog
 
 **The `book` ↔ `guide` ↔ `catalog` boundary.**
-- `book/` articles — **generalized**: a concrete part/number may be given **only as an example-mention with a link** (to `catalog/`/`comp-`), but **don't build the article on it**.
-- `guide/` articles — **may be based on concrete parts/components** (a course is applied).
-- Platforms that are the very subject of study (ESP32, ArduPilot) may be named even in `book/`.
+- book articles — **generalized**: a concrete part/number may be given **only as an example-mention with a link** (to the catalog or `comp-`), but **don't build the article on it**.
+- a course articles — **may be based on concrete parts/components** (a course is applied).
+- Platforms that are the very subject of study (ESP32, ArduPilot) may be named even in a book.
 
 **Catalog.** We write **freely, without an imposed list of sections**. The guide is a **general model**: describe the object so the reader **recognizes it, understands what it does and how it's built, how to use/connect it, and what to beware of**. You pick the concrete sections **yourself, to fit the device's nature**; the detailed version **covers everything needed to actually work with it**. Length: basic — as §3; **the catalog detailed — up to 9000 words** (the exceptional §3 ceiling, because it's sometimes needed); more — **split into several parts**.
 
 **A board/module in the catalog — schematic, wiring, API (mandatory, v6).** If a catalog object is a **board or module** that has an **internal schematic** (how it's built inside) or a **wiring diagram** (how to connect it to an MCU/power), the article **MUST**: (1) **depict** both as SVG figures (§5) — the schematic and the **pin-by-pin** wiring layout; (2) **describe** them (what goes where and why, power, levels, pull-ups); (3) provide an **API insert `api-<name>.md`** — how to use it in code: library / typical calls, a **working C/C++ example**, typical traps. Without these three a board/module article is **incomplete**.
 
-**A product family — factor out the common, link, don't repeat (v6).** If an object belongs to a **line/family** of several variants sharing common ground (manufacturer, architecture, history, a common pinout/toolchain — e.g. ESP32/Espressif, Arduino, Raspberry Pi, the KY series), create a **FAMILY overview article** (a separate catalog topic `<family>-family` / `<series>-series` in the same family/section). It holds the **common part**: history (`hist-`), the shared architecture that unites the variants, how to choose; deep science it links into `book/`/`guide/`. A concrete product **links to its family** (a ref popup `root:<family>/<family>`) for the common part and describes **ONLY ITS OWN** (differences, specifics) — it does **not** repeat the family history. No overview yet — create it (`newTopics`, `pending`). This way all variants of a line share one common article instead of duplication.
+**A product family — factor out the common, link, don't repeat (v6).** If an object belongs to a **line/family** of several variants sharing common ground (manufacturer, architecture, history, a common pinout/toolchain — e.g. ESP32/Espressif, Arduino, Raspberry Pi, the KY series), create a **FAMILY overview article** (a separate catalog topic `<family>-family` / `<series>-series` in the same family/section). It holds the **common part**: history (`hist-`), the shared architecture that unites the variants, how to choose; deep science it links into a book/a course. A concrete product **links to its family** (a ref popup `root:<family>/<family>`) for the common part and describes **ONLY ITS OWN** (differences, specifics) — it does **not** repeat the family history. No overview yet — create it (`newTopics`, `pending`). This way all variants of a line share one common article instead of duplication.
 
 There are no subject/audience-specific rules in the canon — **how to write a specific book is dictated by whoever sets the task**.
 
-**Optional per-book rules file — `<book-folder>/_canon.md`.** If the root of a book/course/catalog/reference book holds a `_canon.md` (`book/<book>/_canon.md`, `guide/<course>/_canon.md`, `catalog/<family>/_canon.md`, `reference/<ref>/_canon.md`) — these are **additional rules for it specifically** on top of this general canon: a running example, unified terms and names, the language of examples, style conventions. The writer (both articles and inserts) **reads it as the first action**, if it exists, and holds to it strictly — where `_canon` refines the general, **`_canon` takes precedence**. **No file → there are no additional rules for this book/course/catalog/reference book**, we write by the general canon. (Technically `write-batch` checks for the file before writing each topic.)
+**Optional per-book rules file — `<book-folder>/_canon.md`.** If the root of a book/course/catalog/reference book holds a `_canon.md` (`root/<kind>/<book>/_canon.md`, `root/course/<course>/_canon.md`, `root/cat/<catalog>/_canon.md`, `root/sys/<reference>/_canon.md`) — these are **additional rules for it specifically** on top of this general canon: a running example, unified terms and names, the language of examples, style conventions. The writer (both articles and inserts) **reads it as the first action**, if it exists, and holds to it strictly — where `_canon` refines the general, **`_canon` takes precedence**. **No file → there are no additional rules for this book/course/catalog/reference book**, we write by the general canon. (Technically `write-batch` checks for the file before writing each topic.)
 
 ## §9 Statuses, process, hygiene
 
