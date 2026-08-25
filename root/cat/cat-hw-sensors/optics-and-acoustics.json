@@ -1,0 +1,184 @@
+{
+  "schema": 7,
+  "kind": "cat",
+  "book": "cat-hw-sensors",
+  "slug": "optics-and-acoustics",
+  "title": "Оптика й акустика",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "presence-and-obstacle",
+      "title": "Присутність і перешкода",
+      "topics": [
+        {
+          "slug": "ky-010-interrupter",
+          "title": "KY-010 — оптичний переривач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-ky010-counter.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ir-obstacle",
+          "title": "IR-давачі перешкод (FC-51 / KY-032)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-ir-obstacle.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hc-sr501",
+          "title": "HC-SR501 — PIR-давач руху",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-pir-firmware.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "brightness-and-loudness",
+      "title": "Яскравість і гучність",
+      "topics": [
+        {
+          "slug": "ky-018-photoresistor",
+          "title": "KY-018 — фоторезистор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-photoresistor.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ky018.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sound-lm393",
+          "title": "Звуковий давач з мікрофоном (LM393)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-sound-lm393.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ky-038-mic",
+          "title": "KY-038 — мікрофонний давач звуку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-ky038-driver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ky-037-mic",
+          "title": "KY-037 — давач звуку (великий мікрофон)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-ky037-driver.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ky037-driver.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "pulse-and-oxygen",
+      "title": "Пульс і кисень",
+      "topics": [
+        {
+          "slug": "max30102",
+          "title": "GY-MAX30102 — давач пульсу/SpO2",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-max30102.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ky-039-pulse",
+          "title": "KY-039 — давач пульсу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-ky039-driver.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,338 @@
+{
+  "schema": 7,
+  "kind": "cat",
+  "book": "cat-hw-sensors",
+  "slug": "environment",
+  "title": "Довкілля",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "temperature-and-humidity",
+      "title": "Температура й вологість",
+      "topics": [
+        {
+          "slug": "ky-013-thermistor",
+          "title": "KY-013 — аналоговий давач температури (термістор)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-thermistor.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ky013.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ky-028-temp",
+          "title": "KY-028 — цифровий давач температури",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-thermistor-temp.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ky028-thermostat.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ds18b20",
+          "title": "DS18B20 — цифровий давач температури (1-Wire)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dallas-1wire.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ds18b20-driver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dht11",
+          "title": "DHT11 — температура/вологість",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-dht11-driver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gy-21",
+          "title": "GY-21 (Si7021/HTU21D) — температура/вологість",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-si7021.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-si7021.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "atmosphere",
+      "title": "Атмосфера",
+      "topics": [
+        {
+          "slug": "gy-bmp180",
+          "title": "GY-68 / BMP180 — барометр (тиск, висота)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-bmp180.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bmp180.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gy-bmp280",
+          "title": "GY-BMP280 — барометр/висотомір (BMP280)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-bosch-barometers.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-compensation.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bmp280.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gy-63",
+          "title": "GY-63 — прецизійний барометр MS5611",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-ms5611.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ms5611.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "as3935-lightning",
+          "title": "DFRobot SEN0290 (AS3935) — давач блискавок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-dfrobot-as3935.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "water-and-soil",
+      "title": "Вода і ґрунт",
+      "topics": [
+        {
+          "slug": "soil-moisture",
+          "title": "Давач вологості ґрунту (+LM393)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-soil-moisture.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "capacitive-soil",
+          "title": "Ємнісний давач вологості ґрунту (v1.2)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-capacitive-soil.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hw-038-water-level",
+          "title": "HW-038 — давач рівня води",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-hw038-driver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "funduino-rain",
+          "title": "Funduino — давач дощу (+LM358)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-funduino-rain.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gas-and-flame",
+      "title": "Газ і полум'я",
+      "topics": [
+        {
+          "slug": "mq-family",
+          "title": "Родина MQ (напівпровідникові давачі газу)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-taguchi-mq.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mq-gas",
+          "title": "MQ — давач газу (Keyes K869051)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-mq-driver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ky-026-flame",
+          "title": "KY-026 — давач полумʼя",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-ky026-driver.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

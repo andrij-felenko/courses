@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="940" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розбір UART-потоку: цифри збирай, «\n» завершує число</text>
+<text x="470.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">байти летять зліва направо, один по одному</text>
+<rect x="140.0" y="74.0" width="58.0" height="56.0" rx="7" fill="#ffffff" stroke="#2457d6" stroke-width="1.7"/>
+<text x="169.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#2457d6" text-anchor="middle" font-weight="700">7</text>
+<rect x="206.0" y="74.0" width="58.0" height="56.0" rx="7" fill="#ffffff" stroke="#2457d6" stroke-width="1.7"/>
+<text x="235.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#2457d6" text-anchor="middle" font-weight="700">4</text>
+<rect x="272.0" y="74.0" width="58.0" height="56.0" rx="7" fill="#ffffff" stroke="#2457d6" stroke-width="1.7"/>
+<text x="301.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#2457d6" text-anchor="middle" font-weight="700">8</text>
+<rect x="338.0" y="74.0" width="58.0" height="56.0" rx="7" fill="#ffffff" stroke="#6b7280" stroke-width="1.7"/>
+<text x="367.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#6b7280" text-anchor="middle" font-weight="700">m</text>
+<rect x="404.0" y="74.0" width="58.0" height="56.0" rx="7" fill="#ffffff" stroke="#6b7280" stroke-width="1.7"/>
+<text x="433.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#6b7280" text-anchor="middle" font-weight="700">m</text>
+<rect x="470.0" y="74.0" width="58.0" height="56.0" rx="7" fill="#ffffff" stroke="#27ae60" stroke-width="1.7"/>
+<text x="499.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#27ae60" text-anchor="middle" font-weight="700">\r</text>
+<rect x="536.0" y="74.0" width="58.0" height="56.0" rx="7" fill="#ffffff" stroke="#c0392b" stroke-width="1.7"/>
+<text x="565.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#c0392b" text-anchor="middle" font-weight="700">\n</text>
+<rect x="602.0" y="74.0" width="58.0" height="56.0" rx="7" fill="#ffffff" stroke="#2457d6" stroke-width="1.7"/>
+<text x="631.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#2457d6" text-anchor="middle" font-weight="700">7</text>
+<rect x="668.0" y="74.0" width="58.0" height="56.0" rx="7" fill="#ffffff" stroke="#2457d6" stroke-width="1.7"/>
+<text x="697.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#2457d6" text-anchor="middle" font-weight="700">5</text>
+<rect x="734.0" y="74.0" width="58.0" height="56.0" rx="7" fill="#ffffff" stroke="#2457d6" stroke-width="1.7"/>
+<text x="763.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#2457d6" text-anchor="middle" font-weight="700">1</text>
+<text x="239.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">цифри → у буфер</text>
+<text x="404.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">«mm» — ігнор</text>
+<text x="536.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">кінець рядка</text>
+<text x="701.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">нове число почалось</text>
+<rect x="211.3" y="268.4" width="177.3" height="63.2" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="300.0" y="288.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">ЗБИРАЮ</tspan><tspan x="300.0" dy="15.6">'7''4''8' → буфер &quot;748&quot;</tspan><tspan x="300.0" dy="15.6">нецифрове пропускаю</tspan></text>
+<rect x="554.5" y="268.4" width="191.0" height="63.2" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="650.0" y="288.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">ЗАВЕРШУЮ по '\n'</tspan><tspan x="650.0" dy="15.6">буфер &quot;748&quot; → число 748</tspan><tspan x="650.0" dy="15.6">буфер очищаю під наступне</tspan></text>
+<line x1="388.7" y1="300.0" x2="554.5" y2="300.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="475.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">'\n'</text>
+<rect x="171.6" y="428.2" width="596.8" height="31.5" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="470.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">чекай ПОВНОГО рядка до «\n» — інакше зловиш пів-числа й дістанеш «7» чи «74» замість 748</tspan></text>
+</svg>

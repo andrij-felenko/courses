@@ -1,0 +1,212 @@
+{
+  "schema": 7,
+  "kind": "cat",
+  "book": "cat-hw-sensors",
+  "slug": "space-and-motion",
+  "title": "Простір і рух",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "inertial-modules",
+      "title": "Інерційні модулі",
+      "topics": [
+        {
+          "slug": "adxl335",
+          "title": "GY-61 ADXL335 — 3-осьовий акселерометр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-adxl335.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mpu6050",
+          "title": "GY-521 / MPU-6050 — 6-осьовий IMU (акселерометр+гіроскоп)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-invensense.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mpu6050.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mpu9250",
+          "title": "GY-91 / MPU-9250 — 9/10-осьовий IMU (+BMP280)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-mpu9250-api.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hmc5883l",
+          "title": "GY-271 / HMC5883L — компас/магнетометр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-hmc5883l.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pololu-imu",
+          "title": "Pololu IMU (LSM6DS33 / MinIMU-9)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-lsm6.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pololu-imu-family",
+          "title": "Родина Pololu IMU (MinIMU-9 / AltIMU-10)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-chip-lineage.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "rangefinders",
+      "title": "Далекоміри",
+      "topics": [
+        {
+          "slug": "hc-sr04",
+          "title": "HC-SR04 — ультразвуковий далекомір",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-newping.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "tof250",
+          "title": "TOF250 — лазерний далекомір",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-tof250-api.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "tof10120",
+          "title": "TOF10120 — лазерний далекомір (ToF, до ~180 см)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-tof10120.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tof10120.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "satellite-navigation",
+      "title": "Супутникова навігація",
+      "topics": [
+        {
+          "slug": "beitian-be182",
+          "title": "Beitian BE-182 — GNSS/GPS-модуль",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ublox-m10.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-nmea-read.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-nmea-ubx.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

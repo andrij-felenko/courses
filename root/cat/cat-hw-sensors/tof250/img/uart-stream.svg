@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">UART-потік: синхронізуйся по кінцю рядка</text>
+<text x="450.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">модуль шле безперервно, байт за байтом  →</text>
+<rect x="128.0" y="92.0" width="84.0" height="62.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="170.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#2457d6" text-anchor="middle" font-weight="700">'7'</text>
+<text x="170.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">цифра</text>
+<rect x="220.0" y="92.0" width="84.0" height="62.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="262.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#2457d6" text-anchor="middle" font-weight="700">'4'</text>
+<text x="262.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">цифра</text>
+<rect x="312.0" y="92.0" width="84.0" height="62.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="354.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#2457d6" text-anchor="middle" font-weight="700">'8'</text>
+<text x="354.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">цифра</text>
+<rect x="404.0" y="92.0" width="84.0" height="62.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.8"/>
+<text x="446.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#6b7280" text-anchor="middle" font-weight="700">'m'</text>
+<text x="446.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">пропуск</text>
+<rect x="496.0" y="92.0" width="84.0" height="62.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.8"/>
+<text x="538.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#6b7280" text-anchor="middle" font-weight="700">'m'</text>
+<text x="538.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">пропуск</text>
+<rect x="588.0" y="92.0" width="84.0" height="62.0" rx="8" fill="#ffffff" stroke="#b8860b" stroke-width="1.8"/>
+<text x="630.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#b8860b" text-anchor="middle" font-weight="700">\r</text>
+<text x="630.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">код 13</text>
+<rect x="680.0" y="92.0" width="84.0" height="62.0" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="722.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#c0392b" text-anchor="middle" font-weight="700">\n</text>
+<text x="722.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">код 10</text>
+<line x1="128.0" y1="176.0" x2="396.0" y2="176.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="128.0" y1="176.0" x2="128.0" y2="168.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="396.0" y1="176.0" x2="396.0" y2="168.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="262.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">накопичуємо цифри у буфер</text>
+<line x1="722.0" y1="154.0" x2="722.0" y2="194.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="722.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">\n → рядок готовий:</text>
+<text x="722.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">748 → у число, буфер чистимо</text>
+<rect x="254.8" y="305.6" width="390.5" height="48.8" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="450.0" y="326.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Спіймали потік із СЕРЕДИНИ? Перший рядок — обрубок:</tspan><tspan x="450.0" dy="16.2">'4' '8' 'm' 'm' \n  →  прочитається як 48, а не 748.</tspan></text>
+<rect x="208.4" y="405.6" width="483.1" height="48.8" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="450.0" y="426.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Тому НЕ віримо числу, поки не побачили \n.</tspan><tspan x="450.0" dy="16.2">Синхронізація по роздільнику, а не по довжині → кожне число ціле.</tspan></text>
+</svg>
