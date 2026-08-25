@@ -1,0 +1,498 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-condensed",
+  "slug": "memory-cell-physics",
+  "title": "Фізика комірок пам'яті",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "charge-as-bit",
+      "title": "Заряд як біт",
+      "topics": [
+        {
+          "slug": "dram-capacitor-scaling",
+          "title": "Масштабування конденсатора DRAM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-high-k-dram.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tunneling-leakage.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dram-cap-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "charge-trap-flash",
+          "title": "Charge trap Flash (SONOS/CTF)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sonos-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-3d-ctf-cell.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-trapping-kinetics.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "mlc-tlc-cell-physics",
+          "title": "Фізика MLC/TLC/QLC комірок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-floating-gate.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-charge-trap-cell.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fowler-nordheim.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cell-threshold-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-nand-cell-parameters.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "3d-nand-architecture",
+          "title": "3D NAND: фізика вертикального стека",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bics-revolution.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-macaroni-channel.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-poole-frenkel.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-frenkel-poole-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-3d-nand-params.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "flash-wear-model",
+          "title": "Знос Flash: charge trapping і ресурс запису",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-oxide-wearout.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-percolation-model.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-flash-wear-sim.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "resistance-as-bit",
+      "title": "Опір як біт",
+      "topics": [
+        {
+          "slug": "memristor-physics",
+          "title": "Фізика мемристорів та мемристивних систем",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-memristor-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-chua-memristor-theory.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-memristor-simulation.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "oxram-cell-physics",
+          "title": "Оксидна резистивна пам'ять (OxRAM / ReRAM): фізика кисневих вакансій та філаментарного перемикання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-oxram-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-filament-kinetics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-oxram-filament-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-oxram-switching-params.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cbram-cell-physics",
+          "title": "Провідна місткова оперативна пам'ять (CBRAM / Нанопровода)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ecm-memristors.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-cbram-stack-structure.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cation-growth.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cbram-kinetics-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cbram-electrical-params.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "chalcogenide-phase-change-materials",
+          "title": "Халькогенідні матеріали зі зміною фази: структура фаз і кінетика кристалізації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ovshinsky.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-pcm-cell.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-jmak-nucleation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pcm-simulation.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "pcram-cell-thermal-switching",
+          "title": "Комірка PCRAM: електротермічна модель і імпульси RESET/SET",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ovshinsky-effect.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-resistance-drift.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pcm-pulse-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pcm-cell-params.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "polarization-and-spin-as-bit",
+      "title": "Поляризація і спін як біт",
+      "topics": [
+        {
+          "slug": "fe-ram-cell-physics",
+          "title": "Фізика FeRAM комірки (1T1C FeRAM)",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ferroelectric-ram.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-kai-switching-kinetics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kai-switching-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ferram-parameters-ref.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ftj-cell-physics",
+          "title": "Сегнетоелектричний тунельний перехід (FTJ)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tsymbal-ftj-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bdr-model.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ftj-ter-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "stt-mram-cell-physics",
+          "title": "Фізика STT-MRAM комірки та магнітного тунельного переходу (MTJ)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-stt-mram-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-pmtj-stack-structure.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-llgs-slonczewski.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-stt-switching-sim.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "computing-in-cell",
+      "title": "Обчислення в комірці",
+      "topics": [
+        {
+          "slug": "neuromorphic-devices-physics",
+          "title": "Фізика нейроморфних пристроїв та штучних синапсів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-synaptic-memristor-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-memristive-synapse-types.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-stdp-learning-rule.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-stdp-crossbar-sim.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

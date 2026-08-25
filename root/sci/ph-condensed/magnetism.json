@@ -1,0 +1,726 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-condensed",
+  "slug": "magnetism",
+  "title": "Магнетизм",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "exchange-and-ordering",
+      "title": "Обмін і впорядкування",
+      "topics": [
+        {
+          "slug": "exchange-interaction",
+          "title": "Обмінна взаємодія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-heisenberg-dirac.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-exchange-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-heisenberg-model.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ferromagnetism",
+          "title": "Феромагнетизм",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "antiferromagnetism",
+          "title": "Антиферомагнетизм і феримагнетизм",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-neel-antiferromagnetism.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-ferrite-cores.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-neel-two-sublattice.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sublattice-spin-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "rkky-interaction",
+          "title": "Взаємодія Рудермана — Кіттеля — Касуї — Йосіди (РККЙ)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rkky-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rkky-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rkky-spin-glass.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rkky-parameters.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "superparamagnetism",
+          "title": "Суперпарамагнетизм та суперпарамагнітна межа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-neel-brown.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-neel-brown-relaxation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-superparamagnetic-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-magnetic-recording-limits.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "domains-and-hysteresis",
+      "title": "Домени й гістерезис",
+      "topics": [
+        {
+          "slug": "magnetic-domains",
+          "title": "Магнітні домени",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-domain-theory.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-domain-wall.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-domain-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ferromagnetism-domains",
+          "title": "Феромагнетизм і домени",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-exchange-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-domain-wall-energy.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hysteresis-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-magnetometer-interface.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "saturation-hysteresis",
+          "title": "Насичення й гістерезис",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-hysteresis-loop.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "exchange-bias",
+          "title": "Ефект обмінного зміщення (Exchange Bias)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-meiklejohn-bean.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-meiklejohn-bean-model.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-exchange-bias-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "skyrmion-physics",
+          "title": "Скироміони у магнітних матеріалах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-skyrmion-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-topological-charge.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-skyrmion-lattice-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-skyrmion-racetrack-params.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "anisotropy-and-magnetoelasticity",
+      "title": "Анізотропія й магнітопружність",
+      "topics": [
+        {
+          "slug": "magnetic-anisotropy",
+          "title": "Магнітна анізотропія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-magnetic-anisotropy.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-anisotropy-energy.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-anisotropy-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-anisotropy-constants.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "magnetocrystalline-anisotropy",
+          "title": "Магнітокристалічна анізотропія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-spin-orbit-anisotropy.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-anisotropy-energy.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-anisotropy-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-magnetocrystalline-constants.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "magnetostriction",
+          "title": "Магнітострикція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-joule-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-magnetostriction-tensor.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-magnetostrictive-actuator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-terfenol-actuator.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "curie-point",
+      "title": "Точка Кюрі й фазовий перехід",
+      "topics": [
+        {
+          "slug": "curie-temperature",
+          "title": "Точка Кюрі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-curie-law.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-curie-weiss.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ising-curie.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "curie-weiss-law",
+          "title": "Закон Кюрі — Вейсса та фазові переходи у феромагнетиках",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-weiss-molecular-field.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-weiss-mean-field-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-curie-weiss-fit.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ising-model",
+          "title": "Модель Ізінга",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ising-onsager.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-onsager-solution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ising-monte-carlo.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "permanent-magnets",
+      "title": "Постійні магніти",
+      "topics": [
+        {
+          "slug": "permanent-magnets",
+          "title": "Постійні магніти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-neodymium.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "samarium-cobalt",
+          "title": "Самарій-кобальтові магніти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-samarium-cobalt.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-smco-grades.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-anisotropy-energy.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-smco-demag-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "demagnetization-curve",
+          "title": "Крива розмагнічування та робоча точка магніту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-demagnetization-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-demagnetization-circuit.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-operating-point-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-demag-parameters.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "spin-waves",
+      "title": "Спінові хвилі й резонанс",
+      "topics": [
+        {
+          "slug": "spin-wave",
+          "title": "Спінові хвилі та магнони",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bloch-magnons.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-yig-magnonics.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-spin-wave-dispersion.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-spin-wave-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ferromagnetic-resonance",
+          "title": "Феромагнітний резонанс",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kittel-griffiths.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-llg-kittel-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fmr-spectrum-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fmr-spectrometer-ref.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "magnonics",
+          "title": "Магноніка та магнонні кристали",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-magnonics.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-yig-waveguides.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-landau-lifshitz-gilbert.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-magnon-dispersion.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "magnon-polariton",
+          "title": "Магнон-поляритони та сильнозв'язані спін-фотонні системи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cavity-magnonics.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rabi-polariton-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-polariton-spectrum.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

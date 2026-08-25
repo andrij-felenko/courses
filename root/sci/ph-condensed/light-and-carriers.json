@@ -1,0 +1,396 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-condensed",
+  "slug": "light-and-carriers",
+  "title": "Світло й носії заряду",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "light-emission",
+      "title": "Випромінювання світла",
+      "topics": [
+        {
+          "slug": "direct-indirect-bandgap",
+          "title": "Пряма і непряма заборонена зона",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-led-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bandgap-transition.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bandgap-calc.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "electroluminescence",
+          "title": "Електролюмінесценція: випромінювання світла в p-n переході",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-round-lossev-led.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-radiative-recombination.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-led-spectrum-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "laser-diode-physics",
+          "title": "Фізика лазерного діода",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-laser-diode.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gain-threshold.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-diode-simulator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "optocoupler-physics",
+          "title": "Фізика оптрона",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-optocoupler-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-optocoupler-ctr-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-optocoupler-cmti-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-optocoupler-parameters.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "photovoltaics",
+      "title": "Фотовольтаїка",
+      "topics": [
+        {
+          "slug": "solar-cell-physics",
+          "title": "Фізика сонячного елемента",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-photovoltaics.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-silicon-solar-cell.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-shockley-queisser.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "photovoltaic-cell",
+          "title": "Фотоелемент",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-bell-solar.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pv-cell-types",
+          "title": "Типи фотоелементів: матеріали й фізика",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-material-lineage.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-material-tradeoff.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "tandem-multijunction",
+          "title": "Багатоперехідні елементи та тандемна структура",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-multijunction.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-detailed-balance.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-current-matching.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "shockley-queisser-limit",
+          "title": "Межа Шоклі–Квайссера",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-detailed-balance-paper.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-efficiency-integral.md",
+              "status": "recheck"
+            },
+            {
+              "file": "math-detailed-balance-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sq-curve.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "solar-cell-efficiency",
+          "title": "ККД сонячного елемента",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-photovoltaic-effect.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-shockley-queisser.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-solar-cell-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pv-standards.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "emission-and-detection",
+      "title": "Емісія і детектування",
+      "topics": [
+        {
+          "slug": "thermal-field-emission",
+          "title": "Термоелектронна та автоелектронна емісія (Річардсон — Фаулер — Нордгейм)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-richardson-fowler.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fowler-nordheim.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-emission-solver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "photomultiplier-tube",
+          "title": "Фотоелектронний помножувач (ФЕУ)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-photomultiplier.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dynode-gain.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pmt-pulse-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-voltage-divider.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "quantum-efficiency",
+          "title": "Квантова ефективність фотодетектора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-photocathode-to-cmos.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-responsivity-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-qe-simulator.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,390 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-condensed",
+  "slug": "electrons-in-solids",
+  "title": "Електрони у твердому тілі",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "bands-and-fermi-level",
+      "title": "Зони й рівень Фермі",
+      "topics": [
+        {
+          "slug": "band-theory",
+          "title": "Зонна теорія твердого тіла",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-band-theory.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-kronig-penney.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "energy-bands",
+          "title": "Зонна структура й рівень Фермі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fermi-dirac.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fermi-integrals.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-band-diagram-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "fermi-level",
+          "title": "Рівень Фермі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fermi-dirac.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fermi-integrals.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fermi-solver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "fermi-surface",
+          "title": "Поверхня Фермі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fermi-surface.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fermi-surface-geometry.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fermi-surface-solver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "conductors-insulators",
+          "title": "Провідники й діелектрики",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "holes-carriers",
+          "title": "Дірки як носії заряду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-holes-concept.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-hole-dynamics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hall-carrier-sim.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "correlations-and-superconductivity",
+      "title": "Кореляції та надпровідність",
+      "topics": [
+        {
+          "slug": "hubbard-model",
+          "title": "Модель Габбарда",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hubbard-model.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mott-transition.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-exact-diagonalization.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-hubbard-parameters.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "superconductivity",
+          "title": "Надпровідність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-superconductivity-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-squid-sensor.md",
+              "status": "recheck"
+            },
+            {
+              "file": "comp-josephson-junction.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-london-equations.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-superconductor-parameters.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "syk-model",
+          "title": "Модель Зачдева-Є-Кітаєва (SYK model)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-syk.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-syk.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-syk.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-syk.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "plasma-and-plasmons",
+      "title": "Плазма й плазмони",
+      "topics": [
+        {
+          "slug": "plasma-oscillations",
+          "title": "Плазмові коливання і плазмони",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-langmuir-plasmon.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-plasma-dispersion.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-plasmon-drude.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "debye-length",
+          "title": "Довжина екранування Дебая",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-debye-huckel.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-poisson-boltzmann.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-debye-solver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "spitzer-resistivity",
+          "title": "Опір Спітцера та провідність іонізованої плазми",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-spitzer-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-coulomb-logarithm.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-spitzer-calculator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "landau-damping",
+          "title": "🌊 Загасання Ландау в плазмі: Кінетична дисипація без зіткнень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-landau-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-landau-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-vlasov-simulation.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

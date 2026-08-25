@@ -1,0 +1,400 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-condensed",
+  "slug": "semiconductors",
+  "title": "Напівпровідник",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "dopants-and-carriers",
+      "title": "Домішки й носії",
+      "topics": [
+        {
+          "slug": "semiconductor",
+          "title": "Напівпровідник",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-silicon-germanium.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-diode.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "doping",
+          "title": "Легування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "ion-implantation",
+          "title": "Іонна імплантація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-shockley-patent.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lss-stopping.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-stopping-range-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-implanter-params.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "inversion-layer",
+          "title": "Шар інверсії в напівпровіднику",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-inversion-layer.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-band-bending.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-inversion-profile-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-inversion-parameters-ref.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "nonequilibrium-carriers",
+      "title": "Носії поза рівновагою",
+      "topics": [
+        {
+          "slug": "minority-carrier-injection",
+          "title": "Ін'єкція меншинних носіїв",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-haynes-shockley.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-continuity-equation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-haynes-shockley-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "minority-carrier-diffusion-transport",
+          "title": "Дифузійний перенос неосновних носіїв: закон Фіка, Ейнштейн, квазінейтральність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-haynes-shockley.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-diffusion-equation.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "diffusion-length-limits-and-measurement",
+          "title": "Дифузійна довжина: що її обмежує, як її вимірюють і чим вона керує в приладах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-haynes-shockley.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-diffusion-equation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-diffusion-simulation.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "shockley-read-hall-recombination",
+          "title": "Рекомбінація Шокли — Рида — Холла (SRH)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-shockley-read-hall.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-srh-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-srh-calculator.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "junctions-and-contacts",
+      "title": "Переходи й контакти",
+      "topics": [
+        {
+          "slug": "pn-junction",
+          "title": "PN-перехід",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "heterojunction",
+          "title": "Напівпровідникові гетеропереходи та співвідношення Крьомера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kroemer-alferov.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-kroemer-band-offset.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-heterojunction-solver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-hemt-hbt-params.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "schottky-barrier",
+          "title": "Бар'єр Шотткі: контакт метал–напівпровідник",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-schottky-barrier.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-schottky-diode.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-schottky-transport.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-schottky-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ohmic-contact",
+          "title": "Омічний контакт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bardeen-barrier.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tlm-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tlm-analyzer.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "metal-semiconductor-interface-pinning",
+          "title": "Межа метал–напівпровідник: закріплення рівня Фермі й інженерія контакту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bardeen-pinning.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-thermionic-emission.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-contact-calculator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "avalanche-breakdown",
+          "title": "Лавинний пробій і тунелювання Зенера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-zener.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-tvs.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-avalanche.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-breakdown-sim.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

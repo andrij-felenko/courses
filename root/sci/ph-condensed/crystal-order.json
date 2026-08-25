@@ -1,0 +1,632 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-condensed",
+  "slug": "crystal-order",
+  "title": "Кристалічний порядок",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "lattice-and-phonons",
+      "title": "Ґратка й коливання",
+      "topics": [
+        {
+          "slug": "reciprocal-lattice",
+          "title": "Обернена ґратка та зони Бріллюена",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-brillouin-reciprocal.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-reciprocal-vectors.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-brillouin-zone-builder.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "bragg-diffraction",
+          "title": "Дифракція Бреґґа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bragg-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-structure-factor.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-diffraction-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-diffraction-methods.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "phonon",
+          "title": "Фонон",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-phonon-concept.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-diatomic-dispersion.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-phonon-dispersion-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "polytypism",
+          "title": "Політипізм",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-polytypism-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-sic-wafer-polytypes.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-stacking-notation-and-bandgap.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-polytype-analyzer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-sic-polytype-params.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "lennard-jones-potential",
+          "title": "Потенціал Леннард-Джонса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lennard-jones-potential.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-lennard-jones-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-lennard-jones-md-sim.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "defects-and-deformation",
+      "title": "Дефекти й деформація",
+      "topics": [
+        {
+          "slug": "crystal-defects",
+          "title": "Дефекти кристалічної ґратки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-crystal-defects.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-defect-thermodynamics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dislocation-dynamics.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-defect-notation.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "elastic-deformation",
+          "title": "Пружна деформація і закон Гука",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hooke-ut-tensio-sic-vis.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tensor-elasticity.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-elastic-stress-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "plastic-deformation",
+          "title": "Пластична деформація і границя плинності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-schmid-taylor-dislocations.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-schmid-law-yield-criterion.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dislocation-slip-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "electromigration",
+          "title": "Електроміграція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-black-equation.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mass-transport.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mttf-calculator.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "crystal-growth",
+      "title": "Вирощування кристалів",
+      "topics": [
+        {
+          "slug": "czochralski-growth",
+          "title": "Метод Чохральського: витягування монокристала з розплаву",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-czochralski.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-czochralski-thermal-kinetics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-czochralski-pull-control.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-czochralski-process-params.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "zone-refining",
+          "title": "Зонне очищення кремнію",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pfann.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-segregation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-zone-refining-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "quartz-growth",
+          "title": "Вирощування синтетичного кварцу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hydrothermal-quartz.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-autoclave-reactor.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-solubility-convection.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-autoclave-growth-sim.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "symmetry-and-piezoelectricity",
+      "title": "Симетрія і п'єзоефект",
+      "topics": [
+        {
+          "slug": "crystal-symmetry-piezo",
+          "title": "Симетрія кристалів і п'єзоелектричний ефект",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-curie-piezo.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-piezo-tensor.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-piezo-classes.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "piezoelectric-tensor-and-materials",
+          "title": "П'єзоелектрика: тензорний опис, класи матеріалів і перетворювачі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-curie-lippmann.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-piezo-materials.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-piezo-tensor.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-piezo-actuator-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-piezo-parameters.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "piezoelectric-effect-quartz-resonance",
+          "title": "П'єзоефект і кварцовий резонанс: чому кристал відлічує час",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "piezoresistivity",
+          "title": "П'єзорезистивність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-smith-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-piezoresistive-tensor.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-piezoresistive-sensor-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mems-piezoresistor-params.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "ferroelectrics-and-pyroelectrics",
+      "title": "Сегнето- і піроелектрики",
+      "topics": [
+        {
+          "slug": "ferroelectricity",
+          "title": "Сегнетоелектрики",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rochelle-salt.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-feram-cell.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-landau-devonshire.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hysteresis-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "pyroelectric-effect",
+          "title": "Піроелектричний ефект",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pyroelectricity.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pyroelectric-thermodynamics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pir-signal-processing.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pyroelectric-sensor-spec.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "pzt-piezo-ceramics",
+          "title": "П'єзокераміка (PZT)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pzt-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-piezo-actuator.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-piezo-tensors.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-piezo-driver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pzt-parameters.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

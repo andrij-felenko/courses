@@ -1,0 +1,378 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-condensed",
+  "slug": "spintronics",
+  "title": "Спінтроніка",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "hall-effects",
+      "title": "Ефекти Холла",
+      "topics": [
+        {
+          "slug": "hall-effect",
+          "title": "Ефект Холла",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-hall.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "anomalous-hall-effect",
+          "title": "Аномальний ефект Холла",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-anomalous-hall.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-berry-ahe.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "quantum-hall-effect",
+          "title": "Квантовий ефект Холла",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-klitzing.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-landauer-buttiker.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hall-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-metrology-standard.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "magnetoresistance",
+      "title": "Магнітоопір",
+      "topics": [
+        {
+          "slug": "magnetoresistance",
+          "title": "Магнітоопір",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-sensor.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-models.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-amr-reader.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "giant-magnetoresistance",
+          "title": "Гігантський магнітоопір (GMR)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fert-gruenberg.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-spin-valve.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mott-two-channel.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gmr-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-gmr-sensor.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "tunnel-magnetoresistance",
+          "title": "Тунельний магнітоопір (TMR)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-julliere.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-mtj-stack.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-julliere-model.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mtj-tmr-sim.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "current-driven-magnetization",
+      "title": "Керування намагніченістю струмом",
+      "topics": [
+        {
+          "slug": "spin-transfer-torque",
+          "title": "Спиновий обертальний момент (Spin-Transfer Torque, STT)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-slonczewski-berger.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-slonczewski-torque.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-stt-switching-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-stt-mram-cell.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "spin-orbit-torque",
+          "title": "Спин-орбітальний обертальний момент (Spin-Orbit Torque, SOT)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sot-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-sot-mram-cell.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sot-dynamics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sot-switching-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "spintronic-logic-gates",
+          "title": "Спінтронні логічні елементи та інтерферометри",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-datta-das.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rashba-precession.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-magnonic-gate-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-spin-gate-params.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "spin-and-heat",
+      "title": "Спін і тепло",
+      "topics": [
+        {
+          "slug": "spin-seebeck-effect",
+          "title": "Спіновий ефект Зеєбека (SSE)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-spin-seebeck-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-yig-spin-devices.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-spin-seebeck-transport.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-spin-seebeck-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "spin-caloritronics",
+          "title": "Спінова калоритроніка та термоспінові явища",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-spin-caloritronics.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-onsager-thermodynamics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-magnon-diffusion.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

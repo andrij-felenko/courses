@@ -1,0 +1,582 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "ph-condensed",
+  "slug": "conduction-and-noise",
+  "title": "Провідність і шум",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "drift-and-scattering",
+      "title": "Дрейф і розсіяння",
+      "topics": [
+        {
+          "slug": "electron-drift",
+          "title": "Дрейф електронів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "drude-model",
+          "title": "Модель Друде",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-drude-lorentz.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-drude-dispersion.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-drude-simulation.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "resistance-origin",
+          "title": "Природа опору",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "mean-free-path",
+          "title": "Довжина вільного пробігу та час релаксації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mean-free-path.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-matthiessen-rule.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-monte-carlo-scattering.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "carrier-mobility",
+          "title": "Рухливість носіїв заряду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-haynes-shockley.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-scattering-mechanisms.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mobility-calculator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mobility-models.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "matthiessens-rule",
+          "title": "Правило Матіссена",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-matthiessen-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-matthiessen-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-matthiessen-resistivity-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-resistivity-coefficients.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ionic-conductor",
+          "title": "Іонний провідник",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-superionic-conduction.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-defect-thermodynamics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ionic-hopping-sim.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "resistance-as-quantity",
+      "title": "Опір як величина",
+      "topics": [
+        {
+          "slug": "conductivity",
+          "title": "Провідність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "resistance",
+          "title": "Опір",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ohm-joule.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "resistivity",
+          "title": "Питомий опір",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "resistance-temperature",
+          "title": "Опір і температура",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-filament.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-superconductivity.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "nonohmic-resistance",
+          "title": "Неомічний опір",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-nonohmic-resistivity.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-varistor-thermistor-structures.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-poole-frenkel-tunneling.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-varistor-thermistor-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-nonohmic-parameters.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "negative-differential-resistance",
+          "title": "Від'ємний диференційний опір",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ndr-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ndr-stability.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ndr-oscillator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ndr-devices-ref.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "resistor-materials-and-measurement",
+      "title": "Матеріали й вимірювання опору",
+      "topics": [
+        {
+          "slug": "four-probe-measurement",
+          "title": "Чотирьохзондове вимірювання опору",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kelvin-van-der-pauw.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-van-der-pauw-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-four-probe-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "sheet-resistance",
+          "title": "Поверхневий опір",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ito-and-four-probe.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-van-der-pauw.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-four-probe-calc.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tco-material-params.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "zero-tcr-compensation-physics",
+          "title": "Компенсація ТКО: як сплав дістає нульовий температурний коефіцієнт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-manganin-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-precision-resistors.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mooij-mott-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tcr-compensation-sim.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-alloy-properties-ref.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "manganin-constantan-shunt-alloys",
+          "title": "Манганін і константан: термо-ЕРС проти міді та термічне старіння шунтів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-manganin-constantan-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-manganin-constantan-resistors.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tcr-parabolic-fit.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tcr-measurement-bridge.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-precision-alloy-specs.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "intrinsic-noise",
+      "title": "Власні шуми",
+      "topics": [
+        {
+          "slug": "thermal-noise",
+          "title": "Тепловий шум",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-johnson-nyquist.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-noise-density.md",
+              "status": "recheck"
+            },
+            {
+              "file": "math-nyquist-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-thermal-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "shot-noise",
+          "title": "Дробовий шум",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-schottky.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-photodetector-noise.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-carson-theorem.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-shot-noise-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "flicker-noise",
+          "title": "Фліккер-шум і шум 1/f",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-johnson-mcwhorter.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mcwhorter-derivation.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "shot-flicker-noise",
+          "title": "Дробовий шум і шум 1/f",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-resistor-noise.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
