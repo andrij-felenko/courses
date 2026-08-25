@@ -1,0 +1,280 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-web",
+  "slug": "network-edge",
+  "title": "Край мережі",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "entry-point",
+      "title": "Точка входу",
+      "topics": [
+        {
+          "slug": "api-gateway",
+          "title": "API-шлюз",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-api-gateway-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-api-gateways.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-api-gateway-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-envoy-gateway-config.md",
+              "status": "recheck"
+            },
+            {
+              "file": "api-gateway-d.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "reverse-proxy",
+          "title": "Зворотний проксі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-reverse-proxy-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-reverse-proxy-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-proxy-protocol-headers.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "reverse-proxy-load-balancing",
+          "title": "Зворотні проксі та балансування навантаження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-reverse-proxy-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-load-balancing-power-of-two.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-reverse-proxy-balancer.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-proxy-protocol-headers.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "bff-pattern",
+          "title": "BFF (backend-for-frontend)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-soundcloud-bff.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tail-latency-fanout.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-aggregation-bff.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "caching",
+      "title": "Кеш і несвіжість",
+      "topics": [
+        {
+          "slug": "distributed-caching-architectures",
+          "title": "Розподілені архітектури кешування: топології, шардинг, узгоджене гешування, протоколи інвалідації та стійкість під навантаженням",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-caching-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-consistent-hashing.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-resilient-cache-client.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-redis-cluster-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cdn-cache-invalidation",
+          "title": "Інвалідація кешу в CDN",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-invalidation-mechanisms.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-edge-tag-purger.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cdn-headers-and-purge.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "edge-compute",
+      "title": "Обчислення на краю",
+      "topics": [
+        {
+          "slug": "cdn-edge-computing",
+          "title": "CDN та Edge Computing: розподілене кешування і винесення логіки на край мережі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cdn-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-caching-models.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-edge-worker.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cache-control.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "edge-functions",
+          "title": "Крайові функції: виконання коду на CDN-вузлах (Edge Functions)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-edge-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-edge-gateway.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-edge-runtime.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

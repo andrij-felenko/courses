@@ -1,0 +1,270 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-web",
+  "slug": "state-and-events",
+  "title": "Стан і події",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "session-state",
+      "title": "Сесія і її стан",
+      "topics": [
+        {
+          "slug": "session-management",
+          "title": "Сесія автентифікації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-session-cookie.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-session-entropy.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-session-store.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "jwt-tokens",
+          "title": "JWT і сесії без стану",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-jwt-jose.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-verify-jwt.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sessions-state",
+          "title": "Сесії і stateless як передумова горизонталі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sticky-sessions.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-load-skew-affinity.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-stateless-session-store.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-session-contract.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "webhooks",
+      "title": "Вебхуки",
+      "topics": [
+        {
+          "slug": "webhooks",
+          "title": "Webhooks (бік СПОЖИВАЧА)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-robust-consumer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "webhook-provider",
+          "title": "Вебхуки як провайдер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-backoff-jitter.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-webhook-dispatcher.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "webhook-security",
+          "title": "Підпис і верифікація вебхука",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "webhook-as-product",
+          "title": "Вебхук як продукт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-webhook-dispatcher.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "notifications",
+      "title": "Сповіщення",
+      "topics": [
+        {
+          "slug": "notification-fanout",
+          "title": "Вузол сповіщень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fanout-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-fanout-cost.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-notification-dispatcher.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "notification-templating",
+          "title": "Шаблони й локалізація сповіщень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-template-engines.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-notification-renderer.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "delivery-tracking",
+          "title": "Відстеження доставки сповіщень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-delivery-tracker.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "background-work",
+      "title": "Робота у фоні",
+      "topics": [
+        {
+          "slug": "background-jobs",
+          "title": "Черга задач",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-job-queues.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-durable-queue.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

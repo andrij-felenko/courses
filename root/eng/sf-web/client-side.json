@@ -1,0 +1,160 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-web",
+  "slug": "client-side",
+  "title": "Бік клієнта",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "request-and-connection",
+      "title": "Запит і з'єднання",
+      "topics": [
+        {
+          "slug": "requests-client",
+          "title": "HTTP-клієнт requests",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "url-parsing",
+          "title": "Розбір URL і кодування параметрів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "sessions-and-pooling",
+          "title": "Сесія, пул з'єднань і keep-alive",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "trust-and-credentials",
+      "title": "Довіра й право на відповідь",
+      "topics": [
+        {
+          "slug": "auth-tokens",
+          "title": "Токени й заголовки автентифікації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "tls-certificates",
+          "title": "TLS і перевірка сертифікатів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "retry-and-streaming",
+      "title": "Повтори й потокове тіло",
+      "topics": [
+        {
+          "slug": "retries-and-backoff",
+          "title": "Повтори й експоненційна витримка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "streaming-bodies",
+          "title": "Потокове передавання великих тіл",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "browser-behavior",
+      "title": "Що робить браузер сам",
+      "topics": [
+        {
+          "slug": "http-cookies",
+          "title": "HTTP-cookie",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-magic-cookie.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cookie-parser.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cookie-attributes.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cors",
+          "title": "CORS і політика однакового походження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-same-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cors-middleware.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cors-headers.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
