@@ -1,0 +1,228 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-sensing",
+  "slug": "light-and-imaging",
+  "title": "Світло й зображення",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "photodiodes",
+      "title": "Фотодіоди",
+      "topics": [
+        {
+          "slug": "photodetector-physics",
+          "title": "Фізика фотодіода-давача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "led-photodiode",
+          "title": "Світлодіод",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-blue-led.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-led.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-photon-energy.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-charlieplexing.md",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "slug": "pin-photodiode",
+          "title": "PIN-фотодіод",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "avalanche-photodiode",
+          "title": "Лавинний фотодіод (APD)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "photometry",
+      "title": "Фотометрія",
+      "topics": [
+        {
+          "slug": "liumen-liuks-kandela",
+          "title": "Люмен, люкс, кандела: фотометрія проти радіометрії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "photo-sensors",
+          "title": "Фотодавачі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "davach-osvitlenosti-als",
+          "title": "Давач освітленості (ALS)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "uv-light-sensor",
+          "title": "УФ-давач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "color-sensor",
+          "title": "Давач кольору",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "image-matrix",
+      "title": "Матриця й зчитування",
+      "topics": [
+        {
+          "slug": "image-sensor",
+          "title": "Сенсор зображення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-farnsworth.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cmos-matrix",
+          "title": "CMOS-матриця",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ccd.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "rolling-shutter",
+          "title": "Рядкова заслінка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "pixel-binning",
+          "title": "Піксельний бінінг",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "noise-and-range",
+      "title": "Шум і діапазон",
+      "topics": [
+        {
+          "slug": "dynamic-range-noise",
+          "title": "Динамічний діапазон і шум сенсора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "dark-current",
+          "title": "Темновий струм і теплові шуми сенсора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dual-gain-sensor",
+          "title": "Dual-gain архітектура сенсора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

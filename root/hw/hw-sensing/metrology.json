@@ -1,0 +1,470 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-sensing",
+  "slug": "metrology",
+  "title": "Метрологія",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "error-and-calibration",
+      "title": "Похибка й калібрування",
+      "topics": [
+        {
+          "slug": "measurement-errors",
+          "title": "Похибки вимірювань",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-cat-ratings.md",
+              "status": "done"
+            },
+            {
+              "file": "comp-probe-ground.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-accuracy.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "calibration",
+          "title": "Калібрування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "traceability",
+          "title": "Простежуваність вимірювань",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "true-rms",
+          "title": "True-RMS і середньовипрямлений вимір",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "uncertainty",
+      "title": "Невизначеність",
+      "topics": [
+        {
+          "slug": "measurement-uncertainty",
+          "title": "Невизначеність вимірювань (ISO GUM)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "uncertainty-budget",
+          "title": "Бюджет невизначеності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gum.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-propagation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-monte-carlo.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "units-and-standards",
+      "title": "Одиниці й еталони",
+      "topics": [
+        {
+          "slug": "si-base-units",
+          "title": "Базові одиниці СІ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-metric-system.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dimensional-analysis.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-unit-safety.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "si-2019-redefinition",
+          "title": "Редефініція SI 2019",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ipk-and-ampere.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-constants-relations.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "volt",
+          "title": "Вольт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-volta.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-alkaline-cell.md",
+              "status": "done"
+            },
+            {
+              "file": "comp-piezo-igniter.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "electron-volt",
+          "title": "Електронвольт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-relativistic-kinematics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-energy-converter.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "quantum-standards",
+      "title": "Квантові еталони",
+      "topics": [
+        {
+          "slug": "quantum-volt-standard",
+          "title": "Квантовий стандарт вольта",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-josephson.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-josephson-array.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-josephson-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-volt-standard-sim.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "atomic-clock",
+          "title": "Атомний годинник",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-atomic-clock.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-atomic-fountain.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ramsey-fringes.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ramsey-clock-sim.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "precise-time-sources",
+      "title": "Джерела точного часу",
+      "topics": [
+        {
+          "slug": "gnss",
+          "title": "GNSS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "sbas-corrections",
+          "title": "Супутникові системи доповнення (SBAS)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sbas-origins.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pps-pulse",
+          "title": "PPS-імпульс",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pps-origins.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pps-input-capture.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "leap-second",
+          "title": "Високосна секунда",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-leap-second-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-leap-smear.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-leap-smear-slew.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-posix-leap-flags.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "noise-floor",
+      "title": "Межа шуму",
+      "topics": [
+        {
+          "slug": "thermal-fluctuations",
+          "title": "Теплові флуктуації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "noise-density",
+          "title": "Густина шуму",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "averaging-gain",
+          "title": "Виграш усереднення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "poisson-statistics",
+          "title": "Статистика Пуассона",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "long-term-stability",
+      "title": "Стабільність у часі",
+      "topics": [
+        {
+          "slug": "allan-variance",
+          "title": "Дисперсія Аллана",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "hadamard-variance",
+          "title": "Дисперсія Адамара",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "q-stability",
+          "title": "Стабільність Q",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

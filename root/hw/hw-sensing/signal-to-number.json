@@ -1,0 +1,386 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-sensing",
+  "slug": "signal-to-number",
+  "title": "Від сигналу до числа",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "bridges-and-ratiometry",
+      "title": "Мости й ратіометрія",
+      "topics": [
+        {
+          "slug": "wheatstone-bridge",
+          "title": "Міст Вітстона",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-christie-wheatstone.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bridge-sensitivity.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kelvin-connection",
+          "title": "Чотирипровідне (Кельвінове) підключення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-kelvin-four-wire.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "4wire-resistance",
+          "title": "Чотирипровідний метод вимірювання опору",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kelvin.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-error-analysis.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kelvin-adc.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kelvin-sense.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ratiometric-measurement",
+          "title": "Рейтіометричне вимірювання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-ratio-derivation.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "impedance",
+      "title": "Імпеданс",
+      "topics": [
+        {
+          "slug": "kelvin-bridge",
+          "title": "Міст Кельвіна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "ac-impedance-bridge",
+          "title": "AC-міст імпедансів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "impedance-spectroscopy",
+          "title": "Імпедансна спектроскопія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "input-and-readout",
+      "title": "Вхід і зчитування",
+      "topics": [
+        {
+          "slug": "sensor-input-matching",
+          "title": "Узгодження давача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "reading-imu-fifo",
+          "title": "Читання IMU",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "adc-accuracy",
+      "title": "Точність АЦП",
+      "topics": [
+        {
+          "slug": "voltage-reference",
+          "title": "Опорна напруга",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-bandgap.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-voltage-reference.md",
+              "status": "done"
+            },
+            {
+              "file": "comp-tl431.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bandgap-math.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "adc-errors",
+          "title": "Похибки АЦП",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-ads1115.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-two-point-cal.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "adc-vref-noise",
+          "title": "Шум опорної напруги АЦП",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "adc-temperature-drift",
+          "title": "Температурний дрейф АЦП",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "sar-adc-internals",
+          "title": "SAR АЦП зсередини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "timing-window",
+      "title": "Вікно й момент",
+      "topics": [
+        {
+          "slug": "measurement-time",
+          "title": "Час вимірювання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-crlb-time-delay.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-coherent-integrator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "synchronous-multi-sensor-read",
+          "title": "Синхронне зчитування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-lagrange-resampling.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sync-dma-trgo.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "sensor-latency-compensation",
+          "title": "Затримка давача",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-phase-margin-loss.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ekf-ring-buffer.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "sampling-jitter",
+          "title": "Джиттер вибірки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-jitter-snr.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-timer-triggered-adc.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "signal-extraction",
+      "title": "Видобування числа",
+      "topics": [
+        {
+          "slug": "fft-spectrum",
+          "title": "FFT і спектральний аналіз сигналу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "lock-in-amplifier",
+          "title": "Локін-підсилювач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "constant-fraction-discrimination",
+          "title": "Дискримінація за сталою часткою (CFD)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

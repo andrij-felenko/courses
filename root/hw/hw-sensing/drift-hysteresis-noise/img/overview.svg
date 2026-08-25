@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="250" viewBox="0 0 720 250">
+<rect width="720" height="250" fill="#ffffff"/>
+<defs>
+  <marker id="aInk" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1b1b1b"/></marker>
+  <marker id="aRed" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#c0271e"/></marker>
+  <marker id="aBlue" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f47b5"/></marker>
+  <marker id="aGreen" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#1f8a3b"/></marker>
+  <marker id="aHot" markerWidth="11" markerHeight="11" refX="8" refY="3.2" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8.5,3.2 L0,6.4 Z" fill="#e8702a"/></marker>
+</defs>
+<text x="360.0" y="26.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" fill="#1b1b1b" text-anchor="middle" font-weight="bold" font-style="normal">Три біди передавальної кривої: дрейф, гістерезис, шум</text>
+<rect x="22.0" y="52.0" width="196.0" height="150.0" rx="8" fill="#fbfbfb" stroke="#c0271e" stroke-width="1.5"/>
+<text x="120.0" y="74.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#c0271e" text-anchor="middle" font-weight="bold" font-style="normal">дрейф</text>
+<line x1="48.0" y1="184.0" x2="48.0" y2="84.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aInk)"/>
+<line x1="48.0" y1="184.0" x2="200.0" y2="184.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aInk)"/>
+<polyline points="48.0,172.7 194.0,118.2" fill="none" stroke="#8a8a8a" stroke-width="1.8" stroke-dasharray="5,3" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="48.0,153.9 194.0,99.4" fill="none" stroke="#c0271e" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="121.0" y1="144.5" x2="121.0" y2="125.7" stroke="#c0271e" stroke-width="1.8" marker-end="url(#aRed)"/>
+<rect x="262.0" y="52.0" width="196.0" height="150.0" rx="8" fill="#fbfbfb" stroke="#9a4ea8" stroke-width="1.5"/>
+<text x="360.0" y="74.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#9a4ea8" text-anchor="middle" font-weight="bold" font-style="normal">гістерезис</text>
+<line x1="288.0" y1="184.0" x2="288.0" y2="84.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aInk)"/>
+<line x1="288.0" y1="184.0" x2="440.0" y2="184.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aInk)"/>
+<polyline points="299.7,172.7 346.4,155.8 390.2,129.5 422.3,103.2" fill="none" stroke="#9a4ea8" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="422.3,103.2 390.2,118.2 346.4,140.8 299.7,172.7" fill="none" stroke="#9a4ea8" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="502.0" y="52.0" width="196.0" height="150.0" rx="8" fill="#fbfbfb" stroke="#1f47b5" stroke-width="1.5"/>
+<text x="600.0" y="74.0" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#1f47b5" text-anchor="middle" font-weight="bold" font-style="normal">шум</text>
+<line x1="528.0" y1="184.0" x2="528.0" y2="84.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aInk)"/>
+<line x1="528.0" y1="184.0" x2="680.0" y2="184.0" stroke="#8a8a8a" stroke-width="1.6" marker-end="url(#aInk)"/>
+<polyline points="528.0,169.9 532.9,168.0 537.7,166.1 542.6,164.3 547.5,162.4 552.3,160.5 557.2,158.6 562.1,156.7 566.9,154.9 571.8,153.0 576.7,151.1 581.5,149.2 586.4,147.3 591.3,145.5 596.1,143.6 601.0,141.7 605.9,139.8 610.7,137.9 615.6,136.1 620.5,134.2 625.3,132.3 630.2,130.4 635.1,128.5 639.9,126.7 644.8,124.8 649.7,122.9 654.5,121.0 659.4,119.1 664.3,117.3 669.1,115.4 674.0,113.5" fill="none" stroke="#8a8a8a" stroke-width="1.6" stroke-dasharray="4,3" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="528.0,165.8 532.9,168.8 537.7,166.1 542.6,165.5 547.5,158.6 552.3,161.5 557.2,159.0 562.1,157.9 566.9,155.7 571.8,155.7 576.7,151.9 581.5,144.2 586.4,145.0 591.3,144.4 596.1,146.6 601.0,141.5 605.9,144.4 610.7,138.5 615.6,134.9 620.5,129.5 625.3,132.6 630.2,131.3 635.1,128.0 639.9,127.2 644.8,125.6 649.7,124.4 654.5,118.5 659.4,121.8 664.3,117.7 669.1,115.6 674.0,108.3" fill="none" stroke="#1f47b5" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+</svg>

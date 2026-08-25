@@ -1,0 +1,238 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-sensing",
+  "slug": "mechanical-quantities",
+  "title": "Механічні величини",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "force-and-pressure",
+      "title": "Сила й тиск",
+      "topics": [
+        {
+          "slug": "strain-gauges",
+          "title": "Тензодавачі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-strain-gauge.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-wheatstone-bridge.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-loadcell-hx711.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-loadcell-hx711.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "load-cell",
+          "title": "Тензодавач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "mems-pressure-sensor",
+          "title": "MEMS-давач тиску",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "pitot-tube",
+          "title": "Трубка Піто",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "angle-and-position",
+      "title": "Кут і положення",
+      "topics": [
+        {
+          "slug": "angle-rotation-sensing",
+          "title": "Вимір кута",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "potentiometer-angle-sensor",
+          "title": "Потенціометр кута",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "optical-incremental-encoder",
+          "title": "Оптичний енкодер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "quadrature",
+          "title": "Квадратура",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "absolute-encoder-gray-code",
+          "title": "Абсолютний енкодер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "hall-magnetic-encoders",
+          "title": "Холл-енкодери",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "lvdt",
+          "title": "LVDT — лінійний диференційний трансформатор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "motion-and-orientation",
+      "title": "Рух і орієнтація",
+      "topics": [
+        {
+          "slug": "imu",
+          "title": "IMU-давач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "accelerometer",
+          "title": "Акселерометр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "gyroscope",
+          "title": "Гіроскоп",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "magnetometer",
+          "title": "Магнітометр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "drift-and-vibration",
+      "title": "Дрейф і вібрація",
+      "topics": [
+        {
+          "slug": "imu-noise-bias-drift",
+          "title": "Шум і дрейф IMU",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "imu-calibration",
+          "title": "Калібрування IMU",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "imu-vibration-isolation",
+          "title": "Розв'язка IMU",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    }
+  ]
+}

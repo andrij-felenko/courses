@@ -1,0 +1,280 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-sensing",
+  "slug": "environment",
+  "title": "Середовище",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "temperature",
+      "title": "Температура",
+      "topics": [
+        {
+          "slug": "ntc-thermistor",
+          "title": "NTC-термістор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "ptc-thermistor",
+          "title": "PTC-термістор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "steinhart-hart",
+          "title": "Рівняння Стейнгарта-Гарта",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "rtd-sensor",
+          "title": "RTD — резистивний давач температури",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "thermocouple",
+          "title": "Термопара",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "thermoelectric-and-infrared",
+      "title": "Термоелектрика й ІЧ",
+      "topics": [
+        {
+          "slug": "efekt-zeiebeka",
+          "title": "Ефект Зеєбека",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "kholodnyi-spai-i-ioho-kompensatsiia",
+          "title": "Холодний спай і його компенсація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "ich-termometriia-i-vyprominiuvalna-zdatnist",
+          "title": "ІЧ-термометрія й випромінювальна здатність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "teplovizor",
+          "title": "Тепловізор: матриця мікроболометрів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "gas-and-air",
+      "title": "Гази й склад повітря",
+      "topics": [
+        {
+          "slug": "mox-gas-sensor",
+          "title": "MOX-давач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "ndir-sensor",
+          "title": "NDIR-давач газу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "electrochemical-cell",
+          "title": "Електрохімічна комірка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "electronic-nose",
+          "title": "Електронний ніс",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "indeks-iakosti-povitria",
+          "title": "Індекс якості повітря",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "humidity-and-dust",
+      "title": "Волога й пил",
+      "topics": [
+        {
+          "slug": "environment-sensors",
+          "title": "Давачі оточення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-env-module.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-env-module.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "capacitive-humidity-sensor",
+          "title": "Ємнісний давач вологості",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dust-aerosol-sensor",
+          "title": "Давач пилу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "sound",
+      "title": "Звук",
+      "topics": [
+        {
+          "slug": "electret-microphone",
+          "title": "Електретний мікрофон",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "mems-microphone",
+          "title": "MEMS-мікрофон",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mems-microphone.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pdm-decimation.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "ionizing-radiation",
+      "title": "Іонізуюче випромінювання",
+      "topics": [
+        {
+          "slug": "geiger-muller-counter",
+          "title": "Лічильник Гейгера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "ionization-chamber",
+          "title": "Іонізаційна камера",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

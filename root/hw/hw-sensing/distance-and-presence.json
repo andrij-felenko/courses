@@ -1,0 +1,202 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-sensing",
+  "slug": "distance-and-presence",
+  "title": "Відстань і присутність",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "ranging-methods",
+      "title": "Методи далекометрії",
+      "topics": [
+        {
+          "slug": "ultrasonic-tof-method",
+          "title": "Час польоту звуку: метод і фізика ультразвукової локації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "ultrasonic-rangefinder-module",
+          "title": "Ультразвуковий далекомір: модуль trigger/echo, поверхня цілі й прошивка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "tof-laser",
+          "title": "ToF лазер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "triangulation",
+          "title": "Тріангуляція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-linearize.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "reflection-absorption",
+          "title": "Відбиття IR",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-ambient-rejection.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "structured-light-3d",
+          "title": "Структуроване світло",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "distance-errors",
+          "title": "Похибки відстані",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-robust-ranging-filter.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "probing-chain",
+      "title": "Зондувальний тракт",
+      "topics": [
+        {
+          "slug": "vcsel",
+          "title": "VCSEL: вертикально-випромінювальний лазер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "spad-photon-counting",
+          "title": "Лавинний фотодіод і підрахунок фотонів (SPAD)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "position-sensitive-detector",
+          "title": "Позиційно-чутливий фотоприймач (PSD)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "tdc-time-digital-converter",
+          "title": "Час-цифровий перетворювач (TDC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "ultrasonic-chirp-coding",
+          "title": "Чирп і узгоджений фільтр в ультразвуку",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "proximity",
+      "title": "Присутність і наближення",
+      "topics": [
+        {
+          "slug": "pir-sensor",
+          "title": "PIR-давач",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "inductive-proximity-sensor",
+          "title": "Індуктивний давач наближення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "capacitive-sensing",
+          "title": "Ємнісне зондування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-theremin-to-touch.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-sensing",
+  "slug": "bench-instruments",
+  "title": "Прилади робочого столу",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "instrument-classes",
+      "title": "Класи приладів",
+      "topics": [
+        {
+          "slug": "multimeter",
+          "title": "Мультиметр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-weston.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-multimeter.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "oscilloscope",
+          "title": "Осцилограф",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-crt.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-tektronix.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-oscilloscope.md",
+              "status": "done"
+            },
+            {
+              "file": "comp-probe.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-trigger.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mixed-signal-oscilloscope",
+          "title": "Змішаний осцилограф (MSO)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "logic-analyzer",
+          "title": "Логічний аналізатор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "frequency-counter",
+          "title": "Частотомір",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "source-and-load",
+      "title": "Живлення й навантаження",
+      "topics": [
+        {
+          "slug": "lab-power-supply",
+          "title": "Блок живлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "electronic-load",
+          "title": "Електронне навантаження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "probes",
+      "title": "Щупи",
+      "topics": [
+        {
+          "slug": "scope-probe",
+          "title": "Щуп осцилографа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "differential-probe",
+          "title": "Диференціальний щуп",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "near-field-probing",
+          "title": "Near-field зондування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "live-circuit",
+      "title": "Жива схема",
+      "topics": [
+        {
+          "slug": "first-power-up-check",
+          "title": "Перша перевірка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "fault-finding",
+          "title": "Пошук несправності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "measurement-safety-cat",
+          "title": "Категорії безпеки вимірювань (CAT I–IV)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "automation",
+      "title": "Автоматизація",
+      "topics": [
+        {
+          "slug": "scpi-protocol",
+          "title": "Протокол SCPI для керування приладами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
