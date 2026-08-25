@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="290.0" height="310.0" rx="8" fill="#f8f9fa" stroke="#bdc3c7" stroke-width="1.5"/>
+<text x="165.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2c3e50" text-anchor="middle" font-weight="700">Трирівнева ієрархія каталогів</text>
+<rect x="35.0" y="55.0" width="260.0" height="75.0" rx="6" fill="#fadbd8" stroke="#e74c3c" stroke-width="1.5"/>
+<text x="165.0" y="73.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#922b21" text-anchor="middle" font-weight="700">/etc/sysctl.d/*.conf</text>
+<text x="165.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78281f" text-anchor="middle" font-weight="700">1. Адміністратор (RW, пріоритет 1)</text>
+<text x="165.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#922b21" text-anchor="middle">50-net.conf | 80-disable-ipv6.conf -&gt; /dev/null</text>
+<rect x="35.0" y="140.0" width="260.0" height="75.0" rx="6" fill="#fdebd0" stroke="#e67e22" stroke-width="1.5"/>
+<text x="165.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#a04000" text-anchor="middle" font-weight="700">/run/sysctl.d/*.conf</text>
+<text x="165.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e5109" text-anchor="middle" font-weight="700">2. Рантайм (tmpfs, пріоритет 2)</text>
+<text x="165.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#a04000" text-anchor="middle">20-cloud-init.conf (ефемерні правила)</text>
+<rect x="35.0" y="225.0" width="260.0" height="90.0" rx="6" fill="#d6eaf8" stroke="#3498db" stroke-width="1.5"/>
+<text x="165.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1b4f72" text-anchor="middle" font-weight="700">/usr/lib/sysctl.d/*.conf</text>
+<text x="165.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#154360" text-anchor="middle" font-weight="700">3. Дистрибутив (RO, пріоритет 3)</text>
+<text x="165.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1b4f72" text-anchor="middle">10-default.conf | 50-net.conf (затінено)</text>
+<text x="165.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7f8c8d" text-anchor="middle">80-disable-ipv6.conf (замасковано)</text>
+<rect x="345.0" y="95.0" width="175.0" height="160.0" rx="8" fill="#2c3e50" stroke="#1a252f" stroke-width="2.0"/>
+<text x="432.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">Резолвер конфігурації</text>
+<text x="432.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ecf0f1" text-anchor="middle">1. Скан /etc, /run, /usr/lib</text>
+<text x="432.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#f39c12" text-anchor="middle">2. Затінення за ім'ям</text>
+<text x="432.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e74c3c" text-anchor="middle">3. Відкидання /dev/null</text>
+<text x="432.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2ecc71" text-anchor="middle">4. Сортування ASCII</text>
+<text x="432.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#3498db" text-anchor="middle" font-weight="700">00- → 50- → 99-</text>
+<line x1="295.0" y1="92.0" x2="345.0" y2="140.0" stroke="#e74c3c" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="295.0" y1="175.0" x2="345.0" y2="175.0" stroke="#e67e22" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="295.0" y1="265.0" x2="345.0" y2="210.0" stroke="#3498db" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="555.0" y="20.0" width="265.0" height="310.0" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="687.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e8449" text-anchor="middle" font-weight="700">Результуючий потік параметрів</text>
+<rect x="570.0" y="55.0" width="235.0" height="55.0" rx="5" fill="#ebf5fb" stroke="#2980b9" stroke-width="1.2"/>
+<text x="687.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2980b9" text-anchor="middle" font-weight="700">1. 10-default.conf</text>
+<text x="687.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2c3e50" text-anchor="middle">Джерело: /usr/lib (дефолти ОС)</text>
+<rect x="570.0" y="120.0" width="235.0" height="55.0" rx="5" fill="#fef5e7" stroke="#d35400" stroke-width="1.2"/>
+<text x="687.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle" font-weight="700">2. 20-cloud-init.conf</text>
+<text x="687.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2c3e50" text-anchor="middle">Джерело: /run (налаштування хмари)</text>
+<rect x="570.0" y="185.0" width="235.0" height="55.0" rx="5" fill="#fdedec" stroke="#c0392b" stroke-width="1.2"/>
+<text x="687.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">3. 50-net.conf</text>
+<text x="687.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2c3e50" text-anchor="middle">Джерело: /etc (перекрило /usr/lib)</text>
+<rect x="570.0" y="250.0" width="235.0" height="55.0" rx="5" fill="#f2f3f4" stroke="#7f8c8d" stroke-width="1.2"/>
+<text x="687.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7f8c8d" text-anchor="middle" font-weight="700">— 80-disable-ipv6.conf</text>
+<text x="687.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2c3e50" text-anchor="middle">СТАН: ЗАМАСКОВАНО (/dev/null)</text>
+<line x1="520.0" y1="175.0" x2="555.0" y2="175.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 355" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="355" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="370.0" height="135.0" rx="8" fill="#ebf5fb" stroke="#3498db" stroke-width="1.5"/>
+<text x="205.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1b4f72" text-anchor="middle" font-weight="700">Головний unit постачальника (/usr/lib/...)</text>
+<text x="205.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#566573" text-anchor="middle">/usr/lib/systemd/system/app.service</text>
+<text x="40.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a252f" text-anchor="start">[Service]</text>
+<text x="40.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a252f" text-anchor="start">ExecStart=/usr/bin/app --worker</text>
+<text x="40.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a252f" text-anchor="start">Restart=on-failure</text>
+<text x="40.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a252f" text-anchor="start">MemoryMax=1G</text>
+<rect x="20.0" y="170.0" width="370.0" height="155.0" rx="8" fill="#fdedec" stroke="#e74c3c" stroke-width="1.5"/>
+<text x="205.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#922b21" text-anchor="middle" font-weight="700">Каталог drop-in адміністратора (/etc/...)</text>
+<text x="205.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#566573" text-anchor="middle">/etc/systemd/system/app.service.d/*.conf</text>
+<rect x="35.0" y="220.0" width="165.0" height="90.0" rx="4" fill="#ffffff" stroke="#e74c3c" stroke-width="1.0"/>
+<text x="117.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#922b21" text-anchor="middle" font-weight="700">10-resources.conf</text>
+<text x="42.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2c3e50" text-anchor="start">[Service]</text>
+<text x="42.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">MemoryMax=4G</text>
+<text x="42.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">CPUQuota=200%</text>
+<rect x="210.0" y="220.0" width="165.0" height="90.0" rx="4" fill="#ffffff" stroke="#e74c3c" stroke-width="1.0"/>
+<text x="292.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#922b21" text-anchor="middle" font-weight="700">20-exec.conf</text>
+<text x="217.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2c3e50" text-anchor="start">[Service]</text>
+<text x="217.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e67e22" text-anchor="start" font-weight="700">ExecStart=</text>
+<text x="217.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2980b9" text-anchor="start" font-weight="700">ExecStart=/opt/app</text>
+<line x1="390.0" y1="85.0" x2="450.0" y2="140.0" stroke="#3498db" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="390.0" y1="245.0" x2="450.0" y2="190.0" stroke="#e74c3c" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="450.0" y="20.0" width="370.0" height="305.0" rx="8" fill="#fcf3cf" stroke="#f1c40f" stroke-width="2.0"/>
+<text x="635.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7d6608" text-anchor="middle" font-weight="700">Ефективний стан юніта в пам'яті (PID 1)</text>
+<text x="635.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7d6608" text-anchor="middle">Результат конкатенації та перевизначень</text>
+<text x="475.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f8c8d" text-anchor="start">[Unit] / [Service]</text>
+<text x="475.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2980b9" text-anchor="start" font-weight="700">ExecStart=/opt/app</text>
+<text x="475.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f8c8d" text-anchor="start">  ↳ ExecStart= очистив /usr/bin/app</text>
+<text x="475.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1b4f72" text-anchor="start">Restart=on-failure</text>
+<text x="475.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f8c8d" text-anchor="start">  ↳ Успадковано без змін від постачальника</text>
+<text x="475.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">MemoryMax=4G</text>
+<text x="475.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f8c8d" text-anchor="start">  ↳ Скаляр замінив значення 1G</text>
+<text x="475.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">CPUQuota=200%</text>
+<text x="475.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f8c8d" text-anchor="start">  ↳ Додано нову директиву обмеження</text>
+</svg>

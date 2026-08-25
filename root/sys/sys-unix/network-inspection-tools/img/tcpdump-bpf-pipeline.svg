@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 445" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="445" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="770.0" height="410.0" rx="8" fill="#ffffff" stroke="#cfd8dc" stroke-width="1.5"/>
+<text x="400.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#263238" text-anchor="middle" font-weight="700">Конвеєр захоплення пакетів tcpdump: AF_PACKET, BPF та PACKET_MMAP</text>
+<rect x="35.0" y="65.0" width="730.0" height="210.0" rx="6" fill="#e8eaf6" stroke="#3f51b5" stroke-width="1.8"/>
+<text x="130.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a237e" text-anchor="middle" font-weight="700">Простір ядра (Kernel Space)</text>
+<rect x="50.0" y="110.0" width="150.0" height="145.0" rx="4" fill="#ffffff" stroke="#9fa8da" stroke-width="1.5"/>
+<text x="125.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#283593" text-anchor="middle" font-weight="700">Мережевий адаптер</text>
+<text x="125.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">DMA в пам'ять</text>
+<text x="125.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">NAPI Softirq</text>
+<text x="125.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a237e" text-anchor="middle" font-weight="700">netif_receive_skb()</text>
+<text x="125.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">dev_add_pack() хук</text>
+<line x1="200.0" y1="180.0" x2="235.0" y2="180.0" stroke="#3f51b5" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="240.0" y="110.0" width="240.0" height="145.0" rx="4" fill="#fff3e0" stroke="#ff9800" stroke-width="1.5"/>
+<text x="360.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e65100" text-anchor="middle" font-weight="700">Ядерний фільтр BPF (JIT)</text>
+<text x="360.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Виконання фільтра на sk_buff</text>
+<text x="360.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Байткод перевіряє заголовки</text>
+<text x="360.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c62828" text-anchor="middle" font-weight="700">Миттєве відкидання (Drop len=0)</text>
+<text x="360.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Зрізання пакета до snaplen</text>
+<line x1="360.0" y1="110.0" x2="360.0" y2="80.0" stroke="#c62828" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="360.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c62828" text-anchor="middle" font-weight="700">Невідповідні пакети відкидаються</text>
+<line x1="480.0" y1="180.0" x2="515.0" y2="180.0" stroke="#3f51b5" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="520.0" y="110.0" width="225.0" height="145.0" rx="4" fill="#ffffff" stroke="#9fa8da" stroke-width="1.5"/>
+<text x="632.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#283593" text-anchor="middle" font-weight="700">PACKET_MMAP Ring Buffer</text>
+<text x="632.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Кільцевий буфер rx_ring</text>
+<text x="632.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle" font-weight="700">Запис кадру без копіювання</text>
+<text x="632.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Зміна статусу TP_STATUS_USER</text>
+<text x="632.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Оповіщення через poll()</text>
+<line x1="632.0" y1="255.0" x2="632.0" y2="305.0" stroke="#1b5e20" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="35.0" y="290.0" width="730.0" height="120.0" rx="6" fill="#f1f8e9" stroke="#43a047" stroke-width="1.8"/>
+<text x="130.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1b5e20" text-anchor="middle" font-weight="700">Простір користувача (User Space)</text>
+<rect x="240.0" y="325.0" width="505.0" height="70.0" rx="4" fill="#ffffff" stroke="#a5d6a7" stroke-width="1.5"/>
+<text x="492.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2e7d32" text-anchor="middle" font-weight="700">Бібліотека libpcap та процес tcpdump</text>
+<text x="492.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Пряме читання mmap-буфера → аналіз протоколів → запис у .pcap файл</text>
+</svg>

@@ -511,8 +511,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-debuginfod-protocol.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-debuginfo-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-build-id-extractor.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -1019,8 +1037,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-proc-stat-and-tools.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-ps-syntax-and-procfs.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-proc-inspect-and-deleted.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "network-inspection-tools",
@@ -1029,8 +1065,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-tcpdump-bpf-primitives.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-raw-socket-traceroute.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     }

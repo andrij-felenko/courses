@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="410.0" height="400.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="225.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механіка телетайпа (Teletype Model 33)</text>
+<rect x="40.0" y="75.0" width="370.0" height="95.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="225.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">CR (Carriage Return) — \r (0x0D, 13)</text>
+<text x="225.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Повертає друкуючу каретку в крайню ліву позицію</text>
+<text x="225.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Курсор стає в стовпець 0 без переходу на новий рядок</text>
+<text x="225.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">У терміналі: наступний текст перетирає старий!</text>
+<rect x="40.0" y="185.0" width="370.0" height="85.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="225.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">LF (Line Feed) — \n (0x0A, 10)</text>
+<text x="225.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Прокручує паперовий валик на один рядок вниз</text>
+<text x="225.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Позиція каретки по горизонталі не змінюється</text>
+<rect x="40.0" y="285.0" width="370.0" height="120.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="225.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розподіл системних стандартів:</text>
+<text x="225.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Unix / Linux: тільки LF (\n) — економія 1 байта</text>
+<text x="225.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">CP/M, MS-DOS, Windows: пара CRLF (\r\n)</text>
+<text x="225.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Драйвер TTY (ONLCR): видає \r\n на екран при виводі \n</text>
+<rect x="450.0" y="20.0" width="410.0" height="400.0" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+<text x="655.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Пастка Shebang (#!/bin/sh\r\n)</text>
+<rect x="470.0" y="75.0" width="370.0" height="80.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="655.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Скрипт створено у Windows (CRLF):</text>
+<text x="655.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"># ! / b i n / s h \r \n</text>
+<text x="655.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Байти: 23 21 2F 62 69 6E 2F 73 68 0D 0A</text>
+<line x1="655.0" y1="155.0" x2="655.0" y2="185.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="470.0" y="185.0" width="370.0" height="100.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="655.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Парсер ядра (fs/binfmt_script.c)</text>
+<text x="655.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Шукає кінець рядка до байта \n (0x0A)</text>
+<text x="655.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Символ \r стає частиною імені файлу!</text>
+<text x="655.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Шлях інтерпретатора: &quot;/bin/sh\r&quot; (9 байтів)</text>
+<line x1="655.0" y1="285.0" x2="655.0" y2="315.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="470.0" y="315.0" width="370.0" height="90.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="655.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Результат системного виклику execve():</text>
+<text x="655.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Файл &quot;/bin/sh\r&quot; на диску не існує!</text>
+<text x="655.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Помилка: ENOENT (No such file or directory)</text>
+</svg>

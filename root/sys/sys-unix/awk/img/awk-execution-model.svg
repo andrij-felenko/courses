@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="770.0" height="370.0" rx="8" fill="#ffffff" stroke="#cfd8dc" stroke-width="1.5"/>
+<text x="400.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#263238" text-anchor="middle" font-weight="700">Трифазний життєвий цикл програми AWK</text>
+<rect x="35.0" y="65.0" width="210.0" height="290.0" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.8"/>
+<text x="140.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1b5e20" text-anchor="middle" font-weight="700">1. Фаза ініціалізації</text>
+<text x="140.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2e7d32" text-anchor="middle" font-weight="700">BEGIN { ... }</text>
+<rect x="45.0" y="135.0" width="190.0" height="205.0" rx="4" fill="#ffffff" stroke="#a5d6a7" stroke-width="1.5"/>
+<text x="140.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2e7d32" text-anchor="middle" font-weight="700">Виконується ОДИН раз</text>
+<text x="140.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• До відкриття вхідних файлів</text>
+<text x="140.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Встановлення FS, RS, OFS</text>
+<text x="140.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Друк заголовків звітів</text>
+<text x="140.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Ініціалізація лічильників</text>
+<text x="140.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Обробка параметрів -v</text>
+<text x="140.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Вхідний потік ще не читається</text>
+<line x1="245.0" y1="210.0" x2="275.0" y2="210.0" stroke="#2e7d32" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="280.0" y="65.0" width="240.0" height="290.0" rx="6" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.8"/>
+<text x="400.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0d47a1" text-anchor="middle" font-weight="700">2. Головний цикл обробки</text>
+<text x="400.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1565c0" text-anchor="middle" font-weight="700">pattern { action }</text>
+<rect x="290.0" y="135.0" width="220.0" height="205.0" rx="4" fill="#ffffff" stroke="#90caf9" stroke-width="1.5"/>
+<text x="400.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1565c0" text-anchor="middle" font-weight="700">Автоматичний цикл по записах:</text>
+<text x="400.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">1. Читання запису за RS → $0</text>
+<text x="400.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">2. Оновлення NR++, FNR++</text>
+<text x="400.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">3. Розбиття $0 за FS → $1..$NF</text>
+<text x="400.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">4. Перевірка шаблонів (pattern)</text>
+<text x="400.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">5. Виконання блоків дій { action }</text>
+<text x="400.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">6. Перехід до наступного запису</text>
+<text x="400.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Повторюється для кожного $0</text>
+<line x1="520.0" y1="210.0" x2="550.0" y2="210.0" stroke="#1565c0" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="555.0" y="65.0" width="210.0" height="290.0" rx="6" fill="#fff3e0" stroke="#e65100" stroke-width="1.8"/>
+<text x="660.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#bf360c" text-anchor="middle" font-weight="700">3. Фаза завершення</text>
+<text x="660.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#e65100" text-anchor="middle" font-weight="700">END { ... }</text>
+<rect x="565.0" y="135.0" width="190.0" height="205.0" rx="4" fill="#ffffff" stroke="#ffcc80" stroke-width="1.5"/>
+<text x="660.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e65100" text-anchor="middle" font-weight="700">Виконується ОДИН раз</text>
+<text x="660.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Після отримання EOF</text>
+<text x="660.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Обхід масивів for (k in a)</text>
+<text x="660.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Агрегація середніх / сум</text>
+<text x="660.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Друк підсумкових таблиць</text>
+<text x="660.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Форматований вивід printf</text>
+<text x="660.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Всі файли вже оброблено</text>
+</svg>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="630" viewBox="0 0 980 630">
+    <style>
+        .bg { fill: #f8fafc; }
+        .box-nm { fill: #eff6ff; stroke: #2563eb; stroke-width: 2; rx: 8px; }
+        .box-networkd { fill: #f0fdf4; stroke: #16a34a; stroke-width: 2; rx: 8px; }
+        .box-resolved { fill: #fefce8; stroke: #ca8a04; stroke-width: 2; rx: 8px; }
+        .box-kernel { fill: #f1f5f9; stroke: #475569; stroke-width: 2; rx: 8px; }
+        .box-sub { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.5; rx: 6px; }
+        .title-nm { font-family: monospace; font-size: 15px; font-weight: bold; fill: #1e40af; }
+        .title-networkd { font-family: monospace; font-size: 15px; font-weight: bold; fill: #166534; }
+        .title-resolved { font-family: monospace; font-size: 15px; font-weight: bold; fill: #854d0e; }
+        .title-kernel { font-family: monospace; font-size: 15px; font-weight: bold; fill: #0f172a; }
+        .text-bold { font-family: monospace; font-size: 12px; font-weight: bold; fill: #0f172a; }
+        .text-field { font-family: monospace; font-size: 12px; fill: #334155; }
+        .text-muted { font-family: monospace; font-size: 11px; fill: #64748b; }
+        .arrow-blue { stroke: #2563eb; stroke-width: 2; fill: none; marker-end: url(#arrow-blue); }
+        .arrow-green { stroke: #16a34a; stroke-width: 2; fill: none; marker-end: url(#arrow-green); }
+        .arrow-yellow { stroke: #ca8a04; stroke-width: 2; fill: none; marker-end: url(#arrow-yellow); }
+        .arrow-dark { stroke: #475569; stroke-width: 2; fill: none; marker-end: url(#arrow-dark); }
+    </style>
+
+    <defs>
+        <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/>
+        </marker>
+        <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#16a34a"/>
+        </marker>
+        <marker id="arrow-yellow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#ca8a04"/>
+        </marker>
+        <marker id="arrow-dark" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#475569"/>
+        </marker>
+    </defs>
+
+    <!-- Background -->
+    <rect width="980" height="630" class="bg"/>
+
+    <!-- USERSPACE LAYER LABEL -->
+    <text x="40" y="28" class="text-bold" fill="#64748b">ПРОСТІР КОРИСТУВАЧА (USERSPACE)</text>
+
+    <!-- 1. NetworkManager Block -->
+    <rect x="30" y="40" width="290" height="280" class="box-nm"/>
+    <text x="175" y="65" class="title-nm" text-anchor="middle">NetworkManager</text>
+    
+    <rect x="45" y="80" width="260" height="65" class="box-sub"/>
+    <text x="60" y="100" class="text-bold">D-Bus / nmcli / nmtui</text>
+    <text x="60" y="120" class="text-muted">Профілі: /etc/NetworkManager/...</text>
+    <text x="60" y="135" class="text-muted">Динамічне реагування (Wi-Fi/VPN)</text>
+
+    <rect x="45" y="155" width="260" height="65" class="box-sub"/>
+    <text x="60" y="175" class="text-bold">Зовнішні помічники</text>
+    <text x="60" y="195" class="text-muted">wpa_supplicant (D-Bus / 802.11)</text>
+    <text x="60" y="210" class="text-muted">ModemManager (LTE/5G) / VPN</text>
+
+    <rect x="45" y="230" width="260" height="75" class="box-sub"/>
+    <text x="60" y="250" class="text-bold">DHCP &amp; SLAAC рушій</text>
+    <text x="60" y="270" class="text-muted">Вбудований клієнт або dhclient</text>
+    <text x="60" y="285" class="text-muted">Генерація DORA &amp; Router Solicit</text>
+
+    <!-- 2. systemd-networkd Block -->
+    <rect x="345" y="40" width="290" height="280" class="box-networkd"/>
+    <text x="490" y="65" class="title-networkd" text-anchor="middle">systemd-networkd</text>
+
+    <rect x="360" y="80" width="260" height="65" class="box-sub"/>
+    <text x="375" y="100" class="text-bold">Декларативні конфіги</text>
+    <text x="375" y="120" class="text-muted">/etc/systemd/network/*.network</text>
+    <text x="375" y="135" class="text-muted">/etc/systemd/network/*.netdev</text>
+
+    <rect x="360" y="155" width="260" height="65" class="box-sub"/>
+    <text x="375" y="175" class="text-bold">Внутрішній стек (sd-netlink)</text>
+    <text x="375" y="195" class="text-muted">Асинхронний цикл sd-event</text>
+    <text x="375" y="210" class="text-muted">Створення Bridge, Bond, VLAN, WG</text>
+
+    <rect x="360" y="230" width="260" height="75" class="box-sub"/>
+    <text x="375" y="250" class="text-bold">Інтегрований sd-dhcp-client</text>
+    <text x="375" y="270" class="text-muted">Прямий DORA без виклику скриптів</text>
+    <text x="375" y="285" class="text-muted">Мінімальний оверхед пам'яті</text>
+
+    <!-- 3. systemd-resolved Block -->
+    <rect x="660" y="40" width="290" height="280" class="box-resolved"/>
+    <text x="805" y="65" class="title-resolved" text-anchor="middle">systemd-resolved</text>
+
+    <rect x="675" y="80" width="260" height="65" class="box-sub"/>
+    <text x="690" y="100" class="text-bold">Локальний Stub Resolver</text>
+    <text x="690" y="120" class="text-muted">Слухач: 127.0.0.53:53</text>
+    <text x="690" y="135" class="text-muted">Симлінк: /etc/resolv.conf</text>
+
+    <rect x="675" y="155" width="260" height="65" class="box-sub"/>
+    <text x="690" y="175" class="text-bold">Розподілений DNS (Split DNS)</text>
+    <text x="690" y="195" class="text-muted">Прив'язка DNS до інтерфейсів</text>
+    <text x="690" y="210" class="text-muted">Маршрутизація доменів ~corp</text>
+
+    <rect x="675" y="230" width="260" height="75" class="box-sub"/>
+    <text x="690" y="250" class="text-bold">Протоколи захисту</text>
+    <text x="690" y="270" class="text-muted">DNSSEC валідація відповідей</text>
+    <text x="690" y="285" class="text-muted">DNS-over-TLS (DoT) шифрування</text>
+
+    <!-- Communication from networkd to resolved -->
+    <path d="M 635 185 H 660" class="arrow-yellow"/>
+    <text x="647" y="175" class="text-muted" text-anchor="middle">D-Bus</text>
+
+    <!-- KERNEL LAYER -->
+    <rect x="30" y="380" width="920" height="225" class="box-kernel"/>
+    <text x="560" y="405" class="title-kernel">Ядро Linux (Мережевий стек та Netlink)</text>
+
+    <!-- Netlink socket bridge layer inside kernel -->
+    <rect x="50" y="420" width="880" height="55" class="box-sub"/>
+    <text x="490" y="442" class="text-bold" text-anchor="middle">AF_NETLINK / NETLINK_ROUTE (rtnetlink)</text>
+    <text x="490" y="462" class="text-muted" text-anchor="middle">RTM_NEWADDR / RTM_DELADDR  •  RTM_NEWROUTE / RTM_DELROUTE  •  RTM_NEWLINK</text>
+
+    <!-- Arrows from Daemons down to Netlink -->
+    <path d="M 175 320 V 420" class="arrow-blue"/>
+    <text x="95" y="360" class="text-bold" fill="#1e40af">rtnetlink</text>
+
+    <path d="M 490 320 V 420" class="arrow-green"/>
+    <text x="410" y="360" class="text-bold" fill="#166534">sd-netlink</text>
+
+    <!-- Subsystems inside Kernel -->
+    <rect x="50" y="490" width="270" height="95" class="box-sub"/>
+    <text x="70" y="515" class="text-bold">Керування адресами (IPv4/IPv6)</text>
+    <text x="70" y="535" class="text-muted">struct in_device / struct inet6_dev</text>
+    <text x="70" y="555" class="text-muted">IFA_LOCAL, IFA_ADDRESS, Scope</text>
+
+    <rect x="355" y="490" width="270" height="95" class="box-sub"/>
+    <text x="375" y="515" class="text-bold">Таблиці маршрутизації (FIB)</text>
+    <text x="375" y="535" class="text-muted">fib_table, rt_hash_table, nexthop</text>
+    <text x="375" y="555" class="text-muted">RTA_GATEWAY, RTA_PRIORITY</text>
+
+    <rect x="660" y="490" width="270" height="95" class="box-sub"/>
+    <text x="680" y="515" class="text-bold">Мережеві пристрої</text>
+    <text x="680" y="535" class="text-muted">struct net_device (L2/L3)</text>
+    <text x="680" y="555" class="text-muted">enp3s0, wlan0, br0, veth, wg0</text>
+
+</svg>

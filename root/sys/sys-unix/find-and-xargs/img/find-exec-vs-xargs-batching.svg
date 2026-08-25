@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стратегії виконання дій: поодинокий запуск, пакетування та пул процесів</text>
+<rect x="20.0" y="50.0" width="880.0" height="95.0" rx="6" fill="#fdf7f7" stroke="#c0392b" stroke-width="1.5"/>
+<text x="40.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">find . -name '*.log' -exec rm {} \;</text>
+<text x="880.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">Поодинокий виклик (1:1)</text>
+<rect x="40.0" y="90.0" width="140.0" height="42.0" rx="4" fill="#ffffff" stroke="#e74c3c" stroke-width="1.5"/>
+<text x="110.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1. fork() + execve()</text>
+<line x1="185.0" y1="111.0" x2="220.0" y2="111.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="225.0" y="90.0" width="140.0" height="42.0" rx="4" fill="#ffffff" stroke="#e74c3c" stroke-width="1.5"/>
+<text x="295.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">2. rm file1.log</text>
+<line x1="370.0" y1="111.0" x2="405.0" y2="111.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="410.0" y="90.0" width="140.0" height="42.0" rx="4" fill="#ffffff" stroke="#e74c3c" stroke-width="1.5"/>
+<text x="480.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">3. waitpid() (вихід)</text>
+<text x="710.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">N файлів = N процесів (наприклад, 100 000 fork/exec)</text>
+<rect x="20.0" y="160.0" width="880.0" height="95.0" rx="6" fill="#f4faf6" stroke="#27ae60" stroke-width="1.5"/>
+<text x="40.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">find . -name '*.log' -exec rm {} +   або   find ... -print0 | xargs -0 rm</text>
+<text x="880.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="end" font-weight="700">Пакетування аргументів (1:K)</text>
+<rect x="40.0" y="200.0" width="200.0" height="42.0" rx="4" fill="#ffffff" stroke="#2ecc71" stroke-width="1.5"/>
+<text x="140.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Буферизація аргументів</text>
+<line x1="245.0" y1="221.0" x2="280.0" y2="221.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="285.0" y="200.0" width="265.0" height="42.0" rx="4" fill="#ffffff" stroke="#2ecc71" stroke-width="1.5"/>
+<text x="417.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">rm file1.log file2.log ... file1000.log</text>
+<line x1="555.0" y1="221.0" x2="590.0" y2="221.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="595.0" y="200.0" width="130.0" height="42.0" rx="4" fill="#ffffff" stroke="#2ecc71" stroke-width="1.5"/>
+<text x="660.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1 вихід (wait)</text>
+<text x="800.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Економія CPU 99%+</text>
+<rect x="20.0" y="270.0" width="880.0" height="135.0" rx="6" fill="#f0f4fa" stroke="#2457d6" stroke-width="1.5"/>
+<text x="40.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">find ... -print0 | xargs -0 -n 1000 -P 4 worker_cmd</text>
+<text x="880.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="end" font-weight="700">Пул паралельних воркерів (-P 4)</text>
+<rect x="40.0" y="315.0" width="200.0" height="50.0" rx="4" fill="#ffffff" stroke="#3498db" stroke-width="1.5"/>
+<text x="140.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Воркер 1 (PID 101)</text>
+<text x="140.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Пакет 1 (1...1000)</text>
+<rect x="255.0" y="315.0" width="200.0" height="50.0" rx="4" fill="#ffffff" stroke="#3498db" stroke-width="1.5"/>
+<text x="355.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Воркер 2 (PID 102)</text>
+<text x="355.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Пакет 2 (1001...2000)</text>
+<rect x="470.0" y="315.0" width="200.0" height="50.0" rx="4" fill="#ffffff" stroke="#3498db" stroke-width="1.5"/>
+<text x="570.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Воркер 3 (PID 103)</text>
+<text x="570.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Пакет 3 (2001...3000)</text>
+<rect x="685.0" y="315.0" width="200.0" height="50.0" rx="4" fill="#ffffff" stroke="#3498db" stroke-width="1.5"/>
+<text x="785.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Воркер 4 (PID 104)</text>
+<text x="785.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Пакет 4 (3001...4000)</text>
+<text x="460.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Паралельне завантаження 4 ядер CPU | Окремі пакети | Автоматичне донаповнення черги</text>
+</svg>

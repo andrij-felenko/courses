@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1090 590" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1090" height="590" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння структур даних текстових буферів</text>
+<text x="540.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структури даних текстових буферів у пам'яті</text>
+<rect x="50.0" y="70.0" width="470.0" height="215.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="68.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Буфер з проміжком (Gap Buffer)</text>
+<text x="68.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Вставка в курсор: O(1) · Рух курсора: O(N) · Пам'ять: низька (Emacs)</text>
+<rect x="74.0" y="155.0" width="32.0" height="34.0" rx="2" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="90.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">H</text>
+<rect x="106.0" y="155.0" width="32.0" height="34.0" rx="2" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="122.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">e</text>
+<rect x="138.0" y="155.0" width="32.0" height="34.0" rx="2" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="154.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">l</text>
+<rect x="170.0" y="155.0" width="32.0" height="34.0" rx="2" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="186.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">l</text>
+<rect x="202.0" y="155.0" width="32.0" height="34.0" rx="2" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="218.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">o</text>
+<rect x="234.0" y="155.0" width="32.0" height="34.0" rx="2" fill="#fff2f2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="250.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">·</text>
+<rect x="266.0" y="155.0" width="32.0" height="34.0" rx="2" fill="#fff2f2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="282.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">·</text>
+<rect x="298.0" y="155.0" width="32.0" height="34.0" rx="2" fill="#fff2f2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="314.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">·</text>
+<rect x="330.0" y="155.0" width="32.0" height="34.0" rx="2" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="346.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">w</text>
+<rect x="362.0" y="155.0" width="32.0" height="34.0" rx="2" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="378.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">o</text>
+<rect x="394.0" y="155.0" width="32.0" height="34.0" rx="2" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="410.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">r</text>
+<rect x="426.0" y="155.0" width="32.0" height="34.0" rx="2" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="442.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">l</text>
+<rect x="458.0" y="155.0" width="32.0" height="34.0" rx="2" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="474.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">d</text>
+<text x="154.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">Текст до курсора</text>
+<text x="282.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Вільний Gap</text>
+<text x="410.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">Текст після</text>
+<line x1="234.0" y1="147.0" x2="234.0" y2="153.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="234.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Курсор</text>
+<rect x="560.0" y="70.0" width="470.0" height="215.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="578.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Таблиця фрагментів (Piece Table)</text>
+<text x="578.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Вставка/Видалення: O(log P) · Нескінченний Undo/Redo · (VS Code, vi)</text>
+<rect x="580.0" y="145.0" width="180.0" height="26.0" rx="3" fill="#eef2f7" stroke="#6b7280" stroke-width="1.0"/>
+<text x="670.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Original: &quot;Hello world&quot;</text>
+<rect x="800.0" y="145.0" width="190.0" height="26.0" rx="3" fill="#fef9e7" stroke="#6b7280" stroke-width="1.0"/>
+<text x="895.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Append: &quot;, brave new &quot;</text>
+<rect x="580.0" y="183.0" width="220.0" height="22.0" rx="2" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.0"/>
+<text x="690.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Piece 1: [Orig, 0, 6]</text>
+<text x="815.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">-&gt; &quot;Hello &quot;</text>
+<rect x="580.0" y="209.0" width="220.0" height="22.0" rx="2" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.0"/>
+<text x="690.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Piece 2: [App, 0, 12]</text>
+<text x="815.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">-&gt; &quot;, brave new &quot;</text>
+<rect x="580.0" y="235.0" width="220.0" height="22.0" rx="2" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.0"/>
+<text x="690.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Piece 3: [Orig, 6, 5]</text>
+<text x="815.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">-&gt; &quot;world&quot;</text>
+<rect x="50.0" y="310.0" width="470.0" height="215.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="68.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">3. Масив рядків (Array of Lines)</text>
+<text x="68.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Доступ до рядка: O(1) · Вставка рядка: O(N) · (Kilo, Micro, Nano)</text>
+<rect x="70.0" y="387.0" width="430.0" height="24.0" rx="2" fill="#f8f9fa" stroke="#6b7280" stroke-width="1.0"/>
+<text x="80.0" y="403.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">0: struct termios orig_termios;</text>
+<rect x="70.0" y="415.0" width="430.0" height="24.0" rx="2" fill="#f8f9fa" stroke="#6b7280" stroke-width="1.0"/>
+<text x="80.0" y="431.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">1: void enable_raw_mode() {</text>
+<rect x="70.0" y="443.0" width="430.0" height="24.0" rx="2" fill="#f8f9fa" stroke="#6b7280" stroke-width="1.0"/>
+<text x="80.0" y="459.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">2:     tcgetattr(STDIN_FILENO, &amp;orig);</text>
+<rect x="70.0" y="471.0" width="430.0" height="24.0" rx="2" fill="#f8f9fa" stroke="#6b7280" stroke-width="1.0"/>
+<text x="80.0" y="487.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">3: }</text>
+<rect x="560.0" y="310.0" width="470.0" height="215.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="578.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">4. Мотузка (Rope / B-Tree)</text>
+<text x="578.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Вставка/Розщеплення: O(log N) · Ідеально для гігабайтних файлів (Kakoune)</text>
+<circle cx="795.0" cy="390.0" r="14.0" fill="#eaf2f8" stroke="#2457d6" stroke-width="1.2"/>
+<text x="795.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">11</text>
+<circle cx="700.0" cy="430.0" r="13.0" fill="#eaf2f8" stroke="#2457d6" stroke-width="1.2"/>
+<text x="700.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">5</text>
+<circle cx="890.0" cy="430.0" r="13.0" fill="#eaf2f8" stroke="#2457d6" stroke-width="1.2"/>
+<text x="890.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">6</text>
+<line x1="785.0" y1="399.0" x2="710.0" y2="422.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="805.0" y1="399.0" x2="880.0" y2="422.0" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="640.0" y="460.0" width="120.0" height="24.0" rx="3" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="700.0" y="476.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">&quot;Hello &quot; (len 6)</text>
+<rect x="830.0" y="460.0" width="120.0" height="24.0" rx="3" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="890.0" y="476.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">&quot;world&quot; (len 5)</text>
+<line x1="700.0" y1="443.0" x2="700.0" y2="460.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="890.0" y1="443.0" x2="890.0" y2="460.0" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="50.0" y="532.0" width="980.0" height="36.0" rx="6" fill="#eef2f7" stroke="#6b7280" stroke-width="1.0"/><text x="540.0" y="554.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">Вибір структури тексту визначає швидкість вставки та масштабованість редактора на великих файлах</tspan></text>
+</svg>

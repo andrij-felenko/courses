@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність створення облікового запису утилітою useradd</text>
+<rect x="30.0" y="70.0" width="165.0" height="220.0" rx="8" fill="#fff6e5" stroke="#6b7280" stroke-width="1.5"/>
+<text x="112.5" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Конфігурація</text>
+<line x1="40.0" y1="112.0" x2="185.0" y2="112.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="112.5" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="112.5" dy="0.0">/etc/login.defs</tspan><tspan x="112.5" dy="16.8">/etc/default/useradd</tspan><tspan x="112.5" dy="16.8">UID_MIN / UMASK</tspan><tspan x="112.5" dy="16.8">SHELL / SKEL</tspan></text>
+<rect x="225.0" y="70.0" width="165.0" height="220.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="307.5" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Блокування</text>
+<line x1="235.0" y1="112.0" x2="380.0" y2="112.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="307.5" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="307.5" dy="0.0">Створення замків</tspan><tspan x="307.5" dy="16.8">/etc/ptmp</tspan><tspan x="307.5" dy="16.8">/etc/sptmp</tspan><tspan x="307.5" dy="16.8">O_CREAT | O_EXCL</tspan></text>
+<rect x="420.0" y="70.0" width="165.0" height="220.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="502.5" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Бази даних</text>
+<line x1="430.0" y1="112.0" x2="575.0" y2="112.0" stroke="#2457d6" stroke-width="1.0"/>
+<text x="502.5" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="502.5" dy="0.0">Вибір вільного UID</tspan><tspan x="502.5" dy="16.8">Запис у .ptmp / .sptmp</tspan><tspan x="502.5" dy="16.8">Додавання до груп</tspan><tspan x="502.5" dy="16.8">/etc/group</tspan></text>
+<rect x="615.0" y="70.0" width="165.0" height="220.0" rx="8" fill="#eaf6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="697.5" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. Домівка і skel</text>
+<line x1="625.0" y1="112.0" x2="770.0" y2="112.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="697.5" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="697.5" dy="0.0">mkdir /home/user</tspan><tspan x="697.5" dy="16.8">Копіювання /etc/skel</tspan><tspan x="697.5" dy="16.8">chown -R uid:gid</tspan><tspan x="697.5" dy="16.8">chmod 0700 / 0750</tspan></text>
+<rect x="810.0" y="70.0" width="165.0" height="220.0" rx="8" fill="#fff6e5" stroke="#6b7280" stroke-width="1.5"/>
+<text x="892.5" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">5. Атомарний комміт</text>
+<line x1="820.0" y1="112.0" x2="965.0" y2="112.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="892.5" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="892.5" dy="0.0">fsync(ptmp)</tspan><tspan x="892.5" dy="16.8">rename(ptmp, passwd)</tspan><tspan x="892.5" dy="16.8">rename(sptmp, shadow)</tspan><tspan x="892.5" dy="16.8">Зняття блокувань</tspan></text>
+<line x1="195.0" y1="180.0" x2="225.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="390.0" y1="180.0" x2="420.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="585.0" y1="180.0" x2="615.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="780.0" y1="180.0" x2="810.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="320.0" width="945.0" height="120.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="500.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гарантії надійності: ізоляція гонок та консистентність файлової системи</text>
+<text x="500.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">• Конкурентні виклики useradd зупиняються на кроці 2 (блокувальний файл ptmp гарантує ексклюзивність).</tspan><tspan x="500.0" dy="16.2">• Якщо збій стається на кроці 3 або 4 — основні файли /etc/passwd та /etc/shadow лишаються неушкодженими.</tspan><tspan x="500.0" dy="16.2">• Крок 5 виконується системним викликом rename(), що забезпечує миттєву й атомарну підміну файлів бази.</tspan></text>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1090 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1090" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порядок оцінки конфігурації sshd_config та блоків Match</text>
+<text x="540.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність обробки директив і блоків Match у sshd_config</text>
+<rect x="100.0" y="70.0" width="880.0" height="85.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/>
+<text x="540.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#333333" text-anchor="middle" font-weight="700">1. Глобальна секція (Global Configuration)</text>
+<text x="540.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">Базові налаштування (Port, ListenAddress, Ciphers, KexAlgorithms).</tspan><tspan x="540.0" dy="16.2">Діє правило «first match wins»: перше значення фіксує параметр.</tspan></text>
+<line x1="540.0" y1="155.0" x2="540.0" y2="188.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="100.0" y="190.0" width="880.0" height="85.0" rx="6" fill="#eef3fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="540.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">2. Включення Drop-in файлів (Include /etc/ssh/sshd_config.d/*.conf)</text>
+<text x="540.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">Файли читаються за алфавітом. Значення з 01-hardening.conf мають вищий</tspan><tspan x="540.0" dy="16.2">пріоритет за значення, визначені пізніше в основному файлі.</tspan></text>
+<line x1="540.0" y1="275.0" x2="540.0" y2="308.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="100.0" y="310.0" width="880.0" height="85.0" rx="6" fill="#fef9e7" stroke="#d35400" stroke-width="1.8"/>
+<text x="540.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#d35400" text-anchor="middle" font-weight="700">3. Умовні блоки (Match User / Group / Address / Host)</text>
+<text x="540.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">Обчислюються після глобальних директив під час кожного підключення.</tspan><tspan x="540.0" dy="16.2">Усі директиви після Match належать цьому блоку до наступного Match.</tspan></text>
+<line x1="540.0" y1="395.0" x2="540.0" y2="428.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="100.0" y="430.0" width="880.0" height="85.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="540.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">4. Ефективний результуючий профіль (Effective Configuration)</text>
+<text x="540.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">Формується специфічний набір правил для конкретного з'єднання.</tspan><tspan x="540.0" dy="16.2">Перевіряється утилітою: sshd -T -C &quot;user=...,host=...,addr=...&quot;</tspan></text>
+</svg>

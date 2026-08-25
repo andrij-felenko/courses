@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 460" width="100%" height="100%" style="background:#0f172a; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, sans-serif;">
+  <defs>
+    <linearGradient id="titleGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6ee7b7" />
+      <stop offset="100%" stop-color="#38bdf8" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+    <linearGradient id="stackGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b" />
+      <stop offset="100%" stop-color="#312e81" />
+    </linearGradient>
+    <marker id="arrowBlue2" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrowGreen2" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#34d399" />
+    </marker>
+    <marker id="arrowOrange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#fb923c" />
+    </marker>
+    <filter id="shadow2" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <!-- Заголовок -->
+  <text x="460" y="32" fill="url(#titleGrad2)" font-size="20" font-weight="700" text-anchor="middle">Архітектура LIFO-стека очищення ресурсів (динамічний defer)</text>
+
+  <!-- Ліва колонка: Прогрес скрипту (Push) -->
+  <g filter="url(#shadow2)">
+    <rect x="40" y="65" width="370" height="365" rx="10" fill="url(#cardGrad)" stroke="#38bdf8" stroke-width="1.5" />
+    <text x="225" y="95" fill="#38bdf8" font-size="16" font-weight="700" text-anchor="middle">Фаза ініціалізації: Реєстрація (Push)</text>
+    
+    <!-- Крок 1 -->
+    <rect x="60" y="115" width="330" height="60" rx="6" fill="#0f172a" stroke="#475569" />
+    <text x="75" y="138" fill="#93c5fd" font-size="13" font-weight="600">1. Створення каталогу</text>
+    <text x="75" y="158" fill="#e2e8f0" font-size="12">DIR=$(mktemp -d); defer_add "rm -rf $DIR"</text>
+
+    <!-- Крок 2 -->
+    <rect x="60" y="190" width="330" height="60" rx="6" fill="#0f172a" stroke="#475569" />
+    <text x="75" y="213" fill="#93c5fd" font-size="13" font-weight="600">2. Блокування процесу</text>
+    <text x="75" y="233" fill="#e2e8f0" font-size="12">exec 200&gt;app.lock; defer_add "exec 200&gt;&amp;-"</text>
+
+    <!-- Крок 3 -->
+    <rect x="60" y="265" width="330" height="60" rx="6" fill="#0f172a" stroke="#475569" />
+    <text x="75" y="288" fill="#93c5fd" font-size="13" font-weight="600">3. Монтування сховища</text>
+    <text x="75" y="308" fill="#e2e8f0" font-size="12">mount /dev/sdb1 /mnt; defer_add "umount /mnt"</text>
+
+    <!-- Крок 4 -->
+    <rect x="60" y="340" width="330" height="60" rx="6" fill="#0f172a" stroke="#475569" />
+    <text x="75" y="363" fill="#93c5fd" font-size="13" font-weight="600">4. Запуск фонового демона</text>
+    <text x="75" y="383" fill="#e2e8f0" font-size="12">daemon &amp; PID=$!; defer_add "kill $PID"</text>
+  </g>
+
+  <!-- Центральна стрілка виклику EXIT / сигналів -->
+  <path d="M 420 240 L 500 240" stroke="#fb923c" stroke-width="3" marker-end="url(#arrowOrange)" />
+  <text x="460" y="225" fill="#fb923c" font-size="13" font-weight="700" text-anchor="middle">EXIT</text>
+  <text x="460" y="260" fill="#fed7aa" font-size="11" text-anchor="middle">або сигнал</text>
+
+  <!-- Права колонка: LIFO Розгортання (Pop & Execute) -->
+  <g filter="url(#shadow2)">
+    <rect x="510" y="65" width="370" height="365" rx="10" fill="url(#stackGrad)" stroke="#a855f7" stroke-width="1.5" />
+    <text x="695" y="95" fill="#c084fc" font-size="16" font-weight="700" text-anchor="middle">Фаза очищення: Зворотний порядок (LIFO)</text>
+
+    <!-- Стек 1 (Останній доданий - перший виконаний) -->
+    <rect x="530" y="115" width="330" height="60" rx="6" fill="#0f172a" stroke="#c084fc" />
+    <text x="545" y="138" fill="#f43f5e" font-size="13" font-weight="700">[Виклик 1] Зупинка демона</text>
+    <text x="545" y="158" fill="#a7f3d0" font-size="12">kill $PID &amp;&amp; wait $PID 2&gt;/dev/null</text>
+
+    <!-- Стек 2 -->
+    <rect x="530" y="190" width="330" height="60" rx="6" fill="#0f172a" stroke="#a855f7" />
+    <text x="545" y="213" fill="#fb923c" font-size="13" font-weight="700">[Виклик 2] Демонтування</text>
+    <text x="545" y="233" fill="#a7f3d0" font-size="12">umount -l /mnt</text>
+
+    <!-- Стек 3 -->
+    <rect x="530" y="265" width="330" height="60" rx="6" fill="#0f172a" stroke="#818cf8" />
+    <text x="545" y="288" fill="#facc15" font-size="13" font-weight="700">[Виклик 3] Закриття дескриптора</text>
+    <text x="545" y="308" fill="#a7f3d0" font-size="12">exec 200&gt;&amp;- (звільнення замка)</text>
+
+    <!-- Стек 4 (Перший доданий - останній виконаний) -->
+    <rect x="530" y="340" width="330" height="60" rx="6" fill="#0f172a" stroke="#38bdf8" />
+    <text x="545" y="363" fill="#38bdf8" font-size="13" font-weight="700">[Виклик 4] Видалення каталогу</text>
+    <text x="545" y="383" fill="#a7f3d0" font-size="12">rm -rf "$DIR"</text>
+  </g>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розгортання маски оболонки vs Потоковий обхід find</text>
+<rect x="20.0" y="50.0" width="420.0" height="360.0" rx="8" fill="#fdf7f7" stroke="#c0392b" stroke-width="1.5"/>
+<text x="230.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">1. Жадібне розгортання оболонки (rm *.log)</text>
+<rect x="35.0" y="95.0" width="390.0" height="65.0" rx="4" fill="#ffffff" stroke="#e74c3c" stroke-width="1.0"/>
+<text x="230.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Сканування всього каталогу в пам'ять</text>
+<text x="230.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Оболонка будує масив argv[0...N] в ОЗП</text>
+<text x="230.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Блокує виконання до повного зчитування всіх імен</text>
+<rect x="35.0" y="175.0" width="390.0" height="85.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="230.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">2. Перевірка ліміту ядра: ARG_MAX / _STK_LIM</text>
+<text x="230.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Розмір масиву argv + environ &gt; 2–6 МБ</text>
+<text x="230.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">execve() повертає -1 (errno = E2BIG)</text>
+<text x="230.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Argument list too long — повна відмова команди</text>
+<rect x="35.0" y="275.0" width="390.0" height="120.0" rx="4" fill="#ffffff" stroke="#95a5a6" stroke-width="1.0"/>
+<text x="230.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Наслідки для великих файлових систем:</text>
+<text x="230.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">• Споживання пам'яті: O(N) де N — кількість файлів</text>
+<text x="230.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">• Велика затримка (latency) до появи першого файлу</text>
+<text x="230.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">• Неможливість обробки мільйонів записів</text>
+<text x="230.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Ризик вичерпання стеку та аварії процесу</text>
+<rect x="480.0" y="50.0" width="420.0" height="360.0" rx="8" fill="#f4faf6" stroke="#27ae60" stroke-width="1.5"/>
+<text x="690.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">2. Лінивий потоковий обхід find (find . -name ...)</text>
+<rect x="495.0" y="95.0" width="390.0" height="65.0" rx="4" fill="#ffffff" stroke="#2ecc71" stroke-width="1.0"/>
+<text x="690.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Пакетне читання getdents64() у фіксований буфер</text>
+<text x="690.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Зчитування порціями по 32 KB без повного завантаження</text>
+<text x="690.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Миттєва передача знайденого імені на фільтрацію</text>
+<rect x="495.0" y="175.0" width="390.0" height="85.0" rx="4" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="690.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">2. Потокова фільтрація предикатів (AST)</text>
+<text x="690.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">Обчислення виразів: -type, -name, -mtime, -perm</text>
+<text x="690.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Відсутність виклику execve() на етапі пошуку</text>
+<text x="690.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Нульовий ризик переповнення ARG_MAX під час виводу</text>
+<rect x="495.0" y="275.0" width="390.0" height="120.0" rx="4" fill="#ffffff" stroke="#95a5a6" stroke-width="1.0"/>
+<text x="690.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Переваги для великих файлових систем:</text>
+<text x="690.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">• Споживання пам'яті: O(depth) — лише стек глибини дерева</text>
+<text x="690.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">• Нульова затримка: перший результат віддається одразу</text>
+<text x="690.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">• Масштабування на сотні мільйонів файлів у дереві</text>
+<text x="690.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Повний контроль над порядком і глибиною обходу</text>
+</svg>

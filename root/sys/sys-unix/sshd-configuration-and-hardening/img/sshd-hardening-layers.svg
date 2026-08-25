@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1090 590" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1090" height="590" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Багатошарова модель загартування OpenSSH</text>
+<text x="540.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Багатошаровий периметр загартування OpenSSH</text>
+<rect x="140.0" y="75.0" width="800.0" height="75.0" rx="6" fill="#eef3fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="540.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">1. Мережевий рівень (nftables / firewall)</text>
+<text x="540.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Фільтрація джерел IP · Обмеження з'єднань meter/rate-limit · Захист від сканування</text>
+<line x1="540.0" y1="150.0" x2="540.0" y2="178.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="140.0" y="180.0" width="800.0" height="75.0" rx="6" fill="#fef9e7" stroke="#d35400" stroke-width="1.8"/>
+<text x="540.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#d35400" text-anchor="middle" font-weight="700">2. Рівень демона (sshd: захист ресурсів)</text>
+<text x="540.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">MaxStartups 10:30:100 · LoginGraceTime 30 · MaxAuthTries 3 · Port 2222</text>
+<line x1="540.0" y1="255.0" x2="540.0" y2="283.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="140.0" y="285.0" width="800.0" height="75.0" rx="6" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.8"/>
+<text x="540.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#8e44ad" text-anchor="middle" font-weight="700">3. Криптографічний шар (KEX, Ciphers, MACs)</text>
+<text x="540.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">curve25519, sntrup761 · chacha20-poly1305, aes-gcm · EtM MACs · Заборона CBC/SHA-1</text>
+<line x1="540.0" y1="360.0" x2="540.0" y2="388.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="140.0" y="390.0" width="800.0" height="75.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="540.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">4. Рівень доступу й автентифікації (Identity)</text>
+<text x="540.0" y="443.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">PasswordAuthentication no · PermitRootLogin no · AllowGroups · MFA / FIDO2</text>
+<line x1="540.0" y1="465.0" x2="540.0" y2="493.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="140.0" y="495.0" width="800.0" height="75.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="540.0" y="522.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">5. Рівень ізоляції середовища (Chroot / Sandbox)</text>
+<text x="540.0" y="548.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">ChrootDirectory %h · ForceCommand internal-sftp · Seccomp sandbox · Без shell</text>
+</svg>

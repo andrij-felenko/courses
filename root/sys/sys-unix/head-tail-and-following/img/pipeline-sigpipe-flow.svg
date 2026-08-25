@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 750 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="750" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="370.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Переривання конвеєра: вихід head та надсилання SIGPIPE</text>
+<rect x="30.0" y="60.0" width="180.0" height="100.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="120.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1d4ed8" text-anchor="middle" font-weight="700">Процес-генератор</text>
+<text x="120.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle">yes / cat / seq / find</text>
+<text x="120.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">write(pipefd[1], buf, sz)</text>
+<line x1="210.0" y1="110.0" x2="265.0" y2="110.0" stroke="#3b82f6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="237.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#3b82f6" text-anchor="middle">Потік</text>
+<rect x="270.0" y="60.0" width="190.0" height="100.0" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+<text x="365.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#334155" text-anchor="middle" font-weight="700">Ядерний буфер pipe</text>
+<text x="365.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle">Кільце сторінок (64 КіБ)</text>
+<text x="365.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Черга передачі байтів</text>
+<line x1="460.0" y1="110.0" x2="515.0" y2="110.0" stroke="#10b981" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="487.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#10b981" text-anchor="middle">read()</text>
+<rect x="520.0" y="60.0" width="190.0" height="100.0" rx="6" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+<text x="615.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#047857" text-anchor="middle" font-weight="700">head -n 10</text>
+<text x="615.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#065f46" text-anchor="middle">Отримано 10 рядків</text>
+<text x="615.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Виклик exit(0)</text>
+<rect x="30.0" y="190.0" width="680.0" height="140.0" rx="6" fill="#fff1f2" stroke="#f43f5e" stroke-width="1.5"/>
+<text x="370.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#be123c" text-anchor="middle" font-weight="700">Послідовність розриву каналу (Broken Pipe)</text>
+<text x="50.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#881337" text-anchor="start"><tspan x="50.0" dy="0.0">1. head завершує роботу ──► ядро автоматично закриває читацький дескриптор pipefd[0]</tspan><tspan x="50.0" dy="15.4">2. У каналі не залишається жодного відкритого дескриптора на читання</tspan><tspan x="50.0" dy="15.4">3. Генератор виконує черговий виклик write() ──► ядро генерує сигнал SIGPIPE (13)</tspan><tspan x="50.0" dy="15.4">4. За замовчуванням генератор миттєво завершується; write() повертає -1 (errno = EPIPE)</tspan></text>
+</svg>

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Реляційне з'єднання потоків утилітою join</text>
+<rect x="30.0" y="50.0" width="200.0" height="190.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="130.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#92400e" text-anchor="middle" font-weight="700">Файл 1 (відсортований)</text>
+<rect x="45.0" y="88.0" width="170.0" height="26.0" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.0"/>
+<text x="130.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78350f" text-anchor="middle" font-weight="700">101  Альфа  Відділ_А</text>
+<rect x="45.0" y="120.0" width="170.0" height="26.0" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.0"/>
+<text x="130.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78350f" text-anchor="middle" font-weight="700">102  Бета   Відділ_Б</text>
+<rect x="45.0" y="152.0" width="170.0" height="26.0" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.0"/>
+<text x="130.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78350f" text-anchor="middle" font-weight="700">104  Гамма  Відділ_В</text>
+<text x="130.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ключ: колонка 1 (ID)</text>
+<text x="130.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">LC_ALL=C порядок</text>
+<rect x="530.0" y="50.0" width="200.0" height="190.0" rx="6" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="630.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#5b21b6" text-anchor="middle" font-weight="700">Файл 2 (відсортований)</text>
+<rect x="545.0" y="88.0" width="170.0" height="26.0" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.0"/>
+<text x="630.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#4c1d95" text-anchor="middle" font-weight="700">101  25000  Київ</text>
+<rect x="545.0" y="120.0" width="170.0" height="26.0" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.0"/>
+<text x="630.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#4c1d95" text-anchor="middle" font-weight="700">103  31000  Львів</text>
+<rect x="545.0" y="152.0" width="170.0" height="26.0" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.0"/>
+<text x="630.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#4c1d95" text-anchor="middle" font-weight="700">104  28000  Одеса</text>
+<text x="630.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ключ: колонка 1 (ID)</text>
+<text x="630.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">LC_ALL=C порядок</text>
+<rect x="260.0" y="65.0" width="240.0" height="160.0" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+<text x="380.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">Двовказівниковий марш</text>
+<text x="380.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0369a1" text-anchor="middle" font-weight="700">O(N + M) час · O(1) пам'ять</text>
+<line x1="275.0" y1="118.0" x2="485.0" y2="118.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="380.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700">key1 == key2 ──► Емісія з'єднання</text>
+<text x="380.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="middle">key1 &lt; key2  ──► Просунути ptr1</text>
+<text x="380.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="middle">key1 &gt; key2  ──► Просунути ptr2</text>
+<text x="380.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Не потребує завантаження в RAM</text>
+<line x1="230.0" y1="115.0" x2="258.0" y2="115.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="530.0" y1="115.0" x2="502.0" y2="115.0" stroke="#7c3aed" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="380.0" y1="225.0" x2="380.0" y2="260.0" stroke="#475569" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="30.0" y="265.0" width="700.0" height="175.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="45.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="start" font-weight="700">Результати різних режимів реляційного з'єднання:</text>
+<rect x="45.0" y="305.0" width="210.0" height="120.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.2"/>
+<text x="150.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">Внутрішнє з'єднання (Inner Join)</text>
+<text x="150.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">join file1 file2</text>
+<line x1="55.0" y1="345.0" x2="245.0" y2="345.0" stroke="#bbf7d0" stroke-width="1.0"/>
+<text x="55.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#14532d" text-anchor="start" font-weight="700"><tspan x="55.0" dy="0.0">101 Альфа Відділ_А 25000 Київ</tspan><tspan x="55.0" dy="12.6">104 Гамма Відділ_В 28000 Одеса</tspan></text>
+<text x="150.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle">Лише спільні ключі (101, 104)</text>
+<rect x="275.0" y="305.0" width="210.0" height="120.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.2"/>
+<text x="380.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle" font-weight="700">Ліве зовнішнє (Left Outer)</text>
+<text x="380.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">join -a 1 -e 'NULL' -o auto file1 file2</text>
+<line x1="285.0" y1="345.0" x2="475.0" y2="345.0" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="285.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e40af" text-anchor="start" font-weight="700"><tspan x="285.0" dy="0.0">101 Альфа Відділ_А 25000 Київ</tspan><tspan x="285.0" dy="12.6">102 Бета Відділ_Б NULL NULL</tspan><tspan x="285.0" dy="12.6">104 Гамма Відділ_В 28000 Одеса</tspan></text>
+<text x="380.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1d4ed8" text-anchor="middle">Збережено ключ 102 з файлу 1</text>
+<rect x="505.0" y="305.0" width="210.0" height="120.0" rx="6" fill="#fff1f2" stroke="#e11d48" stroke-width="1.2"/>
+<text x="610.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#be123c" text-anchor="middle" font-weight="700">Анти-з'єднання (Unpaired Only)</text>
+<text x="610.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">join -v 1 file1 file2</text>
+<line x1="515.0" y1="345.0" x2="705.0" y2="345.0" stroke="#fecdd3" stroke-width="1.0"/>
+<text x="515.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#9f1239" text-anchor="start" font-weight="700"><tspan x="515.0" dy="0.0">102 Бета Відділ_Б</tspan></text>
+<text x="610.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#be123c" text-anchor="middle">Рядки 1-го файлу без пари в 2-му</text>
+</svg>

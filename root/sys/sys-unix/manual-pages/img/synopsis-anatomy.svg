@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520">
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    
+    <!-- Title -->
+    <text x="480" y="32" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#0f172a" text-anchor="middle">Граматичні домовленості розділу SYNOPSIS</text>
+    
+    <!-- Example 1: CLI command syntax -->
+    <rect x="25" y="55" width="910" height="215" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" rx="8"/>
+    <text x="45" y="80" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1e293b">1. Команди оболонки (Розділи 1 та 8)</text>
+    
+    <!-- Code Box -->
+    <rect x="45" y="95" width="870" height="40" fill="#0f172a" rx="6"/>
+    <text x="65" y="121" font-family="Consolas, monospace" font-size="15" fill="#ffffff">
+        <tspan x="65" fill="#38bdf8" font-weight="bold">tar</tspan>
+        <tspan x="115" fill="#f59e0b" font-weight="bold">{ -c | -x | -t }</tspan>
+        <tspan x="290" fill="#94a3b8">[</tspan>
+        <tspan x="300" fill="#f59e0b" font-weight="bold">-v</tspan>
+        <tspan x="320" fill="#94a3b8">]</tspan>
+        <tspan x="345" fill="#94a3b8">[</tspan>
+        <tspan x="355" fill="#f59e0b" font-weight="bold">-f</tspan>
+        <tspan x="380" fill="#4ade80" font-style="italic">ARCHIVE</tspan>
+        <tspan x="445" fill="#94a3b8">]</tspan>
+        <tspan x="475" fill="#94a3b8">[</tspan>
+        <tspan x="485" fill="#4ade80" font-style="italic">FILE</tspan>
+        <tspan x="520" fill="#fbbf24">...</tspan>
+        <tspan x="545" fill="#94a3b8">]</tspan>
+    </text>
+
+    <!-- Annotations for CLI: 5 clear horizontal cards -->
+    <!-- Card 1: tar -->
+    <rect x="45" y="150" width="140" height="105" fill="#ffffff" stroke="#0284c7" stroke-width="1.5" rx="6"/>
+    <text x="115" y="172" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#0369a1" text-anchor="middle">Жирний шрифт</text>
+    <text x="115" y="195" font-family="Consolas, monospace" font-size="11" font-weight="bold" fill="#0284c7" text-anchor="middle">tar, -c, -v</text>
+    <text x="115" y="218" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Дослівні назви,</text>
+    <text x="115" y="234" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">команди й ключі</text>
+
+    <!-- Card 2: { | } -->
+    <rect x="200" y="150" width="165" height="105" fill="#ffffff" stroke="#d97706" stroke-width="1.5" rx="6"/>
+    <text x="282" y="172" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#b45309" text-anchor="middle">Дужки { a | b }</text>
+    <text x="282" y="195" font-family="Consolas, monospace" font-size="11" font-weight="bold" fill="#d97706" text-anchor="middle">{ -c | -x | -t }</text>
+    <text x="282" y="218" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Виключний вибір:</text>
+    <text x="282" y="234" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">рівно один варіант</text>
+
+    <!-- Card 3: [ ] -->
+    <rect x="380" y="150" width="160" height="105" fill="#ffffff" stroke="#64748b" stroke-width="1.5" rx="6"/>
+    <text x="460" y="172" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#334155" text-anchor="middle">Квадратні дужки [ ]</text>
+    <text x="460" y="195" font-family="Consolas, monospace" font-size="11" font-weight="bold" fill="#475569" text-anchor="middle">[-v], [-f ARCHIVE]</text>
+    <text x="460" y="218" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Опційний блок:</text>
+    <text x="460" y="234" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">можна опустити</text>
+
+    <!-- Card 4: Italic -->
+    <rect x="555" y="150" width="170" height="105" fill="#ffffff" stroke="#16a34a" stroke-width="1.5" rx="6"/>
+    <text x="640" y="172" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#15803d" text-anchor="middle">Курсив / Підкреслення</text>
+    <text x="640" y="195" font-family="Consolas, monospace" font-size="11" font-style="italic" fill="#16a34a" text-anchor="middle">ARCHIVE, FILE</text>
+    <text x="640" y="218" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Змінний параметр:</text>
+    <text x="640" y="234" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">значення користувача</text>
+
+    <!-- Card 5: ... -->
+    <rect x="740" y="150" width="175" height="105" fill="#ffffff" stroke="#eab308" stroke-width="1.5" rx="6"/>
+    <text x="827" y="172" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#a16207" text-anchor="middle">Трикрапка ...</text>
+    <text x="827" y="195" font-family="Consolas, monospace" font-size="11" font-weight="bold" fill="#ca8a04" text-anchor="middle">FILE...</text>
+    <text x="827" y="218" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Повторюваність:</text>
+    <text x="827" y="234" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">1 або більше аргументів</text>
+
+    <!-- Example 2: C API Signature -->
+    <rect x="25" y="285" width="910" height="215" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" rx="8"/>
+    <text x="45" y="310" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1e293b">2. C Сигнатури системних та бібліотечних викликів (Розділи 2 та 3)</text>
+    
+    <!-- Code Box for C -->
+    <rect x="45" y="325" width="870" height="40" fill="#0f172a" rx="6"/>
+    <text x="65" y="350" font-family="Consolas, monospace" font-size="14" fill="#ffffff">
+        <tspan x="65" fill="#c084fc">ssize_t</tspan>
+        <tspan x="135" fill="#38bdf8" font-weight="bold">read</tspan>
+        <tspan x="175" fill="#ffffff">(</tspan>
+        <tspan x="185" fill="#c084fc">int</tspan>
+        <tspan x="218" fill="#4ade80" font-style="italic">fd</tspan>
+        <tspan x="238" fill="#ffffff">, </tspan>
+        <tspan x="255" fill="#c084fc">void</tspan>
+        <tspan x="290" fill="#ffffff">*</tspan>
+        <tspan x="300" fill="#4ade80" font-style="italic">buf</tspan>
+        <tspan x="328" fill="#ffffff">, </tspan>
+        <tspan x="345" fill="#c084fc">size_t</tspan>
+        <tspan x="398" fill="#4ade80" font-style="italic">count</tspan>
+        <tspan x="442" fill="#ffffff">);</tspan>
+    </text>
+
+    <!-- C API Cards: 4 structured cards -->
+    <!-- C Card 1: Return Type -->
+    <rect x="45" y="380" width="195" height="105" fill="#ffffff" stroke="#9333ea" stroke-width="1.5" rx="6"/>
+    <text x="142" y="402" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#7e22ce" text-anchor="middle">Тип повернення ssize_t</text>
+    <text x="142" y="425" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#15803d" font-weight="bold" text-anchor="middle">≥ 0: успішно (к-ть байтів)</text>
+    <text x="142" y="445" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#dc2626" font-weight="bold" text-anchor="middle">-1: помилка (див. errno)</text>
+    <text x="142" y="465" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">0 = кінець файлу (EOF)</text>
+
+    <!-- C Card 2: Function Name -->
+    <rect x="255" y="380" width="180" height="105" fill="#ffffff" stroke="#0284c7" stroke-width="1.5" rx="6"/>
+    <text x="345" y="402" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#0369a1" text-anchor="middle">Ім'я функції: read</text>
+    <text x="345" y="425" font-family="Consolas, monospace" font-size="11" font-weight="bold" fill="#0284c7" text-anchor="middle">read(2)</text>
+    <text x="345" y="448" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Системний виклик POSIX</text>
+    <text x="345" y="465" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Точка входу в ядро ОС</text>
+
+    <!-- C Card 3: Parameters -->
+    <rect x="450" y="380" width="225" height="105" fill="#ffffff" stroke="#16a34a" stroke-width="1.5" rx="6"/>
+    <text x="562" y="402" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#15803d" text-anchor="middle">Параметри виклику</text>
+    <text x="562" y="423" font-family="Consolas, monospace" font-size="10" fill="#166534" text-anchor="middle">int fd, void *buf, size_t count</text>
+    <text x="562" y="445" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">fd: відкритий дескриптор</text>
+    <text x="562" y="465" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">buf: ціль, count: ліміт байтів</text>
+
+    <!-- C Card 4: Headers & Requirements -->
+    <rect x="690" y="380" width="225" height="105" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5" rx="6"/>
+    <text x="802" y="402" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Вимоги до коду</text>
+    <text x="802" y="423" font-family="Consolas, monospace" font-size="10" font-weight="bold" fill="#1e40af" text-anchor="middle">#include &lt;unistd.h&gt;</text>
+    <text x="802" y="445" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Стандарт: POSIX.1-2001,</text>
+    <text x="802" y="465" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">POSIX.1-2008, SVr4, 4.3BSD</text>
+</svg>

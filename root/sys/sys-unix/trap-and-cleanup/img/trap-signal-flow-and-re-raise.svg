@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 500" width="100%" height="100%" style="background:#0f172a; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, sans-serif;">
+  <defs>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#818cf8" />
+    </linearGradient>
+    <linearGradient id="boxGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+    <linearGradient id="alertGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7f1d1d" />
+      <stop offset="100%" stop-color="#991b1b" />
+    </linearGradient>
+    <linearGradient id="actionGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#065f46" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="kernelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#312e81" />
+      <stop offset="100%" stop-color="#4338ca" />
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f87171" />
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#34d399" />
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <!-- Заголовок діаграми -->
+  <text x="470" y="32" fill="url(#headerGrad)" font-size="20" font-weight="700" text-anchor="middle">Життєвий цикл сигналу: перехоплення, очищення та Proper Re-raising</text>
+
+  <!-- Шкала часу зверху -->
+  <line x1="60" y1="65" x2="880" y2="65" stroke="#475569" stroke-width="2" stroke-dasharray="6 4" />
+  <text x="70" y="58" fill="#94a3b8" font-size="12" font-weight="600">t = 0 (Старт)</text>
+  <text x="470" y="58" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="middle">Зовнішній сигнал</text>
+  <text x="870" y="58" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="end">t = кінець (128+N)</text>
+
+  <!-- Блок 1: Нормальне виконання -->
+  <g filter="url(#shadow)">
+    <rect x="50" y="90" width="180" height="120" rx="10" fill="url(#boxGrad1)" stroke="#38bdf8" stroke-width="1.5" />
+    <text x="140" y="118" fill="#38bdf8" font-size="14" font-weight="700" text-anchor="middle">1. Виконання коду</text>
+    <text x="140" y="142" fill="#e2e8f0" font-size="12" text-anchor="middle">Створення $TMPDIR</text>
+    <text x="140" y="162" fill="#e2e8f0" font-size="12" text-anchor="middle">Захоплення flock</text>
+    <text x="140" y="184" fill="#94a3b8" font-size="11" text-anchor="middle">trap cleanup EXIT</text>
+  </g>
+
+  <!-- Стрілка 1 -> Сигнал -->
+  <path d="M 230 150 L 290 150" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Блок 2: Прибуття сигналу -->
+  <g filter="url(#shadow)">
+    <rect x="300" y="90" width="180" height="120" rx="10" fill="url(#alertGrad)" stroke="#f87171" stroke-width="1.5" />
+    <text x="390" y="118" fill="#fca5a5" font-size="14" font-weight="700" text-anchor="middle">2. Прибуття SIGINT</text>
+    <text x="390" y="142" fill="#fef2f2" font-size="12" text-anchor="middle">Ctrl+C / kill -2 $$</text>
+    <text x="390" y="164" fill="#fca5a5" font-size="12" text-anchor="middle">Ядро шле сигнал</text>
+    <text x="390" y="186" fill="#cbd5e1" font-size="11" text-anchor="middle">Shell виявляє прапорець</text>
+  </g>
+
+  <!-- Стрілка 2 -> Пастка -->
+  <path d="M 480 150 L 540 150" stroke="#f87171" stroke-width="2" marker-end="url(#arrowRed)" />
+
+  <!-- Блок 3: Обробник пастки -->
+  <g filter="url(#shadow)">
+    <rect x="550" y="90" width="180" height="120" rx="10" fill="url(#boxGrad1)" stroke="#a855f7" stroke-width="1.5" />
+    <text x="640" y="118" fill="#c084fc" font-size="14" font-weight="700" text-anchor="middle">3. Скидання пастки</text>
+    <text x="640" y="142" fill="#f3e8ff" font-size="12" text-anchor="middle">trap - INT</text>
+    <text x="640" y="164" fill="#e2e8f0" font-size="12" text-anchor="middle">Відновлення SIG_DFL</text>
+    <text x="640" y="186" fill="#cbd5e1" font-size="11" text-anchor="middle">kill -s INT $$</text>
+  </g>
+
+  <!-- Стрілка 3 -> Re-raise вниз -->
+  <path d="M 640 210 L 640 255" stroke="#c084fc" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Блок 4: EXIT Trap -->
+  <g filter="url(#shadow)">
+    <rect x="550" y="265" width="180" height="130" rx="10" fill="url(#actionGrad)" stroke="#34d399" stroke-width="1.5" />
+    <text x="640" y="293" fill="#6ee7b7" font-size="14" font-weight="700" text-anchor="middle">4. Хук trap EXIT</text>
+    <text x="640" y="317" fill="#ecfdf5" font-size="12" text-anchor="middle">Гарантований виклик</text>
+    <text x="640" y="339" fill="#a7f3d0" font-size="12" text-anchor="middle">rm -rf "$TEMP_DIR"</text>
+    <text x="640" y="361" fill="#a7f3d0" font-size="12" text-anchor="middle">kill background jobs</text>
+    <text x="640" y="383" fill="#cbd5e1" font-size="11" text-anchor="middle">unlock &amp; cleanup</text>
+  </g>
+
+  <!-- Стрілка 4 -> Батьківський процес -->
+  <path d="M 550 330 L 290 330" stroke="#34d399" stroke-width="2" marker-end="url(#arrowGreen)" />
+
+  <!-- Блок 5: Смерть від сигналу та реакція батька -->
+  <g filter="url(#shadow)">
+    <rect x="50" y="265" width="230" height="130" rx="10" fill="url(#kernelGrad)" stroke="#818cf8" stroke-width="1.5" />
+    <text x="165" y="293" fill="#a5b4fc" font-size="14" font-weight="700" text-anchor="middle">5. Статус ядра: 128+SIG</text>
+    <text x="165" y="317" fill="#ffffff" font-size="12" text-anchor="middle">Смерть від SIGINT (130)</text>
+    <text x="165" y="339" fill="#c7d2fe" font-size="12" text-anchor="middle">WIFSIGNALED = true</text>
+    <text x="165" y="361" fill="#c7d2fe" font-size="12" text-anchor="middle">WTERMSIG = SIGINT</text>
+    <text x="165" y="383" fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle">Батько коректно зупиняє цикл</text>
+  </g>
+
+  <!-- Порівняльна плашка внизу: два окремі рядки без накладання -->
+  <rect x="50" y="415" width="840" height="65" rx="8" fill="#1e293b" stroke="#334155" />
+  
+  <!-- Рядок 1: Хибний підхід -->
+  <text x="70" y="438" fill="#f87171" font-size="12" font-weight="700">✖ Хибний exit 1:</text>
+  <text x="180" y="438" fill="#94a3b8" font-size="12">WIFEXITED=true, маскує сигнал; зовнішній цикл for/while продовжує роботу.</text>
+
+  <!-- Рядок 2: Правильний підхід -->
+  <text x="70" y="462" fill="#34d399" font-size="12" font-weight="700">✓ Re-raising:</text>
+  <text x="180" y="462" fill="#38bdf8" font-size="12">WIFSIGNALED=true, код 130/143; зовнішній оркестратор або shell зупиняє конвеєр.</text>
+</svg>

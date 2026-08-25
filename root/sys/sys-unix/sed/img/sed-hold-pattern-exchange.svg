@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="760.0" height="370.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="2.0"/>
+<text x="400.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1e293b" text-anchor="middle" font-weight="700">Операції передачі даних між Pattern Space та Hold Space</text>
+<rect x="50.0" y="100.0" width="260.0" height="130.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2.0"/>
+<text x="180.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#b45309" text-anchor="middle" font-weight="700">Pattern Space (PS)</text>
+<text x="180.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#78350f" text-anchor="middle">Поточний робочий рядок</text>
+<rect x="70.0" y="175.0" width="220.0" height="35.0" rx="4" fill="#ffffff" stroke="#f59e0b" stroke-width="1.5"/>
+<text x="180.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">рядок_А (активний)</text>
+<rect x="490.0" y="100.0" width="260.0" height="130.0" rx="6" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.0"/>
+<text x="620.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#5b21b6" text-anchor="middle" font-weight="700">Hold Space (HS)</text>
+<text x="620.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#4c1d95" text-anchor="middle">Допоміжна пам'ять</text>
+<rect x="510.0" y="175.0" width="220.0" height="35.0" rx="4" fill="#ffffff" stroke="#8b5cf6" stroke-width="1.5"/>
+<text x="620.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">рядок_Б (збережений)</text>
+<line x1="315.0" y1="120.0" x2="485.0" y2="120.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="400.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">h  (копіювати: HS = PS)</text>
+<line x1="315.0" y1="145.0" x2="485.0" y2="145.0" stroke="#b45309" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="400.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">H  (додати: HS = HS + '\n' + PS)</text>
+<line x1="485.0" y1="175.0" x2="315.0" y2="175.0" stroke="#7c3aed" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="400.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#5b21b6" text-anchor="middle" font-weight="700">g  (відновити: PS = HS)</text>
+<line x1="485.0" y1="200.0" x2="315.0" y2="200.0" stroke="#5b21b6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="400.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#5b21b6" text-anchor="middle" font-weight="700">G  (додати: PS = PS + '\n' + HS)</text>
+<line x1="315.0" y1="225.0" x2="485.0" y2="225.0" stroke="#059669" stroke-width="2.0"/>
+<line x1="330.0" y1="225.0" x2="315.0" y2="225.0" stroke="#059669" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="470.0" y1="225.0" x2="485.0" y2="225.0" stroke="#059669" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="400.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#047857" text-anchor="middle" font-weight="700">x  (атомарний обмін: PS ↔ HS)</text>
+<rect x="50.0" y="260.0" width="700.0" height="100.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="400.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Типовий патерн багаторядкової агрегації або реверсу тексту:</text>
+<text x="400.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="middle">1) 1!G  — додати накопичений стек з Hold Space до поточного рядка</text>
+<text x="400.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="middle">2) h    — зберегти отриманий перевернутий стек назад у Hold Space</text>
+<text x="400.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="middle">3) $p   — на останньому рядку вивести повний перевернутий файл</text>
+</svg>

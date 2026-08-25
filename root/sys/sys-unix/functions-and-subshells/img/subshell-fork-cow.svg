@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ізоляція адресного простору та спільні дескриптори при створенні підоболонки</text>
+<rect x="30.0" y="55.0" width="335.0" height="385.0" rx="6" fill="#f8fafc" stroke="#334155" stroke-width="1.5"/>
+<text x="197.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1e293b" text-anchor="middle" font-weight="700">Батьківська оболонка (PID 1042)</text>
+<line x1="45.0" y1="92.0" x2="350.0" y2="92.0" stroke="#94a3b8" stroke-width="1.0"/>
+<rect x="45.0" y="105.0" width="305.0" height="145.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="197.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1d4ed8" text-anchor="middle" font-weight="700">Віртуальна пам'ять (Простір користувача)</text>
+<text x="60.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="start"><tspan x="60.0" dy="0.0">Змінні: count=0, status=&quot;INIT&quot;</tspan><tspan x="60.0" dy="15.4">Функції: log_msg(), worker()</tspan><tspan x="60.0" dy="15.4">Каталог (CWD): /home/user/app</tspan><tspan x="60.0" dy="15.4">Стек викликів: main</tspan></text>
+<rect x="45.0" y="265.0" width="305.0" height="155.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+<text x="197.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="700">Таблиця дескрипторів процесу</text>
+<text x="60.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#78350f" text-anchor="start"><tspan x="60.0" dy="0.0">FD 0 (stdin)  ──► Terminal PTY (offset 0)</tspan><tspan x="60.0" dy="15.4">FD 1 (stdout) ──► Pipe Write End (ref=2)</tspan><tspan x="60.0" dy="15.4">FD 2 (stderr) ──► Terminal PTY</tspan><tspan x="60.0" dy="15.4">FD 3 (app.log)──► File Description #42</tspan></text>
+<line x1="365.0" y1="235.0" x2="395.0" y2="235.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="365.0" y1="235.0" x2="393.0" y2="235.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="380.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">fork()</text>
+<rect x="395.0" y="55.0" width="335.0" height="385.0" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+<text x="562.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#92400e" text-anchor="middle" font-weight="700">Підоболонка Subshell (PID 1043)</text>
+<line x1="410.0" y1="92.0" x2="715.0" y2="92.0" stroke="#fcd34d" stroke-width="1.0"/>
+<rect x="410.0" y="105.0" width="305.0" height="145.0" rx="6" fill="#fef2f2" stroke="#ef4444" stroke-width="1.2"/>
+<text x="562.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b91c1c" text-anchor="middle" font-weight="700">Копія сторінок COW (Private Modify)</text>
+<text x="425.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7f1d1d" text-anchor="start"><tspan x="425.0" dy="0.0">Модифікація: count=42 (лише у PID 1043!)</tspan><tspan x="425.0" dy="15.4">Зміна CWD: cd /tmp (лише у PID 1043)</tspan><tspan x="425.0" dy="15.4">$$ = 1042 (незмінний PID предка)</tspan><tspan x="425.0" dy="15.4">BASHPID = 1043 (реальний PID у ядрі)</tspan></text>
+<rect x="410.0" y="265.0" width="305.0" height="155.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+<text x="562.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="700">Скопійована таблиця FD</text>
+<text x="425.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#78350f" text-anchor="start"><tspan x="425.0" dy="0.0">FD 0 (stdin)  ──► Terminal PTY (той самий)</tspan><tspan x="425.0" dy="15.4">FD 1 (stdout) ──► Pipe Write End (той самий)</tspan><tspan x="425.0" dy="15.4">FD 2 (stderr) ──► Terminal PTY (той самий)</tspan><tspan x="425.0" dy="15.4">FD 3 (app.log)──► File Description #42 (спільний offset!)</tspan></text>
+</svg>

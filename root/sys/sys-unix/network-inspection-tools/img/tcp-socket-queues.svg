@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 455" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="455" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="770.0" height="420.0" rx="8" fill="#ffffff" stroke="#cfd8dc" stroke-width="1.5"/>
+<text x="400.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#263238" text-anchor="middle" font-weight="700">Анатомія черг TCP у виводі ss: слухаючі та встановлені з'єднання</text>
+<rect x="35.0" y="65.0" width="730.0" height="160.0" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.8"/>
+<text x="400.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0d47a1" text-anchor="middle" font-weight="700">1. Слухаючі сокети (State: LISTEN, наприклад ss -ltn)</text>
+<rect x="55.0" y="110.0" width="330.0" height="100.0" rx="4" fill="#ffffff" stroke="#90caf9" stroke-width="1.5"/>
+<text x="220.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1565c0" text-anchor="middle" font-weight="700">Recv-Q = Поточна черга accept</text>
+<text x="220.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Кількість завершених 3-way handshake</text>
+<text x="220.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">з'єднань, що чекають на accept() у застосунку</text>
+<text x="220.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c62828" text-anchor="middle" font-weight="700">Зростання свідчить про зависання процесу</text>
+<rect x="415.0" y="110.0" width="330.0" height="100.0" rx="4" fill="#ffffff" stroke="#90caf9" stroke-width="1.5"/>
+<text x="580.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1565c0" text-anchor="middle" font-weight="700">Send-Q = Максимальний ліміт backlog</text>
+<text x="580.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Розмір черги повністю встановлених з'єднань:</text>
+<text x="580.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0d47a1" text-anchor="middle" font-weight="700">min(backlog, /proc/sys/net/core/somaxconn)</text>
+<text x="580.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c62828" text-anchor="middle" font-weight="700">При Recv-Q &gt; Send-Q нові клієнти відкидаються</text>
+<rect x="35.0" y="240.0" width="730.0" height="180.0" rx="6" fill="#fff8e1" stroke="#ffa000" stroke-width="1.8"/>
+<text x="400.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#e65100" text-anchor="middle" font-weight="700">2. Встановлені з'єднання (State: ESTAB, наприклад ss -tan)</text>
+<rect x="55.0" y="285.0" width="330.0" height="120.0" rx="4" fill="#ffffff" stroke="#ffe082" stroke-width="1.5"/>
+<text x="220.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e65100" text-anchor="middle" font-weight="700">Recv-Q = Буфер прийому сокета (sk_receive_queue)</text>
+<text x="220.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Кількість байтів, які ядро прийняло з мережі,</text>
+<text x="220.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">але процес ще не вичитав через read()/recv()</text>
+<text x="220.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle" font-weight="700">Проблема: процес не встигає обробляти вхідні дані</text>
+<rect x="415.0" y="285.0" width="330.0" height="120.0" rx="4" fill="#ffffff" stroke="#ffe082" stroke-width="1.5"/>
+<text x="580.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e65100" text-anchor="middle" font-weight="700">Send-Q = Буфер відправки сокета (sk_write_queue)</text>
+<text x="580.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Кількість байтів, записаних процесом у сокет,</text>
+<text x="580.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">але ще не підтверджених (ACK) віддаленим вузлом</text>
+<text x="580.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle" font-weight="700">Проблема: затори в мережі, втрати або переповнення вузла</text>
+</svg>

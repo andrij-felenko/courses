@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 455" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="455" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="770.0" height="420.0" rx="8" fill="#ffffff" stroke="#cfd8dc" stroke-width="1.5"/>
+<text x="400.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#263238" text-anchor="middle" font-weight="700">Архітектурне порівняння: застарілий netstat проти сучасного ss</text>
+<rect x="35.0" y="65.0" width="345.0" height="350.0" rx="6" fill="#fff5f5" stroke="#e53935" stroke-width="1.8"/>
+<text x="207.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c62828" text-anchor="middle" font-weight="700">netstat (legacy /proc/net/tcp)</text>
+<rect x="50.0" y="115.0" width="315.0" height="55.0" rx="4" fill="#ffffff" stroke="#ef9a9a" stroke-width="1.5"/>
+<text x="207.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b71c1c" text-anchor="middle" font-weight="700">Ітератор seq_file у ядрі</text>
+<text x="207.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Захоплює спинлоки / RCU хеш-таблиць</text>
+<line x1="207.0" y1="170.0" x2="207.0" y2="195.0" stroke="#e53935" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="50.0" y="195.0" width="315.0" height="60.0" rx="4" fill="#ffffff" stroke="#ef9a9a" stroke-width="1.5"/>
+<text x="207.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b71c1c" text-anchor="middle" font-weight="700">Текстове форматування sprintf()</text>
+<text x="207.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Генерація мільйонів ASCII-рядків у hex</text>
+<line x1="207.0" y1="255.0" x2="207.0" y2="280.0" stroke="#e53935" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="50.0" y="280.0" width="315.0" height="65.0" rx="4" fill="#ffffff" stroke="#ef9a9a" stroke-width="1.5"/>
+<text x="207.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b71c1c" text-anchor="middle" font-weight="700">Читання userland буферами 4 КіБ</text>
+<text x="207.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Тисячі системних викликів read() + парсинг</text>
+<rect x="50.0" y="355.0" width="315.0" height="45.0" rx="4" fill="#ffebee" stroke="#e53935" stroke-width="1.5"/>
+<text x="207.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b71c1c" text-anchor="middle" font-weight="700">Зависання на 10-30 с при 200k сокетах</text>
+<rect x="400.0" y="65.0" width="365.0" height="350.0" rx="6" fill="#f1f8e9" stroke="#43a047" stroke-width="1.8"/>
+<text x="582.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2e7d32" text-anchor="middle" font-weight="700">ss (iproute2 Netlink sock_diag)</text>
+<rect x="415.0" y="115.0" width="335.0" height="55.0" rx="4" fill="#ffffff" stroke="#a5d6a7" stroke-width="1.5"/>
+<text x="582.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b5e20" text-anchor="middle" font-weight="700">Бінарний запит inet_diag_req_v2</text>
+<text x="582.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Фільтрація станів сокетів у ядрі</text>
+<line x1="582.0" y1="170.0" x2="582.0" y2="195.0" stroke="#43a047" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="415.0" y="195.0" width="335.0" height="60.0" rx="4" fill="#ffffff" stroke="#a5d6a7" stroke-width="1.5"/>
+<text x="582.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b5e20" text-anchor="middle" font-weight="700">Батчинг бінарних inet_diag_msg</text>
+<text x="582.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Компактні структури + TLV без тексту</text>
+<line x1="582.0" y1="255.0" x2="582.0" y2="280.0" stroke="#43a047" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="415.0" y="280.0" width="335.0" height="65.0" rx="4" fill="#ffffff" stroke="#a5d6a7" stroke-width="1.5"/>
+<text x="582.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b5e20" text-anchor="middle" font-weight="700">Декілька викликів recvmsg()</text>
+<text x="582.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вичитування повних сторінок пам'яті сокета</text>
+<rect x="415.0" y="355.0" width="335.0" height="45.0" rx="4" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5"/>
+<text x="582.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b5e20" text-anchor="middle" font-weight="700">Миттєвий зріз за 2-5 мс без блокування ядра</text>
+</svg>

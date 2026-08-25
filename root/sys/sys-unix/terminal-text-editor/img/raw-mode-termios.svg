@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1090 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1090" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння канонічного та сирого режимів TTY</text>
+<text x="540.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Трансформація потоку введення: канонічний режим проти Raw Mode</text>
+<rect x="50.0" y="75.0" width="460.0" height="52.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="280.0" y="105.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="280.0" dy="0.0">Канонічний режим (за замовчуванням у TTY)</tspan></text>
+<rect x="50.0" y="175.0" width="460.0" height="72.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="66.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">1. Клавіатура: ввід користувача</text>
+<text x="66.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Символи, керуючі комбінації (^C, ^Z, ^S, Backspace)</text>
+<line x1="280.0" y1="247.0" x2="280.0" y2="271.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="50.0" y="275.0" width="460.0" height="72.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="66.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">2. Лінійна дисципліна ядра (ICANON + ECHO + ISIG)</text>
+<text x="66.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Буферизує до '\n', ехо на екран, генерація SIGINT / SIGTSTP</text>
+<line x1="280.0" y1="347.0" x2="280.0" y2="371.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="50.0" y="375.0" width="460.0" height="72.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="66.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">3. Системний виклик read(stdin)</text>
+<text x="66.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Процес спить до натискання Enter, отримує готовий рядок</text>
+<rect x="570.0" y="75.0" width="460.0" height="52.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/><text x="800.0" y="105.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="800.0" dy="0.0">Сирий режим редактора (Raw Mode через termios)</tspan></text>
+<rect x="570.0" y="175.0" width="460.0" height="72.0" rx="6" fill="#f4faf5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="586.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">1. Клавіатура: кожен окремий байт</text>
+<text x="586.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Будь-які натискання, Escape-послідовності, стрілки</text>
+<line x1="800.0" y1="247.0" x2="800.0" y2="271.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="570.0" y="275.0" width="460.0" height="72.0" rx="6" fill="#f4faf5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="586.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">2. termios: вимкнено ECHO, ICANON, ISIG, IXON, ICRNL</text>
+<text x="586.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Жодного ехо, сигналів чи перетворень; таймаут VMIN=0, VTIME=1</text>
+<line x1="800.0" y1="347.0" x2="800.0" y2="371.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="570.0" y="375.0" width="460.0" height="72.0" rx="6" fill="#f4faf5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="586.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">3. Негайне читання в Event Loop</text>
+<text x="586.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">read() повертає сирі байти за &lt;= 100 мс, повний контроль програми</text>
+<rect x="50.0" y="468.0" width="980.0" height="40.0" rx="6" fill="#eef2f7" stroke="#6b7280" stroke-width="1.0"/><text x="540.0" y="492.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">Прапорці termios передають повну владу над байтами та відображенням процесу редактора</tspan></text>
+</svg>

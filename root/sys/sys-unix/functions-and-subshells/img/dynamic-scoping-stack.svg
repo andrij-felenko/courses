@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стек викликів та динамічна область видимості (Dynamic Scope) у Bash</text>
+<rect x="40.0" y="55.0" width="680.0" height="85.0" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+<text x="60.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#334155" text-anchor="start" font-weight="700">Глобальне середовище (Global Frame / main)</text>
+<text x="500.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="start">FUNCNAME = [ ]</text>
+<text x="60.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="start">var=&quot;global_val&quot;, counter=0, config_path=&quot;/etc/app.conf&quot;</text>
+<text x="60.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="start" font-weight="700">виклик: outer_func()</text>
+<line x1="380.0" y1="140.0" x2="380.0" y2="160.0" stroke="#64748b" stroke-width="2.0"/>
+<line x1="380.0" y1="140.0" x2="380.0" y2="158.0" stroke="#64748b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="40.0" y="165.0" width="680.0" height="95.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="60.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#166534" text-anchor="start" font-weight="700">Фрейм outer_func()</text>
+<text x="460.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#166534" text-anchor="start">FUNCNAME = [&quot;outer_func&quot;]</text>
+<text x="60.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#14532d" text-anchor="start" font-weight="700">Оголошення: local var=&quot;outer_local_val&quot;  (затінює глобальну 'var')</text>
+<text x="60.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="start">Модифікація: counter=1 (змінює глобальну, бо 'counter' не local!)</text>
+<text x="60.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="start" font-weight="700">виклик: inner_func()</text>
+<line x1="380.0" y1="260.0" x2="380.0" y2="280.0" stroke="#16a34a" stroke-width="2.0"/>
+<line x1="380.0" y1="260.0" x2="380.0" y2="278.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="40.0" y="285.0" width="680.0" height="175.0" rx="6" fill="#fef2f2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="60.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#991b1b" text-anchor="start" font-weight="700">Фрейм inner_func() — Динамічний пошук змінних углиб стека</text>
+<text x="430.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#991b1b" text-anchor="start">FUNCNAME = [&quot;inner_func&quot;, &quot;outer_func&quot;]</text>
+<text x="60.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7f1d1d" text-anchor="start"><tspan x="60.0" dy="0.0">1. Читання $var: inner_func() не має local var ──► перевіряє caller (outer_func)</tspan><tspan x="60.0" dy="15.9">   Знайдено var=&quot;outer_local_val&quot;! (У статичній мові тут була б &quot;global_val&quot;)</tspan><tspan x="60.0" dy="15.9">2. Запис var=&quot;new_val&quot;: змінює локальну змінну outer_func, а НЕ глобальну!</tspan><tspan x="60.0" dy="15.9">3. Локальна змінна: local inner_tmp=&quot;xyz&quot; (зникне одразу після return з inner_func)</tspan><tspan x="60.0" dy="15.9">4. Стек інспекції: BASH_SOURCE[0], BASH_LINENO[0] вказують на точне місце виклику</tspan></text>
+</svg>

@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="880.0" height="460.0" rx="8" fill="#ffffff" stroke="#cfd8dc" stroke-width="1.5"/>
+<text x="450.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#263238" text-anchor="middle" font-weight="700">Дерево прийняття рішень: вибір оптимального класичного фільтра</text>
+<rect x="25.0" y="60.0" width="200.0" height="380.0" rx="6" fill="#e8eaf6" stroke="#3949ab" stroke-width="1.5"/>
+<text x="125.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a237e" text-anchor="middle" font-weight="700">grep / egrep</text>
+<text x="125.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#3949ab" text-anchor="middle">Фільтрація рядків</text>
+<rect x="35.0" y="125.0" width="180.0" height="75.0" rx="4" fill="#ffffff" stroke="#c5cae9" stroke-width="1.5"/>
+<text x="125.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a237e" text-anchor="middle" font-weight="700">Коли обирати:</text>
+<text x="125.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#212121" text-anchor="middle">• Відбір за зразком</text>
+<text x="125.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#212121" text-anchor="middle">• Інверсія вибірки (-v)</text>
+<rect x="35.0" y="210.0" width="180.0" height="140.0" rx="4" fill="#ffffff" stroke="#c5cae9" stroke-width="1.5"/>
+<text x="125.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#283593" text-anchor="middle" font-weight="700">Характеристики:</text>
+<text x="125.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle" font-weight="700">• Максимальна швидкість</text>
+<text x="125.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#37474f" text-anchor="middle">• SIMD-пошук memchr</text>
+<text x="125.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#37474f" text-anchor="middle">• O(1) оперативна пам'ять</text>
+<text x="125.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">• Без зміни структури</text>
+<text x="125.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">• Прапорці -F, -E, -P</text>
+<rect x="35.0" y="360.0" width="180.0" height="65.0" rx="4" fill="#e8eaf6" stroke="#9fa8da" stroke-width="1.5"/>
+<text x="125.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c62828" text-anchor="middle" font-weight="700">Антипатерн:</text>
+<text x="125.0" y="403.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle">grep | cut | awk замість</text>
+<text x="125.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle">одного правила awk</text>
+<rect x="235.0" y="60.0" width="200.0" height="380.0" rx="6" fill="#f3e5f5" stroke="#8e24aa" stroke-width="1.5"/>
+<text x="335.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#4a148c" text-anchor="middle" font-weight="700">sed / cut / tr</text>
+<text x="335.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6a1b9a" text-anchor="middle">Потокова трансформація</text>
+<rect x="245.0" y="125.0" width="180.0" height="75.0" rx="4" fill="#ffffff" stroke="#e1bee7" stroke-width="1.5"/>
+<text x="335.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#4a148c" text-anchor="middle" font-weight="700">Коли обирати:</text>
+<text x="335.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#212121" text-anchor="middle">• Заміна тексту s/old/new/</text>
+<text x="335.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#212121" text-anchor="middle">• Вирізання колонок (cut)</text>
+<rect x="245.0" y="210.0" width="180.0" height="140.0" rx="4" fill="#ffffff" stroke="#e1bee7" stroke-width="1.5"/>
+<text x="335.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6a1b9a" text-anchor="middle" font-weight="700">Характеристики:</text>
+<text x="335.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle" font-weight="700">• Потокова обробка</text>
+<text x="335.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#37474f" text-anchor="middle">• Захоплення груп (\1)</text>
+<text x="335.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#37474f" text-anchor="middle">• Діапазони рядків 10,20d</text>
+<text x="335.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">• Заміна символів tr a b</text>
+<text x="335.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">• Немає арифметики</text>
+<rect x="245.0" y="360.0" width="180.0" height="65.0" rx="4" fill="#f3e5f5" stroke="#ce93d8" stroke-width="1.5"/>
+<text x="335.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c62828" text-anchor="middle" font-weight="700">Антипатерн:</text>
+<text x="335.0" y="403.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle">Багатопрохідний sed</text>
+<text x="335.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle">для складної логіки</text>
+<rect x="445.0" y="60.0" width="200.0" height="380.0" rx="6" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/>
+<text x="545.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1b5e20" text-anchor="middle" font-weight="700">awk / gawk</text>
+<text x="545.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2e7d32" text-anchor="middle">Таблична агрегація</text>
+<rect x="455.0" y="125.0" width="180.0" height="75.0" rx="4" fill="#ffffff" stroke="#c8e6c9" stroke-width="1.5"/>
+<text x="545.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b5e20" text-anchor="middle" font-weight="700">Коли обирати:</text>
+<text x="545.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#212121" text-anchor="middle">• Арифметика по стовпцях</text>
+<text x="545.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#212121" text-anchor="middle">• Хеш-таблиці та лічильники</text>
+<rect x="455.0" y="210.0" width="180.0" height="140.0" rx="4" fill="#ffffff" stroke="#c8e6c9" stroke-width="1.5"/>
+<text x="545.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2e7d32" text-anchor="middle" font-weight="700">Характеристики:</text>
+<text x="545.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle" font-weight="700">• Повноцінна мікромова</text>
+<text x="545.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#37474f" text-anchor="middle">• Стан між рядками</text>
+<text x="545.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#37474f" text-anchor="middle">• Роздільники $1..$NF</text>
+<text x="545.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">• Блоки BEGIN / END</text>
+<text x="545.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">• Замінює 3-4 утиліти</text>
+<rect x="455.0" y="360.0" width="180.0" height="65.0" rx="4" fill="#e8f5e9" stroke="#a5d6a7" stroke-width="1.5"/>
+<text x="545.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c62828" text-anchor="middle" font-weight="700">Антипатерн:</text>
+<text x="545.0" y="403.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle">Повне сортування в пам'яті</text>
+<text x="545.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle">для гігабайтних файлів</text>
+<rect x="655.0" y="60.0" width="200.0" height="380.0" rx="6" fill="#fff3e0" stroke="#f57c00" stroke-width="1.5"/>
+<text x="755.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#e65100" text-anchor="middle" font-weight="700">sort &amp; uniq</text>
+<text x="755.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#f57c00" text-anchor="middle">Глобальний порядок</text>
+<rect x="665.0" y="125.0" width="180.0" height="75.0" rx="4" fill="#ffffff" stroke="#ffe0b2" stroke-width="1.5"/>
+<text x="755.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e65100" text-anchor="middle" font-weight="700">Коли обирати:</text>
+<text x="755.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#212121" text-anchor="middle">• Глобальне впорядкування</text>
+<text x="755.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#212121" text-anchor="middle">• Дедуплікація потоку</text>
+<rect x="665.0" y="210.0" width="180.0" height="140.0" rx="4" fill="#ffffff" stroke="#ffe0b2" stroke-width="1.5"/>
+<text x="755.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ef6c00" text-anchor="middle" font-weight="700">Характеристики:</text>
+<text x="755.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle" font-weight="700">• Зовнішнє злиття (диск)</text>
+<text x="755.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#37474f" text-anchor="middle">• Непотоковий бар'єр O(N log N)</text>
+<text x="755.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#37474f" text-anchor="middle">• Числові ключі (-k, -n)</text>
+<text x="755.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">• LC_ALL=C для швидкості</text>
+<text x="755.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#546e7a" text-anchor="middle">• Паралелізм (--parallel)</text>
+<rect x="665.0" y="360.0" width="180.0" height="65.0" rx="4" fill="#fff3e0" stroke="#ffcc80" stroke-width="1.5"/>
+<text x="755.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c62828" text-anchor="middle" font-weight="700">Антипатерн:</text>
+<text x="755.0" y="403.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle">sort без LC_ALL=C або</text>
+<text x="755.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle">sort для вже агрегованих даних</text>
+</svg>

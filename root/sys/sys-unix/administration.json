@@ -191,8 +191,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-ssh-escape-and-session-channel.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "ssh-keys-and-host-trust",
@@ -201,8 +207,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-authorized-keys-and-ssh-keygen.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-dsa-and-nist-curves.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ssh-ca-authority.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "ssh-agent-and-config",
@@ -211,8 +235,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-ssh-config-and-agent.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ssh-agent-signer.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "ssh-port-forwarding",
@@ -221,8 +257,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-ssh-forwarding-options.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-ssh-tunneling-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ssh-tunnel-supervisor.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "sshd-configuration-and-hardening",
@@ -231,8 +285,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-sshd-directives.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ssh-hardening.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "file-transfer-over-ssh",
@@ -241,8 +307,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-sftp-subsystem-and-rsync.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-rcp-to-sftp.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rolling-checksum-sync.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -435,8 +519,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-account-tools-and-configs.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ptmp-atomic-lock.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "logind-sessions-seats",
@@ -479,8 +575,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-crontab-and-anacrontab.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-vixie-cron.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-minicron.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "wall-clock-and-timezones",
@@ -489,8 +603,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-tzfile-parser.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     }

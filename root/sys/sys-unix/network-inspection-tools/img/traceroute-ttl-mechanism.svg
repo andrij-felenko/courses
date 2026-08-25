@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 810 455" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="810" height="455" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="770.0" height="420.0" rx="8" fill="#ffffff" stroke="#cfd8dc" stroke-width="1.5"/>
+<text x="400.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#263238" text-anchor="middle" font-weight="700">Механізм зондування маршруту traceroute за допомогою поля IP TTL</text>
+<rect x="18.9" y="67.3" width="122.3" height="45.3" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/><text x="80.0" y="86.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="80.0" dy="0.0">Хост-відправник</tspan><tspan x="80.0" dy="14.3">(traceroute)</tspan></text>
+<rect x="218.8" y="67.3" width="122.3" height="45.3" rx="6" fill="#f5f5f5" stroke="#757575" stroke-width="1.5"/><text x="280.0" y="86.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="280.0" dy="0.0">Маршрутизатор 1</tspan><tspan x="280.0" dy="14.3">(Hop 1, R1)</tspan></text>
+<rect x="418.9" y="67.3" width="122.3" height="45.3" rx="6" fill="#f5f5f5" stroke="#757575" stroke-width="1.5"/><text x="480.0" y="86.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">Маршрутизатор 2</tspan><tspan x="480.0" dy="14.3">(Hop 2, R2)</tspan></text>
+<rect x="622.3" y="67.3" width="115.5" height="45.3" rx="6" fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5"/><text x="680.0" y="86.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="680.0" dy="0.0">Цільовий вузол</tspan><tspan x="680.0" dy="14.3">(Target Host)</tspan></text>
+<line x1="50.0" y1="155.0" x2="750.0" y2="155.0" stroke="#e0e0e0" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="80.0" y1="175.0" x2="260.0" y2="175.0" stroke="#1976d2" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="170.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0d47a1" text-anchor="middle" font-weight="700">1. Зонд (TTL = 1)</text>
+<line x1="260.0" y1="195.0" x2="80.0" y2="195.0" stroke="#c62828" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="170.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle" font-weight="700">ICMP Time Exceeded (Type 11 Code 0) від R1</text>
+<line x1="50.0" y1="230.0" x2="750.0" y2="230.0" stroke="#e0e0e0" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="80.0" y1="250.0" x2="460.0" y2="250.0" stroke="#1976d2" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="270.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0d47a1" text-anchor="middle" font-weight="700">2. Зонд (TTL = 2): R1 зменшує TTL до 1 і передає далі</text>
+<line x1="460.0" y1="270.0" x2="80.0" y2="270.0" stroke="#c62828" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="270.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b71c1c" text-anchor="middle" font-weight="700">ICMP Time Exceeded (Type 11 Code 0) від R2</text>
+<line x1="50.0" y1="305.0" x2="750.0" y2="305.0" stroke="#e0e0e0" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="80.0" y1="325.0" x2="660.0" y2="325.0" stroke="#1976d2" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="370.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0d47a1" text-anchor="middle" font-weight="700">3. Зонд (TTL = 3): R1 та R2 зменшують TTL, пакет доходить до цілі</text>
+<line x1="660.0" y1="345.0" x2="80.0" y2="345.0" stroke="#2e7d32" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="370.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle" font-weight="700">Відповідь: ICMP Port Unreachable (UDP) / ICMP Echo Reply / TCP SYN-ACK</text>
+<rect x="50.0" y="380.0" width="700.0" height="32.0" rx="4" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="1.5"/>
+<text x="400.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">RTT для кожного хопа обчислюється як різниця часу між відправкою зонда та отриманням ICMP-відповіді</text>
+</svg>

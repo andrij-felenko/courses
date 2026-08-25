@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1090 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1090" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відображення буфера на фізичний екран через Viewport</text>
+<text x="540.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Проєкція буфера тексту на фізичний екран через Viewport і зсуви</text>
+<rect x="50.0" y="75.0" width="420.0" height="400.0" rx="6" fill="#f8f9fa" stroke="#6b7280" stroke-width="1.5"/>
+<text x="260.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Віртуальний буфер тексту (10 000 рядків)</text>
+<text x="70.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">0: #include &lt;stdio.h&gt;</text>
+<text x="70.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">1: #include &lt;termios.h&gt;</text>
+<text x="70.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">2: // ... 120 рядків коду вище ...</text>
+<rect x="60.0" y="207.0" width="400.0" height="24.0" rx="2" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.0"/>
+<text x="70.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">123: void editor_refresh_screen() {</text>
+<rect x="60.0" y="234.0" width="400.0" height="24.0" rx="2" fill="#eaf7ee" stroke="none" stroke-width="1.0"/>
+<text x="70.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">124:     struct abuf ab = ABUF_INIT;</text>
+<rect x="60.0" y="261.0" width="400.0" height="24.0" rx="2" fill="#eaf7ee" stroke="none" stroke-width="1.0"/>
+<text x="70.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">125:     abuf_append(&amp;ab, &quot;\x1b[?25l&quot;, 6);</text>
+<rect x="60.0" y="288.0" width="400.0" height="24.0" rx="2" fill="#eaf7ee" stroke="none" stroke-width="1.0"/>
+<text x="70.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">126:     abuf_append(&amp;ab, &quot;\x1b[H&quot;, 3);</text>
+<rect x="60.0" y="315.0" width="400.0" height="24.0" rx="2" fill="#eaf7ee" stroke="none" stroke-width="1.0"/>
+<text x="70.0" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">127:     editor_draw_rows(&amp;ab);</text>
+<rect x="60.0" y="342.0" width="400.0" height="24.0" rx="2" fill="#eaf7ee" stroke="none" stroke-width="1.0"/>
+<text x="70.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">128:     abuf_append(&amp;ab, &quot;\x1b[?25h&quot;, 6);</text>
+<rect x="60.0" y="369.0" width="400.0" height="24.0" rx="2" fill="#eaf7ee" stroke="none" stroke-width="1.0"/>
+<text x="70.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">129:     write(STDOUT_FILENO, ab.b, ab.len);</text>
+<rect x="60.0" y="396.0" width="400.0" height="24.0" rx="2" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.0"/>
+<text x="70.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">130: }</text>
+<text x="70.0" y="439.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">131: // ... ще 9000 рядків далі ...</text>
+<rect x="58.0" y="207.0" width="404.0" height="222.0" rx="4" fill="none" stroke="#27ae60" stroke-width="2.0"/>
+<text x="450.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">row_offset = 123</text>
+<line x1="485.0" y1="250.0" x2="565.0" y2="250.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="525.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Рендеринг</text>
+<text x="525.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">abuf -&gt; write()</text>
+<rect x="580.0" y="75.0" width="450.0" height="400.0" rx="6" fill="#1a1a1a" stroke="#333333" stroke-width="2.0"/>
+<text x="805.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">Фізичний екран термінала (80 × 24)</text>
+<text x="600.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="start">void editor_refresh_screen() {</text>
+<text x="600.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="start">    struct abuf ab = ABUF_INIT;</text>
+<text x="600.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="start">    abuf_append(&amp;ab, &quot;\x1b[?25l&quot;, 6);</text>
+<text x="600.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="start">    abuf_append(&amp;ab, &quot;\x1b[H&quot;, 3);</text>
+<text x="600.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="start">    editor_draw_rows(&amp;ab);</text>
+<rect x="770.4" y="232.0" width="8.0" height="18.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="600.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="start">    abuf_append(&amp;ab, &quot;\x1b[?25h&quot;, 6);</text>
+<text x="600.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="start">    write(STDOUT_FILENO, ab.b, ab.len);</text>
+<text x="600.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="start">}</text>
+<text x="600.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#00ff66" text-anchor="start">~</text>
+<text x="600.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#00ff66" text-anchor="start">~</text>
+<rect x="580.0" y="435.0" width="450.0" height="22.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="590.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">main.c - 10000 lines [Modified]</text>
+<text x="1020.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">127/10000</text>
+<text x="590.0" y="469.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#aaaaaa" text-anchor="start">HELP: Ctrl-S = save | Ctrl-Q = quit | Ctrl-F = find</text>
+<rect x="50.0" y="490.0" width="980.0" height="38.0" rx="6" fill="#eef2f7" stroke="#6b7280" stroke-width="1.0"/><text x="540.0" y="513.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">Viewport транслює віртуальні координати буфера у фізичні координати екрана за O(екран) часу</tspan></text>
+</svg>

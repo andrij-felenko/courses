@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-14.11 -10 914.11 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-14.11" y="-10" width="914.11" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="880.0" height="480.0" rx="8" fill="#ffffff" stroke="#cfd8dc" stroke-width="1.5"/>
+<text x="450.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#263238" text-anchor="middle" font-weight="700">Архітектурне порівняння: конвеєр процесів проти внутрішньопроцесної агрегації</text>
+<rect x="25.0" y="55.0" width="850.0" height="205.0" rx="6" fill="#fff8e1" stroke="#ffa000" stroke-width="1.5"/>
+<text x="210.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b78103" text-anchor="middle" font-weight="700">1. Багатопроцесний конвеєр: cat | grep | cut | sort | uniq -c</text>
+<rect x="40.0" y="95.0" width="115.0" height="85.0" rx="5" fill="#ffffff" stroke="#d7ccc8" stroke-width="1.5"/>
+<text x="97.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#212121" text-anchor="middle" font-weight="700">cat</text>
+<text x="97.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">PID 101</text>
+<rect x="52.0" y="148.0" width="91.0" height="22.0" rx="3" fill="#f5f5f5" stroke="#e0e0e0" stroke-width="1.5"/>
+<text x="97.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#616161" text-anchor="middle" font-weight="700">ЧИТАННЯ</text>
+<line x1="155.0" y1="137.0" x2="205.0" y2="137.0" stroke="#d32f2f" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="158.0" y="115.0" width="44.0" height="18.0" rx="3" fill="#ffebee" stroke="#ef9a9a" stroke-width="1.5"/>
+<text x="180.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c62828" text-anchor="middle" font-weight="700">pipe</text>
+<rect x="205.0" y="95.0" width="115.0" height="85.0" rx="5" fill="#ffffff" stroke="#d7ccc8" stroke-width="1.5"/>
+<text x="262.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#212121" text-anchor="middle" font-weight="700">grep</text>
+<text x="262.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">PID 102</text>
+<rect x="217.0" y="148.0" width="91.0" height="22.0" rx="3" fill="#f5f5f5" stroke="#e0e0e0" stroke-width="1.5"/>
+<text x="262.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#616161" text-anchor="middle" font-weight="700">ФІЛЬТР</text>
+<line x1="320.0" y1="137.0" x2="370.0" y2="137.0" stroke="#d32f2f" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="323.0" y="115.0" width="44.0" height="18.0" rx="3" fill="#ffebee" stroke="#ef9a9a" stroke-width="1.5"/>
+<text x="345.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c62828" text-anchor="middle" font-weight="700">pipe</text>
+<rect x="370.0" y="95.0" width="115.0" height="85.0" rx="5" fill="#ffffff" stroke="#d7ccc8" stroke-width="1.5"/>
+<text x="427.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#212121" text-anchor="middle" font-weight="700">cut</text>
+<text x="427.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">PID 103</text>
+<rect x="382.0" y="148.0" width="91.0" height="22.0" rx="3" fill="#f5f5f5" stroke="#e0e0e0" stroke-width="1.5"/>
+<text x="427.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#616161" text-anchor="middle" font-weight="700">КОЛОНКИ</text>
+<line x1="485.0" y1="137.0" x2="535.0" y2="137.0" stroke="#d32f2f" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="488.0" y="115.0" width="44.0" height="18.0" rx="3" fill="#ffebee" stroke="#ef9a9a" stroke-width="1.5"/>
+<text x="510.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c62828" text-anchor="middle" font-weight="700">pipe</text>
+<rect x="535.0" y="95.0" width="115.0" height="85.0" rx="5" fill="#ffffff" stroke="#d7ccc8" stroke-width="1.5"/>
+<text x="592.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#212121" text-anchor="middle" font-weight="700">sort</text>
+<text x="592.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">PID 104</text>
+<rect x="547.0" y="148.0" width="91.0" height="22.0" rx="3" fill="#f5f5f5" stroke="#e0e0e0" stroke-width="1.5"/>
+<text x="592.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#616161" text-anchor="middle" font-weight="700">СОРТУВАННЯ</text>
+<line x1="650.0" y1="137.0" x2="700.0" y2="137.0" stroke="#d32f2f" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="653.0" y="115.0" width="44.0" height="18.0" rx="3" fill="#ffebee" stroke="#ef9a9a" stroke-width="1.5"/>
+<text x="675.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c62828" text-anchor="middle" font-weight="700">pipe</text>
+<rect x="700.0" y="95.0" width="115.0" height="85.0" rx="5" fill="#ffffff" stroke="#d7ccc8" stroke-width="1.5"/>
+<text x="757.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#212121" text-anchor="middle" font-weight="700">uniq -c</text>
+<text x="757.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#546e7a" text-anchor="middle">PID 105</text>
+<rect x="712.0" y="148.0" width="91.0" height="22.0" rx="3" fill="#f5f5f5" stroke="#e0e0e0" stroke-width="1.5"/>
+<text x="757.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#616161" text-anchor="middle" font-weight="700">ПІДРАХУНОК</text>
+<rect x="40.0" y="195.0" width="820.0" height="50.0" rx="4" fill="#fbe9e7" stroke="#ffab91" stroke-width="1.5"/>
+<text x="450.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d84315" text-anchor="middle" font-weight="700">Ядро Linux: 4 канали pipe (64KB ring-buffer) • Копіювання User ↔ Kernel пам'яті • Перемикання контексту</text>
+<text x="450.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8d6e63" text-anchor="middle">Високі накладні витрати на fork/exec, синхронізацію дескрипторів та промахи кешу L1/L2</text>
+<rect x="25.0" y="275.0" width="850.0" height="195.0" rx="6" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5"/>
+<text x="250.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1b5e20" text-anchor="middle" font-weight="700">2. Оптимізований монолітний фільтр: awk '{ count[$1]++ } END { ... }'</text>
+<rect x="40.0" y="315.0" width="230.0" height="135.0" rx="5" fill="#ffffff" stroke="#a5d6a7" stroke-width="1.5"/>
+<text x="155.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1b5e20" text-anchor="middle" font-weight="700">Єдиний процес awk (PID 201)</text>
+<text x="155.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#558b2f" text-anchor="middle">Прямий доступ до файлу</text>
+<text x="155.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Блоковий ввід read(64KB)</text>
+<text x="155.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Спліт рядків без пайпів</text>
+<text x="155.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2e7d32" text-anchor="middle" font-weight="700">Відсутність зайвих fork/exec</text>
+<line x1="275.0" y1="382.0" x2="315.0" y2="382.0" stroke="#2e7d32" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="320.0" y="315.0" width="275.0" height="135.0" rx="5" fill="#ffffff" stroke="#a5d6a7" stroke-width="1.5"/>
+<text x="457.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1b5e20" text-anchor="middle" font-weight="700">Хеш-таблиця у просторі процесу</text>
+<text x="457.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle" font-weight="700">Асоціативний масив: count[key]</text>
+<rect x="335.0" y="375.0" width="245.0" height="60.0" rx="4" fill="#f1f8e9" stroke="#c5e1a5" stroke-width="1.5"/>
+<text x="457.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#33691e" text-anchor="middle">IP-адреса -&gt; Лічильник входжень</text>
+<text x="457.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#33691e" text-anchor="middle">Локальність даних у RAM</text>
+<text x="457.0" y="427.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1b5e20" text-anchor="middle" font-weight="700">O(1) оновлення стану</text>
+<line x1="600.0" y1="382.0" x2="640.0" y2="382.0" stroke="#2e7d32" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="645.0" y="315.0" width="215.0" height="135.0" rx="5" fill="#ffffff" stroke="#a5d6a7" stroke-width="1.5"/>
+<text x="752.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1b5e20" text-anchor="middle" font-weight="700">Фінальний вивід (stdout)</text>
+<text x="752.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#37474f" text-anchor="middle">Генерація результатів</text>
+<text x="752.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#37474f" text-anchor="middle">в блоці END</text>
+<rect x="660.0" y="408.0" width="185.0" height="28.0" rx="3" fill="#e8f5e9" stroke="#81c784" stroke-width="1.5"/>
+<text x="752.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle" font-weight="700">Економія пам'яті й CPU</text>
+</svg>

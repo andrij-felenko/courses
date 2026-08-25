@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура зовнішнього сортування злиттям (External Merge Sort)</text>
+<rect x="30.0" y="55.0" width="380.0" height="400.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="220.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#0f172a" text-anchor="middle" font-weight="700">Фаза 1: Генерація серій (Run Generation)</text>
+<rect x="50.0" y="105.0" width="340.0" height="50.0" rx="4" fill="#e2e8f0" stroke="#64748b" stroke-width="1.2"/>
+<text x="220.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#334155" text-anchor="middle" font-weight="700">Вхідний потік / Великий файл (наприклад, 50 GB)</text>
+<text x="220.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle">stdin або несортований файл на диску</text>
+<line x1="220.0" y1="155.0" x2="220.0" y2="180.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="220.0" y1="180.0" x2="220.0" y2="185.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="50.0" y="185.0" width="340.0" height="85.0" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+<text x="220.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e40af" text-anchor="middle" font-weight="700">Буфер оперативної пам'яті (RAM Buffer, sort -S)</text>
+<text x="220.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e3a8a" text-anchor="middle">1. Зчитування порції до ліміту RAM (наприклад, 2 GB)</text>
+<text x="220.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e3a8a" text-anchor="middle">2. Внутрішнє сортування в пам'яті (Quicksort / Mergesort)</text>
+<text x="220.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e3a8a" text-anchor="middle">3. Скидання відсортованого блоку на диск</text>
+<line x1="220.0" y1="270.0" x2="220.0" y2="295.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="220.0" y1="295.0" x2="220.0" y2="300.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="50.0" y="300.0" width="340.0" height="135.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="220.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#92400e" text-anchor="middle" font-weight="700">Тимчасові файли серій на диску ($TMPDIR / sort -T)</text>
+<rect x="65.0" y="340.0" width="100.0" height="32.0" rx="3" fill="#fde68a" stroke="#b45309" stroke-width="1.0"/>
+<text x="115.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#78350f" text-anchor="middle" font-weight="700">Run 1 (сортований)</text>
+<rect x="170.0" y="340.0" width="100.0" height="32.0" rx="3" fill="#fde68a" stroke="#b45309" stroke-width="1.0"/>
+<text x="220.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#78350f" text-anchor="middle" font-weight="700">Run 2 (сортований)</text>
+<rect x="275.0" y="340.0" width="100.0" height="32.0" rx="3" fill="#fde68a" stroke="#b45309" stroke-width="1.0"/>
+<text x="325.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#78350f" text-anchor="middle" font-weight="700">Run K (сортований)</text>
+<text x="220.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#92400e" text-anchor="middle">N блоків записуються послідовно у файл підкачки</text>
+<text x="220.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#92400e" text-anchor="middle">Кожен Run містить локально відсортовані рядки</text>
+<line x1="410.0" y1="365.0" x2="445.0" y2="365.0" stroke="#d97706" stroke-width="2.0"/>
+<line x1="445.0" y1="365.0" x2="445.0" y2="175.0" stroke="#d97706" stroke-width="2.0"/>
+<line x1="445.0" y1="175.0" x2="475.0" y2="175.0" stroke="#d97706" stroke-width="2.0"/>
+<line x1="475.0" y1="175.0" x2="480.0" y2="175.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="480.0" y="55.0" width="350.0" height="400.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="655.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#0f172a" text-anchor="middle" font-weight="700">Фаза 2: K-входове злиття (K-Way Merge)</text>
+<rect x="500.0" y="110.0" width="310.0" height="95.0" rx="4" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="655.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#5b21b6" text-anchor="middle" font-weight="700">Потоки зчитування з K файлів серій</text>
+<text x="655.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6d28d9" text-anchor="middle">Буфер читання для кожного відкритого Run-файлу</text>
+<text x="655.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6d28d9" text-anchor="middle">Поточний мінімальний елемент кожного потоку</text>
+<text x="655.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6d28d9" text-anchor="middle">завантажується у пріоритетну чергу</text>
+<line x1="655.0" y1="205.0" x2="655.0" y2="225.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="655.0" y1="225.0" x2="655.0" y2="230.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="500.0" y="230.0" width="310.0" height="85.0" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="655.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="middle" font-weight="700">Мін-купа / Турнірне дерево (Min-Heap розміру K)</text>
+<text x="655.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle">1. Витяг абсолютного мінімуму: O(log K)</text>
+<text x="655.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle">2. Запис найменшого рядка у вихідний потік</text>
+<text x="655.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle">3. Дочитування наступного рядка з вичерпаного Run</text>
+<line x1="655.0" y1="315.0" x2="655.0" y2="340.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="655.0" y1="340.0" x2="655.0" y2="345.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="500.0" y="345.0" width="310.0" height="85.0" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+<text x="655.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#075985" text-anchor="middle" font-weight="700">Вихідний потік (Повністю впорядковані дані)</text>
+<text x="655.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0c4a6e" text-anchor="middle">Глобально відсортований потік stdout / файл</text>
+<text x="655.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0c4a6e" text-anchor="middle">Тимчасові файли серій автоматично видаляються</text>
+</svg>

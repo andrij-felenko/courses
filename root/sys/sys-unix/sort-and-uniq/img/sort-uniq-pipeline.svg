@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Взаємодія sort і uniq: потокова дедуплікація та фактор LC_ALL=C</text>
+<rect x="30.0" y="50.0" width="760.0" height="165.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="410.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">Потокова модель утиліти uniq: вікно порівняння в 1 попередній рядок</text>
+<rect x="50.0" y="95.0" width="190.0" height="70.0" rx="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1.2"/>
+<text x="145.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#991b1b" text-anchor="middle" font-weight="700">Несортований вхід:</text>
+<text x="145.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f1d1d" text-anchor="middle">apple, banana, apple</text>
+<text x="145.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#991b1b" text-anchor="middle">uniq бачить сусіда != apple</text>
+<line x1="240.0" y1="130.0" x2="275.0" y2="130.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="275.0" y1="130.0" x2="280.0" y2="130.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="280.0" y="95.0" width="200.0" height="70.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+<text x="380.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#92400e" text-anchor="middle" font-weight="700">uniq без попереднього sort:</text>
+<text x="380.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle" font-weight="700">Вихід: apple, banana, apple</text>
+<text x="380.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle">Помилка: дублікати не злито!</text>
+<line x1="480.0" y1="130.0" x2="515.0" y2="130.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="515.0" y1="130.0" x2="520.0" y2="130.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="520.0" y="95.0" width="250.0" height="70.0" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.2"/>
+<text x="645.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">Конвеєр sort | uniq -c:</text>
+<text x="645.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle">sort збирає однакові рядки поруч</text>
+<text x="645.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">Вихід: 2 apple, 1 banana</text>
+<text x="410.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">uniq споживає O(1) RAM, порівнюючи лише поточний рядок з рядком у буфері попереднього кроку</text>
+<rect x="30.0" y="230.0" width="760.0" height="200.0" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+<text x="410.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">Вплив локалі на порівняння: UTF-8 Collation проти LC_ALL=C</text>
+<rect x="45.0" y="270.0" width="350.0" height="145.0" rx="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1.2"/>
+<text x="220.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#991b1b" text-anchor="middle" font-weight="700">LC_COLLATE=en_US.UTF-8 (Важка коллація)</text>
+<text x="220.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f1d1d" text-anchor="middle">1. Виклики strcoll() з багатопрохідними таблицями</text>
+<text x="220.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f1d1d" text-anchor="middle">2. Ігнорування пунктуації на первинних рівнях</text>
+<text x="220.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f1d1d" text-anchor="middle">3. Недетермінованість для бінарних даних</text>
+<text x="220.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle" font-weight="700">4. Сповільнення сортування в 5–10 разів</text>
+<text x="220.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f1d1d" text-anchor="middle">5. Ризик розбіжності між sort і strcmp в uniq</text>
+<rect x="425.0" y="270.0" width="350.0" height="145.0" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.2"/>
+<text x="600.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">LC_ALL=C / LC_COLLATE=C (Золотий стандарт)</text>
+<text x="600.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle">1. Пряме побайтове порівняння memcmp() / strcmp()</text>
+<text x="600.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle">2. Суворий детермінований числовий порядок байтів</text>
+<text x="600.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle">3. Апаратна векторизація (SIMD AVX-2 / SSE)</text>
+<text x="600.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">4. Максимальна пропускна здатність процесора</text>
+<text x="600.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle">5. 100% сумісність порядку sort із логікою uniq</text>
+</svg>

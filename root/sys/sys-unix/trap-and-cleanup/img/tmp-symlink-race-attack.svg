@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 440" width="100%" height="100%" style="background:#0f172a; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, sans-serif;">
+  <defs>
+    <linearGradient id="titleGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f87171" />
+      <stop offset="100%" stop-color="#fbbf24" />
+    </linearGradient>
+    <linearGradient id="vulnGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#450a0a" />
+      <stop offset="100%" stop-color="#7f1d1d" />
+    </linearGradient>
+    <linearGradient id="safeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b" />
+      <stop offset="100%" stop-color="#065f46" />
+    </linearGradient>
+    <marker id="arrowRed3" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f87171" />
+    </marker>
+    <marker id="arrowGreen3" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#34d399" />
+    </marker>
+    <filter id="shadow3" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <text x="460" y="32" fill="url(#titleGrad3)" font-size="20" font-weight="700" text-anchor="middle">Безпека у /tmp: Вразливість фіксованих шляхів проти атомарного mktemp -d</text>
+
+  <!-- Лівий блок: Вразливий підхід -->
+  <g filter="url(#shadow3)">
+    <rect x="40" y="65" width="400" height="345" rx="10" fill="url(#vulnGrad)" stroke="#f87171" stroke-width="1.5" />
+    <text x="240" y="95" fill="#fca5a5" font-size="16" font-weight="700" text-anchor="middle">Вразливо: Передбачуваний шлях у /tmp</text>
+
+    <!-- Схема атаки -->
+    <rect x="60" y="115" width="360" height="70" rx="6" fill="#1e293b" stroke="#64748b" />
+    <text x="75" y="138" fill="#f87171" font-size="13" font-weight="600">Код: echo "data" &gt; /tmp/job.$$.tmp</text>
+    <text x="75" y="162" fill="#cbd5e1" font-size="12">PID передбачуваний; файл створюється без O_EXCL</text>
+
+    <rect x="60" y="200" width="360" height="85" rx="6" fill="#1e293b" stroke="#f87171" />
+    <text x="75" y="223" fill="#fca5a5" font-size="13" font-weight="600">Атака Symlink Race (TOCTOU):</text>
+    <text x="75" y="245" fill="#e2e8f0" font-size="12">Зловмисник створює лінк:</text>
+    <text x="75" y="267" fill="#fbbf24" font-family="monospace" font-size="12">ln -s /etc/shadow /tmp/job.1234.tmp</text>
+
+    <rect x="60" y="300" width="360" height="90" rx="6" fill="#2d0606" stroke="#ef4444" />
+    <text x="75" y="323" fill="#f87171" font-size="13" font-weight="700">Наслідки:</text>
+    <text x="75" y="345" fill="#fecaca" font-size="12">• Перезапис системних критичних файлів</text>
+    <text x="75" y="367" fill="#fecaca" font-size="12">• Підвищення привілеїв або відмова у доступі</text>
+  </g>
+
+  <!-- Правий блок: Безпечний підхід -->
+  <g filter="url(#shadow3)">
+    <rect x="480" y="65" width="400" height="345" rx="10" fill="url(#safeGrad)" stroke="#34d399" stroke-width="1.5" />
+    <text x="680" y="95" fill="#86efac" font-size="16" font-weight="700" text-anchor="middle">Безпечно: Приватний каталог mktemp -d</text>
+
+    <!-- Безпечна схема -->
+    <rect x="500" y="115" width="360" height="70" rx="6" fill="#1e293b" stroke="#64748b" />
+    <text x="515" y="138" fill="#34d399" font-size="13" font-weight="600">Код: WORK_DIR=$(mktemp -d)</text>
+    <text x="515" y="162" fill="#cbd5e1" font-size="12">Атомарний mkdir() з маскою прав 0700</text>
+
+    <rect x="500" y="200" width="360" height="85" rx="6" fill="#1e293b" stroke="#34d399" />
+    <text x="515" y="223" fill="#86efac" font-size="13" font-weight="600">Бар'єр захисту ядра:</text>
+    <text x="515" y="245" fill="#e2e8f0" font-size="12">Тільки власник процесу має права rwx.</text>
+    <text x="515" y="267" fill="#a7f3d0" font-size="12">Чужі користувачі не можуть навіть прочитати вміст.</text>
+
+    <rect x="500" y="300" width="360" height="90" rx="6" fill="#063828" stroke="#10b981" />
+    <text x="515" y="323" fill="#6ee7b7" font-size="13" font-weight="700">Гарантії:</text>
+    <text x="515" y="345" fill="#d1fae5" font-size="12">• Повна ізоляція від symlink-атак</text>
+    <text x="515" y="367" fill="#d1fae5" font-size="12">• Одне просте прибирання: rm -rf "$WORK_DIR"</text>
+  </g>
+</svg>

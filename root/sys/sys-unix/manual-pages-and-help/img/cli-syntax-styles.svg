@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стилі прапорців CLI та правила розбору аргументів</text>
+<rect x="15.0" y="50.0" width="790.0" height="72.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="28.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">POSIX / UNIX (getopt)</text>
+<rect x="684.2" y="58.0" width="100.8" height="20.0" rx="4" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<text x="734.6" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">Стандарт POSIX</text>
+<rect x="28.0" y="78.0" width="300.0" height="22.0" rx="3" fill="#ffffff" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="35.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="start" font-weight="700">tar -x -v -f arch.tar  або  tar -xvf arch.tar</text>
+<text x="340.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">Однолітерні опції з одним дефісом. Прапорці групуються (-xvf). Опція з</text>
+<text x="340.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start"> аргументом забирає наступний токен або злитий суфікс (-f file або -ffile).</text>
+<rect x="15.0" y="130.0" width="790.0" height="72.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="28.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">GNU Long Options (getopt_long)</text>
+<rect x="628.4" y="138.0" width="156.6" height="20.0" rx="4" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="706.7" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">Де-факто стандарт Linux</text>
+<rect x="28.0" y="158.0" width="300.0" height="22.0" rx="3" fill="#ffffff" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="35.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="start" font-weight="700">grep --ignore-case --color=always --max-count 5</text>
+<text x="340.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">Подвійний дефіс (--), повні описові слова. Аргументи через = або окрем</text>
+<text x="340.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">им токеном (--file=X або --file X). Підтримка однозначних префіксів.</text>
+<rect x="15.0" y="210.0" width="790.0" height="72.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="28.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">BSD Style &amp; Legacy UNIX</text>
+<rect x="659.4" y="218.0" width="125.6" height="20.0" rx="4" fill="#d35400" stroke="#d35400" stroke-width="1.0"/>
+<text x="722.2" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">Історичний виняток</text>
+<rect x="28.0" y="238.0" width="300.0" height="22.0" rx="3" fill="#ffffff" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="35.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="start" font-weight="700">ps aux    та    tar xzf archive.tgz</text>
+<text x="340.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">Опції без початкового дефіса (історичний спадок V7 / BSD). Не плутати </text>
+<text x="340.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">з 'ps -a -u -x' (у POSIX це інший набір процесів).</text>
+<rect x="15.0" y="290.0" width="790.0" height="72.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="28.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Розділювач позиційних операндів «--»</text>
+<rect x="653.2" y="298.0" width="131.8" height="20.0" rx="4" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="719.1" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">Захист від ін'єкцій</text>
+<rect x="28.0" y="318.0" width="300.0" height="22.0" rx="3" fill="#ffffff" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="35.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f172a" text-anchor="start" font-weight="700">rm -- -rf    та    grep --pattern -- -file.txt</text>
+<text x="340.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">Маркер '--' наказує парсеру негайно зупинити обробку прапорців: усі на</text>
+<text x="340.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">ступні аргументи вважаються суто шляхами або іменами файлів.</text>
+</svg>

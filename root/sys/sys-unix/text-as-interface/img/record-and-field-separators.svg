@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="860.0" height="440.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="40.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1e293b" text-anchor="start" font-weight="700">1. Поділ на записи: Record Separator (LF / 0x0A або NUL / 0x00)</text>
+<rect x="40.0" y="70.0" width="360.0" height="50.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="220.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e3a8a" text-anchor="middle" font-weight="700">Запис 1: root:x:0:0:root:/root:/bin/bash</text>
+<rect x="405.0" y="70.0" width="45.0" height="50.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="427.5" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#92400e" text-anchor="middle" font-weight="700">\n</text>
+<text x="427.5" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="middle">0x0A</text>
+<rect x="455.0" y="70.0" width="360.0" height="50.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="635.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e3a8a" text-anchor="middle" font-weight="700">Запис 2: daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin</text>
+<rect x="820.0" y="70.0" width="45.0" height="50.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="842.5" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#92400e" text-anchor="middle" font-weight="700">\n</text>
+<text x="842.5" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="middle">0x0A</text>
+<line x1="220.0" y1="125.0" x2="220.0" y2="165.0" stroke="#3b82f6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="230.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="start" font-style="italic">Декомпозиція запису на поля</text>
+<text x="40.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1e293b" text-anchor="start" font-weight="700">2. Внутрішня структура запису: Field Delimiters (розділювачі полів ':')</text>
+<rect x="40.0" y="205.0" width="70.0" height="55.0" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="75.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#14532d" text-anchor="middle" font-weight="700">root</text>
+<text x="75.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle">1. Username</text>
+<rect x="113.0" y="215.0" width="22.0" height="35.0" rx="3" fill="#fef2f2" stroke="#dc2626" stroke-width="1.2"/>
+<text x="124.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#991b1b" text-anchor="middle" font-weight="700">:</text>
+<rect x="138.0" y="205.0" width="65.0" height="55.0" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="170.5" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#14532d" text-anchor="middle" font-weight="700">x</text>
+<text x="170.5" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle">2. Passwd</text>
+<rect x="206.0" y="215.0" width="22.0" height="35.0" rx="3" fill="#fef2f2" stroke="#dc2626" stroke-width="1.2"/>
+<text x="217.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#991b1b" text-anchor="middle" font-weight="700">:</text>
+<rect x="231.0" y="205.0" width="55.0" height="55.0" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="258.5" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#14532d" text-anchor="middle" font-weight="700">0</text>
+<text x="258.5" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle">3. UID</text>
+<rect x="289.0" y="215.0" width="22.0" height="35.0" rx="3" fill="#fef2f2" stroke="#dc2626" stroke-width="1.2"/>
+<text x="300.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#991b1b" text-anchor="middle" font-weight="700">:</text>
+<rect x="314.0" y="205.0" width="55.0" height="55.0" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="341.5" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#14532d" text-anchor="middle" font-weight="700">0</text>
+<text x="341.5" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle">4. GID</text>
+<rect x="372.0" y="215.0" width="22.0" height="35.0" rx="3" fill="#fef2f2" stroke="#dc2626" stroke-width="1.2"/>
+<text x="383.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#991b1b" text-anchor="middle" font-weight="700">:</text>
+<rect x="397.0" y="205.0" width="75.0" height="55.0" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="434.5" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#14532d" text-anchor="middle" font-weight="700">root</text>
+<text x="434.5" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle">5. GECOS</text>
+<rect x="475.0" y="215.0" width="22.0" height="35.0" rx="3" fill="#fef2f2" stroke="#dc2626" stroke-width="1.2"/>
+<text x="486.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#991b1b" text-anchor="middle" font-weight="700">:</text>
+<rect x="500.0" y="205.0" width="100.0" height="55.0" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="550.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#14532d" text-anchor="middle" font-weight="700">/root</text>
+<text x="550.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle">6. Home Dir</text>
+<rect x="603.0" y="215.0" width="22.0" height="35.0" rx="3" fill="#fef2f2" stroke="#dc2626" stroke-width="1.2"/>
+<text x="614.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#991b1b" text-anchor="middle" font-weight="700">:</text>
+<rect x="628.0" y="205.0" width="110.0" height="55.0" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="683.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#14532d" text-anchor="middle" font-weight="700">/bin/bash</text>
+<text x="683.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle">7. Shell</text>
+<text x="40.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1e293b" text-anchor="start" font-weight="700">3. Основні конвенції роздільників у середовищі Unix / Linux</text>
+<rect x="40.0" y="315.0" width="195.0" height="130.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="137.5" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">Двокрапка ':'</text>
+<rect x="55.0" y="348.0" width="165.0" height="20.0" rx="3" fill="#e2e8f0" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="137.5" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle">/etc/passwd, PATH</text>
+<text x="137.5" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">Фіксований текстовий реєстр;</text>
+<text x="137.5" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">заборона двокрапки в даних</text>
+<rect x="255.0" y="315.0" width="195.0" height="130.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="352.5" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">Табуляція '\t'</text>
+<rect x="270.0" y="348.0" width="165.0" height="20.0" rx="3" fill="#e2e8f0" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="352.5" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle">cut, TSV, paste</text>
+<text x="352.5" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">Однозначний машинний розділь</text>
+<text x="352.5" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">ник; зберігає пробіли у знач</text>
+<rect x="470.0" y="315.0" width="195.0" height="130.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="567.5" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">Пробіли (whitespace)</text>
+<rect x="485.0" y="348.0" width="165.0" height="20.0" rx="3" fill="#e2e8f0" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="567.5" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle">ps, ls, df, fstab</text>
+<text x="567.5" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">Табличний вигляд для людини;</text>
+<text x="567.5" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">об'єднання послідовних проб</text>
+<rect x="685.0" y="315.0" width="195.0" height="130.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="782.5" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">Нульовий байт '\0'</text>
+<rect x="700.0" y="348.0" width="165.0" height="20.0" rx="3" fill="#e2e8f0" stroke="#94a3b8" stroke-width="0.8"/>
+<text x="782.5" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle">find -print0 | xargs -0</text>
+<text x="782.5" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">Абсолютна безпека; NUL немож</text>
+<text x="782.5" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">ливий у шляхах POSIX</text>
+</svg>

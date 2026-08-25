@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1190 650" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1190" height="650" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="590.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Трифазний дельта-алгоритм синхронізації rsync</text>
+<text x="590.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Трифазний дельта-алгоритм синхронізації rsync</text>
+<rect x="60.0" y="75.0" width="480.0" height="520.0" rx="6" fill="#f8faff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="300.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">Одержувач / Receiver (Цільовий хост)</text>
+<text x="300.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Має застарілу версію файлу B (розмір N байтів)</text>
+<rect x="80.0" y="155.0" width="440.0" height="165.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="300.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фаза 1: Розбиття файлу B на блоки розміру S</text>
+<text x="300.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Блок 0 [0..S-1]  -&gt;  rollsum_0 (32-bit) + MD4_0 (128-bit)</text>
+<text x="300.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Блок 1 [S..2S-1] -&gt;  rollsum_1 (32-bit) + MD4_1 (128-bit)</text>
+<text x="300.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Блок 2 [2S..3S-1]-&gt; rollsum_2 (32-bit) + MD4_2 (128-bit)</text>
+<rect x="100.0" y="275.0" width="400.0" height="35.0" rx="6" fill="#edf3fd" stroke="#333333" stroke-width="1.5"/><text x="300.0" y="296.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">Генерація таблиці сигнатур блоків цілі</tspan></text>
+<line x1="520.0" y1="230.0" x2="660.0" y2="230.0" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="590.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Таблиця хешів</text>
+<rect x="640.0" y="75.0" width="480.0" height="520.0" rx="6" fill="#f7fbf8" stroke="#27ae60" stroke-width="1.5"/>
+<text x="880.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Відправник / Sender (Джерельний хост)</text>
+<text x="880.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Має свіжу версію файлу A (нові правки)</text>
+<rect x="660.0" y="155.0" width="440.0" height="165.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="880.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фаза 2: Пошук збігів ковзним вікном розміру S</text>
+<text x="880.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Побайтовий зсув вікна: перерахунок rollsum за O(1)</text>
+<text x="880.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Якщо rollsum є в хеш-таблиці -&gt; звірка сильного MD4</text>
+<text x="880.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Збіг: токен MATCH(block_idx) | Немає: байт у буфер LITERAL</text>
+<rect x="680.0" y="275.0" width="400.0" height="35.0" rx="6" fill="#eef7f0" stroke="#333333" stroke-width="1.5"/><text x="880.0" y="296.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="880.0" dy="0.0">Стиснений потік інструкцій відновлення</tspan></text>
+<line x1="660.0" y1="360.0" x2="520.0" y2="360.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="590.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Токени дельти</text>
+<rect x="80.0" y="370.0" width="440.0" height="195.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="300.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фаза 3: Реконструкція файлу в .file.XXXXXX</text>
+<text x="300.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">1. Отримано MATCH(i) -&gt; копіювати блок i з файлу B</text>
+<text x="300.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">2. Отримано LITERAL(bytes) -&gt; записати нові байти з мережі</text>
+<text x="300.0" y="475.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">3. Звірка цілісного хеша відновленого файлу</text>
+<text x="300.0" y="500.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">4. Атомарна заміна: rename(.file.XXXXXX, file)</text>
+<rect x="100.0" y="525.0" width="400.0" height="30.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="300.0" y="544.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="300.0" dy="0.0">Цільовий файл оновлено без повної передачі даних</tspan></text>
+<rect x="660.0" y="370.0" width="440.0" height="195.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="880.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Переваги дельта-алгоритму</text>
+<text x="880.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">• Трафік = тільки змінені байти + метадані хешів</text>
+<text x="880.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">• Вставка байтів на початку файлу не ламає алгоритм:</text>
+<text x="880.0" y="485.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">  ковзне вікно знайде зсунуті блоки на будь-якій позиції</text>
+<text x="880.0" y="515.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">• Безпека при збоях: старий файл цілий до rename()</text>
+</svg>
