@@ -1,0 +1,238 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-ml",
+  "slug": "neural-networks",
+  "title": "Нейронні мережі",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "neuron-and-layer",
+      "title": "Нейрон і шар",
+      "topics": [
+        {
+          "slug": "perceptron",
+          "title": "Перцептрон Розенблатта",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "neuron-layer",
+          "title": "Нейрон і шар",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "activation-functions",
+          "title": "Функції активації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-relu-triumph.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-softmax.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "weight-fitting",
+      "title": "Підганяння ваг",
+      "topics": [
+        {
+          "slug": "loss-functions",
+          "title": "Функції втрат у машинному навчанні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-mse-likelihood.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "gradient-descent",
+          "title": "Градієнтний спуск",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "backpropagation",
+          "title": "Зворотне поширення помилки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-multiple-discovery.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "descent-stability",
+      "title": "Стійкість спуску",
+      "topics": [
+        {
+          "slug": "weight-initialization",
+          "title": "Ініціалізація ваг нейромережі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "sgd-optimizers",
+          "title": "Оптимізатори: SGD, моментум, Adam",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "vanishing-gradient",
+          "title": "Затухаючий і вибуховий градієнт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "pattern-recognition",
+      "title": "Впізнавання образів",
+      "topics": [
+        {
+          "slug": "cnn",
+          "title": "Згорткові мережі",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lecun-cnn.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "anchor-boxes",
+          "title": "Якорі та кодування рамок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "gesture-recognition",
+          "title": "Розпізнавання жестів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "latent-models",
+      "title": "Латентні моделі",
+      "topics": [
+        {
+          "slug": "autoencoder",
+          "title": "Автокодер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-linear-pca.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-autoencoder-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "variational-autoencoder",
+          "title": "Варіаційний автокодер (VAE)",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "restricted-boltzmann-machine",
+          "title": "Обмежена машина Больцмана (RBM)",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

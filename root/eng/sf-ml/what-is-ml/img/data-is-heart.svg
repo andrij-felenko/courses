@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460"
+     viewBox="0 0 960 460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Серце машинного навчання — дані; модель тоді узагальнює</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">модель учиться на тренувальних прикладах, тоді УЗАГАЛЬНЮЄ на нові, небачені; яка дата — така й модель</text>
+<text x="230" y="116" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">НАВЧАННЯ: припасуватися до прикладів</text>
+<rect x="76" y="134" width="38" height="30" rx="8" fill="#1e293b" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<rect x="76" y="134" width="38" height="8" rx="8" fill="#0a8f3c" fill-opacity="0.5" stroke="none" stroke-width="1.6"/>
+<rect x="120" y="134" width="38" height="30" rx="8" fill="#1e293b" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<rect x="120" y="134" width="38" height="8" rx="8" fill="#0a8f3c" fill-opacity="0.5" stroke="none" stroke-width="1.6"/>
+<rect x="164" y="134" width="38" height="30" rx="8" fill="#1e293b" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<rect x="164" y="134" width="38" height="8" rx="8" fill="#0a8f3c" fill-opacity="0.5" stroke="none" stroke-width="1.6"/>
+<rect x="208" y="134" width="38" height="30" rx="8" fill="#1e293b" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<rect x="208" y="134" width="38" height="8" rx="8" fill="#0a8f3c" fill-opacity="0.5" stroke="none" stroke-width="1.6"/>
+<text x="164" y="182" font-size="8.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">мічені приклади</text>
+<line x1="262" y1="150" x2="302" y2="150" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="308" y="128" width="112" height="44" rx="8" fill="#eef2ff" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.5"/>
+<text x="364" y="155" font-size="11" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">МОДЕЛЬ</text>
+<text x="710" y="116" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">УЗАГАЛЬНЕННЯ: відповідь на НОВЕ</text>
+<rect x="540" y="128" width="80" height="44" rx="8" fill="#1e293b" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1"/>
+<text x="580" y="154" font-size="8" fill="white" text-anchor="middle" font-weight="normal" font-style="normal">новий вхід</text>
+<line x1="624" y1="150" x2="662" y2="150" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="668" y="128" width="104" height="44" rx="8" fill="#eef2ff" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.5"/>
+<text x="720" y="155" font-size="11" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">МОДЕЛЬ</text>
+<line x1="776" y1="150" x2="814" y2="150" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="818" y="128" width="92" height="44" rx="8" fill="#eafaef" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.4"/>
+<text x="864" y="150" font-size="8.5" fill="#15803d" text-anchor="middle" font-weight="bold" font-style="normal">відповідь</text>
+<text x="864" y="164" font-size="7" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">(передбачення)</text>
+<rect x="60" y="220" width="840" height="82" rx="11" fill="#fffbeb" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.5"/>
+<text x="480" y="244" font-size="11" fill="#92400e" text-anchor="middle" font-weight="bold" font-style="normal">Модель не краща за свої дані: «сміття на вході → сміття на виході»</text>
+<text x="110" y="266" font-size="9.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• вузькі чи упереджені приклади → вузька, упереджена модель (бачила лише денні фото — вночі осліпне);</text>
+<text x="110" y="286" font-size="9.5" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• дані мають ПРЕДСТАВЛЯТИ реальність, де модель працюватиме (докладніше — узагальнення, 50.6).</text>
+<text x="480.0" y="446" font-size="10.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Машинне навчання — не магія: це припасування до прикладів плюс узагальнення на схоже. Поза баченим воно кволе.</text>
+</svg>

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="470"
+     viewBox="0 0 960 470" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="470" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Активація: чому без «згину» мережа безсила</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">без активації стос нейронів — це знов одна пряма (XOR не взяти); активація (ReLU, сигмоїда) ГНЕ відгук</text>
+<rect x="50" y="104" width="420" height="308" rx="12" fill="#fbfbfd" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.8"/>
+<text x="260" y="128" font-size="11" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">дві популярні активації</text>
+<line x1="90" y1="232" x2="240" y2="232" stroke="#1a1a1a" stroke-width="1.2" stroke-opacity="1.0" stroke-linecap="round"/>
+<line x1="150" y1="162" x2="150" y2="248" stroke="#1a1a1a" stroke-width="1.2" stroke-opacity="1.0" stroke-linecap="round"/>
+<line x1="100" y1="232" x2="150" y2="232" stroke="#0a8f3c" stroke-width="2.6" stroke-opacity="1.0" stroke-linecap="round"/>
+<line x1="150" y1="232" x2="230" y2="162" stroke="#0a8f3c" stroke-width="2.6" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="165" y="266" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">ReLU: max(0, x)</text>
+<text x="165" y="280" font-size="8" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">нуль, далі прямо (швидко)</text>
+<line x1="280" y1="232" x2="430" y2="232" stroke="#1a1a1a" stroke-width="1.2" stroke-opacity="1.0" stroke-linecap="round"/>
+<line x1="355" y1="162" x2="355" y2="248" stroke="#1a1a1a" stroke-width="1.2" stroke-opacity="1.0" stroke-linecap="round"/>
+<polyline points="289.0,231.84669736428864 293.4,231.77157712623497 297.8,231.65984946823409 302.2,231.4939205885041 306.6,231.24803703097498 311.0,230.88485498235033 315.4,230.3509863982343 319.8,229.57172518660062 324.2,228.44590109427014 328.6,226.8432928173768 333.0,224.6094188346287 337.4,221.58513987830332 341.8,217.6485365769391 346.2,212.77841782991197 350.6,207.11863492697202 355.0,201.0 359.4,194.88136507302798 363.8,189.22158217008803 368.2,184.3514634230609 372.6,180.41486012169668 377.0,177.3905811653713 381.4,175.1567071826232 385.8,173.55409890572986 390.2,172.42827481339938 394.6,171.6490136017657 399.0,171.11514501764967 403.4,170.75196296902502 407.8,170.5060794114959 412.2,170.34015053176591 416.6,170.22842287376503 421.0,170.15330263571136" fill="none" fill-opacity="1.0" stroke="#d98a00" stroke-width="2.6" stroke-linejoin="round"/>
+<text x="355" y="266" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">сигмоїда: тисне у 0…1</text>
+<text x="355" y="280" font-size="8" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">плавний «вмикач»</text>
+<rect x="490" y="104" width="420" height="308" rx="12" fill="#eafaef" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.8"/>
+<text x="700" y="128" font-size="11" fill="#15803d" text-anchor="middle" font-weight="bold" font-style="normal">нащо потрібна нелінійність</text>
+<rect x="516" y="156" width="180" height="150" rx="8" fill="#0f172a" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<circle cx="556" cy="280" r="9" fill="#1f4ed8" fill-opacity="1.0" stroke="white" stroke-width="1.3"/>
+<circle cx="646" cy="190" r="9" fill="#1f4ed8" fill-opacity="1.0" stroke="white" stroke-width="1.3"/>
+<circle cx="556" cy="190" r="9" fill="#cc0000" fill-opacity="1.0" stroke="white" stroke-width="1.3"/>
+<circle cx="646" cy="280" r="9" fill="#cc0000" fill-opacity="1.0" stroke="white" stroke-width="1.3"/>
+<line x1="548" y1="203.5" x2="654" y2="284.5" stroke="#cc0000" stroke-width="2.4" stroke-dasharray="6,4" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="606" y="322" font-size="9" fill="#cc0000" text-anchor="middle" font-weight="bold" font-style="normal">лише пряма ✗ (XOR)</text>
+<rect x="714" y="156" width="180" height="150" rx="8" fill="#0f172a" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<circle cx="754" cy="280" r="9" fill="#1f4ed8" fill-opacity="1.0" stroke="white" stroke-width="1.3"/>
+<circle cx="844" cy="190" r="9" fill="#1f4ed8" fill-opacity="1.0" stroke="white" stroke-width="1.3"/>
+<circle cx="754" cy="190" r="9" fill="#cc0000" fill-opacity="1.0" stroke="white" stroke-width="1.3"/>
+<circle cx="844" cy="280" r="9" fill="#cc0000" fill-opacity="1.0" stroke="white" stroke-width="1.3"/>
+<polyline points="746,254.8 799.0,226.0 852,254.8" fill="none" fill-opacity="1.0" stroke="#22c55e" stroke-width="2.4" stroke-linejoin="round"/>
+<polyline points="746,215.2 799.0,244.0 852,215.2" fill="none" fill-opacity="1.0" stroke="#22c55e" stroke-width="2.4" stroke-linejoin="round"/>
+<text x="804" y="322" font-size="9" fill="#15803d" text-anchor="middle" font-weight="bold" font-style="normal">зі згином ✓</text>
+<text x="700" y="352" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">без активації багато шарів = одна пряма;</text>
+<text x="700" y="368" font-size="9" fill="#15803d" text-anchor="middle" font-weight="bold" font-style="normal">активація ГНЕ межу → складні візерунки</text>
+<text x="480.0" y="456" font-size="10.5" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="italic">Активація — це нелінійність. Без неї мережа вміє лише прямі межі (XOR з 50.0 не взяти); з нею — будь-які.</text>
+</svg>

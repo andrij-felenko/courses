@@ -1,0 +1,152 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-ml",
+  "slug": "trust-and-limits",
+  "title": "Довіра й межі",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "quality-and-error-cost",
+      "title": "Якість і ціна помилки",
+      "topics": [
+        {
+          "slug": "pravylo-chy-model",
+          "title": "Правило чи модель: коли навчання виправдане",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "metryky-iakosti-modeli",
+          "title": "Метрики якості моделі: точність, повнота, матриця плутанини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "porih-i-tsina-pomylky",
+          "title": "Поріг і ціна помилки: хибне спрацювання проти пропуску",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "confidence-and-refusal",
+      "title": "Впевненість і відмова",
+      "topics": [
+        {
+          "slug": "confidence-calibration",
+          "title": "Калібрування впевненості моделі",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "ne-znaiu",
+          "title": "«Не знаю»: відмова від рішення як штатна відповідь",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "model-explainability",
+          "title": "Пояснюваність моделей",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "field-aging",
+      "title": "Старіння в полі",
+      "topics": [
+        {
+          "slug": "distribution-shift",
+          "title": "Зсув розподілу даних",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dreif-u-poli",
+          "title": "Дрейф у полі: як помітити його на борту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "limits-and-fairness",
+      "title": "Межі й справедливість",
+      "topics": [
+        {
+          "slug": "ml-limits-ethics",
+          "title": "Межі й етика",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "pending"
+          },
+          "hist": [
+            {
+              "file": "hist-shortcut-legends.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-base-rate-threshold.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-slice-audit.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fairness-criteria",
+          "title": "Критерії справедливості моделі та їхня несумісність",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

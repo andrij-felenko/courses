@@ -1,0 +1,210 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-ml",
+  "slug": "on-device",
+  "title": "Модель на пристрої",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "device-budget",
+      "title": "Бюджет борту",
+      "topics": [
+        {
+          "slug": "tinyml",
+          "title": "TinyML",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tinyml-field.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-arena-planner.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tflm.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "edge-computing",
+          "title": "Edge computing",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "inference-latency",
+          "title": "Латентність інференсу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-realtime-inference.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "model-compression",
+      "title": "Стиснення моделі",
+      "topics": [
+        {
+          "slug": "model-quantization",
+          "title": "Квантування нейромереж",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-int8-jacob.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-affine-quant.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-int8-inference.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "quantization-inference",
+          "title": "Квантування для інференсу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "weight-pruning",
+          "title": "Прорідження мережі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-obd-lottery.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pruning-saliency.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "knowledge-distillation",
+          "title": "Дистиляція знань",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-distillation-lineage.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-distillation-loss.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-distill-mnist-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "depthwise-separable-conv",
+          "title": "Розділювана за глибиною згортка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "model-in-firmware",
+      "title": "Модель у прошивці",
+      "topics": [
+        {
+          "slug": "onovlennia-modeli-v-poli",
+          "title": "Оновлення моделі в полі: модель як частина прошивки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "odnakovyi-vkhid-u-navchanni-i-na-bortu",
+          "title": "Однаковий вхід у навчанні й на борту: препроцесинг, що розходиться",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "model-u-petli-realnoho-chasu",
+          "title": "Модель у петлі реального часу: що робити, коли вивід не встиг",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

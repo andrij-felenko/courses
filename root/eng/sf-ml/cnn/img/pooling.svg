@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460"
+     viewBox="0 0 960 460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Пулінг: стиснути мапу й стерпіти зсув</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">беремо максимум у кожному віконці (2×2) → мапа меншає вдвічі; дешевше, і дрібний зсув ознаки вже не збиває</text>
+<rect x="150" y="150" width="56" height="56" rx="8" fill="#dbeafe" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="178.0" y="185.84" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="206" y="150" width="56" height="56" rx="8" fill="#dbeafe" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="234.0" y="185.84" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="262" y="150" width="56" height="56" rx="8" fill="#fde68a" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="290.0" y="185.84" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">2</text>
+<rect x="318" y="150" width="56" height="56" rx="8" fill="#fde68a" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="346.0" y="185.84" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">3</text>
+<rect x="150" y="206" width="56" height="56" rx="8" fill="#dbeafe" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="178.0" y="241.84" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">4</text>
+<rect x="206" y="206" width="56" height="56" rx="8" fill="#dbeafe" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="234.0" y="241.84" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">6</text>
+<rect x="262" y="206" width="56" height="56" rx="8" fill="#fde68a" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="290.0" y="241.84" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="318" y="206" width="56" height="56" rx="8" fill="#fde68a" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="346.0" y="241.84" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">2</text>
+<rect x="150" y="262" width="56" height="56" rx="8" fill="#bbf7d0" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="178.0" y="297.84000000000003" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">3</text>
+<rect x="206" y="262" width="56" height="56" rx="8" fill="#bbf7d0" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="234.0" y="297.84000000000003" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<rect x="262" y="262" width="56" height="56" rx="8" fill="#fecaca" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="290.0" y="297.84000000000003" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">0</text>
+<rect x="318" y="262" width="56" height="56" rx="8" fill="#fecaca" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="346.0" y="297.84000000000003" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">5</text>
+<rect x="150" y="318" width="56" height="56" rx="8" fill="#bbf7d0" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="178.0" y="353.84000000000003" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">2</text>
+<rect x="206" y="318" width="56" height="56" rx="8" fill="#bbf7d0" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="234.0" y="353.84000000000003" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">2</text>
+<rect x="262" y="318" width="56" height="56" rx="8" fill="#fecaca" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="290.0" y="353.84000000000003" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">7</text>
+<rect x="318" y="318" width="56" height="56" rx="8" fill="#fecaca" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="346.0" y="353.84000000000003" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">1</text>
+<text x="262" y="140" font-size="9.5" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">мапа ознак 4×4</text>
+<line x1="388" y1="262" x2="444" y2="262" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="416" y="250" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">макс</text>
+<text x="416" y="286" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">2×2</text>
+<rect x="464" y="178" width="56" height="56" rx="8" fill="#dbeafe" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="492.0" y="213.84" font-size="16" fill="#cc0000" text-anchor="middle" font-weight="bold" font-style="normal">6</text>
+<rect x="520" y="178" width="56" height="56" rx="8" fill="#fde68a" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="548.0" y="213.84" font-size="16" fill="#cc0000" text-anchor="middle" font-weight="bold" font-style="normal">3</text>
+<rect x="464" y="234" width="56" height="56" rx="8" fill="#bbf7d0" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="492.0" y="269.84000000000003" font-size="16" fill="#cc0000" text-anchor="middle" font-weight="bold" font-style="normal">3</text>
+<rect x="520" y="234" width="56" height="56" rx="8" fill="#fecaca" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="548.0" y="269.84000000000003" font-size="16" fill="#cc0000" text-anchor="middle" font-weight="bold" font-style="normal">7</text>
+<text x="520" y="140" font-size="9.5" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">→ 2×2 (максимум кожного)</text>
+<rect x="120" y="380" width="720" height="36" rx="9" fill="#eef2ff" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.4"/>
+<text x="480" y="403" font-size="10" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">+ менше даних (дешевше й швидше) · + стійкість: дрібний зсув ознаки в межах віконця нічого не міняє.</text>
+</svg>

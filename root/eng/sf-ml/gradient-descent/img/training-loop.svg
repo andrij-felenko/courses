@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="470"
+     viewBox="0 0 960 470" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="arrR" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#cc0000"/></marker>
+    <marker id="arrB" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1f4ed8"/></marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0a8f3c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="470" fill="white"/>
+<text x="480.0" y="30" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Цикл навчання: вперед → похибка → назад → крок</text>
+<text x="480.0" y="50" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="normal" font-style="normal">прогнати вперед → виміряти похибку → зворотним поширенням порахувати градієнт для КОЖНОЇ ваги → ступити вниз → повторити (епохи)</text>
+<rect x="40" y="156" width="190" height="70" rx="9" fill="#0f172a" fill-opacity="1.0" stroke="#1f4ed8" stroke-width="1.9"/>
+<text x="135.0" y="184" font-size="11" fill="#1f4ed8" text-anchor="middle" font-weight="bold" font-style="normal">1. ВПЕРЕД</text>
+<text x="135.0" y="205" font-size="8.6" fill="#cbd5e1" text-anchor="middle" font-weight="normal" font-style="normal">передбачити</text>
+<line x1="230" y1="191" x2="244" y2="191" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="270" y="156" width="190" height="70" rx="9" fill="#0f172a" fill-opacity="1.0" stroke="#cc0000" stroke-width="1.9"/>
+<text x="365.0" y="184" font-size="11" fill="#cc0000" text-anchor="middle" font-weight="bold" font-style="normal">2. ПОХИБКА</text>
+<text x="365.0" y="205" font-size="8.6" fill="#cbd5e1" text-anchor="middle" font-weight="normal" font-style="normal">проти мітки</text>
+<line x1="460" y1="191" x2="474" y2="191" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="500" y="156" width="190" height="70" rx="9" fill="#0f172a" fill-opacity="1.0" stroke="#d98a00" stroke-width="1.9"/>
+<text x="595.0" y="184" font-size="11" fill="#d98a00" text-anchor="middle" font-weight="bold" font-style="normal">3. НАЗАД</text>
+<text x="595.0" y="205" font-size="8.6" fill="#cbd5e1" text-anchor="middle" font-weight="normal" font-style="normal">зворотне поширення</text>
+<line x1="690" y1="191" x2="704" y2="191" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<rect x="730" y="156" width="190" height="70" rx="9" fill="#0f172a" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="1.9"/>
+<text x="825.0" y="184" font-size="11" fill="#0a8f3c" text-anchor="middle" font-weight="bold" font-style="normal">4. ОНОВИТИ</text>
+<text x="825.0" y="205" font-size="8.6" fill="#cbd5e1" text-anchor="middle" font-weight="normal" font-style="normal">крок ваг униз</text>
+<line x1="825" y1="228" x2="825" y2="262" stroke="#1a1a1a" stroke-width="1.7" stroke-opacity="1.0" stroke-linecap="round"/>
+<line x1="825" y1="262" x2="135" y2="262" stroke="#1a1a1a" stroke-width="1.7" stroke-opacity="1.0" stroke-linecap="round"/>
+<line x1="135" y1="262" x2="135" y2="230" stroke="#1a1a1a" stroke-width="1.7" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="480" y="256" font-size="9.5" fill="#6b7280" text-anchor="middle" font-weight="bold" font-style="normal">↻ повторювати по всіх прикладах багато разів (епохи)</text>
+<text x="200" y="312" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">похибка з кожною епохою падає:</text>
+<line x1="120" y1="412" x2="370" y2="412" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<line x1="120" y1="412" x2="120" y2="322" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)" stroke-opacity="1.0" stroke-linecap="round"/>
+<text x="370" y="428" font-size="8" fill="#6b7280" text-anchor="end" font-weight="normal" font-style="normal">епохи →</text>
+<text x="116" y="320" font-size="8" fill="#6b7280" text-anchor="end" font-weight="normal" font-style="normal">похибка</text>
+<polyline points="120,328.0 145,358.439235263771 170,377.8481485817897 195,390.2238181057451 220,398.11489338938674 245,403.1464651368034 270,406.354736929861 295,408.4004213431686 320,409.7048073144274 345,410.53652053028253 370,411.0668442907876" fill="none" fill-opacity="1.0" stroke="#0a8f3c" stroke-width="2.4" stroke-linejoin="round"/>
+<rect x="430" y="320" width="480" height="104" rx="10" fill="#f4f4f5" fill-opacity="1.0" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="670" y="344" font-size="10.5" fill="#1a1a1a" text-anchor="middle" font-weight="bold" font-style="normal">Зворотне поширення — двигун кроку 3</text>
+<text x="452" y="366.0" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• воно ефективно рахує градієнт для КОЖНОЇ ваги —</text>
+<text x="452" y="383.5" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">  пускаючи похибку НАЗАД крізь шари (Гінтон, 1986);</text>
+<text x="452" y="401.0" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">• апарат цього НЕ робить: навчання — у хмарі (50.2),</text>
+<text x="452" y="418.5" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="normal" font-style="normal">  на борт їде вже готова модель.</text>
+</svg>

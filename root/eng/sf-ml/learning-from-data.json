@@ -1,0 +1,272 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-ml",
+  "slug": "learning-from-data",
+  "title": "Навчання з даних",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "problem-setup",
+      "title": "Постановка задачі",
+      "topics": [
+        {
+          "slug": "what-is-ml",
+          "title": "Що таке ML",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ai-winters.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "train-vs-inference",
+          "title": "Навчання vs вивід",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "supervised-learning",
+          "title": "Навчання з учителем",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-nearest-neighbor.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-loss-functions.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "unsupervised-learning",
+          "title": "Навчання без учителя",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kmeans-lineage.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "reinforcement-learning",
+          "title": "Навчання з підкріпленням",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rl-lineage.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "generalization",
+      "title": "Узагальнення",
+      "topics": [
+        {
+          "slug": "overfitting",
+          "title": "Перенавчання",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "regularization",
+          "title": "Регуляризація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-regularization.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-l1-sparsity.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bias-variance-tradeoff",
+          "title": "Компроміс зміщення й дисперсії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "cross-validation",
+          "title": "Крос-валідація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cross-validation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kfold-c.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "data-geometry",
+      "title": "Геометрія даних",
+      "topics": [
+        {
+          "slug": "pca",
+          "title": "Метод головних компонент (PCA)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "intrinsic-dimension",
+          "title": "Внутрішня розмірність даних і гіпотеза многовиду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "cosine-similarity",
+          "title": "Косинусна схожість",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "clustering",
+      "title": "Кластеризація",
+      "topics": [
+        {
+          "slug": "dbscan",
+          "title": "DBSCAN: щільнісна кластеризація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "mean-shift",
+          "title": "Зсув до середнього",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "small-data",
+      "title": "Коли даних мало",
+      "topics": [
+        {
+          "slug": "data-augmentation",
+          "title": "Аугментація даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-alexnet-2012.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mixup.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "transfer-learning",
+          "title": "Transfer learning (перенесення навчання)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-transferable-features.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
