@@ -1,0 +1,186 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-combinatorics",
+  "slug": "graph-structure",
+  "title": "Будова графа",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "graphs-and-trees",
+      "title": "Графи й дерева",
+      "topics": [
+        {
+          "slug": "graph-theory",
+          "title": "Теорія графів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "spanning-tree",
+          "title": "Кістякове дерево",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "matrix-tree-theorem",
+          "title": "Матрична теорема про дерева (теорема Кірхгофа)",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "planarity",
+      "title": "Планарність",
+      "topics": [
+        {
+          "slug": "planar-graph",
+          "title": "Планарний граф та теорема Куратовського",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kuratowski-pontryagin.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-euler-formula-bounds.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-planarity-test.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-planarity-checker.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "coloring",
+      "title": "Розфарбування",
+      "topics": [
+        {
+          "slug": "graph-coloring",
+          "title": "Розфарбування графів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "chromatic-number",
+          "title": "Хроматичне число графа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-chromatic-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mycielski-brooks.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dsatur-coloring.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-coloring-solver.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "ramsey",
+      "title": "Теорія Рамсея",
+      "topics": [
+        {
+          "slug": "ramsey-theory",
+          "title": "Теорія Рамсея",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "ramseys-theorem",
+          "title": "Теорема Рамсея",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ramsey-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ramsey-bounds.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ramsey-solver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ramsey-checker.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

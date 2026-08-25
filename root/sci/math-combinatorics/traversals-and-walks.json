@@ -1,0 +1,302 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-combinatorics",
+  "slug": "traversals-and-walks",
+  "title": "Обходи й блукання",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "routes-and-tours",
+      "title": "Маршрути через ребра й вершини",
+      "topics": [
+        {
+          "slug": "eulerian-cycle",
+          "title": "Ейлерів цикл",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-konigsberg-bridges.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-euler-hierholzer-theorem.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hierholzer-algorithm.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-eulerian-graph.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "hamiltonian-cycle",
+          "title": "Гамільтонів граф та гамільтонів цикл",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-icosian-game.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dirac-ore-theorems.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-backtracking-held-karp.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-hamiltonian-solver.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "traveling-salesperson-problem",
+          "title": "Задача комівояжера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-tsp-history.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tsp-bounds-formulations.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tsp-algorithms.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tsp-interface.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "words-and-sequences",
+      "title": "Слова й послідовності",
+      "topics": [
+        {
+          "slug": "de-bruijn-graph",
+          "title": "Граф де Брейнена",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-debruijn-sequences.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-debruijn-properties.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-debruijn-generator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-debruijn-graph.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "de-bruijn-sequence",
+          "title": "Послідовності де Брейна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-de-bruijn.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-counting.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-construct.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-debruijn-ctz.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lyndon-word",
+          "title": "Слова Ліндона",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "spectrum-and-mixing",
+      "title": "Спектр і перемішування",
+      "topics": [
+        {
+          "slug": "random-walks",
+          "title": "Випадкові блукання у графах (Random Walks)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-random-walks.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-random-walks.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-random-walks.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-random-walks.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "expander-graphs",
+          "title": "Графи-розширювачі (Expander Graphs)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-expander-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-spectral-expansion.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-expander-construction.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-expander-graph.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "paley-graphs",
+          "title": "Графи Пейлі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-paley-hadamard.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-paley-spectrum.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-paley-construction.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

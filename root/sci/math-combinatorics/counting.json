@@ -1,0 +1,220 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "math-combinatorics",
+  "slug": "counting",
+  "title": "Підрахунок",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "arrangements",
+      "title": "Вибір і розставляння",
+      "topics": [
+        {
+          "slug": "permutations",
+          "title": "Перестановки",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "combinations",
+          "title": "Комбінації і біноміальний коефіцієнт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "inclusion-exclusion",
+          "title": "Принцип включення-виключення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-surjections.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-subset-sieve.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "enumeration-numbers",
+      "title": "Числа перелічування",
+      "topics": [
+        {
+          "slug": "stirling-numbers-second-kind",
+          "title": "Числа Стірлінга другого роду",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "bell-numbers",
+          "title": "Числа Белла",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bell-numbers.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dobinski-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bell-algorithms.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "catalan-numbers",
+          "title": "Числа Каталана",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-catalan.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-catalan-proofs.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-catalan-algorithms.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-catalan-utils.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "harmonic-numbers",
+          "title": "Гармонічні числа",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-harmonic-series.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-euler-maclaurin.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-harmonic-computation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-harmonic-eval.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "recurrences-and-generating-functions",
+      "title": "Рекурентності й твірні функції",
+      "topics": [
+        {
+          "slug": "linear-recurrence",
+          "title": "Лінійні рекурентні співвідношення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "generating-functions",
+          "title": "Твірні функції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-generating-functions.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-catalan-derivation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-generating-functions.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
