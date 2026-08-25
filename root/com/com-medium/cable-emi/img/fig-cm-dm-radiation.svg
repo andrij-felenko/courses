@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="20.0" width="380.0" height="350.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="205.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Протифазний режим (Differential Mode)</text>
+<rect x="35.0" y="95.0" width="55.0" height="120.0" rx="4" fill="#e2e8f0" stroke="#333333" stroke-width="1.5"/>
+<text x="62.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Джерело</text>
+<rect x="320.0" y="95.0" width="55.0" height="120.0" rx="4" fill="#e2e8f0" stroke="#333333" stroke-width="1.5"/>
+<text x="347.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Приймач</text>
+<line x1="90.0" y1="120.0" x2="320.0" y2="120.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="90.0" y1="190.0" x2="320.0" y2="190.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="150.0" y1="120.0" x2="200.0" y2="120.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="250.0" y1="190.0" x2="200.0" y2="190.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="205.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">I_DM (прямий)</text>
+<text x="205.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">I_DM (зворотний)</text>
+<line x1="120.0" y1="125.0" x2="120.0" y2="185.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="108.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">s</text>
+<line x1="90.0" y1="80.0" x2="320.0" y2="80.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="205.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Довжина L (площа петлі A = s · L)</text>
+<text x="205.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Поля B протилежні → взаємне скасування</text>
+<rect x="75.9" y="275.2" width="258.3" height="59.6" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="205.0" y="294.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e7a46" text-anchor="middle"><tspan x="205.0" dy="0.0">Магнітний диполь: мала площа s · L</tspan><tspan x="205.0" dy="14.3">Випромінювання: E_DM ~ f² · A · I_DM</tspan><tspan x="205.0" dy="14.3">(для випромінювання потрібні сотні мА)</tspan></text>
+<rect x="415.0" y="20.0" width="390.0" height="350.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="615.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Синфазний режим (Common Mode)</text>
+<rect x="435.0" y="95.0" width="55.0" height="120.0" rx="4" fill="#e2e8f0" stroke="#333333" stroke-width="1.5"/>
+<text x="462.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Блок 1</text>
+<rect x="730.0" y="95.0" width="55.0" height="120.0" rx="4" fill="#e2e8f0" stroke="#333333" stroke-width="1.5"/>
+<text x="757.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Блок 2</text>
+<line x1="490.0" y1="120.0" x2="730.0" y2="120.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="490.0" y1="190.0" x2="730.0" y2="190.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="570.0" y1="120.0" x2="620.0" y2="120.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<line x1="570.0" y1="190.0" x2="620.0" y2="190.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="610.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">I_CM / 2</text>
+<text x="610.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">I_CM / 2</text>
+<line x1="435.0" y1="260.0" x2="785.0" y2="260.0" stroke="#333333" stroke-width="2.0"/>
+<text x="610.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="middle" font-weight="700">Опорна земля / шасі (струм замикання)</text>
+<line x1="550.0" y1="190.0" x2="550.0" y2="220.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="540.0" y1="220.0" x2="560.0" y2="220.0" stroke="#6b7280" stroke-width="1.8"/>
+<line x1="540.0" y1="225.0" x2="560.0" y2="225.0" stroke="#6b7280" stroke-width="1.8"/>
+<line x1="550.0" y1="225.0" x2="550.0" y2="260.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="585.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">C_паразитна</text>
+<line x1="680.0" y1="260.0" x2="540.0" y2="260.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="610.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">I_CM (через простір)</text>
+<rect x="470.2" y="288.2" width="289.6" height="59.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="615.0" y="307.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#a3271b" text-anchor="middle"><tspan x="615.0" dy="0.0">Електричний диполь довжиною L</tspan><tspan x="615.0" dy="14.3">Випромінювання: E_CM ~ f · L · I_CM</tspan><tspan x="615.0" dy="14.3">(всього 5–10 мкА порушують норми FCC/CISPR)</tspan></text>
+</svg>
