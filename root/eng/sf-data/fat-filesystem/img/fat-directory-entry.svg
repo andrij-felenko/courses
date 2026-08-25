@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="810.0" height="420.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="420.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія 32-байтного запису каталогу та механізм VFAT LFN</text>
+<text x="420.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Короткий запис 8.3 (SFN) та стек псевдозаписів довгих імен файлів (LFN)</text>
+<text x="40.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Структура класичного 32-байтного запису каталогу (SFN):</text>
+<rect x="40.0" y="105.0" width="75.0" height="60.0" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="77.5" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">DIR_Name</text>
+<text x="77.5" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">8 байтів</text>
+<text x="77.5" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="middle">Ім'я (ASCII)</text>
+<text x="40.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">+0</text>
+<rect x="115.0" y="105.0" width="45.0" height="60.0" rx="3" fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5"/>
+<text x="137.5" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">DIR_Ext</text>
+<text x="137.5" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">3 байти</text>
+<text x="137.5" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="middle">Тип (Ext)</text>
+<text x="115.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">+8</text>
+<rect x="160.0" y="105.0" width="45.0" height="60.0" rx="3" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+<text x="182.5" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Attr</text>
+<text x="182.5" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 байт</text>
+<text x="182.5" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="middle">Прапорці</text>
+<text x="160.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">+11</text>
+<rect x="205.0" y="105.0" width="40.0" height="60.0" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="218.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">NTRes</text>
+<text x="225.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 байт</text>
+<text x="225.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="middle">Регістр</text>
+<text x="205.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">+12</text>
+<rect x="245.0" y="105.0" width="42.0" height="60.0" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="266.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">CrtTimeTenth</text>
+<text x="266.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1 байт</text>
+<text x="266.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="middle">10 мс</text>
+<text x="245.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">+13</text>
+<rect x="287.0" y="105.0" width="55.0" height="60.0" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="314.5" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">CrtTime</text>
+<text x="314.5" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">2 байти</text>
+<text x="314.5" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="middle">Створення</text>
+<text x="287.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">+14</text>
+<rect x="342.0" y="105.0" width="55.0" height="60.0" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="369.5" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">CrtDate</text>
+<text x="369.5" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">2 байти</text>
+<text x="369.5" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="middle">Створення</text>
+<text x="342.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">+16</text>
+<rect x="397.0" y="105.0" width="50.0" height="60.0" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="422.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">LstAccDate</text>
+<text x="422.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">2 байти</text>
+<text x="422.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="middle">Доступ</text>
+<text x="397.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">+18</text>
+<rect x="447.0" y="105.0" width="78.0" height="60.0" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="486.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">FstClusHI</text>
+<text x="486.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">2 байти</text>
+<text x="486.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="middle" font-weight="700">Кластер [31:16]</text>
+<text x="447.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">+20</text>
+<rect x="525.0" y="105.0" width="55.0" height="60.0" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="552.5" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">WrtTime</text>
+<text x="552.5" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">2 байти</text>
+<text x="552.5" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="middle">Зміна</text>
+<text x="525.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">+22</text>
+<rect x="580.0" y="105.0" width="55.0" height="60.0" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="607.5" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">WrtDate</text>
+<text x="607.5" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">2 байти</text>
+<text x="607.5" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="middle">Зміна</text>
+<text x="580.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">+24</text>
+<rect x="635.0" y="105.0" width="78.0" height="60.0" rx="3" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="674.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">FstClusLO</text>
+<text x="674.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">2 байти</text>
+<text x="674.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="middle" font-weight="700">Кластер [15:0]</text>
+<text x="635.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">+26</text>
+<rect x="713.0" y="105.0" width="77.0" height="60.0" rx="3" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+<text x="751.5" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">FileSize</text>
+<text x="751.5" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4 байти</text>
+<text x="751.5" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="middle" font-weight="700">Розмір (B)</text>
+<text x="713.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">+28</text>
+<text x="790.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">+32</text>
+<text x="40.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Стек записів VFAT для довгого імені «Фінансовий_звіт_2026.docx»:</text>
+<rect x="40.0" y="225.0" width="760.0" height="42.0" rx="4" fill="#fdf4ff" stroke="#c084fc" stroke-width="1.5"/>
+<text x="80.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7e22ce" text-anchor="middle" font-weight="700">LFN #2 (0x42)</text>
+<text x="190.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Прапорець LAST_ENTRY | Порядок 2</text>
+<text x="460.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#581c87" text-anchor="middle" font-weight="700">Символи UTF-16LE: «_2026.docx\0»</text>
+<text x="690.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e22ce" text-anchor="middle">Attr: 0x0F | Checksum: 0x8B</text>
+<rect x="40.0" y="273.0" width="760.0" height="42.0" rx="4" fill="#fdf4ff" stroke="#c084fc" stroke-width="1.5"/>
+<text x="80.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7e22ce" text-anchor="middle" font-weight="700">LFN #1 (0x01)</text>
+<text x="190.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Порядковий номер 1</text>
+<text x="460.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#581c87" text-anchor="middle" font-weight="700">Символи UTF-16LE: «Фінансовий_звіт»</text>
+<text x="690.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e22ce" text-anchor="middle">Attr: 0x0F | Checksum: 0x8B</text>
+<rect x="40.0" y="321.0" width="760.0" height="42.0" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="80.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle" font-weight="700">SFN (8.3 Alias)</text>
+<text x="190.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Короткий аліас: «ФІНАНС~1.DOC»</text>
+<text x="453.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e3a8a" text-anchor="middle">Реальні метадані: Кластер #142, Розмір 48 512 B, Час/Дата</text>
+<text x="690.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle">Attr: 0x20 | Обчислено Checksum: 0x8B</text>
+<text x="420.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Записи LFN розміщуються безпосередньо перед коротким записом у зворотному порядку.</text>
+<text x="420.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Атрибут 0x0F захищає LFN від модифікації старими драйверами DOS, а контрольна сума гарантує зв'язок.</text>
+</svg>

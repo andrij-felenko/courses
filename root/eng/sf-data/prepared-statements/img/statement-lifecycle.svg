@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл запиту: пряме виконання проти підготовлених виразів</text>
+<rect x="30.0" y="60.0" width="920.0" height="200.0" rx="8" fill="#fdfaf3" stroke="#d97706" stroke-width="1.5"/>
+<text x="50.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d97706" text-anchor="start" font-weight="700">Пряме виконання запиту (Ad-hoc SQL, N повторів):</text>
+<rect x="60.0" y="110.0" width="140.0" height="105.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="130.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">SQL Текст</text>
+<line x1="70.0" y1="145.0" x2="190.0" y2="145.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<rect x="66.0" y="152.0" width="128.0" height="57.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="130.0" y="177.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">SELECT .. WHERE</tspan><tspan x="130.0" dy="13.0">id = 42</tspan></text>
+<line x1="202.0" y1="162.5" x2="236.0" y2="162.5" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="240.0" y="110.0" width="140.0" height="105.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="310.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Парсинг</text>
+<line x1="250.0" y1="145.0" x2="370.0" y2="145.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<rect x="246.0" y="152.0" width="128.0" height="57.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="310.0" y="177.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">Лексер + Парсер</tspan><tspan x="310.0" dy="13.0">будують AST</tspan></text>
+<line x1="382.0" y1="162.5" x2="416.0" y2="162.5" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="420.0" y="110.0" width="140.0" height="105.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="490.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Семантика</text>
+<line x1="430.0" y1="145.0" x2="550.0" y2="145.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<rect x="426.0" y="152.0" width="128.0" height="57.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="490.0" y="177.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">Перевірка таблиць,</tspan><tspan x="490.0" dy="13.0">типів і прав</tspan></text>
+<line x1="562.0" y1="162.5" x2="596.0" y2="162.5" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="600.0" y="110.0" width="140.0" height="105.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="670.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Планувальник</text>
+<line x1="610.0" y1="145.0" x2="730.0" y2="145.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<rect x="606.0" y="152.0" width="128.0" height="57.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="670.0" y="177.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="670.0" dy="0.0">CBO розраховує</tspan><tspan x="670.0" dy="13.0">вартість і план</tspan></text>
+<line x1="742.0" y1="162.5" x2="776.0" y2="162.5" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="780.0" y="110.0" width="140.0" height="105.0" rx="6" fill="#eef9f1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="850.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Виконання</text>
+<line x1="790.0" y1="145.0" x2="910.0" y2="145.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<rect x="786.0" y="152.0" width="128.0" height="57.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="850.0" y="177.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="850.0" dy="0.0">Ітератор читає</tspan><tspan x="850.0" dy="13.0">рядки таблиці</tspan></text>
+<text x="500.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-style="italic">Повний конвеєр (парсинг + аналіз + планування) повторюється на кожен окремий запит — 70-85% CPU на компіляцію</text>
+<rect x="30.0" y="285.0" width="920.0" height="245.0" rx="8" fill="#eef9f1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="50.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Підготовлені вирази (Prepared Statements):</text>
+<rect x="60.0" y="333.0" width="380.0" height="160.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<rect x="60.0" y="333.0" width="380.0" height="32.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="250.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Фаза підготовки: PREPARE (один раз)</text>
+<rect x="75.0" y="381.0" width="90.0" height="85.0" rx="4" fill="#fdfaf3" stroke="#d97706" stroke-width="1.2"/>
+<text x="120.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">SQL Шаблон</text>
+<rect x="79.0" y="409.0" width="82.0" height="53.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="120.0" y="438.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">WHERE id = $1</tspan></text>
+<rect x="195.0" y="381.0" width="100.0" height="85.0" rx="4" fill="#fdfaf3" stroke="#d97706" stroke-width="1.2"/>
+<text x="245.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">Компіляція</text>
+<rect x="199.0" y="409.0" width="92.0" height="53.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="245.0" y="432.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="245.0" dy="0.0">Парсинг + Аналіз</tspan><tspan x="245.0" dy="11.7">-&gt; План у кеш</tspan></text>
+<rect x="325.0" y="381.0" width="100.0" height="85.0" rx="4" fill="#fdfaf3" stroke="#d97706" stroke-width="1.2"/>
+<text x="375.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">Кеш сесії</text>
+<rect x="329.0" y="409.0" width="92.0" height="53.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="375.0" y="432.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="375.0" dy="0.0">Дескриптор 'P1'</tspan><tspan x="375.0" dy="11.7">з планом запиту</tspan></text>
+<line x1="167.0" y1="423.0" x2="193.0" y2="423.0" stroke="#1a1a1a" stroke-width="1.3" marker-end="url(#arrow)"/>
+<line x1="297.0" y1="423.0" x2="323.0" y2="423.0" stroke="#1a1a1a" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="250.0" y="481.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Парсинг і генерація плану відбуваються лише раз</text>
+<rect x="470.0" y="333.0" width="460.0" height="160.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="470.0" y="333.0" width="460.0" height="32.0" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="700.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">2. Фаза зв'язування та виконання: EXECUTE (N разів)</text>
+<rect x="485.0" y="381.0" width="120.0" height="85.0" rx="4" fill="#eef9f1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="545.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Параметри</text>
+<rect x="489.0" y="409.0" width="112.0" height="53.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="545.0" y="432.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="545.0" dy="0.0">Двійкові значення:</tspan><tspan x="545.0" dy="11.7">(id = 42, 43, 44..)</tspan></text>
+<rect x="635.0" y="381.0" width="130.0" height="85.0" rx="4" fill="#eef9f1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="700.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Зв'язування (Bind)</text>
+<rect x="639.0" y="409.0" width="122.0" height="53.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="700.0" y="432.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="700.0" dy="0.0">Підстановка значень</tspan><tspan x="700.0" dy="11.7">у готові слоти плану</tspan></text>
+<rect x="795.0" y="381.0" width="120.0" height="85.0" rx="4" fill="#eef9f1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="855.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Рушій виконання</text>
+<rect x="799.0" y="409.0" width="112.0" height="53.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="855.0" y="432.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="855.0" dy="0.0">Прямий запуск плану</tspan><tspan x="855.0" dy="11.7">без репарсингу</tspan></text>
+<line x1="607.0" y1="423.0" x2="633.0" y2="423.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="767.0" y1="423.0" x2="793.0" y2="423.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="700.0" y="481.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Миттєве виконання: 0% витрат CPU на парсер і планувальник</text>
+</svg>

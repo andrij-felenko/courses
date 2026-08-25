@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="100%" height="100%">
+<style>
+  .bg { fill: #0b0f19; rx: 12px; }
+  .panel-srv { fill: #111827; stroke: #ef4444; stroke-width: 1.5; stroke-dasharray: 4 4; rx: 8px; }
+  .panel-emb { fill: #111827; stroke: #10b981; stroke-width: 1.5; rx: 8px; }
+  .box { fill: #1e293b; stroke: #3b82f6; stroke-width: 1.5; rx: 6px; }
+  .box-proc { fill: #1e293b; stroke: #64748b; stroke-width: 1.5; rx: 6px; }
+  .box-ipc { fill: #271e3b; stroke: #a855f7; stroke-width: 1.5; rx: 6px; }
+  .box-green { fill: #064e3b; stroke: #10b981; stroke-width: 1.5; rx: 6px; }
+  .txt { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; }
+  .txt-bold { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: bold; }
+  .txt-title { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 15px; font-weight: bold; }
+  .txt-muted { fill: #94a3b8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; }
+  .arrow { stroke: #38bdf8; stroke-width: 1.5; fill: none; marker-end: url(#arr); }
+  .arrow-ipc { stroke: #c084fc; stroke-width: 1.5; fill: none; marker-end: url(#arr-p); }
+  .arrow-fast { stroke: #34d399; stroke-width: 2; fill: none; marker-end: url(#arr-g); }
+</style>
+<defs>
+  <marker id="arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#38bdf8" /></marker>
+  <marker id="arr-p" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#c084fc" /></marker>
+  <marker id="arr-g" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#34d399" /></marker>
+</defs>
+<rect width="880" height="380" class="bg" />
+<text x="30" y="32" class="txt-title">Архітектурна межа: Клієнт-серверна СУБД проти Вбудованої СУБД</text>
+<text x="30" y="52" class="txt-muted">Порівняння шляху виконання запиту: системні виклики та серіалізація проти прямих викликів ABI</text>
+
+<!-- Left: Client-Server -->
+<g transform="translate(30, 70)">
+  <rect width="390" height="285" class="panel-srv" />
+  <text x="15" y="25" class="txt-bold" fill="#f87171">Клієнт-серверна модель (TCP / Unix Domain Socket)</text>
+  
+  <!-- Client Process -->
+  <rect x="15" y="40" width="160" height="100" class="box-proc" />
+  <text x="25" y="60" class="txt-bold" fill="#60a5fa">Процес клієнта</text>
+  <text x="25" y="80" class="txt">Код застосунку</text>
+  <text x="25" y="100" class="txt">Драйвер / ORM</text>
+  <text x="25" y="125" class="txt-muted">Серіалізація DTO</text>
+
+  <!-- Server Process -->
+  <rect x="215" y="40" width="160" height="100" class="box-proc" />
+  <text x="225" y="60" class="txt-bold" fill="#f87171">Процес СУБД</text>
+  <text x="225" y="80" class="txt">Парсер / Планувальник</text>
+  <text x="225" y="100" class="txt">Буферний пул (RAM)</text>
+  <text x="225" y="125" class="txt-muted">Десеріалізація рядків</text>
+
+  <!-- IPC Middle Layer -->
+  <rect x="15" y="160" width="360" height="55" class="box-ipc" />
+  <text x="25" y="180" class="txt-bold" fill="#c084fc">Міжпроцесна взаємодія (IPC / Сокетний рівень ядра)</text>
+  <text x="25" y="200" class="txt-muted">Системні виклики send/recv, перемикання контексту, копіювання буферів сокета</text>
+
+  <!-- Flow arrows -->
+  <path d="M 95 140 L 95 160" class="arrow-ipc" />
+  <path d="M 295 160 L 295 140" class="arrow-ipc" />
+
+  <!-- Bottom Metric -->
+  <rect x="15" y="230" width="360" height="40" fill="#1f1523" stroke="#ef4444" stroke-width="1" rx="4" />
+  <text x="25" y="255" class="txt-bold" fill="#fca5a5">Затримка: 50–2000 мкс (90% часу витрачається на IPC/мережу)</text>
+</g>
+
+<!-- Right: Embedded -->
+<g transform="translate(460, 70)">
+  <rect width="390" height="285" class="panel-emb" />
+  <text x="15" y="25" class="txt-bold" fill="#34d399">Вбудована модель (Прямий ABI виклик у спільному heap)</text>
+  
+  <!-- Host Application Memory Space -->
+  <rect x="15" y="40" width="360" height="175" class="box-green" />
+  <text x="25" y="60" class="txt-bold" fill="#34d399">Єдиний адресний простір процесу застосунку</text>
+  
+  <rect x="25" y="75" width="150" height="85" class="box" />
+  <text x="35" y="95" class="txt-bold" fill="#60a5fa">Логіка застосунку</text>
+  <text x="35" y="115" class="txt">Виклик функції C/C++</text>
+  <text x="35" y="135" class="txt">Прямий покажчик</text>
+
+  <rect x="215" y="75" width="150" height="85" class="box" stroke="#10b981" />
+  <text x="225" y="95" class="txt-bold" fill="#34d399">Рушій СУБД (lib)</text>
+  <text x="225" y="115" class="txt">SQLite / DuckDB</text>
+  <text x="225" y="135" class="txt">Buffer Pool / Chunks</text>
+
+  <!-- In-process arrow -->
+  <path d="M 175 117 L 215 117" class="arrow-fast" />
+
+  <text x="25" y="185" class="txt-bold" fill="#f8fafc">Zero-Copy доступ:</text>
+  <text x="145" y="185" class="txt-muted">читання комірок пам'яті за прямими адресами</text>
+  <text x="25" y="202" class="txt-muted">Без сокетів, без копіювання ОС, без десеріалізації</text>
+
+  <!-- Bottom Metric -->
+  <rect x="15" y="230" width="360" height="40" fill="#063828" stroke="#10b981" stroke-width="1" rx="4" />
+  <text x="25" y="255" class="txt-bold" fill="#6ee7b7">Затримка: 5–25 нс (виклик функції через регістри CPU)</text>
+</g>
+</svg>

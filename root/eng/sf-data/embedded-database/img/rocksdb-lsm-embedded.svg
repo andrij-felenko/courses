@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 360" width="100%" height="100%">
+<style>
+  .bg { fill: #0b0f19; rx: 12px; }
+  .mem-panel { fill: #111d2e; stroke: #3b82f6; stroke-width: 1.5; rx: 8px; }
+  .disk-panel { fill: #14221c; stroke: #10b981; stroke-width: 1.5; rx: 8px; }
+  .box { fill: #1e293b; stroke: #475569; stroke-width: 1.5; rx: 6px; }
+  .box-hot { fill: #1e3a5f; stroke: #38bdf8; stroke-width: 1.5; rx: 6px; }
+  .box-sst { fill: #0f3325; stroke: #34d399; stroke-width: 1.5; rx: 6px; }
+  .txt { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; }
+  .txt-bold { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: bold; }
+  .txt-title { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 15px; font-weight: bold; }
+  .txt-muted { fill: #94a3b8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; }
+  .arrow { stroke: #38bdf8; stroke-width: 1.5; fill: none; marker-end: url(#arr4); }
+  .arrow-green { stroke: #34d399; stroke-width: 1.5; fill: none; marker-end: url(#arr4-g); }
+</style>
+<defs>
+  <marker id="arr4" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#38bdf8" /></marker>
+  <marker id="arr4-g" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#34d399" /></marker>
+</defs>
+<rect width="880" height="360" class="bg" />
+<text x="30" y="32" class="txt-title">Архітектура вбудованого LSM-рушія RocksDB у пам'яті процесу</text>
+<text x="30" y="52" class="txt-muted">MemTable у купі процесу застосунку, паралельне фонове скидання (Flush) та ущільнення (Compaction)</text>
+
+<!-- Top Memory space of Host Process -->
+<g transform="translate(30, 70)">
+  <rect width="820" height="120" class="mem-panel" />
+  <text x="20" y="25" class="txt-bold" fill="#60a5fa">Оперативна пам'ять процесу застосунку (Host Heap)</text>
+  
+  <rect x="20" y="40" width="180" height="65" class="box-hot" />
+  <text x="30" y="60" class="txt-bold" fill="#38bdf8">Активний MemTable</text>
+  <text x="30" y="78" class="txt">SkipList (без блокувань)</text>
+  <text x="30" y="95" class="txt-muted">Гарячий буфер запису</text>
+
+  <rect x="220" y="40" width="180" height="65" class="box" />
+  <text x="230" y="60" class="txt-bold" fill="#f8fafc">Immutable MemTables</text>
+  <text x="230" y="78" class="txt">Черга на скидання</text>
+  <text x="230" y="95" class="txt-muted">Готові для запису на диск</text>
+
+  <rect x="420" y="40" width="200" height="65" class="box" stroke="#c084fc" />
+  <text x="430" y="60" class="txt-bold" fill="#c084fc">Block Cache (LRU / 2Q)</text>
+  <text x="430" y="78" class="txt">Кеш розпакованих блоків</text>
+  <text x="430" y="95" class="txt-muted">Спільний ліміт пам'яті</text>
+
+  <rect x="640" y="40" width="160" height="65" class="box" stroke="#f59e0b" />
+  <text x="650" y="60" class="txt-bold" fill="#fbbf24">Потоки процесу</text>
+  <text x="650" y="78" class="txt">Flush &amp; Compaction</text>
+  <text x="650" y="95" class="txt-muted">Фонові воркери в хості</text>
+</g>
+
+<!-- Transition Arrows -->
+<path d="M 310 190 L 310 220" class="arrow-green" />
+<text x="320" y="210" class="txt-bold" fill="#34d399">Minor Compaction (Flush)</text>
+
+<!-- Bottom Disk space -->
+<g transform="translate(30, 225)">
+  <rect width="820" height="105" class="disk-panel" />
+  <text x="20" y="25" class="txt-bold" fill="#34d399">Дискове сховище (SSTables &amp; WAL)</text>
+
+  <rect x="20" y="40" width="150" height="50" class="box-sst" />
+  <text x="30" y="60" class="txt-bold" fill="#6ee7b7">WAL (Послідовний)</text>
+  <text x="30" y="78" class="txt-muted">Гарантія ACID Durability</text>
+
+  <rect x="190" y="40" width="180" height="50" class="box-sst" />
+  <text x="200" y="60" class="txt-bold" fill="#6ee7b7">Level 0 (Несортовані)</text>
+  <text x="200" y="78" class="txt-muted">Прямий зліпок MemTable</text>
+
+  <rect x="390" y="40" width="190" height="50" class="box-sst" />
+  <text x="400" y="60" class="txt-bold" fill="#6ee7b7">Level 1 (Сортовані SST)</text>
+  <text x="400" y="78" class="txt-muted">Діапазони без перетинів</text>
+
+  <rect x="600" y="40" width="200" height="50" class="box-sst" />
+  <text x="610" y="60" class="txt-bold" fill="#6ee7b7">Level 2..N (Масивні SST)</text>
+  <text x="610" y="78" class="txt-muted">Фільтри Блума + Індекси</text>
+</g>
+</svg>

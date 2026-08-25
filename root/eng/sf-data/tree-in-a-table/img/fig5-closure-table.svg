@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="820.0" height="440.0" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="420.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1e293b" text-anchor="middle" font-weight="700">Таблиця замикання (Closure Table): Повна транзитивна матриця шляхів</text>
+<rect x="30.0" y="65.0" width="330.0" height="365.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="195.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#334155" text-anchor="middle" font-weight="700">Таблиця вузлів: nodes (id, name)</text>
+<rect x="45.0" y="110.0" width="300.0" height="24.0" rx="3" fill="#334155" stroke="#1e293b" stroke-width="1.2"/>
+<text x="90.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">id (PK)</text>
+<text x="210.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">name</text>
+<rect x="45.0" y="135.0" width="300.0" height="22.0" rx="3" fill="#eaf0fd" stroke="#2563eb" stroke-width="1.0"/>
+<text x="90.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">1</text>
+<text x="210.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">Каталог (Root)</text>
+<rect x="45.0" y="165.0" width="300.0" height="22.0" rx="3" fill="#e6fffa" stroke="#0d9488" stroke-width="1.0"/>
+<text x="90.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">2</text>
+<text x="210.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">Електроніка</text>
+<rect x="45.0" y="195.0" width="300.0" height="22.0" rx="3" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.0"/>
+<text x="90.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">3</text>
+<text x="210.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">Одяг</text>
+<rect x="45.0" y="225.0" width="300.0" height="22.0" rx="3" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.0"/>
+<text x="90.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">4</text>
+<text x="210.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">Телефони</text>
+<rect x="45.0" y="255.0" width="300.0" height="22.0" rx="3" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.0"/>
+<text x="90.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">5</text>
+<text x="210.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">Ноутбуки</text>
+<rect x="55.0" y="322.0" width="280.0" height="46.0" rx="6" fill="#fff6e5" stroke="#e08a1e" stroke-width="1.5"/><text x="195.0" y="335.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="195.0" dy="0.0">Вузли не містять parent_id!</tspan><tspan x="195.0" dy="13.0">Усі ребра та предки винесені</tspan><tspan x="195.0" dy="13.0">у спеціальну транзитивну таблицю-міст.</tspan></text>
+<rect x="380.0" y="65.0" width="430.0" height="365.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="595.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#334155" text-anchor="middle" font-weight="700">Таблиця замикання: tree_paths</text>
+<rect x="395.0" y="110.0" width="400.0" height="24.0" rx="3" fill="#334155" stroke="#1e293b" stroke-width="1.2"/>
+<text x="460.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">ancestor_id</text>
+<text x="560.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">descendant_id</text>
+<text x="650.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">depth</text>
+<text x="740.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">тип</text>
+<rect x="395.0" y="133.0" width="400.0" height="20.0" rx="3" fill="#eaf0fd" stroke="#2563eb" stroke-width="1.0"/>
+<text x="460.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">1</text>
+<text x="560.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">1</text>
+<text x="650.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">0</text>
+<text x="740.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-style="italic">Self-loop (рефлексивність)</text>
+<rect x="395.0" y="159.0" width="400.0" height="20.0" rx="3" fill="#e6fffa" stroke="#0d9488" stroke-width="1.0"/>
+<text x="460.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">1</text>
+<text x="560.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">2</text>
+<text x="650.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">1</text>
+<text x="740.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0d9488" text-anchor="middle" font-style="italic">Прямий зв'язок (батько)</text>
+<rect x="395.0" y="185.0" width="400.0" height="20.0" rx="3" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.0"/>
+<text x="460.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">1</text>
+<text x="560.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">4</text>
+<text x="650.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">2</text>
+<text x="740.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#16a34a" text-anchor="middle" font-style="italic">Транзитивний предок (дід)</text>
+<rect x="395.0" y="211.0" width="400.0" height="20.0" rx="3" fill="#eaf0fd" stroke="#2563eb" stroke-width="1.0"/>
+<text x="460.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">2</text>
+<text x="560.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">2</text>
+<text x="650.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">0</text>
+<text x="740.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-style="italic">Self-loop</text>
+<rect x="395.0" y="237.0" width="400.0" height="20.0" rx="3" fill="#e6fffa" stroke="#0d9488" stroke-width="1.0"/>
+<text x="460.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">2</text>
+<text x="560.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">4</text>
+<text x="650.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">1</text>
+<text x="740.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0d9488" text-anchor="middle" font-style="italic">Прямий зв'язок (батько)</text>
+<rect x="395.0" y="263.0" width="400.0" height="20.0" rx="3" fill="#eaf0fd" stroke="#2563eb" stroke-width="1.0"/>
+<text x="460.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">4</text>
+<text x="560.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">4</text>
+<text x="650.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">0</text>
+<text x="740.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-style="italic">Self-loop</text>
+<rect x="395.0" y="289.0" width="400.0" height="20.0" rx="3" fill="#f8fafc" stroke="#64748b" stroke-width="1.0"/>
+<text x="460.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">...</text>
+<text x="560.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">...</text>
+<text x="650.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">...</text>
+<text x="740.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle" font-style="italic">Всі пари (A, D)</text>
+<rect x="395.0" y="342.0" width="400.0" height="46.0" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/><text x="595.0" y="355.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="595.0" dy="0.0">Піддерево: WHERE ancestor_id = :root (O(1) за індексом)</tspan><tspan x="595.0" dy="13.0">Предки: WHERE descendant_id = :node (O(1) за індексом)</tspan><tspan x="595.0" dy="13.0">Прямі діти: додаємо умову depth = 1</tspan></text>
+</svg>

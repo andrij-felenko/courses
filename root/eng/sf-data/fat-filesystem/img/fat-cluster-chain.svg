@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="810.0" height="430.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="420.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм зв'язування файлу: Directory Entry → Таблиця FAT → Кластери даних</text>
+<text x="420.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Таблиця FAT слугує зовнішнім індексованим однозв'язним списком для фізичних кластерів</text>
+<rect x="40.0" y="95.0" width="220.0" height="115.0" rx="4" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+<text x="150.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#92400e" text-anchor="middle" font-weight="700">Запис каталогу (Dir Entry)</text>
+<line x1="40.0" y1="128.0" x2="260.0" y2="128.0" stroke="#f59e0b" stroke-width="1.0"/>
+<text x="50.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#78350f" text-anchor="start">Ім'я файлу:  REPORT.TXT</text>
+<text x="50.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#78350f" text-anchor="start">Розмір:      11 400 байтів</text>
+<text x="50.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="start" font-weight="700">Перший кластер = 3</text>
+<rect x="300.0" y="95.0" width="200.0" height="315.0" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="400.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e40af" text-anchor="middle" font-weight="700">Таблиця FAT</text>
+<line x1="300.0" y1="128.0" x2="500.0" y2="128.0" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="340.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Індекс</text>
+<text x="435.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Значення (Next)</text>
+<line x1="300.0" y1="153.0" x2="500.0" y2="153.0" stroke="#93c5fd" stroke-width="1.0"/>
+<text x="340.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle">[0]</text>
+<text x="435.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle">0x0FFFFFF8</text>
+<text x="340.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle">[1]</text>
+<text x="435.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle">0x0FFFFFFF</text>
+<text x="340.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle">[2]</text>
+<text x="435.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle">0x0FFFFFFF</text>
+<rect x="305.0" y="239.0" width="190.0" height="22.0" rx="2" fill="#fed7aa" stroke="#f97316" stroke-width="1.0"/>
+<text x="340.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">[3]</text>
+<text x="435.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">0x00000005</text>
+<text x="340.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle">[4]</text>
+<text x="435.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle">0x00000000</text>
+<rect x="305.0" y="293.0" width="190.0" height="22.0" rx="2" fill="#fef08a" stroke="#eab308" stroke-width="1.0"/>
+<text x="340.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">[5]</text>
+<text x="435.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">0x00000007</text>
+<text x="340.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle">[6]</text>
+<text x="435.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle">0x00000000</text>
+<rect x="305.0" y="347.0" width="190.0" height="22.0" rx="2" fill="#bbf7d0" stroke="#22c55e" stroke-width="1.0"/>
+<text x="340.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">[7]</text>
+<text x="435.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">0x0FFFFFFF</text>
+<rect x="540.0" y="95.0" width="265.0" height="315.0" rx="4" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/>
+<text x="672.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#166534" text-anchor="middle" font-weight="700">Купа кластерів (Data Clusters)</text>
+<line x1="540.0" y1="128.0" x2="805.0" y2="128.0" stroke="#22c55e" stroke-width="1.0"/>
+<rect x="555.0" y="145.0" width="235.0" height="35.0" rx="3" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+<text x="672.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кластер #2</text>
+<text x="672.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вміст Root Directory</text>
+<rect x="555.0" y="188.0" width="235.0" height="35.0" rx="3" fill="#fed7aa" stroke="#c2410c" stroke-width="1.5"/>
+<text x="672.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кластер #3</text>
+<text x="672.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Файл REPORT.TXT (0 – 4095 B)</text>
+<rect x="555.0" y="231.0" width="235.0" height="35.0" rx="3" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="672.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кластер #4</text>
+<text x="672.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">[Порожній / Вільний простір]</text>
+<rect x="555.0" y="274.0" width="235.0" height="35.0" rx="3" fill="#fef08a" stroke="#a16207" stroke-width="1.5"/>
+<text x="672.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кластер #5</text>
+<text x="672.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Файл REPORT.TXT (4096 – 8191 B)</text>
+<rect x="555.0" y="317.0" width="235.0" height="35.0" rx="3" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="672.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кластер #6</text>
+<text x="672.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">[Порожній / Вільний простір]</text>
+<rect x="555.0" y="360.0" width="235.0" height="35.0" rx="3" fill="#bbf7d0" stroke="#15803d" stroke-width="1.5"/>
+<text x="672.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кластер #7</text>
+<text x="672.0" y="389.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Файл REPORT.TXT (8192 – 11399 B)</text>
+<line x1="260.0" y1="192.0" x2="305.0" y2="253.0" stroke="#ea580c" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="495.0" y1="253.0" x2="555.0" y2="205.0" stroke="#ea580c" stroke-width="2.0" stroke-dasharray="3,3"/>
+<line x1="495.0" y1="260.0" x2="495.0" y2="295.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="495.0" y1="307.0" x2="555.0" y2="292.0" stroke="#d97706" stroke-width="2.0" stroke-dasharray="3,3"/>
+<line x1="495.0" y1="315.0" x2="495.0" y2="350.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="495.0" y1="361.0" x2="555.0" y2="378.0" stroke="#16a34a" stroke-width="2.0" stroke-dasharray="3,3"/>
+<text x="420.0" y="427.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ланцюжок кластерів файлу REPORT.TXT: Кластер 3 → Кластер 5 → Кластер 7 (EOC)</text>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="810.0" height="410.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="420.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фізична асиметрія Flash: стирання блоками проти запису сторінками</text>
+<rect x="40.0" y="75.0" width="360.0" height="325.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="220.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e293b" text-anchor="middle" font-weight="700">Блок стирання (Erase Block: 128 КБ – 4 МБ)</text>
+<text x="220.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">Мінімальна неподільна одиниця очищення</text>
+<rect x="60.0" y="140.0" width="320.0" height="36.0" rx="4" fill="#fee2e2" stroke="#ef4444" stroke-width="1.2"/>
+<text x="135.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle" font-weight="700">Сторінка 0 (2–4 КБ)</text>
+<text x="285.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle">0x00 (Записано дані)</text>
+<rect x="60.0" y="184.0" width="320.0" height="36.0" rx="4" fill="#fee2e2" stroke="#ef4444" stroke-width="1.2"/>
+<text x="135.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle" font-weight="700">Сторінка 1 (2–4 КБ)</text>
+<text x="285.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle">0x00 (Записано дані)</text>
+<rect x="60.0" y="228.0" width="320.0" height="36.0" rx="4" fill="#dcfce7" stroke="#22c55e" stroke-width="1.2"/>
+<text x="135.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle" font-weight="700">Сторінка 2 (2–4 КБ)</text>
+<text x="285.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle">0xFF (Чиста, готова до запису)</text>
+<rect x="60.0" y="272.0" width="320.0" height="36.0" rx="4" fill="#dcfce7" stroke="#22c55e" stroke-width="1.2"/>
+<text x="135.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle" font-weight="700">Сторінка 3..N</text>
+<text x="285.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle">0xFF (Чисті сторінки)</text>
+<rect x="60.0" y="325.0" width="320.0" height="60.0" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="220.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="middle" font-weight="700">Стирання: переводить усі біти 0 → 1 (0xFF)</text>
+<text x="220.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle">Вимагає високої напруги (~15–20 В) та 1–5 мс часу</text>
+<rect x="430.0" y="75.0" width="370.0" height="325.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="615.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e293b" text-anchor="middle" font-weight="700">Правила переходу станів комірки</text>
+<text x="615.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">Односпрямованість бітових змін</text>
+<rect x="450.0" y="140.0" width="330.0" height="72.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="615.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1d4ed8" text-anchor="middle" font-weight="700">1. Програмування (Program / Write)</text>
+<text x="615.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle">Перехід 1 → 0 (зарядження плаваючого затвора)</text>
+<text x="615.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Виконується посторінково; час: 200–800 мкс</text>
+<rect x="450.0" y="222.0" width="330.0" height="72.0" rx="6" fill="#fef2f2" stroke="#ef4444" stroke-width="1.2"/>
+<text x="615.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b91c1c" text-anchor="middle" font-weight="700">2. Неможливість перезапису на місці</text>
+<text x="615.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle" font-weight="700">Перехід 0 → 1 неможливий без стирання всього блоку!</text>
+<text x="615.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Оновлення вимагає запису в нове вільне місце (out-of-place)</text>
+<rect x="450.0" y="304.0" width="330.0" height="81.0" rx="6" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.2"/>
+<text x="615.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="700">3. Обмежений ресурс (P/E Cycles)</text>
+<text x="615.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78350f" text-anchor="middle">SLC: 50k–100k · MLC: 3k–10k · TLC: 1k–3k циклів</text>
+<text x="615.0" y="361.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Нерівномірний знос призводить до деградації оксиду</text>
+<text x="615.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">і появи незворотних збійних блоків (Bad Blocks)</text>
+</svg>

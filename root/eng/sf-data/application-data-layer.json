@@ -239,24 +239,24 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           },
           "hist": [
             {
               "file": "hist-connection-overhead-and-evolution.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "math": [
             {
               "file": "math-pool-sizing-and-queuing.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-resilient-connection-pool.md",
-              "status": "done"
+              "status": "recheck"
             }
           ]
         }
@@ -307,8 +307,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-pooler-matrix-reference.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-pgbouncer-proxysql.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-resilient-client-pooler.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "embedded-database",
@@ -317,8 +335,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-embedded-db-interfaces.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-embedded-sqlite-birth.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-embedded-ipc-overhead.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-embedded-sqlite-duckdb.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     }

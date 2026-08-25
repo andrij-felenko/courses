@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="810.0" height="410.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="420.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">LittleFS: Пара блоків метаданих та CTZ-пропускний список файлу</text>
+<rect x="35.0" y="70.0" width="770.0" height="155.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="420.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e293b" text-anchor="middle" font-weight="700">Пара метаданих каталогу (Two-Block Metadata Pair)</text>
+<text x="420.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">Атомарне чергування ревізій забезпечує захист від раптового вимкнення живлення</text>
+<rect x="55.0" y="130.0" width="335.0" height="80.0" rx="4" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="222.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1d4ed8" text-anchor="middle" font-weight="700">Блок 0 (Поточна ревізія: N=42)</text>
+<text x="222.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e40af" text-anchor="middle">Тег: Ревізія 42 | CRC32: 0x8F3A12 | Список тегів...</text>
+<text x="222.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#166534" text-anchor="middle" font-weight="700">[АКТИВНИЙ БЛОК: містить валідний зріз каталогу]</text>
+<rect x="450.0" y="130.0" width="335.0" height="80.0" rx="4" fill="#fef2f2" stroke="#ef4444" stroke-width="1.2"/>
+<text x="617.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="middle" font-weight="700">Блок 1 (Застаріла ревізія: N=41 або Компакція)</text>
+<text x="617.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#991b1b" text-anchor="middle">Стирання перед записом N+1 або черговий лог змін</text>
+<text x="617.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">[РЕЗЕРВНИЙ БЛОК: оновлюється без ризику для Блоку 0]</text>
+<rect x="35.0" y="240.0" width="770.0" height="170.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="420.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e293b" text-anchor="middle" font-weight="700">CTZ-список блоків даних файлу (Count Trailing Zeros)</text>
+<text x="420.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">Зворотний зв'язок: блок містить покажчики на 2^k попередніх блоків; додавання в кінець O(1)</text>
+<rect x="80.0" y="305.0" width="150.0" height="88.0" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.2"/>
+<text x="155.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Блок 0</text>
+<text x="155.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle">ctz(0)=0</text>
+<text x="155.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">Покажчик: NULL</text>
+<rect x="250.0" y="305.0" width="150.0" height="88.0" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.2"/>
+<text x="325.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Блок 1</text>
+<text x="325.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle">ctz(1)=0</text>
+<text x="325.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">Покажчик -&gt; Блок 0</text>
+<rect x="430.0" y="305.0" width="150.0" height="88.0" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.2"/>
+<text x="505.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Блок 2</text>
+<text x="505.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle">ctz(2)=1</text>
+<text x="505.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">-&gt; Блок 1, -&gt; Блок 0</text>
+<rect x="610.0" y="305.0" width="150.0" height="88.0" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.2"/>
+<text x="685.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle" font-weight="700">Блок 3</text>
+<text x="685.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle">ctz(3)=0</text>
+<text x="685.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">-&gt; Блок 2 (Голова)</text>
+</svg>

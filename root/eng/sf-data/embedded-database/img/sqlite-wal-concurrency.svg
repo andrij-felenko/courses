@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="100%" height="100%">
+<style>
+  .bg { fill: #0b0f19; rx: 12px; }
+  .box { fill: #1e293b; stroke: #3b82f6; stroke-width: 1.5; rx: 6px; }
+  .box-disk { fill: #0f172a; stroke: #10b981; stroke-width: 1.5; rx: 6px; }
+  .box-shm { fill: #2d1f3d; stroke: #c084fc; stroke-width: 1.5; rx: 6px; }
+  .box-wal { fill: #182822; stroke: #34d399; stroke-width: 1.5; rx: 6px; }
+  .txt { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; }
+  .txt-bold { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: bold; }
+  .txt-title { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 15px; font-weight: bold; }
+  .txt-muted { fill: #94a3b8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; }
+  .arrow { stroke: #38bdf8; stroke-width: 1.5; fill: none; marker-end: url(#arr2); }
+  .arrow-green { stroke: #34d399; stroke-width: 1.5; fill: none; marker-end: url(#arr2-g); }
+  .arrow-purple { stroke: #c084fc; stroke-width: 1.5; fill: none; marker-end: url(#arr2-p); }
+</style>
+<defs>
+  <marker id="arr2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#38bdf8" /></marker>
+  <marker id="arr2-g" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#34d399" /></marker>
+  <marker id="arr2-p" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#c084fc" /></marker>
+</defs>
+<rect width="880" height="370" class="bg" />
+<text x="30" y="32" class="txt-title">Конкурентний доступ у SQLite через WAL та індекс спільної пам'яті (.shm)</text>
+<text x="30" y="52" class="txt-muted">Паралельні читачі читають фіксований знімок без блокування запису; єдиний записувач додає кадри в лог</text>
+
+<!-- Top layer: Threads / Connections -->
+<g transform="translate(40, 75)">
+  <rect x="0" y="0" width="220" height="75" class="box" />
+  <text x="15" y="25" class="txt-bold" fill="#60a5fa">Потоки-читачі (Readers 1..N)</text>
+  <text x="15" y="45" class="txt">sqlite3_step(SELECT)</text>
+  <text x="15" y="63" class="txt-muted">Фіксують Read Mark у заголовку .shm</text>
+
+  <rect x="300" y="0" width="220" height="75" class="box-shm" />
+  <text x="15" y="25" class="txt-bold" fill="#c084fc">Спільна пам'ять (.db-shm)</text>
+  <text x="15" y="45" class="txt">Індекс хеш-таблиці кадрів WAL</text>
+  <text x="15" y="63" class="txt-muted">Відображення mmap() між процесами</text>
+
+  <rect x="580" y="0" width="220" height="75" class="box" stroke="#f59e0b" />
+  <text x="15" y="25" class="txt-bold" fill="#fbbf24">Потік-записувач (Single Writer)</text>
+  <text x="15" y="45" class="txt">sqlite3_step(INSERT/UPDATE)</text>
+  <text x="15" y="63" class="txt-muted">Бере ексклюзивне блокування WAL</text>
+</g>
+
+<!-- Middle connections -->
+<path d="M 150 150 L 150 200" class="arrow" />
+<path d="M 260 112 L 300 112" class="arrow-purple" />
+<path d="M 690 150 L 690 200" class="arrow-green" />
+<path d="M 580 112 L 520 112" class="arrow-purple" />
+
+<!-- Bottom storage layer -->
+<g transform="translate(40, 200)">
+  <!-- Main DB File -->
+  <rect x="0" y="0" width="360" height="130" class="box-disk" />
+  <text x="20" y="30" class="txt-bold" fill="#34d399">Головний файл бази даних (.db)</text>
+  <text x="20" y="55" class="txt">Структура B-Tree зі сторінками 4096 байтів</text>
+  <text x="20" y="78" class="txt">Містить стабільний стан на момент чекпойнта</text>
+  <text x="20" y="105" class="txt-muted">Читачі звертаються сюди, якщо сторінки нема у WAL</text>
+
+  <!-- WAL File -->
+  <rect x="440" y="0" width="360" height="130" class="box-wal" />
+  <text x="20" y="30" class="txt-bold" fill="#6ee7b7">Журнал WAL (.db-wal)</text>
+  <text x="20" y="55" class="txt">Послідовні кадри (Header + Page 4KB)</text>
+  <text x="20" y="78" class="txt">Append-Only запис нових транзакцій</text>
+  <text x="20" y="105" class="txt-muted">Читачі беруть найсвіжіші версії сторінок</text>
+</g>
+
+<!-- Checkpoint arrow -->
+<path d="M 480 300 L 400 300" class="arrow-green" />
+<text x="380" y="285" class="txt-bold" fill="#34d399">Checkpoint (перенесення сторінок із WAL в .db)</text>
+</svg>

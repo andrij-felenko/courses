@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="810.0" height="420.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="420.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура стеку UBIFS / UBI у вбудованому Linux</text>
+<rect x="45.0" y="75.0" width="750.0" height="48.0" rx="4" fill="#e2e8f0" stroke="#64748b" stroke-width="1.2"/>
+<text x="420.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">Рівень POSIX VFS / Системні виклики (open, write, fsync, readdir)</text>
+<text x="420.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Стандартний файловий інтерфейс ядра Linux для додатків</text>
+<rect x="45.0" y="135.0" width="750.0" height="105.0" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="420.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#14532d" text-anchor="middle" font-weight="700">Рівень UBIFS (UBI File System)</text>
+<text x="420.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle">Працює поверх логічних блоків стирання (LEB). Не сканує весь чип при монтуванні (O(1) mount time)</text>
+<rect x="65.0" y="190.0" width="220.0" height="40.0" rx="4" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.0"/>
+<text x="175.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">TNC (Індексне B-дерево в RAM)</text>
+<rect x="305.0" y="190.0" width="220.0" height="40.0" rx="4" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.0"/>
+<text x="415.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">Журнал змін (Journal / Log)</text>
+<rect x="545.0" y="190.0" width="220.0" height="40.0" rx="4" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.0"/>
+<text x="655.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">LPT (Таблиця властивостей LEB)</text>
+<rect x="45.0" y="253.0" width="750.0" height="98.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="420.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e3a8a" text-anchor="middle" font-weight="700">Рівень UBI (Unsorted Block Images)</text>
+<text x="420.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle">Трансляція LEB → PEB, управління збійними блоками, статичний та динамічний Wear Leveling</text>
+<rect x="65.0" y="308.0" width="340.0" height="32.0" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="235.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e40af" text-anchor="middle" font-weight="700">Erase Counters (EC Header у кожному PEB)</text>
+<rect x="425.0" y="308.0" width="340.0" height="32.0" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="595.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e40af" text-anchor="middle" font-weight="700">Volume ID + LEB Number (VID Header)</text>
+<rect x="45.0" y="363.0" width="750.0" height="58.0" rx="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1.2"/>
+<text x="420.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7f1d1d" text-anchor="middle" font-weight="700">Підсистема Linux MTD (Memory Technology Devices) &amp; Контролер NAND</text>
+<text x="420.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle">Фізичні стирання блоків (PEB), запис сторінок, апаратний ECC (BCH / Reed-Solomon)</text>
+</svg>

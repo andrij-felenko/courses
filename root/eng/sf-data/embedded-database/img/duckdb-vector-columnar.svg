@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 350" width="100%" height="100%">
+<style>
+  .bg { fill: #0b0f19; rx: 12px; }
+  .card { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 8px; }
+  .col-box { fill: #0f2744; stroke: #38bdf8; stroke-width: 1.5; rx: 4px; }
+  .simd-box { fill: #064e3b; stroke: #10b981; stroke-width: 1.5; rx: 4px; }
+  .txt { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; }
+  .txt-bold { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: bold; }
+  .txt-title { fill: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 15px; font-weight: bold; }
+  .txt-muted { fill: #94a3b8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; }
+  .arrow { stroke: #38bdf8; stroke-width: 1.5; fill: none; marker-end: url(#arr3); }
+</style>
+<defs>
+  <marker id="arr3" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#38bdf8" /></marker>
+</defs>
+<rect width="880" height="350" class="bg" />
+<text x="30" y="32" class="txt-title">Векторизоване стовпцеве виконання DuckDB в оперативній пам'яті</text>
+<text x="30" y="52" class="txt-muted">Опрацювання векторів по 2048 значень у кеші L1/L2 процесора з підтримкою інструкцій SIMD</text>
+
+<!-- Left: DataChunk representation -->
+<g transform="translate(40, 75)">
+  <rect width="360" height="240" class="card" stroke="#3b82f6" />
+  <text x="20" y="30" class="txt-bold" fill="#60a5fa">Пакет стовпців DataChunk (2048 рядків)</text>
+  
+  <rect x="20" y="50" width="95" height="135" class="col-box" />
+  <text x="30" y="70" class="txt-bold" fill="#38bdf8">Vector 1</text>
+  <text x="30" y="90" class="txt">id: int64</text>
+  <text x="30" y="115" class="txt-muted">[1001]</text>
+  <text x="30" y="135" class="txt-muted">[1002]</text>
+  <text x="30" y="155" class="txt-muted">[ ... ]</text>
+  <text x="30" y="175" class="txt-muted">2048 елементів</text>
+
+  <rect x="130" y="50" width="95" height="135" class="col-box" />
+  <text x="140" y="70" class="txt-bold" fill="#38bdf8">Vector 2</text>
+  <text x="140" y="90" class="txt">price: f64</text>
+  <text x="140" y="115" class="txt-muted">[19.99]</text>
+  <text x="140" y="135" class="txt-muted">[45.50]</text>
+  <text x="140" y="155" class="txt-muted">[ ... ]</text>
+  <text x="140" y="175" class="txt-muted">2048 елементів</text>
+
+  <rect x="240" y="50" width="95" height="135" class="col-box" />
+  <text x="250" y="70" class="txt-bold" fill="#38bdf8">Vector 3</text>
+  <text x="250" y="90" class="txt">qty: int32</text>
+  <text x="250" y="115" class="txt-muted">[5]</text>
+  <text x="250" y="135" class="txt-muted">[12]</text>
+  <text x="250" y="155" class="txt-muted">[ ... ]</text>
+  <text x="250" y="175" class="txt-muted">2048 елементів</text>
+
+  <text x="20" y="215" class="txt-muted">Послідовні масиви в RAM: 100% локальність кешу</text>
+</g>
+
+<!-- Processing Arrow -->
+<path d="M 405 195 L 455 195" class="arrow" />
+
+<!-- Right: Vectorized Execution Engine -->
+<g transform="translate(460, 75)">
+  <rect width="380" height="240" class="card" stroke="#10b981" />
+  <text x="20" y="30" class="txt-bold" fill="#34d399">Векторний конвеєр (Push-Based Execution)</text>
+  
+  <rect x="20" y="50" width="340" height="60" class="simd-box" />
+  <text x="35" y="72" class="txt-bold" fill="#6ee7b7">SIMD фільтрація та агрегація (AVX2 / NEON)</text>
+  <text x="35" y="92" class="txt">Векторне обчислення `total = price * qty` за 1 такт CPU</text>
+
+  <rect x="20" y="125" width="340" height="95" class="card" stroke="#475569" />
+  <text x="35" y="148" class="txt-bold" fill="#f8fafc">Zero-Copy взаємодія з кодом процесу:</text>
+  <text x="35" y="170" class="txt">• Apache Arrow C Data Interface (передача покажчиків)</text>
+  <text x="35" y="190" class="txt">• Пряма інтеграція з C++ std::span, Rust, Python Polars</text>
+  <text x="35" y="208" class="txt-muted">Без перекопіювання пам'яті та без трансляції типів</text>
+</g>
+</svg>

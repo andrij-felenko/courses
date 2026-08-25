@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр зріджування (Downsampling) та строки зберігання метрик</text>
+<rect x="20.0" y="55.0" width="230.0" height="285.0" rx="8" fill="#f8fafc" stroke="#3b82f6" stroke-width="1.5"/>
+<rect x="20.0" y="55.0" width="230.0" height="36.0" rx="8" fill="#3b82f6" stroke="#3b82f6" stroke-width="1.5"/>
+<rect x="20.0" y="79.0" width="230.0" height="12.0" rx="0" fill="#3b82f6" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="135.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">Tier 1: Сирі точки (Raw)</text>
+<text x="135.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">Інтервал: 10 секунд (Δt = 10s)</text>
+<text x="135.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Точність: 100% (усі сплески та шуми)</text>
+<text x="135.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Зберігання: RAM + NVMe SSD</text>
+<rect x="35.0" y="175.0" width="200.0" height="60.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="135.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Строк зберігання (TTL):</text>
+<text x="135.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2563eb" text-anchor="middle" font-weight="700">7 – 14 днів</text>
+<text x="135.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Призначення:</text>
+<text x="135.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle">Алерти в реальному часі,</text>
+<text x="135.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle">пошук аномалій та інцидентів</text>
+<line x1="250.0" y1="195.0" x2="285.0" y2="195.0" stroke="#64748b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="267.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">5m Rollup</text>
+<rect x="285.0" y="55.0" width="240.0" height="285.0" rx="8" fill="#f8fafc" stroke="#059669" stroke-width="1.5"/>
+<rect x="285.0" y="55.0" width="240.0" height="36.0" rx="8" fill="#059669" stroke="#059669" stroke-width="1.5"/>
+<rect x="285.0" y="79.0" width="240.0" height="12.0" rx="0" fill="#059669" stroke="#059669" stroke-width="1.5"/>
+<text x="405.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">Tier 2: Зріджені 5-хв агрегати</text>
+<text x="405.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">Інтервал: 5 хвилин (30 точок → 1)</text>
+<text x="405.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Зберігає: min, max, sum, count</text>
+<text x="405.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Стиснення обсягу: ~30×</text>
+<rect x="305.0" y="175.0" width="200.0" height="60.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="405.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Строк зберігання (TTL):</text>
+<text x="405.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#059669" text-anchor="middle" font-weight="700">30 – 90 днів</text>
+<text x="405.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Призначення:</text>
+<text x="405.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle">Тижневі графіки дашбордів,</text>
+<text x="405.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle">аналіз навантаження та SLA</text>
+<line x1="525.0" y1="195.0" x2="560.0" y2="195.0" stroke="#64748b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="542.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">1h Rollup</text>
+<rect x="560.0" y="55.0" width="240.0" height="285.0" rx="8" fill="#f8fafc" stroke="#7c3aed" stroke-width="1.5"/>
+<rect x="560.0" y="55.0" width="240.0" height="36.0" rx="8" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<rect x="560.0" y="79.0" width="240.0" height="12.0" rx="0" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="680.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">Tier 3: Годинні агрегати</text>
+<text x="680.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">Інтервал: 1 година (360 точок → 1)</text>
+<text x="680.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Зберігає: min, max, sum, count</text>
+<text x="680.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Стиснення обсягу: ~360×</text>
+<rect x="580.0" y="175.0" width="200.0" height="60.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="680.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Строк зберігання (TTL):</text>
+<text x="680.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#7c3aed" text-anchor="middle" font-weight="700">1 – 3 роки</text>
+<text x="680.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Призначення:</text>
+<text x="680.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle">Річні бізнес-тренди,</text>
+<text x="680.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle">прогнозування ємності (capacity)</text>
+</svg>

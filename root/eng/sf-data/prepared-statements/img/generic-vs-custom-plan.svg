@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дилема вибору плану: скошений розподіл даних та адаптивна евристика</text>
+<rect x="35.0" y="60.0" width="360.0" height="430.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<rect x="35.0" y="60.0" width="360.0" height="45.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="215.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Скошений розподіл (Data Skew)</text>
+<line x1="75.0" y1="340.0" x2="365.0" y2="340.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="75.0" y1="130.0" x2="75.0" y2="340.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="65.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Рядки</text>
+<rect x="105.0" y="150.0" width="85.0" height="190.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="147.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">10 000 000</text>
+<text x="147.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">status = 'completed'</text>
+<text x="147.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(99.9% рядків)</text>
+<rect x="245.0" y="328.0" width="85.0" height="12.0" rx="6" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="287.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">1 000</text>
+<text x="287.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">status = 'pending'</text>
+<text x="287.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(0.1% рядків)</text>
+<rect x="50.0" y="400.0" width="330.0" height="75.0" rx="6" fill="#fdfaf3" stroke="#d97706" stroke-width="1.5"/><text x="215.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="215.0" dy="0.0">Середня селективність (1/2 = 50%) вводить в оману:</tspan><tspan x="215.0" dy="13.0">для 1 000 рядків вигідний Index Scan,</tspan><tspan x="215.0" dy="13.0">а для 10 000 000 рядків — лише Seq Scan.</tspan></text>
+<rect x="420.0" y="60.0" width="525.0" height="430.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<rect x="420.0" y="60.0" width="525.0" height="45.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="682.5" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вибір між Generic Plan та Custom Plan (PostgreSQL)</text>
+<rect x="440.0" y="120.0" width="485.0" height="80.0" rx="6" fill="#fdfaf3" stroke="#d97706" stroke-width="1.2"/>
+<text x="455.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="start" font-weight="700">Спеціалізований план (Custom Plan):</text>
+<text x="455.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Генерується з підстановкою конкретного $1 (враховує гістограми MCV)</text>
+<text x="455.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Точний, але вимагає виклику планувальника на кожен EXECUTE</text>
+<rect x="440.0" y="210.0" width="485.0" height="80.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="455.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Загальний план (Generic Plan):</text>
+<text x="455.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Генерується один раз без знання $1 (спирається на усереднену селективність)</text>
+<text x="455.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• 0 витрат на планування, але ризик обрати неоптимальний оператор при Skew</text>
+<rect x="440.0" y="305.0" width="485.0" height="165.0" rx="6" fill="#eef9f1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="455.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Адаптивний вибір плану (plan_cache_mode = auto):</text>
+<text x="455.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1. Перші 5 запусків виконуються за Custom Plan, СУБД зберігає їхні оцінки вартості (C1..C5).</text>
+<text x="455.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">2. На 6-й запуск оптимізатор додатково генерує Generic Plan з оцінкою вартості C_gen.</text>
+<text x="455.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">3. Якщо C_gen &lt;= Середнє(C1..C5) -&gt; назавжди перемикається на Generic Plan (швидко).</text>
+<text x="455.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">4. Якщо C_gen &gt; Середнє(C1..C5) -&gt; продовжує генерувати Custom Plan на кожен запит (точно).</text>
+</svg>

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="980.0" height="500.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="40.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">Імперативні команди проти декларативного узгодження стану</text>
+<rect x="40.0" y="60.0" width="435.0" height="430.0" rx="6" fill="#fef2f2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="257.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b91c1c" text-anchor="middle" font-weight="700">1. Імперативний підхід (RPC / Direct Commands)</text>
+<rect x="60.0" y="105.0" width="395.0" height="45.0" rx="4" fill="#fee2e2" stroke="#fca5a5" stroke-width="1.2"/>
+<text x="257.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Керівний сервіс (Cloud / API)</text>
+<text x="257.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle" font-weight="700">POST /device/setSpeed(120)</text>
+<line x1="257.0" y1="150.0" x2="257.0" y2="195.0" stroke="#b91c1c" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="265.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="start">Прямий мережевий виклик</text>
+<rect x="60.0" y="195.0" width="395.0" height="55.0" rx="4" fill="#ffffff" stroke="#f87171" stroke-width="1.2"/>
+<text x="257.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#991b1b" text-anchor="middle" font-weight="700">Мережева нестабільність / Офлайн</text>
+<text x="257.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f1d1d" text-anchor="middle">Таймаут клієнта -&gt; Повторна відправка -&gt; Завислий пакет</text>
+<line x1="257.0" y1="250.0" x2="257.0" y2="290.0" stroke="#b91c1c" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="60.0" y="290.0" width="395.0" height="75.0" rx="4" fill="#fee2e2" stroke="#fca5a5" stroke-width="1.2"/>
+<text x="257.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кінцевий вузол / IoT пристрій</text>
+<text x="257.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">1. Отримав локальну команду оператора: setSpeed(0)</text>
+<text x="257.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle" font-weight="700">2. Згодом долетів запізнілий пакет з хмари: setSpeed(120)</text>
+<rect x="60.0" y="380.0" width="395.0" height="95.0" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+<text x="257.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle" font-weight="700">Наслідки імперативної моделі:</text>
+<text x="75.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Перезапис свіжих дій старими пакетами (Out-of-order)</text>
+<text x="75.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Блокування клієнта під час відсутності зв'язку</text>
+<text x="75.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Невизначений стан при падінні посеред ланцюжка</text>
+<rect x="525.0" y="60.0" width="435.0" height="430.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="742.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="middle" font-weight="700">2. Декларативний підхід (Desired vs Reported)</text>
+<rect x="545.0" y="105.0" width="395.0" height="65.0" rx="4" fill="#dcfce7" stroke="#86efac" stroke-width="1.2"/>
+<text x="742.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сховище стану (Device Shadow / etcd)</text>
+<text x="560.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="start" font-weight="700">Desired:  { &quot;speed&quot;: 120, &quot;v&quot;: 42 }</text>
+<text x="560.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#047857" text-anchor="start" font-weight="700">Reported: { &quot;speed&quot;: 0,   &quot;v&quot;: 41 }</text>
+<line x1="645.0" y1="170.0" x2="645.0" y2="230.0" stroke="#1d4ed8" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="635.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="end" font-weight="700">Delta / Pull Desired</text>
+<line x1="835.0" y1="230.0" x2="835.0" y2="170.0" stroke="#047857" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="845.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#047857" text-anchor="start" font-weight="700">Publish Reported</text>
+<rect x="545.0" y="230.0" width="395.0" height="115.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="742.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автономний Reconciler / Контролер вузла</text>
+<text x="560.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1. Обчислення дельти: Delta = Desired - Reported (+120)</text>
+<text x="560.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">2. Ідемпотентна дія: Плавне розігнати двигун до 120</text>
+<text x="560.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">3. Фіксація факту: Підтвердити новий Reported: 120</text>
+<text x="560.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="start" font-weight="700">4. Дрейф зникає: Delta = 0 (Стан узгоджено)</text>
+<rect x="545.0" y="360.0" width="395.0" height="115.0" rx="4" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+<text x="742.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">Переваги декларативної моделі:</text>
+<text x="560.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Асинхронність: запис бажаного стану не чекає на пристрій</text>
+<text x="560.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Стійкість до розривів: зв'язок відновився -&gt; дельта застосувалась</text>
+<text x="560.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Самозцілення: локальний збій чи дрейф виправляється циклом</text>
+<text x="560.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="start" font-weight="700">• Ідемпотентність: повторний запуск не змінює результат</text>
+</svg>

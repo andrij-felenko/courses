@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1190 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1190" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="590.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">розміщення маркера бракованого блоку в області Spare (OOB)</text>
+<rect x="60.0" y="80.0" width="280.0" height="440.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="200.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">фізичний блок (Eraseblock)</text>
+<text x="200.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">64 або 128 сторінок (1–4 МБ)</text>
+<rect x="78.0" y="155.0" width="244.0" height="52.0" rx="4" fill="#fbe6e3" stroke="#c0392b" stroke-width="1.4"/>
+<text x="200.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">сторінка 0 (перша)</text>
+<rect x="78.0" y="221.0" width="244.0" height="52.0" rx="4" fill="#fbe6e3" stroke="#c0392b" stroke-width="1.4"/>
+<text x="200.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">сторінка 1 (друга)</text>
+<rect x="78.0" y="287.0" width="244.0" height="52.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="200.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">сторінка 2</text>
+<rect x="78.0" y="353.0" width="244.0" height="52.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="200.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">...</text>
+<rect x="78.0" y="419.0" width="244.0" height="52.0" rx="4" fill="#fbe6e3" stroke="#c0392b" stroke-width="1.4"/>
+<text x="200.0" y="451.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">сторінка N-1 (остання)</text>
+<line x1="322.0" y1="181.0" x2="400.0" y2="181.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="410.0" y="80.0" width="710.0" height="440.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.6"/>
+<text x="765.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">структура сторінки Flash (Page = Data + Spare/OOB)</text>
+<rect x="440.0" y="150.0" width="430.0" height="110.0" rx="4" fill="#dfe8fc" stroke="#2457d6" stroke-width="1.8"/>
+<text x="655.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#2457d6" text-anchor="middle" font-weight="700">основна область даних (Main Area)</text>
+<text x="655.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">4096 байтів (або 2048 / 8192)</text>
+<rect x="885.0" y="150.0" width="205.0" height="110.0" rx="4" fill="#fff4e0" stroke="#b8860b" stroke-width="1.8"/>
+<text x="987.5" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#b8860b" text-anchor="middle" font-weight="700">резерв (OOB/Spare)</text>
+<text x="987.5" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">224 байти (ECC + BBM)</text>
+<rect x="440.0" y="300.0" width="650.0" height="180.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="460.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">розподіл байтів усередині Spare Area:</text>
+<rect x="460.0" y="345.0" width="180.0" height="80.0" rx="4" fill="#fbe6e3" stroke="#c0392b" stroke-width="2.0"/>
+<text x="550.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">байт 0 (або 5)</text>
+<text x="550.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Bad Block Marker</text>
+<rect x="655.0" y="345.0" width="190.0" height="80.0" rx="4" fill="#fff4e0" stroke="#b8860b" stroke-width="1.5"/>
+<text x="750.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b8860b" text-anchor="middle" font-weight="700">байти 1 .. 31</text>
+<text x="750.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">метадані FTL / UBI</text>
+<rect x="860.0" y="345.0" width="210.0" height="80.0" rx="4" fill="#dff0e6" stroke="#27ae60" stroke-width="1.5"/>
+<text x="965.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">байти 32 .. 223</text>
+<text x="965.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">коди захисту ECC</text>
+<text x="460.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">0xFF = блок справний; будь-яке інше значення (0x00) = блок бракований</text>
+</svg>

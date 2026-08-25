@@ -123,8 +123,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-envelope-encryption-spec.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-crypto-shredding.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "personal-data-class",
@@ -133,8 +145,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-data-classification.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-sweeney-reidentification.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-k-anonymity.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pii-pipeline.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "storage-tiers-and-retention",
@@ -143,8 +179,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-lifecycle-policies.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-hierarchical-storage.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tiering-cost-optimization.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tier-migration-engine.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },

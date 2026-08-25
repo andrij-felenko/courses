@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1190 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1190" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="590.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">життєвий цикл блоку: від виявлення збою до виведення з обігу</text>
+<rect x="60.0" y="120.0" width="220.0" height="100.0" rx="6" fill="#dfe8fc" stroke="#2457d6" stroke-width="1.8"/>
+<text x="170.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">1. Справний блок</text>
+<text x="170.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">робота в загальному пулі,</text>
+<text x="170.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">читання, запис, стирання</text>
+<line x1="290.0" y1="170.0" x2="340.0" y2="170.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="350.0" y="120.0" width="220.0" height="100.0" rx="6" fill="#fbe6e3" stroke="#c0392b" stroke-width="1.8"/>
+<text x="460.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">2. Виявлення збою</text>
+<text x="460.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">Erase Fail / Program Fail</text>
+<text x="460.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">або ліміт ECC (UECC)</text>
+<line x1="580.0" y1="170.0" x2="630.0" y2="170.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="640.0" y="120.0" width="220.0" height="100.0" rx="6" fill="#fff4e0" stroke="#b8860b" stroke-width="1.8"/>
+<text x="750.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#b8860b" text-anchor="middle" font-weight="700">3. Евакуація даних</text>
+<text x="750.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">копіювання живих сторінок</text>
+<text x="750.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">у свіжий резервний блок</text>
+<line x1="870.0" y1="170.0" x2="920.0" y2="170.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="930.0" y="120.0" width="220.0" height="100.0" rx="6" fill="#dff0e6" stroke="#27ae60" stroke-width="1.8"/>
+<text x="1040.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">4. Виведення з обігу</text>
+<text x="1040.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">позначка Grown Bad у BBT,</text>
+<text x="1040.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">виключення з пулу пулів</text>
+<rect x="60.0" y="270.0" width="1060.0" height="240.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/>
+<text x="590.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">двоетапний запис таблиці BBT на Flash для захисту від збою живлення</text>
+<rect x="100.0" y="330.0" width="460.0" height="150.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="330.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">основний блок BBT (Primary)</text>
+<text x="330.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">сигнатура: 'Bbt0' | версія: N+1</text>
+<text x="330.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">1. Стирається та записується першим</text>
+<text x="330.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle">2. Якщо живлення зникне — діє дзеркало</text>
+<line x1="570.0" y1="405.0" x2="610.0" y2="405.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="620.0" y="330.0" width="460.0" height="150.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="850.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">дзеркальний блок BBT (Mirror)</text>
+<text x="850.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">сигнатура: '1tbB' | версія: N+1</text>
+<text x="850.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">3. Оновлюється після успіху Primary</text>
+<text x="850.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle">4. Завжди зберігає узгоджену копію</text>
+</svg>

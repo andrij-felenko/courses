@@ -51,8 +51,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-parquet-column-format.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-columnar-databases.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-columnar-compression.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-columnar-scan.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -157,8 +181,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-fat32-structures.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fat32-reader.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "flash-filesystem",
@@ -167,8 +203,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-littlefs-lowlevel.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-spiffs-to-littlefs.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-flash-log-allocator.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "flash-filesystems",
@@ -215,8 +269,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-durability-syscalls.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-ext4-zero-length.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-atomic-engine.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },

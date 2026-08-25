@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="40.0" width="220.0" height="115.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="140.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Крок 1: open(.tmp, O_CREAT|O_EXCL)</text>
+<line x1="40.0" y1="74.0" x2="240.0" y2="74.0" stroke="#2457d6" stroke-width="0.8"/>
+<text x="140.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Створення тимчасового файлу</text>
+<text x="140.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">у ТОМУ САМОМУ каталозі</text>
+<text x="140.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">(той самий розділ / суперблок)</text>
+<rect x="270.0" y="40.0" width="220.0" height="115.0" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="380.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крок 2: write() у циклі</text>
+<line x1="280.0" y1="74.0" x2="480.0" y2="74.0" stroke="#d0d7de" stroke-width="0.8"/>
+<text x="380.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Повний запис корисного навантаження</text>
+<text x="380.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">з обробкою неповної видачі</text>
+<text x="380.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">(дані потрапляють у Page Cache)</text>
+<rect x="510.0" y="40.0" width="220.0" height="115.0" rx="6" fill="#fff6e0" stroke="#caa24a" stroke-width="1.5"/>
+<text x="620.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9a6700" text-anchor="middle" font-weight="700">Крок 3: fsync(file_fd)</text>
+<line x1="520.0" y1="74.0" x2="720.0" y2="74.0" stroke="#caa24a" stroke-width="0.8"/>
+<text x="620.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Примусове скидання кешу ОС</text>
+<text x="620.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">та енергонезалежного буфера диска</text>
+<text x="620.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">(гарантія збереження байтів)</text>
+<rect x="30.0" y="210.0" width="220.0" height="115.0" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="140.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крок 4: close(file_fd)</text>
+<line x1="40.0" y1="244.0" x2="240.0" y2="244.0" stroke="#d0d7de" stroke-width="0.8"/>
+<text x="140.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Закриття файлового дескриптора</text>
+<text x="140.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">(звільнення запису в таблиці ОС;</text>
+<text x="140.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">дані вже збережено на диску)</text>
+<rect x="270.0" y="210.0" width="220.0" height="115.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="380.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Крок 5: rename(tmp, target)</text>
+<line x1="280.0" y1="244.0" x2="480.0" y2="244.0" stroke="#27ae60" stroke-width="0.8"/>
+<text x="380.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Атомарне перемикання запису dentry</text>
+<text x="380.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">у структурі каталогу файлової системи</text>
+<text x="380.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">(неподільна операція для читачів)</text>
+<rect x="510.0" y="210.0" width="220.0" height="115.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="620.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Крок 6: fsync(dir_fd)</text>
+<line x1="520.0" y1="244.0" x2="720.0" y2="244.0" stroke="#27ae60" stroke-width="0.8"/>
+<text x="620.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Фіксація оновленого каталогу на диску</text>
+<text x="620.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">(захист від зникнення нового імені</text>
+<text x="620.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">після відновлення журналів)</text>
+<line x1="252.0" y1="97.5" x2="266.0" y2="97.5" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="492.0" y1="97.5" x2="506.0" y2="97.5" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="620.0" y1="157.0" x2="620.0" y2="192.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="620.0" y1="192.0" x2="620.0" y2="206.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="508.0" y1="267.5" x2="494.0" y2="267.5" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="268.0" y1="267.5" x2="254.0" y2="267.5" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="380.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Результат: при збої на будь-якому кроці 1–4 цілий старий файл; після кроку 5–6 — новий</text>
+</svg>

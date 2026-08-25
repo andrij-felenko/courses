@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="810.0" height="390.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="420.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектурні стеки: «сирий» Flash проти керованого носія</text>
+<rect x="45.0" y="75.0" width="360.0" height="320.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="225.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1e293b" text-anchor="middle" font-weight="700">Керований Flash (SSD / eMMC / SD)</text>
+<rect x="60.0" y="123.0" width="330.0" height="52.0" rx="4" fill="#e2e8f0" stroke="#64748b" stroke-width="1.2"/>
+<text x="225.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">Файлова система ОС (ext4, FAT32, NTFS)</text>
+<text x="225.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">Працює з фіксованими 512B / 4KB LBA секторами</text>
+<rect x="60.0" y="185.0" width="330.0" height="52.0" rx="4" fill="#e2e8f0" stroke="#64748b" stroke-width="1.2"/>
+<text x="225.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">Блоковий рівень ядра (Block Device)</text>
+<text x="225.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">Черги запитів, планувальник вводу/виводу</text>
+<rect x="60.0" y="247.0" width="330.0" height="52.0" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.2"/>
+<text x="225.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">Апаратний контролер носія з FTL</text>
+<text x="225.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">Трансляція LBA→PBA, Wear Leveling, GC у залізі</text>
+<rect x="60.0" y="309.0" width="330.0" height="52.0" rx="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1.2"/>
+<text x="225.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">Фізичні масиви NAND Flash</text>
+<text x="225.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">Закриті за інтерфейсом NVMe / SATA / eMMC / SPI</text>
+<rect x="435.0" y="75.0" width="360.0" height="320.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="615.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1e293b" text-anchor="middle" font-weight="700">«Сирий» Flash (NOR / NAND без FTL)</text>
+<rect x="450.0" y="123.0" width="330.0" height="52.0" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.2"/>
+<text x="615.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">Спеціалізована Flash FS (LittleFS, UBIFS)</text>
+<text x="615.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">Log-structured метадані, контроль зносу, захист живлення</text>
+<rect x="450.0" y="185.0" width="330.0" height="52.0" rx="4" fill="#e2e8f0" stroke="#64748b" stroke-width="1.2"/>
+<text x="615.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">Рівень абстракції (MTD / Block Driver)</text>
+<text x="615.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">Доступ до фізичних операцій: read, prog, erase</text>
+<rect x="450.0" y="247.0" width="330.0" height="52.0" rx="4" fill="#e2e8f0" stroke="#64748b" stroke-width="1.2"/>
+<text x="615.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">Контролер шини SPI / QSPI / Parallel</text>
+<text x="615.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">Апаратний інтерфейс мікроконтролера / SoC</text>
+<rect x="450.0" y="309.0" width="330.0" height="52.0" rx="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1.2"/>
+<text x="615.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">Відкритий масив NOR / NAND Flash</text>
+<text x="615.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">Прямий доступ програми до блоків і сторінок</text>
+</svg>

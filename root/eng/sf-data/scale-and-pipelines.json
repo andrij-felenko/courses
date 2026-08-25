@@ -113,24 +113,24 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           },
           "hist": [
             {
               "file": "hist-evolution-of-ha.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "math": [
             {
               "file": "math-ha-availability-and-quorum.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-failover-orchestrator.md",
-              "status": "done"
+              "status": "recheck"
             }
           ]
         },
@@ -141,18 +141,18 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           },
           "hist": [
             {
               "file": "hist-read-write-splitting-evolution.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-read-write-router.md",
-              "status": "done"
+              "status": "recheck"
             }
           ]
         }
@@ -271,8 +271,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-tsdb-query-and-chunk.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-gorilla-and-tsdb.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-compression-entropy.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gorilla-compressor.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -361,8 +385,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-shadow-reconciliation-contract.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-state-convergence.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-state-reconciler.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "chasovi-riady",
@@ -371,8 +413,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-decomposition-stationarity.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-timeseries-stream-aggregator.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     }

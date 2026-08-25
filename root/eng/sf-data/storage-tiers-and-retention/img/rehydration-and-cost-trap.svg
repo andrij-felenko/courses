@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="800.0" height="420.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="410.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крива звернень за віком даних та пастка передчасного архівування</text>
+<rect x="30.0" y="65.0" width="360.0" height="345.0" rx="6" fill="#fafbfc" stroke="#e1e4e8" stroke-width="1.0"/>
+<text x="210.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ймовірність звернення P(t) vs Вік даних</text>
+<line x1="70.0" y1="350.0" x2="360.0" y2="350.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="70.0" y1="350.0" x2="70.0" y2="115.0" stroke="#333333" stroke-width="1.5"/>
+<text x="360.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Час (дні)</text>
+<text x="65.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">IOPS</text>
+<path d="M 75 130 Q 100 280 150 320 T 350 345" fill="none" stroke="#c0392b" stroke-width="2.5" />
+<rect x="75.0" y="120.0" width="60.0" height="230.0" rx="0" fill="#fef2f0" stroke="#f5c2c7" stroke-width="1.0"/>
+<text x="105.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Hot</text>
+<text x="105.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">0–14 дн</text>
+<rect x="135.0" y="250.0" width="75.0" height="100.0" rx="0" fill="#fffbf0" stroke="#d4a72c" stroke-width="1.0"/>
+<text x="172.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b07d0a" text-anchor="middle" font-weight="700">Warm</text>
+<text x="172.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b07d0a" text-anchor="middle">15–90 дн</text>
+<rect x="210.0" y="310.0" width="140.0" height="40.0" rx="0" fill="#f0f4fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="280.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Cold / Archive (&gt; 90 дн)</text>
+<rect x="410.0" y="65.0" width="380.0" height="345.0" rx="6" fill="#fffaf9" stroke="#f5c2c7" stroke-width="1.0"/>
+<text x="600.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Пастка витрат (Retrieval Penalty Trap)</text>
+<rect x="445.8" y="121.0" width="308.4" height="48.0" rx="6" fill="#ffffff" stroke="#f5c2c7" stroke-width="1.1"/><text x="600.0" y="135.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">Помилка: передчасне витіснення в Glacier</tspan><tspan x="600.0" dy="13.0">Дані скинуто в архів заради економії на зберіганні,</tspan><tspan x="600.0" dy="13.0">але аналітичні запити продовжують сканувати партиції</tspan></text>
+<rect x="442.1" y="204.5" width="315.8" height="61.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/><text x="600.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="600.0" dy="0.0">Структура фінансових втрат:</tspan><tspan x="600.0" dy="13.0">1. Плата за розморожування ($0.03 – $0.05 / ГБ)</tspan><tspan x="600.0" dy="13.0">2. Плата за запити відновлення (Restore Requests)</tspan><tspan x="600.0" dy="13.0">3. Штраф за раннє видалення (&lt; 90 / 180 днів)</tspan></text>
+<rect x="439.0" y="309.5" width="322.0" height="61.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.2"/><text x="600.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="600.0" dy="0.0">Правило точки окупності t*:</tspan><tspan x="600.0" dy="13.0">Економія на зберіганні перевищує вартість міграції</tspan><tspan x="600.0" dy="13.0">й читання лише за умови: частота звернень &lt; f_crit</tspan><tspan x="600.0" dy="13.0">і тривалість зберігання &gt; T_min_tier</tspan></text>
+</svg>

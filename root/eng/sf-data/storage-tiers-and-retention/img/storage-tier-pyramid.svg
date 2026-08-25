@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="800.0" height="460.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="410.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія ярусів зберігання даних: вартість, латентність та обсяг</text>
+<rect x="25.0" y="60.0" width="140.0" height="390.0" rx="6" fill="#fafbfc" stroke="#e1e4e8" stroke-width="1.0"/>
+<text x="95.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Характеристики</text>
+<line x1="95.0" y1="110.0" x2="95.0" y2="420.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="95.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Латентність зростає</text>
+<text x="95.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">від нс до годин</text>
+<text x="95.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Вартість падає</text>
+<text x="95.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">від $3 до $0.001/ГБ</text>
+<text x="95.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Обсяг зростає (ПБ/ЕБ)</text>
+<rect x="180.0" y="60.0" width="615.0" height="85.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="195.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">Гарячий ярус (Hot Tier): DRAM / PMEM / NVMe SSD</text>
+<text x="195.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Активні транзакції OLTP, кеші, свіжий WAL, робочі набори</text>
+<text x="195.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Латентність: &lt; 100 мкс</text>
+<text x="540.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Ціна: $0.20 – $3.00 / ГБ·міс</text>
+<rect x="180.0" y="155.0" width="615.0" height="85.0" rx="6" fill="#fff6e0" stroke="#d4a72c" stroke-width="1.4"/>
+<text x="195.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b07d0a" text-anchor="start" font-weight="700">Теплий ярус (Warm Tier): SATA SSD / Nearline HDD / S3 Standard</text>
+<text x="195.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Свіжі аналітичні чанки, логи за 7–30 днів, помірне читання</text>
+<text x="195.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Латентність: 1 – 20 мс</text>
+<text x="540.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Ціна: $0.02 – $0.08 / ГБ·міс</text>
+<rect x="180.0" y="250.0" width="615.0" height="85.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="195.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">Холодний ярус (Cold Tier): S3 Infrequent Access / ZFS zstd</text>
+<text x="195.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Історичні партиції, квартальні звіти, запити раз на місяць</text>
+<text x="195.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Латентність: 50 – 250 мс</text>
+<text x="540.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Ціна: $0.01 – $0.015 / ГБ·міс</text>
+<rect x="180.0" y="345.0" width="615.0" height="105.0" rx="6" fill="#f0f4f8" stroke="#57606a" stroke-width="1.4"/>
+<text x="195.0" y="369.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#24292f" text-anchor="start" font-weight="700">Архівний ярус (Archive / Deep Cold): S3 Glacier / LTO Tape</text>
+<text x="195.0" y="391.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Регуляторний аудит (GDPR/SEC), катастрофічні бекапи (DR)</text>
+<text x="195.0" y="413.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Латентність: 3 хвилини – 12 годин</text>
+<text x="540.0" y="413.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Ціна: $0.00099 – $0.004 / ГБ·міс</text>
+<text x="195.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-style="italic">Штрафи: плата за розморожування (Retrieval Fee) та обов'язковий мінімальний строк утримання</text>
+</svg>

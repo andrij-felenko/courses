@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="980.0" height="480.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="40.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700">Життєвий цикл циклу узгодження (The Reconciliation / Controller Loop)</text>
+<rect x="60.0" y="80.0" width="200.0" height="130.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="160.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle" font-weight="700">1. OBSERVE (Опитування)</text>
+<text x="75.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Читання Desired (etcd/API)</text>
+<text x="75.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Збір телеметрії Reported</text>
+<text x="75.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Перевірка версій ревізій</text>
+<text x="75.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e40af" text-anchor="start">• Watch-подія або таймер</text>
+<line x1="260.0" y1="145.0" x2="290.0" y2="145.0" stroke="#2563eb" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="275.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-weight="700">Стан отримано</text>
+<rect x="300.0" y="80.0" width="200.0" height="130.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+<text x="400.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">2. DIFF (Виявлення дрейфу)</text>
+<text x="315.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Δ = Desired - Reported</text>
+<text x="315.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Фільтр шуму та гістерезис</text>
+<text x="315.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Перевірка: чи Δ == 0?</text>
+<text x="315.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="start">• Визначення невідповідностей</text>
+<line x1="500.0" y1="145.0" x2="530.0" y2="145.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="515.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">Є дрейф (Δ ≠ 0)</text>
+<rect x="540.0" y="80.0" width="200.0" height="130.0" rx="6" fill="#fef2f2" stroke="#ef4444" stroke-width="1.5"/>
+<text x="640.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="middle" font-weight="700">3. ACTUATE (Виконання дії)</text>
+<text x="555.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Генерація плану переходів</text>
+<text x="555.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Ідемпотентна мутація</text>
+<text x="555.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Керування актуатором / API</text>
+<text x="555.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="start">• Обробка таймаутів і помилок</text>
+<line x1="740.0" y1="145.0" x2="770.0" y2="145.0" stroke="#ef4444" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="755.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ef4444" text-anchor="middle" font-weight="700">Дію виконано</text>
+<rect x="780.0" y="80.0" width="200.0" height="130.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="880.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">4. REPORT (Фіксація звіту)</text>
+<text x="795.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Зчитування нового стану</text>
+<text x="795.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Оновлення Reported в базі</text>
+<text x="795.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Інкремент version++</text>
+<text x="795.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="start">• Зменшення дрейфу до нуля</text>
+<path d="M 880 210 L 880 270 L 160 270 L 160 210" stroke="#16a34a" stroke-width="2.0" stroke-dasharray="6,4" fill="none"/>
+<circle cx="880.0" cy="210.0" r="3.0" fill="#16a34a" stroke="#333333" stroke-width="1.5"/>
+<line x1="160.0" y1="230.0" x2="160.0" y2="215.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="500.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">Наступна ітерація: перевірка рівноваги (Level-Triggered)</text>
+<path d="M 400 210 L 400 240 L 190 240 L 190 210" stroke="#d97706" stroke-width="1.5" fill="none"/>
+<circle cx="400.0" cy="210.0" r="3.0" fill="#d97706" stroke="#333333" stroke-width="1.5"/>
+<line x1="190.0" y1="230.0" x2="190.0" y2="215.0" stroke="#d97706" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="295.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle">Δ = 0 (Дрейфу немає)</text>
+<rect x="60.0" y="310.0" width="880.0" height="160.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="80.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Обробка крайових випадків та відмовостійкість циклу узгодження:</text>
+<rect x="80.0" y="350.0" width="260.0" height="100.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="210.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle" font-weight="700">1. Рівневий тригер (Level-Triggered)</text>
+<text x="95.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Цикл реагує не на перепади</text>
+<text x="95.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">подій (Edge), а на поточний</text>
+<text x="95.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">наявний рівень різниці (Δ).</text>
+<text x="95.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e40af" text-anchor="start" font-weight="700">Втрата події не ламає систему.</text>
+<rect x="370.0" y="350.0" width="260.0" height="100.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="500.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-weight="700">2. Exponential Backoff &amp; Jitter</text>
+<text x="385.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">При збої зв'язку або актуатора</text>
+<text x="385.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">затримка зростає: 2^k * t + r.</text>
+<text x="385.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Випадковий джитер запобігає</text>
+<text x="385.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="start" font-weight="700">хвилям узгодження (Thundering Herd).</text>
+<rect x="660.0" y="350.0" width="260.0" height="100.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="790.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle" font-weight="700">3. Детекція флапінгу (Anti-Flap)</text>
+<text x="675.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Якщо бажаний стан швидко скаче</text>
+<text x="675.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">туди-сюди (осциляція), вмикається</text>
+<text x="675.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Rate Limiting та deadband-зона,</text>
+<text x="675.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="start" font-weight="700">щоб зберегти ресурс заліза.</text>
+</svg>

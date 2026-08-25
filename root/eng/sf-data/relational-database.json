@@ -82,11 +82,29 @@
           "slug": "sql",
           "title": "SQL: мова запитів до реляційних баз",
           "basic": {
-            "status": "pending"
+            "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-sql-clauses.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-sql-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sql-client.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "sql-null-three-valued",
@@ -95,8 +113,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-codd-null-debate.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-three-valued-logic.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-null-bitmap-engine.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "tree-in-a-table",
@@ -105,8 +141,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-tree-sql-schemata.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-hierarchical-data-sql.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-nested-sets-intervals.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hierarchical-tree-engine.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -189,18 +249,18 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           },
           "hist": [
             {
               "file": "hist-schema-evolution-origins.md",
-              "status": "done"
+              "status": "recheck"
             }
           ],
           "proj": [
             {
               "file": "proj-migration-runner.md",
-              "status": "done"
+              "status": "recheck"
             }
           ]
         }
@@ -251,8 +311,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-wire-protocol-prepared.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-sql-injection-and-prepare.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-prepared-statement-engine.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "database-cursor",
@@ -261,8 +339,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-sql-cursor-reference.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-cursor-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-streaming-cursor-pipeline.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -419,8 +515,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-occ-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-occ-collision-probability.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-optimistic-retry-loop.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "pessimistic-locking",
@@ -429,8 +543,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-sql-locking-clauses.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-2pl-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-task-queue-worker.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     }
