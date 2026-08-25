@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Багаторівнева ієрархія ключів шифрування NVS</text>
+<rect x="16.7" y="65.0" width="132.0" height="160.0" rx="8" fill="#fff8f6" stroke="#c0392b" stroke-width="1.7"/>
+<text x="82.7" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Рівень 1</text>
+<text x="82.7" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">eFuse (BLOCK4..9)</text>
+<line x1="24.7" y1="123.0" x2="140.7" y2="123.0" stroke="#c0392b" stroke-width="0.8"/>
+<text x="82.7" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="82.7" dy="0.0">Апаратний ключ Flash Enc</tspan></text>
+<text x="82.7" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="82.7" dy="0.0">Захист від читання ззовні</tspan></text>
+<line x1="150.7" y1="145.0" x2="163.3" y2="145.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="165.3" y="65.0" width="132.0" height="160.0" rx="8" fill="#fffbf0" stroke="#d97706" stroke-width="1.7"/>
+<text x="231.3" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Рівень 2</text>
+<text x="231.3" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">Flash Encryption</text>
+<line x1="173.3" y1="123.0" x2="289.3" y2="123.0" stroke="#d97706" stroke-width="0.8"/>
+<text x="231.3" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="231.3" dy="0.0">AES-XTS дешифрування</tspan></text>
+<text x="231.3" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="231.3" dy="0.0">Прозорий доступ через MMU</tspan></text>
+<line x1="299.3" y1="145.0" x2="312.0" y2="145.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="314.0" y="65.0" width="132.0" height="160.0" rx="8" fill="#f6fbf7" stroke="#27ae60" stroke-width="1.7"/>
+<text x="380.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Рівень 3</text>
+<text x="380.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Розділ nvs_keys</text>
+<line x1="322.0" y1="123.0" x2="438.0" y2="123.0" stroke="#27ae60" stroke-width="0.8"/>
+<text x="380.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">64-байтовий ключ XTS</tspan></text>
+<text x="380.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="380.0" dy="0.0">Зашифрований у Flash (4 КБ)</tspan></text>
+<line x1="448.0" y1="145.0" x2="460.7" y2="145.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="462.7" y="65.0" width="132.0" height="160.0" rx="8" fill="#f0f6ff" stroke="#2457d6" stroke-width="1.7"/>
+<text x="528.7" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Рівень 4</text>
+<text x="528.7" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Ключ у RAM</text>
+<line x1="470.7" y1="123.0" x2="586.7" y2="123.0" stroke="#2457d6" stroke-width="0.8"/>
+<text x="528.7" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="528.7" dy="0.0">nvs_sec_cfg_t</tspan></text>
+<text x="528.7" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="528.7" dy="0.0">Ключі шифрування + tweak</tspan></text>
+<line x1="596.7" y1="145.0" x2="609.3" y2="145.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="611.3" y="65.0" width="132.0" height="160.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.7"/>
+<text x="677.3" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Рівень 5</text>
+<text x="677.3" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Розділ nvs</text>
+<line x1="619.3" y1="123.0" x2="735.3" y2="123.0" stroke="#27ae60" stroke-width="0.8"/>
+<text x="677.3" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="677.3" dy="0.0">Зашифровані записи</tspan></text>
+<text x="677.3" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="677.3" dy="0.0">Wi-Fi паролі, сертифікати</tspan></text>
+<text x="380.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія довіри: Апаратний eFuse → Flash Encryption → nvs_keys → RAM nvs_sec_cfg_t → NVS дані</text>
+<text x="380.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Компрометація Flash пам'яті не розкриває секретів: без зашитого eFuse розшифрувати nvs_keys неможливо</text>
+</svg>

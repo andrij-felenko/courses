@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 900 420" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="900" height="420" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="870.0" height="390.0" rx="8" fill="#fafbfc" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="445.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратний конвеєр прозорого дешифрування Flash (AES-XTS)</text>
+<rect x="25.0" y="50.0" width="620.0" height="335.0" rx="6" fill="#f8fafc" stroke="#3b82f6" stroke-width="1.8"/>
+<text x="130.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1d4ed8" text-anchor="middle" font-weight="700">Внутрішній простір SoC ESP32</text>
+<rect x="32.5" y="111.3" width="125.0" height="67.4" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/><text x="95.0" y="128.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="95.0" dy="0.0">Процесорне ядро</tspan><tspan x="95.0" dy="13.7">(CPU Core)</tspan><tspan x="95.0" dy="13.7">Адреса MMU:</tspan><tspan x="95.0" dy="13.7">0x42000000</tspan></text>
+<rect x="167.2" y="111.3" width="135.7" height="67.4" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/><text x="235.0" y="128.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="235.0" dy="0.0">MMU та кеш</tspan><tspan x="235.0" dy="13.7">(Instruction / Data)</tspan><tspan x="235.0" dy="13.7">Трансляція адрес</tspan><tspan x="235.0" dy="13.7">і кеш-лінії</tspan></text>
+<rect x="320.0" y="111.3" width="150.0" height="67.4" rx="6" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.5"/><text x="395.0" y="128.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="395.0" dy="0.0">Апаратний рушій</tspan><tspan x="395.0" dy="13.7">AES-XTS</tspan><tspan x="395.0" dy="13.7">Миттєве розшифрування</tspan><tspan x="395.0" dy="13.7">блоків по 32 байти</tspan></text>
+<rect x="315.0" y="255.0" width="160.0" height="95.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="395.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">eFuse Матриця</text>
+<text x="395.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Ключ шифрування</text>
+<text x="395.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">256-біт (AES-XTS)</text>
+<text x="395.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Захист: RD_DIS = 1</text>
+<line x1="395.0" y1="255.0" x2="395.0" y2="195.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="405.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">Лінія ключа</text>
+<rect x="492.5" y="111.3" width="125.0" height="67.4" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/><text x="555.0" y="128.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="555.0" dy="0.0">SPI Flash</tspan><tspan x="555.0" dy="13.7">Контролер</tspan><tspan x="555.0" dy="13.7">Фізичні транзакції</tspan><tspan x="555.0" dy="13.7">по шині SPI</tspan></text>
+<rect x="675.0" y="50.0" width="190.0" height="335.0" rx="6" fill="#fefce8" stroke="#ca8a04" stroke-width="1.8"/>
+<text x="770.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#854d0e" text-anchor="middle" font-weight="700">Зовнішня SPI Flash</text>
+<rect x="690.0" y="111.3" width="160.0" height="67.4" rx="6" fill="#ffffff" stroke="#ca8a04" stroke-width="1.5"/><text x="770.0" y="128.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="770.0" dy="0.0">Фізична Flash</tspan><tspan x="770.0" dy="13.7">Шифротекст (Ciphertext)</tspan><tspan x="770.0" dy="13.7">Зашифровані сектори</tspan><tspan x="770.0" dy="13.7">і таблиця розділів</tspan></text>
+<line x1="680.0" y1="135.0" x2="620.0" y2="135.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="650.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle">SPI Bus</text>
+<text x="650.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Шифротекст</text>
+<line x1="490.0" y1="135.0" x2="475.0" y2="135.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="318.0" y1="135.0" x2="300.0" y2="135.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="310.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Текст</text>
+<line x1="170.0" y1="135.0" x2="160.0" y2="135.0" stroke="#1d4ed8" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="40.0" y="270.0" width="240.0" height="80.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="160.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Властивості шифратора:</text>
+<text x="160.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Прозорість: 0% навантаження ЦПУ</text>
+<text x="160.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• XIP: пряме виконання з кешу</text>
+</svg>

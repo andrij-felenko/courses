@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 371.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="371.6" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія зашифрованої сторінки NVS</text>
+<rect x="30.0" y="56.0" width="700.0" height="256.0" rx="10" fill="#fbfbff" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="46.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Сторінка NVS (розмір 4096 байтів = 1 сектор Flash)</text>
+<rect x="46.0" y="98.0" width="200.0" height="175.0" rx="6" fill="#fff8f0" stroke="#d97706" stroke-width="1.5"/>
+<text x="146.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">Заголовок сторінки</text>
+<text x="146.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">32 байти (ВІДКРИТИЙ)</text>
+<line x1="56.0" y1="146.0" x2="236.0" y2="146.0" stroke="#d97706" stroke-width="0.8"/>
+<text x="60.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Стан: Active / Full / Freeing</text>
+<text x="60.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Порядковий номер (seq)</text>
+<text x="60.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Версія формату NVS</text>
+<text x="60.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• CRC32 заголовка</text>
+<text x="146.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-style="italic">Гасіння бітів без стирання</text>
+<rect x="258.0" y="98.0" width="210.0" height="175.0" rx="6" fill="#fff8f0" stroke="#d97706" stroke-width="1.5"/>
+<text x="363.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">Бітова карта записів</text>
+<text x="363.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">32 байти = 256 бітів (ВІДКРИТА)</text>
+<line x1="268.0" y1="146.0" x2="458.0" y2="146.0" stroke="#d97706" stroke-width="0.8"/>
+<text x="272.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• 128 слотів × 2 біти стану</text>
+<text x="272.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">• 11 = Порожній (Empty)</text>
+<text x="272.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">• 10 = Записаний (Written)</text>
+<text x="272.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">• 00 = Стертий (Erased)</text>
+<text x="363.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-style="italic">Керує збиранням сміття</text>
+<rect x="480.0" y="98.0" width="234.0" height="175.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="597.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">126 слотів записів</text>
+<text x="597.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">126 × 32 байти (AES-XTS-256)</text>
+<line x1="490.0" y1="146.0" x2="704.0" y2="146.0" stroke="#27ae60" stroke-width="0.8"/>
+<text x="494.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Простір імен (Namespace ID)</text>
+<text x="494.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Ім'я ключа (до 15 символів)</text>
+<text x="494.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Тип даних, розмір, Span</text>
+<text x="494.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Значення / зсув блоба</text>
+<text x="597.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Tweak = зміщення слота у розділі</text>
+<text x="380.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Заголовки сторінки й карта стану лишаються відкритими; тіло кожного 32-байтового слота шифрується окремо</text>
+<text x="380.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Унікальний tweak (зсув запису у розділі) захищає від атак перестановки шифроблоків між позиціями Flash</text>
+</svg>

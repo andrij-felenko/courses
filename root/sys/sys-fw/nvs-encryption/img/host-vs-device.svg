@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 321.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="321.6" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Два шляхи налаштування ключів NVS</text>
+<rect x="40.0" y="60.0" width="320.0" height="195.0" rx="10" fill="#f0f6ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="200.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1. Підготовка на хості (Виробництво)</text>
+<text x="200.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Масове виготовлення однакових/унікальних партій</text>
+<rect x="56.0" y="116.0" width="288.0" height="38.0" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.1"/>
+<text x="200.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">nvs_partition_gen.py generate-key</text>
+<text x="200.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Створює бінарний файл nvs_keys.bin (64B)</text>
+<rect x="56.0" y="160.0" width="288.0" height="38.0" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.1"/>
+<text x="200.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">nvs_partition_gen.py encrypt</text>
+<text x="200.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Попередній запис заводських сертифікатів</text>
+<rect x="56.0" y="204.0" width="288.0" height="38.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.1"/>
+<text x="200.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">esptool.py write_flash --encrypt</text>
+<text x="200.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Прошивання з апаратним Flash Encryption</text>
+<rect x="400.0" y="60.0" width="320.0" height="195.0" rx="10" fill="#f6fbf7" stroke="#27ae60" stroke-width="1.8"/>
+<text x="560.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">2. Автономна генерація на чіпі</text>
+<text x="560.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Самостійне створення ключів під час першого запуску</text>
+<rect x="416.0" y="116.0" width="288.0" height="38.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.1"/>
+<text x="560.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратний генератор випадкових чисел (TRNG)</text>
+<text x="560.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">esp_fill_random() генерує 64 байти в RAM</text>
+<rect x="416.0" y="160.0" width="288.0" height="38.0" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.1"/>
+<text x="560.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">nvs_flash_generate_keys()</text>
+<text x="560.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Записує nvs_sec_cfg_t у розділ nvs_key</text>
+<rect x="416.0" y="204.0" width="288.0" height="38.0" rx="5" fill="#eafaf0" stroke="#27ae60" stroke-width="1.1"/>
+<text x="560.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Апаратний Flash Enc захищає nvs_key</text>
+<text x="560.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Ключі NVS надійно замкнені у Flash пам'яті</text>
+<text x="380.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хостовий підхід дозволяє прошивати попередньо заповнений NVS; автономний спрощує конвеєр збірки</text>
+<text x="380.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">В обох випадках кінцева стійкість гарантована апаратним шифруванням Flash Encryption</text>
+</svg>

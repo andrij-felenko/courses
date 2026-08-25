@@ -55,7 +55,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -65,8 +65,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-nvs-encryption.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-nvs-encryption-workflow.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -81,8 +93,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-heap-diagnostics.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
