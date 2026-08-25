@@ -1,0 +1,134 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-bsystem",
+  "slug": "foreign-platforms",
+  "title": "Чужі платформи",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "cross-builds",
+      "title": "Крос-збірка",
+      "topics": [
+        {
+          "slug": "cross-compilation",
+          "title": "Крос-компіляція: хост, ціль і що між ними",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "target-triple-sysroot",
+          "title": "Цільовий тріплет і sysroot",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "windows-toolchain-nuances",
+          "title": "Нюанси Windows: MSVC, рантайми, шляхи, кодування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "android-ndk-nuances",
+          "title": "Нюанси Android: NDK, ABI, рівень API",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "mcu-toolchains",
+      "title": "Тулчейни мікроконтролерів",
+      "topics": [
+        {
+          "slug": "platformio",
+          "title": "PlatformIO: збірка під будь-який МК",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "mcu-ecosystem",
+          "title": "Екосистема МК",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-portability.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "vendor-lock-in",
+          "title": "Прив'язка до платформи (vendor lock-in)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "firmware-image",
+      "title": "Прошивка й розкладка пам'яті",
+      "topics": [
+        {
+          "slug": "esp-idf-struktura-proiektu-komponenty-menuconfig",
+          "title": "ESP-IDF: структура проєкту, компоненти, menuconfig",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "map-fail",
+          "title": "Map-файл: що з'їло флеш і RAM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "svoi-sektsii-bufer-dma-stek-i-kupa-pid-svii-obsiah",
+          "title": "Свої секції, буфер DMA, стек і купа під свій обсяг",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

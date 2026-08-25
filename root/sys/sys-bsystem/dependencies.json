@@ -1,0 +1,172 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-bsystem",
+  "slug": "dependencies",
+  "title": "Залежності",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "managers-and-versions",
+      "title": "Менеджери й версії",
+      "topics": [
+        {
+          "slug": "dependency-manager-model",
+          "title": "Модель менеджера залежностей C++",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-c-cpp-packaging.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-package-id-hash.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dependency-graph-contract.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "conan",
+          "title": "Conan: рецепти, профілі, бінарні пакети",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-conan-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-multi-package-workflow.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-conanfile-methods.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "vcpkg",
+          "title": "vcpkg: порти, тріплети, маніфестний режим",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "vendoring-submodules",
+          "title": "Вендоринг і git-сабмодулі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "version-pinning",
+          "title": "Закріплення версій і замки залежностей",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "system-packages",
+      "title": "Системні пакунки й установлення",
+      "topics": [
+        {
+          "slug": "dev-packages-and-pkg-config",
+          "title": "Заголовки й -dev пакунки: pkg-config і де лежить чужий API",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "install-prefix-and-destdir",
+          "title": "Куди ставиться програма: prefix, DESTDIR і /usr/local",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "reproducibility",
+      "title": "Відтворюваність",
+      "topics": [
+        {
+          "slug": "reproducible-builds",
+          "title": "Відтворювані збірки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-reproducible-builds.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-repro-check.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-repro-flags.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "hermetic-builds",
+          "title": "Герметичні системи збірки: модель Bazel та Buck2",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

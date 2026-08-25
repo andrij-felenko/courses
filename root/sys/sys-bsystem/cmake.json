@@ -1,0 +1,410 @@
+{
+  "schema": 7,
+  "kind": "sys",
+  "book": "sys-bsystem",
+  "slug": "cmake",
+  "title": "CMake",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "cmake-language",
+      "title": "Мова CMakeLists",
+      "topics": [
+        {
+          "slug": "cmake-language",
+          "title": "Мова CMakeLists: змінні, області, потік керування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cmake-language.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-helper-function.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-if-and-lists.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "generator-expressions",
+          "title": "Генераторні вирази: рішення, відкладене до генерації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "cmake-targets",
+      "title": "Цілі й вимоги вжитку",
+      "topics": [
+        {
+          "slug": "targets-and-properties",
+          "title": "Цілі й властивості замість глобальних змінних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-target-turn.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-target-properties.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "usage-requirements",
+          "title": "Вимоги вжитку: PUBLIC, PRIVATE, INTERFACE",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-usage-requirements.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cmake-configure",
+      "title": "Конфігурація прогону",
+      "topics": [
+        {
+          "slug": "cmake-presets",
+          "title": "CMakePresets: конфігурації як декларація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cmake-presets.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-presets-schema.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cache-and-options",
+          "title": "Кеш CMake, опції та їхнє життя між прогонами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-cache-presets.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cache-commands.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cmake-toolchain-file",
+          "title": "Файл тулчейна: як CMake дізнається про чужу платформу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-baremetal-toolchain.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-toolchain-variables.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cmake-external-code",
+      "title": "Чужий код у збірці",
+      "topics": [
+        {
+          "slug": "find-package",
+          "title": "find_package: Config проти Module й імпортовані цілі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-find-module.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-find-package.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "fetchcontent-subprojects",
+          "title": "FetchContent і підпроєкти: чужий код усередині збірки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "cmake-generated-files",
+      "title": "Згенеровані файли",
+      "topics": [
+        {
+          "slug": "custom-commands",
+          "title": "Власні команди й цілі: кодогенерація у збірці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-codegen-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-custom-commands.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "configure-file-templates",
+          "title": "configure_file: значення конфігурації у згенерованих файлах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-autoconf-config-h.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-config-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-configure-file.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cmake-shipping",
+      "title": "Тести, установлення, пакування",
+      "topics": [
+        {
+          "slug": "ctest",
+          "title": "CTest: реєстрація й запуск тестів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ctest-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ctest-pipeline.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ctest-properties.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "install-and-export",
+          "title": "install і export: зробити проєкт придатним для find_package",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-complete-package.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-install-export.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cpack",
+          "title": "CPack: збірка дистрибутива",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cpack-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-component-packaging.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cpack-variables.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cmake-legacy",
+      "title": "Звички й сумісність",
+      "topics": [
+        {
+          "slug": "cmake-policies",
+          "title": "Політики CMake: як мова змінюється, не ламаючи старі проєкти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-policies-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-subproject-policies.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-policy-commands.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "cmake-antipatterns",
+          "title": "Антипатерни CMake і чому вони живучі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-modern-cmake.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-antipattern-refactoring.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-modern-replacements.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
