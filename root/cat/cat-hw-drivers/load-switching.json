@@ -1,0 +1,98 @@
+{
+  "schema": 7,
+  "kind": "cat",
+  "book": "cat-hw-drivers",
+  "slug": "load-switching",
+  "title": "Комутація навантаження",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "darlington-arrays",
+      "title": "Дарлінгтонові збірки",
+      "topics": [
+        {
+          "slug": "darlington-uln",
+          "title": "Дарлінгтон ULN",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "uln2003-driver",
+          "title": "ULN2003 — драйвер (плата для 28BYJ-48)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-uln-sprague.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-uln2003.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "electromechanical-relays",
+      "title": "Електромеханічні реле",
+      "topics": [
+        {
+          "slug": "relay-5v",
+          "title": "5V реле-модуль (Songle SRD-05VDC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-relay-control.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "h-bridge",
+      "title": "H-міст для моторів",
+      "topics": [
+        {
+          "slug": "mc33886-driver",
+          "title": "CJMCU MC33886 — драйвер моторів (5A H-міст)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-smartmos.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-motor-control.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
