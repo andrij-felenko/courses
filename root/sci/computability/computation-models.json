@@ -1,0 +1,418 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "computability",
+  "slug": "computation-models",
+  "title": "Моделі обчислення",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "automata",
+      "title": "Автомати",
+      "topics": [
+        {
+          "slug": "finite-automata",
+          "title": "Скінченні автомати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          }
+        },
+        {
+          "slug": "pushdown-automata",
+          "title": "Магазинні автомати",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pushdown-store.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pda-cfg-equivalence.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-expression-parser.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "linear-bounded-automaton",
+          "title": "Лінійно обмежений автомат",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-myhill-lba.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-chomsky-hierarchy.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "turing-machine",
+          "title": "Машина Тюринга",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-computable-numbers.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-turing-simulator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "state-minimization",
+          "title": "Мінімізація скінченного автомата",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-moore-hopcroft.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-myhill-nerode.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hopcroft.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "languages-and-grammars",
+      "title": "Мови й граматики",
+      "topics": [
+        {
+          "slug": "formal-language",
+          "title": "Формальна мова",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-thue-to-backus.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-how-many-languages.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-language-algebra.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "formal-grammar",
+          "title": "Формальні граматики (CFG, BNF)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "regular-languages",
+          "title": "Регулярні мови",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-chomsky-hierarchy.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pumping-lemma.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-product-construction.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "chomsky-hierarchy",
+          "title": "Ієрархія Хомського",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-chomsky-hierarchy.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-strict-inclusions.md",
+              "status": "done"
+            },
+            {
+              "file": "math-lba-decidability.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "recursion-and-calculi",
+      "title": "Рекурсія та числення",
+      "topics": [
+        {
+          "slug": "church-turing-thesis",
+          "title": "Теза Черча–Тюринга",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-thesis-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-three-models.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lambda-calculus",
+          "title": "Лямбда-числення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-church-1936-lambda.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "primitive-recursive-functions",
+          "title": "Примітивно-рекурсивні функції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-birth-of-recursion.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-diagonal-not-pr.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-primrec-interpreter.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "general-recursive-functions",
+          "title": "Загальнорекурсивні функції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-godel-kleene-1936.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "kleene-recursion-theorem",
+          "title": "Теорема рекурсії Кліні",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "term-rewriting-systems",
+          "title": "Системи переписування термів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-term-rewriting.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-confluence-termination.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-knuth-bendix.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rewriting-engine.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "fast-growing-functions",
+      "title": "Швидкозростаючі функції",
+      "topics": [
+        {
+          "slug": "ackermann-function",
+          "title": "Функція Аккермана",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-wilhelm-ackermann.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-hyperoperators.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ackermann-memoizer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hyperoperators",
+          "title": "Гіпероператори та тетрація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-goodstein-knuth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tetration-properties.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hyperoperator-evaluator.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

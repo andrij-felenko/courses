@@ -1,0 +1,338 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "computability",
+  "slug": "cost-of-algorithms",
+  "title": "Вартість алгоритму",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "asymptotics",
+      "title": "Асимптотика й рекурентності",
+      "topics": [
+        {
+          "slug": "asymptotic-complexity",
+          "title": "Асимптотична складність (нотація O великого)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bachmann-landau.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-formal-bigo.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-doubling-experiment.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "master-theorem",
+          "title": "Основна теорема про рекурентні співвідношення (master theorem)",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-master-theorem.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-master-classify.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "amortized-analysis",
+          "title": "Амортизований аналіз",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-amortized.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-potential-method.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dynamic-array.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "online-competitive-analysis",
+          "title": "Онлайнові алгоритми й конкурентний аналіз",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-online-algorithms.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-competitive-ratio.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-online-paging.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "lower-bounds",
+      "title": "Нижні межі",
+      "topics": [
+        {
+          "slug": "decision-tree-complexity",
+          "title": "Складність дерев рішень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sensitivity-conjecture.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-huang-sensitivity-proof.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-decision-tree-evaluator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-tree-complexity-analyzer.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "comparison-sort-lower-bound",
+          "title": "Нижня межа сортування порівняннями (Ω(n log n))",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sorting-lower-bound.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-decision-tree-sort.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-linear-sort-radix.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "circuits",
+      "title": "Схеми й вентилі",
+      "topics": [
+        {
+          "slug": "p-poly",
+          "title": "Клас P/poly: схема складності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-karp-lipton.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-karp-lipton-proof.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-circuit-eval.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-circuit-builder.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "ac0-circuits",
+          "title": "Клас схем AC0 та схемна складність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ac0-bounds.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-switching-lemma.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ac0-simulator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-circuit-dag.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "proof-barriers",
+      "title": "Бар'єри доведень",
+      "topics": [
+        {
+          "slug": "natural-proofs",
+          "title": "Природні доведення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-razborov-rudich.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-razborov-rudich.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pseudo-random-distinguisher.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-circuit-analyzer.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "pseudorandom-generator",
+          "title": "Псевдовипадкові генератори та бар'єр природних доведень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-prg-natural-proofs.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-nw-generator-reconstruction.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-nw-generator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-prg-interface.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

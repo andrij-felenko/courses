@@ -1,0 +1,378 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "computability",
+  "slug": "undecidability",
+  "title": "Межа розв'язності",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "halting-and-rice",
+      "title": "Зупинка й теорема Райса",
+      "topics": [
+        {
+          "slug": "halting-problem",
+          "title": "Проблема зупинки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-halting-problem.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-undecidability.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-halting-in-code.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "rices-theorem",
+          "title": "Теорема Райса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-rices-theorem.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rices-theorem.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rices-theorem.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "rice-theorem",
+          "title": "Теорема Райса",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-henry-rice.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rice-proof.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rice-analyzer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "busy-beaver",
+          "title": "Завзятий бобер (busy beaver)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-beaver-hunt.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-uncomputable.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-beaver-search.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "decidable-and-enumerable",
+      "title": "Розв'язні й перелічні множини",
+      "topics": [
+        {
+          "slug": "decidable-languages",
+          "title": "Розв'язні мови",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "update"
+          },
+          "hist": [
+            {
+              "file": "hist-halting-problem.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-turing-decider-sim.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-decidability-classes.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "recursively-enumerable-sets",
+          "title": "Рекурсивно перелічні множини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-recursively-enumerable.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-re-equivalence.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dovetailing-enumerator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-enumerator-interface.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "diophantine-sets-dprm",
+          "title": "Діофантові множини та теорема ДПРМ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dprm-chronology.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pell-exponential.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-diophantine-solver.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-diophantine-builder.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "degrees-of-unsolvability",
+      "title": "Ступені нерозв'язності",
+      "topics": [
+        {
+          "slug": "turing-degrees",
+          "title": "Ступені Тюринга",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-turing-degrees.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-priority-method.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-oracle-machine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-oracle-interface.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "arithmetic-hierarchy",
+          "title": "Арифметична ієрархія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kleene-hierarchy.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-post-theorem.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-formula-classifier.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-arithmetic-oracle.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "encoding-objects",
+      "title": "Кодування об'єктів",
+      "topics": [
+        {
+          "slug": "cantor-pairing-function",
+          "title": "Парна функція Кантора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cantor-set-theory.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cantor-bijection-proof.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pairing-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cantor-pairing.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "kolmogorov-complexity",
+          "title": "Складність за Колмогоровим",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kolmogorov-complexity.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-kolmogorov-incompleteness.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-compress-in-practice.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-compress-distance.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

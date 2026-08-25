@@ -1,0 +1,534 @@
+{
+  "schema": 7,
+  "kind": "sci",
+  "book": "computability",
+  "slug": "complexity-classes",
+  "title": "Класи задач",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "p-and-np",
+      "title": "P, NP і повнота",
+      "topics": [
+        {
+          "slug": "p-vs-np",
+          "title": "P проти NP: Головна загадка обчислюваності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-p-vs-np.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-proof-barriers.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sat-solver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "np-completeness",
+          "title": "Класи P і NP та NP-повнота",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-classes.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-verify-reduce.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cook-levin-theorem",
+          "title": "Теорема Кука — Левіна: фундаментальний камінь NP-повноти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cook-levin.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cook-levin-tableau.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sat-verifier.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ladner-theorem",
+          "title": "Теорема Леднера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ladner.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-delayed-simulation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ladner-simulator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ladner-reduction.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "boolean-satisfiability",
+          "title": "Задача здійсненності (SAT)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cook-levin.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-reductions.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dpll-solver.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "space-and-hierarchies",
+      "title": "Пам'ять та ієрархії",
+      "topics": [
+        {
+          "slug": "pspace",
+          "title": "Клас PSPACE: поліноміальна пам'ять",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pspace.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-savitch.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tqbf-evaluator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "l-nl-logspace",
+          "title": "Класи складності логарифмічної пам'яті L та NL",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-logspace.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-immerman-szelepcsenyi.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-st-connectivity.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-logspace-transducer.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "polynomial-hierarchy",
+          "title": "Поліноміальна ієрархія (PH)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-polynomial-hierarchy.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ph-collapse.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-qsat-solver.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "counting",
+      "title": "Підрахунок розв'язків",
+      "topics": [
+        {
+          "slug": "sharp-p-counting",
+          "title": "Клас #P: складність підрахунку розв'язків",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-valiant.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-permanent-determinant.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-permanent-ryser.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-sharp-sat-counter.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "parity-p",
+          "title": "Клас ⊕P (Parity-P)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-toda-valiant.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-valiant-vazirani.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-parity-sat.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-parity-interface.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "matrix-permanent",
+          "title": "Перманент матриці та складність обчислення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-valiant-permanent.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-valiant-proof.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ryser-glynn.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-matrix-permanent.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "randomness-and-interaction",
+      "title": "Випадковість і взаємодія",
+      "topics": [
+        {
+          "slug": "bpp",
+          "title": "Клас BPP: ймовірнісні поліноміальні обчислення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bpp.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-error-amplification.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-miller-rabin.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-probabilistic-interface.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "pp-probabilistic-polynomial",
+          "title": "Клас PP: ймовірнісний поліноміальний час",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-gill-toda.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pp-properties.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-majsat-solver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "arthur-merlin-games",
+          "title": "Ігри Артура — Мерліна",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-interactive-proofs.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-public-vs-private-coins.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-graph-nonisomorphism.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-protocol-spec.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "quantum-speedup",
+      "title": "Квантове пришвидшення",
+      "topics": [
+        {
+          "slug": "shor-algorithm",
+          "title": "Алгоритм Шора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-shor-discovery.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-period-finding-qft.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-shor-simulation.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "logical-view",
+      "title": "Погляд логіки",
+      "topics": [
+        {
+          "slug": "descriptive-complexity",
+          "title": "Дескриптивна складність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fagin-immerman.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ehrenfeucht-fraisse.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fo-model-checker.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fo-structures.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
