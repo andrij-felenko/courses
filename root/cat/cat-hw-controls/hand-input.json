@@ -1,0 +1,184 @@
+{
+  "schema": 7,
+  "kind": "cat",
+  "book": "cat-hw-controls",
+  "slug": "hand-input",
+  "title": "Ручний ввід",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "buttons-and-keypads",
+      "title": "Кнопки й клавіатури",
+      "topics": [
+        {
+          "slug": "tactile-buttons",
+          "title": "Тактильні кнопки з ковпачками",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "ky-004-button",
+          "title": "KY-004 — тактильна кнопка на платі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-ky004-button.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "keypad-4x4-membrane",
+          "title": "Матрична клавіатура 4×4 (мембранна)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-keypad-driver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "keypad-4x4-tactile",
+          "title": "Матрична клавіатура 4×4 (тактильна)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ghosting.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-keypad-scan.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "rotary-and-stick",
+      "title": "Поворотні й відхильні",
+      "topics": [
+        {
+          "slug": "rotary-potentiometer",
+          "title": "Поворотний потенціометр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-poggendorff.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-potentiometer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ky-040-encoder",
+          "title": "KY-040 — поворотний енкодер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-ky040.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ky-023-joystick",
+          "title": "KY-023 — джойстик-модуль",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-analog-stick.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ky023-driver.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "capacitive-touch",
+      "title": "Ємнісний дотик",
+      "topics": [
+        {
+          "slug": "ttp223-touch",
+          "title": "TTP223 — сенсорний давач дотику",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-tontek-tontouch.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-ttp223-driver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "touch-controller",
+          "title": "Сенсорний контролер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    }
+  ]
+}
