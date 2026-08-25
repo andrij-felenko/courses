@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1090 590" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1090" height="590" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="29.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">АВТОМАТ СТАНІВ ЮНІТА SYSTEMD: ВІД ЗАПУСКУ ДО ЗБОЮ</text>
+<rect x="40.0" y="70.0" width="200.0" height="160.0" rx="8" fill="#fbfcff" stroke="#6b7280" stroke-width="1.8"/>
+<text x="140.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" font-weight="700">INACTIVE</text>
+<text x="140.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">SubState: dead</text>
+<text x="140.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">Процес не запущено</tspan><tspan x="140.0" dy="14.3">Ресурси cgroup вивільнено</tspan><tspan x="140.0" dy="14.3">Очікування команди start</tspan><tspan x="140.0" dy="14.3">або активації за сокетом</tspan></text>
+<line x1="240.0" y1="150.0" x2="290.0" y2="150.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="265.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">start</text>
+<rect x="292.0" y="70.0" width="240.0" height="160.0" rx="8" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.8"/>
+<text x="412.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d4ac0d" text-anchor="middle" font-weight="700">ACTIVATING</text>
+<text x="412.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">SubState: start / start-pre</text>
+<text x="412.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="412.0" dy="0.0">Виконання ExecStartPre=</tspan><tspan x="412.0" dy="14.3">Створення cgroup і просторів</tspan><tspan x="412.0" dy="14.3">fork() + execve(ExecStart)</tspan><tspan x="412.0" dy="14.3">Очікування READY=1 / PID</tspan></text>
+<line x1="532.0" y1="150.0" x2="582.0" y2="150.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="557.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">успіх</text>
+<rect x="584.0" y="70.0" width="220.0" height="160.0" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="694.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">ACTIVE</text>
+<text x="694.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">SubState: running / exited</text>
+<text x="694.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="694.0" dy="0.0">Головний PID активний</tspan><tspan x="694.0" dy="14.3">Type=simple: після execve</tspan><tspan x="694.0" dy="14.3">Type=notify: після READY=1</tspan><tspan x="694.0" dy="14.3">Type=oneshot: active (exited)</tspan></text>
+<line x1="412.0" y1="230.0" x2="412.0" y2="330.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="412.0" y1="330.0" x2="412.0" y2="350.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="453.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">помилка execve / таймаут</text>
+<line x1="694.0" y1="230.0" x2="694.0" y2="350.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="744.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">аварія / crash / SIGKILL</text>
+<rect x="834.0" y="70.0" width="206.0" height="160.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="937.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">AUTO-RESTART</text>
+<text x="937.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">SubState: auto-restart</text>
+<text x="937.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="937.0" dy="0.0">Restart=always / on-failure</tspan><tspan x="937.0" dy="14.3">Таймер RestartSec=...</tspan><tspan x="937.0" dy="14.3">Очікування паузи</tspan><tspan x="937.0" dy="14.3">Перезапуск -&gt; activating</tspan></text>
+<line x1="804.0" y1="130.0" x2="834.0" y2="130.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="937.0" y1="70.0" x2="937.0" y2="48.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="937.0" y1="48.0" x2="412.0" y2="48.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="412.0" y1="48.0" x2="412.0" y2="70.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="674.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">повторний запуск після RestartSec=</text>
+<rect x="340.0" y="350.0" width="480.0" height="190.0" rx="8" fill="none" stroke="#c0392b" stroke-width="2.0"/>
+<text x="580.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">FAILED (ЗБІЙНИЙ СТАН ЮНІТА)</text>
+<text x="580.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">SubState: failed</text>
+<rect x="360.0" y="416.0" width="210.0" height="108.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="465.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Причини помилки запуску:</text>
+<text x="465.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="465.0" dy="0.0">• status=203/EXEC (нема файлу/+x)</tspan><tspan x="465.0" dy="13.7">• status=217/USER (нема юзера)</tspan><tspan x="465.0" dy="13.7">• status=226/NAMESPACE (пісочниця)</tspan><tspan x="465.0" dy="13.7">• status=1/FAILURE (код застосунку)</tspan></text>
+<rect x="590.0" y="416.0" width="210.0" height="108.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="695.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Блокування рестарт-петлі:</text>
+<text x="695.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="695.0" dy="0.0">• Result: start-limit-hit</tspan><tspan x="695.0" dy="13.7">• Перевищено StartLimitBurst</tspan><tspan x="695.0" dy="13.7">• Спроби зупинено менеджером</tspan><tspan x="695.0" dy="13.7">• Потрібен systemctl reset-failed</tspan></text>
+<line x1="340.0" y1="445.0" x2="140.0" y2="445.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="140.0" y1="445.0" x2="140.0" y2="230.0" stroke="#6b7280" stroke-width="2.0"/>
+<text x="230.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">systemctl reset-failed / start</text>
+</svg>

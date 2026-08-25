@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1e293b" text-anchor="middle" font-weight="700">Три домени часу: від кристала кварцу до еталона Stratum 0</text>
+<rect x="30.0" y="55.0" width="275.0" height="395.0" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.2"/>
+<rect x="78.9" y="69.0" width="176.2" height="32.0" rx="6" fill="#fff6e5" stroke="#e08a1e" stroke-width="1.5"/><text x="167.0" y="89.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="167.0" dy="0.0">Апаратні джерела часу</tspan></text>
+<text x="45.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start" font-weight="700">RTC (32.768 кГц):</text>
+<text x="45.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="start">• Живиться від батарейки CR2032</text>
+<text x="45.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="start">• Термочутливий зріз кварцу</text>
+<text x="45.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="start">• Похибка: ±20–50 ppm (1–4 с/добу)</text>
+<text x="45.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start" font-weight="700">TSC / HPET / ACPI таймери:</text>
+<text x="45.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="start">• Лічильники тактів CPU / шини</text>
+<text x="45.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="start">• Частота залежить від температури</text>
+<text x="45.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="start">• Не зберігає абсолютну дату</text>
+<text x="45.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="start" font-weight="700">Наслідок: неминучий Clock Drift</text>
+<line x1="305.0" y1="250.0" x2="345.0" y2="250.0" stroke="#e08a1e" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="325.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e08a1e" text-anchor="middle" font-weight="700">Такти</text>
+<rect x="345.0" y="55.0" width="275.0" height="395.0" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.2"/>
+<rect x="382.7" y="69.0" width="198.6" height="32.0" rx="6" fill="#eaf0fd" stroke="#2563eb" stroke-width="1.5"/><text x="482.0" y="89.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="482.0" dy="0.0">Ядро Linux (timekeeping)</tspan></text>
+<text x="360.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start" font-weight="700">Підсистема tk_core:</text>
+<text x="360.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="start">• Переводить такти в наносекунди</text>
+<text x="360.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="start">• Множники mult/shift для ділення</text>
+<text x="360.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="start">• Фазова автопідстройка частоти</text>
+<text x="360.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start" font-weight="700">Шкали системного часу:</text>
+<text x="360.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="start">• CLOCK_MONOTONIC_RAW (сирий)</text>
+<text x="360.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="start">• CLOCK_MONOTONIC (керований)</text>
+<text x="360.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="start">• CLOCK_REALTIME (настінний)</text>
+<text x="360.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="start" font-weight="700">Стан: STA_UNSYNC (синхр. відсутня)</text>
+<line x1="660.0" y1="250.0" x2="620.0" y2="250.0" stroke="#0d9488" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="640.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0d9488" text-anchor="middle" font-weight="700">NTP/adj</text>
+<rect x="660.0" y="55.0" width="270.0" height="395.0" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.2"/>
+<rect x="706.9" y="69.0" width="176.2" height="32.0" rx="6" fill="#e6fffa" stroke="#0d9488" stroke-width="1.5"/><text x="795.0" y="89.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="795.0" dy="0.0">Мережеві сервери часу</tspan></text>
+<text x="675.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start" font-weight="700">Stratum 0 / Stratum 1:</text>
+<text x="675.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="start">• Атомні годинники (цезій, рубідій)</text>
+<text x="675.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="start">• Супутникові сигнали GPS / Galileo</text>
+<text x="675.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="start">• Похибка: &lt; 1 мікросекунди</text>
+<text x="675.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="start" font-weight="700">Мережевий транспорт (NTP/UDP):</text>
+<text x="675.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="start">• Затримка поширення (RTT)</text>
+<text x="675.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="start">• Джиттер (коливання затримки)</text>
+<text x="675.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="start">• Асиметрія каналів (вхід ≠ вихід)</text>
+<text x="675.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0d9488" text-anchor="start" font-weight="700">Ціль: корекція зміщення (Offset)</text>
+</svg>

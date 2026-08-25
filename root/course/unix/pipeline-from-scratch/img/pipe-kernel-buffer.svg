@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 492" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="492" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1e293b" text-anchor="middle" font-weight="700">Фізика каналу в ядрі: кільцевий буфер pipe_inode_info та Backpressure</text>
+<rect x="30.0" y="65.0" width="230.0" height="380.0" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<rect x="64.3" y="71.2" width="161.4" height="47.6" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/><text x="145.0" y="91.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="145.0" dy="0.0">Виробник (Producer)</tspan><tspan x="145.0" dy="15.6">grep ' 500 '</tspan></text>
+<text x="45.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">1. Генерує потік даних</text>
+<text x="45.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start" font-weight="700">2. write(fd, buf, count)</text>
+<text x="45.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">3. Перевіряє вільне місце</text>
+<text x="45.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="start">4. Якщо буфер повний (64 KB):</text>
+<text x="45.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="start" font-weight="700">   → потік блокується</text>
+<text x="45.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">   → стан TASK_INTERRUPTIBLE</text>
+<text x="45.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">   → очікує в pipe-&gt;wr_wait</text>
+<rect x="45.0" y="340.0" width="200.0" height="85.0" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.0"/>
+<text x="145.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="middle" font-weight="700">Дескриптор FD 1 (stdout)</text>
+<text x="145.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">Запис у дескриптор каналу</text>
+<text x="145.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">Атомарно при &lt;= 4096 B (PIPE_BUF)</text>
+<line x1="260.0" y1="230.0" x2="300.0" y2="230.0" stroke="#16a34a" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="305.0" y="65.0" width="350.0" height="380.0" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<rect x="313.1" y="71.8" width="333.7" height="46.5" rx="6" fill="#eaf0fd" stroke="#2563eb" stroke-width="1.5"/><text x="480.0" y="91.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">Ядро Linux: struct pipe_inode_info</tspan><tspan x="480.0" dy="15.0">Кільцевий буфер (16 сторінок x 4 KB = 64 KB)</tspan></text>
+<text x="480.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e3a8a" text-anchor="middle" font-weight="700">Кільцевий масив сторінок пам'яті (pipe_buffer):</text>
+<rect x="325.0" y="165.0" width="34.0" height="32.0" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="1.0"/>
+<text x="342.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-weight="700">4K</text>
+<rect x="364.0" y="165.0" width="34.0" height="32.0" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="1.0"/>
+<text x="381.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-weight="700">4K</text>
+<rect x="403.0" y="165.0" width="34.0" height="32.0" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="1.0"/>
+<text x="420.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-weight="700">4K</text>
+<rect x="442.0" y="165.0" width="34.0" height="32.0" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="1.0"/>
+<text x="459.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-weight="700">4K</text>
+<rect x="481.0" y="165.0" width="34.0" height="32.0" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="1.0"/>
+<text x="498.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-weight="700">4K</text>
+<rect x="520.0" y="165.0" width="34.0" height="32.0" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="1.0"/>
+<text x="537.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-weight="700">4K</text>
+<rect x="559.0" y="165.0" width="34.0" height="32.0" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="1.0"/>
+<text x="576.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-weight="700">4K</text>
+<rect x="598.0" y="165.0" width="34.0" height="32.0" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="1.0"/>
+<text x="615.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-weight="700">4K</text>
+<rect x="325.0" y="205.0" width="34.0" height="32.0" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="1.0"/>
+<text x="342.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-weight="700">4K</text>
+<rect x="364.0" y="205.0" width="34.0" height="32.0" rx="3" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="381.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">4K</text>
+<rect x="403.0" y="205.0" width="34.0" height="32.0" rx="3" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="420.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">4K</text>
+<rect x="442.0" y="205.0" width="34.0" height="32.0" rx="3" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="459.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">4K</text>
+<rect x="481.0" y="205.0" width="34.0" height="32.0" rx="3" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="498.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">4K</text>
+<rect x="520.0" y="205.0" width="34.0" height="32.0" rx="3" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="537.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">4K</text>
+<rect x="559.0" y="205.0" width="34.0" height="32.0" rx="3" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="576.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">4K</text>
+<rect x="598.0" y="205.0" width="34.0" height="32.0" rx="3" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="615.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">4K</text>
+<text x="480.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="middle">head (позиція запису) ────► сторінка 9</text>
+<text x="480.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e22ce" text-anchor="middle">tail (позиція читання) ────► сторінка 0</text>
+<rect x="320.0" y="310.0" width="320.0" height="115.0" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.0"/>
+<text x="480.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle" font-weight="700">Черги очікування синхронізації (Wait Queues):</text>
+<text x="480.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• wr_wait: розбудити виробника, коли звільниться місце</text>
+<text x="480.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• rd_wait: розбудити споживача, коли з'являться дані</text>
+<text x="480.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• fcntl(F_SETPIPE_SZ): зміна розміру від 4 KB до 1 MB+</text>
+<line x1="655.0" y1="230.0" x2="695.0" y2="230.0" stroke="#7e22ce" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="700.0" y="65.0" width="230.0" height="380.0" rx="8" fill="#faf5ff" stroke="#7e22ce" stroke-width="1.5"/>
+<rect x="734.3" y="71.2" width="161.4" height="47.6" rx="6" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.5"/><text x="815.0" y="91.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="815.0" dy="0.0">Споживач (Consumer)</tspan><tspan x="815.0" dy="15.6">awk '{print $1}'</tspan></text>
+<text x="715.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">1. Очікує дані з пайпу</text>
+<text x="715.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start" font-weight="700">2. read(fd, buf, count)</text>
+<text x="715.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e08a1e" text-anchor="start">3. Якщо буфер порожній:</text>
+<text x="715.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e08a1e" text-anchor="start">   → потік блокується</text>
+<text x="715.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">   → очікує в pipe-&gt;rd_wait</text>
+<text x="715.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">4. Якщо виробник закрив FD:</text>
+<text x="715.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start" font-weight="700">   → read повертає 0 (EOF)</text>
+<text x="715.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">   → нормальне завершення</text>
+<rect x="715.0" y="360.0" width="200.0" height="65.0" rx="6" fill="#ffffff" stroke="#7e22ce" stroke-width="1.0"/>
+<text x="815.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e22ce" text-anchor="middle" font-weight="700">Дескриптор FD 0 (stdin)</text>
+<text x="815.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">Читання з дескриптора каналу</text>
+<rect x="30.0" y="452.0" width="900.0" height="20.0" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="480.0" y="466.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">Механізм Backpressure гарантує: швидкий процес не переповнює оперативну пам'ять системи</text>
+</svg>

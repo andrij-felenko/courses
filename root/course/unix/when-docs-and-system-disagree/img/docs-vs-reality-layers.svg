@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шість рівнів трансформації команди: від мануалу до системного виклику</text>
+<rect x="20.0" y="48.0" width="800.0" height="62.0" rx="6" fill="#faf5ff" stroke="#8e44ad" stroke-width="1.5"/>
+<circle cx="48.0" cy="79.0" r="15.0" fill="#8e44ad" stroke="#8e44ad" stroke-width="1.0"/>
+<text x="48.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">1</text>
+<text x="76.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Онлайн-довідка / StackOverflow / AI</text>
+<text x="76.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Узагальнені припущення, застарілі версії, специфіка чужого дистрибутива (macOS vs Ubuntu vs Alpine).</text>
+<text x="76.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="start" font-weight="700">→ Очікування: синтаксис та прапорці GNU coreutils або конкретної версії OpenSSH</text>
+<line x1="420.0" y1="110.0" x2="420.0" y2="118.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="20.0" y="118.0" width="800.0" height="62.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="48.0" cy="149.0" r="15.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="48.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">2</text>
+<text x="76.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Інтерпретація в оболонці (Shell Parsing)</text>
+<text x="76.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Аліаси (alias rm='rm -i'), функції оболонки, пріоритет вбудованих команд (builtin echo/kill/test).</text>
+<text x="76.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">→ Аліас перекриває бінарник або вбудований echo ігнорує прапорець -e</text>
+<line x1="420.0" y1="180.0" x2="420.0" y2="188.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="20.0" y="188.0" width="800.0" height="62.0" rx="6" fill="#fffaf0" stroke="#d35400" stroke-width="1.5"/>
+<circle cx="48.0" cy="219.0" r="15.0" fill="#d35400" stroke="#d35400" stroke-width="1.0"/>
+<text x="48.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">3</text>
+<text x="76.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Пошук файлу за змінною $PATH</text>
+<text x="76.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Порядок каталогів у PATH (/usr/local/bin перед /usr/bin), закешований хеш команд (hash -r).</text>
+<text x="76.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="start" font-weight="700">→ Запускається не той двійковий файл або кастомний скрипт перехоплює виклик</text>
+<line x1="420.0" y1="250.0" x2="420.0" y2="258.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="20.0" y="258.0" width="800.0" height="62.0" rx="6" fill="#f0f4ff" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="48.0" cy="289.0" r="15.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<text x="48.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">4</text>
+<text x="76.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Реалізація бінарника та версійні дефолти</text>
+<text x="76.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Різні гілки (GNU vs BSD vs BusyBox), версії (coreutils 8 vs 9: лапкування ls, copy-on-write у cp).</text>
+<text x="76.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">→ Прапорці відсутні (grep -P) або формат виводу несумісний зі скриптом</text>
+<line x1="420.0" y1="320.0" x2="420.0" y2="328.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="20.0" y="328.0" width="800.0" height="62.0" rx="6" fill="#f0fdf4" stroke="#16a085" stroke-width="1.5"/>
+<circle cx="48.0" cy="359.0" r="15.0" fill="#16a085" stroke="#16a085" stroke-width="1.0"/>
+<text x="48.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">5</text>
+<text x="76.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Оточення процесу, libc та локаль</text>
+<text x="76.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Змінні LC_COLLATE / LANG (вплив на sort і діапазони regex [a-z]), конфіги (/etc vs ~/.config).</text>
+<text x="76.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a085" text-anchor="start" font-weight="700">→ Несподіваний порядок сортування або підміна бібліотеки через LD_PRELOAD</text>
+<line x1="420.0" y1="390.0" x2="420.0" y2="398.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="20.0" y="398.0" width="800.0" height="62.0" rx="6" fill="#f4fbf7" stroke="#27ae60" stroke-width="1.5"/>
+<circle cx="48.0" cy="429.0" r="15.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="48.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">6</text>
+<text x="76.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Ядро та системні виклики (Системна істина)</text>
+<text x="76.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Перехоплення ядра: openat, stat, execve. Фізична взаємодія процесу з файловою системою.</text>
+<text x="76.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">→ strace виявляє реальні прочитані файли та причини помилок (ENOENT, EACCES)</text>
+</svg>

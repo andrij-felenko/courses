@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1090 630" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1090" height="630" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">ДІАГНОСТИЧНЕ ДЕРЕВО: РОЗБІР СЛУЖБИ, ЩО НЕ ПІДНЯЛАСЯ</text>
+<rect x="390.0" y="60.0" width="300.0" height="60.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="540.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">systemctl status &lt;unit&gt;.service</text>
+<text x="540.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Аналіз полів Active:, Process: (code=, status=)</text>
+<line x1="420.0" y1="120.0" x2="130.0" y2="170.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="130.0" y1="170.0" x2="130.0" y2="190.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="30.0" y="190.0" width="200.0" height="170.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="130.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">status=203/EXEC</text>
+<text x="130.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Помилка execve()</text>
+<text x="130.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">1. Перевірити шлях бінарника</tspan><tspan x="130.0" dy="13.0">2. Перевірити біт +x</tspan><tspan x="130.0" dy="13.0">3. Перевірити шебанг (#!)</tspan><tspan x="130.0" dy="13.0">4. Перевірити /lib64 лінкер</tspan><tspan x="130.0" dy="13.0">5. Перевірити опцію noexec</tspan></text>
+<line x1="480.0" y1="120.0" x2="370.0" y2="170.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="370.0" y1="170.0" x2="370.0" y2="190.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="270.0" y="190.0" width="200.0" height="170.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="370.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">status=217/USER</text>
+<text x="370.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Помилка setuid/setgid</text>
+<text x="370.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="370.0" dy="0.0">1. Користувач у User= відсутній</tspan><tspan x="370.0" dy="13.0">2. Перевірити /etc/passwd</tspan><tspan x="370.0" dy="13.0">3. Мережевий NSS (LDAP/SSSD)</tspan><tspan x="370.0" dy="13.0">   стартує пізніше служби</tspan><tspan x="370.0" dy="13.0">4. Додати After=sssd.service</tspan></text>
+<line x1="600.0" y1="120.0" x2="610.0" y2="170.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="610.0" y1="170.0" x2="610.0" y2="190.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="510.0" y="190.0" width="200.0" height="170.0" rx="6" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.5"/>
+<text x="610.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d4ac0d" text-anchor="middle" font-weight="700">status=1/FAILURE</text>
+<text x="610.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Збій коду застосунку</text>
+<text x="610.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="610.0" dy="0.0">1. journalctl -u &lt;unit&gt; -b -e</tspan><tspan x="610.0" dy="13.0">2. Помилка конфігурації YAML/JSON</tspan><tspan x="610.0" dy="13.0">3. Порт TCP зайнятий (EADDRINUSE)</tspan><tspan x="610.0" dy="13.0">4. Відсутнє підключення до БД</tspan><tspan x="610.0" dy="13.0">5. Брак прав на файл логу/даних</tspan></text>
+<line x1="660.0" y1="120.0" x2="850.0" y2="170.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="850.0" y1="170.0" x2="850.0" y2="190.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="750.0" y="190.0" width="200.0" height="170.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="850.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">code=killed (SIG...)</text>
+<text x="850.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Знищення ядром / сигналом</text>
+<text x="850.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="850.0" dy="0.0">1. SIGKILL -&gt; cgroup OOM killer</tspan><tspan x="850.0" dy="13.0">   (перевірити MemoryMax=)</tspan><tspan x="850.0" dy="13.0">2. SIGABRT -&gt; abort() в C/C++</tspan><tspan x="850.0" dy="13.0">3. SIGSEGV -&gt; помилка пам'яті</tspan><tspan x="850.0" dy="13.0">4. TimeoutStartSec -&gt; таймаут</tspan></text>
+<rect x="50.0" y="390.0" width="460.0" height="200.0" rx="8" fill="#fbfcff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="280.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">СЛУЖБА ЗАВИСЛА В ACTIVATING (START)</text>
+<text x="280.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="280.0" dy="0.0">• Type=notify: застосунок не викликав sd_notify(&quot;READY=1&quot;)</tspan><tspan x="280.0" dy="14.9">• Type=forking: батько не створив PIDFile або PID не збігається</tspan><tspan x="280.0" dy="14.9">• ExecStartPre=: попередній скрипт завис на мережевому очікуванні</tspan><tspan x="280.0" dy="14.9">• Залежність Requires= стартувала паралельно без After= і заблокувала вхід</tspan></text>
+<rect x="550.0" y="390.0" width="480.0" height="200.0" rx="8" fill="#fbfcff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="790.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">ПРИХОВАНІ ОБМЕЖЕННЯ ПІСОЧНИЦІ ТА CGROUPS</text>
+<text x="790.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="790.0" dy="0.0">• ProtectSystem=strict: спроба запису на диск повертає EROFS</tspan><tspan x="790.0" dy="14.9">• PrivateTmp=true: файл сокета створено в ізольованому /tmp</tspan><tspan x="790.0" dy="14.9">• LimitNOFILE=: вичерпано 1024 дескриптори -&gt; помилка EMFILE</tspan><tspan x="790.0" dy="14.9">• TasksMax=: пул потоків перевищив ліміт -&gt; pthread_create EAGAIN</tspan></text>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія розв'язання імені команди в Unix-оболонці (POSIX / Bash)</text>
+<rect x="20.0" y="50.0" width="800.0" height="64.0" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="32.0" y="60.0" width="220.0" height="24.0" rx="4" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="142.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">1. Спеціальні Builtins</text>
+<rect x="32.0" y="88.0" width="220.0" height="20.0" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="142.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle" font-weight="700">exec, eval, exit, export, set, trap, shift</text>
+<text x="270.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Мають найвищий пріоритет. Виконуються безпосередньо рушієм оболонки. Помилка м</text>
+<text x="270.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">оже перервати неінтерактивний скрипт.</text>
+<rect x="20.0" y="124.0" width="800.0" height="64.0" rx="6" fill="#fef7ee" stroke="#d35400" stroke-width="1.5"/>
+<rect x="32.0" y="134.0" width="220.0" height="24.0" rx="4" fill="#d35400" stroke="#d35400" stroke-width="1.0"/>
+<text x="142.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">2. Аліаси (Aliases)</text>
+<rect x="32.0" y="162.0" width="220.0" height="20.0" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="142.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle" font-weight="700">alias rm='rm -i', alias ls='ls --color=auto'</text>
+<text x="270.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Текстова заміна першого токена в інтерактивному режимі. Перекривають будь-які </text>
+<text x="270.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">однойменні функції та бінарники.</text>
+<rect x="20.0" y="198.0" width="800.0" height="64.0" rx="6" fill="#faf5ff" stroke="#8e44ad" stroke-width="1.5"/>
+<rect x="32.0" y="208.0" width="220.0" height="24.0" rx="4" fill="#8e44ad" stroke="#8e44ad" stroke-width="1.0"/>
+<text x="142.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">3. Функції оболонки (Shell Functions)</text>
+<rect x="32.0" y="236.0" width="220.0" height="20.0" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="142.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle" font-weight="700">function cd() { ... }, my_deploy() { ... }</text>
+<text x="270.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Користувацькі блоки коду, завантажені в пам'ять сесії (~/.bashrc). Працюють пе</text>
+<text x="270.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">ред регулярними built-in і PATH.</text>
+<rect x="20.0" y="272.0" width="800.0" height="64.0" rx="6" fill="#f0f4ff" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="32.0" y="282.0" width="220.0" height="24.0" rx="4" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<text x="142.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">4. Звичайні Builtins</text>
+<rect x="32.0" y="310.0" width="220.0" height="20.0" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="142.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle" font-weight="700">cd, echo, pwd, kill, test, [, type, umask</text>
+<text x="270.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Вбудовані утиліти для швидкої роботи без системного виклику fork/execve. Повед</text>
+<text x="270.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">інка може різнитися від /usr/bin/&lt;cmd&gt;.</text>
+<rect x="20.0" y="346.0" width="800.0" height="64.0" rx="6" fill="#f0fbf4" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="32.0" y="356.0" width="220.0" height="24.0" rx="4" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="142.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">5. Виконувані файли в $PATH</text>
+<rect x="32.0" y="384.0" width="220.0" height="20.0" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="142.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle" font-weight="700">/usr/local/bin/..., /usr/bin/..., /bin/...</text>
+<text x="270.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Послідовне сканування каталогів зліва направо у змінній $PATH. Результат кешує</text>
+<text x="270.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">ться в таблиці hash оболонки.</text>
+</svg>

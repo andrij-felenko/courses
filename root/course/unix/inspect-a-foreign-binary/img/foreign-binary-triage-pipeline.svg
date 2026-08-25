@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="920.0" height="460.0" rx="8" fill="#fafbfc" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="470.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовний конвеєр статичного аудиту невідомого бінарника</text>
+<rect x="30.0" y="70.0" width="205.0" height="370.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="132.5" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">1. Експрес-паспорт</text>
+<text x="132.5" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Утиліта: file</text>
+<line x1="40.0" y1="122.0" x2="225.0" y2="122.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="42.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Магічні байти:</text>
+<text x="42.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">ELF64 / ELF32</text>
+<text x="42.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Архітектура:</text>
+<text x="42.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">x86-64 / ARM64</text>
+<text x="42.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Порядок байтів:</text>
+<text x="42.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">Little / Big Endian</text>
+<text x="42.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Тип файлу:</text>
+<text x="42.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">EXEC / DYN (PIE)</text>
+<text x="42.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Лінкування:</text>
+<text x="42.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">Static / Dynamic</text>
+<text x="42.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Символи:</text>
+<text x="42.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">stripped / not stripped</text>
+<rect x="40.0" y="402.0" width="185.0" height="26.0" rx="4" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="132.5" y="419.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Результат: Цільова платформа</text>
+<rect x="255.0" y="70.0" width="205.0" height="370.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="357.5" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">2. Безпечні залежності</text>
+<text x="357.5" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">readelf -d | grep NEEDED</text>
+<line x1="265.0" y1="122.0" x2="450.0" y2="122.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="267.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Заборона ldd:</text>
+<text x="267.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">Ризик виконання коду</text>
+<text x="267.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Спільні ліби:</text>
+<text x="267.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">libc, libssl, libcrypto</text>
+<text x="267.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Інтерпретатор:</text>
+<text x="267.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">PT_INTERP (ld-linux)</text>
+<text x="267.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Шляхи лінкування:</text>
+<text x="267.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">DT_RUNPATH / RPATH</text>
+<text x="267.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Динамічні теги:</text>
+<text x="267.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">DT_SONAME, DT_FLAGS</text>
+<text x="267.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Відсутні .so:</text>
+<text x="267.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">Аудит перед пуском</text>
+<rect x="265.0" y="402.0" width="185.0" height="26.0" rx="4" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="357.5" y="419.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Результат: Граф бібліотек</text>
+<rect x="480.0" y="70.0" width="205.0" height="370.0" rx="6" fill="#f5f3ff" stroke="#8b5cf6" stroke-width="1.5"/>
+<text x="582.5" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8b5cf6" text-anchor="middle" font-weight="700">3. Анатомія структури</text>
+<text x="582.5" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">readelf -l -S -s / objdump</text>
+<line x1="490.0" y1="122.0" x2="675.0" y2="122.0" stroke="#8b5cf6" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="492.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Заголовки:</text>
+<text x="492.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">Program / Section Headers</text>
+<text x="492.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Сегменти:</text>
+<text x="492.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">PT_LOAD, PT_GNU_STACK</text>
+<text x="492.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Безпека пам'яті:</text>
+<text x="492.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">NX-біт, Full/Partial RELRO</text>
+<text x="492.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Символи .dynsym:</text>
+<text x="492.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">Імпорт (UND) / Експорт</text>
+<text x="492.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Секції даних:</text>
+<text x="492.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">.text, .rodata, .bss</text>
+<text x="492.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Точка входу:</text>
+<text x="492.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">e_entry (_start / main)</text>
+<rect x="490.0" y="402.0" width="185.0" height="26.0" rx="4" fill="#8b5cf6" stroke="#8b5cf6" stroke-width="1.5"/>
+<text x="582.5" y="419.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Результат: Модель пам'яті й API</text>
+<rect x="705.0" y="70.0" width="205.0" height="370.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="807.5" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">4. Текстовий аудит</text>
+<text x="807.5" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">strings -a -n 8 / grep</text>
+<line x1="715.0" y1="122.0" x2="900.0" y2="122.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="717.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Мережеві адреси:</text>
+<text x="717.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">URL, IPv4/IPv6, домени</text>
+<text x="717.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Секрети / токени:</text>
+<text x="717.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">API-ключі, сертифікати</text>
+<text x="717.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Файлові шляхи:</text>
+<text x="717.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">/etc, /tmp, /dev, .so</text>
+<text x="717.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Параметри CLI:</text>
+<text x="717.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">Опції, прапорці, env vars</text>
+<text x="717.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Повідомлення логів:</text>
+<text x="717.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">Формати printf, помилки</text>
+<text x="717.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Шляхи компіляції:</text>
+<text x="717.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="start">GCC/Clang, DWARF-файли</text>
+<rect x="715.0" y="402.0" width="185.0" height="26.0" rx="4" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="807.5" y="419.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Результат: Приховані константи</text>
+</svg>

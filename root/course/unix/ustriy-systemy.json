@@ -43,8 +43,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-environment-probes.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-execution-environments.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-system-authenticity-check.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -151,8 +169,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-verification-commands.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-which-broken-legacy.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sys-unix/kernel-config-and-build",
@@ -165,8 +195,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-portable-posix-matrix.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-getopt-and-syntax-drift.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cross-platform-scripting.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "reading-a-distribution",

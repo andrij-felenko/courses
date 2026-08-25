@@ -477,8 +477,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-tracing-write-path.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -493,8 +499,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-space-diagnostics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-space-leak-probe.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sys-unix/disk-quotas",
@@ -523,8 +541,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-mount-diagnostics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-superblock-scanner.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     }

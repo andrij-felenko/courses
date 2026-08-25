@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 457" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="457" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Критичний порядок скидання привілеїв та ізоляції сесії в ядрі</text>
+<rect x="40.0" y="55.0" width="840.0" height="52.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="60.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">Крок 1: initgroups(user, gid)</text>
+<text x="400.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Зчитує допоміжні групи з /etc/group через NSS</text>
+<text x="400.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Викликає setgroups() поки є привілей root</text>
+<line x1="180.0" y1="107.0" x2="180.0" y2="122.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="40.0" y="122.0" width="840.0" height="52.0" rx="6" fill="#fbeee6" stroke="#e67e22" stroke-width="1.5"/>
+<text x="60.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#e67e22" text-anchor="start" font-weight="700">Крок 2: setgid(primary_gid)</text>
+<text x="400.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Встановлює real, effective та saved GID процесу</text>
+<text x="400.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Процес переходить у первинну групу користувача</text>
+<line x1="180.0" y1="174.0" x2="180.0" y2="189.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="40.0" y="189.0" width="840.0" height="52.0" rx="6" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.5"/>
+<text x="60.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d4ac0d" text-anchor="start" font-weight="700">Крок 3: setuid(user_uid)</text>
+<text x="400.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Остаточне скидання UID процесу (real=eff=saved=UID)</text>
+<text x="400.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Незворотна втрата привілею root (CAP_SETUID зникає)</text>
+<line x1="180.0" y1="241.0" x2="180.0" y2="256.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="40.0" y="256.0" width="840.0" height="52.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="60.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">Крок 4: setsid() + TIOCSCTTY</text>
+<text x="400.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Створення нової сесії та групи процесів (SID = PID)</text>
+<text x="400.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Прив'язка керуючого термінала /dev/pts/N або tty1</text>
+<line x1="180.0" y1="308.0" x2="180.0" y2="323.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="40.0" y="323.0" width="840.0" height="52.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="60.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Крок 5: execve(shell, ['-bash'])</text>
+<text x="400.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Заміна образу пам'яті на оболонку користувача</text>
+<text x="400.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">argv[0]='-bash' вказує оболонці режим Login Shell</text>
+<rect x="40.0" y="395.0" width="840.0" height="42.0" rx="6" fill="#fdedec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="55.0" y="421.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">⚠ Фатальна помилка: якщо викликати setuid() ДО initgroups() чи setgid(), процес втрачає привілей і отримує EPERM!</text>
+</svg>

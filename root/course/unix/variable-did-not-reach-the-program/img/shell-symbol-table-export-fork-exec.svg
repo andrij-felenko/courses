@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1e293b" text-anchor="middle" font-weight="700">Фільтрація змінних: чому локальні змінні оболонки не потрапляють до execve()</text>
+<rect x="30.0" y="50.0" width="270.0" height="410.0" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.2"/>
+<rect x="32.2" y="59.5" width="265.5" height="31.0" rx="6" fill="#eaf0fd" stroke="#2563eb" stroke-width="1.5"/><text x="165.0" y="78.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="165.0" dy="0.0">1. Таблиця символів Bash (var_table)</tspan></text>
+<rect x="45.0" y="110.0" width="240.0" height="70.0" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.2"/>
+<text x="165.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="middle" font-weight="700">export PATH=&quot;/usr/bin&quot;</text>
+<text x="165.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle">flags: att_exported (0x01)</text>
+<text x="165.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700">Статус: ЕКСПОРТОВАНА</text>
+<rect x="45.0" y="195.0" width="240.0" height="70.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.2"/>
+<text x="165.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">DB_PASS=&quot;secret123&quot;</text>
+<text x="165.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle">flags: 0x00 (лише пам'ять Bash)</text>
+<text x="165.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle" font-weight="700">Статус: ЛОКАЛЬНА ОБОЛОНКИ</text>
+<rect x="45.0" y="280.0" width="240.0" height="70.0" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.2"/>
+<text x="165.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="middle" font-weight="700">export USER=&quot;alex&quot;</text>
+<text x="165.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle">flags: att_exported (0x01)</text>
+<text x="165.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700">Статус: ЕКСПОРТОВАНА</text>
+<text x="165.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle">Оболонка тримає змінні у власній</text>
+<text x="165.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle">структурі даних процесу (хеш-таблиці)</text>
+<line x1="300.0" y1="255.0" x2="350.0" y2="255.0" stroke="#2563eb" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="325.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="700">fork()</text>
+<rect x="360.0" y="50.0" width="270.0" height="410.0" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.2"/>
+<rect x="375.9" y="59.5" width="238.2" height="31.0" rx="6" fill="#fff6e5" stroke="#e08a1e" stroke-width="1.5"/><text x="495.0" y="78.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="495.0" dy="0.0">2. Підготовка дочірнього процесу</tspan></text>
+<rect x="375.0" y="110.0" width="240.0" height="155.0" rx="6" fill="#ffffff" stroke="#e08a1e" stroke-width="1.2"/>
+<text x="495.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e08a1e" text-anchor="middle" font-weight="700">Серіалізація перед execve():</text>
+<text x="495.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle">Цикл по всіх змінних Bash:</text>
+<text x="495.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f766e" text-anchor="middle" font-weight="700">if (var-&gt;flags &amp; att_exported)</text>
+<text x="495.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle">  додати в масив envp[]</text>
+<text x="495.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle" font-weight="700">else</text>
+<text x="495.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle" font-weight="700">  ПРОПУСТИТИ (DB_PASS відкинуто!)</text>
+<rect x="375.0" y="280.0" width="240.0" height="100.0" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.2"/>
+<text x="495.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="middle" font-weight="700">Сформований масив char **envp:</text>
+<text x="495.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">envp[0] = &quot;PATH=/usr/bin&quot;</text>
+<text x="495.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">envp[1] = &quot;USER=alex&quot;</text>
+<text x="495.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">envp[2] = NULL</text>
+<text x="495.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e22ce" text-anchor="middle" font-weight="700">Виклик execve(шлях, argv, envp)</text>
+<text x="495.0" y="435.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">Точка неповернення ядра</text>
+<line x1="630.0" y1="255.0" x2="680.0" y2="255.0" stroke="#7e22ce" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="655.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7e22ce" text-anchor="middle" font-weight="700">execve()</text>
+<rect x="690.0" y="50.0" width="240.0" height="410.0" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.2"/>
+<rect x="704.5" y="59.5" width="211.0" height="31.0" rx="6" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.5"/><text x="810.0" y="78.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="810.0" dy="0.0">3. Запущена програма (./app)</tspan></text>
+<rect x="705.0" y="110.0" width="210.0" height="160.0" rx="6" fill="#ffffff" stroke="#7e22ce" stroke-width="1.2"/>
+<text x="810.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e22ce" text-anchor="middle" font-weight="700">Адресний простір програми:</text>
+<text x="810.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle">Пам'ять Bash повністю стерта</text>
+<text x="810.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle">getenv(&quot;PATH&quot;) ──&gt; &quot;/usr/bin&quot;</text>
+<text x="810.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle">getenv(&quot;USER&quot;) ──&gt; &quot;alex&quot;</text>
+<text x="810.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">getenv(&quot;DB_PASS&quot;) ──&gt; NULL!</text>
+<rect x="705.0" y="290.0" width="210.0" height="150.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.2"/>
+<text x="810.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">Результат:</text>
+<text x="810.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle">Змінна DB_PASS не була</text>
+<text x="810.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle">передана у масиві envp.</text>
+<text x="810.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle">Програма не має до неї</text>
+<text x="810.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle" font-weight="700">жодного доступу!</text>
+</svg>

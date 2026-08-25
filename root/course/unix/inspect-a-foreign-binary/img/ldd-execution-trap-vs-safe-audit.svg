@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="900.0" height="420.0" rx="8" fill="#fafbfc" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="460.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Небезпека ldd для невідомого коду проти безпечного статичного аналізу</text>
+<rect x="30.0" y="65.0" width="415.0" height="345.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="237.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">ПАСТКА: Запуск ldd на чужому файлі</text>
+<text x="237.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">ldd — це shell-скрипт, який ВИКОНУЄ програму</text>
+<rect x="50.0" y="135.0" width="375.0" height="45.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="237.5" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">1. Запуск через завантажувач</text>
+<text x="237.5" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ldd встановлює LD_TRACE_LOADED_OBJECTS=1</text>
+<text x="237.5" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">і викликає інтерпретатор для файлу</text>
+<rect x="50.0" y="190.0" width="375.0" height="55.0" rx="4" fill="#fecaca" stroke="#c0392b" stroke-width="1.0"/>
+<text x="237.5" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">2. Пастка PT_INTERP</text>
+<text x="237.5" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Якщо PT_INTERP вказує на шкідливий бінарник,</text>
+<text x="237.5" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ядро запустить його з повними правами користувача!</text>
+<rect x="50.0" y="255.0" width="375.0" height="55.0" rx="4" fill="#fca5a5" stroke="#c0392b" stroke-width="1.0"/>
+<text x="237.5" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">3. Виконання .init_array / DT_INIT</text>
+<text x="237.5" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Конструктори бібліотек та ініціалізатори</text>
+<text x="237.5" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">можуть виконатися ДО завершення трасування!</text>
+<rect x="50.0" y="320.0" width="375.0" height="75.0" rx="4" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="237.5" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">Результат: Компрометація хоста</text>
+<text x="237.5" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle">Довільний код виконується у вашій системі!</text>
+<text x="237.5" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">Ніколи не застосовуйте ldd до підозрілих файлів.</text>
+<rect x="475.0" y="65.0" width="415.0" height="345.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="682.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">БЕЗПЕЧНО: Статичний парсинг readelf</text>
+<text x="682.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Читання байтів файлу без завантаження та запуску</text>
+<rect x="495.0" y="135.0" width="375.0" height="45.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.0"/>
+<text x="682.5" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">1. readelf -d binary | grep NEEDED</text>
+<text x="682.5" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Парсить виключно записи DT_NEEDED у секції .dynamic</text>
+<text x="682.5" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">без виконання жодної інструкції</text>
+<rect x="495.0" y="190.0" width="375.0" height="55.0" rx="4" fill="#bbf7d0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="682.5" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">2. readelf -l binary | grep INTERP</text>
+<text x="682.5" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Безпечно зчитує рядок динамічного інтерпретатора</text>
+<text x="682.5" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">як простий масив символів</text>
+<rect x="495.0" y="255.0" width="375.0" height="55.0" rx="4" fill="#86efac" stroke="#27ae60" stroke-width="1.0"/>
+<text x="682.5" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">3. readelf -d binary | grep RPATH</text>
+<text x="682.5" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Витягує зашиті шляхи пошуку бібліотек</text>
+<text x="682.5" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(DT_RUNPATH / DT_RPATH)</text>
+<rect x="495.0" y="320.0" width="375.0" height="75.0" rx="4" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="682.5" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">Результат: 100% Безпечний аналіз</text>
+<text x="682.5" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle">Повний перелік залежностей без ризику</text>
+<text x="682.5" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">виконання шкідливого коду або конструкторів.</text>
+</svg>

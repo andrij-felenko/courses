@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-15 -10 975 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-15" y="-10" width="975" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1e293b" text-anchor="middle" font-weight="700">Ізоляція пам'яті конвеєра: чому cat file | while read ... не змінює батьківську змінну</text>
+<rect x="30.0" y="55.0" width="900.0" height="105.0" rx="8" fill="#f8fafc" stroke="#2563eb" stroke-width="1.5"/>
+<text x="180.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">Батьківська оболонка (PID 1000)</text>
+<text x="180.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle" font-weight="700">Адресний простір батька: count = 0</text>
+<text x="180.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle">Команда: count=0; cat data.txt | while read l; do count=$((count+1)); done</text>
+<rect x="580.0" y="72.0" width="330.0" height="70.0" rx="6" fill="#fff6e5" stroke="#e08a1e" stroke-width="1.2"/>
+<text x="745.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#92400e" text-anchor="middle">Батько створює канал pipe() та викликає</text>
+<text x="745.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#92400e" text-anchor="middle" font-weight="700">fork() ДВІЧІ для лівої та правої частин,</text>
+<text x="745.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#92400e" text-anchor="middle">після чого чекає через waitpid()</text>
+<line x1="260.0" y1="160.0" x2="260.0" y2="205.0" stroke="#2563eb" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="205.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">fork() #1</text>
+<line x1="680.0" y1="160.0" x2="680.0" y2="205.0" stroke="#2563eb" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="735.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">fork() #2 (Subshell)</text>
+<rect x="30.0" y="210.0" width="420.0" height="160.0" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="240.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="middle" font-weight="700">Лівий процес: cat data.txt (PID 1001)</text>
+<text x="240.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle">stdout перенаправлено у дескриптор запису каналу</text>
+<text x="240.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle">Зчитує рядки файлу та записує їх у pipe</text>
+<text x="240.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle">Завершує роботу: exit(0) -&gt; закриває канал</text>
+<text x="240.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle" font-style="italic">Стан змінної count: не використовує</text>
+<rect x="460.0" y="260.0" width="40.0" height="45.0" rx="4" fill="#fff6e5" stroke="#e08a1e" stroke-width="1.2"/>
+<text x="480.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e08a1e" text-anchor="middle" font-weight="700">PIPE</text>
+<line x1="430.0" y1="282.0" x2="460.0" y2="282.0" stroke="#e08a1e" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="500.0" y1="282.0" x2="530.0" y2="282.0" stroke="#e08a1e" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="510.0" y="210.0" width="420.0" height="160.0" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="720.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">Правий підпроцес: Subshell (PID 1002)</text>
+<text x="720.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle">stdin підключено до дескриптора читання каналу</text>
+<text x="720.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="middle">Отримує копію пам'яті батька (COW): count = 0</text>
+<text x="720.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle" font-weight="700">Цикл while інкрементує count у СВОЇЙ пам'яті: count = 100</text>
+<text x="720.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle" font-weight="700">EOF на каналі ──&gt; вихід із циклу ──&gt; exit(0)</text>
+<text x="720.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle" font-weight="700">Уся віртуальна пам'ять PID 1002 знищується ядром!</text>
+<rect x="30.0" y="395.0" width="900.0" height="85.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.2"/>
+<text x="480.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle" font-weight="700">Фінал у батьківській оболонці (PID 1000) після завершення конвеєра:</text>
+<text x="480.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#dc2626" text-anchor="middle" font-weight="700">echo &quot;$count&quot; ──&gt; друкує 0! (Батьківська пам'ять не зазнала жодних змін)</text>
+<text x="480.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle">Альтернатива: shopt -s lastpipe (виконання в поточному процесі) або while ... done &lt; &lt;(cat data.txt)</text>
+</svg>

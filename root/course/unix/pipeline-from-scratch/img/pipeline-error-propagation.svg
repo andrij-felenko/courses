@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1e293b" text-anchor="middle" font-weight="700">Обробка помилок у конвеєрі: дефолтний $? проти pipefail та PIPESTATUS</text>
+<rect x="30.0" y="65.0" width="900.0" height="65.0" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="480.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="700">Команда: cat missing_file.log | grep '500' | awk '{print $1}' | wc -l</text>
+<text x="480.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle">cat падає (код 1: No such file), grep знаходить 0 рядків (код 1), awk успішний (код 0), wc друкує '0' (код 0)</text>
+<rect x="30.0" y="145.0" width="210.0" height="80.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.2"/>
+<text x="135.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">cat missing_file.log</text>
+<text x="135.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">Код виходу: 1</text>
+<text x="135.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4b5563" text-anchor="middle">(File Not Found)</text>
+<rect x="260.0" y="145.0" width="210.0" height="80.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.2"/>
+<text x="365.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">grep '500'</text>
+<text x="365.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">Код виходу: 1</text>
+<text x="365.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4b5563" text-anchor="middle">(No matches)</text>
+<rect x="490.0" y="145.0" width="210.0" height="80.0" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.2"/>
+<text x="595.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">awk '{print $1}'</text>
+<text x="595.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="middle" font-weight="700">Код виходу: 0</text>
+<text x="595.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4b5563" text-anchor="middle">(Success)</text>
+<rect x="720.0" y="145.0" width="210.0" height="80.0" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.2"/>
+<text x="825.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">wc -l</text>
+<text x="825.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="middle" font-weight="700">Код виходу: 0</text>
+<text x="825.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4b5563" text-anchor="middle">(Success: друкує 0)</text>
+<rect x="30.0" y="245.0" width="285.0" height="215.0" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.2"/>
+<rect x="73.3" y="259.5" width="197.3" height="31.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/><text x="172.0" y="278.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="172.0" dy="0.0">1. Замовчування POSIX ($?)</tspan></text>
+<text x="172.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">Повертає статус останньої команди:</text>
+<text x="172.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle" font-weight="700">$? == 0 (успіх wc -l)</text>
+<text x="172.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle"></text>
+<text x="172.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle" font-weight="700">Смертельна небезпека:</text>
+<text x="172.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">Помилки cat і grep повністю</text>
+<text x="172.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle">замасковані! Скрипт вважає,</text>
+<text x="172.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">що обробка пройшла успішно.</text>
+<rect x="335.0" y="245.0" width="290.0" height="215.0" rx="8" fill="#fffbeb" stroke="#e08a1e" stroke-width="1.2"/>
+<rect x="388.2" y="259.5" width="183.7" height="31.0" rx="6" fill="#fff6e5" stroke="#e08a1e" stroke-width="1.5"/><text x="480.0" y="278.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">2. Опція set -o pipefail</tspan></text>
+<text x="480.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">Повертає код найбільш правої</text>
+<text x="480.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">команди з ненульовим статусом:</text>
+<text x="480.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e08a1e" text-anchor="middle" font-weight="700">$? == 1 (збій конвеєра)</text>
+<text x="480.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle"></text>
+<text x="480.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle" font-weight="700">Захист у production:</text>
+<text x="480.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e08a1e" text-anchor="middle">set -e негайно зупиняє сценарій,</text>
+<text x="480.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">якщо будь-який етап дав збій.</text>
+<rect x="645.0" y="245.0" width="285.0" height="215.0" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.2"/>
+<rect x="691.8" y="259.5" width="190.5" height="31.0" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/><text x="787.0" y="278.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="787.0" dy="0.0">3. Масив ${PIPESTATUS[@]}</tspan></text>
+<text x="787.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">Вектор статусів кожного етапу:</text>
+<text x="787.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#16a34a" text-anchor="middle" font-weight="700">PIPESTATUS=( 1  1  0  0 )</text>
+<text x="787.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle"></text>
+<text x="787.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle" font-weight="700">Хірургічна точність:</text>
+<text x="787.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#16a34a" text-anchor="middle">${PIPESTATUS[0]} → помилка cat</text>
+<text x="787.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#16a34a" text-anchor="middle">${PIPESTATUS[1]} → помилка grep</text>
+<text x="787.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">Дозволяє точкову діагностику.</text>
+</svg>

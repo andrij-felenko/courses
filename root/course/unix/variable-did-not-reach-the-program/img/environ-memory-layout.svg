@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-52.5 -10 1012.5 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-52.5" y="-10" width="1012.5" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1e293b" text-anchor="middle" font-weight="700">Розташування аргументів та змінних середовища у пам'яті стека Linux (x86-64)</text>
+<rect x="40.0" y="50.0" width="880.0" height="445.0" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="70.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="start" font-style="italic">0x7FFF_FFFF_FFFF (Верхній край віртуальної пам'яті / Старші адреси)</text>
+<line x1="60.0" y1="90.0" x2="60.0" y2="465.0" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="55.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle" font-style="italic">Стек зростає донизу (до молодших адрес)</text>
+<text x="70.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="start" font-style="italic">Молодші адреси пам'яті (Поточний покажчик стека RSP)</text>
+<rect x="140.0" y="90.0" width="760.0" height="65.0" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/>
+<text x="520.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#16a34a" text-anchor="middle" font-weight="700">Блок рядків середовища: нуль-терміновані байти в пам'яті (POSIX name=value\0)</text>
+<text x="520.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">&quot;PATH=/usr/bin:/bin\0&quot;  |  &quot;USER=alex\0&quot;  |  &quot;HOME=/home/alex\0&quot;  |  &quot;DB_HOST=127.0.0.1\0&quot;</text>
+<rect x="140.0" y="165.0" width="760.0" height="55.0" rx="6" fill="#eaf0fd" stroke="#2563eb" stroke-width="1.5"/>
+<text x="520.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">Блок рядків аргументів командного рядка (argv strings)</text>
+<text x="520.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">&quot;./migrate_app\0&quot;  |  &quot;--config=prod.yaml\0&quot;  |  &quot;--verbose\0&quot;</text>
+<rect x="140.0" y="230.0" width="760.0" height="50.0" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.2"/>
+<text x="520.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle" font-weight="700">Допоміжний вектор ядра: Elf64_auxv_t auxv[] (AT_SYSINFO_EHDR, AT_RANDOM, AT_NULL)</text>
+<text x="520.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle">Передає параметри vDSO, ентропію канарок стека та точки входу динамічного лінкера</text>
+<rect x="140.0" y="290.0" width="760.0" height="70.0" rx="6" fill="#e9f7ef" stroke="#16a34a" stroke-width="1.5"/>
+<text x="520.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#16a34a" text-anchor="middle" font-weight="700">Таблиця покажчиків середовища: char *envp[] (закінчується покажчиком NULL)</text>
+<text x="520.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">[ envp[0] ] ──&gt; &quot;PATH=...&quot;  |  [ envp[1] ] ──&gt; &quot;USER=...&quot;  |  [ envp[2] ] ──&gt; &quot;HOME=...&quot;  |  [ NULL ]</text>
+<rect x="140.0" y="370.0" width="760.0" height="60.0" rx="6" fill="#eaf0fd" stroke="#2563eb" stroke-width="1.5"/>
+<text x="520.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">Таблиця покажчиків аргументів: char *argv[] (закінчується покажчиком NULL)</text>
+<text x="520.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">[ argv[0] ] ──&gt; &quot;./migrate_app&quot;  |  [ argv[1] ] ──&gt; &quot;--config=...&quot;  |  [ argv[2] ] ──&gt; &quot;--verbose&quot;  |  [ NULL ]</text>
+<rect x="140.0" y="440.0" width="760.0" height="40.0" rx="6" fill="#fff6e5" stroke="#e08a1e" stroke-width="1.5"/>
+<text x="520.0" y="465.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e08a1e" text-anchor="middle" font-weight="700">Кількість аргументів: int argc (на вершині стека під час передачі керування в _start)</text>
+<rect x="730.0" y="320.0" width="160.0" height="26.0" rx="4" fill="#ffffff" stroke="#0f766e" stroke-width="1.2"/>
+<text x="810.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0f766e" text-anchor="middle" font-weight="700">extern char **environ</text>
+</svg>

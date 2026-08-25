@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія розбіжності sed -i</text>
+<rect x="20.0" y="16.0" width="900.0" height="36.0" rx="6" fill="#eef2f8" stroke="#2457d6" stroke-width="1.5"/><text x="470.0" y="46.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">Анатомія розбіжності sed -i: чому той самий рядок падає на macOS</tspan></text>
+<rect x="40.0" y="66.0" width="860.0" height="44.0" rx="6" fill="#fbfdff" stroke="#aab4c0" stroke-width="1.5"/>
+<text x="470.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Виклик у скрипті:</text>
+<text x="470.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">sed  -i  's/old/new/g'  config.txt</text>
+<rect x="40.0" y="124.0" width="410.0" height="260.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="55.0" y="136.0" width="380.0" height="28.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.5"/><text x="245.0" y="154.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="245.0" dy="0.0">GNU sed (Linux / Ubuntu / glibc)</tspan></text>
+<text x="55.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Специфікація опції:</text>
+<text x="210.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">&quot;i::&quot; (суфікс є ОПЦІОНАЛЬНИМ)</text>
+<text x="55.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Обробка '-i':</text>
+<text x="210.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">аргумент не приклеєний -&gt; бекап НЕ потрібен</text>
+<text x="55.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Наступний токен:</text>
+<text x="210.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">'s/old/new/g' розпізнано як скрипт sed</text>
+<text x="55.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Файл для обробки:</text>
+<text x="210.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">config.txt модифікується на місці</text>
+<text x="55.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Статус виконання:</text>
+<text x="210.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">УСПІХ (файл відредаговано)</text>
+<rect x="490.0" y="124.0" width="410.0" height="260.0" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1.6"/>
+<rect x="505.0" y="136.0" width="380.0" height="28.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="695.0" y="154.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="695.0" dy="0.0">BSD sed (macOS / FreeBSD / Darwin)</tspan></text>
+<text x="505.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Специфікація опції:</text>
+<text x="660.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">&quot;i:&quot; (суфікс є ОБОВ'ЯЗКОВИМ)</text>
+<text x="505.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Обробка '-i':</text>
+<text x="660.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">захоплює наступний токен як розширення!</text>
+<text x="505.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Суфікс бекапу:</text>
+<text x="660.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">створює копію config.txts/old/new/g</text>
+<text x="505.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Команда sed:</text>
+<text x="660.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">'config.txt' парситься як вираз sed</text>
+<text x="505.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Статус виконання:</text>
+<text x="660.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">ПОМИЛКА: undefined label 'onfig.txt'</text>
+<rect x="40.0" y="396.0" width="860.0" height="76.0" rx="8" fill="#fbfdff" stroke="#aab4c0" stroke-width="1.5"/>
+<rect x="55.0" y="404.0" width="830.0" height="22.0" rx="6" fill="#fff6e6" stroke="#e08a1e" stroke-width="1.5"/><text x="470.0" y="419.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">Портативні рішення без ризику падіння на іншій ОС</tspan></text>
+<text x="470.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1) Тимчасовий файл:  sed 's/old/new/g' config.txt &gt; config.tmp &amp;&amp; mv config.tmp config.txt</text>
+<text x="470.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">2) Явний суфікс для sed:  sed -i.bak 's/old/new/g' config.txt &amp;&amp; rm config.txt.bak</text>
+</svg>

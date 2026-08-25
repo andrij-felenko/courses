@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спектр середовищ виконання: де насправді живе ядро операційної системи</text>
+<rect x="22.0" y="48.0" width="156.0" height="412.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="100.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Bare Metal</text>
+<text x="100.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Пряме залізо</text>
+<rect x="28.0" y="104.0" width="144.0" height="56.0" rx="4" fill="#f8fafc" stroke="#64748b" stroke-width="1.2"/>
+<text x="100.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="100.0" dy="0.0">Застосунки користувача</tspan></text>
+<rect x="28.0" y="165.0" width="144.0" height="56.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="100.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="100.0" dy="0.0">Ядро Linux (Ring 0 / EL1)</tspan></text>
+<rect x="28.0" y="226.0" width="144.0" height="56.0" rx="4" fill="#f1f5f9" stroke="#334155" stroke-width="1.2"/>
+<text x="100.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="100.0" dy="0.0">Апаратне забезпечення</tspan></text>
+<rect x="28.0" y="310.0" width="144.0" height="138.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="100.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="100.0" dy="0.0">100% чесне ядро,</tspan><tspan x="100.0" dy="12.8">прямий доступ до кілець,</tspan><tspan x="100.0" dy="12.8">найнижча латентність</tspan></text>
+<rect x="192.0" y="48.0" width="156.0" height="412.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="270.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Віртуалізація (VM)</text>
+<text x="270.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Type-1 / Type-2</text>
+<rect x="198.0" y="104.0" width="144.0" height="42.0" rx="4" fill="#f8fafc" stroke="#64748b" stroke-width="1.2"/>
+<text x="270.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="270.0" dy="0.0">Застосунки віртуальної машини</tspan></text>
+<rect x="198.0" y="151.0" width="144.0" height="42.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="270.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="270.0" dy="0.0">Гостьове ядро Linux</tspan></text>
+<rect x="198.0" y="198.0" width="144.0" height="42.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+<text x="270.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="270.0" dy="0.0">Гіпервізор (KVM / QEMU)</tspan></text>
+<rect x="198.0" y="245.0" width="144.0" height="42.0" rx="4" fill="#f1f5f9" stroke="#334155" stroke-width="1.2"/>
+<text x="270.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="270.0" dy="0.0">Апаратне забезпечення</tspan></text>
+<rect x="198.0" y="310.0" width="144.0" height="138.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="270.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="270.0" dy="0.0">Ізольоване гостьове ядро,</tspan><tspan x="270.0" dy="12.8">прискорення VT-x/AMD-V,</tspan><tspan x="270.0" dy="12.8">оверхед на пам'ять</tspan></text>
+<rect x="362.0" y="48.0" width="156.0" height="412.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="440.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. WSL2 (Micro-VM)</text>
+<text x="440.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Hyper-V легка ВМ</text>
+<rect x="368.0" y="104.0" width="144.0" height="42.0" rx="4" fill="#f8fafc" stroke="#64748b" stroke-width="1.2"/>
+<text x="440.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">Linux CLI / Служби</tspan></text>
+<rect x="368.0" y="151.0" width="144.0" height="42.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="440.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">Оптимізоване ядро Linux</tspan></text>
+<rect x="368.0" y="198.0" width="144.0" height="42.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+<text x="440.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">Гіпервізор Hyper-V + NT</tspan></text>
+<rect x="368.0" y="245.0" width="144.0" height="42.0" rx="4" fill="#f1f5f9" stroke="#334155" stroke-width="1.2"/>
+<text x="440.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">Апаратне забезпечення</tspan></text>
+<rect x="368.0" y="310.0" width="144.0" height="138.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="440.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">Справжнє модифіковане ядро,</tspan><tspan x="440.0" dy="12.8">швидкий запуск, міст 9P</tspan><tspan x="440.0" dy="12.8">до дисків Windows</tspan></text>
+<rect x="532.0" y="48.0" width="156.0" height="412.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="610.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. Контейнери</text>
+<text x="610.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Namespaces &amp; Cgroups</text>
+<rect x="538.0" y="104.0" width="144.0" height="56.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="610.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="610.0" dy="0.0">Ізольований процес контейнера</tspan></text>
+<rect x="538.0" y="165.0" width="144.0" height="56.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="610.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="610.0" dy="0.0">Спільне хостове ядро Linux</tspan></text>
+<rect x="538.0" y="226.0" width="144.0" height="56.0" rx="4" fill="#f1f5f9" stroke="#334155" stroke-width="1.2"/>
+<text x="610.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="610.0" dy="0.0">Апаратне забезпечення</tspan></text>
+<rect x="538.0" y="310.0" width="144.0" height="138.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="610.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="610.0" dy="0.0">Немає другого ядра,</tspan><tspan x="610.0" dy="12.8">ізоляція просторів імен,</tspan><tspan x="610.0" dy="12.8">нульовий оверхед</tspan></text>
+<rect x="702.0" y="48.0" width="156.0" height="412.0" rx="6" fill="#fffbfb" stroke="#c0392b" stroke-width="1.5"/>
+<text x="780.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">5. Емуляція (Cygwin/WSL1)</text>
+<text x="780.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Трансляція API</text>
+<rect x="708.0" y="104.0" width="144.0" height="42.0" rx="4" fill="#fef2f2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="780.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="780.0" dy="0.0">POSIX-застосунок (Win32)</tspan></text>
+<rect x="708.0" y="151.0" width="144.0" height="42.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="780.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="780.0" dy="0.0">Шар трансляції (DLL/Driver)</tspan></text>
+<rect x="708.0" y="198.0" width="144.0" height="42.0" rx="4" fill="#f8fafc" stroke="#475569" stroke-width="1.2"/>
+<text x="780.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="780.0" dy="0.0">Ядро Windows NT</tspan></text>
+<rect x="708.0" y="245.0" width="144.0" height="42.0" rx="4" fill="#f1f5f9" stroke="#334155" stroke-width="1.2"/>
+<text x="780.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="780.0" dy="0.0">Апаратне забезпечення</tspan></text>
+<rect x="708.0" y="310.0" width="144.0" height="138.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="780.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="780.0" dy="0.0">НЕМАЄ ядра Linux!</tspan><tspan x="780.0" dy="12.8">Емуляція через Win32 API,</tspan><tspan x="780.0" dy="12.8">пастки блокувань і epoll</tspan></text>
+</svg>

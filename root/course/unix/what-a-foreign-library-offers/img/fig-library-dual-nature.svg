@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="920.0" height="500.0" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="470.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#0f172a" text-anchor="middle" font-weight="700">Подвійна природа бібліотеки в Unix: контракт компіляції проти контракту лінкування</text>
+<rect x="25.0" y="52.0" width="890.0" height="205.0" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+<text x="470.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#15803d" text-anchor="middle" font-weight="700">1. Етап компіляції (Compile-Time) — текстовий контракт інтерфейсу: заголовки .h / .hpp</text>
+<rect x="45.0" y="88.0" width="220.0" height="150.0" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/>
+<text x="155.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">Вихідний код (app.c / app.cpp)</text>
+<line x1="55.0" y1="116.0" x2="255.0" y2="116.0" stroke="#bbf7d0" stroke-width="1.0"/>
+<text x="155.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">#include &lt;zstd.h&gt;</text>
+<text x="155.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">ZSTD_CCtx* ctx = ...</text>
+<text x="155.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">ZSTD_compressCCtx(...);</text>
+<text x="155.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle" font-style="italic">Потребує: сигнатури,</text>
+<text x="155.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle" font-style="italic">типи, розміри структур</text>
+<line x1="268.0" y1="163.0" x2="315.0" y2="163.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="320.0" y="88.0" width="260.0" height="150.0" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+<text x="450.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#059669" text-anchor="middle" font-weight="700">Заголовний файл (/usr/include/zstd.h)</text>
+<line x1="330.0" y1="116.0" x2="570.0" y2="116.0" stroke="#a7f3d0" stroke-width="1.0"/>
+<text x="450.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">typedef struct ZSTD_CCtx_s ZSTD_CCtx;</text>
+<text x="450.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">size_t ZSTD_compressCCtx(...);</text>
+<text x="450.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">#define ZSTD_VERSION_NUMBER ...</text>
+<text x="450.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#059669" text-anchor="middle" font-weight="700">Пакет: libzstd-dev (Compile-time)</text>
+<text x="450.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-style="italic">Немає файлу -&gt; fatal error: no file</text>
+<line x1="583.0" y1="163.0" x2="630.0" y2="163.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="635.0" y="88.0" width="260.0" height="150.0" rx="6" fill="#ffffff" stroke="#0284c7" stroke-width="1.5"/>
+<text x="765.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-weight="700">Об'єктний файл (app.o)</text>
+<line x1="645.0" y1="116.0" x2="885.0" y2="116.0" stroke="#bae6fd" stroke-width="1.0"/>
+<text x="765.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">Скомпільований машинний код</text>
+<text x="765.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">Таблиця невизначених символів:</text>
+<text x="765.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">U ZSTD_compressCCtx</text>
+<text x="765.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle" font-style="italic">Компіляція успішна! Але адреси</text>
+<text x="765.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle" font-style="italic">функції ще немає в пам'яті</text>
+<line x1="35.0" y1="268.0" x2="905.0" y2="268.0" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,4"/>
+<text x="470.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">Розкол інтерфейсу: заголовки перевіряють типи, двійкові об'єкти надають машинний код</text>
+<rect x="25.0" y="290.0" width="890.0" height="205.0" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+<text x="470.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1d4ed8" text-anchor="middle" font-weight="700">2. Етап лінкування та завантаження (Link-Time &amp; Run-Time) — двійковий код: .so / .a</text>
+<rect x="45.0" y="326.0" width="260.0" height="150.0" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="175.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="700">Динамічна бібліотека (libzstd.so.1)</text>
+<line x1="55.0" y1="354.0" x2="295.0" y2="354.0" stroke="#bfdbfe" stroke-width="1.0"/>
+<text x="175.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">Секція .text (машинні інструкції)</text>
+<text x="175.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">Таблиця динамічних символів .dynsym:</text>
+<text x="175.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">T ZSTD_compressCCtx</text>
+<text x="175.0" y="433.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">Пакет: libzstd1 (Runtime)</text>
+<text x="175.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-style="italic">Немає файлу -&gt; undefined reference</text>
+<line x1="308.0" y1="401.0" x2="355.0" y2="401.0" stroke="#2563eb" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="360.0" y="326.0" width="230.0" height="150.0" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="475.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="700">Лінкер ld (Компонування)</text>
+<line x1="370.0" y1="354.0" x2="580.0" y2="354.0" stroke="#ddd6fe" stroke-width="1.0"/>
+<text x="475.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">Зіставлення символів U &lt;-&gt; T</text>
+<text x="475.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">Запис DT_NEEDED у ELF:</text>
+<text x="475.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7c3aed" text-anchor="middle" font-weight="700">NEEDED: libzstd.so.1</text>
+<text x="475.0" y="433.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">Прапорець: -lzstd</text>
+<text x="475.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle" font-style="italic">Генерація таблиць GOT / PLT</text>
+<line x1="593.0" y1="401.0" x2="640.0" y2="401.0" stroke="#2563eb" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="645.0" y="326.0" width="250.0" height="150.0" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/>
+<text x="770.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#16a34a" text-anchor="middle" font-weight="700">Виконання програми (ld.so)</text>
+<line x1="655.0" y1="354.0" x2="885.0" y2="354.0" stroke="#bbf7d0" stroke-width="1.0"/>
+<text x="770.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">Завантажувач шукає libzstd.so.1</text>
+<text x="770.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">через /etc/ld.so.cache</text>
+<text x="770.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">Релокація адреси в GOT</text>
+<text x="770.0" y="433.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle" font-style="italic">Прямий перехід на машинний код</text>
+<text x="770.0" y="450.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle" font-style="italic">Безпечний та швидкий виклик</text>
+</svg>

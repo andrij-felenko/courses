@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Наскрізний конвеєр входу в Linux: від термінала до командного рядка</text>
+<rect x="27.0" y="65.0" width="136.0" height="32.0" rx="4" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="95.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">1. Вхідний канал</text>
+<rect x="27.0" y="97.0" width="136.0" height="148.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="95.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="95.0" dy="0.0">getty / login</tspan><tspan x="95.0" dy="15.4">(віртуальна консоль)</tspan><tspan x="95.0" dy="15.4">або sshd daemon</tspan><tspan x="95.0" dy="15.4">(мережевий сеанс)</tspan></text>
+<line x1="164.0" y1="155.0" x2="176.0" y2="155.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="177.0" y="65.0" width="136.0" height="32.0" rx="4" fill="#d35400" stroke="#d35400" stroke-width="1.5"/>
+<text x="245.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">2. Стек PAM</text>
+<rect x="177.0" y="97.0" width="136.0" height="148.0" rx="4" fill="#fdf2e9" stroke="#d35400" stroke-width="1.2"/>
+<text x="245.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="245.0" dy="0.0">pam_authenticate()</tspan><tspan x="245.0" dy="15.4">pam_acct_mgmt()</tspan><tspan x="245.0" dy="15.4">звірка /etc/shadow</tspan><tspan x="245.0" dy="15.4">хеш yescrypt/SHA</tspan></text>
+<line x1="314.0" y1="155.0" x2="326.0" y2="155.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="327.0" y="65.0" width="136.0" height="32.0" rx="4" fill="#8e44ad" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="395.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">3. systemd-logind</text>
+<rect x="327.0" y="97.0" width="136.0" height="148.0" rx="4" fill="#f4ecf7" stroke="#8e44ad" stroke-width="1.2"/>
+<text x="395.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="395.0" dy="0.0">D-Bus CreateSession()</tspan><tspan x="395.0" dy="15.4">cgroup v2 scope</tspan><tspan x="395.0" dy="15.4">user-1000.slice</tspan><tspan x="395.0" dy="15.4">/run/user/1000</tspan></text>
+<line x1="464.0" y1="155.0" x2="476.0" y2="155.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="477.0" y="65.0" width="136.0" height="32.0" rx="4" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="545.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">4. Зниження прав</text>
+<rect x="477.0" y="97.0" width="136.0" height="148.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="545.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="545.0" dy="0.0">initgroups(user)</tspan><tspan x="545.0" dy="15.4">setgid(gid)</tspan><tspan x="545.0" dy="15.4">setuid(uid)</tspan><tspan x="545.0" dy="15.4">setsid() + TIOCSCTTY</tspan></text>
+<line x1="614.0" y1="155.0" x2="626.0" y2="155.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="627.0" y="65.0" width="136.0" height="32.0" rx="4" fill="#16a085" stroke="#16a085" stroke-width="1.5"/>
+<text x="695.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">5. Сеанс &amp; Ліміти</text>
+<rect x="627.0" y="97.0" width="136.0" height="148.0" rx="4" fill="#e8f8f5" stroke="#16a085" stroke-width="1.2"/>
+<text x="695.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="695.0" dy="0.0">pam_limits (setrlimit)</tspan><tspan x="695.0" dy="15.4">pam_env (оточення)</tspan><tspan x="695.0" dy="15.4">pam_motd (/etc/motd)</tspan><tspan x="695.0" dy="15.4">chdir($HOME)</tspan></text>
+<line x1="764.0" y1="155.0" x2="776.0" y2="155.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="777.0" y="65.0" width="136.0" height="32.0" rx="4" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="845.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">6. Login Shell</text>
+<rect x="777.0" y="97.0" width="136.0" height="148.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="845.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="845.0" dy="0.0">execve('/bin/bash')</tspan><tspan x="845.0" dy="15.4">argv[0] = '-bash'</tspan><tspan x="845.0" dy="15.4">/etc/profile</tspan><tspan x="845.0" dy="15.4">~/.bash_profile → $PS1</tspan></text>
+<rect x="27.0" y="275.0" width="440.0" height="60.0" rx="6" fill="#feebe8" stroke="#c0392b" stroke-width="1.5"/>
+<text x="247.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Рівень привілеїв: root (UID 0, CAP_SYS_ADMIN)</text>
+<text x="247.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Доступ до /etc/shadow, D-Bus system bus, виклики setsid/setuid</text>
+<rect x="487.0" y="275.0" width="426.0" height="60.0" rx="6" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="700.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Рівень привілеїв: користувач (UID 1000, unprivileged)</text>
+<text x="700.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Ізольована cgroup, власні файли в $HOME, обмеження setrlimit</text>
+<rect x="27.0" y="360.0" width="886.0" height="95.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="42.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Типові точки зупинки конвеєра (Failure Modes):</text>
+<text x="52.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"><tspan x="52.0" dy="0.0">• Етап 2 (PAM/Shadow): Account locked ('!'), пароль прострочено (sp_expire), PAM auth_err</tspan><tspan x="52.0" dy="14.9">• Етап 3 (logind): D-Bus timeout, помилка виділення сесії, збій створення /run/user/UID</tspan><tspan x="52.0" dy="14.9">• Етап 4 (Права): EPERM при setuid, помилка initgroups (зайві або відсутні GID)</tspan><tspan x="52.0" dy="14.9">• Етап 5-6 (Оболонка): Переповнена квота $HOME (EDQUOT), відсутня оболонка в /etc/shells</tspan></text>
+</svg>
