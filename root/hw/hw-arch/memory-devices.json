@@ -1,0 +1,416 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-arch",
+  "slug": "memory-devices",
+  "title": "Мікросхеми пам'яті й носії",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "volatile-and-persistent",
+      "title": "Летка й нелетка пам'ять",
+      "topics": [
+        {
+          "slug": "flash-vs-ram",
+          "title": "Flash і RAM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-spi-flash-xip.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-spi-flash-xip.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "persistent-storage",
+          "title": "Енергонезалежне зберігання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-memory-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-atomic-update.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "dram",
+      "title": "Динамічна пам'ять",
+      "topics": [
+        {
+          "slug": "sdram-ddr",
+          "title": "SDRAM і DDR",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-ddr-labels.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bandwidth.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "memory-controller",
+          "title": "Контролер пам'яті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "ddr-phy",
+          "title": "DDR PHY: фізичний рівень DDR-інтерфейсу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-ddr-io-signaling.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "lpddr",
+          "title": "LPDDR",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "memory-training",
+          "title": "Калібрування DDR-інтерфейсу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-zq-calibration.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-training-search.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "external-memory",
+      "title": "Зовнішня пам'ять чипа",
+      "topics": [
+        {
+          "slug": "external-memory-interface",
+          "title": "Інтерфейс зовнішньої пам'яті (FMC/FSMC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-parallel-bus.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fmc-lcd.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "opi-hyperram",
+          "title": "OPI та HyperRAM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-hyperbus-lineage.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "psram",
+          "title": "PSRAM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-esp32-psram.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "spiram-psram",
+          "title": "SPIRAM / PSRAM в мікроконтролерах: зовнішня RAM через SPI",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "xip-memory-mapped-flash",
+          "title": "XIP: виконання коду з флеші на місці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "mmu-address-window",
+          "title": "MMU і вікна зовнішньої пам'яті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-bank-switching-mmu.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bank-window.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "storage-devices",
+      "title": "Накопичувачі",
+      "topics": [
+        {
+          "slug": "sd-card",
+          "title": "SD-картка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-sd-card-wars.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sd-card-init-state-machine",
+          "title": "Автомат станів ініціалізації SD-картки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "microsd",
+          "title": "microSD",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "emmc-ssd",
+          "title": "eMMC і SSD",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-toy-ftl.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "nvme-protocol",
+          "title": "NVMe",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-nvme-origin.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "memory-reliability",
+      "title": "Стійкість пам'яті",
+      "topics": [
+        {
+          "slug": "ecc-ram-flash",
+          "title": "ECC у пам'яті",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-ecc-hardware.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ecc-flash",
+          "title": "ECC у флеш-пам'яті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-code-escalation.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-vth-overlap.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-soft-read.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "flash-ecc-budget",
+          "title": "Flash: бюджет помилок ECC і знос",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-uber-rber.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-device-uber.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "memory-scrubbing",
+          "title": "Memory scrubbing: фоновий ремонт пам'яті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-scrub-race.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-scrub-loop.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

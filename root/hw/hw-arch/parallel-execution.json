@@ -1,0 +1,552 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-arch",
+  "slug": "parallel-execution",
+  "title": "Конвеєр і паралелізм",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "pipelining",
+      "title": "Конвеєр",
+      "topics": [
+        {
+          "slug": "pipeline",
+          "title": "Конвеєр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-pipeline-hazards.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "instruction-cycle-detail",
+          "title": "Цикл виконання інструкції: стадії та конвеєр",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-risc-pipeline.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pipeline-sim.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pipeline-hazard",
+          "title": "Конфлікти конвеєра (дані, керування, ресурси)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-hazard-origin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hazard-detect-forward.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "forwarding-bypassing",
+          "title": "Forwarding і bypassing",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-forwarding.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "branch-prediction",
+          "title": "Передбачення переходів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-branch-prediction.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-spectre.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-branchless.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "instruction-parallelism",
+      "title": "Паралелізм інструкцій",
+      "topics": [
+        {
+          "slug": "superscalar",
+          "title": "Суперскалярна архітектура",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-superscalar.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "out-of-order-execution",
+          "title": "Позачергове виконання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-spectre-meltdown.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "vliw-epic",
+          "title": "VLIW і EPIC: паралельність, розкладена компілятором",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-itanium-vliw.md",
+              "status": "recheck"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-vliw-vs-ooo.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-modulo-scheduling.md",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "slug": "modulo-scheduling",
+          "title": "Програмна конвеєризація Modulo Scheduling",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-modulo-scheduling.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-mrt-scheduling.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-modulo-scheduler.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "self-modifying-code",
+          "title": "Самозмінний код: кеш інструкцій і серіалізація конвеєра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-von-neumann-to-wx.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-jit-trampoline.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-cache-flush.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cores-and-threads",
+      "title": "Ядра й апаратні нитки",
+      "topics": [
+        {
+          "slug": "multicore",
+          "title": "Багатоядерні процесори",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-multicore-turn.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "simultaneous-multithreading",
+          "title": "Одночасна багатонитковість (SMT)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-smt.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-smt-bench.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-linux-smt-control.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "numa",
+          "title": "Нерівномірний доступ до пам'яті (NUMA)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-smp-to-numa.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-numa-bench.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-libnuma.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "vector-compute",
+      "title": "Векторні обчислення",
+      "topics": [
+        {
+          "slug": "simd-vectorization",
+          "title": "SIMD і векторизація",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-simd-lineage.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-simd-speedup.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-simd-dot-product.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "risc-v-vector",
+          "title": "RISC-V векторні розширення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "gpu-compute",
+      "title": "Обчислення на GPU",
+      "topics": [
+        {
+          "slug": "simt-gpu-execution",
+          "title": "SIMT: модель виконання GPU",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-simt-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-occupancy-latency.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-warp-divergence-coalescing.md",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "slug": "simt-warp-divergence",
+          "title": "Дивергенція варпів та банківські конфлікти GPU",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-stack-to-its.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bank-stride.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-matrix-transpose-smem.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-warp-intrinsics.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "gpu-host-device-memory",
+          "title": "Пам'ять хоста і прискорювача: копії, спільна й закріплена пам'ять",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-heterogeneous-memory.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-async-double-buffering.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-memory-management.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "dataflow",
+      "title": "Потокові архітектури",
+      "topics": [
+        {
+          "slug": "dataflow-architecture",
+          "title": "Потокова архітектура обчислень (dataflow)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dataflow-pioneers.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dataflow-engine.md",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "slug": "dynamic-dataflow-engine",
+          "title": "Потокові динамічні обчислення (Dataflow Engine)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-monsoon-ets.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-matching-store-scaling.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dynamic-dataflow-vm.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dataflow-runtime.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "performance-limits",
+      "title": "Стеля продуктивності",
+      "topics": [
+        {
+          "slug": "compute-cost",
+          "title": "Вартість обчислень",
+          "basic": {
+            "status": "recheck"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-apollo-guidance.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "roofline-model",
+          "title": "Roofline-модель продуктивності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="70.0" width="150.0" height="56.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="115.0" y="86.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="115.0" dy="0.0">VDD</tspan><tspan x="115.0" dy="15.6">≈ 3.3 В</tspan><tspan x="115.0" dy="15.6">(поки живлення є)</tspan></text>
+<rect x="40.0" y="250.0" width="150.0" height="56.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="115.0" y="265.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="115.0" dy="0.0">VBAT</tspan><tspan x="115.0" dy="16.9">≈ 2.9 В</tspan><tspan x="115.0" dy="16.9">(батарейка)</tspan></text>
+<rect x="265.0" y="120.0" width="190.0" height="140.0" rx="10" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="360.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">Перемикач</tspan><tspan x="360.0" dy="19.5">джерел</tspan></text>
+<text x="360.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle"><tspan x="360.0" dy="0.0">живи від того,</tspan><tspan x="360.0" dy="15.6">де напруга ВИЩА</tspan></text>
+<text x="360.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">VDD ⋛ VBAT</text>
+<line x1="190.0" y1="98.0" x2="265.0" y2="150.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="190.0" y1="278.0" x2="265.0" y2="230.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="455.0" y1="190.0" x2="560.0" y2="190.0" stroke="#1a1a1a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="560.0" y="145.0" width="130.0" height="90.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="625.0" y="169.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="625.0" dy="0.0">Домен RTC</tspan><tspan x="625.0" dy="16.9">живиться</tspan><tspan x="625.0" dy="16.9">без розриву</tspan><tspan x="625.0" dy="16.9">такту</tspan></text>
+<text x="360.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">VDD є → домен їсть VDD, батарейка недоторкана    ·    VDD зникло → миттєвий перескок на VBAT</text>
+</svg>

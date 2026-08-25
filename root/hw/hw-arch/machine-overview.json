@@ -1,0 +1,342 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-arch",
+  "slug": "machine-overview",
+  "title": "Машина в цілому",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "processor-parts",
+      "title": "Процесор і його складові",
+      "topics": [
+        {
+          "slug": "what-is-processor",
+          "title": "Що таке процесор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-babbage-lovelace.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-von-neumann.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "processor-parts",
+          "title": "Складові процесора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "fetch-decode-execute",
+          "title": "Цикл виконання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-toy-cpu-emulator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "clock-frequency",
+          "title": "Частота процесора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-megahertz-myth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-performance-math.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mcu-blocks",
+          "title": "Складові МК",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-offload-to-peripheral.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "execution-units",
+      "title": "Обчислювальні вузли",
+      "topics": [
+        {
+          "slug": "arithmetic-logic-unit",
+          "title": "Арифметико-логічний пристрій (АЛП)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-edvac-74181.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "alu-flags",
+          "title": "Прапорці АЛП",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-condition-codes.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-flag-conditions.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "barrel-shifter",
+          "title": "Barrel shifter",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-barrel-name.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "register-file",
+          "title": "Регістровий файл",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-registers-to-register-file.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-register-file-port-scaling.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "status-register",
+          "title": "Регістр стану процесора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "control-unit",
+      "title": "Пристрій керування",
+      "topics": [
+        {
+          "slug": "control-unit",
+          "title": "Пристрій керування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-microprogramming.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-control-decoder.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "control-unit-design",
+          "title": "Пристрій керування: hardwired і мікропрограмний",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-microcode-family.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "microcode",
+          "title": "Мікрокод",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "architecture-classes",
+      "title": "Класи архітектур",
+      "topics": [
+        {
+          "slug": "microcontroller",
+          "title": "Мікроконтролер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-first-mcu.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "harvard-vs-vonneumann",
+          "title": "Гарвардська і фон Нейманнівська архітектури",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "risc-vs-cisc-mcu",
+          "title": "RISC і CISC у мікроконтролерах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "single-board-computer",
+          "title": "Одноплатний комп'ютер (SBC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "domain-processors",
+      "title": "Процесори під задачу",
+      "topics": [
+        {
+          "slug": "dsp-processor",
+          "title": "Цифровий сигнальний процесор (DSP)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-single-chip-dsp.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dsp-architecture",
+          "title": "Архітектура DSP-процесора",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-first-dsp.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fir-mac.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

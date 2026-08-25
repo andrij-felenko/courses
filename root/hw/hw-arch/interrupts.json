@@ -1,0 +1,184 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-arch",
+  "slug": "interrupts",
+  "title": "Переривання",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "interrupt-mechanism",
+      "title": "Механізм переривання",
+      "topics": [
+        {
+          "slug": "interrupts",
+          "title": "Переривання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-interrupt.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-int-pin.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-spsc-ring.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "isr",
+          "title": "ISR",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-deferred-work.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-reentrancy.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "interrupt-vector",
+          "title": "Контролер і вектор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-int-controllers.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "interrupt-driven-io",
+          "title": "Переривання від зовнішніх подій: EXTI і INT-входи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "priorities-and-controller",
+      "title": "Пріоритети й контролер",
+      "topics": [
+        {
+          "slug": "interrupt-priorities",
+          "title": "Пріоритети переривань",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-apollo.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-latency.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "nvic-cortex-m",
+          "title": "NVIC Cortex-M",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "nmi-exceptions",
+          "title": "NMI та апаратні винятки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "interrupt-affinity",
+          "title": "Прив'язка переривань до ядер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "latency-and-context",
+      "title": "Латентність і контекст",
+      "topics": [
+        {
+          "slug": "interrupt-latency",
+          "title": "Затримка переривання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "latentnist-pereryvannia",
+          "title": "Латентність переривання: від фронту до першої інструкції",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "fpu-context-isr",
+          "title": "FPU-стан у ISR",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

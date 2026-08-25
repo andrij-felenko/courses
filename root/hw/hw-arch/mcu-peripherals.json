@@ -1,0 +1,278 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-arch",
+  "slug": "mcu-peripherals",
+  "title": "Периферія мікроконтролера",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "timers",
+      "title": "Таймер-лічильник",
+      "topics": [
+        {
+          "slug": "timer-counter",
+          "title": "Таймер-лічильник",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-quartz.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-prescaler.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "timer-peripheral-overview",
+          "title": "Таймер як периферія: переповнення, порівняння, захоплення",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-onchip-timer.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-timer-setup.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "timer-overflow",
+          "title": "Період і переповнення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-unsigned-wrap.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "timer-modes",
+          "title": "Режими лічення таймера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "capture-compare",
+          "title": "Захоплення й порівняння",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-input-capture.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "rtc",
+          "title": "RTC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-y2k-2038.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-rtc-module.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-calendar-math.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "advanced-timers",
+      "title": "Складні режими таймера",
+      "topics": [
+        {
+          "slug": "advanced-control-timer-tim1",
+          "title": "Advanced-control таймер (TIM1/TIM8): комплементарні канали, break, лічильник повторів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "zviazani-taimery",
+          "title": "Зв'язані таймери: майстер, підлеглий, внутрішній тригер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "enkodernyi-rezhym-taimera",
+          "title": "Енкодерний режим таймера",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "pwm",
+      "title": "ШІМ",
+      "topics": [
+        {
+          "slug": "pwm-on-mcu",
+          "title": "ШІМ на мікроконтролері",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dimmer.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-buzzer.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pwm-spectrum.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "hardware-pwm",
+          "title": "Апаратний PWM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-pwm-alignment.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pwm-resolution",
+          "title": "Шпаруватість і роздільність",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-freq-resolution.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "pwm-deadtime",
+          "title": "Мертвий час і комплементарні виходи ШІМ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "pwm-phase-shift",
+          "title": "Зсув фаз між каналами ШІМ",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "analog-blocks",
+      "title": "Аналогові вузли",
+      "topics": [
+        {
+          "slug": "analohovi-bloky",
+          "title": "Аналогові блоки в МК: компаратор, ОП, програмований поріг",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "vnutrishni-dzherela-atsp",
+          "title": "Внутрішні джерела АЦП: опора, датчик температури, VBAT",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

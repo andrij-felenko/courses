@@ -1,0 +1,414 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-arch",
+  "slug": "memory-and-addressing",
+  "title": "Пам'ять і адреси",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "address-space",
+      "title": "Адресний простір",
+      "topics": [
+        {
+          "slug": "memory-as-array",
+          "title": "Пам'ять як масив",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-core-memory.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "memory-map",
+          "title": "Карта пам'яті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-real-memory-map.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "address-space-separation",
+          "title": "Розділення адресних просторів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-harvard-mark.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "hardware-registers",
+      "title": "Регістри заліза в адресах",
+      "topics": [
+        {
+          "slug": "memory-mapped-io",
+          "title": "Memory-mapped IO",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-reg-access.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "port-mapped-io",
+          "title": "Port-mapped IO (IN/OUT)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-io-instructions.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bit-banding",
+          "title": "Бітова смуга (bit-banding) у Cortex-M",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "cache-hierarchy",
+      "title": "Ієрархія та кеш",
+      "topics": [
+        {
+          "slug": "memory-hierarchy",
+          "title": "Ієрархія пам'яті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-memory-hierarchy.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cache",
+          "title": "Кеш",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-cache-friendly-code.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bloom-filter-in-hardware",
+          "title": "Фільтр Блума в ієрархії памʼяті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bloom-filter.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-false-positive.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cache-blocked.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-bloom-filter.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "coherence",
+      "title": "Когерентність і порядок",
+      "topics": [
+        {
+          "slug": "cache-coherence",
+          "title": "Когерентність кешів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-illinois-mesi.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-false-sharing.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cache-coherence-protocol",
+          "title": "Протокол когерентності кешу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-moesi-mesif.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cache-coherency-mcu",
+          "title": "Кеш-коерентність у мікроконтролері",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mesi-illinois.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dma-ring-buffer.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "false-sharing",
+          "title": "Хибне спільне використання кеш-лінії",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-false-sharing-origin.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pingpong-throughput.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "memory-barrier-instructions",
+          "title": "Інструкції барʼєрів памʼяті (DMB/DSB/ISB)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-flash-barriers.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "virtual-memory",
+      "title": "Віртуальна пам'ять",
+      "topics": [
+        {
+          "slug": "virtual-memory",
+          "title": "Віртуальна пам'ять",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-atlas.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mmu",
+          "title": "Блок керування пам'яттю (MMU)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-atlas-one-level-store.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "tlb",
+          "title": "TLB — кеш адресного перекладу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-atlas.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "memory-segmentation",
+          "title": "Сегментація пам'яті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-8086-addressing.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-segment-registers-and-tls.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-descriptor-structures.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "iommu",
+          "title": "IOMMU: трансляція адрес для пристроїв",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-iommu.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dma-mapping.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "mpu-cortex-m",
+          "title": "Блок захисту пам'яті (MPU) в Cortex-M",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-memory-protection.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rtos-task-isolation.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

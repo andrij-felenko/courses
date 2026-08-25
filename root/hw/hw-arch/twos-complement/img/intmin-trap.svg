@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пастка найменшого: −INT_MIN не має дзеркала й перевалює</text>
+<text x="360.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">діапазон знакового несиметричний: −128 є, +128 — нема</text>
+<line x1="90.0" y1="130.0" x2="630.0" y2="130.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="90.0" y1="124.0" x2="90.0" y2="136.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="90.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">−128</text>
+<line x1="360.0" y1="124.0" x2="360.0" y2="136.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="360.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<line x1="630.0" y1="124.0" x2="630.0" y2="136.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="630.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">+127</text>
+<circle cx="664.0" cy="130.0" r="12.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="664.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">×</text>
+<text x="664.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">+128</text>
+<text x="664.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">нема куди</text>
+<line x1="96.0" y1="108.0" x2="652.0" y2="120.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="377.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">−(−128) хотіло б сюди</text>
+<rect x="120.0" y="196.0" width="480.0" height="78.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.7"/><text x="360.0" y="231.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">на INT_MIN перевалюють (UB для знакового):</tspan><tspan x="360.0" dy="15.6">−x     abs(x)     x / −1     x % −1</tspan></text>
+</svg>

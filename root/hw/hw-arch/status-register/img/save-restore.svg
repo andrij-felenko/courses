@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Регістр стану переживає переривання</text>
+<text x="185.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">головна програма</text>
+<rect x="60.0" y="86.0" width="250.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/>
+<text x="74.0" y="108.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="700" xml:space="preserve">CMP a, b</text>
+<text x="74.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">прапорці в SREG — ЖИВІ</text>
+<rect x="60.0" y="150.0" width="250.0" height="44.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.4"/>
+<text x="74.0" y="172.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="15" fill="#6b7280" text-anchor="start" font-weight="700" xml:space="preserve">…</text>
+<text x="74.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">готова стрибнути за умовою</text>
+<circle cx="310.0" cy="172.0" r="7.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="185.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">◄ тут влучає переривання</text>
+<rect x="60.0" y="372.0" width="250.0" height="44.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="74.0" y="394.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="15" fill="#27ae60" text-anchor="start" font-weight="700" xml:space="preserve">BRLO skip</text>
+<text x="74.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">читає ТІ САМІ прапорці</text>
+<line x1="185.0" y1="194.0" x2="185.0" y2="220.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="185.0" y1="236.0" x2="185.0" y2="366.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="181.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">керування</text>
+<text x="181.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">повертається</text>
+<rect x="406.0" y="236.0" width="308.0" height="126.0" rx="6" fill="#fbfbfd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="560.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">обробник переривання</text>
+<text x="420.0" y="270.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="14" fill="#27ae60" text-anchor="start" font-weight="700" xml:space="preserve">PUSH SREG</text>
+<text x="570.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">зберегти знімок у стек</text>
+<text x="420.0" y="306.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700" xml:space="preserve">INC ticks</text>
+<text x="570.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">рахує — ЗАТИРАЄ прапорці</text>
+<text x="420.0" y="342.0" font-family="'Consolas','DejaVu Sans Mono',monospace" font-size="14" fill="#27ae60" text-anchor="start" font-weight="700" xml:space="preserve">POP  SREG</text>
+<text x="570.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">відновити знімок зі стеку</text>
+<line x1="314.0" y1="172.0" x2="450.0" y2="246.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="450.0" y1="356.0" x2="314.0" y2="380.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="380.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">весь стан — в одному слові, тож зняти й відновити знімок можна однією парою команд</text>
+</svg>

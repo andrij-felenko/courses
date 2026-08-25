@@ -1,0 +1,364 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-arch",
+  "slug": "software-contract",
+  "title": "Контракт із програмою",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "instruction-set",
+      "title": "Набір інструкцій",
+      "topics": [
+        {
+          "slug": "isa",
+          "title": "Набір інструкцій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-riscv.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-isa-in-boards.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-reading-disassembly.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "isa-encoding",
+          "title": "Кодування інструкцій: як команда стає числом",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-thumb.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-immediate-split.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "calling-convention",
+          "title": "Угода про виклик (ABI)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-abi-wars.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "processor-word-size",
+          "title": "Розрядність процесора й режими сумісности",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-evolution-to-64bit.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pointer-overhead.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cpu-state",
+      "title": "Стан і можливості процесора",
+      "topics": [
+        {
+          "slug": "cpuid",
+          "title": "CPUID: як програма питає процесор про його можливості",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cpuid.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kvm-masking.md",
+              "status": "pending"
+            },
+            {
+              "file": "proj-simd-dispatch.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-leaves.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "msr",
+          "title": "Регістри, специфічні для моделі (MSR)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-model-specific.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rapl-reader.md",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "slug": "xsave-extended-state",
+          "title": "Розширений стан процесора: XSAVE, XCR0 і компоненти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fpu-state-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-xsave-detection.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-xsave-layout.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "privilege-levels",
+      "title": "Привілеї та вхід у ядро",
+      "topics": [
+        {
+          "slug": "protection-rings",
+          "title": "Кільця захисту й рівні привілеїв",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "empty"
+          },
+          "hist": [
+            {
+              "file": "hist-rings-multics.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-privileged-trap.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "system-call",
+          "title": "Системний виклик",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-trap-instruction.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-raw-syscall.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-syscall-abi.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cpu-exception-handling",
+          "title": "Обробка виключень у процесорі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "virtualization",
+      "title": "Віртуалізація й емуляція",
+      "topics": [
+        {
+          "slug": "hardware-virtualization",
+          "title": "Апаратна віртуалізація: як залізо віддає машину гостю",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-virtualization.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-nested-paging.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-kvm-run-loop.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cpuid-masking-kvm",
+          "title": "Маскування та емуляція CPUID у KVM",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-cpuid-virtualization.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-vmm-cpuid-filter.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-kvm-cpuid-ioctl.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "instruction-set-emulation",
+          "title": "Емуляція набору інструкцій: як виконати чужий машинний код",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dbt-evolution.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "dynamic-binary-translation",
+          "title": "Динамічна двійкова трансляція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-transmeta-rosetta.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tso-overhead.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dbt-engine.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

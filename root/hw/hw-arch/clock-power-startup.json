@@ -1,0 +1,364 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-arch",
+  "slug": "clock-power-startup",
+  "title": "Такт, живлення, старт",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "reset-and-boot",
+      "title": "Скидання й завантаження",
+      "topics": [
+        {
+          "slug": "reset-causes",
+          "title": "Причини reset",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-brownout.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bootloader",
+          "title": "Bootloader",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-strapping.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "vector-table",
+          "title": "Таблиця векторів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "brownout",
+          "title": "Brown-out",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "pins-and-strapping",
+      "title": "Обв'язка й піни",
+      "topics": [
+        {
+          "slug": "minimalna-obviazka",
+          "title": "Мінімальна обв'язка МК: живлення, скидання, boot-піни, кварц",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "stan-piniv-u-pershu-myt",
+          "title": "Стан пінів у першу мить: що робить залізо, доки прошивка мовчить",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "strapping-piny-i-rezhymy-zavantazhennia",
+          "title": "Strapping-піни й режими завантаження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "clocking",
+      "title": "Тактування",
+      "topics": [
+        {
+          "slug": "clock-power",
+          "title": "Тактування й живлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-crystal.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-clock-tree.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "stm32-clock-tree",
+          "title": "Дерево тактування STM32",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "peripheral-clock-enable",
+          "title": "Тактування периферії: ввімкнення й тактові домени",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "zatrymky-chytannia-flesh-pamiati-i-taktova-chastota",
+          "title": "Затримки читання флеш-пам'яті й тактова частота",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "sleep-and-wakeup",
+      "title": "Сон і пробудження",
+      "topics": [
+        {
+          "slug": "sleep-modes",
+          "title": "Режими сну",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "wakeup-sources",
+          "title": "Джерела пробудження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-wake-hw.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "power-domains-mcu",
+          "title": "Острівці живлення в мікроконтролері",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "rtc-domain",
+      "title": "Домен RTC і ULP",
+      "topics": [
+        {
+          "slug": "ulp-coprocessor",
+          "title": "ULP-співпроцесор",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-ulp-program.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ulp-fsm-assembly",
+          "title": "ULP-FSM: асемблер і макро-DSL для класичного ESP32",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "rtc-memory",
+          "title": "RTC-память",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "rtc-gpio-domain",
+          "title": "RTC-GPIO домен",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "wake-stub",
+          "title": "Wake-stub: мінімальний код до повної ініціалізації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "rtc-domain-power",
+          "title": "Домен живлення RTC в SoC",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-battery-rtc.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "power-and-heat",
+      "title": "Потужність і тепло",
+      "topics": [
+        {
+          "slug": "power-wall",
+          "title": "Стіна потужності й темний кремній",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-power-wall-2004.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dennard-scaling.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dvfs",
+          "title": "Динамічне масштабування напруги і частоти (DVFS)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-speedstep-powernow.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dynamic-voltage-frequency-scaling",
+          "title": "Масштабування напруги й частоти (DVFS)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "rapl-energy-metering",
+          "title": "Вимірювання енергоспоживання через Intel RAPL",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-power-capping.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-energy-profiler.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rapl-registers.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

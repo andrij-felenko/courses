@@ -1,0 +1,202 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-arch",
+  "slug": "numbers",
+  "title": "Числа в машині",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "integers",
+      "title": "Цілі числа й байти",
+      "topics": [
+        {
+          "slug": "twos-complement",
+          "title": "Доповняльний код (числа зі знаком)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "endianness",
+          "title": "Порядок байтів (endianness)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "alignment-hardware",
+          "title": "Вирівнювання даних: апаратні вимоги",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "fractional-numbers",
+      "title": "Дробові числа",
+      "topics": [
+        {
+          "slug": "fixed-point",
+          "title": "Фіксована кома",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-patriot.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-cordic.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cordic.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-fixed-point.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "floating-point",
+          "title": "Плаваюча кома",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ieee754.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-birth-of-floating-point.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-representable-set.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-float-compare.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "half-precision",
+          "title": "Напівточність: float16 і bfloat16",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-half-precision.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-half-precision-convert.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fpu",
+          "title": "Блок дробових чисел (FPU)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-fpu.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fused-multiply-add",
+          "title": "FMA: множення з накопиченням за одне округлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fma-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fma-algorithms.md",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "slug": "fma-algorithms",
+          "title": "Алгоритми підвищеної точності на базі FMA",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-eft-proofs.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-double-double.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-fma-intrinsics.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

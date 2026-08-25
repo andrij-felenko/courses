@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="900" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл RX-буфера: два invalidate, дві різні небезпеки</text>
+<line x1="70.0" y1="150.0" x2="830.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="818.0" y1="150.0" x2="830.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="830.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end" font-style="italic">час</text>
+<line x1="130.0" y1="143.0" x2="130.0" y2="157.0" stroke="#c0392b" stroke-width="2.4"/>
+<rect x="77.1" y="77.9" width="105.8" height="40.1" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="130.0" y="94.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">invalidate</tspan><tspan x="130.0" dy="13.7">(перед стартом)</tspan></text>
+<line x1="130.0" y1="118.1" x2="130.0" y2="143.0" stroke="#c0392b" stroke-width="1.3" stroke-dasharray="4,3"/>
+<line x1="370.0" y1="143.0" x2="370.0" y2="157.0" stroke="#b9770e" stroke-width="2.4"/>
+<rect x="326.1" y="77.9" width="87.8" height="40.1" rx="6" fill="#fdf3e6" stroke="#b9770e" stroke-width="1.5"/><text x="370.0" y="94.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="370.0" dy="0.0">DMA возить</tspan><tspan x="370.0" dy="13.7">байти в SRAM</tspan></text>
+<line x1="370.0" y1="118.1" x2="370.0" y2="143.0" stroke="#b9770e" stroke-width="1.3" stroke-dasharray="4,3"/>
+<line x1="540.0" y1="143.0" x2="540.0" y2="157.0" stroke="#c0392b" stroke-width="2.4"/>
+<rect x="496.1" y="77.9" width="87.8" height="40.1" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="540.0" y="94.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">IRQ «готово»</tspan><tspan x="540.0" dy="13.7">+ invalidate</tspan></text>
+<line x1="540.0" y1="118.1" x2="540.0" y2="143.0" stroke="#c0392b" stroke-width="1.3" stroke-dasharray="4,3"/>
+<line x1="770.0" y1="143.0" x2="770.0" y2="157.0" stroke="#2457d6" stroke-width="2.4"/>
+<rect x="732.1" y="77.9" width="75.8" height="40.1" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="1.5"/><text x="770.0" y="94.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="770.0" dy="0.0">ядро читає</tspan><tspan x="770.0" dy="13.7">буфер</tspan></text>
+<line x1="770.0" y1="118.1" x2="770.0" y2="143.0" stroke="#2457d6" stroke-width="1.3" stroke-dasharray="4,3"/>
+<rect x="330.0" y="170.0" width="190.0" height="20.0" rx="6" fill="#fdf3e6" stroke="#b9770e" stroke-width="1.3"/>
+<text x="445.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b9770e" text-anchor="middle">DMA пише напряму в SRAM, повз кеш</text>
+<rect x="160.9" y="248.1" width="208.1" height="73.9" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="265.0" y="267.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="265.0" dy="0.0">ЧОМУ перед стартом:</tspan><tspan x="265.0" dy="14.3">викинути брудні рядки буфера,</tspan><tspan x="265.0" dy="14.3">щоб під час приймання вони НЕ</tspan><tspan x="265.0" dy="14.3">витіснились і не затерли свіже</tspan></text>
+<rect x="554.1" y="248.1" width="201.8" height="73.9" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="655.0" y="267.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="655.0" dy="0.0">ЧОМУ після IRQ:</tspan><tspan x="655.0" dy="14.3">викинути рядки, що ядро могло</tspan><tspan x="655.0" dy="14.3">спекулятивно затягнути в кеш</tspan><tspan x="655.0" dy="14.3">під час приймання (там старе)</tspan></text>
+<text x="450.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Той самий invalidate стоїть двічі — але лікує дві РІЗНІ біди: до старту чистить кеш під DMA, після старту забирає свіже.</text>
+</svg>

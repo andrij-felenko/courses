@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="760" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кнопка-защіпка живлення: пристрій вимикає сам себе в нуль</text>
+<text x="80.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">+VBAT</text>
+<line x1="80.0" y1="80.0" x2="80.0" y2="130.0" stroke="#c0392b" stroke-width="3.0"/>
+<line x1="80.0" y1="90.0" x2="360.0" y2="90.0" stroke="#c0392b" stroke-width="3.0"/>
+<rect x="330.0" y="110.0" width="110.0" height="60.0" rx="6" fill="#fdf2e9" stroke="#e67e22" stroke-width="2.0"/>
+<text x="385.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="700"><tspan x="385.0" dy="0.0">P-MOSFET</tspan><tspan x="385.0" dy="14.3">(верхнє плече)</tspan></text>
+<line x1="385.0" y1="90.0" x2="385.0" y2="110.0" stroke="#c0392b" stroke-width="3.0"/>
+<line x1="385.0" y1="170.0" x2="385.0" y2="210.0" stroke="#27ae60" stroke-width="3.0"/>
+<rect x="310.0" y="210.0" width="150.0" height="64.0" rx="6" fill="#f8f9fa" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="385.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">ESP32</text>
+<text x="385.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">VDD</text>
+<rect x="90.0" y="120.0" width="150.0" height="44.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="165.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="165.0" dy="0.0">КНОПКА</tspan><tspan x="165.0" dy="14.3">натиск на мить</tspan></text>
+<line x1="240.0" y1="135.0" x2="328.0" y2="135.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="284.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">вмикає</text>
+<rect x="470.0" y="120.0" width="170.0" height="44.0" rx="6" fill="#d6eaf8" stroke="#2457d6" stroke-width="2.0"/>
+<text x="555.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="555.0" dy="0.0">HOLD = GPIO OUT</tspan><tspan x="555.0" dy="14.3">першим рядком HIGH</tspan></text>
+<line x1="470.0" y1="140.0" x2="442.0" y2="140.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="456.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">тримає</text>
+<line x1="555.0" y1="164.0" x2="555.0" y2="222.0" stroke="#2457d6" stroke-width="1.6" stroke-dasharray="4,3"/>
+<line x1="555.0" y1="222.0" x2="462.0" y2="234.0" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="470.0" y="240.0" width="170.0" height="44.0" rx="6" fill="#f5eef8" stroke="#8e44ad" stroke-width="2.0"/>
+<text x="555.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="middle" font-weight="700"><tspan x="555.0" dy="0.0">KEY-READ = GPIO IN</tspan><tspan x="555.0" dy="14.3">команда «вимкнись»</tspan></text>
+<line x1="470.0" y1="262.0" x2="462.0" y2="256.0" stroke="#8e44ad" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="108.4" y="348.4" width="543.1" height="43.3" rx="6" fill="#fff3cd" stroke="#e67e22" stroke-width="1.5"/><text x="380.0" y="366.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">HOLD=HIGH першим рядком — інакше відпустять кнопку і чип згасне на старті.</tspan><tspan x="380.0" dy="14.3">HOLD=LOW рве живлення: струм = 0, повний cold-boot при наступному ввімкненні.</tspan></text>
+</svg>

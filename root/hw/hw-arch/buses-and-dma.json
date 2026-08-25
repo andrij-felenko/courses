@@ -1,0 +1,294 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-arch",
+  "slug": "buses-and-dma",
+  "title": "Шини й прямий доступ",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "system-bus",
+      "title": "Системна шина",
+      "topics": [
+        {
+          "slug": "system-bus",
+          "title": "Системна шина",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-unibus.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "address-decoding",
+          "title": "Адресна дешифрація шини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "bus-matrix",
+          "title": "Матриця шин (bus matrix)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-amba.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ahb-apb-bus",
+          "title": "Шинна ієрархія AHB/APB у Cortex-M",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-amba.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "axi-bus",
+          "title": "Шина AXI",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-amba.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "wishbone-bus",
+          "title": "Шина Wishbone",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-wishbone-name.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "bus-arbitration",
+          "title": "Арбітраж шини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-daisy-chain.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-can-arbitration.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-metastability.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "dma-engine",
+      "title": "Рушій DMA",
+      "topics": [
+        {
+          "slug": "dma-problem",
+          "title": "Проблема потоку даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dma-channels.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-throughput.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dma",
+          "title": "Прямий доступ до пам'яті (DMA)",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-birth.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-budget.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-setup.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dma-controller",
+          "title": "DMA-контролер",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-memcpy-vs-dma.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dma-channels",
+          "title": "Канали й дескриптори",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-descriptors.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "dma-channels-gdma",
+          "title": "GDMA: загальний пул каналів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "scatter-gather",
+          "title": "Scatter-gather DMA",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-scatter-gather-lineage.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sglist-c.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "transfers-without-cpu",
+      "title": "Обмін без процесора",
+      "topics": [
+        {
+          "slug": "podiieva-matrytsia",
+          "title": "Подієва матриця: периферія запускає периферію",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "dma-arbitration",
+          "title": "Арбітраж DMA і конкуренція шини",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "cache-coherency-dma",
+          "title": "Когерентність кеша і DMA",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-dma-origins.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

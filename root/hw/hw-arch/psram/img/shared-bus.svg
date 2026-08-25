@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="720" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спільна шина: PSRAM і Flash, різний лише вибір чипа</text>
+<rect x="43.8" y="114.4" width="102.4" height="71.2" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.8"/><text x="95.0" y="138.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="95.0" dy="0.0">Контролер</tspan><tspan x="95.0" dy="15.6">зовнішньої</tspan><tspan x="95.0" dy="15.6">пам'яті</tspan></text>
+<line x1="146.2" y1="96.0" x2="470.0" y2="96.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="154.2" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">SCLK</text>
+<line x1="146.2" y1="116.0" x2="470.0" y2="116.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="154.2" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">IO0</text>
+<line x1="146.2" y1="136.0" x2="470.0" y2="136.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="154.2" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">IO1</text>
+<line x1="146.2" y1="156.0" x2="470.0" y2="156.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="154.2" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">IO2</text>
+<line x1="146.2" y1="176.0" x2="470.0" y2="176.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="154.2" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">IO3</text>
+<line x1="146.2" y1="210.0" x2="470.0" y2="210.0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="154.2" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">CE# (PSRAM)</text>
+<line x1="146.2" y1="240.0" x2="470.0" y2="240.0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="154.2" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start">CE# (Flash)</text>
+<rect x="470.0" y="86.0" width="150.0" height="100.0" rx="6" fill="#fdf4f4" stroke="#c0392b" stroke-width="1.8"/><text x="545.0" y="125.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="545.0" dy="0.0">PSRAM</tspan><tspan x="545.0" dy="14.3">SOIC-8</tspan><tspan x="545.0" dy="14.3">(летка RAM)</tspan></text>
+<rect x="470.0" y="200.0" width="150.0" height="90.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/><text x="545.0" y="234.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="545.0" dy="0.0">Flash</tspan><tspan x="545.0" dy="14.3">SOIC-8</tspan><tspan x="545.0" dy="14.3">(нелеткий код)</tspan></text>
+<line x1="470.0" y1="210.0" x2="470.0" y2="136.0" stroke="#c0392b" stroke-width="1.6"/>
+<circle cx="470.0" cy="136.0" r="3.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="470.0" cy="240.0" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="360.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">такт і дані спільні; контролер опускає потрібний CE# — і говорить саме з тим чипом</text>
+</svg>

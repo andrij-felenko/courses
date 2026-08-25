@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect width="740" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="370.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сходи Cortex-M: спільний низ, продуктивність угору</text>
+<rect x="60.0" y="380.0" width="300.0" height="60.0" rx="6" fill="#f0e6fa" stroke="#7d3c98" stroke-width="2.0"/>
+<text x="130.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#7d3c98" text-anchor="middle" font-weight="700">M0 / M0+</text>
+<text x="230.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="230.0" dy="0.0">ощадне 32-біт ядро; конкурент 8-бітника</tspan></text>
+<rect x="60.0" y="304.0" width="330.0" height="72.0" rx="6" fill="#f0e6fa" stroke="#7d3c98" stroke-width="2.0"/>
+<text x="130.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#7d3c98" text-anchor="middle" font-weight="700">M3</text>
+<text x="245.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="245.0" dy="0.0">апаратне ділення, насичення, повний Thumb-2</tspan></text>
+<rect x="60.0" y="224.0" width="360.0" height="76.0" rx="6" fill="#f0e6fa" stroke="#7d3c98" stroke-width="2.0"/>
+<text x="130.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#7d3c98" text-anchor="middle" font-weight="700">M4</text>
+<text x="260.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="260.0" dy="0.0">+ DSP-інструкції, опційний FPU (float)</tspan></text>
+<rect x="60.0" y="152.0" width="390.0" height="68.0" rx="6" fill="#f0e6fa" stroke="#7d3c98" stroke-width="2.0"/>
+<text x="130.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#7d3c98" text-anchor="middle" font-weight="700">M7</text>
+<text x="275.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="275.0" dy="0.0">подвійний конвеєр, кеш L1, TCM</tspan></text>
+<rect x="500.0" y="150.0" width="210.0" height="290.0" rx="6" fill="#f8f4ff" stroke="#7d3c98" stroke-width="2.0"/>
+<text x="605.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7d3c98" text-anchor="middle" font-weight="700">Спільне у ВСІХ</text>
+<text x="514.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#5b2c80" text-anchor="start">• NVIC — контролер переривань</text>
+<text x="514.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#5b2c80" text-anchor="start">• SysTick — таймер ядра</text>
+<text x="514.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#5b2c80" text-anchor="start">• модель винятків (вхід/вихід)</text>
+<text x="514.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#5b2c80" text-anchor="start">• Thumb-2 (підмножина)</text>
+<text x="514.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#5b2c80" text-anchor="start">• регістри ядра + CMSIS</text>
+<rect x="560.0" y="50.0" width="150.0" height="64.0" rx="6" fill="#d2e4f5" stroke="#2471a3" stroke-width="2.0"/>
+<text x="635.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="635.0" dy="0.0">ESP32</tspan><tspan x="635.0" dy="14.3">(Xtensa / RISC-V)</tspan><tspan x="635.0" dy="14.3">НЕ Cortex-M</tspan></text>
+<line x1="635.0" y1="114.0" x2="635.0" y2="150.0" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5 3"/>
+<text x="370.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Вгору додається продуктивність; ядро переривань і таймер незмінні</text>
+</svg>

@@ -1,0 +1,212 @@
+{
+  "schema": 7,
+  "kind": "hw",
+  "book": "hw-arch",
+  "slug": "chip-families",
+  "title": "Сімейства чипів",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "classic-lines",
+      "title": "Класичні лінійки",
+      "topics": [
+        {
+          "slug": "avr",
+          "title": "AVR-клас",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-avr.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-uno-nano.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "cortex-m",
+          "title": "ARM Cortex-M",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "stm32",
+          "title": "STM32-клас",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-stm32-boards.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "rp2040-pio",
+          "title": "RP2040 і PIO",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-rp2040.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-pico-board.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pio.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "nrf-radio-mcu",
+          "title": "nRF-клас",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-nrf-modules.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "esp32-chips",
+      "title": "Кристали ESP32",
+      "topics": [
+        {
+          "slug": "esp32-architecture",
+          "title": "Архітектура ESP32",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-esp.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-devkit.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "esp32-p4",
+          "title": "ESP32-P4",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "esp32-s3-ai",
+          "title": "AI-прискорення в ESP32-S3: вектори й inference на краю мережі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "esp32-memory-map",
+          "title": "Карта пам'яті ESP32",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "esp32-peripherals",
+      "title": "Периферія ESP32",
+      "topics": [
+        {
+          "slug": "gpio-matrix-internals",
+          "title": "GPIO matrix ESP32: внутрішня схема",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "pcnt-pulse-counter",
+          "title": "PCNT — апаратний лічильник імпульсів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "rmt-peripheral",
+          "title": "RMT — периферія точних імпульсних послідовностей",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "mcpwm-peripheral",
+          "title": "MCPWM — мотор-контрольний ШІМ ESP32",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}
