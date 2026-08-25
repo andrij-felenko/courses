@@ -1,0 +1,250 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-release",
+  "slug": "testing",
+  "title": "Перевірка тестами",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "unit-and-boundary",
+      "title": "Тест і його межа",
+      "topics": [
+        {
+          "slug": "unit-testing",
+          "title": "Модульний тест: одиниця, ізоляція, швидкість",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-xunit-birth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-unit-test-c.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "test-doubles",
+          "title": "Дублери: стаб, мок, фейк, спай",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mock-objects.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cpp-doubles.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "integration-testing",
+          "title": "Інтеграційні тести й піраміда тестів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "contract-testing",
+          "title": "Контрактні тести",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-consumer-driven-contracts.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-contract-harness.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-contract-spec.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "where-tests-come-from",
+      "title": "Звідки береться тест",
+      "topics": [
+        {
+          "slug": "test-driven-development",
+          "title": "Розробка через тести (TDD)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "property-based-testing",
+          "title": "Тестування властивостями: генератор і звуження контрприкладу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "record-replay-testing",
+          "title": "Запис і відтворення чужих відповідей",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "python-test-automation",
+          "title": "Python для автоматизації тестування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-plain-assert.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ctypes-harness.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pytest-contract.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "quality-numbers",
+      "title": "Числа про якість",
+      "topics": [
+        {
+          "slug": "code-coverage",
+          "title": "Покриття коду: що воно міряє й чого не міряє",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "mutation-testing",
+          "title": "Мутаційне тестування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "code-metrics",
+          "title": "Метрики якості коду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "unstable-results",
+      "title": "Плаваючі помилки",
+      "topics": [
+        {
+          "slug": "flaky-tests",
+          "title": "Миготливі тести: недетермінованість і карантин",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "heisenbug",
+          "title": "Гейзенбаги та спостережницький ефект",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "hostile-input",
+      "title": "Ворожий вхід і навмисний збій",
+      "topics": [
+        {
+          "slug": "fuzzing",
+          "title": "Фаззинг",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "fault-injection",
+          "title": "Інжекція збоїв: змусити помилку статися",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

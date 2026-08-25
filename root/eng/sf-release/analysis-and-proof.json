@@ -1,0 +1,212 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-release",
+  "slug": "analysis-and-proof",
+  "title": "Аналіз і доведення",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "without-running",
+      "title": "Аналіз без запуску",
+      "topics": [
+        {
+          "slug": "static-analysis",
+          "title": "Статичний аналіз",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "proj": [
+            {
+              "file": "proj-sanitizers.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "linters-and-formatters",
+          "title": "Лінтер і форматувальник у проєкті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "runtime-tools",
+      "title": "Інструмент під час прогону",
+      "topics": [
+        {
+          "slug": "address-sanitizer",
+          "title": "Санітайзери пам'яті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "thread-sanitizer",
+          "title": "ThreadSanitizer: як інструмент ловить гонку даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "correctness-proof",
+      "title": "Доведення правильності",
+      "topics": [
+        {
+          "slug": "design-by-contract",
+          "title": "Проєктування за контрактом",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "loop-invariants",
+          "title": "Інваріанти циклу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "weakest-precondition",
+          "title": "Найслабша передумова",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "formal-verification",
+          "title": "Формальна верифікація",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "failure-analysis",
+      "title": "Аналіз відмов",
+      "topics": [
+        {
+          "slug": "fmea",
+          "title": "FMEA: аналіз видів і наслідків відмов",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fmea.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rpn-ordinal.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fmea-rpn.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "fault-tree-analysis",
+          "title": "Аналіз дерева відмов (FTA)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-fta.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sharp-p-hardness.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fault-tree-eval.md",
+              "status": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "speed-and-load",
+      "title": "Швидкість і навантаження",
+      "topics": [
+        {
+          "slug": "profiling",
+          "title": "Профілювання",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "microbenchmarking",
+          "title": "Мікробенчмарк: як не збрехати собі виміром",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "load-testing",
+          "title": "Навантажувальний тест: відкритий і закритий контур",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

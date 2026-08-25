@@ -1,0 +1,322 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-release",
+  "slug": "pipeline",
+  "title": "Конвеєр і артефакти",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "automatic-pipeline",
+      "title": "Автоматичний конвеєр",
+      "topics": [
+        {
+          "slug": "ci-cd",
+          "title": "CI/CD",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-ci-cd-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-feedback-loop-and-dora.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pipeline-dag-runner.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-pipeline-spec.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "tests-in-ci",
+          "title": "Розкладка тестів і запуск у CI",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "infrastructure-as-code",
+          "title": "Інфраструктура як код",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-iac-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-state-reconciliation.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-declarative-resource-schema.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "container-image-and-registry",
+          "title": "Образ і реєстр: тег, дайджест, шари й звідки береться pull",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "model-artifact",
+          "title": "Модель як версійований артефакт",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-model-registry-and-mlops.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-drift-metrics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-model-registry.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-model-metadata-schema.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "build-gates",
+      "title": "Ворота збірки",
+      "topics": [
+        {
+          "slug": "vorota-biudzhetu",
+          "title": "Ворота бюджету: флеш, RAM, стек, час завантаження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "nichni-prohony-i-rehresiia-spozhyvannia-chasu",
+          "title": "Нічні прогони й регресія споживання, часу відгуку та пам'яті",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "release-contents",
+      "title": "Склад версії",
+      "topics": [
+        {
+          "slug": "versiia-zi-stanu-repozytoriiu",
+          "title": "Версія зі стану репозиторію: тег, хеш, «брудна» збірка",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "artefakty-vypusku",
+          "title": "Артефакти випуску: образ, мапа, символи, SBOM, звіти тестів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "notatky-vypusku",
+          "title": "Нотатки випуску: що власник має дізнатися з оновлення",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "reviziia-platy-versiia-proshyvky",
+          "title": "Ревізія плати × версія прошивки: одна прошивка на три ревізії",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "versioning-and-compatibility",
+      "title": "Версії та сумісність",
+      "topics": [
+        {
+          "slug": "semantic-versioning",
+          "title": "Семантичне версіонування (SemVer)",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-semver.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-semver-compare.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "expand-contract",
+          "title": "Expand–contract (parallel change) для API",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-parallel-change.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-api-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-deprecation-contract.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "hyrums-law",
+          "title": "Закон Гайрама (Hyrum's Law)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "release-path",
+      "title": "Дорога до релізу",
+      "topics": [
+        {
+          "slug": "release-candidate-and-freeze",
+          "title": "Реліз-кандидат і заморозка коду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "release-channels",
+          "title": "Канали постачання: стабільний, тестовий, нічний",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "environments",
+      "title": "Середовища",
+      "topics": [
+        {
+          "slug": "environments-and-parity",
+          "title": "Середовища: dev, stage, prod і чому stage бреше",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "non-prod-data",
+          "title": "Дані для не-прод середовищ: маскування, зменшення, синтетика",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,192 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-release",
+  "slug": "codebase",
+  "title": "Спільне дерево коду",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "version-model",
+      "title": "Модель версій",
+      "topics": [
+        {
+          "slug": "version-control",
+          "title": "Контроль версій і git",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-git-bitkeeper.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-three-way-merge.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "commit-message-conventions",
+          "title": "Угоди про повідомлення комітів: історія як структуровані дані",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "development-lines",
+      "title": "Лінії розробки",
+      "topics": [
+        {
+          "slug": "branching-models",
+          "title": "Моделі гілкування: стовбурна розробка, гілки задач, релізні гілки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "fork-and-upstream",
+          "title": "Форк і апстрим: життя похідного репозиторію",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "monorepo-vs-polyrepo",
+          "title": "Один репозиторій чи багато",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "code-ownership",
+      "title": "Володіння кодом",
+      "topics": [
+        {
+          "slug": "code-ownership-models",
+          "title": "Моделі володіння кодом: сильне, слабке, колективне",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "bus-factor",
+          "title": "Фактор автобуса й сирітський код",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "inner-source",
+          "title": "Внутрішній опенсорс: правка від чужої команди",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "developer-certificate-of-origin",
+          "title": "Свідоцтво про походження коду (DCO) і підпис Signed-off-by",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "human-review",
+      "title": "Читання коду людьми",
+      "topics": [
+        {
+          "slug": "code-review",
+          "title": "Рев'ю коду",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          }
+        },
+        {
+          "slug": "fagan-inspection",
+          "title": "Формальна інспекція (метод Фагана)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "team-practices",
+      "title": "Спосіб роботи команди",
+      "topics": [
+        {
+          "slug": "pair-programming",
+          "title": "Парне програмування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "extreme-programming",
+          "title": "Extreme Programming: практики, що підпирають одна одну",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "estimation-uncertainty",
+          "title": "Оцінка й конус невизначеності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    }
+  ]
+}

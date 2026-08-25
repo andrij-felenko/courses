@@ -1,0 +1,428 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-release",
+  "slug": "rollout",
+  "title": "Викочування в бій",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "progressive-rollout",
+      "title": "Поступове викочування",
+      "topics": [
+        {
+          "slug": "deployment-strategies",
+          "title": "Стратегії деплою",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-deployment-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-deployment-router.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-deployment-spec.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "blue-green-deployment",
+          "title": "Синьо-зелене розгортання: ізольовані середовища, миттєве перемикання трафіку та стратегії сумісності стану",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-blue-green-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-blue-green-controller.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-blue-green-spec.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "canary-deployment",
+          "title": "Канаркове розгортання: архітектура прогресивної доставки, трикогортний аналіз та автоматичний арбітраж",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-canary-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-canary-statistics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-canary-arbiter.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-canary-spec.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "parallel-run",
+          "title": "Parallel run",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bank-migration-disasters.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-reconciliation-stream.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "switches",
+      "title": "Перемикач замість викочування",
+      "topics": [
+        {
+          "slug": "feature-flags",
+          "title": "Прапорці функцій",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-feature-flags-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bucket-hashing.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-flag-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-openfeature-contract.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "dark-launch",
+          "title": "Темний запуск і feature-flag-міграція",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dark-launch-origins.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-shadow-comparator.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "no-downtime-change",
+      "title": "Зміна без простою",
+      "topics": [
+        {
+          "slug": "graceful-shutdown",
+          "title": "Штатне вимкнення і drain",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-crash-only-and-drain.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-graceful-coordinator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-shutdown-protocol.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "zero-downtime-migration",
+          "title": "Zero-downtime міграції даних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-online-migration-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-backfill-convergence.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-zero-downtime-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-migration-coordinator-spec.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "fleet-campaign",
+      "title": "Кампанія оновлення парку",
+      "topics": [
+        {
+          "slug": "publikatsiia-vypusku-na-server-onovlen",
+          "title": "Публікація випуску на сервер оновлень",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "keruvannia-kampaniieiu",
+          "title": "Керування кампанією: хвилі, ліміти, показники — скільки взяли, скільки повернулися, скільки замовкли",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "prymusove-onovlennia-i-zhoda-vlasnyka",
+          "title": "Примусове оновлення й згода власника",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "zupynka-kampanii-i-park-onovlenyi-napolovynu",
+          "title": "Зупинка кампанії й парк, оновлений наполовину",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "run-platform",
+      "title": "Платформа запуску",
+      "topics": [
+        {
+          "slug": "container-orchestration",
+          "title": "Оркестрація",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-borg-omega-kubernetes.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-bin-packing-scheduling.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-reconciliation-loop.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-orchestrator-primitives.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "serverless-faas",
+          "title": "Serverless/FaaS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-serverless-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-faas-worker.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-runtime-contract.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "capacity-headroom",
+      "title": "Запас потужності",
+      "topics": [
+        {
+          "slug": "capacity-planning",
+          "title": "Планування потужностей і headroom",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-capacity-management.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-headroom-queueing.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-capacity-calculator.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "autoscaling",
+          "title": "Автоскейл",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-autoscaling-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-autoscaling-controller.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

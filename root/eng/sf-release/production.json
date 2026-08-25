@@ -1,0 +1,398 @@
+{
+  "schema": 7,
+  "kind": "eng",
+  "book": "sf-release",
+  "slug": "production",
+  "title": "Життя в проді",
+  "scope": "",
+  "chapters": [
+    {
+      "slug": "observability",
+      "title": "Спостережність",
+      "topics": [
+        {
+          "slug": "structured-logging",
+          "title": "Структуровані логи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-unstructured-to-structured.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-zero-alloc-logger.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-structured-log-schema.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "metrics-monitoring",
+          "title": "Метрики",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-monitoring-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-histograms-and-sketches.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-metrics-collector.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-openmetrics-exposition.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "distributed-tracing",
+          "title": "Розподілений трейсинг",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-dapper-and-opentelemetry.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tail-sampling-and-loss.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-context-propagator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-w3c-trace-context.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "signals-and-dashboards",
+      "title": "Сигнали й панелі",
+      "topics": [
+        {
+          "slug": "dashboard-design",
+          "title": "Панель, з якої видно, що робити",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "debug-endpoints",
+          "title": "Діагностичний інтерфейс застосунку: що відкривати в проді",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "observability-cost",
+          "title": "Спостережність коштує грошей",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "reliability-targets",
+      "title": "Цілі надійності",
+      "topics": [
+        {
+          "slug": "slo-sli-sla",
+          "title": "SLI/SLO/SLA і бюджет помилок",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sre-and-error-budget.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-burn-rate-and-windows.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-slo-burn-engine.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "alerting",
+          "title": "Алерти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-alerting-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-multi-window-burn-rate.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-alert-evaluation-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-alertmanager-config.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "on-call",
+      "title": "Чергування",
+      "topics": [
+        {
+          "slug": "on-call-rotation",
+          "title": "Чергування: ротація, передача, межа витривалості",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "runbooks",
+          "title": "Посібник чергового: що має бути в руці о третій ночі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "toil-and-automation",
+          "title": "Рутина, яку треба вбити (toil)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "incidents",
+      "title": "Інциденти",
+      "topics": [
+        {
+          "slug": "incident-response",
+          "title": "Реагування на інциденти",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-incident-response-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-incident-metrics-reliability.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-incident-orchestrator.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-incident-lifecycle-schema.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "incident-communication",
+          "title": "Що казати назовні, поки лагодиш",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "postmortems",
+          "title": "Постмортем без винних",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-blameless-culture.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-incident-timeline-builder.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-postmortem-schema.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "disaster-readiness",
+      "title": "Готовність до біди",
+      "topics": [
+        {
+          "slug": "chaos-engineering",
+          "title": "Хаос-інженерія",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-netflix-and-chaos-monkey.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-chaos-injector.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-chaos-experiment-spec.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "disaster-recovery",
+          "title": "Бекапи і DR",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-evolution-of-dr.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-rpo-rto-and-cost.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pitr-engine.md",
+              "status": "recheck"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-dr-runbook-and-config.md",
+              "status": "recheck"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
