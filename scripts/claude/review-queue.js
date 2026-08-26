@@ -9,7 +9,7 @@
  * повернули «теки не існує». Читання маніфесту — детермінована робота, і коштувати
  * вона має нуль токенів.
  *
- *   node scripts/claude/review-queue.js --book unix-linux --kind reference [--limit 120]
+ *   node scripts/claude/review-queue.js --book sys-unix [--limit 120]
  *                                       [--status recheck] [--json <файл>] [--all]
  *
  * Друкує таблицю для людини; з --json кладе на диск масив тек для args.dirs.
@@ -17,8 +17,8 @@
  * Другий режим — операції для manifest-patch, теж детерміновано (той самий урок:
  * агент, що складає JSON зі статусами руками, помиляється саме там, де помилку не видно):
  *
- *   node scripts/claude/review-queue.js --book unix-linux --kind reference \
- *        --ops-done --slugs "a,b,c" --json scripts/_finish/_review-ops-unix-linux.json
+ *   node scripts/claude/review-queue.js --book sys-unix \
+ *        --ops-done --slugs "a,b,c" --json scripts/_finish/_review-ops-sys-unix.json
  *
  * Пише status-if recheck→done лише для тих версій (basic/detailed), які зараз recheck.
  */
@@ -27,34 +27,32 @@ const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..", "..");
 const _M7 = require(`${ROOT}\\scripts\\lib\\manifest7.js`)
-const BOOKDIR = _M7.bookDirOf(BOOK) || `${ROOT}\\root\\?\\${BOOK}`   // v7: вид випливає з книги
+/* BOOKDIR оголошено НИЖЧЕ, після BOOK: доти воно стояло тут і читало BOOK до його
+   оголошення — ReferenceError на першому ж рядку, тобто скрипт не стартував узагалі,
+   а з ним і вся фаза «Черга» воркфлоу review-batch. */
 const argv = process.argv.slice(2);
 const arg = (k, d) => { const i = argv.indexOf(k); return i >= 0 && argv[i + 1] ? argv[i + 1] : d; };
 const has = (k) => argv.includes(k);
 
 const BOOK = arg("--book", "");
-const KIND = arg("--kind", "reference");
+/* --kind більше не потрібен: вид книги дає shelf.json через manifest7. Аргумент
+   ще приймають review-batch/review-apply заради сумісності виклику — тут він не вживався. */
 const LIMIT = has("--all") ? Infinity : Number(arg("--limit", 120));
 const WANT = arg("--status", "recheck");
 const OUT = arg("--json", "");
 if (!BOOK) { console.error("треба --book <slug>"); process.exit(2); }
 
-const mf = BOOKDIR ? path.join(BOOKDIR, "manifest.json") : null;
-if (!mf || !fs.existsSync(mf)) { console.error("нема маніфесту книги «" + BOOK + "» у root/"); process.exit(2); }
+const BOOKDIR = _M7.bookDirOf(BOOK);                                 // v7: вид випливає з книги
+if (!BOOKDIR) { console.error("нема книги «" + BOOK + "» у root/ — перевір слуг (root/shelf.json)"); process.exit(2); }
+const mf = path.join(BOOKDIR, "manifest.json");
 
-const sb = {};
-new Function("window", fs.readFileSync(mf, "utf8"))(sb);
-const m = ((sb.__GUIDES__ || []).length ? sb.__GUIDES__ : sb.__BOOKS__ || [])[0];
-if (!m) { console.error("маніфест не зареєстрував книгу: " + mf); process.exit(2); }
-
-/* guide тримає кроки в modules→chapters→steps, решта — у sections→topics */
-const rows = [];
-if (m.modules) {
-  for (const mod of m.modules) for (const ch of mod.chapters || []) for (const st of ch.steps || [])
-    if (st.slug) rows.push({ section: mod.slug, t: st });
-} else {
-  for (const s of m.sections || []) for (const t of s.topics || []) rows.push({ section: s.slug, t });
-}
+/* v7: маніфест — JSON, розбирає його manifest7. Доти тут стояло `new Function(window, …)`
+   над файлом як над .js із `window.__BOOKS__`, а далі розбір форм v6 (modules→chapters→steps
+   для курсу, sections→topics для решти). На JSON перше кидає SyntaxError, тож до другого
+   не доходило ніколи. Групи й розділи тепер однакові для ВСІХ видів — розгалуження зникло. */
+const _book = _M7.loadBook(BOOKDIR);
+if (!_book) { console.error("нема маніфесту книги: " + mf); process.exit(2); }
+const rows = _M7.allTopics(_book).filter((t) => t.own).map((t) => ({ section: t.group, t: t.node }));
 
 /* ── режим операцій: recheck → done для названих слугів ───────────────────── */
 if (has("--ops-done")) {
@@ -87,8 +85,11 @@ const queue = [], ghosts = [], other = [];
 for (const { section, t } of rows) {
   const d = (t.detailed || {}).status, b = (t.basic || {}).status;
   if (d !== WANT && b !== WANT) { other.push(t.slug); continue; }
-  const rel = `${BOOKDIR}/${t.slug}`;
-  const abs = path.join(ROOT, rel);
+  /* BOOKDIR тепер АБСОЛЮТНИЙ (його дає manifest7), тож ROOT удруге не приклеюємо —
+     доти виходило «<ROOT>\<ROOT>\root\…», тека не знаходилась, і КОЖНА тема падала
+     в ghosts як «запис є, тексту нема». */
+  const abs = path.join(BOOKDIR, t.slug);
+  const rel = path.relative(ROOT, abs).replace(/\\/g, "/");
   /* тека без жодного .md — це запис у маніфесті без тексту, ревізувати нічого */
   const written = fs.existsSync(abs) && fs.readdirSync(abs).some((f) => f.endsWith(".md"));
   (written ? queue : ghosts).push({ rel, slug: t.slug, section, detailed: d, basic: b });

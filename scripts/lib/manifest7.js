@@ -15,6 +15,8 @@
      root/<вид>/<книга>/<група>.json      { schema:7, kind, book, slug, title, scope,
                                             chapters:[ {slug,title,topics:[…]} ],
                                             megachapters?:[{title,chapters:[слуг…]}] }
+                                            ⚠️ megachapters поки НЕ рендериться — відкладений
+                                            пункт B6 у CANON-v7-apply.md; жодна книга його не вживає.
      root/<вид>/<книга>/<тема>/           тека теми — ПЛАСКО під книгою
 
    Тема в маніфесті — або власна:

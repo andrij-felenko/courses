@@ -1,3 +1,7 @@
+/* ⚠️ ЛЕГАСІ КАМПАНІЇ RECHECK (завершена 2026-07-25). Читає ПРИБРАНЕ дерево v6
+   (book/ + guide/ + catalog/ + manifest.js із window.__BOOKS__), тож на дереві v7
+   не працює — не запускай, доки не переписано. Живий конвеєр ревізії сьогодні:
+   review-batch.js → review-queue.js → review-apply.js. */
 export const meta = {
   name: 'recheck-batch',
   description: 'RECHECK-кампанія за новим каноном. Батч N тем зі статусом recheck. ФАЗИ: (1) Скаут recheck; (2) Оцінка — 1 sonnet-high агент НА ТЕМУ (ПОВНІ інлайн-правила, AUTHORING НЕ читає — дешево) читає basic+detailed+вставки, збирає механіку через Bash (wordcount, orphan-grep) і судить за новими правилами 2.1–2.6; (3) Дія у 3 ВИДИМІ етапи: ПЕРЕНОС (sonnet — ЛИШЕ git mv basic→detailed/proj→api; стаття вже повна, контент НЕ переписуємо — дешево) · НАПИСАННЯ DETAIL (opus-max — нова/переписана детальна + math→стаття/rewrite вставок; читає AUTHORING) · НАПИСАННЯ BASIC (opus-max — нова коротка базова); осиротілі вставки лишаємо в банері; (4) Маніфест — recheck→done, нове→pending/done, перенесене перереєструвати; (5) Лінки — накопичити зміни у scripts/_recheck-linkchanges-<book>.json (застосуємо ОКРЕМИМ фінальним проходом по ВСІХ батчах). Пул CONCURRENCY(=4) одночасно. args = {book, kind?:"book"|"catalog"|"guide", limit?:30, concurrency?, stagger?, units?, insertsOnly?}',

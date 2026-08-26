@@ -1,4 +1,4 @@
-# Writing Canon v6 (single canon for all books)
+# Writing Canon — rules v6, tree v7 (single canon for all books)
 
 > Rules are in English; article/insert OUTPUT is written in **Ukrainian** (see §4 «Living Ukrainian»).
 
@@ -150,7 +150,7 @@ Check test: if versions from different manufacturers would need **different arti
 root/<kind>/<book>/manifest.json     { schema:7, kind, slug, title, groups:[slug…] }
 root/<kind>/<book>/<group>.json      { schema:7, kind, book, slug, title, scope,
                                        chapters:[ {slug, title, topics:[…]} ],
-                                       megachapters?:[{title, chapters:[slug…]}] }
+                                       megachapters?:[{title, chapters:[slug…]}] }   ← NOT rendered yet
 ```
 
 A topic inside a chapter is **either its own**, or a **pointer** to someone else's (courses only):

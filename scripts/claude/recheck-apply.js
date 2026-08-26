@@ -1,3 +1,7 @@
+/* ⚠️ ЛЕГАСІ КАМПАНІЇ RECHECK (завершена 2026-07-25). Читає ПРИБРАНЕ дерево v6
+   (book/ + guide/ + catalog/ + manifest.js із window.__BOOKS__), тож на дереві v7
+   не працює — не запускай, доки не переписано. Живий конвеєр ревізії сьогодні:
+   review-batch.js → review-queue.js → review-apply.js. */
 /* scripts/claude/recheck-apply.js — застосовує рішення воркфлоу до book-маніфестів (статуси topic+вставок, levels).
    Запуск:  node scripts/claude/recheck-apply.js <runFile.js> <output.json>
      runFile  — scripts/claude/recheck-run.js (EMBED.topics: [{book,section,slug,inserts}], у ТОМУ Ж порядку, що й reports)

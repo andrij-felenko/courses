@@ -1,3 +1,7 @@
+/* ⚠️ ЛЕГАСІ КАМПАНІЇ RECHECK (завершена 2026-07-25). Читає ПРИБРАНЕ дерево v6
+   (book/ + guide/ + catalog/ + manifest.js із window.__BOOKS__), тож на дереві v7
+   не працює — не запускай, доки не переписано. Живий конвеєр ревізії сьогодні:
+   review-batch.js → review-queue.js → review-apply.js. */
 /* scripts/recheck-index.js — допоміжник для recheck-аудиту.
    Парсить усі book/<book>/manifest.js і друкує JSON:
      { index:   { <book>: [<slug>, ...], ... },           // усі наявні slug-и (для валідації book:-лінків)
