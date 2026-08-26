@@ -116,7 +116,6 @@ html[data-theme="night"] {
 /* ── Панель кнопок читача: ЗАВЖДИ згорнута в «шестерню» (top-right).
    Клік → модальна картка кнопок над напівпрозорим фоном; ніколи не накладається на текст шапки. ── */
 #reader-controls {
-  position: fixed; top: 0.6rem; right: 1rem; z-index: 400;
   display: flex; flex-direction: row-reverse; align-items: center; gap: 0.4rem;   /* шестерня праворуч, панель розкривається ВЛІВО */
 }
 #reader-controls > #theme-btn,
@@ -127,6 +126,7 @@ html[data-theme="night"] {
 #reader-controls > #controls-toggle { position: static; top: auto; right: auto; }
 #reader-controls > :not(#controls-toggle) { display: none; }                 /* решта — сховані, доки не відкрито */
 #reader-controls.open {                                                       /* відкрито → картка над фоном */
+  position: absolute; right: 0; top: 50%; transform: translateY(-50%); z-index: 400;
   padding: 0.45rem; border-radius: 12px;
   background: var(--bg); border: 1px solid var(--border); box-shadow: var(--shadow-lg);
 }
@@ -317,18 +317,56 @@ body {
 @media (max-width: 680px) { #reader-controls #sidebar-toggle { display: none !important; } }   /* на вузькому — шухляда (☰), тумблер сайдбару не потрібен навіть у панелі */
 
 /* ─── Chapter header ────────────────────────────────────────────────────── */
+/* Шапка — СІТКА з трьох комірок: навігація | назва | інструменти (складає chrome.js).
+   Комірки не можуть накластися одна на одну за побудовою, тож ні відступів-компенсацій
+   під кнопки, ні position:absolute для них тут немає — саме ці два прийоми й розходилися
+   між собою щоразу, коли мінялася ширина, вид шапки або те, хто її намалював. */
 .ch-header {
   position: sticky; top: 0; z-index: 80;   /* липка панель — в УСІХ статтях (книги/каталог/власні статті курсу) */
   background: linear-gradient(135deg, #09192e 0%, #0f2744 40%, #1d4e8a 100%);
-  height: var(--topbar-h);   /* ТОЧНА висота = смуга кнопок; однакова в затишній і компактній */
-  display: flex; flex-direction: row; align-items: center; gap: 0.9rem;   /* текст ліворуч, перемикач версій праворуч */
-  padding: 0 4rem 0 4rem;   /* права — щоб текст/перемикач не заїжджали під кнопки-«шестерню» */
+  min-height: var(--topbar-h);   /* ТОЧНА висота = смуга кнопок; однакова в затишній і компактній */
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center;
+  column-gap: 0.9rem; padding: 0 0.85rem;
   color: #fff;
-  transition: padding-left 0.2s ease;   /* мобільне: ← їде геть → назва займає звільнене місце */
 }
-.ch-head-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; justify-content: center; }   /* займає простір, назва обрізається … */
-/* Обкладинки/лендинги (без .ch-head-main і без перемикача) — заголовок стовпчиком, як було */
-.ch-header.ch-header-guide { flex-direction: column; align-items: flex-start; gap: 0; }
+.ch-head-nav { display: flex; align-items: center; gap: 0.4rem; }
+/* Панель назви клікабельна — розкриває драбину шляху (chrome.js) */
+.ch-head-main { cursor: pointer; border-radius: 8px; padding: 0.15rem 0.45rem; margin-left: -0.45rem; transition: background 0.15s; }
+.ch-head-main:hover { background: rgba(255, 255, 255, 0.09); }
+.ch-header-book .ch-head-main:hover { background: rgba(0, 0, 0, 0.055); }
+.ch-head-main::after {
+  content: "⌄"; position: absolute; opacity: 0; pointer-events: none;   /* показ лише на наведення */
+}
+.ch-head-main[aria-expanded="true"] { background: rgba(255, 255, 255, 0.13); }
+
+/* ── Драбина: усі рівні над поточним, кожен клікабельний ─────────────────
+   Випадає з-під шапки, тож у самому рядку не займає ані пікселя. */
+.ch-ladder {
+  position: sticky; top: var(--topbar-h); z-index: 79;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-lg); padding: 0.7rem 0.85rem 0.85rem;
+}
+.ch-ladder-list { list-style: none; margin: 0; padding: 0; }
+.chl-step { padding-left: calc(var(--d) * 1.25rem); }
+.chl-link {
+  display: flex; align-items: baseline; gap: 0.55rem; padding: 0.32rem 0.5rem;
+  border-radius: 8px; text-decoration: none; color: var(--text);
+  border-left: 2px solid transparent;
+}
+a.chl-link:hover { background: var(--bg-alt); border-left-color: var(--accent); color: var(--accent); }
+.chl-link.is-here { color: var(--muted); cursor: default; }
+.chl-kind {
+  flex: none; min-width: 4.6rem; font-size: 0.66rem; font-weight: 800;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+}
+.chl-ttl { font-weight: 700; line-height: 1.3; }
+.chl-link.is-here .chl-ttl { font-weight: 800; }
+@media (max-width: 680px) {
+  .chl-step { padding-left: calc(var(--d) * 0.7rem); }
+  .chl-kind { min-width: 3.6rem; font-size: 0.6rem; }
+}
+.ch-head-tools { position: relative; display: flex; align-items: center; gap: 0.4rem; justify-self: end; }
+.ch-head-main { min-width: 0; display: flex; flex-direction: column; justify-content: center; }   /* назва обрізається … */
 .ch-label {
   font-size: 0.64rem; font-weight: 800;
   letter-spacing: 0.2em; text-transform: uppercase;
@@ -355,7 +393,7 @@ body {
   background: var(--bg);
   background: color-mix(in srgb, var(--book-accent, #808080) 10%, var(--bg));
   border-bottom: 2px solid var(--book-accent, var(--border));
-  padding: 0 4rem 0 4rem;   /* висота, центрування й рядковий лейаут — з .ch-header */
+  /* висота, відступи й сітка комірок — з .ch-header; тут лише колір книги */
   color: var(--text);   /* світла панель книги → currentColor перемикача версій темний (не білий з базового .ch-header) */
 }
 .ch-header.ch-header-book .ch-label { color: var(--book-accent, var(--accent)); margin-bottom: 0.1rem; }
@@ -848,37 +886,31 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
 #back-top.vis { display: flex; }
 
 /* ─── Mobile ────────────────────────────────────────────────────────────── */
+/* Меню — ОДНА кнопка з двома станами (☰ показати / ⟨ сховати), теж дитина комірки.
+   Старі «сховати» на краю сайдбару (#sb-hide) і «✕» у шухляді (#sidebar-close)
+   робили ту саму дію з трьох різних місць, і саме вони не сходилися у вирівнюванні. */
 #menu-btn {
-  display: none; position: fixed; top: 0.6rem; left: 0.85rem;
+  display: flex; flex: none;
   width: 2.4rem; height: 2.4rem; align-items: center; justify-content: center;
   background: var(--sidebar-bg); color: #fff; border: none; border-radius: 8px;
-  font-size: 1.2rem; cursor: pointer; z-index: 300;
+  font-size: 1.15rem; line-height: 1; cursor: pointer; box-shadow: var(--shadow);
+  transition: filter 0.15s, transform 0.15s ease;
 }
+#menu-btn:hover { filter: brightness(1.18); transform: translateY(-1px); }
 #scrim { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 90; }
-#sidebar-close { display: none; }   /* ✕ закриття мобільного сайдбару — показ лише на вузькому екрані (нижче) */
+#sidebar-close, #sb-hide { display: none !important; }   /* замінені єдиною кнопкою меню в рядку */
 
 /* ── Кнопка «на рівень вище» (зліва зверху; нема лише в бібліотеці):
    стаття → зміст книги / лендинг курсу; зміст/лендинг → бібліотека ── */
-/* Кнопка живе ВСЕРЕДИНІ .ch-header — absolute у її межах, а не fixed над лейаутом.
-   Наслідок: позицію кнопки й лівий відступ шапки задають ОДНІ Й ТІ САМІ змінні, тож
-   розійтися вони не можуть (саме на цьому був наїзд на заголовок: кнопці треба було
-   52px, а шапка на ≤980px лишала 40px). Прив'язки до --sidebar-w більше немає — тому
-   сховане меню, мобільна шухляда й вузькі екрани не потребують власних чисел. */
-.ch-header { --up-left: 0.75rem; --up-w: 2.4rem; --up-gap: 0.8rem; }
+/* Кнопка — звичайна дитина комірки навігації. Ні координат, ні z-index, ні
+   компенсаційного відступу в шапці: місце під неї виділяє сама сітка. */
 #up-btn {
-  width: var(--up-w, 2.4rem); height: 2.4rem; display: flex; align-items: center; justify-content: center;
+  width: 2.4rem; height: 2.4rem; flex: none; display: flex; align-items: center; justify-content: center;
   background: var(--sidebar-bg); color: #fff; border-radius: 8px; text-decoration: none;
-  font-size: 1.15rem; line-height: 1; box-shadow: var(--shadow); overflow: hidden;
-  transition: filter 0.15s, transform 0.2s ease, opacity 0.16s ease, width 0.2s ease;
+  font-size: 1.15rem; line-height: 1; box-shadow: var(--shadow);
+  transition: filter 0.15s, transform 0.15s ease, opacity 0.16s ease;
 }
-#up-btn:not(.in-head) {          /* запасний шлях: сторінка, де шапки немає */
-  position: fixed; top: 0.6rem; left: calc(var(--sidebar-w) + 0.85rem); z-index: 300; width: 2.4rem;
-}
-#up-btn.in-head { position: absolute; left: var(--up-left); top: 50%; transform: translateY(-50%); z-index: 2; }
-.ch-header:has(> #up-btn.in-head) { padding-left: calc(var(--up-left) + var(--up-w) + var(--up-gap)); }
-#up-btn:hover { filter: brightness(1.18); }
-#up-btn:not(.in-head):hover { transform: translateY(-1px); }
-#up-btn.in-head:hover { transform: translateY(-50%) scale(1.07); }
+#up-btn:hover { filter: brightness(1.18); transform: translateY(-1px); }
 
 /* ── «Сховати меню» — кнопка на самому сайдбарі (широкий екран; на вузькому це робить ✕) ── */
 #sb-hide {
@@ -888,12 +920,8 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
   font-size: 1.05rem; line-height: 1; cursor: pointer; transition: background 0.15s;
 }
 #sb-hide:hover { background: rgba(255,255,255,0.24); color: #fff; }
-@media (min-width: 681px) {
-  html:not(.sb-hidden) #sb-hide { display: flex; }
-  #sidebar .sb-home { padding-right: 3.4rem; }        /* місце під кнопку «сховати» */
-  html.sb-hidden #menu-btn { display: flex; }         /* меню сховане → ☰ повертає його */
-  html.sb-hidden .ch-header { --up-left: 3.6rem; }    /* меню сховане → ☰ ліворуч, ← стає за ним */
-}
+/* Кнопка меню стоїть у рядку завжди й на всіх ширинах — місця під неї шукати не треба,
+   тож ні «місце під ✕» у сайдбарі, ні окремі числа для схованого меню більше не потрібні. */
 
 /* ── Попап «прочитано/непрочитано» (затиснути або правий клік на лінку статті) ── */
 .read-pop {
@@ -910,33 +938,18 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
 
 @media (max-width: 980px) {
   :root { --sidebar-w: 256px; }
-  .ch-header, .sec, .hist-art-header, .cover-hero, .toc { padding-left: 2.5rem; padding-right: 2.5rem; }
-  .ch-header { padding-right: 4rem; }   /* права лишається під «шестерню» + перемикач версій */
+  .sec, .hist-art-header, .cover-hero, .toc { padding-left: 2.5rem; padding-right: 2.5rem; }
 }
 @media (max-width: 680px) {
   #sidebar { transform: translateX(-100%); transition: transform 0.25s; width: 84%; max-width: 320px; }
   #sidebar.open { transform: translateX(0); }
   #sidebar.open ~ #scrim { display: block; }
   #content { margin-left: 0; }
-  #menu-btn { display: flex; }
-  /* сайдбар відкрито → ☰ ховаємо, показуємо ✕ праворуч угорі панелі (не зліва, не перекриває текст) */
-  #sidebar-close {
-    position: fixed; top: 0.6rem; left: min(calc(84vw - 2.9rem), 273px); z-index: 310;
-    width: 2.4rem; height: 2.4rem; align-items: center; justify-content: center;
-    border: none; border-radius: 8px; background: var(--sidebar-hover, rgba(255,255,255,0.16)); color: #fff;
-    font-size: 1.05rem; line-height: 1; cursor: pointer; box-shadow: var(--shadow);
-  }
-  body:has(#sidebar.open) #menu-btn { display: none; }
-  body:has(#sidebar.open) #sidebar-close { display: flex; }
-  #sidebar .sb-home { padding-right: 3rem; }   /* лишити місце під ✕ */
-  .ch-header { --up-left: 3.6rem; }                    /* ліворуч фіксоване ☰ — ← стає за ним */
-  body:has(#sidebar.open) #up-btn { display: none; }   /* шухляду відкрито — не плутати з ✕ */
-  body:has(#sidebar.open) .ch-header { --up-w: 0rem; --up-gap: 0rem; }
-  /* ← ховається, поки читач гортає вниз (кнопка потрібна не під час читання, а коли збираєшся вийти):
-     повертається на гортанні вгору й біля самого верху сторінки. Клас вішає topchrome.js.
-     Разом із кнопкою зменшується лівий відступ шапки — назві статті дістається більше рядка. */
-  body.up-hidden #up-btn { opacity: 0; pointer-events: none; }
-  body.up-hidden .ch-header { --up-w: 0rem; --up-gap: 0rem; }   /* кнопка поїхала — відступ стискається САМ */
+  /* ← ховається, поки читач гортає вниз: кнопка потрібна не під час читання, а коли
+     збираєшся вийти. Клас вішає topchrome.js. У сітці досить прибрати саму кнопку —
+     комірка стискається сама, і назві дістається більше рядка. */
+  body.up-hidden #up-btn { display: none; }
+  .ch-header { column-gap: 0.6rem; padding: 0 0.6rem; }
   .ch-header h1 { font-size: 1.15rem; }
   .cover-hero { padding: 4rem 1.4rem 2.5rem; }
   .cover-hero h1 { font-size: 1.95rem; }
@@ -1026,7 +1039,9 @@ html[data-libview="tabs"] .lib-hero-nums { display: none; }
 html[data-libview="one"] .lib-seg { display: none; }
 
 .lib-shelf {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 1.6rem;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 1.2rem;
+  /* поля навколо сітки: без них картки впираються в самі краї вікна */
+  padding: 1.5rem 1.6rem 2.5rem; max-width: 1240px; margin: 0 auto;
 }
 .lib-shelf.shelf-in { animation: shelf-in 0.18s ease; }
 @keyframes shelf-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
@@ -1088,6 +1103,159 @@ html[data-libview="one"] .lib-seg { display: none; }
 .lib-card-cat .lib-cover-ttl, .lib-card-cat .lib-kind { position: relative; z-index: 1; }
 .lib-card-cat .lib-kind { position: absolute; }
 .lib-card-cat .lib-cta { color: var(--accent); }
+
+/* ── КАРТКА: одна форма на вид · збірку · книгу · том ────────────────────
+   Заливка тла = відсоток написаного: стан видно периферійним зором, окремої
+   смужки не треба. Праворуч знак книги — щоб її впізнавали в лице. Унизу один
+   рядок: ліворуч склад, праворуч «написано / усього» через скісну. */
+.lib-card {
+  position: relative; display: flex; flex-direction: column;
+  padding: 0.75rem 0.95rem 0.6rem;   /* висоту задає вміст: порожнього місця не тримаємо */
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--border));
+  border-left: 4px solid var(--accent);
+  border-radius: 12px; overflow: hidden;
+  /* Тло — власний відтінок книги, але лише 9% від нього: полиця має розрізнятися,
+     а не рябіти. Заливка прогресу лягає зверху тим самим кольором іще на 12%. */
+  background: color-mix(in srgb, var(--accent) 9%, var(--bg-alt));
+  text-decoration: none; color: inherit; box-shadow: var(--shadow);
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+.lib-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
+.lc-fill {
+  position: absolute; inset: 0 auto 0 0; width: calc(var(--p, 0) * 1%);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  transition: width 0.3s ease;
+}
+.lib-card > *:not(.lc-fill) { position: relative; z-index: 1; }
+/* Назва і знак — один рядок: знак не позиціюється координатами, а стоїть у флексі
+   й центрується проти назви. Кикера над назвою немає — вид уже названо в крихтах. */
+/* Місце під назву — ЗАВЖДИ два рядки, скільки б вона не займала насправді. Так
+   картки в ряду не стрибають, однорядкова назва стоїть по центру відведеного, а
+   знак центрується проти тієї самої середньої лінії — без прив'язки до кількості рядків. */
+.lc-head {
+  display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.45rem;
+  min-height: calc(1.35rem * 1.14 * 2);
+}
+/* Знак стоїть на власній підкладці кольору сторінки: на будь-якому відтінку картки
+   він лишається чітко видним, а не тоне в тлі. */
+.lc-ico {
+  flex: none; font-size: 1.35rem; line-height: 1;
+  width: 2.3rem; height: 2.3rem; display: flex; align-items: center; justify-content: center;
+  background: var(--bg); border: 1px solid color-mix(in srgb, var(--accent) 26%, var(--border));
+  border-radius: 10px; box-shadow: 0 1px 2px rgba(10, 20, 30, 0.1);
+}
+.lc-ttl {
+  flex: 1 1 auto; min-width: 0; margin: 0;   /* нуль, інакше відступ зсуває назву проти знака */
+  font-size: 1.35rem; font-weight: 600; line-height: 1.14; letter-spacing: -0.01em;
+}
+.lc-desc {
+  margin: 0; font-size: 0.79rem; line-height: 1.45; color: var(--muted);
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;
+}
+.lc-foot {
+  margin-top: auto; padding-top: 0.75rem;   /* auto тримає рядок унизу, коли грид тягне картку до сусідньої */
+  /* Лінії над рядком немає навмисно: вона не доходила до країв картки й читалася
+     як артефакт, а не як поділ. Відділяє відступ. */
+  display: flex; align-items: baseline; justify-content: space-between; gap: 0.8rem;
+  font-size: 0.76rem; color: var(--muted);
+}
+.lc-right { font-weight: 800; color: var(--text); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.lib-card-group { border-left-width: 6px; }
+.lib-card-group .lc-kicker { color: var(--text); opacity: 0.6; }
+
+/* ── Рівень 0: плитки полиць ─────────────────────────────────────────────
+   Заміна сегмент-контролу. Грид, що переноситься сам, тож скільки б полиць не
+   стало, ламатися нема чому: підсвічувати активну не треба — вибір веде в рівень. */
+.lib-tiles {
+  display: grid; gap: 0.85rem; margin: 0 0 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+}
+.lib-tile {
+  display: grid; grid-template-columns: auto 1fr; align-items: center;
+  column-gap: 0.85rem; row-gap: 0.25rem; padding: 1rem 1.1rem;
+  border: 1px solid var(--border); border-left: 4px solid var(--accent);
+  border-radius: 12px; background: var(--bg-alt); text-decoration: none; color: inherit;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+.lib-tile:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
+.lib-tile-ico { font-size: 1.7rem; line-height: 1; grid-row: span 2; }
+.lib-tile-txt { display: flex; flex-direction: column; min-width: 0; }
+.lib-tile-ttl { font-weight: 800; font-size: 1.05rem; }
+.lib-tile-ask { font-size: 0.82rem; color: var(--muted); line-height: 1.35; }
+.lib-tile-num {
+  grid-column: 2; justify-self: start; margin-top: 0.15rem;
+  font-size: 0.74rem; font-weight: 700; letter-spacing: 0.03em;
+  color: var(--accent); text-transform: uppercase;
+}
+
+/* ── Верхній рядок бібліотеки ────────────────────────────────────────────
+   Те саме правило, що в читачі: кнопки живуть у комірці рядка, а не висять
+   `fixed` над вмістом. Було чотири кнопки з ручними відступами справа
+   (1rem / 3.9 / 6.8 / 9.7) — вони лягали просто на крихти. */
+.lib-topbar {
+  position: sticky; top: 0; z-index: 120;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center;
+  column-gap: 0.8rem; min-height: var(--topbar-h); padding: 0 1.1rem;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+}
+.lib-topbar .lib-crumbs { margin: 0; }
+.lib-tools { display: flex; align-items: center; gap: 0.4rem; }
+.lib-tools > #view-btn, .lib-tools > #search-btn,
+.lib-tools > #density-btn, .lib-tools > #theme-btn {
+  position: static; top: auto; right: auto; flex: none;
+}
+
+/* ── ТОМ КУРСУ = КНИГА ───────────────────────────────────────────────────
+   Той самий рівень, що збірка в бібліотеці: курс показує список томів, том
+   відкриває свою доріжку. Доти курс вивалював усі кроки одним полотном. */
+.vol-grid {
+  display: grid; gap: 0.85rem; padding: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  max-width: 1060px; margin: 0 auto;
+}
+.vol-card {
+  display: grid; gap: 0.3rem; padding: 1.1rem 1.2rem;
+  border: 1px solid var(--border); border-left: 4px solid var(--accent);
+  border-radius: 12px; background: var(--bg-alt); text-decoration: none; color: inherit;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+.vol-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
+.vol-num { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+.vol-ttl { font-size: 1.12rem; font-weight: 800; line-height: 1.22; }
+.vol-meta { font-size: 0.82rem; color: var(--muted); }
+.vol-bar { display: block; height: 4px; border-radius: 2px; background: var(--border); overflow: hidden; margin-top: 0.35rem; }
+.vol-bar > span { display: block; height: 100%; background: var(--accent); }
+.vol-done { font-size: 0.78rem; color: var(--muted); }
+.vol-done b { color: var(--text); }
+.vol-back { display: inline-flex; margin: 1.2rem 0 0 1.5rem; }
+
+/* Крихти — де ви зараз; вони ж шлях назад на будь-який рівень */
+.lib-crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; margin: 0 0 1rem; font-size: 0.86rem; }
+.lib-crumb { color: var(--muted); text-decoration: none; font-weight: 600; }
+.lib-crumb:hover { color: var(--accent); text-decoration: underline; }
+.lib-crumb.is-here { color: var(--text); font-weight: 800; }
+.lib-crumb-sep { color: var(--border); }
+.lib-hero-sub { padding-top: 0.5rem; }
+.lib-subhead { margin: 1.2rem 0 0.6rem; font-weight: 800; font-size: 0.95rem; color: var(--muted); letter-spacing: 0.02em; }
+
+/* Картка НАДКНИГИ (збірки книг) — та сама плитка, але з «стосом» під обкладинкою:
+   видно, що всередині ще список, а не стаття. Рівень збірки — той самий грид полиці. */
+.lib-card-group { border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); }
+.lib-card-group .lib-cover { position: relative; background: linear-gradient(140deg, var(--accent), color-mix(in srgb, var(--accent) 30%, #10161f) 125%); }
+.lib-card-group .lib-cover::after {
+  content: ""; position: absolute; left: 0.7rem; right: 0.7rem; bottom: -0.42rem; height: 0.42rem;
+  border-radius: 0 0 9px 9px; background: color-mix(in srgb, var(--accent) 52%, #0b1017); opacity: 0.8;
+}
+.lib-card-group .lib-cta { color: var(--accent); }
+/* Полиця має власний display:grid, а він сильніший за браузерне правило для [hidden],
+   тож без цього рядка полиця й розгорнута збірка малювалися б одна під одною. */
+.lib-shelf[hidden], .lib-level[hidden], .lib-sect-head[hidden] { display: none; }
+.lib-back {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  margin: 0 0 0.85rem; font-weight: 700; text-decoration: none;
+  color: var(--muted); transition: color 0.15s;
+}
+.lib-back:hover { color: var(--fg); text-decoration: underline; }
 
 /* Кнопка вигляду бібліотеки (вкладки ⇄ одна сторінка) — у правому кластері */
 #view-btn {

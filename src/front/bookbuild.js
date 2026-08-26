@@ -136,6 +136,37 @@
 
   /* ── Лендинг курсу: впорядкована доріжка (Група·Розділ·Крок за порядком у маніфесті).
      Крок `ref` → вказівник на тему іншої книги; крок `slug` → власна стаття курсу. ── */
+  /* Бейдж кроку називає книгу, з якої взято тему. Слуг (`math-numeric`) читачеві
+     нічого не каже, тож ставимо українську назву, а коли книга входить у збірку —
+     «Збірка: Книга» через двокрапку. Назва лежить у manifest.json книги, а збірка —
+     у shelf.json; тягнемо лише ті книги, на які курс справді посилається, і лише раз. */
+  var _nameCache = {};
+  function fillBookNames(host) {
+    var badges = [].slice.call(host.querySelectorAll(".gs-subj[data-book]"));
+    if (!badges.length) return;
+    var want = {};
+    badges.forEach(function (e) { want[e.getAttribute("data-book")] = 1; });
+    loadShelf().then(function (sh) {
+      var inGroup = {}, dirOf = {};
+      ((sh && sh.kinds) || []).forEach(function (k) {
+        (k.books || []).forEach(function (s) { dirOf[s] = k.dir; });
+        (k.groups || []).forEach(function (g) { (g.books || []).forEach(function (s) { inGroup[s] = g.title; }); });
+      });
+      return Promise.all(Object.keys(want).map(function (slug) {
+        if (_nameCache[slug]) return null;
+        if (!dirOf[slug]) { _nameCache[slug] = slug; return null; }   // книга ще не переїхала — лишаємо слуг
+        return fetchJSON(CONTENT + dirOf[slug] + "/" + slug + "/manifest.json")
+          .then(function (m) { _nameCache[slug] = (inGroup[slug] ? inGroup[slug] + ": " : "") + (m.title || slug); })
+          .catch(function () { _nameCache[slug] = slug; });
+      }));
+    }).then(function () {
+      badges.forEach(function (e) {
+        var n = _nameCache[e.getAttribute("data-book")];
+        if (n) { e.textContent = n; e.title = e.getAttribute("data-book"); }
+      });
+    }).catch(function () {});
+  }
+
   function renderGuide(b) {
     var host = document.getElementById("content"), sb = document.getElementById("sidebar");
     if (!b) { if (host) host.innerHTML = '<div class="state error">Курс не знайдено</div>'; return; }
@@ -179,6 +210,46 @@
       return false;
     }
 
+    /* ── ТОМ = КНИГА КУРСУ ────────────────────────────────────────────────
+       Той самий рівень, що збірка в бібліотеці: курс показує СПИСОК томів, том
+       відкриває свою доріжку. Доти курс вивалював усі кроки одним полотном —
+       у `embedded` це 2411 рядків на сторінку, де жоден том не видно як ціле.
+       Рівень тримає адреса: «#vol=<слуг>»; без неї — список. */
+    function curVol() {
+      var m = /(?:^|[#&])vol=([^&]+)/.exec(location.hash || "");
+      return m ? decodeURIComponent(m[1]) : "";
+    }
+    function volSlug(m, mi) { return m.slug || String(mi + 1); }
+    function volStats(m, written) {
+      var st = { chap: 0, steps: 0, wr: 0, rd: 0 };
+      (m.chapters || []).forEach(function (c) {
+        if (c.title) st.chap++;
+        (c.topics || []).forEach(function (s) {
+          if (!(s.ref || s.slug)) return;
+          st.steps++;
+          if (isWritten(s, written)) st.wr++;
+          if (READ.has(s.ref ? refKey(s) : (b.bookSlug + "/" + s.slug))) st.rd++;
+        });
+      });
+      return st;
+    }
+    function volCard(m, mi, written) {
+      var st = volStats(m, written), pct = st.steps ? Math.round(st.wr / st.steps * 100) : 0;
+      /* Опис тому — його ж розділи: власного тексту в томі немає, а перелік
+         розділів каже про зміст точніше за будь-який підсумок. */
+      var chaps = (m.chapters || []).map(function (c) { return c.title; }).filter(Boolean);
+      return '<a class="lib-card lib-card-course" href="#vol=' + encodeURIComponent(volSlug(m, mi)) +
+        '" style="--accent:' + (b.accent || "#1d6fa4") + ';--p:' + pct + '">' +
+        '<span class="lc-fill" aria-hidden="true"></span>' +
+        '<div class="lc-head"><h3 class="lc-ttl">' + _esc(m.title) + '</h3>' +
+        '<span class="lc-ico" aria-hidden="true">' + (mi + 1) + '</span></div>' +
+        '<p class="lc-desc">' + _esc(chaps.join(" · ")) + '</p>' +
+        '<div class="lc-foot"><span class="lc-left">' + (st.chap ? "розділів " + st.chap + " · " : "") +
+        "тем " + st.steps + (st.rd ? " · прочитано " + st.rd : "") + '</span>' +
+        '<span class="lc-right">' + st.wr + ' / ' + st.steps + '</span></div></a>';
+    }
+
+
     function paint(written) {
       var nWritten = 0, nArt = 0, nRead = 0;
       mods.forEach(function (m) { (m.chapters || []).forEach(function (c) { (c.topics || []).forEach(function (s) {
@@ -196,7 +267,7 @@
           var rd = READ.has(bk + "/" + top) ? " read" : "";
           return '<li class="guide-step' + (w ? '' : ' soon') + rd + '"><a href="read.html?course=' + encodeURIComponent(b.bookSlug) + '&book=' + encodeURIComponent(bk) + '#ch=' + encodeURIComponent(top) + '">' +
             '<span class="gs-num">' + kn + '</span><span class="gs-ico">📖</span><span class="gs-ttl">' + _esc(s.title || top) + '</span>' +
-            (w ? '<span class="gs-subj">' + _esc(bk) + '</span>' : '<span class="gs-soon">незабаром</span>') + '</a></li>';
+            (w ? '<span class="gs-subj" data-book="' + _esc(bk) + '">' + _esc(bk) + '</span>' : '<span class="gs-soon">незабаром</span>') + '</a></li>';
         }
         if (s.slug) {
           var rdo = READ.has(b.bookSlug + "/" + s.slug) ? " read" : "";
@@ -216,20 +287,43 @@
         '<div class="stat stat-written"><div class="num">' + nWritten + '<span class="stat-of"> / ' + nArt + '</span></div><div class="lbl">написано</div></div>' +
         '<div class="stat"><div class="num">' + nRead + '</div><div class="lbl">прочитано</div></div>' +
         '</div></header><div class="toc guide-toc">';
-      mods.forEach(function (m, mi) {
-        var mn = mi + 1;
-        h += '<div class="module-block" id="gm-' + mn + '"><div class="module-head"><span class="m-num">' +
-          _esc(cap(W.group || "Том")) + ' ' + mn + '</span><span class="m-ttl">' + _esc(m.title) + '</span></div>';
-        (m.chapters || []).forEach(function (c, ci) {
-          var cn = mn + "." + (ci + 1);
-          if (c.title) h += '<div class="guide-chap-head"><span class="gc-num">' + cn + '</span><span class="gc-ttl">' + _esc(c.title) + '</span></div>';
-          h += '<ol class="guide-steps">';
-          (c.topics || []).forEach(function (s, si) { h += stepHtml(s, (c.title ? cn : mn) + "." + (si + 1)); });
-          h += '</ol>';
+      var vol = curVol();
+      var shown = mods, listMode = false;
+      if (mods.length > 1) {
+        var pickIdx = -1;
+        mods.forEach(function (m, mi) { if (volSlug(m, mi) === vol) pickIdx = mi; });
+        if (pickIdx < 0) { listMode = true; shown = []; }               // без #vol= — показуємо список томів
+        else shown = [{ m: mods[pickIdx], i: pickIdx }];
+      } else shown = mods.map(function (m, mi) { return { m: m, i: mi }; });
+
+      if (listMode) {
+        h += '<div class="lib-shelf lib-shelf-course vol-grid">' + mods.map(function (m, mi) { return volCard(m, mi, written); }).join("") + '</div>';
+      } else {
+        // У курсі з одним томом рівня списку немає — і повертатися нікуди.
+        if (mods.length > 1) h += '<a class="lib-back vol-back" href="#">← ' + _esc(b.title) + '</a>';
+        shown.forEach(function (x) {
+          var m = x.m, mn = x.i + 1;
+          h += '<div class="module-block" id="gm-' + mn + '"><div class="module-head"><span class="m-num">' +
+            _esc(cap(W.group || "Том")) + ' ' + mn + '</span><span class="m-ttl">' + _esc(m.title) + '</span></div>';
+          (m.chapters || []).forEach(function (c, ci) {
+            var cn = mn + "." + (ci + 1);
+            if (c.title) h += '<div class="guide-chap-head"><span class="gc-num">' + cn + '</span><span class="gc-ttl">' + _esc(c.title) + '</span></div>';
+            h += '<ol class="guide-steps">';
+            (c.topics || []).forEach(function (s, si) { h += stepHtml(s, (c.title ? cn : mn) + "." + (si + 1)); });
+            h += '</ol>';
+          });
+          h += '</div>';
         });
-        h += '</div>';
-      });
-      if (host) host.innerHTML = h + '</div>';
+      }
+      if (host) { host.innerHTML = h + '</div>'; fillBookNames(host); }
+      if (!renderGuide._volWired) {                                     // рівень тому живе в адресі
+        renderGuide._volWired = true;
+        window.addEventListener("hashchange", function () {
+          if (/(^|[#&])ch=/.test(location.hash || "")) return;          // стаття — не наша справа
+          if (curVol() !== paint._vol) paint(written);
+        });
+      }
+      paint._vol = curVol();
       if (sb) {
         var COL = (function () { try { return new Set(JSON.parse(localStorage.getItem("courses-collapsed") || "[]")); } catch (e) { return new Set(); } })();
         var s = '<a class="sb-home" href="index.html">← Бібліотека (усі книги)</a>' +

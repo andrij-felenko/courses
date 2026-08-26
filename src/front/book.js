@@ -82,7 +82,11 @@
 
   /* Книгоподібні види (галузі→статті, без порядку): предметна книга й довідник reference/.
      Каталог і курс рендеряться інакше (обкладинка-доріжка, нумеровані кроки). */
-  function isBookLike() { return BOOK.type === "book" || BOOK.type === "reference"; }
+  /* v7: `type` — це вид зі shelf.json (sci · eng · hw · sys · cat · com · course),
+     а не старі "book"/"reference". Книгоподібне — усе, крім курсу; курс має власну
+     шапку з доріжкою. Доки тут стояли старі назви, умова була ХИБНОЮ для всього
+     корпусу, і компактна світла шапка книги з перемикачем версій не малювалась ніде. */
+  function isBookLike() { return (BOOK.kind || BOOK.type) !== "course"; }
 
   /* ── Прогрес читання: доскролив до низу статті → «прочитано» (localStorage) ── */
   var READ = (function () { try { return new Set(JSON.parse(localStorage.getItem("courses-read") || "[]")); } catch (e) { return new Set(); } })();
@@ -1294,11 +1298,11 @@
     up.setAttribute("href", upHref);
     return up;
   }
+  /* Розстановку кнопок у комірки шапки веде chrome.js — ОДИН власник на всі шляхи
+     рендера (стаття тут, доріжка курсу в bookbuild.js). Тут лишається тільки адреса. */
   function placeUpBtn() {
-    var up = ensureUpBtn();
-    var head = $content.querySelector(".ch-header");
-    if (head) { if (up.parentNode !== head) head.appendChild(up); up.classList.add("in-head"); }
-    else { if (up.parentNode !== document.body) document.body.appendChild(up); up.classList.remove("in-head"); }
+    ensureUpBtn();
+    if (window.__chromeMount) window.__chromeMount();
   }
   function updateUpBtn(view) {
     upHref = (view === "chapter") ? (BOOK.course ? courseHome() : "#") : (BOOK.libraryHref || "index.html");
@@ -1586,10 +1590,7 @@
     var menu = document.getElementById("menu-btn");
     var scrim = document.getElementById("scrim");
     var top = document.getElementById("back-top");
-    if (menu) menu.addEventListener("click", function () { $sidebar.classList.toggle("open"); });
-    if (scrim) scrim.addEventListener("click", closeMobileSidebar);
-    var sclose = document.getElementById("sidebar-close");
-    if (sclose) sclose.addEventListener("click", closeMobileSidebar);
+    // ☰ і затемнення веде chrome.js: одна кнопка на всі ширини, один обробник.
     if (top) {
       top.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
       window.addEventListener("scroll", function () { top.classList.toggle("vis", window.scrollY > 600); });

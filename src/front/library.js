@@ -6,10 +6,12 @@
    на яке вид відповідає (`asks`). Додав вид або книгу в shelf.json — полиця
    зʼявилась тут сама, правити цей файл не треба.
 
-   ДВА вигляди (html[data-libview], перемикач #view-btn, localStorage):
-     "tabs" — сегмент-контрол у hero, видно одну полицю (дефолт);
-     "one"  — усі полиці на одній сторінці з заголовками-«рейками».
-   Рендериться ОДИН DOM: перемикання виглядів — лише CSS + клас .off на секціях.
+   ЧОТИРИ РІВНІ, ОДИН ВИГЛЯД: бібліотека → полиця → збірка → книга. Адреса тримає
+   рівень («#», «#sci», «#sci/physics»), тож Back і перезавантаження працюють самі.
+   Сегмент-контрол прибрано: сім полиць у його однорядкову смугу не вміщалися.
+
+   Кнопка #view-btn лишає другий вигляд — "one": усі полиці на одній сторінці
+   без переходів. Малюємо щоразу заново (draw), а не ховаємо копії DOM.
    ========================================================================== */
 (function () {
   "use strict";
@@ -23,56 +25,206 @@
   /* Оформлення книг — суто фронтова справа (у контенті його нема). Нема запису —
      працює запасний варіант виду, тож нова книга зʼявляється й без правки цих мап. */
   var ICON = {
-    physics: "⚛️", math: "🧮", chemistry: "⚗️", electronics: "🔌", programming: "💻",
-    communications: "📡", algorithms: "🧠", philosophy: "🦉",
-    embedded: "🤖", "embedded-ultra": "⚡", "basic-chemistry": "⚗️", progarch: "🏛️", unix: "🧭",
-    boards: "🧩", connect: "📶", sensors: "🌡️", power: "🔋", actuators: "⚙️", instruments: "🔬", components: "🔩",
-    "unix-linux": "🐧", "cpp-standards": "🧾", python: "🐍", "build-systems": "🔨", "media-vision": "🎞️", qgroundcontrol: "🛰️"
+    /* збірки */
+    physics: "⚛️", math: "🧮", plang: "🔤",
+    /* sci */
+    computability: "♾️", "math-algebra": "🔢", "math-analysis": "📈", "math-combinatorics": "🎲",
+    "math-geometry": "📐", "math-information": "🔣", "math-logic": "⚖️", "math-number-theory": "🔟",
+    "math-numeric": "🧮", "math-probability": "🎯", "ph-condensed": "🧊", "ph-electromagnetism": "🧲",
+    "ph-mechanics": "⚙️", "ph-quantum": "⚛️", "ph-thermodynamics": "🔥", "ph-waves": "🌊",
+    /* eng */
+    "sf-algorithms": "🧠", "sf-apps": "🏛️", "sf-data": "🗄️", "sf-devices": "📟", "sf-distributed": "🕸️",
+    "sf-lang": "🔤", "sf-ml": "🤖", "sf-os": "💽", "sf-release": "🚀", "sf-security": "🔐",
+    "sf-tasks": "🧵", "sf-visual": "🎨", "sf-web": "🌐",
+    /* course */
+    "basic-chemistry": "⚗️", embedded: "🔌", "embedded-ultra": "⚡", progarch: "🏗️", unix: "🧭",
+    /* hw */
+    "hw-analog": "〰️", "hw-arch": "🖥️", "hw-components": "🔩", "hw-digital": "🔳", "hw-motion": "🌀",
+    "hw-pcb": "🟩", "hw-power": "🔋", "hw-sensing": "🌡️",
+    /* sys */
+    "sys-bsystem": "🔨", "sys-dron": "🛰️", "sys-fw": "📦", "sys-ide": "🧰", "sys-media": "🎞️",
+    "sys-notary": "📜", "sys-plang-cpp": "🧾", "sys-plang-python": "🐍", "sys-unix": "🐧",
+    /* cat */
+    "cat-hw-actuators": "🦾", "cat-hw-boards": "🧩", "cat-hw-connect": "📶", "cat-hw-controls": "🎛️",
+    "cat-hw-drivers": "🎚️", "cat-hw-instruments": "🔬", "cat-hw-parts": "🧷", "cat-hw-power": "🔋",
+    "cat-hw-sensors": "🌡️",
+    /* com */
+    "com-devices": "🔗", "com-medium": "📻", "com-modulation": "〽️", "com-protocol": "🤝",
+    "com-signal": "📊", "com-transport": "📮"
   };
+  /* Колір книги — приглушений відтінок за змістом: тепло в термодинаміці, крига
+     в конденсованій, зелень у платі, бурштин у каталозі. Насиченість навмисно
+     низька: тло картки бере лише 9% цього кольору, тож полиця не рябить. */
   var ACCENT = {
-    physics: "#6b5b95", math: "#3a6b9c", chemistry: "#3a8f80", electronics: "#b06a5a", programming: "#5a5f9c",
-    communications: "#4a8296", algorithms: "#a5648a", philosophy: "#9a7b4f",
-    embedded: "#c1683f", "embedded-ultra": "#a8492f", "basic-chemistry": "#2f9e8f", progarch: "#5a6b9c", unix: "#3d8a6b",
-    boards: "#3f7d52", connect: "#3d7d92", sensors: "#c0803a", power: "#b0563f", actuators: "#5f6b8c",
-    instruments: "#3f8a76", components: "#8a7355",
-    "unix-linux": "#3f6b8a", "cpp-standards": "#6b4f8a", python: "#4a7a9c", "build-systems": "#8a6a3f",
-    "media-vision": "#3f8a7a", qgroundcontrol: "#8a4f5f"
+    "physics": "#6a5aa0",
+    "math": "#3f6ba0",
+    "plang": "#5f6b8f",
+    "ph-mechanics": "#5b6f8f",
+    "ph-electromagnetism": "#6a5aa0",
+    "ph-thermodynamics": "#b06a4a",
+    "ph-waves": "#3f8fa0",
+    "ph-quantum": "#7a5fa8",
+    "ph-condensed": "#4f7f9a",
+    "math-algebra": "#3f6ba0",
+    "math-analysis": "#4a7fb0",
+    "math-geometry": "#4f8f86",
+    "math-number-theory": "#3a6098",
+    "math-combinatorics": "#7a6aa8",
+    "math-probability": "#6a8f5f",
+    "math-logic": "#5f6b8f",
+    "math-information": "#4a8296",
+    "math-numeric": "#6f7f9a",
+    "computability": "#8a6a9a",
+    "sf-apps": "#a56a52",
+    "sf-algorithms": "#8f6a9a",
+    "sf-data": "#6a7f9a",
+    "sf-devices": "#9a7a4f",
+    "sf-distributed": "#4f8296",
+    "sf-lang": "#8a6a7a",
+    "sf-ml": "#7a6f9f",
+    "sf-os": "#6b7280",
+    "sf-release": "#a5734f",
+    "sf-security": "#8f5f5f",
+    "sf-tasks": "#5f8f8a",
+    "sf-visual": "#b06a7a",
+    "sf-web": "#4f86a5",
+    "basic-chemistry": "#3f9a8a",
+    "embedded": "#c1683f",
+    "embedded-ultra": "#a8492f",
+    "progarch": "#5a6b9c",
+    "unix": "#3d8a6b",
+    "hw-analog": "#6f8f5f",
+    "hw-arch": "#5f7a8f",
+    "hw-components": "#8a7355",
+    "hw-digital": "#4f8f7a",
+    "hw-motion": "#8f6a4f",
+    "hw-pcb": "#4f8a5f",
+    "hw-power": "#b0653f",
+    "hw-sensing": "#a5853f",
+    "sys-unix": "#4a6070",
+    "sys-plang-cpp": "#6b4f8a",
+    "sys-plang-python": "#4a7a9c",
+    "sys-dron": "#7a5f8f",
+    "sys-bsystem": "#8a6a3f",
+    "sys-ide": "#5f6f8a",
+    "sys-media": "#3f8a7a",
+    "sys-notary": "#7a6a5f",
+    "sys-fw": "#6a7a5f",
+    "cat-hw-sensors": "#b08a3f",
+    "cat-hw-actuators": "#9a6a4f",
+    "cat-hw-boards": "#6f8a4f",
+    "cat-hw-parts": "#8a7355",
+    "cat-hw-connect": "#4f8296",
+    "cat-hw-power": "#b0563f",
+    "cat-hw-controls": "#8f6a8a",
+    "cat-hw-instruments": "#3f8a76",
+    "cat-hw-drivers": "#a5643f",
+    "com-signal": "#4a7f9a",
+    "com-devices": "#5f7a8f",
+    "com-transport": "#4f8a86",
+    "com-modulation": "#6a6f9f",
+    "com-medium": "#3f8296",
+    "com-protocol": "#7a6a9a"
   };
-  var KIND_ICON = { sci: "📚", eng: "🛠️", course: "🎓", hw: "🗂️", sys: "📗" };
-  var KIND_ACCENT = { sci: "#3a6b9c", eng: "#b06a5a", course: "#16a34a", hw: "#5b6b7c", sys: "#4a6070" };
-  var KIND_CTA = { course: "Пройти →", hw: "Відкрити →", sys: "Відкрити →" };
+  var KIND_ICON = { sci: "📚", eng: "🛠️", course: "🎓", hw: "🗂️", sys: "📗", cat: "🏷️", com: "📡" };
+  var KIND_ACCENT = { sci: "#3a6b9c", eng: "#b06a5a", course: "#16a34a", hw: "#5b6b7c", sys: "#4a6070", cat: "#8a6a3f", com: "#4a8296" };
+  var KIND_CTA = { course: "Пройти →", hw: "Відкрити →", sys: "Відкрити →", cat: "Гортати →", com: "Читати →" };
   /* Підпис лічильника груп — множина від words.group (українська множина неправильна,
      тож тримаємо готові форми, а не доклеюємо закінчення). */
-  var KIND_GROUPS = { sci: "Галузі", eng: "Технології", course: "Томи", hw: "Групи", sys: "Модулі" };
+  var KIND_GROUPS = { sci: "Галузі", eng: "Технології", course: "Томи", hw: "Групи", sys: "Модулі", cat: "Родини", com: "Рівні" };
+  /* Українська множина — три форми, за останніми цифрами. */
+  function plural(n, one, few, many) {
+    var a = Math.abs(n) % 100, b = a % 10;
+    if (a > 10 && a < 20) return many;
+    if (b > 1 && b < 5) return few;
+    if (b === 1) return one;
+    return many;
+  }
 
   /* Опис книги береться з її manifest.json (`subtitle`). Тут — лише запасні описи
      для тих, що ще не мають свого; коли subtitle зʼявиться, він переможе. */
   var DESC = {
-    physics: "Як влаштований світ: рух, енергія, поля, кванти.",
-    math: "Мова науки: числа, форми, функції, логіка міркувань.",
-    chemistry: "Речовини, атоми й перетворення — з чого все зроблено.",
-    electronics: "Струм, сигнали, схеми, сенсори — як працює залізо.",
-    programming: "Архітектура, мови, ОС, мережі — як думає машина.",
-    communications: "Хвилі, кодування, протоколи — як передаються дані.",
-    algorithms: "Структури даних, складність, пошук, навчання машин.",
-    philosophy: "Знання, буття, розум і добро — великі питання.",
-    embedded: "Від заряду й струму до власного пристрою: фізика, схемотехніка, мікроконтролери й автономні системи — крок за кроком.",
-    "embedded-ultra": "Ембеддед за два дні: від напруги й транзистора до GPIO, шин, RTOS і OTA. Стислий зріз, без заглиблень.",
-    "basic-chemistry": "Хімія для початківців: від атома й періодичної таблиці до реакцій, розчинів, органіки та розрахунків задач.",
-    progarch: "Архітектура програмних систем: модульність, межі, залежності й масштаб — як будувати та підтримувати великий код.",
-    unix: "Unix і Linux послідовно: від оболонки й файлів до процесів, прав і мережі — доріжка крізь довідник.",
-    boards: "Плати й модулі-розширення: що на борту, живлення, як під'єднати.",
-    connect: "Радіомодулі й канали передавання даних: характеристики та підключення.",
-    sensors: "Давачі: рух, середовище, світло, звук — що вимірюють і як під'єднати.",
-    power: "Живлення: перетворювачі, захист і акумулятори — струм і напруга під контролем.",
-    actuators: "Виконавчі механізми: мотори, серводвигуни, драйвери — рух і сила.",
-    instruments: "Вимірювальні прилади: мультиметри, генератори, аналізатори сигналів.",
-    components: "Дискретні компоненти: резистори, конденсатори, напівпровідники.",
-    "unix-linux": "Unix і Linux: як влаштована система, а не набір команд — процеси, пам'ять, файли, ядро.",
-    "cpp-standards": "Стандарти C++: механіка мови, стандартна бібліотека й що приніс кожен реліз.",
-    "build-systems": "Системи збірки: CMake, залежності й тулчейни — як із дерева вихідників постає артефакт.",
-    "media-vision": "GStreamer і OpenCV як системи: конвеєр медіа й модель пам'яті зображень.",
-    qgroundcontrol: "QGroundControl зсередини: підсистеми наземної станції, план, карта, відео, розширення."
+    "physics": "Шість книг про те, чому природа поводиться саме так, а не інакше. Від каменя, що падає, до електрона, який не має траєкторії.",
+    "math": "Мова, якою записано решту наук. Дев'ять книг про те, як рахувати, доводити й бачити структуру там, де на вигляд лише числа.",
+    "plang": "Мова програмування — теж домовленість, і в неї є версії. Що саме обіцяє стандарт і що з цього справді працює.",
+    "computability": "Є задачі, яких не розв'яже жодна машина, і це доведено, а не припущено. Тут проходить межа можливого й починається питання ціни.",
+    "math-algebra": "Коли додавання й множення виявляються однією дією, з'являються групи й кільця. Звідти ж ростуть вектори й матриці, якими крутять графіку й розв'язують системи.",
+    "math-analysis": "Швидкість — це похідна, площа — інтеграл, а рух планети описує рівняння, де невідома сама функція. Про неперервну зміну й те, як її рахувати.",
+    "math-combinatorics": "«Скільки є способів» — питання, на яке не відповісти переліком. Тут рахують міркуванням, і саме звідси беруться оцінки складності алгоритмів.",
+    "math-geometry": "Форма, відстань і поворот — те, чим машина рухає об'єкт на екрані. Від Евкліда до координат і кривих, якими описують справжні поверхні.",
+    "math-information": "Стиснути повідомлення можна рівно настільки, скільки в ньому несподіванки. Ентропія міряє цю несподіванку й ставить межу, нижче за яку не опуститься жоден архіватор.",
+    "math-logic": "Що таке доведення і чому не все істинне можна довести. Тут будують саму мову математики й натрапляють на межі, знайдені Геделем.",
+    "math-number-theory": "Прості числа поводяться так дивно, що на цьому тримається вся сучасна криптографія. Подільність і лишки — механіка кожного захищеного з'єднання.",
+    "math-numeric": "Точної відповіді часто немає або вона задорога. Як рахувати наближено так, щоб похибка не з'їла результат, і бачити, коли метод ось-ось розсиплеться.",
+    "math-probability": "Випадковість має закони, і з них випливає, чому середнє стабілізується, а рідкісна подія колись таки стається. Далі — як робити висновок із даних і не обманути себе.",
+    "ph-condensed": "Чому мідь проводить, скло ні, а кремній — коли ми захочемо. Зонна структура пояснює провідність, магнетизм і те, як із піску виходить транзистор.",
+    "ph-electromagnetism": "Заряд створює поле, змінне поле народжує струм, а разом вони відриваються від дроту й летять хвилею. Дорога від Кулона до Максвелла й антени.",
+    "ph-mechanics": "Чому камінь падає, а супутник ні, і куди дівається енергія удару. Від опису руху до законів збереження, обертання тіла й течії рідини.",
+    "ph-quantum": "У малому величини перестають бути неперервними, а частинка — точкою. Рівні атома й тунелювання, без якого не працює жодна флешка.",
+    "ph-thermodynamics": "Тепло саме йде від гарячого до холодного, і жодна машина цього не обходить. Ентропія пояснює, чому час має напрямок, а ККД — стелю.",
+    "ph-waves": "Резонанс ламає міст, а зустріч двох хвиль гасить обидві. Звук, світло й радіо виявляються однією математикою на різних частотах.",
+    "sf-algorithms": "Та сама задача рахується секунду або тиждень — різниця в тому, як її подати машині. Структури даних і прийоми, що перетворюють перебір на розрахунок.",
+    "sf-apps": "Великий код гниє не від складності, а від залежностей, яких ніхто не проводив навмисно. Про межі й стан — те, від чого залежить, чи можна буде щось змінити за рік.",
+    "sf-data": "Дані переживають код, тому схема коштує дорожче за будь-яку функцію. Транзакції, реплікація й черги з чесною ціною кожного вибору.",
+    "sf-devices": "Тут немає ні вільної пам'яті, ні права впасти, а оновлення прилітає на пристрій, до якого не дотягнешся рукою. Програмування, де видно кожен байт.",
+    "sf-distributed": "Щойно машин стає дві, зникає спільний час і з'являється питання, кому вірити. Узгодження й консенсус, а головне — поведінка, коли мережа рветься посередині.",
+    "sf-lang": "Між текстом програми й тим, що виконує процесор, лежить кілька перетворень. Розбір, типи й оптимізації, а заразом відповідь, чому мова дозволяє саме це.",
+    "sf-ml": "Модель не знає правил — вона знаходить закономірність у прикладах разом з усіма їхніми перекосами. Як навчати, як міряти якість і де воно тихо ламається.",
+    "sf-os": "Кожна програма думає, що машина належить їй, і саме цю ілюзію тримає система. Процеси, віртуальна пам'ять і межа, за якою починається ядро.",
+    "sf-release": "Код, що працює на ноуті, ще нічого не вартий. Дорога до продакшену, спостережуваність і можливість відкотитися, коли о третій ночі щось поїхало.",
+    "sf-security": "Безпеку не додають наприкінці — вона або закладена в модель, або її немає. Шифри й доступ, а поряд класика помилок, на яких ламаються акуратні системи.",
+    "sf-tasks": "Паралельність прискорює доти, доки два потоки не візьмуться за одне й те саме. Гонки, блокування й ціна перемикання, з відповіддю, коли воно взагалі варте того.",
+    "sf-visual": "Користувач бачить не архітектуру, а кадр і затримку між натиском і реакцією. Рендер, шрифт і колір з боку того, хто мусить намалювати вчасно.",
+    "sf-web": "HTTP простий рівно доти, доки не з'являються кеш, проксі й повторні запити. Про контракти між службами й про те, хто за що відповідає в ланцюгу.",
+    "basic-chemistry": "Хімія з нуля й послідовно, від атома до реакцій, розчинів і органіки. Кожен крок спирається на попередній, а задачі розв'язуються тим, що вже пройдено.",
+    "embedded": "Від заряду в дроті до пристрою, який летить і сам приймає рішення. Довга доріжка, де ніщо не береться нізвідки й кожен крок спирається на попередній.",
+    "embedded-ultra": "Той самий шлях, стиснутий до двох днів читання. Без заглиблень, але з розумінням, що з чим пов'язане й куди дивитися далі.",
+    "progarch": "Як побудувати систему, яку через рік ще можна буде змінити. Модульність і межі на прикладах того, що зазвичай ламається під час зростання.",
+    "unix": "Unix стає зрозумілим, коли бачиш, що файл, процес і право — три прості ідеї, які повторюються всюди. Доріжка від першої команди до цілісної картини.",
+    "hw-analog": "Сигнал тут неперервний, і зіпсувати його можна на кожному кроці. Підсилювачі, зворотний зв'язок і фільтри, з поглядом на шум, який завжди поруч.",
+    "hw-arch": "Що процесор насправді робить між двома рядками коду. Конвеєр, кеш і переривання пояснюють, чому однакові програми біжать із різною швидкістю.",
+    "hw-components": "Резистор гріється, конденсатор має індуктивність, а транзистор — не ідеальний ключ. Про поведінку деталей у справжній схемі, а не в підручнику.",
+    "hw-digital": "З двох рівнів напруги збирається пам'ять, лічильник і автомат. Тригери й синхронізація — місце, де цифрове знову стає аналоговим.",
+    "hw-motion": "Щоб схема зрушила щось важче за світлодіод, потрібні струм, момент і зворотний зв'язок. Двигуни, серви й драйвери з реальними обмеженнями.",
+    "hw-pcb": "Плата не підкладка, а частина схеми: доріжка має індуктивність, а земля не всюди нуль. Шари, цілісність сигналу й тепло, яке треба кудись подіти.",
+    "hw-power": "Живлення вирішує, чи працюватиме решта, і воно ж перше гріється. Перетворювачі й акумулятори, де ККД і пульсації — частина розрахунку, а не дрібниця.",
+    "hw-sensing": "Між фізичною величиною й числом у програмі стоїть ланцюг, який усе спотворює. Давач, підсилення й калібрування, щоб виміряному можна було вірити.",
+    "sys-bsystem": "Збірка — не «натиснути кнопку», а граф залежностей, який мусить давати той самий результат щоразу. CMake й тулчейни з боку того, хто це налаштовує.",
+    "sys-dron": "Апарат летить сам, поки алгоритм тримає його в заданих межах. ArduPilot і PX4 зсередини, а поряд станція, з якої це все видно й керується.",
+    "sys-fw": "Фреймворк ховає регістри за зручним викликом, і варто знати, що саме він при цьому робить. Старт, шар абстракції й ціна цієї зручності.",
+    "sys-ide": "Робоче місце — не редактор, а зв'язка індексації, відлагоджувача й контролю версій. Про те, як воно складається докупи й де економить години.",
+    "sys-media": "Кадр іде конвеєром, і кожна ланка може стати вузьким місцем. GStreamer і OpenCV зсередини, з буферами й моделлю пам'яті зображення.",
+    "sys-notary": "Виріб виходить у світ не тоді, коли працює, а коли має документи. Ліцензії, стандарти й гарантії — те, про що згадують надто пізно.",
+    "sys-plang-cpp": "Мова, де час життя об'єкта — інструмент, а не дрібниця. Володіння й шаблони, з поглядом на те, що приніс кожен стандарт і навіщо.",
+    "sys-plang-python": "Простота Python тримається на моделі об'єктів, яку варто побачити. Простори імен та ітератори, а також межі, за якими доводиться йти в C.",
+    "sys-unix": "Система, де все — файл, процес має батька, а право вирішує решту. Не набір команд, а те, як воно влаштоване й чому саме так.",
+    "cat-hw-actuators": "Мотори, серви й соленоїди з реальними струмами, а не з обіцянок в описі. Що витримає навантаження й що поставити поруч, аби не згоріло.",
+    "cat-hw-boards": "Конкретні плати: що на борту, скільки їсть і які виводи насправді вільні. З підключенням і межами, про які продавець зазвичай мовчить.",
+    "cat-hw-connect": "Радіомодулі з чесною дальністю й споживанням. Що обрати під задачу й що доведеться доробити самому, щоб воно заговорило.",
+    "cat-hw-controls": "Кнопка деренчить, енкодер пропускає кроки, потенціометр шумить. Огляд органів керування разом із тим, як їх обробляти в коді.",
+    "cat-hw-drivers": "Силовий ключ гріється, і від цього залежить, чи доживе схема до ранку. Драйвери з робочими струмами й тим, що треба на радіатор.",
+    "cat-hw-instruments": "Мультиметр показує середнє, осцилограф — форму, і різниця між ними вирішує діагноз. Прилади з межами й типовими помилками читання.",
+    "cat-hw-parts": "Дрібні деталі, у яких найлегше помилитися при купівлі. Маркування й допуски з поясненням, що справді важить у схемі, а що ні.",
+    "cat-hw-power": "Готові перетворювачі й акумулятори з тим струмом, який вони справді тягнуть. Про запас, нагрів і захист, без якого модуль довго не живе.",
+    "cat-hw-sensors": "Давачі руху, середовища, світла й відстані з тим, що вони насправді міряють. Чого чекати від дешевого модуля й де саме він почне брехати.",
+    "com-devices": "Дві мікросхеми на одній платі домовляються за суворими правилами. I²C, SPI, UART і CAN з кадром, адресацією й граблями, на які наступають усі.",
+    "com-medium": "Сигнал іде не «по дроту», а по лінії з опором, відбиттям і загасанням. Кабель, ефір і оптика з відповіддю, чому далі воно не добиває.",
+    "com-modulation": "Щоб біт долетів, його треба покласти на хвилю й потім упізнати в шумі. Модуляція, кодування й виправлення помилок як одна задача.",
+    "com-protocol": "Протокол починається там, де сторони мають домовитися про стан і про поведінку при збої. Формат і версіювання з боку того, хто це проєктує.",
+    "com-signal": "Корисне майже завжди тонше за шум, і вся справа в тому, як його звідти дістати. Спектр і фільтри з поясненням, звідки береться кожен ефект.",
+    "com-transport": "Пакет має знайти шлях, пережити чергу й не приїхати двічі. Адресація й контроль потоку — механіка, якої не видно, поки вона працює."
+  };
+
+  /* Опис полиці — той самий рівень подачі, що й у книги: коротко про те, що
+     всередині і навіщо воно поруч. */
+  var SHELF_DESC = {
+    "sci": "Знання про те, що є незалежно від нас: закон, явище, доведена теорема. Фізика, математика й межа обчислюваного.",
+    "eng": "Те, що люди пишуть і будують. Не як влаштований світ, а як роблять річ — від форми застосунку до мереж, безпеки й випуску.",
+    "course": "Доріжки для того, хто починає з нуля. Крок спирається на пройдене й нічого не бере нізвідки, тому читати варто підряд.",
+    "hw": "Як улаштована річ, а не яку купити. Схемотехніка й кремній під нею, живлення, плата й усе, що рухається.",
+    "sys": "Рукотворні системи, до яких доречне питання «а в якій версії?». Unix, автопілот, мови програмування, збірка й робоче місце.",
+    "cat": "Конкретні моделі з артикулом і даташитом. Не принцип, а те, що можна покласти в кошик і припаяти сьогодні.",
+    "com": "Як сигнал долає відстань — від фізики середовища до протоколу між програмами. Родина навмисно перетинає межу софту й заліза."
   };
 
   /* Версія ЧИТАБЕЛЬНА, якщо статус не "empty"/"pending"; ЗАПЛАНОВАНА, якщо не "empty".
@@ -123,25 +275,55 @@
     var doneVal = complete ? String(s.planned) : ('<b>' + s.done + '</b> / ' + s.planned);
     var isCourse = s.kind === "course";
 
-    var rows =
-      '<div class="lib-stat-row"><span class="lib-stat-k">' + esc(KIND_GROUPS[s.kind] || cap(W.group || "Групи")) + '</span><span class="lib-stat-v">' + s.groups + '</span></div>' +
-      (s.chapters ? '<div class="lib-stat-row"><span class="lib-stat-k">Розділи</span><span class="lib-stat-v">' + s.chapters + '</span></div>' : '') +
-      '<div class="lib-stat-row"><span class="lib-stat-k">Написано</span><span class="lib-stat-v">' + doneVal + '</span></div>' +
-      (isCourse ? '<div class="lib-stat-row"><span class="lib-stat-k">Прочитано</span><span class="lib-stat-v">' + s.read + '</span></div>' : '');
+    return cardShell({
+      href: "read.html?book=" + esc(s.slug), accent: accent, ico: ico, kind: s.kind, title: s.title, desc: desc, pct: pct,
+      left: esc(KIND_GROUPS[s.kind] || cap(W.group || "Групи")) + " " + s.groups +
+            (s.chapters ? " · розділів " + s.chapters : "") +
+            (isCourse && s.read ? " · прочитано " + s.read : ""),
+      right: complete ? String(s.planned) + " / " + s.planned : s.done + " / " + s.planned
+    });
+  }
 
-    var foot = complete ? (isCourse ? esc(W.book || "курс") + ' повний' : 'готова')
-      : (s.done ? pct + '% написано' : 'у роботі');
+  /* ── ОДНА ФОРМА КАРТКИ на всі рівні: вид · збірка · книга · том ───────
+     Заливка тла = відсоток написаного (варіант 8): стан читається периферійним
+     зором, без окремої смужки. Праворуч — знак книги, щоб її впізнавали в лице.
+     Унизу один рядок: ліворуч склад, праворуч «написано / усього» через скісну. */
+  function cardShell(o) {
+    return '<a class="lib-card lib-card-' + esc(o.kind || "") + '" href="' + o.href +
+      '" style="--accent:' + o.accent + ';--p:' + (o.pct || 0) + '">' +
+      '<span class="lc-fill" aria-hidden="true"></span>' +
+      '<div class="lc-head"><h3 class="lc-ttl">' + esc(o.title) + '</h3>' +
+      '<span class="lc-ico" aria-hidden="true">' + o.ico + '</span></div>' +
+      '<p class="lc-desc">' + esc(o.desc || "") + '</p>' +
+      '<div class="lc-foot"><span class="lc-left">' + o.left + '</span>' +
+      '<span class="lc-right">' + o.right + '</span></div></a>';
+  }
 
-    return '<a class="lib-card lib-card-' + esc(s.kind) + '" href="read.html?book=' + esc(s.slug) + '" style="--accent:' + accent + '">' +
-      '<div class="lib-cover"><span class="lib-kind lib-kind-' + esc(s.kind) + '">' + esc(cap(W.book || "")) + '</span>' +
-      '<span class="lib-cover-ttl">' + esc(s.title) + '</span></div>' +
-      '<span class="lib-ico">' + ico + '</span>' +
-      '<div class="lib-body"><p class="lib-desc">' + esc(desc) + '</p>' +
-      '<div class="lib-stats">' + rows + '</div>' +
-      (partial ? '<div class="lib-bar" title="' + pct + '% готово"><span style="width:' + pct + '%"></span></div>' : '') +
-      '<div class="lib-foot"><span class="lib-modnote">' + foot + '</span>' +
-      '<span class="lib-cta">' + (KIND_CTA[s.kind] || "Читати →") + '</span></div>' +
-      '</div></a>';
+
+  /* ── Картка НАДКНИГИ (збірки книг) ───────────────────────────────────
+     Збірка живе лише в shelf.json і лише для показу: на диску, в git і в адресі
+     теми її немає. Тому картка веде не в читач, а на рівень глибше — у список
+     книг збірки, який виглядає так само, як полиця. Числа — сума по книгах. */
+  function groupStat(g) {
+    var st = { slug: g.slug, title: g.title, asks: g.asks || "", books: g.items.length, groups: 0, chapters: 0, planned: 0, done: 0 };
+    g.items.forEach(function (s) {
+      st.groups += s.groups; st.chapters += s.chapters; st.planned += s.planned; st.done += s.done;
+    });
+    return st;
+  }
+  function groupCard(kind, g) {
+    var st = groupStat(g);
+    var accent = ACCENT[st.slug] || KIND_ACCENT[kind] || "#1d6fa4";
+    var ico = ICON[st.slug] || "📚";
+    var desc = st.asks ? cap(st.asks) : (DESC[st.slug] || "");
+    var complete = st.planned > 0 && st.done === st.planned;
+    var pct = st.planned ? Math.round(st.done / st.planned * 100) : 0;
+
+    return cardShell({
+      href: "#" + esc(kind) + "/" + esc(st.slug), accent: accent, ico: ico, kind: kind, title: st.title, desc: DESC[st.slug] || cap(st.asks || ""), pct: pct,
+      left: "книг " + st.books + (st.chapters ? " · розділів " + st.chapters : ""),
+      right: (complete ? String(st.planned) : st.done) + " / " + st.planned
+    });
   }
 
   /* ── Вигляд (одна сторінка ⇄ вкладки) і активна вкладка ─────────────── */
@@ -152,113 +334,161 @@
     try { localStorage.setItem("courses-lib-view", v); } catch (e) {}
     paintViewBtn();
   }
-  function initialTab(shelves) {
-    var hsh = (location.hash || "").slice(1);
-    if (TABS.indexOf(hsh) >= 0) return hsh;
-    try { var t = localStorage.getItem("courses-lib-tab"); if (TABS.indexOf(t) >= 0) return t; } catch (e) {}
-    for (var i = 0; i < shelves.length; i++) if (shelves[i].items.length) return shelves[i].kind;   // перша непорожня
-    return TABS[0];
+  /* Адреса бібліотеки: «#<вид>» — полиця, «#<вид>/<збірка>» — усередині збірки.
+     Другий сегмент дає кнопку «назад» і переживає перезавантаження та Back. */
+  function parseHash() {
+    var p = (location.hash || "").slice(1).split("/");
+    return { tab: p[0] || "", group: p[1] || "" };
   }
 
-  function segBtn(tab, ico, lbl, count, active) {
-    return '<button class="lib-seg-btn' + (active ? ' is-active' : '') + '" role="tab" id="segtab-' + tab +
-      '" data-tab="' + tab + '" aria-selected="' + (active ? 'true' : 'false') +
-      '" aria-controls="shelf-' + tab + '" tabindex="' + (active ? '0' : '-1') + '">' +
-      '<span class="lib-seg-ico" aria-hidden="true">' + ico + '</span>' +
-      '<span class="lib-seg-lbl">' + lbl + '</span>' +
-      '<span class="lib-seg-count">' + count + '</span></button>';
-  }
   function sectHead(ttl, count, note) {
     return '<div class="lib-sect-head"><h2 class="lib-sect-ttl">' + ttl + '</h2>' +
       '<span class="lib-sect-count">' + count + '</span><span class="lib-sect-line"></span>' +
       (note ? '<span class="lib-sect-note">' + note + '</span>' : '') + '</div>';
   }
 
-  function render(shelves) {
-    var cur = initialTab(shelves), curIdx = TABS.indexOf(cur);
-    if (curIdx < 0) curIdx = 0;
-    var lead = shelves.filter(function (s) { return s.items.length; })
-      .map(function (s) { return '<b>' + esc(s.shelf.toLowerCase()) + '</b> — ' + esc(s.asks); }).join("; ");
+  /* ── ЧОТИРИ РІВНІ, ОДИН ВИГЛЯД ───────────────────────────────────────
+     бібліотека → полиця → збірка → книга. На кожному рівні той самий грид
+     плиток, тож перехід углиб не міняє того, ЯК читач дивиться — міняється
+     лише те, НА ЩО.
 
-    var h = '<header class="lib-hero"><div class="lib-hero-row"><div class="lib-hero-txt">' +
-      '<div class="kicker">Бібліотека</div><h1>Мої книги</h1>' +
-      '<p>' + (lead || "Полиці зʼявляться, коли книги переїдуть у нове дерево.") + '.</p></div>' +
-      '<nav class="lib-hero-nums" aria-label="Полиці бібліотеки">' +
-      shelves.map(function (s) {
-        return '<a href="#sect-' + esc(s.kind) + '" data-goto="' + esc(s.kind) + '"><span class="num">' + s.items.length +
-          '</span><span class="lbl">' + esc(s.shelf) + '</span></a>';
-      }).join("") +
-      '</nav></div>' +
-      '<div class="lib-seg" role="tablist" aria-label="Полиці бібліотеки" data-active="' + curIdx + '">' +
-      '<span class="lib-seg-thumb" aria-hidden="true"></span>' +
-      shelves.map(function (s) {
-        return segBtn(s.kind, KIND_ICON[s.kind] || "📘", s.shelf, s.items.length, s.kind === cur);
-      }).join("") +
-      '</div></header><div class="lib-flow">';
+     Сегмент-контрол прибрано свідомо, а не полагоджено: він мав смугу-підсвітку,
+     що позиціюється за номером активної вкладки в ОДНОМУ рядку. Сім полиць у рядок
+     не вміщалися, контрол переносив їх у два — а смуга лишалася рахувати по-старому
+     й накривала дві кнопки разом. Плитки такої вади не мають за побудовою: вони
+     переносяться самі, і підсвічувати між ними нічого не треба. Ще й місця під
+     нові полиці стільки, скільки їх буде. */
+  var SHELVES = [];
 
-    shelves.forEach(function (s) {
-      h += '<section class="lib-sect' + (s.kind !== cur ? ' off' : '') + '" id="sect-' + esc(s.kind) + '">' +
-        sectHead(esc(s.shelf), s.items.length, esc(s.asks)) +
-        '<div class="lib-shelf lib-shelf-' + esc(s.kind) + '" id="shelf-' + esc(s.kind) + '" role="tabpanel" aria-labelledby="segtab-' + esc(s.kind) + '">' +
-        (s.items.length ? s.items.map(card).join("")
-          : '<p class="lib-empty">Ця полиця поки порожня — книги переїжджають у нове дерево.</p>') +
-        '</div></section>';
+  function tile(s) {
+    var planned = 0, done = 0;
+    s.items.forEach(function (x) { planned += x.planned; done += x.done; });
+    return cardShell({
+      href: "#" + esc(s.kind), accent: KIND_ACCENT[s.kind] || "#1d6fa4",
+      ico: KIND_ICON[s.kind] || "📘", kind: s.kind,
+      title: s.shelf, desc: SHELF_DESC[s.kind] || cap(s.asks || ""),
+      pct: planned ? Math.round(done / planned * 100) : 0,
+      left: s.items.length + " " + plural(s.items.length, "книга", "книги", "книг"),
+      right: done + " / " + planned
     });
+  }
 
-    root.innerHTML = h + '</div>';
+  function crumbs(parts) {
+    return '<nav class="lib-crumbs" aria-label="Де ви зараз">' + parts.map(function (p, i) {
+      var last = i === parts.length - 1;
+      return (i ? '<span class="lib-crumb-sep" aria-hidden="true">/</span>' : "") +
+        (last ? '<span class="lib-crumb is-here">' + esc(p.t) + '</span>'
+              : '<a class="lib-crumb" href="' + esc(p.h) + '">' + esc(p.t) + '</a>');
+    }).join("") + '</nav>';
+  }
+  function grid(kind, cards) {
+    return '<div class="lib-shelf lib-shelf-' + esc(kind) + '">' + cards + '</div>';
+  }
+  function empty() { return '<p class="lib-empty">Ця полиця поки порожня — книги переїжджають у нове дерево.</p>'; }
+
+  function viewHome() {
+    var live = SHELVES.filter(function (s) { return s.items.length; });
+    var books = live.reduce(function (a, s) { return a + s.items.length; }, 0);
+    return '<header class="lib-hero"><div class="kicker">Бібліотека</div><h1>Мої книги</h1>' +
+      '<p>' + (live.length
+        ? books + ' ' + plural(books, "книга", "книги", "книг") + ' на ' + live.length + ' ' + plural(live.length, "полиці", "полицях", "полицях") +
+          '. Полиця відповідає на своє питання — вибери, яке зараз твоє.'
+        : "Полиці зʼявляться, коли книги переїдуть у нове дерево.") + '</p></header>' +
+      '<div class="lib-shelf lib-shelf-home">' + SHELVES.map(tile).join("") + '</div>';
+  }
+  function viewShelf(s) {
+    return '<header class="lib-hero lib-hero-sub"><div class="kicker">' + esc(s.shelf) + '</div>' +
+      '<h1>' + esc(cap(s.asks || s.shelf)) + '</h1>' +
+      '<p>' + s.items.length + ' ' + plural(s.items.length, "книга", "книги", "книг") +
+      (s.groups.length ? ' · ' + s.groups.length + ' ' + plural(s.groups.length, "збірка", "збірки", "збірок") : "") + '</p></header>' +
+      (s.items.length
+        ? grid(s.kind, s.groups.map(function (g) { return groupCard(s.kind, g); }).join("") + s.loose.map(card).join(""))
+        : empty());
+  }
+  function viewGroup(s, g) {
+    return '<header class="lib-hero lib-hero-sub"><div class="kicker">' + esc(s.shelf) + ' · збірка</div>' +
+      '<h1>' + esc(g.title) + '</h1>' +
+      '<p>' + g.items.length + ' ' + plural(g.items.length, "книга", "книги", "книг") +
+      (g.asks ? ' · ' + esc(g.asks) : "") + '</p></header>' +
+      grid(s.kind, g.items.map(card).join(""));
+  }
+  /* Вигляд «усе на одній сторінці» — той самий матеріал без переходів. */
+  function viewAll() {
+    return '<header class="lib-hero"><div class="kicker">Бібліотека</div><h1>Мої книги</h1>' +
+      '<p>Усі полиці на одній сторінці.</p></header>' +
+      SHELVES.map(function (s) {
+        return '<section class="lib-sect"><div class="lib-sect-head"><h2 class="lib-sect-ttl">' + esc(s.shelf) +
+          '</h2><span class="lib-sect-count">' + s.items.length + '</span><span class="lib-sect-line"></span>' +
+          '<span class="lib-sect-note">' + esc(s.asks) + '</span></div>' +
+          (s.items.length ? s.groups.map(function (g) {
+            return '<div class="lib-subhead">' + esc(g.title) + '</div>' + grid(s.kind, g.items.map(card).join(""));
+          }).join("") + (s.loose.length ? grid(s.kind, s.loose.map(card).join("")) : "") : empty()) +
+          '</section>';
+      }).join("");
+  }
+
+  /* ── Верхній рядок бібліотеки ─────────────────────────────────────────
+     Те саме правило, що в читачі: кнопки не висять `fixed` над вмістом, а живуть
+     у рядку, який має власне місце. Було чотири кнопки з ручними відступами
+     (`right: 1rem / 3.9 / 6.8 / 9.7`) — вони лягали просто на крихти.
+     Тепер сітка: крихти ліворуч, інструменти праворуч, накластися нема як. */
+  function topbar(parts) {
+    return '<header class="lib-topbar">' + crumbs(parts) + '<div class="lib-tools"></div></header>';
+  }
+  /* Кнопки вбудовуються самі (theme.js, density.js, search.js) — переселяємо їх
+     у комірку інструментів після кожного малювання. */
+  var TOOL_IDS = ["view-btn", "search-btn", "density-btn", "theme-btn"];
+  /* Перемальовуючи сторінку, ми стираємо і комірку разом із кнопками — тож перед
+     записом виносимо їх на body, а після повертаємо. Без цього кнопки зникали
+     назавжди на першому ж переході між рівнями. */
+  function parkTools() {
+    TOOL_IDS.forEach(function (id) {
+      var b = document.getElementById(id);
+      if (b && b.parentNode !== document.body) document.body.appendChild(b);
+    });
+  }
+  function mountTools() {
+    var box = root.querySelector(".lib-tools");
+    if (!box) return;
+    TOOL_IDS.forEach(function (id) {
+      var b = document.getElementById(id);
+      if (b && b.parentNode !== box) box.appendChild(b);
+    });
+  }
+
+  /* Малюємо рівень за адресою. Перемальовуємо цілком: рівнів чотири, карток
+     щонайбільше кілька десятків — тримати приховані копії дорожче, ніж намалювати. */
+  function draw() {
+    var r = parseHash(), shelf = null, group = null;
+    SHELVES.forEach(function (s) { if (s.kind === r.tab) shelf = s; });
+    if (shelf && r.group) shelf.groups.forEach(function (g) { if (g.slug === r.group) group = g; });
+
+    var parts = [{ t: "Бібліотека", h: shelf ? "#" : "" }];
+    if (shelf) parts.push({ t: shelf.shelf, h: group ? "#" + shelf.kind : "" });
+    if (group) parts.push({ t: group.title, h: "" });
+
+    parkTools();
+    root.innerHTML = topbar(parts) + (getView() === "one" ? viewAll()
+      : group ? viewGroup(shelf, group)
+      : shelf ? viewShelf(shelf)
+      : viewHome());
+
     document.title = "Бібліотека — мої книги";
-    initSeg();
-    buildViewBtn();
+    if (shelf) { try { localStorage.setItem("courses-lib-tab", shelf.kind); } catch (e) {} }
+    buildViewBtn();   // кнопка вигляду створюється тут, тож переселяємо ПІСЛЯ неї
+    mountTools();
+    var g = root.querySelector(".lib-shelf, .lib-tiles");
+    if (g) { g.classList.remove("shelf-in"); void g.offsetWidth; g.classList.add("shelf-in"); }
   }
 
-  function initSeg() {
-    var seg = root.querySelector(".lib-seg");
-    if (!seg) return;
-    var btns = [].slice.call(seg.querySelectorAll(".lib-seg-btn"));
-    function activate(name, focusBtn) {
-      var i = TABS.indexOf(name); if (i < 0) i = 0;
-      seg.setAttribute("data-active", String(i));
-      btns.forEach(function (b, j) {
-        var on = (j === i);
-        b.classList.toggle("is-active", on);
-        b.setAttribute("aria-selected", on ? "true" : "false");
-        b.tabIndex = on ? 0 : -1;
-        if (on && focusBtn) b.focus();
-      });
-      TABS.forEach(function (t, j) {
-        var sect = root.querySelector("#sect-" + t);
-        if (!sect) return;
-        if (j === i) {
-          sect.classList.remove("off");
-          var p = sect.querySelector(".lib-shelf");
-          if (p) { p.classList.remove("shelf-in"); void p.offsetWidth; p.classList.add("shelf-in"); }
-        } else sect.classList.add("off");
-      });
-      try { localStorage.setItem("courses-lib-tab", TABS[i]); } catch (e) {}
-      if (history.replaceState) history.replaceState(null, "", "#" + TABS[i]);
-    }
-    btns.forEach(function (b) {
-      b.addEventListener("click", function () { activate(b.getAttribute("data-tab"), false); });
-    });
-    seg.addEventListener("keydown", function (e) {
-      var i = Number(seg.getAttribute("data-active")) || 0, n = TABS.length, j = -1;
-      if (e.key === "ArrowRight" || e.key === "ArrowDown") j = (i + 1) % n;
-      else if (e.key === "ArrowLeft" || e.key === "ArrowUp") j = (i - 1 + n) % n;
-      else if (e.key === "Home") j = 0;
-      else if (e.key === "End") j = n - 1;
-      if (j >= 0) { e.preventDefault(); activate(TABS[j], true); }
-    });
-    [].forEach.call(root.querySelectorAll(".lib-hero-nums a"), function (a) {
-      a.addEventListener("click", function (ev) {
-        ev.preventDefault();
-        var name = a.getAttribute("data-goto");
-        if (getView() === "tabs") { activate(name, false); return; }
-        var sect = root.querySelector("#sect-" + name);
-        if (sect) sect.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    });
-    root._activateTab = activate;
+  function render(shelves) {
+    SHELVES = shelves;
+    window.addEventListener("hashchange", draw);
+    draw();
   }
+
+  /* initSeg / segBtn / initialTab прибрано разом із сегмент-контролом:
+     рівні веде draw(), підсвічувати активну вкладку нема чого. */
 
   /* Кнопка перемикання вигляду (⊞ вкладки ⇄ ▤ одна сторінка) */
   var viewBtn = null;
@@ -274,9 +504,8 @@
     viewBtn.id = "view-btn"; viewBtn.type = "button";
     viewBtn.setAttribute("aria-label", "Перемкнути вигляд бібліотеки");
     viewBtn.addEventListener("click", function () {
-      var v = getView() === "one" ? "tabs" : "one";
-      setView(v);
-      if (v === "tabs" && root._activateTab) root._activateTab(root.querySelector(".lib-seg-btn.is-active").getAttribute("data-tab"), false);
+      setView(getView() === "one" ? "tabs" : "one");
+      draw();
     });
     document.body.appendChild(viewBtn);
     paintViewBtn();
@@ -302,9 +531,20 @@
         });
       });
       return sh.kinds.map(function (k) {
+        var items = (k.books || []).map(function (sl) { return bySlug[sl]; }).filter(Boolean);
+        var byS = {}; items.forEach(function (s) { byS[s.slug] = s; });
+        var inGroup = {};
+        // Збірка бере лише ті книги, які справді є на полиці: названа в shelf.json, але
+        // ще не переїхала → просто не показується, а не ламає рівень.
+        var groups = (k.groups || []).map(function (g) {
+          var gi = (g.books || []).map(function (sl) { return byS[sl]; }).filter(Boolean);
+          gi.forEach(function (s) { inGroup[s.slug] = 1; });
+          return { slug: g.slug, title: g.title || g.slug, asks: g.asks || "", items: gi };
+        }).filter(function (g) { return g.items.length; });
         return {
           kind: k.kind, shelf: k.shelf, asks: k.asks || "", words: k.words || {},
-          items: (k.books || []).map(function (sl) { return bySlug[sl]; }).filter(Boolean)
+          items: items, groups: groups,
+          loose: items.filter(function (s) { return !inGroup[s.slug]; })
         };
       });
     });

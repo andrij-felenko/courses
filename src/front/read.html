@@ -5,15 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Читач</title>
 <script>try{var d=document.documentElement;d.setAttribute('data-theme',localStorage.getItem('courses-theme')||'day');d.setAttribute('data-density',localStorage.getItem('courses-density')||'cozy');if(localStorage.getItem('courses-sidebar-hidden')==='1')d.classList.add('sb-hidden')}catch(e){}</script>
-<link rel="stylesheet" href="book.css?v=48">
+<link rel="stylesheet" href="book.css?v=63">
 <link rel="stylesheet" href="search.css?v=5">
 <link rel="stylesheet" href="dense.css?v=9">
 </head>
 <body>
 
-<button id="menu-btn" aria-label="Меню">☰</button>
+<!-- Кнопки хромованки не стоять у розмітці «десь на сторінці»: їх розставляє chrome.js
+     у комірки липкого рядка шапки. Тут вони лише створюються, щоб існували до першого рендера. -->
+<button id="menu-btn" aria-label="Показати або сховати меню">☰</button>
 <a id="up-btn" href="index.html" aria-label="На рівень вище" title="На рівень вище">←</a>
-<button id="sidebar-close" aria-label="Закрити меню" title="Закрити">✕</button>
 <nav id="sidebar" aria-label="Навігація"></nav>
 <div id="scrim"></div>
 <main id="content"><div class="state"><div class="spinner"></div>Готуємо…</div></main>
@@ -25,7 +26,7 @@
 <!-- Читач v7: ?book=<slug> для БУДЬ-ЯКОГО виду (sci·eng·course·hw·sys) — вид знаходиться
      через root/shelf.json. Курс без #ch= показує доріжку; з #ch= — читається як книга.
      ?course=<slug> — контекст курсу, коли стаття належить іншій книзі. -->
-<script src="bookbuild.js?v=22"></script>
+<script src="bookbuild.js?v=27"></script>
 <script>
 (function () {
   var p = new URLSearchParams(location.search);
@@ -50,7 +51,7 @@
       var c = arr[1] || (b.kind === "course" ? b : null);
       if (c) b.course = { slug: c.bookSlug, title: c.title, modules: c.groups || [] };
       window.BOOK = b;
-      var s = document.createElement("script"); s.src = "book.js?v=38"; document.body.appendChild(s);
+      var s = document.createElement("script"); s.src = "book.js?v=40"; document.body.appendChild(s);
     }
 
     // Курс без конкретної статті → доріжка модулів/кроків (book.js не потрібен).
@@ -75,7 +76,8 @@
 <script src="theme.js?v=1"></script>
 <script src="density.js?v=1"></script>
 <script src="codelang.js?v=3"></script>
-<script src="sidebar-toggle.js?v=3"></script>
-<script src="topchrome.js?v=1"></script>
+<script src="sidebar-toggle.js?v=4"></script>
+<script src="topchrome.js?v=5"></script>
+<script src="chrome.js?v=5"></script>
 </body>
 </html>

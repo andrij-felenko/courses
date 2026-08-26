@@ -29,6 +29,12 @@ function readJSON(file) {
 }
 function groupFile(g) { return (g === "." ? "_" : g) + ".json"; }
 
+/* Написано ⟺ текст існує. `recheck`, `update` і `deeper` — це ГОТОВІ статті, лише
+   позначені чернеткою: читач їх бачить, рушій їх віддає (`bookbuild.js:_written`).
+   Доки тут стояло вузьке `=== "done"`, пошук мовчки не знав половини корпусу —
+   2302 статті були на сайті, але не знаходилися. Означення має бути одне на всіх. */
+function written(s) { return s === "done" || s === "update" || s === "deeper" || s === "recheck"; }
+
 /* --- slugify (дзеркало book.js) --------------------------------------------- */
 function slugify(s) {
   return String(s).toLowerCase().replace(/[^\wа-яіїєґ]+/gi, "-").replace(/^-+|-+$/g, "").slice(0, 48);
@@ -136,8 +142,8 @@ function indexBook(kind, dir, slug) {
         if (!t || !t.slug) continue;                       // ref/місток — не стаття цієї книги
         // Доступна читачу ⟺ готова ХОЧ ОДНА версія. За каноном v6+ основна — ДЕТАЛЬНА,
         // базова часто `empty`, тож фільтр лише по basic лишав такі теми поза пошуком.
-        const bDone = !!(t.basic && t.basic.status === "done");
-        const dDone = !!(t.detailed && t.detailed.status === "done");
+        const bDone = written(t.basic && t.basic.status);
+        const dDone = written(t.detailed && t.detailed.status);
         if (!bDone && !dDone) continue;
         const tdir = path.join(bookDir, t.slug);
         const inserts = []

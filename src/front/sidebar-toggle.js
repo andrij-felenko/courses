@@ -36,21 +36,9 @@
     paint();
     (document.getElementById("reader-controls") || document.body).appendChild(b);   // у панель кнопок (шестерня лишається зверху)
 
-    // «Сховати» на самому сайдбарі (широкий екран; видимість керує CSS: html:not(.sb-hidden))
-    if (document.getElementById("sidebar") && !document.getElementById("sb-hide")) {
-      var hb = document.createElement("button");
-      hb.id = "sb-hide"; hb.type = "button"; hb.textContent = "⟨";
-      hb.setAttribute("aria-label", "Сховати бічне меню"); hb.title = "Сховати меню";
-      hb.addEventListener("click", function () { set(true); });
-      document.body.appendChild(hb);
-    }
-
-    // ☰ на десктопі (видима лише коли меню сховане) — розгортає назад.
-    // На вузькому екрані ☰ керує шухлядою (book.js/bookbuild.js) — не втручаємось.
-    var menu = document.getElementById("menu-btn");
-    if (menu) menu.addEventListener("click", function () {
-      if (window.matchMedia("(min-width: 681px)").matches) set(false);
-    });
+    // ☰ і кнопку «сховати» на краю сайдбару цей файл БІЛЬШЕ НЕ ЧІПАЄ: меню веде chrome.js
+    // однією кнопкою в рядку шапки. Поки власників було двоє, обробники билися — клік
+    // спершу проходив через тутешній, потім через делегований, і меню відмовлялося вертатись.
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", build);
