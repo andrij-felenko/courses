@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="880.0" height="400.0" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="460.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стійка модель обробки транзакцій, тайм-аутів та повторних спроб</text>
+<rect x="50.0" y="80.0" width="220.0" height="70.0" rx="6" fill="#f8fafc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="160.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Запит читання / запису</text>
+<text x="160.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">dev-&gt;bus_io-&gt;read()</text>
+<line x1="270.0" y1="115.0" x2="335.0" y2="115.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="340.0" y="85.0" width="180.0" height="60.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="430.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шина повернула</text>
+<text x="430.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">STATUS_OK?</text>
+<line x1="430.0" y1="145.0" x2="430.0" y2="225.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="445.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">ТАК</text>
+<rect x="320.0" y="230.0" width="220.0" height="70.0" rx="6" fill="#f0faf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="430.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Валідація даних / DRDY</text>
+<text x="430.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Конвертація в одиниці SI</text>
+<line x1="430.0" y1="300.0" x2="430.0" y2="345.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="340.0" y="350.0" width="180.0" height="45.0" rx="6" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="430.0" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">CHIP_STATUS_OK</text>
+<line x1="520.0" y1="115.0" x2="615.0" y2="115.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="555.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">НІ (NACK/Збій)</text>
+<rect x="620.0" y="85.0" width="160.0" height="60.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="700.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">retries &lt; MAX?</text>
+<text x="700.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(напр. 3 спроби)</text>
+<line x1="700.0" y1="85.0" x2="700.0" y2="55.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="700.0" y1="55.0" x2="160.0" y2="55.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="160.0" y1="55.0" x2="160.0" y2="75.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="430.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">retries++, delay_ms(backoff) — Повторити транзакцію</text>
+<line x1="700.0" y1="145.0" x2="700.0" y2="225.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="710.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Вичерпано</text>
+<rect x="600.0" y="230.0" width="200.0" height="70.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="700.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Спроба відновлення шини</text>
+<text x="700.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">9 тактів SCL / SPI re-init</text>
+<line x1="700.0" y1="300.0" x2="700.0" y2="345.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="610.0" y="350.0" width="180.0" height="45.0" rx="6" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="700.0" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">CHIP_ERR_COMM_FAIL</text>
+</svg>

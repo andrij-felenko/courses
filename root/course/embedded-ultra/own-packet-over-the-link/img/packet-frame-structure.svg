@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1196 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1196" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія двійкового кадру телеметрії</text>
+<text x="480.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія двійкового кадру телеметрії на послідовному лінку</text>
+<rect x="40.0" y="70.0" width="70.0" height="70.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="75.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">SYNC1</text>
+<text x="75.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">0xAA</text>
+<text x="75.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Преамбула</text>
+<rect x="116.0" y="70.0" width="70.0" height="70.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="151.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">SYNC2</text>
+<text x="151.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x55</text>
+<text x="151.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Преамбула</text>
+<rect x="192.0" y="70.0" width="90.0" height="70.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.8"/>
+<text x="237.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0284c7" text-anchor="middle" font-weight="700">MSG_ID</text>
+<text x="237.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x01..0xFF</text>
+<text x="237.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Тип (ID)</text>
+<rect x="288.0" y="70.0" width="85.0" height="70.0" rx="6" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.8"/>
+<text x="330.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7c3aed" text-anchor="middle" font-weight="700">SEQ</text>
+<text x="330.5" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x00..0xFF</text>
+<text x="330.5" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Лічильник</text>
+<rect x="379.0" y="70.0" width="85.0" height="70.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.8"/>
+<text x="421.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">LEN</text>
+<text x="421.5" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">N (0..64)</text>
+<text x="421.5" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Довжина</text>
+<rect x="470.0" y="70.0" width="360.0" height="70.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="650.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">PAYLOAD (0..N байтів)</text>
+<text x="650.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Дані: координати, кути, напруга, прапорці стану</text>
+<text x="650.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Корисне навантаження</text>
+<rect x="836.0" y="70.0" width="80.0" height="70.0" rx="6" fill="#fce7f3" stroke="#db2777" stroke-width="1.8"/>
+<text x="876.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#db2777" text-anchor="middle" font-weight="700">CRC_L</text>
+<text x="876.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">LSB</text>
+<text x="876.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Контроль</text>
+<rect x="922.0" y="70.0" width="80.0" height="70.0" rx="6" fill="#fce7f3" stroke="#db2777" stroke-width="1.8"/>
+<text x="962.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#db2777" text-anchor="middle" font-weight="700">CRC_H</text>
+<text x="962.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">MSB</text>
+<text x="962.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Контроль</text>
+<line x1="192.0" y1="154.0" x2="836.0" y2="154.0" stroke="#db2777" stroke-width="2.0"/>
+<line x1="192.0" y1="148.0" x2="192.0" y2="160.0" stroke="#db2777" stroke-width="2.0"/>
+<line x1="836.0" y1="148.0" x2="836.0" y2="160.0" stroke="#db2777" stroke-width="2.0"/>
+<text x="514.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#db2777" text-anchor="middle" font-weight="700">Покриття CRC-16: байти заголовка (MSG_ID, SEQ, LEN) + корисне навантаження PAYLOAD</text>
+<rect x="40.0" y="205.0" width="270.0" height="195.0" rx="6" fill="#f8fafc" stroke="#c0392b" stroke-width="1.4"/>
+<rect x="40.0" y="205.0" width="270.0" height="32.0" rx="6" fill="#c0392b" stroke="#c0392b" stroke-width="1.4"/>
+<text x="175.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Синхронізація (0xAA55)</text>
+<text x="56.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="56.0" dy="0.0">2 байти з чергуванням бітів (10101010 01010101). Захищає від зсуву фази UART та випадкового шуму лінії.</tspan></text>
+<text x="56.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Ймовірність хибного шуму:</text>
+<text x="56.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">P = 1 / 65536 ≈ 0.0015%</text>
+<rect x="325.0" y="205.0" width="290.0" height="195.0" rx="6" fill="#f8fafc" stroke="#0284c7" stroke-width="1.4"/>
+<rect x="325.0" y="205.0" width="290.0" height="32.0" rx="6" fill="#0284c7" stroke="#0284c7" stroke-width="1.4"/>
+<text x="470.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Заголовок і довжина</text>
+<text x="341.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="341.0" dy="0.0">MSG_ID визначає структуру даних, SEQ відстежує втрату пакетів у каналі, LEN обмежує кадр у статичний буфер.</tspan></text>
+<text x="341.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Статичний максимум буфера:</text>
+<text x="341.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0284c7" text-anchor="start" font-weight="700">MAX_PAYLOAD = 64 байти</text>
+<rect x="630.0" y="205.0" width="290.0" height="195.0" rx="6" fill="#f8fafc" stroke="#db2777" stroke-width="1.4"/>
+<rect x="630.0" y="205.0" width="290.0" height="32.0" rx="6" fill="#db2777" stroke="#db2777" stroke-width="1.4"/>
+<text x="775.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">Контроль цілісності (CRC-16)</text>
+<text x="646.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="646.0" dy="0.0">Поліном 0x1021 (CCITT), ініціалізація 0xFFFF. Гарантує виявлення 100% пакетних завад довжиною до 16 бітів.</tspan></text>
+<text x="646.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Невловлені багатобітові завади:</text>
+<text x="646.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#db2777" text-anchor="start" font-weight="700">P_undetected &lt; 1.5 · 10^(-5)</text>
+</svg>

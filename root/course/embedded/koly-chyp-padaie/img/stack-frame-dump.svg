@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стековий фрейм аварії Cortex-M та розкодування регістра LR (EXC_RETURN)</text>
+<rect x="40.0" y="65.0" width="340.0" height="400.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="2.0"/>
+<text x="210.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e3a8a" text-anchor="middle" font-weight="700">Стековий фрейм аварії (Hardware Stacking)</text>
+<text x="210.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Зберігається апаратурою ядра до виклику обробника</text>
+<rect x="55.0" y="123.0" width="310.0" height="34.0" rx="4" fill="#edf2f7" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="65.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">SP + 0x00</text>
+<text x="155.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">R0</text>
+<text x="355.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Аргумент 1 / тимчасові дані</text>
+<rect x="55.0" y="161.0" width="310.0" height="34.0" rx="4" fill="#edf2f7" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="65.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">SP + 0x04</text>
+<text x="155.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">R1</text>
+<text x="355.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Аргумент 2 / тимчасові дані</text>
+<rect x="55.0" y="199.0" width="310.0" height="34.0" rx="4" fill="#edf2f7" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="65.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">SP + 0x08</text>
+<text x="155.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">R2</text>
+<text x="355.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Аргумент 3 / тимчасові дані</text>
+<rect x="55.0" y="237.0" width="310.0" height="34.0" rx="4" fill="#edf2f7" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="65.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">SP + 0x0C</text>
+<text x="155.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">R3</text>
+<text x="355.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Аргумент 4 / тимчасові дані</text>
+<rect x="55.0" y="275.0" width="310.0" height="34.0" rx="4" fill="#edf2f7" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="65.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">SP + 0x10</text>
+<text x="155.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">R12</text>
+<text x="355.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Внутрішній тимчасовий регістр (IP)</text>
+<rect x="55.0" y="313.0" width="310.0" height="34.0" rx="4" fill="#fef3c7" stroke="#333333" stroke-width="1.2"/>
+<text x="65.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">SP + 0x14</text>
+<text x="155.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">LR (R14)</text>
+<text x="355.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Повернення з функції до моменту збою</text>
+<rect x="55.0" y="351.0" width="310.0" height="34.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="65.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">SP + 0x18</text>
+<text x="155.0" y="361.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">PC (R15)</text>
+<text x="355.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end">ВИННА ІНСТРУКЦІЯ (Program Counter)!</text>
+<rect x="55.0" y="389.0" width="310.0" height="34.0" rx="4" fill="#fef3c7" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="65.0" y="411.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">SP + 0x1C</text>
+<text x="148.0" y="411.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">xPSR</text>
+<text x="355.0" y="411.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Прапорці стану ядра (Thumb bit T=1)</text>
+<text x="48.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вершина стека (SP)</text>
+<rect x="420.0" y="65.0" width="420.0" height="195.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="630.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Регістр LR на вході в HardFault_Handler</text>
+<text x="630.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Магічне значення EXC_RETURN (0xFFFFFFxx)</text>
+<rect x="435.0" y="125.0" width="390.0" height="36.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.0"/>
+<text x="445.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#166534" text-anchor="start" font-weight="700">Біт 2 (0x04): Стек переривання</text>
+<text x="445.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">0 = Головний стек (MSP)  |  1 = Стек задачі (PSP)</text>
+<rect x="435.0" y="167.0" width="390.0" height="36.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.0"/>
+<text x="445.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#166534" text-anchor="start" font-weight="700">Біт 3 (0x08): Режим процесора</text>
+<text x="445.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">0 = Handler Mode (обробник)  |  1 = Thread Mode</text>
+<rect x="435.0" y="209.0" width="390.0" height="36.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.0"/>
+<text x="445.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#166534" text-anchor="start" font-weight="700">Біт 4 (0x10): Розширений кадр FPU</text>
+<text x="445.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">0 = Кадр з FPU (26 слів)  |  1 = Базовий кадр (8 слів)</text>
+<rect x="420.0" y="275.0" width="420.0" height="190.0" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="2.0"/>
+<text x="630.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1d4ed8" text-anchor="middle" font-weight="700">Від значення PC до винного рядка у вихідному коді</text>
+<text x="440.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="start" font-weight="700">1. Зняти адресу PC зі стеку:</text>
+<rect x="440.0" y="342.0" width="380.0" height="22.0" rx="3" fill="#1e293b" stroke="#0f172a" stroke-width="1.0"/>
+<text x="450.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#38bdf8" text-anchor="start" font-weight="700">Наприклад, PC = 0x08001A42</text>
+<text x="440.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="start" font-weight="700">2. Запустити утиліту addr2line:</text>
+<rect x="440.0" y="387.0" width="380.0" height="22.0" rx="3" fill="#1e293b" stroke="#0f172a" stroke-width="1.0"/>
+<text x="450.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#38bdf8" text-anchor="start" font-weight="700">arm-none-eabi-addr2line -e firmware.elf -a 0x08001A42</text>
+<text x="440.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="start" font-weight="700">3. Отримати файл і номер рядка:</text>
+<rect x="440.0" y="432.0" width="380.0" height="22.0" rx="3" fill="#1e293b" stroke="#0f172a" stroke-width="1.0"/>
+<text x="450.0" y="447.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#38bdf8" text-anchor="start" font-weight="700">main.c:148  -&gt;  sensor_ptr-&gt;read()</text>
+</svg>

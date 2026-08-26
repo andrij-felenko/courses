@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура доменів живлення та фільтрація</text>
+<rect x="20.0" y="150.0" width="110.0" height="80.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="75.0" y="186.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="75.0" dy="0.0">Головна шина</tspan><tspan x="75.0" dy="14.3">3.3 В (DC-DC)</tspan></text>
+<line x1="130.0" y1="170.0" x2="200.0" y2="70.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="200.0" y1="70.0" x2="250.0" y2="70.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="250.0" y="40.0" width="150.0" height="60.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="325.0" y="66.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="325.0" dy="0.0">Шина VDDIO (3.3 В)</tspan><tspan x="325.0" dy="15.6">Буфери вводу-виводу</tspan></text>
+<line x1="325.0" y1="100.0" x2="325.0" y2="120.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="290.0" y="120.0" width="70.0" height="26.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="325.0" y="136.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="325.0" dy="0.0">C = 100 нФ</tspan></text>
+<line x1="130.0" y1="190.0" x2="190.0" y2="190.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="190.0" y="165.0" width="100.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="240.0" y="186.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="240.0" dy="0.0">LDO / Buck</tspan><tspan x="240.0" dy="14.3">1.2 В</tspan></text>
+<line x1="290.0" y1="190.0" x2="350.0" y2="190.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="350.0" y="160.0" width="150.0" height="60.0" rx="6" fill="#fdf2e9" stroke="#e67e22" stroke-width="1.5"/><text x="425.0" y="186.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="425.0" dy="0.0">Шина VDD_CORE (1.2 В)</tspan><tspan x="425.0" dy="14.3">Цифрове логічне ядро</tspan></text>
+<line x1="425.0" y1="220.0" x2="425.0" y2="240.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="380.0" y="240.0" width="90.0" height="26.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="425.0" y="256.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="425.0" dy="0.0">C = 10 мкФ + 0.1 мкФ</tspan></text>
+<line x1="130.0" y1="210.0" x2="180.0" y2="310.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="180.0" y1="310.0" x2="220.0" y2="310.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="220.0" y="285.0" width="100.0" height="50.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="270.0" y="306.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="270.0" dy="0.0">Ферит (FB)</tspan><tspan x="270.0" dy="14.3">+ LDO 3.3 В</tspan></text>
+<line x1="320.0" y1="310.0" x2="370.0" y2="310.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="370.0" y="280.0" width="150.0" height="60.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="445.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="445.0" dy="0.0">Шина AVDD (3.3 В чиста)</tspan><tspan x="445.0" dy="13.0">АЦП, PLL, аналог</tspan></text>
+<line x1="445.0" y1="340.0" x2="445.0" y2="360.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="400.0" y="360.0" width="90.0" height="26.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="445.0" y="376.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="445.0" dy="0.0">C = 4.7 мкФ + 10 нФ</tspan></text>
+<rect x="540.0" y="30.0" width="200.0" height="330.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="2.0"/>
+<text x="640.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Цільова мікросхема</text>
+<line x1="550.0" y1="75.0" x2="730.0" y2="75.0" stroke="#333333" stroke-width="1.0"/>
+<line x1="400.0" y1="70.0" x2="540.0" y2="70.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="580.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">VDDIO</text>
+<line x1="500.0" y1="190.0" x2="540.0" y2="190.0" stroke="#e67e22" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="595.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="700">VDD_CORE</text>
+<line x1="520.0" y1="310.0" x2="540.0" y2="310.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="580.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">AVDD</text>
+<rect x="555.0" y="335.0" width="170.0" height="20.0" rx="6" fill="#d5dbdb" stroke="#333333" stroke-width="1.0"/>
+<text x="640.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Суцільний шар GND</text>
+</svg>

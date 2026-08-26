@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">RC-компенсація дільника щупа 10X та форми сигналу</text>
+<rect x="25.0" y="25.0" width="370.0" height="260.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.2"/>
+<text x="210.0" y="47.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схема пасивного щупа 10X</text>
+<rect x="40.0" y="70.0" width="155.0" height="150.0" rx="6" fill="#f4f8fb" stroke="#2457d6" stroke-width="1.2"/>
+<text x="117.5" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Головка щупа (10X)</text>
+<rect x="60.0" y="110.0" width="115.0" height="36.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="117.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">R₁ = 9 МОм</text>
+<rect x="60.0" y="160.0" width="115.0" height="36.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="117.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">C₁ (підлаштовний)</text>
+<rect x="220.0" y="70.0" width="160.0" height="150.0" rx="6" fill="#fef9f3" stroke="#c0392b" stroke-width="1.2"/>
+<text x="300.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Кабель + Вхід BNC</text>
+<rect x="240.0" y="110.0" width="120.0" height="36.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="300.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">R_in = 1 МОм</text>
+<rect x="240.0" y="160.0" width="120.0" height="36.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="300.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">C_кабель + C_in ≈ 100 пФ</text>
+<line x1="195.0" y1="128.0" x2="220.0" y2="128.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="195.0" y1="178.0" x2="220.0" y2="178.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="40.0" y="230.0" width="340.0" height="42.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="210.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Умова ідеальної компенсації: R₁ · C₁ = R_in · C_total</text>
+<text x="210.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Коефіцієнт ділення: K = 1/10 на всіх частотах</text>
+<rect x="415.0" y="25.0" width="400.0" height="260.0" rx="8" fill="#1c2128" stroke="#333333" stroke-width="1.2"/>
+<text x="615.0" y="47.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">Калібрувальний сигнал 1 кГц на екрані осцилографа</text>
+<rect x="427.0" y="65.0" width="376.0" height="62.0" rx="4" fill="#252c35" stroke="#3b4451" stroke-width="1.0"/>
+<text x="440.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Недокомпенсація (C₁ замала)</text>
+<text x="440.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8b949e" text-anchor="start">Завалені фронти, заниження ВЧ</text>
+<rect x="640.0" y="71.0" width="150.0" height="50.0" rx="3" fill="#12161b" stroke="#30363d" stroke-width="1.0"/>
+<line x1="715.0" y1="71.0" x2="715.0" y2="121.0" stroke="#21262d" stroke-width="0.8" stroke-dasharray="2 2"/>
+<line x1="640.0" y1="96.0" x2="790.0" y2="96.0" stroke="#21262d" stroke-width="0.8" stroke-dasharray="2 2"/>
+<g transform="translate(620.0, 73.0)"><path d="M 20,44 L 50,44 L 50,22 Q 62,14 85,14 L 115,14 L 115,36 Q 127,44 150,44 L 180,44" fill="none" stroke="#2457d6" stroke-width="2.0"/></g>
+<rect x="427.0" y="135.0" width="376.0" height="62.0" rx="4" fill="#252c35" stroke="#3b4451" stroke-width="1.0"/>
+<text x="440.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Ідеальна компенсація (R₁C₁ = R₂C₂)</text>
+<text x="440.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8b949e" text-anchor="start">Строгий прямокутник, плоска вершина</text>
+<rect x="640.0" y="141.0" width="150.0" height="50.0" rx="3" fill="#12161b" stroke="#30363d" stroke-width="1.0"/>
+<line x1="715.0" y1="141.0" x2="715.0" y2="191.0" stroke="#21262d" stroke-width="0.8" stroke-dasharray="2 2"/>
+<line x1="640.0" y1="166.0" x2="790.0" y2="166.0" stroke="#21262d" stroke-width="0.8" stroke-dasharray="2 2"/>
+<g transform="translate(620.0, 143.0)"><path d="M 20,44 L 50,44 L 50,14 L 115,14 L 115,44 L 180,44" fill="none" stroke="#27ae60" stroke-width="2.0"/></g>
+<rect x="427.0" y="205.0" width="376.0" height="62.0" rx="4" fill="#252c35" stroke="#3b4451" stroke-width="1.0"/>
+<text x="440.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Перекомпенсація (C₁ завелика)</text>
+<text x="440.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8b949e" text-anchor="start">Викиди на фронтах (хибний дзвін)</text>
+<rect x="640.0" y="211.0" width="150.0" height="50.0" rx="3" fill="#12161b" stroke="#30363d" stroke-width="1.0"/>
+<line x1="715.0" y1="211.0" x2="715.0" y2="261.0" stroke="#21262d" stroke-width="0.8" stroke-dasharray="2 2"/>
+<line x1="640.0" y1="236.0" x2="790.0" y2="236.0" stroke="#21262d" stroke-width="0.8" stroke-dasharray="2 2"/>
+<g transform="translate(620.0, 213.0)"><path d="M 20,44 L 50,44 L 50,8 L 65,14 L 115,14 L 115,50 L 130,44 L 180,44" fill="none" stroke="#c0392b" stroke-width="2.0"/></g>
+</svg>

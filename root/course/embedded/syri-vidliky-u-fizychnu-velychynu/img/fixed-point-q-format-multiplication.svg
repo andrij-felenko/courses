@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Множення з фіксованою комою у форматі Q16.16 та округлення</text>
+<rect x="40.0" y="50.0" width="340.0" height="100.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="210.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e40af" text-anchor="middle" font-weight="700">Вхід X (Формат Q16.16)</text>
+<text x="210.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">32-бітне ціле число: 16 біт цілих, 16 біт дробових</text>
+<text x="210.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Значення: X_real = X_raw / 65536.0</text>
+<rect x="440.0" y="50.0" width="340.0" height="100.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="610.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e40af" text-anchor="middle" font-weight="700">Коефіцієнт K (Формат Q16.16)</text>
+<text x="610.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Масштаб чутливості LSB (наприклад, 0.061 мг/LSB)</text>
+<text x="610.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Значення: K_fixed = (uint32_t)(K_real * 65536)</text>
+<line x1="210.0" y1="150.0" x2="360.0" y2="195.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="610.0" y1="150.0" x2="460.0" y2="195.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="240.0" y="195.0" width="340.0" height="95.0" rx="6" fill="#fefce8" stroke="#eab308" stroke-width="1.5"/>
+<text x="410.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#854d0e" text-anchor="middle" font-weight="700">64-бітне множення (SMULL / int64_t)</text>
+<text x="410.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Формат добутку: Q32.32 (64 біти)</text>
+<text x="410.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">prod = (int64_t)X * K  (без переповнення!)</text>
+<line x1="410.0" y1="290.0" x2="410.0" y2="320.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="180.0" y="320.0" width="460.0" height="115.0" rx="6" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/>
+<text x="410.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#15803d" text-anchor="middle" font-weight="700">Округлення та нормалізація назад до Q16.16</text>
+<text x="410.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Додавання половини LSB: prod += (1ULL &lt;&lt; 15)  [Round to Nearest]</text>
+<text x="410.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#047857" text-anchor="middle" font-weight="700">Арифметичний зсув: result = (int32_t)(prod &gt;&gt; 16)</text>
+<text x="410.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Швидкість: 1..2 такти на Cortex-M, нуль викликів float-емуляції</text>
+</svg>

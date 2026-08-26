@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 986 479" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="986" height="479" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Статичний кільцевий буфер для зв'язку ISR та основного циклу</text>
+<text x="480.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Статичний lock-free кільцевий буфер телеметрії: схема Single-Producer Single-Consumer</text>
+<circle cx="360.0" cy="240.0" r="175.0" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<circle cx="360.0" cy="240.0" r="85.0" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<circle cx="360.0" cy="110.0" r="30.0" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.8"/>
+<text x="360.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">[0]</text>
+<text x="360.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0xAA</text>
+<circle cx="451.9" cy="148.1" r="30.0" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.8"/>
+<text x="451.9" y="142.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">[1]</text>
+<text x="451.9" y="160.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x12</text>
+<circle cx="490.0" cy="240.0" r="30.0" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.8"/>
+<text x="490.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">[2]</text>
+<text x="490.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x04</text>
+<circle cx="451.9" cy="331.9" r="30.0" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.8"/>
+<text x="451.9" y="325.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">[3]</text>
+<text x="451.9" y="343.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0xFF</text>
+<circle cx="360.0" cy="370.0" r="30.0" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.8"/>
+<text x="360.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">[4]</text>
+<text x="360.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">[вільно]</text>
+<circle cx="268.1" cy="331.9" r="30.0" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.8"/>
+<text x="268.1" y="325.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">[5]</text>
+<text x="268.1" y="343.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">[вільно]</text>
+<circle cx="230.0" cy="240.0" r="30.0" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.8"/>
+<text x="230.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">[6]</text>
+<text x="230.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">[вільно]</text>
+<circle cx="268.1" cy="148.1" r="30.0" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.8"/>
+<text x="268.1" y="142.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">[7]</text>
+<text x="268.1" y="160.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">[вільно]</text>
+<line x1="360.0" y1="445.0" x2="360.0" y2="404.0" stroke="#c0392b" stroke-width="2.4" marker-end="url(#arrow)"/>
+<rect x="280.0" y="431.0" width="75.0" height="28.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="318.0" y="449.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">head = 4 (ISR)</text>
+<line x1="360.0" y1="35.0" x2="360.0" y2="76.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<rect x="315.0" y="1.0" width="90.0" height="26.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.2"/>
+<text x="360.0" y="11.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">tail = 0 (main)</text>
+<rect x="600.0" y="75.0" width="320.0" height="335.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="760.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ключові інваріанти структури</text>
+<text x="616.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">1. Розмір = 2^N (степінь двійки)</text>
+<text x="616.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="616.0" dy="0.0">Інкремент без ділення: idx = (idx + 1) &amp; MASK, де MASK = CAPACITY - 1.</tspan></text>
+<text x="616.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">2. Виробник (ISR UART):</text>
+<text x="616.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="616.0" dy="0.0">Збільшує лише head. Не блокується і не виділяє пам'ять.</tspan></text>
+<text x="616.0" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">3. Споживач (super-loop):</text>
+<text x="616.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="616.0" dy="0.0">Збільшує лише tail. Вичитує кадри та рахує CRC.</tspan></text>
+<text x="616.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">4. Стан «Порожній»:</text>
+<text x="616.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="616.0" dy="0.0">head == tail (немає нових байтів).</tspan></text>
+<text x="616.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="start" font-weight="700">5. Стан «Повний»:</text>
+<text x="616.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"><tspan x="616.0" dy="0.0">((head + 1) &amp; MASK) == tail. Резервується одна комірка.</tspan></text>
+</svg>

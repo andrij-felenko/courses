@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 854.04 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="854.04" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="210.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Напівсуматор (Half Adder)</text>
+<text x="210.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">2 входи → 2 виходи (без Cin)</text>
+<text x="630.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Повний суматор (Full Adder)</text>
+<text x="630.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">3 входи (A, B, Cin) → 2 виходи (S, Cout)</text>
+<line x1="420.0" y1="15.0" x2="420.0" y2="385.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="50.0" y1="110.0" x2="110.0" y2="110.0" stroke="#333333" stroke-width="1.8"/>
+<text x="40.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<line x1="50.0" y1="170.0" x2="110.0" y2="170.0" stroke="#333333" stroke-width="1.8"/>
+<text x="40.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">B</text>
+<circle cx="80.0" cy="110.0" r="3.5" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<circle cx="95.0" cy="170.0" r="3.5" fill="#333333" stroke="#333333" stroke-width="1.5"/>
+<line x1="80.0" y1="110.0" x2="80.0" y2="240.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="80.0" y1="240.0" x2="110.0" y2="240.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="95.0" y1="170.0" x2="95.0" y2="290.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="95.0" y1="290.0" x2="110.0" y2="290.0" stroke="#333333" stroke-width="1.8"/>
+<rect x="110.0" y="100.0" width="90.0" height="80.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="155.0" y="136.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="155.0" dy="0.0">XOR</tspan><tspan x="155.0" dy="16.9">(A ⊕ B)</tspan></text>
+<rect x="110.0" y="230.0" width="90.0" height="80.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="155.0" y="266.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="155.0" dy="0.0">AND</tspan><tspan x="155.0" dy="16.9">(A · B)</tspan></text>
+<line x1="200.0" y1="140.0" x2="340.0" y2="140.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="370.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">S (Сума)</text>
+<line x1="200.0" y1="270.0" x2="340.0" y2="270.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="375.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Cout (Перенос)</text>
+<text x="210.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">S = A ⊕ B,  Cout = A · B</text>
+<text x="210.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Не має входу для переносу з молодшого біта</text>
+<rect x="460.0" y="90.0" width="100.0" height="100.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="510.0" y="137.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="510.0" dy="0.0">Напівсуматор 1</tspan><tspan x="510.0" dy="11.7">(HA₁)</tspan></text>
+<rect x="600.0" y="140.0" width="100.0" height="100.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="650.0" y="187.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">Напівсуматор 2</tspan><tspan x="650.0" dy="11.7">(HA₂)</tspan></text>
+<rect x="730.0" y="250.0" width="80.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="770.0" y="276.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="770.0" dy="0.0">OR</tspan><tspan x="770.0" dy="16.9">(+)</tspan></text>
+<line x1="430.0" y1="120.0" x2="460.0" y2="120.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="420.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<line x1="430.0" y1="160.0" x2="460.0" y2="160.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="420.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">B</text>
+<line x1="430.0" y1="210.0" x2="600.0" y2="210.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="420.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Cin</text>
+<line x1="560.0" y1="120.0" x2="600.0" y2="160.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="580.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">A⊕B</text>
+<line x1="700.0" y1="190.0" x2="800.0" y2="190.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="815.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">S</text>
+<line x1="560.0" y1="170.0" x2="580.0" y2="170.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="580.0" y1="170.0" x2="580.0" y2="270.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="580.0" y1="270.0" x2="730.0" y2="270.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="635.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">A·B</text>
+<line x1="700.0" y1="220.0" x2="715.0" y2="220.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="715.0" y1="220.0" x2="715.0" y2="290.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="715.0" y1="290.0" x2="730.0" y2="290.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="675.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Cin·(A⊕B)</text>
+<line x1="810.0" y1="280.0" x2="830.0" y2="280.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="820.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Cout</text>
+<text x="630.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">S = A ⊕ B ⊕ Cin,  Cout = (A · B) + (Cin · (A ⊕ B))</text>
+<text x="630.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Повний каскад забезпечує наскрізне додавання розрядів</text>
+</svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 544" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="544" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зміщення потенціалу землі (Ground Bounce) та топологія «Зіркова земля»</text>
+<rect x="30.0" y="56.0" width="420.0" height="410.0" rx="10" fill="#fff8f8" stroke="#c0392b" stroke-width="1.6"/>
+<text x="240.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">НЕПРАВИЛЬНО: спільний провідник землі</text>
+<rect x="50.0" y="106.0" width="80.0" height="65.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="90.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">LiPo</text>
+<text x="90.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">−  GND</text>
+<rect x="320.0" y="106.0" width="100.0" height="65.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="370.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ESC Мотор</text>
+<text x="370.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">50 А імпульс</text>
+<rect x="170.0" y="256.0" width="140.0" height="75.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="240.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Польотний MCU</text>
+<text x="240.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">GND_mcu</text>
+<text x="240.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">3.3 В логіка</text>
+<line x1="90.0" y1="171.0" x2="90.0" y2="401.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="90.0" y1="401.0" x2="370.0" y2="401.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="370.0" y1="401.0" x2="370.0" y2="171.0" stroke="#2457d6" stroke-width="2.5"/>
+<text x="230.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">R_gnd = 15 мОм, L_gnd = 20 нГн</text>
+<line x1="290.0" y1="331.0" x2="290.0" y2="401.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="260.0" y1="388.0" x2="120.0" y2="388.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="185.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">I_motor = 50 А</text>
+<text x="240.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ΔV_gnd = I·R + L·(di/dt) ≈ 0.75 В + 2.0 В = 2.75 В!</text>
+<text x="240.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Зсув землі перекидає цифрові рівні 3.3 В та зависає MCU</text>
+<rect x="490.0" y="56.0" width="420.0" height="410.0" rx="10" fill="#f6fbf7" stroke="#27ae60" stroke-width="1.6"/>
+<text x="700.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ПРАВИЛЬНО: топологія «Зіркова земля»</text>
+<rect x="510.0" y="106.0" width="80.0" height="65.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="550.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">LiPo</text>
+<text x="550.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">−  GND</text>
+<circle cx="650.0" cy="236.0" r="14.0" fill="#27ae60" stroke="#333333" stroke-width="2.0"/>
+<text x="650.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">★</text>
+<text x="650.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Зіркова точка (Star GND)</text>
+<rect x="780.0" y="106.0" width="100.0" height="65.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="830.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ESC Мотор</text>
+<text x="830.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">50 А імпульс</text>
+<line x1="550.0" y1="171.0" x2="550.0" y2="236.0" stroke="#2457d6" stroke-width="3.0"/>
+<line x1="550.0" y1="236.0" x2="636.0" y2="236.0" stroke="#2457d6" stroke-width="3.0" marker-end="url(#arrow)"/>
+<line x1="664.0" y1="236.0" x2="830.0" y2="236.0" stroke="#c0392b" stroke-width="2.8"/>
+<line x1="830.0" y1="236.0" x2="830.0" y2="171.0" stroke="#c0392b" stroke-width="2.8"/>
+<text x="740.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Силовий зворот (PGND)</text>
+<rect x="760.0" y="306.0" width="130.0" height="75.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="825.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Польотний MCU</text>
+<text x="825.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Чиста сигнальна GND</text>
+<text x="825.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">I_gnd &lt; 50 мА</text>
+<line x1="650.0" y1="250.0" x2="650.0" y2="341.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="650.0" y1="341.0" x2="760.0" y2="341.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="705.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Сигнальний GND (AGND/DGND)</text>
+<text x="700.0" y="431.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Силові імпульси замикаються суто по PGND і не чіпають MCU</text>
+<rect x="130.8" y="479.9" width="678.3" height="44.1" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="470.0" y="498.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">Зіркова топологія зводить силові повернення моторів (PGND) та сигнальні повернення чутливої логіки (DGND/AGND)</tspan><tspan x="470.0" dy="13.7">в єдину фізичну точку біля мінуса батареї, усуваючи паразитні зсуви напруги.</tspan></text>
+</svg>

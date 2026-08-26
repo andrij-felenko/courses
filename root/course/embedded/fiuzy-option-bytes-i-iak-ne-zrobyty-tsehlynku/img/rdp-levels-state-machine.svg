@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 477" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="477" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автомат станів захисту пам'яті STM32 RDP (Readout Protection)</text>
+<rect x="40.0" y="80.0" width="240.0" height="280.0" rx="10" fill="#ecfdf5" stroke="#27ae60" stroke-width="2.0"/>
+<text x="160.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Рівень 0 (Level 0)</text>
+<text x="160.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Байт RDP = 0xAA</text>
+<line x1="60.0" y1="155.0" x2="260.0" y2="155.0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="160.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Повний доступ SWD/JTAG</text>
+<text x="160.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Читання та запис Flash</text>
+<text x="160.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Читання та запис SRAM</text>
+<text x="160.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Зневадження та точки зупину</text>
+<text x="160.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Заводський стан</text>
+<text x="160.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Для розробки та зневадження</text>
+<rect x="340.0" y="80.0" width="240.0" height="280.0" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2.0"/>
+<text x="460.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#b45309" text-anchor="middle" font-weight="700">Рівень 1 (Level 1)</text>
+<text x="460.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Будь-яке значення крім 0xAA / 0xCC</text>
+<line x1="360.0" y1="155.0" x2="560.0" y2="155.0" stroke="#d97706" stroke-width="1.2"/>
+<text x="460.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Flash недоступна через SWD</text>
+<text x="460.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Спроба читання → Bus Error</text>
+<text x="460.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Ядро з Flash читає штатно</text>
+<text x="460.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Доступний доступ до SRAM</text>
+<text x="460.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">Серійний захист</text>
+<text x="460.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Захист від копіювання коду</text>
+<rect x="640.0" y="80.0" width="240.0" height="280.0" rx="10" fill="#fee2e2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="760.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Рівень 2 (Level 2)</text>
+<text x="760.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Байт RDP = 0xCC</text>
+<line x1="660.0" y1="155.0" x2="860.0" y2="155.0" stroke="#c0392b" stroke-width="1.2"/>
+<text x="760.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">• SWD/JTAG вимкнено назавжди</text>
+<text x="760.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Завантаження з SRAM блоковано</text>
+<text x="760.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Bootloader ROM блоковано</text>
+<text x="760.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Оновлення лише з коду (IAP)</text>
+<text x="760.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ФАТАЛЬНИЙ СТАН</text>
+<text x="760.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Незворотне запечатування</text>
+<line x1="280.0" y1="170.0" x2="335.0" y2="170.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="310.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-weight="700">RDP = 0xBB</text>
+<line x1="340.0" y1="230.0" x2="285.0" y2="230.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="310.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">RDP = 0xAA</text>
+<text x="310.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">ПОВНЕ СТИРАННЯ</text>
+<text x="310.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Flash + SRAM</text>
+<line x1="580.0" y1="170.0" x2="635.0" y2="170.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="610.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">RDP = 0xCC</text>
+<line x1="160.0" y1="360.0" x2="160.0" y2="395.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="160.0" y1="395.0" x2="760.0" y2="395.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="760.0" y1="395.0" x2="760.0" y2="365.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="460.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Прямий запис RDP = 0xCC (Незворотний перехід)</text>
+<line x1="640.0" y1="230.0" x2="585.0" y2="230.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="612.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">ЗАБОРОНЕНО</text>
+<text x="612.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">✕</text>
+<rect x="147.8" y="412.9" width="624.5" height="44.1" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5"/><text x="460.0" y="431.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">Перехід з Level 1 у Level 0 стирає всю пам'ять для захисту від зчитування через налагоджувач.</tspan><tspan x="460.0" dy="13.7">Зворотного шляху з Level 2 не існує: інтерфейс SWD апаратно спалюється / блокується на рівні кремнію.</tspan></text>
+</svg>

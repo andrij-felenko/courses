@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 483" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="483" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схема реанімації мікроконтролера через ін'єкцію зовнішнього тактування (Clock Injection)</text>
+<rect x="40.0" y="70.0" width="250.0" height="320.0" rx="8" fill="#f8fafc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="165.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Джерело тактування</text>
+<text x="165.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Генератор / Допоміжний МК</text>
+<rect x="65.0" y="150.0" width="200.0" height="75.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="165.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Генератор меандру</text>
+<text x="165.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Частота: 1–8 МГц (TTL/CMOS)</text>
+<text x="165.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Амплітуда: 3.3 В або 5 В</text>
+<circle cx="265.0" cy="185.0" r="5.0" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="235.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">CLK_OUT</text>
+<circle cx="165.0" cy="340.0" r="5.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="165.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">GND (Спільна земля)</text>
+<rect x="590.0" y="70.0" width="290.0" height="320.0" rx="8" fill="#fff5f5" stroke="#c0392b" stroke-width="1.8"/>
+<text x="735.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Заблокований цільовий МК</text>
+<text x="735.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">AVR (ATmega/tiny) або STM32</text>
+<circle cx="590.0" cy="185.0" r="6.0" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="645.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">XTAL1 / OSC_IN</text>
+<circle cx="590.0" cy="245.0" r="5.0" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="630.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">RESET</text>
+<circle cx="590.0" cy="285.0" r="5.0" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="645.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">SWDIO / MOSI</text>
+<circle cx="590.0" cy="315.0" r="5.0" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="645.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">SWCLK / SCK</text>
+<circle cx="735.0" cy="370.0" r="5.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="735.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">GND</text>
+<line x1="265.0" y1="185.0" x2="380.0" y2="185.0" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="380.0" y="175.0" width="60.0" height="20.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="410.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">100–330 Ом</text>
+<line x1="440.0" y1="185.0" x2="584.0" y2="185.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="460.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Меандр 1–8 МГц</text>
+<rect x="330.0" y="240.0" width="180.0" height="120.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="420.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Програматор</text>
+<text x="420.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ST-Link / USBasp / J-Link</text>
+<line x1="510.0" y1="290.0" x2="584.0" y2="250.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="510.0" y1="300.0" x2="584.0" y2="285.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="510.0" y1="310.0" x2="584.0" y2="315.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="165.0" y1="340.0" x2="165.0" y2="400.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="165.0" y1="400.0" x2="735.0" y2="400.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="735.0" y1="400.0" x2="735.0" y2="375.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="420.0" y1="360.0" x2="420.0" y2="400.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="450.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">СПІЛЬНА ЗЕМЛЯ (Common Ground)</text>
+<rect x="103.4" y="421.1" width="713.1" height="41.9" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="460.0" y="439.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">Якщо фьюзи налаштовані на зовнішній кварц, якого немає, автомат інтерфейсу програмування не отримує стробуючих тактів.</tspan><tspan x="460.0" dy="12.3">Подача зовнішнього меандру на XTAL1 відновлює тактування шини SPI/SWD і дозволяє перепрограмувати фьюзи на внутрішній генератор.</tspan></text>
+</svg>

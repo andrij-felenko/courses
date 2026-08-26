@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратний доступ до шин і Flash мікроконтролера через CoreSight DAP</text>
+<rect x="30.0" y="75.0" width="140.0" height="190.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="100.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">ПК / Тулчейн</text>
+<text x="100.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">OpenOCD / probe-rs</text>
+<text x="100.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">pyOCD / st-flash</text>
+<line x1="45.0" y1="155.0" x2="155.0" y2="155.0" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="45.0" y="175.0" width="110.0" height="65.0" rx="4" fill="#fff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="100.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Зонд (Probe)</text>
+<text x="100.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">ST-Link / J-Link</text>
+<line x1="155.0" y1="195.0" x2="230.0" y2="195.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="230.0" y1="220.0" x2="155.0" y2="220.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="192.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">SWDIO</text>
+<text x="192.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">SWCLK</text>
+<rect x="235.0" y="65.0" width="575.0" height="295.0" rx="8" fill="#ffffff" stroke="#2c3e50" stroke-width="2.0"/>
+<text x="522.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2c3e50" text-anchor="middle" font-weight="700">Кремній мікроконтролера (MCU SoC)</text>
+<rect x="255.0" y="115.0" width="180.0" height="225.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="345.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">CoreSight DAP</text>
+<text x="345.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Debug Access Port</text>
+<rect x="270.0" y="170.0" width="150.0" height="55.0" rx="4" fill="#fff" stroke="#c0392b" stroke-width="1.3"/>
+<text x="345.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">SW-DP</text>
+<text x="345.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Послідовний порт дебагу</text>
+<line x1="345.0" y1="225.0" x2="345.0" y2="250.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="270.0" y="250.0" width="150.0" height="75.0" rx="4" fill="#fff" stroke="#c0392b" stroke-width="1.3"/>
+<text x="345.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">MEM-AP / AHB-AP</text>
+<text x="345.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Транслятор SWD → шина</text>
+<text x="345.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Прямий доступ у пам'ять</text>
+<line x1="420.0" y1="287.0" x2="475.0" y2="287.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="475.0" y="115.0" width="75.0" height="225.0" rx="4" fill="#eef1f4" stroke="#333333" stroke-width="1.5"/>
+<text x="512.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ш</text>
+<text x="512.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">И</text>
+<text x="512.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Н</text>
+<text x="512.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">А</text>
+<text x="512.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">AHB/AXI</text>
+<rect x="585.0" y="115.0" width="205.0" height="65.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="687.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Ядро процесора (CPU)</text>
+<text x="687.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">FPB (точки зупину), DWT</text>
+<line x1="550.0" y1="147.0" x2="585.0" y2="147.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="585.0" y="195.0" width="205.0" height="65.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="687.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Оперативна пам'ять (SRAM)</text>
+<text x="687.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Завантаження RAM-стаба</text>
+<line x1="550.0" y1="227.0" x2="585.0" y2="227.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="585.0" y="275.0" width="205.0" height="65.0" rx="4" fill="#fef5e7" stroke="#d35400" stroke-width="1.5"/>
+<text x="687.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle" font-weight="700">Контролер Flash пам'яті</text>
+<text x="687.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Регістри CR/SR + NOR Flash</text>
+<line x1="550.0" y1="307.0" x2="585.0" y2="307.0" stroke="#d35400" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="102.8" y="377.4" width="634.5" height="45.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="420.0" y="396.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">DAP працює незалежно від процесорного ядра: зонд через AHB-AP може читати й писати SRAM,</tspan><tspan x="420.0" dy="14.3">керувати контролером Flash і завантажувати швидкісний RAM-стаб, навіть коли ядро спить чи зависло.</tspan></text>
+</svg>

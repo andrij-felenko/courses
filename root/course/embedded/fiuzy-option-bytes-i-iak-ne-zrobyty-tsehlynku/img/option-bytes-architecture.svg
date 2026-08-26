@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="880.0" height="460.0" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="460.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратна архітектура завантаження Option Bytes / Fuses у мікроконтролері</text>
+<rect x="45.0" y="80.0" width="220.0" height="310.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="155.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Енергонезалежне сховище</text>
+<text x="155.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(Flash Info / eFuses / EEPROM)</text>
+<rect x="60.0" y="145.0" width="190.0" height="40.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="155.0" y="161.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="155.0" dy="0.0">RDP / Lock Bits</tspan><tspan x="155.0" dy="14.3">(Рівні захисту від читання)</tspan></text>
+<rect x="60.0" y="195.0" width="190.0" height="40.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="155.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="155.0" dy="0.0">BOR / BOD Level</tspan><tspan x="155.0" dy="13.0">(Пороги скидання за напругою)</tspan></text>
+<rect x="60.0" y="245.0" width="190.0" height="40.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="155.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="155.0" dy="0.0">WDG_SW / WDTON</tspan><tspan x="155.0" dy="13.0">(Апаратний чи програмний WDG)</tspan></text>
+<rect x="60.0" y="295.0" width="190.0" height="40.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="155.0" y="312.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="155.0" dy="0.0">CKSEL / HSE / SUT</tspan><tspan x="155.0" dy="11.7">(Джерело тактування й затримка)</tspan></text>
+<rect x="60.0" y="345.0" width="190.0" height="35.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="155.0" y="359.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="155.0" dy="0.0">nBOOT0 / RSTDISBL</tspan><tspan x="155.0" dy="14.3">(Конфігурація пінів)</tspan></text>
+<rect x="300.0" y="80.0" width="175.0" height="120.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="387.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Power-On Reset (POR)</text>
+<text x="387.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Детектор наростання VDD</text>
+<text x="387.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">↓ Запуск апаратного FSM</text>
+<text x="387.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">до розблокування ядра</text>
+<line x1="300.0" y1="140.0" x2="270.0" y2="140.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="285.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Read</text>
+<rect x="300.0" y="230.0" width="175.0" height="160.0" rx="8" fill="#fdf6e2" stroke="#d97706" stroke-width="1.8"/>
+<text x="387.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#92400e" text-anchor="middle" font-weight="700">Тіньові регістри</text>
+<text x="387.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle">Shadow Registers / Latches</text>
+<text x="387.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Фізичні апаратні тригери</text>
+<text x="387.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Зберігають копію бітів</text>
+<text x="387.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Керують логікою напряму</text>
+<text x="387.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">FLASH-&gt;OPTR / OBR</text>
+<line x1="265.0" y1="310.0" x2="295.0" y2="310.0" stroke="#d97706" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="280.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">Load</text>
+<rect x="540.0" y="100.0" width="335.0" height="52.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="707.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">CoreSight SWD/JTAG</text>
+<text x="707.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вимкнення / блокування шини налагодження</text>
+<line x1="475.0" y1="126.0" x2="535.0" y2="126.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="540.0" y="165.0" width="335.0" height="52.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="707.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">BOR Компаратор</text>
+<text x="707.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Встановлення порогу захисту 1.8 / 2.4 / 2.7 В</text>
+<line x1="475.0" y1="191.0" x2="535.0" y2="191.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="540.0" y="230.0" width="335.0" height="52.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="707.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Сторожовий таймер</text>
+<text x="707.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Старт WDG одразу з моменту подачі VDD</text>
+<line x1="475.0" y1="256.0" x2="535.0" y2="256.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="540.0" y="295.0" width="335.0" height="52.0" rx="6" fill="#ffffff" stroke="#8b5cf6" stroke-width="1.5"/>
+<text x="707.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8b5cf6" text-anchor="middle" font-weight="700">Дерево тактування</text>
+<text x="707.0" y="333.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вибір HSI / HSE / PLL та затримок запуску</text>
+<line x1="475.0" y1="321.0" x2="535.0" y2="321.0" stroke="#8b5cf6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="540.0" y="360.0" width="335.0" height="52.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="707.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ядро CPU &amp; Boot ROM</text>
+<text x="707.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Маршрутизація вектору скидання Flash/SRAM</text>
+<line x1="475.0" y1="386.0" x2="535.0" y2="386.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="92.6" y="417.4" width="734.8" height="45.3" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5"/><text x="460.0" y="436.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">Option Bytes завантажуються апаратною схемою за нуль тактів CPU ще до зняття сигналу скидання з процесорного ядра.</tspan><tspan x="460.0" dy="14.3">Програмна помилка у фьюзах блокує апаратні модулі до початку виконання першої інструкції прошивки.</tspan></text>
+</svg>

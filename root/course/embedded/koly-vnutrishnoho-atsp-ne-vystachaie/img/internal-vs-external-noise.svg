@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння шумового середовища: вбудований АЦП проти зовнішнього</text>
+<rect x="30.0" y="45.0" width="405.0" height="320.0" rx="8" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="232.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Вбудований АЦП: спільний кристал МК</text>
+<text x="232.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Кремнієва підкладка зв'язує цифру та аналог</text>
+<rect x="50.0" y="115.0" width="160.0" height="110.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="130.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Цифрове ядро МК</text>
+<text x="130.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">CPU 80–480 МГц</text>
+<text x="130.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Шини Flash, RAM, DMA</text>
+<text x="130.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Імпульси di/dt &gt; 10⁹ А/с</text>
+<rect x="255.0" y="115.0" width="160.0" height="110.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="335.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вбудований SAR АЦП</text>
+<text x="335.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Номінал: 12 бітів</text>
+<text x="335.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Ємнісний ЦАП (CDAC)</text>
+<text x="335.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Шумна опора VDDA</text>
+<line x1="210.0" y1="170.0" x2="255.0" y2="170.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="232.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Шум</text>
+<rect x="46.4" y="260.2" width="371.1" height="59.6" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="232.0" y="279.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="232.0" dy="0.0">Завади підкладки (Substrate Noise) + дзвін шини живлення</tspan><tspan x="232.0" dy="14.3">Реальна розрядність ENOB: лише 9.0–10.2 біта</tspan><tspan x="232.0" dy="14.3">Шум вихідного коду: ±4–12 LSB (непридатний для &lt; 1 мВ)</tspan></text>
+<rect x="465.0" y="45.0" width="405.0" height="320.0" rx="8" fill="#eefaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="667.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Зовнішній виділений АЦП</text>
+<text x="667.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Повна фізична ізоляція від цифрового процесора</text>
+<rect x="485.0" y="115.0" width="160.0" height="110.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="565.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Прецизійна опора Vref</text>
+<text x="565.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Дрейф &lt; 3 ppm/°C</text>
+<text x="565.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Шум &lt; 1.5 мкВ p-p</text>
+<text x="565.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Kelvin-підключення</text>
+<rect x="690.0" y="115.0" width="160.0" height="110.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="770.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Зовнішнє ядро АЦП</text>
+<text x="770.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">16–24 біти (ΣΔ або SAR)</text>
+<text x="770.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Вбудований малошумний PGA</text>
+<text x="770.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Диференційний вхід</text>
+<line x1="645.0" y1="170.0" x2="690.0" y2="170.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="667.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Vref</text>
+<rect x="468.9" y="260.2" width="396.2" height="59.6" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="667.0" y="279.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="667.0" dy="0.0">Чиста кремнієва підкладка без потужних цифрових ядер</tspan><tspan x="667.0" dy="14.3">Реальна розрядність ENOB: 16–22.5 біта (шум &lt; 1 мкВ RMS)</tspan><tspan x="667.0" dy="14.3">Стабільність відліків: вимірювання мікровольтів без дрижання</tspan></text>
+<rect x="10.6" y="379.2" width="878.7" height="31.5" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="450.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Зовнішній АЦП переносить перетворення на чистий кремній: власне стабільне живлення, виділене Vref і нуль цифрових наведень ядра МК.</tspan></text>
+</svg>

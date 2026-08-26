@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 730 330" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="730" height="330" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відновлення завислої шини I2C</text>
+<text x="360.0" y="20.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратне розблокування шини I2C (I2C Bus Recovery Pattern)</text>
+<rect x="15.0" y="45.0" width="335.0" height="255.0" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.2"/>
+<text x="182.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Проблема: Ресет МК під час читання</text>
+<rect x="33.2" y="93.7" width="297.6" height="62.6" rx="6" fill="#ffffff" stroke="#f87171" stroke-width="1.0"/><text x="182.0" y="109.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="182.0" dy="0.0">1. Ведений передавав біт '0' і притягнув SDA до GND.</tspan><tspan x="182.0" dy="12.3">2. У ведучого стався Watchdog / Brown-out ресет.</tspan><tspan x="182.0" dy="12.3">3. Після рестарту МК бачить SDA = 0.</tspan><tspan x="182.0" dy="12.3">4. Апаратний блок виставляє BUSY = 1 і блокує START.</tspan></text>
+<text x="50.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">SCL</text>
+<line x1="80.0" y1="195.0" x2="320.0" y2="195.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="200.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">SCL висить у '1' (МК мовчить)</text>
+<text x="50.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">SDA</text>
+<line x1="80.0" y1="225.0" x2="320.0" y2="225.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="200.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Ведений тримає SDA = 0 і чекає такту</text>
+<text x="182.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Клінч: обидва чекають один одного</text>
+<rect x="370.0" y="45.0" width="335.0" height="255.0" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.2"/>
+<text x="537.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Розв'язок: 9 тактів SCL через GPIO</text>
+<rect x="374.7" y="93.7" width="324.7" height="62.6" rx="6" fill="#ffffff" stroke="#4ade80" stroke-width="1.0"/><text x="537.0" y="109.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="537.0" dy="0.0">1. Вимкнути I2C, перемкнути SCL у GPIO Open-Drain.</tspan><tspan x="537.0" dy="12.3">2. Згенерувати до 9 ручних імпульсів такту на SCL.</tspan><tspan x="537.0" dy="12.3">3. Ведений докручує свій зсувний регістр і відпускає SDA.</tspan><tspan x="537.0" dy="12.3">4. Згенерувати явну умову STOP через GPIO.</tspan></text>
+<text x="400.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">SCL</text>
+<polyline points="430.0,200.0 435.0,200.0 435.0,185.0 445.0,185.0 445.0,200.0 455.0,200.0 455.0,185.0 465.0,185.0 465.0,200.0 475.0,200.0 475.0,185.0 485.0,185.0 485.0,200.0 495.0,200.0 495.0,185.0 505.0,185.0 505.0,200.0 515.0,200.0 515.0,185.0 525.0,185.0 525.0,200.0 545.0,200.0 555.0,185.0 680.0,185.0" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+<text x="400.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">SDA</text>
+<line x1="430.0" y1="235.0" x2="510.0" y2="235.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="510.0" y1="235.0" x2="520.0" y2="220.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="520.0" y1="220.0" x2="640.0" y2="220.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="640.0" y1="220.0" x2="645.0" y2="235.0" stroke="#3b82f6" stroke-width="1.5"/>
+<line x1="645.0" y1="235.0" x2="660.0" y2="235.0" stroke="#3b82f6" stroke-width="1.5"/>
+<line x1="660.0" y1="235.0" x2="670.0" y2="220.0" stroke="#3b82f6" stroke-width="1.5"/>
+<line x1="670.0" y1="220.0" x2="685.0" y2="220.0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="580.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">SDA відпущено в '1'</text>
+<text x="665.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#3b82f6" text-anchor="middle" font-weight="700">STOP</text>
+<text x="537.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Шина розблокована, I2C реініціалізується</text>
+</svg>

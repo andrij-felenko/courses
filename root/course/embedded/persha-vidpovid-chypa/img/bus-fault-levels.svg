@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матриця фізичних станів шини та зчитаних кодів</text>
+<text x="410.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">як фізичний стан лінії MISO/SDA відображається у значеннях першого байта</text>
+<rect x="35.0" y="70.0" width="230.0" height="270.0" rx="6" fill="#fdf2e9" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="35.0" y="70.0" width="230.0" height="36.0" rx="6" fill="#c0392b" stroke="#c0392b" stroke-width="1.8"/>
+<text x="150.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">Код 0xFF (0b11111111)</text>
+<text x="51.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Фізичний стан лінії:</text>
+<text x="51.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Лінія постійно у стані HIGH (+3.3V)</text>
+<text x="51.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Підтяжка до VCC через pull-up</text>
+<text x="51.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Типові причини:</text>
+<text x="51.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">1. Чип не впаяний або обрив MISO/SDA</text>
+<text x="51.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">2. Немає живлення VDD чи VDDIO</text>
+<text x="51.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">3. Чип утримується в стані RESET</text>
+<text x="51.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">4. CS не опустився в LOW (SPI)</text>
+<text x="51.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">5. Хибна 7-біт адреса (NACK на I2C)</text>
+<rect x="45.0" y="306.0" width="210.0" height="24.0" rx="3" fill="#fadbd8" stroke="none" stroke-width="1.5"/>
+<text x="150.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Перевірка: вольтметр на VDD та CS</text>
+<rect x="295.0" y="70.0" width="230.0" height="270.0" rx="6" fill="#fdf2e9" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="295.0" y="70.0" width="230.0" height="36.0" rx="6" fill="#c0392b" stroke="#c0392b" stroke-width="1.8"/>
+<text x="410.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">Код 0x00 (0b00000000)</text>
+<text x="311.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Фізичний стан лінії:</text>
+<text x="311.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Лінія постійно у стані LOW (0V)</text>
+<text x="311.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Притиснута до GND або зависла</text>
+<text x="311.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Типові причини:</text>
+<text x="311.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">1. Коротке замикання MISO/SDA на GND</text>
+<text x="311.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">2. Зависла I2C шина (слейв тримає 0)</text>
+<text x="311.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">3. MISO у Z-стані без підтяжки</text>
+<text x="311.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">4. Чип перезавантажується в циклі</text>
+<text x="311.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">5. Хибний номер регістра ID</text>
+<rect x="305.0" y="306.0" width="210.0" height="24.0" rx="3" fill="#fadbd8" stroke="none" stroke-width="1.5"/>
+<text x="410.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Перевірка: продзвонка на GND</text>
+<rect x="555.0" y="70.0" width="230.0" height="270.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="555.0" y="70.0" width="230.0" height="36.0" rx="6" fill="#27ae60" stroke="#27ae60" stroke-width="1.8"/>
+<text x="670.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">Валідний ID (напр. 0x68)</text>
+<text x="571.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Фізичний стан лінії:</text>
+<text x="571.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Активна комутація 0 та 1</text>
+<text x="571.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Асиметричний бітовий патерн</text>
+<text x="571.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Що підтверджено:</text>
+<text x="571.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">1. Живлення та опорне джерело в нормі</text>
+<text x="571.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">2. Лінії SCK, MOSI, MISO/SDA цілі</text>
+<text x="571.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">3. Адресація та протокол узгоджені</text>
+<text x="571.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">4. Кремній розпізнав команду читання</text>
+<text x="571.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">5. Готовий до тесту Scratchpad R/W</text>
+<rect x="565.0" y="306.0" width="210.0" height="24.0" rx="3" fill="#d5f5e3" stroke="none" stroke-width="1.5"/>
+<text x="670.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Статус: зв'язок встановлено!</text>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 390.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="390.5" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Синхронізація швидкості (Autobauding) та відповідь ACK</text>
+<rect x="40.0" y="60.0" width="440.0" height="265.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="260.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Байт 0x7F (01111111b, 8E1) на лінії RX</text>
+<path d="M 60.0 140.0 L 90.0 140.0 L 90.0 200.0 L 130.0 200.0 L 130.0 140.0 L 370.0 140.0 L 370.0 200.0 L 410.0 200.0 L 410.0 200.0 L 430.0 200.0 L 430.0 140.0 L 460.0 140.0" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<text x="110.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">START (0)</text>
+<text x="250.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">D0 ... D6 = 1 (7 бітових інтервалів)</text>
+<text x="390.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">D7=0</text>
+<text x="445.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">STOP=1</text>
+<line x1="90.0" y1="240.0" x2="130.0" y2="240.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="90.0" y1="235.0" x2="90.0" y2="245.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="130.0" y1="235.0" x2="130.0" y2="245.0" stroke="#2457d6" stroke-width="1.5"/>
+<text x="110.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">1 біт = T_bit</text>
+<rect x="60.0" y="275.0" width="400.0" height="40.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="260.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">USARTDIV = (f_HSI) / (16 · BaudRate) -&gt; запис у регістр BRR</text>
+<rect x="510.0" y="60.0" width="270.0" height="265.0" rx="6" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<text x="645.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Протокольне рукостискання</text>
+<rect x="525.0" y="110.0" width="240.0" height="45.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="645.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">1. Хост надсилає 0x7F</text>
+<text x="645.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Синхронізація швидкості</text>
+<rect x="525.0" y="170.0" width="240.0" height="45.0" rx="6" fill="#eef2f7" stroke="#2457d6" stroke-width="1.5"/>
+<text x="645.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">2. ROM підлаштовує UART</text>
+<text x="645.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фіксація дільника такту</text>
+<rect x="525.0" y="230.0" width="240.0" height="45.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="645.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">3. Відповідь: ACK (0x79)</text>
+<text x="645.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Готовність до команд</text>
+<line x1="645.0" y1="155.0" x2="645.0" y2="170.0" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="645.0" y1="215.0" x2="645.0" y2="230.0" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="17.5" y="339.5" width="784.9" height="31.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="410.0" y="358.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Завдяки перепаду 0 -&gt; 1 на початку байта 0x7F завантажувач безпомилково вимірює довжину біта за внутрішнім RC-генератором.</tspan></text>
+</svg>

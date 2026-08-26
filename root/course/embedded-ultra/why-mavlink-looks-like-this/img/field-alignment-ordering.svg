@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сортування полів у MAVLink для вирівнювання пам'яті</text>
+<text x="490.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сортування полів у MAVLink: нуль байтів паддингу та нульове копіювання на ARM</text>
+<rect x="40.0" y="65.0" width="435.0" height="430.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="257.5" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">ДО СОРТУВАННЯ: Наївний порядок полів</text>
+<text x="257.5" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Компілятор C вставляє паддинг для вирівнювання адрес</text>
+<rect x="60.0" y="130.0" width="395.0" height="38.0" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.2"/>
+<text x="72.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="start" font-weight="700">uint8_t system_status</text>
+<text x="72.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">1 байт за адресою 0x00</text>
+<rect x="60.0" y="174.0" width="395.0" height="38.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="72.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">PAD (3 байти дірки!)</text>
+<text x="72.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Паддинг для вирівнювання наступного int64</text>
+<rect x="60.0" y="218.0" width="395.0" height="50.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+<text x="72.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="start" font-weight="700">uint64_t time_usec</text>
+<text x="72.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">8 байтів за адресою 0x04 (зсув 4) -&gt; Помилка!</text>
+<rect x="60.0" y="274.0" width="395.0" height="38.0" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.2"/>
+<text x="72.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="start" font-weight="700">uint16_t voltage_battery</text>
+<text x="72.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">2 байти за адресою 0x0C</text>
+<rect x="60.0" y="318.0" width="395.0" height="38.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="72.0" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">PAD (2 байти дірки!)</text>
+<text x="72.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Паддинг для вирівнювання float на межу 4 Б</text>
+<rect x="60.0" y="362.0" width="395.0" height="42.0" rx="4" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.2"/>
+<text x="72.0" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="start" font-weight="700">float roll_rate</text>
+<text x="72.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">4 байти за адресою 0x10</text>
+<text x="60.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">❌ 5 байтів з 20 (25%) витрачено на пусті дірки пам'яті.</text>
+<text x="60.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">❌ Прямий cast буфера DMA на структуру викликає UsageFault</text>
+<text x="60.0" y="478.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">   або вимагає повільного побайтового копіювання memcpy.</text>
+<rect x="505.0" y="65.0" width="435.0" height="430.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="722.5" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">MAVLINK ПОРЯДОК: Сортування за розміром</text>
+<text x="722.5" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">8 Б (uint64) -&gt; 4 Б (float) -&gt; 2 Б (uint16) -&gt; 1 Б (uint8)</text>
+<rect x="525.0" y="130.0" width="395.0" height="52.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+<text x="537.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="start" font-weight="700">uint64_t time_usec</text>
+<text x="537.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">8 байтів (зміщення 0x00 .. 0x07, вирівняно на 8)</text>
+<rect x="525.0" y="190.0" width="395.0" height="45.0" rx="4" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.2"/>
+<text x="537.0" y="206.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="start" font-weight="700">float roll_rate</text>
+<text x="537.0" y="222.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">4 байти (зміщення 0x08 .. 0x0B, вирівняно на 4)</text>
+<rect x="525.0" y="243.0" width="395.0" height="40.0" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.2"/>
+<text x="537.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="start" font-weight="700">uint16_t voltage_battery</text>
+<text x="537.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">2 байти (зміщення 0x0C .. 0x0D, вирівняно на 2)</text>
+<rect x="525.0" y="291.0" width="395.0" height="38.0" rx="4" fill="#eaf2ec" stroke="#27ae60" stroke-width="1.2"/>
+<text x="537.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">uint8_t system_status</text>
+<text x="537.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">1 байт (зміщення 0x0E, природне вирівнювання)</text>
+<rect x="525.0" y="330.0" width="395.0" height="85.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="537.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Чому це працює на будь-якому CPU:</text>
+<text x="537.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Будь-яка адреса, кратна 8, автоматично кратна 4, 2 та 1.</text>
+<text x="537.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Кожне поле ідеально лягає на межу свого розміру.</text>
+<text x="537.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Нуль байтів паддингу. 100% корисна щільність у кадрі.</text>
+<text x="525.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">✓ Нульовий оверхед каналу: в ефір ідуть лише дані.</text>
+<text x="525.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">✓ Zero-Copy десеріалізація на STM32 Cortex-M4/M7.</text>
+<text x="525.0" y="478.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">✓ Відсутність UsageFault при прямому читанні з буфера.</text>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-52.2 -10 872.2 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-52.2" y="-10" width="872.2" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двоточкове калібрування: компенсація нульового зсуву та похибки нахилу</text>
+<rect x="90.0" y="70.0" width="440.0" height="240.0" rx="4" fill="#fafbfc" stroke="#e5e7eb" stroke-width="1.0"/>
+<line x1="90.0" y1="310.0" x2="530.0" y2="310.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="90.0" y1="310.0" x2="90.0" y2="70.0" stroke="#333333" stroke-width="1.8"/>
+<text x="520.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="end">Фізична величина (кг, °C, кПа) →</text>
+<text x="80.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="end">Код АЦП (N_adc) ↑</text>
+<line x1="170.0" y1="310.0" x2="170.0" y2="70.0" stroke="#cbd5e1" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="450.0" y1="310.0" x2="450.0" y2="70.0" stroke="#cbd5e1" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="170.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-weight="700">P1 (Нуль / Тара)</text>
+<text x="450.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-weight="700">P2 (Еталонна вага)</text>
+<line x1="90.0" y1="310.0" x2="490.0" y2="110.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="5,4"/>
+<text x="495.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Ідеальна пряма (Y = k0·X)</text>
+<line x1="90.0" y1="280.0" x2="490.0" y2="75.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="495.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Реальна сира (N_raw = k·X + Offset)</text>
+<line x1="60.0" y1="310.0" x2="60.0" y2="280.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="60.0" y1="280.0" x2="60.0" y2="310.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="55.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">Зсув нуля (Offset)</text>
+<circle cx="170.0" cy="250.0" r="5.0" fill="#c0392b" stroke="#333333" stroke-width="1.5"/>
+<text x="162.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">Точка 1 (X1, N1)</text>
+<circle cx="450.0" cy="90.0" r="5.0" fill="#c0392b" stroke="#333333" stroke-width="1.5"/>
+<text x="442.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">Точка 2 (X2, N2)</text>
+<rect x="560.0" y="60.0" width="230.0" height="260.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="675.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#333333" text-anchor="middle" font-weight="700">Формули калібрування</text>
+<text x="575.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">1. Чутливість (Gain / Slope):</text>
+<text x="575.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">   k = (N2 − N1) / (X2 − X1)</text>
+<text x="575.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"></text>
+<text x="575.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">2. Зсув нуля (Offset):</text>
+<text x="575.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">   N0 = N1 − k · X1</text>
+<text x="575.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"></text>
+<text x="575.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">3. Відновлення величини:</text>
+<text x="575.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">   X = (N_raw − N0) / k</text>
+<text x="575.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">   X = (N_raw − N1)·(X2−X1)</text>
+<text x="575.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">       / (N2 − N1) + X1</text>
+<text x="410.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Дві калібрувальні точки повністю компенсують адитивну (Offset) та мультиплікативну (Gain) похибки вимірювального тракту.</text>
+</svg>

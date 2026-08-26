@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Колізія на Multi-layer BusMatrix: одночасний доступ CPU та DMA</text>
+<rect x="40.0" y="65.0" width="170.0" height="75.0" rx="6" fill="#f8fafc" stroke="#2457d6" stroke-width="1.8"/>
+<text x="125.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Cortex-M CPU</text>
+<text x="125.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">D-Code / System Bus</text>
+<text x="125.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Читання буфера в циклі</text>
+<rect x="40.0" y="195.0" width="170.0" height="75.0" rx="6" fill="#f8fafc" stroke="#c0392b" stroke-width="1.8"/>
+<text x="125.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">DMA1 Controller</text>
+<text x="125.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">AHB Master Port</text>
+<text x="125.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Запис даних з АЦП/SPI</text>
+<rect x="270.0" y="55.0" width="220.0" height="230.0" rx="8" fill="#f4f6f8" stroke="#2c3e50" stroke-width="2.0"/>
+<text x="380.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2c3e50" text-anchor="middle" font-weight="700">Multi-layer AHB Matrix</text>
+<rect x="285.0" y="95.0" width="190.0" height="175.0" rx="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="380.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Арбітр пріоритетів</text>
+<text x="380.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Round-Robin / Fixed</text>
+<rect x="295.0" y="155.0" width="170.0" height="50.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="380.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Апаратна гонка (Race)</text>
+<text x="380.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Конфлікт на фронті такту</text>
+<text x="380.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Затримка підтвердження</text>
+<text x="380.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(HREADY stall glitch)</text>
+<line x1="210.0" y1="102.0" x2="270.0" y2="102.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="210.0" y1="232.0" x2="270.0" y2="232.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="550.0" y="65.0" width="170.0" height="100.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="635.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">SRAM Bank 1</text>
+<text x="635.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Спільна область пам'яті</text>
+<text x="635.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Спільний порт доступу</text>
+<text x="635.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Конфлікт шини!</text>
+<rect x="550.0" y="185.0" width="170.0" height="100.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="635.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">SRAM Bank 2 / CCM</text>
+<text x="635.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ізольований банк</text>
+<text x="635.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Окремий порт шини</text>
+<text x="635.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Безпечно (Workaround)</text>
+<line x1="490.0" y1="115.0" x2="550.0" y2="115.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="490.0" y1="235.0" x2="550.0" y2="235.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="380.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Наслідок дефекту: DMA пропускає запис байта без BusFault помилки (Silent Data Corruption)</text>
+<text x="380.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-style="italic">Виправлення: рознесення буферів DMA та коду CPU по різних фізичних банках SRAM</text>
+</svg>

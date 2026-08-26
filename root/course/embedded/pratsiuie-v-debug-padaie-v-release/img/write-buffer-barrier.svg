@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="900.0" height="170.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="40.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">Без бар'єра пам'яті: скидання прапорця застряє в буфері запису</text>
+<rect x="40.0" y="65.0" width="170.0" height="70.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="125.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. CPU (ISR)</text>
+<text x="125.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">EXTI-&gt;PR = 1;</text>
+<line x1="215.0" y1="100.0" x2="255.0" y2="100.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="260.0" y="65.0" width="200.0" height="70.0" rx="5" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="360.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">2. Write Buffer (AHB)</text>
+<text x="360.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Запис ще в черзі!</text>
+<line x1="465.0" y1="100.0" x2="505.0" y2="100.0" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="510.0" y="65.0" width="180.0" height="70.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="600.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Периферія EXTI</text>
+<text x="600.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">PR все ще = 1</text>
+<line x1="695.0" y1="100.0" x2="735.0" y2="100.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="740.0" y="65.0" width="160.0" height="70.0" rx="5" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="820.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">4. NVIC Контролер</text>
+<text x="820.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Повторний ISR шторм!</text>
+<text x="470.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">CPU повертається з ISR (BX LR), доки периферія не скинула сигнал переривання</text>
+<rect x="20.0" y="210.0" width="900.0" height="170.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="40.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">З бар'єром __DSB(): процесор очікує завершення транзакції на шині</text>
+<rect x="40.0" y="255.0" width="170.0" height="70.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="125.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. CPU (ISR)</text>
+<text x="125.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">EXTI-&gt;PR = 1; __DSB();</text>
+<line x1="215.0" y1="290.0" x2="255.0" y2="290.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="260.0" y="255.0" width="200.0" height="70.0" rx="5" fill="#dcfce7" stroke="#27ae60" stroke-width="1.2"/>
+<text x="360.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">2. Write Buffer скинуто</text>
+<text x="360.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Транзакція завершена</text>
+<line x1="465.0" y1="290.0" x2="505.0" y2="290.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="510.0" y="255.0" width="180.0" height="70.0" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="600.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Периферія EXTI</text>
+<text x="600.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">PR очищено в 0</text>
+<line x1="695.0" y1="290.0" x2="735.0" y2="290.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="740.0" y="255.0" width="160.0" height="70.0" rx="5" fill="#dcfce7" stroke="#27ae60" stroke-width="1.2"/>
+<text x="820.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">4. NVIC Контролер</text>
+<text x="820.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Чистий вихід з ISR</text>
+<text x="470.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle">CPU безпечно повертається в основну програму; лінія переривання деактивована</text>
+</svg>

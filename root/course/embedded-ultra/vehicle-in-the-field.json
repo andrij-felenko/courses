@@ -99,8 +99,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-packet-protocol.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-crc16-polynomial.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-packet-codec.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -115,8 +133,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-mavlink-frame-parser.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sys-dron/mavlink-packet",
@@ -195,8 +219,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-bldc-esc-telemetry.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-ariane-and-apollo.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-failsafe-fsm.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "embedded/troubleshooting-methodology",
@@ -319,8 +361,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-six-point-calibration.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-prearm-matrix.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "embedded/flight-log-analysis",
@@ -333,8 +387,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-gyro-fft-harmonics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-blackbox-analyzer.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     }

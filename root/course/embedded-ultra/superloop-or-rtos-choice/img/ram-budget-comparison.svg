@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 493.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="493.5" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Використання оперативної пам'яті (ОЗП) мікроконтролера</text>
+<rect x="70.0" y="70.0" width="340.0" height="330.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<text x="240.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Super-loop (Єдиний стек MSP)</text>
+<rect x="90.0" y="120.0" width="300.0" height="45.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="240.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Єдиний спільний стек (~1.0 КБ)</text>
+<text x="240.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">максимальна глибина викликів + 1 кадр ISR</text>
+<rect x="90.0" y="175.0" width="300.0" height="60.0" rx="4" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="240.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Статичні змінні .data / .bss (4.0 КБ)</text>
+<text x="240.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">буфери UART/SPI DMA, структури станів</text>
+<rect x="90.0" y="245.0" width="300.0" height="135.0" rx="4" fill="#fafbfc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="240.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Вільна ОЗП: ~59.0 КБ (із 64 КБ)</text>
+<text x="240.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">92% пам'яті доступно для буферів польотних логів</text>
+<text x="240.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Разом зайнято: ~5.0 КБ ОЗП</text>
+<rect x="470.0" y="70.0" width="340.0" height="330.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<text x="640.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Витісняльна RTOS (Стек на кожну задачу)</text>
+<rect x="490.0" y="120.0" width="300.0" height="24.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="500.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Task Gyro/PID Stack</text>
+<text x="780.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end" font-weight="700">1.5 КБ</text>
+<rect x="490.0" y="148.0" width="300.0" height="24.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="500.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Task MAVLink Telemetry Stack</text>
+<text x="780.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end" font-weight="700">2.0 КБ</text>
+<rect x="490.0" y="176.0" width="300.0" height="24.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="500.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Task Flash Blackbox Stack</text>
+<text x="780.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end" font-weight="700">2.5 КБ</text>
+<rect x="490.0" y="204.0" width="300.0" height="24.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="500.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Task GPS / Navigation Stack</text>
+<text x="780.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end" font-weight="700">1.5 КБ</text>
+<rect x="490.0" y="232.0" width="300.0" height="24.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="500.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Task Baro/Mag + Idle/Timer Stacks</text>
+<text x="780.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end" font-weight="700">2.0 КБ</text>
+<rect x="490.0" y="260.0" width="300.0" height="24.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="500.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">TCB, черги повідомлень, м'ютекси</text>
+<text x="780.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end" font-weight="700">2.2 КБ</text>
+<rect x="490.0" y="292.0" width="300.0" height="30.0" rx="3" fill="#eef6ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="500.0" y="311.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Статичні змінні .data / .bss</text>
+<text x="780.0" y="311.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="end" font-weight="700">4.0 КБ</text>
+<rect x="490.0" y="328.0" width="300.0" height="42.0" rx="4" fill="#fafbfc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="640.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Вільна ОЗП: ~48.3 КБ (із 64 КБ)</text>
+<text x="640.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Разом зайнято: ~15.7 КБ ОЗП (у 3 рази більше)</text>
+<rect x="176.4" y="430.5" width="527.3" height="43.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="440.0" y="449.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">В RTOS кожна задача мусить мати стек під свій найгірший випадок викликів.</tspan><tspan x="440.0" dy="13.0">Суперцикл використовує один стек повторно, заощаджуючи пам'ять на малих мікроконтролерах.</tspan></text>
+</svg>

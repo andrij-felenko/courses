@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розрив когерентності: читання байтів під час переповнення</text>
+<text x="390.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">значення 0x00FF змінюється на 0x0100 між читанням старшого та молодшого байтів</text>
+<line x1="70.0" y1="110.0" x2="710.0" y2="110.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="715.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-style="italic">t</text>
+<circle cx="240.0" cy="110.0" r="6.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="240.0" y1="110.0" x2="240.0" y2="80.0" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="175.0" y="48.0" width="130.0" height="30.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="240.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">1. Читання MSB = 0x00</text>
+<text x="240.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">t₁: стан давача 0x00FF (255)</text>
+<circle cx="420.0" cy="110.0" r="6.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<line x1="420.0" y1="110.0" x2="420.0" y2="145.0" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="340.0" y="145.0" width="160.0" height="34.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="420.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">2. АЦП оновив регістри:</text>
+<text x="420.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">0x00FF  →  0x0100 (256)</text>
+<circle cx="600.0" cy="110.0" r="6.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<line x1="600.0" y1="110.0" x2="600.0" y2="80.0" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="535.0" y="48.0" width="130.0" height="30.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="600.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">3. Читання LSB = 0x00</text>
+<text x="600.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">t₃: прочитано новий LSB</text>
+<rect x="140.0" y="210.0" width="500.0" height="56.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.8"/>
+<text x="390.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Результат зшивання: (0x00 &lt;&lt; 8) | 0x00 = 0x0000 (0 відліків замість 256!)</text>
+<text x="390.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Помилка розриву когерентності дає миттєвий хибний нульовий провал на графіку</text>
+<rect x="30.0" y="290.0" width="720.0" height="110.0" rx="6" fill="#f4f6f8" stroke="#e0e0e0" stroke-width="1.0"/><text x="390.0" y="328.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">Як запобігти розриву когерентності:</tspan><tspan x="390.0" dy="13.7">1. Пакетне зчитування (Burst Read / Auto-Increment): вичитування обох регістрів за одну I2C/SPI транзакцію.</tspan><tspan x="390.0" dy="13.7">2. Тіньові регістри / Block Data Update (BDU): апаратне заморожування оновлення LSB до завершення читання MSB.</tspan><tspan x="390.0" dy="13.7">3. Синхронізація з Data Ready (DRDY): зчитування тільки в інтервалах, коли АЦП не проводить перезапис даних.</tspan></text>
+</svg>

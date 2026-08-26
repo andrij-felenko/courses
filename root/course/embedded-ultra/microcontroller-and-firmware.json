@@ -43,8 +43,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-register-layout.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-mmio-evolution.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-register-driver.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sf-devices/gpio-registers",
@@ -161,8 +179,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-sensor-bus-abstraction.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -203,8 +227,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-ring-buffer.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-telemetry-ring-buffer.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sf-lang/addresses-pointers",
@@ -303,8 +339,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-architecture-tradeoffs.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cooperative-scheduler.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="880.0" height="480.0" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="460.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектурні рівні чистого драйвера периферійного чипа</text>
+<rect x="50.0" y="70.0" width="820.0" height="110.0" rx="8" fill="#eef6ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="80.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">Рівень 3: Прикладний API предметної області (SI Units)</text>
+<text x="80.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Приймає дескриптор пристрою (struct Device_t*) та повертає фізичні величини (м/с², Па, °C, Люкс)</text>
+<text x="80.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Застосовує коефіцієнти калібрування, температурну компенсацію та захист від артефактів вибірки</text>
+<text x="80.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="start" font-weight="700">• Функції: sensor_init(), sensor_read_accel_si(&amp;dev, &amp;accel_m_s2), sensor_set_range(&amp;dev, RANGE_4G)</text>
+<line x1="460.0" y1="180.0" x2="460.0" y2="215.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="480.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Логічні команди та налаштування</text>
+<rect x="50.0" y="220.0" width="820.0" height="120.0" rx="8" fill="#f0faf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="80.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Рівень 2: Регістрова логіка та тіньовий стан (Register Map &amp; State)</text>
+<text x="80.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Адреси регістрів, маски бітів (MASK / SHIFT), перевірка WHO_AM_I та бітів готовності (DRDY)</text>
+<text x="80.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Безпечний Read-Modify-Write (RMW), підтримка Shadow-регістрів для write-only та BDU-пакетного читання</text>
+<text x="80.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="start">• Перетворення сирих кодів (LSB, sign-extension, endianness) у внутрішні нормалізовані числа</text>
+<line x1="460.0" y1="340.0" x2="460.0" y2="375.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="480.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Сирі байти: (reg_addr, buffer, len)</text>
+<rect x="50.0" y="380.0" width="820.0" height="100.0" rx="8" fill="#fff8f0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="80.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">Рівень 1: Апаратна абстракція шини (Bus Transport Interface)</text>
+<text x="80.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Вказівники на функції зворотного виклику: bus_read(ctx, reg, buf, len), bus_write(ctx, reg, buf, len), delay_ms()</text>
+<text x="80.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Повна ізоляція від платформи: жодних прямих викликів HAL_I2C, esp_err, Linux ioctl чи регістрів МК</text>
+<text x="80.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">• Драйвер компілюється на STM32, ESP32, AVR або в Unit-тестах на ПК без модифікації вихідного коду</text>
+</svg>

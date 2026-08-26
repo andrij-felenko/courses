@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 820 340" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="820" height="340" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Послідовність запуску периферійного блоку за Reference Manual</text>
+<rect x="40.0" y="56.0" width="155.0" height="215.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="117.5" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">1. Подача тактування</text>
+<text x="117.5" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Clock Gating &amp; Reset</text>
+<text x="50.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Увімкнути тактування шини в блоці RCC / SYSCON.</text>
+<text x="50.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Без цього доступ до регістрів дає Bus Fault!</text>
+<line x1="198.0" y1="163.5" x2="212.0" y2="163.5" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="215.0" y="56.0" width="155.0" height="215.0" rx="8" fill="#fdf1dc" stroke="#b8860b" stroke-width="1.5"/>
+<text x="292.5" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b8860b" text-anchor="middle" font-weight="700">2. Конфігурація GPIO</text>
+<text x="292.5" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Pin Muxing / AF</text>
+<text x="225.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Перевести піни в режим альтернативної функції.</text>
+<text x="225.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Налаштувати Pull-up/Down, швидкість та вихід.</text>
+<line x1="373.0" y1="163.5" x2="387.0" y2="163.5" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="390.0" y="56.0" width="155.0" height="215.0" rx="8" fill="#f3e9f3" stroke="#7d5ba6" stroke-width="1.5"/>
+<text x="467.5" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7d5ba6" text-anchor="middle" font-weight="700">3. Налаштування блоку</text>
+<text x="467.5" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Control Registers (CR)</text>
+<text x="400.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Задати дільники (Baud Rate), режими та переривання.</text>
+<text x="400.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Усі параметри задаються ДО увімкнення блоку!</text>
+<line x1="548.0" y1="163.5" x2="562.0" y2="163.5" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="565.0" y="56.0" width="155.0" height="215.0" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="642.5" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">4. Активація (Enable)</text>
+<text x="642.5" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Enable Bit &amp; Loop</text>
+<text x="575.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Встановити біт ENABLE (напр. UE у CR1).</text>
+<text x="575.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Очікувати прапорець готовності та запустити обмін.</text>
+<text x="380.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Порушення порядку (наприклад запис параметрів після увімкнення) — головна причина «мовчання» периферії</text>
+</svg>

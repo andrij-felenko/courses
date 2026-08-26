@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1070 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1070" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="530.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автомат передпольотних перевірок безпеки та контур блокування моторів</text>
+<rect x="50.0" y="160.0" width="240.0" height="180.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="2.0"/>
+<rect x="50.0" y="160.0" width="240.0" height="36.0" rx="8" fill="#e2e8f0" stroke="#333333" stroke-width="1.5"/>
+<text x="170.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. СТАН DISARMED</text>
+<text x="65.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Силові ШІМ-виходи заглушені</text>
+<text x="65.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Апаратний запобіжник розімкнено</text>
+<text x="65.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Фоновий моніторинг датчиків</text>
+<text x="65.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Перевірка бітової маски Pre-Arm</text>
+<text x="65.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Швидкість моторів = 0 об/хв</text>
+<rect x="390.0" y="80.0" width="280.0" height="340.0" rx="8" fill="#f9fbfd" stroke="#27ae60" stroke-width="2.0"/>
+<rect x="390.0" y="80.0" width="280.0" height="36.0" rx="8" fill="#e6f4ea" stroke="#27ae60" stroke-width="1.5"/>
+<text x="530.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">2. PRE-ARM SAFETY MATRIX</text>
+<circle cx="412.0" cy="147.0" r="8.0" fill="#edf7ed" stroke="#27ae60" stroke-width="1.5"/>
+<text x="412.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">✓</text>
+<text x="428.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">IMU Health &amp; Calibrated</text>
+<text x="428.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Зміщення в нормі, 6 граней ок</text>
+<circle cx="412.0" cy="186.0" r="8.0" fill="#edf7ed" stroke="#27ae60" stroke-width="1.5"/>
+<text x="412.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">✓</text>
+<text x="428.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Compass Consistency</text>
+<text x="428.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Без сильних магнітних аномалій</text>
+<circle cx="412.0" cy="225.0" r="8.0" fill="#edf7ed" stroke="#27ae60" stroke-width="1.5"/>
+<text x="412.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">✓</text>
+<text x="428.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Barometer Healthy</text>
+<text x="428.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Дрейф тиску &lt; 0.5 м/с</text>
+<circle cx="412.0" cy="264.0" r="8.0" fill="#edf7ed" stroke="#27ae60" stroke-width="1.5"/>
+<text x="412.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">✓</text>
+<text x="428.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Battery Voltage &amp; Capacity</text>
+<text x="428.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Напруга &gt; 3.7 В/елемент</text>
+<circle cx="412.0" cy="303.0" r="8.0" fill="#edf7ed" stroke="#27ae60" stroke-width="1.5"/>
+<text x="412.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">✓</text>
+<text x="428.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">RC Link &amp; Throttle Zero</text>
+<text x="428.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Зв'язок є, стік у нижній точці</text>
+<circle cx="412.0" cy="342.0" r="8.0" fill="#edf7ed" stroke="#27ae60" stroke-width="1.5"/>
+<text x="412.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">✓</text>
+<text x="428.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">EKF Navigation State</text>
+<text x="428.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Дисперсії швидкості/позиції низькі</text>
+<circle cx="412.0" cy="381.0" r="8.0" fill="#edf7ed" stroke="#27ae60" stroke-width="1.5"/>
+<text x="412.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">✓</text>
+<text x="428.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Hardware Safety Switch</text>
+<text x="428.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Кнопку на апараті активовано</text>
+<rect x="770.0" y="160.0" width="240.0" height="180.0" rx="8" fill="#fdfbf7" stroke="#c0392b" stroke-width="2.0"/>
+<rect x="770.0" y="160.0" width="240.0" height="36.0" rx="8" fill="#fef3e6" stroke="#c0392b" stroke-width="1.5"/>
+<text x="890.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">3. СТАН ARMED</text>
+<text x="785.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• ШІМ-таймери активовано</text>
+<text x="785.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Мотори на холостих (Idle Spin)</text>
+<text x="785.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• PID-регулятори активні</text>
+<text x="785.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Логування на SD-карту</text>
+<text x="785.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">УВАГА: обертання гвинтів!</text>
+<line x1="290.0" y1="250.0" x2="390.0" y2="250.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="340.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Команда Arming</text>
+<line x1="670.0" y1="250.0" x2="770.0" y2="250.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="720.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Усі перевірки ОК</text>
+<line x1="390.0" y1="290.0" x2="290.0" y2="290.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,3"/>
+<line x1="300.0" y1="290.0" x2="290.0" y2="290.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="340.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Хоч 1 біт = 0 (ВІДМОВА)</text>
+<line x1="890.0" y1="340.0" x2="890.0" y2="440.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="890.0" y1="440.0" x2="170.0" y2="440.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="170.0" y1="440.0" x2="170.0" y2="340.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="530.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Команда Disarm / Спрацювання Failsafe / Аварійне вимкнення Kill Switch</text>
+</svg>

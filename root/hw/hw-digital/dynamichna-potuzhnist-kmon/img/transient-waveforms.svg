@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часові діаграми напруг і струмів під час перемикання 0 → 1</text>
+<line x1="120.0" y1="130.0" x2="680.0" y2="130.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="120.0" y1="60.0" x2="120.0" y2="140.0" stroke="#333333" stroke-width="1.2"/>
+<text x="105.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Напруги [В]</text>
+<text x="115.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end">V_DD</text>
+<text x="115.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">0 В</text>
+<path d="M 120 130 L 220 130 L 360 70 L 680 70" fill="none" stroke="#333333" stroke-width="2.2"/>
+<text x="460.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#333333" text-anchor="middle" font-weight="700">V_in (вхід)</text>
+<path d="M 120 70 L 250 70 C 320 80, 360 120, 440 130 L 680 130" fill="none" stroke="#2457d6" stroke-width="2.2" stroke-dasharray="5,3"/>
+<text x="460.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">V_out (вихід)</text>
+<rect x="260" y="55" width="70" height="360" fill="#fef9e7" stroke="#f39c12" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="295.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b7950b" text-anchor="middle" font-weight="700">Обидва транзистори відкриті</text>
+<line x1="120.0" y1="270.0" x2="680.0" y2="270.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="120.0" y1="200.0" x2="120.0" y2="280.0" stroke="#333333" stroke-width="1.2"/>
+<text x="105.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Струми [мА]</text>
+<path d="M 120 270 L 260 270 Q 295.0 215 330 270 L 680 270" fill="#fdebd0" stroke="#e67e22" stroke-width="2.2"/>
+<text x="345.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e67e22" text-anchor="middle" font-weight="700">i_sc (наскрізний струм)</text>
+<path d="M 120 270 L 260 270 Q 310 225 360 240 Q 410 260 460 270 L 680 270" fill="none" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="4,2"/>
+<text x="390.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">i_cap (розряд C_L)</text>
+<line x1="120.0" y1="410.0" x2="680.0" y2="410.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="120.0" y1="340.0" x2="120.0" y2="420.0" stroke="#333333" stroke-width="1.2"/>
+<text x="105.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">Потужність p(t)</text>
+<path d="M 120 410 L 260 410 Q 305 350 350 370 Q 400 398 460 410 L 680 410" fill="#fadbd8" stroke="#c0392b" stroke-width="2.2"/>
+<text x="410.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">p(t) = i_total(t) · V_DD</text>
+<line x1="120.0" y1="425.0" x2="710.0" y2="425.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="715.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Час t</text>
+<text x="220.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">t_start</text>
+<text x="360.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">t_end</text>
+<text x="380.0" y="465.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700" font-style="italic">Сплеск потужності існує виключно під час зміни напруги на вході (в спокої p(t) ≈ 0)</text>
+</svg>

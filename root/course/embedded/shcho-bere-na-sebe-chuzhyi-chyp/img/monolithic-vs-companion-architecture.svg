@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектурне порівняння: перевантажений монолітний процесор проти гетерогенної системи</text>
+<rect x="20.0" y="35.0" width="450.0" height="395.0" rx="8" fill="#fdf4f4" stroke="#c0392b" stroke-width="1.5"/>
+<text x="245.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Монолітна архітектура (All-in-One)</text>
+<text x="245.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Одне ядро виконує абсолютно всі задачі програмно</text>
+<rect x="35.0" y="95.0" width="420.0" height="185.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="245.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Головний мікроконтролер (Host MCU)</text>
+<text x="245.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Cortex-M4 @ 168 МГц · Навантаження 94%</text>
+<rect x="45.0" y="150.0" width="90.0" height="50.0" rx="4" fill="#fbebeb" stroke="#c0392b" stroke-width="1.0"/>
+<text x="90.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">FOC ШІМ</text>
+<text x="90.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">20 кГц ISR</text>
+<rect x="148.0" y="150.0" width="95.0" height="50.0" rx="4" fill="#fbebeb" stroke="#c0392b" stroke-width="1.0"/>
+<text x="195.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Тач-матриця</text>
+<text x="195.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Опитування</text>
+<rect x="255.0" y="150.0" width="90.0" height="50.0" rx="4" fill="#fbebeb" stroke="#c0392b" stroke-width="1.0"/>
+<text x="300.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ECC / TLS</text>
+<text x="300.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Мільйони тактів</text>
+<rect x="355.0" y="150.0" width="90.0" height="50.0" rx="4" fill="#fbebeb" stroke="#c0392b" stroke-width="1.0"/>
+<text x="400.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Кулони АКБ</text>
+<text x="400.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Інтегрування</text>
+<rect x="45.0" y="215.0" width="400.0" height="50.0" rx="4" fill="#fff0f0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="245.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Конфлікти пріоритетів переривань (IRQ Jitter)</text>
+<text x="245.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Пропуск кроків двигуна під час обчислення криптографії</text>
+<rect x="35.0" y="310.5" width="420.0" height="69.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="245.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="245.0" dy="0.0">• Висока тактова частота ядра → споживання до 80 мА</tspan><tspan x="245.0" dy="13.0">• Жорсткий Real-Time ламається при накладанні подій</tspan><tspan x="245.0" dy="13.0">• Flash/RAM забиті кодом криптографії, DSP та жестів</tspan><tspan x="245.0" dy="13.0">• Неможливість спати: ядро мусить постійно опитувати піни</tspan></text>
+<rect x="490.0" y="35.0" width="450.0" height="395.0" rx="8" fill="#edf8f1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="715.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Делегована архітектура (Host + Companion ICs)</text>
+<text x="715.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Кожна критична функція має власний кремнієвий співпроцесор</text>
+<rect x="505.0" y="95.0" width="175.0" height="120.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="592.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Host MCU (Базовий)</text>
+<text x="592.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Cortex-M0+ @ 32 МГц</text>
+<text x="592.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Навантаження: 6%</text>
+<text x="592.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Чиста бізнес-логіка</text>
+<text x="592.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Спить 95% часу</text>
+<rect x="735.0" y="95.0" width="90.0" height="55.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.1"/>
+<text x="780.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">TMC2209</text>
+<text x="780.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">FOC Вектор</text>
+<rect x="835.0" y="95.0" width="90.0" height="55.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.1"/>
+<text x="880.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">FT6236</text>
+<text x="880.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Сенсорний екран</text>
+<rect x="735.0" y="160.0" width="90.0" height="55.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.1"/>
+<text x="780.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ATECC608</text>
+<text x="780.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Крипточип</text>
+<rect x="835.0" y="160.0" width="90.0" height="55.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.1"/>
+<text x="880.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">BQ27441</text>
+<text x="880.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Fuel Gauge АКБ</text>
+<line x1="680.0" y1="130.0" x2="735.0" y2="130.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="735.0" y1="185.0" x2="680.0" y2="185.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="707.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">SPI</text>
+<text x="707.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">I²C/INT</text>
+<rect x="505.0" y="310.5" width="420.0" height="69.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="715.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="715.0" dy="0.0">• Низька частота ядра → споживання в рази менше (Host &lt; 3 мА)</tspan><tspan x="715.0" dy="13.0">• Нуль джиттеру: FOC та обробка дотиків працюють апаратно</tspan><tspan x="715.0" dy="13.0">• Економія Flash/RAM: прошивка без важких математичних бібліотек</tspan><tspan x="715.0" dy="13.0">• Глибокий сон: Host спить, супутні чипи будять його лінією INT</tspan></text>
+<rect x="20.0" y="437.0" width="920.0" height="30.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="480.0" y="455.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">Делегування перетворює перевантажений моноліт на надійну систему: апаратні чипи знімають жорсткий Real-Time, зберігаючи енергію та стабільність.</tspan></text>
+</svg>

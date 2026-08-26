@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="900.0" height="190.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="40.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">1. Без volatile: оптимізатор виносить читання за межі циклу</text>
+<rect x="50.0" y="70.0" width="240.0" height="120.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="170.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ядро процесора (CPU)</text>
+<rect x="70.0" y="115.0" width="200.0" height="55.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="170.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Регістр R0 = 0</text>
+<text x="170.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(закешовано навічно)</text>
+<rect x="340.0" y="70.0" width="260.0" height="120.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="470.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Асемблерний цикл (-O2)</text>
+<text x="470.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">LDR  R0, [R1]   ; раз ДО циклу</text>
+<text x="470.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">loop: CMP  R0, #0</text>
+<text x="470.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">      BEQ  loop      ; вічний цикл!</text>
+<rect x="650.0" y="70.0" width="240.0" height="120.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="770.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шина AHB / Регістр UART_SR</text>
+<rect x="670.0" y="115.0" width="200.0" height="55.0" rx="4" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.0"/>
+<text x="770.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Апаратний бік: TXE = 1</text>
+<text x="770.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(CPU сюди більше не дивиться)</text>
+<line x1="310.0" y1="142.0" x2="335.0" y2="142.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="605.0" y1="142.0" x2="645.0" y2="142.0" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="625.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle">✖</text>
+<rect x="20.0" y="230.0" width="900.0" height="190.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="40.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">2. З volatile: кожна ітерація виконує чесний LDR із фізичної шини</text>
+<rect x="50.0" y="280.0" width="240.0" height="120.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="170.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ядро процесора (CPU)</text>
+<rect x="70.0" y="325.0" width="200.0" height="55.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.0"/>
+<text x="170.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Регістр R0 оновлюється</text>
+<text x="170.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">LDR на кожному кроці</text>
+<rect x="340.0" y="280.0" width="260.0" height="120.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="470.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Асемблерний цикл (-O2)</text>
+<text x="470.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">loop: LDR  R0, [R1]   ; ЧИТАННЯ!</text>
+<text x="470.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">      CMP  R0, #0</text>
+<text x="470.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">      BEQ  loop      ; вихід коли TXE=1</text>
+<rect x="650.0" y="280.0" width="240.0" height="120.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="770.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шина AHB / Регістр UART_SR</text>
+<rect x="670.0" y="325.0" width="200.0" height="55.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.0"/>
+<text x="770.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Апаратний бік: TXE = 1</text>
+<text x="770.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Прапорець успішно прочитано</text>
+<line x1="310.0" y1="350.0" x2="335.0" y2="350.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="645.0" y1="350.0" x2="605.0" y2="350.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="625.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle">✓</text>
+</svg>

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 300" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="300" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="22.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія адреси I2C: 7-бітний ідентифікатор проти 8-бітного кадру</text>
+<text x="60.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">7-бітна адреса пристрою (0x68 = 0b1101000):</text>
+<rect x="420.0" y="42.0" width="46.0" height="36.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="443.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<text x="443.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">A6</text>
+<rect x="466.0" y="42.0" width="46.0" height="36.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="489.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<text x="489.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">A5</text>
+<rect x="512.0" y="42.0" width="46.0" height="36.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="535.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<text x="535.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">A4</text>
+<rect x="558.0" y="42.0" width="46.0" height="36.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="581.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<text x="581.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">A3</text>
+<rect x="604.0" y="42.0" width="46.0" height="36.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="627.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<text x="627.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">A2</text>
+<rect x="650.0" y="42.0" width="46.0" height="36.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="673.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<text x="673.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">A1</text>
+<rect x="696.0" y="42.0" width="46.0" height="36.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="719.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<text x="719.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">A0</text>
+<line x1="581.0" y1="82.0" x2="581.0" y2="112.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="686.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Зсув вліво на 1 біт: (addr &lt;&lt; 1) | R/W</text>
+<text x="60.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">8-бітний байт на шині SDA:</text>
+<rect x="374.0" y="122.0" width="46.0" height="36.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="397.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<text x="397.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">A6</text>
+<rect x="420.0" y="122.0" width="46.0" height="36.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="443.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<text x="443.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">A5</text>
+<rect x="466.0" y="122.0" width="46.0" height="36.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="489.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<text x="489.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">A4</text>
+<rect x="512.0" y="122.0" width="46.0" height="36.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="535.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<text x="535.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">A3</text>
+<rect x="558.0" y="122.0" width="46.0" height="36.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="581.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<text x="581.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">A2</text>
+<rect x="604.0" y="122.0" width="46.0" height="36.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="627.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<text x="627.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">A1</text>
+<rect x="650.0" y="122.0" width="46.0" height="36.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="673.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">0</text>
+<text x="673.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">A0</text>
+<rect x="696.0" y="122.0" width="46.0" height="36.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="719.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">0 / 1</text>
+<text x="719.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">R/W</text>
+<text x="558.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle" font-weight="700">Запис (Write): 0xD0 (0b11010000)  |  Читання (Read): 0xD1 (0b11010001)</text>
+<rect x="40.0" y="195.0" width="740.0" height="75.0" rx="6" fill="#fff1f2" stroke="#f43f5e" stroke-width="1.2"/>
+<text x="60.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#be123c" text-anchor="start" font-weight="700">⚠️ Головна пастка адресації (Double-Shift Error):</text>
+<text x="60.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4c0519" text-anchor="start">Якщо передати 8-бітне значення 0xD0 у функцію HAL / Wire, яка очікує 7-бітну адресу,</text>
+<text x="60.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4c0519" text-anchor="start" font-weight="700">бібліотека повторно виконає (0xD0 &lt;&lt; 1) = 0x1A0 → на шину піде 0xA0 (пристрій 0x50), отримавши NACK!</text>
+</svg>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1020 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1020" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="21.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія апаратних винятків Cortex-M та механізм ескалації збоїв</text>
+<rect x="30.0" y="65.0" width="250.0" height="76.0" rx="6" fill="#ffffff" stroke="#2b6cb0" stroke-width="2.0"/>
+<text x="44.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2b6cb0" text-anchor="start" font-weight="700">MemManage Fault</text>
+<text x="44.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Порушення MPU, запис у Read-Only,</text>
+<text x="44.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">виконання з No-Execute (XN)</text>
+<line x1="280.0" y1="103.0" x2="330.0" y2="103.0" stroke="#2b6cb0" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="160.0" width="250.0" height="76.0" rx="6" fill="#ffffff" stroke="#c05621" stroke-width="2.0"/>
+<text x="44.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c05621" text-anchor="start" font-weight="700">BusFault</text>
+<text x="44.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Помилка адресації шини AHB/APB,</text>
+<text x="44.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">доступ до вимкненої периферії</text>
+<line x1="280.0" y1="198.0" x2="330.0" y2="198.0" stroke="#c05621" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="30.0" y="255.0" width="250.0" height="76.0" rx="6" fill="#ffffff" stroke="#2f855a" stroke-width="2.0"/>
+<text x="44.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2f855a" text-anchor="start" font-weight="700">UsageFault</text>
+<text x="44.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Невирівняний доступ, ділення на 0,</text>
+<text x="44.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">невідома інструкція, втрата Thumb</text>
+<line x1="280.0" y1="293.0" x2="330.0" y2="293.0" stroke="#2f855a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="330.0" y="65.0" width="180.0" height="266.0" rx="8" fill="#f7fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="420.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чи увімкнено обробник</text>
+<text x="420.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e3a8a" text-anchor="middle" font-weight="700">у SCB-&gt;SHCSR?</text>
+<text x="420.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(USGFAULTENA,</text>
+<text x="420.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">BUSFAULTENA,</text>
+<text x="420.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">MEMFAULTENA)</text>
+<line x1="420.0" y1="65.0" x2="420.0" y2="45.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="420.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">ТАК (увімкнено)</text>
+<rect x="560.0" y="20.0" width="290.0" height="50.0" rx="6" fill="#f0fff4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="705.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Індивідуальні обробники винятків</text>
+<text x="705.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">MemManage_Handler / BusFault / UsageFault</text>
+<line x1="420.0" y1="20.0" x2="560.0" y2="40.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="420.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">НІ (вимкнено за замовч.)</text>
+<text x="420.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">або збій у вищому пріоритеті</text>
+<line x1="510.0" y1="250.0" x2="560.0" y2="250.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="560.0" y="140.0" width="290.0" height="170.0" rx="8" fill="#fff5f5" stroke="#c0392b" stroke-width="2.5"/>
+<text x="705.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#c0392b" text-anchor="middle" font-weight="700">HardFault_Handler</text>
+<text x="705.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Фіксований пріоритет: -1 (завжди активний)</text>
+<rect x="575.0" y="210.0" width="260.0" height="85.0" rx="5" fill="#ffffff" stroke="#feb2b2" stroke-width="1.5"/>
+<text x="705.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Ескалація: SCB-&gt;HFSR.FORCED = 1</text>
+<text x="705.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Справжню причину треба шукати</text>
+<text x="705.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">у підлеглих регістрах SCB-&gt;CFSR</text>
+<text x="705.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e3a8a" text-anchor="middle">(UFSR, BFSR, MMFSR)</text>
+<line x1="705.0" y1="310.0" x2="705.0" y2="355.0" stroke="#742a2a" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="715.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">Збій під час обробки HardFault (зіпсований стек / вектор)</text>
+<rect x="560.0" y="365.0" width="290.0" height="80.0" rx="8" fill="#2d3748" stroke="#1a202c" stroke-width="2.0"/>
+<text x="705.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="700">Стан LOCKUP (Повне зависання ядра)</text>
+<text x="705.0" y="413.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e2e8f0" text-anchor="middle">Процесор зупиняє вибірку інструкцій</text>
+<text x="705.0" y="431.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#feb2b2" text-anchor="middle" font-weight="700">Вихід ТІЛЬКИ через апаратний Reset (Watchdog/NRST)</text>
+<rect x="30.0" y="365.0" width="480.0" height="80.0" rx="6" fill="#ebf8ff" stroke="#bee3f8" stroke-width="1.5"/>
+<text x="270.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2b6cb0" text-anchor="middle" font-weight="700">Золоте правило надійності в Cortex-M:</text>
+<text x="270.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Завжди вмикайте індивідуальні винятки в SHCSR на старті системи!</text>
+<text x="270.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Тоді збій викличе точний обробник замість миттєвого звалювання в HardFault.</text>
+</svg>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Граф переходів автомата потокового розбору</text>
+<text x="480.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Граф станів потокового скінченного автомата десеріалізації (FSM)</text>
+<rect x="60.0" y="110.0" width="140.0" height="60.0" rx="8" fill="#f8fafc" stroke="#c0392b" stroke-width="2.0"/>
+<text x="130.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">WAIT_SYNC1</text>
+<text x="130.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Очікування 0xAA</text>
+<rect x="280.0" y="110.0" width="140.0" height="60.0" rx="8" fill="#f8fafc" stroke="#c0392b" stroke-width="2.0"/>
+<text x="350.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">WAIT_SYNC2</text>
+<text x="350.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Очікування 0x55</text>
+<rect x="500.0" y="110.0" width="140.0" height="60.0" rx="8" fill="#f8fafc" stroke="#0284c7" stroke-width="2.0"/>
+<text x="570.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-weight="700">GET_MSG_ID</text>
+<text x="570.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Читання типу ID</text>
+<rect x="720.0" y="110.0" width="140.0" height="60.0" rx="8" fill="#f8fafc" stroke="#7c3aed" stroke-width="2.0"/>
+<text x="790.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="700">GET_SEQ</text>
+<text x="790.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Читання номера SEQ</text>
+<rect x="720.0" y="270.0" width="140.0" height="60.0" rx="8" fill="#f8fafc" stroke="#d97706" stroke-width="2.0"/>
+<text x="790.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">GET_LEN</text>
+<text x="790.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Читання довжини N</text>
+<rect x="500.0" y="270.0" width="140.0" height="60.0" rx="8" fill="#f8fafc" stroke="#27ae60" stroke-width="2.0"/>
+<text x="570.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">GET_PAYLOAD</text>
+<text x="570.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Збір N байтів даних</text>
+<rect x="280.0" y="270.0" width="140.0" height="60.0" rx="8" fill="#f8fafc" stroke="#db2777" stroke-width="2.0"/>
+<text x="350.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#db2777" text-anchor="middle" font-weight="700">GET_CRC_L</text>
+<text x="350.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Читання CRC (LSB)</text>
+<rect x="60.0" y="270.0" width="140.0" height="60.0" rx="8" fill="#f8fafc" stroke="#db2777" stroke-width="2.0"/>
+<text x="130.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#db2777" text-anchor="middle" font-weight="700">GET_CRC_H</text>
+<text x="130.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Читання CRC (MSB)</text>
+<line x1="200.0" y1="140.0" x2="276.0" y2="140.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="238.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">0xAA</text>
+<line x1="420.0" y1="140.0" x2="496.0" y2="140.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="458.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">0x55</text>
+<line x1="640.0" y1="140.0" x2="716.0" y2="140.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="678.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ID != 0</text>
+<line x1="790.0" y1="170.0" x2="790.0" y2="266.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="830.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">SEQ (0..255)</text>
+<line x1="720.0" y1="300.0" x2="644.0" y2="300.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="682.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">LEN &gt; 0</text>
+<line x1="550.0" y1="330.0" x2="590.0" y2="330.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="570.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">++count &lt; LEN</text>
+<line x1="500.0" y1="300.0" x2="424.0" y2="300.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="462.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">готово</text>
+<line x1="280.0" y1="300.0" x2="204.0" y2="300.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="242.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">CRC_L</text>
+<line x1="130.0" y1="270.0" x2="130.0" y2="174.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="75.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">CRC OK → виклик</text>
+<rect x="40.0" y="395.0" width="880.0" height="70.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="55.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">ПРАВИЛА САМОВІДНОВЛЕННЯ СИНХРОНІЗАЦІЇ (RESYNCHRONIZATION):</text>
+<text x="55.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1. У стані WAIT_SYNC2 при отриманні 0xAA лишаємось у WAIT_SYNC2 (повтор преамбули). При отриманні іншого байта — перехід у WAIT_SYNC1.</text>
+<text x="55.0" y="447.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">2. У стані GET_LEN якщо LEN &gt; 64 (MAX_PAYLOAD) — миттєве скидання у WAIT_SYNC1 без виділення пам'яті (захист від зависання на смітті).</text>
+<text x="55.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">3. У стані GET_CRC_H якщо обчислена CRC != отриманій — лічильник crc_errors++, скидання у WAIT_SYNC1 (жодних дій не виконується).</text>
+</svg>

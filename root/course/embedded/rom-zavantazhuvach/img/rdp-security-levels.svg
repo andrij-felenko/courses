@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-52 -10 924.1 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-52" y="-10" width="924.1" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рівні захисту від читання (RDP): стани та апаратні наслідки</text>
+<rect x="40.0" y="70.0" width="220.0" height="230.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="150.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Level 0 (0xAA)</text>
+<text x="150.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Відкритий режим</text>
+<line x1="55.0" y1="130.0" x2="245.0" y2="130.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="150.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">SWD / JTAG: ДОЗВОЛЕНО</text>
+<text x="150.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ROM Bootloader: ПОВНИЙ</text>
+<text x="150.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Читання Flash: ТАК</text>
+<text x="150.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Запис Flash: ТАК</text>
+<text x="150.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Режим розробки та</text>
+<text x="150.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">первинної прошивки</text>
+<rect x="300.0" y="70.0" width="220.0" height="230.0" rx="6" fill="#fdfefe" stroke="#c0392b" stroke-width="2.0"/>
+<text x="410.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Level 1 (0x55 / інші)</text>
+<text x="410.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Захист від дампу</text>
+<line x1="315.0" y1="130.0" x2="505.0" y2="130.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="410.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">SWD: БЛОКОВАНО читання</text>
+<text x="410.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ROM Boot: лише RAM/Option</text>
+<text x="410.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Виконання з Flash: ТАК</text>
+<text x="410.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Зовнішній доступ: NACK / 0x00</text>
+<text x="410.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Стандартний захист для</text>
+<text x="410.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">серійних виробів</text>
+<rect x="560.0" y="70.0" width="220.0" height="230.0" rx="6" fill="#fdecea" stroke="#78281f" stroke-width="2.2"/>
+<text x="670.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#78281f" text-anchor="middle" font-weight="700">Level 2 (0xCC)</text>
+<text x="670.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Апаратний лок (Chip Lock)</text>
+<line x1="575.0" y1="130.0" x2="765.0" y2="130.0" stroke="#78281f" stroke-width="1.0"/>
+<text x="670.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78281f" text-anchor="middle" font-weight="700">SWD / JTAG: ВИМКНЕНО</text>
+<text x="670.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78281f" text-anchor="middle" font-weight="700">ROM Boot: ЗАБЛОКОВАНО</text>
+<text x="670.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Оновлення: лише OTA у Flash</text>
+<text x="670.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78281f" text-anchor="middle" font-weight="700">Зворотний шлях: НЕМОЖЛИВИЙ</text>
+<text x="670.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Незворотне запечатування</text>
+<text x="670.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">фінального кристала</text>
+<line x1="260.0" y1="150.0" x2="300.0" y2="150.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="280.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Запис RDP</text>
+<line x1="300.0" y1="210.0" x2="260.0" y2="210.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="280.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">1 -&gt; 0</text>
+<text x="280.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Mass Erase!</text>
+<line x1="520.0" y1="150.0" x2="560.0" y2="150.0" stroke="#78281f" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="540.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Запис 0xCC</text>
+<rect x="-42.0" y="339.5" width="904.1" height="31.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="410.0" y="358.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Зняття захисту з Level 1 на Level 0 апаратно стирає всю Flash-пам'ять і SRAM. Перехід на Level 2 є незворотним фізичним блокуванням кристала.</tspan></text>
+</svg>

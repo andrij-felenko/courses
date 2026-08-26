@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 453.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="453.5" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Походження фазової похибки: мультиплексування проти синхронного семплювання</text>
+<rect x="30.0" y="45.0" width="840.0" height="170.0" rx="8" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="180.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">1. Послідовний мультиплексований АЦП (типовий МК)</text>
+<rect x="50.0" y="95.0" width="110.0" height="30.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="105.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Канал U(t) [Напруга]</text>
+<rect x="50.0" y="140.0" width="110.0" height="30.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="105.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Канал I(t) [Струм]</text>
+<line x1="160.0" y1="110.0" x2="200.0" y2="120.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="160.0" y1="155.0" x2="200.0" y2="145.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="200.0" y="105.0" width="60.0" height="55.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="230.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">MUX</text>
+<line x1="260.0" y1="132.0" x2="295.0" y2="132.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="295.0" y="105.0" width="90.0" height="55.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="340.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Один T/H</text>
+<text x="340.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">+ Одне ядро</text>
+<line x1="420.0" y1="140.0" x2="840.0" y2="140.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="830.0" y1="140.0" x2="850.0" y2="140.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="845.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Час t</text>
+<circle cx="480.0" cy="110.0" r="5.0" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="480.0" y1="115.0" x2="480.0" y2="140.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="480.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">U(t₀)</text>
+<circle cx="550.0" cy="170.0" r="5.0" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="550.0" y1="140.0" x2="550.0" y2="165.0" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="550.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">I(t₀ + Δt)</text>
+<line x1="480.0" y1="130.0" x2="550.0" y2="130.0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="515.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Зсув Δt</text>
+<rect x="580.0" y="76.1" width="240.0" height="57.8" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="700.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="700.0" dy="0.0">Штучний фазовий зсув: Δφ = 2·π·f·Δt</tspan><tspan x="700.0" dy="13.7">Створює фальшиву похибку активної</tspan><tspan x="700.0" dy="13.7">потужності P = U · I · cos(φ ± Δφ)</tspan></text>
+<rect x="30.0" y="230.0" width="840.0" height="170.0" rx="8" fill="#eefaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="215.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">2. Справжнє одночасне семплювання (AD7606 / ADS8588S)</text>
+<rect x="50.0" y="280.0" width="110.0" height="30.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="105.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Канал U(t) [Напруга]</text>
+<line x1="160.0" y1="295.0" x2="200.0" y2="295.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="200.0" y="278.0" width="90.0" height="35.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="245.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">T/H Блок 1</text>
+<rect x="50.0" y="335.0" width="110.0" height="30.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="105.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Канал I(t) [Струм]</text>
+<line x1="160.0" y1="350.0" x2="200.0" y2="350.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="200.0" y="333.0" width="90.0" height="35.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="245.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">T/H Блок 2</text>
+<line x1="245.0" y1="255.0" x2="245.0" y2="278.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="245.0" y1="313.0" x2="245.0" y2="333.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="302.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Імпульс CONVST (одночасна фіксація)</text>
+<line x1="290.0" y1="295.0" x2="325.0" y2="295.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="290.0" y1="350.0" x2="325.0" y2="350.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="325.0" y="278.0" width="80.0" height="90.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="365.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Ядра</text>
+<text x="365.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">АЦП</text>
+<line x1="430.0" y1="325.0" x2="840.0" y2="325.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="830.0" y1="325.0" x2="850.0" y2="325.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="845.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Час t</text>
+<circle cx="520.0" cy="295.0" r="5.0" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.2"/>
+<circle cx="520.0" cy="355.0" r="5.0" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="520.0" y1="295.0" x2="520.0" y2="355.0" stroke="#27ae60" stroke-width="2.0" stroke-dasharray="3 3"/>
+<text x="520.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">U(t₀)</text>
+<text x="520.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">I(t₀)</text>
+<text x="565.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Δt = 0 нс (Синфазно)</text>
+<rect x="600.0" y="261.1" width="240.0" height="57.8" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="720.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="720.0" dy="0.0">Нульовий апаратний перекіс фаз</tspan><tspan x="720.0" dy="13.7">Ідеальний розрахунок cos(φ), RMS</tspan><tspan x="720.0" dy="13.7">та вищих гармонік у трифазній мережі</tspan></text>
+<rect x="16.8" y="402.5" width="866.4" height="31.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="450.0" y="421.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0">Мультиплексор вбудованого АЦП створює фазову часову затримку між каналами; зовнішні багатоканальні SAR фіксують усі канали в одну мить.</tspan></text>
+</svg>

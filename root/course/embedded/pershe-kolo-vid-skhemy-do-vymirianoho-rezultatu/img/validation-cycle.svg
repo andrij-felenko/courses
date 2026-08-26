@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Повний наскрізний цикл розробки та валідації електричного вузла</text>
+<rect x="27.5" y="57.0" width="125.0" height="76.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.6"/>
+<text x="90.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Розрахунок</text>
+<text x="90.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="90.0" dy="0.0">Теорія й номінали</tspan><tspan x="90.0" dy="13.8">схеми (папір/SPICE)</tspan></text>
+<rect x="177.5" y="57.0" width="125.0" height="76.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.6"/>
+<text x="240.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Макет</text>
+<text x="240.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="240.0" dy="0.0">Збірка на макетці:</tspan><tspan x="240.0" dy="13.8">врахування паразитів</tspan></text>
+<rect x="327.5" y="57.0" width="125.0" height="76.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.6"/>
+<text x="390.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. DC-режим</text>
+<text x="390.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="390.0" dy="0.0">Статична перевірка:</tspan><tspan x="390.0" dy="13.8">струми й вузлові U</tspan></text>
+<rect x="477.5" y="57.0" width="125.0" height="76.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.6"/>
+<text x="540.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. AC-динаміка</text>
+<text x="540.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="540.0" dy="0.0">Осцилограф: фронти,</tspan><tspan x="540.0" dy="13.8">викиди та дзвоніння</tspan></text>
+<rect x="627.5" y="57.0" width="125.0" height="76.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.6"/>
+<text x="690.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">5. Декомпозиція</text>
+<text x="690.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="690.0" dy="0.0">Аналіз розбіжностей</tspan><tspan x="690.0" dy="13.8">і корекція моделі</tspan></text>
+<line x1="152.5" y1="95.0" x2="177.5" y2="95.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="302.5" y1="95.0" x2="327.5" y2="95.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="452.5" y1="95.0" x2="477.5" y2="95.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="602.5" y1="95.0" x2="627.5" y2="95.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="690.0" y1="133.0" x2="690.0" y2="230.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="690.0" y1="230.0" x2="90.0" y2="230.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="90.0" y1="230.0" x2="90.0" y2="135.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="280.0" y="214.0" width="260.0" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="410.0" y="226.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7a1d12" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">Ітеративне уточнення моделі й паразитів</tspan></text>
+<rect x="30.0" y="260.0" width="220.0" height="30.0" rx="4" fill="#edf2f7" stroke="#cbd5e0" stroke-width="1.0"/>
+<text x="140.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2d3748" text-anchor="middle">Етап 1: Теоретичний задум</text>
+<rect x="290.0" y="260.0" width="360.0" height="30.0" rx="4" fill="#ebf8ff" stroke="#bee3f8" stroke-width="1.0"/>
+<text x="470.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2b6cb0" text-anchor="middle">Етап 2: Фізичні вимірювання (DC + AC)</text>
+<rect x="670.0" y="260.0" width="120.0" height="30.0" rx="4" fill="#f0fff4" stroke="#c6f6d5" stroke-width="1.0"/>
+<text x="730.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#276749" text-anchor="middle">Етап 3: Синтез</text>
+</svg>

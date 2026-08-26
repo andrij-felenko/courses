@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="880.0" height="380.0" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="460.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура дескриптора пристрою та послідовність ініціалізації</text>
+<rect x="40.0" y="75.0" width="320.0" height="305.0" rx="8" fill="#f8fafc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="200.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">struct chip_device_t</text>
+<line x1="40.0" y1="115.0" x2="360.0" y2="115.0" stroke="#2457d6" stroke-width="1.0"/>
+<text x="50.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">bus_io</text>
+<text x="160.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">const chip_bus_ops_t*</text>
+<text x="65.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">Вказівники read/write</text>
+<text x="50.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">user_ctx</text>
+<text x="160.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">void*</text>
+<text x="65.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">Хендл шини МК (I2C/SPI)</text>
+<text x="50.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">dev_addr</text>
+<text x="160.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">uint8_t</text>
+<text x="65.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">7-біт I2C адреса / CS пін</text>
+<text x="50.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">range</text>
+<text x="160.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">chip_range_t</text>
+<text x="65.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">Поточний діапазон (±2g..16g)</text>
+<text x="50.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">scale_factor</text>
+<text x="160.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">float</text>
+<text x="65.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">Чутливість у SI одиницях</text>
+<text x="50.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">shadow_ctrl</text>
+<text x="160.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">uint8_t[4]</text>
+<text x="65.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">Тіньові копії регістрів</text>
+<text x="50.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">calib</text>
+<text x="160.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">chip_calib_t</text>
+<text x="65.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">Зсуви та коефіцієнти</text>
+<text x="50.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">is_initialized</text>
+<text x="160.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">bool</text>
+<text x="65.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-style="italic">Прапорець валідності стану</text>
+<rect x="400.0" y="80.0" width="480.0" height="60.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="425.0" cy="110.0" r="14.0" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+<text x="425.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">1</text>
+<text x="450.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">1. Ін'єкція залежностей</text>
+<text x="450.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Запис вказівників на шинні функції та хендл платформи у структуру.</text>
+<line x1="640.0" y1="140.0" x2="640.0" y2="155.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="400.0" y="155.0" width="480.0" height="60.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="425.0" cy="185.0" r="14.0" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="425.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">2</text>
+<text x="450.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">2. Верифікація зв'язку</text>
+<text x="450.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Зчитування регістру WHO_AM_I / CHIP_ID та звірка з еталоном.</text>
+<line x1="640.0" y1="215.0" x2="640.0" y2="230.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="400.0" y="230.0" width="480.0" height="60.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<circle cx="425.0" cy="260.0" r="14.0" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+<text x="425.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">3</text>
+<text x="450.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">3. Програмний Soft-Reset</text>
+<text x="450.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Подача біта перезавантаження та очікування очищення прапорця.</text>
+<line x1="640.0" y1="290.0" x2="640.0" y2="305.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="400.0" y="305.0" width="480.0" height="60.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<circle cx="425.0" cy="335.0" r="14.0" fill="#333333" stroke="#ffffff" stroke-width="1.5"/>
+<text x="425.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">4</text>
+<text x="450.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#333333" text-anchor="start" font-weight="700">4. Калібрування та конфіг</text>
+<text x="450.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Вичитування коефіцієнтів з NVM/OTP, налаштування ODR, BDU та діапазону.</text>
+</svg>

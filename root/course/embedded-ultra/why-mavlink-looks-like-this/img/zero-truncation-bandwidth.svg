@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Відтинання нульових байтів (Zero-Truncation) у MAVLink v2</text>
+<text x="490.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оптимізація каналу в MAVLink v2: механізм Zero-Truncation (відтинання кінцевих нулів)</text>
+<rect x="40.0" y="65.0" width="900.0" height="110.0" rx="8" fill="#f8fafc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="60.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">1. Структура повідомлення в оперативній пам'яті дрона (Повна довжина: 32 байти)</text>
+<rect x="60.0" y="107.0" width="280.0" height="50.0" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+<text x="200.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-weight="700">Активні поля (10 байтів)</text>
+<text x="200.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">time_usec (8B), state_flags (2B)</text>
+<rect x="345.0" y="107.0" width="575.0" height="50.0" rx="4" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="632.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Кінцеві нулі / Невикористані розширення (22 байти: 0x00, 0x00 ... 0x00)</text>
+<text x="632.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Опційні розширені сенсори, додаткові канали сервоприводів тощо</text>
+<line x1="490.0" y1="180.0" x2="490.0" y2="220.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="505.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">mavlink_finalize_message: відтинає всі 0x00 з кінця</text>
+<rect x="40.0" y="225.0" width="900.0" height="95.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="60.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">2. Реальний пакет у радіоефірі (LEN = 10 замість 32! Заощаджено 22 байти на кожному пакеті)</text>
+<rect x="60.0" y="267.0" width="180.0" height="42.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+<text x="150.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">Header v2 (LEN=10)</text>
+<rect x="245.0" y="267.0" width="280.0" height="42.0" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.2"/>
+<text x="385.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0284c7" text-anchor="middle" font-weight="700">Payload (лише 10 Б)</text>
+<rect x="530.0" y="267.0" width="90.0" height="42.0" rx="4" fill="#fef2f2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="575.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">CRC (2 Б)</text>
+<rect x="630.0" y="267.0" width="290.0" height="42.0" rx="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="775.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">В ефір НЕ передається (Економія 68%!)</text>
+<line x1="490.0" y1="325.0" x2="490.0" y2="363.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="505.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Приймач: memset(&amp;msg, 0) + memcpy(msg, payload, LEN)</text>
+<rect x="40.0" y="368.0" width="900.0" height="85.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="60.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">3. Відновлена структура в пам'яті GCS: непоставлені байти автоматично лишаються нулями</text>
+<text x="60.0" y="413.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Повна зворотна та пряма сумісність: нові поля в кінці структури не ламають старі приймачі.</text>
+<text x="60.0" y="433.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">• При частоті телеметрії 50 Гц відтинання 20 нульових байтів економить 1000 байтів/с (10 кбіт/с смуги!).</text>
+</svg>

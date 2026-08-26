@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 590" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="590" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія шин живлення безпілотного апарата: розв'язка силових і чутливих споживачів</text>
+<rect x="30.0" y="200.0" width="150.0" height="140.0" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="105.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">LiPo Батарея</text>
+<text x="105.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">6S (22.2 В – 25.2 В)</text>
+<text x="105.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Струм: 0.5 А .. 120 А</text>
+<text x="105.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Джерело енергії</text>
+<text x="105.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-style="italic">та імпульсних шумів</text>
+<rect x="220.0" y="200.0" width="160.0" height="140.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/>
+<text x="300.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">PDB / Монітор</text>
+<text x="300.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Шунт струму 0.5 мОм</text>
+<text x="300.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">TVS-супресор (33 В)</text>
+<text x="300.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">Bulk Low-ESR 1000 мкФ</text>
+<text x="300.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-style="italic">I_sense &amp; V_sense → MCU</text>
+<line x1="180.0" y1="270.0" x2="220.0" y2="270.0" stroke="#c0392b" stroke-width="3.0" marker-end="url(#arrow)"/>
+<text x="200.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">VBAT</text>
+<rect x="440.0" y="60.0" width="200.0" height="100.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="540.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Силові ESC (4-8 шт)</text>
+<text x="540.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Пряма шина VBAT (24 В)</text>
+<text x="540.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">BLDC мотори (до 100 А)</text>
+<text x="540.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-style="italic">Комутаційний шум 24-48 кГц</text>
+<rect x="440.0" y="205.0" width="190.0" height="130.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="535.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Step-Down BEC (5.3 В)</text>
+<text x="535.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Синхронний Buck, 3 А</text>
+<text x="535.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Вбудований LC π-фільтр</text>
+<text x="535.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">ККД ~92%, стабільна шина</text>
+<text x="535.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-style="italic">Живлення польотного ядра</text>
+<rect x="440.0" y="390.0" width="190.0" height="120.0" rx="8" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="535.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">AUX BEC (5.0 В / 12 В)</text>
+<text x="535.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Ізольований Buck, 5 А</text>
+<text x="535.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Сервоприводи (кидки струму)</text>
+<text x="535.0" y="482.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">FPV-передавач (VTX) та CAM</text>
+<text x="535.0" y="498.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Телеметрія радіо (ELRS/LoRa)</text>
+<line x1="380.0" y1="240.0" x2="410.0" y2="240.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="410.0" y1="240.0" x2="410.0" y2="110.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="410.0" y1="110.0" x2="440.0" y2="110.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="380.0" y1="270.0" x2="440.0" y2="270.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="380.0" y1="300.0" x2="410.0" y2="300.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="410.0" y1="300.0" x2="410.0" y2="450.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="410.0" y1="450.0" x2="440.0" y2="450.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="690.0" y="160.0" width="220.0" height="100.0" rx="8" fill="#fdf0e6" stroke="#333333" stroke-width="1.6"/>
+<text x="800.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Польотний контролер (FC)</text>
+<text x="800.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">MCU STM32H7 (3.3 В LDO)</text>
+<text x="800.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Flash пам'ять, Барометр</text>
+<text x="800.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Споживання: ~350 мА</text>
+<rect x="690.0" y="280.0" width="220.0" height="100.0" rx="8" fill="#fafbfc" stroke="#27ae60" stroke-width="1.6"/>
+<text x="800.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Чутливі сенсори (IMU/GNSS)</text>
+<text x="800.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Ultra-Low-Noise LDO (3.3 В)</text>
+<text x="800.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">MEMS гіроскопи ICM-42688</text>
+<text x="800.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Шум &lt; 5 мкВ_rms, PSRR &gt; 75 дБ</text>
+<line x1="630.0" y1="270.0" x2="660.0" y2="270.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="660.0" y1="270.0" x2="660.0" y2="210.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="660.0" y1="210.0" x2="690.0" y2="210.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="660.0" y1="270.0" x2="660.0" y2="330.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="660.0" y1="330.0" x2="690.0" y2="330.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="142.8" y="525.9" width="654.4" height="44.1" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="470.0" y="544.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">Правило побудови: силова шина моторів розв'язана від цифрової логіки через окремі імпульсні ступені (BEC),</tspan><tspan x="470.0" dy="13.7">а прецизійні аналогові сенсори живляться через каскадні LC-фільтри та Low-Noise LDO.</tspan></text>
+</svg>

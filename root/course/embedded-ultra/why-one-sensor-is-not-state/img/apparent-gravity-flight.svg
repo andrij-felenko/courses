@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Питома сила акселерометра в польоті</text>
+<text x="480.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Питома сила акселерометра в польоті: статичне зависання проти лінійного прискорення</text>
+<rect x="50.0" y="60.0" width="410.0" height="390.0" rx="8" fill="#f8fafc" stroke="#27ae60" stroke-width="2.0"/>
+<text x="255.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Статика / Рівномірний рух (a = 0)</text>
+<text x="255.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Акселерометр вимірює реакцію опори f = -g</text>
+<line x1="165.0" y1="210.0" x2="345.0" y2="210.0" stroke="#333333" stroke-width="3.0"/>
+<rect x="225.0" y="195.0" width="60.0" height="30.0" rx="4" fill="#e2e8f0" stroke="#333333" stroke-width="1.5"/>
+<text x="255.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">IMU</text>
+<line x1="165.0" y1="198.0" x2="205.0" y2="198.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="305.0" y1="198.0" x2="345.0" y2="198.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="255.0" y1="225.0" x2="255.0" y2="315.0" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="267.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">g (9.81 м/с²)</text>
+<line x1="255.0" y1="195.0" x2="255.0" y2="115.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="267.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">f_meas = -g (вгору)</text>
+<rect x="70.0" y="330.0" width="370.0" height="100.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="82.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Розрахунок кута нахилу (Pitch/Roll):</text>
+<text x="82.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">• a_x = 0, a_y = 0, a_z = +1.0 g</text>
+<text x="82.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• pitch = atan2(-a_x, a_z) = 0.0°</text>
+<text x="82.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">✓ Оцінка кута абсолютно точна</text>
+<rect x="500.0" y="60.0" width="410.0" height="390.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="705.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Динаміка: Розгін уперед (a_lin = 5 м/с²)</text>
+<text x="705.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Питома сила f = a_lin - g спотворює вертикаль</text>
+<line x1="585.0" y1="210.0" x2="765.0" y2="210.0" stroke="#333333" stroke-width="3.0"/>
+<rect x="645.0" y="195.0" width="60.0" height="30.0" rx="4" fill="#e2e8f0" stroke="#333333" stroke-width="1.5"/>
+<text x="675.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">IMU</text>
+<line x1="585.0" y1="198.0" x2="625.0" y2="198.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="725.0" y1="198.0" x2="765.0" y2="198.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="705.0" y1="210.0" x2="785.0" y2="210.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="745.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">a_lin (5 м/с²)</text>
+<line x1="675.0" y1="210.0" x2="675.0" y2="135.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="665.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">-g</text>
+<line x1="675.0" y1="210.0" x2="755.0" y2="135.0" stroke="#c0392b" stroke-width="2.8" marker-end="url(#arrow)"/>
+<text x="763.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">f_meas (вектор питомої сили)</text>
+<text x="710.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">θ = 27.0°</text>
+<rect x="520.0" y="330.0" width="370.0" height="100.0" rx="6" fill="#ffffff" stroke="#fca5a5" stroke-width="1.2"/>
+<text x="532.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Хибний розрахунок кута автопілотом:</text>
+<text x="532.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• a_x = +5.0 м/с², a_z = +9.81 м/с²</text>
+<text x="532.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">• pitch = atan2(-5.0, 9.81) = -27.0° (хибний тангаж)</text>
+<text x="532.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">✗ Давач «бачить» нахил, якого фізично не існує</text>
+</svg>

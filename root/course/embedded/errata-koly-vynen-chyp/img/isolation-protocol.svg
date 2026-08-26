@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Інженерний протокол доведення кремнієвого дефекту (MRE Flow)</text>
+<rect x="60.0" y="55.0" width="640.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#2c3e50" stroke-width="1.6"/>
+<circle cx="92.0" cy="79.0" r="15.0" fill="#ffffff" stroke="#2c3e50" stroke-width="2.0"/>
+<text x="92.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2c3e50" text-anchor="middle" font-weight="700">1</text>
+<text x="125.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Перевірка живлення</text>
+<text x="125.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Осцилограф: шуми VDD, VREF, падіння напруги під навантаженням</text>
+<line x1="380.0" y1="103.0" x2="380.0" y2="113.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="60.0" y="113.0" width="640.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.6"/>
+<circle cx="92.0" cy="137.0" r="15.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="92.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">2</text>
+<text x="125.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Звірення з Reference Manual</text>
+<text x="125.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Порядок запису конфігураційних бітів, тактування шин APB/AHB</text>
+<line x1="380.0" y1="161.0" x2="380.0" y2="171.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="60.0" y="171.0" width="640.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.6"/>
+<circle cx="92.0" cy="195.0" r="15.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="92.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">3</text>
+<text x="125.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">3. Побудова MRE (Bare-Metal)</text>
+<text x="125.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Вимкнення RTOS, HAL, зайвих IRQ; прямий доступ CMSIS; мінімум коду</text>
+<line x1="380.0" y1="219.0" x2="380.0" y2="229.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="60.0" y="229.0" width="640.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.6"/>
+<circle cx="92.0" cy="253.0" r="15.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="92.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">4</text>
+<text x="125.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">4. Зчитування Silicon REV_ID</text>
+<text x="125.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Читання регістра DBGMCU_IDCODE, визначення літерної ревізії чіпа</text>
+<line x1="380.0" y1="277.0" x2="380.0" y2="287.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="60.0" y="287.0" width="640.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#2c3e50" stroke-width="1.6"/>
+<circle cx="92.0" cy="311.0" r="15.0" fill="#ffffff" stroke="#2c3e50" stroke-width="2.0"/>
+<text x="92.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2c3e50" text-anchor="middle" font-weight="700">5</text>
+<text x="125.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">5. Звірення з Errata Sheet</text>
+<text x="125.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Пошук номера дефекту, застосування Workaround або заміна чіпа</text>
+</svg>

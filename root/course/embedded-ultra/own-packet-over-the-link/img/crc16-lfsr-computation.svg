@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розрахунок CRC16 через LFSR та табличний прискорювач</text>
+<text x="480.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Математичний конвеєр CRC-16-CCITT: зсувний регістр LFSR та табличний прискорювач (LUT)</text>
+<rect x="40.0" y="65.0" width="430.0" height="330.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="255.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Поліноміальний LFSR (GF(2) ділення)</text>
+<text x="255.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Поліном G(x) = x^16 + x^12 + x^5 + 1 (маска 0x1021)</text>
+<rect x="60.0" y="135.0" width="48.0" height="32.0" rx="4" fill="#ffffff" stroke="#0284c7" stroke-width="1.4"/>
+<text x="84.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-weight="700">b15</text>
+<rect x="114.0" y="135.0" width="34.0" height="32.0" rx="4" fill="#ffffff" stroke="#0284c7" stroke-width="1.4"/>
+<text x="131.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-weight="700">...</text>
+<rect x="154.0" y="135.0" width="48.0" height="32.0" rx="4" fill="#ffffff" stroke="#0284c7" stroke-width="1.4"/>
+<text x="178.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-weight="700">b12</text>
+<rect x="208.0" y="135.0" width="34.0" height="32.0" rx="4" fill="#ffffff" stroke="#0284c7" stroke-width="1.4"/>
+<text x="225.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-weight="700">...</text>
+<rect x="248.0" y="135.0" width="48.0" height="32.0" rx="4" fill="#ffffff" stroke="#0284c7" stroke-width="1.4"/>
+<text x="272.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-weight="700">b5</text>
+<rect x="302.0" y="135.0" width="34.0" height="32.0" rx="4" fill="#ffffff" stroke="#0284c7" stroke-width="1.4"/>
+<text x="319.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-weight="700">...</text>
+<rect x="342.0" y="135.0" width="48.0" height="32.0" rx="4" fill="#ffffff" stroke="#0284c7" stroke-width="1.4"/>
+<text x="366.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-weight="700">b0</text>
+<circle cx="195.0" cy="200.0" r="16.0" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
+<text x="195.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#db2777" text-anchor="middle" font-weight="700">XOR</text>
+<line x1="195.0" y1="184.0" x2="195.0" y2="171.0" stroke="#db2777" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="310.0" cy="200.0" r="16.0" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
+<text x="310.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#db2777" text-anchor="middle" font-weight="700">XOR</text>
+<line x1="310.0" y1="184.0" x2="310.0" y2="171.0" stroke="#db2777" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="60.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Вхідний бітовий потік зсувається вправо/вліво.</text>
+<text x="60.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">При висуванні '1' регістр виконує XOR із 0x1021.</text>
+<text x="60.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Гарантії детекції помилок:</text>
+<text x="60.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• 100% усіх 1-бітових та 2-бітових помилок</text>
+<text x="60.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• 100% непарної кількості помилок (множник x+1)</text>
+<text x="60.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• 100% пачок завад (bursts) довжиною &lt;= 16 бітів</text>
+<rect x="490.0" y="65.0" width="430.0" height="330.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="705.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">2. Табличний прискорювач (Look-Up Table, LUT)</text>
+<text x="705.0" y="109.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">256 попередньо обчислених слів у Flash (.rodata)</text>
+<rect x="510.0" y="135.0" width="390.0" height="80.0" rx="6" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="522.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">// Оновлення CRC на 1 вхідний байт за 4 такти ядра:</text>
+<text x="522.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">uint8_t idx = (crc ^ byte) &amp; 0xFF;</text>
+<text x="522.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="start" font-weight="700">crc = (crc &gt;&gt; 8) ^ crc16_table[idx];</text>
+<text x="510.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Переваги табличного підходу у прошивках:</text>
+<text x="510.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1. Фіксований час виконання (Deterministic Timing) —</text>
+<text x="510.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">   без умовних переходів та гілкувань конвеєра.</text>
+<text x="510.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">2. Розмір таблиці у Flash: рівно 512 байтів (256 * 2 Б).</text>
+<text x="510.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">3. Швидкість на Cortex-M4 @ 168 МГц: &gt; 40 МБ/с,</text>
+<text x="510.0" y="359.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">   що перекриває потік UART (115200..921600 бод) у 400+ разів.</text>
+</svg>

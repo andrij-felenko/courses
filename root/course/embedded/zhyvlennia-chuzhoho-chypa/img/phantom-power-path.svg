@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шлях фантомного паразитного живлення через сигнальні лінії</text>
+<rect x="20.0" y="50.0" width="200.0" height="300.0" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="120.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Мікроконтролер (МК)</text>
+<text x="120.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Працює (V_MCU = 3.3 В)</text>
+<rect x="40.0" y="140.0" width="160.0" height="35.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="120.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">GPIO (I2C SDA / SCL)</tspan></text>
+<rect x="40.0" y="200.0" width="160.0" height="35.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="120.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">Підтяжка R_pu до 3.3 В</tspan></text>
+<rect x="480.0" y="50.0" width="260.0" height="300.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="2.0"/>
+<text x="610.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Знеструмлена мікросхема</text>
+<text x="610.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ключ OFF (V_SW = 0 В очікується)</text>
+<rect x="500.0" y="140.0" width="220.0" height="60.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="610.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Внутрішня шина VDD чипа</text>
+<text x="610.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Напруга піднімається до ~2.8 В!</text>
+<line x1="480.0" y1="250.0" x2="560.0" y2="250.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="560.0" y1="250.0" x2="560.0" y2="200.0" stroke="#c0392b" stroke-width="2.0"/>
+<polygon points="553,230 567,230 560,212" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="553.0" y1="212.0" x2="567.0" y2="212.0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="645.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Верхній ESD-діод</text>
+<line x1="200.0" y1="250.0" x2="480.0" y2="250.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="220.0" y1="250.0" x2="340.0" y2="250.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="340.0" y1="250.0" x2="460.0" y2="250.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="330.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Паразитний струм фантомного живлення</text>
+<rect x="20.0" y="310.0" width="720.0" height="65.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="380.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Наслідки: чип напівзависає в Brown-out стані, батарея розряджається в сні,</text>
+<text x="380.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">а шина I2C блокується через перекіс рівнів і незакриті ESD-переходи</text>
+</svg>

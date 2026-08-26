@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 730 350" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="730" height="350" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="360.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння кремнієвої архітектури SPI та I2C</text>
+<text x="180.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">SPI: Зсувний конвеєр (Shift Pipeline)</text>
+<text x="540.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">I2C: Шинний автомат (Bus State Machine)</text>
+<line x1="360.0" y1="15.0" x2="360.0" y2="325.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4 4"/>
+<rect x="20.0" y="45.0" width="320.0" height="275.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<rect x="30.8" y="65.5" width="158.5" height="39.0" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.2"/><text x="110.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">Регістр даних (DR / FIFO)</tspan><tspan x="110.0" dy="13.0">Буфери TXDR та RXDR</tspan></text>
+<rect x="212.1" y="65.5" width="95.8" height="39.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.2"/><text x="260.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="260.0" dy="0.0">Прапорці SR</tspan><tspan x="260.0" dy="13.0">TXE, RXNE, BSY</tspan></text>
+<rect x="52.2" y="143.5" width="255.6" height="43.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/><text x="180.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="180.0" dy="0.0">Кільцевий зсувний регістр (8 / 16 біт)</tspan><tspan x="180.0" dy="13.0">Синхронний зсув такт-у-такт</tspan></text>
+<rect x="66.6" y="225.5" width="226.9" height="39.0" rx="6" fill="#faf5ff" stroke="#8b5cf6" stroke-width="1.2"/><text x="180.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">Генератор такту (Baud Rate Prescaler)</tspan><tspan x="180.0" dy="13.0">Дільники f_PCLK / (2..256)</tspan></text>
+<line x1="110.0" y1="110.0" x2="140.0" y2="142.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="220.0" y1="142.0" x2="250.0" y2="110.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="180.0" y1="222.0" x2="180.0" y2="192.0" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="275.0" y1="155.0" x2="330.0" y2="155.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="310.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">MOSI</text>
+<line x1="320.0" y1="155.0" x2="338.0" y2="155.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="275.0" y1="175.0" x2="330.0" y2="175.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="317.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">MISO</text>
+<line x1="338.0" y1="175.0" x2="278.0" y2="175.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="265.0" y1="245.0" x2="330.0" y2="245.0" stroke="#8b5cf6" stroke-width="1.5"/>
+<text x="310.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8b5cf6" text-anchor="middle" font-weight="700">SCK</text>
+<line x1="320.0" y1="245.0" x2="338.0" y2="245.0" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="180.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Пряма передача бітів без аналізу протоколу</text>
+<rect x="380.0" y="45.0" width="320.0" height="275.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<rect x="432.8" y="65.5" width="214.4" height="39.0" rx="6" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.5"/><text x="540.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="540.0" dy="0.0">Кінцевий автомат протоколу (FSM)</tspan><tspan x="540.0" dy="13.0">START, STOP, ACK, NACK, арбітраж</tspan></text>
+<rect x="397.9" y="139.9" width="124.3" height="50.2" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.2"/><text x="460.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">Компаратор адреси</tspan><tspan x="460.0" dy="12.3">(7 / 10 біт, OAR1/2)</tspan><tspan x="460.0" dy="12.3">+ Буфер даних DR</tspan></text>
+<rect x="555.1" y="139.9" width="129.7" height="50.2" rx="6" fill="#fdf4ff" stroke="#d946ef" stroke-width="1.2"/><text x="620.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">Контроль лінії SCL</tspan><tspan x="620.0" dy="12.3">Генератор такту +</tspan><tspan x="620.0" dy="12.3">Детектор розтягування</tspan></text>
+<rect x="445.4" y="226.1" width="189.3" height="37.9" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/><text x="540.0" y="242.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">Аналоговий/цифровий фільтр шуму</tspan><tspan x="540.0" dy="12.3">+ Open-Drain ключі ліній SDA/SCL</tspan></text>
+<line x1="540.0" y1="115.0" x2="480.0" y2="142.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="540.0" y1="115.0" x2="600.0" y2="142.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="480.0" y1="195.0" x2="520.0" y2="222.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="600.0" y1="195.0" x2="560.0" y2="222.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="645.0" y1="235.0" x2="690.0" y2="235.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="675.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">SDA</text>
+<line x1="675.0" y1="235.0" x2="695.0" y2="235.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="645.0" y1="255.0" x2="690.0" y2="255.0" stroke="#d946ef" stroke-width="1.5"/>
+<text x="675.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d946ef" text-anchor="middle" font-weight="700">SCL</text>
+<line x1="675.0" y1="255.0" x2="695.0" y2="255.0" stroke="#d946ef" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="540.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Постійний апаратний аналіз ліній і стану мережі</text>
+</svg>

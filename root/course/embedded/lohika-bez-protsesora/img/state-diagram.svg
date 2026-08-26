@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Діаграма станів автомата керування продувкою і пальником</text>
+<circle cx="200.0" cy="130.0" r="54.0" fill="#fdfefe" stroke="#2457d6" stroke-width="2.4"/>
+<text x="200.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">IDLE</text>
+<text x="200.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Q1Q0 = 00</text>
+<text x="200.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вентилятор=0</text>
+<text x="200.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Клапан=0</text>
+<text x="200.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Статус=ОЧІКУВАННЯ</text>
+<circle cx="680.0" cy="130.0" r="54.0" fill="#fdfefe" stroke="#b8860b" stroke-width="2.4"/>
+<text x="680.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b8860b" text-anchor="middle" font-weight="700">PURGE</text>
+<text x="680.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Q1Q0 = 01</text>
+<text x="680.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вентилятор=1</text>
+<text x="680.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Клапан=0</text>
+<text x="680.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Статус=ПРОДУВКА</text>
+<circle cx="680.0" cy="290.0" r="54.0" fill="#fdfefe" stroke="#c0392b" stroke-width="2.4"/>
+<text x="680.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">IGNITE</text>
+<text x="680.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Q1Q0 = 10</text>
+<text x="680.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вентилятор=1</text>
+<text x="680.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Клапан=1, Іскра=1</text>
+<text x="680.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Статус=РОЗПАЛ</text>
+<circle cx="200.0" cy="290.0" r="54.0" fill="#fdfefe" stroke="#27ae60" stroke-width="2.4"/>
+<text x="200.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">RUN</text>
+<text x="200.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Q1Q0 = 11</text>
+<text x="200.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вентилятор=1</text>
+<text x="200.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Клапан=1, Іскра=0</text>
+<text x="200.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Статус=РОБОТА</text>
+<path d="M 152 110 C 100 80 100 160 148 140" fill="none" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="78.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Start = 0</text>
+<line x1="254.0" y1="130.0" x2="626.0" y2="130.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="440.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Start = 1 (команда пуску)</text>
+<path d="M 728 110 C 780 80 780 160 732 140" fill="none" stroke="#b8860b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="810.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b8860b" text-anchor="middle" font-weight="700">Done=0</text>
+<line x1="680.0" y1="184.0" x2="680.0" y2="236.0" stroke="#b8860b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="735.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b8860b" text-anchor="middle" font-weight="700">Done = 1</text>
+<line x1="626.0" y1="290.0" x2="254.0" y2="290.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="440.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Flame = 1 (полум'я зафіксовано)</text>
+<path d="M 148 280 C 100 260 100 340 152 310" fill="none" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="75.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Flame=1</text>
+<line x1="200.0" y1="236.0" x2="200.0" y2="184.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="125.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Flame=0 / Abort</text>
+<path d="M 640 255 L 245 155" fill="none" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+<text x="440.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Аварія / Flame=0 / Abort</text>
+</svg>

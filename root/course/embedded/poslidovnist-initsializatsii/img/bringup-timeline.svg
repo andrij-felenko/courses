@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 360" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .title { font-family: system-ui, sans-serif; font-size: 15px; font-weight: 700; fill: #0f172a; }
+      .label { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 600; fill: #334155; }
+      .sublabel { font-family: system-ui, sans-serif; font-size: 11px; fill: #64748b; }
+      .code { font-family: ui-monospace, monospace; font-size: 11px; fill: #1e293b; }
+      .axis { stroke: #cbd5e1; stroke-width: 1.2; stroke-dasharray: 4,4; }
+      .line-main { stroke: #0284c7; stroke-width: 2.5; fill: none; }
+      .line-por { stroke: #e11d48; stroke-width: 1.5; stroke-dasharray: 3,3; fill: none; }
+      .box-phase { rx: 6px; ry: 6px; stroke-width: 1.5; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748b" />
+    </marker>
+  </defs>
+  <rect class="bg" x="0" y="0" width="880" height="360" rx="8"/>
+  <text class="title" x="24" y="32">Часова діаграма послідовності запуску (Bring-Up Timeline)</text>
+  <text class="label" x="24" y="65">1. Напруга VDD</text>
+  <text class="sublabel" x="24" y="80">Живлення чипа</text>
+  <text class="code" x="24" y="100" fill="#e11d48">V_POR=1.65 В</text>
+  <text class="code" x="24" y="118" fill="#0284c7">V_NOM=3.3 В</text>
+  <text class="label" x="24" y="170">2. Стан чипа</text>
+  <text class="sublabel" x="24" y="186">Внутрішнє ядро</text>
+  <text class="label" x="24" y="260">3. Шина I2C/SPI</text>
+  <text class="sublabel" x="24" y="276">Транзакції МК</text>
+  <line x1="150" y1="320" x2="840" y2="320" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text class="sublabel" x="845" y="324">Час t</text>
+  <line class="axis" x1="160" y1="50" x2="160" y2="315"/>
+  <line class="axis" x1="265" y1="50" x2="265" y2="315"/>
+  <line class="axis" x1="390" y1="50" x2="390" y2="315"/>
+  <line class="axis" x1="525" y1="50" x2="525" y2="315"/>
+  <line class="axis" x1="680" y1="50" x2="680" y2="315"/>
+  <line class="axis" x1="820" y1="50" x2="820" y2="315"/>
+  <path class="line-main" d="M 150 115 L 160 115 L 265 65 L 830 65"/>
+  <line class="line-por" x1="160" y1="90" x2="830" y2="90"/>
+  <rect class="box-phase" x="160" y="150" width="105" height="45" fill="#fee2e2" stroke="#f87171"/>
+  <text class="code" x="212.5" y="177" text-anchor="middle" font-weight="700">Ramp Up</text>
+  <rect class="box-phase" x="265" y="150" width="125" height="45" fill="#ffedd5" stroke="#fb923c"/>
+  <text class="code" x="327.5" y="168" text-anchor="middle" font-weight="700">POR / Booting</text>
+  <text class="sublabel" x="327.5" y="184" text-anchor="middle">LDO &amp; NVM Load</text>
+  <rect class="box-phase" x="390" y="150" width="135" height="45" fill="#fef08a" stroke="#eab308"/>
+  <text class="code" x="457.5" y="168" text-anchor="middle" font-weight="700">Soft Reset</text>
+  <text class="sublabel" x="457.5" y="184" text-anchor="middle">Poll Ready bit</text>
+  <rect class="box-phase" x="525" y="150" width="155" height="45" fill="#e0e7ff" stroke="#818cf8"/>
+  <text class="code" x="602.5" y="168" text-anchor="middle" font-weight="700">Configuring</text>
+  <text class="sublabel" x="602.5" y="184" text-anchor="middle">Range, ODR, Readback</text>
+  <rect class="box-phase" x="680" y="150" width="140" height="45" fill="#dcfce7" stroke="#4ade80"/>
+  <text class="code" x="750.0" y="168" text-anchor="middle" font-weight="700">Active Mode</text>
+  <text class="sublabel" x="750.0" y="184" text-anchor="middle">Valid Data DRDY</text>
+  <rect class="box-phase" x="160" y="245" width="230" height="45" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text class="code" x="275.0" y="264" text-anchor="middle" fill="#dc2626" font-weight="700">Тиша на шині (Hi-Z / NACK)</text>
+  <text class="sublabel" x="275.0" y="280" text-anchor="middle">Звернення ЗАБОРОНЕНІ</text>
+  <rect class="box-phase" x="390" y="245" width="135" height="45" fill="#ffffff" stroke="#94a3b8"/>
+  <text class="code" x="457.5" y="264" text-anchor="middle">CMD: SW_RESET</text>
+  <text class="code" x="457.5" y="280" text-anchor="middle" fill="#0284c7">RD: WHO_AM_I</text>
+  <rect class="box-phase" x="525" y="245" width="155" height="45" fill="#ffffff" stroke="#94a3b8"/>
+  <text class="code" x="602.5" y="264" text-anchor="middle">WR &amp; Read-Back</text>
+  <text class="sublabel" x="602.5" y="280" text-anchor="middle">Верифікація полів</text>
+  <rect class="box-phase" x="680" y="245" width="140" height="45" fill="#ffffff" stroke="#94a3b8"/>
+  <text class="code" x="750.0" y="264" text-anchor="middle">Burst Read Out</text>
+  <text class="sublabel" x="750.0" y="280" text-anchor="middle">Збір вибірок</text>
+  <line x1="265" y1="138" x2="390" y2="138" stroke="#ea580c" stroke-width="1.2"/>
+  <text class="code" x="327.5" y="132" text-anchor="middle" fill="#ea580c">t_POR: 1..100 мс</text>
+  <line x1="390" y1="138" x2="525" y2="138" stroke="#ca8a04" stroke-width="1.2"/>
+  <text class="code" x="457.5" y="132" text-anchor="middle" fill="#ca8a04">t_RESET: 2..15 мс</text>
+  <line x1="525" y1="138" x2="680" y2="138" stroke="#4f46e5" stroke-width="1.2"/>
+  <text class="code" x="602.5" y="132" text-anchor="middle" fill="#4f46e5">t_CONFIG</text>
+  <line x1="680" y1="138" x2="820" y2="138" stroke="#16a34a" stroke-width="1.2"/>
+  <text class="code" x="750.0" y="132" text-anchor="middle" fill="#16a34a">t_SETTLE: 5..50 мс</text>
+</svg>

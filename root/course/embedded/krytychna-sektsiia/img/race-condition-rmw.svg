@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 493" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="493" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія стану гонки: руйнування даних при неатомарній модифікації (RMW)</text>
+<rect x="20.0" y="50.0" width="410.0" height="390.0" rx="8" fill="#f8fafc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="225.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Фоновий потік (Thread Mode / main)</text>
+<rect x="450.0" y="50.0" width="410.0" height="390.0" rx="8" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="655.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Обробник переривання (ISR / Handler)</text>
+<line x1="435.0" y1="95.0" x2="435.0" y2="420.0" stroke="#333333" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="435.0" y1="420.0" x2="435.0" y2="435.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="435.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Час (t)</text>
+<rect x="109.3" y="106.3" width="231.4" height="37.3" rx="6" fill="#ebf8ff" stroke="#2457d6" stroke-width="1.5"/><text x="225.0" y="121.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="225.0" dy="0.0">1. LDR r0, [counter]   (r0 = 42)</tspan><tspan x="225.0" dy="14.3">Зчитування значення з ОЗП у регістр</tspan></text>
+<rect x="93.6" y="171.3" width="262.8" height="37.3" rx="6" fill="#ebf8ff" stroke="#2457d6" stroke-width="1.5"/><text x="225.0" y="186.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="225.0" dy="0.0">2. ADDS r0, r0, #1      (r0 = 43)</tspan><tspan x="225.0" dy="14.3">Інкремент у регістрі ядра (ОЗП ще = 42!)</tspan></text>
+<line x1="340.0" y1="220.0" x2="530.0" y2="240.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="435.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Апаратне переривання!</text>
+<rect x="548.7" y="242.1" width="212.6" height="65.9" rx="6" fill="#fed7d7" stroke="#c0392b" stroke-width="1.5"/><text x="655.0" y="257.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="655.0" dy="0.0">3. ISR виконує counter++:</tspan><tspan x="655.0" dy="14.3">   LDR  r1, [counter] (r1 = 42)</tspan><tspan x="655.0" dy="14.3">   ADDS r1, r1, #1    (r1 = 43)</tspan><tspan x="655.0" dy="14.3">   STR  r1, [counter] (ОЗП = 43)</tspan></text>
+<line x1="530.0" y1="315.0" x2="340.0" y2="335.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="435.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">BX LR (повернення)</text>
+<rect x="79.2" y="351.4" width="291.6" height="37.3" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/><text x="225.0" y="366.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="225.0" dy="0.0">4. STR r0, [counter]   (ОЗП = 43!)</tspan><tspan x="225.0" dy="14.3">Запис старого результату поверх даних ISR</tspan></text>
+<rect x="30.0" y="445.0" width="820.0" height="28.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="440.0" y="463.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">КАТАСТРОФА: Було 2 інкременти (потік + ISR), а значення лічильника збільшилося лише на 1! Дані втрачено.</text>
+</svg>

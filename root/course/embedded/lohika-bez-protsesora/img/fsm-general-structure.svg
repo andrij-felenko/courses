@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 895 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="895" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Канонічна структура тактованого автомата без процесора</text>
+<rect x="140.0" y="90.0" width="190.0" height="140.0" rx="6" fill="#f0f4ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="235.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Комбінаційна логіка</text>
+<text x="235.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">наступного стану</text>
+<text x="235.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вентилі AND/OR/NAND</text>
+<text x="235.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">або MUX (74HC151)</text>
+<rect x="420.0" y="90.0" width="160.0" height="140.0" rx="6" fill="#fdf2e9" stroke="#b8860b" stroke-width="1.8"/>
+<text x="500.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b8860b" text-anchor="middle" font-weight="700">Регістр стану</text>
+<text x="500.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b8860b" text-anchor="middle" font-weight="700">(D-тригери)</text>
+<text x="500.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">74HC74</text>
+<text x="500.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">фіксація по CLK</text>
+<path d="M420.0 187.0 L428.0 195.0 L420.0 203.0 z" fill="none" stroke="#1a1a1a" stroke-width="1.4"/>
+<rect x="660.0" y="90.0" width="170.0" height="140.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="745.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Логіка виходів</text>
+<text x="745.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">(дешифратор)</text>
+<text x="745.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Виходи Мура:</text>
+<text x="745.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">залежать лише від Q</text>
+<line x1="40.0" y1="140.0" x2="140.0" y2="140.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="90.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Входи (In)</text>
+<text x="90.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">давачі, кнопки</text>
+<line x1="330.0" y1="140.0" x2="420.0" y2="140.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="375.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">D[1:0]</text>
+<text x="375.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">наступний стан</text>
+<line x1="580.0" y1="140.0" x2="660.0" y2="140.0" stroke="#b8860b" stroke-width="1.8"/>
+<line x1="580.0" y1="140.0" x2="660.0" y2="140.0" stroke="#b8860b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="620.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b8860b" text-anchor="middle" font-weight="700">Q[1:0]</text>
+<text x="620.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">поточний стан</text>
+<line x1="830.0" y1="140.0" x2="875.0" y2="140.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="855.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Out</text>
+<circle cx="615.0" cy="140.0" r="3.5" fill="#b8860b" stroke="#b8860b" stroke-width="1.5"/>
+<line x1="615.0" y1="140.0" x2="615.0" y2="275.0" stroke="#b8860b" stroke-width="1.8"/>
+<line x1="615.0" y1="275.0" x2="100.0" y2="275.0" stroke="#b8860b" stroke-width="1.8"/>
+<line x1="100.0" y1="275.0" x2="100.0" y2="180.0" stroke="#b8860b" stroke-width="1.8"/>
+<line x1="100.0" y1="180.0" x2="140.0" y2="180.0" stroke="#b8860b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="355.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b8860b" text-anchor="middle" font-weight="700">Зворотний зв'язок: поточний стан Q подається назад на вхід логіки</text>
+<line x1="500.0" y1="310.0" x2="500.0" y2="230.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="500.0" y1="230.0" x2="420.0" y2="195.0" stroke="#c0392b" stroke-width="1.4"/>
+<text x="500.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Тактовий генератор (CLK)</text>
+<text x="500.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">74HC14 + RC або 555</text>
+<line x1="500.0" y1="45.0" x2="500.0" y2="90.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="500.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Скидання (RESET / CLR)</text>
+</svg>

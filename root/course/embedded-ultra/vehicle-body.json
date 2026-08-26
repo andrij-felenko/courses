@@ -39,8 +39,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-bec-origins.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "embedded/power-tree-reading",
@@ -115,8 +121,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-vehicle-state.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-quaternion-algebra.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-state-vector-c-cpp.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "hw-sensing/what-is-a-sensor",
@@ -209,8 +233,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-inertial-navigation.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-quaternion-integration.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mahony-imu-filter.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "com-signal/moving-average",
@@ -279,8 +321,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-minorsky-control.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pid-cascade-sim.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "embedded/output-mixing",

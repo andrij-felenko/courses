@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="900.0" height="160.0" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="40.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">Debug (-O0): повільний процесор маскує відсутність синхронізації</text>
+<text x="40.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">DMA пересилання:</text>
+<rect x="180.0" y="65.0" width="320.0" height="26.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="340.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Копіювання 64 байтів у SRAM (120 мкс)</text>
+<text x="40.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">CPU обробка коду:</text>
+<rect x="180.0" y="110.0" width="360.0" height="26.0" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="360.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Повільний пролог, стек, розрахунки (-O0: 150 мкс)</text>
+<rect x="550.0" y="110.0" width="240.0" height="26.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.2"/>
+<text x="670.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Читання буфера (УСПІХ, дані готові)</text>
+<line x1="505.0" y1="60.0" x2="505.0" y2="145.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+<text x="505.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">DMA завершився РАНІШЕ читання</text>
+<rect x="20.0" y="200.0" width="900.0" height="160.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="40.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">Release (-O2): швидкий процесор обганяє DMA і читає сміття (Race Condition)</text>
+<text x="40.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">DMA пересилання:</text>
+<rect x="180.0" y="245.0" width="320.0" height="26.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="340.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Копіювання 64 байтів у SRAM (120 мкс)</text>
+<text x="40.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">CPU обробка коду:</text>
+<rect x="180.0" y="290.0" width="60.0" height="26.0" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="203.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">-O2 (15 мкс)</text>
+<rect x="250.0" y="290.0" width="240.0" height="26.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="370.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Читання буфера (АВАРІЯ: байти 8..63 ще не готові!)</text>
+<line x1="245.0" y1="240.0" x2="245.0" y2="325.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+<text x="245.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">CPU читає напівпорожній буфер</text>
+</svg>

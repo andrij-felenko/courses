@@ -209,8 +209,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-silicon-errata.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-register-driver.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "plata-rozrobnyka",
@@ -219,8 +231,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-debug-interfaces.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-stlink-cmsis.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-power-and-reset-protection.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -321,8 +351,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-uf2-parser.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "first-blink-project",
@@ -695,8 +731,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-cortex-vector-table.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-baremetal-startup.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sf-lang/c-runtime",
@@ -795,8 +843,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-cortex-fault-regs.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-crash-logger.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -827,8 +887,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-protocol.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-flasher.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "fiuzy-option-bytes-i-iak-ne-zrobyty-tsehlynku",
@@ -837,7 +909,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -983,8 +1055,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-safe-swd-recovery.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "hw-digital/pin-drive-limits",
@@ -1061,8 +1139,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-lockfree-ringbuf.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sf-tasks/atomicity-races",
@@ -1079,8 +1163,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-cortexm-interrupt-control.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-raii-critical-section.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sf-lang/volatile",
@@ -1385,7 +1481,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -1465,8 +1561,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-statecharts.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hierarchical-fsm.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sf-apps/state",
@@ -1499,8 +1607,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-dwt-profiler.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sf-devices/graceful-degradation",
@@ -1585,7 +1699,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -1669,7 +1783,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -1759,8 +1873,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-famous-silicon-bugs.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-i2c-recovery.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     }
