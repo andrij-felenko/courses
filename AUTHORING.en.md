@@ -8,7 +8,7 @@ Writing rules are **here**. Plan/queue/statuses — in the book/course manifest 
 
 ## §1 Structure — seven kinds under `root/`
 
-**The tree (source of truth — `root/shelf.json`; the plan — `scripts/migrate/PLAN.md §2`):**
+**The tree (source of truth — `root/shelf.json`):**
 
     root/<kind>/<book>/<topic>/
 
@@ -30,15 +30,24 @@ of files.
 `sys-` (doubled when a family member is a book of its own: `sys-plang-cpp`). The prefix is what
 keeps slugs unique: `hw-power` and `cat-hw-power` do not collide.
 
-**Short and long address (`PLAN.md §2.3`).** Prose carries **only the short one**:
-`root:<book>/<topic>`. It never changes. The long one (six segments,
-`root:<kind>/<book>/<group>/<chapter|.>/<topic>/<version>`) is for URLs, breadcrumbs and display;
-it **contains** the short one, so the resolver takes the book from the first segment and the topic
-from the last. The middle of the long form is not an address but a check: if it disagrees with the
-manifest, the address is stale.
+**The link address is PHYSICAL, and therefore there is only one.** Prose carries
+`root:<book>/<topic>`, and where an insert is meant, `root:<book>/<topic>/<type>-<name>.md`.
+The reader turns it into a path literally: `root/<kind>/<book>/<topic>/<file>`. **The kind is
+NOT written in the address** — it is derived from the book via `root/shelf.json`. So a link
+carries exactly what cannot be derived: the book slug and the topic slug.
 
-**⛔ Never write the long form in prose.** That would mean rewriting the corpus on every
-re-cutting — exactly what the `root/` tree exists to avoid.
+**Group and chapter are absent from the address because they are absent from disk.** A topic
+lies flat under its book (§1); a group lives only in the manifest — and legitimately changes:
+folding `embedded-ultra` from eight volumes into four cost one JSON edit and moved no folder.
+An address carrying the group would go stale after every such re-cut — exactly what the
+`root/` tree exists to avoid.
+
+**⛔ The long form no longer exists.** `root:<kind>/<book>/<group>/<chapter>/<topic>` was the
+**v6** path, back when the section really was a directory
+(`book/electronics/components/resistor-noise/`). After the move there is nothing to resolve it
+against, and no tool does: both the reader (`book.js`) and `linkcheck.js` take the book from the
+FIRST segment. So `root:course/<book>/…` is not a long form but a broken link: the word
+«course» is read as the book, and no such book is registered.
 
 *Below — the behaviour of each kind. Read the old folder names (book, course, catalog, reference) as kinds: a book→`sci`/`eng`/`com`, a course→`course`, the catalog→`cat`,
 a reference book→`sys`.*
