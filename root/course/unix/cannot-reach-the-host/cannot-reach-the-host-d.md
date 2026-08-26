@@ -267,7 +267,7 @@ ss -tlpn 'sport = :22'
 nft list ruleset | grep -A 5 -B 2 'dport 22'
 ```
 
-Повний довідник кодів помилок `errno`, прапорців утиліт та параметрів ядра наведено у вставці [матриця інструментів та кодів помилок мережевої діагностики](root:course/unix/cannot-reach-the-host/api-reachability-diagnostics.md).
+Повний довідник кодів помилок `errno`, прапорців утиліт та параметрів ядра наведено у вставці [матриця інструментів та кодів помилок мережевої діагностики](root:unix/cannot-reach-the-host/api-reachability-diagnostics.md).
 
 ---
 
@@ -408,7 +408,7 @@ ssh-keygen -t ed25519 -a 100 -C "deploy@cluster"
 | `Permission denied (publickey)` | **Ланка 4 (Ключ)** | Неправильні права на `~/.ssh` (має бути 0700) або `authorized_keys` (0600). | `ls -la ~/.ssh` (на сервері) | Встановити коректні права: `chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys`. |
 | `Too many authentication failures` | **Ланка 4 (Ключ)** | Клієнт вичерпав ліміт `MaxAuthTries`, перебираючи всі сторонні ключі з `ssh-agent`. | `ssh-add -l` | Використовувати `ssh -o IdentitiesOnly=yes -i ~/.ssh/key` або налаштувати `~/.ssh/config`. |
 
-Для автоматизації перевірки всього 4-ланкового конвеєра одним запуском створено спеціалізовану утиліту, реалізацію якої наведено у практичній вставці [автоматизований зонд діагностики 4 ланок на C та C++](root:course/unix/cannot-reach-the-host/proj-network-triage.md).
+Для автоматизації перевірки всього 4-ланкового конвеєра одним запуском створено спеціалізовану утиліту, реалізацію якої наведено у практичній вставці [автоматизований зонд діагностики 4 ланок на C та C++](root:unix/cannot-reach-the-host/proj-network-triage.md).
 
 ---
 

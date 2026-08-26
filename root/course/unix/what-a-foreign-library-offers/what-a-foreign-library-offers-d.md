@@ -355,7 +355,7 @@ $ pkg-config --libs --static zstd
 -lzstd -pthread
 ```
 
-Детальний опис усіх директив, розгортання змінних та роботи з ізольованими sysroot-середовищами наведено у довіднику [специфікація формату .pc та довідник змінних pkg-config](root:course/unix/what-a-foreign-library-offers/api-pkgconfig-pc-format.md).
+Детальний опис усіх директив, розгортання змінних та роботи з ізольованими sysroot-середовищами наведено у довіднику [специфікація формату .pc та довідник змінних pkg-config](root:unix/what-a-foreign-library-offers/api-pkgconfig-pc-format.md).
 
 ### Керування пошуком через змінні оточення
 
@@ -457,7 +457,7 @@ $ readelf -d /usr/lib/x86_64-linux-gnu/libzstd.so.1 | grep SONAME
  0x000000000000000e (SONAME)             Library soname: [libzstd.so.1]
 ```
 
-Практичну реалізацію автоматизованого аналізу таблиць символів між різними версіями бібліотек викладено у практичній роботі [аудит двійкових символів бібліотеки та перевірка сумісності ABI](root:course/unix/what-a-foreign-library-offers/proj-symbol-table-audit.md).
+Практичну реалізацію автоматизованого аналізу таблиць символів між різними версіями бібліотек викладено у практичній роботі [аудит двійкових символів бібліотеки та перевірка сумісності ABI](root:unix/what-a-foreign-library-offers/proj-symbol-table-audit.md).
 
 ---
 

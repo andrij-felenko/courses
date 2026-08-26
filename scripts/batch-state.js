@@ -47,6 +47,14 @@ function topics() {
   }));
 }
 
+/* ⚠️ `recheck`/`update`/`deeper` — це НАВМИСНІ прапорці людини («передивитись», «переписати»,
+   «поглибити»), а не слід урваного батчу. Батч, якого вбили, лишає статтю в `pending`: фаза
+   «Маніфест» просто не відпрацювала. Доти скрипт не розрізняв цього й на --apply переводив
+   у `done` все, що лежить на диску, — тобто після переїзду на v7 одним рухом оголосив би
+   переглянутими 2324 теми, яких ніхто не переглядав. Тепер такі теми лише показуємо. */
+const HUMAN_FLAG = new Set(['recheck', 'update', 'deeper']);
+const flaggedArticles = [];  // файл є, статус — навмисний прапорець → НЕ чіпаємо
+const flaggedInserts = [];   // те саме для вставок
 const unregArticles = [];   // файл є, статус не done → зареєструвати
 const missingArticles = []; // статус pending, файла нема → ще писати
 const unregInserts = [];    // файл є, у маніфесті нема → зареєструвати
@@ -61,7 +69,8 @@ for (const T of topics()) {
   for (const [ver, file] of [['basic', T.slug + '.md'], ['detailed', T.slug + '-d.md']]) {
     const st = T.topic[ver] && T.topic[ver].status;
     const onDisk = fs.existsSync(path.join(T.dir, file));
-    if (onDisk && st !== 'done') { unregArticles.push({ section: T.section, slug: T.slug, ver, status: st }); units.push({ section: T.section, slug: T.slug, title: T.title || T.slug, level: ver }) }
+    if (onDisk && HUMAN_FLAG.has(st)) { flaggedArticles.push({ slug: T.slug, ver, status: st }); units.push({ section: T.section, slug: T.slug, title: T.title || T.slug, level: ver }) }
+    else if (onDisk && st !== 'done') { unregArticles.push({ section: T.section, slug: T.slug, ver, status: st }); units.push({ section: T.section, slug: T.slug, title: T.title || T.slug, level: ver }) }
     else if (onDisk && st === 'done') units.push({ section: T.section, slug: T.slug, title: T.title || T.slug, level: ver });
     else if (!onDisk && st === 'pending') missingArticles.push(T.section + '/' + T.slug + ' ' + ver);
   }
@@ -70,6 +79,7 @@ for (const T of topics()) {
   for (const k of TYPES) for (const i of (T.topic[k] || [])) {
     const onDisk = fs.existsSync(path.join(T.dir, i.file));
     if (!onDisk) missingInserts.push({ section: T.section, topicSlug: T.slug, topicTitle: T.title, file: i.file, type: k, why: 'у маніфесті, файла нема' });
+    else if (HUMAN_FLAG.has(i.status)) flaggedInserts.push({ topicSlug: T.slug, file: i.file, status: i.status });
     else if (i.status !== 'done') notDoneInserts.push({ section: T.section, topicSlug: T.slug, file: i.file, type: k, status: i.status });
   }
   // вставки, що лежать на диску, але в маніфесті їх нема
@@ -77,7 +87,15 @@ for (const T of topics()) {
   // під INS_RE підпадає. Тому власні файли статті виключаємо явно, інакше вони поїдуть у вставки.
   const ownFiles = new Set([T.slug + '.md', T.slug + '-d.md']);
   if (fs.existsSync(T.dir)) for (const f of fs.readdirSync(T.dir)) {
-    if (INS_RE.test(f) && !reg.has(f) && !ownFiles.has(f)) unregInserts.push({ section: T.section, topicSlug: T.slug, topicTitle: T.title, file: f, type: f.split('-')[0] });
+    /* Статус нової вставки беремо в її ТЕМИ. Урваний батч лишає тему в pending → стаття
+       щойно стала done, отже й вставка done. А тема з навмисним прапорцем (recheck після
+       переїзду) не могла свою вставку переглянути — реєструвати її як done означало б
+       оголосити переглянутим те, чого ніхто не бачив; беремо той самий прапорець. */
+    if (INS_RE.test(f) && !reg.has(f) && !ownFiles.has(f)) {
+      const ownerSt = (T.topic.detailed && T.topic.detailed.status) || (T.topic.basic && T.topic.basic.status);
+      unregInserts.push({ section: T.section, topicSlug: T.slug, topicTitle: T.title, file: f, type: f.split('-')[0],
+                          asStatus: HUMAN_FLAG.has(ownerSt) ? ownerSt : 'done' });
+    }
   }
   // вставки, обіцяні в ПРОЗІ, але не написані (обидва формати лінка — §6 і відносний)
   for (const file of [T.slug + '.md', T.slug + '-d.md']) {
@@ -110,6 +128,9 @@ line(`  статті НА ДИСКУ, але не done у маніфесті: ${
 line(`  статті pending, файла НЕМА (ще писати):   ${missingArticles.length}` + (missingArticles.length ? ' → ' + missingArticles.slice(0, 12).join(', ') + (missingArticles.length > 12 ? ' …' : '') : ''));
 line(`  вставки НА ДИСКУ, у маніфесті НЕМА:       ${unregInserts.length}` + (unregInserts.length ? ' → ' + unregInserts.map((i) => i.topicSlug + '/' + i.file).join(', ') : ''));
 line(`  вставки в маніфесті зі статусом ≠ done:   ${notDoneInserts.length}`);
+line(`  ── НЕ ЧІПАЮ (навмисні прапорці людини) ──`);
+line(`  статті recheck/update/deeper:             ${flaggedArticles.length}` + (flaggedArticles.length ? ` (${[...new Set(flaggedArticles.map((a) => a.status))].join(', ')})` : ''));
+line(`  вставки recheck/update/deeper:            ${flaggedInserts.length}` + (flaggedInserts.length ? ` (${[...new Set(flaggedInserts.map((i) => i.status))].join(', ')})` : ''));
 line(`  вставки ОБІЦЯНІ, але не написані:         ${missingInserts.length}` + (missingInserts.length ? '\n' + missingInserts.map((i) => '      · ' + i.topicSlug + '/' + i.file + '  (' + i.why + ')').join('\n') : ''));
 
 const OUTDIR = path.join(ROOT, 'scripts', '_finish');
@@ -140,16 +161,16 @@ if (JOURNAL) {
   }
   let already = 0, noSection = 0;
   for (const t of seen.values()) {
-    const rel = `${t.book}/manifest.json`;
-    const mfp = path.join(ROOT, rel);
-    if (!fs.existsSync(mfp)) { console.log('   ✖ нема маніфесту ' + rel + ' → ' + t.slug); continue }
-    global.window = { __BOOKS__: [], __GUIDES__: [] };
-    delete require.cache[require.resolve(mfp)];
-    let b2; try { require(mfp); b2 = global.window.__BOOKS__[0] || global.window.__GUIDES__[0] } catch (e) { continue }
-    const secs = new Set((b2.sections || []).map((s) => s.slug));
-    const slugs = new Set((b2.sections || []).flatMap((s) => (s.topics || []).map((x) => x.slug)));
-    if (slugs.has(t.slug)) { already++; continue }
-    if (!secs.has(t.section)) { console.log('   ⚠ нема галузі «' + t.section + '» у ' + rel + ' → ' + t.slug + ' (пропускаю)'); noSection++; continue }
+    /* v7: ключ черги — СЛУГ книги, а не шлях. Доти тут будувався «<книга>/manifest.json»
+       від кореня репо: такого файла в дереві root/ немає, тож existsSync падав і КОЖНА
+       нова тема з журналу мовчки гинула — саме та, яку більше нізвідки не взяти. */
+    const rel = t.book;
+    const bd2 = M7.bookDirOf(rel);
+    if (!bd2) { console.log('   ✖ нема книги «' + rel + '» у root/ → ' + t.slug); continue }
+    const b2 = M7.loadBook(bd2);
+    if (!b2) { console.log('   ✖ нема маніфесту книги «' + rel + '» → ' + t.slug); continue }
+    if (M7.findTopic(b2, t.slug)) { already++; continue }
+    if (!M7.groupSlugs(b2).has(t.section)) { console.log('   ⚠ нема групи «' + t.section + '» у «' + rel + '» → ' + t.slug + ' (пропускаю)'); noSection++; continue }
     if (!ntJobs.has(rel)) ntJobs.set(rel, []);
     ntJobs.get(rel).push({ op: 'topic', section: t.section, slug: t.slug, title: t.title });
   }
@@ -167,11 +188,11 @@ if (!has('apply')) {
 
 const ops = [];
 for (const a of unregArticles) ops.push({ op: 'status', slug: a.slug, ver: a.ver, status: 'done' });
-for (const i of unregInserts) ops.push({ op: 'insert', slug: i.topicSlug, section: i.section, type: i.type, file: i.file, status: 'done' });
+for (const i of unregInserts) ops.push({ op: 'insert', slug: i.topicSlug, section: i.section, type: i.type, file: i.file, status: i.asStatus || 'done' });
 for (const i of notDoneInserts) ops.push({ op: 'insert', slug: i.topicSlug, section: i.section, type: i.type, file: i.file, status: 'done' });
 // нові теми — окремими викликами патчера, бо вони можуть цілити в ЧУЖІ маніфести
 for (const [rel, ops2] of ntJobs) {
-  const f = path.join(OUTDIR, '_mfops-nt-' + rel.split('/')[1] + '.json');
+  const f = path.join(OUTDIR, '_mfops-nt-' + rel + '.json');
   fs.writeFileSync(f, JSON.stringify(ops2, null, 1), 'utf8');
   const o = execFileSync(process.execPath, [path.join(ROOT, 'scripts', 'manifest-patch.js'), rel, '--ops', f], { cwd: ROOT, encoding: 'utf8' });
   line('  нові теми → ' + o.trim());

@@ -64,7 +64,19 @@
           },
           "detailed": {
             "status": "recheck"
-          }
+          },
+          "api": [
+            {
+              "file": "api-posix-spawn.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-process-launcher.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sys-unix/exit-wait-zombies",
@@ -114,7 +126,13 @@
           },
           "detailed": {
             "status": "recheck"
-          }
+          },
+          "api": [
+            {
+              "file": "api-file-operations.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -158,7 +176,19 @@
           },
           "detailed": {
             "status": "recheck"
-          }
+          },
+          "api": [
+            {
+              "file": "api-shutdown-protocol.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-graceful-server.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -194,7 +224,19 @@
           },
           "detailed": {
             "status": "recheck"
-          }
+          },
+          "api": [
+            {
+              "file": "api-memory-metrics-map.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-memory-diagnostics.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -242,7 +284,13 @@
           },
           "detailed": {
             "status": "recheck"
-          }
+          },
+          "proj": [
+            {
+              "file": "proj-fault-probe.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -338,7 +386,19 @@
           },
           "detailed": {
             "status": "recheck"
-          }
+          },
+          "api": [
+            {
+              "file": "api-latency-metrics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-latency-breakdown.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     }

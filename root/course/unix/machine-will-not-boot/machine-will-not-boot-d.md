@@ -81,7 +81,7 @@
 * `basic.target` — запуск системних сокетів, таймерів та підсистем D-Bus;
 * `default.target` (типово `multi-user.target` або `graphical.target`) — запуск мережевого стека, прикладних служб та терміналів авторизації `getty`/`login`.
 
-Повний системний довідник параметрів завантажувача, опцій командного рядка ядра та утиліт відновлення наведено у вставці [api-boot-recovery.md](root:course/unix/machine-will-not-boot/api-boot-recovery.md).
+Повний системний довідник параметрів завантажувача, опцій командного рядка ядра та утиліт відновлення наведено у вставці [api-boot-recovery.md](root:unix/machine-will-not-boot/api-boot-recovery.md).
 
 ---
 
@@ -349,7 +349,7 @@ mount --make-rslave /mnt/run
 
 Директива `mount --make-rslave /mnt/dev` встановлює системний прапорець `MS_SLAVE | MS_REC`. Це створює односторонній шлюз: зміни монтування з хоста надходять у `chroot`, але будь-які операції розмонтування всередині `/mnt` гарантовано ізолюються і ніколи не поширюються на батьківську систему LiveCD.
 
-Повний системний код C та C++ для автоматизованого налаштування цього дерева з гарантією розмонтування через ідіому RAII наведено в проекті [proj-chroot-rescue.md](root:course/unix/machine-will-not-boot/proj-chroot-rescue.md).
+Повний системний код C та C++ для автоматизованого налаштування цього дерева з гарантією розмонтування через ідіому RAII наведено в проекті [proj-chroot-rescue.md](root:unix/machine-will-not-boot/proj-chroot-rescue.md).
 
 #### Крок 3. Налаштування мережі та вхід у chroot
 
