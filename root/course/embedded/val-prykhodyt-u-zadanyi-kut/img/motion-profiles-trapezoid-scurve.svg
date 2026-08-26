@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння профілів руху: трапецієподібний та 7-фазний S-кривий (з обмеженням ривка)</text>
+<rect x="30.0" y="60.0" width="475.0" height="435.0" rx="8" fill="#fafaf9" stroke="#d6d3d1" stroke-width="1.4"/>
+<text x="267.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#44403c" text-anchor="middle" font-weight="700">Трапецієподібний профіль (Trap Profile)</text>
+<text x="267.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Стрибок прискорення → нескінченний ривок (Jerk = ∞) → вібрації</text>
+<rect x="60.0" y="120.0" width="420.0" height="80.0" rx="4" fill="#ffffff" stroke="#e7e5e4" stroke-width="1.0"/>
+<text x="70.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0284c7" text-anchor="start" font-weight="700">θ(t) Положення</text>
+<line x1="90.0" y1="190.0" x2="450.0" y2="190.0" stroke="#d6d3d1" stroke-width="1.0"/>
+<path d="M 90.0,190.0 L 190.0,170.0 L 330.0,140.0 L 430.0,130.0" fill="none" stroke="#0284c7" stroke-width="2.2" stroke-linejoin="round"/>
+<rect x="60.0" y="210.0" width="420.0" height="80.0" rx="4" fill="#ffffff" stroke="#e7e5e4" stroke-width="1.0"/>
+<text x="70.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">ω(t) Швидкість</text>
+<line x1="90.0" y1="280.0" x2="450.0" y2="280.0" stroke="#d6d3d1" stroke-width="1.0"/>
+<path d="M 90.0,280.0 L 190.0,225.0 L 330.0,225.0 L 430.0,280.0" fill="none" stroke="#27ae60" stroke-width="2.2" stroke-linejoin="round"/>
+<text x="260.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ω_max</text>
+<rect x="60.0" y="300.0" width="420.0" height="80.0" rx="4" fill="#ffffff" stroke="#e7e5e4" stroke-width="1.0"/>
+<text x="70.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">α(t) Прискорення</text>
+<line x1="90.0" y1="340.0" x2="450.0" y2="340.0" stroke="#d6d3d1" stroke-width="1.0"/>
+<path d="M 90.0,340.0 L 90.0,315.0 L 190.0,315.0 L 190.0,340.0 L 330.0,340.0 L 330.0,365.0 L 430.0,365.0 L 430.0,340.0" fill="none" stroke="#c0392b" stroke-width="2.2" stroke-linejoin="round"/>
+<text x="140.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">+a_max</text>
+<text x="380.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">−a_max</text>
+<rect x="60.0" y="390.0" width="420.0" height="85.0" rx="4" fill="#ffffff" stroke="#e7e5e4" stroke-width="1.0"/>
+<text x="70.0" y="413.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#9333ea" text-anchor="start" font-weight="700">j(t) Ривок (Jerk = dα/dt)</text>
+<line x1="90.0" y1="435.0" x2="450.0" y2="435.0" stroke="#d6d3d1" stroke-width="1.0"/>
+<line x1="90.0" y1="435.0" x2="90.0" y2="405.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="190.0" y1="435.0" x2="190.0" y2="465.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="330.0" y1="435.0" x2="330.0" y2="465.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="430.0" y1="435.0" x2="430.0" y2="405.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="95.0" y="403.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">+∞</text>
+<text x="195.0" y="473.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">−∞</text>
+<text x="335.0" y="473.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">−∞</text>
+<text x="435.0" y="403.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">+∞</text>
+<rect x="535.0" y="60.0" width="475.0" height="435.0" rx="8" fill="#f0fdfa" stroke="#99f6e4" stroke-width="1.4"/>
+<text x="772.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#115e59" text-anchor="middle" font-weight="700">S-кривий профіль (7-Phase S-Curve)</text>
+<text x="772.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0d9488" text-anchor="middle">Обмежений ривок (Jerk ≤ J_max) → відсутність механічного резонансу</text>
+<rect x="565.0" y="120.0" width="420.0" height="80.0" rx="4" fill="#ffffff" stroke="#ccfbf1" stroke-width="1.0"/>
+<text x="575.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0284c7" text-anchor="start" font-weight="700">θ(t) Положення</text>
+<line x1="595.0" y1="190.0" x2="955.0" y2="190.0" stroke="#d6d3d1" stroke-width="1.0"/>
+<path d="M 595.0,190.0 L 670.0,180.0 L 740.0,155.0 L 830.0,135.0 L 935.0,130.0" fill="none" stroke="#0284c7" stroke-width="2.2" stroke-linejoin="round"/>
+<rect x="565.0" y="210.0" width="420.0" height="80.0" rx="4" fill="#ffffff" stroke="#ccfbf1" stroke-width="1.0"/>
+<text x="575.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">ω(t) Швидкість</text>
+<line x1="595.0" y1="280.0" x2="955.0" y2="280.0" stroke="#d6d3d1" stroke-width="1.0"/>
+<path d="M 595.0,280.0 L 630.0,275.0 L 665.0,255.0 L 700.0,225.0 L 790.0,225.0 L 825.0,225.0 L 860.0,255.0 L 895.0,275.0 L 935.0,280.0" fill="none" stroke="#27ae60" stroke-width="2.2" stroke-linejoin="round"/>
+<text x="745.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ω_max</text>
+<rect x="565.0" y="300.0" width="420.0" height="80.0" rx="4" fill="#ffffff" stroke="#ccfbf1" stroke-width="1.0"/>
+<text x="575.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">α(t) Прискорення</text>
+<line x1="595.0" y1="340.0" x2="955.0" y2="340.0" stroke="#d6d3d1" stroke-width="1.0"/>
+<path d="M 595.0,340.0 L 630.0,315.0 L 665.0,315.0 L 700.0,340.0 L 790.0,340.0 L 825.0,365.0 L 860.0,365.0 L 895.0,340.0 L 935.0,340.0" fill="none" stroke="#c0392b" stroke-width="2.2" stroke-linejoin="round"/>
+<text x="647.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">+a_max</text>
+<text x="842.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">−a_max</text>
+<rect x="565.0" y="390.0" width="420.0" height="85.0" rx="4" fill="#ffffff" stroke="#ccfbf1" stroke-width="1.0"/>
+<text x="575.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#9333ea" text-anchor="start" font-weight="700">j(t) Ривок (Jerk = const)</text>
+<line x1="595.0" y1="435.0" x2="955.0" y2="435.0" stroke="#d6d3d1" stroke-width="1.0"/>
+<path d="M 595.0,435.0 L 595.0,412.0 L 630.0,412.0 L 630.0,435.0 L 665.0,435.0 L 665.0,458.0 L 700.0,458.0 L 700.0,435.0 L 790.0,435.0 L 790.0,458.0 L 825.0,458.0 L 825.0,435.0 L 860.0,435.0 L 860.0,412.0 L 895.0,412.0 L 895.0,435.0 L 935.0,435.0" fill="none" stroke="#9333ea" stroke-width="2.0" stroke-linejoin="round"/>
+<text x="612.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#9333ea" text-anchor="middle" font-weight="700">+J_max</text>
+<text x="682.0" y="469.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#9333ea" text-anchor="middle" font-weight="700">−J_max</text>
+</svg>

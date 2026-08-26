@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 972 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="972" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр обробки повідомлень у диспетчері (Table-Driven Dispatcher)</text>
+<text x="480.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Послідовні стадії валідації, маршрутизації транзакції та безпечного виконання без malloc</text>
+<rect x="24.0" y="90.0" width="138.0" height="75.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="93.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">1. Прийом кадру</text>
+<text x="93.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">COBS декодування</text>
+<text x="93.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">та валідація CRC-16</text>
+<line x1="162.0" y1="127.5" x2="182.0" y2="127.5" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="182.0" y="90.0" width="138.0" height="75.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="251.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">2. Фільтр адреси</text>
+<text x="251.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Перевірка DST_ADDR:</text>
+<text x="251.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Node ID чи Broadcast</text>
+<line x1="320.0" y1="127.5" x2="340.0" y2="127.5" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="340.0" y="90.0" width="138.0" height="75.0" rx="6" fill="#fff3cd" stroke="#d35400" stroke-width="1.6"/>
+<text x="409.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle" font-weight="700">3. Селектор типу</text>
+<text x="409.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Перевірка IS_RESP:</text>
+<text x="409.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">відповідь чи запит?</text>
+<line x1="478.0" y1="127.5" x2="498.0" y2="127.5" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="498.0" y="90.0" width="138.0" height="75.0" rx="6" fill="#f3e8fd" stroke="#7d3c98" stroke-width="1.6"/>
+<text x="567.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7d3c98" text-anchor="middle" font-weight="700">4. Пошук у таблиці</text>
+<text x="567.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">O(1) або бінарний</text>
+<text x="567.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">пошук за MSG_TYPE</text>
+<line x1="636.0" y1="127.5" x2="656.0" y2="127.5" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="656.0" y="90.0" width="138.0" height="75.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="725.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">5. Валідація payload</text>
+<text x="725.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Перевірка розміру</text>
+<text x="725.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">len &gt;= min_expected_len</text>
+<line x1="794.0" y1="127.5" x2="814.0" y2="127.5" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="814.0" y="90.0" width="138.0" height="75.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/>
+<text x="883.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">6. Виклик обробника</text>
+<text x="883.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">handler(payload, resp)</text>
+<text x="883.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">та генерація статусу</text>
+<rect x="24.0" y="220.0" width="912.0" height="190.0" rx="8" fill="#fafbfc" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="42.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Маршрутизація відмов та автоматична генерація негативної відповіді (Error Response):</text>
+<rect x="42.0" y="262.0" width="172.0" height="125.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.4"/>
+<rect x="42.0" y="262.0" width="172.0" height="28.0" rx="4" fill="#c0392b" stroke="#c0392b" stroke-width="0.0"/>
+<text x="128.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="700">1. Помилка CRC / Довжини</text>
+<text x="50.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Кадр мовчки відкидається.</text>
+<text x="50.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Запобігання реакції на</text>
+<text x="50.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">спотворені адреси й шум.</text>
+<rect x="222.0" y="262.0" width="172.0" height="125.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<rect x="222.0" y="262.0" width="172.0" height="28.0" rx="4" fill="#6b7280" stroke="#6b7280" stroke-width="0.0"/>
+<text x="308.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="700">2. Чужа адреса вузла</text>
+<text x="230.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Пакет ігнорується, якщо</text>
+<text x="230.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">він не адресований вузлу</text>
+<text x="230.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">і не є Broadcast (0x00).</text>
+<rect x="402.0" y="262.0" width="172.0" height="125.0" rx="6" fill="#ffffff" stroke="#d35400" stroke-width="1.4"/>
+<rect x="402.0" y="262.0" width="172.0" height="28.0" rx="4" fill="#d35400" stroke="#d35400" stroke-width="0.0"/>
+<text x="488.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="700">3. Невідомий MSG_TYPE</text>
+<text x="410.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Генерується відповідь</text>
+<text x="410.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">IS_RESP | IS_ERR із кодом</text>
+<text x="410.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">ERR_NOT_SUPPORTED.</text>
+<rect x="582.0" y="262.0" width="172.0" height="125.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.4"/>
+<rect x="582.0" y="262.0" width="172.0" height="28.0" rx="4" fill="#c0392b" stroke="#c0392b" stroke-width="0.0"/>
+<text x="668.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="700">4. Недостатній Payload</text>
+<text x="590.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Відхилення запиту з кодом</text>
+<text x="590.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">ERR_INVALID_PARAM при</text>
+<text x="590.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">меншій довжині за очікувану.</text>
+<rect x="762.0" y="262.0" width="172.0" height="125.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.4"/>
+<rect x="762.0" y="262.0" width="172.0" height="28.0" rx="4" fill="#27ae60" stroke="#27ae60" stroke-width="0.0"/>
+<text x="848.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle" font-weight="700">5. Помилка периферії</text>
+<text x="770.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Обробник повертає</text>
+<text x="770.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">ERR_BUSY або ERR_STATE,</text>
+<text x="770.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">диспетчер шле відповідь.</text>
+</svg>

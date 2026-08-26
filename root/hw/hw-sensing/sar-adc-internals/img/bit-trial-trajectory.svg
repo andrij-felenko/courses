@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-19.1 -10 939.1 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-19.1" y="-10" width="939.1" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Збіжність напруги вузла Vx під час порозрядного зважування (SAR)</text>
+<text x="460.0" y="47.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Приклад 4-бітного перетворення для Vin = 0.65 Vref (код 1010b = 10)</text>
+<line x1="90.0" y1="220.0" x2="840.0" y2="220.0" stroke="#e02424" stroke-width="2.0" stroke-dasharray="5 3"/>
+<text x="80.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e02424" text-anchor="end" font-weight="700">0 В (Поріг CMP)</text>
+<line x1="90.0" y1="80.0" x2="90.0" y2="370.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="90.0" y1="80.0" x2="90.0" y2="65.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="80.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">Напруга Vx</text>
+<line x1="90.0" y1="370.0" x2="840.0" y2="370.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="840.0" y1="370.0" x2="860.0" y2="370.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="855.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Такти (Кроки SAR)</text>
+<line x1="160.0" y1="80.0" x2="160.0" y2="370.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="160.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Hold</text>
+<line x1="300.0" y1="80.0" x2="300.0" y2="370.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="300.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Такт 1 (MSB)</text>
+<line x1="440.0" y1="80.0" x2="440.0" y2="370.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="440.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Такт 2 (b2)</text>
+<line x1="580.0" y1="80.0" x2="580.0" y2="370.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="580.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Такт 3 (b1)</text>
+<line x1="720.0" y1="80.0" x2="720.0" y2="370.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="720.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Такт 4 (LSB)</text>
+<line x1="830.0" y1="80.0" x2="830.0" y2="370.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="830.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Результат</text>
+<polyline points="160.0,337.0 300.0,247.0 440.0,202.0 460.0,247.0 580.0,224.5 720.0,213.2 740.0,224.5 830.0,224.5" fill="none" stroke="#1a56db" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="160.0" cy="337.0" r="5.0" fill="#1a56db" stroke="#ffffff" stroke-width="1.5"/>
+<text x="160.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a56db" text-anchor="middle" font-weight="700">−0.65 Vref</text>
+<circle cx="300.0" cy="247.0" r="5.0" fill="#0e9f6e" stroke="#ffffff" stroke-width="1.5"/>
+<text x="300.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0e9f6e" text-anchor="middle" font-weight="700">Vx &lt; 0 -&gt; ЗБЕРЕГТИ (1)</text>
+<circle cx="440.0" cy="202.0" r="5.0" fill="#e02424" stroke="#ffffff" stroke-width="1.5"/>
+<text x="440.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e02424" text-anchor="middle" font-weight="700">Vx &gt; 0 -&gt; СКИД (0)</text>
+<circle cx="580.0" cy="224.5" r="5.0" fill="#0e9f6e" stroke="#ffffff" stroke-width="1.5"/>
+<text x="580.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0e9f6e" text-anchor="middle" font-weight="700">Vx &lt; 0 -&gt; ЗБЕРЕГТИ (1)</text>
+<circle cx="720.0" cy="213.2" r="5.0" fill="#e02424" stroke="#ffffff" stroke-width="1.5"/>
+<text x="720.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e02424" text-anchor="middle" font-weight="700">Vx &gt; 0 -&gt; СКИД (0)</text>
+<rect x="800.0" y="208.0" width="60.0" height="33.0" rx="4" fill="#e1effe" stroke="#1a56db" stroke-width="1.2"/>
+<text x="830.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a56db" text-anchor="middle" font-weight="700">±0.5 LSB</text>
+<text x="830.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Збіжність</text>
+</svg>

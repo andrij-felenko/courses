@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="235.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Пряме підключення (Неможливе)</text>
+<text x="705.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Розділення в часі: буферизація та спалах</text>
+<rect x="25.0" y="50.0" width="420.0" height="390.0" rx="8" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="45.0" y="75.0" width="170.0" height="70.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="130.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Джерело збору</text>
+<text x="130.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">P_in = 20 мкВт (10 мкА @ 2 В)</text>
+<line x1="215.0" y1="110.0" x2="265.0" y2="110.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="265.0" y="75.0" width="160.0" height="70.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="345.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Навантаження (MCU)</text>
+<text x="345.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">P_act = 45 мВт (15 мА @ 3 В)</text>
+<rect x="45.0" y="175.0" width="380.0" height="245.0" rx="6" fill="#ffffff" stroke="#fca5a5" stroke-width="1.2"/>
+<text x="235.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Фізичний колапс шини живлення</text>
+<text x="65.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">1. Внутрішній опір джерела R_src = 2..10 кОм</text>
+<text x="65.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">2. Спроба взяти 15 мА просаджує напругу до нуля</text>
+<text x="65.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">3. U_out = U_oc - I_load * R_src -&gt; 0.05 В</text>
+<text x="65.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">4. Мікроконтролер застрягає в нескінченному Brown-out</text>
+<text x="65.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">5. Класичний сон не рятує: I_sleep &gt; I_harvest</text>
+<rect x="495.0" y="50.0" width="420.0" height="390.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="515.0" y="75.0" width="380.0" height="155.0" rx="6" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="705.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Фаза 1: Накопичення заряду (T_acc = 10..60 с)</text>
+<text x="535.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Навантаження ізольоване ключем нановольтового PMIC</text>
+<text x="535.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Струм спокою PMIC I_q &lt; 300 нА (менше за I_harvest)</text>
+<text x="535.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Енергія повільно накопичується в іоністорі</text>
+<text x="535.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• Напруга зростає: V_cap піднімається від 2.0 В до 3.3 В</text>
+<rect x="515.0" y="250.0" width="380.0" height="170.0" rx="6" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="705.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Фаза 2: Спалах активності (T_burst = 10..30 мс)</text>
+<text x="535.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Супервізор фіксує V_cap &gt;= 3.3 В -&gt; сигнал Power Good</text>
+<text x="535.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Ключ вмикає живлення: MCU виконує вимірювання та радіо</text>
+<text x="535.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Пікова потужність 50 мВт береться з ємності іоністора</text>
+<text x="535.0" y="381.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">• При падінні до 2.0 В ключ розмикається до наступного циклу</text>
+</svg>

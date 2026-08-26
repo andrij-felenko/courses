@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="800.0" height="440.0" rx="10" fill="#f8fafc" stroke="#0f172a" stroke-width="2.0"/>
+<text x="420.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#0f172a" text-anchor="middle" font-weight="700">Динаміка термозахисту: релейне деренчання проти гістерезису з ПІ</text>
+<rect x="40.0" y="70.0" width="760.0" height="175.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="55.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b91c1c" text-anchor="start" font-weight="700">А. Без гістерезису (Bang-Bang): поріг 75.0 °C викликає високу частоту перемикань (15 Гц)</text>
+<line x1="70.0" y1="215.0" x2="770.0" y2="215.0" stroke="#94a3b8" stroke-width="1.0"/>
+<line x1="70.0" y1="105.0" x2="70.0" y2="215.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="60.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">T</text>
+<text x="765.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle">t (час)</text>
+<line x1="70.0" y1="145.0" x2="770.0" y2="145.0" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="4,4"/>
+<text x="135.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ef4444" text-anchor="middle" font-weight="700">Поріг T_trip = 75.0 °C</text>
+<path d="M 70,205 L 150,170 L 220,148 L 240,142 L 255,148 L 270,142 L 285,148 L 300,142 L 315,148 L 330,142 L 345,148 L 360,142 L 375,148 L 390,142 L 405,148 L 420,142 L 435,148 L 450,142 L 465,148 L 480,142 L 495,148 L 510,142 L 525,148 L 540,142 L 555,148 L 570,142 L 585,148 L 600,142 L 615,148 L 630,142 L 645,148 L 660,142 L 675,148 L 690,142 L 705,148 L 720,142 L 735,148 L 750,142 L 765,148" fill="none" stroke="#dc2626" stroke-width="2.0"/>
+<rect x="480.0" y="100.0" width="270.0" height="36.0" rx="4" fill="#fee2e2" stroke="#ef4444" stroke-width="1.0"/>
+<text x="615.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle" font-weight="700">Термічне деренчання (Thermal Chattering)</text>
+<text x="615.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7f1d1d" text-anchor="middle">EMI шум на живленні, знос ключів</text>
+<rect x="40.0" y="260.0" width="760.0" height="185.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="55.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="start" font-weight="700">Б. Гістерезис (T_on = 75 °C, T_off = 68 °C) + ПІ-регулятор потужності</text>
+<line x1="70.0" y1="415.0" x2="770.0" y2="415.0" stroke="#94a3b8" stroke-width="1.0"/>
+<line x1="70.0" y1="295.0" x2="70.0" y2="415.0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="60.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" font-weight="700">T</text>
+<text x="765.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle">t (час)</text>
+<line x1="70.0" y1="330.0" x2="770.0" y2="330.0" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="4,4"/>
+<text x="130.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ef4444" text-anchor="middle" font-weight="700">T_trip = 75.0 °C</text>
+<line x1="70.0" y1="375.0" x2="770.0" y2="375.0" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="4,4"/>
+<text x="135.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#16a34a" text-anchor="middle" font-weight="700">T_release = 68.0 °C</text>
+<rect x="74.0" y="331.0" width="690.0" height="43.0" rx="6" fill="#f0fdf4" stroke="none" stroke-width="1.5"/>
+<text x="650.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">Зона гістерезису ΔT = 7 °C</text>
+<path d="M 70,405 L 140,375 L 200,335 L 250,328 L 300,338 L 350,345 L 420,348 L 500,348 L 580,348 L 660,348 L 765,348" fill="none" stroke="#15803d" stroke-width="2.5"/>
+<rect x="410.0" y="370.0" width="240.0" height="36.0" rx="4" fill="#dcfce7" stroke="#22c55e" stroke-width="1.0"/>
+<text x="530.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle" font-weight="700">Плавна стабілізація на T_target = 72 °C</text>
+<text x="530.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#14532d" text-anchor="middle">Коефіцієнт K_throttle = 64%, без стрибків</text>
+</svg>

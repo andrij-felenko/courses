@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 540" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="540" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Організація секторного кільцевого буфера Flash та атомарний коміт</text>
+<rect x="30.0" y="65.0" width="92.0" height="120.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/>
+<text x="76.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сектор 0</text>
+<text x="76.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="76.0" dy="0.0">Підтверджено</tspan><tspan x="76.0" dy="13.7">(вільний)</tspan></text>
+<text x="76.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4096 B</text>
+<rect x="128.0" y="65.0" width="92.0" height="120.0" rx="6" fill="#fff3cd" stroke="#d39e00" stroke-width="1.8"/>
+<text x="174.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сектор 1</text>
+<text x="174.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d39e00" text-anchor="middle"><tspan x="174.0" dy="0.0">Tail: чекає</tspan><tspan x="174.0" dy="13.7">відправки</tspan></text>
+<text x="174.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4096 B</text>
+<rect x="226.0" y="65.0" width="92.0" height="120.0" rx="6" fill="#e8f4f8" stroke="#2457d6" stroke-width="1.8"/>
+<text x="272.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сектор 2</text>
+<text x="272.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle"><tspan x="272.0" dy="0.0">Архів</tspan><tspan x="272.0" dy="13.7">(заповнений)</tspan></text>
+<text x="272.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4096 B</text>
+<rect x="324.0" y="65.0" width="92.0" height="120.0" rx="6" fill="#e8f4f8" stroke="#2457d6" stroke-width="1.8"/>
+<text x="370.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сектор 3</text>
+<text x="370.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle"><tspan x="370.0" dy="0.0">Архів</tspan><tspan x="370.0" dy="13.7">(заповнений)</tspan></text>
+<text x="370.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4096 B</text>
+<rect x="422.0" y="65.0" width="92.0" height="120.0" rx="6" fill="#d4edda" stroke="#27ae60" stroke-width="1.8"/>
+<text x="468.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сектор 4</text>
+<text x="468.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle"><tspan x="468.0" dy="0.0">Head: активний</tspan><tspan x="468.0" dy="13.7">дозапис</tspan></text>
+<text x="468.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4096 B</text>
+<rect x="520.0" y="65.0" width="92.0" height="120.0" rx="6" fill="#f8d7da" stroke="#c0392b" stroke-width="1.8"/>
+<text x="566.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сектор 5</text>
+<text x="566.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle"><tspan x="566.0" dy="0.0">Erase-Ahead</tspan><tspan x="566.0" dy="13.7">(стертий 0xFF)</tspan></text>
+<text x="566.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4096 B</text>
+<rect x="618.0" y="65.0" width="92.0" height="120.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/>
+<text x="664.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сектор 6</text>
+<text x="664.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="664.0" dy="0.0">Вільний</tspan><tspan x="664.0" dy="13.7">(стертий 0xFF)</tspan></text>
+<text x="664.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4096 B</text>
+<rect x="716.0" y="65.0" width="92.0" height="120.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/>
+<text x="762.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сектор 7</text>
+<text x="762.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="762.0" dy="0.0">Вільний</tspan><tspan x="762.0" dy="13.7">(стертий 0xFF)</tspan></text>
+<text x="762.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4096 B</text>
+<line x1="174.0" y1="220.0" x2="174.0" y2="189.0" stroke="#d39e00" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="174.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d39e00" text-anchor="middle" font-weight="700">TAIL (Хвіст)</text>
+<line x1="468.0" y1="220.0" x2="468.0" y2="189.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="468.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">HEAD (Голова)</text>
+<line x1="566.0" y1="220.0" x2="566.0" y2="189.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="566.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Erase-Ahead</text>
+<rect x="25.0" y="265.0" width="790.0" height="245.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<text x="420.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура запису вимірювання та захист від раптового знеструмлення</text>
+<rect x="45.0" y="310.0" width="55.0" height="60.0" rx="4" fill="#edf2f7" stroke="#4a5568" stroke-width="1.2"/>
+<text x="72.5" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Magic</text>
+<text x="72.5" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="72.5" dy="0.0">2B</tspan><tspan x="72.5" dy="12.3">0xA55A</tspan></text>
+<rect x="106.0" y="310.0" width="70.0" height="60.0" rx="4" fill="#edf2f7" stroke="#4a5568" stroke-width="1.2"/>
+<text x="141.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">SeqNum</text>
+<text x="141.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="141.0" dy="0.0">4B</tspan><tspan x="141.0" dy="12.3">#10428</tspan></text>
+<rect x="182.0" y="310.0" width="80.0" height="60.0" rx="4" fill="#edf2f7" stroke="#4a5568" stroke-width="1.2"/>
+<text x="222.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Timestamp</text>
+<text x="222.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="222.0" dy="0.0">4B</tspan><tspan x="222.0" dy="12.3">Unix epoch</tspan></text>
+<rect x="268.0" y="310.0" width="65.0" height="60.0" rx="4" fill="#edf2f7" stroke="#4a5568" stroke-width="1.2"/>
+<text x="300.5" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Flags</text>
+<text x="300.5" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="300.5" dy="0.0">2B</tspan><tspan x="300.5" dy="12.3">Class/Tier</tspan></text>
+<rect x="339.0" y="310.0" width="65.0" height="60.0" rx="4" fill="#edf2f7" stroke="#4a5568" stroke-width="1.2"/>
+<text x="371.5" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Length</text>
+<text x="371.5" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="371.5" dy="0.0">2B</tspan><tspan x="371.5" dy="12.3">Len = N</tspan></text>
+<rect x="410.0" y="310.0" width="160.0" height="60.0" rx="4" fill="#edf2f7" stroke="#4a5568" stroke-width="1.2"/>
+<text x="490.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Payload Data</text>
+<text x="490.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="490.0" dy="0.0">N Bytes</tspan><tspan x="490.0" dy="12.3">[ADC/Sensors]</tspan></text>
+<rect x="576.0" y="310.0" width="75.0" height="60.0" rx="4" fill="#edf2f7" stroke="#4a5568" stroke-width="1.2"/>
+<text x="613.5" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">CRC32</text>
+<text x="613.5" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="613.5" dy="0.0">4B</tspan><tspan x="613.5" dy="12.3">IEEE 802.3</tspan></text>
+<rect x="657.0" y="310.0" width="105.0" height="60.0" rx="4" fill="#edf2f7" stroke="#4a5568" stroke-width="1.2"/>
+<text x="709.5" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Commit Token</text>
+<text x="709.5" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="709.5" dy="0.0">4B</tspan><tspan x="709.5" dy="12.3">0xAA55AA55</tspan></text>
+<rect x="76.6" y="405.1" width="686.9" height="69.9" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="420.0" y="422.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">1. Дозапис кадру: записуються всі поля, крім Commit Token (у флеші лишається 0xFFFFFFFF).</tspan><tspan x="420.0" dy="14.3">2. Перевірка цілісності: MCU зчитує записаний кадр і звіряє CRC32.</tspan><tspan x="420.0" dy="14.3">3. Фіксація (Commit): слово Commit Token програмується в 0xAA55AA55 (перехід 1 → 0 без стирання).</tspan><tspan x="420.0" dy="14.3">Якщо живлення зникло посеред запису — токен лишається 0xFF, і під час старту пошкоджений запис ігнорується.</tspan></text>
+</svg>

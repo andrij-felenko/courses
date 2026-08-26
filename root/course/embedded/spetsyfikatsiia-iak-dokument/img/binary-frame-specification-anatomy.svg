@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1026 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1026" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія бінарної специфікації пакетного фрейму</text>
+<text x="500.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Побайтове зміщення, порядок байтів (Little Endian), типи даних та масштабування фізичних величин</text>
+<rect x="45.0" y="85.0" width="70.0" height="55.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="80.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Байт 0</text>
+<text x="80.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="80.0" dy="0.0">SOF</tspan><tspan x="80.0" dy="12.6">0xAA</tspan></text>
+<rect x="123.0" y="85.0" width="65.0" height="55.0" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.6"/>
+<text x="155.5" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Байт 1</text>
+<text x="155.5" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="155.5" dy="0.0">VER</tspan><tspan x="155.5" dy="12.6">0x01</tspan></text>
+<rect x="196.0" y="85.0" width="75.0" height="55.0" rx="4" fill="#fff3cd" stroke="#d35400" stroke-width="1.6"/>
+<text x="233.5" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Байт 2</text>
+<text x="233.5" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="233.5" dy="0.0">MSG_ID</tspan><tspan x="233.5" dy="12.6">0x20</tspan></text>
+<rect x="279.0" y="85.0" width="75.0" height="55.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="316.5" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Байт 3</text>
+<text x="316.5" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="316.5" dy="0.0">SEQ_ID</tspan><tspan x="316.5" dy="12.6">0x4A</tspan></text>
+<rect x="362.0" y="85.0" width="95.0" height="55.0" rx="4" fill="#f3e8fd" stroke="#7d3c98" stroke-width="1.6"/>
+<text x="409.5" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Байти 4..5</text>
+<text x="409.5" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="409.5" dy="0.0">LENGTH</tspan><tspan x="409.5" dy="12.6">0x0008</tspan></text>
+<rect x="465.0" y="85.0" width="360.0" height="55.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/>
+<text x="645.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Байти 6..13</text>
+<text x="645.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="645.0" dy="0.0">PAYLOAD (ТЕЗИСТАТОР / ДАТЧИКИ)</tspan><tspan x="645.0" dy="12.6">8 байтів корисних даних</tspan></text>
+<rect x="833.0" y="85.0" width="95.0" height="55.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="880.5" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Байти 14..15</text>
+<text x="880.5" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="880.5" dy="0.0">CRC-16</tspan><tspan x="880.5" dy="12.6">0x7F2B</tspan></text>
+<rect x="936.0" y="85.0" width="70.0" height="55.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="971.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Байт 16</text>
+<text x="971.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="971.0" dy="0.0">EOF</tspan><tspan x="971.0" dy="12.6">0x55</tspan></text>
+<rect x="45.0" y="180.0" width="910.0" height="160.0" rx="8" fill="#ffffff" stroke="#95a5a6" stroke-width="1.5"/>
+<rect x="45.0" y="180.0" width="910.0" height="28.0" rx="8" fill="#2c3e50" stroke="#2c3e50" stroke-width="1.5"/>
+<rect x="45.0" y="198.0" width="910.0" height="10.0" rx="0" fill="#2c3e50" stroke="#2c3e50" stroke-width="0.0"/>
+<text x="500.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">Деталізація структури Payload для MSG_ID = 0x20 (Sensor Telemetry Vector)</text>
+<text x="59.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Зміщення</text>
+<text x="139.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Назва поля</text>
+<text x="289.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Тип (Wire Type)</text>
+<text x="409.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Одиниці</text>
+<text x="499.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Масштаб (Scale)</text>
+<text x="629.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Діапазон / Опис</text>
+<line x1="55.0" y1="234.0" x2="945.0" y2="234.0" stroke="#bdc3c7" stroke-width="1.0"/>
+<text x="59.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">+0 (2B)</text>
+<text x="139.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">temp_raw</text>
+<text x="289.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">int16_le</text>
+<text x="409.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">°C</text>
+<text x="499.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">scale = 0.01</text>
+<text x="629.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">-40.00 .. +125.00 °C (цілочисельний код)</text>
+<text x="59.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">+2 (2B)</text>
+<text x="139.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">pressure_hpa</text>
+<text x="289.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">uint16_le</text>
+<text x="409.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">hPa</text>
+<text x="499.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">scale = 0.1</text>
+<text x="629.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">300.0 .. 1100.0 hPa (зміщення +3000)</text>
+<text x="59.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">+4 (2B)</text>
+<text x="139.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">voltage_mv</text>
+<text x="289.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">uint16_le</text>
+<text x="409.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">mV</text>
+<text x="499.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">scale = 1.0 (raw)</text>
+<text x="629.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">0 .. 5000 mV (напруга живлення)</text>
+<text x="59.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">+6 (1B)</text>
+<text x="139.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">flags_state</text>
+<text x="289.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">uint8_t</text>
+<text x="409.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">bits</text>
+<text x="499.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">bitmask</text>
+<text x="629.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">bit[0]: Fan_On, bit[1]: Warning, bit[2]: Alert</text>
+<text x="59.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">+7 (1B)</text>
+<text x="139.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">reserved</text>
+<text x="289.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">uint8_t</text>
+<text x="409.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">-</text>
+<text x="499.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">fixed 0x00</text>
+<text x="629.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Вирівнювання розміру до 8 байтів (Padding)</text>
+<rect x="45.0" y="360.0" width="450.0" height="110.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="55.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">⚠️ Пастки, які зобов'язана фіксувати специфікація:</text>
+<text x="55.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Неявне вирівнювання (Compiler Padding): заборонено сире накладання struct.</text>
+<text x="55.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Порядок байтів (Endianness): Little-Endian для ARM Cortex-M та x86-64.</text>
+<text x="55.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Знаковість (Sign Extension): різниця між int16_t та uint16_t при парсингу.</text>
+<rect x="505.0" y="360.0" width="450.0" height="110.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="515.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">✓ Правила побудови еталонного опису полів:</text>
+<text x="515.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">1. Фіксовані бінарні зміщення (Byte Offset) для кожного поля.</text>
+<text x="515.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">2. Чіткі формули інженерного масштабування: Value = Raw * Scale + Offset.</text>
+<text x="515.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">3. Резервні байти (Reserved) для вирівнювання з обов'язковим нульовим значенням.</text>
+</svg>

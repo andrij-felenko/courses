@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механіка трансляції: перетворення моделі опитування у модель подій</text>
+<rect x="30.0" y="65.0" width="340.0" height="300.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.8"/>
+<text x="200.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">ПОЛЬОВИЙ КАДР (Modbus RTU / RS-485)</text>
+<text x="200.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Синхронний опит Master-Slave (Raw Binary)</text>
+<rect x="46.0" y="130.0" width="308.0" height="44.0" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+<text x="76.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x0A</text>
+<text x="76.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Slave ID</text>
+<line x1="106.0" y1="130.0" x2="106.0" y2="174.0" stroke="#e5e7eb" stroke-width="1.2"/>
+<text x="136.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x03</text>
+<text x="136.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Func</text>
+<line x1="166.0" y1="130.0" x2="166.0" y2="174.0" stroke="#e5e7eb" stroke-width="1.2"/>
+<text x="196.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x04</text>
+<text x="196.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Bytes</text>
+<line x1="226.0" y1="130.0" x2="226.0" y2="174.0" stroke="#e5e7eb" stroke-width="1.2"/>
+<text x="276.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">0x42 0x88 0x00 0x00</text>
+<text x="276.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Data (Reg 40001..2)</text>
+<rect x="46.0" y="190.0" width="308.0" height="160.0" rx="4" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.2"/>
+<text x="60.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Семантичний розбір у шлюзі:</text>
+<text x="60.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Пристрій: Котел #10 (Slave ID = 10)</text>
+<text x="60.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Регістр 0x0001: Тиск теплоносія (Float32)</text>
+<text x="60.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Байтовий порядок: Big-Endian (IEEE 754)</text>
+<text x="60.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="start" font-weight="700">• Перетворення: 0x42880000 → 68.0</text>
+<text x="60.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">• Одиниці: бари (bar) + мітка часу RTC</text>
+<line x1="370.0" y1="215.0" x2="465.0" y2="215.0" stroke="#2563eb" stroke-width="2.5"/>
+<line x1="455.0" y1="215.0" x2="465.0" y2="215.0" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="418.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">ТРАНСЛЯЦІЯ</text>
+<text x="418.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Мапінг схеми</text>
+<rect x="470.0" y="65.0" width="340.0" height="300.0" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.8"/>
+<text x="640.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#059669" text-anchor="middle" font-weight="700">ВИХІДНЕ ПОВІДОМЛЕННЯ (MQTT / WAN)</text>
+<text x="640.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Асинхронний Pub/Sub через TLS-з'єднання</text>
+<rect x="486.0" y="130.0" width="308.0" height="44.0" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+<text x="500.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">MQTT Topic:</text>
+<text x="500.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#059669" text-anchor="start" font-weight="700">plant1/boiler10/telemetry/pressure</text>
+<rect x="486.0" y="190.0" width="308.0" height="160.0" rx="4" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.2"/>
+<text x="500.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">JSON Payload (UTF-8):</text>
+<text x="510.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">{</text>
+<text x="524.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">&quot;device_id&quot;: &quot;boiler_10&quot;,</text>
+<text x="524.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="start" font-weight="700">&quot;pressure_bar&quot;: 68.0,</text>
+<text x="524.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">&quot;timestamp&quot;: 1724698800,</text>
+<text x="524.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">&quot;status&quot;: &quot;nominal&quot;</text>
+<text x="510.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">}</text>
+<text x="420.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Шлюз зв'язує фізичну адресу регістра з глобальною семантичною назвою ресурсу</text>
+</svg>

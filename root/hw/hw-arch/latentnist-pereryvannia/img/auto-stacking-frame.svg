@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-11.8 -10 856.3 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-11.8" y="-10" width="856.3" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратний стек-фрейм та одночасний доступ до шин даних і коду</text>
+<rect x="15.0" y="15.0" width="790.0" height="390.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="180.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратний стек-фрейм (Auto-stacking)</text>
+<text x="180.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Зберігається апаратно до виклику C-обробника</text>
+<text x="45.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">+28</text>
+<rect x="115.0" y="85.0" width="70.0" height="28.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="150.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">xPSR</text>
+<text x="195.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#374151" text-anchor="start">Прапорці стану процесора та вирівнювання</text>
+<text x="45.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">+24</text>
+<rect x="115.0" y="117.0" width="70.0" height="28.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="150.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">PC (R15)</text>
+<text x="195.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#374151" text-anchor="start">Адреса повернення (наступна інструкція)</text>
+<text x="45.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">+20</text>
+<rect x="115.0" y="149.0" width="70.0" height="28.0" rx="4" fill="#fff9e6" stroke="#b08800" stroke-width="1.5"/>
+<text x="150.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">LR (R14)</text>
+<text x="195.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#374151" text-anchor="start">Попереднє значення регістра зв'язку</text>
+<text x="45.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">+16</text>
+<rect x="115.0" y="181.0" width="70.0" height="28.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="150.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">R12</text>
+<text x="195.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#374151" text-anchor="start">Внутрішньопроцедурний скретч-регістр IP</text>
+<text x="45.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">+12</text>
+<rect x="115.0" y="213.0" width="70.0" height="28.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="150.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">R3</text>
+<text x="195.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#374151" text-anchor="start">Четвертий аргумент / результат функції</text>
+<text x="45.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">+8</text>
+<rect x="115.0" y="245.0" width="70.0" height="28.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="150.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">R2</text>
+<text x="195.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#374151" text-anchor="start">Третій аргумент функції</text>
+<text x="45.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">+4</text>
+<rect x="115.0" y="277.0" width="70.0" height="28.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="150.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">R1</text>
+<text x="195.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#374151" text-anchor="start">Другий аргумент функції</text>
+<text x="45.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">SP (новий)</text>
+<rect x="115.0" y="309.0" width="70.0" height="28.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="150.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">R0</text>
+<text x="195.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#374151" text-anchor="start">Перший аргумент / повернене значення</text>
+<line x1="100.0" y1="85.0" x2="100.0" y2="337.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="95.0" y1="85.0" x2="105.0" y2="85.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="95.0" y1="337.0" x2="105.0" y2="337.0" stroke="#333333" stroke-width="1.5"/>
+<text x="90.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="end" font-weight="700">32 байти
+(8 слів)</text>
+<text x="600.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Паралельний доступ до шин</text>
+<text x="600.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Гарвардська структура усуває шинний затор</text>
+<rect x="511.6" y="97.3" width="176.9" height="45.3" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.8"/><text x="600.0" y="116.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="600.0" dy="0.0">Ядро Cortex-M</tspan><tspan x="600.0" dy="14.3">Контролер винятків NVIC</tspan></text>
+<line x1="520.0" y1="155.0" x2="520.0" y2="240.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="520.0" y1="240.0" x2="520.0" y2="260.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="460.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Шина D-Bus
+(запис 8 регістрів)</text>
+<rect x="443.8" y="270.5" width="152.4" height="39.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="520.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="520.0" dy="0.0">SRAM (Пам'ять даних)</tspan><tspan x="520.0" dy="13.0">Збереження стек-фрейму</tspan></text>
+<line x1="680.0" y1="155.0" x2="680.0" y2="240.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="680.0" y1="240.0" x2="680.0" y2="260.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="740.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Шина I-Bus / Code
+(вибірка вектора)</text>
+<rect x="606.9" y="270.5" width="146.2" height="39.0" rx="6" fill="#e6f4ea" stroke="#27ae60" stroke-width="1.5"/><text x="680.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="680.0" dy="0.0">Flash / VTOR Table</tspan><tspan x="680.0" dy="13.0">Зчитування адреси ISR</tspan></text>
+<rect x="450.0" y="350.0" width="330.0" height="42.0" rx="6" fill="#fff9e6" stroke="#e0a800" stroke-width="1.4"/>
+<text x="615.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Auto-stacking у RAM і Vector Fetch із Flash
+виконуються ОДНОЧАСНО за 12 тактів</text>
+</svg>

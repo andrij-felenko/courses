@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Заголовок кадру: мажорні версії та прапорці сумісності</text>
+<text x="440.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">розподіл відповідальності між мажорною версією (ламана зміна) та прапорцями розширення</text>
+<rect x="50.0" y="85.0" width="80.0" height="50.0" rx="4" fill="#e2e8f0" stroke="#333333" stroke-width="1.4"/>
+<text x="90.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Magic [2B]</text>
+<text x="90.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0xAA55</text>
+<rect x="135.0" y="85.0" width="100.0" height="50.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="185.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Ver Major [1B]</text>
+<text x="185.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Ламані зміни</text>
+<rect x="240.0" y="85.0" width="100.0" height="50.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="290.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Ver Minor [1B]</text>
+<text x="290.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Сумісні зміни</text>
+<rect x="345.0" y="85.0" width="140.0" height="50.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.8"/>
+<text x="415.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">Incompat Flags [1B]</text>
+<text x="415.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="middle">Обов'язкові розширення</text>
+<rect x="490.0" y="85.0" width="130.0" height="50.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="555.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Compat Flags [1B]</text>
+<text x="555.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Опційні фічі</text>
+<rect x="625.0" y="85.0" width="90.0" height="50.0" rx="4" fill="#e2e8f0" stroke="#333333" stroke-width="1.4"/>
+<text x="670.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Msg ID [2B]</text>
+<text x="670.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Тип пакета</text>
+<rect x="720.0" y="85.0" width="110.0" height="50.0" rx="4" fill="#e2e8f0" stroke="#333333" stroke-width="1.4"/>
+<text x="775.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Length [2B]</text>
+<text x="775.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Розмір тіла</text>
+<text x="440.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Диспетчеризація та перевірка сумісності під час прийому кадру:</text>
+<rect x="60.0" y="200.0" width="230.0" height="80.0" rx="6" fill="#fff1f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="175.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">1. Перевірка Ver Major</text>
+<text x="175.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">if (hdr.major != MY_MAJOR)</text>
+<text x="175.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">-&gt; Відкинути кадр (Drop)</text>
+<line x1="290.0" y1="240.0" x2="340.0" y2="240.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="315.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">OK</text>
+<rect x="320.0" y="200.0" width="250.0" height="80.0" rx="6" fill="#fefce8" stroke="#d97706" stroke-width="1.5"/>
+<text x="445.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="700">2. Incompat Flags Mask</text>
+<text x="445.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">if (hdr.incompat &amp; ~SUPPORTED)</text>
+<text x="445.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">-&gt; Відкинути (невідома вимога)</text>
+<line x1="570.0" y1="240.0" x2="620.0" y2="240.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="595.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">OK</text>
+<rect x="600.0" y="200.0" width="230.0" height="80.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="715.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">3. Compat Flags Mask</text>
+<text x="715.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">ignore = hdr.compat &amp; ~SUPPORTED</text>
+<text x="715.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">-&gt; Прийняти і розібрати тіло</text>
+<rect x="50.0" y="310.0" width="780.0" height="130.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="70.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Семантика прапорців розширення (модель MAVLink v2 / QUIC):</text>
+<text x="70.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Incompat Flags: встановлюється, якщо розширення обов'язкове (наприклад, шифрування/підпис).</text>
+<text x="70.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">  Якщо приймач не знає цього біта — він зобов'язаний скинути пакет.</text>
+<text x="70.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Compat Flags: опційні розширення (діагностичний таймстемп, додаткова мітка пріоритету).</text>
+<text x="70.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">  Приймач, який не знає цього біта, спокійно обробляє корисні дані й ігнорує опцію.</text>
+<text x="70.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">• Мажорна версія (Major) змінюється лише при фундаментальній несумісності фреймінгу.</text>
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рівні інспекції каналу: вибір точки спостереження та інструменту</text>
+<rect x="40.0" y="60.0" width="620.0" height="80.0" rx="8" fill="#eaf4fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="60.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">Прикладний та мережевий (App / Net)</text>
+<text x="60.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Інструменти: Wireshark / extcap / TCP / UDP / TLS / MQTT</text>
+<text x="60.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Розбір семантики протоколів, дерева полів, часові ряди пакетів</text>
+<rect x="40.0" y="155.0" width="620.0" height="80.0" rx="8" fill="#eef8f0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="60.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Вбудоване системне логування (MCU Tracing)</text>
+<text x="60.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Інструменти: DMA Ring Buffer / RTT / SWO / Hex Dump</text>
+<text x="60.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Внутрішній стан автоматів, таймстеми подій, сирі RX/TX буфери</text>
+<rect x="40.0" y="250.0" width="620.0" height="80.0" rx="8" fill="#fdf4e8" stroke="#d97706" stroke-width="1.8"/>
+<text x="60.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d97706" text-anchor="start" font-weight="700">Радіочастотний рівень (RF Over-The-Air)</text>
+<text x="60.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Інструменти: nRF Sniffer (BLE / 802.15.4) / SDR (LoRa / FSK)</text>
+<text x="60.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Ефірні пакети, channel hopping, рівень RSSI, помилки CRC в ефірі</text>
+<rect x="40.0" y="345.0" width="620.0" height="80.0" rx="8" fill="#fbebee" stroke="#c0392b" stroke-width="1.8"/>
+<text x="60.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">Фізичний та канальний дріт (PHY / Bus)</text>
+<text x="60.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Інструменти: Логічний аналізатор (Saleae/Sigrok) / Осцилограф</text>
+<text x="60.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Форма фронтів, бітові таймінги, апаратний UART/SPI/I2C/CAN детекшн</text>
+<rect x="690.0" y="60.0" width="230.0" height="365.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="805.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Характеристики інспекції</text>
+<line x1="705.0" y1="100.0" x2="905.0" y2="100.0" stroke="#d1d5db" stroke-width="1.0"/>
+<text x="705.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Видимість даних:</text>
+<text x="705.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Від бітів і напруги до семантики полів</text>
+<text x="705.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Вторгнення (Invasiveness):</text>
+<text x="705.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">0% (осцилограф/снифер)</text>
+<text x="705.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">до 1–3% CPU (DMA логер)</text>
+<text x="705.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Точність міток часу:</text>
+<text x="705.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Наносекунди (PHY логіка)</text>
+<text x="705.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">до мікросекунд (Wireshark PCAP)</text>
+<text x="705.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Складність аналізу:</text>
+<text x="705.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Від ручного бітового пошуку</text>
+<text x="705.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">до автоматичних Lua-фільтрів</text>
+</svg>

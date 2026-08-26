@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Логометрична компенсація: розрахунок VDDA через незмінну VREFINT</text>
+<rect x="50.0" y="60.0" width="330.0" height="330.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="215.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Випадок А: Свіжа батарея (VDDA = 3.30 В)</text>
+<rect x="80.0" y="115.0" width="50.0" height="220.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<rect x="80.0" y="250.0" width="50.0" height="85.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="105.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">3.30 В</text>
+<text x="105.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0 В</text>
+<text x="105.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">VREFINT</text>
+<text x="105.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">1.21 В</text>
+<text x="145.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Код 4095 (Шкала VDDA)</text>
+<line x1="130.0" y1="250.0" x2="175.0" y2="250.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 2"/>
+<text x="185.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">Raw = 1502</text>
+<text x="185.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">1502 / 4095 = 36.7%</text>
+<rect x="80.0" y="350.0" width="270.0" height="30.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="215.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">VDDA = 3000 × 1652 / 1502 = 3300 мВ</text>
+<rect x="440.0" y="60.0" width="330.0" height="330.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="605.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Випадок Б: Просіле живлення (VDDA = 2.60 В)</text>
+<rect x="470.0" y="115.0" width="50.0" height="220.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<rect x="470.0" y="222.0" width="50.0" height="113.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="495.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">2.60 В</text>
+<text x="495.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0 В</text>
+<text x="495.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">VREFINT</text>
+<text x="495.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">1.21 В</text>
+<text x="535.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Код 4095 (Шкала VDDA)</text>
+<line x1="520.0" y1="222.0" x2="565.0" y2="222.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 2"/>
+<text x="575.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Raw = 1906</text>
+<text x="575.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">1906 / 4095 = 46.5%</text>
+<text x="650.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">Код виріс, бо опорна</tspan><tspan x="650.0" dy="13.0">шкала стиснулася!</tspan></text>
+<rect x="470.0" y="350.0" width="270.0" height="30.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="605.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">VDDA = 3000 × 1652 / 1906 = 2600 мВ</text>
+</svg>

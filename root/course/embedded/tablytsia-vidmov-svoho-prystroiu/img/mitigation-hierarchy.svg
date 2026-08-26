@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-34 -10 914 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-34" y="-10" width="914" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія інженерних контрзаходів FMEA</text>
+<text x="440.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія інженерних контрзаходів FMEA (що впроваджувати першим)</text>
+<rect x="50.0" y="65.0" width="780.0" height="56.0" rx="7" fill="#eef6ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="440.0" y="87.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">1. Усунення на рівні схемотехніки</text>
+<text x="440.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Зміна топології, вибір компонентів із запасом (derating), ізоляція вразливого вузла</text>
+<rect x="90.0" y="129.0" width="700.0" height="56.0" rx="7" fill="#e9eefb" stroke="#2457d6" stroke-width="1.6"/>
+<text x="440.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">2. Апаратні захисні бар'єри</text>
+<text x="440.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">TVS-діоди, самовідновні запобіжники PTC, зовнішній супервізор живлення, eFuse</text>
+<rect x="130.0" y="193.0" width="620.0" height="56.0" rx="7" fill="#fff6e0" stroke="#8a6d1a" stroke-width="1.6"/>
+<text x="440.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8a6d1a" text-anchor="middle" font-weight="700">3. Надлишковість і резервування</text>
+<text x="440.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Дублювання давачів (барометр + GPS), резервне живлення, аварійний канал зв'язку</text>
+<rect x="170.0" y="257.0" width="540.0" height="56.0" rx="7" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="440.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. Активна самодіагностика прошивки</text>
+<text x="440.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Watchdog, відновлення I2C (9 тактів SCL), валідація діапазонів, перехід у Failsafe</text>
+<rect x="210.0" y="321.0" width="460.0" height="56.0" rx="7" fill="#fbecec" stroke="#c0392b" stroke-width="1.6"/>
+<text x="440.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">5. Пасивне сповіщення та інструкції</text>
+<text x="440.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Світлодіодна індикація помилки, запис коду відмови в Flash-лог, регламентний огляд</text>
+<line x1="35.0" y1="350.0" x2="35.0" y2="75.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="30.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Ефективність захисту</text>
+</svg>

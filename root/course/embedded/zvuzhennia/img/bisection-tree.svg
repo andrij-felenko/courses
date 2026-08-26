@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дерево дихотомічного пошуку несправності</text>
+<rect x="25.0" y="25.0" width="155.0" height="350.0" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.2"/>
+<text x="102.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">ІНФОРМАЦІЯ</text>
+<text x="102.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">I = log₂(N / N_нов)</text>
+<line x1="35.0" y1="92.0" x2="170.0" y2="92.0" stroke="#e5e7eb" stroke-width="1.0"/>
+<text x="102.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">1 тест 50/50:</text>
+<text x="102.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">+1.00 біт</text>
+<line x1="35.0" y1="155.0" x2="170.0" y2="155.0" stroke="#e5e7eb" stroke-width="1.0"/>
+<text x="102.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">10 тестів:</text>
+<text x="102.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">10.00 бітів</text>
+<line x1="35.0" y1="215.0" x2="170.0" y2="215.0" stroke="#e5e7eb" stroke-width="1.0"/>
+<text x="102.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Лінійний перебір:</text>
+<text x="102.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">до 1000 спроб</text>
+<line x1="35.0" y1="280.0" x2="170.0" y2="280.0" stroke="#e5e7eb" stroke-width="1.0"/>
+<text x="102.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Бісекція:</text>
+<text x="102.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">рівно 10 кроків</text>
+<rect x="350.0" y="21.2" width="360.0" height="47.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="530.0" y="41.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="530.0" dy="0.0">ПРОСТІР ПОШУКУ: N = 1000</tspan><tspan x="530.0" dy="15.6">1000 рядків коду або 40 компонентів</tspan></text>
+<line x1="530.0" y1="68.8" x2="365.0" y2="103.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="530.0" y1="68.8" x2="695.0" y2="103.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="270.0" y="102.3" width="190.0" height="45.3" rx="6" fill="#f4f6f8" stroke="#cfd6dd" stroke-width="1.2"/><text x="365.0" y="121.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="365.0" dy="0.0">Блок A: 1..500 [OK]</tspan><tspan x="365.0" dy="14.3">(Виключаємо 50%)</tspan></text>
+<rect x="600.0" y="102.3" width="190.0" height="45.3" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="695.0" y="121.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="695.0" dy="0.0">Блок B: 501..1000 [ЗБІЙ]</tspan><tspan x="695.0" dy="14.3">(Дефект тут: N = 500)</tspan></text>
+<line x1="695.0" y1="147.0" x2="595.0" y2="185.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="695.0" y1="147.0" x2="775.0" y2="185.0" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="522.5" y="182.9" width="145.0" height="44.1" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="595.0" y="201.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="595.0" dy="0.0">B1: 501..750 [ЗБІЙ]</tspan><tspan x="595.0" dy="13.7">(N = 250)</tspan></text>
+<rect x="702.5" y="182.9" width="145.0" height="44.1" rx="6" fill="#f4f6f8" stroke="#cfd6dd" stroke-width="1.2"/><text x="775.0" y="201.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="775.0" dy="0.0">B2: 751..1000 [–]</tspan><tspan x="775.0" dy="13.7">(Виключаємо)</tspan></text>
+<text x="595.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700" font-style="italic">⋮   log₂(1000) ≈ 9.96 кроків   ⋮</text>
+<line x1="595.0" y1="283.0" x2="595.0" y2="315.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="403.2" y="321.8" width="383.6" height="46.5" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/><text x="595.0" y="341.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="595.0" dy="0.0">КРОК 10: N = 1</tspan><tspan x="595.0" dy="15.0">Точний дефект (рядок або чип) знайдено за 10 тестів</tspan></text>
+</svg>

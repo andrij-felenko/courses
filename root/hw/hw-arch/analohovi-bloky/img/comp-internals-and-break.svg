@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="390.0" height="440.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="215.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вбудований компаратор (COMP)</text>
+<rect x="35.0" y="75.0" width="125.0" height="60.0" rx="6" fill="#eef2f6" stroke="#333333" stroke-width="1.5"/><text x="97.5" y="101.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="97.5" dy="0.0">GPIO пін (INP)</tspan><tspan x="97.5" dy="14.3">або вихід OPAMP</tspan></text>
+<line x1="160.0" y1="105.0" x2="210.0" y2="105.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="185.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">V_IN</text>
+<rect x="35.0" y="160.0" width="130.0" height="170.0" rx="6" fill="#eef2f6" stroke="#333333" stroke-width="1.5"/>
+<text x="100.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вибір порогу (INM)</text>
+<rect x="42.0" y="195.0" width="116.0" height="26.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="100.0" y="211.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="100.0" dy="0.0">Зовнішній GPIO</tspan></text>
+<rect x="42.0" y="227.0" width="116.0" height="26.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="100.0" y="243.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="100.0" dy="0.0">Внутрішній ЦАП</tspan></text>
+<rect x="42.0" y="259.0" width="116.0" height="26.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="100.0" y="275.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="100.0" dy="0.0">VREFINT (1.21 В)</tspan></text>
+<rect x="42.0" y="291.0" width="116.0" height="26.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="100.0" y="307.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="100.0" dy="0.0">1/4, 1/2, 3/4 VREF</tspan></text>
+<line x1="165.0" y1="245.0" x2="210.0" y2="245.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="187.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">V_REF</text>
+<polygon points="210,75 210,275 300,175" fill="#ffffff" stroke="#333333" stroke-width="2"/>
+<text x="225.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#c0392b" text-anchor="middle" font-weight="700">+</text>
+<text x="225.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#2457d6" text-anchor="middle" font-weight="700">−</text>
+<text x="250.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">COMP</text>
+<rect x="180.0" y="360.0" width="170.0" height="75.0" rx="6" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5"/><text x="265.0" y="387.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="265.0" dy="0.0">Програмований</tspan><tspan x="265.0" dy="14.3">гістерезис (HYST)</tspan><tspan x="265.0" dy="14.3">0 / 10 / 20 / 40 мВ</tspan></text>
+<line x1="265.0" y1="360.0" x2="265.0" y2="210.0" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="265.0" y1="210.0" x2="245.0" y2="190.0" stroke="#ea580c" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="300.0" y1="175.0" x2="350.0" y2="175.0" stroke="#333333" stroke-width="1.8"/>
+<circle cx="350.0" cy="175.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="340.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">OUT</text>
+<line x1="350.0" y1="175.0" x2="350.0" y2="105.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="350.0" y1="105.0" x2="390.0" y2="105.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="380.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">IRQ</text>
+<line x1="350.0" y1="175.0" x2="490.0" y2="175.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="490.0" y1="175.0" x2="520.0" y2="175.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="418.0" y="120.0" width="95.0" height="46.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/><text x="465.5" y="140.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="465.5" dy="0.0">Апаратний лінк</tspan><tspan x="465.5" dy="11.7">t_prop ≈ 15-25 нс</tspan></text>
+<rect x="490.0" y="20.0" width="370.0" height="440.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="675.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Силовий таймер ШІМ (TIM1 / TIM8)</text>
+<rect x="510.0" y="150.0" width="120.0" height="50.0" rx="6" fill="#fecaca" stroke="#c0392b" stroke-width="1.5"/><text x="570.0" y="171.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="570.0" dy="0.0">Вхід захисту</tspan><tspan x="570.0" dy="15.6">TIMx_BKIN</tspan></text>
+<line x1="630.0" y1="175.0" x2="660.0" y2="175.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="660.0" y="125.0" width="180.0" height="95.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="750.0" y="154.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="750.0" dy="0.0">Логіка аварії BDTR</tspan><tspan x="750.0" dy="14.3">Скидання біта MOE</tspan><tspan x="750.0" dy="14.3">(Main Output Enable)</tspan><tspan x="750.0" dy="14.3">в 0 за &lt; 1 такт (&lt; 10 нс)</tspan></text>
+<line x1="750.0" y1="220.0" x2="750.0" y2="255.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="510.0" y="255.0" width="330.0" height="185.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="675.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Комплементарні канали виходу</text>
+<rect x="525.0" y="300.0" width="135.0" height="45.0" rx="6" fill="#f1f5f9" stroke="#6b7280" stroke-width="1.5"/><text x="592.5" y="319.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="592.5" dy="0.0">Верхнє плече (CH1)</tspan><tspan x="592.5" dy="14.3">→ ВИТИКНУТО</tspan></text>
+<rect x="525.0" y="360.0" width="135.0" height="45.0" rx="6" fill="#f1f5f9" stroke="#6b7280" stroke-width="1.5"/><text x="592.5" y="379.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="592.5" dy="0.0">Нижнє плече (CH1N)</tspan><tspan x="592.5" dy="14.3">→ ВИТИКНУТО</tspan></text>
+<rect x="680.0" y="300.0" width="145.0" height="105.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="752.5" y="327.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="752.5" dy="0.0">Політика AOE:</tspan><tspan x="752.5" dy="14.3">• AOE=0: Lock</tspan><tspan x="752.5" dy="14.3">(скидання кодом)</tspan><tspan x="752.5" dy="14.3">• AOE=1: Цикл-в-цикл</tspan><tspan x="752.5" dy="14.3">(авто-відновлення)</tspan></text>
+</svg>

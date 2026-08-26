@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Профілі напруги стрес-стенду: мікрообриви, просідання та сходинки</text>
+<text x="70.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Мікрообрив живлення (Micro-Dropout, 10 мкс .. 5 мс)</text>
+<line x1="70.0" y1="115.0" x2="750.0" y2="115.0" stroke="#80868b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="755.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#80868b" text-anchor="start" font-style="italic">t</text>
+<line x1="80.0" y1="65.0" x2="240.0" y2="65.0" stroke="#2457d6" stroke-width="2.4"/>
+<line x1="240.0" y1="65.0" x2="245.0" y2="105.0" stroke="#2457d6" stroke-width="2.4"/>
+<line x1="245.0" y1="105.0" x2="295.0" y2="105.0" stroke="#2457d6" stroke-width="2.4"/>
+<line x1="295.0" y1="105.0" x2="300.0" y2="65.0" stroke="#2457d6" stroke-width="2.4"/>
+<line x1="300.0" y1="65.0" x2="500.0" y2="65.0" stroke="#2457d6" stroke-width="2.4"/>
+<line x1="80.0" y1="65.0" x2="500.0" y2="65.0" stroke="#c2c8cf" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="65.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-weight="700">3.3 В</text>
+<line x1="80.0" y1="90.0" x2="500.0" y2="90.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 4"/>
+<text x="65.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end" font-weight="700">BOD (2.7 В)</text>
+<rect x="530.0" y="50.0" width="240.0" height="65.0" rx="6" fill="#fff3e0" stroke="#e67e22" stroke-width="1.2"/>
+<text x="650.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b9770e" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">Небезпечна зона: напруга впала</tspan><tspan x="650.0" dy="11.4">нижче порогу логіки, але вище BOD.</tspan><tspan x="650.0" dy="11.4">Виникає зависання або бітовий збій</tspan></text>
+<text x="70.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Повільне плавне просідання (Slow Brownout Ramp)</text>
+<line x1="70.0" y1="245.0" x2="750.0" y2="245.0" stroke="#80868b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="755.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#80868b" text-anchor="start" font-style="italic">t</text>
+<line x1="80.0" y1="195.0" x2="180.0" y2="195.0" stroke="#e67e22" stroke-width="2.4"/>
+<line x1="180.0" y1="195.0" x2="380.0" y2="240.0" stroke="#e67e22" stroke-width="2.4"/>
+<line x1="380.0" y1="240.0" x2="440.0" y2="240.0" stroke="#e67e22" stroke-width="2.4"/>
+<line x1="440.0" y1="240.0" x2="445.0" y2="195.0" stroke="#e67e22" stroke-width="2.4"/>
+<line x1="445.0" y1="195.0" x2="500.0" y2="195.0" stroke="#e67e22" stroke-width="2.4"/>
+<line x1="80.0" y1="220.0" x2="500.0" y2="220.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 4"/>
+<text x="65.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end" font-weight="700">BOD поріг</text>
+<rect x="530.0" y="180.0" width="240.0" height="65.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="650.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">Перевірка гістерезису: чи не йде</tspan><tspan x="650.0" dy="11.4">MCU в нескінченний рестарт</tspan><tspan x="650.0" dy="11.4">(Reset oscillation) на межі спрацювання</tspan></text>
+<text x="70.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">3. Ступеневе варіювання напруги (Voltage Margining Staircase)</text>
+<line x1="70.0" y1="375.0" x2="750.0" y2="375.0" stroke="#80868b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="755.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#80868b" text-anchor="start" font-style="italic">t</text>
+<line x1="80.0" y1="318.0" x2="160.0" y2="318.0" stroke="#27ae60" stroke-width="2.4"/>
+<line x1="160.0" y1="318.0" x2="160.0" y2="330.0" stroke="#27ae60" stroke-width="2.4"/>
+<line x1="160.0" y1="330.0" x2="240.0" y2="330.0" stroke="#27ae60" stroke-width="2.4"/>
+<line x1="240.0" y1="330.0" x2="240.0" y2="348.0" stroke="#27ae60" stroke-width="2.4"/>
+<line x1="240.0" y1="348.0" x2="320.0" y2="348.0" stroke="#27ae60" stroke-width="2.4"/>
+<line x1="320.0" y1="348.0" x2="320.0" y2="362.0" stroke="#27ae60" stroke-width="2.4"/>
+<line x1="320.0" y1="362.0" x2="400.0" y2="362.0" stroke="#27ae60" stroke-width="2.4"/>
+<line x1="400.0" y1="362.0" x2="400.0" y2="370.0" stroke="#27ae60" stroke-width="2.4"/>
+<line x1="400.0" y1="370.0" x2="480.0" y2="370.0" stroke="#27ae60" stroke-width="2.4"/>
+<text x="65.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="end">5.5 В</text>
+<text x="65.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="end" font-weight="700">3.3 В</text>
+<text x="65.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end">2.5 В</text>
+<rect x="530.0" y="310.0" width="240.0" height="65.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="650.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="650.0" dy="0.0">Пошук таймінг-збоїв (Setup/Hold)</tspan><tspan x="650.0" dy="11.4">Flash-пам'яті та PLL при крайніх</tspan><tspan x="650.0" dy="11.4">значеннях напруги живлення ядра</tspan></text>
+</svg>

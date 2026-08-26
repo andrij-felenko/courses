@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 590" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="590" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр виконання імпорту в CPython (PEP 451)</text>
+<rect x="40.0" y="70.0" width="200.0" height="210.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="140.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1. Запит і перевірка кешу</text>
+<line x1="50.0" y1="112.0" x2="230.0" y2="112.0" stroke="#2457d6" stroke-width="1.0"/>
+<circle cx="56.0" cy="132.0" r="3.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="66.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Інструкція IMPORT_NAME / __import__()</text>
+<circle cx="56.0" cy="166.0" r="3.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="66.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Захоплення блокування імпорту</text>
+<circle cx="56.0" cy="200.0" r="3.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="66.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Пошук ключа у словнику sys.modules</text>
+<circle cx="56.0" cy="234.0" r="3.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="66.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Знайдено -&gt; повернення модуля</text>
+<line x1="244.0" y1="175.0" x2="276.0" y2="175.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="280.0" y="70.0" width="200.0" height="210.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="380.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">2. Пошук специфікації (Finders)</text>
+<line x1="290.0" y1="112.0" x2="470.0" y2="112.0" stroke="#c0392b" stroke-width="1.0"/>
+<circle cx="296.0" cy="132.0" r="3.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="306.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Обхід знахідників у sys.meta_path</text>
+<circle cx="296.0" cy="166.0" r="3.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="306.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Виклик finder.find_spec(name, path)</text>
+<circle cx="296.0" cy="200.0" r="3.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="306.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Пошук: Builtin -&gt; Frozen -&gt; PathFinder</text>
+<circle cx="296.0" cy="234.0" r="3.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="306.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Формування об'єкта ModuleSpec</text>
+<line x1="484.0" y1="175.0" x2="516.0" y2="175.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="520.0" y="70.0" width="200.0" height="210.0" rx="8" fill="#e8f8f0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="620.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">3. Створення об'єкта модуля</text>
+<line x1="530.0" y1="112.0" x2="710.0" y2="112.0" stroke="#27ae60" stroke-width="1.0"/>
+<circle cx="536.0" cy="132.0" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="546.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Виклик spec.loader.create_module()</text>
+<circle cx="536.0" cy="166.0" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="546.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Алокація об'єкта types.ModuleType</text>
+<circle cx="536.0" cy="200.0" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="546.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Ініціалізація __name__, __spec__</text>
+<circle cx="536.0" cy="234.0" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="546.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Попередній запис у sys.modules</text>
+<line x1="724.0" y1="175.0" x2="756.0" y2="175.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="760.0" y="70.0" width="200.0" height="210.0" rx="8" fill="#fef9e7" stroke="#b78103" stroke-width="2.0"/>
+<text x="860.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b78103" text-anchor="middle" font-weight="700">4. Виконання коду (Execution)</text>
+<line x1="770.0" y1="112.0" x2="950.0" y2="112.0" stroke="#b78103" stroke-width="1.0"/>
+<circle cx="776.0" cy="132.0" r="3.0" fill="#b78103" stroke="#b78103" stroke-width="1.5"/>
+<text x="786.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Виклик spec.loader.exec_module()</text>
+<circle cx="776.0" cy="166.0" r="3.0" fill="#b78103" stroke="#b78103" stroke-width="1.5"/>
+<text x="786.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Компіляція або читання байткоду .pyc</text>
+<circle cx="776.0" cy="200.0" r="3.0" fill="#b78103" stroke="#b78103" stroke-width="1.5"/>
+<text x="786.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Виконання PyCodeObject у dict модуля</text>
+<circle cx="776.0" cy="234.0" r="3.0" fill="#b78103" stroke="#b78103" stroke-width="1.5"/>
+<text x="786.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Помилка -&gt; відкат із sys.modules</text>
+<rect x="40.0" y="320.0" width="900.0" height="230.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="490.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ключові структури середовища та їхня взаємодія</text>
+<rect x="60.0" y="370.0" width="260.0" height="160.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="190.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">sys.modules</text>
+<line x1="70.0" y1="406.0" x2="310.0" y2="406.0" stroke="#2457d6" stroke-width="0.8"/>
+<circle cx="76.0" cy="424.0" r="2.5" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="86.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Глобальний словник-кеш (dict)</text>
+<circle cx="76.0" cy="448.0" r="2.5" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="86.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Зберігає всі завантажені модулі</text>
+<circle cx="76.0" cy="472.0" r="2.5" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="86.0" y="476.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Запобігає повторному парсингу</text>
+<circle cx="76.0" cy="496.0" r="2.5" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="86.0" y="500.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Розв'язує циклічні залежності</text>
+<rect x="360.0" y="370.0" width="260.0" height="160.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="490.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ModuleSpec (PEP 451)</text>
+<line x1="370.0" y1="406.0" x2="610.0" y2="406.0" stroke="#27ae60" stroke-width="0.8"/>
+<circle cx="376.0" cy="424.0" r="2.5" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="386.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">name: кваліфікована назва</text>
+<circle cx="376.0" cy="448.0" r="2.5" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="386.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">loader: виконавець завантаження</text>
+<circle cx="376.0" cy="472.0" r="2.5" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="386.0" y="476.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">origin: джерело (файл / пам'ять)</text>
+<circle cx="376.0" cy="496.0" r="2.5" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="386.0" y="500.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">submodule_search_locations</text>
+<rect x="660.0" y="370.0" width="260.0" height="160.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="790.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">sys.meta_path</text>
+<line x1="670.0" y1="406.0" x2="910.0" y2="406.0" stroke="#c0392b" stroke-width="0.8"/>
+<circle cx="676.0" cy="424.0" r="2.5" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="686.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Список об'єктів MetaPathFinder</text>
+<circle cx="676.0" cy="448.0" r="2.5" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="686.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">1. BuiltinImporter (C-модулі)</text>
+<circle cx="676.0" cy="472.0" r="2.5" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="686.0" y="476.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">2. FrozenImporter (байткод ядра)</text>
+<circle cx="676.0" cy="496.0" r="2.5" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="686.0" y="500.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">3. PathFinder (файлова система)</text>
+</svg>

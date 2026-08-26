@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Покрокова бісекційна ізоляція шарів прошивки</text>
+<rect x="95.0" y="44.5" width="250.0" height="31.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="220.0" y="63.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="220.0" dy="0.0">Рівень 4: Бізнес-логіка</tspan></text>
+<line x1="220.0" y1="80.0" x2="220.0" y2="105.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="95.0" y="114.5" width="250.0" height="31.0" rx="6" fill="#fff3e0" stroke="#b9770e" stroke-width="1.5"/><text x="220.0" y="133.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="middle" font-weight="700"><tspan x="220.0" dy="0.0">Рівень 3: RTOS-задачі та черги</tspan></text>
+<line x1="220.0" y1="150.0" x2="220.0" y2="175.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="95.0" y="184.5" width="250.0" height="31.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="220.0" y="203.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="220.0" dy="0.0">Рівень 2: Драйвери периферії</tspan></text>
+<line x1="220.0" y1="220.0" x2="220.0" y2="245.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="95.0" y="254.5" width="250.0" height="31.0" rx="6" fill="#f3f4f6" stroke="#1a1a1a" stroke-width="1.5"/><text x="220.0" y="273.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="220.0" dy="0.0">Рівень 1: HAL та регістри MCU</tspan></text>
+<rect x="430.0" y="30.0" width="380.0" height="290.0" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.4"/>
+<text x="620.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">МЕТОД БІСЕКЦІЙНОЇ ІЗОЛЯЦІЇ</text>
+<rect x="450.0" y="73.0" width="340.0" height="48.0" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="460.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">1. Заглушка логіки (Fixed Data Stub)</text>
+<text x="460.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Перевіряє, чи не здурів обчислювальний алгоритм</text>
+<rect x="450.0" y="138.0" width="340.0" height="48.0" rx="5" fill="#fff3e0" stroke="#b9770e" stroke-width="1.2"/>
+<text x="460.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b9770e" text-anchor="start" font-weight="700">2. Відключення 50% RTOS-потоків</text>
+<text x="460.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Ізолює взаємне блокування (Deadlock) і переповнення стеку</text>
+<rect x="450.0" y="203.0" width="340.0" height="48.0" rx="5" fill="#eafaf0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="460.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">3. Підміна драйвера на мок-сенсор</text>
+<text x="460.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Відділяє програмний протокол від апаратного чипа</text>
+<rect x="450.0" y="268.0" width="340.0" height="48.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="460.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">4. Маскування половини NVIC IRQ</text>
+<text x="460.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Знаходить переривання, що завалює латентність системи</text>
+<line x1="350.0" y1="165.0" x2="430.0" y2="165.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="390.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Розсічення</text>
+<text x="420.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">Ізоляція шару або групи потоків усуває 50% коду з підозри за одну ітерацію тесту</text>
+</svg>

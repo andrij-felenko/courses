@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схемотехнічний захист інтерфейсу USIM-карти від статичної електрики (ESD)</text>
+<text x="460.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Багатоканальний TVS-масив (C_esd &lt; 10 пФ) розміщується безпосередньо біля контактів слота</text>
+<rect x="56.7" y="196.3" width="126.7" height="67.4" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="120.0" y="213.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">Модем</tspan><tspan x="120.0" dy="13.7">(USIM контролер)</tspan><tspan x="120.0" dy="13.7">1.8 В / 3.0 В</tspan><tspan x="120.0" dy="13.7">Чутливий до &gt;15 В</tspan></text>
+<rect x="713.6" y="196.3" width="152.7" height="67.4" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="790.0" y="213.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="790.0" dy="0.0">Слот SIM-карти</tspan><tspan x="790.0" dy="13.7">(зовнішній інтерфейс)</tspan><tspan x="790.0" dy="13.7">IEC 61000-4-2</tspan><tspan x="790.0" dy="13.7">ESD до 15 кВ!</tspan></text>
+<line x1="200.0" y1="130.0" x2="700.0" y2="130.0" stroke="#2457d6" stroke-width="1.8"/>
+<text x="250.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">USIM_VDD</text>
+<text x="600.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">100 нФ + 33 пФ до GND</text>
+<line x1="200.0" y1="180.0" x2="700.0" y2="180.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="250.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">USIM_RST</text>
+<text x="600.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">22 пФ до GND</text>
+<line x1="200.0" y1="230.0" x2="700.0" y2="230.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="250.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">USIM_CLK</text>
+<text x="600.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">22 пФ до GND (3.25 МГц)</text>
+<line x1="200.0" y1="280.0" x2="700.0" y2="280.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="250.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">USIM_DATA</text>
+<text x="600.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4.7 кОм Pull-Up + 22 пФ</text>
+<line x1="200.0" y1="330.0" x2="700.0" y2="330.0" stroke="#6b7280" stroke-width="1.8"/>
+<text x="250.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">USIM_DET</text>
+<text x="600.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Детекція картки</text>
+<rect x="405.0" y="105.0" width="70.0" height="250.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="440.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">TVS Array (&lt; 2 мм від слота)</text>
+<text x="440.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">C_esd &lt; 10 пФ, V_clamp &lt; 8 В</text>
+<circle cx="440.0" cy="130.0" r="3.5" fill="#c0392b" stroke="#c0392b" stroke-width="0.0"/>
+<line x1="440.0" y1="130.0" x2="440.0" y2="144.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="432.0" y1="144.0" x2="448.0" y2="144.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="432.0" y1="144.0" x2="430.0" y2="148.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="448.0" y1="144.0" x2="450.0" y2="140.0" stroke="#c0392b" stroke-width="1.2"/>
+<circle cx="440.0" cy="180.0" r="3.5" fill="#c0392b" stroke="#c0392b" stroke-width="0.0"/>
+<line x1="440.0" y1="180.0" x2="440.0" y2="194.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="432.0" y1="194.0" x2="448.0" y2="194.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="432.0" y1="194.0" x2="430.0" y2="198.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="448.0" y1="194.0" x2="450.0" y2="190.0" stroke="#c0392b" stroke-width="1.2"/>
+<circle cx="440.0" cy="230.0" r="3.5" fill="#c0392b" stroke="#c0392b" stroke-width="0.0"/>
+<line x1="440.0" y1="230.0" x2="440.0" y2="244.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="432.0" y1="244.0" x2="448.0" y2="244.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="432.0" y1="244.0" x2="430.0" y2="248.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="448.0" y1="244.0" x2="450.0" y2="240.0" stroke="#c0392b" stroke-width="1.2"/>
+<circle cx="440.0" cy="280.0" r="3.5" fill="#c0392b" stroke="#c0392b" stroke-width="0.0"/>
+<line x1="440.0" y1="280.0" x2="440.0" y2="294.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="432.0" y1="294.0" x2="448.0" y2="294.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="432.0" y1="294.0" x2="430.0" y2="298.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="448.0" y1="294.0" x2="450.0" y2="290.0" stroke="#c0392b" stroke-width="1.2"/>
+<circle cx="440.0" cy="330.0" r="3.5" fill="#c0392b" stroke="#c0392b" stroke-width="0.0"/>
+<line x1="440.0" y1="330.0" x2="440.0" y2="344.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="432.0" y1="344.0" x2="448.0" y2="344.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="432.0" y1="344.0" x2="430.0" y2="348.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="448.0" y1="344.0" x2="450.0" y2="340.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="440.0" y1="355.0" x2="440.0" y2="405.0" stroke="#27ae60" stroke-width="2.5"/>
+<circle cx="440.0" cy="405.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="0.0"/>
+<text x="452.0" y="409.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">GND (віа на суцільний полігон)</text>
+<line x1="730.0" y1="80.0" x2="490.0" y2="80.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="610.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Струм ESD скидається в GND</text>
+</svg>

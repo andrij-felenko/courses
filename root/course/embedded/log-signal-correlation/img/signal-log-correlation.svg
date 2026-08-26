@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-48 -10 902.8 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-48" y="-10" width="902.8" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крос-доменне зіставлення аналогових сигналів живлення та логів прошивки</text>
+<text x="420.0" y="22.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крос-доменна кореляція: апаратний строб-пін як міст між осцилографом і логами</text>
+<text x="205.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-weight="700">Напруга VDD (3.3V)
+(Аналоговий осцилограф)</text>
+<line x1="220.0" y1="80.0" x2="450.0" y2="80.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="450.0" y1="80.0" x2="480.0" y2="122.0" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="480.0" y1="122.0" x2="640.0" y2="122.0" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="640.0" y1="122.0" x2="680.0" y2="80.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="680.0" y1="80.0" x2="790.0" y2="80.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="220.0" y1="115.0" x2="790.0" y2="115.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 4"/>
+<text x="780.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end" font-weight="700">Поріг BOD (2.7V)</text>
+<text x="205.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b9770e" text-anchor="end" font-weight="700">Струм I_supply
+(Шунт / Power Profiler)</text>
+<line x1="220.0" y1="210.0" x2="445.0" y2="210.0" stroke="#e67e22" stroke-width="2.0"/>
+<line x1="445.0" y1="210.0" x2="460.0" y2="165.0" stroke="#e67e22" stroke-width="2.2"/>
+<line x1="460.0" y1="165.0" x2="640.0" y2="165.0" stroke="#e67e22" stroke-width="2.2"/>
+<line x1="640.0" y1="165.0" x2="655.0" y2="210.0" stroke="#e67e22" stroke-width="2.0"/>
+<line x1="655.0" y1="210.0" x2="790.0" y2="210.0" stroke="#e67e22" stroke-width="2.0"/>
+<text x="550.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b9770e" text-anchor="middle" font-weight="700">Сплеск 85 мА (Flash Charge Pump)</text>
+<text x="205.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="end" font-weight="700">Debug GPIO Строб
+(1 такт ядра, 0 нс затримка)</text>
+<line x1="220.0" y1="305.0" x2="430.0" y2="305.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="430.0" y1="305.0" x2="430.0" y2="270.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="430.0" y1="270.0" x2="660.0" y2="270.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="660.0" y1="270.0" x2="660.0" y2="305.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="660.0" y1="305.0" x2="790.0" y2="305.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="545.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">GPIO=HIGH (Тривалість операції Flash Erase)</text>
+<line x1="430.0" y1="52.0" x2="430.0" y2="365.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3"/>
+<rect x="333.5" y="33.5" width="193.0" height="29.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/><text x="430.0" y="51.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="430.0" dy="0.0">Точка прив'язки t_0 (BSRR=HIGH)</tspan></text>
+<text x="205.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end" font-weight="700">Програмні логи
+(Буфер RTOS / UART)</text>
+<rect x="308.6" y="361.6" width="142.8" height="40.7" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/><text x="380.0" y="379.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">LOG_EVENT(ERASE_START)</tspan><tspan x="380.0" dy="11.7">[t = 120.000 мс]</tspan></text>
+<rect x="635.1" y="361.6" width="209.7" height="40.7" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/><text x="740.0" y="379.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="740.0" dy="0.0">UART TX: «[FLASH] Sector Erase...»</tspan><tspan x="740.0" dy="11.7">(Затримка виводу +1.8 мс)</tspan></text>
+<line x1="480.0" y1="382.0" x2="630.0" y2="382.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="40.0" y="450.0" width="760.0" height="68.0" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.4"/>
+<text x="60.0" y="467.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1b5e20" text-anchor="start" font-weight="700">Ключ до точної кореляції причин і наслідків:</text>
+<text x="75.0" y="487.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1. Програмний лог безпомилково ідентифікує тип операції («хто викликав дію»)</text>
+<text x="75.0" y="503.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">2. Апаратний GPIO строб усуває затримку форматування UART/RTT і точно зв'язує лог із фізичною просадкою на осцилографі</text>
+</svg>

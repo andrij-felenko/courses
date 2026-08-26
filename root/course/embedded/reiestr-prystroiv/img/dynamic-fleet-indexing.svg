@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр динамічної індексації та цільових вибірок (Fleet Targeting)</text>
+<text x="420.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Як зміни атрибутів у реальному часі активують цільові групи та кампанії оновлення</text>
+<rect x="30.0" y="75.0" width="175.0" height="340.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<rect x="30.0" y="75.0" width="175.0" height="32.0" rx="6" fill="#e2e8f0" stroke="#333333" stroke-width="1.0"/>
+<text x="117.5" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Потік подій стану</text>
+<text x="42.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">MQTT / CoAP / HTTP</text>
+<rect x="40.0" y="145.0" width="155.0" height="75.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="46.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Telemetry Payload:</text>
+<text x="46.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">fw_version: '2.1.4'</text>
+<text x="46.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">battery_v: 3.85</text>
+<text x="46.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">rssi: -72 dBm</text>
+<text x="42.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Admin Tag API:</text>
+<rect x="40.0" y="260.0" width="155.0" height="60.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="46.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">PATCH /tags</text>
+<text x="46.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">site: 'dnipro-14'</text>
+<text x="46.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">tier: 'gold'</text>
+<line x1="205.0" y1="245.0" x2="231.0" y2="245.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="231.0" y="75.0" width="175.0" height="340.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<rect x="231.0" y="75.0" width="175.0" height="32.0" rx="6" fill="#e2e8f0" stroke="#333333" stroke-width="1.0"/>
+<text x="318.5" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Індекси реєстру</text>
+<rect x="241.0" y="125.0" width="155.0" height="80.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="247.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">B-Tree Indexes:</text>
+<text x="247.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• sys.fw_version</text>
+<text x="247.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• sys.last_seen_ts</text>
+<text x="247.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• sys.battery_soc</text>
+<rect x="241.0" y="220.0" width="155.0" height="85.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="247.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">GIN / Inverted Index:</text>
+<text x="247.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• tags.site -&gt; BitMap</text>
+<text x="247.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• tags.env -&gt; BitMap</text>
+<text x="247.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• tags.hw -&gt; BitMap</text>
+<rect x="241.0" y="320.0" width="155.0" height="80.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="247.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Device Shadow:</text>
+<text x="247.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Atomic State Store</text>
+<text x="247.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Reported vs Desired</text>
+<line x1="406.0" y1="245.0" x2="432.0" y2="245.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="432.0" y="75.0" width="175.0" height="340.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<rect x="432.0" y="75.0" width="175.0" height="32.0" rx="6" fill="#e2e8f0" stroke="#333333" stroke-width="1.0"/>
+<text x="519.5" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Рушій вибірок</text>
+<text x="444.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Динамічні запити:</text>
+<rect x="442.0" y="145.0" width="155.0" height="115.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="0.8"/>
+<text x="448.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Group: 'Canary-Wave-1'</text>
+<text x="448.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">Query Filter:</text>
+<text x="448.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">tags.env == 'prod' AND</text>
+<text x="448.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">sys.fw == '2.1.4' AND</text>
+<text x="448.0" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">sys.battery &gt; 0.40 AND</text>
+<text x="448.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">hash(id) % 100 &lt; 5</text>
+<rect x="442.0" y="275.0" width="155.0" height="125.0" rx="4" fill="#fdf4ff" stroke="#9333ea" stroke-width="0.8"/>
+<text x="448.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#9333ea" text-anchor="start" font-weight="700">Continuous Match:</text>
+<text x="448.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">При зміні fw -&gt; 2.2.0</text>
+<text x="448.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">пристрій АВТОМАТИЧНО</text>
+<text x="448.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">вибуває з вибірки</text>
+<text x="448.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">без ручного втручання</text>
+<text x="448.0" y="381.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">і без блокування бази.</text>
+<line x1="607.0" y1="245.0" x2="633.0" y2="245.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="633.0" y="75.0" width="175.0" height="340.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<rect x="633.0" y="75.0" width="175.0" height="32.0" rx="6" fill="#e2e8f0" stroke="#333333" stroke-width="1.0"/>
+<text x="720.5" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. Цільові кампанії</text>
+<rect x="643.0" y="125.0" width="155.0" height="80.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="649.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Поетапне OTA (Canary):</text>
+<text x="649.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">1% -&gt; 10% -&gt; 50% -&gt; 100%</text>
+<text x="649.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">Автозупинка при помилках</text>
+<text x="649.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">і відкат на слот B</text>
+<rect x="643.0" y="220.0" width="155.0" height="80.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="649.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Масова переконфігурація:</text>
+<text x="649.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Зміна URL брокера / ключів</text>
+<text x="649.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">за тегом region / site</text>
+<text x="649.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">без пікового шторму</text>
+<rect x="643.0" y="315.0" width="155.0" height="85.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="649.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Аудит та комплаєнс:</text>
+<text x="649.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Миттєвий підрахунок</text>
+<text x="649.0" y="369.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">вразливих або застарілих</text>
+<text x="649.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">вузлів у всій системі</text>
+<rect x="30.0" y="425.0" width="780.0" height="44.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="0.8"/>
+<text x="420.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Запити виконуються декларативно над індексами реєстру без побайтового перебору парку (Full Table Scan).</text>
+</svg>

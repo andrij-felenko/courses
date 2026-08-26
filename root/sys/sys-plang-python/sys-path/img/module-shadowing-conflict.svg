@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм затінення модулів (Module Shadowing) через пріоритет sys.path[0]</text>
+<rect x="40.0" y="70.0" width="260.0" height="410.0" rx="8" fill="#fff2f0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="170.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">1. Каталог скрипту / cwd</text>
+<text x="170.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">sys.path[0] = /project/workspace</text>
+<line x1="50.0" y1="124.0" x2="290.0" y2="124.0" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="52.0" y="145.0" width="236.0" height="52.0" rx="5" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="62.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">main.py</text>
+<text x="62.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">точка входу застосунку</text>
+<rect x="52.0" y="210.0" width="236.0" height="52.0" rx="5" fill="#ffdcd6" stroke="#c0392b" stroke-width="1.2"/>
+<text x="62.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">math.py</text>
+<text x="62.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">⚠️ НЕБЕЗПЕЧНИЙ ЛОКАЛЬНИЙ ФАЙЛ</text>
+<rect x="52.0" y="275.0" width="236.0" height="52.0" rx="5" fill="#ffdcd6" stroke="#c0392b" stroke-width="1.2"/>
+<text x="62.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">random.py</text>
+<text x="62.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">⚠️ ЗАТІНЯЄ STDLIB random</text>
+<rect x="52.0" y="340.0" width="236.0" height="52.0" rx="5" fill="#ffdcd6" stroke="#c0392b" stroke-width="1.2"/>
+<text x="62.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">test.py</text>
+<text x="62.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">⚠️ ЗАТІНЯЄ STDLIB test</text>
+<rect x="52.0" y="405.0" width="236.0" height="52.0" rx="5" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="62.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">utils.py</text>
+<text x="62.0" y="443.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">користувацький модуль</text>
+<rect x="350.0" y="70.0" width="260.0" height="410.0" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.8"/>
+<text x="480.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">2. Ітерація по sys.path</text>
+<text x="480.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">PathFinder шукає math.py</text>
+<line x1="360.0" y1="124.0" x2="600.0" y2="124.0" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="362.0" y="145.0" width="236.0" height="52.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="372.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">[0] /project/workspace</text>
+<text x="372.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">Перший у списку! Знайдено math.py</text>
+<rect x="362.0" y="210.0" width="236.0" height="52.0" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="372.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">[1] PYTHONPATH entries</text>
+<text x="372.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Пропускається, бо знайдено на кроці [0]</text>
+<rect x="362.0" y="275.0" width="236.0" height="52.0" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="372.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">[2] /usr/lib/python3.12</text>
+<text x="372.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Каталог стандартної бібліотеки</text>
+<rect x="362.0" y="340.0" width="236.0" height="52.0" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="372.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">[3] .../lib-dynload</text>
+<text x="372.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">math.cpython-312-x86_64-linux.so</text>
+<rect x="362.0" y="405.0" width="236.0" height="52.0" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="372.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">[4] .../site-packages</text>
+<text x="372.0" y="443.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Сторонні встановлені бібліотеки</text>
+<rect x="660.0" y="70.0" width="260.0" height="410.0" rx="8" fill="#fff2f0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="790.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">3. Наслідок виконання</text>
+<text x="790.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Помилки імпорту та аварія</text>
+<line x1="670.0" y1="124.0" x2="910.0" y2="124.0" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="672.0" y="145.0" width="236.0" height="52.0" rx="5" fill="#ffdcd6" stroke="#c0392b" stroke-width="1.2"/>
+<text x="682.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Завантаження фейкового math</text>
+<text x="682.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Замість C-модуля завантажено локальний math.py</text>
+<rect x="672.0" y="210.0" width="236.0" height="52.0" rx="5" fill="#ffdcd6" stroke="#c0392b" stroke-width="1.2"/>
+<text x="682.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Збій внутрішніх модулів</text>
+<text x="682.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">random або datetime викликають import math і падають</text>
+<rect x="672.0" y="275.0" width="236.0" height="52.0" rx="5" fill="#ffdcd6" stroke="#c0392b" stroke-width="1.2"/>
+<text x="682.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">AttributeError: module 'math'...</text>
+<text x="682.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">has no attribute 'sqrt' або 'sin'</text>
+<rect x="672.0" y="340.0" width="236.0" height="52.0" rx="5" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="682.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Крихітний захист: python -P</text>
+<text x="682.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Вилучає [0] та блокує локальне затінення</text>
+<rect x="672.0" y="405.0" width="236.0" height="52.0" rx="5" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="682.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Правильне рішення:</text>
+<text x="682.0" y="443.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Унікальні назви файлів + src/ layout</text>
+<line x1="302.0" y1="180.0" x2="346.0" y2="180.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="612.0" y1="180.0" x2="656.0" y2="180.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

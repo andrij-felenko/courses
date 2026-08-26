@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ілюзія захисту: три сценарії, де просте скидання сторожа не рятує від аварії</text>
+<text x="440.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">сторож бачить лише факт виклику команди перезаряджання, а не правильність роботи алгоритму</text>
+<rect x="24.0" y="68.0" width="264.0" height="332.0" rx="8" fill="#fdfefe" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="24.0" y="68.0" width="264.0" height="38.0" rx="8" fill="#fbe9e7" stroke="#c0392b" stroke-width="1.5"/>
+<text x="156.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">1. Скидання в таймері (ISR)</text>
+<rect x="38.0" y="120.0" width="236.0" height="54.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="156.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Головний потік: DEADLOCK</text>
+<text x="156.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">застряг у mutex / очікуванні I2C</text>
+<rect x="38.0" y="192.0" width="236.0" height="58.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.4"/>
+<text x="156.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">SysTick ISR (кожні 10 мс)</text>
+<text x="156.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">IWDG-&gt;KR = 0xAAAA (OK)</text>
+<line x1="156.0" y1="252.0" x2="156.0" y2="280.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="38.0" y="286.0" width="236.0" height="98.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.4"/>
+<text x="156.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Апаратний WDT ситий</text>
+<text x="156.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Переривання активні, але логіка</text>
+<text x="156.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">керування мертва. Мотор крутить,</text>
+<text x="156.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ресета немає годинами!</text>
+<rect x="312.0" y="68.0" width="264.0" height="332.0" rx="8" fill="#fdfefe" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="312.0" y="68.0" width="264.0" height="38.0" rx="8" fill="#fff3e0" stroke="#e67e22" stroke-width="1.5"/>
+<text x="444.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d35400" text-anchor="middle" font-weight="700">2. Холостий цикл помилки</text>
+<rect x="326.0" y="120.0" width="236.0" height="54.0" rx="6" fill="#fff8e1" stroke="#f39c12" stroke-width="1.4"/>
+<text x="444.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">while (1) { step(); kick(); }</text>
+<text x="444.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">step() повертає ERR_TIMEOUT</text>
+<rect x="326.0" y="192.0" width="236.0" height="58.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="444.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Швидкий холостий біг</text>
+<text x="444.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">100 000 ітерацій помилки/с</text>
+<line x1="444.0" y1="252.0" x2="444.0" y2="280.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="326.0" y="286.0" width="236.0" height="98.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.4"/>
+<text x="444.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">WDT скидається в 1000x частіше</text>
+<text x="444.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Корисна робота не виконується,</text>
+<text x="444.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">буфери переповнюються, але</text>
+<text x="444.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">сторож не фіксує аварії!</text>
+<rect x="600.0" y="68.0" width="264.0" height="332.0" rx="8" fill="#fdfefe" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="600.0" y="68.0" width="264.0" height="38.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="732.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">3. Голодування потоку в RTOS</text>
+<rect x="614.0" y="120.0" width="236.0" height="54.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="732.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Потік A (Priority High): OK</text>
+<text x="732.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">захопив 100% CPU й скидає WDT</text>
+<rect x="614.0" y="192.0" width="236.0" height="58.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="732.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Потік B (Priority Low): STARVED</text>
+<text x="732.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">безпековий монітор не отримує квант</text>
+<line x1="732.0" y1="252.0" x2="732.0" y2="280.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="614.0" y="286.0" width="236.0" height="98.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.4"/>
+<text x="732.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Частковий параліч системи</text>
+<text x="732.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Один потік живе й годує WDT,</text>
+<text x="732.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">інші критичні задачі заморожені.</text>
+<text x="732.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Система деградує непомітно.</text>
+<text x="440.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">Висновок: скидання сторожа має свідчити про успішний крок ВСІХ компонентів системи, а не просто про роботу таймера.</text>
+</svg>

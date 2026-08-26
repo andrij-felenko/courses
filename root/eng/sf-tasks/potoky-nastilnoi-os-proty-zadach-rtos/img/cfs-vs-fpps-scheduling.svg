@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Цілі планування: справедливий розподіл (CFS) проти суворого витіснення (FPPS)</text>
+<text x="420.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Linux CFS мінімізує нерівність vruntime; RTOS FPPS завжди віддає CPU найвищому пріоритету</text>
+<rect x="30.0" y="68.0" width="375.0" height="305.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="217.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Linux CFS (Completely Fair Scheduler)</text>
+<text x="217.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Оптимізація: пропускна здатність і чесність</text>
+<rect x="162.0" y="128.0" width="110.0" height="30.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="217.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">vruntime = 142 ms</text>
+<line x1="180.0" y1="158.0" x2="115.0" y2="188.0" stroke="#2457d6" stroke-width="1.2"/>
+<line x1="255.0" y1="158.0" x2="320.0" y2="188.0" stroke="#2457d6" stroke-width="1.2"/>
+<rect x="55.0" y="188.0" width="120.0" height="42.0" rx="4" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.6"/>
+<text x="115.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Потік A (лівий)</text>
+<text x="115.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">vruntime = 98 ms (RUN)</text>
+<rect x="260.0" y="188.0" width="120.0" height="42.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="320.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік C (правий)</text>
+<text x="320.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">vruntime = 195 ms</text>
+<rect x="45.0" y="246.0" width="345.0" height="112.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="217.5" y="281.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="217.5" dy="0.0">• Квант часу розраховується динамічно (sched_latency).</tspan><tspan x="217.5" dy="11.7">• Кожен потік отримує частку CPU згідно зі своєю вагою (nice).</tspan><tspan x="217.5" dy="11.7">• Потік, що прокинувся, не витісняє поточний миттєво,</tspan><tspan x="217.5" dy="11.7">  якщо різниця vruntime менша за поріг гранулярності.</tspan><tspan x="217.5" dy="11.7">• Орієнтація на інтерактивність та утилізацію ядер.</tspan></text>
+<rect x="435.0" y="68.0" width="375.0" height="305.0" rx="8" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="622.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">RTOS FPPS (Fixed-Priority Preemptive)</text>
+<text x="622.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Оптимізація: детермінований дедлайн і своєчасність</text>
+<text x="622.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ready Bitmap (32 біти пріоритетів):</text>
+<rect x="455.0" y="146.0" width="335.0" height="36.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<rect x="457.0" y="148.0" width="38.0" height="32.0" rx="2" fill="#ffffff" stroke="#6b7280" stroke-width="0.6"/>
+<text x="476.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">P7</text>
+<text x="476.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<rect x="499.0" y="148.0" width="38.0" height="32.0" rx="2" fill="#ffffff" stroke="#6b7280" stroke-width="0.6"/>
+<text x="518.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">P6</text>
+<text x="518.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<rect x="541.0" y="148.0" width="38.0" height="32.0" rx="2" fill="#fdecea" stroke="#6b7280" stroke-width="0.6"/>
+<text x="560.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">P5</text>
+<text x="560.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">1</text>
+<rect x="583.0" y="148.0" width="38.0" height="32.0" rx="2" fill="#ffffff" stroke="#6b7280" stroke-width="0.6"/>
+<text x="602.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">P4</text>
+<text x="602.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<rect x="625.0" y="148.0" width="38.0" height="32.0" rx="2" fill="#ffffff" stroke="#6b7280" stroke-width="0.6"/>
+<text x="644.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">P3</text>
+<text x="644.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<rect x="667.0" y="148.0" width="38.0" height="32.0" rx="2" fill="#eaf0fd" stroke="#6b7280" stroke-width="0.6"/>
+<text x="686.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">P2</text>
+<text x="686.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">1</text>
+<rect x="709.0" y="148.0" width="38.0" height="32.0" rx="2" fill="#ffffff" stroke="#6b7280" stroke-width="0.6"/>
+<text x="728.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">P1</text>
+<text x="728.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<rect x="751.0" y="148.0" width="38.0" height="32.0" rx="2" fill="#ffffff" stroke="#6b7280" stroke-width="0.6"/>
+<text x="770.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">P0</text>
+<text x="770.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<text x="622.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Пошук за 1 такт: CLZ (Count Leading Zeros) = O(1)</text>
+<text x="622.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">P5 готова → негайне витіснення поточної P2</text>
+<rect x="450.0" y="235.0" width="345.0" height="124.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="622.5" y="276.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="622.5" dy="0.0">• Абсолютне право витіснення: вищий пріоритет завжди біжить.</tspan><tspan x="622.5" dy="11.7">• Немає поділу часу між нерівними пріоритетами.</tspan><tspan x="622.5" dy="11.7">• Затримка старту задачі P5 строго детермінована й дорівнює</tspan><tspan x="622.5" dy="11.7">  часу перемикання контексту (WCET відомий наперед).</tspan><tspan x="622.5" dy="11.7">• Низькі пріоритети голодують, доки високі мають роботу.</tspan></text>
+<rect x="30.0" y="385.0" width="780.0" height="44.0" rx="6" fill="#fff7e6" stroke="#caa24a" stroke-width="1.5"/><text x="420.0" y="403.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">Висновок: CFS гарантує справедливість і пропускну здатність, але не дає детермінізму дедлайнів.</tspan><tspan x="420.0" dy="13.7">FPPS гарантує своєчасність критичної задачі, свідомо жертвуючи чесністю щодо решти задач.</tspan></text>
+</svg>

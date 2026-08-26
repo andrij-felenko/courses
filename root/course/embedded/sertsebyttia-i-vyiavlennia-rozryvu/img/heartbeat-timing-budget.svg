@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часовий бюджет Heartbeat: період, пропуски та джитер</text>
+<text x="80.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Регулярний пульс і лічильник втрат N = 3</text>
+<line x1="80.0" y1="130.0" x2="880.0" y2="130.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="890.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Час (t)</text>
+<line x1="144.0" y1="102.0" x2="144.0" y2="130.0" stroke="#27ae60" stroke-width="2.5"/>
+<circle cx="144.0" cy="102.0" r="4.0" fill="#27ae60" stroke="none" stroke-width="0.0"/>
+<text x="144.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">HB #1</text>
+<text x="144.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">ACK ✓</text>
+<line x1="256.0" y1="102.0" x2="256.0" y2="130.0" stroke="#27ae60" stroke-width="2.5"/>
+<circle cx="256.0" cy="102.0" r="4.0" fill="#27ae60" stroke="none" stroke-width="0.0"/>
+<text x="256.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">HB #2</text>
+<text x="256.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">ACK ✓</text>
+<line x1="368.0" y1="102.0" x2="368.0" y2="130.0" stroke="#27ae60" stroke-width="2.5"/>
+<circle cx="368.0" cy="102.0" r="4.0" fill="#27ae60" stroke="none" stroke-width="0.0"/>
+<text x="368.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">HB #3</text>
+<text x="368.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">ACK ✓</text>
+<line x1="144.0" y1="118.0" x2="256.0" y2="118.0" stroke="#2457d6" stroke-width="1.5"/>
+<text x="200.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">T_hb (період)</text>
+<line x1="432.0" y1="85.0" x2="432.0" y2="175.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4 3"/>
+<text x="432.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ОБРИВ ЛІНІЇ</text>
+<line x1="480.0" y1="102.0" x2="480.0" y2="130.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="3 3"/>
+<text x="480.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">✕</text>
+<text x="480.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Пропуск 1</text>
+<line x1="592.0" y1="102.0" x2="592.0" y2="130.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="3 3"/>
+<text x="592.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">✕</text>
+<text x="592.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Пропуск 2</text>
+<line x1="704.0" y1="102.0" x2="704.0" y2="130.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="3 3"/>
+<text x="704.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">✕</text>
+<text x="704.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Пропуск 3</text>
+<rect x="689.0" y="100.0" width="95.0" height="42.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="736.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">FAILSAFE!</text>
+<text x="736.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Аварійний стоп</text>
+<line x1="432.0" y1="170.0" x2="729.0" y2="170.0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="580.5" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Час реакції T_fail = N × T_hb + запас</text>
+<text x="80.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Захист від резонансу пакетів (Heartbeat Jitter)</text>
+<rect x="85.0" y="330.5" width="370.0" height="69.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="270.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="270.0" dy="0.0">БЕЗ ДЖИТЕРА (жорсткий таймер):</tspan><tspan x="270.0" dy="13.0">100 датчиків увімкнулися одночасно</tspan><tspan x="270.0" dy="13.0">→ шлють HB кожні строго 1000 мс</tspan><tspan x="270.0" dy="13.0">→ шторм колізій в ефірі щосекунди.</tspan></text>
+<rect x="485.0" y="330.5" width="390.0" height="69.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="680.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="680.0" dy="0.0">З ДЖИТЕРОМ (рандомізація ±15%):</tspan><tspan x="680.0" dy="13.0">Період = T_hb ± rand(-0.15, +0.15) × T_hb</tspan><tspan x="680.0" dy="13.0">→ фази імпульсів розмазуються в часі</tspan><tspan x="680.0" dy="13.0">→ навантаження на канал рівномірне.</tspan></text>
+</svg>

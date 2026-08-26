@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратні джерела скидання та мультиплексор RCC_CSR</text>
+<text x="480.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">фізичні тригери защіпаються в регістрах стану; без раннього очищення прапорці накопичуються</text>
+<rect x="50.0" y="80.0" width="240.0" height="42.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="62.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">POR / PDR</text>
+<text x="62.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Холодний старт / подача живлення 3.3 В</text>
+<line x1="290.0" y1="101.0" x2="360.0" y2="225.0" stroke="#c0392b" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="50.0" y="136.0" width="240.0" height="42.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="62.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">BOR / BOD</text>
+<text x="62.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Просідання напруги нижче порогу (Brownout)</text>
+<line x1="290.0" y1="157.0" x2="360.0" y2="225.0" stroke="#c0392b" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="50.0" y="192.0" width="240.0" height="42.0" rx="6" fill="#fdf6e3" stroke="#b08900" stroke-width="1.5"/>
+<text x="62.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b08900" text-anchor="start" font-weight="700">IWDG</text>
+<text x="62.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Таймаут незалежного сторожового таймера</text>
+<line x1="290.0" y1="213.0" x2="360.0" y2="225.0" stroke="#b08900" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="50.0" y="248.0" width="240.0" height="42.0" rx="6" fill="#fdf6e3" stroke="#b08900" stroke-width="1.5"/>
+<text x="62.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b08900" text-anchor="start" font-weight="700">WWDG</text>
+<text x="62.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Порушення вікна віконного сторожового таймера</text>
+<line x1="290.0" y1="269.0" x2="360.0" y2="225.0" stroke="#b08900" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="50.0" y="304.0" width="240.0" height="42.0" rx="6" fill="#f3e8ff" stroke="#6b21a8" stroke-width="1.5"/>
+<text x="62.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b21a8" text-anchor="start" font-weight="700">SFT / NVIC</text>
+<text x="62.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Програмне скидання (NVIC_SystemReset / Assert)</text>
+<line x1="290.0" y1="325.0" x2="360.0" y2="225.0" stroke="#6b21a8" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="50.0" y="360.0" width="240.0" height="42.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="62.0" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">PIN / NRST</text>
+<text x="62.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Зовнішня кнопка, супервізор або SWD-дебагер</text>
+<line x1="290.0" y1="381.0" x2="360.0" y2="225.0" stroke="#2457d6" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="360.0" y="110.0" width="230.0" height="230.0" rx="8" fill="#eef2f7" stroke="#333333" stroke-width="2.0"/>
+<text x="475.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Контролер скидання</text>
+<text x="475.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Регістр RCC_CSR / RMU</text>
+<rect x="375.0" y="170.0" width="200.0" height="24.0" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="385.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">bit [26]  LPWRRSTF</text>
+<rect x="375.0" y="198.0" width="200.0" height="24.0" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="385.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">bit [27]  WWDGRSTF</text>
+<rect x="375.0" y="226.0" width="200.0" height="24.0" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="385.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">bit [28]  IWDGRSTF</text>
+<rect x="375.0" y="254.0" width="200.0" height="24.0" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="385.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">bit [29]  SFTRSTF</text>
+<rect x="375.0" y="282.0" width="200.0" height="24.0" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="385.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">bit [30]  PORRSTF</text>
+<rect x="375.0" y="310.0" width="200.0" height="24.0" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="385.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">bit [31]  PINRSTF</text>
+<line x1="590.0" y1="225.0" x2="660.0" y2="225.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="625.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">RESET</text>
+<rect x="660.0" y="80.0" width="250.0" height="290.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="785.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Пастка «липких» бітів</text>
+<text x="672.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">1. Холодний старт (POR):</text>
+<text x="676.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Встановлено: POR + PIN</text>
+<text x="672.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">2. Робота пристрою...</text>
+<text x="676.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Прапорці залишаються 1!</text>
+<text x="672.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b08900" text-anchor="start" font-weight="700">3. Збій за Watchdog (IWDG):</text>
+<text x="676.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Встановлено: IWDG + POR + PIN</text>
+<text x="672.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">4. Без очищення (RMVF):</text>
+<text x="676.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Діагноз хибний: 'Cold Boot?!'</text>
+<text x="672.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">5. Правило bootloader/main:</text>
+<text x="676.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Зчитати RCC_CSR → у RAM,</text>
+<text x="676.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">негайно RCC_CSR |= RMVF!</text>
+<rect x="63.6" y="419.2" width="832.8" height="31.5" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/><text x="480.0" y="439.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">Прапорці скидання є апаратно накопичувальними. Читайте стан на першому рядку main() та одразу скидайте бітом RMVF.</tspan></text>
+</svg>

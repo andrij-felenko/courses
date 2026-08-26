@@ -17,7 +17,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -91,8 +91,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-joule-vs-mah.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-atomic-energy-benchmark.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -507,8 +519,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-holdup-energy.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "power-spec-template",
@@ -567,8 +585,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-interconnect-families.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-harness-calculator.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "naskriznyi-rozrakhunok",
@@ -577,8 +607,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-trace-heating.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-power-path-calc.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -637,8 +679,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-peukert-pulsed.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-electronic-load.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "vybir-paketa-pid-profil-strumu",
@@ -647,8 +701,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-voltage-sag-budget.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-depassivation-routine.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -727,8 +793,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-fat-test-runner.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -817,7 +889,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -827,8 +899,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-winter-energy-balance.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -843,7 +921,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -877,8 +955,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-harvester-pmic.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-capacitance-sizing.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -901,8 +991,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-duty-cycle-optimization.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-duty-cycle-calculator.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "tsina-probudzhennia",
@@ -911,8 +1013,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-crystal-startup.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-crystal-startup-energy.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-wake-benchmark.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "hw-components/power-gating",
@@ -935,8 +1055,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-leakage-budget.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-low-power-pins.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "hw-arch/rtc-memory",
@@ -953,8 +1085,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-toa-energy-model.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sf-devices/graceful-degradation",

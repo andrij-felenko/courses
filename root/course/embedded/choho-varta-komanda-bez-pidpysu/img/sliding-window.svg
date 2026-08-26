@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 865 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="865" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ковзне вікно захисту від повтору (64-бітна бітова маска)</text>
+<line x1="40.0" y1="48.0" x2="780.0" y2="48.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="770.0" y1="48.0" x2="800.0" y2="48.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="805.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">SeqNum →</text>
+<rect x="40.0" y="65.0" width="230.0" height="95.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="155.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Застарілі пакети (Seq &lt; Max - 63)</text>
+<text x="155.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">diff &gt;= 64 → ВІДХИЛ</text>
+<text x="155.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Діапазон 0 .. 1036</text>
+<rect x="285.0" y="60.0" width="340.0" height="105.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="455.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Ковзне вікно W = 64 біти [Max - 63 .. Max]</text>
+<text x="455.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Діапазон 1037 .. 1100 (MaxSeq = 1100)</text>
+<rect x="301.0" y="115.0" width="22.0" height="26.0" rx="6" fill="#c8e6c9" stroke="#333333" stroke-width="1.0"/>
+<text x="312.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">1</text>
+<rect x="325.0" y="115.0" width="22.0" height="26.0" rx="6" fill="#c8e6c9" stroke="#333333" stroke-width="1.0"/>
+<text x="336.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">1</text>
+<rect x="349.0" y="115.0" width="22.0" height="26.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="360.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<rect x="373.0" y="115.0" width="22.0" height="26.0" rx="6" fill="#c8e6c9" stroke="#333333" stroke-width="1.0"/>
+<text x="384.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">1</text>
+<rect x="397.0" y="115.0" width="22.0" height="26.0" rx="6" fill="#c8e6c9" stroke="#333333" stroke-width="1.0"/>
+<text x="408.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">1</text>
+<rect x="421.0" y="115.0" width="22.0" height="26.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="432.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<rect x="445.0" y="115.0" width="22.0" height="26.0" rx="6" fill="#c8e6c9" stroke="#333333" stroke-width="1.0"/>
+<text x="456.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">1</text>
+<rect x="469.0" y="115.0" width="22.0" height="26.0" rx="6" fill="#c8e6c9" stroke="#333333" stroke-width="1.0"/>
+<text x="480.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">1</text>
+<rect x="493.0" y="115.0" width="22.0" height="26.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="504.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<rect x="517.0" y="115.0" width="22.0" height="26.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="528.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<rect x="541.0" y="115.0" width="22.0" height="26.0" rx="6" fill="#c8e6c9" stroke="#333333" stroke-width="1.0"/>
+<text x="552.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">1</text>
+<rect x="565.0" y="115.0" width="22.0" height="26.0" rx="6" fill="#c8e6c9" stroke="#333333" stroke-width="1.0"/>
+<text x="576.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">1</text>
+<text x="605.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle" font-weight="700">...</text>
+<rect x="640.0" y="65.0" width="160.0" height="95.0" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="720.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Майбутні пакети</text>
+<text x="720.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Seq &gt; MaxSeq</text>
+<text x="720.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Зсув маски: &lt;&lt; shift</text>
+<rect x="40.0" y="185.0" width="240.0" height="155.0" rx="6" fill="#fff7f5" stroke="#c0392b" stroke-width="1.5"/><text x="160.0" y="230.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="160.0" dy="0.0">Сценарій 1: Повтор</tspan><tspan x="160.0" dy="14.3">Кадр Seq = 1098 (біт 2 вже 1)</tspan><tspan x="160.0" dy="14.3"></tspan><tspan x="160.0" dy="14.3">• diff = 1100 - 1098 = 2 &lt; 64</tspan><tspan x="160.0" dy="14.3">• (mask &amp; (1ULL &lt;&lt; 2)) != 0</tspan><tspan x="160.0" dy="14.3">✗ ВІДХИЛЕНО: дублікат!</tspan></text>
+<rect x="295.0" y="185.0" width="240.0" height="155.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="415.0" y="230.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="415.0" dy="0.0">Сценарій 2: Запізнілий кадр</tspan><tspan x="415.0" dy="14.3">Кадр Seq = 1095 (біт 5 був 0)</tspan><tspan x="415.0" dy="14.3"></tspan><tspan x="415.0" dy="14.3">• diff = 1100 - 1095 = 5 &lt; 64</tspan><tspan x="415.0" dy="14.3">• (mask &amp; (1ULL &lt;&lt; 5)) == 0</tspan><tspan x="415.0" dy="14.3">✓ ПРИЙНЯТО! mask |= (1ULL &lt;&lt; 5)</tspan></text>
+<rect x="550.0" y="185.0" width="240.0" height="155.0" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="1.5"/><text x="670.0" y="230.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="670.0" dy="0.0">Сценарій 3: Новий лідер</tspan><tspan x="670.0" dy="14.3">Кадр Seq = 1104 (&gt; 1100)</tspan><tspan x="670.0" dy="14.3"></tspan><tspan x="670.0" dy="14.3">• shift = 1104 - 1100 = 4</tspan><tspan x="670.0" dy="14.3">• mask = (mask &lt;&lt; 4) | 1ULL</tspan><tspan x="670.0" dy="14.3">• MaxSeq = 1104. ✓ ПРИЙНЯТО!</tspan></text>
+</svg>

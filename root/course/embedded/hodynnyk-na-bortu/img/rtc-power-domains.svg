@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 350" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="350" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розділення доменів живлення мікроконтролера та живлення RTC</text>
+<rect x="40.0" y="60.0" width="240.0" height="230.0" rx="8" fill="#f8fafc" stroke="#2457d6" stroke-width="1.8"/>
+<text x="160.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">ГОЛОВНИЙ ДОМЕН (VDD)</text>
+<rect x="60.0" y="105.0" width="200.0" height="36.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="160.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="160.0" dy="0.0">Ядро процесора (CPU)</tspan><tspan x="160.0" dy="13.0">240 МГц / 160 МГц</tspan></text>
+<rect x="60.0" y="150.0" width="200.0" height="36.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="160.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="160.0" dy="0.0">SRAM та Flash-пам'ять</tspan><tspan x="160.0" dy="13.0">Скидається при знеструмленні</tspan></text>
+<rect x="60.0" y="195.0" width="200.0" height="36.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="160.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="160.0" dy="0.0">Високошвидкісна периферія</tspan><tspan x="160.0" dy="13.0">Шини APB / AHB, DMA</tspan></text>
+<text x="160.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Струм споживання: 20–150 мА</text>
+<rect x="320.0" y="115.0" width="120.0" height="120.0" rx="8" fill="#eef3ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="380.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">Автоматичний</tspan><tspan x="380.0" dy="13.7">перемикач</tspan><tspan x="380.0" dy="13.7">(Power Switch)</tspan></text>
+<text x="380.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">VDD &gt; 2.0V → VDD
+VDD &lt; 2.0V → VBAT</text>
+<rect x="480.0" y="60.0" width="240.0" height="230.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="600.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">РЕЗЕРВНИЙ ДОМЕН (AON / VBAT)</text>
+<rect x="500.0" y="105.0" width="200.0" height="36.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="600.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">Апаратний RTC-лічильник</tspan><tspan x="600.0" dy="13.0">Секунди, субсекунди, дата</tspan></text>
+<rect x="500.0" y="150.0" width="200.0" height="36.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="600.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">Генератор LSE 32.768 кГц</tspan><tspan x="600.0" dy="13.0">Камертонний кварц</tspan></text>
+<rect x="500.0" y="195.0" width="200.0" height="36.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="600.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">Backup SRAM (калібрування)</tspan><tspan x="600.0" dy="13.0">Регістри збереження стану</tspan></text>
+<text x="600.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Струм споживання: 300–800 нА</text>
+<line x1="280.0" y1="150.0" x2="320.0" y2="150.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="300.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">VDD</text>
+<line x1="380.0" y1="280.0" x2="380.0" y2="235.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<circle cx="380.0" cy="298.0" r="14.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="380.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">BAT</text>
+<text x="380.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">CR2032 / Іоністор</text>
+<line x1="440.0" y1="175.0" x2="480.0" y2="175.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="460.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">V_RTC</text>
+</svg>

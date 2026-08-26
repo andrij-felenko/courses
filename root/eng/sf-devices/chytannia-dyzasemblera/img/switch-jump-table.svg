@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Таблиця переходів switch-case (TBB) у Thumb-2</text>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм таблиці переходів Thumb-2: від індексу до виконання гілки</text>
+<rect x="40.0" y="65.0" width="210.0" height="120.0" rx="5" fill="#f0e6fa" stroke="#7d3c98" stroke-width="1.6"/>
+<text x="145.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7d3c98" text-anchor="middle" font-weight="700">1. Перевірка діапазону</text>
+<text x="145.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="145.0" dy="0.0">CMP  R0, #4</tspan><tspan x="145.0" dy="12.5">BHI  .L_default</tspan><tspan x="145.0" dy="12.5"></tspan><tspan x="145.0" dy="12.5">Перевіряє, чи індекс</tspan><tspan x="145.0" dy="12.5">вкладається в межі [0..max]</tspan></text>
+<line x1="250.0" y1="125.0" x2="290.0" y2="125.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="290.0" y="65.0" width="220.0" height="120.0" rx="5" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.8"/>
+<text x="400.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e8449" text-anchor="middle" font-weight="700">2. Інструкція TBB [PC, Rm]</text>
+<text x="400.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="400.0" dy="0.0">TBB  [PC, R0]</tspan><tspan x="400.0" dy="12.5"></tspan><tspan x="400.0" dy="12.5">Обчислює адресу переходу:</tspan><tspan x="400.0" dy="12.5">PC += 2 * Table[R0]</tspan><tspan x="400.0" dy="12.5">Виконує атомарний стрибок</tspan></text>
+<line x1="510.0" y1="125.0" x2="550.0" y2="125.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="550.0" y="65.0" width="230.0" height="120.0" rx="5" fill="#d6eaf8" stroke="#1a5276" stroke-width="1.6"/>
+<text x="665.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a5276" text-anchor="middle" font-weight="700">3. Таблиця зміщень у Flash</text>
+<text x="665.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="665.0" dy="0.0">.L_table:</tspan><tspan x="665.0" dy="11.4">.byte (.L_case0 - .L_table)/2</tspan><tspan x="665.0" dy="11.4">.byte (.L_case1 - .L_table)/2</tspan><tspan x="665.0" dy="11.4">.byte (.L_case2 - .L_table)/2</tspan><tspan x="665.0" dy="11.4">.byte (.L_case3 - .L_table)/2</tspan></text>
+<text x="410.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Цільові мітки обробників гілок case у Flash-пам'яті</text>
+<rect x="40.0" y="235.0" width="135.0" height="85.0" rx="4" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.4"/>
+<text x="107.5" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e8449" text-anchor="middle" font-weight="700">.L_case0</text>
+<text x="107.5" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="107.5" dy="0.0">Обробник режиму 0</tspan><tspan x="107.5" dy="11.4">STR R1, [R2, #0]</tspan><tspan x="107.5" dy="11.4">B   .L_exit</tspan></text>
+<rect x="195.0" y="235.0" width="135.0" height="85.0" rx="4" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.4"/>
+<text x="262.5" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e8449" text-anchor="middle" font-weight="700">.L_case1</text>
+<text x="262.5" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="262.5" dy="0.0">Обробник режиму 1</tspan><tspan x="262.5" dy="11.4">ADD R1, R1, #1</tspan><tspan x="262.5" dy="11.4">B   .L_exit</tspan></text>
+<rect x="350.0" y="235.0" width="135.0" height="85.0" rx="4" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.4"/>
+<text x="417.5" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e8449" text-anchor="middle" font-weight="700">.L_case2</text>
+<text x="417.5" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="417.5" dy="0.0">Обробник режиму 2</tspan><tspan x="417.5" dy="11.4">BL  process_tx</tspan><tspan x="417.5" dy="11.4">B   .L_exit</tspan></text>
+<rect x="505.0" y="235.0" width="135.0" height="85.0" rx="4" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.4"/>
+<text x="572.5" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e8449" text-anchor="middle" font-weight="700">.L_case3</text>
+<text x="572.5" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="572.5" dy="0.0">Обробник режиму 3</tspan><tspan x="572.5" dy="11.4">MOV R0, #0</tspan><tspan x="572.5" dy="11.4">B   .L_exit</tspan></text>
+<rect x="660.0" y="235.0" width="120.0" height="85.0" rx="4" fill="#fadbd8" stroke="#c0392b" stroke-width="1.4"/>
+<text x="720.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">.L_default</text>
+<text x="720.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="720.0" dy="0.0">Гілка default</tspan><tspan x="720.0" dy="11.4">BL  panic_error</tspan><tspan x="720.0" dy="11.4">B   .L_exit</tspan></text>
+<line x1="600.0" y1="185.0" x2="107.0" y2="235.0" stroke="#1e8449" stroke-width="1.4" stroke-dasharray="3,3"/>
+<line x1="630.0" y1="185.0" x2="262.0" y2="235.0" stroke="#1e8449" stroke-width="1.4" stroke-dasharray="3,3"/>
+<line x1="665.0" y1="185.0" x2="417.0" y2="235.0" stroke="#1e8449" stroke-width="1.4" stroke-dasharray="3,3"/>
+<line x1="700.0" y1="185.0" x2="572.0" y2="235.0" stroke="#1e8449" stroke-width="1.4" stroke-dasharray="3,3"/>
+<line x1="145.0" y1="185.0" x2="720.0" y2="235.0" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="3,3"/>
+<text x="410.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">TBB забезпечує час переходу O(1) незалежно від кількості варіантів case у щільних діапазонах</text>
+</svg>

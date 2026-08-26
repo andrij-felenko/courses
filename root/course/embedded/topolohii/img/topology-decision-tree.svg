@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дерево рішень: вибір мережевої топології під інженерні вимоги системи</text>
+<rect x="340.0" y="35.0" width="260.0" height="45.0" rx="6" fill="#f1f5f9" stroke="#333333" stroke-width="1.8"/>
+<text x="470.0" y="54.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чи потрібен хаб/інтернет,</text>
+<text x="470.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">чи обмін суто автономний між парою?</text>
+<line x1="600.0" y1="57.0" x2="720.0" y2="57.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="660.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Суто між парою</text>
+<rect x="720.0" y="35.0" width="180.0" height="50.0" rx="6" fill="#fdf2f4" stroke="#c0392b" stroke-width="2.0"/>
+<text x="810.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Однорангова (P2P)</text>
+<text x="810.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ESP-NOW, Wi-Fi Direct</text>
+<line x1="470.0" y1="80.0" x2="470.0" y2="130.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="480.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">Зв'язана система</text>
+<rect x="320.0" y="130.0" width="300.0" height="45.0" rx="6" fill="#f1f5f9" stroke="#333333" stroke-width="1.8"/>
+<text x="470.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чи покриває прямий радіолінк</text>
+<text x="470.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">усі вузли від одного хаба?</text>
+<line x1="320.0" y1="152.0" x2="190.0" y2="152.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="250.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Так, 1 хоп (пряма видимість)</text>
+<rect x="40.0" y="130.0" width="150.0" height="95.0" rx="6" fill="#eef4fb" stroke="#2457d6" stroke-width="2.0"/>
+<text x="115.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Зірка (Star)</text>
+<text x="115.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">LoRaWAN / BLE / Wi-Fi</text>
+<text x="115.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">• Батарея на 5–10 років</text>
+<text x="115.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Проста прошивка</text>
+<line x1="470.0" y1="175.0" x2="470.0" y2="225.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="480.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">Ні, потрібна естафета (Multi-hop)</text>
+<rect x="310.0" y="225.0" width="320.0" height="50.0" rx="6" fill="#f1f5f9" stroke="#333333" stroke-width="1.8"/>
+<text x="470.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чи є живлення 230 В на роутерах</text>
+<text x="470.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">і чи критичне самовідновлення?</text>
+<line x1="350.0" y1="275.0" x2="230.0" y2="330.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="250.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Фіксована ієрархія,
+мало RAM на МК</text>
+<rect x="100.0" y="330.0" width="230.0" height="95.0" rx="6" fill="#eef8f2" stroke="#27ae60" stroke-width="2.0"/>
+<text x="215.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Кластерне дерево</text>
+<text x="215.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Zigbee Tree / WirelessHART</text>
+<text x="215.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Детермінований розклад</text>
+<text x="215.0" y="411.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">• Арифметика адрес без RAM</text>
+<line x1="590.0" y1="275.0" x2="710.0" y2="330.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="680.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">Динамічне відновлення,
+є живлення роутерів</text>
+<rect x="610.0" y="330.0" width="230.0" height="95.0" rx="6" fill="#fdf6ec" stroke="#d97706" stroke-width="2.0"/>
+<text x="725.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">Чарунка (Mesh)</text>
+<text x="725.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Thread / BLE Mesh / ESP-MESH</text>
+<text x="725.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">• Надійність без SPOF</text>
+<text x="725.0" y="411.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Багатоальтернативні шляхи</text>
+</svg>

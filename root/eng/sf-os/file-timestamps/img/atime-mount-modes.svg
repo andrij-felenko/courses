@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння політик оновлення atime при операціях читання файлу</text>
+<rect x="40.0" y="64.0" width="200.0" height="326.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="140.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#991b1b" text-anchor="middle" font-weight="700">strictatime</text>
+<text x="140.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Кожне read() оновлює atime</text>
+<line x1="52.0" y1="124.0" x2="228.0" y2="124.0" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="50.0" y="136.0" width="180.0" height="48.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="140.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Критерій скидання:</text>
+<text x="140.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#991b1b" text-anchor="middle" font-weight="700">100% операцій читання</text>
+<text x="140.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">Генерує запис метаданих</tspan><tspan x="140.0" dy="13.5">на носій при кожному</tspan><tspan x="140.0" dy="13.5">зчитуванні байтів.</tspan><tspan x="140.0" dy="13.5"></tspan><tspan x="140.0" dy="13.5">Подвоює I/O запитів.</tspan><tspan x="140.0" dy="13.5">Зношує SSD і бруднить</tspan><tspan x="140.0" dy="13.5">кеш сторінок VFS.</tspan></text>
+<rect x="260.0" y="64.0" width="200.0" height="326.0" rx="8" fill="#eaf7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="360.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#166534" text-anchor="middle" font-weight="700">relatime (типово)</text>
+<text x="360.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Оновлення лише за умови</text>
+<line x1="272.0" y1="124.0" x2="448.0" y2="124.0" stroke="#27ae60" stroke-width="1.0"/>
+<rect x="270.0" y="136.0" width="180.0" height="48.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="360.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Критерій скидання:</text>
+<text x="360.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#166534" text-anchor="middle" font-weight="700">&lt;= mtime / ctime або &gt;24 год</text>
+<text x="360.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Оновлює atime тільки</tspan><tspan x="360.0" dy="13.5">якщо старий atime</tspan><tspan x="360.0" dy="13.5">менший за mtime/ctime,</tspan><tspan x="360.0" dy="13.5">або якщо минула 1 доба.</tspan><tspan x="360.0" dy="13.5"></tspan><tspan x="360.0" dy="13.5">Знижує I/O на 95–99%,</tspan><tspan x="360.0" dy="13.5">зберігаючи логіку утиліт.</tspan></text>
+<rect x="480.0" y="64.0" width="200.0" height="326.0" rx="8" fill="#eef3fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="580.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e40af" text-anchor="middle" font-weight="700">noatime</text>
+<text x="580.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Повна відмова від запису</text>
+<line x1="492.0" y1="124.0" x2="668.0" y2="124.0" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="490.0" y="136.0" width="180.0" height="48.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="580.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Критерій скидання:</text>
+<text x="580.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e40af" text-anchor="middle" font-weight="700">0% оновлень atime</text>
+<text x="580.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="580.0" dy="0.0">atime не оновлюється</tspan><tspan x="580.0" dy="13.5">взагалі під час читання.</tspan><tspan x="580.0" dy="13.5"></tspan><tspan x="580.0" dy="13.5">Найвища швидкодія I/O.</tspan><tspan x="580.0" dy="13.5">Може заважати старим</tspan><tspan x="580.0" dy="13.5">поштовим демонам чи</tspan><tspan x="580.0" dy="13.5">агентам бекапів.</tspan></text>
+<rect x="700.0" y="64.0" width="200.0" height="326.0" rx="8" fill="#fff6e0" stroke="#b08900" stroke-width="1.5"/>
+<text x="800.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#92400e" text-anchor="middle" font-weight="700">lazytime</text>
+<text x="800.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Відкладений запис на диск</text>
+<line x1="712.0" y1="124.0" x2="888.0" y2="124.0" stroke="#b08900" stroke-width="1.0"/>
+<rect x="710.0" y="136.0" width="180.0" height="48.0" rx="4" fill="#ffffff" stroke="#b08900" stroke-width="1.0"/>
+<text x="800.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Критерій скидання:</text>
+<text x="800.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#92400e" text-anchor="middle" font-weight="700">Тільки в пам'яті (RAM)</text>
+<text x="800.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="800.0" dy="0.0">Зміни atime/mtime/ctime</tspan><tspan x="800.0" dy="13.5">тримаються в пам'яті</tspan><tspan x="800.0" dy="13.5">структури struct inode.</tspan><tspan x="800.0" dy="13.5"></tspan><tspan x="800.0" dy="13.5">Скидаються на диск лише</tspan><tspan x="800.0" dy="13.5">при оновленні тіла інода</tspan><tspan x="800.0" dy="13.5">або виклику sync().</tspan></text>
+</svg>

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автомат станів введення в лад: від початкового сканування до робочого замка</text>
+<rect x="20.0" y="65.0" width="200.0" height="90.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="2.0"/>
+<text x="120.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">1 · FACTORY_RESET</text>
+<text x="120.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">Чистий аркуш: IDevID у чіпі,</tspan><tspan x="120.0" dy="11.9">немає мережевих паролів</tspan></text>
+<rect x="270.0" y="65.0" width="200.0" height="90.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="370.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">2 · CHANNEL_ACTIVE</text>
+<text x="370.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="370.0" dy="0.0">Увімкнено BLE / SoftAP,</tspan><tspan x="370.0" dy="11.9">очікування підключення</tspan></text>
+<rect x="540.0" y="65.0" width="200.0" height="90.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="640.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">3 · AUTHENTICATING</text>
+<text x="640.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">PAKE-обмін ключами,</tspan><tspan x="640.0" dy="11.9">перевірка PIN з QR-коду</tspan></text>
+<rect x="540.0" y="265.0" width="200.0" height="90.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="640.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">4 · NET_CONNECTING</text>
+<text x="640.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="640.0" dy="0.0">Отримано Wi-Fi SSID/PSK,</tspan><tspan x="640.0" dy="11.9">спроба зв'язку з роутером</tspan></text>
+<rect x="270.0" y="265.0" width="200.0" height="90.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="370.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">5 · CLOUD_BOOTSTRAP</text>
+<text x="370.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="370.0" dy="0.0">Генерація CSR, запит до хмари,</tspan><tspan x="370.0" dy="11.9">верифікація IDevID -&gt; LDevID</tspan></text>
+<rect x="20.0" y="265.0" width="200.0" height="90.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="120.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">6 · OPERATIONAL_CLAIMED</text>
+<text x="120.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">Робочий режим: конфіг-канал</tspan><tspan x="120.0" dy="11.9">назавжди заблоковано</tspan></text>
+<line x1="220.0" y1="110.0" x2="270.0" y2="110.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="245.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Старт</text>
+<line x1="470.0" y1="110.0" x2="540.0" y2="110.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="505.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Клієнт під'єднався</text>
+<line x1="640.0" y1="155.0" x2="640.0" y2="265.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="645.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="left">PoP валідний +
+SSID/PSK прийнято</text>
+<line x1="540.0" y1="310.0" x2="470.0" y2="310.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="505.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Wi-Fi OK (IP є)</text>
+<line x1="270.0" y1="310.0" x2="220.0" y2="310.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="245.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">LDevID отримано</text>
+<line x1="640.0" y1="355.0" x2="640.0" y2="430.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+<line x1="640.0" y1="430.0" x2="370.0" y2="430.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+<line x1="370.0" y1="430.0" x2="370.0" y2="155.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="374.3" y="414.6" width="261.4" height="30.7" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/><text x="505.0" y="420.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle"><tspan x="505.0" dy="0.0">Помилка асоціації Wi-Fi (таймаут / хибний пароль)</tspan><tspan x="505.0" dy="11.7">Звіт клієнту + повтор введення</tspan></text>
+<line x1="120.0" y1="265.0" x2="120.0" y2="155.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+<line x1="120.0" y1="180.0" x2="120.0" y2="155.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="110.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="right">Утримання кнопки
+Factory Reset 10s</text>
+</svg>

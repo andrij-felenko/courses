@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="22.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Захист від постійної перенапруги (OVP): Crowbar (тиристор) vs eFuse (TPS2595)</text>
+<rect x="50.0" y="60.0" width="350.0" height="225.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="225.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">А) Тиристорний Crowbar (жорстке замикання)</text>
+<line x1="75.0" y1="125.0" x2="160.0" y2="125.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="160.0" y1="125.0" x2="375.0" y2="125.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="75.0" y1="215.0" x2="375.0" y2="215.0" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="105.0" y="113.0" width="35.0" height="24.0" rx="2" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="122.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Fuse</text>
+<line x1="230.0" y1="125.0" x2="230.0" y2="215.0" stroke="#333333" stroke-width="1.8"/>
+<rect x="212.0" y="155.0" width="36.0" height="30.0" rx="3" fill="#fdedec" stroke="#c0392b" stroke-width="1.8"/>
+<text x="223.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">SCR</text>
+<line x1="180.0" y1="125.0" x2="180.0" y2="170.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="180.0" y1="170.0" x2="212.0" y2="170.0" stroke="#333333" stroke-width="1.4"/>
+<text x="165.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="middle">Dz
+33V</text>
+<text x="225.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• При V &gt; 33V тиристор закорочує шину на GND</text>
+<text x="225.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Спалює запобіжник (Fuse) за мілісекунди</text>
+<text x="225.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Мінус: одноразовий ремонтний випадок</text>
+<rect x="440.0" y="60.0" width="350.0" height="225.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="615.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Б) Електронний ключ eFuse (TPS2595)</text>
+<line x1="465.0" y1="125.0" x2="540.0" y2="125.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="680.0" y1="125.0" x2="765.0" y2="125.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="465.0" y1="215.0" x2="765.0" y2="215.0" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="540.0" y="105.0" width="140.0" height="75.0" rx="5" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="610.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">eFuse IC (TPS2595)</text>
+<text x="610.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">MOSFET + OVP + CurrentLimit</text>
+<text x="610.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Час відсікання: &lt; 2 мкс</text>
+<line x1="610.0" y1="180.0" x2="610.0" y2="215.0" stroke="#333333" stroke-width="1.4"/>
+<text x="635.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="middle">FLT → MCU</text>
+<text x="615.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Миттєве розмикання ключа при V_in &gt; V_ovp</text>
+<text x="615.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Не руйнує схему, авто-відновлення (Auto-Retry)</text>
+<text x="615.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Плюс: багаторазовий активний захист + моніторинг</text>
+</svg>

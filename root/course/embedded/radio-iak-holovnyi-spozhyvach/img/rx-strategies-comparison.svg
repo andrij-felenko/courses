@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стратегії прийому: чому постійне прослуховування вбиває батарею</text>
+<rect x="40.0" y="65.0" width="280.0" height="310.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="40.0" y="65.0" width="280.0" height="32.0" rx="0" fill="#c0392b" stroke="#c0392b" stroke-width="1.8"/>
+<text x="180.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">1. Безперервний Rx (Always-On)</text>
+<text x="54.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Режим: Приймач увімкнений 100%</text>
+<text x="54.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Струм: I_rx = 10–15 мА постійно</text>
+<text x="54.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Дюті-цикл прийому: 100 %</text>
+<text x="54.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Затримка низхідного кадру: 0 мс</text>
+<text x="54.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"></text>
+<text x="54.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Ціна автономності:</text>
+<text x="54.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Батарея 2400 мА·год помре за</text>
+<text x="54.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">2400 / 12 мА = 200 годин (8.3 дня)</text>
+<text x="54.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Непридатно для автономних вузлів!</text>
+<rect x="350.0" y="65.0" width="280.0" height="310.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="350.0" y="65.0" width="280.0" height="32.0" rx="0" fill="#27ae60" stroke="#27ae60" stroke-width="1.8"/>
+<text x="490.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">2. LoRaWAN Class A (Подійний Rx)</text>
+<text x="364.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Режим: Rx лише після власного Tx</text>
+<text x="364.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Струм: Сон 1.5 мкА, вікна RX1/RX2</text>
+<text x="364.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Дюті-цикл прийому: &lt; 0.01 %</text>
+<text x="364.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Затримка: до наступного аплінку</text>
+<text x="364.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"></text>
+<text x="364.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Ціна автономності:</text>
+<text x="364.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Два вікна по 15 мс щогодини</text>
+<text x="364.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Середній струм Rx: ~0.08 мкА</text>
+<text x="364.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Час життя від батареї: 5–10 років!</text>
+<text x="364.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Ідеально для давачів телеметрії.</text>
+<rect x="660.0" y="65.0" width="280.0" height="310.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<rect x="660.0" y="65.0" width="280.0" height="32.0" rx="0" fill="#2457d6" stroke="#2457d6" stroke-width="1.8"/>
+<text x="800.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">3. Preamble Sampling / Sniff</text>
+<text x="674.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Режим: Періодичний Sniff каналу</text>
+<text x="674.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Струм: Імпульс 1 мс кожні 500 мс</text>
+<text x="674.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Дюті-цикл прийому: ~0.2 %</text>
+<text x="674.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Затримка: не більше 500 мс</text>
+<text x="674.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start"></text>
+<text x="674.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Ціна автономності:</text>
+<text x="674.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Передавач шле довгу преамбулу,</text>
+<text x="674.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">приймач споживає ~25 мкА середнього.</text>
+<text x="674.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Час життя: 3–5 років від батареї.</text>
+<text x="674.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Для двосторонніх sub-GHz вузлів.</text>
+<rect x="58.8" y="385.5" width="862.5" height="21.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/><text x="490.0" y="399.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="490.0" dy="0.0">Прийом (Rx) забирає 10 мА — стільки ж, скільки передача на 0 дБм. Мінімізація часу слухання — головний закон енергоощадності.</tspan></text>
+</svg>

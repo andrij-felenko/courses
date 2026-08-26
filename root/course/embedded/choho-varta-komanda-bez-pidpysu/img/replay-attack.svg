@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-77 -10 974 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-77" y="-10" width="974" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Атака повтору: перехоплення та відтворення валідного кадру</text>
+<rect x="40.0" y="70.0" width="160.0" height="80.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/><text x="120.0" y="98.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">Легітимний пульт</tspan><tspan x="120.0" dy="15.6">(Оператор)</tspan><tspan x="120.0" dy="15.6">Шле: «Відчинити»</tspan></text>
+<rect x="620.0" y="70.0" width="160.0" height="80.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/><text x="700.0" y="98.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="700.0" dy="0.0">Контролер воріт</tspan><tspan x="700.0" dy="15.6">(Привід / Реле)</tspan><tspan x="700.0" dy="15.6">Перевіряє: CRC16</tspan></text>
+<line x1="204.0" y1="110.0" x2="616.0" y2="110.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="410.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">1) Кадр [0x01, 0x2D, CRC=0xA412] (Легітимно)</text>
+<rect x="290.0" y="180.0" width="240.0" height="75.0" rx="6" fill="#fff7f5" stroke="#c0392b" stroke-width="1.8"/>
+<text x="410.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Зловмисник (SDR-приймач)</text>
+<text x="410.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Записує сирий радіосигнал у пам'ять</text>
+<text x="410.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(Ключа не знає, кадр не дешифрує)</text>
+<line x1="410.0" y1="115.0" x2="410.0" y2="176.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="490.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">2) Запис у файл</text>
+<line x1="534.0" y1="215.0" x2="616.0" y2="190.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="585.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">3) Відтворення вночі</text>
+<text x="585.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">той самий [0x01, 0x2D, CRC=0xA412]</text>
+<rect x="40.0" y="275.0" width="740.0" height="65.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="410.0" y="310.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Результат: контролер перевіряє CRC — байти цілі, помилок зв'язку немає. Ворота відчиняються для зловмисника, бо кадр НЕ МАЄ доказу свіжості (лічильника/nonce) та криптографічного коду автентичності (MAC/підпису).</tspan></text>
+</svg>

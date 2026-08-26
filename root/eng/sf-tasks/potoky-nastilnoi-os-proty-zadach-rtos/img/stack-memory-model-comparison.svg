@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Модель виділення стека: динамічний ріст у GPOS проти статичного буфера в RTOS</text>
+<text x="420.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Віртуальна пам'ять приховує сторінкові збої (Page Faults); мікроконтролер вимагає точного розрахунку RAM</text>
+<rect x="30.0" y="68.0" width="375.0" height="315.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="217.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">GPOS: Віртуальний стек (8 МБ)</text>
+<rect x="130.0" y="115.0" width="175.0" height="30.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="217.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Верхівка стека (RSP)</text>
+<rect x="130.0" y="148.0" width="175.0" height="36.0" rx="3" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.0"/>
+<text x="217.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Фізична сторінка 4 КБ</text>
+<text x="217.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Виділена в RAM</text>
+<rect x="130.0" y="187.0" width="175.0" height="36.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="217.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Нова сторінка (Немає в RAM)</text>
+<text x="217.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Дотик → PAGE FAULT (10-100 мкс)</text>
+<rect x="130.0" y="226.0" width="175.0" height="26.0" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="0.8"/>
+<text x="217.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Невідображений віртуальний простір</text>
+<rect x="130.0" y="255.0" width="175.0" height="26.0" rx="3" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="217.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Guard Page (PROT_NONE) → SIGSEGV</text>
+<rect x="45.0" y="288.0" width="345.0" height="84.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="217.5" y="315.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="217.5" dy="0.0">• Виділяється віртуальний діапазон (VMA), фізична пам'ять не резервується.</tspan><tspan x="217.5" dy="11.7">• Перший запис у нову 4 КБ сторінку викликає Page Fault у ядрі.</tspan><tspan x="217.5" dy="11.7">• Витрати на Page Fault дають раптові сплески затримки на мікросекунди.</tspan><tspan x="217.5" dy="11.7">• Вихід за межі стека ловиться захисною сторінкою (Guard Page).</tspan></text>
+<rect x="435.0" y="68.0" width="375.0" height="315.0" rx="8" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="622.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">RTOS: Фіксований буфер RAM (1 – 4 КБ)</text>
+<rect x="535.0" y="115.0" width="175.0" height="30.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="622.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Початок буфера (Висока адреса)</text>
+<rect x="535.0" y="148.0" width="175.0" height="42.0" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="622.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Використаний стек (PSP)</text>
+<text x="622.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Локальні змінні + фрейми функцій</text>
+<rect x="535.0" y="193.0" width="175.0" height="42.0" rx="3" fill="#fff7e6" stroke="#caa24a" stroke-width="1.0"/>
+<text x="622.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#caa24a" text-anchor="middle" font-weight="700">Водяний знак (Watermark)</text>
+<text x="622.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Заповнено шаблоном 0xA5A5A5A5</text>
+<rect x="535.0" y="238.0" width="175.0" height="38.0" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="622.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Низ буфера / Чужі змінні TCB</text>
+<text x="622.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Переповнення = руйнування пам'яті!</text>
+<rect x="450.0" y="288.0" width="345.0" height="84.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="622.5" y="315.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="622.5" dy="0.0">• Вся пам'ять стека виділяється заздалегідь (масив StackType_t у RAM).</tspan><tspan x="622.5" dy="11.7">• Жодних сторінкових збоїв — час доступу до стека строго детермінований.</tspan><tspan x="622.5" dy="11.7">• Небезпека: якщо стек переповниться, пошкоджуються сусідні дані TCB.</tspan><tspan x="622.5" dy="11.7">• Контроль: перевірка Watermark планувальником або MPU HardFault.</tspan></text>
+<rect x="30.0" y="394.0" width="780.0" height="44.0" rx="6" fill="#fff7e6" stroke="#caa24a" stroke-width="1.5"/><text x="420.0" y="412.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">Підсумок: GPOS забезпечує гнучкість за рахунок динамізму та непередбачуваних Page Faults.</tspan><tspan x="420.0" dy="13.7">RTOS забезпечує нульовий джитер доступу, вимагаючи ретельного статичного аудиту розміру стека.</tspan></text>
+</svg>

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура RF-ректени: від антени до безбатарейного мікроконтролера</text>
+<rect x="30.0" y="70.0" width="110.0" height="150.0" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.6"/>
+<line x1="85.0" y1="95.0" x2="85.0" y2="135.0" stroke="#c0392b" stroke-width="3.0"/>
+<circle cx="85.0" cy="95.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="85.0" y1="155.0" x2="85.0" y2="195.0" stroke="#2457d6" stroke-width="3.0"/>
+<circle cx="85.0" cy="195.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="85.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">RF-хвиля</text>
+<text x="85.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Антена (50 Ом)</text>
+<line x1="140.0" y1="145.0" x2="170.0" y2="145.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="155.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">V_rf</text>
+<rect x="170.0" y="70.0" width="140.0" height="150.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.6"/>
+<text x="240.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0369a1" text-anchor="middle" font-weight="700">LC-узгодження</text>
+<text x="240.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0369a1" text-anchor="middle">(Matching Network)</text>
+<line x1="185.0" y1="145.0" x2="210.0" y2="145.0" stroke="#333333" stroke-width="1.5"/>
+<rect x="210.0" y="138.0" width="25.0" height="14.0" rx="2" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="222.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">L</text>
+<line x1="235.0" y1="145.0" x2="260.0" y2="145.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="260.0" y1="145.0" x2="260.0" y2="158.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="252.0" y1="158.0" x2="268.0" y2="158.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="252.0" y1="163.0" x2="268.0" y2="163.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="260.0" y1="163.0" x2="260.0" y2="175.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="252.0" y1="175.0" x2="268.0" y2="175.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="260.0" y1="145.0" x2="295.0" y2="145.0" stroke="#333333" stroke-width="1.5"/>
+<text x="240.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0369a1" text-anchor="middle" font-weight="700">Q-трансформація V</text>
+<line x1="310.0" y1="145.0" x2="340.0" y2="145.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="325.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Q·V_rf</text>
+<rect x="340.0" y="70.0" width="200.0" height="150.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.6"/>
+<text x="440.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#92400e" text-anchor="middle" font-weight="700">Помножувач Діксона</text>
+<text x="440.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#92400e" text-anchor="middle">Діоди Шотткі (HSMS/SMS)</text>
+<line x1="355.0" y1="145.0" x2="375.0" y2="145.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="375.0" y1="138.0" x2="375.0" y2="152.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="379.0" y1="138.0" x2="379.0" y2="152.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="379.0" y1="145.0" x2="410.0" y2="145.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="410.0" y1="145.0" x2="410.0" y2="158.0" stroke="#333333" stroke-width="1.4"/>
+<polygon points="405,158 415,158 410,168" fill="#d97706" stroke="#92400e" stroke-width="1.2"/>
+<line x1="405.0" y1="168.0" x2="415.0" y2="168.0" stroke="#92400e" stroke-width="1.4"/>
+<line x1="410.0" y1="168.0" x2="410.0" y2="175.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="403.0" y1="175.0" x2="417.0" y2="175.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="410.0" y1="145.0" x2="435.0" y2="145.0" stroke="#333333" stroke-width="1.4"/>
+<polygon points="435,140 435,150 445,145" fill="#d97706" stroke="#92400e" stroke-width="1.2"/>
+<line x1="445.0" y1="140.0" x2="445.0" y2="150.0" stroke="#92400e" stroke-width="1.4"/>
+<line x1="445.0" y1="145.0" x2="475.0" y2="145.0" stroke="#333333" stroke-width="1.4"/>
+<circle cx="485.0" cy="145.0" r="2.0" fill="#333333" stroke="none" stroke-width="1.5"/>
+<circle cx="495.0" cy="145.0" r="2.0" fill="#333333" stroke="none" stroke-width="1.5"/>
+<line x1="505.0" y1="145.0" x2="525.0" y2="145.0" stroke="#333333" stroke-width="1.4"/>
+<text x="440.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#92400e" text-anchor="middle" font-weight="700">N каскадів (V_out ≈ 2N·V)</text>
+<line x1="540.0" y1="145.0" x2="570.0" y2="145.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="555.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">V_dc</text>
+<rect x="570.0" y="70.0" width="115.0" height="150.0" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.6"/>
+<text x="627.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#065f46" text-anchor="middle" font-weight="700">Накопичувач</text>
+<text x="627.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#065f46" text-anchor="middle">C_store</text>
+<line x1="585.0" y1="145.0" x2="627.0" y2="145.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="627.0" y1="145.0" x2="627.0" y2="155.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="617.0" y1="155.0" x2="637.0" y2="155.0" stroke="#059669" stroke-width="2.2"/>
+<line x1="617.0" y1="161.0" x2="637.0" y2="161.0" stroke="#059669" stroke-width="2.2"/>
+<line x1="627.0" y1="161.0" x2="627.0" y2="175.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="619.0" y1="175.0" x2="635.0" y2="175.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="627.0" y1="145.0" x2="665.0" y2="145.0" stroke="#333333" stroke-width="1.4"/>
+<text x="627.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#065f46" text-anchor="middle" font-weight="700">100–1000 мкФ</text>
+<line x1="685.0" y1="145.0" x2="715.0" y2="145.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="715.0" y="70.0" width="155.0" height="150.0" rx="6" fill="#fdf2f8" stroke="#db2777" stroke-width="1.6"/>
+<text x="792.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9d174d" text-anchor="middle" font-weight="700">PMIC збирача</text>
+<text x="792.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#9d174d" text-anchor="middle">(AEM / BQ25570)</text>
+<rect x="730.0" y="126.0" width="125.0" height="34.0" rx="3" fill="#ffffff" stroke="#db2777" stroke-width="1.0"/>
+<text x="792.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">MPPT + Cold-Start</text>
+<rect x="730.0" y="166.0" width="125.0" height="42.0" rx="3" fill="#ffffff" stroke="#db2777" stroke-width="1.0"/>
+<text x="792.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Безбатарейний вузол</text>
+<text x="792.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">MCU + BLE / LoRa</text>
+<rect x="30.0" y="240.0" width="840.0" height="50.0" rx="5" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2"/>
+<text x="450.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Тракт: Антена (-20 dBm) -&gt; Резонансний підйом напруги -&gt; Багатокаскадне випрямлення -&gt; Живлення MCU</text>
+<text x="450.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Сумарний ККД тракту (PCE) критично залежить від вхідної потужності та порогової напруги діодів</text>
+</svg>

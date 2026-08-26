@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Енергетичний потік автономного сонячного комплексу</text>
+<rect x="40.0" y="60.0" width="160.0" height="150.0" rx="8" fill="#ffffff" stroke="#d97706" stroke-width="2.0"/>
+<rect x="40.0" y="60.0" width="160.0" height="32" rx="6" fill="#d97706" fill-opacity="0.15"/>
+<text x="120.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">Фотопанель (PV)</text>
+<text x="120.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">P_pv = G · A · η_pv</tspan><tspan x="120.0" dy="13.5">Втрати: бруд, кут,</tspan><tspan x="120.0" dy="13.5">температура</tspan></text>
+<rect x="240.0" y="60.0" width="160.0" height="150.0" rx="8" fill="#ffffff" stroke="#7c3aed" stroke-width="2.0"/>
+<rect x="240.0" y="60.0" width="160.0" height="32" rx="6" fill="#7c3aed" fill-opacity="0.15"/>
+<text x="320.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7c3aed" text-anchor="middle" font-weight="700">Контролер MPPT</text>
+<text x="320.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="320.0" dy="0.0">ККД η_mppt ≈ 95–98%</tspan><tspan x="320.0" dy="13.5">Стеження за MPP</tspan><tspan x="320.0" dy="13.5">I_batt = P_mpp/V_batt</tspan></text>
+<rect x="440.0" y="60.0" width="160.0" height="150.0" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="2.0"/>
+<rect x="440.0" y="60.0" width="160.0" height="32" rx="6" fill="#2563eb" fill-opacity="0.15"/>
+<text x="520.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">Батарея LiFePO4</text>
+<text x="520.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">Ємність C_batt, DoD 80%</tspan><tspan x="520.0" dy="13.5">ККД η_batt ≈ 95%</tspan><tspan x="520.0" dy="13.5">Саморозряд ~1%/міс</tspan></text>
+<rect x="640.0" y="60.0" width="160.0" height="150.0" rx="8" fill="#ffffff" stroke="#059669" stroke-width="2.0"/>
+<rect x="640.0" y="60.0" width="160.0" height="32" rx="6" fill="#059669" fill-opacity="0.15"/>
+<text x="720.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#059669" text-anchor="middle" font-weight="700">Живлення вузла</text>
+<text x="720.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="720.0" dy="0.0">DC-DC (η_conv ≈ 90%)</tspan><tspan x="720.0" dy="13.5">Мікроконтролер + радіо</tspan><tspan x="720.0" dy="13.5">E_day = ∫ V·I(t) dt</tspan></text>
+<line x1="200.0" y1="135.0" x2="240.0" y2="135.0" stroke="#d97706" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="200.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">P_pv</text>
+<line x1="400.0" y1="135.0" x2="440.0" y2="135.0" stroke="#7c3aed" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="400.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7c3aed" text-anchor="middle" font-weight="700">P_charge</text>
+<line x1="600.0" y1="135.0" x2="640.0" y2="135.0" stroke="#2563eb" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="600.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">P_bus</text>
+<rect x="40.0" y="260.0" width="760.0" height="130.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="420.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Коефіцієнти балансу потужності та делейтингу системи</text>
+<rect x="60.0" y="298.0" width="150.0" height="78.0" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.2"/>
+<text x="135.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">Втрати поля (η_field)</text>
+<text x="135.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="135.0" dy="0.0">Бруд/пил: 0.92–0.95</tspan><tspan x="135.0" dy="11.7">Кут/сніг: 0.85–0.95</tspan><tspan x="135.0" dy="11.7">Дроти: 0.98–0.99</tspan></text>
+<rect x="250.0" y="298.0" width="150.0" height="78.0" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.2"/>
+<text x="325.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7c3aed" text-anchor="middle" font-weight="700">Контролер (η_ctrl)</text>
+<text x="325.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="325.0" dy="0.0">MPPT: 0.95–0.98</tspan><tspan x="325.0" dy="11.7">PWM (зима): 0.65–0.70</tspan><tspan x="325.0" dy="11.7">Власне спож.: &lt;2 мА</tspan></text>
+<rect x="440.0" y="298.0" width="150.0" height="78.0" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.2"/>
+<text x="515.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">Акумулятор (η_batt)</text>
+<text x="515.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="515.0" dy="0.0">ККД заряду: 0.95</tspan><tspan x="515.0" dy="11.7">DoD ліміт: 0.80 (LFP)</tspan><tspan x="515.0" dy="11.7">Холод (-20°C): 0.70</tspan></text>
+<rect x="630.0" y="298.0" width="150.0" height="78.0" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.2"/>
+<text x="705.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#059669" text-anchor="middle" font-weight="700">Споживач (η_load)</text>
+<text x="705.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="705.0" dy="0.0">DC-DC бак: 0.88–0.92</tspan><tspan x="705.0" dy="11.7">Сон: 15–50 мкА</tspan><tspan x="705.0" dy="11.7">Передача: 150–300 мА</tspan></text>
+</svg>

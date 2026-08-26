@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схема шифрування та дешифрування блоку в режимі XTS-AES</text>
+<rect x="40.0" y="55.0" width="260.0" height="475.0" rx="8" fill="#fbfbfe" stroke="#6b21a8" stroke-width="1.5"/>
+<text x="170.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b21a8" text-anchor="middle" font-weight="700">Генерація маски-твіка T[j]</text>
+<rect x="60.0" y="105.0" width="220.0" height="50.0" rx="6" fill="#f5f3ff" stroke="#6b21a8" stroke-width="1.5"/><text x="170.0" y="126.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">Номер сектора (LBA) i</tspan><tspan x="170.0" dy="15.6">(128-бітне число)</tspan></text>
+<line x1="170.0" y1="155.0" x2="170.0" y2="185.0" stroke="#6b21a8" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="185.0" width="220.0" height="50.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="170.0" y="206.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="170.0" dy="0.0">AES-Enc(Key2, i)</tspan><tspan x="170.0" dy="15.6">Базовий твік T[0]</tspan></text>
+<line x1="170.0" y1="235.0" x2="170.0" y2="270.0" stroke="#6b21a8" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="270.0" width="220.0" height="65.0" rx="6" fill="#f5f3ff" stroke="#6b21a8" stroke-width="1.5"/><text x="170.0" y="291.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">Множення в GF(2¹²⁸):</tspan><tspan x="170.0" dy="15.6">T[j] = T[0] ⊗ αʲ</tspan><tspan x="170.0" dy="15.6">(α = x, mod P(x))</tspan></text>
+<rect x="60.0" y="375.0" width="220.0" height="135.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.0"/><text x="170.0" y="417.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="170.0" dy="0.0">Властивість поля:</tspan><tspan x="170.0" dy="14.3">Множення на α — це</tspan><tspan x="170.0" dy="14.3">побітовий зсув вліво</tspan><tspan x="170.0" dy="14.3">із умовним XOR 0x87</tspan><tspan x="170.0" dy="14.3">при переповненні</tspan></text>
+<rect x="340.0" y="55.0" width="300.0" height="475.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="490.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Шифрування блоку j</text>
+<rect x="380.0" y="105.0" width="220.0" height="45.0" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/><text x="490.0" y="131.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="490.0" dy="0.0">Відкритий блок P[j]</tspan></text>
+<line x1="490.0" y1="150.0" x2="490.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="490.0" cy="195.0" r="15.0" fill="#f5f3ff" stroke="#6b21a8" stroke-width="1.5"/>
+<text x="490.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#6b21a8" text-anchor="middle" font-weight="700">⊕</text>
+<line x1="280.0" y1="300.0" x2="475.0" y2="195.0" stroke="#6b21a8" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="490.0" y1="210.0" x2="490.0" y2="250.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="370.0" y="250.0" width="240.0" height="50.0" rx="6" fill="#f3f4f6" stroke="#333333" stroke-width="1.5"/><text x="490.0" y="271.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">PP[j] = P[j] ⊕ T[j]</tspan><tspan x="490.0" dy="14.3">(Вхідне відбілювання)</tspan></text>
+<line x1="490.0" y1="300.0" x2="490.0" y2="335.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="370.0" y="335.0" width="240.0" height="55.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="490.0" y="346.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="490.0" dy="0.0">AES-Enc(Key1, PP[j])</tspan><tspan x="490.0" dy="15.6">(Основне шифрування)</tspan></text>
+<line x1="490.0" y1="390.0" x2="490.0" y2="420.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="490.0" cy="435.0" r="15.0" fill="#f5f3ff" stroke="#6b21a8" stroke-width="1.5"/>
+<text x="490.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#6b21a8" text-anchor="middle" font-weight="700">⊕</text>
+<line x1="280.0" y1="310.0" x2="475.0" y2="435.0" stroke="#6b21a8" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="490.0" y1="450.0" x2="490.0" y2="475.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="380.0" y="475.0" width="220.0" height="45.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="490.0" y="501.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="490.0" dy="0.0">Шифротекст C[j]</tspan></text>
+<rect x="670.0" y="55.0" width="300.0" height="475.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="820.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Дешифрування блоку j</text>
+<rect x="710.0" y="105.0" width="220.0" height="45.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="820.0" y="131.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="820.0" dy="0.0">Шифротекст C[j]</tspan></text>
+<line x1="820.0" y1="150.0" x2="820.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="820.0" cy="195.0" r="15.0" fill="#f5f3ff" stroke="#6b21a8" stroke-width="1.5"/>
+<text x="820.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#6b21a8" text-anchor="middle" font-weight="700">⊕</text>
+<line x1="280.0" y1="290.0" x2="805.0" y2="195.0" stroke="#6b21a8" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="820.0" y1="210.0" x2="820.0" y2="250.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="700.0" y="250.0" width="240.0" height="50.0" rx="6" fill="#f3f4f6" stroke="#333333" stroke-width="1.5"/><text x="820.0" y="271.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="820.0" dy="0.0">CC[j] = C[j] ⊕ T[j]</tspan><tspan x="820.0" dy="14.3">(Зняття вихідної маски)</tspan></text>
+<line x1="820.0" y1="300.0" x2="820.0" y2="335.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="700.0" y="335.0" width="240.0" height="55.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="820.0" y="358.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="820.0" dy="0.0">AES-Dec(Key1, CC[j])</tspan><tspan x="820.0" dy="15.6">(Основне дешифрування)</tspan></text>
+<line x1="820.0" y1="390.0" x2="820.0" y2="420.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="820.0" cy="435.0" r="15.0" fill="#f5f3ff" stroke="#6b21a8" stroke-width="1.5"/>
+<text x="820.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#6b21a8" text-anchor="middle" font-weight="700">⊕</text>
+<line x1="280.0" y1="320.0" x2="805.0" y2="435.0" stroke="#6b21a8" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="820.0" y1="450.0" x2="820.0" y2="475.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="710.0" y="475.0" width="220.0" height="45.0" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/><text x="820.0" y="501.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="820.0" dy="0.0">Відкритий блок P[j]</tspan></text>
+</svg>

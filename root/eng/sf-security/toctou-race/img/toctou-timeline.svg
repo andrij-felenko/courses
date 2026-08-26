@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="820.0" height="350.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="40.0" y="50.0" width="780.0" height="100.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="40.0" y="170.0" width="780.0" height="100.0" rx="6" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+<text x="140.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Привілейований процес (root)</text>
+<text x="140.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">UID = 0, EUID = 0</text>
+<text x="140.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Атакуючий процес (user)</text>
+<text x="140.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">UID = 1000, EUID = 1000</text>
+<line x1="50.0" y1="310.0" x2="780.0" y2="310.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="770.0" y1="310.0" x2="800.0" y2="310.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="800.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Час (t)</text>
+<line x1="370.0" y1="40.0" x2="560.0" y2="40.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="370.0" y1="35.0" x2="370.0" y2="45.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="560.0" y1="35.0" x2="560.0" y2="45.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="465.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ВІКНО ГОНКИ (Δt = t3 - t0)</text>
+<rect x="245.2" y="83.5" width="129.7" height="33.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="310.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="310.0" dy="0.0">1. access(path, W_OK)</tspan><tspan x="310.0" dy="13.0">Результат: дозволено</tspan></text>
+<line x1="310.0" y1="130.0" x2="310.0" y2="310.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="4,4"/>
+<circle cx="310.0" cy="310.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="310.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">t0 (TOC)</text>
+<rect x="376.6" y="203.5" width="186.7" height="33.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/><text x="470.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">2. unlink(path)</tspan><tspan x="470.0" dy="13.0">3. symlink(&quot;/etc/shadow&quot;, path)</tspan></text>
+<line x1="470.0" y1="190.0" x2="470.0" y2="150.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="470.0" y1="250.0" x2="470.0" y2="310.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="4,4"/>
+<circle cx="470.0" cy="310.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="470.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">t1..t2 (Підміна)</text>
+<rect x="579.5" y="83.5" width="141.1" height="33.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/><text x="650.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="650.0" dy="0.0">4. open(path, O_WRONLY)</tspan><tspan x="650.0" dy="13.0">Запис у цільовий файл!</tspan></text>
+<line x1="650.0" y1="130.0" x2="650.0" y2="310.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="4,4"/>
+<circle cx="650.0" cy="310.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="650.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">t3 (TOU)</text>
+<line x1="375.0" y1="100.0" x2="410.0" y2="210.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="545.0" y1="210.0" x2="580.0" y2="100.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg>

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-34.8 -10 1009.6 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-34.8" y="-10" width="1009.6" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="910.0" height="490.0" rx="10" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="470.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура циклічного буфера в RAM (Ring Buffer Snapshot)</text>
+<rect x="35.0" y="68.0" width="410.0" height="390.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="240.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кільцевий буфер у секції .noinit RAM</text>
+<text x="240.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Неперервний запис подій O(1) без зносу пам'яті</text>
+<rect x="50.0" y="138.0" width="220.0" height="30.0" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.2"/>
+<text x="160.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр 102 (T - 4.5 с)</text>
+<rect x="280.0" y="138.0" width="145.0" height="30.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="352.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-weight="700">Норма (FSM=RUN)</text>
+<rect x="50.0" y="174.0" width="220.0" height="30.0" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.2"/>
+<text x="160.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр 103 (T - 3.2 с)</text>
+<rect x="280.0" y="174.0" width="145.0" height="30.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="352.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-weight="700">Шина I2C OK</text>
+<rect x="50.0" y="210.0" width="220.0" height="30.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+<text x="160.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр 104 (T - 1.8 с)</text>
+<rect x="280.0" y="210.0" width="145.0" height="30.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="352.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">I2C NACK / Retry</text>
+<rect x="50.0" y="246.0" width="220.0" height="30.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="160.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр 105 (T - 0.5 с)</text>
+<rect x="280.0" y="246.0" width="145.0" height="30.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="352.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">FSM=ERROR_CRIT</text>
+<rect x="50.0" y="282.0" width="220.0" height="30.0" rx="4" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.2"/>
+<text x="160.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр 106 (T = 0.0 с)</text>
+<rect x="280.0" y="282.0" width="145.0" height="30.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="352.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle" font-weight="700">⚡ HardFault / Crash</text>
+<rect x="50.0" y="318.0" width="220.0" height="30.0" rx="4" fill="#f1f5f9" stroke="#64748b" stroke-width="1.2"/>
+<text x="160.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр 107 (T + 0.1 с)</text>
+<rect x="280.0" y="318.0" width="145.0" height="30.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="352.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle" font-weight="700">Пост-тригер 1</text>
+<rect x="50.0" y="354.0" width="220.0" height="30.0" rx="4" fill="#f1f5f9" stroke="#64748b" stroke-width="1.2"/>
+<text x="160.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр 108 (T + 0.2 с)</text>
+<rect x="280.0" y="354.0" width="145.0" height="30.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="352.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle" font-weight="700">Пост-тригер 2</text>
+<rect x="50.0" y="390.0" width="220.0" height="30.0" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="160.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадр 101 (Перезапис)</text>
+<rect x="280.0" y="390.0" width="145.0" height="30.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="352.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle" font-weight="700">Старий кадр</text>
+<line x1="25.0" y1="300.0" x2="48.0" y2="300.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="22.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">Head</text>
+<rect x="465.0" y="68.0" width="460.0" height="390.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="695.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хронологія фіксації аварійного знімка</text>
+<rect x="485.0" y="125.0" width="420.0" height="75.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="500.0" y1="162.0" x2="885.0" y2="162.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="510.0" y="142.0" width="230.0" height="38.0" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.2"/>
+<text x="625.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle" font-weight="700">Pre-Trigger (Історія до аварії: 5 с)</text>
+<line x1="740.0" y1="132.0" x2="740.0" y2="192.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="740.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">⚡ Тригер відмови (T=0)</text>
+<rect x="745.0" y="142.0" width="130.0" height="38.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="810.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Post-Trigger (+200 мс)</text>
+<rect x="485.0" y="215.0" width="420.0" height="160.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="695.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритм фіксації знімка (Snapshot Freeze):</text>
+<text x="500.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">1. Перехоплення в HardFault / PVD / WDT Early Warning IRQ</text>
+<text x="500.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">2. Блокування покажчика Head: заборона нових записів у RAM</text>
+<text x="500.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">3. Збір контексту ядра: регістри CFSR, HFSR, PC, LR, SP, FSM</text>
+<text x="500.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">4. Обчислення CRC-16 для всього масиву кадрів буфера</text>
+<text x="500.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">5. Швидкий експорт (Commit) у FRAM або слот аварій Flash</text>
+<rect x="485.0" y="388.0" width="420.0" height="55.0" rx="6" fill="#dcfce7" stroke="#15803d" stroke-width="1.2"/>
+<text x="695.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">Збережений аварійний дамп у Non-Volatile Memory</text>
+<text x="695.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#166534" text-anchor="middle">Слот 0x01 | Magic: 0x424F5831 | Розмір: 2048 байтів | CRC OK</text>
+<rect x="-24.8" y="469.8" width="989.6" height="30.5" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5"/><text x="470.0" y="488.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">Кільцевий буфер у RAM утримує передісторію аварії; при фатальному збої буфер миттєво заморожується і скидається в енергонезалежну пам'ять для посмертного аналізу.</tspan></text>
+</svg>

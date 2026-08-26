@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 380" width="820" height="380">
+<rect x="0.0" y="0.0" width="820.0" height="380.0" rx="0" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Криптографічний генератор стрибків робочої частоти (FHSS Core)</text>
+<rect x="33.0" y="75.0" width="153.9" height="69.9" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="110.0" y="92.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">Вхідні параметри:</tspan><tspan x="110.0" dy="14.3">• Секретний ключ K</tspan><tspan x="110.0" dy="14.3">• Номер кроку t_hop</tspan><tspan x="110.0" dy="14.3">• Ідентифікатор мережі</tspan></text>
+<line x1="205.0" y1="110.0" x2="255.0" y2="110.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<polygon points="255,110 245,106 245,114" fill="#1a1a1a"/>
+<rect x="260.5" y="75.0" width="179.0" height="69.9" rx="6" fill="#f0fff4" stroke="#27ae60" stroke-width="1.5"/><text x="350.0" y="92.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="350.0" dy="0.0">Криптографічний PRF:</tspan><tspan x="350.0" dy="14.3">ChaCha20 / SipHash Core</tspan><tspan x="350.0" dy="14.3">32-бітний псевдовипадковий</tspan><tspan x="350.0" dy="14.3">вивід PRNG(K, t_hop)</tspan></text>
+<line x1="445.0" y1="110.0" x2="495.0" y2="110.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<polygon points="495,110 485,106 485,114" fill="#1a1a1a"/>
+<rect x="484.8" y="75.0" width="210.4" height="69.9" rx="6" fill="#f0f7ff" stroke="#2457d6" stroke-width="1.5"/><text x="590.0" y="92.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="590.0" dy="0.0">Мапування каналів:</tspan><tspan x="590.0" dy="14.3">• Редукція без зміщення (mod M)</tspan><tspan x="590.0" dy="14.3">• Фільтр чорного списку (AFH)</tspan><tspan x="590.0" dy="14.3">• Індекс каналу: ch_idx</tspan></text>
+<line x1="590.0" y1="155.0" x2="590.0" y2="215.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<polygon points="590,215 586,205 594,205" fill="#1a1a1a"/>
+<rect x="440.9" y="232.2" width="298.1" height="55.6" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/><text x="590.0" y="249.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="590.0" dy="0.0">Радіотракт / PLL Синтезатор:</tspan><tspan x="590.0" dy="14.3">Встановлення частоти f = F_base + ch_idx · ΔF</tspan><tspan x="590.0" dy="14.3">Час перемикання PLL: τ_lock &lt; 50 мкс</tspan></text>
+<rect x="40.0" y="195.0" width="340.0" height="145.0" rx="5" fill="#f4f6f8" stroke="#c0c8d0" stroke-width="1.0"/>
+<text x="210.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому саме криптографічний генератор:</text>
+<text x="50.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Звичайний LFSR (m-послідовність) зламується</text>
+<text x="50.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">  алгоритмом Берлекемпа-Мессі за 2N відліків.</text>
+<text x="50.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Крипто-PRF робить наступний канал непередбачуваним</text>
+<text x="50.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">  для станції РЕР навіть після перехоплення 10 000 хопів.</text>
+<text x="50.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Відсутність відкритого заголовка в ефірі —</text>
+<text x="50.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">  синхронізація тримається на спільному лічильнику часу.</text>
+</svg>

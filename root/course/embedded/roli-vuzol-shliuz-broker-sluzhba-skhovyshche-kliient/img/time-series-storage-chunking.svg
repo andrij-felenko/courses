@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Організація Time-Series DB: партиціювання на чанки та стиснення метрик</text>
+<rect x="30.0" y="60.0" width="150.0" height="190.0" rx="6" fill="#f8fafc" stroke="#16a085" stroke-width="1.6"/>
+<text x="105.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#16a085" text-anchor="middle" font-weight="700">Потік вимірів</text>
+<text x="105.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">(Append-Only)</text>
+<line x1="45.0" y1="108.0" x2="165.0" y2="108.0" stroke="#16a085" stroke-width="1.0"/>
+<text x="42.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">10:00:01  t=22.4  v=3.31</text>
+<text x="42.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">10:00:02  t=22.4  v=3.30</text>
+<text x="42.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">10:00:03  t=22.5  v=3.30</text>
+<text x="42.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">10:00:04  t=22.5  v=3.29</text>
+<text x="42.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">...</text>
+<line x1="180.0" y1="155.0" x2="226.0" y2="155.0" stroke="#16a085" stroke-width="2.0"/>
+<line x1="218.0" y1="155.0" x2="228.0" y2="155.0" stroke="#16a085" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="230.0" y="52.0" width="520.0" height="210.0" rx="6" fill="#fdfbf9" stroke="#d35400" stroke-width="1.8"/>
+<text x="490.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">Гіпертаблиця (TimescaleDB / InfluxDB): Партиції за часом</text>
+<rect x="250.0" y="92.0" width="145.0" height="150.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="322.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Сьогодні (День 0)</text>
+<text x="322.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">АКТИВНИЙ ЧАНК</text>
+<line x1="260.0" y1="138.0" x2="385.0" y2="138.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="260.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Пишеться в RAM</text>
+<text x="260.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• WAL на диску</text>
+<text x="260.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Сирі дані (100%)</text>
+<text x="260.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Швидкий Insert</text>
+<text x="260.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">• Без компресії</text>
+<rect x="415.0" y="92.0" width="145.0" height="150.0" rx="5" fill="#fdf3eb" stroke="#d35400" stroke-width="1.5"/>
+<text x="487.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle" font-weight="700">Вчора (День −1)</text>
+<text x="487.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">СТИСНЕНИЙ ЧАНК</text>
+<line x1="425.0" y1="138.0" x2="550.0" y2="138.0" stroke="#d35400" stroke-width="1.0"/>
+<text x="425.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Read-Only сегмент</text>
+<text x="425.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Gorilla / Delta-of-Δ</text>
+<text x="425.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d35400" text-anchor="start" font-weight="700">• Обсяг: 8–10% від сирого</text>
+<text x="425.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Колоночний формат</text>
+<text x="425.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Швидкі агрегати</text>
+<rect x="580.0" y="92.0" width="150.0" height="150.0" rx="5" fill="#f0f4f8" stroke="#475569" stroke-width="1.5"/>
+<text x="655.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle" font-weight="700">Місяць тому (День −30)</text>
+<text x="655.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ДАУНСЕМПЛІНГ</text>
+<line x1="590.0" y1="138.0" x2="720.0" y2="138.0" stroke="#475569" stroke-width="1.0"/>
+<text x="590.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• 1-хв середні/мін/макс</text>
+<text x="590.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Сирі секунди вилучені</text>
+<text x="590.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Довготривалий архів</text>
+<text x="590.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Збереження 2 роки</text>
+<text x="590.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">• Економія диска 98%</text>
+<rect x="30.0" y="276.0" width="720.0" height="84.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/><text x="390.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="390.0" dy="0.0">Чому не класичний PostgreSQL B-Tree для всього потоку? При мільйонах рядків B-дерево перестає вміщатися в RAM,</tspan><tspan x="390.0" dy="12.3">кожен INSERT спричиняє довільне читання/запис блоків на диск (Write Amplification) і блокування індексу.</tspan><tspan x="390.0" dy="12.3">Time-Series DB ділить час на чанки: запис іде послідовно лише в Активний чанк, а старі чанки пакуються в колумнарний архів.</tspan></text>
+</svg>

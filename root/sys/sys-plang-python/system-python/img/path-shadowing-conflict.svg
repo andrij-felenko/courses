@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм затінення системних бібліотек (sys.path Shadowing)</text>
+<rect x="35.0" y="60.0" width="260.0" height="370.0" rx="8" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="165.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">1. Свавільне встановлення pip</text>
+<line x1="45.0" y1="96.0" x2="285.0" y2="96.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="49.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Користувач виконує:</text>
+<text x="49.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">sudo pip install requests==2.32</text>
+<text x="49.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">pip розміщує файли у:</text>
+<text x="49.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">/usr/local/lib/python3.X/</text>
+<text x="49.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">dist-packages/requests</text>
+<text x="49.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Результат:</text>
+<text x="49.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Нові файли не враховані</text>
+<text x="49.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">в базі dpkg/rpm!</text>
+<rect x="330.0" y="60.0" width="280.0" height="370.0" rx="8" fill="#eff6ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="470.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">2. Пріоритет пошуку у sys.path</text>
+<line x1="340.0" y1="96.0" x2="600.0" y2="96.0" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="340.0" y="110.0" width="260.0" height="64.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="350.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">[1] Поточний каталог / скрипт</text>
+<text x="350.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Локальний каталог (якщо не -P)</text>
+<rect x="340.0" y="186.0" width="260.0" height="64.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.4"/>
+<text x="350.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">[2] /usr/local/lib/.../dist-packages</text>
+<text x="350.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Знайдено requests 2.32 (pip) -&gt; СТОП</text>
+<rect x="340.0" y="262.0" width="260.0" height="64.0" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.4"/>
+<text x="350.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">[3] /usr/lib/python3/dist-packages</text>
+<text x="350.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">requests 2.25 (ОС) ЗАТІНЕНО!</text>
+<rect x="340.0" y="338.0" width="260.0" height="64.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="350.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">[4] /usr/lib/python3.X (stdlib)</text>
+<text x="350.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Стандартна бібліотека CPython</text>
+<rect x="645.0" y="60.0" width="260.0" height="370.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="775.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">3. Фатальний крах утиліт ОС</text>
+<line x1="655.0" y1="96.0" x2="895.0" y2="96.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="659.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">1. Запуск системного DNF/APT</text>
+<text x="659.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">2. Імпорт urllib3 і requests</text>
+<text x="659.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">3. Завантаження несумісних версій:</text>
+<text x="659.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">   urllib3 (із /usr/lib) +</text>
+<text x="659.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">   requests (із /usr/local)</text>
+<text x="659.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">4. AttributeError / ImportError:</text>
+<text x="659.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">   urllib3.exceptions не знайдено</text>
+<text x="659.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">5. Повна зупинка оновлень ОС!</text>
+<line x1="295.0" y1="210.0" x2="330.0" y2="210.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="610.0" y1="210.0" x2="645.0" y2="210.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="470.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Пакет із /usr/local завантажується першим і несумісний зі старими системними залежностями з /usr/lib</text>
+</svg>

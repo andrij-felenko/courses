@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часові діаграми доступу до Flash: 16 МГц та 168 МГц</text>
+<text x="420.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часові діаграми доступу до Flash: 16 МГц (0WS) проти 168 МГц (5WS)</text>
+<rect x="40.0" y="42.0" width="760.0" height="140.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="60.0" y="64.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">Режим 16 МГц (HSI / старт): T_clk = 62.5 нс ≥ 30 нс (0 Wait States, 1 такт)</text>
+<text x="120.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">CLK (16 МГц)</text>
+<path d="M 140,105 L 140,80 L 320,80 L 320,105 L 500,105 L 500,80 L 680,80 L 680,105" fill="none" stroke="#2457d6" stroke-width="2.0"/>
+<text x="230.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">Такт 1 (62.5 нс)</text>
+<text x="120.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">Flash матриця</text>
+<rect x="140.0" y="120.0" width="175.0" height="26.0" rx="3" fill="#fed7aa" stroke="#ea580c" stroke-width="1.5"/>
+<text x="227.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#9a3412" text-anchor="middle" font-weight="700">Час доступу матриці (30 нс)</text>
+<rect x="315.0" y="120.0" width="185.0" height="26.0" rx="3" fill="#bbf7d0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="407.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#14532d" text-anchor="middle" font-weight="700">Дані валідні (0WS — за 1 такт)</text>
+<line x1="500.0" y1="75.0" x2="500.0" y2="155.0" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="508.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-style="italic">Захоплення ядром</text>
+<rect x="40.0" y="195.0" width="760.0" height="175.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="60.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Режим 168 МГц (PLL): T_clk = 5.95 нс &lt; 30 нс (Потрібно 5WS Latency, разом 6 тактів = 35.7 нс)</text>
+<text x="120.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">CLK (168 МГц)</text>
+<text x="167.5" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">T1</text>
+<line x1="195.0" y1="230.0" x2="195.0" y2="345.0" stroke="#cbd5e1" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="222.5" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">WS1</text>
+<line x1="250.0" y1="230.0" x2="250.0" y2="345.0" stroke="#cbd5e1" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="277.5" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">WS2</text>
+<line x1="305.0" y1="230.0" x2="305.0" y2="345.0" stroke="#cbd5e1" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="332.5" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">WS3</text>
+<line x1="360.0" y1="230.0" x2="360.0" y2="345.0" stroke="#cbd5e1" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="387.5" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">WS4</text>
+<line x1="415.0" y1="230.0" x2="415.0" y2="345.0" stroke="#cbd5e1" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="442.5" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">T6 (Data)</text>
+<line x1="470.0" y1="230.0" x2="470.0" y2="345.0" stroke="#cbd5e1" stroke-width="1.0" stroke-dasharray="2,2"/>
+<path d="M 140,260 L 140,235 L 167.5,235 L 167.5,260 L 195,260 L 195,235 L 222.5,235 L 222.5,260 L 250,260 L 250,235 L 277.5,235 L 277.5,260 L 305,260 L 305,235 L 332.5,235 L 332.5,260 L 360,260 L 360,235 L 387.5,235 L 387.5,260 L 415,260 L 415,235 L 442.5,235 L 442.5,260 L 470,260" fill="none" stroke="#333333" stroke-width="1.8"/>
+<text x="120.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">Flash матриця</text>
+<rect x="140.0" y="280.0" width="280.0" height="26.0" rx="3" fill="#fed7aa" stroke="#ea580c" stroke-width="1.5"/>
+<text x="280.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#9a3412" text-anchor="middle" font-weight="700">Фізичний час доступу Flash-матриці (~30 нс)</text>
+<rect x="420.0" y="280.0" width="50.0" height="26.0" rx="3" fill="#bbf7d0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="445.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#14532d" text-anchor="middle" font-weight="700">Дані валідні</text>
+<text x="305.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">← 5 тактів очікування шини (Wait States / LATENCY = 5 у FLASH_ACR) →</text>
+<line x1="470.0" y1="230.0" x2="470.0" y2="345.0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="478.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-style="italic">Захоплення на 6-му такті</text>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1070 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1070" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="1040.0" height="540.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="530.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#0f172a" text-anchor="middle" font-weight="700">Хронологія та протокол OCI Distribution Specification (Pull Workflow)</text>
+<text x="530.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">Послідовність викликів HTTP REST API v2, перевірка автентифікації, отримання маніфесту та блобів</text>
+<rect x="35.0" y="70.0" width="170.0" height="36.0" rx="6" fill="#f8fafc" stroke="#2563eb" stroke-width="1.4"/>
+<text x="120.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="700">Клієнт (containerd / docker)</text>
+<line x1="120.0" y1="107.0" x2="120.0" y2="525.0" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="315.0" y="70.0" width="170.0" height="36.0" rx="6" fill="#f8fafc" stroke="#7c3aed" stroke-width="1.4"/>
+<text x="400.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="700">Auth Service (Token Server)</text>
+<line x1="400.0" y1="107.0" x2="400.0" y2="525.0" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="595.0" y="70.0" width="170.0" height="36.0" rx="6" fill="#f8fafc" stroke="#059669" stroke-width="1.4"/>
+<text x="680.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#059669" text-anchor="middle" font-weight="700">OCI Registry (API V2)</text>
+<line x1="680.0" y1="107.0" x2="680.0" y2="525.0" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="4,4"/>
+<rect x="855.0" y="70.0" width="170.0" height="36.0" rx="6" fill="#f8fafc" stroke="#d97706" stroke-width="1.4"/>
+<text x="940.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">Blob Storage / CDN (S3)</text>
+<line x1="940.0" y1="107.0" x2="940.0" y2="525.0" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="120.0" y1="135.0" x2="680.0" y2="135.0" stroke="#2563eb" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="400.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">1. GET /v2/myorg/app/manifests/v1.0 (Accept: oci.manifest.v1+json)</text>
+<line x1="680.0" y1="175.0" x2="120.0" y2="175.0" stroke="#dc2626" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="400.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle">2. 401 Unauthorized (Www-Authenticate: Bearer realm=&quot;https://auth...&quot;, service=&quot;registry&quot;)</text>
+<line x1="120.0" y1="215.0" x2="400.0" y2="215.0" stroke="#7c3aed" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="260.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6d28d9" text-anchor="middle">3. GET /token?service=registry&amp;scope=repository:myorg/app:pull</text>
+<line x1="400.0" y1="250.0" x2="120.0" y2="250.0" stroke="#7c3aed" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="260.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="middle">4. 200 OK { token: &quot;eyJhbGciOi...&quot; }</text>
+<line x1="120.0" y1="290.0" x2="680.0" y2="290.0" stroke="#2563eb" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="400.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">5. GET /v2/myorg/app/manifests/v1.0 (Authorization: Bearer eyJ...)</text>
+<line x1="680.0" y1="330.0" x2="120.0" y2="330.0" stroke="#059669" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="400.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#047857" text-anchor="middle" font-weight="700">6. 200 OK (Docker-Content-Digest: sha256:7f3b..., JSON: {config, layers: [L1, L2]})</text>
+<rect x="50.0" y="355.0" width="140.0" height="22.0" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.0"/>
+<text x="120.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#047857" text-anchor="middle" font-weight="700">L1 знайдено в кеші! (Skip)</text>
+<line x1="120.0" y1="395.0" x2="680.0" y2="395.0" stroke="#2563eb" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="400.0" y="387.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">7. HEAD /v2/myorg/app/blobs/sha256:3d4f56... (Перевірка розміру)</text>
+<line x1="680.0" y1="425.0" x2="120.0" y2="425.0" stroke="#059669" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="400.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="middle">8. 200 OK (Content-Length: 2150490, Content-Type: application/octet-stream)</text>
+<line x1="120.0" y1="455.0" x2="680.0" y2="455.0" stroke="#2563eb" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="400.0" y="447.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle">9. GET /v2/myorg/app/blobs/sha256:3d4f56...</text>
+<line x1="680.0" y1="485.0" x2="120.0" y2="485.0" stroke="#d97706" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="400.0" y="477.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="middle">10. 307 Temporary Redirect (Location: https://s3.amazonaws.com/registry-blobs/...)</text>
+<line x1="120.0" y1="515.0" x2="940.0" y2="515.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="530.0" y="507.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="middle" font-weight="700">11. GET https://s3... → 200 OK (Потокове завантаження тарболу + Streaming SHA256)</text>
+</svg>

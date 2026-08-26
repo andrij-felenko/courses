@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Багаторівнева ієрархія алокатора: оптимізація швидкодії та блокувань</text>
+<rect x="40.0" y="50.0" width="740.0" height="75.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="60.0" y="66.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">Рівень 1: Локальний кеш потоку (Thread-Local Cache / tcache)</text>
+<text x="60.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Зберігається у TLS (__thread) окремо для кожного потоку процесу</text>
+<text x="470.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Швидкість: ≈ 5–12 тактів</text>
+<text x="470.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Синхронізація: БЕЗ М'ЮТЕКСІВ (Lock-free)</text>
+<line x1="350.0" y1="125.0" x2="350.0" y2="150.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="340.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end" font-weight="700">промах кешу</text>
+<line x1="470.0" y1="150.0" x2="470.0" y2="125.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="480.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">поповнення</text>
+<rect x="40.0" y="153.0" width="740.0" height="75.0" rx="8" fill="#eff6ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="60.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">Рівень 2: Арени пам'яті (Thread Arenas &amp; Segregated Bins)</text>
+<text x="60.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Масиви списків вільних блоків за розмірними класами (Fast, Small, Large Bins)</text>
+<text x="470.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Швидкість: ≈ 50–150 тактів</text>
+<text x="470.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Синхронізація: М'ютекс арени (Per-arena lock)</text>
+<line x1="350.0" y1="228.0" x2="350.0" y2="253.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="340.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end" font-weight="700">нестача пулу</text>
+<line x1="470.0" y1="253.0" x2="470.0" y2="228.0" stroke="#6b7280" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="480.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">madvise / trim</text>
+<rect x="40.0" y="256.0" width="740.0" height="75.0" rx="8" fill="#fee2e2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="60.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">Рівень 3: Ядро операційної системи (OS Virtual Memory Manager)</text>
+<text x="60.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Виділення великих арен через mmap(MAP_ANONYMOUS) або розширення brk</text>
+<text x="470.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Швидкість: ≈ 1000–3000 тактів</text>
+<text x="470.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Синхронізація: Системні виклики ядра (Syscalls)</text>
+<text x="410.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">99% запитів malloc/free завершуються на Рівні 1 без звернення до м'ютексів та ядра</text>
+</svg>

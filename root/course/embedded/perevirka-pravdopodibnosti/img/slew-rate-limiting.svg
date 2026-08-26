@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="22.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динамічний коридор швидкості наростання сигналу (Slew-Rate Envelope)</text>
+<rect x="80.0" y="50.0" width="640.0" height="250.0" rx="6" fill="#fafbfc" stroke="#d0d4dc" stroke-width="1.2"/>
+<line x1="80.0" y1="90.0" x2="720.0" y2="90.0" stroke="#eef0f4" stroke-width="1.0"/>
+<line x1="80.0" y1="130.0" x2="720.0" y2="130.0" stroke="#eef0f4" stroke-width="1.0"/>
+<line x1="80.0" y1="170.0" x2="720.0" y2="170.0" stroke="#eef0f4" stroke-width="1.0"/>
+<line x1="80.0" y1="210.0" x2="720.0" y2="210.0" stroke="#eef0f4" stroke-width="1.0"/>
+<line x1="80.0" y1="250.0" x2="720.0" y2="250.0" stroke="#eef0f4" stroke-width="1.0"/>
+<line x1="80.0" y1="290.0" x2="720.0" y2="290.0" stroke="#eef0f4" stroke-width="1.0"/>
+<line x1="140.0" y1="50.0" x2="140.0" y2="300.0" stroke="#eef0f4" stroke-width="1.0"/>
+<line x1="200.0" y1="50.0" x2="200.0" y2="300.0" stroke="#eef0f4" stroke-width="1.0"/>
+<line x1="260.0" y1="50.0" x2="260.0" y2="300.0" stroke="#eef0f4" stroke-width="1.0"/>
+<line x1="320.0" y1="50.0" x2="320.0" y2="300.0" stroke="#eef0f4" stroke-width="1.0"/>
+<line x1="380.0" y1="50.0" x2="380.0" y2="300.0" stroke="#eef0f4" stroke-width="1.0"/>
+<line x1="440.0" y1="50.0" x2="440.0" y2="300.0" stroke="#eef0f4" stroke-width="1.0"/>
+<line x1="500.0" y1="50.0" x2="500.0" y2="300.0" stroke="#eef0f4" stroke-width="1.0"/>
+<line x1="560.0" y1="50.0" x2="560.0" y2="300.0" stroke="#eef0f4" stroke-width="1.0"/>
+<line x1="620.0" y1="50.0" x2="620.0" y2="300.0" stroke="#eef0f4" stroke-width="1.0"/>
+<line x1="680.0" y1="50.0" x2="680.0" y2="300.0" stroke="#eef0f4" stroke-width="1.0"/>
+<line x1="80.0" y1="300.0" x2="740.0" y2="300.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="80.0" y1="300.0" x2="80.0" y2="35.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="748.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-style="italic">t</text>
+<text x="62.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">T, °C</text>
+<polyline points="100.0,240.0 170.0,235.0 240.0,225.0 310.0,205.0 380.0,180.0 450.0,155.0 520.0,135.0 590.0,125.0 660.0,120.0 700.0,118.0" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="310.0,205.0 380.0,165.0 380.0,235.0 310.0,205.0" fill="#b9770e" fill-opacity="0.18" stroke="#b9770e" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="452.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b9770e" text-anchor="middle">+S_max · dt (допустимо)</text>
+<text x="452.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b9770e" text-anchor="middle">-S_max · dt (допустимо)</text>
+<polyline points="170.0,235.0 240.0,95.0 310.0,205.0" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="4,3"/>
+<circle cx="240.0" cy="95.0" r="4.5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="240.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Глітч АЦП / Наводка (+45°C)</text>
+<text x="240.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">ВІДСІКАЄТЬСЯ</text>
+<circle cx="240.0" cy="207.0" r="4.0" fill="#b9770e" stroke="#ffffff" stroke-width="1.5"/>
+<text x="305.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b9770e" text-anchor="middle" font-style="italic">Затиснуте значення</text>
+<rect x="430.0" y="241.0" width="275.0" height="48.0" rx="4" fill="#ffffff" stroke="#d0d4dc" stroke-width="1.0"/>
+<line x1="440.0" y1="255.0" x2="464.0" y2="255.0" stroke="#27ae60" stroke-width="2.5"/>
+<text x="472.0" y="259.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Істинна теплова динаміка процесу</text>
+<line x1="440.0" y1="275.0" x2="464.0" y2="275.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,3"/>
+<text x="472.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Сирі виміри з перешкодами</text>
+<text x="390.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Швидкість зміни фізичного сигналу обмежена тепловою інертністю: dT/dt ≤ P_loss / C_th</text>
+</svg>

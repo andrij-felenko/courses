@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Блокування бездротового середовища: фізичний поріг CCA та маніпуляція вектором NAV</text>
+<rect x="45.0" y="75.0" width="410.0" height="345.0" rx="8" fill="#f8f9f9" stroke="#333333" stroke-width="1.5"/>
+<text x="250.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фізичний рівень: CCA Energy Detect Jamming</text>
+<rect x="65.0" y="125.0" width="370.0" height="115.0" rx="4" fill="#ffffff" stroke="#bdc3c7" stroke-width="1.0"/>
+<line x1="65.0" y1="190.0" x2="435.0" y2="190.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,4"/>
+<text x="75.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">Пороговий рівень CCA ED (-82 дБм)</text>
+<rect x="75.0" y="167.0" width="350.0" height="23.0" rx="6" fill="#fadbd8" stroke="#c0392b" stroke-width="1.0"/>
+<text x="250.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Слабка несуча завади (-78 дБм &gt; -82 дБм)</text>
+<line x1="65.0" y1="225.0" x2="435.0" y2="225.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="75.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Рівень теплового шуму (-95 дБм)</text>
+<rect x="69.2" y="282.0" width="361.7" height="76.0" rx="6" fill="#ffffff" stroke="#e74c3c" stroke-width="1.5"/><text x="250.0" y="297.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">Логіка CSMA/CA:</tspan><tspan x="250.0" dy="13.0">1. Радіоприймач вимірює RSSI &gt; -82 дБм.</tspan><tspan x="250.0" dy="13.0">2. Вузол вважає: «Канал зайнятий чужою передачею».</tspan><tspan x="250.0" dy="13.0">3. Запускається Backoff Timer -&gt; постійне відкладання.</tspan><tspan x="250.0" dy="13.0">Результат: повне мовчання передавача при нулі корисних даних.</tspan></text>
+<rect x="485.0" y="75.0" width="410.0" height="345.0" rx="8" fill="#f8f9f9" stroke="#333333" stroke-width="1.5"/>
+<text x="690.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Віртуальний рівень: NAV / RTS-CTS Stuffing</text>
+<rect x="505.0" y="125.0" width="370.0" height="55.0" rx="4" fill="#ffffff" stroke="#bdc3c7" stroke-width="1.0"/>
+<rect x="510.0" y="135.0" width="55.0" height="34.0" rx="6" fill="#eaeded" stroke="#7f8c8d" stroke-width="1.0"/>
+<text x="537.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Frame Ctrl</text>
+<rect x="570.0" y="135.0" width="110.0" height="34.0" rx="6" fill="#fdebd0" stroke="#e67e22" stroke-width="1.8"/>
+<text x="625.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d35400" text-anchor="middle" font-weight="700">Duration / ID</text>
+<text x="625.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d35400" text-anchor="middle" font-weight="700">= 32 767 мкс</text>
+<rect x="685.0" y="135.0" width="80.0" height="34.0" rx="6" fill="#eaeded" stroke="#7f8c8d" stroke-width="1.0"/>
+<text x="725.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">RA / TA MAC</text>
+<rect x="770.0" y="135.0" width="75.0" height="34.0" rx="6" fill="#eaeded" stroke="#7f8c8d" stroke-width="1.0"/>
+<text x="807.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">FCS / CRC</text>
+<rect x="534.8" y="222.0" width="310.4" height="76.0" rx="6" fill="#ffffff" stroke="#e67e22" stroke-width="1.5"/><text x="690.0" y="237.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">Механізм віртуального контролю (NAV):</tspan><tspan x="690.0" dy="13.0">1. Атакуючий шле фіктивний RTS або Data-кадр.</tspan><tspan x="690.0" dy="13.0">2. У полі Duration встановлено максимум: 32.7 мс.</tspan><tspan x="690.0" dy="13.0">3. Усі сусідні вузли блокують таймер NAV на 32.7 мс.</tspan><tspan x="690.0" dy="13.0">4. Повтор пакета 30 разів/с = 100% блокування.</tspan></text>
+<rect x="551.3" y="343.1" width="277.3" height="33.9" rx="6" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.5"/><text x="690.0" y="357.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">Протидія: обмеження максимального NAV у прошивці,</tspan><tspan x="690.0" dy="12.3">ігнорування RTS від неавтентифікованих MAC.</tspan></text>
+</svg>

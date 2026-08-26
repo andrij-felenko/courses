@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Протокол відновлення: пріоритет живого статусу та пакетне вивантаження архіву</text>
+<line x1="180.0" y1="90.0" x2="180.0" y2="480.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5,4"/>
+<line x1="660.0" y1="90.0" x2="660.0" y2="480.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5,4"/>
+<rect x="103.3" y="55.2" width="153.4" height="39.6" rx="6" fill="#e8f4f8" stroke="#2457d6" stroke-width="1.5"/><text x="180.0" y="71.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="180.0" dy="0.0">Автономний давач</tspan><tspan x="180.0" dy="15.6">(Flash Ring Buffer)</tspan></text>
+<rect x="572.2" y="55.2" width="175.7" height="39.6" rx="6" fill="#f4faf6" stroke="#27ae60" stroke-width="1.5"/><text x="660.0" y="71.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="660.0" dy="0.0">Хмарний сервер / Шлюз</tspan><tspan x="660.0" dy="15.6">(Time-Series Database)</tspan></text>
+<rect x="80.0" y="108.0" width="200.0" height="24.0" rx="4" fill="#fff3cd" stroke="#d39e00" stroke-width="1.0"/>
+<text x="180.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#856404" text-anchor="middle" font-weight="700">Канал з'явився (LINK_UP)</text>
+<line x1="180.0" y1="160.0" x2="660.0" y2="180.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="420.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">1. Свіжий статус (Live Now, Seq=2500)</text>
+<text x="420.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Оператор негайно бачить поточний стан</text>
+<line x1="660.0" y1="205.0" x2="180.0" y2="225.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="420.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">2. ACK(Live) + Sync Request: [Last_Known_Seq=1200]</text>
+<line x1="180.0" y1="255.0" x2="660.0" y2="280.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="420.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">3. Пакет архіву #1: Кадри [Seq 1201..1216] (16 записів)</text>
+<text x="420.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Зчитування з сектора Tail, одне мережеве корисне навантаження</text>
+<line x1="660.0" y1="310.0" x2="180.0" y2="330.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="420.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">4. Block ACK: [AckSeq=1216, Bitmask=0xFFFF (все прийнято)]</text>
+<rect x="70.0" y="343.0" width="220.0" height="24.0" rx="4" fill="#d4edda" stroke="#27ae60" stroke-width="1.0"/>
+<text x="180.0" y="359.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Tail зсунуто вперед на 16 записів</text>
+<line x1="180.0" y1="400.0" x2="660.0" y2="420.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="420.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">5. Свіжий статус (Live Now, Seq=2501)</text>
+<line x1="180.0" y1="445.0" x2="660.0" y2="465.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="420.0" y="447.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">6. Пакет архіву #2: Кадри [Seq 1217..1232]</text>
+</svg>

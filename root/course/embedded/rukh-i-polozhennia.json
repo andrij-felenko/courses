@@ -67,8 +67,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-smart-bus-servos.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -329,8 +335,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-sampled-data-control.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-jitter-phase-loss.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-deterministic-loop.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "com-signal/motion-profiles",
@@ -343,7 +367,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         }
       ]
@@ -415,8 +439,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-tait-bryan-kinematics.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "math-algebra/rotation-matrices",
@@ -467,8 +497,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-single-axis-gimbal.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -713,8 +749,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-innovation-whiteness.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-estimator-bench.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -809,7 +857,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         }
       ]

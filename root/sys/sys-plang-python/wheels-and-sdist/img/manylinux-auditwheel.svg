@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Трансформація двійкового модуля інструментом auditwheel (manylinux)</text>
+<rect x="40.0" y="55.0" width="260.0" height="410.0" rx="8" fill="#fff8f6" stroke="#2457d6" stroke-width="1.4"/>
+<text x="170.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1. Зібраний C-модуль</text>
+<line x1="55.0" y1="91.0" x2="285.0" y2="91.0" stroke="#2457d6" stroke-width="0.8"/>
+<rect x="55.0" y="103.0" width="230.0" height="85.0" rx="4" fill="#ffffff" stroke="#fca5a5" stroke-width="1.0"/>
+<text x="65.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">_extension.so</text>
+<text x="65.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start">DT_NEEDED: libdata.so.2</text>
+<text x="65.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">DT_RUNPATH: порожній</text>
+<rect x="55.0" y="200.0" width="230.0" height="115.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="65.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Системні шляхи хоста:</text>
+<text x="65.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start">/usr/lib/libdata.so.2</text>
+<text x="65.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">/lib64/libc.so.6 (glibc)</text>
+<text x="65.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start">Збій на чужих Linux!</text>
+<rect x="55.0" y="327.0" width="230.0" height="115.0" rx="4" fill="#fef2f2" stroke="#f87171" stroke-width="1.0"/>
+<text x="65.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Проблема:</text>
+<text x="65.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">На машині клієнта немає</text>
+<text x="65.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">libdata.so.2 або версія</text>
+<text x="65.0" y="413.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">glibc старіша за збірку.</text>
+<line x1="305.0" y1="260.0" x2="335.0" y2="260.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="360.0" y="55.0" width="260.0" height="410.0" rx="8" fill="#fefce8" stroke="#ca8a04" stroke-width="1.4"/>
+<text x="490.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ca8a04" text-anchor="middle" font-weight="700">2. Аудит і патчинг</text>
+<line x1="375.0" y1="91.0" x2="605.0" y2="91.0" stroke="#ca8a04" stroke-width="0.8"/>
+<rect x="375.0" y="103.0" width="230.0" height="75.0" rx="4" fill="#ffffff" stroke="#fde047" stroke-width="1.0"/>
+<text x="385.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#854d0e" text-anchor="start" font-weight="700">Аналіз символів ELF</text>
+<text x="385.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Звірка версій GLIBC_X.Y за б</text>
+<text x="385.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">ілим списком manylinux</text>
+<rect x="375.0" y="188.0" width="230.0" height="75.0" rx="4" fill="#ffffff" stroke="#fde047" stroke-width="1.0"/>
+<text x="385.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#854d0e" text-anchor="start" font-weight="700">Копіювання бібліотек</text>
+<text x="385.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Пошук libdata.so.2 та копіюв</text>
+<text x="385.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">ання у pkg.libs/</text>
+<rect x="375.0" y="273.0" width="230.0" height="75.0" rx="4" fill="#ffffff" stroke="#fde047" stroke-width="1.0"/>
+<text x="385.0" y="293.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#854d0e" text-anchor="start" font-weight="700">Унікалізація soname</text>
+<text x="385.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">libdata.so.2 -&gt; libdata-9f3a</text>
+<text x="385.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">12.so.2</text>
+<rect x="375.0" y="358.0" width="230.0" height="75.0" rx="4" fill="#ffffff" stroke="#fde047" stroke-width="1.0"/>
+<text x="385.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#854d0e" text-anchor="start" font-weight="700">Патчинг patchelf</text>
+<text x="385.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">DT_RUNPATH = $ORIGIN/../pkg.</text>
+<text x="385.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">libs</text>
+<line x1="625.0" y1="260.0" x2="655.0" y2="260.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="680.0" y="55.0" width="260.0" height="410.0" rx="8" fill="#f0fdf4" stroke="#c0392b" stroke-width="1.4"/>
+<text x="810.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">3. Автономний manylinux</text>
+<line x1="695.0" y1="91.0" x2="925.0" y2="91.0" stroke="#c0392b" stroke-width="0.8"/>
+<rect x="695.0" y="103.0" width="230.0" height="95.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.0"/>
+<text x="705.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">_extension.so</text>
+<text x="705.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">DT_NEEDED: libdata-9f.so.2</text>
+<text x="705.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">DT_RUNPATH: $ORIGIN/../libs</text>
+<text x="705.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Завантажувач шукає поруч</text>
+<rect x="695.0" y="210.0" width="230.0" height="95.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.0"/>
+<text x="705.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">pkg.libs/ (ізольовані .so)</text>
+<text x="705.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">└── libdata-9f3a12.so.2</text>
+<text x="705.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Повна ізоляція від хоста</text>
+<text x="705.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">й інших пакетів Python.</text>
+<rect x="695.0" y="320.0" width="230.0" height="125.0" rx="4" fill="#dcfce7" stroke="#4ade80" stroke-width="1.0"/>
+<text x="705.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Результат:</text>
+<text x="705.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Wheel працює на будь-якій</text>
+<text x="705.0" y="387.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">системі Linux із сумісною</text>
+<text x="705.0" y="407.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">версією glibc без збоїв.</text>
+</svg>

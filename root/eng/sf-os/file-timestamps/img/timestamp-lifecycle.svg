@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динаміка оновлення позначок atime, mtime і ctime при операціях VFS</text>
+<rect x="40.0" y="60.0" width="200.0" height="340.0" rx="8" fill="#fdecea" stroke="#991b1b" stroke-width="1.4"/>
+<text x="140.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#991b1b" text-anchor="middle" font-weight="700">1. Створення файлу</text>
+<text x="140.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">open(O_CREAT | ...)</text>
+<line x1="52.0" y1="124.0" x2="228.0" y2="124.0" stroke="#991b1b" stroke-width="1.0"/>
+<text x="140.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="140.0" dy="0.0">Встановлюються:</tspan><tspan x="140.0" dy="15.4">• btime = T₀</tspan><tspan x="140.0" dy="15.4">• mtime = T₀</tspan><tspan x="140.0" dy="15.4">• ctime = T₀</tspan><tspan x="140.0" dy="15.4">• atime = T₀</tspan><tspan x="140.0" dy="15.4"></tspan><tspan x="140.0" dy="15.4">Усі 4 позначки</tspan><tspan x="140.0" dy="15.4">ініціалізуються часом</tspan><tspan x="140.0" dy="15.4">створення інода.</tspan></text>
+<rect x="260.0" y="60.0" width="200.0" height="340.0" rx="8" fill="#eaf7ef" stroke="#166534" stroke-width="1.4"/>
+<text x="360.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#166534" text-anchor="middle" font-weight="700">2. Запис у файл</text>
+<text x="360.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">write(fd, buf, len)</text>
+<line x1="272.0" y1="124.0" x2="448.0" y2="124.0" stroke="#166534" stroke-width="1.0"/>
+<text x="360.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Оновлюються:</tspan><tspan x="360.0" dy="15.4">• mtime = T₁ (дані)</tspan><tspan x="360.0" dy="15.4">• ctime = T₁ (розмір)</tspan><tspan x="360.0" dy="15.4"></tspan><tspan x="360.0" dy="15.4">Без змін:</tspan><tspan x="360.0" dy="15.4">• atime (не читався)</tspan><tspan x="360.0" dy="15.4">• btime (незмінний)</tspan></text>
+<rect x="480.0" y="60.0" width="200.0" height="340.0" rx="8" fill="#fff6e0" stroke="#92400e" stroke-width="1.4"/>
+<text x="580.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#92400e" text-anchor="middle" font-weight="700">3. Зміна прав</text>
+<text x="580.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">chmod() / rename()</text>
+<line x1="492.0" y1="124.0" x2="668.0" y2="124.0" stroke="#92400e" stroke-width="1.0"/>
+<text x="580.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="580.0" dy="0.0">Оновлюється:</tspan><tspan x="580.0" dy="15.4">• ctime = T₂ (метадані)</tspan><tspan x="580.0" dy="15.4"></tspan><tspan x="580.0" dy="15.4">Без змін:</tspan><tspan x="580.0" dy="15.4">• mtime (тіло ціле)</tspan><tspan x="580.0" dy="15.4">• atime (не читався)</tspan><tspan x="580.0" dy="15.4">• btime (незмінний)</tspan></text>
+<rect x="700.0" y="60.0" width="200.0" height="340.0" rx="8" fill="#eef3fd" stroke="#1e40af" stroke-width="1.4"/>
+<text x="800.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e40af" text-anchor="middle" font-weight="700">4. Читання файлу</text>
+<text x="800.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">read(fd, buf, len)</text>
+<line x1="712.0" y1="124.0" x2="888.0" y2="124.0" stroke="#1e40af" stroke-width="1.0"/>
+<text x="800.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="800.0" dy="0.0">Оновлюється:</tspan><tspan x="800.0" dy="15.4">• atime = T₃ (читання)</tspan><tspan x="800.0" dy="15.4"></tspan><tspan x="800.0" dy="15.4">Без змін:</tspan><tspan x="800.0" dy="15.4">• mtime (без запису)</tspan><tspan x="800.0" dy="15.4">• ctime (без правок)</tspan><tspan x="800.0" dy="15.4">• btime (незмінний)</tspan></text>
+<line x1="242.0" y1="230.0" x2="258.0" y2="230.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="462.0" y1="230.0" x2="478.0" y2="230.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="682.0" y1="230.0" x2="698.0" y2="230.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

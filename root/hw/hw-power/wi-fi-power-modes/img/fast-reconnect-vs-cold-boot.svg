@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Cold Boot проти Fast Reconnect</text>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ціна пробудження: Повне підключення проти Fast Reconnect</text>
+<rect x="20.0" y="52.0" width="800.0" height="160.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="35.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">1. Повне повторне підключення (Cold Boot):  t_актив ≈ 1800 – 3500 мс,  Q ≈ 220 мКл</text>
+<rect x="35.0" y="107.0" width="100.0" height="50.0" rx="4" fill="#fed7aa" stroke="#c2410c" stroke-width="1.2"/>
+<text x="85.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c2410c" text-anchor="middle" font-weight="700">Boot / RF Cal</text>
+<text x="85.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">30–80 мс</text>
+<rect x="139.0" y="107.0" width="150.0" height="50.0" rx="4" fill="#fecaca" stroke="#dc2626" stroke-width="1.2"/>
+<text x="214.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">13-Ch Scan</text>
+<text x="214.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">150–400 мс</text>
+<rect x="293.0" y="107.0" width="85.0" height="50.0" rx="4" fill="#fde68a" stroke="#d97706" stroke-width="1.2"/>
+<text x="335.5" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">Auth/Assoc</text>
+<text x="335.5" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">30–60 мс</text>
+<rect x="382.0" y="107.0" width="120.0" height="50.0" rx="4" fill="#e9d5ff" stroke="#9333ea" stroke-width="1.2"/>
+<text x="442.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#9333ea" text-anchor="middle" font-weight="700">WPA 4-Way</text>
+<text x="442.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">50–120 мс</text>
+<rect x="506.0" y="107.0" width="220.0" height="50.0" rx="4" fill="#fbcfe8" stroke="#db2777" stroke-width="1.2"/>
+<text x="616.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#db2777" text-anchor="middle" font-weight="700">DHCP + ARP</text>
+<text x="616.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1000–2500 мс</text>
+<rect x="730.0" y="107.0" width="65.0" height="50.0" rx="4" fill="#bbf7d0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="762.5" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Data</text>
+<text x="762.5" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">15–30 мс</text>
+<rect x="159.2" y="172.0" width="521.6" height="30.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="420.0" y="190.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle"><tspan x="420.0" dy="0.0">До 90% всієї енергії сеансу спалюється на очікування відповідей DHCP та сканування ефіру</tspan></text>
+<rect x="20.0" y="226.0" width="800.0" height="160.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="35.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">2. Fast Reconnect (Кеш BSSID/каналу + PMKSA + статична IP / кеш лізингу):  t_актив ≈ 45 – 85 мс,  Q ≈ 6.5 мКл</text>
+<rect x="35.0" y="281.0" width="170.0" height="50.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="120.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">RTC Wake &amp; Init</text>
+<text x="120.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">3–8 мс</text>
+<rect x="217.0" y="281.0" width="280.0" height="50.0" rx="4" fill="#e0e7ff" stroke="#4338ca" stroke-width="1.2"/>
+<text x="357.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#4338ca" text-anchor="middle" font-weight="700">Direct Ch Assoc (PMKSA)</text>
+<text x="357.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">25–45 мс (без сканування!)</text>
+<rect x="509.0" y="281.0" width="280.0" height="50.0" rx="4" fill="#bbf7d0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="649.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Cached IP / Data Send</text>
+<text x="649.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">15–30 мс (без DHCP!)</text>
+<rect x="121.7" y="346.0" width="596.6" height="30.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="420.0" y="364.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">Енерговитрати скорочуються у 30–35 разів завдяки усуненню сканування каналів і протоколу DHCP</tspan></text>
+<rect x="121.6" y="396.5" width="596.8" height="31.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="420.0" y="415.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Для батарейних вузлів обов'язкове кешування каналу, BSSID, PMKSA та статична конфігурація IP</tspan></text>
+</svg>

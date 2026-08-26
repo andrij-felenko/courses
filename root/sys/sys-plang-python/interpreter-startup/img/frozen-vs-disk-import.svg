@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 979.44 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="979.44" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Еволюція бутстрапу: імпорт з диска vs Frozen vs Deep-Frozen</text>
+<rect x="35.0" y="55.0" width="280.0" height="330.0" rx="8" fill="#fee2e2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="175.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">1. Звичайний імпорт з диска (.py / .pyc)</text>
+<line x1="45.0" y1="91.0" x2="305.0" y2="91.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="47.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">1. Пошук файлу через sys.path (десятки stat/</text>
+<text x="57.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">open)</text>
+<text x="47.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">2. Читання файлу в оперативну пам'ять (I/O)</text>
+<text x="47.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">3. Перевірка хешу або дати у кеші __pycache_</text>
+<text x="57.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">_</text>
+<text x="47.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">4. Компіляція .py або unmarshal файлу .pyc</text>
+<text x="47.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">5. Виділення пам'яті під PyCodeObject у heap</text>
+<text x="47.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">Витрати: системні виклики I/O, фрагментація </text>
+<text x="57.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">heap</text>
+<rect x="350.0" y="55.0" width="280.0" height="330.0" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="1.8"/>
+<text x="490.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">2. Класичні Frozen Modules (Python 3.8-3.10)</text>
+<line x1="360.0" y1="91.0" x2="620.0" y2="91.0" stroke="#b45309" stroke-width="1.0"/>
+<text x="362.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">1. Модуль скомпільовано в C-масив на етапі з</text>
+<text x="372.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">бирання</text>
+<text x="362.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">2. Відсутність системних викликів до файлово</text>
+<text x="372.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">ї системи</text>
+<text x="362.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">3. Виклик PyMarshal_ReadObjectFromString() п</text>
+<text x="372.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">ід час старту</text>
+<text x="362.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">4. Десеріалізація створює об'єкти коду в hea</text>
+<text x="372.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">p</text>
+<text x="362.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">5. Реєстрація модулів у словнику sys.modules</text>
+<text x="362.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="start" font-weight="700">Витрати: нульовий I/O, але залишається наван</text>
+<text x="372.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="start" font-weight="700">таження CPU</text>
+<rect x="665.0" y="55.0" width="280.0" height="330.0" rx="8" fill="#d1fae5" stroke="#27ae60" stroke-width="1.8"/>
+<text x="805.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">3. Deep-Frozen Modules (Python 3.11+ Faster CPython)</text>
+<line x1="675.0" y1="91.0" x2="935.0" y2="91.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="677.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">1. PyCodeObject та рядки згенеровані як cons</text>
+<text x="687.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">t C-структури</text>
+<text x="677.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">2. Усі дані розміщені в .rodata сегменті бін</text>
+<text x="687.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">арного файлу</text>
+<text x="677.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">3. Повна відсутність десеріалізації (zero un</text>
+<text x="687.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">marshal)</text>
+<text x="677.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">4. Нульові алокації в купі під час ініціаліз</text>
+<text x="687.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">ації ядра</text>
+<text x="677.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">5. Пряме виконання інструкцій із статичної п</text>
+<text x="687.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">ам'яті C</text>
+<text x="677.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">Витрати: нульовий I/O, нульове навантаження </text>
+<text x="687.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">десеріалізації</text>
+<text x="480.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Deep-Frozen перетворює код ядра на статичні константи C, заощаджуючи час CPU та пам'ять</text>
+</svg>

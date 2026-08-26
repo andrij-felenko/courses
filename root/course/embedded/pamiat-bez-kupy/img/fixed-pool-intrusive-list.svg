@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 460">
+<rect x="0.0" y="0.0" width="840.0" height="460.0" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/>
+<text x="20.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">Архітектура блокового пула фіксованого розміру (Fixed-Size Block Pool)</text>
+<text x="40.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Статичний буфер у RAM: N однакових блоків розміром S байтів кожен</text>
+<rect x="30.4" y="92.3" width="129.1" height="45.3" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="95.0" y="111.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="95.0" dy="0.0">Дескриптор пула:</tspan><tspan x="95.0" dy="14.3">free_head</tspan></text>
+<line x1="159.6" y1="115.0" x2="185.0" y2="115.0" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="185.0" y="75.0" width="145.0" height="80.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="257.5" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Блок 0 [Вільний]</text>
+<text x="257.5" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">next -&gt; Блок 2</text>
+<text x="257.5" y="67.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">addr + 0*S</text>
+<rect x="346.0" y="75.0" width="145.0" height="80.0" rx="4" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+<text x="418.5" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Блок 1 [Зайнятий]</text>
+<text x="418.5" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Корисні дані</text>
+<text x="418.5" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(App Data)</text>
+<text x="418.5" y="67.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">addr + 1*S</text>
+<rect x="507.0" y="75.0" width="145.0" height="80.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="579.5" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Блок 2 [Вільний]</text>
+<text x="579.5" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">next -&gt; Блок 3</text>
+<text x="579.5" y="67.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">addr + 2*S</text>
+<rect x="668.0" y="75.0" width="145.0" height="80.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="740.5" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Блок 3 [Вільний]</text>
+<text x="740.5" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">next = NULL (Хвіст)</text>
+<text x="740.5" y="67.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">addr + 3*S</text>
+<line x1="257.5" y1="155.0" x2="257.5" y2="195.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="257.5" y1="195.0" x2="559.5" y2="195.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="559.5" y1="195.0" x2="559.5" y2="155.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="599.5" y1="155.0" x2="599.5" y2="180.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="599.5" y1="180.0" x2="740.5" y2="180.0" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="740.5" y1="180.0" x2="740.5" y2="155.0" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="40.0" y="240.0" width="760.0" height="160.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="60.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Детерміновані операції без фрагментації:</text>
+<text x="70.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">• Виділення pool_alloc() — O(1) час виконання (3 процесорні інструкції):</text>
+<text x="90.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start">void* p = pool-&gt;head;   pool-&gt;head = *(void**)p;   return p;</text>
+<text x="90.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Блок виймається з голови зв'язного списку. Нульовий оверхед пам'яті для виділеного блоку!</text>
+<text x="70.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">• Звільнення pool_free(p) — O(1) час виконання (2 процесорні інструкції):</text>
+<text x="90.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start">*(void**)p = pool-&gt;head;   pool-&gt;head = p;</text>
+<text x="90.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Блок повертається у голову списку. Відсутність обходу сусідніх чанків і злиття (coalescing).</text>
+</svg>

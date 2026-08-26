@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл транзакції: узгодження запиту, відповіді та обробка збоїв</text>
+<text x="480.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Зв'язування за Transaction ID, обробка помилок виконання та захист від дублікатів</text>
+<rect x="100.0" y="80.0" width="160.0" height="36.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="180.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Клієнт (Ініціатор)</text>
+<line x1="180.0" y1="116.0" x2="180.0" y2="450.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+<rect x="700.0" y="80.0" width="160.0" height="36.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="780.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Сервер (Виконавець)</text>
+<line x1="780.0" y1="116.0" x2="780.0" y2="450.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="90.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Сценарій 1: Успіх</text>
+<line x1="180.0" y1="155.0" x2="780.0" y2="170.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="480.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">CMD_MOTOR_SET_SPEED (SeqID=12, ACK_REQ, Speed=1500)</text>
+<rect x="774.0" y="170.0" width="12.0" height="35.0" rx="2" fill="#d4efdf" stroke="#27ae60" stroke-width="1.2"/>
+<text x="795.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">Виконання (PWM update)</text>
+<line x1="780.0" y1="205.0" x2="180.0" y2="220.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="480.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">RSP (SeqID=12, IS_RESP, Status=OK, CurrentRPM=1498)</text>
+<text x="90.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Сценарій 2: Відмова</text>
+<line x1="180.0" y1="255.0" x2="780.0" y2="270.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="480.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">CMD_WRITE_CALIBRATION (SeqID=13, ACK_REQ, Offset=5000)</text>
+<rect x="774.0" y="270.0" width="12.0" height="30.0" rx="2" fill="#fadbd8" stroke="#c0392b" stroke-width="1.2"/>
+<text x="795.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-style="italic">Перевірка діапазону: FAIL</text>
+<line x1="780.0" y1="300.0" x2="180.0" y2="315.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="480.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">RSP_ERR (SeqID=13, IS_RESP | IS_ERR, ErrorCode=ERR_INVALID_PARAM)</text>
+<text x="90.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="start" font-weight="700">Сценарій 3: Ретрай</text>
+<line x1="180.0" y1="355.0" x2="460.0" y2="367.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="320.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">CMD_PING (SeqID=14)</text>
+<text x="480.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">✕ ВТРАТА КАДРУ</text>
+<rect x="174.0" y="355.0" width="12.0" height="45.0" rx="2" fill="#fff3cd" stroke="#e67e22" stroke-width="1.2"/>
+<text x="168.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="end" font-style="italic">Таймаут RTT вичерпано</text>
+<line x1="180.0" y1="400.0" x2="780.0" y2="415.0" stroke="#d35400" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="480.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">CMD_PING (SeqID=14, RETRY) — той самий SeqID запобігає дублюванню дій</text>
+<line x1="780.0" y1="425.0" x2="180.0" y2="440.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="480.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">RSP (SeqID=14, IS_RESP, Status=OK)</text>
+</svg>

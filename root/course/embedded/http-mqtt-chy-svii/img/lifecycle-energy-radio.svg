@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Час активності передавача (TX/RX) під час відправки одного відліку</text>
+<text x="166.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">HTTP/TLS (холодний)</text>
+<text x="166.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">DNS + TLS + Запит</text>
+<text x="166.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">≈ 1400 мс</text>
+<rect x="180.0" y="80.0" width="87.0" height="56.0" rx="3" fill="#95a5a6" fill-opacity="0.30" stroke="#95a5a6" stroke-width="1.5"/>
+<text x="223.5" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">DNS</text>
+<rect x="267.0" y="80.0" width="69.6" height="56.0" rx="3" fill="#7f8c8d" fill-opacity="0.30" stroke="#7f8c8d" stroke-width="1.5"/>
+<text x="301.8" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">TCP SYN</text>
+<rect x="336.6" y="80.0" width="243.6" height="56.0" rx="3" fill="#c0392b" fill-opacity="0.30" stroke="#c0392b" stroke-width="1.5"/>
+<text x="458.4" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">TLS 1.3 Handshake (крипто + сертифікат)</text>
+<rect x="580.2" y="80.0" width="104.4" height="56.0" rx="3" fill="#2457d6" fill-opacity="0.30" stroke="#2457d6" stroke-width="1.5"/>
+<text x="632.4" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">HTTP POST</text>
+<rect x="684.6" y="80.0" width="75.4" height="56.0" rx="3" fill="#27ae60" fill-opacity="0.30" stroke="#27ae60" stroke-width="1.5"/>
+<text x="722.3" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">200 OK + FIN</text>
+<text x="166.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">MQTT/TLS (теплий сокет)</text>
+<text x="166.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Publish QoS 1</text>
+<text x="166.0" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">≈ 120 мс</text>
+<rect x="180.0" y="185.0" width="46.4" height="56.0" rx="3" fill="#95a5a6" fill-opacity="0.30" stroke="#95a5a6" stroke-width="1.5"/>
+<rect x="226.4" y="185.0" width="261.0" height="56.0" rx="3" fill="#c0392b" fill-opacity="0.30" stroke="#c0392b" stroke-width="1.5"/>
+<text x="356.9" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">MQTT PUBLISH</text>
+<rect x="487.4" y="185.0" width="272.6" height="56.0" rx="3" fill="#27ae60" fill-opacity="0.30" stroke="#27ae60" stroke-width="1.5"/>
+<text x="623.7" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">PUBACK</text>
+<text x="166.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">UDP Binary (постріл)</text>
+<text x="166.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Fire &amp; Sleep</text>
+<text x="166.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">≈ 15 мс</text>
+<rect x="180.0" y="290.0" width="580.0" height="56.0" rx="3" fill="#27ae60" fill-opacity="0.30" stroke="#27ae60" stroke-width="1.5"/>
+<text x="470.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">RF активність + 1 пакет UDP</text>
+<rect x="90.2" y="390.2" width="659.5" height="59.6" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="420.0" y="409.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Радіомодем у режимі передачі споживає 80–250 мА. Кожна секунда неспання коштує тисяч міліампер-секунд.</tspan><tspan x="420.0" dy="14.3">Холодний сеанс HTTP/TLS утримує чип увімкненим у 100 разів довше, ніж швидкий постріл датаграмою UDP.</tspan><tspan x="420.0" dy="14.3">Для батарейного пристрою протокольний вибір — це вибір між місяцями та роками автономної роботи.</tspan></text>
+</svg>

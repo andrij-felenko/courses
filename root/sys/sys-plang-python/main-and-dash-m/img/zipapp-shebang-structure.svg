@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія виконуваного файлу zipapp: подвійне парсування заголовків</text>
+<rect x="50.0" y="65.0" width="320.0" height="420.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="2.0"/>
+<text x="210.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фізичний бінарний файл (.pyz)</text>
+<rect x="60.0" y="105.0" width="300.0" height="48.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="210.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">1. Unix Shebang Префікс</text>
+<text x="210.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">#!/usr/bin/env python3\n</text>
+<rect x="60.0" y="165.0" width="300.0" height="210.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="210.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">2. Тіло ZIP-архіву (Local File Records)</text>
+<rect x="70.0" y="210.0" width="280.0" height="24.0" rx="3" fill="#ffffff" stroke="#90b0e0" stroke-width="1.0"/>
+<text x="210.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">__main__.py (байткод або вихідний текст)</text>
+<rect x="70.0" y="240.0" width="280.0" height="24.0" rx="3" fill="#ffffff" stroke="#90b0e0" stroke-width="1.0"/>
+<text x="210.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">app/__init__.py</text>
+<rect x="70.0" y="270.0" width="280.0" height="24.0" rx="3" fill="#ffffff" stroke="#90b0e0" stroke-width="1.0"/>
+<text x="210.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">app/core.py</text>
+<rect x="70.0" y="300.0" width="280.0" height="24.0" rx="3" fill="#ffffff" stroke="#90b0e0" stroke-width="1.0"/>
+<text x="210.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">app/utils.py</text>
+<rect x="70.0" y="330.0" width="280.0" height="24.0" rx="3" fill="#ffffff" stroke="#90b0e0" stroke-width="1.0"/>
+<text x="210.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Стиснені дані DEFLATE / STORE</text>
+<rect x="60.0" y="387.0" width="300.0" height="80.0" rx="4" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="210.0" y="407.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">3. Central Directory &amp; EOCD</text>
+<text x="210.0" y="427.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Таблиця зміщень файлів у архіві</text>
+<text x="210.0" y="447.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Сигнатура EOCD: 0x06054b50 (кінець файлу)</text>
+<rect x="450.0" y="75.0" width="480.0" height="165.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="690.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">А. Системний запуск ОС (execve -&gt; POSIX Kernel)</text>
+<text x="470.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">1. Ядро ОС зчитує перші байти файлу з нульового зміщення (offset 0).</text>
+<text x="470.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">2. Виявляє магічні символи '#!' (Shebang) і парсить команду інтерпретатора.</text>
+<text x="470.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">3. Викликає /usr/bin/env python3, передаючи шлях до цього ж .pyz файлу в argv[1].</text>
+<text x="470.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Результат: ОС запускає CPython, який починає парсити переданий архів.</text>
+<line x1="370.0" y1="129.0" x2="446.0" y2="115.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="450.0" y="270.0" width="480.0" height="215.0" rx="8" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="690.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Б. Внутрішній імпортер CPython (модуль zipimport)</text>
+<text x="470.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">1. CPython додає шлях archive.pyz у sys.path[0].</text>
+<text x="470.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">2. zipimport відкриває файл і шукає EOCD з кінця файлу (seek(-22, SEEK_END)).</text>
+<text x="470.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">3. Шебанг на початку не заважає: зміщення рахуються від EOCD.</text>
+<text x="470.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">4. zipimport зчитує __main__.py безпосередньо з пам'яті (без розархівації).</text>
+<text x="470.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">5. runpy виконує байткод у контексті модуля __main__.</text>
+<text x="470.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Результат: Повна автономність виконання в одному переносимому файлі.</text>
+<line x1="370.0" y1="422.0" x2="446.0" y2="310.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 951.8 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="951.8" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="910.0" height="470.0" rx="10" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="470.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура та оптимізація бінарного кадру чорної скриньки</text>
+<rect x="35.0" y="68.0" width="870.0" height="105.0" rx="8" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="470.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Неефективне текстове логування (ASCII / Printf / String Logs)</text>
+<rect x="55.0" y="103.0" width="830.0" height="28.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="470.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">&quot;2026-08-26 14:32:01.452 [WARN] Subsys:NAV Event:LOST_LOCK Sat:4 HDOP:3.8 V_bat:3.72V\n&quot;</text>
+<text x="150.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">• Розмір рядка: 84 байти</text>
+<text x="470.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">• Затримка передачі на UART 115200: 7.3 мс (блокування ядра)</text>
+<text x="780.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">• Оверхед парсингу в ISR: критичний</text>
+<rect x="35.0" y="188.0" width="870.0" height="240.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="470.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Компактний 16-байтний бінарний кадр події (Binary Event Frame)</text>
+<rect x="60.0" y="235.0" width="205.0" height="52.0" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+<text x="162.5" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">timestamp_ms</text>
+<text x="162.5" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-weight="700">(uint32_t, 4B)</text>
+<text x="162.5" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Мітка часу від старту</text>
+<text x="162.5" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(точність 1 мс, діапазон 49.7 діб)</text>
+<rect x="265.0" y="235.0" width="51.0" height="52.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="290.5" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">subsys_id</text>
+<text x="290.5" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">(uint8_t, 1B)</text>
+<text x="290.5" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ID підсистеми</text>
+<text x="290.5" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(NAV, POWER, COM)</text>
+<rect x="316.0" y="235.0" width="51.0" height="52.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="341.5" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">event_id</text>
+<text x="341.5" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">(uint8_t, 1B)</text>
+<text x="341.5" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Код події</text>
+<text x="341.5" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(ERR, STATE_CHG)</text>
+<rect x="367.0" y="235.0" width="102.0" height="52.0" rx="4" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
+<text x="418.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">fsm_state</text>
+<text x="418.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle" font-weight="700">(uint16_t, 2B)</text>
+<text x="418.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Стан автоматів FSM</text>
+<text x="418.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">і бітові прапорці</text>
+<rect x="469.0" y="235.0" width="307.0" height="52.0" rx="4" fill="#dcfce7" stroke="#15803d" stroke-width="1.5"/>
+<text x="622.5" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">payload[6]</text>
+<text x="622.5" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700">(6 байтів)</text>
+<text x="622.5" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Корисні дані (напруга мВ,</text>
+<text x="622.5" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">струм, температура, лічильник)</text>
+<rect x="776.0" y="235.0" width="102.0" height="52.0" rx="4" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
+<text x="827.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">crc16</text>
+<text x="827.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#db2777" text-anchor="middle" font-weight="700">(uint16_t, 2B)</text>
+<text x="827.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">CRC-16/CCITT</text>
+<text x="827.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">контрольна сума 0..13B</text>
+<rect x="55.0" y="335.0" width="830.0" height="80.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="470.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Переваги оптимізованого бінарного формату:</text>
+<text x="180.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">✓ Стиснення обсягу: у 5.25 раза менше</text>
+<text x="470.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">✓ Час упаковки: &lt; 35 тактів ядра (0.2 мкс при 168 МГц)</text>
+<text x="760.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">✓ Безпека: нульове виділення купи (No Malloc)</text>
+<text x="180.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">✓ Апаратна сумісність: вирівнювання за 4 байти</text>
+<text x="470.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">✓ Гарантія цілісності: апаратний/програмний розрахунок CRC-16</text>
+<text x="760.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">✓ ISR-безпека: атомарне копіювання в буфер</text>
+<rect x="8.1" y="449.8" width="923.7" height="30.5" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5"/><text x="470.0" y="468.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">Бінарний 16-байтний кадр вміщує повний контекст події, гарантує константний час збереження O(1) і запобігає блокуванню ядра під час аварійного виклику.</tspan></text>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Замкнений контур адаптивної швидкості (ADR) та оптимізації потужності (TPC)</text>
+<rect x="40.0" y="75.0" width="230.0" height="260.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="155.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Автономний вузол (Node)</text>
+<text x="155.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Передає пакет (Tx)</text>
+<text x="155.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Встановлює біт ADR = 1</text>
+<text x="155.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Рахує ADR_ACK_CNT</text>
+<text x="155.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Отримав команду LinkADRReq:</text>
+<text x="155.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">→ Знижує SF (зменшує ToA)</text>
+<text x="155.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">→ Зменшує потужність Tx</text>
+<text x="155.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Економія енергії: до 90%!</text>
+<rect x="710.0" y="75.0" width="230.0" height="260.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="825.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Сервер мережі (LNS)</text>
+<text x="825.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Збирає останні N=20 пакетів</text>
+<text x="825.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Вимірює max(SNR) шлюзів</text>
+<text x="825.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Розрахунок запасу лінії:</text>
+<text x="825.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Margin = SNR_max − SNR_req − Margin_safe</text>
+<text x="825.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Якщо Margin &gt; 3 дБ:</text>
+<text x="825.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Формує LinkADRReq (DR↑, Power↓)</text>
+<text x="825.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Шле команду у вікні RX1/RX2</text>
+<line x1="270.0" y1="135.0" x2="710.0" y2="135.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="490.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Uplink: Data + FCnt + ADR=1</text>
+<line x1="710.0" y1="280.0" x2="270.0" y2="280.0" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="490.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Downlink (RX1/RX2): MAC LinkADRReq</text>
+<rect x="310.1" y="169.5" width="359.7" height="61.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.4"/><text x="490.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="490.0" dy="0.0">Захист від втрати зв'язку (Fallback):</tspan><tspan x="490.0" dy="13.0">Якщо немає відповідей &gt; ADR_ACK_LIMIT (64 кроки):</tspan><tspan x="490.0" dy="13.0">1. Збільшити Tx Power до максимуму (+20 дБм)</tspan><tspan x="490.0" dy="13.0">2. Якщо немає зв'язку ще 32 кроки → Збільшити SF (знизити DR)</tspan></text>
+<rect x="41.7" y="357.5" width="896.6" height="21.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/><text x="490.0" y="371.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="490.0" dy="0.0">ADR автоматично оптимізує енергію кожного вузла: пристрої поблизу шлюзу переходять на SF7 та малу потужність, заощаджуючи батарею.</tspan></text>
+</svg>

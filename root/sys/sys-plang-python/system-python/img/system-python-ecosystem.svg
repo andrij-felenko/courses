@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектурна роль системного Python у складі операційної системи</text>
+<rect x="35.0" y="60.0" width="260.0" height="420.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="165.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Критичні підсистеми ОС</text>
+<line x1="45.0" y1="96.0" x2="285.0" y2="96.0" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="47.0" y="110.0" width="236.0" height="60.0" rx="6" fill="#e0e7ff" stroke="#3730a3" stroke-width="1.2"/>
+<text x="165.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#3730a3" text-anchor="middle" font-weight="700">Пакетні менеджери</text>
+<text x="165.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">DNF, APT-інструменти, YUM</text>
+<rect x="47.0" y="182.0" width="236.0" height="60.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="165.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Мережа та безпека</text>
+<text x="165.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">firewall-cmd, ufw, fail2ban</text>
+<rect x="47.0" y="254.0" width="236.0" height="60.0" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.2"/>
+<text x="165.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">Хмарна ініціалізація</text>
+<text x="165.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">cloud-init, netplan-генератори</text>
+<rect x="47.0" y="326.0" width="236.0" height="60.0" rx="6" fill="#d1fae5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="165.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Автентифікація</text>
+<text x="165.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">authselect, sssd-інструменти</text>
+<rect x="47.0" y="398.0" width="236.0" height="60.0" rx="6" fill="#f3f4f6" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="165.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Діагностика заліза</text>
+<text x="165.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">ubuntu-drivers, sosreport</text>
+<rect x="335.0" y="60.0" width="270.0" height="420.0" rx="8" fill="#eff6ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="470.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Системний інтерпретатор</text>
+<line x1="345.0" y1="96.0" x2="595.0" y2="96.0" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="347.0" y="110.0" width="246.0" height="76.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="470.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Бінарний файл CPython</text>
+<text x="470.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">/usr/bin/python3</text>
+<text x="470.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(динамічно лінкований з libc)</text>
+<rect x="347.0" y="200.0" width="246.0" height="76.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="470.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стандартна бібліотека</text>
+<text x="470.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">/usr/lib/python3.X/</text>
+<text x="470.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(os, sys, ssl, ctypes, subprocess)</text>
+<rect x="347.0" y="290.0" width="246.0" height="76.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="470.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Системні пакунки ОС</text>
+<text x="470.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">/usr/lib/python3/dist-packages</text>
+<text x="470.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(rpm / dpkg керовані файли)</text>
+<rect x="347.0" y="380.0" width="246.0" height="76.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="470.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Захисний маркер PEP 668</text>
+<text x="470.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">EXTERNALLY-MANAGED</text>
+<text x="470.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(блокує пряме втручання pip)</text>
+<rect x="645.0" y="60.0" width="260.0" height="420.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="775.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Менеджер пакунків ОС</text>
+<line x1="655.0" y1="96.0" x2="895.0" y2="96.0" stroke="#27ae60" stroke-width="1.0"/>
+<rect x="657.0" y="110.0" width="236.0" height="76.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="775.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">База цілісності файлів</text>
+<text x="775.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">dpkg (/var/lib/dpkg/status)</text>
+<text x="775.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">rpm (/var/lib/rpm/rpmdb.sqlite)</text>
+<rect x="657.0" y="200.0" width="236.0" height="76.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="775.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Контрольні суми та права</text>
+<text x="775.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Перевірка md5/sha256</text>
+<text x="775.0" y="256.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">та власника файлів (root:root)</text>
+<rect x="657.0" y="290.0" width="236.0" height="76.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="775.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Граф системних залежностей</text>
+<text x="775.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Розв'язання через SAT-солвер</text>
+<text x="775.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(libsolv / libapt-pkg)</text>
+<rect x="657.0" y="380.0" width="236.0" height="76.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="775.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Атомарні транзакції</text>
+<text x="775.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Оновлення системи без стану</text>
+<text x="775.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">розірваних пакетів і модулів</text>
+<line x1="295.0" y1="170.0" x2="335.0" y2="170.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="295.0" y1="310.0" x2="335.0" y2="310.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="645.0" y1="310.0" x2="605.0" y2="310.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="470.0" y="500.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Системні утиліти спираються на детерміновану версію Python та строгий контроль файлів через DPKG/RPM</text>
+</svg>

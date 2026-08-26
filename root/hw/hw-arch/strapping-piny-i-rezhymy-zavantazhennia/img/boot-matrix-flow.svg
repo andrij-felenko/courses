@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="810.0" height="490.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="420.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матриця апаратного вибору режимів завантаження</text>
+<rect x="35.0" y="65.0" width="245.0" height="425.0" rx="6" fill="#fcfdfe" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="35.0" y="65.0" width="245.0" height="35.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="157.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">STM32 (Cortex-M)</text>
+<rect x="79.2" y="111.9" width="155.6" height="36.1" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="157.0" y="126.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="157.0" dy="0.0">Вхідний пін BOOT0</tspan><tspan x="157.0" dy="13.7">(або nBOOT0 Option Byte)</tspan></text>
+<line x1="157.0" y1="155.0" x2="157.0" y2="185.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="50.0" y="190.0" width="105.0" height="65.0" rx="4" fill="#eef7f0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="102.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">BOOT0 = 0</text>
+<text x="102.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Main Flash</text>
+<text x="102.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0x08000000</text>
+<rect x="165.0" y="190.0" width="105.0" height="65.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="217.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">BOOT0 = 1</text>
+<text x="217.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Опитування BOOT1</text>
+<text x="217.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(або nBOOT1 біт)</text>
+<line x1="217.0" y1="255.0" x2="217.0" y2="285.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="165.0" y="290.0" width="105.0" height="80.0" rx="4" fill="#fff3e0" stroke="#d35400" stroke-width="1.4"/>
+<text x="217.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d35400" text-anchor="middle" font-weight="700">BOOT1 = 0</text>
+<text x="217.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">System Memory</text>
+<text x="217.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">ROM Bootloader</text>
+<text x="217.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(UART / DFU)</text>
+<rect x="50.0" y="290.0" width="105.0" height="80.0" rx="4" fill="#f5eef8" stroke="#8e44ad" stroke-width="1.4"/>
+<text x="102.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8e44ad" text-anchor="middle" font-weight="700">BOOT1 = 1</text>
+<text x="102.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Embedded SRAM</text>
+<text x="102.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Прямий запуск</text>
+<text x="102.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0x20000000</text>
+<rect x="45.0" y="395.0" width="225.0" height="80.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="157.5" y="419.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="157.5" dy="0.0">Сучасні серії (G0/G4/H7):</tspan><tspan x="157.5" dy="12.3">Апаратний BOOT1 вилучено;</tspan><tspan x="157.5" dy="12.3">конфігурація задається бітами</tspan><tspan x="157.5" dy="12.3">Option Bytes у незмінній Flash.</tspan></text>
+<rect x="295.0" y="65.0" width="250.0" height="425.0" rx="6" fill="#fcfdfe" stroke="#d35400" stroke-width="1.5"/>
+<rect x="295.0" y="65.0" width="250.0" height="35.0" rx="6" fill="#fff3e0" stroke="#d35400" stroke-width="1.5"/>
+<text x="420.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d35400" text-anchor="middle" font-weight="700">ESP32 (WROOM / S3 / C3)</text>
+<rect x="351.2" y="111.9" width="137.7" height="36.1" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="420.0" y="126.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">GPIO0 (Strap пін)</tspan><tspan x="420.0" dy="13.7">+ стан GPIO2 / GPIO12</tspan></text>
+<line x1="420.0" y1="155.0" x2="420.0" y2="185.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="305.0" y="190.0" width="110.0" height="85.0" rx="4" fill="#eef7f0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="360.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">GPIO0 = 1</text>
+<text x="360.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">SPI Flash Boot</text>
+<text x="360.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Завантаження з</text>
+<text x="360.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">зовнішньої Flash</text>
+<rect x="425.0" y="190.0" width="110.0" height="85.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="480.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">GPIO0 = 0</text>
+<text x="480.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Download Mode</text>
+<text x="480.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Очікування образу</text>
+<text x="480.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">UART0 / USB-CDC</text>
+<rect x="305.0" y="290.0" width="230.0" height="90.0" rx="4" fill="#fbfcfd" stroke="#6b7280" stroke-width="1.2"/>
+<text x="420.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">GPIO12 (MTDI): Напруга Flash</text>
+<text x="420.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">GPIO12 = 0 -&gt; VDD_SDIO = 3.3V (Норма)</text>
+<text x="420.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">GPIO12 = 1 -&gt; VDD_SDIO = 1.8V (Flash Fail)</text>
+<text x="420.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Блокування: eFuse VDD_SDIO_FORCE</text>
+<rect x="305.0" y="395.0" width="230.0" height="80.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="420.0" y="419.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">ESP32-S3 / C3 / C6:</tspan><tspan x="420.0" dy="12.3">Strapping на GPIO0, GPIO8, GPIO9;</tspan><tspan x="420.0" dy="12.3">вбудований USB-JTAG/Serial</tspan><tspan x="420.0" dy="12.3">перемикає bootloader без DTR/RTS.</tspan></text>
+<rect x="560.0" y="65.0" width="250.0" height="425.0" rx="6" fill="#fcfdfe" stroke="#8e44ad" stroke-width="1.5"/>
+<rect x="560.0" y="65.0" width="250.0" height="35.0" rx="6" fill="#f5eef8" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="685.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8e44ad" text-anchor="middle" font-weight="700">NXP i.MX RT (Crossover)</text>
+<rect x="622.1" y="111.9" width="125.7" height="36.1" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="685.0" y="126.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="685.0" dy="0.0">BOOT_MODE[1:0] піни</tspan><tspan x="685.0" dy="13.7">(00 / 01 / 10 / 11)</tspan></text>
+<line x1="685.0" y1="155.0" x2="685.0" y2="185.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="570.0" y="190.0" width="110.0" height="85.0" rx="4" fill="#f5eef8" stroke="#8e44ad" stroke-width="1.4"/>
+<text x="625.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8e44ad" text-anchor="middle" font-weight="700">BOOT_MODE = 00</text>
+<text x="625.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Boot From Fuses</text>
+<text x="625.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Ігнорує піни,</text>
+<text x="625.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">читає OTP eFuse</text>
+<rect x="690.0" y="190.0" width="110.0" height="85.0" rx="4" fill="#eef7f0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="745.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">BOOT_MODE = 10</text>
+<text x="745.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Internal Boot</text>
+<text x="745.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Вибір носія через</text>
+<text x="745.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">BOOT_CFG піни</text>
+<rect x="570.0" y="290.0" width="230.0" height="90.0" rx="4" fill="#fff3e0" stroke="#d35400" stroke-width="1.2"/>
+<text x="685.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">BOOT_MODE = 01: Serial Downloader</text>
+<text x="685.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Завантаження образу через USB OTG / UART</text>
+<text x="685.0" y="346.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Захист у серії: eFuse BT_FUSE_SEL = 1</text>
+<text x="685.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(блокує зовнішні піни конфігурації)</text>
+<rect x="570.0" y="395.0" width="230.0" height="80.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="685.0" y="419.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="685.0" dy="0.0">Гнучкість vs Безпека:</tspan><tspan x="685.0" dy="12.3">Для налагодження використовують</tspan><tspan x="685.0" dy="12.3">BOOT_CFG; у серійних виробах</tspan><tspan x="685.0" dy="12.3">фіксують завантаження через eFuse.</tspan></text>
+</svg>

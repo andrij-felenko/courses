@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 861.9 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="861.9" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Рівні гарантії доставки MQTT (QoS 0, 1, 2) та заповіт LWT</text>
+<text x="145.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">QoS 0 (At most once)</text>
+<line x1="70.0" y1="85.0" x2="70.0" y2="310.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="220.0" y1="85.0" x2="220.0" y2="310.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="70.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Клієнт</text>
+<text x="220.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Брокер</text>
+<line x1="72.0" y1="110.0" x2="218.0" y2="110.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="145.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">PUBLISH</text>
+<rect x="52.4" y="318.5" width="185.3" height="43.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="145.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="145.0" dy="0.0">Втрата можлива, дублікатів 0,</tspan><tspan x="145.0" dy="13.0">1 пакет у мережі</tspan></text>
+<text x="345.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">QoS 1 (At least once)</text>
+<line x1="270.0" y1="85.0" x2="270.0" y2="310.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="420.0" y1="85.0" x2="420.0" y2="310.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="270.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Клієнт</text>
+<text x="420.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Брокер</text>
+<line x1="272.0" y1="110.0" x2="418.0" y2="110.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="345.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">PUBLISH (id=42)</text>
+<line x1="418.0" y1="154.0" x2="272.0" y2="154.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="345.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">PUBACK (id=42)</text>
+<rect x="255.2" y="318.5" width="179.6" height="43.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="345.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="345.0" dy="0.0">Гарантована доставка,</tspan><tspan x="345.0" dy="13.0">ризик дубліката при таймауті</tspan></text>
+<text x="545.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">QoS 2 (Exactly once)</text>
+<line x1="470.0" y1="85.0" x2="470.0" y2="310.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="620.0" y1="85.0" x2="620.0" y2="310.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="470.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Клієнт</text>
+<text x="620.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Брокер</text>
+<line x1="472.0" y1="110.0" x2="618.0" y2="110.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="545.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">PUBLISH (id=7)</text>
+<line x1="618.0" y1="154.0" x2="472.0" y2="154.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="545.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">PUBREC</text>
+<line x1="472.0" y1="198.0" x2="618.0" y2="198.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="545.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">PUBREL</text>
+<line x1="618.0" y1="242.0" x2="472.0" y2="242.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="545.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">PUBCOMP</text>
+<rect x="458.1" y="318.5" width="173.9" height="43.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="545.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="545.0" dy="0.0">Рівно один раз, 4 пакети,</tspan><tspan x="545.0" dy="13.0">вимагає RAM-стан транзакції</tspan></text>
+<text x="735.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Заповіт (LWT)</text>
+<rect x="628.1" y="109.5" width="213.8" height="121.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="735.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="735.0" dy="0.0">1. Під час CONNECT клієнт реєструє</tspan><tspan x="735.0" dy="13.0">   топік і payload заповіту:</tspan><tspan x="735.0" dy="13.0">   &quot;device/status&quot;: &quot;OFFLINE&quot;.</tspan><tspan x="735.0" dy="13.0"></tspan><tspan x="735.0" dy="13.0">2. Якщо клієнт гине раптово</tspan><tspan x="735.0" dy="13.0">   (обрив TCP, втрата живлення),</tspan><tspan x="735.0" dy="13.0">   брокер сам публікує заповіт</tspan><tspan x="735.0" dy="13.0">   всім підписникам.</tspan></text>
+<rect x="96.5" y="420.2" width="647.0" height="59.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="420.0" y="439.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">QoS 0 підходить для частих метрик, де втрата одного відліку не критична. QoS 1 — робоча конячка IoT;</tspan><tspan x="420.0" dy="14.3">дублікати фільтруються ідемпотентністю на сервері. QoS 2 занадто важкий для батарейних вузлів.</tspan><tspan x="420.0" dy="14.3">LWT вирішує проблему «мовчазної смерті» вузла без необхідності опитувати його статуси через HTTP.</tspan></text>
+</svg>

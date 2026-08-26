@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Патерн Store-and-Forward: запобігання втраті телеметрії під час блекаутів WAN</text>
+<rect x="30.0" y="60.0" width="230.0" height="320.0" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.8"/>
+<text x="145.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#059669" text-anchor="middle" font-weight="700">1. ОНЛАЙН-РЕЖИМ</text>
+<text x="145.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Прямий стрімінг у брокер</text>
+<rect x="280.0" y="60.0" width="230.0" height="320.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.8"/>
+<text x="395.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="700">2. БЛЕКАУТ WAN</text>
+<text x="395.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Накопичення у Flash Ring Buffer</text>
+<rect x="530.0" y="60.0" width="280.0" height="320.0" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1.8"/>
+<text x="670.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="700">3. ВІДНОВЛЕННЯ ЗВ'ЯЗКУ</text>
+<text x="670.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Зріджене викачування (Rate Limit)</text>
+<rect x="45.0" y="125.0" width="200.0" height="80.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.2"/>
+<text x="145.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Давач → Шлюз</text>
+<line x1="145.0" y1="162.0" x2="145.0" y2="178.0" stroke="#059669" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="145.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="middle">Пряма публікація в MQTT</text>
+<rect x="45.0" y="220.0" width="200.0" height="140.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.2"/>
+<text x="145.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стан буфера:</text>
+<text x="145.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Буфер Flash порожній</text>
+<text x="145.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Нульова затримка (RTT &lt; 50ms)</text>
+<text x="145.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="middle" font-weight="700">• Знос Flash = 0 (усе в RAM)</text>
+<rect x="295.0" y="125.0" width="200.0" height="80.0" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.2"/>
+<text x="395.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">Обрив WAN-лінка ✗</text>
+<text x="395.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Таймаут TCP / 4G зник</text>
+<text x="395.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle">Перехід у режим очікування</text>
+<rect x="295.0" y="220.0" width="200.0" height="140.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.2"/>
+<text x="395.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дії шлюзу в блекауті:</text>
+<text x="395.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Запис блоків у Flash/eMMC</text>
+<text x="395.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle" font-weight="700">• Автономні правила активні</text>
+<text x="395.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• При переповненні: FIFO drop</text>
+<text x="395.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">  або зрідження (Downsample)</text>
+<rect x="545.0" y="125.0" width="250.0" height="80.0" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1.2"/>
+<text x="670.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#059669" text-anchor="middle" font-weight="700">Зв'язок відновлено ✓</text>
+<text x="670.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">mTLS рукостискання успішне</text>
+<text x="670.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c3aed" text-anchor="middle">Старт дренажу черги</text>
+<rect x="545.0" y="220.0" width="250.0" height="140.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.2"/>
+<text x="670.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дисципліна викачування:</text>
+<text x="670.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="middle" font-weight="700">• Свіжі дані йдуть у ПЕРШУ чергу</text>
+<text x="670.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Історичний буфер — фоном</text>
+<text x="670.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Обмеження смуги (Rate Limit)</text>
+<text x="670.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c3aed" text-anchor="middle">• ACK брокера звільняє блоки Flash</text>
+<line x1="260.0" y1="220.0" x2="280.0" y2="220.0" stroke="#dc2626" stroke-width="2.0"/>
+<line x1="272.0" y1="220.0" x2="280.0" y2="220.0" stroke="#dc2626" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="510.0" y1="220.0" x2="530.0" y2="220.0" stroke="#7c3aed" stroke-width="2.0"/>
+<line x1="522.0" y1="220.0" x2="530.0" y2="220.0" stroke="#7c3aed" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="420.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Контрольований дренаж запобігає перевантаженню вузького каналу зв'язку та втраті оперативних даних</text>
+</svg>

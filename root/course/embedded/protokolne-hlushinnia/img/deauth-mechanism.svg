@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Атака деавтентифікації 802.11 та захист через Protected Management Frames (PMF)</text>
+<rect x="147.7" y="45.8" width="104.7" height="38.5" rx="6" fill="#e8f4f8" stroke="#2457d6" stroke-width="1.5"/><text x="200.0" y="61.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="200.0" dy="0.0">Клієнт (STA)</tspan><tspan x="200.0" dy="15.0">MAC: 00:AA:22</tspan></text>
+<rect x="399.8" y="45.8" width="140.3" height="38.5" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="470.0" y="61.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">Атакуючий (Jammer)</tspan><tspan x="470.0" dy="15.0">Spoofed Source MAC</tspan></text>
+<rect x="669.8" y="45.8" width="140.3" height="38.5" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="740.0" y="61.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="740.0" dy="0.0">Точка доступу (AP)</tspan><tspan x="740.0" dy="15.0">MAC: 00:BB:99</tspan></text>
+<rect x="40.0" y="115.0" width="860.0" height="145.0" rx="6" fill="#fefdf9" stroke="#f39c12" stroke-width="1.2"/>
+<text x="60.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b7950b" text-anchor="start" font-weight="700">1. Звичайна мережа 802.11 (WPA2 без 802.11w PMF) — незахищені службові кадри</text>
+<line x1="200.0" y1="145.0" x2="200.0" y2="170.0" stroke="#bdc3c7" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="470.0" y1="145.0" x2="470.0" y2="235.0" stroke="#bdc3c7" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="740.0" y1="145.0" x2="740.0" y2="235.0" stroke="#bdc3c7" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="450.0" y1="170.0" x2="220.0" y2="170.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="335.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Deauth Frame (Src: AP, Dst: STA, Reason: 7)</text>
+<rect x="89.4" y="189.1" width="221.2" height="31.9" rx="6" fill="#fadbd8" stroke="#c0392b" stroke-width="1.5"/><text x="200.0" y="202.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">Миттєвий розрив зв'язку!</tspan><tspan x="200.0" dy="12.3">Скидання ключів PTK / стан UNASSOCIATED</tspan></text>
+<rect x="40.0" y="275.0" width="860.0" height="165.0" rx="6" fill="#f9fdfa" stroke="#27ae60" stroke-width="1.2"/>
+<text x="60.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">2. Захищена мережа (802.11w PMF / WPA3) — криптографічний захист цілісності кадрів</text>
+<line x1="200.0" y1="305.0" x2="200.0" y2="325.0" stroke="#bdc3c7" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="470.0" y1="305.0" x2="470.0" y2="415.0" stroke="#bdc3c7" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="740.0" y1="305.0" x2="740.0" y2="385.0" stroke="#bdc3c7" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="450.0" y1="325.0" x2="220.0" y2="325.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="335.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Spoofed Deauth (без валідного AES-CMAC / BIP)</text>
+<rect x="44.8" y="344.1" width="310.4" height="31.9" rx="6" fill="#d4efdf" stroke="#27ae60" stroke-width="1.5"/><text x="200.0" y="357.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="200.0" dy="0.0">Перевірка AES-CMAC (BIP / IGTK) -&gt; ПОМИЛКА!</tspan><tspan x="200.0" dy="12.3">Кадр підроблено -&gt; Ігнорування -&gt; Зв'язок збережено</tspan></text>
+<line x1="200.0" y1="385.0" x2="200.0" y2="405.0" stroke="#bdc3c7" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="220.0" y1="405.0" x2="720.0" y2="405.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="470.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">SA Query Request / Response (захищена перевірка стану лінка)</text>
+</svg>

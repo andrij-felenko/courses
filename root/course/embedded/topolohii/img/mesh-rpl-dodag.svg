@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чарункова мережа RPL: дерево DODAG, розрахунок рангу та локальне самовідновлення</text>
+<circle cx="470.0" cy="65.0" r="24.0" fill="#e8f5e9" stroke="#27ae60" stroke-width="2.2"/>
+<text x="470.0" y="62.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">DODAG</text>
+<text x="470.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Root</text>
+<text x="470.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Ранг 1.0 (Корінь)</text>
+<circle cx="280.0" cy="170.0" r="20.0" fill="#ffffff" stroke="#d97706" stroke-width="2.0"/>
+<text x="280.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">R1</text>
+<text x="225.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ранг 2.0</text>
+<circle cx="660.0" cy="170.0" r="20.0" fill="#ffffff" stroke="#d97706" stroke-width="2.0"/>
+<text x="660.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">R2</text>
+<text x="715.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ранг 2.0</text>
+<line x1="295.0" y1="155.0" x2="450.0" y2="80.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="645.0" y1="155.0" x2="490.0" y2="80.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="302.0" y1="170.0" x2="638.0" y2="170.0" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="470.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Sibling link (той самий ранг)</text>
+<circle cx="470.0" cy="275.0" r="20.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="470.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">R3</text>
+<text x="525.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ранг 3.0</text>
+<line x1="455.0" y1="260.0" x2="295.0" y2="185.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="4,3"/>
+<circle cx="375.0" cy="222.5" r="10.0" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="369.0" y1="216.5" x2="381.0" y2="228.5" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="369.0" y1="228.5" x2="381.0" y2="216.5" stroke="#c0392b" stroke-width="2.0"/>
+<text x="335.0" y="215.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Обрив лінку!</text>
+<line x1="485.0" y1="260.0" x2="645.0" y2="185.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="585.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Резервний батько (Local Repair)</text>
+<circle cx="470.0" cy="370.0" r="14.0" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="470.0" y="373.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Давач</text>
+<line x1="470.0" y1="354.0" x2="470.0" y2="297.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="40.0" y="240.0" width="210.0" height="175.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="145.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Правила RPL DODAG:</text>
+<text x="50.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Ранг строго монотонний:</text>
+<text x="50.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">   Rank(Child) &gt; Rank(Parent)</text>
+<text x="50.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Захист від петель:</text>
+<text x="50.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">   Заборонено слати вузлу</text>
+<text x="50.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">   із вищим/рівним рангом</text>
+<text x="50.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">3. Метрика OF (ETX):</text>
+<text x="50.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">   Враховує якість зв'язку</text>
+<rect x="690.0" y="240.0" width="210.0" height="175.0" rx="6" fill="#fdf8f0" stroke="#fde68a" stroke-width="1.2"/>
+<text x="795.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">Механізм Самовідновлення:</text>
+<text x="700.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Відсутність MAC ACK →</text>
+<text x="700.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">  вузол R3 фіксує аварію лінку</text>
+<text x="700.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">• Миттєве перемикання на</text>
+<text x="700.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">  Alternative Parent R2</text>
+<text x="700.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Трафік іде без затримок,</text>
+<text x="700.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">  мережа не перебудовується</text>
+<text x="700.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">  повністю (Local Repair)</text>
+</svg>

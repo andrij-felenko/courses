@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динаміка регулятора при насиченні: без захисту проти Clamping Anti-Windup</text>
+<rect x="30.0" y="50.0" width="375.0" height="305.0" rx="6" fill="#fffafb" stroke="#c0392b" stroke-width="1.2"/>
+<text x="217.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Без Anti-Windup (катастрофічний Windup)</text>
+<line x1="55.0" y1="310.0" x2="380.0" y2="310.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="55.0" y1="310.0" x2="55.0" y2="95.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="375.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">час t</text>
+<text x="45.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="middle" font-weight="700" font-style="italic">u(t)</text>
+<line x1="55.0" y1="140.0" x2="375.0" y2="140.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4 3"/>
+<text x="240.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Межа насичення приводу u_max</text>
+<path d="M 55,310 Q 110,240 140,140 Q 180,60 230,60 Q 270,60 300,140 Q 325,230 350,305" fill="none" stroke="#c0392b" stroke-width="2.2" stroke-dasharray="5 3"/>
+<text x="190.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">I-терм роздувається</text>
+<path d="M 55,310 Q 110,240 140,140 L 300,140 Q 325,230 350,305" fill="none" stroke="#333333" stroke-width="2.6"/>
+<text x="210.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle">Вихід застряг на максимумі</text>
+<text x="290.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Запізнілий відгук
+і переліт (overshoot)</text>
+<rect x="435.0" y="50.0" width="375.0" height="305.0" rx="6" fill="#f7fef9" stroke="#27ae60" stroke-width="1.2"/>
+<text x="622.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Із захистом Clamping Anti-Windup</text>
+<line x1="460.0" y1="310.0" x2="785.0" y2="310.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="460.0" y1="310.0" x2="460.0" y2="95.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="780.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">час t</text>
+<text x="450.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="middle" font-weight="700" font-style="italic">u(t)</text>
+<line x1="460.0" y1="140.0" x2="780.0" y2="140.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4 3"/>
+<text x="645.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Межа насичення приводу u_max</text>
+<path d="M 460,310 Q 515,240 545,140 L 630,140 Q 660,200 690,290 L 730,305" fill="none" stroke="#27ae60" stroke-width="2.6"/>
+<text x="595.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Інтегратор заморожено (Clamped)</text>
+<text x="670.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Миттєвий вихід
+із насичення</text>
+</svg>

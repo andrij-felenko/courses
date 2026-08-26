@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-101.6 -10 1123.3 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-101.6" y="-10" width="1123.3" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="890.0" height="470.0" rx="10" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="460.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектурне порівняння стійкості: FAT (In-Place) проти LittleFS (Copy-on-Write)</text>
+<rect x="35.0" y="70.0" width="410.0" height="365.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="240.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Традиційна FAT (In-Place оновлення)</text>
+<text x="240.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Фіксовані сектори таблиці розміщення</text>
+<rect x="55.0" y="135.0" width="370.0" height="50.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="240.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Каталог: DirEntry (Фіксований сектор 2)</text>
+<text x="240.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вказівник на перший кластер = 10</text>
+<rect x="55.0" y="205.0" width="370.0" height="55.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="240.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Таблиця FAT (Сектор 1): 10 → 11 → [ОБРИВ!]</text>
+<text x="240.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">⚡ Кластер 12 не додано в ланцюг через знеструмлення</text>
+<rect x="55.0" y="280.0" width="370.0" height="50.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="240.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кластери даних на диску: [10] [11] [12 - Orphan]</text>
+<text x="240.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Кластер 12 записаний, але таблиця FAT пошкоджена</text>
+<rect x="55.0" y="345.0" width="370.0" height="75.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="240.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Наслідки для файлової системи FAT:</text>
+<text x="240.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Висячі кластери (Lost clusters) та пошкоджене дерево</text>
+<text x="240.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Перехресні посилання між файлами (Cross-linked files)</text>
+<text x="240.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Необхідність тривалого сканування fsck / chkdsk при старті</text>
+<rect x="475.0" y="70.0" width="410.0" height="365.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="680.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#166534" text-anchor="middle" font-weight="700">LittleFS (Copy-on-Write + Metadata Pairs)</text>
+<text x="680.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Атомарні пари блоків каталогу та Append-Only теги</text>
+<rect x="495.0" y="135.0" width="370.0" height="60.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="680.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#166534" text-anchor="middle" font-weight="700">Metadata Pair каталогу (Блоки 0 та 1)</text>
+<text x="680.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Блок 0: Версія N (Стара, але 100% ціла)</text>
+<text x="680.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700">Блок 1: Версія N+1 (Нова, у процесі запису)</text>
+<rect x="495.0" y="210.0" width="370.0" height="55.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.0"/>
+<text x="680.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#166534" text-anchor="middle" font-weight="700">Дерево блоків файлу (CTZ Skip-List):</text>
+<text x="680.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Новий блок даних 12 виділено в новому секторі Flash</text>
+<rect x="495.0" y="280.0" width="370.0" height="50.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="680.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Атомарний комміт через інверсію біта ревізії:</text>
+<text x="680.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#166534" text-anchor="middle" font-weight="700">Зміна вказівника на Блок 1 відбувається одним записом тегу</text>
+<rect x="495.0" y="345.0" width="370.0" height="75.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="680.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle" font-weight="700">Переваги LittleFS при раптовому обриві живлення:</text>
+<text x="680.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Старий стан (Блок 0) залишається неушкодженим</text>
+<text x="680.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Нульовий час монтування: відкат без прогону сканування</text>
+<text x="680.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Вбудоване вирівнювання зносу та ізоляція битих блоків</text>
+<rect x="-91.6" y="439.8" width="1103.3" height="30.5" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5"/><text x="460.0" y="458.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">LittleFS ніколи не перезаписує існуючі метадані на місці. Якщо живлення зникає під час дописування файлу, система миттєво повертається до попереднього узгодженого стану пари блоків.</tspan></text>
+</svg>

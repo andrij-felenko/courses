@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матриця сумісності: взаємодія вузлів різних поколінь</text>
+<text x="440.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">як старі й нові прошивки інтерпретують повідомлення одна одної в розподіленій мережі</text>
+<text x="310.0" y="73.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Приймач v1 (Старий вузол)</text>
+<text x="650.0" y="73.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Приймач v2 (Оновлений вузол)</text>
+<text x="125.0" y="159.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">Відправник v1</text>
+<text x="125.0" y="177.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">(Старий вузол)</text>
+<text x="125.0" y="324.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="700">Відправник v2</text>
+<text x="125.0" y="342.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">(Оновлений)</text>
+<rect x="146.0" y="91.0" width="328.0" height="153.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="310.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Базова сумісність v1 ↔ v1</text>
+<text x="310.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Однаковий набір полів і розмірів</text>
+<text x="310.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">• Прямий розбір без трансформацій</text>
+<text x="310.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Стан системи в момент першого релізу</text>
+<rect x="486.0" y="91.0" width="328.0" height="153.0" rx="8" fill="#eefaf2" stroke="#27ae60" stroke-width="1.8"/>
+<text x="650.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Зворотна сумісність (Backward)</text>
+<text x="650.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Новий приймач читає старий пакет v1</text>
+<text x="650.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Відсутні поля v2 заповнюються дефолтами</text>
+<text x="650.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">• Новий сервер приймає телеметрію старих плат</text>
+<text x="650.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">✔ Безпечно: сервер знає правила минулих версій</text>
+<rect x="146.0" y="256.0" width="328.0" height="153.0" rx="8" fill="#eff6ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="310.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Пряма сумісність (Forward)</text>
+<text x="310.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Старий приймач читає новий пакет v2</text>
+<text x="310.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Невідомі нові поля ігноруються / пропускаються</text>
+<text x="310.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">• Старий прилад не падає від розширених кадрів</text>
+<text x="310.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">✔ Вимагає TLV або фіксації зміщень базових полів</text>
+<rect x="486.0" y="256.0" width="328.0" height="153.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="650.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сумісність v2 ↔ v2 (Повний функціонал)</text>
+<text x="650.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Передаються всі нові поля і прапорці</text>
+<text x="650.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Максимальна інформативність каналу</text>
+<text x="650.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Стан мережі після 100% оновлення парку</text>
+<line x1="40.0" y1="438.0" x2="840.0" y2="438.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="440.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Порушення прямої сумісності ламає старі пристрої в полі; порушення зворотної — блокує оновлення сервера.</text>
+</svg>

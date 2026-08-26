@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="930.0" height="490.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="480.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Внутрішня тригерна матриця таймерів (Master TRGO → Crossbar → Slave TRGI)</text>
+<rect x="40.0" y="75.0" width="270.0" height="410.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="175.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Master Timer (TIMx)</text>
+<rect x="65.0" y="130.0" width="220.0" height="30.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="175.0" y="148.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="175.0" dy="0.0">Лічильник CNT (16 / 32 біт)</tspan></text>
+<rect x="65.0" y="183.5" width="220.0" height="43.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="175.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="175.0" dy="0.0">Автоперезавантаження ARR</tspan><tspan x="175.0" dy="13.0">(Подія оновлення UEV)</tspan></text>
+<rect x="65.0" y="248.5" width="220.0" height="43.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="175.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="175.0" dy="0.0">Канали порівняння CCR1..CCR4</tspan><tspan x="175.0" dy="13.0">(OC1REF .. OC4REF)</tspan></text>
+<rect x="57.5" y="347.9" width="235.0" height="54.2" rx="6" fill="#dbeafe" stroke="#2457d6" stroke-width="1.5"/><text x="175.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="175.0" dy="0.0">Селектор Master Mode (CR2.MMS)</tspan><tspan x="175.0" dy="12.3">000: Reset | 001: CEN | 010: UEV</tspan><tspan x="175.0" dy="12.3">011: CC1IF | 100..111: OCxREF</tspan></text>
+<line x1="175.0" y1="163.0" x2="175.0" y2="177.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="175.0" y1="233.0" x2="175.0" y2="242.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="175.0" y1="298.0" x2="175.0" y2="337.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="310.0" y1="375.0" x2="360.0" y2="375.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="335.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">TRGO</text>
+<rect x="360.0" y="75.0" width="230.0" height="410.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.8"/>
+<text x="475.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="700">Внутрішня шинна матриця</text>
+<text x="475.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(On-chip ITR Interconnect)</text>
+<line x1="375.0" y1="175.0" x2="575.0" y2="175.0" stroke="#d97706" stroke-width="2.5"/>
+<circle cx="375.0" cy="175.0" r="3.5" fill="#d97706" stroke="#d97706" stroke-width="1.5"/>
+<text x="475.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#92400e" text-anchor="middle" font-weight="700">ITR0 (напр. TIM1 TRGO)</text>
+<line x1="375.0" y1="245.0" x2="575.0" y2="245.0" stroke="#d97706" stroke-width="2.5"/>
+<circle cx="375.0" cy="245.0" r="3.5" fill="#d97706" stroke="#d97706" stroke-width="1.5"/>
+<text x="475.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#92400e" text-anchor="middle" font-weight="700">ITR1 (напр. TIM2 TRGO)</text>
+<line x1="375.0" y1="315.0" x2="575.0" y2="315.0" stroke="#d97706" stroke-width="2.5"/>
+<circle cx="375.0" cy="315.0" r="3.5" fill="#d97706" stroke="#d97706" stroke-width="1.5"/>
+<text x="475.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#92400e" text-anchor="middle" font-weight="700">ITR2 (напр. TIM3 TRGO)</text>
+<line x1="375.0" y1="385.0" x2="575.0" y2="385.0" stroke="#d97706" stroke-width="2.5"/>
+<circle cx="375.0" cy="385.0" r="3.5" fill="#d97706" stroke="#d97706" stroke-width="1.5"/>
+<text x="475.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#92400e" text-anchor="middle" font-weight="700">ITR3 (напр. TIM4 / TIM8 TRGO)</text>
+<line x1="360.0" y1="375.0" x2="345.0" y2="375.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="345.0" y1="375.0" x2="345.0" y2="245.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="345.0" y1="245.0" x2="375.0" y2="245.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="575.0" y1="175.0" x2="635.0" y2="175.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="575.0" y1="245.0" x2="635.0" y2="245.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="575.0" y1="315.0" x2="635.0" y2="315.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="575.0" y1="385.0" x2="635.0" y2="385.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="640.0" y="75.0" width="280.0" height="410.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="780.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Slave Timer (TIMy)</text>
+<rect x="665.0" y="234.4" width="90.0" height="91.3" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="710.0" y="252.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="710.0" dy="0.0">Trigger Mux</tspan><tspan x="710.0" dy="12.3">(SMCR.TS)</tspan><tspan x="710.0" dy="12.3">000: ITR0</tspan><tspan x="710.0" dy="12.3">001: ITR1</tspan><tspan x="710.0" dy="12.3">010: ITR2</tspan><tspan x="710.0" dy="12.3">011: ITR3</tspan></text>
+<line x1="760.0" y1="280.0" x2="810.0" y2="280.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="785.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">TRGI</text>
+<rect x="825.0" y="252.9" width="80.0" height="54.2" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/><text x="865.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="865.0" dy="0.0">Slave Mode</tspan><tspan x="865.0" dy="12.3">Controller</tspan><tspan x="865.0" dy="12.3">(SMCR.SMS)</tspan></text>
+<rect x="670.0" y="140.2" width="220.0" height="29.5" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="780.0" y="158.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="780.0" dy="0.0">Скидання лічильника (Reset Mode)</tspan></text>
+<rect x="670.0" y="370.2" width="220.0" height="29.5" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="780.0" y="388.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="780.0" dy="0.0">Дозвіл тактування (Gated Mode)</tspan></text>
+<rect x="670.0" y="430.2" width="220.0" height="29.5" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="780.0" y="448.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="780.0" dy="0.0">Тактовий імпульс (Ext Clock 1)</tspan></text>
+<line x1="865.0" y1="240.0" x2="865.0" y2="177.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="865.0" y1="320.0" x2="865.0" y2="363.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="865.0" y1="407.0" x2="865.0" y2="423.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg>

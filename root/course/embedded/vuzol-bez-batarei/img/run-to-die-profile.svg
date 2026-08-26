@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часовий профіль імпульсу Run-to-Die: фаза накопичення та сплеск активності</text>
+<line x1="80.0" y1="210.0" x2="780.0" y2="210.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="80.0" y1="210.0" x2="80.0" y2="55.0" stroke="#333333" stroke-width="1.5"/>
+<text x="70.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">V_cap</text>
+<line x1="80.0" y1="90.0" x2="780.0" y2="90.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 4"/>
+<text x="72.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end">V_high (3.3 В)</text>
+<line x1="80.0" y1="165.0" x2="780.0" y2="165.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<text x="72.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">V_low (1.8 В)</text>
+<path d="M 80,210 Q 240 135 400,90 L 450,165 Q 610 195 780,105" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="400.0" y1="72.0" x2="400.0" y2="350.0" stroke="#27ae60" stroke-width="1.4" stroke-dasharray="3 3"/>
+<line x1="450.0" y1="72.0" x2="450.0" y2="350.0" stroke="#27ae60" stroke-width="1.4" stroke-dasharray="3 3"/>
+<rect x="397.0" y="54.0" width="56.0" height="20.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="425.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">3–10 мс</text>
+<line x1="80.0" y1="360.0" x2="780.0" y2="360.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="80.0" y1="360.0" x2="80.0" y2="240.0" stroke="#333333" stroke-width="1.5"/>
+<text x="70.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="end" font-weight="700">I_load</text>
+<path d="M 80,360 L 400,360 L 400,265 L 450,265 L 450,360 L 780,360" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="425.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">20 мА</text>
+<text x="220.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">I_sleep ≈ 0 (ключ розімкнено)</text>
+<text x="600.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Фаза відновлення заряду</text>
+<text x="220.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Фаза накопичення
+(секунди / хвилини, P_in ≈ 20 мкВт)</text>
+<text x="640.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Повторне накопичення заряду до V_high</text>
+<rect x="490.0" y="60.0" width="220.0" height="68.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/><text x="600.0" y="84.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">Послідовність активного сплеску:</tspan><tspan x="600.0" dy="12.3">1. Старт ядра МК (&lt;10 мкс)</tspan><tspan x="600.0" dy="12.3">2. Замір сенсора (АЦП / I²C, ~1 мс)</tspan><tspan x="600.0" dy="12.3">3. BLE Advertisements (2–3 мс)</tspan><tspan x="600.0" dy="12.3">4. Запис стану у FRAM (50 мкс)</tspan></text>
+<rect x="30.7" y="396.5" width="778.7" height="31.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="420.0" y="415.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Енергія імпульсу: E = 1/2 · C · (V_high² − V_low²). Робота триває рівно стільки, на скільки вистачає заряду конденсатора.</tspan></text>
+</svg>

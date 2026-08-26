@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="50.0" width="200.0" height="60.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="130.0" y="76.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="130.0" dy="0.0">1. Старт ядра</tspan><tspan x="130.0" dy="15.6">(скидання знято)</tspan></text>
+<rect x="320.0" y="50.0" width="200.0" height="60.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="420.0" y="76.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">2. Ініціалізація</tspan><tspan x="420.0" dy="14.3">налаштування GPIO, периферії</tspan></text>
+<rect x="610.0" y="50.0" width="200.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="710.0" y="76.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="710.0" dy="0.0">3. Команда «Пуск»</tspan><tspan x="710.0" dy="15.6">відкриття силового ключа</tspan></text>
+<rect x="610.0" y="190.0" width="200.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="710.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">4. Кидок струму I_inrush</tspan><tspan x="710.0" dy="13.0">нерухомий якір / розряджений C</tspan></text>
+<rect x="320.0" y="190.0" width="200.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="420.0" y="216.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">5. Спад напруги на R_дрел</tspan><tspan x="420.0" dy="14.3">V_DD падає нижче V_BOR</tspan></text>
+<rect x="30.0" y="190.0" width="200.0" height="60.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="130.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">6. Апаратне скидання</tspan><tspan x="130.0" dy="13.0">ключ гасне, напруга підстрибує</tspan></text>
+<line x1="232.0" y1="80.0" x2="318.0" y2="80.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="522.0" y1="80.0" x2="608.0" y2="80.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="710.0" y1="112.0" x2="710.0" y2="188.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="608.0" y1="220.0" x2="522.0" y2="220.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="318.0" y1="220.0" x2="232.0" y2="220.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="130.0" y1="188.0" x2="130.0" y2="112.0" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="75.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">петля
+перезапуску</text>
+<line x1="100.0" y1="440.0" x2="790.0" y2="440.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="760.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">час (t) →</text>
+<polyline points="100.00,320.00 190.00,320.00 195.00,405.00 220.00,405.00 230.00,320.00 320.00,320.00" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+<polyline points="100.00,430.00 190.00,430.00 193.00,365.00 215.00,365.00 218.00,430.00 320.00,430.00" fill="none" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="198.0" y1="295.0" x2="198.0" y2="310.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="198.0" y1="310.0" x2="225.0" y2="310.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="225.0" y1="310.0" x2="225.0" y2="295.0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="212.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">BOR</text>
+<line x1="190.0" y1="310.0" x2="190.0" y2="440.0" stroke="#dddddd" stroke-width="1.0" stroke-dasharray="3 3"/>
+<line x1="220.0" y1="310.0" x2="220.0" y2="440.0" stroke="#dddddd" stroke-width="1.0" stroke-dasharray="3 3"/>
+<polyline points="320.00,320.00 410.00,320.00 415.00,405.00 440.00,405.00 450.00,320.00 540.00,320.00" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+<polyline points="320.00,430.00 410.00,430.00 413.00,365.00 435.00,365.00 438.00,430.00 540.00,430.00" fill="none" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="418.0" y1="295.0" x2="418.0" y2="310.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="418.0" y1="310.0" x2="445.0" y2="310.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="445.0" y1="310.0" x2="445.0" y2="295.0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="432.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">BOR</text>
+<line x1="410.0" y1="310.0" x2="410.0" y2="440.0" stroke="#dddddd" stroke-width="1.0" stroke-dasharray="3 3"/>
+<line x1="440.0" y1="310.0" x2="440.0" y2="440.0" stroke="#dddddd" stroke-width="1.0" stroke-dasharray="3 3"/>
+<polyline points="540.00,320.00 630.00,320.00 635.00,405.00 660.00,405.00 670.00,320.00 760.00,320.00" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+<polyline points="540.00,430.00 630.00,430.00 633.00,365.00 655.00,365.00 658.00,430.00 760.00,430.00" fill="none" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="638.0" y1="295.0" x2="638.0" y2="310.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="638.0" y1="310.0" x2="665.0" y2="310.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="665.0" y1="310.0" x2="665.0" y2="295.0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="652.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">BOR</text>
+<line x1="630.0" y1="310.0" x2="630.0" y2="440.0" stroke="#dddddd" stroke-width="1.0" stroke-dasharray="3 3"/>
+<line x1="660.0" y1="310.0" x2="660.0" y2="440.0" stroke="#dddddd" stroke-width="1.0" stroke-dasharray="3 3"/>
+<line x1="80.0" y1="385.0" x2="790.0" y2="385.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 4"/>
+<text x="50.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">V_BOR (2.4V)</text>
+<text x="50.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">V_NOM (3.3V)</text>
+<rect x="620.0" y="290.0" width="190.0" height="65.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="630.0" y1="305.0" x2="655.0" y2="305.0" stroke="#2457d6" stroke-width="2.2"/>
+<text x="715.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Напруга живлення V_DD</text>
+<line x1="630.0" y1="325.0" x2="655.0" y2="325.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="705.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Пусковий струм навантаження</text>
+<line x1="630.0" y1="345.0" x2="655.0" y2="345.0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="710.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Сигнал скидання /RESET</text>
+</svg>

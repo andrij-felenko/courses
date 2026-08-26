@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 823.8 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="823.8" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="720.0" height="380.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="40.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">Синхронне профілювання струму й реакції стабілізатора (Joulescope / PPK2)</text>
+<line x1="80.0" y1="180.0" x2="700.0" y2="180.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="80.0" y1="185.0" x2="80.0" y2="75.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="68.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-weight="700">I (мА)</text>
+<text x="695.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">час t (мкс)</text>
+<polyline points="80.0,178.0 200.0,178.0 210.0,155.0 270.0,155.0 275.0,85.0 475.0,85.0 480.0,178.0 680.0,178.0" fill="none" stroke="#2980b9" stroke-width="2.4" stroke-linejoin="round"/>
+<text x="140.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2980b9" text-anchor="middle">Sleep (15 мкА)</text>
+<text x="240.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2980b9" text-anchor="middle">PLL (20 мА)</text>
+<text x="375.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2980b9" text-anchor="middle" font-weight="700">Радіопередача TX: 280 мА (200 мкс)</text>
+<line x1="80.0" y1="360.0" x2="700.0" y2="360.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="80.0" y1="365.0" x2="80.0" y2="235.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="68.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-weight="700">U (В)</text>
+<text x="695.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">час t (мкс)</text>
+<line x1="80.0" y1="260.0" x2="680.0" y2="260.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="4 4"/>
+<text x="685.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">3.3 В (номінал)</text>
+<line x1="80.0" y1="310.0" x2="680.0" y2="310.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="4 3"/>
+<text x="685.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">2.6 В (Brownout Reset)</text>
+<polyline points="80.0,260.0 275.0,260.0 285.0,325.0 340.0,300.0 430.0,270.0 475.0,270.0 485.0,245.0 540.0,260.0 680.0,260.0" fill="none" stroke="#c0392b" stroke-width="2.4" stroke-linejoin="round"/>
+<line x1="330.0" y1="345.0" x2="290.0" y2="328.0" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="335.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Провал нижче BOD через затримку регулятора (t_resp)</text>
+<line x1="520.0" y1="230.0" x2="492.0" y2="242.0" stroke="#e67e22" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="525.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e67e22" text-anchor="start">Перенапруга при розвантаженні</text>
+</svg>

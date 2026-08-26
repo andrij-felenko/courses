@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-92 -10 1186 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-92" y="-10" width="1186" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Повний захисний ланцюг бортового входу</text>
+<text x="480.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Багаторівневий захист входу 12 В / 24 В бортової плати</text>
+<rect x="35.0" y="120.0" width="160.0" height="130.0" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="2.2"/>
+<text x="115.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">I. Вхідний EMI-фільтр</text>
+<line x1="45.0" y1="154.0" x2="185.0" y2="154.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2 2"/>
+<text x="115.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="115.0" dy="0.0">LC-ланка + синфазний дросель</tspan><tspan x="115.0" dy="14.3">Згладжує наносекундні</tspan><tspan x="115.0" dy="14.3">викиди 3a/3b та RF-завади</tspan></text>
+<line x1="197.0" y1="185.0" x2="217.0" y2="185.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="221.0" y="120.0" width="160.0" height="130.0" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="2.2"/>
+<text x="301.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">II. Первинний супресор</text>
+<line x1="231.0" y1="154.0" x2="371.0" y2="154.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2 2"/>
+<text x="301.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="301.0" dy="0.0">TVS-діод (лавинний)</tspan><tspan x="301.0" dy="14.3">Зрізає короткі імпульси</tspan><tspan x="301.0" dy="14.3">до мікросекунд (Pulse 1, 2a)</tspan></text>
+<line x1="383.0" y1="185.0" x2="403.0" y2="185.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="407.0" y="120.0" width="160.0" height="130.0" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2.2"/>
+<text x="487.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">III. Ідеальний діод</text>
+<line x1="417.0" y1="154.0" x2="557.0" y2="154.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2 2"/>
+<text x="487.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="487.0" dy="0.0">N-MOSFET + контролер</tspan><tspan x="487.0" dy="14.3">Захист від переполюсовки</tspan><tspan x="487.0" dy="14.3">Падіння ≤ 20 мВ (замість 0.7 В)</tspan></text>
+<line x1="569.0" y1="185.0" x2="589.0" y2="185.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="593.0" y="120.0" width="160.0" height="130.0" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="2.2"/>
+<text x="673.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">IV. Активний Surge Stopper</text>
+<line x1="603.0" y1="154.0" x2="743.0" y2="154.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2 2"/>
+<text x="673.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="673.0" dy="0.0">Прохідний N-MOSFET у лінійному</tspan><tspan x="673.0" dy="14.3">режимі: затискає вихід на 28 В</tspan><tspan x="673.0" dy="14.3">під час 100 В Load Dump</tspan></text>
+<line x1="755.0" y1="185.0" x2="775.0" y2="185.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="779.0" y="120.0" width="160.0" height="130.0" rx="8" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="859.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">V. Широкий DC-DC</text>
+<line x1="789.0" y1="154.0" x2="929.0" y2="154.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2 2"/>
+<text x="859.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="859.0" dy="0.0">Buck-Boost перетворювач</tspan><tspan x="859.0" dy="14.3">Працює від 3.0 В (Crank)</tspan><tspan x="859.0" dy="14.3">до 36 В (Surge Stopper)</tspan></text>
+<line x1="5.0" y1="185.0" x2="31.0" y2="185.0" stroke="#c0392b" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="3.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">V_IN (Борт)</text>
+<text x="3.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end">-100 В ... +100 В</text>
+<line x1="943.0" y1="185.0" x2="974.0" y2="185.0" stroke="#27ae60" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="979.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">V_SYS (Система)</text>
+<text x="979.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">Стабільні 3.3 В / 5 В</text>
+<rect x="35.0" y="300.0" width="890.0" height="140.0" rx="6" fill="#fafbfc" stroke="#333333" stroke-width="1.2"/>
+<text x="55.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Як захисний тракт відпрацьовує аварії борту:</text>
+<text x="60.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Холодний пуск (Cold Crank, 3.2 В):</text>
+<text x="355.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Каскади I–IV повністю відкриті (падіння &lt; 50 мВ), каскад V (Buck-Boost) піднімає напругу до 5 В.</text>
+<text x="60.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Скидання навантаження (Load Dump, 100 В):</text>
+<text x="355.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Каскад IV (Surge Stopper) тримає MOSFET у лінійному режимі, затискаючи вихід на рівні 28 В.</text>
+<text x="60.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Переполюсовка (-12 В / -24 В):</text>
+<text x="355.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Каскад III (ідеальний діод) замикає затвор на витік за мікросекунди і повністю розриває коло.</text>
+<text x="60.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Швидкі індуктивні викиди (Pulse 1, 2a, 3a/b):</text>
+<text x="355.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Каскад I фільтрує ВЧ-спектр, каскад II (TVS) зрізає піки, не перевантажуючи силові MOSFET.</text>
+</svg>

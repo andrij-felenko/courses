@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 860 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="860" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="840.0" height="480.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тракт подвійних часових міток: розведення семантики Event Time та Ingestion Time</text>
+<rect x="40.0" y="70.0" width="160.0" height="110.0" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+<text x="120.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-weight="700">1. Бортовий сенсор</text>
+<text x="120.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle"><tspan x="120.0" dy="0.0">ADC / I2C заміри</tspan><tspan x="120.0" dy="12.3">Апаратний таймер / RTC</tspan><tspan x="120.0" dy="12.3">Фіксація event_time</tspan><tspan x="120.0" dy="12.3">Прапорці якості часу</tspan></text>
+<rect x="240.0" y="70.0" width="160.0" height="110.0" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+<text x="320.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle" font-weight="700">2. Офлайн-буфер</text>
+<text x="320.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle"><tspan x="320.0" dy="0.0">Кільцевий Flash / RAM</tspan><tspan x="320.0" dy="12.3">Збереження кортежів</tspan><tspan x="320.0" dy="12.3">(event_time, value)</tspan><tspan x="320.0" dy="12.3">Без зміни мітки</tspan></text>
+<rect x="440.0" y="70.0" width="160.0" height="110.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="520.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">3. Шлюз / Gateway</text>
+<text x="520.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle"><tspan x="520.0" dy="0.0">Ретрансляція пакетів</tspan><tspan x="520.0" dy="12.3">Додавання gateway_time</tspan><tspan x="520.0" dy="12.3">Оцінка локальної черги</tspan><tspan x="520.0" dy="12.3">Буферизація лінка</tspan></text>
+<rect x="640.0" y="70.0" width="160.0" height="110.0" rx="6" fill="#f3e8fd" stroke="#7e22ce" stroke-width="1.5"/>
+<text x="720.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7e22ce" text-anchor="middle" font-weight="700">4. Ingestion Service</text>
+<text x="720.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="middle"><tspan x="720.0" dy="0.0">Прийом MQTT / HTTP</tspan><tspan x="720.0" dy="12.3">Фіксація ingest_time</tspan><tspan x="720.0" dy="12.3">(NTP / PTP точний час)</tspan><tspan x="720.0" dy="12.3">Розрахунок latency</tspan></text>
+<line x1="200.0" y1="125.0" x2="235.0" y2="125.0" stroke="#0284c7" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="400.0" y1="125.0" x2="435.0" y2="125.0" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="600.0" y1="125.0" x2="635.0" y2="125.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="720.0" y1="185.0" x2="720.0" y2="230.0" stroke="#7e22ce" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="720.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e22ce" text-anchor="middle" font-weight="700">Запис у Time-Series DB</text>
+<rect x="40.0" y="240.0" width="760.0" height="115.0" rx="8" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.6"/>
+<text x="420.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">5. База даних часових рядів (Time-Series Database)</text>
+<rect x="55.0" y="280.0" width="345.0" height="62.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="227.5" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Індекс первинного ключа: event_time</text>
+<text x="227.5" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">Забезпечує правильний хронологічний порядок</text>
+<text x="227.5" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">Фізично точні графіки, тренди, похідні, FFT</text>
+<rect x="435.0" y="280.0" width="345.0" height="62.0" rx="4" fill="#ffffff" stroke="#7e22ce" stroke-width="1.0"/>
+<text x="607.5" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7e22ce" text-anchor="middle" font-weight="700">Партиціювання та TTL: ingest_time</text>
+<text x="607.5" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">Швидкий запис пачками (Append-only LSM)</text>
+<text x="607.5" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">Аудит доставки, метрики затримок мережі (SLA)</text>
+<line x1="227.0" y1="360.0" x2="227.0" y2="395.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="607.0" y1="360.0" x2="607.0" y2="395.0" stroke="#7e22ce" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="55.0" y="400.0" width="345.0" height="60.0" rx="6" fill="#f8fafc" stroke="#0284c7" stroke-width="1.3"/>
+<text x="227.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-weight="700">Аналітика та моніторинг процесів</text>
+<text x="227.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Кореляція сигналів, виявлення аварій, звітність</text>
+<rect x="435.0" y="400.0" width="345.0" height="60.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.3"/>
+<text x="607.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#374151" text-anchor="middle" font-weight="700">Мережева діагностика та безпека</text>
+<text x="607.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Виявлення втрат зв'язку, джитер, атаки повтору</text>
+</svg>

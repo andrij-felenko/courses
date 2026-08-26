@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Еквівалентна схема розподілу живлення (PDN) та складові просідання</text>
+<line x1="40.0" y1="60.0" x2="390.0" y2="60.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<line x1="40.0" y1="455.0" x2="390.0" y2="455.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<line x1="40.0" y1="60.0" x2="40.0" y2="455.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<line x1="390.0" y1="60.0" x2="390.0" y2="455.0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="215.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Еквівалентна схема PDN</text>
+<rect x="54.4" y="116.3" width="121.1" height="37.3" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="115.0" y="131.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="115.0" dy="0.0">Джерело живлення</tspan><tspan x="115.0" dy="14.3">(OCV, R_джерела)</tspan></text>
+<rect x="216.3" y="116.3" width="137.4" height="37.3" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="285.0" y="131.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="285.0" dy="0.0">Провідники / Доріжки</tspan><tspan x="285.0" dy="14.3">(L_петлі, R_доріжки)</tspan></text>
+<line x1="180.0" y1="135.0" x2="215.0" y2="135.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="99.0" y="236.3" width="162.0" height="37.3" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="180.0" y="251.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="180.0" dy="0.0">Буферний вузол (C_буф)</tspan><tspan x="180.0" dy="14.3">ESR + ESL + C_ефект</tspan></text>
+<rect x="268.1" y="229.2" width="93.8" height="51.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="315.0" y="244.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="315.0" dy="0.0">Навантаження</tspan><tspan x="315.0" dy="14.3">MCU + RF PA</tspan><tspan x="315.0" dy="14.3">(Пік I_нав)</tspan></text>
+<line x1="285.0" y1="170.0" x2="285.0" y2="210.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="180.0" y1="210.0" x2="315.0" y2="210.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="180.0" y1="210.0" x2="180.0" y2="230.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="315.0" y1="210.0" x2="315.0" y2="230.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="115.0" y1="380.0" x2="315.0" y2="380.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="115.0" y1="170.0" x2="115.0" y2="380.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="180.0" y1="280.0" x2="180.0" y2="380.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="315.0" y1="290.0" x2="315.0" y2="380.0" stroke="#333333" stroke-width="1.5"/>
+<text x="215.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Спільна шина повернення (GND)</text>
+<rect x="420.0" y="60.0" width="390.0" height="395.0" rx="6" fill="#fafbfc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="615.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три фази просідання напруги V_bus</text>
+<line x1="455.0" y1="380.0" x2="785.0" y2="380.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="785.0" y1="380.0" x2="803.0" y2="380.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="807.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-style="italic">t</text>
+<line x1="455.0" y1="380.0" x2="455.0" y2="105.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="455.0" y1="110.0" x2="455.0" y2="95.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="445.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="700">V</text>
+<line x1="455.0" y1="130.0" x2="785.0" y2="130.0" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="450.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">V_0</text>
+<path d="M 455.0 130.0 L 480.0 130.0 L 484.0 165.0 L 490.0 154.0 L 515.0 160.0 L 660.0 245.0 L 664.0 210.0 L 750.0 135.0 L 785.0 130.0" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<text x="495.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">1: ΔV_L = L · (di/dt)</text>
+<text x="535.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start" font-weight="700">2: ΔV_ESR = I_пік · ESR</text>
+<text x="675.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">3: ΔV_C = I · Δt / C</text>
+<line x1="455.0" y1="275.0" x2="785.0" y2="275.0" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="775.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="end" font-weight="700">Поріг аварійного скидання BOR</text>
+</svg>

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хронологія аварійного каскаду: як 1 мілісекунда поклала систему</text>
+<text x="470.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">посекундна розгортка від переповнення лічильника до просідання шини та апаратного ресету</text>
+<rect x="26.0" y="70.0" width="160.0" height="30.0" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="106.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">t = 65.500 с</text>
+<line x1="106.0" y1="100.0" x2="106.0" y2="120.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="26.0" y="125.0" width="160.0" height="230.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.4"/>
+<rect x="26.0" y="125.0" width="160.0" height="28.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="106.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Штатний режим</text>
+<text x="106.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Лічильник timer_ms = 65500.</text>
+<text x="106.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Пакет зв'язку отримано.</text>
+<text x="106.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Мотори тримають оберти,</text>
+<text x="106.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">струм 14 А, VDD = 3.30 В.</text>
+<line x1="186.0" y1="230.0" x2="198.0" y2="230.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="198.0" y="70.0" width="160.0" height="30.0" rx="5" fill="#fff3e0" stroke="#e67e22" stroke-width="1.5"/>
+<text x="278.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#e67e22" text-anchor="middle" font-weight="700">t = 65.535 с</text>
+<line x1="278.0" y1="100.0" x2="278.0" y2="120.0" stroke="#e67e22" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="198.0" y="125.0" width="160.0" height="230.0" rx="6" fill="#ffffff" stroke="#e67e22" stroke-width="1.4"/>
+<rect x="198.0" y="125.0" width="160.0" height="28.0" rx="6" fill="#fff3e0" stroke="#e67e22" stroke-width="1.2"/>
+<text x="278.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="middle" font-weight="700">Переповнення таймера</text>
+<text x="278.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">timer_ms переходить у 0x0000.</text>
+<text x="278.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">(uint16_t now - last_hb)</text>
+<text x="278.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">через int promotion дає</text>
+<text x="278.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">від'ємне число -&gt; хибний таймаут!</text>
+<line x1="358.0" y1="230.0" x2="370.0" y2="230.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="370.0" y="70.0" width="160.0" height="30.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="450.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">t = 65.537 с</text>
+<line x1="450.0" y1="100.0" x2="450.0" y2="120.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="370.0" y="125.0" width="160.0" height="230.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.4"/>
+<rect x="370.0" y="125.0" width="160.0" height="28.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="450.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Захлинання буфера</text>
+<text x="450.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Автомат зв'язку фіксує аварію.</text>
+<text x="450.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Виклик panic_dump() шле лог у</text>
+<text x="450.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">блокуючий UART (115200 бод).</text>
+<text x="450.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Черга RTOS заблокована.</text>
+<line x1="530.0" y1="230.0" x2="542.0" y2="230.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="542.0" y="70.0" width="160.0" height="30.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="622.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">t = 65.542 с</text>
+<line x1="622.0" y1="100.0" x2="622.0" y2="120.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="542.0" y="125.0" width="160.0" height="230.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.4"/>
+<rect x="542.0" y="125.0" width="160.0" height="28.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="622.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Голодування задачі ШІМ</text>
+<text x="622.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Потік стабілізації мотора</text>
+<text x="622.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">пропускає 3 цикли (30 мс).</text>
+<text x="622.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Драйвер мотора вимикає</text>
+<text x="622.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ключі на повному ходу.</text>
+<line x1="702.0" y1="230.0" x2="714.0" y2="230.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="714.0" y="70.0" width="160.0" height="30.0" rx="5" fill="#fbe9e7" stroke="#c0392b" stroke-width="1.5"/>
+<text x="794.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">t = 65.545 с</text>
+<line x1="794.0" y1="100.0" x2="794.0" y2="120.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="714.0" y="125.0" width="160.0" height="230.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.4"/>
+<rect x="714.0" y="125.0" width="160.0" height="28.0" rx="6" fill="#fbe9e7" stroke="#c0392b" stroke-width="1.2"/>
+<text x="794.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Кидок ЕРС та Brownout</text>
+<text x="794.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Миттєве зняття струму 14 А -&gt;</text>
+<text x="794.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">індуктивний викид на дротах.</text>
+<text x="794.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Просадка VDD до 2.45 В.</text>
+<text x="794.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">BOD перезавантажує MCU!</text>
+<rect x="26.0" y="375.0" width="888.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#bdc3c7" stroke-width="1.5"/>
+<text x="470.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Першопричина: дефект 16-бітної таймерної арифметики при переповненні.</text>
+<text x="470.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Симптом (падіння мотора й ресет) — лише остання ланка каскадної реакції заліза на програмний збій.</text>
+</svg>

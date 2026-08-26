@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр Console Scripts: від декларації в pyproject.toml до виклику CLI</text>
+<rect x="35.0" y="65.0" width="200.0" height="240.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="135.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1. pyproject.toml</text>
+<line x1="43.0" y1="101.0" x2="227.0" y2="101.0" stroke="#2457d6" stroke-width="1.0"/>
+<text x="45.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">[project.scripts]</text>
+<text x="45.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">myapp = &quot;myapp.cli:main&quot;</text>
+<text x="45.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start"></text>
+<text x="45.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Декларація імені утиліти</text>
+<text x="45.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">та шляху 'модуль:функція'</text>
+<line x1="239.0" y1="185.0" x2="276.0" y2="185.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="280.0" y="65.0" width="200.0" height="240.0" rx="8" fill="#fef9e7" stroke="#b78103" stroke-width="1.8"/>
+<text x="380.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b78103" text-anchor="middle" font-weight="700">2. pip install &amp; Wheel</text>
+<line x1="288.0" y1="101.0" x2="472.0" y2="101.0" stroke="#b78103" stroke-width="1.0"/>
+<text x="290.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Розбір метаданих пакунка</text>
+<text x="290.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Запис у dist-info/entry_points.txt:</text>
+<text x="290.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">[console_scripts]</text>
+<text x="290.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">myapp = myapp.cli:main</text>
+<line x1="484.0" y1="185.0" x2="521.0" y2="185.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="525.0" y="65.0" width="200.0" height="240.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="625.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">3. Генерація обгортки</text>
+<line x1="533.0" y1="101.0" x2="717.0" y2="101.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="535.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Linux/macOS: бінарний скрипт</text>
+<text x="535.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">#!/path/to/venv/bin/python</text>
+<text x="535.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Windows: myapp.exe launcher</text>
+<text x="535.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">(вбудований C-код запуску)</text>
+<line x1="729.0" y1="185.0" x2="766.0" y2="185.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="770.0" y="65.0" width="200.0" height="240.0" rx="8" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="870.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">4. Виконання в середовищі</text>
+<line x1="778.0" y1="101.0" x2="962.0" y2="101.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="780.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">sys.exit(main())</text>
+<text x="780.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">Ізольований sys.executable</text>
+<text x="780.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Автоматичне налаштування</text>
+<text x="780.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">sys.path для venv</text>
+<rect x="35.0" y="330.0" width="910.0" height="160.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="490.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вміст реального згенерованого скрипта-обгортки (venv/bin/myapp)</text>
+<text x="65.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">#!/abs/path/to/virtualenv/bin/python3</text>
+<text x="65.0" y="391.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"># -*- coding: utf-8 -*-</text>
+<text x="65.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">import re</text>
+<text x="65.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">import sys</text>
+<text x="65.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">from myapp.cli import main</text>
+<text x="65.0" y="443.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">if __name__ == '__main__':</text>
+<text x="65.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])</text>
+<text x="65.0" y="469.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">    sys.exit(main())</text>
+</svg>

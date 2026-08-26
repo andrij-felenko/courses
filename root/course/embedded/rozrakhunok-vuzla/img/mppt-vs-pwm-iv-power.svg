@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння MPPT і PWM на вольт-амперній характеристиці панелі</text>
+<line x1="80.0" y1="330.0" x2="540.0" y2="330.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="80.0" y1="330.0" x2="80.0" y2="80.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="310.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Напруга панелі V_pv (В) →</text>
+<text x="34.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" transform="rotate(-90 34.0 205.0)">Струм I_pv (А)</text>
+<line x1="80.0" y1="330.0" x2="80.0" y2="335.0" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="80.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0</text>
+<line x1="156.7" y1="330.0" x2="156.7" y2="335.0" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="156.7" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4</text>
+<line x1="233.3" y1="330.0" x2="233.3" y2="335.0" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="233.3" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">8</text>
+<line x1="310.0" y1="330.0" x2="310.0" y2="335.0" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="310.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">12</text>
+<line x1="386.7" y1="330.0" x2="386.7" y2="335.0" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="386.7" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">16</text>
+<line x1="463.3" y1="330.0" x2="463.3" y2="335.0" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="463.3" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">20</text>
+<line x1="540.0" y1="330.0" x2="540.0" y2="335.0" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="540.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">24</text>
+<line x1="75.0" y1="330.0" x2="80.0" y2="330.0" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="70.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">0.0</text>
+<line x1="75.0" y1="240.7" x2="80.0" y2="240.7" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="70.0" y="244.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">0.5</text>
+<line x1="75.0" y1="151.4" x2="80.0" y2="151.4" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="70.0" y="155.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">1.0</text>
+<line x1="333.0" y1="330.0" x2="333.0" y2="80.0" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="4 4"/>
+<text x="333.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">V_batt = 13.2 В</text>
+<polyline points="80.0,137.1 310.0,138.9 386.7,142.5 453.8,151.4 492.1,187.1 530.4,330.0" fill="none" stroke="#2457d6" stroke-width="2.6" stroke-linejoin="round"/>
+<circle cx="453.8" cy="151.4" r="5.5" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5"/>
+<text x="463.8" y="141.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7c3aed" text-anchor="start" font-weight="700">MPPT: 19.5 Вт</text>
+<text x="463.8" y="157.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">(19.5 В × 1.0 А)</text>
+<circle cx="333.0" cy="140.7" r="5.5" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<text x="323.0" y="130.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="end" font-weight="700">PWM: 14.0 Вт</text>
+<text x="323.0" y="146.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">(13.2 В × 1.06 А)</text>
+<line x1="333.0" y1="140.7" x2="453.8" y2="151.4" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3 3"/>
+<polyline points="80.0,133.6 271.7,135.4 338.8,140.7 377.1,155.0 415.4,205.0 453.8,330.0" fill="none" stroke="#c0392b" stroke-width="2.2" stroke-linejoin="round" stroke-dasharray="6 4"/>
+<rect x="570.0" y="70.0" width="240.0" height="270.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="690.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння ККД у полі</text>
+<line x1="585.0" y1="122.0" x2="615.0" y2="122.0" stroke="#2457d6" stroke-width="2.6"/>
+<text x="625.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Зима (-10 °C):</text>
+<text x="590.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c3aed" text-anchor="start">• MPPT збирає: 19.5 Вт (100%)</text>
+<text x="590.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="start">• PWM збирає: 14.0 Вт (71.8%)</text>
+<text x="590.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="start" font-weight="700">• Втрати PWM: 28.2% енергії!</text>
+<line x1="585.0" y1="206.0" x2="615.0" y2="206.0" stroke="#c0392b" stroke-width="2.2" stroke-dasharray="5 3"/>
+<text x="625.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Літо (+45 °C):</text>
+<text x="590.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• MPPT збирає: 15.2 Вт</text>
+<text x="590.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• PWM збирає: 14.0 Вт (92%)</text>
+<text x="590.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">• Різниця нівелюється</text>
+<rect x="580.0" y="284.0" width="220.0" height="46.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.1"/><text x="690.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">Висновок: MPPT критичний</tspan><tspan x="690.0" dy="12.3">саме взимку, коли кожен ват</tspan><tspan x="690.0" dy="12.3">на вагу золота.</tspan></text>
+</svg>

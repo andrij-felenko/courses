@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">ПЕРЕХІД СИГНАЛУ МІЖ ШАРАМИ (VIA TRANSITION): БЕЗ І З RETURN VIA</text>
+<rect x="30.0" y="50.0" width="375.0" height="325.0" rx="8" fill="#fffafa" stroke="#e0a0a0" stroke-width="1.5"/>
+<text x="217.5" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">ПОМИЛКА: Немає зворотного via</text>
+<line x1="50.0" y1="165.0" x2="385.0" y2="165.0" stroke="#5b8296" stroke-width="3.0"/>
+<text x="75.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2b5994" text-anchor="middle" font-weight="700">L2: GND 1</text>
+<line x1="50.0" y1="215.0" x2="385.0" y2="215.0" stroke="#b08050" stroke-width="3.0"/>
+<text x="75.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#805020" text-anchor="middle" font-weight="700">L3: GND 2</text>
+<line x1="80.0" y1="115.0" x2="210.0" y2="115.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="210.0" y1="115.0" x2="210.0" y2="265.0" stroke="#c0392b" stroke-width="3.5"/>
+<line x1="210.0" y1="265.0" x2="355.0" y2="265.0" stroke="#c0392b" stroke-width="2.5"/>
+<circle cx="210.0" cy="115.0" r="4.0" fill="#c0392b" stroke="#333333" stroke-width="1.2"/>
+<circle cx="210.0" cy="265.0" r="4.0" fill="#c0392b" stroke="#333333" stroke-width="1.2"/>
+<text x="210.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Сигнальний via</text>
+<line x1="80.0" y1="171.0" x2="195.0" y2="171.0" stroke="#2457d6" stroke-width="2.2" stroke-dasharray="3,2"/>
+<line x1="195.0" y1="171.0" x2="365.0" y2="171.0" stroke="#2457d6" stroke-width="2.2" stroke-dasharray="4,3"/>
+<line x1="365.0" y1="171.0" x2="365.0" y2="209.0" stroke="#2457d6" stroke-width="2.2" stroke-dasharray="4,3"/>
+<line x1="365.0" y1="209.0" x2="225.0" y2="209.0" stroke="#2457d6" stroke-width="2.2" stroke-dasharray="4,3"/>
+<line x1="225.0" y1="209.0" x2="355.0" y2="209.0" stroke="#2457d6" stroke-width="2.2" stroke-dasharray="3,2"/>
+<rect x="350.0" y="160.0" width="25.0" height="60.0" rx="6" fill="#f0f0f0" stroke="#333333" stroke-width="1.2"/>
+<text x="363.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="363.0" dy="0.0">Далекий</tspan><tspan x="363.0" dy="13.0">via / C</tspan></text>
+<text x="217.5" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Величезна розірвана петля між шарами!</text>
+<text x="217.5" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Індуктивність переходу зростає до 2–5 нГн,</text>
+<text x="217.5" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">викликаючи стрибок імпедансу та crosstalk</text>
+<rect x="435.0" y="50.0" width="375.0" height="325.0" rx="8" fill="#f7fbf8" stroke="#80c090" stroke-width="1.5"/>
+<text x="622.5" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ПРАВИЛЬНО: Земляний Return Via поруч</text>
+<line x1="455.0" y1="165.0" x2="790.0" y2="165.0" stroke="#5b8296" stroke-width="3.0"/>
+<text x="480.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2b5994" text-anchor="middle" font-weight="700">L2: GND 1</text>
+<line x1="455.0" y1="215.0" x2="790.0" y2="215.0" stroke="#b08050" stroke-width="3.0"/>
+<text x="480.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#805020" text-anchor="middle" font-weight="700">L3: GND 2</text>
+<line x1="485.0" y1="115.0" x2="595.0" y2="115.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="595.0" y1="115.0" x2="595.0" y2="265.0" stroke="#c0392b" stroke-width="3.5"/>
+<line x1="595.0" y1="265.0" x2="760.0" y2="265.0" stroke="#c0392b" stroke-width="2.5"/>
+<circle cx="595.0" cy="115.0" r="4.0" fill="#c0392b" stroke="#333333" stroke-width="1.2"/>
+<circle cx="595.0" cy="265.0" r="4.0" fill="#c0392b" stroke="#333333" stroke-width="1.2"/>
+<text x="580.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Signal Via</text>
+<line x1="640.0" y1="165.0" x2="640.0" y2="215.0" stroke="#27ae60" stroke-width="4.0"/>
+<circle cx="640.0" cy="165.0" r="4.0" fill="#27ae60" stroke="#333333" stroke-width="1.2"/>
+<circle cx="640.0" cy="215.0" r="4.0" fill="#27ae60" stroke="#333333" stroke-width="1.2"/>
+<text x="660.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Return Via (GND)</text>
+<line x1="485.0" y1="171.0" x2="595.0" y2="171.0" stroke="#2457d6" stroke-width="2.2" stroke-dasharray="3,2"/>
+<line x1="595.0" y1="171.0" x2="640.0" y2="165.0" stroke="#2457d6" stroke-width="2.2" stroke-dasharray="2,2"/>
+<line x1="640.0" y1="215.0" x2="595.0" y2="209.0" stroke="#2457d6" stroke-width="2.2" stroke-dasharray="2,2"/>
+<line x1="595.0" y1="209.0" x2="760.0" y2="209.0" stroke="#2457d6" stroke-width="2.2" stroke-dasharray="3,2"/>
+<text x="622.5" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Мінімальна площа петлі та стабільний імпеданс!</text>
+<text x="622.5" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Індуктивність переходу &lt; 0.3 нГн,</text>
+<text x="622.5" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">немає дзвону та наводок на сусідні шари</text>
+</svg>

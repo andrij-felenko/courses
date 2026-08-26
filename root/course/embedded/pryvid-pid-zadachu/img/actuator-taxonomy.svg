@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1070 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1070" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="530.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Класифікація та архітектура електромеханічних приводів</text>
+<text x="530.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Принцип комутації, зворотний зв'язок та керування у вбудованих системах</text>
+<rect x="30.0" y="80.0" width="235.0" height="380.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.3"/>
+<rect x="30.0" y="80.0" width="235.0" height="65.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/>
+<text x="147.5" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Колекторний (BDC)</text>
+<text x="147.5" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Механічна комутація</text>
+<text x="42.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Ротор:</text>
+<text x="253.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Обмотки на валу</text>
+<line x1="40.0" y1="189.0" x2="255.0" y2="189.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="42.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Статор:</text>
+<text x="253.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Постійні магніти</text>
+<line x1="40.0" y1="220.0" x2="255.0" y2="220.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="42.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Комутація:</text>
+<text x="253.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Щітки + мідний колектор</text>
+<line x1="40.0" y1="251.0" x2="255.0" y2="251.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="42.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Керування:</text>
+<text x="253.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">ШІМ через 1 H-міст</text>
+<line x1="40.0" y1="282.0" x2="255.0" y2="282.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="42.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Зворотний зв'язок:</text>
+<text x="253.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Немає (або зовн. енкодер)</text>
+<line x1="40.0" y1="313.0" x2="255.0" y2="313.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="35.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Головна перевага:</text>
+<text x="253.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Гранична простота й пуск</text>
+<line x1="40.0" y1="344.0" x2="255.0" y2="344.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="42.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Слабке місце:</text>
+<text x="253.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Знос щіток, іскріння, ЕМС</text>
+<rect x="285.0" y="80.0" width="235.0" height="380.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.3"/>
+<rect x="285.0" y="80.0" width="235.0" height="65.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/>
+<text x="402.5" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кроковий (Stepper)</text>
+<text x="402.5" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">Дискретні кроки</text>
+<text x="297.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Ротор:</text>
+<text x="508.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Зубчастий магніт</text>
+<line x1="295.0" y1="189.0" x2="510.0" y2="189.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="297.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Статор:</text>
+<text x="508.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Багатополюсні обмотки</text>
+<line x1="295.0" y1="220.0" x2="510.0" y2="220.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="297.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Комутація:</text>
+<text x="508.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Електронна фазна (чопер)</text>
+<line x1="295.0" y1="251.0" x2="510.0" y2="251.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="297.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Керування:</text>
+<text x="508.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Імпульси STEP / DIR</text>
+<line x1="295.0" y1="282.0" x2="510.0" y2="282.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="297.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Зворотний зв'язок:</text>
+<text x="508.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Open-loop (без давача)</text>
+<line x1="295.0" y1="313.0" x2="510.0" y2="313.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="290.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Головна перевага:</text>
+<text x="508.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Точний кут, момент спокою</text>
+<line x1="295.0" y1="344.0" x2="510.0" y2="344.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="297.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Слабке місце:</text>
+<text x="508.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Нагрів у спокої, зрив кроків</text>
+<rect x="540.0" y="80.0" width="235.0" height="380.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.3"/>
+<rect x="540.0" y="80.0" width="235.0" height="65.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/>
+<text x="657.5" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Безколекторний (BLDC/PMSM)</text>
+<text x="657.5" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Синхронна машина</text>
+<text x="552.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Ротор:</text>
+<text x="763.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Потужні постійні магніти</text>
+<line x1="550.0" y1="189.0" x2="765.0" y2="189.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="552.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Статор:</text>
+<text x="763.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">3-фазна симетрична обмотка</text>
+<line x1="550.0" y1="220.0" x2="765.0" y2="220.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="552.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Комутація:</text>
+<text x="763.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Електронна (6 ключів / FOC)</text>
+<line x1="550.0" y1="251.0" x2="765.0" y2="251.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="552.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Керування:</text>
+<text x="763.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">ESC (BEMF / Холл / FOC)</text>
+<line x1="550.0" y1="282.0" x2="765.0" y2="282.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="552.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Зворотний зв'язок:</text>
+<text x="763.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">BEMF / Холл / енкодер</text>
+<line x1="550.0" y1="313.0" x2="765.0" y2="313.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="552.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Головна перевага:</text>
+<text x="763.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">ККД 90%, оберти, ресурс</text>
+<line x1="550.0" y1="344.0" x2="765.0" y2="344.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="552.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Слабке місце:</text>
+<text x="763.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Складний 3-фазний інвертор</text>
+<rect x="795.0" y="80.0" width="235.0" height="380.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.3"/>
+<rect x="795.0" y="80.0" width="235.0" height="65.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.3"/>
+<text x="912.5" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сервопривід (Servo)</text>
+<text x="912.5" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Інтегрований вузол</text>
+<text x="807.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Мотор:</text>
+<text x="1018.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">DC / Coreless / BLDC</text>
+<line x1="805.0" y1="189.0" x2="1020.0" y2="189.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="807.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Редуктор:</text>
+<text x="1018.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Металевий / пластиковий</text>
+<line x1="805.0" y1="220.0" x2="1020.0" y2="220.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="807.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Давач кута:</text>
+<text x="1018.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Потенціометр / магнітний</text>
+<line x1="805.0" y1="251.0" x2="1020.0" y2="251.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="807.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Керування:</text>
+<text x="1018.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">ШІМ 1-2 мс / UART шина</text>
+<line x1="805.0" y1="282.0" x2="1020.0" y2="282.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="800.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Зворотний зв'язок:</text>
+<text x="1018.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Внутрішній закритий PID</text>
+<line x1="805.0" y1="313.0" x2="1020.0" y2="313.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="807.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Головна перевага:</text>
+<text x="1018.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Готовий кут у зборі</text>
+<line x1="805.0" y1="344.0" x2="1020.0" y2="344.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<text x="807.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Слабке місце:</text>
+<text x="1018.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Люфт редуктора, ліміт швидкості</text>
+</svg>

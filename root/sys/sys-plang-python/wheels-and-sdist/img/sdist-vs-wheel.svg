@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння розгортання пакунка: вихідний архів (sdist) проти wheel (.whl)</text>
+<rect x="40.0" y="55.0" width="430.0" height="440.0" rx="8" fill="#fff8f6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="255.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Source Distribution (.tar.gz / sdist)</text>
+<line x1="55.0" y1="93.0" x2="455.0" y2="93.0" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="60.0" y="107.0" width="390.0" height="62.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="72.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">1. Завантаження архіву</text>
+<text x="72.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">pip викачує вихідний код і pyproject.toml з PyPI</text>
+<line x1="255.0" y1="170.0" x2="255.0" y2="181.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="60.0" y="183.0" width="390.0" height="62.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="72.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">2. Ізоляція середовища збирання</text>
+<text x="72.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Створення тимчасового venv і встановлення build-backend</text>
+<line x1="255.0" y1="246.0" x2="255.0" y2="257.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="60.0" y="259.0" width="390.0" height="62.0" rx="6" fill="#fdecea" stroke="#2457d6" stroke-width="1.2"/>
+<text x="72.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">3. Виклик C/C++ компілятора</text>
+<text x="72.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Компіляція .c/.cpp -&gt; потрібні Python.h, gcc/clang, make/cmake</text>
+<line x1="255.0" y1="322.0" x2="255.0" y2="333.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="60.0" y="335.0" width="390.0" height="62.0" rx="6" fill="#fdecea" stroke="#2457d6" stroke-width="1.2"/>
+<text x="72.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">4. Компонування модуля розширення</text>
+<text x="72.0" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Лінкування .so/.pyd з системними бібліотеками клієнта</text>
+<line x1="255.0" y1="398.0" x2="255.0" y2="409.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="60.0" y="411.0" width="390.0" height="62.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="72.0" y="431.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">5. Генерація колісного архіву й копіювання</text>
+<text x="72.0" y="453.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Упакування у тимчасовий .whl та розпакування в site-packages</text>
+<rect x="510.0" y="55.0" width="430.0" height="440.0" rx="8" fill="#f4faf6" stroke="#c0392b" stroke-width="1.5"/>
+<text x="725.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Built Distribution (.whl / PEP 427)</text>
+<line x1="525.0" y1="93.0" x2="925.0" y2="93.0" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="530.0" y="107.0" width="390.0" height="62.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="542.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">1. Перевірка тегів сумісності</text>
+<text x="542.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">pip звіряє cp312-abi3-manylinux_2_28_x86_64 з середовищем</text>
+<line x1="725.0" y1="170.0" x2="725.0" y2="181.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="530.0" y="183.0" width="390.0" height="62.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="542.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">2. Завантаження готового wheel</text>
+<text x="542.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Викачування попередньо скомпільованого zip-архіву з PyPI</text>
+<line x1="725.0" y1="246.0" x2="725.0" y2="257.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="530.0" y="259.0" width="390.0" height="62.0" rx="6" fill="#e8f8f0" stroke="#c0392b" stroke-width="1.2"/>
+<text x="542.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">3. Пряме розпакування файлів</text>
+<text x="542.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Атомарне копіювання .py, .so та .dist-info прямо в site-packages</text>
+<line x1="725.0" y1="322.0" x2="725.0" y2="333.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="530.0" y="335.0" width="390.0" height="62.0" rx="6" fill="#e8f8f0" stroke="#c0392b" stroke-width="1.2"/>
+<text x="542.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">4. Валідація контрольних сум</text>
+<text x="542.0" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Звірка хешів SHA-256 файлів із записами у файлі RECORD</text>
+<line x1="725.0" y1="398.0" x2="725.0" y2="409.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="530.0" y="411.0" width="390.0" height="62.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="542.0" y="431.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">5. Готовність до імпорту (0 с компіляції)</text>
+<text x="542.0" y="453.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Модуль миттєво доступний інтерпретатору без компілятора</text>
+</svg>

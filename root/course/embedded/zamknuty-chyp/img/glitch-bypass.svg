@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 380" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="380" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Атака збоєм живлення (Voltage Glitching) на перевірку RDP</text>
+<rect x="40.0" y="60.0" width="430.0" height="160.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="56.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Напруга живлення ядра VCORE</text>
+<line x1="80.0" y1="190.0" x2="450.0" y2="190.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="80.0" y1="190.0" x2="80.0" y2="90.0" stroke="#333333" stroke-width="1.2"/>
+<text x="455.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="middle">t</text>
+<text x="70.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="middle">V</text>
+<text x="72.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">3.3V</text>
+<line x1="76.0" y1="115.0" x2="440.0" y2="115.0" stroke="#e0e0e0" stroke-width="1.0" stroke-dasharray="2 2"/>
+<text x="72.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end">0.6V</text>
+<line x1="80.0" y1="115.0" x2="220.0" y2="115.0" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="220.0" y1="115.0" x2="235.0" y2="175.0" stroke="#c0392b" stroke-width="2.4"/>
+<line x1="235.0" y1="175.0" x2="255.0" y2="175.0" stroke="#c0392b" stroke-width="2.4"/>
+<line x1="255.0" y1="175.0" x2="270.0" y2="115.0" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="270.0" y1="115.0" x2="440.0" y2="115.0" stroke="#2457d6" stroke-width="2.2"/>
+<text x="245.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">глітч 30 нс</text>
+<rect x="490.0" y="60.0" width="310.0" height="160.0" rx="6" fill="#fcfcfd" stroke="#333333" stroke-width="1.5"/>
+<text x="645.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стан процесора та шини</text>
+<rect x="505.0" y="96.0" width="280.0" height="48.0" rx="6" fill="#fff7f5" stroke="#c0392b" stroke-width="1.4"/><text x="645.0" y="116.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="645.0" dy="0.0">1. Зчитування Option Bytes:</tspan><tspan x="645.0" dy="13.7">транзистори не встигають закритися</tspan></text>
+<rect x="505.0" y="152.0" width="280.0" height="56.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/><text x="645.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="645.0" dy="0.0">2. Інструкція перевірки (CMP / BNE)</tspan><tspan x="645.0" dy="13.7">виконується як NOP або дає 0xAA;</tspan><tspan x="645.0" dy="13.7">шину DAP не заблоковано!</tspan></text>
+<rect x="40.0" y="240.0" width="760.0" height="105.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="420.0" y="281.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Як працює збій: короткочасний провал напруги під час читання Option Bytes порушує логічні рівні.</tspan><tspan x="420.0" dy="15.0">Процесор пропускає умовний перехід блокування або зчитує байт захисту як 0xAA (Рівень 0).</tspan><tspan x="420.0" dy="15.0">Результат: програматор/дебагер отримує повний доступ до Flash без запуску апаратного стирання пам'яті.</tspan></text>
+</svg>

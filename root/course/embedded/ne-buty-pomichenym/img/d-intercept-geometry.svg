@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 420" width="820" height="420">
+<rect x="0.0" y="0.0" width="820.0" height="420.0" rx="0" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Геометрія перехоплення: радіолінк проти комплексу РЕР</text>
+<circle cx="170.0" cy="230.0" r="150.0" fill="#fde8e8" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+<circle cx="170.0" cy="230.0" r="80.0" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="87.6" y="208.2" width="164.8" height="43.6" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="170.0" y="226.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="170.0" dy="0.0">TX: Передавач</tspan><tspan x="170.0" dy="15.6">(EIRP = P_tx · G_tx)</tspan></text>
+<line x1="210.0" y1="205.0" x2="210.0" y2="195.0" stroke="#27ae60" stroke-width="2.0"/>
+<rect x="184.2" y="161.3" width="141.6" height="37.3" rx="6" fill="#f0fff4" stroke="#27ae60" stroke-width="1.5"/><text x="255.0" y="176.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="255.0" dy="0.0">RX: Приймач лінка</tspan><tspan x="255.0" dy="14.3">(R_comm, поріг SNR)</tspan></text>
+<line x1="220.0" y1="255.0" x2="325.0" y2="300.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+<rect x="305.6" y="291.4" width="168.9" height="37.3" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/><text x="390.0" y="306.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="390.0" dy="0.0">РЕР / Пеленгатор</tspan><tspan x="390.0" dy="14.3">(G_esm &gt;&gt; 1, радіометр)</tspan></text>
+<text x="170.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Зона виявлення РЕР на максимальній потужності (P_max)</text>
+<text x="170.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Зона перехоплення з TPC (P_min)</text>
+<rect x="490.0" y="55.0" width="305.0" height="340.0" rx="6" fill="#f4f6f8" stroke="#c0c8d0" stroke-width="1.2"/>
+<text x="642.5" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фізика енергетичного балансу</text>
+<text x="502.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Чутливість пеленгатора РЕР:</text>
+<text x="502.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">   РЕР накопичує енергію радіометром</text>
+<text x="502.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">   і має велику апертуру (G_esm).</text>
+<text x="502.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">   Тому без контролю потужності R_det &gt;&gt; R_comm.</text>
+<text x="502.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start"></text>
+<text x="502.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Вплив потужності (TPC):</text>
+<text x="502.0" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">   Дальність виявлення: R_det ∝ √(EIRP).</text>
+<text x="502.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">   Зниження потужності на 10 дБ (у 10 разів)</text>
+<text x="502.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">   зменшує радіус виявлення в 3.16 раза,</text>
+<text x="502.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">   а площу перехоплення (S_det) — рівно в 10 разів.</text>
+<text x="502.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start"></text>
+<text x="502.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">3. Мета LPI-тракту:</text>
+<text x="502.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">   Тримати EIRP на мінімумі, щоб R_det &lt; R_esm.</text>
+</svg>

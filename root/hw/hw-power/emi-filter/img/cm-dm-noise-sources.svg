@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Генезис та контури поширення завад в імпульсному перетворювачі</text>
+<rect x="25.0" y="55.0" width="405.0" height="385.0" rx="8" fill="#fdfefe" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="227.5" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Диференціальна завада (DM): контур dI/dt</text>
+<text x="227.5" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Струм тече в протилежних напрямках через L та N</text>
+<line x1="55.0" y1="140.0" x2="400.0" y2="140.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="55.0" y1="260.0" x2="400.0" y2="260.0" stroke="#333333" stroke-width="2.0"/>
+<text x="45.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">L</text>
+<text x="45.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">N</text>
+<line x1="155.0" y1="140.0" x2="155.0" y2="190.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="155.0" y1="210.0" x2="155.0" y2="260.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="140.0" y1="190.0" x2="170.0" y2="190.0" stroke="#333333" stroke-width="2.5"/>
+<line x1="140.0" y1="210.0" x2="170.0" y2="210.0" stroke="#333333" stroke-width="2.5"/>
+<text x="185.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">C_in</text>
+<rect x="265.0" y="125.0" width="50.0" height="30.0" rx="6" fill="#f1f5f9" stroke="#c0392b" stroke-width="1.5"/>
+<text x="290.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">SW</text>
+<line x1="355.0" y1="140.0" x2="355.0" y2="260.0" stroke="#333333" stroke-width="1.5"/>
+<circle cx="355.0" cy="200.0" r="14.0" fill="#f1f5f9" stroke="#333333" stroke-width="1.5"/>
+<text x="355.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">D</text>
+<line x1="85.0" y1="125.0" x2="185.0" y2="125.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="225.0" y1="125.0" x2="315.0" y2="125.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="285.0" y1="275.0" x2="185.0" y2="275.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="155.0" y1="275.0" x2="85.0" y2="275.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="205.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">i_DM (прямий струм)</text>
+<text x="205.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">i_DM (зворотний струм)</text>
+<rect x="50.2" y="337.2" width="354.6" height="55.6" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/><text x="227.5" y="354.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="227.5" dy="0.0">Джерело: розривний струм комутації dI/dt</tspan><tspan x="227.5" dy="14.3">Шлях: шина L → ключ SW → навантаження → шина N</tspan><tspan x="227.5" dy="14.3">Пригнічення: X-конденсатори, індуктивність розсіювання</tspan></text>
+<rect x="450.0" y="55.0" width="405.0" height="385.0" rx="8" fill="#fdfefe" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="652.5" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Синфазна завада (CM): струм зміщення dV/dt</text>
+<text x="652.5" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Струм тече синхронно через L та N у землю PE</text>
+<line x1="480.0" y1="140.0" x2="825.0" y2="140.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="480.0" y1="220.0" x2="825.0" y2="220.0" stroke="#333333" stroke-width="2.0"/>
+<text x="470.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">L</text>
+<text x="470.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">N</text>
+<rect x="670.0" y="125.0" width="60.0" height="30.0" rx="6" fill="#f1f5f9" stroke="#2457d6" stroke-width="1.5"/>
+<text x="700.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">SW node</text>
+<line x1="700.0" y1="155.0" x2="700.0" y2="185.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+<line x1="685.0" y1="185.0" x2="715.0" y2="185.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="685.0" y1="195.0" x2="715.0" y2="195.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="700.0" y1="195.0" x2="700.0" y2="270.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+<text x="755.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">C_para (радіатор)</text>
+<line x1="480.0" y1="270.0" x2="825.0" y2="270.0" stroke="#059669" stroke-width="2.5"/>
+<text x="470.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#059669" text-anchor="middle" font-weight="700">PE</text>
+<line x1="630.0" y1="125.0" x2="510.0" y2="125.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="630.0" y1="205.0" x2="510.0" y2="205.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="550.0" y1="285.0" x2="670.0" y2="285.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="570.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">i_CM / 2</text>
+<text x="570.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">i_CM / 2</text>
+<text x="610.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">i_CM (повернення через PE)</text>
+<rect x="478.3" y="337.2" width="348.3" height="55.6" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="652.5" y="354.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="652.5" dy="0.0">Джерело: стрибки напруги dV/dt на комутаційному вузлі</tspan><tspan x="652.5" dy="14.3">Шлях: SW node → паразитне C_para → корпус PE → L &amp; N</tspan><tspan x="652.5" dy="14.3">Пригнічення: синфазний дросель (CMC), Y-конденсатори</tspan></text>
+</svg>

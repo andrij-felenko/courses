@@ -153,8 +153,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-ld-syntax.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-baremetal-cortexm.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -185,8 +197,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-init-attributes.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-schwarz-counter.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-safe-logger-registry.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "newlib",

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізми Tail-Chaining та Late Arrival у контролері NVIC</text>
+<rect x="15.0" y="15.0" width="810.0" height="390.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="420.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратні оптимізації NVIC: Tail-Chaining та Late Arrival</text>
+<text x="30.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Без оптимізації:</text>
+<rect x="160.0" y="80.0" width="150.0" height="32.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="235.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Виконання ISR 1</text>
+<rect x="315.0" y="80.0" width="140.0" height="32.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="385.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Unstacking (12T)</text>
+<rect x="460.0" y="80.0" width="140.0" height="32.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="530.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Stacking (12T)</text>
+<rect x="605.0" y="80.0" width="150.0" height="32.0" rx="4" fill="#e6f4ea" stroke="#27ae60" stroke-width="1.4"/>
+<text x="680.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Виконання ISR 2</text>
+<text x="765.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Втрата: 24T</text>
+<text x="30.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Tail-Chaining:</text>
+<rect x="160.0" y="160.0" width="150.0" height="32.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="235.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Виконання ISR 1</text>
+<rect x="315.0" y="160.0" width="110.0" height="32.0" rx="4" fill="#fff9e6" stroke="#e0a800" stroke-width="2.0"/>
+<text x="370.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b08800" text-anchor="middle" font-weight="700">Tail-Chain (6T)</text>
+<rect x="430.0" y="160.0" width="150.0" height="32.0" rx="4" fill="#e6f4ea" stroke="#27ae60" stroke-width="1.4"/>
+<text x="505.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Виконання ISR 2</text>
+<text x="590.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Заощаджено 18 тактів! (Без unstack/restack)</text>
+<text x="30.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">3. Late Arrival:</text>
+<rect x="160.0" y="260.0" width="110.0" height="32.0" rx="4" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.4"/>
+<text x="215.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Stacking (0..4T)</text>
+<line x1="270.0" y1="240.0" x2="270.0" y2="305.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="3,3"/>
+<text x="270.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Прибув High-IRQ!</text>
+<rect x="275.0" y="260.0" width="140.0" height="32.0" rx="4" fill="#fff9e6" stroke="#c0392b" stroke-width="1.8"/>
+<text x="345.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Підміна вектора VTOR</text>
+<rect x="420.0" y="260.0" width="150.0" height="32.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="495.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Виконання ISR High</text>
+<rect x="575.0" y="260.0" width="90.0" height="32.0" rx="4" fill="#fff9e6" stroke="#e0a800" stroke-width="1.6"/>
+<text x="620.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b08800" text-anchor="middle" font-weight="700">Tail-Chain (6T)</text>
+<rect x="670.0" y="260.0" width="120.0" height="32.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/>
+<text x="730.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">ISR Low</text>
+<rect x="30.0" y="345.0" width="760.0" height="45.0" rx="6" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.2"/>
+<text x="410.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">NVIC динамічно оптимізує чергу переривань: жодного зайвого такту на перепаковування стек-фрейму</text>
+<text x="410.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Late Arrival гарантує найвищому пріоритету стабільні 12 тактів реакції навіть при раптовому виникненні</text>
+</svg>

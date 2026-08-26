@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="20.0" width="740.0" height="44.0" rx="6" fill="#d6eaf8" stroke="#1a5276" stroke-width="1.5"/><text x="410.0" y="46.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a5276" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">Рівень застосунку: printf(&quot;T=%d\r\n&quot;, val) або std::print</tspan></text>
+<line x1="410.0" y1="64.0" x2="410.0" y2="96.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="96.0" width="740.0" height="74.0" rx="6" fill="#fdf3d6" stroke="#b9770e" stroke-width="1.8"/>
+<text x="410.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b9770e" text-anchor="middle" font-weight="700">Стандартна бібліотека C (newlib / picolibc / arm-none-eabi-gcc libc)</text>
+<text x="410.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Розбір формату: vfprintf() → перетворення чисел, буферизація FILE / _reent</text>
+<line x1="410.0" y1="170.0" x2="410.0" y2="202.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="202.0" width="740.0" height="74.0" rx="6" fill="#f0e6fa" stroke="#7d3c98" stroke-width="1.8"/>
+<text x="410.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7d3c98" text-anchor="middle" font-weight="700">Шар системних заглушок: int _write(int fd, const char *buf, int len)</text>
+<text x="410.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Точка перенаправлення (Retargeting): маршрутизація байтів у вибраний апаратний транспорт</text>
+<line x1="170.0" y1="276.0" x2="170.0" y2="318.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="410.0" y1="276.0" x2="410.0" y2="318.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="650.0" y1="276.0" x2="650.0" y2="318.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="40.0" y="318.0" width="220.0" height="130.0" rx="6" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.8"/>
+<text x="150.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e8449" text-anchor="middle" font-weight="700">Апаратний UART / USART</text>
+<text x="150.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Побайтовий запис у TDR</text>
+<text x="150.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Або DMA кільцевий буфер</text>
+<text x="150.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вивід на TX піни чіпа</text>
+<rect x="300.0" y="318.0" width="220.0" height="130.0" rx="6" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.8"/>
+<text x="410.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e8449" text-anchor="middle" font-weight="700">ARM ITM Trace (SWO)</text>
+<text x="410.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Запис у ITM-&gt;PORT[0].u8</text>
+<text x="410.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Апаратний FIFO трасування</text>
+<text x="410.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">1 вивід SWO через JTAG/SWD</text>
+<rect x="560.0" y="318.0" width="220.0" height="130.0" rx="6" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.8"/>
+<text x="670.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e8449" text-anchor="middle" font-weight="700">SEGGER RTT (RAM)</text>
+<text x="670.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Запис у кільцевий буфер RAM</text>
+<text x="670.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Асинхронне читання хостом</text>
+<text x="670.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Без додаткових ліній зв'язку</text>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 840 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="840" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="820.0" height="480.0" rx="6" fill="#ffffff" stroke="#ffffff" stroke-width="0.0"/>
+<circle cx="160.0" cy="48.0" r="22.0" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="160.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#2457d6" text-anchor="middle">☁</text>
+<text x="160.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Хмарний бекенд / PKI</text>
+<circle cx="660.0" cy="48.0" r="22.0" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="660.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#27ae60" text-anchor="middle">⬡</text>
+<text x="660.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">IoT-пристрій у полі</text>
+<line x1="160.0" y1="96.0" x2="160.0" y2="440.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="3 5"/>
+<line x1="660.0" y1="96.0" x2="660.0" y2="440.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="3 5"/>
+<line x1="180.0" y1="135.0" x2="640.0" y2="135.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="240.0" y="108.0" width="340.0" height="22.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="410.0" y="122.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">1 · DECOMMISSION_ORDER (підпис Cloud Root + Nonce)</tspan></text>
+<rect x="550.0" y="187.0" width="220.0" height="36.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="660.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">2 · Перевірка підпису, зупинка сервісів</text>
+<line x1="640.0" y1="275.0" x2="180.0" y2="275.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="240.0" y="248.0" width="340.0" height="22.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="410.0" y="262.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">3 · DECOMMISSION_ACK (підпис пристрою + хеш стану)</tspan></text>
+<rect x="50.0" y="327.0" width="220.0" height="36.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="160.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">4 · Відкликання сертифіката (CRL/OCSP)</text>
+<rect x="550.0" y="397.0" width="220.0" height="36.0" rx="4" fill="#fadbd8" stroke="#c0392b" stroke-width="2.0"/>
+<text x="660.0" y="419.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">5 · Crypto-Erase + спалювання eFuse</text>
+</svg>

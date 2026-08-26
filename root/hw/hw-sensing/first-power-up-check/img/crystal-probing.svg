@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вимірювання тактового сигналу кварцу: пасивний щуп 10X проти активного FET-щупа</text>
+<rect x="40.0" y="60.0" width="410.0" height="350.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<text x="245.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Пасивний щуп 10X: C_probe = 12–15 пФ (Зрив)</text>
+<rect x="70.0" y="120.0" width="120.0" height="150.0" rx="6" fill="#2c3e50" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="130.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">MCU Inverter</text>
+<circle cx="190.0" cy="175.0" r="5.0" fill="#d4af37" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="155.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle">OSC_IN</text>
+<circle cx="190.0" cy="225.0" r="5.0" fill="#d4af37" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="150.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle">OSC_OUT</text>
+<rect x="260.0" y="180.0" width="50.0" height="40.0" rx="4" fill="#ecf0f1" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="275.0" y1="185.0" x2="275.0" y2="215.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="295.0" y1="185.0" x2="295.0" y2="215.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="280.0" y="188.0" width="10.0" height="24.0" rx="6" fill="#bdc3c7" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="285.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кварц 16 МГц</text>
+<line x1="195.0" y1="175.0" x2="260.0" y2="190.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="195.0" y1="225.0" x2="260.0" y2="210.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="220.0" y1="180.0" x2="220.0" y2="250.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<rect x="212.0" y="250.0" width="16.0" height="12.0" rx="2" fill="#e67e22" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="220.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">C1=12 пФ</text>
+<line x1="220.0" y1="180.0" x2="350.0" y2="140.0" stroke="#c0392b" stroke-width="2.0"/>
+<rect x="306.9" y="116.9" width="106.2" height="46.2" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="360.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">Пасивний щуп 10X</tspan><tspan x="360.0" dy="12.3">C_in ≈ 15 пФ</tspan><tspan x="360.0" dy="12.3">R_in = 10 MΩ</tspan></text>
+<text x="245.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle"><tspan x="245.0" dy="0.0">Ємність щупа (15 пФ) додається паралельно C1 (12 пФ) -&gt; C_total = 27 пФ.</tspan><tspan x="245.0" dy="12.8">Коефіцієнт підсилення петлі падає нижче 1 -&gt; генерація ПОВНІСТЮ ЗРИВАЄТЬСЯ!</tspan></text>
+<rect x="490.0" y="60.0" width="410.0" height="350.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<text x="695.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Активний FET-щуп: C_probe &lt; 0.8 пФ (Успіх)</text>
+<rect x="520.0" y="120.0" width="120.0" height="150.0" rx="6" fill="#2c3e50" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="580.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">MCU Inverter</text>
+<circle cx="640.0" cy="175.0" r="5.0" fill="#d4af37" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="605.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle">OSC_IN</text>
+<circle cx="640.0" cy="225.0" r="5.0" fill="#d4af37" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="600.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle">OSC_OUT</text>
+<rect x="710.0" y="180.0" width="50.0" height="40.0" rx="4" fill="#ecf0f1" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="725.0" y1="185.0" x2="725.0" y2="215.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="745.0" y1="185.0" x2="745.0" y2="215.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="730.0" y="188.0" width="10.0" height="24.0" rx="6" fill="#bdc3c7" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="735.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кварц 16 МГц</text>
+<line x1="645.0" y1="175.0" x2="710.0" y2="190.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="645.0" y1="225.0" x2="710.0" y2="210.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="670.0" y1="180.0" x2="670.0" y2="250.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<rect x="662.0" y="250.0" width="16.0" height="12.0" rx="2" fill="#e67e22" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="670.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">C1=12 пФ</text>
+<line x1="670.0" y1="225.0" x2="800.0" y2="225.0" stroke="#27ae60" stroke-width="2.0"/>
+<rect x="756.9" y="201.9" width="106.2" height="46.2" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="810.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="810.0" dy="0.0">Активний FET-щуп</tspan><tspan x="810.0" dy="12.3">C_in ≈ 0.6 пФ</tspan><tspan x="810.0" dy="12.3">(або MCO пін)</tspan></text>
+<text x="695.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e824c" text-anchor="middle"><tspan x="695.0" dy="0.0">Активний FET-щуп має мізерну ємність (&lt;0.8 пФ) і підключається до OSC_OUT</tspan><tspan x="695.0" dy="12.8">(низькоомний вихід). Або тактування виводиться на буферизований тестовий пін MCO.</tspan></text>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння навантаження CPU: передача 50 байтів логу</text>
+<text x="50.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Блокуючий UART (115200 бод, ~86.8 мкс/байт)</text>
+<rect x="50.0" y="100.0" width="740.0" height="56.0" rx="4" fill="#fdfefe" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="50.0" y="100.0" width="640.0" height="56.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="370.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Ядро заблоковане в циклі очікування TXE прапорця (~4340 мкс = 4.34 мс)</text>
+<text x="370.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Витрачено ~347 200 тактів CPU при 80 МГц — пропущено тайм-слоти та ітерації контуру керування!</text>
+<rect x="690.0" y="100.0" width="100.0" height="56.0" rx="4" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.5"/>
+<text x="740.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e8449" text-anchor="middle" font-weight="700">Код далі</text>
+<text x="50.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b9770e" text-anchor="start" font-weight="700">Асинхронний логер (Кільцевий буфер у RAM + UART DMA)</text>
+<rect x="50.0" y="240.0" width="740.0" height="56.0" rx="4" fill="#fdfefe" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="50.0" y="240.0" width="75.0" height="56.0" rx="4" fill="#d6eaf8" stroke="#1a5276" stroke-width="1.8"/>
+<text x="87.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a5276" text-anchor="middle" font-weight="700">Запис у FIFO</text>
+<text x="87.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">~10 мкс</text>
+<rect x="125.0" y="240.0" width="665.0" height="56.0" rx="4" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.5"/>
+<text x="457.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e8449" text-anchor="middle" font-weight="700">Ядро виконує основну логіку та обробляє переривання без затримок</text>
+<text x="457.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Контролер DMA паралельно передає байти в регістр UART по шині пам'яті</text>
+<text x="50.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e8449" text-anchor="start" font-weight="700">SEGGER RTT (Запис у кільцевий буфер SRAM для читання через SWD/JTAG)</text>
+<rect x="50.0" y="380.0" width="740.0" height="56.0" rx="4" fill="#fdfefe" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="50.0" y="380.0" width="45.0" height="56.0" rx="4" fill="#f0e6fa" stroke="#7d3c98" stroke-width="1.8"/>
+<text x="72.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7d3c98" text-anchor="middle" font-weight="700">RAM</text>
+<text x="72.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">&lt;1 мкс</text>
+<rect x="95.0" y="380.0" width="695.0" height="56.0" rx="4" fill="#d5f5e3" stroke="#1e8449" stroke-width="1.5"/>
+<text x="442.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e8449" text-anchor="middle" font-weight="700">Повне звільнення CPU: нульова затримка шини зв'язку</text>
+<text x="442.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Зонд налагоджувача зчитує дані з RAM у фоновому режимі через шинний міст AHB-AP</text>
+</svg>

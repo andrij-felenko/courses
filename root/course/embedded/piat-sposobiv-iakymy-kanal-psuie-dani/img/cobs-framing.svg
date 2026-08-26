@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">COBS-кадрування: гарантована відсутність нулів усередині кадру</text>
+<text x="440.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">байт 0x00 стає унікальним прапорцем межі; оверхед становить лише 1 байт на 254 байти</text>
+<text x="60.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Вихідні дані (з нулями):</text>
+<rect x="270.0" y="90.0" width="64.0" height="46.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="302.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">0x41</text>
+<text x="302.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">'A'</text>
+<rect x="342.0" y="90.0" width="64.0" height="46.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="374.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">0x00</text>
+<text x="374.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">ZERO</text>
+<rect x="414.0" y="90.0" width="64.0" height="46.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="446.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">0x42</text>
+<text x="446.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">'B'</text>
+<rect x="486.0" y="90.0" width="64.0" height="46.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="518.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">0x43</text>
+<text x="518.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">'C'</text>
+<rect x="558.0" y="90.0" width="64.0" height="46.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="590.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">0x00</text>
+<text x="590.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">ZERO</text>
+<rect x="630.0" y="90.0" width="64.0" height="46.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="662.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">0x44</text>
+<text x="662.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">'D'</text>
+<line x1="440.0" y1="150.0" x2="440.0" y2="184.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="452.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">COBS-кодування (покажчики зміщення до наступного 0x00)</text>
+<text x="60.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Закодований кадр:</text>
+<rect x="230.0" y="198.0" width="64.0" height="46.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="262.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">0x02</text>
+<text x="262.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Зсув 2</text>
+<rect x="302.0" y="198.0" width="64.0" height="46.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="334.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">0x41</text>
+<text x="334.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">'A'</text>
+<rect x="374.0" y="198.0" width="64.0" height="46.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="406.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">0x03</text>
+<text x="406.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Зсув 3</text>
+<rect x="446.0" y="198.0" width="64.0" height="46.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="478.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">0x42</text>
+<text x="478.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">'B'</text>
+<rect x="518.0" y="198.0" width="64.0" height="46.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="550.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">0x43</text>
+<text x="550.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">'C'</text>
+<rect x="590.0" y="198.0" width="64.0" height="46.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="622.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">0x02</text>
+<text x="622.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Зсув 2</text>
+<rect x="662.0" y="198.0" width="64.0" height="46.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="694.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">0x44</text>
+<text x="694.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">'D'</text>
+<rect x="734.0" y="198.0" width="64.0" height="46.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="766.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">0x00</text>
+<text x="766.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">МЕЖА</text>
+<path d="M 262.0 248 Q 334.0 274 406.0 248" fill="none" stroke="#27ae60" stroke-width="1.6"/>
+<text x="334.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">+2 байти</text>
+<path d="M 406.0 248 Q 514.0 280 622.0 248" fill="none" stroke="#27ae60" stroke-width="1.6"/>
+<text x="514.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">+3 байти</text>
+<path d="M 622.0 248 Q 694.0 274 766.0 248" fill="none" stroke="#27ae60" stroke-width="1.6"/>
+<text x="694.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">+2 (кінець)</text>
+<text x="440.0" y="406.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">Жоден байт тіла не дорівнює 0x00. Нульовий байт надійно демаркує кінець кадру в будь-якому потоці.</text>
+</svg>

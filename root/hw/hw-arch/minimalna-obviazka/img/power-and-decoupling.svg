@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="900.0" height="500.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="470.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура живлення МК: декаплінг, фільтрація VDDA та VCAP</text>
+<rect x="57.7" y="129.3" width="104.7" height="41.3" rx="6" fill="#eef2f6" stroke="#1a1a1a" stroke-width="1.5"/><text x="110.0" y="146.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">Джерело 3.3 В</tspan><tspan x="110.0" dy="14.3">(LDO / DC-DC)</tspan></text>
+<line x1="170.0" y1="150.0" x2="720.0" y2="150.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="340.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Шина VDD (+3.3 В)</text>
+<line x1="170.0" y1="470.0" x2="720.0" y2="470.0" stroke="#2457d6" stroke-width="2.5"/>
+<text x="340.0" y="492.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Суцільний полігон GND / VSS (0 В)</text>
+<line x1="230.0" y1="150.0" x2="230.0" y2="260.0" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="180.6" y="266.0" width="98.8" height="48.0" rx="6" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5"/><text x="230.0" y="280.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="230.0" dy="0.0">C_bulk</tspan><tspan x="230.0" dy="13.0">10 мкФ</tspan><tspan x="230.0" dy="13.0">(тантал / X7R)</tspan></text>
+<line x1="230.0" y1="320.0" x2="230.0" y2="470.0" stroke="#2457d6" stroke-width="1.8"/>
+<text x="230.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">гасить просадки</text>
+<line x1="360.0" y1="150.0" x2="360.0" y2="260.0" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="326.1" y="266.0" width="67.8" height="48.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="360.0" y="280.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">C_dec 1</tspan><tspan x="360.0" dy="13.0">100 нФ</tspan><tspan x="360.0" dy="13.0">0402 MLCC</tspan></text>
+<line x1="360.0" y1="320.0" x2="360.0" y2="470.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="480.0" y1="150.0" x2="480.0" y2="260.0" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="446.1" y="266.0" width="67.8" height="48.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="480.0" y="280.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">C_dec 2</tspan><tspan x="480.0" dy="13.0">100 нФ</tspan><tspan x="480.0" dy="13.0">0402 MLCC</tspan></text>
+<line x1="480.0" y1="320.0" x2="480.0" y2="470.0" stroke="#2457d6" stroke-width="1.8"/>
+<text x="420.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">впритул до пар VDD/VSS (&lt;2 мм), короткі vias на GND</text>
+<line x1="580.0" y1="150.0" x2="580.0" y2="185.0" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="527.5" y="191.0" width="105.0" height="48.0" rx="6" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5"/><text x="580.0" y="205.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="580.0" dy="0.0">Ferrite Bead</tspan><tspan x="580.0" dy="13.0">120 Ω @ 100 МГц</tspan><tspan x="580.0" dy="13.0">R_dc &lt; 0.1 Ω</tspan></text>
+<line x1="580.0" y1="245.0" x2="580.0" y2="270.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="580.0" y1="270.0" x2="720.0" y2="270.0" stroke="#d97706" stroke-width="2.0"/>
+<text x="600.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="start" font-weight="700">Шина VDDA (чистий аналог)</text>
+<line x1="630.0" y1="270.0" x2="630.0" y2="315.0" stroke="#d97706" stroke-width="1.5"/>
+<rect x="602.3" y="327.5" width="55.4" height="35.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="630.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="630.0" dy="0.0">1 мкФ</tspan><tspan x="630.0" dy="13.0">+ 10 нФ</tspan></text>
+<line x1="630.0" y1="375.0" x2="630.0" y2="470.0" stroke="#2457d6" stroke-width="1.5"/>
+<text x="630.0" y="382.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">VSSA аналог</text>
+<rect x="750.0" y="110.0" width="155.0" height="380.0" rx="8" fill="#1e293b" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="827.5" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">Мікроконтролер</text>
+<text x="827.5" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">(ARM Cortex-M)</text>
+<line x1="720.0" y1="150.0" x2="750.0" y2="150.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="758.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#fca5a5" text-anchor="start" font-weight="700">VDD_1</text>
+<line x1="480.0" y1="200.0" x2="750.0" y2="200.0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="758.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#fca5a5" text-anchor="start" font-weight="700">VDD_2</text>
+<line x1="720.0" y1="270.0" x2="750.0" y2="270.0" stroke="#d97706" stroke-width="2.0"/>
+<text x="758.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#fde047" text-anchor="start" font-weight="700">VDDA (ADC)</text>
+<line x1="750.0" y1="340.0" x2="715.0" y2="340.0" stroke="#0284c7" stroke-width="1.8"/>
+<rect x="649.4" y="317.9" width="51.2" height="44.2" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="675.0" y="331.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="675.0" dy="0.0">VCAP</tspan><tspan x="675.0" dy="12.3">2.2 мкФ</tspan><tspan x="675.0" dy="12.3">ESR&lt;1Ω</tspan></text>
+<line x1="635.0" y1="340.0" x2="635.0" y2="470.0" stroke="#2457d6" stroke-width="1.5"/>
+<text x="758.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7dd3fc" text-anchor="start" font-weight="700">VCAP (1.2V LDO)</text>
+<line x1="750.0" y1="430.0" x2="720.0" y2="430.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="758.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#93c5fd" text-anchor="start" font-weight="700">VSS / VSSA</text>
+</svg>

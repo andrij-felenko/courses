@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шлях коду помилки від ядра до локальної пам'яті нитки (TLS)</text>
+<rect x="30.0" y="50.0" width="820.0" height="240.0" rx="8" fill="#f8fafc" stroke="#2457d6" stroke-width="1.2"/>
+<text x="50.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">ПРОСТІР КОРИСТУВАЧА (User Space)</text>
+<rect x="30.0" y="310.0" width="820.0" height="145.0" rx="8" fill="#fdfaf6" stroke="#c0392b" stroke-width="1.2"/>
+<text x="50.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">ПРОСТІР ЯДРА (Kernel Space)</text>
+<rect x="50.0" y="90.0" width="200.0" height="80.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/><text x="150.0" y="118.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="150.0" dy="0.0">Код програми</tspan><tspan x="150.0" dy="15.6">read(fd, buf, n)</tspan><tspan x="150.0" dy="15.6">Викликає обгортку libc</tspan></text>
+<rect x="310.0" y="90.0" width="230.0" height="80.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.4"/><text x="425.0" y="112.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="425.0" dy="0.0">Обгортка libc (read.S)</tspan><tspan x="425.0" dy="14.3">1. Перевіряє %rax у [-4095, -1]</tspan><tspan x="425.0" dy="14.3">2. Записує errno = -%rax</tspan><tspan x="425.0" dy="14.3">3. Повертає -1 у викликач</tspan></text>
+<rect x="600.0" y="85.0" width="230.0" height="190.0" rx="6" fill="#eef2f8" stroke="#2457d6" stroke-width="1.4"/>
+<text x="715.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Пам'ять нитки (TLS)</text>
+<rect x="615.0" y="120.0" width="200.0" height="65.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/><text x="715.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="715.0" dy="0.0">Нитка #1 (pthread)</tspan><tspan x="715.0" dy="14.3">*__errno_location()</tspan><tspan x="715.0" dy="14.3">errno = 2 (ENOENT)</tspan></text>
+<rect x="615.0" y="195.0" width="200.0" height="65.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/><text x="715.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="715.0" dy="0.0">Нитка #2 (pthread)</tspan><tspan x="715.0" dy="14.3">*__errno_location()</tspan><tspan x="715.0" dy="14.3">errno = 0 (OK)</tspan></text>
+<rect x="310.0" y="350.0" width="230.0" height="85.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.4"/><text x="425.0" y="374.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="425.0" dy="0.0">Обробник sys_read()</tspan><tspan x="425.0" dy="14.3">Виявив помилку: файл закритий</tspan><tspan x="425.0" dy="14.3">Повертає від'ємний код:</tspan><tspan x="425.0" dy="14.3">return -EBADF (-9)</tspan></text>
+<line x1="250.0" y1="130.0" x2="310.0" y2="130.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="280.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">виклик</text>
+<line x1="380.0" y1="170.0" x2="380.0" y2="350.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="333.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">syscall / sysenter
+(інструкція CPU)</text>
+<line x1="470.0" y1="350.0" x2="470.0" y2="170.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="515.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">%rax = -9 (-EBADF)
+від'ємний код</text>
+<line x1="540.0" y1="140.0" x2="615.0" y2="140.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="575.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">errno = 9</text>
+<line x1="310.0" y1="155.0" x2="250.0" y2="155.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="280.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">повертає -1</text>
+</svg>

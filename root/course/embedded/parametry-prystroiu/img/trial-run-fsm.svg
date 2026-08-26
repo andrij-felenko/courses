@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 590" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="590" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автомат безпечного застосування конфігурації (Trial Run &amp; Safe Rollback)</text>
+<rect x="40.0" y="75.0" width="230.0" height="115.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="155.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="155.0" dy="0.0">1. CONFIG_ACTIVE</tspan><tspan x="155.0" dy="13.7">Штатна конфігурація</tspan><tspan x="155.0" dy="13.7"></tspan><tspan x="155.0" dy="13.7">• Працює стабільний профіль</tspan><tspan x="155.0" dy="13.7">• Зв'язок із сервером активний</tspan><tspan x="155.0" dy="13.7">• Flash містить валідний слот</tspan></text>
+<rect x="355.0" y="75.0" width="230.0" height="115.0" rx="6" fill="#e9eefb" stroke="#2457d6" stroke-width="1.5"/><text x="470.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">2. CONFIG_STAGED</tspan><tspan x="470.0" dy="13.7">Отримано кандидата</tspan><tspan x="470.0" dy="13.7"></tspan><tspan x="470.0" dy="13.7">• Перевірка синтаксису і меж</tspan><tspan x="470.0" dy="13.7">• Крос-валідація залежностей</tspan><tspan x="470.0" dy="13.7">• Резервування RAM під відкат</tspan></text>
+<rect x="670.0" y="75.0" width="230.0" height="115.0" rx="6" fill="#fdfaf3" stroke="#d97706" stroke-width="1.5"/><text x="785.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="785.0" dy="0.0">3. TRIAL_RUNNING</tspan><tspan x="785.0" dy="13.7">Випробувальний режим</tspan><tspan x="785.0" dy="13.7"></tspan><tspan x="785.0" dy="13.7">• Застосовано кандидата</tspan><tspan x="785.0" dy="13.7">• Запущено таймер trial = 60 c</tspan><tspan x="785.0" dy="13.7">• Спроба підключення до лінка</tspan></text>
+<rect x="670.0" y="310.0" width="230.0" height="115.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="785.0" y="337.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="785.0" dy="0.0">4. CONFIG_COMMITTED</tspan><tspan x="785.0" dy="13.7">Успішна фіксація</tspan><tspan x="785.0" dy="13.7"></tspan><tspan x="785.0" dy="13.7">• Хмарний handshake пройдено</tspan><tspan x="785.0" dy="13.7">• Запис у Flash NVS (новий Seq)</tspan><tspan x="785.0" dy="13.7">• Кандидат стає ACTIVE</tspan></text>
+<rect x="355.0" y="310.0" width="230.0" height="115.0" rx="6" fill="#fdeded" stroke="#c0392b" stroke-width="1.5"/><text x="470.0" y="337.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">5. CONFIG_ROLLBACK</tspan><tspan x="470.0" dy="13.7">Автоматичний відкат</tspan><tspan x="470.0" dy="13.7"></tspan><tspan x="470.0" dy="13.7">• Відновлення старого профілю</tspan><tspan x="470.0" dy="13.7">• Переініціалізація радіомодуля</tspan><tspan x="470.0" dy="13.7">• Звіт на сервер про помилку</tspan></text>
+<line x1="270.0" y1="132.0" x2="355.0" y2="132.0" stroke="#2457d6" stroke-width="2.0"/>
+<polygon points="355,132 347,128 347,136" fill="#2457d6"/>
+<text x="312.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Rx Config</text>
+<line x1="585.0" y1="132.0" x2="670.0" y2="132.0" stroke="#2457d6" stroke-width="2.0"/>
+<polygon points="670,132 662,128 662,136" fill="#2457d6"/>
+<text x="627.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Valid: OK</text>
+<line x1="470.0" y1="75.0" x2="470.0" y2="48.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="3,3"/>
+<line x1="470.0" y1="48.0" x2="155.0" y2="48.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="3,3"/>
+<line x1="155.0" y1="48.0" x2="155.0" y2="75.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="3,3"/>
+<polygon points="155,75 151,67 159,67" fill="#c0392b"/>
+<text x="312.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Помилка валідації: відхилити запит</text>
+<line x1="785.0" y1="190.0" x2="785.0" y2="310.0" stroke="#27ae60" stroke-width="2.0"/>
+<polygon points="785,310 781,302 789,302" fill="#27ae60"/>
+<text x="845.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Handshake OK
+та підтвердження</text>
+<line x1="670.0" y1="185.0" x2="545.0" y2="310.0" stroke="#c0392b" stroke-width="2.0"/>
+<polygon points="545,310 548,300 556,307" fill="#c0392b"/>
+<text x="635.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Таймаут 60 с / Збій лінка</text>
+<line x1="785.0" y1="425.0" x2="785.0" y2="455.0" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="4,4"/>
+<line x1="785.0" y1="455.0" x2="155.0" y2="455.0" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="4,4"/>
+<line x1="155.0" y1="455.0" x2="155.0" y2="190.0" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="4,4"/>
+<polygon points="155,190 151,198 159,198" fill="#27ae60"/>
+<text x="470.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Новий стан зафіксовано у Flash (Commit завершено)</text>
+<line x1="355.0" y1="367.0" x2="155.0" y2="367.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="3,3"/>
+<line x1="155.0" y1="367.0" x2="155.0" y2="190.0" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="3,3"/>
+<polygon points="155,190 151,198 159,198" fill="#c0392b"/>
+<text x="255.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Відкат до старого профілю</text>
+<rect x="40.0" y="490.0" width="860.0" height="65.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/><text x="470.0" y="519.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">Принцип відмовостійкості: Якщо пристрій зависає або перезавантажується під час випробувального режиму (Trial),</tspan><tspan x="470.0" dy="13.0">завантажувач та модуль конфігурації бачать незавершений прапорець випробування і миттєво повертають останній відомий справний профіль.</tspan></text>
+</svg>

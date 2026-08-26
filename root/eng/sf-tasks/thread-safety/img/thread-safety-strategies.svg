@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фундаментальні стратегії забезпечення потокової безпеки</text>
+<rect x="30.0" y="60.0" width="175.0" height="350.0" rx="6" fill="#edfbf2" stroke="#27ae60" stroke-width="1.5"/>
+<text x="117.5" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">1. Незмінність</text>
+<text x="117.5" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">(Immutability)</text>
+<rect x="38.0" y="114.0" width="159.0" height="42.0" rx="6" fill="#edfbf2" stroke="none" stroke-width="1.5"/><text x="117.5" y="138.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="117.5" dy="0.0">Дані лише для читання після ініціалізації.</tspan></text>
+<text x="40.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Нуль замків та очікувань</text>
+<text x="40.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Максимальна швидкість кешів</text>
+<text x="40.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Гонки неможливі фізично</text>
+<text x="40.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Патерн Copy-on-Write</text>
+<rect x="38.0" y="295.0" width="159.0" height="95.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="117.5" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Примітиви:</text>
+<text x="117.5" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">std::shared_ptr&lt;const T&gt;</text>
+<text x="117.5" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">const data structures</text>
+<rect x="223.0" y="60.0" width="175.0" height="350.0" rx="6" fill="#edf2fc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="310.5" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">2. Локалізація</text>
+<text x="310.5" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">(Thread-Local)</text>
+<rect x="231.0" y="114.0" width="159.0" height="42.0" rx="6" fill="#edf2fc" stroke="none" stroke-width="1.5"/><text x="310.5" y="138.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="310.5" dy="0.0">Власний екземпляр даних для кожного потоку.</tspan></text>
+<text x="233.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Ізоляція адресних просторів</text>
+<text x="233.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Нуль між'ядерного трафіку</text>
+<text x="233.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Відсутність дедлоків</text>
+<text x="233.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Патерни TLS / Per-Core</text>
+<rect x="231.0" y="295.0" width="159.0" height="95.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="310.5" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Примітиви:</text>
+<text x="310.5" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">thread_local T instance;</text>
+<text x="310.5" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">pthread_key_create()</text>
+<rect x="416.0" y="60.0" width="175.0" height="350.0" rx="6" fill="#fef8f0" stroke="#e08a1e" stroke-width="1.5"/>
+<text x="503.5" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#e08a1e" text-anchor="middle" font-weight="700">3. Синхронізація</text>
+<text x="503.5" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">(Mutual Exclusion)</text>
+<rect x="424.0" y="114.0" width="159.0" height="42.0" rx="6" fill="#fef8f0" stroke="none" stroke-width="1.5"/><text x="503.5" y="138.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="503.5" dy="0.0">Блокування доступу до спільного стану.</tspan></text>
+<text x="426.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• М'ютекси, RW-замки, семафори</text>
+<text x="426.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Послідовний порядок доступу</text>
+<text x="426.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Накладні витрати на черги</text>
+<text x="426.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Ризик виникнення дедлоку</text>
+<rect x="424.0" y="295.0" width="159.0" height="95.0" rx="4" fill="#ffffff" stroke="#e08a1e" stroke-width="1.0"/>
+<text x="503.5" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e08a1e" text-anchor="middle" font-weight="700">Примітиви:</text>
+<text x="503.5" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">std::mutex / lock_guard</text>
+<text x="503.5" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">pthread_mutex_lock()</text>
+<rect x="609.0" y="60.0" width="175.0" height="350.0" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="696.5" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">4. Lock-Free</text>
+<text x="696.5" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">(Atomic Operations)</text>
+<rect x="617.0" y="114.0" width="159.0" height="42.0" rx="6" fill="#fdf2f2" stroke="none" stroke-width="1.5"/><text x="696.5" y="138.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="696.5" dy="0.0">Неблокувальні апаратні інструкції процесора.</tspan></text>
+<text x="619.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Інструкції CAS (CMPXCHG)</text>
+<text x="619.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Гарантія системного прогресу</text>
+<text x="619.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Безпека в обробниках подій</text>
+<text x="619.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Складність проектування</text>
+<rect x="617.0" y="295.0" width="159.0" height="95.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="696.5" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Примітиви:</text>
+<text x="696.5" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">std::atomic&lt;T&gt;</text>
+<text x="696.5" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">CAS / fetch_add()</text>
+</svg>

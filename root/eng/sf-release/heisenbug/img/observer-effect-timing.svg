@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1090 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1090" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спостережницький ефект (Probe Effect) у багатопотоковому середовищі</text>
+<rect x="35.0" y="65.0" width="490.0" height="430.0" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="280.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Нативне виконання (без діагностики)</text>
+<line x1="55.0" y1="107.0" x2="505.0" y2="107.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="110.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Потік 1:</text>
+<line x1="110.0" y1="170.0" x2="495.0" y2="170.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="140.1" y="158.5" width="99.8" height="23.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.5"/><text x="190.0" y="166.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="190.0" dy="0.0">Зчитування ptr</tspan></text>
+<rect x="267.6" y="158.5" width="124.9" height="23.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="330.0" y="166.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="330.0" dy="0.0">Виклик ptr-&gt;func()</tspan></text>
+<text x="110.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Потік 2:</text>
+<line x1="110.0" y1="260.0" x2="495.0" y2="260.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="188.2" y="248.5" width="143.7" height="23.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="260.0" y="256.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="260.0" dy="0.0">free(ptr) + обнулення</tspan></text>
+<rect x="230.0" y="130.0" width="125.0" height="175.0" rx="4" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="292.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Вікно гонки (Use-After-Free)</text>
+<text x="292.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Потік 2 звільняє пам'ять до виклику в Потоці 1</text>
+<rect x="93.4" y="403.2" width="373.1" height="43.6" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="280.0" y="421.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="280.0" dy="0.0">Результат: СТАБІЛЬНИЙ ЗБІЙ (SIGSEGV)</tspan><tspan x="280.0" dy="15.6">Пам'ять пошкоджено через неспівпадання таймінгів</tspan></text>
+<rect x="555.0" y="65.0" width="490.0" height="430.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="800.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">З додаванням printf(...) або відладчика</text>
+<line x1="575.0" y1="107.0" x2="1025.0" y2="107.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="600.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Потік 1:</text>
+<line x1="600.0" y1="170.0" x2="1025.0" y2="170.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="612.0" y="158.5" width="106.0" height="23.0" rx="6" fill="#fff8e1" stroke="#d97706" stroke-width="1.5"/><text x="665.0" y="166.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="665.0" dy="0.0">printf(&quot;trace&quot;)</tspan></text>
+<rect x="735.1" y="158.5" width="99.8" height="23.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.5"/><text x="785.0" y="166.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="785.0" dy="0.0">Зчитування ptr</tspan></text>
+<rect x="857.6" y="158.5" width="124.9" height="23.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="920.0" y="166.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="920.0" dy="0.0">Виклик ptr-&gt;func()</tspan></text>
+<text x="600.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Потік 2:</text>
+<line x1="600.0" y1="260.0" x2="1025.0" y2="260.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="940.8" y="248.5" width="68.4" height="23.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.5"/><text x="975.0" y="256.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="975.0" dy="0.0">free(ptr)</tspan></text>
+<line x1="665.0" y1="195.0" x2="665.0" y2="245.0" stroke="#d97706" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="785.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">printf затримує Потік 1 на ~30-50 мкс</text>
+<text x="785.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">I/O syscall + блокування stdout розводять потоки в часі</text>
+<rect x="587.4" y="403.2" width="425.2" height="43.6" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="800.0" y="421.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="800.0" dy="0.0">Результат: ПОМИЛКА ЗНИКАЄ (Гейзенбаг)</tspan><tspan x="800.0" dy="15.6">Код успішно виконується, дефект маскується вимірюванням</tspan></text>
+</svg>

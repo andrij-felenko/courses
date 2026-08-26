@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 480">
+<rect x="0.0" y="0.0" width="840.0" height="480.0" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/>
+<text x="20.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Зовнішня фрагментація динамічної купи (Heap Fragmentation)</text>
+<rect x="40.0" y="50.0" width="760.0" height="48.0" rx="4" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="40.0" y="50.0" width="110.0" height="48.0" rx="2" fill="#e2e8f0" stroke="#64748b" stroke-width="1.2"/>
+<text x="95.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зайнято (Пакет A)</text>
+<text x="95.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">128 Б</text>
+<rect x="150.0" y="50.0" width="60.0" height="48.0" rx="2" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="180.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Вільна дірка</text>
+<text x="180.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">48 Б</text>
+<rect x="210.0" y="50.0" width="90.0" height="48.0" rx="2" fill="#e2e8f0" stroke="#64748b" stroke-width="1.2"/>
+<text x="255.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зайнято (Сесія)</text>
+<text x="255.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">96 Б</text>
+<rect x="300.0" y="50.0" width="70.0" height="48.0" rx="2" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="335.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Вільна дірка</text>
+<text x="335.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">64 Б</text>
+<rect x="370.0" y="50.0" width="140.0" height="48.0" rx="2" fill="#e2e8f0" stroke="#64748b" stroke-width="1.2"/>
+<text x="440.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зайнято (JSON-буфер)</text>
+<text x="440.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">160 Б</text>
+<rect x="510.0" y="50.0" width="80.0" height="48.0" rx="2" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="550.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Вільна дірка</text>
+<text x="550.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">80 Б</text>
+<rect x="590.0" y="50.0" width="210.0" height="48.0" rx="2" fill="#e2e8f0" stroke="#64748b" stroke-width="1.2"/>
+<text x="695.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зайнято (Сертифікат)</text>
+<text x="695.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">240 Б</text>
+<rect x="129.0" y="111.3" width="582.1" height="41.3" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.2"/><text x="420.0" y="128.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">Сумарно вільно: 48 Б + 64 Б + 80 Б = 192 Байти  |  Запит malloc(120) повертає NULL!</tspan><tspan x="420.0" dy="14.3">Найбільший неперервний блок = 80 Б. Купа вичерпана за наявності вільної пам'яті.</tspan></text>
+<line x1="40.0" y1="175.0" x2="800.0" y2="175.0" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="20.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Відсутність апаратного захисту: ризик катастрофічного зіткнення (Stack-Heap Collision)</text>
+<rect x="60.0" y="225.0" width="720.0" height="90.0" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+<rect x="60.0" y="225.0" width="140.0" height="90.0" rx="4" fill="#e2e8f0" stroke="#475569" stroke-width="1.2"/>
+<text x="130.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Глобальні змінні</text>
+<text x="130.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(.data + .bss)</text>
+<rect x="200.0" y="225.0" width="170.0" height="90.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="285.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Динамічна купа (Heap)</text>
+<text x="285.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Зростає праворуч →</text>
+<line x1="230.0" y1="293.0" x2="340.0" y2="293.0" stroke="#c0392b" stroke-width="2.0"/>
+<rect x="370.0" y="225.0" width="130.0" height="90.0" rx="4" fill="#fef2f2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="435.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ЗОНА ЗІТКНЕННЯ</text>
+<text x="435.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Непомітний оверлей</text>
+<text x="435.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">HardFault / Смерть</text>
+<rect x="500.0" y="225.0" width="160.0" height="90.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="580.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Стек викликів (Stack)</text>
+<text x="580.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">← Зростає ліворуч</text>
+<line x1="630.0" y1="293.0" x2="530.0" y2="293.0" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="660.0" y="225.0" width="120.0" height="90.0" rx="4" fill="#e2e8f0" stroke="#475569" stroke-width="1.2"/>
+<text x="720.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стек переривань</text>
+<text x="720.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Main / MSP Stack</text>
+<rect x="89.5" y="387.4" width="661.1" height="45.3" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/><text x="420.0" y="406.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#166534" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">MISRA C:2012 Rule 21.3 забороняє динамічну пам'ять (malloc/free/realloc/calloc).</tspan><tspan x="420.0" dy="14.3">Рішення: 100% статичний розподіл пулів фіксованих блоків та лінійних арен на етапі компіляції.</tspan></text>
+</svg>

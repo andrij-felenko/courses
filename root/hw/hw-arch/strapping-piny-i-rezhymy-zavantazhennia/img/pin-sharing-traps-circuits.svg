@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="810.0" height="490.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="420.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конфлікти сумісного використання пінів та схеми ізоляції</text>
+<rect x="30.0" y="65.0" width="370.0" height="425.0" rx="6" fill="#fdf7f7" stroke="#c0392b" stroke-width="1.4"/>
+<rect x="30.0" y="65.0" width="370.0" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="215.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">ТИПОВІ ПАСТКИ (Критичні збої)</text>
+<rect x="45.0" y="110.0" width="340.0" height="105.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="215.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Пастка 1: Світлодіод на ESP32 GPIO0 (на GND)</text>
+<text x="80.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">GPIO0</text>
+<line x1="110.0" y1="150.0" x2="140.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="140.0" y="140.0" width="35.0" height="20.0" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="157.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1k</text>
+<line x1="175.0" y1="150.0" x2="200.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="210.0" cy="150.0" r="9.0" fill="#fee" stroke="#c0392b" stroke-width="1.5"/>
+<text x="210.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">LED</text>
+<line x1="219.0" y1="150.0" x2="235.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="235.0" y1="142.0" x2="235.0" y2="158.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="238.0" y1="145.0" x2="238.0" y2="155.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="241.0" y1="148.0" x2="241.0" y2="152.0" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="215.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Наслідок: Дільник з внутрішнім pull-up садить пін у 0V.</text>
+<text x="215.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">МК зависає в режимі ROM Bootloader при кожному скиданні.</text>
+<rect x="45.0" y="230.0" width="340.0" height="115.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="215.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Пастка 2: Підтяжка на ESP32 GPIO12 (Реле / I2C)</text>
+<text x="80.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">GPIO12</text>
+<line x1="120.0" y1="270.0" x2="150.0" y2="270.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="150.0" y1="270.0" x2="150.0" y2="290.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="135.0" y="290.0" width="30.0" height="22.0" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="150.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">4.7k</text>
+<line x1="150.0" y1="312.0" x2="150.0" y2="325.0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="150.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">3.3V</text>
+<text x="265.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Flash LDO перемикається</text>
+<text x="265.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">з 3.3V на 1.8V!</text>
+<text x="215.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Наслідок: SPI Flash перестає читатися -&gt; циклічний boot loop.</text>
+<text x="215.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Повідомлення ROM: «flash read err, 1000».</text>
+<rect x="45.0" y="360.0" width="340.0" height="115.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="215.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Пастка 3: Відсутність RC-фільтра на піні EN</text>
+<text x="215.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">У схемі автопрошивки DTR/RTS пін EN відпускається</text>
+<text x="215.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">раніше, ніж GPIO0 встигає сісти в стабільний 0.</text>
+<text x="215.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Симптом: «Failed to connect to ESP32: Timed out...»</text>
+<text x="215.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Лікування: Конденсатор 100 нФ–1 мкФ між EN та GND.</text>
+<rect x="420.0" y="65.0" width="390.0" height="425.0" rx="6" fill="#f7fbf8" stroke="#27ae60" stroke-width="1.4"/>
+<rect x="420.0" y="65.0" width="390.0" height="32.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="615.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">БЕЗПЕЧНІ СХЕМИ РОЗВ'ЯЗКИ (Ізоляція)</text>
+<rect x="435.0" y="110.0" width="360.0" height="110.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="615.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Рішення 1: Тристабільний буфер (74LVC1G125)</text>
+<text x="475.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">GPIO0</text>
+<line x1="495.0" y1="150.0" x2="525.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="525.0" y="135.0" width="45.0" height="30.0" rx="3" fill="#edf7ed" stroke="#27ae60" stroke-width="1.5"/>
+<text x="547.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">BUF</text>
+<line x1="570.0" y1="150.0" x2="600.0" y2="150.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="640.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Навантаження</text>
+<line x1="547.0" y1="195.0" x2="547.0" y2="165.0" stroke="#2457d6" stroke-width="1.4"/>
+<text x="547.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">~OE (Enable від Reset або прошивки)</text>
+<text x="622.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Під час скидання буфер у стані Hi-Z (високоімпедансний).</text>
+<rect x="435.0" y="230.0" width="360.0" height="115.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="615.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Рішення 2: N-MOSFET ключ з підтяжкою затвора до GND</text>
+<text x="475.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">GPIO12</text>
+<line x1="500.0" y1="270.0" x2="530.0" y2="270.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="530.0" y="255.0" width="40.0" height="30.0" rx="2" fill="#fff" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="550.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">FET</text>
+<line x1="550.0" y1="285.0" x2="550.0" y2="305.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<rect x="538.0" y="305.0" width="24.0" height="15.0" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="550.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">100k</text>
+<line x1="550.0" y1="320.0" x2="550.0" y2="330.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="570.0" y1="270.0" x2="600.0" y2="270.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="650.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Реле / LED</text>
+<text x="615.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Затвор не навантажує пін під час reset (струм витоку &lt; 1 мкА).</text>
+<rect x="435.0" y="360.0" width="360.0" height="115.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="615.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Рішення 3: Апаратне спалювання eFuse у продакшні</text>
+<text x="615.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">1. espefuse.py set_flash_voltage 3.3V (блокує GPIO12)</text>
+<text x="615.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">2. eFuse BT_FUSE_SEL = 1 на i.MX RT (блокує BOOT_CFG)</text>
+<text x="615.0" y="430.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">3. FLASH_OPTR nBOOT_SEL на STM32 (ігнорує BOOT0 пін)</text>
+<text x="615.0" y="454.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Результат: Strapping-піни звільняються під 100% вільні GPIO!</text>
+</svg>

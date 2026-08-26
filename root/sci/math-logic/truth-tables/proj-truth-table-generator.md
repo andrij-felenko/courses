@@ -1,144 +1,355 @@
-# ⚙️ Генератор таблиць істинності (Truth Table Generator)
+# ⚙️ Програмний генератор таблиць істинності та верифікатор тавтологій
 
-Обчислення повних таблиць істинності для пропозиційних формул спирається на перебір `2^N` векторів станів вхідних змінних для верифікації тавтологій та логічної еквівалентності.
+Побудова повних таблиць істинності для логічних виразів від `N` змінних вимагає систематичного перебору `2^N` станів для верифікації тавтологій, перевірки здійснюваності (SAT) та доведення семантичної еквівалентності формул.
 
-## Постановка інженерної задачі та інтуїція рішення
-У логіці висловлювань (пропозиційній логіці) будь-яка формула, побудована з N унікальних змінних, має точно 2^N можливих комбінацій істинносних значень (True/False). Інженерна мета — створити ефективний обчислювальний рушій, який перебирає всі ці 2^N станів і для кожного оцінює значення формули. Оскільки N рідко перевищує 32 у базових задачах (зазвичай 3–10), ми можемо використати побітові операції над цілими числами для генерації станів, де кожен біт числа від 0 до (2^N - 1) репрезентує значення окремої логічної змінної.
+## Постановка інженерної задачі та архітектурні підходи
 
-Вхідними даними є пропозиційна формула у вигляді абстрактного синтаксичного дерева (AST), яке ми обходимо рекурсивно для кожної з 2^N конфігурацій. Вихідними даними є згенерована таблиця, що відображає набір значень змінних та фінальний результат формули.
+У компіляторах, системах формальної верифікації та логічних синтезаторах мікросхем виникає потреба автоматичної перевірки логічних виразів. Наприклад, модуль компіляторної оптимізації повинен гарантувати, що заміна складного умовного виразу `(A && B) || (!A && C)` на спрощений вираз не змінює логіку програми за жодної комбінації вхідних прапорців.
 
-## Логічна архітектура та алгоритм бітового обходу
-Рішення спирається на те, що ціле число (наприклад, 32-бітне `uint32_t`) може природним чином інкапсулювати стан до 32 логічних змінних. 
-1. Визначаємо кількість унікальних змінних N.
-2. Ініціалізуємо цикл від `mask = 0` до `mask = (1 << N) - 1`.
-3. У кожній ітерації `mask` містить конфігурацію змінних: якщо i-тий біт дорівнює 1, то i-та змінна істинна (True), інакше — хибна (False).
-4. Передаємо поточну конфігурацію у функцію оцінки AST, яка рекурсивно або ітеративно (якщо використовується зворотна польська нотація) обчислює результат.
-5. Зберігаємо або виводимо результат для поточного рядка таблиці істинності.
+Для програмної реалізації такої перевірки застосовують кілька інженерних стратегій, які відрізняються продуктивністю та складністю:
 
-Цей підхід мінімізує накладні витрати на виділення пам'яті (ніяких масивів булевих значень, лише регістри процесора).
+1. **Поелементний обхід абстрактного синтаксичного дерева (Tree-Walk Evaluation)**:
+   Логічна формула розбирається у дерево операцій (AST). Програма перебирає цілочисельні маски станів `mask` від `0` до `2^N - 1`. Для кожної маски дерево рекурсивно обчислюється, повертаючи булеве значення `true` або `false`. Цей підхід є найбільш наочним і гнучким для налагодження, але створює значний оверхед на виклики функцій: загальна кількість операцій становить `O(2^N · M)`, де `M` — кількість вузлів у дереві.
 
-## Повний робочий код на C++
+2. **Стекова віртуальна машина та зворотна польська нотація (Bytecode / RPN)**:
+   Дерево трансліюється у лінійний масив байткод-інструкцій. Під час ітерацій замість рекурсивних викликів виконується лінійний прохід по масиву операцій із використанням невеликого фіксованого стека. Це усуває накладні витрати на виклики функцій та запобігає переповненню системного стека.
 
-```cpp
-#include <iostream>
-#include <vector>
-#include <string>
-#include <memory>
-#include <unordered_map>
+3. **Біт-паралельне векторне обчислення (SWAR / SIMD Evaluation)**:
+   Замість того, щоб обчислювати один рядок таблиці за одну ітерацію, ми використовуємо розрядність процесорного слова (наприклад, 64-бітні цілі числа `uint64_t`). Для `N ≤ 6` змінних уся таблиця з `2^N ≤ 64` рядків упаковується в одне 64-бітне число для кожної змінної. Логічні операції `AND`, `OR`, `XOR`, `NOT` виконуються над цілими 64-бітними регістрами за один такт процесора, що дає прискорення рівно у 64 рази порівняно з поелементним підходом.
 
-// Базовий клас для вузлів абстрактного синтаксичного дерева (AST)
-class ASTNode {
-public:
-    virtual ~ASTNode() = default;
-    // Метод evaluate приймає поточну бітову маску стану та мапу індексів змінних
-    virtual bool evaluate(uint32_t stateMask, const std::unordered_map<std::string, int>& varIndices) const = 0;
-};
+Нижче ми розберемо класичну архітектуру на базі AST із захищеним керуванням пам'яттю та детальною покроковою діагностикою виразів.
 
-// Вузол змінної (наприклад, "A", "B")
-class VarNode : public ASTNode {
-    std::string name;
-public:
-    explicit VarNode(std::string n) : name(std::move(n)) {}
-    bool evaluate(uint32_t stateMask, const std::unordered_map<std::string, int>& varIndices) const override {
-        // Знаходимо індекс змінної (0, 1, 2...)
-        auto it = varIndices.find(name);
-        if (it == varIndices.end()) return false; // Запобіжник (edge case)
-        
-        int bitIndex = it->second;
-        // Витягуємо значення i-го біта з маски
-        return (stateMask & (1 << bitIndex)) != 0;
-    }
-};
+## Робоча реалізація на C та C++
 
-// Вузол логічного "І" (AND)
-class AndNode : public ASTNode {
-    std::unique_ptr<ASTNode> left, right;
-public:
-    AndNode(std::unique_ptr<ASTNode> l, std::unique_ptr<ASTNode> r) 
-        : left(std::move(l)), right(std::move(r)) {}
-        
-    bool evaluate(uint32_t stateMask, const std::unordered_map<std::string, int>& varIndices) const override {
-        return left->evaluate(stateMask, varIndices) && right->evaluate(stateMask, varIndices);
-    }
-};
+Наведена нижче програма будує синтаксичне дерево виразу, підтримує змінні та операції `NOT`, `AND`, `OR`, `XOR`, `IMPLIES` (`⇒`), генерує відформатовану таблицю істинності та видає висновок про математичний статус формули: чи є вона тавтологією (завжди істинна), суперечністю (завжди хибна) або здійснюваною формулою.
 
-// Вузол логічного "АБО" (OR)
-class OrNode : public ASTNode {
-    std::unique_ptr<ASTNode> left, right;
-public:
-    OrNode(std::unique_ptr<ASTNode> l, std::unique_ptr<ASTNode> r) 
-        : left(std::move(l)), right(std::move(r)) {}
-        
-    bool evaluate(uint32_t stateMask, const std::unordered_map<std::string, int>& varIndices) const override {
-        return left->evaluate(stateMask, varIndices) || right->evaluate(stateMask, varIndices);
-    }
-};
+:::tabs
+@tab C
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+#include <stdint.h>
 
-// Функція генерації та виводу таблиці істинності
-void generateTruthTable(const ASTNode& root, const std::vector<std::string>& vars) {
-    int numVars = vars.size();
-    if (numVars > 31) {
-        std::cerr << "Переповнення: підтримується до 31 змінної." << std::endl;
-        return;
-    }
+typedef enum {
+    NODE_VAR,
+    NODE_NOT,
+    NODE_AND,
+    NODE_OR,
+    NODE_XOR,
+    NODE_IMPLIES
+} NodeType;
 
-    std::unordered_map<std::string, int> varIndices;
-    for (int i = 0; i < numVars; ++i) {
-        varIndices[vars[i]] = i;
-        std::cout << vars[i] << "\t";
-    }
-    std::cout << "| Result\n";
-    std::cout << std::string(numVars * 8 + 10, '-') << "\n";
+typedef struct ASTNode {
+    NodeType type;
+    int var_index;               /* Для NODE_VAR: індекс змінної (0, 1, ...) */
+    struct ASTNode* left;        /* Лівий операнд (або єдиний операнд для NOT) */
+    struct ASTNode* right;       /* Правий операнд для бінарних операцій */
+} ASTNode;
 
-    // Перебираємо всі 2^N комбінацій
-    uint32_t totalCombinations = 1 << numVars;
-    for (uint32_t stateMask = 0; stateMask < totalCombinations; ++stateMask) {
-        // Вивід значень змінних
-        for (int i = 0; i < numVars; ++i) {
-            bool val = (stateMask & (1 << i)) != 0;
-            std::cout << (val ? "T" : "F") << "\t";
+/* Конструктори вузлів AST */
+ASTNode* ast_create_var(int var_index) {
+    ASTNode* node = (ASTNode*)malloc(sizeof(ASTNode));
+    if (!node) { perror("malloc failed"); exit(EXIT_FAILURE); }
+    node->type = NODE_VAR;
+    node->var_index = var_index;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
+}
+
+ASTNode* ast_create_unary(NodeType type, ASTNode* child) {
+    ASTNode* node = (ASTNode*)malloc(sizeof(ASTNode));
+    if (!node) { perror("malloc failed"); exit(EXIT_FAILURE); }
+    node->type = type;
+    node->var_index = -1;
+    node->left = child;
+    node->right = NULL;
+    return node;
+}
+
+ASTNode* ast_create_binary(NodeType type, ASTNode* left, ASTNode* right) {
+    ASTNode* node = (ASTNode*)malloc(sizeof(ASTNode));
+    if (!node) { perror("malloc failed"); exit(EXIT_FAILURE); }
+    node->type = type;
+    node->var_index = -1;
+    node->left = left;
+    node->right = right;
+    return node;
+}
+
+/* Рекурсивне звільнення пам'яті */
+void ast_free(ASTNode* root) {
+    if (!root) return;
+    ast_free(root->left);
+    ast_free(root->right);
+    free(root);
+}
+
+/* Оцінка значення AST для заданої бітової маски стану */
+bool ast_evaluate(const ASTNode* root, uint32_t state_mask) {
+    if (!root) return false;
+    
+    switch (root->type) {
+        case NODE_VAR:
+            return (state_mask & (1U << root->var_index)) != 0;
+        case NODE_NOT:
+            return !ast_evaluate(root->left, state_mask);
+        case NODE_AND:
+            return ast_evaluate(root->left, state_mask) && ast_evaluate(root->right, state_mask);
+        case NODE_OR:
+            return ast_evaluate(root->left, state_mask) || ast_evaluate(root->right, state_mask);
+        case NODE_XOR:
+            return ast_evaluate(root->left, state_mask) ^ ast_evaluate(root->right, state_mask);
+        case NODE_IMPLIES: {
+            bool left_val = ast_evaluate(root->left, state_mask);
+            bool right_val = ast_evaluate(root->right, state_mask);
+            return !left_val || right_val; /* P => Q еквівалентно !P || Q */
         }
-        
-        // Оцінка формули
-        bool result = root.evaluate(stateMask, varIndices);
-        std::cout << "| " << (result ? "T" : "F") << "\n";
+        default:
+            return false;
     }
 }
 
-int main() {
-    // Конструюємо AST для формули: (A AND B) OR A
-    std::vector<std::string> vars = {"A", "B"};
-    
-    auto a1 = std::make_unique<VarNode>("A");
-    auto b1 = std::make_unique<VarNode>("B");
-    auto andNode = std::make_unique<AndNode>(std::move(a1), std::move(b1));
-    
-    auto a2 = std::make_unique<VarNode>("A");
-    auto root = std::make_unique<OrNode>(std::move(andNode), std::move(a2));
+/* Генерація повної таблиці істинності та верифікація */
+void print_truth_table(const ASTNode* root, const char* const* var_names, int num_vars) {
+    if (num_vars > 31) {
+        fprintf(stderr, "Помилка: кількість змінних перевищує 31.\n");
+        return;
+    }
 
-    generateTruthTable(*root, vars);
+    /* Друк заголовка таблиці */
+    for (int i = 0; i < num_vars; ++i) {
+        printf("%s\t", var_names[i]);
+    }
+    printf("| Результат\n");
+    for (int i = 0; i < num_vars * 8 + 12; ++i) putchar('-');
+    putchar('\n');
+
+    uint32_t total_rows = 1U << num_vars;
+    uint32_t true_count = 0;
+
+    for (uint32_t mask = 0; mask < total_rows; ++mask) {
+        for (int i = 0; i < num_vars; ++i) {
+            bool bit = (mask & (1U << i)) != 0;
+            printf("%d\t", bit ? 1 : 0);
+        }
+        bool res = ast_evaluate(root, mask);
+        if (res) true_count++;
+        printf("| %d\n", res ? 1 : 0);
+    }
+
+    /* Підсумкова класифікація */
+    printf("\nСтатистика: %u/%u істинних наборів.\n", true_count, total_rows);
+    if (true_count == total_rows) {
+        printf("Висновок: Формула є ТАВТОЛОГІЄЮ (завжди істинна).\n");
+    } else if (true_count == 0) {
+        printf("Висновок: Формула є СУПЕРЕЧНІСТЮ (тотожна хиба).\n");
+    } else {
+        printf("Висновок: Формула є ЗДІЙСНЮВАНОЮ (випадкова логічна функція).\n");
+    }
+}
+
+int main(void) {
+    /* Конструюємо формулу Закону Контрапозиції: (P => Q) => (!Q => !P) */
+    const char* names[] = {"P", "Q"};
+    int num_vars = 2;
+
+    /* Ліва частина: P => Q */
+    ASTNode* p1 = ast_create_var(0);
+    ASTNode* q1 = ast_create_var(1);
+    ASTNode* left_side = ast_create_binary(NODE_IMPLIES, p1, q1);
+
+    /* Права частина: !Q => !P */
+    ASTNode* q2 = ast_create_var(1);
+    ASTNode* not_q = ast_create_unary(NODE_NOT, q2);
+    ASTNode* p2 = ast_create_var(0);
+    ASTNode* not_p = ast_create_unary(NODE_NOT, p2);
+    ASTNode* right_side = ast_create_binary(NODE_IMPLIES, not_q, not_p);
+
+    /* Повна формула: (P => Q) => (!Q => !P) */
+    ASTNode* formula = ast_create_binary(NODE_IMPLIES, left_side, right_side);
+
+    printf("Перевірка виразу: (P => Q) => (!Q => !P)\n\n");
+    print_truth_table(formula, names, num_vars);
+
+    ast_free(formula);
     return 0;
 }
 ```
 
-## Построчний аналіз, пам'ять та керування ресурсами
-У коді ми використовуємо сучасні C++ розумні вказівники `std::unique_ptr` для конструювання абстрактного синтаксичного дерева. Це гарантує, що при знищенні кореневого вузла все дерево буде рекурсивно і безпечно видалене з купи (heap), запобігаючи витокам пам'яті (memory leaks).
+@tab C++
+```cpp
+#include <iostream>
+#include <vector>
+#include <string>
+#include <string_view>
+#include <memory>
+#include <cstdint>
+#include <span>
 
-Основна магія відбувається у циклі `for (uint32_t stateMask = 0; stateMask < totalCombinations; ++stateMask)`. Ми не виділяємо нові масиви або вектори для зберігання станів; натомість ми передаємо одне ціле число `stateMask` по значенню на кожен рівень рекурсії. Метод `evaluate` класу `VarNode` використовує швидку побітову операцію `(stateMask & (1 << bitIndex)) != 0`, щоб миттєво визначити стан змінної. Це вирішує проблему накладних витрат на пам'ять та мінімізує промахи кешу (cache misses).
+enum class OpType {
+    Var,
+    Not,
+    And,
+    Or,
+    Xor,
+    Implies
+};
 
-Ми також додали перевірку переповнення `if (numVars > 31)`. Оскільки `1 << 32` на 32-бітних регістрах спричиняє невизначену поведінку (Undefined Behavior) і може переповнити `uint32_t`, ми зупиняємо виконання, якщо користувач вимагає занадто багато змінних.
+// Базовий абстрактний вузол синтаксичного дерева з RAII
+class ExprNode {
+public:
+    virtual ~ExprNode() = default;
+    [[nodiscard]] virtual bool evaluate(uint32_t stateMask) const noexcept = 0;
+};
 
-## Вхідні та вихідні дані і оцінка складності (I/O)
-Приклад виконання для формули `(A AND B) OR A`:
-```text
-A       B       | Result
---------------------------
-F       F       | F
-T       F       | T
-F       T       | F
-T       T       | T
+// Вузол логічної змінної
+class VariableNode final : public ExprNode {
+    int varIndex;
+public:
+    explicit VariableNode(int index) noexcept : varIndex(index) {}
+    
+    [[nodiscard]] bool evaluate(uint32_t stateMask) const noexcept override {
+        return (stateMask & (1U << varIndex)) != 0;
+    }
+};
+
+// Вузол унарного заперечення (NOT)
+class NotNode final : public ExprNode {
+    std::unique_ptr<ExprNode> operand;
+public:
+    explicit NotNode(std::unique_ptr<ExprNode> op) noexcept : operand(std::move(op)) {}
+    
+    [[nodiscard]] bool evaluate(uint32_t stateMask) const noexcept override {
+        return !operand->evaluate(stateMask);
+    }
+};
+
+// Вузол бінарних логічних операцій
+class BinaryOpNode final : public ExprNode {
+    OpType op;
+    std::unique_ptr<ExprNode> left;
+    std::unique_ptr<ExprNode> right;
+public:
+    BinaryOpNode(OpType operation, std::unique_ptr<ExprNode> lhs, std::unique_ptr<ExprNode> rhs) noexcept
+        : op(operation), left(std::move(lhs)), right(std::move(rhs)) {}
+
+    [[nodiscard]] bool evaluate(uint32_t stateMask) const noexcept override {
+        const bool l = left->evaluate(stateMask);
+        const bool r = right->evaluate(stateMask);
+        switch (op) {
+            case OpType::And:     return l && r;
+            case OpType::Or:      return l || r;
+            case OpType::Xor:     return l ^ r;
+            case OpType::Implies: return !l || r;
+            default:              return false;
+        }
+    }
+};
+
+// Клас генератора таблиць та верифікатора формул
+class TruthTableEngine {
+public:
+    static void generateAndVerify(const ExprNode& root, std::span<const std::string_view> varNames) {
+        const size_t numVars = varNames.size();
+        if (numVars > 31) {
+            std::cerr << "Помилка: підтримується не більше 31 змінної.\n";
+            return;
+        }
+
+        // Вивід заголовка
+        for (const auto& name : varNames) {
+            std::cout << name << '\t';
+        }
+        std::cout << "| Результат\n";
+        std::cout << std::string(numVars * 8 + 12, '-') << '\n';
+
+        const uint32_t totalRows = 1U << numVars;
+        uint32_t trueCount = 0;
+
+        for (uint32_t mask = 0; mask < totalRows; ++mask) {
+            for (size_t i = 0; i < numVars; ++i) {
+                const bool bit = (mask & (1U << i)) != 0;
+                std::cout << (bit ? 1 : 0) << '\t';
+            }
+            const bool result = root.evaluate(mask);
+            if (result) {
+                trueCount++;
+            }
+            std::cout << "| " << (result ? 1 : 0) << '\n';
+        }
+
+        std::cout << "\nСтатистика: " << trueCount << "/" << totalRows << " істинних наборів.\n";
+        if (trueCount == totalRows) {
+            std::cout << "Висновок: Формула є ТАВТОЛОГІЄЮ (завжди істинна).\n";
+        } else if (trueCount == 0) {
+            std::cout << "Висновок: Формула є СУПЕРЕЧНІСТЮ (тотожна хиба).\n";
+        } else {
+            std::cout << "Висновок: Формула є ЗДІЙСНЮВАНОЮ (випадкова логічна функція).\n";
+        }
+    }
+};
+
+int main() {
+    // Верифікуємо Закон Контрапозиції: (P => Q) => (!Q => !P)
+    const std::vector<std::string_view> varNames = {"P", "Q"};
+
+    // Ліва частина: P => Q
+    auto p1 = std::make_unique<VariableNode>(0);
+    auto q1 = std::make_unique<VariableNode>(1);
+    auto leftSide = std::make_unique<BinaryOpNode>(OpType::Implies, std::move(p1), std::move(q1));
+
+    // Права частина: !Q => !P
+    auto q2 = std::make_unique<VariableNode>(1);
+    auto notQ = std::make_unique<NotNode>(std::move(q2));
+    auto p2 = std::make_unique<VariableNode>(0);
+    auto notP = std::make_unique<NotNode>(std::move(p2));
+    auto rightSide = std::make_unique<BinaryOpNode>(OpType::Implies, std::move(notQ), std::move(notP));
+
+    // Повна формула
+    auto root = std::make_unique<BinaryOpNode>(OpType::Implies, std::move(leftSide), std::move(rightSide));
+
+    std::cout << "Перевірка формули закону контрапозиції:\n\n";
+    TruthTableEngine::generateAndVerify(*root, varNames);
+
+    return 0;
+}
 ```
+:::
 
-**Оцінка складності:**
-- **Часова складність:** O(2^N * M), де N — кількість змінних, а M — кількість вузлів у AST. Ми обходимо дерево розміру M рівно 2^N разів. Зростання експоненційне, тому цей метод підходить лише для N <= 25-30.
-- **Просторова складність:** O(M) для зберігання AST, плюс O(N) для глибини стеку викликів під час рекурсивної оцінки. Самі стани не споживають додаткової пам'яті, що робить просторову складність дуже низькою (майже O(1) додаткової пам'яті під час виконання).
+## Покроковий механізм обчислення та робота з регістрами
+
+Розгляньмо, як процесор обробляє кожен рядок таблиці на рівні бітових операцій:
+
+1. **Кодування конфігурації у двійковий вектор**:
+   Значення всіх змінних індексуються позиціями бітів: змінна з індексом `0` відповідає молодшому біту `bit 0`, змінна `1` — `bit 1`, і так далі. Коли лічильник циклу `mask` набуває значення, наприклад, `5` (у двійковій системі `...000101_2`), це автоматично означає присвоєння `P = 1`, `Q = 0`, `R = 1`.
+
+2. **Миттєве вилучення значення змінної**:
+   Вузол `VariableNode` виконує вилучення значення за допомогою бітової маски:
+   ```text
+   значення = (mask & (1 << index)) != 0
+   ```
+   Це транслюється компілятором в одну асемблерну інструкцію тестування біта (наприклад, `bt` на архітектурі x86 або `tst` на ARM), не вимагаючи жодного звернення до оперативної пам'яті.
+
+3. **Коротке замикання та семантика операцій**:
+   Оператор `switch` у методі `evaluate` використовує стандартну семантику мов C та C++: операція `&&` і `||` виконує ліниве обчислення (short-circuit evaluation). Якщо лівий операнд кон'юнкції хибний, праве піддерево не обчислюється, що суттєво економить такти процесора на складних вкладених підвиразах.
+
+## Аналіз складності, пам'ять та крайові випадки
+
+1. **Керування пам'яттю та RAII**:
+   - У версії на C реалізовано рекурсивне очищення дерева функцією `ast_free`, що запобігає витокам пам'яті у динамічній купі (heap).
+   - У версії на C++ застосовано сучасні розумні вказівники `std::unique_ptr` та інтерфейси без копіювання `std::span` і `std::string_view`. Усі вузли володіють своїми дочірніми елементами за принципом монопольного володіння, що гарантує деструкцію дерева за будь-яких умов, включно з аварійним виходом через винятки.
+
+2. **Часова складність**:
+   - Часова складність становить `O(2^N · M)`, де `N` — кількість вхідних змінних, а `M` — загальна кількість операцій у формулі.
+   - Експоненційне масштабування `2^N` визначає практичну межу застосовності методу: таблиці ефективні для `N ≤ 20–25`. Для `N=20` таблиця містить `1 048 576` рядків і прораховується за частки секунди; для `N=30` кількість рядків перевищує один мільярд, що вимагає переходу до спеціалізованих SAT-солверів на базі алгоритму DPLL/CDCL.
+
+3. **Просторова складність**:
+   - `O(M)` пам'яті для зберігання вузлів дерева AST.
+   - `O(D)` додаткової пам'яті у стеку викликів під час рекурсії, де `D` — глибина дерева (`D ≤ M`). Для збалансованого дерева `D = O(log M)`.
+
+4. **Захисне програмування та крайові випадки**:
+   - **Переповнення розрядності**: Зсув `1U << numVars` для `numVars ≥ 32` на 32-бітних цілих числах спричиняє невизначену поведінку (UB). Код містить обов'язкову захисну перевірку `numVars > 31`.
+   - **Глибина рекурсії**: Для дуже довгих лінійних ланцюжків операцій (наприклад, кон'юнкції з тисяч елементів) рекурсивний обхід може переповнити системний стек. У промислових парсерах такі дерева оптимізують за допомогою перетворення у багатовходові вузли (N-ary nodes) або ітеративного стекового обходу.

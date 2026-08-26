@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">П'ять руйнівних режимів фізичного каналу зв'язку</text>
+<text x="440.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">кожен тип пошкодження вимагає окремого алгоритмічного захисту на рівні протоколу</text>
+<rect x="40.0" y="68.0" width="800.0" height="78.0" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.6"/>
+<rect x="40.0" y="68.0" width="6.0" height="78.0" rx="2" fill="#c0392b" stroke="#c0392b" stroke-width="0.0"/>
+<text x="60.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">1. Спотворення бітів</text>
+<text x="60.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Причина: Шум, наводки dI/dt, спалахи</text>
+<text x="60.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">Прояв: 0x55 0xAA 0x12 -&gt; 0x55 0xBA 0x12 (інверсія бітів)</text>
+<rect x="460.0" y="82.0" width="360.0" height="50.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="470.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">Рівень захисту:</text>
+<text x="470.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Захист: CRC-16/32, коди Хеммінга, Reed-Solomon</text>
+<rect x="40.0" y="156.0" width="800.0" height="78.0" rx="6" fill="#eef4ff" stroke="#2457d6" stroke-width="1.6"/>
+<rect x="40.0" y="156.0" width="6.0" height="78.0" rx="2" fill="#2457d6" stroke="#2457d6" stroke-width="0.0"/>
+<text x="60.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="start" font-weight="700">2. Втрата пакетів</text>
+<text x="60.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Причина: Згасання сигналу, колізії, переповнення FIFO</text>
+<text x="60.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">Прояв: Кадр №4 надіслано -&gt; у приймач не дійшов нічого</text>
+<rect x="460.0" y="170.0" width="360.0" height="50.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="470.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">Рівень захисту:</text>
+<text x="470.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Захист: квитування (ACK/NACK), таймери та ARQ</text>
+<rect x="40.0" y="244.0" width="800.0" height="78.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.6"/>
+<rect x="40.0" y="244.0" width="6.0" height="78.0" rx="2" fill="#d97706" stroke="#d97706" stroke-width="0.0"/>
+<text x="60.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d97706" text-anchor="start" font-weight="700">3. Дублювання повідомлень</text>
+<text x="60.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Причина: Втрата зворотного ACK -&gt; повторне надсилання</text>
+<text x="60.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">Прояв: Кадр №2 виконано -&gt; ACK втрачено -&gt; повтор №2</text>
+<rect x="460.0" y="258.0" width="360.0" height="50.0" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1.0"/>
+<text x="470.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">Рівень захисту:</text>
+<text x="470.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="start" font-weight="700">Захист: монотонні порядкові номери (Sequence Numbers)</text>
+<rect x="40.0" y="332.0" width="800.0" height="78.0" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+<rect x="40.0" y="332.0" width="6.0" height="78.0" rx="2" fill="#7c3aed" stroke="#7c3aed" stroke-width="0.0"/>
+<text x="60.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7c3aed" text-anchor="start" font-weight="700">4. Перевпорядкування</text>
+<text x="60.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Причина: Різні шляхи в mesh-мережі, затримки повторів</text>
+<text x="60.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">Прояв: Надіслано [1, 2, 3] -&gt; отримано [1, 3, 2]</text>
+<rect x="460.0" y="346.0" width="360.0" height="50.0" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1.0"/>
+<text x="470.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">Рівень захисту:</text>
+<text x="470.0" y="383.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="start" font-weight="700">Захист: приймальне вікно та буфер впорядкування</text>
+<rect x="40.0" y="420.0" width="800.0" height="78.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<rect x="40.0" y="420.0" width="6.0" height="78.0" rx="2" fill="#27ae60" stroke="#27ae60" stroke-width="0.0"/>
+<text x="60.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="start" font-weight="700">5. Фрагментація та склеювання</text>
+<text x="60.0" y="462.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Причина: Потокові шини (UART/TCP) без меж повідомлень</text>
+<text x="60.0" y="482.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">Прояв: Пакет 64Б ріжеться [18Б + 46Б] або 2 пакети злипаються</text>
+<rect x="460.0" y="434.0" width="360.0" height="50.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="470.0" y="453.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">Рівень захисту:</text>
+<text x="470.0" y="471.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Захист: демаркація меж (COBS / байт-стафінг)</text>
+<text x="440.0" y="508.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">Ілюзія «труби» руйнується: одна контрольна сума не здатна вирішити проблеми 2, 3, 4 та 5.</text>
+</svg>

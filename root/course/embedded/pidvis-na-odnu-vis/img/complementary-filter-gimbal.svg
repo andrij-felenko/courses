@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Частотне розділення та злиття в комплементарному фільтрі</text>
+<rect x="8.0" y="72.2" width="204.1" height="55.6" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/><text x="110.0" y="89.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">Гіроскоп (ω_x)</tspan><tspan x="110.0" dy="14.3">Кутова швидкість (°/с)</tspan><tspan x="110.0" dy="14.3">Швидкий, без шуму, але ДРЕЙФУЄ</tspan></text>
+<rect x="11.1" y="212.2" width="197.8" height="55.6" rx="6" fill="#e0f2fe" stroke="#2457d6" stroke-width="1.5"/><text x="110.0" y="229.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="110.0" dy="0.0">Акселерометр (a_y, a_z)</tspan><tspan x="110.0" dy="14.3">Вектор тяжіння g</tspan><tspan x="110.0" dy="14.3">Абсолютний, але ШУМНИЙ у русі</tspan></text>
+<line x1="210.0" y1="100.0" x2="270.0" y2="100.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="270.5" y="72.2" width="179.0" height="55.6" rx="6" fill="#fff1f2" stroke="#c0392b" stroke-width="1.5"/><text x="360.0" y="89.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Дискретний інтегратор</tspan><tspan x="360.0" dy="14.3">θ_pred = θ_prev + ω_x · Δt</tspan><tspan x="360.0" dy="14.3">(Високочастотний тракт)</tspan></text>
+<line x1="210.0" y1="240.0" x2="270.0" y2="240.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="279.9" y="212.2" width="160.2" height="55.6" rx="6" fill="#f0f9ff" stroke="#2457d6" stroke-width="1.5"/><text x="360.0" y="229.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="360.0" dy="0.0">Розрахунок кута нахилу</tspan><tspan x="360.0" dy="14.3">θ_acc = atan2(a_y, a_z)</tspan><tspan x="360.0" dy="14.3">(Низькочастотний тракт)</tspan></text>
+<line x1="450.0" y1="100.0" x2="520.0" y2="140.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="475.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">вага α (0.98)</text>
+<line x1="450.0" y1="240.0" x2="520.0" y2="180.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="475.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">вага 1−α (0.02)</text>
+<circle cx="545.0" cy="160.0" r="20.0" fill="#fef08a" stroke="#333333" stroke-width="2.0"/>
+<text x="545.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="20" fill="#333333" text-anchor="middle" font-weight="700">+</text>
+<line x1="565.0" y1="160.0" x2="650.0" y2="160.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="663.4" y="128.4" width="143.1" height="63.2" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/><text x="735.0" y="148.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="735.0" dy="0.0">Оцінка кута θ_filt</tspan><tspan x="735.0" dy="15.6">Без дрейфу нуля</tspan><tspan x="735.0" dy="15.6">Без тремтіння шуму</tspan></text>
+<line x1="735.0" y1="205.0" x2="735.0" y2="320.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 3"/>
+<line x1="735.0" y1="320.0" x2="245.0" y2="320.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 3"/>
+<line x1="245.0" y1="320.0" x2="245.0" y2="60.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 3"/>
+<line x1="245.0" y1="60.0" x2="360.0" y2="60.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 3"/>
+<line x1="360.0" y1="60.0" x2="360.0" y2="70.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="490.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Повернення відфільтрованого кута на наступний такт (θ_prev)</text>
+</svg>

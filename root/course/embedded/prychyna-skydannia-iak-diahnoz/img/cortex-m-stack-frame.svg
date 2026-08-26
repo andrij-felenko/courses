@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратне зняття стекового кадру та регістри винятків ARM Cortex-M</text>
+<text x="480.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">при виникненні HardFault ядро автоматично зберігає 8 регістрів на активний стек (MSP або PSP)</text>
+<rect x="70.0" y="80.0" width="270.0" height="340.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.8"/>
+<text x="205.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратний стековий кадр</text>
+<text x="205.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Автоматично зберігається ядром</text>
+<rect x="82.0" y="135.0" width="246.0" height="28.0" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.3"/>
+<text x="90.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">xPSR</text>
+<text x="165.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Стан процесора та прапорці</text>
+<text x="320.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">SP + 28</text>
+<rect x="82.0" y="168.0" width="246.0" height="28.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<text x="90.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">PC (r15)</text>
+<text x="165.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Адреса інструкції краху!</text>
+<text x="320.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">SP + 24</text>
+<rect x="82.0" y="201.0" width="246.0" height="28.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.3"/>
+<text x="90.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">LR (r14)</text>
+<text x="165.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Адреса повернення (caller)</text>
+<text x="320.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">SP + 20</text>
+<rect x="82.0" y="234.0" width="246.0" height="28.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.3"/>
+<text x="90.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="start" font-weight="700">R12</text>
+<text x="165.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Загальний регістр</text>
+<text x="320.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">SP + 16</text>
+<rect x="82.0" y="267.0" width="246.0" height="28.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.3"/>
+<text x="90.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="start" font-weight="700">R3</text>
+<text x="165.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Аргумент функції / значення</text>
+<text x="320.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">SP + 12</text>
+<rect x="82.0" y="300.0" width="246.0" height="28.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.3"/>
+<text x="90.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="start" font-weight="700">R2</text>
+<text x="165.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Аргумент функції / значення</text>
+<text x="320.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">SP + 8</text>
+<rect x="82.0" y="333.0" width="246.0" height="28.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.3"/>
+<text x="90.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="start" font-weight="700">R1</text>
+<text x="165.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Аргумент функції / значення</text>
+<text x="320.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">SP + 4</text>
+<rect x="82.0" y="366.0" width="246.0" height="28.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.3"/>
+<text x="90.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="start" font-weight="700">R0</text>
+<text x="165.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Перший аргумент / повернення</text>
+<text x="320.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">SP + 0</text>
+<rect x="380.0" y="80.0" width="240.0" height="170.0" rx="6" fill="#f3e8ff" stroke="#6b21a8" stroke-width="1.5"/>
+<text x="500.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b21a8" text-anchor="middle" font-weight="700">Регістр LR (EXC_RETURN)</text>
+<text x="500.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0xFFFFFFFx усередині Fault ISR</text>
+<text x="394.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b21a8" text-anchor="start" font-weight="700">Bit [2] = 0</text>
+<text x="394.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Виняток перервав Handler (стек MSP)</text>
+<text x="394.0" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b21a8" text-anchor="start" font-weight="700">Bit [2] = 1</text>
+<text x="394.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Виняток перервав Thread (стек PSP)</text>
+<text x="394.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b21a8" text-anchor="start" font-weight="700">Bit [4] = 0</text>
+<text x="394.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Розширений кадр (FPU S0-S15)</text>
+<text x="394.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b21a8" text-anchor="start" font-weight="700">Bit [4] = 1</text>
+<text x="394.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Базовий кадр (8 слів, без FPU)</text>
+<rect x="380.0" y="265.0" width="240.0" height="155.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="500.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Асемблерний трамплін</text>
+<text x="392.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b21a8" text-anchor="start" font-weight="700">TST   LR, #4</text>
+<text x="392.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b21a8" text-anchor="start" font-weight="700">ITE   EQ</text>
+<text x="392.0" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">MRSEQ R0, MSP  ; r0 = Main Stack</text>
+<text x="392.0" y="361.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">MRSNE R0, PSP  ; r0 = Task Stack</text>
+<text x="392.0" y="379.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">MOV   R1, LR   ; r1 = EXC_RETURN</text>
+<text x="392.0" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">B     c_hardfault_handler</text>
+<rect x="660.0" y="80.0" width="250.0" height="340.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.8"/>
+<text x="785.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Регістри аналізу SCB</text>
+<rect x="670.0" y="120.0" width="230.0" height="86.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="676.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">CFSR (0xE000ED28)</text>
+<text x="676.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Configurable Fault Status</text>
+<text x="676.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• UFSR: DIVBYZERO, UNALIGNED, UNDEFINSTR</text>
+<text x="676.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• BFSR: PRECISERR, IMPRECISERR, STKERR</text>
+<text x="676.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• MMFSR: IACCVIOL, DACCVIOL, MUNSTKERR</text>
+<rect x="670.0" y="214.0" width="230.0" height="86.0" rx="4" fill="#fdf6e3" stroke="#b08900" stroke-width="1.2"/>
+<text x="676.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b08900" text-anchor="start" font-weight="700">HFSR (0xE000ED2C)</text>
+<text x="676.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">HardFault Status</text>
+<text x="676.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• FORCED: Ескалація з Bus/Usage/MemFault</text>
+<text x="676.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• VECTTBL: Помилка читання таблиці векторів</text>
+<rect x="670.0" y="308.0" width="230.0" height="86.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="676.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">BFAR / MMFAR</text>
+<text x="676.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Адреса збою пам'яті</text>
+<text x="676.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• BFAR: Точна адреса збійної шини</text>
+<text x="676.0" y="369.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• MMFAR: Адреса порушення MPU</text>
+<rect x="38.6" y="439.2" width="882.7" height="31.5" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="480.0" y="459.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">Трамплін витягує збережені значення PC, LR та R0-R3 з MSP/PSP і зіставляє їх з регістрами CFSR/BFAR для вичерпного звіту.</tspan></text>
+</svg>

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шлях виконання CPython під час запуску (python3 script.py)</text>
+<rect x="35.0" y="65.0" width="280.0" height="180.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="175.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1. Системний виклик і точка входу</text>
+<line x1="45.0" y1="99.0" x2="305.0" y2="99.0" stroke="#2457d6" stroke-width="1.0"/>
+<text x="49.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• execve(/usr/bin/python3, argv, envp)</text>
+<text x="49.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Завантаження ELF, лінкування libc/libpython</text>
+<text x="49.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Виклик main() у Programs/python.c</text>
+<text x="49.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Делегування до Py_BytesMain() / pymain_main()</text>
+<line x1="319.0" y1="155.0" x2="351.0" y2="155.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="355.0" y="65.0" width="280.0" height="180.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="495.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">2. Перед-ініціалізація та PyConfig (PEP 587)</text>
+<line x1="365.0" y1="99.0" x2="625.0" y2="99.0" stroke="#2457d6" stroke-width="1.0"/>
+<text x="369.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Py_PreInitialize(&amp;PyPreConfig) -&gt; пам'ять і UTF-8</text>
+<text x="369.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• PyConfig_InitPythonConfig(&amp;config)</text>
+<text x="369.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Зчитування змінних: PYTHONHOME, PYTHONPATH...</text>
+<text x="369.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Розрахунок шляхів: _PyPathConfig (landmark search)</text>
+<line x1="639.0" y1="155.0" x2="671.0" y2="155.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="675.0" y="65.0" width="280.0" height="180.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="815.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">3. Ініціалізація ядра середовища</text>
+<line x1="685.0" y1="99.0" x2="945.0" y2="99.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="689.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Py_InitializeFromConfig(&amp;config)</text>
+<text x="689.0" y="149.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Створення PyInterpreterState та PyThreadState</text>
+<text x="689.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Реєстрація базових типів: object, type, str...</text>
+<text x="689.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Створення builtins та словника системних констант sys</text>
+<line x1="815.0" y1="245.0" x2="815.0" y2="270.0" stroke="#333333" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="815.0" y1="270.0" x2="175.0" y2="270.0" stroke="#333333" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="175.0" y1="270.0" x2="175.0" y2="313.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="35.0" y="315.0" width="280.0" height="180.0" rx="8" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="175.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">4. Бутстрап імпорту (Frozen Modules)</text>
+<line x1="45.0" y1="349.0" x2="305.0" y2="349.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="49.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Ініціалізація _PyImport_InitCore()</text>
+<text x="49.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Завантаження _frozen_importlib з бінарного C-масиву</text>
+<text x="49.0" y="427.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Усунення потреби в I/O на ранній стадії</text>
+<text x="49.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Монтування sys.meta_path (PathFinder, FileFinder)</text>
+<line x1="319.0" y1="405.0" x2="351.0" y2="405.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="355.0" y="315.0" width="280.0" height="180.0" rx="8" fill="#fef9e7" stroke="#b78103" stroke-width="1.8"/>
+<text x="495.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b78103" text-anchor="middle" font-weight="700">5. Розгортання середовища: site.py</text>
+<line x1="365.0" y1="349.0" x2="625.0" y2="349.0" stroke="#b78103" stroke-width="1.0"/>
+<text x="369.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Виконання site.py (якщо не задано -S)</text>
+<text x="369.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Пошук та обхід шляхів site-packages</text>
+<text x="369.0" y="427.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Обробка .pth файлів і динамічне розширення шляхів</text>
+<text x="369.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Підключення user-site (~/.local/lib/pythonX.Y)</text>
+<line x1="639.0" y1="405.0" x2="671.0" y2="405.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="675.0" y="315.0" width="280.0" height="180.0" rx="8" fill="#e8f8f0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="815.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">6. Виконання цільового скрипту</text>
+<line x1="685.0" y1="349.0" x2="945.0" y2="349.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="689.0" y="371.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Створення модуля __main__ та словника простору імен</text>
+<text x="689.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Компіляція скрипту або читання .pyc з __pycache__</text>
+<text x="689.0" y="427.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Створення кореневого PyFrameObject</text>
+<text x="689.0" y="455.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Виконання першого байткод-опокоду (RESUME / LOAD)</text>
+<text x="490.0" y="535.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Головне вузьке місце латентності: дисковий I/O та сканування .pth файлів у site.py (фази 4-5)</text>
+</svg>

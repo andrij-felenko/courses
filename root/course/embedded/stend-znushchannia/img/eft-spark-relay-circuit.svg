@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схема інжекції наносекундних електромагнітних завад та іскрового розряду</text>
+<rect x="60.0" y="60.0" width="320.0" height="300.0" rx="8" fill="#fffbf0" stroke="#e67e22" stroke-width="1.5"/>
+<text x="220.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="middle" font-weight="700">ГЕНЕРАТОР ІМПУЛЬСНИХ ЗАВАД (EFT / SPARK)</text>
+<rect x="78.0" y="132.0" width="144.0" height="56.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/><text x="150.0" y="150.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">Котушка реле / L</tspan><tspan x="150.0" dy="13.0">(без діода снабера!)</tspan><tspan x="150.0" dy="13.0">Енергія: ½ L·I²</tspan></text>
+<rect x="80.0" y="242.0" width="140.0" height="56.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.4"/><text x="150.0" y="260.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">MOSFET / Механічний</tspan><tspan x="150.0" dy="13.0">контакт зумера</tspan><tspan x="150.0" dy="13.0">(розрив за &lt;10 нс)</tspan></text>
+<line x1="150.0" y1="186.0" x2="150.0" y2="244.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="280.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">V = −L·(di/dt)
+Сплеск: 500 В .. 2 кВ
+Частота: 100 кГц</text>
+<line x1="150.0" y1="210.0" x2="220.0" y2="200.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="420.0" y="125.0" width="145.0" height="85.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="492.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="492.0" dy="0.0">Ємнісна муфта</tspan><tspan x="492.0" dy="12.0">інжекції (100 пФ .. 1 нФ</tspan><tspan x="492.0" dy="12.0">3 кВ ізоляція)</tspan></text>
+<line x1="220.0" y1="170.0" x2="420.0" y2="170.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="605.0" y="60.0" width="185.0" height="300.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="697.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">ДОСЛІДЖУВАНА ПЛАТА</text>
+<rect x="621.9" y="132.0" width="150.2" height="56.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.4"/><text x="697.0" y="150.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="697.0" dy="0.0">Лінії живлення</tspan><tspan x="697.0" dy="13.0">та зв'язку (CAN, I²C)</tspan><tspan x="697.0" dy="13.0">Синфазна завада</tspan></text>
+<rect x="621.9" y="242.0" width="150.2" height="56.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.4"/><text x="697.0" y="260.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="697.0" dy="0.0">Мікроконтролер</tspan><tspan x="697.0" dy="13.0">(MCU Core)</tspan><tspan x="697.0" dy="13.0">Тест Latch-up / Reset</tspan></text>
+<line x1="697.0" y1="186.0" x2="697.0" y2="244.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="565.0" y1="170.0" x2="620.0" y2="170.0" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="420.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">Індуктивний сплеск самоіндукції без захисного діода наводить наносекундні пакети завад на шини DUT</text>
+</svg>

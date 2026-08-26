@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-12.47 -10 853.67 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-12.47" y="-10" width="853.67" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Багатокаскадна ієрархія захисту лінії живлення (Power Protection Chain)</text>
+<line x1="50.0" y1="120.0" x2="790.0" y2="120.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="50.0" y1="260.0" x2="790.0" y2="260.0" stroke="#2457d6" stroke-width="2.2"/>
+<text x="25.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">+VIN</text>
+<text x="25.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">GND</text>
+<text x="815.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">+VOUT</text>
+<text x="815.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">GND</text>
+<rect x="93.0" y="108.0" width="44.0" height="24.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="97.0" y1="120.0" x2="133.0" y2="120.0" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="46.1" y="56.5" width="137.8" height="43.0" rx="6" fill="#fdedec" stroke="#c0392b" stroke-width="1.5"/><text x="115.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="115.0" dy="0.0">1. Струмовий захист</tspan><tspan x="115.0" dy="13.0">Fuse / PTC</tspan></text>
+<line x1="210.0" y1="120.0" x2="210.0" y2="175.0" stroke="#333333" stroke-width="1.8"/><line x1="210.0" y1="260.0" x2="210.0" y2="205.0" stroke="#333333" stroke-width="1.8"/><rect x="201.0" y="175.0" width="18.0" height="30.0" rx="2" fill="#fef9e7" stroke="#333333" stroke-width="1.8"/><line x1="196.0" y1="209.0" x2="224.0" y2="171.0" stroke="#333333" stroke-width="1.8"/><line x1="224.0" y1="171.0" x2="229.0" y2="171.0" stroke="#333333" stroke-width="1.8"/>
+<rect x="153.5" y="273.5" width="113.0" height="43.0" rx="6" fill="#fef9e7" stroke="#333333" stroke-width="1.5"/><text x="210.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="210.0" dy="0.0">2. Грубий Surge</tspan><tspan x="210.0" dy="13.0">MOV (джоулі)</tspan></text>
+<rect x="283.0" y="106.0" width="44.0" height="28.0" rx="3" fill="#ffffff" stroke="#333333" stroke-width="2.0"/>
+<text x="305.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="middle" font-weight="700">L_d</text>
+<rect x="239.2" y="56.5" width="131.6" height="43.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="305.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="305.0" dy="0.0">3. Розв'язка L_d</tspan><tspan x="305.0" dy="13.0">10–22 мкГн (dI/dt)</tspan></text>
+<line x1="400.0" y1="120.0" x2="400.0" y2="180.0" stroke="#27ae60" stroke-width="1.8"/><line x1="400.0" y1="260.0" x2="400.0" y2="200.0" stroke="#27ae60" stroke-width="1.8"/><polygon points="391.0,200.0 409.0,200.0 400.0,180.0" fill="#fdecea" stroke="#27ae60" stroke-width="1.8"/><line x1="390.0" y1="180.0" x2="410.0" y2="180.0" stroke="#27ae60" stroke-width="2.3"/><line x1="390.0" y1="180.0" x2="390.0" y2="176.0" stroke="#27ae60" stroke-width="1.8"/><line x1="410.0" y1="180.0" x2="410.0" y2="184.0" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="340.4" y="273.5" width="119.2" height="43.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="400.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">4. Точний кламп</tspan><tspan x="400.0" dy="13.0">TVS (&lt;1 нс, V_C)</tspan></text>
+<rect x="478.0" y="100.0" width="64.0" height="40.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="510.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Ideal Diode
+(MOSFET)</text>
+<rect x="444.2" y="56.5" width="131.6" height="43.0" rx="6" fill="#fdedec" stroke="#c0392b" stroke-width="1.5"/><text x="510.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="510.0" dy="0.0">5. Переполюсовка</tspan><tspan x="510.0" dy="13.0">Q_rev (P-FET / IC)</tspan></text>
+<rect x="605.0" y="100.0" width="70.0" height="40.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="640.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">eFuse / OVP
++ Soft-Start</text>
+<rect x="571.1" y="56.5" width="137.8" height="43.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="640.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="640.0" dy="0.0">6. Пуск + OVP</tspan><tspan x="640.0" dy="13.0">TPS2595 / SoftStart</tspan></text>
+<line x1="740.0" y1="120.0" x2="740.0" y2="165.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="740.0" y1="260.0" x2="740.0" y2="215.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="728.0" y1="165.0" x2="752.0" y2="165.0" stroke="#333333" stroke-width="2.5"/>
+<line x1="728.0" y1="215.0" x2="752.0" y2="215.0" stroke="#333333" stroke-width="2.5"/>
+<rect x="674.2" y="273.5" width="131.6" height="43.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="740.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="740.0" dy="0.0">7. Буферна ємність</tspan><tspan x="740.0" dy="13.0">C_bulk (DC-DC)</tspan></text>
+<line x1="40.0" y1="155.0" x2="95.0" y2="155.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="68.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Сплески, реверс,
+кидки струму</text>
+</svg>

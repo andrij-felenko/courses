@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія wheel-пакета (ZIP-архів із розширенням .whl)</text>
+<rect x="40.0" y="50.0" width="900.0" height="445.0" rx="8" fill="#fcfcfd" stroke="#333333" stroke-width="1.5"/>
+<text x="65.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">example_pkg-1.2.0-cp312-cp312-manylinux_2_28_x86_64.whl (ZIP Container)</text>
+<rect x="65.0" y="95.0" width="410.0" height="380.0" rx="6" fill="#f8fafc" stroke="#27ae60" stroke-width="1.3"/>
+<text x="270.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Корисне навантаження (Package Payload)</text>
+<line x1="80.0" y1="132.0" x2="460.0" y2="132.0" stroke="#27ae60" stroke-width="0.8"/>
+<rect x="80.0" y="145.0" width="380.0" height="44.0" rx="4" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="92.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">example_pkg/</text>
+<text x="92.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Основний каталог Python-пакета</text>
+<rect x="80.0" y="198.0" width="380.0" height="44.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="92.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">├── __init__.py</text>
+<text x="92.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Точка входу пакета з публічним API</text>
+<rect x="80.0" y="251.0" width="380.0" height="44.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="92.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">├── core.py</text>
+<text x="92.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Високорівнева обгортка та логіка</text>
+<rect x="80.0" y="304.0" width="380.0" height="44.0" rx="4" fill="#eaf0fd" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="92.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">└── _native.so</text>
+<text x="92.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Скомпільоване C-розширення (shared object)</text>
+<rect x="80.0" y="357.0" width="380.0" height="44.0" rx="4" fill="#fef9e7" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="92.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">example_pkg.libs/</text>
+<text x="92.0" y="391.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Каталог ізольованих динамічних бібліотек</text>
+<rect x="80.0" y="410.0" width="380.0" height="44.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="92.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">└── libbundled.so.1</text>
+<text x="92.0" y="444.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Vendored .so з унікальним soname</text>
+<rect x="505.0" y="95.0" width="410.0" height="380.0" rx="6" fill="#f8fafc" stroke="#c0392b" stroke-width="1.3"/>
+<text x="710.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Метадані інсталяції (.dist-info/)</text>
+<line x1="520.0" y1="132.0" x2="900.0" y2="132.0" stroke="#c0392b" stroke-width="0.8"/>
+<rect x="520.0" y="145.0" width="380.0" height="70.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="532.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">METADATA (PEP 566 / PEP 643)</text>
+<text x="532.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Metadata-Version: 2.1 | Name: example_pkg | Version: 1.2.0</text>
+<text x="532.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Requires-Dist: numpy&gt;=1.24</text>
+<rect x="520.0" y="225.0" width="380.0" height="70.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="532.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">WHEEL (PEP 427)</text>
+<text x="532.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Wheel-Version: 1.0 | Generator: hatchling | Root-Is-Purelib: false</text>
+<text x="532.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Tag: cp312-cp312-manylinux_2_28_x86_64</text>
+<rect x="520.0" y="305.0" width="380.0" height="70.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="532.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">RECORD (PEP 376 / PEP 627)</text>
+<text x="532.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">example_pkg/core.py,sha256=47DEQpj8...,1240</text>
+<text x="532.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">example_pkg-1.2.0.dist-info/RECORD,,</text>
+<rect x="520.0" y="385.0" width="380.0" height="70.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="532.0" y="403.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">entry_points.txt (PEP 517)</text>
+<text x="532.0" y="421.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">[console_scripts]</text>
+<text x="532.0" y="437.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">example-cli = example_pkg.core:main</text>
+</svg>

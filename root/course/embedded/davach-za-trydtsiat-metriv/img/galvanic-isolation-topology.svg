@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Повна гальванічна розв'язка вузла зв'язку та захист від перекосу земель</text>
+<rect x="35.0" y="55.0" width="280.0" height="250.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="175.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Мікроконтролер (Зона МК)</text>
+<rect x="65.0" y="110.0" width="140.0" height="90.0" rx="6" fill="#fdfefe" stroke="#2457d6" stroke-width="1.4"/>
+<text x="135.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">MCU</text>
+<text x="135.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">STM32 / ESP32</text>
+<text x="135.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="middle">UART + GPIO_DE</text>
+<text x="175.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-weight="700">Живлення: +3.3 В (VCC1)</text>
+<text x="175.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-weight="700">Земля: GND1 (Локальна)</text>
+<rect x="330.0" y="55.0" width="280.0" height="250.0" rx="6" fill="#fffdf5" stroke="#b9770e" stroke-width="1.6"/>
+<text x="470.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b9770e" text-anchor="middle" font-weight="700">Гальванічний бар'єр (2.5–5 кВ)</text>
+<rect x="355.0" y="100.0" width="230.0" height="75.0" rx="6" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<text x="470.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Цифровий ізолятор сигналів</text>
+<text x="470.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(ISO7721 / ADuM1201 / Оптопари)</text>
+<text x="470.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">TXD, RXD, DE (CMTI &gt; 100 кВ/мкс)</text>
+<rect x="355.0" y="190.0" width="230.0" height="75.0" rx="6" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<text x="470.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ізольований DC-DC (B0505S)</text>
+<text x="470.0" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Трансформаторна розв'язка 1 Вт</text>
+<text x="470.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">+5V / 3.3V → ISO_5V (Плаваюче)</text>
+<rect x="625.0" y="55.0" width="280.0" height="250.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="765.0" y="77.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Ізольований трансивер RS-485</text>
+<rect x="650.0" y="110.0" width="120.0" height="90.0" rx="6" fill="#fdfefe" stroke="#27ae60" stroke-width="1.4"/>
+<text x="710.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">RS-485</text>
+<text x="710.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">SN65HVD / MAX485</text>
+<text x="710.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="middle">Драйвер лінії</text>
+<line x1="770.0" y1="135.0" x2="875.0" y2="135.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="770.0" y1="165.0" x2="875.0" y2="165.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="880.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">A (D+)</text>
+<text x="880.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">B (D−)</text>
+<text x="765.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-weight="700">Живлення: ISO_5V (Ізольоване)</text>
+<text x="765.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-weight="700">Земля: ISO_GND (Ізольована)</text>
+<rect x="35.0" y="318.0" width="870.0" height="52.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="470.0" y="340.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">Гальванічна розв'язка розриває земляні петлі та витримує перекіс потенціалів між будівлями (ΔV_GND до кількох кіловольт),</tspan><tspan x="470.0" dy="15.0">захищаючи мікроконтролер від вигорання портів та фатальних синфазних перенапруг.</tspan></text>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 441.76" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="441.76" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Незалежний сторож (IWDG) проти Віконного сторожа (WWDG)</text>
+<text x="440.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">IWDG ловить лише запізніле скидання; WWDG карає перезавантаженням і занадто ранній виклик</text>
+<rect x="30.0" y="82.0" width="820.0" height="140.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="50.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">IWDG (Незалежний сторож — тактування від внутрішнього RC LSI ~32 кГц)</text>
+<line x1="70.0" y1="157.0" x2="810.0" y2="157.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="800.0" y1="157.0" x2="830.0" y2="157.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="830.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end" font-style="italic">час →</text>
+<rect x="70.0" y="137.0" width="600.0" height="20.0" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="370.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">ДОЗВОЛЕНА ЗОНА СКИДАННЯ (від t = 0 до t_timeout)</text>
+<rect x="670.0" y="137.0" width="130.0" height="20.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="735.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">TIMEOUT (RESET)</text>
+<line x1="70.0" y1="129.0" x2="70.0" y2="169.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="70.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Reload (0xFFF)</text>
+<line x1="670.0" y1="129.0" x2="670.0" y2="169.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="3,3"/>
+<text x="670.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">0x000 (Аварія)</text>
+<text x="50.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">⚠️ Слабкість: runaway code (збій PC) викликає скидання за 5 мкс — IWDG не бачить аномалії.</text>
+<rect x="30.0" y="242.0" width="820.0" height="150.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="50.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">WWDG (Віконний сторож — тактування від шини APB1)</text>
+<line x1="70.0" y1="317.0" x2="810.0" y2="317.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="800.0" y1="317.0" x2="830.0" y2="317.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="830.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end" font-style="italic">час →</text>
+<rect x="70.0" y="297.0" width="240.0" height="20.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="190.0" y="311.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ЗАБОРОНЕНО: Занадто рано (RESET)</text>
+<rect x="310.0" y="297.0" width="360.0" height="20.0" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="490.0" y="311.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">ДОЗВОЛЕНЕ ВІКНО СКИДАННЯ [W_threshold ... 0x40]</text>
+<rect x="670.0" y="297.0" width="130.0" height="20.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="735.0" y="311.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">UNDERFLOW (RESET)</text>
+<line x1="70.0" y1="289.0" x2="70.0" y2="329.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="70.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Старт (0x7F)</text>
+<line x1="310.0" y1="289.0" x2="310.0" y2="329.0" stroke="#2457d6" stroke-width="1.6" stroke-dasharray="3,3"/>
+<text x="310.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">W[6:0] (Поріг вікна)</text>
+<line x1="670.0" y1="289.0" x2="670.0" y2="329.0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="3,3"/>
+<text x="670.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">0x3F (Низхідний поріг)</text>
+<text x="50.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">🛡 Захист: якщо прошивка зациклилась у швидкому холостому циклі — раннє скидання генерує RESET!</text>
+<text x="440.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">WWDG вимагає детермінованого періоду виконання: не можна скидати ні занадто пізно, ні занадто рано.</text>
+</svg>

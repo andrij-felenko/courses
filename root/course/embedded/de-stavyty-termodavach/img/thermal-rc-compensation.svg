@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#0f172a" text-anchor="middle" font-weight="700">Динамічна алгоритмічна компенсація самонагріву плати</text>
+<rect x="25.0" y="55.0" width="370.0" height="345.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="210.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">Еквівалентна теплова RC-модель</text>
+<circle cx="75.0" cy="150.0" r="22.0" fill="#fee2e2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="75.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">P(t)</text>
+<text x="75.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7f1d1d" text-anchor="middle">Тепловиділення</text>
+<text x="75.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle" font-weight="700">MCU + RF</text>
+<line x1="97.0" y1="150.0" x2="135.0" y2="150.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="135.0" y="138.0" width="50.0" height="24.0" rx="2" fill="#ffffff" stroke="#2563eb" stroke-width="1.8"/>
+<text x="160.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1d4ed8" text-anchor="middle" font-weight="700">R_th1</text>
+<line x1="185.0" y1="150.0" x2="225.0" y2="150.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="205.0" y1="150.0" x2="205.0" y2="185.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="195.0" y1="185.0" x2="215.0" y2="185.0" stroke="#2563eb" stroke-width="2.0"/>
+<line x1="195.0" y1="192.0" x2="215.0" y2="192.0" stroke="#2563eb" stroke-width="2.0"/>
+<text x="235.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1d4ed8" text-anchor="middle" font-weight="700">C_th1</text>
+<line x1="205.0" y1="192.0" x2="205.0" y2="230.0" stroke="#333333" stroke-width="1.5"/>
+<text x="175.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle" font-weight="700">τ_1 ≈ 8 с (чіп)</text>
+<rect x="235.0" y="138.0" width="50.0" height="24.0" rx="2" fill="#ffffff" stroke="#059669" stroke-width="1.8"/>
+<text x="260.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#047857" text-anchor="middle" font-weight="700">R_th2</text>
+<line x1="285.0" y1="150.0" x2="325.0" y2="150.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="305.0" y1="150.0" x2="305.0" y2="185.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="295.0" y1="185.0" x2="315.0" y2="185.0" stroke="#059669" stroke-width="2.0"/>
+<line x1="295.0" y1="192.0" x2="315.0" y2="192.0" stroke="#059669" stroke-width="2.0"/>
+<text x="335.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#047857" text-anchor="middle" font-weight="700">C_th2</text>
+<line x1="305.0" y1="192.0" x2="305.0" y2="230.0" stroke="#333333" stroke-width="1.5"/>
+<text x="275.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#065f46" text-anchor="middle" font-weight="700">τ_2 ≈ 120 с (плата)</text>
+<line x1="170.0" y1="230.0" x2="340.0" y2="230.0" stroke="#333333" stroke-width="2.0"/>
+<text x="255.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="middle" font-weight="700">Опора: T_довкілля (GND)</text>
+<rect x="40.0" y="275.0" width="340.0" height="110.0" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.2"/>
+<text x="210.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">Дискретне диференціальне рівняння:</text>
+<text x="210.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="700">ΔT[n] = α·ΔT[n−1] + (1−α)·R_th·P_heat[n]</text>
+<text x="210.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">де α = exp(−Δt / τ)</text>
+<text x="210.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">T_відновлене = T_raw[n] − ΔT_модель[n]</text>
+<rect x="415.0" y="55.0" width="400.0" height="345.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="615.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">Перехідний процес під час сплеску активності</text>
+<line x1="460.0" y1="330.0" x2="780.0" y2="330.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="460.0" y1="330.0" x2="460.0" y2="110.0" stroke="#333333" stroke-width="1.5"/>
+<text x="780.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="end" font-weight="700">Час t</text>
+<text x="450.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="start" font-weight="700">Температура T</text>
+<line x1="460.0" y1="270.0" x2="780.0" y2="270.0" stroke="#f1f5f9" stroke-width="1.0" stroke-dasharray="4,3"/>
+<line x1="460.0" y1="190.0" x2="780.0" y2="190.0" stroke="#f1f5f9" stroke-width="1.0" stroke-dasharray="4,3"/>
+<text x="450.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="end">22 °C</text>
+<text x="450.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="end">28 °C</text>
+<path d="M 460 270 C 500 270, 520 200, 620 190 L 770 190" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,4"/>
+<text x="720.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">T_raw (сирі виміри)</text>
+<path d="M 460 330 C 500 330, 520 260, 620 250 L 770 250" fill="none" stroke="#f59e0b" stroke-width="2"/>
+<text x="720.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">ΔT_self (модель нагріву)</text>
+<line x1="460.0" y1="270.0" x2="770.0" y2="270.0" stroke="#27ae60" stroke-width="3.0"/>
+<text x="620.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">T_довкілля (після компенсації, похибка ±0.2 °C)</text>
+<line x1="500.0" y1="335.0" x2="500.0" y2="115.0" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="500.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">Старт TX</text>
+<line x1="680.0" y1="335.0" x2="680.0" y2="115.0" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="680.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">Кінець TX</text>
+</svg>

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ефект Гайзенбага: чому вимірювання лікує плаваючий дефект</text>
+<rect x="20.0" y="20.0" width="385.0" height="370.0" rx="8" fill="#fcfdfe" stroke="#cfd6dd" stroke-width="1.2"/>
+<rect x="435.0" y="20.0" width="385.0" height="370.0" rx="8" fill="#fcfdfe" stroke="#cfd6dd" stroke-width="1.2"/>
+<text x="212.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратне втручання: щуп осцилографа</text>
+<text x="627.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Програмне втручання: виклик printf()</text>
+<text x="40.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Без щупа: відбиття сигналу → помилковий перепад</text>
+<line x1="40.0" y1="130.0" x2="90.0" y2="130.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="90.0" y1="130.0" x2="100.0" y2="95.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="100.0" y1="95.0" x2="120.0" y2="95.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="120.0" y1="95.0" x2="130.0" y2="140.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="130.0" y1="140.0" x2="140.0" y2="95.0" stroke="#c0392b" stroke-width="2.2"/>
+<line x1="140.0" y1="95.0" x2="220.0" y2="95.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="35.0" y1="118.0" x2="225.0" y2="118.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="230.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Поріг V_IL</text>
+<text x="130.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">⚡ Фальшивий такт!</text>
+<rect x="42.0" y="182.9" width="340.0" height="44.1" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/><text x="212.0" y="201.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="212.0" dy="0.0">Щуп: C_probe ≈ 12..15 пФ + L_gnd ≈ 30 нГн</tspan><tspan x="212.0" dy="13.7">Фільтр нижніх частот: τ = R · (C_line + C_probe)</tspan></text>
+<text x="40.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Зі щупом: фронт завалений, глітч відфільтровано</text>
+<line x1="40.0" y1="310.0" x2="85.0" y2="310.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="85.0" y1="310.0" x2="110.0" y2="280.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="110.0" y1="280.0" x2="125.0" y2="280.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="125.0" y1="280.0" x2="135.0" y2="292.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="135.0" y1="292.0" x2="145.0" y2="280.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="145.0" y1="280.0" x2="220.0" y2="280.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="35.0" y1="300.0" x2="225.0" y2="300.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="230.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Поріг V_IL</text>
+<text x="212.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">✓ Дефект зник: глітч не досягає порогу V_IL</text>
+<text x="455.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Без логів: мікросекундна гонка даних (Race Condition)</text>
+<rect x="455.0" y="95.0" width="140.0" height="26.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="525.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Задача A: запис у буфер</text>
+<rect x="560.0" y="128.0" width="140.0" height="26.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="637.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Задача B: читання буфера</text>
+<rect x="560.0" y="95.0" width="35.0" height="59.0" rx="6" fill="none" stroke="#c0392b" stroke-width="1.8"/>
+<text x="715.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">⚡ Одночасний</text>
+<text x="715.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">доступ до ОЗП!</text>
+<rect x="457.0" y="182.9" width="340.0" height="44.1" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4"/><text x="627.0" y="201.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="627.0" dy="0.0">Додано printf(&quot;val=%d\n&quot;);</tspan><tspan x="627.0" dy="13.7">Затримка UART 115200 бод: 20 байт ≈ 1.74 мс</tspan></text>
+<text x="455.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">З логами: виклики розведені в часі на мілісекунди</text>
+<rect x="455.0" y="280.0" width="120.0" height="26.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="515.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Задача A: запис</text>
+<rect x="580.0" y="280.0" width="100.0" height="26.0" rx="4" fill="#fff3e0" stroke="#e67e22" stroke-width="1.4"/>
+<text x="630.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b9770e" text-anchor="middle" font-weight="700">printf() затримка</text>
+<rect x="685.0" y="312.0" width="120.0" height="26.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="745.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Задача B: читання</text>
+<text x="627.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">✓ Дефект зник: інтервал між задачами збільшився у 1000 разів</text>
+<text x="420.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-style="italic">Спостереження змінює фізичні параметри схеми (ємність) або розклад процесора (затримка)</text>
+</svg>

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="910.0" height="530.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="470.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часові діаграми режимів Slave-таймера відносно сигналу TRGI</text>
+<line x1="180.0" y1="65.0" x2="180.0" y2="520.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3 3"/>
+<line x1="250.0" y1="65.0" x2="250.0" y2="520.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3 3"/>
+<line x1="320.0" y1="65.0" x2="320.0" y2="520.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3 3"/>
+<line x1="390.0" y1="65.0" x2="390.0" y2="520.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3 3"/>
+<line x1="460.0" y1="65.0" x2="460.0" y2="520.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3 3"/>
+<line x1="530.0" y1="65.0" x2="530.0" y2="520.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3 3"/>
+<line x1="600.0" y1="65.0" x2="600.0" y2="520.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3 3"/>
+<line x1="670.0" y1="65.0" x2="670.0" y2="520.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3 3"/>
+<line x1="740.0" y1="65.0" x2="740.0" y2="520.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3 3"/>
+<line x1="810.0" y1="65.0" x2="810.0" y2="520.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3 3"/>
+<line x1="880.0" y1="65.0" x2="880.0" y2="520.0" stroke="#e2e8f0" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="30.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">TRGI (Master TRGO)</text>
+<path d="M 180 115 L 320 115 L 320 85 L 390 85 L 390 115 L 600 115 L 600 85 L 740 85 L 740 115 L 890 115" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+<text x="30.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">1. Reset Mode
+(SMS = 0100)</text>
+<text x="30.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">CNT скидається в 0 за фронтом</text>
+<line x1="180.0" y1="205.0" x2="320.0" y2="165.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="320.0" y1="165.0" x2="320.0" y2="205.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2 2"/>
+<line x1="320.0" y1="205.0" x2="600.0" y2="155.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="600.0" y1="155.0" x2="600.0" y2="205.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2 2"/>
+<line x1="600.0" y1="205.0" x2="890.0" y2="160.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="250.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">0 1 2 3</text>
+<text x="460.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">0 1 2 3 4 5 6 7</text>
+<text x="740.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">0 1 2 3 4 5</text>
+<text x="30.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="start" font-weight="700">2. Gated Mode
+(SMS = 0101)</text>
+<text x="30.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Рахує лише коли TRGI = '1'</text>
+<line x1="180.0" y1="305.0" x2="320.0" y2="305.0" stroke="#d97706" stroke-width="2.0"/>
+<line x1="320.0" y1="305.0" x2="390.0" y2="275.0" stroke="#d97706" stroke-width="2.0"/>
+<line x1="390.0" y1="275.0" x2="600.0" y2="275.0" stroke="#d97706" stroke-width="2.0"/>
+<line x1="600.0" y1="275.0" x2="740.0" y2="245.0" stroke="#d97706" stroke-width="2.0"/>
+<line x1="740.0" y1="245.0" x2="890.0" y2="245.0" stroke="#d97706" stroke-width="2.0"/>
+<text x="250.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Стоїть (0)</text>
+<text x="355.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="middle" font-weight="700">0 1 2</text>
+<text x="495.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Пауза (CNT = 2)</text>
+<text x="670.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="middle" font-weight="700">3 4 5 6</text>
+<text x="815.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Пауза (CNT = 6)</text>
+<text x="30.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">3. Trigger Mode
+(SMS = 0110)</text>
+<text x="30.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Старт за 1-м фронтом (CEN=1)</text>
+<line x1="180.0" y1="410.0" x2="320.0" y2="410.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="320.0" y1="410.0" x2="890.0" y2="350.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="250.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вимкнено (CEN=0)</text>
+<text x="605.0" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Автономний лік: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11... (CEN=1)</text>
+<text x="30.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7c3aed" text-anchor="start" font-weight="700">4. Ext Clock 1
+(SMS = 0111)</text>
+<text x="30.0" y="515.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Тік лічильника = фронт TRGI</text>
+<line x1="180.0" y1="510.0" x2="320.0" y2="510.0" stroke="#7c3aed" stroke-width="2.0"/>
+<line x1="320.0" y1="510.0" x2="320.0" y2="490.0" stroke="#7c3aed" stroke-width="2.0"/>
+<line x1="320.0" y1="490.0" x2="600.0" y2="490.0" stroke="#7c3aed" stroke-width="2.0"/>
+<line x1="600.0" y1="490.0" x2="600.0" y2="470.0" stroke="#7c3aed" stroke-width="2.0"/>
+<line x1="600.0" y1="470.0" x2="890.0" y2="470.0" stroke="#7c3aed" stroke-width="2.0"/>
+<text x="250.0" y="500.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c3aed" text-anchor="middle" font-weight="700">CNT = 0</text>
+<text x="460.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c3aed" text-anchor="middle" font-weight="700">CNT = 1 (фронт 1)</text>
+<text x="745.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c3aed" text-anchor="middle" font-weight="700">CNT = 2 (фронт 2)</text>
+</svg>

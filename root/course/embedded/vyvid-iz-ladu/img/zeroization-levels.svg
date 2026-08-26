@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 840 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="840" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="820.0" height="460.0" rx="6" fill="#ffffff" stroke="#ffffff" stroke-width="0.0"/>
+<rect x="30.0" y="30.0" width="180.0" height="390.0" rx="6" fill="#fcf3f2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="120.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">1. Логічне видалення</text>
+<text x="120.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Видалення індексу ФС</text>
+<rect x="45.0" y="120.0" width="150.0" height="160.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="120.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Фізична матриця Flash</text>
+<rect x="55.0" y="160.0" width="130.0" height="45.0" rx="6" fill="#fadbd8" stroke="#c0392b" stroke-width="1.0"/>
+<text x="120.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Секрети (цілі)</text>
+<rect x="55.0" y="215.0" width="130.0" height="45.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="120.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Індекс: [видалено]</text>
+<rect x="50.0" y="334.5" width="140.0" height="31.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="120.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">Видалено лише індекс;</tspan><tspan x="120.0" dy="13.0">фізичні байти лишаються</tspan></text>
+<rect x="226.0" y="30.0" width="180.0" height="390.0" rx="6" fill="#fdf2e9" stroke="#c0392b" stroke-width="1.8"/>
+<text x="316.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">2. Перезапис секторів</text>
+<text x="316.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Перезапис логічного блоку</text>
+<rect x="241.0" y="120.0" width="150.0" height="160.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="316.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Фізична матриця Flash</text>
+<rect x="251.0" y="160.0" width="130.0" height="45.0" rx="6" fill="#d5f5e3" stroke="#27ae60" stroke-width="1.0"/>
+<text x="316.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Логічний блок: 0x00</text>
+<rect x="251.0" y="215.0" width="130.0" height="45.0" rx="6" fill="#fdebd0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="316.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Резервний блок: СЕКРЕТ</text>
+<rect x="246.0" y="334.5" width="140.0" height="31.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="316.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="316.0" dy="0.0">Логічний блок затерто,</tspan><tspan x="316.0" dy="13.0">але є копії у Flash</tspan></text>
+<rect x="422.0" y="30.0" width="180.0" height="390.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="512.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">3. Повне стирання</text>
+<text x="512.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Тунелювання Фаулера-Нордгейма</text>
+<rect x="437.0" y="120.0" width="150.0" height="160.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="512.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Фізична матриця Flash</text>
+<rect x="447.0" y="160.0" width="130.0" height="100.0" rx="6" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.0"/>
+<text x="512.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Усі блоки = 0xFF</text>
+<text x="512.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Повний Chip Erase</text>
+<rect x="442.0" y="334.5" width="140.0" height="31.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="512.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="512.0" dy="0.0">Усі блоки = 0xFF;</tspan><tspan x="512.0" dy="13.0">повне фізичне стирання</tspan></text>
+<rect x="618.0" y="30.0" width="180.0" height="390.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="708.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">4. Крипто-стирання</text>
+<text x="708.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Знищення KEK в eFuse / TPM</text>
+<rect x="633.0" y="120.0" width="150.0" height="160.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="708.0" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Фізична матриця Flash</text>
+<rect x="643.0" y="160.0" width="130.0" height="50.0" rx="6" fill="#f2f4f4" stroke="#333333" stroke-width="1.0"/>
+<text x="708.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">AES-XTS шифротекст</text>
+<rect x="643.0" y="220.0" width="130.0" height="40.0" rx="6" fill="#fadbd8" stroke="#c0392b" stroke-width="1.0"/>
+<text x="708.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">KEK eFuse: [СПАЛЕНО]</text>
+<rect x="638.0" y="334.5" width="140.0" height="31.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="708.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="708.0" dy="0.0">Знищено KEK в eFuse;</tspan><tspan x="708.0" dy="13.0">дані стають білим шумом</tspan></text>
+</svg>

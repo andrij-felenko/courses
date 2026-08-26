@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Функціональна декомпозиція IoT: 6 ключових ролей від поля до екрана</text>
+<rect x="20.0" y="56.0" width="126.0" height="270.0" rx="6" fill="#fdf8ee" stroke="#b8860b" stroke-width="1.8"/>
+<text x="83.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b8860b" text-anchor="middle" font-weight="700">Вузол</text>
+<text x="83.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Edge Node</text>
+<line x1="30.0" y1="102.0" x2="136.0" y2="102.0" stroke="#b8860b" stroke-width="1.0"/>
+<circle cx="32.0" cy="120.0" r="3.0" fill="#b8860b" stroke="#b8860b" stroke-width="1.5"/>
+<text x="40.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="40.0" dy="0.0">Cortex-M / 32 КБ RAM</tspan></text>
+<circle cx="32.0" cy="158.0" r="3.0" fill="#b8860b" stroke="#b8860b" stroke-width="1.5"/>
+<text x="40.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="40.0" dy="0.0">АЦП / GPIO / шини</tspan></text>
+<circle cx="32.0" cy="196.0" r="3.0" fill="#b8860b" stroke="#b8860b" stroke-width="1.5"/>
+<text x="40.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="40.0" dy="0.0">Батарея (мкА у сні)</tspan></text>
+<circle cx="32.0" cy="234.0" r="3.0" fill="#b8860b" stroke="#b8860b" stroke-width="1.5"/>
+<text x="40.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="40.0" dy="0.0">Сирий бінарний кадр</tspan></text>
+<circle cx="32.0" cy="272.0" r="3.0" fill="#b8860b" stroke="#b8860b" stroke-width="1.5"/>
+<text x="40.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="40.0" dy="0.0">LoRa / BLE / UART</tspan></text>
+<line x1="148.0" y1="177.0" x2="158.0" y2="177.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="154.0" y1="177.0" x2="161.0" y2="177.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="160.0" y1="205.0" x2="150.0" y2="205.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="154.0" y1="205.0" x2="147.0" y2="205.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="162.0" y="56.0" width="126.0" height="270.0" rx="6" fill="#eef3fc" stroke="#2457d6" stroke-width="1.8"/>
+<text x="225.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Шлюз</text>
+<text x="225.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Gateway</text>
+<line x1="172.0" y1="102.0" x2="278.0" y2="102.0" stroke="#2457d6" stroke-width="1.0"/>
+<circle cx="174.0" cy="120.0" r="3.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="182.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="182.0" dy="0.0">Linux SoC / RTOS</tspan></text>
+<circle cx="174.0" cy="158.0" r="3.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="182.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="182.0" dy="0.0">Міст LoRa→MQTT</tspan></text>
+<circle cx="174.0" cy="196.0" r="3.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="182.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="182.0" dy="0.0">Буфер на Flash/RAM</tspan></text>
+<circle cx="174.0" cy="234.0" r="3.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="182.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="182.0" dy="0.0">Deadband фільтрація</tspan></text>
+<circle cx="174.0" cy="272.0" r="3.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="182.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="182.0" dy="0.0">Wi-Fi / 4G / Ethernet</tspan></text>
+<line x1="290.0" y1="177.0" x2="300.0" y2="177.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="296.0" y1="177.0" x2="303.0" y2="177.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="302.0" y1="205.0" x2="292.0" y2="205.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="296.0" y1="205.0" x2="289.0" y2="205.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="304.0" y="56.0" width="126.0" height="270.0" rx="6" fill="#f7f0fc" stroke="#8e44ad" stroke-width="1.8"/>
+<text x="367.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8e44ad" text-anchor="middle" font-weight="700">Брокер</text>
+<text x="367.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Message Broker</text>
+<line x1="314.0" y1="102.0" x2="420.0" y2="102.0" stroke="#8e44ad" stroke-width="1.0"/>
+<circle cx="316.0" cy="120.0" r="3.0" fill="#8e44ad" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="324.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="324.0" dy="0.0">EMQX / Mosquitto</tspan></text>
+<circle cx="316.0" cy="158.0" r="3.0" fill="#8e44ad" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="324.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="324.0" dy="0.0">Publish / Subscribe</tspan></text>
+<circle cx="316.0" cy="196.0" r="3.0" fill="#8e44ad" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="324.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="324.0" dy="0.0">Розв'язка зв'язності</tspan></text>
+<circle cx="316.0" cy="234.0" r="3.0" fill="#8e44ad" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="324.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="324.0" dy="0.0">Черги сесій QoS 1/2</tspan></text>
+<circle cx="316.0" cy="272.0" r="3.0" fill="#8e44ad" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="324.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="324.0" dy="0.0">Топіки / LWT / Retain</tspan></text>
+<line x1="432.0" y1="177.0" x2="442.0" y2="177.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="438.0" y1="177.0" x2="445.0" y2="177.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="444.0" y1="205.0" x2="434.0" y2="205.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="438.0" y1="205.0" x2="431.0" y2="205.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="446.0" y="56.0" width="126.0" height="270.0" rx="6" fill="#eef9f6" stroke="#16a085" stroke-width="1.8"/>
+<text x="509.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#16a085" text-anchor="middle" font-weight="700">Служба</text>
+<text x="509.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Backend Services</text>
+<line x1="456.0" y1="102.0" x2="562.0" y2="102.0" stroke="#16a085" stroke-width="1.0"/>
+<circle cx="458.0" cy="120.0" r="3.0" fill="#16a085" stroke="#16a085" stroke-width="1.5"/>
+<text x="466.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="466.0" dy="0.0">Ingest Worker / API</tspan></text>
+<circle cx="458.0" cy="158.0" r="3.0" fill="#16a085" stroke="#16a085" stroke-width="1.5"/>
+<text x="466.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="466.0" dy="0.0">Валідація схеми</tspan></text>
+<circle cx="458.0" cy="196.0" r="3.0" fill="#16a085" stroke="#16a085" stroke-width="1.5"/>
+<text x="466.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="466.0" dy="0.0">Двигун правил / тривог</tspan></text>
+<circle cx="458.0" cy="234.0" r="3.0" fill="#16a085" stroke="#16a085" stroke-width="1.5"/>
+<text x="466.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="466.0" dy="0.0">Reported vs Desired</tspan></text>
+<circle cx="458.0" cy="272.0" r="3.0" fill="#16a085" stroke="#16a085" stroke-width="1.5"/>
+<text x="466.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="466.0" dy="0.0">Масштабування (K8s)</tspan></text>
+<line x1="574.0" y1="177.0" x2="584.0" y2="177.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="580.0" y1="177.0" x2="587.0" y2="177.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="586.0" y1="205.0" x2="576.0" y2="205.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="580.0" y1="205.0" x2="573.0" y2="205.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="588.0" y="56.0" width="126.0" height="270.0" rx="6" fill="#fdf3eb" stroke="#d35400" stroke-width="1.8"/>
+<text x="651.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d35400" text-anchor="middle" font-weight="700">Сховище</text>
+<text x="651.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Storage Tier</text>
+<line x1="598.0" y1="102.0" x2="704.0" y2="102.0" stroke="#d35400" stroke-width="1.0"/>
+<circle cx="600.0" cy="120.0" r="3.0" fill="#d35400" stroke="#d35400" stroke-width="1.5"/>
+<text x="608.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="608.0" dy="0.0">Timescale / InfluxDB</tspan></text>
+<circle cx="600.0" cy="158.0" r="3.0" fill="#d35400" stroke="#d35400" stroke-width="1.5"/>
+<text x="608.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="608.0" dy="0.0">Чанкування часу</tspan></text>
+<circle cx="600.0" cy="196.0" r="3.0" fill="#d35400" stroke="#d35400" stroke-width="1.5"/>
+<text x="608.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="608.0" dy="0.0">Стиск Gorilla / Delta</tspan></text>
+<circle cx="600.0" cy="234.0" r="3.0" fill="#d35400" stroke="#d35400" stroke-width="1.5"/>
+<text x="608.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="608.0" dy="0.0">Downsampling / TTL</tspan></text>
+<circle cx="600.0" cy="272.0" r="3.0" fill="#d35400" stroke="#d35400" stroke-width="1.5"/>
+<text x="608.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="608.0" dy="0.0">RDBMS для парку</tspan></text>
+<line x1="716.0" y1="177.0" x2="726.0" y2="177.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="722.0" y1="177.0" x2="729.0" y2="177.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="728.0" y1="205.0" x2="718.0" y2="205.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="722.0" y1="205.0" x2="715.0" y2="205.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="730.0" y="56.0" width="126.0" height="270.0" rx="6" fill="#edf8f1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="793.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Клієнт</text>
+<text x="793.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Client App</text>
+<line x1="740.0" y1="102.0" x2="846.0" y2="102.0" stroke="#27ae60" stroke-width="1.0"/>
+<circle cx="742.0" cy="120.0" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="750.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="750.0" dy="0.0">Web / Mobile UI</tspan></text>
+<circle cx="742.0" cy="158.0" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="750.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="750.0" dy="0.0">WebSocket / REST</tspan></text>
+<circle cx="742.0" cy="196.0" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="750.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="750.0" dy="0.0">Реалтайм графіки</tspan></text>
+<circle cx="742.0" cy="234.0" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="750.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="750.0" dy="0.0">Надсилання команд</tspan></text>
+<circle cx="742.0" cy="272.0" r="3.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="750.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start"><tspan x="750.0" dy="0.0">RBAC / Авторизація</tspan></text>
+<rect x="20.0" y="344.0" width="840.0" height="58.0" rx="6" fill="#fbfcfd" stroke="#dde3ea" stroke-width="1.4"/>
+<line x1="40.0" y1="362.0" x2="840.0" y2="362.0" stroke="#27ae60" stroke-width="2.5"/>
+<line x1="834.0" y1="362.0" x2="844.0" y2="362.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="440.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ПОТІК ТЕЛЕМЕТРІЇ (Upstream): збір вимірів → бінарний кадр → переклад в JSON → брокер → TSDB → екран</text>
+<line x1="840.0" y1="386.0" x2="40.0" y2="386.0" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="46.0" y1="386.0" x2="36.0" y2="386.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="440.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ПОТІК КОМАНД (Downstream): дія в UI → REST/RPC → топік брокера → шлюз → радіоканал → виконання на ніжці МК</text>
+<rect x="20.0" y="414.0" width="840.0" height="58.0" rx="6" fill="#ffffff" stroke="#ccd5e0" stroke-width="1.5"/><text x="440.0" y="439.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">Жоден рівень не робить чужої роботи: Вузол не знає про TCP і бази даних; Шлюз рятує від розривів мережі;</tspan><tspan x="440.0" dy="13.7">Брокер усуває зв'язність «усі з усіма»; Служба рахує бізнес-правила; Сховище стискає терабайти; Клієнт показує зріз.</tspan></text>
+</svg>

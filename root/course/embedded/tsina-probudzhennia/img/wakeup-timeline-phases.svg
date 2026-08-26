@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 900 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="900" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="880.0" height="460.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<rect x="80.0" y="40.0" width="90.0" height="210.0" rx="6" fill="#eef2f7" stroke="none" stroke-width="1.5"/>
+<line x1="80.0" y1="40.0" x2="80.0" y2="360.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="125.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. LDO / Bandgap</text>
+<text x="125.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">0–20 мкс</text>
+<rect x="170.0" y="40.0" width="90.0" height="210.0" rx="6" fill="#fef3c7" stroke="none" stroke-width="1.5"/>
+<line x1="170.0" y1="40.0" x2="170.0" y2="360.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="215.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Старт RC</text>
+<text x="215.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">20–25 мкс</text>
+<rect x="260.0" y="40.0" width="140.0" height="210.0" rx="6" fill="#e0e7ff" stroke="none" stroke-width="1.5"/>
+<line x1="260.0" y1="40.0" x2="260.0" y2="360.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="330.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Старт ядра й RAM</text>
+<text x="330.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">25–80 мкс</text>
+<rect x="400.0" y="40.0" width="170.0" height="210.0" rx="6" fill="#fee2e2" stroke="none" stroke-width="1.5"/>
+<line x1="400.0" y1="40.0" x2="400.0" y2="360.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="485.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. Живлення шини й VREF</text>
+<text x="485.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">80–220 мкс</text>
+<rect x="570.0" y="40.0" width="140.0" height="210.0" rx="6" fill="#dcfce7" stroke="none" stroke-width="1.5"/>
+<line x1="570.0" y1="40.0" x2="570.0" y2="360.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="640.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">5. Вибірка АЦП</text>
+<text x="640.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">220–300 мкс</text>
+<rect x="710.0" y="40.0" width="90.0" height="210.0" rx="6" fill="#f3e8ff" stroke="none" stroke-width="1.5"/>
+<line x1="710.0" y1="40.0" x2="710.0" y2="360.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="755.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">6. Сон</text>
+<text x="755.0" y="76.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">300–330 мкс</text>
+<line x1="800.0" y1="40.0" x2="800.0" y2="360.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="3 3"/>
+<text x="68.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">I (мА)</text>
+<line x1="74.0" y1="225.0" x2="74.0" y2="135.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<polyline points="80.0,190.0 90.0,184.8 170.0,184.8 175.0,178.3 260.0,178.3 265.0,160.8 400.0,160.8 405.0,118.5 425.0,164.0 570.0,164.0 575.0,151.0 710.0,151.0 715.0,182.2 790.0,182.2 800.0,190.0" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-linejoin="round"/>
+<text x="420.0" y="112.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">кидок заряду C (11 мА)</text>
+<line x1="80.0" y1="280.0" x2="800.0" y2="280.0" stroke="#333333" stroke-width="1.0"/>
+<text x="68.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">Такти CPU</text>
+<rect x="260.0" y="283.0" width="450.0" height="18.0" rx="2" fill="#e0e7ff" stroke="#4f46e5" stroke-width="1.0"/>
+<text x="485.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#4f46e5" text-anchor="middle" font-weight="700">MSI / HSI 16 МГц (активне виконання коду)</text>
+<line x1="80.0" y1="320.0" x2="800.0" y2="320.0" stroke="#333333" stroke-width="1.0"/>
+<text x="68.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">Шина VDD</text>
+<rect x="400.0" y="323.0" width="310.0" height="18.0" rx="2" fill="#fee2e2" stroke="#dc2626" stroke-width="1.0"/>
+<text x="555.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">Ключ живлення датчика увімкнено</text>
+<line x1="80.0" y1="380.0" x2="825.0" y2="380.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="830.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700" font-style="italic">t (мкс)</text>
+<line x1="80.0" y1="376.0" x2="80.0" y2="384.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="80.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">0</text>
+<line x1="170.0" y1="376.0" x2="170.0" y2="384.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="170.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">20</text>
+<line x1="260.0" y1="376.0" x2="260.0" y2="384.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="260.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">25</text>
+<line x1="400.0" y1="376.0" x2="400.0" y2="384.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="400.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">80</text>
+<line x1="570.0" y1="376.0" x2="570.0" y2="384.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="570.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">220</text>
+<line x1="710.0" y1="376.0" x2="710.0" y2="384.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="710.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">300</text>
+<line x1="800.0" y1="376.0" x2="800.0" y2="384.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="800.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">330</text>
+</svg>

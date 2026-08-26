@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-17.36 -10 974.72 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-17.36" y="-10" width="974.72" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Атаки виснаження ресурсів (Sleep Deprivation): перетворення мікроамперного сну на безперервне споживання</text>
+<rect x="60.0" y="75.0" width="820.0" height="145.0" rx="6" fill="#ffffff" stroke="#bdc3c7" stroke-width="1.2"/>
+<text x="80.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">1. Штатний режим (Duty-Cycled IoT): 99.9% глибокий сон, споживання ~5 мкА</text>
+<line x1="100.0" y1="190.0" x2="850.0" y2="190.0" stroke="#333333" stroke-width="1.5"/>
+<text x="90.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Струм</text>
+<text x="860.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Час →</text>
+<line x1="100.0" y1="190.0" x2="240.0" y2="190.0" stroke="#27ae60" stroke-width="2.0"/>
+<rect x="240.0" y="140.0" width="18.0" height="50.0" rx="6" fill="#a9dfbf" stroke="#27ae60" stroke-width="1.5"/>
+<text x="249.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">TX 15 мА</text>
+<line x1="258.0" y1="190.0" x2="510.0" y2="190.0" stroke="#27ae60" stroke-width="2.0"/>
+<rect x="510.0" y="140.0" width="18.0" height="50.0" rx="6" fill="#a9dfbf" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="528.0" y1="190.0" x2="780.0" y2="190.0" stroke="#27ae60" stroke-width="2.0"/>
+<rect x="780.0" y="140.0" width="18.0" height="50.0" rx="6" fill="#a9dfbf" stroke="#27ae60" stroke-width="1.5"/>
+<text x="380.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Глибокий сон (Deep Sleep 5 мкА) — Ресурс батареї: 3–5 років</text>
+<rect x="60.0" y="245.0" width="820.0" height="145.0" rx="6" fill="#ffffff" stroke="#bdc3c7" stroke-width="1.2"/>
+<text x="80.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">2. Атака виснаження (BLE Adv Flood / LoRa Join Flood / Scan Request): приймач постійно активний</text>
+<line x1="100.0" y1="360.0" x2="850.0" y2="360.0" stroke="#333333" stroke-width="1.5"/>
+<text x="90.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Струм</text>
+<text x="860.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Час →</text>
+<rect x="100.0" y="310.0" width="750.0" height="50.0" rx="6" fill="#fadbd8" stroke="#c0392b" stroke-width="1.5"/>
+<text x="470.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Постійне неспання (RX / парсинг / IRQ) ~ 12 – 18 мА безперервно</text>
+<text x="470.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Виснаження батареї CR2032 (220 мАг) за 12–18 годин замість 3 років!</text>
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Критерій стійкості Міддлбрука: імпеданс фільтра проти перетворювача</text>
+<rect x="90.0" y="80.0" width="720.0" height="320.0" rx="6" fill="none" stroke="#cbd5e1" stroke-width="1.0"/>
+<line x1="90.0" y1="400.0" x2="810.0" y2="400.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="90.0" y1="400.0" x2="90.0" y2="80.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="810.0" y1="400.0" x2="835.0" y2="400.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="90.0" y1="80.0" x2="90.0" y2="60.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="840.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">f (Гц)</text>
+<text x="75.0" y="63.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">|Z| (дБОм)</text>
+<line x1="150.0" y1="400.0" x2="150.0" y2="80.0" stroke="#f1f5f9" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="150.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">100 Гц</text>
+<line x1="270.0" y1="400.0" x2="270.0" y2="80.0" stroke="#f1f5f9" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="270.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">1 кГц</text>
+<line x1="410.0" y1="400.0" x2="410.0" y2="80.0" stroke="#f1f5f9" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="410.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">10 кГц (f_0)</text>
+<line x1="570.0" y1="400.0" x2="570.0" y2="80.0" stroke="#f1f5f9" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="570.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">50 кГц (f_c)</text>
+<line x1="730.0" y1="400.0" x2="730.0" y2="80.0" stroke="#f1f5f9" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="730.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">500 кГц</text>
+<path d="M 90.0 200.0 L 470.0 200.0 L 570.0 210.0 L 670.0 290.0 L 790.0 350.0" fill="none" stroke="#2563eb" stroke-width="3"/>
+<rect x="67.4" y="159.5" width="385.1" height="21.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/><text x="260.0" y="173.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="700"><tspan x="260.0" dy="0.0">|Z_in,conv| = V_in² / P_out (від'ємний динамічний опір)</tspan></text>
+<path d="M 90.0 380.0 L 250.0 340.0 L 350.0 280.0 L 410.0 135.0 L 470.0 280.0 L 570.0 340.0 L 790.0 380.0" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4,3"/>
+<rect x="316.1" y="89.5" width="187.8" height="31.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/><text x="410.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="410.0" dy="0.0">НЕСТІЙКІСТЬ! |Z_out| &gt; |Z_in|</tspan><tspan x="410.0" dy="13.0">Паразитні автоколивання</tspan></text>
+<path d="M 90.0 380.0 L 250.0 340.0 L 350.0 290.0 L 410.0 265.0 L 470.0 290.0 L 570.0 340.0 L 790.0 380.0" fill="none" stroke="#27ae60" stroke-width="3"/>
+<rect x="492.0" y="129.5" width="276.0" height="21.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/><text x="630.0" y="143.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="630.0" dy="0.0">|Z_out,filter| з демпфуванням R_d + C_d</tspan></text>
+<line x1="410.0" y1="205.0" x2="410.0" y2="260.0" stroke="#d97706" stroke-width="1.8"/>
+<rect x="289.5" y="226.0" width="101.0" height="18.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/><text x="340.0" y="238.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700"><tspan x="340.0" dy="0.0">Запас ΔM ≥ 6 дБ</tspan></text>
+<rect x="115.4" y="427.2" width="649.3" height="55.6" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="440.0" y="444.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">Критерій Міддлбрука: для стійкості замкненого перетворювача вихідний імпеданс</tspan><tspan x="440.0" dy="14.3">вхідного фільтра повинен бути значно меншим за вхідний імпеданс: |Z_out,filter(s)| &lt;&lt; |Z_in,conv(s)|.</tspan><tspan x="440.0" dy="14.3">Паралельна RC-гілка (R_d, C_d ≈ 3..5·C_filt) зрізає резонансний пік добротності Q.</tspan></text>
+</svg>

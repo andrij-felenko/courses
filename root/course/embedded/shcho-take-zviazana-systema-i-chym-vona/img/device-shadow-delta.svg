@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Синхронізація стану через цифровий двійник (Device Shadow)</text>
+<rect x="30.0" y="60.0" width="200.0" height="340.0" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="130.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e293b" text-anchor="middle" font-weight="700">КЛІЄНТ / APP</text>
+<rect x="45.0" y="110.0" width="170.0" height="70.0" rx="6" fill="#ffffff" stroke="#3b82f6" stroke-width="1.5"/><text x="130.0" y="136.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">1. Користувач змінює уставку:</tspan><tspan x="130.0" dy="11.7">Target = 24.5 °C</tspan><tspan x="130.0" dy="11.7">(Вузол може бути офлайн)</tspan></text>
+<rect x="45.0" y="290.0" width="170.0" height="85.0" rx="6" fill="#ffffff" stroke="#10b981" stroke-width="1.5"/><text x="130.0" y="314.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">4. Відображення:</tspan><tspan x="130.0" dy="14.3">Ціль: 24.5 °C (Desired)</tspan><tspan x="130.0" dy="14.3">Факт: 21.0 → 24.5 °C</tspan><tspan x="130.0" dy="14.3">(Синхронізовано)</tspan></text>
+<rect x="260.0" y="60.0" width="360.0" height="340.0" rx="8" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
+<text x="440.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0369a1" text-anchor="middle" font-weight="700">ХМАРНА ТІНЬ (DEVICE SHADOW)</text>
+<rect x="280.0" y="105.0" width="320.0" height="195.0" rx="6" fill="#ffffff" stroke="#38bdf8" stroke-width="1.5"/>
+<text x="295.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0369a1" text-anchor="start" font-weight="700">JSON Document (Версія v=42):</text>
+<text x="295.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="start">state: {</text>
+<text x="310.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2563eb" text-anchor="start" font-weight="700">desired:  { target_temp: 24.5 },</text>
+<text x="310.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start">reported: { target_temp: 21.0, cur: 21.0 }</text>
+<text x="295.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="start">},</text>
+<text x="295.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="start">metadata: { v: 42, timestamp: 1714567890 }</text>
+<rect x="280.0" y="315.0" width="320.0" height="65.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="440.0" y="337.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">Обчислення дельти (Reconciliation):</tspan><tspan x="440.0" dy="14.3">Delta = Desired \ Reported</tspan><tspan x="440.0" dy="14.3">=&gt; { target_temp: 24.5 }</tspan></text>
+<rect x="650.0" y="60.0" width="200.0" height="340.0" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<text x="750.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#15803d" text-anchor="middle" font-weight="700">EDGE MCU ВУЗОЛ</text>
+<rect x="665.0" y="150.0" width="170.0" height="85.0" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/><text x="750.0" y="174.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="750.0" dy="0.0">2. Отримання дельти:</tspan><tspan x="750.0" dy="14.3">Підписка на топік /delta</tspan><tspan x="750.0" dy="14.3">Прийом уставки v=42</tspan><tspan x="750.0" dy="14.3">Запис у PID-регулятор</tspan></text>
+<rect x="665.0" y="270.0" width="170.0" height="85.0" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/><text x="750.0" y="296.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="750.0" dy="0.0">3. Звіт виконання:</tspan><tspan x="750.0" dy="13.0">Публікація в /update:</tspan><tspan x="750.0" dy="13.0">reported: { target: 24.5 }</tspan><tspan x="750.0" dy="13.0">Підтвердження v=42</tspan></text>
+<line x1="215.0" y1="145.0" x2="280.0" y2="145.0" stroke="#2563eb" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="247.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="middle">POST desired</text>
+<line x1="600.0" y1="345.0" x2="665.0" y2="192.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="632.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle">MQTT Delta</text>
+<line x1="665.0" y1="312.0" x2="600.0" y2="250.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="635.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#16a34a" text-anchor="middle">MQTT update</text>
+<line x1="280.0" y1="260.0" x2="215.0" y2="332.0" stroke="#10b981" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="247.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#10b981" text-anchor="middle">SSE / Push</text>
+</svg>

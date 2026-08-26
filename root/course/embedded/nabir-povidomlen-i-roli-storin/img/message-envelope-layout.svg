@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1048 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1048" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура уніфікованого бінарного конверта транзакції (Transaction Envelope)</text>
+<text x="480.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Фіксований заголовок (Header 8 байтів), змінний Payload та кінцева контрольна сума CRC-16</text>
+<rect x="20.0" y="95.0" width="100.0" height="58.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="70.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">MSG_TYPE</text>
+<text x="70.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(1 байт)</text>
+<text x="70.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тип повідомлення</text>
+<text x="70.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0x01..0xFF</text>
+<rect x="126.0" y="95.0" width="95.0" height="58.0" rx="6" fill="#fff3cd" stroke="#d35400" stroke-width="1.6"/>
+<text x="173.5" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle" font-weight="700">FLAGS</text>
+<text x="173.5" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(1 байт)</text>
+<text x="173.5" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Прапорці транзакції</text>
+<text x="173.5" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ACK, RESP, ERR</text>
+<rect x="227.0" y="95.0" width="95.0" height="58.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="274.5" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">TRANS_ID</text>
+<text x="274.5" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(1 байт)</text>
+<text x="274.5" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">ID послідовності</text>
+<text x="274.5" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(Sequence ID)</text>
+<rect x="328.0" y="95.0" width="95.0" height="58.0" rx="6" fill="#f3e8fd" stroke="#7d3c98" stroke-width="1.6"/>
+<text x="375.5" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7d3c98" text-anchor="middle" font-weight="700">SRC_ADDR</text>
+<text x="375.5" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(1 байт)</text>
+<text x="375.5" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Адреса джерела</text>
+<text x="375.5" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0x01..0xFE</text>
+<rect x="429.0" y="95.0" width="95.0" height="58.0" rx="6" fill="#f3e8fd" stroke="#7d3c98" stroke-width="1.6"/>
+<text x="476.5" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7d3c98" text-anchor="middle" font-weight="700">DST_ADDR</text>
+<text x="476.5" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(1 байт)</text>
+<text x="476.5" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Адреса призначення</text>
+<text x="476.5" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(0x00=Broadcast)</text>
+<rect x="530.0" y="95.0" width="125.0" height="58.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="592.5" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">PAYLOAD_LEN</text>
+<text x="592.5" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(2 байти, LE)</text>
+<text x="592.5" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Довжина даних</text>
+<text x="592.5" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0 .. 512 байтів</text>
+<rect x="661.0" y="95.0" width="95.0" height="58.0" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.6"/>
+<text x="708.5" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">RESERVED</text>
+<text x="708.5" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(1 байт)</text>
+<text x="708.5" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вирівнювання 8B</text>
+<text x="708.5" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(версія 0x00)</text>
+<rect x="762.0" y="95.0" width="150.0" height="58.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/>
+<text x="837.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">PAYLOAD (КОРИСНІ ДАНІ)</text>
+<text x="837.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(0 .. 512 байтів)</text>
+<text x="837.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Аргументи, телеметрія</text>
+<text x="837.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">або код помилки</text>
+<rect x="918.0" y="95.0" width="110.0" height="58.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="973.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">CRC-16 CCITT</text>
+<text x="973.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(2 байти, LE)</text>
+<text x="973.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Контрольна сума</text>
+<text x="973.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Header + Payload</text>
+<line x1="20.0" y1="85.0" x2="756.0" y2="85.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="20.0" y1="85.0" x2="20.0" y2="91.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="756.0" y1="85.0" x2="756.0" y2="91.0" stroke="#2457d6" stroke-width="1.8"/>
+<text x="388.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Фіксований заголовок пакета (8 байтів) — 64-бітне вирівнювання</text>
+<rect x="20.0" y="240.0" width="920.0" height="170.0" rx="8" fill="#fafbfc" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="38.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Розпакування бітового поля FLAGS (1 байт):</text>
+<rect x="38.0" y="278.0" width="172.0" height="115.0" rx="6" fill="#ffffff" stroke="#c0c4cc" stroke-width="1.2"/>
+<rect x="38.0" y="278.0" width="172.0" height="24.0" rx="6" fill="#fff3cd" stroke="#e67e22" stroke-width="1.2"/>
+<text x="124.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">Bit 0: ACK_REQ</text>
+<text x="46.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">1 = потрібне підтвердження</text>
+<text x="46.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">    (Response / ACK)</text>
+<text x="46.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">0 = без квитування</text>
+<rect x="218.0" y="278.0" width="172.0" height="115.0" rx="6" fill="#ffffff" stroke="#c0c4cc" stroke-width="1.2"/>
+<rect x="218.0" y="278.0" width="172.0" height="24.0" rx="6" fill="#fff3cd" stroke="#e67e22" stroke-width="1.2"/>
+<text x="304.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">Bit 1: IS_RESP</text>
+<text x="226.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">1 = відповідь на запит</text>
+<text x="226.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">    (Transaction Reply)</text>
+<text x="226.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">0 = новий запит / івент</text>
+<rect x="398.0" y="278.0" width="172.0" height="115.0" rx="6" fill="#ffffff" stroke="#c0c4cc" stroke-width="1.2"/>
+<rect x="398.0" y="278.0" width="172.0" height="24.0" rx="6" fill="#fff3cd" stroke="#e67e22" stroke-width="1.2"/>
+<text x="484.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">Bit 2: IS_ERR</text>
+<text x="406.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">1 = помилка у Payload</text>
+<text x="406.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">    (Error Response)</text>
+<text x="406.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">0 = успіх або дані</text>
+<rect x="578.0" y="278.0" width="172.0" height="115.0" rx="6" fill="#ffffff" stroke="#c0c4cc" stroke-width="1.2"/>
+<rect x="578.0" y="278.0" width="172.0" height="24.0" rx="6" fill="#fff3cd" stroke="#e67e22" stroke-width="1.2"/>
+<text x="664.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">Bit 3: EXT_ADDR</text>
+<text x="586.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">1 = розширені адреси 16b</text>
+<text x="586.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">    (у тілі Payload)</text>
+<text x="586.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">0 = стандартні 8-бітні</text>
+<rect x="758.0" y="278.0" width="172.0" height="115.0" rx="6" fill="#ffffff" stroke="#c0c4cc" stroke-width="1.2"/>
+<rect x="758.0" y="278.0" width="172.0" height="24.0" rx="6" fill="#fff3cd" stroke="#e67e22" stroke-width="1.2"/>
+<text x="844.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">Bits 4..7: PROTO_VER</text>
+<text x="766.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Версія протоколу 0..15</text>
+<text x="766.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">для контролю сумісності</text>
+<text x="766.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">різних прошивок</text>
+</svg>

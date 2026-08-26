@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 650" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="650" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="15.0" y="15.0" width="930.0" height="610.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="480.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Повна принципова схема мінімального робочого модуля на базі ARM Cortex-M</text>
+<rect x="390.0" y="100.0" width="180.0" height="450.0" rx="8" fill="#1e293b" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="480.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">STM32F4 / Cortex-M</text>
+<text x="480.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Мінімальний модуль</text>
+<rect x="30.0" y="70.0" width="320.0" height="175.0" rx="6" fill="#ffffff" stroke="#0284c7" stroke-width="1.5"/>
+<text x="190.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="middle" font-weight="700">1. Шини живлення та декаплінг</text>
+<text x="45.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• 3.3V Вхід + 10 мкФ Bulk тантал</text>
+<text x="45.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• 4× 100 нФ MLCC на кожну пару VDD/VSS</text>
+<text x="45.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• VDDA: Ferrite Bead 120Ω + 1 мкФ + 10 нФ</text>
+<text x="45.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• VCAP_1 / VCAP_2: 2.2 мкФ кераміка (LDO)</text>
+<text x="45.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">-&gt; Стабільні шини VDD, VDDA, VCAP</text>
+<line x1="350.0" y1="150.0" x2="390.0" y2="150.0" stroke="#0284c7" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="30.0" y="260.0" width="320.0" height="145.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="190.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">2. Апаратне скидання (NRST)</text>
+<text x="45.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Внутрішній Pull-up 40 кОм до VDD</text>
+<text x="45.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Зовнішній фільтр: 100 нФ на GND (τ ≈ 4 мс)</text>
+<text x="45.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Тактова кнопка паралельно C_NRST</text>
+<text x="45.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start" font-weight="700">• Лінія Open-Drain на рознім SWD</text>
+<line x1="350.0" y1="330.0" x2="390.0" y2="330.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="30.0" y="420.0" width="320.0" height="130.0" rx="6" fill="#ffffff" stroke="#ca8a04" stroke-width="1.5"/>
+<text x="190.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ca8a04" text-anchor="middle" font-weight="700">3. Вибір старту (BOOT0/BOOT1)</text>
+<text x="45.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• BOOT0: 10 кОм на GND (Штатний Flash)</text>
+<text x="45.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• BOOT1: 10 кОм на GND</text>
+<text x="45.0" y="510.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• 3-pin перемикач на VDD для ROM-прошивки</text>
+<line x1="350.0" y1="480.0" x2="390.0" y2="480.0" stroke="#ca8a04" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="610.0" y="70.0" width="320.0" height="225.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="770.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">4. Тактування (HSE та LSE)</text>
+<text x="625.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• HSE: Кварц 8.000 МГц (або 25 МГц)</text>
+<text x="625.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Конденсатори C1, C2 = 20–22 пФ (NP0)</text>
+<text x="625.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Демпфер R_ext = 220 Ω на OSC_OUT</text>
+<text x="625.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• LSE: Годинниковий кварц 32.768 кГц (RTC)</text>
+<text x="625.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Конденсатори LSE: C3, C4 = 10–12 пФ</text>
+<text x="625.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">• Топологія: Кільце Guard Ring на PCB</text>
+<line x1="570.0" y1="170.0" x2="610.0" y2="170.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="610.0" y="310.0" width="320.0" height="240.0" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="770.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="700">5. Налагодження SWD / JTAG</text>
+<text x="625.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">• Pin 1: VCC (3.3V Опора)</text>
+<text x="625.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="start" font-weight="700">• Pin 2: SWDIO (PA13) + резистор 22–47 Ω</text>
+<text x="625.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="start" font-weight="700">• Pin 3: SWCLK (PA14) + резистор 22–47 Ω</text>
+<text x="625.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start" font-weight="700">• Pin 4: GND (Земля)</text>
+<text x="625.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c3aed" text-anchor="start" font-weight="700">• Pin 5: NRST (Скидання ядра)</text>
+<text x="625.0" y="470.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Розніми: Arm 10-pin (1.27 мм) / 4-pin SIL (2.54 мм)</text>
+<line x1="570.0" y1="410.0" x2="610.0" y2="410.0" stroke="#7c3aed" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="480.0" y="595.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Мінімальний модуль повністю самодостатній: запускається, тактується, прошивається та відлагоджується</text>
+</svg>

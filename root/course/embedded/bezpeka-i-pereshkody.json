@@ -17,7 +17,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -57,8 +57,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-fmea-validator.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -93,7 +99,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -103,7 +109,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -121,7 +127,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         }
       ]
@@ -137,8 +143,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-energy-derivation.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "hw-power/battery-mechanics",
@@ -171,8 +183,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-gate-discharge.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-safe-arm-driver.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -219,7 +243,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -229,8 +253,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-ferrite-bead-rf.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-desense-noise-floor.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "esd-protection-circuits",
@@ -259,7 +295,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         }
       ]
@@ -275,8 +311,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-enclosure-heat-transfer.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-thermal-calculator.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "hw-components/heatsink",
@@ -293,7 +341,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -303,7 +351,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -321,7 +369,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -339,8 +387,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-pressure-venting.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-enclosure-climate.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -355,7 +415,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -391,7 +451,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -409,8 +469,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-antennas-in-enclosure.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-vswr-matching.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-smith-pi-tuner.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "shyna-shcho-zavysla",
@@ -419,7 +497,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -429,8 +507,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-deadman-switch.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -445,8 +529,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-receiver-compression.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-jamming-detector.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "com-modulation/partial-band-jamming",
@@ -485,8 +581,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-detection-footprint.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sf-security/radioslid-prystroiu",
@@ -499,7 +601,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -509,8 +611,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-pmw3901-flow.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-drift-growth.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ekf-dead-reckoning.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "plan-b-dlia-linka",
@@ -519,8 +639,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-link-arbiter.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-link-score.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-link-mux.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -535,8 +673,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-secure-command-parser.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sf-security/cryptographic-hash-functions",
@@ -565,7 +709,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -579,8 +723,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-smartcards-to-secure-elements.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-atecc608-driver.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "tpm-trustzone",
@@ -615,7 +771,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         }
       ]
@@ -643,7 +799,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -681,8 +837,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-tamper-sensors.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-zeroization-controller.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -697,8 +865,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-hardware-watchdog.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-watchdog-timer.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "prychyna-skydannia-iak-diahnoz",
@@ -707,7 +887,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -739,7 +919,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -749,8 +929,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-holdup-capacitor.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "zavantazhuvach-iakyi-ne-mozhna-zakyrpychyty",
@@ -759,7 +945,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -791,8 +977,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-redundancy-reliability.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "perevirka-pravdopodibnosti",
@@ -801,7 +993,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -823,7 +1015,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -837,8 +1029,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-shingo-poka-yoke.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "functional-safety-overview",
@@ -863,8 +1061,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-heisenbug.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "zvuzhennia",
@@ -873,8 +1077,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-entropy-search.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-bisection-conductor.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "chorna-skrynka",
@@ -883,8 +1099,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-flight-recorder.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sf-release/metrics-monitoring",
@@ -911,7 +1133,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -925,7 +1147,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -935,8 +1157,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-rca-regression-suite.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "log-signal-correlation",
@@ -945,8 +1173,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-lamport-causality.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     }

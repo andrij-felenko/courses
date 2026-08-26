@@ -17,8 +17,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-compiler-hardening.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-morris-and-phrack.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-canary-entropy-collision.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-safe-string-buffer.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "use-after-free",
@@ -27,8 +51,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-memory-sanitizers.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-uaf-exploitation-milestones.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-uaf-vtable-simulation.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "code-reuse-attacks",
@@ -63,8 +105,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-mprotect-and-virtual-memory.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-w-xor-x-and-dep.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-jit-dual-mapping.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "control-flow-integrity",
@@ -153,8 +213,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-descriptor-syscalls.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-toctou-origin.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-toctou-simulator.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     }

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратна топологія захисту від знеструмлення: детектування ДО діода</text>
+<text x="500.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Розділення точок вимірювання та накопичення заряду для максимального вікна реакції</text>
+<rect x="23.7" y="126.8" width="112.7" height="46.5" rx="6" fill="#e2e8f0" stroke="#1e293b" stroke-width="1.5"/><text x="80.0" y="146.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="80.0" dy="0.0">Вхід живлення</tspan><tspan x="80.0" dy="15.0">VIN (9–24 В)</tspan></text>
+<line x1="145.0" y1="150.0" x2="245.0" y2="150.0" stroke="#1e293b" stroke-width="2.0"/>
+<circle cx="195.0" cy="150.0" r="3.5" fill="#1e293b" stroke="#1e293b" stroke-width="1.5"/>
+<rect x="245.0" y="125.0" width="80.0" height="50.0" rx="6" fill="#fef3c7" stroke="#b9770e" stroke-width="1.8"/>
+<text x="285.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="middle" font-weight="700">Ідеальний</text>
+<text x="285.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="middle" font-weight="700">діод (FET)</text>
+<line x1="325.0" y1="150.0" x2="460.0" y2="150.0" stroke="#1e293b" stroke-width="2.0"/>
+<line x1="195.0" y1="150.0" x2="195.0" y2="260.0" stroke="#2457d6" stroke-width="1.8" stroke-dasharray="4,3"/>
+<circle cx="195.0" cy="260.0" r="3.5" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="195.0" y1="260.0" x2="215.0" y2="260.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="222.9" y="237.9" width="124.2" height="44.1" rx="6" fill="#dbeafe" stroke="#2457d6" stroke-width="1.5"/><text x="285.0" y="256.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="285.0" dy="0.0">Компаратор PFW</tspan><tspan x="285.0" dy="13.7">Поріг: VIN &lt; 90%</tspan></text>
+<circle cx="460.0" cy="150.0" r="4.0" fill="#1e293b" stroke="#1e293b" stroke-width="1.5"/>
+<text x="460.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle" font-weight="700">Шина VCAP (12–24 В)</text>
+<line x1="460.0" y1="150.0" x2="460.0" y2="235.0" stroke="#1e293b" stroke-width="2.0"/>
+<rect x="384.9" y="246.1" width="150.2" height="57.8" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/><text x="460.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="460.0" dy="0.0">Буферний банк</tspan><tspan x="460.0" dy="13.7">C_hold (Тантал/MLCC)</tspan><tspan x="460.0" dy="13.7">E = ½·C·V²</tspan></text>
+<line x1="460.0" y1="315.0" x2="460.0" y2="340.0" stroke="#1e293b" stroke-width="1.5"/>
+<line x1="445.0" y1="340.0" x2="475.0" y2="340.0" stroke="#1e293b" stroke-width="2.0"/>
+<line x1="452.0" y1="345.0" x2="468.0" y2="345.0" stroke="#1e293b" stroke-width="1.5"/>
+<line x1="457.0" y1="350.0" x2="463.0" y2="350.0" stroke="#1e293b" stroke-width="1.0"/>
+<line x1="460.0" y1="150.0" x2="545.0" y2="150.0" stroke="#1e293b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="544.1" y="120.2" width="101.8" height="59.6" rx="6" fill="#f1f5f9" stroke="#1e293b" stroke-width="1.5"/><text x="595.0" y="139.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="595.0" dy="0.0">DC-DC Buck</tspan><tspan x="595.0" dy="14.3">Стабілізатор</tspan><tspan x="595.0" dy="14.3">η ≈ 90%</tspan></text>
+<line x1="645.0" y1="150.0" x2="740.0" y2="150.0" stroke="#27ae60" stroke-width="2.5"/>
+<circle cx="690.0" cy="150.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="690.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Шина 3.3 В (VDD)</text>
+<line x1="690.0" y1="150.0" x2="690.0" y2="235.0" stroke="#1e293b" stroke-width="2.0"/>
+<rect x="611.6" y="247.9" width="156.7" height="44.1" rx="6" fill="#fef3c7" stroke="#b9770e" stroke-width="1.5"/><text x="690.0" y="266.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="690.0" dy="0.0">Ключ навантаження</tspan><tspan x="690.0" dy="13.7">(Load Switch / P-FET)</tspan></text>
+<line x1="690.0" y1="305.0" x2="690.0" y2="355.0" stroke="#1e293b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="617.3" y="367.0" width="145.4" height="56.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5"/><text x="690.0" y="385.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">Вторинна периферія:</tspan><tspan x="690.0" dy="13.0">Дисплей, Радіо, Мотори</tspan><tspan x="690.0" dy="13.0">(Миттєво вимикаються)</tspan></text>
+<line x1="740.0" y1="150.0" x2="795.0" y2="150.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="788.2" y="150.9" width="183.7" height="88.2" rx="6" fill="#e0f2fe" stroke="#2457d6" stroke-width="1.5"/><text x="880.0" y="170.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="880.0" dy="0.0">Мікроконтролер (MCU)</tspan><tspan x="880.0" dy="14.3">• NMI / PVD переривання</tspan><tspan x="880.0" dy="14.3">• Load Shedding (GPIO=0)</tspan><tspan x="880.0" dy="14.3">• Екстрений запис</tspan><tspan x="880.0" dy="14.3">• Стан сну перед BOR</tspan></text>
+<line x1="880.0" y1="265.0" x2="880.0" y2="345.0" stroke="#1e293b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="804.9" y="356.1" width="150.2" height="57.8" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/><text x="880.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="880.0" dy="0.0">Пам'ять стану:</tspan><tspan x="880.0" dy="13.7">FRAM / MRAM / Flash</tspan><tspan x="880.0" dy="13.7">(Заздалегідь стерта)</tspan></text>
+<line x1="360.0" y1="260.0" x2="765.0" y2="260.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="765.0" y1="260.0" x2="795.0" y2="230.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="580.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Сигнал тривоги NMI / EXTI (0.5 мкс)</text>
+<line x1="795.0" y1="250.0" x2="765.0" y2="265.0" stroke="#b9770e" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="800.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b9770e" text-anchor="middle" font-weight="700">SHED_EN = 0</text>
+<rect x="60.0" y="460.0" width="880.0" height="46.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="500.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">Ключовий принцип: моніторинг ДО діода бачить обрив за 1 мкс, поки діод блокує витік енергії з C_hold назад у вхідну мережу.</text>
+<text x="500.0" y="496.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Це дає повний запас енергії буфера для живлення DC-DC та бекапу без жодних паразитних втрат.</text>
+</svg>

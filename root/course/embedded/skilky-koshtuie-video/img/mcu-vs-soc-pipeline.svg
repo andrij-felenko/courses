@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460">
+<rect width="880" height="460" fill="#ffffff"/>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Обчислювальний бар'єр відеотракту: Cortex-M проти Linux SoC з VPU</text>
+<rect x="30.0" y="60.0" width="390.0" height="370.0" rx="8" fill="#fdf2e9" stroke="#c0392b" stroke-width="1.5"/>
+<text x="225.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Мікроконтролер (Cortex-M7 @ 480 МГц)</text>
+<rect x="50.0" y="110.0" width="350.0" height="65.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="225.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пам'ять: 512 КБ – 1 МБ внутрішнього SRAM</text>
+<text x="225.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">1 кадр 1080p YUV420 = 3.11 МБ → Не влазить навіть 1 кадр!</text>
+<rect x="50.0" y="185.0" width="350.0" height="75.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="225.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Обчислення: Програмний H.264 на ядрі CPU</text>
+<text x="225.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Пошук руху вимагає 6–30 млрд оп/с (GOPS)</text>
+<text x="225.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Процесор має лише ~1 GOPS → Навантаження 100%, швидкість &lt; 1 fps</text>
+<rect x="50.0" y="270.0" width="350.0" height="65.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="225.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шина: Зовнішня PSRAM / OctoSPI (100–200 МБ/с)</text>
+<text x="225.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Вузька шина душиться DMA-трафіком камери</text>
+<rect x="50.0" y="345.0" width="350.0" height="65.0" rx="4" fill="#fbeee6" stroke="#c0392b" stroke-width="1.0"/>
+<text x="225.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Реальна межа Cortex-M:</text>
+<text x="225.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Лише MJPEG (QVGA/VGA @ 15 fps) або сирий знімок раз на секунду</text>
+<rect x="460.0" y="60.0" width="390.0" height="370.0" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="655.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">SoC для камер (Allwinner V853 / RV1106)</text>
+<rect x="480.0" y="110.0" width="350.0" height="65.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="655.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пам'ять: 64–512 МБ вбудованої DDR2/DDR3 (SiP)</text>
+<text x="655.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Пропускна здатність 1.6–3.2 ГБ/с → Вільний буфер DPB</text>
+<rect x="480.0" y="185.0" width="350.0" height="75.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="655.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратний VPU/ISP (Спеціалізований ASIC)</text>
+<text x="655.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Кодування H.264/H.265 у кремнієвому конвеєрі</text>
+<text x="655.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Швидкість 1080p @ 30 fps при завантаженні CPU &lt; 5 %</text>
+<rect x="480.0" y="270.0" width="350.0" height="65.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="655.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Штучний інтелект: Вбудований NPU (0.5–1 TOPS)</text>
+<text x="655.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Локальна детекція об'єктів (YOLO) за 15–25 мс</text>
+<rect x="480.0" y="345.0" width="350.0" height="65.0" rx="4" fill="#d5f5e3" stroke="#27ae60" stroke-width="1.0"/>
+<text x="655.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Результат SoC:</text>
+<text x="655.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Повноцінне потокове Full HD/4K відео + аналітика при 1–2 Вт</text>
+</svg>

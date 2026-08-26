@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матриця відмінностей: реентрабельність та потокобезпечність</text>
+<rect x="40.0" y="65.0" width="360.0" height="185.0" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="220.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">НЕ реентрабельний / НЕ потокобезпечний</text>
+<text x="56.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Використовує глобальний статичний буфер</text>
+<text x="56.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Переривання сигналом руйнує проміжний стан</text>
+<text x="56.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Одночасний виклик потоками призводить до гонки</text>
+<text x="56.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">Приклади: strtok(), asctime(), rand()</text>
+<text x="56.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Статус: заборонено в багатопотокових системах</text>
+<rect x="420.0" y="65.0" width="360.0" height="185.0" rx="6" fill="#edf2fc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="600.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Потокобезпечний, але НЕ реентрабельний</text>
+<text x="436.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Захищає спільний стан внутрішнім м'ютексом</text>
+<text x="436.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Безпечний для паралельних потоків ОС</text>
+<text x="436.0" y="163.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">• Переривання сигналом викликає дедлок</text>
+<text x="436.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">Приклади: malloc(), syslog(), функції з std::mutex</text>
+<text x="436.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e08a1e" text-anchor="start" font-weight="700">Статус: НЕ безпечний для обробників сигналів</text>
+<rect x="40.0" y="265.0" width="360.0" height="185.0" rx="6" fill="#fefdf0" stroke="#d4ac0d" stroke-width="1.5"/>
+<text x="220.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d4ac0d" text-anchor="middle" font-weight="700">Реентрабельний, УМОВНО потокобезпечний</text>
+<text x="56.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Не має глобального стану, працює з аргументами</text>
+<text x="56.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Безпечний для виклику з обробника сигналу</text>
+<text x="56.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start">• Якщо 2 потоки передадуть один вказівник — гонка</text>
+<text x="56.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">Приклади: strtok_r() зі спільним saveptr, swap(a, b)</text>
+<text x="56.0" y="419.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d4ac0d" text-anchor="start" font-weight="700">Статус: вимагає ізольованих аргументів на стеку</text>
+<rect x="420.0" y="265.0" width="360.0" height="185.0" rx="6" fill="#edfbf2" stroke="#27ae60" stroke-width="1.5"/>
+<text x="600.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Реентрабельний І Потокобезпечний</text>
+<text x="436.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Чиста функція без побічних ефектів або const</text>
+<text x="436.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Безпечний паралельний виклик будь-якими потоками</text>
+<text x="436.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Безпечний виклик у перериваннях і сигналах</text>
+<text x="436.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-style="italic">Приклади: sin(), strlen(), strtok_r() з локальним стеком</text>
+<text x="436.0" y="419.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Статус: найвищий ступінь надійності в системі</text>
+</svg>

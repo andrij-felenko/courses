@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 938 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="938" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матриця локалізації аварій: 4 рівні глибини відкату</text>
+<rect x="40.0" y="65.0" width="820.0" height="80.0" rx="6" fill="#ebf5fb" stroke="#2457d6" stroke-width="1.8"/>
+<text x="60.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Рівень 1: Сесійний відкат</text>
+<text x="60.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Ціль відкату: TCP_CONNECT  (1..5 секунд)</text>
+<line x1="310.0" y1="75.0" x2="310.0" y2="135.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="330.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Симптом відмови:</text>
+<text x="330.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">TCP KeepAlive Timeout / FIN / RST / MQTT розрив</text>
+<line x1="590.0" y1="75.0" x2="590.0" y2="135.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="610.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Стратегія відновлення:</text>
+<text x="610.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Закриття сокета (CIPCLOSE) -&gt; повторний TCP CONNECT</text>
+<rect x="40.0" y="160.0" width="820.0" height="80.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="60.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Рівень 2: PDP-контекстний відкат</text>
+<text x="60.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Ціль відкату: IP_ATTACH  (5..15 секунд)</text>
+<line x1="310.0" y1="170.0" x2="310.0" y2="230.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="330.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Симптом відмови:</text>
+<text x="330.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Деактивація PDP (+CGEV: DEACT) / втрата IP</text>
+<line x1="590.0" y1="170.0" x2="590.0" y2="230.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="610.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Стратегія відновлення:</text>
+<text x="610.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Переактивація контексту (CGACT=0, CGACT=1) -&gt; новий IP</text>
+<rect x="40.0" y="255.0" width="820.0" height="80.0" rx="6" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1.8"/>
+<text x="60.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Рівень 3: Радіо-відкат (Стільниковий лінк)</text>
+<text x="60.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Ціль відкату: NET_SEARCH  (10..120 секунд)</text>
+<line x1="310.0" y1="265.0" x2="310.0" y2="325.0" stroke="#d4ac0d" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="330.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Симптом відмови:</text>
+<text x="330.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">CREG: 3 (Denied) / CREG: 0 / втрата вежі оператора</text>
+<line x1="590.0" y1="265.0" x2="590.0" y2="325.0" stroke="#d4ac0d" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="610.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Стратегія відновлення:</text>
+<text x="610.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Експоненційний відкат (Backoff) -&gt; сканування радіоефіру</text>
+<rect x="40.0" y="350.0" width="820.0" height="80.0" rx="6" fill="#fdedec" stroke="#c0392b" stroke-width="1.8"/>
+<text x="60.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Рівень 4: Апаратний відкат (Зависання модуля)</text>
+<text x="60.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Ціль відкату: NO_POWER  (1..10 хвилин)</text>
+<line x1="310.0" y1="360.0" x2="310.0" y2="420.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="330.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Симптом відмови:</text>
+<text x="330.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">3x таймаут на AT команди (UART мертвий / напруга просіла)</text>
+<line x1="590.0" y1="360.0" x2="590.0" y2="420.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="610.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Стратегія відновлення:</text>
+<text x="610.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">1) Імпульс RESET -&gt; 2) Повне знеструмлення ключем FET</text>
+<text x="450.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Головне правило стійкості: не смикати апаратне живлення там, де достатньо перезапустити сокет.</text>
+</svg>

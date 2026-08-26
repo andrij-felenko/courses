@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="380.0" height="390.0" rx="8" fill="#fdfefe" stroke="#6b7280" stroke-width="1.0"/>
+<text x="210.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механічна кінематика та шарнір</text>
+<rect x="40.0" y="340.0" width="340.0" height="20.0" rx="3" fill="#e2e8f0" stroke="#333333" stroke-width="1.5"/>
+<text x="210.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Базова платформа (носій / корпус)</text>
+<rect x="70.0" y="180.0" width="24.0" height="160.0" rx="2" fill="#cbd5e1" stroke="#333333" stroke-width="1.5"/>
+<rect x="326.0" y="180.0" width="24.0" height="160.0" rx="2" fill="#cbd5e1" stroke="#333333" stroke-width="1.5"/>
+<line x1="70.0" y1="190.0" x2="350.0" y2="190.0" stroke="#333333" stroke-width="3.0"/>
+<circle cx="82.0" cy="190.0" r="9.0" fill="#94a3b8" stroke="#333333" stroke-width="1.5"/>
+<circle cx="338.0" cy="190.0" r="9.0" fill="#94a3b8" stroke="#333333" stroke-width="1.5"/>
+<text x="210.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вісь обертання (підшипники)</text>
+<rect x="130.0" y="210.0" width="160.0" height="90.0" rx="6" fill="#f8fafc" stroke="#c0392b" stroke-width="2.0"/>
+<text x="210.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Стабілізована платформа</text>
+<text x="210.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(корисне навантаження)</text>
+<rect x="170.0" y="265.0" width="80.0" height="26.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.4"/>
+<text x="210.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">IMU 6-DOF</text>
+<rect x="46.0" y="120.0" width="72.0" height="60.0" rx="4" fill="#dbeafe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="82.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Серво /</text>
+<text x="82.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">BLDC мотор</text>
+<line x1="82.0" y1="120.0" x2="82.0" y2="90.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="82.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-style="italic">Керівний момент</text>
+<circle cx="210.0" cy="205.0" r="5.0" fill="#27ae60" stroke="#333333" stroke-width="1.2"/>
+<text x="210.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Центр мас CoM на осі: r_cm ≈ 0</text>
+<line x1="210.0" y1="155.0" x2="210.0" y2="198.0" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="420.0" y="20.0" width="400.0" height="390.0" rx="8" fill="#fdfefe" stroke="#6b7280" stroke-width="1.0"/>
+<text x="620.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Потік вимірювань і зворотного зв'язку</text>
+<rect x="511.7" y="79.3" width="216.6" height="41.3" rx="6" fill="#f1f5f9" stroke="#6b7280" stroke-width="1.5"/><text x="620.0" y="96.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">1. Збурення носія (кут θ_base)</tspan><tspan x="620.0" dy="14.3">Тряска корпусу, нахил рами дрона</tspan></text>
+<line x1="620.0" y1="125.0" x2="620.0" y2="155.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="477.2" y="164.3" width="285.6" height="41.3" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/><text x="620.0" y="181.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">2. Платформа з IMU (Direct Sensing)</tspan><tspan x="620.0" dy="14.3">Вимірювання кутової швидкості ω та a_y, a_z</tspan></text>
+<line x1="620.0" y1="215.0" x2="620.0" y2="245.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="483.5" y="254.3" width="273.1" height="41.3" rx="6" fill="#e0f2fe" stroke="#2457d6" stroke-width="1.5"/><text x="620.0" y="271.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">3. Обчислювач: Фільтр + ПІД</tspan><tspan x="620.0" dy="14.3">Оцінка кута θ_filt → розрахунок похибки e</tspan></text>
+<line x1="620.0" y1="305.0" x2="620.0" y2="335.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="489.7" y="344.4" width="260.5" height="41.3" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/><text x="620.0" y="361.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="620.0" dy="0.0">4. Виконавчий привід (Серво / ШІМ)</tspan><tspan x="620.0" dy="14.3">Компенсаційний поворот: θ_act = -θ_base</tspan></text>
+<line x1="785.0" y1="365.0" x2="805.0" y2="365.0" stroke="#27ae60" stroke-width="1.4"/>
+<line x1="805.0" y1="365.0" x2="805.0" y2="185.0" stroke="#27ae60" stroke-width="1.4"/>
+<line x1="805.0" y1="185.0" x2="780.0" y2="185.0" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="800.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="end" font-style="italic">Замикання горизонту</text>
+</svg>

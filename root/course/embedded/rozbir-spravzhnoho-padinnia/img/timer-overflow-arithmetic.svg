@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія пастки переповнення 16-бітного таймера в C/C++</text>
+<text x="460.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">порівняння коректного модульного віднімання та катастрофи неявного приведення типів</text>
+<rect x="24.0" y="68.0" width="270.0" height="320.0" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="24.0" y="68.0" width="270.0" height="36.0" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="159.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">1. Безпечне: (uint16_t)(now - last)</text>
+<text x="38.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Стан лічильника:</text>
+<text x="38.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• last_heartbeat = 65530 (0xFFFA)</text>
+<text x="38.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• now = 10 (0x000A) [після wrap]</text>
+<text x="38.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• TIMEOUT_MS = 100</text>
+<rect x="34.0" y="205.0" width="250.0" height="70.0" rx="5" fill="#f4f6f8" stroke="#bdc3c7" stroke-width="1.2"/>
+<text x="159.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">uint16_t diff = (uint16_t)(10 - 65530);</text>
+<text x="159.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0x000A - 0xFFFA mod 2^16 = 16</text>
+<text x="159.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">16 &lt;= 100 -&gt; Таймаут НЕ настав</text>
+<rect x="34.0" y="290.0" width="250.0" height="85.0" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="159.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Результат: ПРАВИЛЬНО</text>
+<text x="159.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Беззнакова арифметика за модулем</text>
+<text x="159.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ідеально обробляє перехід через нуль.</text>
+<text x="159.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Зв'язок не переривається.</text>
+<rect x="320.0" y="68.0" width="270.0" height="320.0" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="320.0" y="68.0" width="270.0" height="36.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="455.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">2. Пастка C99: now - last &gt; TIMEOUT</text>
+<text x="334.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Неявне приведення до int32:</text>
+<text x="334.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• (int)now = 10</text>
+<text x="334.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• (int)last = 65530</text>
+<text x="334.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">• 10 - 65530 = -65520 (знакове)</text>
+<rect x="330.0" y="205.0" width="250.0" height="70.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="455.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">if ((now - last) &gt; (uint32_t)TIMEOUT)</text>
+<text x="455.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">(uint32_t)(-65520) = 4 294 901 776</text>
+<text x="455.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">4.29 млрд &gt; 100 -&gt; ХИБНИЙ ТАЙМАУТ!</text>
+<rect x="330.0" y="290.0" width="250.0" height="85.0" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="455.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Результат: КАТАСТРОФА</text>
+<text x="455.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Знаковий мінус перетворюється</text>
+<text x="455.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">на гігантське число 4.29 млрд.</text>
+<text x="455.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Система негайно вмикає аварію.</text>
+<rect x="616.0" y="68.0" width="270.0" height="320.0" rx="8" fill="#ffffff" stroke="#d35400" stroke-width="1.5"/>
+<rect x="616.0" y="68.0" width="270.0" height="36.0" rx="8" fill="#fff3e0" stroke="#e67e22" stroke-width="1.5"/>
+<text x="751.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">3. Пастка: now &gt; last + TIMEOUT</text>
+<text x="630.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-weight="700">Розрахунок точки дедлайну:</text>
+<text x="630.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• last = 65530, TIMEOUT = 100</text>
+<text x="630.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• last + TIMEOUT = 65630 (в int)</text>
+<text x="630.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• now = 10 (після скиду)</text>
+<rect x="626.0" y="205.0" width="250.0" height="70.0" rx="5" fill="#fff8e1" stroke="#f39c12" stroke-width="1.2"/>
+<text x="751.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">if (now &gt; deadline) { ... }</text>
+<text x="751.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">10 &gt; 65630 -&gt; FALSE</text>
+<text x="751.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">Таймаут «заснув» на 65.5 секунд!</text>
+<rect x="626.0" y="290.0" width="250.0" height="85.0" rx="5" fill="#fff3e0" stroke="#e67e22" stroke-width="1.2"/>
+<text x="751.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle" font-weight="700">Результат: СЛІПОТА СТОРОЖА</text>
+<text x="751.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Умова не спрацює, доки лічильник</text>
+<text x="751.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">не зробить повне коло 65 536 мс.</text>
+<text x="751.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle">Захист повністю відключено.</text>
+</svg>

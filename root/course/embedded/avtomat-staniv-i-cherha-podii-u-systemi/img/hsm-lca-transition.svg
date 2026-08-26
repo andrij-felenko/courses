@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Транзакційний перехід у HSM через найменшого спільного предка (LCA)</text>
+<rect x="40.0" y="35.0" width="680.0" height="260.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="60.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Суперстан: Operational (LCA — спільний предок)</text>
+<rect x="65.0" y="80.0" width="290.0" height="195.0" rx="6" fill="#edf2f7" stroke="#4a5568" stroke-width="1.3"/>
+<text x="80.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Джерельний суперстан: Active (S1)</text>
+<rect x="90.0" y="125.0" width="240.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="210.0" y="145.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">Листовий підстан: Measuring (S11)</tspan><tspan x="210.0" dy="13.0">[Поточний активний стан]</tspan><tspan x="210.0" dy="13.0">exit: stop_adc();</tspan></text>
+<text x="210.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Active exit: disable_sensor_power();</text>
+<rect x="405.0" y="80.0" width="290.0" height="195.0" rx="6" fill="#edf2f7" stroke="#4a5568" stroke-width="1.3"/>
+<text x="420.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Цільовий суперстан: Standby (S2)</text>
+<text x="550.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Standby entry: configure_lp_timer();</text>
+<rect x="430.0" y="145.0" width="240.0" height="60.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="550.0" y="165.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="550.0" dy="0.0">Листовий підстан: LowPowerSleep (S21)</tspan><tspan x="550.0" dy="13.0">[Цільовий активний стан]</tspan><tspan x="550.0" dy="13.0">entry: enter_wfi_mode();</tspan></text>
+<text x="550.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-style="italic">Initial Transition -&gt; S21</text>
+<line x1="210.0" y1="125.0" x2="210.0" y2="95.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="145.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">1. Exit S11</text>
+<line x1="355.0" y1="130.0" x2="395.0" y2="130.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="375.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">2. Exit S1</text>
+<line x1="355.0" y1="65.0" x2="405.0" y2="65.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="380.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="middle" font-weight="700">3. Transition Action: log_event()</text>
+<line x1="405.0" y1="100.0" x2="425.0" y2="100.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="375.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">4. Entry S2</text>
+<line x1="550.0" y1="130.0" x2="550.0" y2="143.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="595.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">5. Entry S21</text>
+<rect x="40.0" y="310.0" width="680.0" height="75.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/><text x="380.0" y="337.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Порядок транзакції LCA: (1) Exit із Measuring → (2) Exit із Active → (3) Дія переходу →</tspan><tspan x="380.0" dy="13.7">(4) Entry в Standby → (5) Entry в LowPowerSleep → (6) Виконання Initial переходу вкладеного стану.</tspan><tspan x="380.0" dy="13.7">Гарантія: жоден стан не лишається у напіввідкритому чи недефінійованому стані.</tspan></text>
+<text x="380.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Транзакційний перехід у HSM: порядок виклику дій виходу вгору до LCA та дій входу вниз до цілі</text>
+</svg>

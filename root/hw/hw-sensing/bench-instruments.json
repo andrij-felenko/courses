@@ -137,8 +137,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-active-diff.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-resistive-cable.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-compensation.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "differential-probe",
@@ -173,8 +191,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-scpi-powerup.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "fault-finding",

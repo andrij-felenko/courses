@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія катастрофи: виклик блокуючого API всередині ISR</text>
+<text x="380.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">ланцюжок подій при спробі почекати на повну чергу через xQueueSend(..., portMAX_DELAY)</text>
+<rect x="30.0" y="75.0" width="155.0" height="195.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="107.5" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">1. Виклик в ISR</text>
+<line x1="40.0" y1="111.0" x2="175.0" y2="111.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="107.5" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Обробник кличе звичайний</text>
+<text x="107.5" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">xQueueSend(..., timeout)</text>
+<text x="107.5" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">на заповнену чергу.</text>
+<line x1="188.0" y1="170.0" x2="207.0" y2="170.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="210.0" y="75.0" width="155.0" height="195.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="287.5" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">2. Плутанина TCB</text>
+<line x1="220.0" y1="111.0" x2="355.0" y2="111.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="287.5" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Ядро намагається заблокувати</text>
+<text x="287.5" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">«поточну задачу», але на CPU</text>
+<text x="287.5" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">виконується ISR на MSP!</text>
+<line x1="368.0" y1="170.0" x2="387.0" y2="170.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="390.0" y="75.0" width="155.0" height="195.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="467.5" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">3. Пошкодження стану</text>
+<line x1="400.0" y1="111.0" x2="535.0" y2="111.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="467.5" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Зіпсовано TCB перерваної</text>
+<text x="467.5" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">задачі; NVIC тримає лінію</text>
+<text x="467.5" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">переривання активною.</text>
+<line x1="548.0" y1="170.0" x2="567.0" y2="170.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="570.0" y="75.0" width="155.0" height="195.0" rx="6" fill="#fadbd8" stroke="#c0392b" stroke-width="1.5"/>
+<text x="647.5" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">4. Повний глухий кут</text>
+<line x1="580.0" y1="111.0" x2="715.0" y2="111.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="647.5" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Всі рівні й нижчі IRQ</text>
+<text x="647.5" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">заблоковані залізом; система</text>
+<text x="647.5" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">назавжди зависає.</text>
+<rect x="45.0" y="290.0" width="670.0" height="52.0" rx="6" fill="#fff7e6" stroke="#caa24a" stroke-width="1.5"/><text x="380.0" y="312.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">Правило надійності: в обробниках переривань блокування не просто «повільне» — воно фізично</tspan><tspan x="380.0" dy="13.7">руйнує диспетчеризацію RTOS. Функції FromISR принципово не мають параметра тайм-ауту.</tspan></text>
+</svg>

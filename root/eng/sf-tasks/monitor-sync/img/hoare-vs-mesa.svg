@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння семантики сповіщення: Хоар (1974) проти Mesa (1980)</text>
+<rect x="30.0" y="55.0" width="370.0" height="320.0" rx="8" fill="#fbfcfc" stroke="#2457d6" stroke-width="2.0"/>
+<text x="215.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Семантика Хоара (Signal-and-Wait)</text>
+<text x="215.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Негайна передача замка і контексту</text>
+<rect x="50.0" y="120.0" width="330.0" height="50.0" rx="5" fill="#ebf3fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="215.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">1. Потік A кличе signal()</text>
+<text x="215.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Миттєво блокується і віддає замок</text>
+<line x1="215.0" y1="170.0" x2="215.0" y2="190.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="50.0" y="190.0" width="330.0" height="50.0" rx="5" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="215.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">2. Потік B негайно виконується</text>
+<text x="215.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Предикат гарантовано істинний!</text>
+<line x1="215.0" y1="240.0" x2="215.0" y2="260.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="50.0" y="260.0" width="330.0" height="45.0" rx="5" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="215.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">3. Потік A відновлюється після B</text>
+<text x="215.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Висока ціна перемикання контексту</text>
+<rect x="50.0" y="315.0" width="330.0" height="45.0" rx="5" fill="#ebf3fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="215.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Достатньо перевірки: if (!ready)</text>
+<text x="215.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Жоден інший потік не вклиниться</text>
+<rect x="420.0" y="55.0" width="370.0" height="320.0" rx="8" fill="#fbfcfc" stroke="#c0392b" stroke-width="2.0"/>
+<text x="605.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Семантика Mesa (Signal-and-Continue)</text>
+<text x="605.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Стандарт POSIX, C++, Java, C#, Go</text>
+<rect x="440.0" y="120.0" width="330.0" height="50.0" rx="5" fill="#fdedec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="605.0" y="141.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">1. Потік A кличе signal()</text>
+<text x="605.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">НЕ віддає замок! Продовжує роботу</text>
+<line x1="605.0" y1="170.0" x2="605.0" y2="190.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="440.0" y="190.0" width="330.0" height="50.0" rx="5" fill="#fef5e7" stroke="#d35400" stroke-width="1.5"/>
+<text x="605.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d35400" text-anchor="middle" font-weight="700">2. Потік B переходить у чергу замка</text>
+<text x="605.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Вікно гонки: потік C може вкрасти дані!</text>
+<line x1="605.0" y1="240.0" x2="605.0" y2="260.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="440.0" y="260.0" width="330.0" height="45.0" rx="5" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="605.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">3. Потік B захоплює замок пізніше</text>
+<text x="605.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Ефективно: немає зайвих context switch</text>
+<rect x="440.0" y="315.0" width="330.0" height="45.0" rx="5" fill="#fdedec" stroke="#c0392b" stroke-width="1.5"/>
+<text x="605.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ОБОВ'ЯЗКОВО: while (!ready) wait()</text>
+<text x="605.0" y="351.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Захист від перехоплення та хибних пробуджень</text>
+</svg>

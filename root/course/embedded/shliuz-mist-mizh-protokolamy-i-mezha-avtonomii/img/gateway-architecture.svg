@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія промислового IoT-шлюзу: подвійна природа та локальний мозок</text>
+<rect x="24.0" y="60.0" width="220.0" height="370.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.6"/>
+<text x="134.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">ПОЛЬОВИЙ СЕГМЕНТ</text>
+<text x="134.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(Southbound / OT)</text>
+<rect x="36.0" y="130.0" width="196.0" height="58.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.2"/>
+<text x="134.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">RS-485 / Modbus RTU</text>
+<text x="134.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">PLC, частотники, лічильники</text>
+<rect x="36.0" y="205.0" width="196.0" height="58.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.2"/>
+<text x="134.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">CAN 2.0B / CANopen</text>
+<text x="134.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Сервоприводи, датчики кута</text>
+<rect x="36.0" y="280.0" width="196.0" height="58.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.2"/>
+<text x="134.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">BLE GATT / Beacon</text>
+<text x="134.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Бездротові термодавачі</text>
+<rect x="36.0" y="355.0" width="196.0" height="58.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.2"/>
+<text x="134.0" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">LoRa P2P / 802.15.4</text>
+<text x="134.0" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Віддалені польові зонди</text>
+<rect x="596.0" y="60.0" width="220.0" height="370.0" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.6"/>
+<text x="706.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#059669" text-anchor="middle" font-weight="700">ГЛОБАЛЬНА МЕРЕЖА</text>
+<text x="706.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(Northbound / IT / WAN)</text>
+<rect x="608.0" y="130.0" width="196.0" height="58.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.2"/>
+<text x="706.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">MQTT Broker (TLS)</text>
+<text x="706.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Публікація подій та телеметрії</text>
+<rect x="608.0" y="205.0" width="196.0" height="58.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.2"/>
+<text x="706.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Cloud Time-Series DB</text>
+<text x="706.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">InfluxDB, TimescaleDB, S3</text>
+<rect x="608.0" y="280.0" width="196.0" height="58.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.2"/>
+<text x="706.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">REST / CoAP Сервери</text>
+<text x="706.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Конфігурація, звіти, OTA</text>
+<rect x="608.0" y="355.0" width="196.0" height="58.0" rx="4" fill="#ffffff" stroke="#d1d5db" stroke-width="1.2"/>
+<text x="706.0" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">SCADA / MES Системи</text>
+<text x="706.0" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Диспетчерський нагляд</text>
+<rect x="264.0" y="60.0" width="312.0" height="370.0" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2.2"/>
+<text x="420.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">ІНДУСТРІАЛЬНИЙ ШЛЮЗ (EDGE GATEWAY)</text>
+<text x="420.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Трансляція, автономія та брандмауер</text>
+<rect x="276.0" y="130.0" width="288.0" height="52.0" rx="5" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+<text x="420.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Драйвери польових шин та опитувачі</text>
+<text x="420.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Polling Master, RX/TX Ring Buffers</text>
+<rect x="276.0" y="195.0" width="288.0" height="52.0" rx="5" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="420.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Нормалізація та транслятор форматів</text>
+<text x="420.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Бінарні регістри → JSON / CBOR / Топіки</text>
+<rect x="276.0" y="260.0" width="288.0" height="52.0" rx="5" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+<text x="420.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Локальний рушій правил (Edge Autonomy)</text>
+<text x="420.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Аварійні пороги, прямий зворотний зв'язок</text>
+<rect x="276.0" y="325.0" width="288.0" height="52.0" rx="5" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="420.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. Store-and-Forward буфер (NVRAM/Flash)</text>
+<text x="420.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Захист від блекаутів WAN, черга відправки</text>
+<line x1="232.0" y1="159.0" x2="276.0" y2="159.0" stroke="#d97706" stroke-width="1.8"/>
+<line x1="268.0" y1="159.0" x2="276.0" y2="159.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="232.0" y1="234.0" x2="276.0" y2="234.0" stroke="#d97706" stroke-width="1.8"/>
+<line x1="268.0" y1="234.0" x2="276.0" y2="234.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="232.0" y1="309.0" x2="276.0" y2="309.0" stroke="#d97706" stroke-width="1.8"/>
+<line x1="268.0" y1="309.0" x2="276.0" y2="309.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="232.0" y1="384.0" x2="276.0" y2="384.0" stroke="#d97706" stroke-width="1.8"/>
+<line x1="268.0" y1="384.0" x2="276.0" y2="384.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="564.0" y1="159.0" x2="608.0" y2="159.0" stroke="#059669" stroke-width="1.8"/>
+<line x1="600.0" y1="159.0" x2="608.0" y2="159.0" stroke="#059669" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="564.0" y1="234.0" x2="608.0" y2="234.0" stroke="#059669" stroke-width="1.8"/>
+<line x1="600.0" y1="234.0" x2="608.0" y2="234.0" stroke="#059669" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="564.0" y1="309.0" x2="608.0" y2="309.0" stroke="#059669" stroke-width="1.8"/>
+<line x1="600.0" y1="309.0" x2="608.0" y2="309.0" stroke="#059669" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="564.0" y1="384.0" x2="608.0" y2="384.0" stroke="#059669" stroke-width="1.8"/>
+<line x1="600.0" y1="384.0" x2="608.0" y2="384.0" stroke="#059669" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="420.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Шлюз ізолює не-IP пристрої від WAN, перетворює моделі зв'язку та керує аваріями при обриві зв'язку</text>
+</svg>

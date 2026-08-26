@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура монітора: м'ютекс, спільний стан та умовні змінні</text>
+<rect x="20.0" y="140.0" width="150.0" height="220.0" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="95.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхідна черга</text>
+<text x="95.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(чекають на м'ютекс)</text>
+<rect x="30.0" y="205.0" width="130.0" height="34.0" rx="6" fill="#ebf3fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="95.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Потік T₃</text>
+<rect x="30.0" y="248.0" width="130.0" height="34.0" rx="6" fill="#ebf3fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="95.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Потік T₄</text>
+<rect x="30.0" y="291.0" width="130.0" height="34.0" rx="6" fill="#ebf3fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="95.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Потік T₅</text>
+<line x1="170.0" y1="250.0" x2="188.0" y2="250.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="190.0" y="220.0" width="55.0" height="60.0" rx="6" fill="#fdedec" stroke="#c0392b" stroke-width="2.0"/>
+<text x="217.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Замок</text>
+<text x="217.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Mutex</text>
+<line x1="245.0" y1="250.0" x2="265.0" y2="250.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="265.0" y="60.0" width="555.0" height="390.0" rx="12" fill="#fdfefe" stroke="#333333" stroke-width="2.0"/>
+<text x="542.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#333333" text-anchor="middle" font-weight="700">Область монітора (взаємне виключення)</text>
+<rect x="285.0" y="110.0" width="225.0" height="160.0" rx="8" fill="#eaf2f8" stroke="#2457d6" stroke-width="2.0"/>
+<text x="397.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Активна критична секція</text>
+<text x="397.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(максимум 1 потік)</text>
+<rect x="305.0" y="175.0" width="185.0" height="42.0" rx="6" fill="#ebf3fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="397.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Потік T₁ (виконується)</text>
+<text x="397.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-style="italic">Викликає wait() / signal()</text>
+<rect x="285.0" y="295.0" width="225.0" height="135.0" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="2.0"/>
+<text x="397.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Спільний стан (Дані)</text>
+<text x="397.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Буфер завдань: queue</text>
+<text x="397.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Лічильник: count = 0</text>
+<text x="397.0" y="391.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">• Прапорець: shutdown = false</text>
+<text x="397.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Захищений м'ютексом</text>
+<rect x="540.0" y="110.0" width="255.0" height="150.0" rx="8" fill="#f4ecf7" stroke="#8e44ad" stroke-width="2.0"/>
+<text x="667.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8e44ad" text-anchor="middle" font-weight="700">Умовна змінна: not_empty</text>
+<text x="667.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Черга сплячих споживачів</text>
+<rect x="560.0" y="172.0" width="215.0" height="32.0" rx="5" fill="#ffffff" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="667.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="middle">Потік T₂ (чекає count &gt; 0)</text>
+<rect x="560.0" y="212.0" width="215.0" height="32.0" rx="5" fill="#ffffff" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="667.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="middle">Потік T₆ (чекає count &gt; 0)</text>
+<rect x="540.0" y="280.0" width="255.0" height="150.0" rx="8" fill="#fef5e7" stroke="#d35400" stroke-width="2.0"/>
+<text x="667.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">Умовна змінна: not_full</text>
+<text x="667.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Черга сплячих виробників</text>
+<rect x="560.0" y="345.0" width="215.0" height="32.0" rx="5" fill="#ffffff" stroke="#d35400" stroke-width="1.5"/>
+<text x="667.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle">Потік T₇ (чекає count &lt; N)</text>
+<text x="667.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">[порожньо — місця вистачає]</text>
+<line x1="510.0" y1="175.0" x2="540.0" y2="160.0" stroke="#8e44ad" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="525.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8e44ad" text-anchor="middle" font-weight="700">wait()</text>
+<line x1="510.0" y1="215.0" x2="540.0" y2="225.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="525.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">signal()</text>
+</svg>

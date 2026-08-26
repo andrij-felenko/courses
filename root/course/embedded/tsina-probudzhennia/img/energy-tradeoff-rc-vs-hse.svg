@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 880 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="880" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="860.0" height="430.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="90.0" y="55.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Стратегія А: Запуск кварцу HSE (80 МГц) для вибірки АЦП (50 мкс)</text>
+<line x1="80.0" y1="140.0" x2="820.0" y2="140.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="80.0" y1="160.0" x2="80.0" y2="80.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="70.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">I (мА)</text>
+<polygon points="80.0,140.0 80.0,115.0 380.0,115.0 380.0,85.0 405.0,85.0 405.0,140.0" fill="#fee2e2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="230.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Розгін кварцу (2.0 мс @ 2.5 мА)</text>
+<text x="415.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Вимір (8 мА)</text>
+<rect x="511.1" y="94.5" width="217.8" height="31.0" rx="6" fill="#fff1f2" stroke="#c0392b" stroke-width="1.2"/><text x="620.0" y="113.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">Q_hse ≈ 5.16 мкКл (17.0 мкДж)</tspan></text>
+<text x="90.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Стратегія Б: Виконання на швидкому RC-генераторі (16 МГц, старт 2 мкс)</text>
+<line x1="80.0" y1="280.0" x2="820.0" y2="280.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="80.0" y1="300.0" x2="80.0" y2="220.0" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="70.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end" font-weight="700">I (мА)</text>
+<polygon points="80.0,280.0 80.0,265.0 90.0,265.0 90.0,248.0 125.0,248.0 125.0,280.0" fill="#dcfce7" stroke="#27ae60" stroke-width="1.8"/>
+<text x="138.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Старт RC (2 мкс) + Вимір (100 мкс @ 3 мА)</text>
+<rect x="514.5" y="234.5" width="211.0" height="31.0" rx="6" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.2"/><text x="620.0" y="253.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">Q_rc ≈ 0.30 мкКл (0.99 мкДж)</tspan></text>
+<rect x="95.2" y="354.0" width="689.6" height="32.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="440.0" y="374.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">Висновок: Для коротких періодичних дій швидкий RC-генератор виграє в 17 разів за енергією!</tspan></text>
+</svg>

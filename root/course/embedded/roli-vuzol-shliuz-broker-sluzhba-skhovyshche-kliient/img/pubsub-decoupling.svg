@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три виміри розв'язки (Decoupling) у патерні Publish / Subscribe</text>
+<rect x="30.0" y="52.0" width="230.0" height="190.0" rx="6" fill="#fbfcfd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="145.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1. Просторова (Spatial)</text>
+<line x1="40.0" y1="84.0" x2="250.0" y2="84.0" stroke="#2457d6" stroke-width="1.0"/>
+<text x="44.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Видавець НЕ знає адреси</text>
+<text x="44.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">й кількості підписників.</text>
+<text x="44.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Шлюз публікує в топік:</text>
+<text x="44.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start" font-weight="700">  telemetry/site1/temp</text>
+<text x="44.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Хто слухає — визначає</text>
+<text x="44.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">лише конфігурація брокера.</text>
+<rect x="285.0" y="52.0" width="230.0" height="190.0" rx="6" fill="#fbfcfd" stroke="#8e44ad" stroke-width="1.6"/>
+<text x="400.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8e44ad" text-anchor="middle" font-weight="700">2. Часова (Temporal)</text>
+<line x1="295.0" y1="84.0" x2="505.0" y2="84.0" stroke="#8e44ad" stroke-width="1.0"/>
+<text x="299.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Відправник і отримувач</text>
+<text x="299.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">НЕ мусять бути онлайн разом.</text>
+<text x="299.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Служба бекенду на рестарті;</text>
+<text x="299.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Брокер тримає чергу сесії.</text>
+<text x="299.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Служба піднялася — отримала</text>
+<text x="299.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">всі накопичені пакети (QoS 1).</text>
+<rect x="540.0" y="52.0" width="230.0" height="190.0" rx="6" fill="#fbfcfd" stroke="#16a085" stroke-width="1.6"/>
+<text x="655.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#16a085" text-anchor="middle" font-weight="700">3. Синхронізаційна</text>
+<line x1="550.0" y1="84.0" x2="760.0" y2="84.0" stroke="#16a085" stroke-width="1.0"/>
+<text x="554.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Відправка НЕ блокує процес</text>
+<text x="554.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">довгим очікуванням диска.</text>
+<text x="554.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Шлюз віддав пакет брокеру</text>
+<text x="554.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">й миттєво вільний опитувати</text>
+<text x="554.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">наступний польовий датчик,</text>
+<text x="554.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">поки база пише на SSD.</text>
+<rect x="30.0" y="260.0" width="720.0" height="140.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.4"/>
+<rect x="50.0" y="280.0" width="130.0" height="42.0" rx="6" fill="#eef3fc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="115.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шлюз A (LoRa)</text>
+<text x="115.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">pub: site1/sensor</text>
+<rect x="50.0" y="336.0" width="130.0" height="42.0" rx="6" fill="#eef3fc" stroke="#2457d6" stroke-width="1.5"/>
+<text x="115.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шлюз B (BLE)</text>
+<text x="115.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">pub: site2/sensor</text>
+<rect x="290.0" y="278.0" width="180.0" height="102.0" rx="6" fill="#f7f0fc" stroke="#8e44ad" stroke-width="2.2"/>
+<text x="380.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8e44ad" text-anchor="middle" font-weight="700">MQTT БРОКЕР</text>
+<text x="380.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Дерево тем (Topics)</text>
+<text x="380.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Черги клієнтів QoS 1</text>
+<text x="380.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Маршрутизація пакета</text>
+<line x1="180.0" y1="301.0" x2="286.0" y2="315.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="276.0" y1="314.0" x2="288.0" y2="316.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="180.0" y1="357.0" x2="286.0" y2="340.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="276.0" y1="342.0" x2="288.0" y2="339.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="580.0" y="272.0" width="150.0" height="34.0" rx="6" fill="#eef9f6" stroke="#16a085" stroke-width="1.5"/>
+<text x="655.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Служба запису в TSDB</text>
+<rect x="580.0" y="314.0" width="150.0" height="34.0" rx="6" fill="#eef9f6" stroke="#16a085" stroke-width="1.5"/>
+<text x="655.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Служба тривог (Alerts)</text>
+<rect x="580.0" y="356.0" width="150.0" height="34.0" rx="6" fill="#edf8f1" stroke="#27ae60" stroke-width="1.5"/>
+<text x="655.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Web Live Dashboard</text>
+<line x1="470.0" y1="310.0" x2="576.0" y2="289.0" stroke="#8e44ad" stroke-width="1.8"/>
+<line x1="566.0" y1="291.0" x2="578.0" y2="288.0" stroke="#8e44ad" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="470.0" y1="330.0" x2="576.0" y2="331.0" stroke="#8e44ad" stroke-width="1.8"/>
+<line x1="566.0" y1="331.0" x2="578.0" y2="331.0" stroke="#8e44ad" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="470.0" y1="348.0" x2="576.0" y2="372.0" stroke="#8e44ad" stroke-width="1.8"/>
+<line x1="566.0" y1="370.0" x2="578.0" y2="373.0" stroke="#8e44ad" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

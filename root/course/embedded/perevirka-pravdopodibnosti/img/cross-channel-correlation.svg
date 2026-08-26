@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="22.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Багатофакторна перехресна кореляція фізичних каналів</text>
+<rect x="35.0" y="50.0" width="360.0" height="270.0" rx="6" fill="#fafbfc" stroke="#d0d4dc" stroke-width="1.2"/>
+<text x="215.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1. Енергосистема: V_bat проти I_load</text>
+<text x="215.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Закон Ома: V = E_ocv - I · R_int</text>
+<rect x="65.0" y="105.0" width="305.0" height="170.0" rx="6" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.0"/>
+<line x1="65.0" y1="190.0" x2="370.0" y2="190.0" stroke="#f0f2f5" stroke-width="1.0"/>
+<polyline points="80.0,165.0 155.0,165.0 175.0,125.0 285.0,125.0 305.0,165.0 355.0,165.0" fill="none" stroke="#b9770e" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="225.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b9770e" text-anchor="middle" font-weight="700">Струм I (пуск мотора)</text>
+<polyline points="80.0,205.0 155.0,205.0 175.0,250.0 285.0,250.0 305.0,205.0 355.0,205.0" fill="none" stroke="#27ae60" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="225.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Напруга V (фізичне просідання)</text>
+<polyline points="155.0,205.0 175.0,185.0 285.0,185.0" fill="none" stroke="#c0392b" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="3,3"/>
+<text x="300.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Неможливо!</text>
+<text x="215.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Якщо I росте, V не може зростати</text>
+<rect x="425.0" y="50.0" width="360.0" height="270.0" rx="6" fill="#fafbfc" stroke="#d0d4dc" stroke-width="1.2"/>
+<text x="605.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8e44ad" text-anchor="middle" font-weight="700">2. Навігація: Барометр проти IMU az</text>
+<text x="605.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Кінематика: d2h/dt2 ≈ az - g</text>
+<rect x="455.0" y="105.0" width="305.0" height="170.0" rx="6" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.0"/>
+<line x1="455.0" y1="190.0" x2="760.0" y2="190.0" stroke="#f0f2f5" stroke-width="1.0"/>
+<polyline points="470.0,165.0 535.0,165.0 555.0,130.0 655.0,130.0 675.0,165.0 745.0,165.0" fill="none" stroke="#2457d6" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="605.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">IMU az (+2g вгору)</text>
+<polyline points="470.0,245.0 535.0,245.0 605.0,220.0 675.0,200.0 745.0,195.0" fill="none" stroke="#27ae60" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="695.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Баро h (росте)</text>
+<polyline points="535.0,245.0 605.0,260.0 675.0,265.0" fill="none" stroke="#c0392b" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="3,3"/>
+<text x="615.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Баро падає (динамічний підпір)</text>
+<text x="605.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">При az &gt; g висота h не може падати</text>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 840 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="840" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія теплової стійкості елементів кола короткого замикання</text>
+<rect x="0.0" y="0.0" width="820.0" height="390.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="410.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ієрархія швидкості та стійкості до руйнування при аварійному КЗ</text>
+<rect x="40.0" y="50.0" width="740.0" height="58.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.3"/>
+<text x="55.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">1. Кристал MOSFET (BMS)</text>
+<text x="300.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Час: 10 – 50 мкс</text>
+<text x="460.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Межа: I²t ≈ 50 – 300 А²·с</text>
+<text x="55.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Маса кремнію — частки міліграма. При затримці вимкнення заходить у лінійний режим, миттєва потужність &gt;50 кВт випаровує перехід, спікаючи стік-витік у монолітне КЗ.</text>
+<rect x="40.0" y="116.0" width="740.0" height="58.0" rx="4" fill="#fdf2e9" stroke="#e67e22" stroke-width="1.3"/>
+<text x="55.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#e67e22" text-anchor="start" font-weight="700">2. Доріжки плати (PCB Traces)</text>
+<text x="300.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Час: 0.5 – 5 мс</text>
+<text x="460.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Межа: I²t ≈ 500 – 2500 А²·с</text>
+<text x="55.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Тонка мідь (35–70 мкм) за формулою Ондердонка миттєво плавиться, відшаровується від діелектрика FR-4 і вибухає спалахом металевої пари.</text>
+<rect x="40.0" y="182.0" width="740.0" height="58.0" rx="4" fill="#eafaf0" stroke="#27ae60" stroke-width="1.3"/>
+<text x="55.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">3. Плавкий DC-запобіжник</text>
+<text x="300.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Час: 0.5 – 3 мс</text>
+<text x="460.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Межа: I²t_fuse &lt; I²t_провідника</text>
+<text x="55.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Срібна калібрована вставка плавиться в кварцовому піску, гасячи дугу та розриваючи коло ДО термічного руйнування кабелів і шин.</text>
+<rect x="40.0" y="248.0" width="740.0" height="58.0" rx="4" fill="#f3e5f5" stroke="#8e44ad" stroke-width="1.3"/>
+<text x="55.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#8e44ad" text-anchor="start" font-weight="700">4. Міжкоміркові нікелеві шини</text>
+<text x="300.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Час: 100 – 500 мс</text>
+<text x="460.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Межа: I²t &gt; 10 000 А²·с</text>
+<text x="55.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Високий питомий опір нікелю призводить до розжарення до 1000 °C. Плавить ізоляцію комірок і пластикові тримачі, провокуючи каскадне коротке замикання.</text>
+<rect x="40.0" y="314.0" width="740.0" height="58.0" rx="4" fill="#f5f5f5" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="55.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">5. Акумуляторні комірки (Li-ion)</text>
+<text x="300.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Час: 1 – 10 с</text>
+<text x="460.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Межа: Тепловий розгін</text>
+<text x="55.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Масивний хімічний нагрів від внутрішнього опору R_cell. Спрацьовує струмовий розмикач CID, скидається мембрана тиску (venting), виникає незворотний тепловий розгін.</text>
+</svg>

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Осцилограма багатоканального стробування GPIO в системі з RTOS</text>
+<text x="165.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">EXTI / Sensor IRQ</text>
+<line x1="180.0" y1="90.0" x2="820.0" y2="90.0" stroke="#d0d0d0" stroke-width="1.0"/>
+<text x="165.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">GPIO D0: ISR Handler</text>
+<line x1="180.0" y1="150.0" x2="820.0" y2="150.0" stroke="#d0d0d0" stroke-width="1.0"/>
+<text x="165.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d4ac0d" text-anchor="end" font-weight="700">GPIO D1: RTOS PendSV</text>
+<line x1="180.0" y1="210.0" x2="820.0" y2="210.0" stroke="#d0d0d0" stroke-width="1.0"/>
+<text x="165.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">GPIO D2: Task Motor [High]</text>
+<line x1="180.0" y1="270.0" x2="820.0" y2="270.0" stroke="#d0d0d0" stroke-width="1.0"/>
+<text x="165.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="end" font-weight="700">GPIO D3: Task Comm [Low]</text>
+<line x1="180.0" y1="330.0" x2="820.0" y2="330.0" stroke="#d0d0d0" stroke-width="1.0"/>
+<polyline points="180,90 240,90 240,70 255,70 255,90 820,90" fill="none" stroke="#c0392b" stroke-width="2"/>
+<polyline points="180,150 270,150 270,130 340,130 340,150 820,150" fill="none" stroke="#c0392b" stroke-width="2"/>
+<polyline points="180,210 348,210 348,190 393,190 393,210 820,210" fill="none" stroke="#d4ac0d" stroke-width="2"/>
+<polyline points="180,270 393,270 393,250 633,250 633,270 820,270" fill="none" stroke="#27ae60" stroke-width="2"/>
+<polyline points="180,310 240,310 240,330 663,330 663,310 820,310" fill="none" stroke="#2457d6" stroke-width="2"/>
+<line x1="240.0" y1="55.0" x2="240.0" y2="165.0" stroke="#e74c3c" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="270.0" y1="55.0" x2="270.0" y2="165.0" stroke="#e74c3c" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="240.0" y1="58.0" x2="270.0" y2="58.0" stroke="#e74c3c" stroke-width="1.5"/>
+<text x="255.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e74c3c" text-anchor="middle" font-weight="700">T_irq_lat (1.4 мкс)</text>
+<line x1="270.0" y1="120.0" x2="340.0" y2="120.0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="305.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">T_isr (3.8 мкс)</text>
+<line x1="348.0" y1="180.0" x2="393.0" y2="180.0" stroke="#b7950b" stroke-width="1.5"/>
+<text x="370.5" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b7950b" text-anchor="middle" font-weight="700">T_ctx (2.1 мкс)</text>
+<line x1="393.0" y1="240.0" x2="633.0" y2="240.0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="513.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">T_task (18.6 мкс)</text>
+<line x1="180.0" y1="360.0" x2="820.0" y2="360.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="180.0" y1="355.0" x2="180.0" y2="365.0" stroke="#333333" stroke-width="1.2"/>
+<text x="180.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0.0 мкс</text>
+<line x1="260.0" y1="355.0" x2="260.0" y2="365.0" stroke="#333333" stroke-width="1.2"/>
+<text x="260.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">8.0 мкс</text>
+<line x1="340.0" y1="355.0" x2="340.0" y2="365.0" stroke="#333333" stroke-width="1.2"/>
+<text x="340.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">16.0 мкс</text>
+<line x1="420.0" y1="355.0" x2="420.0" y2="365.0" stroke="#333333" stroke-width="1.2"/>
+<text x="420.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">24.0 мкс</text>
+<line x1="500.0" y1="355.0" x2="500.0" y2="365.0" stroke="#333333" stroke-width="1.2"/>
+<text x="500.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">32.0 мкс</text>
+<line x1="580.0" y1="355.0" x2="580.0" y2="365.0" stroke="#333333" stroke-width="1.2"/>
+<text x="580.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">40.0 мкс</text>
+<line x1="660.0" y1="355.0" x2="660.0" y2="365.0" stroke="#333333" stroke-width="1.2"/>
+<text x="660.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">48.0 мкс</text>
+<line x1="740.0" y1="355.0" x2="740.0" y2="365.0" stroke="#333333" stroke-width="1.2"/>
+<text x="740.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">56.0 мкс</text>
+<line x1="820.0" y1="355.0" x2="820.0" y2="365.0" stroke="#333333" stroke-width="1.2"/>
+<text x="820.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">64.0 мкс</text>
+</svg>

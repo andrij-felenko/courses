@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пастки RPC у вбудованих системах: Deadlock та деградація пулу потоків</text>
+<text x="460.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">чому синхронний виклик у повільних та нестабільних каналах призводить до системного колапсу</text>
+<rect x="40.0" y="80.0" width="400.0" height="345.0" rx="8" fill="#fffaf9" stroke="#c0392b" stroke-width="1.5"/>
+<text x="240.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">1. Циклічний Deadlock між вузлами</text>
+<rect x="70.0" y="145.0" width="130.0" height="80.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="135.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол А (MCU 1)</text>
+<text x="135.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Потік 1: RPC call B</text>
+<text x="135.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">[Очікує Вузол Б...]</text>
+<rect x="280.0" y="145.0" width="130.0" height="80.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="345.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол Б (MCU 2)</text>
+<text x="345.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Потік 2: RPC call A</text>
+<text x="345.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">[Очікує Вузол А...]</text>
+<line x1="200.0" y1="170.0" x2="280.0" y2="170.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="240.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">RPC Req (A → B)</text>
+<line x1="280.0" y1="205.0" x2="200.0" y2="205.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="240.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">RPC Req (B → A)</text>
+<rect x="60.0" y="255.0" width="360.0" height="145.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="240.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Механізм глухого кута:</text>
+<text x="240.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Вузол А заблокував свій єдиний робочий потік</text>
+<text x="240.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Вузол Б не може відповісти, бо викликає А</text>
+<text x="240.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">• Серверні обробники не мають вільних потоків</text>
+<text x="240.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Обидва мікроконтролери зависають назавжди!</text>
+<rect x="480.0" y="80.0" width="400.0" height="345.0" rx="8" fill="#fffaf9" stroke="#c0392b" stroke-width="1.5"/>
+<text x="680.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">2. Вичерпання пулу задач RTOS</text>
+<rect x="505.0" y="140.0" width="350.0" height="36.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="518.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Task 1 (Sensor RPC)</text>
+<text x="842.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">BLOCKED (чекає радіопакет)</text>
+<rect x="505.0" y="184.0" width="350.0" height="36.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="518.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Task 2 (Config RPC)</text>
+<text x="842.0" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">BLOCKED (чекає радіопакет)</text>
+<rect x="505.0" y="228.0" width="350.0" height="36.0" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="518.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Task 3 (Cloud RPC)</text>
+<text x="842.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">BLOCKED (чекає радіопакет)</text>
+<rect x="505.0" y="272.0" width="350.0" height="36.0" rx="5" fill="#ffffff" stroke="#991b1b" stroke-width="1.2"/>
+<text x="518.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Task 4 (Motor Loop)</text>
+<text x="842.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="end" font-weight="700">STARVED (черга переповнена)</text>
+<rect x="500.0" y="330.0" width="360.0" height="70.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="680.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Каскадна відмова:</text>
+<text x="680.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Затримка радіоканалу заморожує критичні задачі керування</text>
+<line x1="50.0" y1="445.0" x2="870.0" y2="445.0" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="4,4"/>
+<text x="460.0" y="466.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">У ненадійних радіоканалах синхронний RPC перетворює випадкові втрати зв'язку на системний Deadlock.</text>
+</svg>

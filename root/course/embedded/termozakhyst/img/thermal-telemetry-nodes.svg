@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="780.0" height="440.0" rx="10" fill="#f8fafc" stroke="#0f172a" stroke-width="2.0"/>
+<text x="410.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#0f172a" text-anchor="middle" font-weight="700">Архітектура температурної телеметрії у вбудованій системі</text>
+<rect x="40.0" y="75.0" width="230.0" height="225.0" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.8"/>
+<text x="155.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1d4ed8" text-anchor="middle" font-weight="700">Кристал MCU / SoC (T_j)</text>
+<rect x="55.0" y="118.0" width="200.0" height="48.0" rx="5" fill="#ffffff" stroke="#93c5fd" stroke-width="1.0"/>
+<text x="155.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle" font-weight="700">Вбудований p-n перехід</text>
+<text x="155.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#3b82f6" text-anchor="middle">Калібрування: TS_CAL1/2</text>
+<text x="155.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">Теплова стала: τ ≈ 20–50 мс</text>
+<text x="155.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Швидкий відгук на частоту</text>
+<text x="155.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Локальний градієнт ядра</text>
+<text x="155.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="middle" font-weight="700">Межа: T_max = +105 °C</text>
+<text x="155.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">Телеметрія: Внутрішній АЦП</text>
+<rect x="295.0" y="75.0" width="230.0" height="225.0" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.8"/>
+<text x="410.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b91c1c" text-anchor="middle" font-weight="700">Силовий каскад (T_fet)</text>
+<rect x="310.0" y="118.0" width="200.0" height="48.0" rx="5" fill="#ffffff" stroke="#fca5a5" stroke-width="1.0"/>
+<text x="410.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#991b1b" text-anchor="middle" font-weight="700">SMD NTC на мідному стоку</text>
+<text x="410.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ef4444" text-anchor="middle">Пакет 0603 / 0402 біля Drain</text>
+<text x="410.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">Теплова стала: τ ≈ 1–3 с</text>
+<text x="410.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Втрати I²R + комутація</text>
+<text x="410.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Залежить від струму мотора</text>
+<text x="410.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="middle" font-weight="700">Межа: T_max = +90 °C</text>
+<text x="410.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">Телеметрія: Дільник на АЦП</text>
+<rect x="550.0" y="75.0" width="230.0" height="225.0" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.8"/>
+<text x="665.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="middle" font-weight="700">Акумулятор (T_batt)</text>
+<rect x="565.0" y="118.0" width="200.0" height="48.0" rx="5" fill="#ffffff" stroke="#fcd34d" stroke-width="1.0"/>
+<text x="665.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#92400e" text-anchor="middle" font-weight="700">NTC терморезистор у паку</text>
+<text x="665.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#f59e0b" text-anchor="middle">Контакт із тілом комірки</text>
+<text x="665.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="700">Теплова стала: τ ≈ 30–90 с</text>
+<text x="665.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Велика теплоємність комірки</text>
+<text x="665.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Захист від теплового розгону</text>
+<text x="665.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="middle" font-weight="700">Межа: T_max = +60 °C</text>
+<text x="665.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">Телеметрія: BMS / АЦП вхід</text>
+<line x1="155.0" y1="300.0" x2="260.0" y2="345.0" stroke="#2563eb" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="410.0" y1="300.0" x2="410.0" y2="345.0" stroke="#dc2626" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="665.0" y1="300.0" x2="560.0" y2="345.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="180.0" y="350.0" width="460.0" height="95.0" rx="8" fill="#ffffff" stroke="#0f172a" stroke-width="2.0"/>
+<text x="410.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">Блок узгодження теплового профілю (Thermal Envelope Engine)</text>
+<text x="410.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle" font-weight="700">Нормалізація: e_i = T_i / T_limit_i  |  e_worst = max(e_die, e_fet, e_batt)</text>
+<text x="410.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#047857" text-anchor="middle">Вихід на скінченний автомат FSM + ПІ-регулятор обмеження потужності</text>
+</svg>

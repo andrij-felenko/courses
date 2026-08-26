@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-59.6 -10 919.6 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-59.6" y="-10" width="919.6" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вплив вологості на газовий сенсор та алгоритм обчислення компенсації</text>
+<line x1="90.0" y1="310.0" x2="395.0" y2="310.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="90.0" y1="310.0" x2="90.0" y2="70.0" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="395.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Абсолютна вологість AH (г/м³)</text>
+<text x="80.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end" font-weight="700">Rs / R₀ (відносний опір)</text>
+<line x1="110.0" y1="110.0" x2="350.0" y2="190.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="360.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">15 °C</text>
+<line x1="110.0" y1="140.0" x2="350.0" y2="230.0" stroke="#27ae60" stroke-width="2.2"/>
+<text x="360.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">25 °C</text>
+<line x1="110.0" y1="170.0" x2="350.0" y2="265.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="360.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">35 °C</text>
+<text x="210.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Паразитна чутливість до води: H₂O</text>
+<text x="210.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">витісняє O⁻ і знижує Rs (хибний газ)</text>
+<rect x="460.0" y="60.0" width="360.0" height="310.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<rect x="533.3" y="69.0" width="213.4" height="32.0" rx="6" fill="#fff" stroke="#7c3aed" stroke-width="1.5"/><text x="640.0" y="89.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="640.0" dy="0.0">Тракт цифрової компенсації</tspan></text>
+<rect x="480.0" y="115.0" width="140.0" height="45.0" rx="6" fill="#e0f2fe" stroke="#2457d6" stroke-width="1.5"/><text x="550.0" y="134.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="550.0" dy="0.0">Давач T / RH</tspan><tspan x="550.0" dy="13.7">(SHT40 / BME280)</tspan></text>
+<rect x="660.0" y="115.0" width="140.0" height="45.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="730.0" y="134.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="730.0" dy="0.0">Сирий MOX ADC</tspan><tspan x="730.0" dy="13.7">(Rs_raw)</tspan></text>
+<line x1="550.0" y1="160.0" x2="550.0" y2="185.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="480.0" y="185.0" width="140.0" height="50.0" rx="6" fill="#fff" stroke="#6b7280" stroke-width="1.5"/><text x="550.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="550.0" dy="0.0">Формула Магнуса:</tspan><tspan x="550.0" dy="13.0">AH = f(T, RH) [г/м³]</tspan></text>
+<line x1="550.0" y1="235.0" x2="630.0" y2="260.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="730.0" y1="160.0" x2="650.0" y2="260.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="520.0" y="260.0" width="240.0" height="50.0" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/><text x="640.0" y="281.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="640.0" dy="0.0">Коректор опору:</tspan><tspan x="640.0" dy="13.7">R_comp = Rs_raw · K(T, AH)</tspan></text>
+<line x1="640.0" y1="310.0" x2="640.0" y2="335.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="640.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Істинна концентрація газу (ppm / VOC Index)</text>
+</svg>

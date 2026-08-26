@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фазинг парсерів із контролем покриття (Coverage-Guided Fuzzing)</text>
+<text x="440.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">еволюційний пошук вразливостей пам'яті та зависань за допомогою LLVM LibFuzzer / AFL++</text>
+<rect x="40.0" y="100.0" width="170.0" height="200.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="125.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Корпус тестів</text>
+<text x="125.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(Seed Corpus)</text>
+<rect x="55.0" y="165.0" width="140.0" height="32.0" rx="4" fill="#e0f2fe" stroke="#2457d6" stroke-width="1.0"/>
+<text x="125.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">seed_01.bin (Heartbeat)</text>
+<rect x="55.0" y="205.0" width="140.0" height="32.0" rx="4" fill="#e0f2fe" stroke="#2457d6" stroke-width="1.0"/>
+<text x="125.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">seed_02.bin (Telemetry)</text>
+<rect x="55.0" y="245.0" width="140.0" height="32.0" rx="4" fill="#e0f2fe" stroke="#2457d6" stroke-width="1.0"/>
+<text x="125.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">seed_03.bin (ConfigSet)</text>
+<line x1="210.0" y1="200.0" x2="245.0" y2="200.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="250.0" y="100.0" width="180.0" height="200.0" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+<text x="340.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="700">Двигун мутацій</text>
+<text x="340.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(Mutator Engine)</text>
+<text x="265.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Випадковий Bitflip</text>
+<text x="265.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Вставка цікавих цілих:</text>
+<text x="275.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="start" font-weight="700">0, -1, 255, 0x7FFF, 0xFFFF</text>
+<text x="265.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Склеювання пакетів (Splice)</text>
+<text x="265.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Видалення байтів стафінгу</text>
+<text x="265.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">• Роздування розміру (Overflow)</text>
+<line x1="430.0" y1="200.0" x2="465.0" y2="200.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="470.0" y="75.0" width="210.0" height="245.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="575.0" y="101.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">LLVMFuzzerTestOneInput</text>
+<text x="575.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Парсер прошивки з Clang інструментацією</text>
+<rect x="485.0" y="135.0" width="180.0" height="42.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="575.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кадрувальник (COBS/SLIP)</text>
+<text x="575.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">декодування потоку</text>
+<rect x="485.0" y="185.0" width="180.0" height="42.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="575.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Валідатор заголовка &amp; CRC</text>
+<text x="575.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">перевірка полів, версій, сум</text>
+<rect x="485.0" y="235.0" width="180.0" height="42.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="575.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розбір тіла (TLV / Struct)</text>
+<text x="575.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">заповнення структур даних</text>
+<rect x="485.0" y="285.0" width="180.0" height="24.0" rx="4" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="575.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ASan + UBSan + LibFuzzer</text>
+<line x1="575.0" y1="320.0" x2="575.0" y2="365.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="575.0" y1="365.0" x2="125.0" y2="365.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="125.0" y1="365.0" x2="125.0" y2="300.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="305.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">✔ Нове покриття гілок коду (New Edge Covered) -&gt; Зберегти у корпус</text>
+<line x1="680.0" y1="200.0" x2="720.0" y2="200.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="700.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Аварія!</text>
+<rect x="720.0" y="120.0" width="135.0" height="160.0" rx="8" fill="#fee2e2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="787.5" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Звіт про падіння</text>
+<text x="787.5" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">(Crash Artifacts)</text>
+<text x="730.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Heap overflow</text>
+<text x="730.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Stack buffer oob</text>
+<text x="730.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Infinite loop</text>
+<text x="730.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Null ptr deref</text>
+<text x="730.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">crash-minimized.raw</text>
+<rect x="40.0" y="410.0" width="800.0" height="50.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="440.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Швидкість фазингу в пам'яті досягає 50 000 – 200 000 ітерацій/с на одне ядро CPU,</text>
+<text x="440.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">що дозволяє за лічені хвилини протестувати мільйони аномальних комбінацій пакетів.</text>
+</svg>

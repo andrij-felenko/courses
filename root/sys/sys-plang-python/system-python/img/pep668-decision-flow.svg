@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритм захисту PEP 668 під час запуску pip install</text>
+<rect x="340.0" y="60.0" width="240.0" height="48.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="460.0" y="89.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Виклик pip install &lt;пакунок&gt;</text>
+<line x1="460.0" y1="108.0" x2="460.0" y2="140.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="290.0" y="140.0" width="340.0" height="60.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="460.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чи активне віртуальне середовище?</text>
+<text x="460.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">sys.prefix != sys.base_prefix або pyvenv.cfg</text>
+<line x1="630.0" y1="170.0" x2="750.0" y2="170.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="680.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ТАК (venv)</text>
+<rect x="750.0" y="120.0" width="140.0" height="100.0" rx="6" fill="#d1fae5" stroke="#27ae60" stroke-width="1.5"/>
+<text x="820.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">БЕЗПЕЧНО</text>
+<text x="820.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Встановлення у</text>
+<text x="820.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">ізольований venv</text>
+<line x1="460.0" y1="200.0" x2="460.0" y2="240.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="485.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">НІ</text>
+<rect x="280.0" y="240.0" width="360.0" height="60.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="460.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чи є файл EXTERNALLY-MANAGED?</text>
+<text x="460.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">у каталозі sysconfig (stdlib / platstdlib)</text>
+<line x1="280.0" y1="270.0" x2="189.0" y2="270.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="232.5" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">НІ (немає)</text>
+<rect x="25.0" y="210.0" width="160.0" height="110.0" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.4"/>
+<text x="105.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-weight="700">Застаріла поведінка</text>
+<text x="105.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Прямий запис у</text>
+<text x="105.0" y="283.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">site-packages (ризик)</text>
+<text x="105.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Legacy Linux / Windows</text>
+<line x1="460.0" y1="300.0" x2="460.0" y2="340.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="485.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ТАК</text>
+<rect x="270.0" y="340.0" width="380.0" height="60.0" rx="6" fill="#fff1f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="460.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Перевірка прапорця примусового обходу</text>
+<text x="460.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">--break-system-packages або PIP_BREAK_SYSTEM_PACKAGES</text>
+<line x1="460.0" y1="400.0" x2="460.0" y2="430.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="485.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">НІ</text>
+<rect x="240.0" y="430.0" width="440.0" height="60.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="460.0" y="454.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ПОМИЛКА: externally-managed-environment</text>
+<text x="460.0" y="474.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">pip припиняє роботу й виводить інструкцію дистрибутива</text>
+<line x1="650.0" y1="370.0" x2="746.0" y2="370.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="690.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">ТАК</text>
+<rect x="750.0" y="320.0" width="140.0" height="95.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="820.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">НЕБЕЗПЕЧНО</text>
+<text x="820.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Прямий перезапис</text>
+<text x="820.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">системних модулів</text>
+<text x="820.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(лише для CI/Docker)</text>
+</svg>

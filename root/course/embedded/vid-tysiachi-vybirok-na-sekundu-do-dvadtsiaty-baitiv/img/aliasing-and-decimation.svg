@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="460.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Аліасинг та антиаліасингова фільтрація при децимації</text>
+<rect x="10.0" y="10.0" width="900.0" height="360.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="460.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спектральний аналіз децимації: наївне проріджування проти антиаліасингу</text>
+<rect x="30.0" y="50.0" width="415.0" height="300.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.5"/>
+<text x="237.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Наївне проріджування 10× (без LPF)</text>
+<rect x="50.0" y="90.0" width="375.0" height="95.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<line x1="70.0" y1="165.0" x2="410.0" y2="165.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="70.0" y1="165.0" x2="70.0" y2="100.0" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="410.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">f, Гц</text>
+<text x="60.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">A</text>
+<rect x="75.0" y="120.0" width="45.0" height="45.0" rx="6" fill="#bbf7d0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="97.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Сигнал</text>
+<rect x="150.0" y="140.0" width="240.0" height="25.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="270.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Шум і гармоніки (80..450 Гц)</text>
+<text x="395.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">500 (Fs/2)</text>
+<rect x="50.0" y="210.0" width="375.0" height="125.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<line x1="70.0" y1="305.0" x2="410.0" y2="305.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="70.0" y1="305.0" x2="70.0" y2="220.0" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="400.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">50 Гц (Fs_new/2)</text>
+<rect x="75.0" y="260.0" width="45.0" height="45.0" rx="6" fill="#bbf7d0" stroke="#27ae60" stroke-width="1.2"/>
+<rect x="75.0" y="235.0" width="45.0" height="25.0" rx="6" fill="#fca5a5" stroke="#c0392b" stroke-width="1.2"/>
+<text x="97.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Сигнал</text>
+<text x="97.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">+Аліасинг</text>
+<text x="260.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Шум із 10 смуг згорнувся в 0..50 Гц</text>
+<text x="260.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">SNR впав на 10 dB! Фатальні спотворення.</text>
+<rect x="475.0" y="50.0" width="415.0" height="300.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="682.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Децимація з антиаліасинговим фільтром</text>
+<rect x="495.0" y="90.0" width="375.0" height="95.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<line x1="515.0" y1="165.0" x2="855.0" y2="165.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="515.0" y1="165.0" x2="515.0" y2="100.0" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="855.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">f, Гц</text>
+<rect x="520.0" y="120.0" width="45.0" height="45.0" rx="6" fill="#bbf7d0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="542.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Сигнал</text>
+<line x1="520.0" y1="110.0" x2="580.0" y2="110.0" stroke="#2563eb" stroke-width="2.0"/>
+<line x1="580.0" y1="110.0" x2="620.0" y2="165.0" stroke="#2563eb" stroke-width="2.0" stroke-dasharray="3 2"/>
+<text x="650.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="700">Зріз LPF (40 Гц)</text>
+<text x="740.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Шум придушено на &gt;60 dB</text>
+<rect x="495.0" y="210.0" width="375.0" height="125.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<line x1="515.0" y1="305.0" x2="855.0" y2="305.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="515.0" y1="305.0" x2="515.0" y2="220.0" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="845.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">50 Гц (Fs_new/2)</text>
+<rect x="520.0" y="260.0" width="45.0" height="45.0" rx="6" fill="#bbf7d0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="542.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Чистий</text>
+<text x="690.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Аліасинг відсутній у смузі Найквіста</text>
+<text x="690.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Збільшення ENOB на +1.6 біта (+10 dB SNR)</text>
+</svg>

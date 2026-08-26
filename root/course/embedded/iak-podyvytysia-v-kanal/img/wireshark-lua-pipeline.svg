@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр розбору бінарного кадру в Wireshark Lua Dissector</text>
+<rect x="35.0" y="80.0" width="200.0" height="100.0" rx="8" fill="#eef2ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="135.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1. Захоплення потоку</text>
+<text x="135.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="135.0" dy="0.0">extcap / UART pipe / UDP</tspan><tspan x="135.0" dy="13.5">Сирий буфер байтів (TVB)</tspan></text>
+<line x1="239.0" y1="130.0" x2="266.0" y2="130.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="270.0" y="80.0" width="200.0" height="100.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="370.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">2. Розбір заголовка</text>
+<text x="370.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="370.0" dy="0.0">Magic 0xAA 0x55, Seq, Len, Cmd</tspan><tspan x="370.0" dy="13.5">Перевірка мінімальної довжини</tspan></text>
+<line x1="474.0" y1="130.0" x2="501.0" y2="130.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="505.0" y="80.0" width="200.0" height="100.0" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.8"/>
+<text x="605.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">3. Дерево та поля</text>
+<text x="605.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="605.0" dy="0.0">ProtoField: uint16, enum, bits</tspan><tspan x="605.0" dy="13.5">Додавання гілок у Protocol Tree</tspan></text>
+<line x1="709.0" y1="130.0" x2="736.0" y2="130.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="740.0" y="80.0" width="200.0" height="100.0" rx="8" fill="#fee2e2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="840.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">4. Валідація і статус</text>
+<text x="840.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="840.0" dy="0.0">Перевірка CRC16, ExpertInfo</tspan><tspan x="840.0" dy="13.5">Колонки Protocol та Info</tspan></text>
+<rect x="35.0" y="230.0" width="890.0" height="160.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="480.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура буфера TVB (Testy Virtual Buffer) та проекція полів Lua</text>
+<rect x="55.0" y="278.0" width="100.0" height="75.0" rx="5" fill="#e0e7ff" stroke="#333333" stroke-width="1.2"/>
+<text x="105.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">PREAMBLE</text>
+<text x="105.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="105.0" dy="0.0">2 байти</tspan><tspan x="105.0" dy="11.9">0xAA 0x55</tspan></text>
+<rect x="163.0" y="278.0" width="100.0" height="75.0" rx="5" fill="#dbeafe" stroke="#333333" stroke-width="1.2"/>
+<text x="213.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">SEQ_NUM</text>
+<text x="213.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="213.0" dy="0.0">2 байти</tspan><tspan x="213.0" dy="11.9">uint16 (LE)</tspan></text>
+<rect x="271.0" y="278.0" width="95.0" height="75.0" rx="5" fill="#ccfbf1" stroke="#333333" stroke-width="1.2"/>
+<text x="318.5" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">CMD_ID</text>
+<text x="318.5" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="318.5" dy="0.0">1 байт</tspan><tspan x="318.5" dy="11.9">enum opcode</tspan></text>
+<rect x="374.0" y="278.0" width="105.0" height="75.0" rx="5" fill="#fef08a" stroke="#333333" stroke-width="1.2"/>
+<text x="426.5" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">PAYLOAD_LEN</text>
+<text x="426.5" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="426.5" dy="0.0">2 байти</tspan><tspan x="426.5" dy="11.9">довжина N</tspan></text>
+<rect x="487.0" y="278.0" width="320.0" height="75.0" rx="5" fill="#dcfce7" stroke="#333333" stroke-width="1.2"/>
+<text x="647.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">PAYLOAD DATA (N байтів)</text>
+<text x="647.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="647.0" dy="0.0">Телеметрія, координати, статус, прапорці стану</tspan></text>
+<rect x="815.0" y="278.0" width="95.0" height="75.0" rx="5" fill="#fed7aa" stroke="#333333" stroke-width="1.2"/>
+<text x="862.5" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">CRC16</text>
+<text x="862.5" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="862.5" dy="0.0">2 байти</tspan><tspan x="862.5" dy="11.9">CCITT</tspan></text>
+</svg>

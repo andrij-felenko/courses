@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура бортового конвеєра обробки сенсорних даних</text>
+<rect x="10.0" y="10.0" width="920.0" height="340.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="470.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр скорочення даних: від 1000 семплів/с до 20 байтів/хв</text>
+<rect x="25.0" y="65.0" width="150.0" height="175.0" rx="6" fill="#f8fafc" stroke="#c0392b" stroke-width="2.0"/>
+<rect x="25.0" y="65.0" width="150.0" height="26.0" rx="4" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="100.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">1. Сенсорний DMA</text>
+<text x="100.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">1000 семплів/с</text>
+<text x="100.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">16 біт на відлік</text>
+<text x="100.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">16 000 біт/с (сирі)</text>
+<rect x="205.0" y="65.0" width="150.0" height="175.0" rx="6" fill="#f8fafc" stroke="#d97706" stroke-width="2.0"/>
+<rect x="205.0" y="65.0" width="150.0" height="26.0" rx="4" fill="#d97706" stroke="#d97706" stroke-width="1.0"/>
+<text x="280.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">2. CIC / FIR Дециматор</text>
+<text x="280.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Проріджування 10:1</text>
+<text x="280.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Антиаліасинг LPF</text>
+<text x="280.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">100 семплів/с (+1.6b)</text>
+<rect x="385.0" y="65.0" width="150.0" height="175.0" rx="6" fill="#f8fafc" stroke="#27ae60" stroke-width="2.0"/>
+<rect x="385.0" y="65.0" width="150.0" height="26.0" rx="4" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="460.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">3. Статистичне вікно</text>
+<text x="460.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Акумулятор Велфорда</text>
+<text x="460.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">RMS, Mean, Min/Max</text>
+<text x="460.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">CF, дисперсія (1 с)</text>
+<rect x="565.0" y="65.0" width="150.0" height="175.0" rx="6" fill="#f8fafc" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="565.0" y="65.0" width="150.0" height="26.0" rx="4" fill="#2457d6" stroke="#2457d6" stroke-width="1.0"/>
+<text x="640.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">4. Фільтр SDT / Deadband</text>
+<text x="640.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Відсікання шуму</text>
+<text x="640.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Детекція трендів</text>
+<text x="640.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Стиснення 10:1..50:1</text>
+<rect x="745.0" y="65.0" width="150.0" height="175.0" rx="6" fill="#f8fafc" stroke="#7c3aed" stroke-width="2.0"/>
+<rect x="745.0" y="65.0" width="150.0" height="26.0" rx="4" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.0"/>
+<text x="820.0" y="83.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="700">5. Пакувальник LPWAN</text>
+<text x="820.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Delta-ZigZag + Varint</text>
+<text x="820.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">20 байтів на хвилину</text>
+<text x="820.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">LoRaWAN / NB-IoT</text>
+<line x1="177.0" y1="152.0" x2="203.0" y2="152.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="357.0" y1="152.0" x2="383.0" y2="152.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="537.0" y1="152.0" x2="563.0" y2="152.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="717.0" y1="152.0" x2="743.0" y2="152.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="30.0" y="260.0" width="880.0" height="70.0" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="470.0" y="282.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння навантаження каналу й енергетичного бюджету</text>
+<text x="210.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Сирий потік: 120 000 байт/хв  (Радіо 100% On, батарея 2 дні)</text>
+<text x="690.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Після конвеєра: 20 байт/хв  (Радіо Duty 0.05%, батарея &gt; 7 років)</text>
+</svg>

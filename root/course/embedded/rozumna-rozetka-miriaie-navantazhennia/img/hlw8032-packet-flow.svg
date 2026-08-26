@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Формат кадру UART та формули перерахунку мікросхеми HLW8032</text>
+<rect x="20.0" y="20.0" width="920.0" height="165.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<text x="480.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">СТРУКТУРА 24-БАЙТНОГО TELEMETRY-КАДРУ HLW8032 (UART 4800, 8E1)</text>
+<rect x="35.0" y="70.0" width="52.0" height="45.0" rx="2" fill="#ffffff" stroke="#c0392b" stroke-width="1.4"/>
+<text x="61.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="61.0" dy="0.0">0x55</tspan></text>
+<text x="61.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Синхро 1</text>
+<rect x="93.0" y="70.0" width="52.0" height="45.0" rx="2" fill="#ffffff" stroke="#c0392b" stroke-width="1.4"/>
+<text x="119.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="119.0" dy="0.0">0x5A</tspan></text>
+<text x="119.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Синхро 2</text>
+<rect x="151.0" y="70.0" width="78.0" height="45.0" rx="2" fill="#ffffff" stroke="#b8860b" stroke-width="1.4"/>
+<text x="190.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b8860b" text-anchor="middle" font-weight="700"><tspan x="190.0" dy="0.0">V_PARAM</tspan><tspan x="190.0" dy="9.9">(3 байти)</tspan></text>
+<text x="190.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Опорна U</text>
+<rect x="235.0" y="70.0" width="78.0" height="45.0" rx="2" fill="#ffffff" stroke="#b8860b" stroke-width="1.4"/>
+<text x="274.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b8860b" text-anchor="middle" font-weight="700"><tspan x="274.0" dy="0.0">V_DATA</tspan><tspan x="274.0" dy="9.9">(3 байти)</tspan></text>
+<text x="274.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Регістр U</text>
+<rect x="319.0" y="70.0" width="78.0" height="45.0" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="358.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="358.0" dy="0.0">I_PARAM</tspan><tspan x="358.0" dy="9.9">(3 байти)</tspan></text>
+<text x="358.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Опорний I</text>
+<rect x="403.0" y="70.0" width="78.0" height="45.0" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="442.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="442.0" dy="0.0">I_DATA</tspan><tspan x="442.0" dy="9.9">(3 байти)</tspan></text>
+<text x="442.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Регістр I</text>
+<rect x="487.0" y="70.0" width="80.0" height="45.0" rx="2" fill="#ffffff" stroke="#27ae60" stroke-width="1.4"/>
+<text x="527.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="527.0" dy="0.0">P_PARAM</tspan><tspan x="527.0" dy="9.9">(3 байти)</tspan></text>
+<text x="527.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Опорна P</text>
+<rect x="573.0" y="70.0" width="80.0" height="45.0" rx="2" fill="#ffffff" stroke="#27ae60" stroke-width="1.4"/>
+<text x="613.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="613.0" dy="0.0">P_DATA</tspan><tspan x="613.0" dy="9.9">(3 байти)</tspan></text>
+<text x="613.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Регістр P</text>
+<rect x="659.0" y="70.0" width="64.0" height="45.0" rx="2" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="691.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="691.0" dy="0.0">STATUS</tspan><tspan x="691.0" dy="9.9">(1 байт)</tspan></text>
+<text x="691.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Статус</text>
+<rect x="729.0" y="70.0" width="70.0" height="45.0" rx="2" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="764.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700"><tspan x="764.0" dy="0.0">PULSES</tspan><tspan x="764.0" dy="9.9">(2 байти)</tspan></text>
+<text x="764.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Імпульси</text>
+<rect x="805.0" y="70.0" width="70.0" height="45.0" rx="2" fill="#ffffff" stroke="#c0392b" stroke-width="1.4"/>
+<text x="840.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="840.0" dy="0.0">CHKSUM</tspan><tspan x="840.0" dy="9.9">(1 байт)</tspan></text>
+<text x="840.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Контроль</text>
+<rect x="20.0" y="205.0" width="920.0" height="165.0" rx="4" fill="#ffffff" stroke="#c9d3dc" stroke-width="1.4"/>
+<text x="480.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">АЛГОРИТМ ОБЧИСЛЕННЯ ФІЗИЧНИХ ВЕЛИЧИН У ДРАЙВЕРІ</text>
+<rect x="55.0" y="267.0" width="250.0" height="56.0" rx="6" fill="#fdfbf5" stroke="#b8860b" stroke-width="1.2"/><text x="180.0" y="285.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">НАПРУГА U_rms:</tspan><tspan x="180.0" dy="13.0">U = (V_PARAM / V_DATA) · K_u</tspan><tspan x="180.0" dy="13.0">(K_u ≈ 1.881 — коеф. дільника)</tspan></text>
+<rect x="355.0" y="267.0" width="250.0" height="56.0" rx="6" fill="#f0f7ff" stroke="#2457d6" stroke-width="1.2"/><text x="480.0" y="285.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="480.0" dy="0.0">СТРУМ I_rms:</tspan><tspan x="480.0" dy="13.0">I = (I_PARAM / I_DATA) · K_i</tspan><tspan x="480.0" dy="13.0">(K_i ≈ 1.0 / R_shunt)</tspan></text>
+<rect x="655.0" y="267.0" width="250.0" height="56.0" rx="6" fill="#f4faf6" stroke="#27ae60" stroke-width="1.2"/><text x="780.0" y="285.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="780.0" dy="0.0">ПОТУЖНІСТЬ P_act:</tspan><tspan x="780.0" dy="13.0">P = (P_PARAM / P_DATA) · K_u · K_i</tspan><tspan x="780.0" dy="13.0">(Оновлення кожні 50 мс)</tspan></text>
+</svg>

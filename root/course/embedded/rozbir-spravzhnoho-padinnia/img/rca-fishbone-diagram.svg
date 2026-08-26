@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-75 -10 1035 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-75" y="-10" width="1035" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Діаграма Ісікави (Fishbone): комплексний аналіз причин аварії приводу</text>
+<text x="480.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">структуризація 6 векторів відмови: від апаратних явищ до дефектів таймерної арифметики</text>
+<line x1="40.0" y1="260.0" x2="740.0" y2="260.0" stroke="#333333" stroke-width="3.0" marker-end="url(#arrow)"/>
+<rect x="770.2" y="227.5" width="159.5" height="65.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/><text x="850.0" y="248.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="850.0" dy="0.0">Аварійне вимкнення</tspan><tspan x="850.0" dy="16.2">приводу і падіння</tspan><tspan x="850.0" dy="16.2">на 65.5 с роботи</tspan></text>
+<line x1="120.0" y1="80.0" x2="230.0" y2="260.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="51.9" y="63.0" width="116.2" height="24.0" rx="6" fill="#fbe9e7" stroke="#c0392b" stroke-width="1.5"/><text x="110.0" y="79.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">Прошивка / Код</tspan></text>
+<line x1="100.0" y1="125.0" x2="155.0" y2="125.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="95.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Integer promotion (int16-&gt;int32)</text>
+<line x1="120.0" y1="170.0" x2="178.0" y2="170.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="115.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Порівняння (now &gt; last + dt)</text>
+<line x1="150.0" y1="215.0" x2="205.0" y2="215.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="145.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Блокуючий лог у критичній задачі</text>
+<line x1="330.0" y1="80.0" x2="440.0" y2="260.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="239.6" y="63.0" width="160.8" height="24.0" rx="6" fill="#fff3e0" stroke="#e67e22" stroke-width="1.5"/><text x="320.0" y="79.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700"><tspan x="320.0" dy="0.0">Живлення / Схематика</tspan></text>
+<line x1="310.0" y1="125.0" x2="365.0" y2="125.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="305.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Кидок зворотної ЕРС інвертора</text>
+<line x1="330.0" y1="170.0" x2="388.0" y2="170.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="325.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Просадка VDD нижче 2.7 В (BOR)</text>
+<line x1="360.0" y1="215.0" x2="415.0" y2="215.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="355.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Малий запас фільтруючих ємностей</text>
+<line x1="540.0" y1="80.0" x2="650.0" y2="260.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="457.0" y="63.0" width="145.9" height="24.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="530.0" y="79.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="530.0" dy="0.0">Протокол / Зв'язок</tspan></text>
+<line x1="520.0" y1="125.0" x2="575.0" y2="125.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="515.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Хибний таймаут Heartbeat (50 мс)</text>
+<line x1="540.0" y1="170.0" x2="598.0" y2="170.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="535.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Панічний скид сесії зв'язку</text>
+<line x1="570.0" y1="215.0" x2="625.0" y2="215.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="565.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Переповнення черги телеметрії</text>
+<line x1="120.0" y1="440.0" x2="230.0" y2="260.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="40.8" y="433.0" width="138.5" height="24.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/><text x="110.0" y="449.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">Таймери / Кристал</tspan></text>
+<line x1="100.0" y1="395.0" x2="155.0" y2="395.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="95.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">16-бітний таймер SysTick / TIM</text>
+<line x1="120.0" y1="350.0" x2="178.0" y2="350.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="115.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Перехід 65535 -&gt; 0 (Rollover)</text>
+<line x1="150.0" y1="305.0" x2="205.0" y2="305.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="145.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Несинхронні шкали мікросекунд</text>
+<line x1="330.0" y1="440.0" x2="440.0" y2="260.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="235.9" y="433.0" width="168.2" height="24.0" rx="6" fill="#f4f6f8" stroke="#7f8c8d" stroke-width="1.5"/><text x="320.0" y="449.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2c3e50" text-anchor="middle" font-weight="700"><tspan x="320.0" dy="0.0">Середовище / Механіка</tspan></text>
+<line x1="310.0" y1="395.0" x2="365.0" y2="395.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="305.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Вібрація силової рами</text>
+<line x1="330.0" y1="350.0" x2="388.0" y2="350.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="325.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Нагрів ключів MOSFET у польоті</text>
+<line x1="360.0" y1="305.0" x2="415.0" y2="305.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="355.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Імпульсні перешкоди від ШІМ</text>
+<line x1="540.0" y1="440.0" x2="650.0" y2="260.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="453.3" y="433.0" width="153.4" height="24.0" rx="6" fill="#f3e5f5" stroke="#8e44ad" stroke-width="1.5"/><text x="530.0" y="449.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#8e44ad" text-anchor="middle" font-weight="700"><tspan x="530.0" dy="0.0">Процес / Тестування</tspan></text>
+<line x1="520.0" y1="395.0" x2="575.0" y2="395.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="515.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Лабораторні тести тривали &lt; 30 с</text>
+<line x1="540.0" y1="350.0" x2="598.0" y2="350.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="535.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Відсутній тест на переповнення часу</text>
+<line x1="570.0" y1="305.0" x2="625.0" y2="305.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="565.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Не було Hardware-in-the-Loop тестів</text>
+</svg>

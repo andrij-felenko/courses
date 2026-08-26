@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратний конвеєр тактування: АЦП по тригеру таймера vs RTOS</text>
+<rect x="40.0" y="70.0" width="160.0" height="95.0" rx="6" fill="#e8f4fd" stroke="#2980b9" stroke-width="1.8"/>
+<text x="120.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Апаратний таймер</text>
+<text x="120.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">TIM1 / TIM2 (Auto-Reload)</text>
+<text x="120.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Період T_s = 50 мкс</text>
+<text x="120.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Абсолютний нуль джитера</text>
+<line x1="200.0" y1="117.5" x2="245.0" y2="117.5" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="222.0" y="107.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">TRGO</text>
+<text x="222.0" y="135.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(апаратний)</text>
+<rect x="250.0" y="70.0" width="170.0" height="95.0" rx="6" fill="#fef9e7" stroke="#f39c12" stroke-width="1.8"/>
+<text x="335.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">АЦП (Dual SAR)</text>
+<text x="335.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Синхронна вибірка струму</text>
+<text x="335.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">T_sample + T_conv = 1.2 мкс</text>
+<text x="335.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Автоматичний старт без CPU</text>
+<line x1="420.0" y1="117.5" x2="465.0" y2="117.5" stroke="#d35400" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="442.0" y="107.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle" font-weight="700">DMA / ISR</text>
+<text x="442.0" y="135.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(переривання)</text>
+<rect x="470.0" y="70.0" width="175.0" height="95.0" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="557.5" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ISR найвищого пріоритету</text>
+<text x="557.5" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ПІД-регулятор / FOC</text>
+<text x="557.5" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">T_calc = 3.5 мкс</text>
+<text x="557.5" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Неблокуючий, без malloc</text>
+<line x1="645.0" y1="117.5" x2="690.0" y2="117.5" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="667.0" y="107.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Preload</text>
+<text x="667.0" y="135.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(тіньовий)</text>
+<rect x="695.0" y="70.0" width="160.0" height="95.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="775.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">ШІМ-генератор</text>
+<text x="775.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">TIM1 Complementary PWM</text>
+<text x="775.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оновлення на верхівці</text>
+<text x="775.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Без глітчів коефіцієнта</text>
+<rect x="40.0" y="200.0" width="800.0" height="130.0" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="60.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="start" font-weight="700">Чому FreeRTOS vTaskDelay / delay_ms() руйнує прецизійний контур:</text>
+<text x="60.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Квант системного таймера (SysTick): 1 мс (1000 Гц) — занадто повільно для контуру 10..20 кГц.</text>
+<text x="60.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Диспетчеризація та блокування: виклик vTaskDelayUntil залежить від інших переривань і критичних секцій (taskENTER_CRITICAL).</text>
+<text x="60.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Джитер перемикання контексту: затримка може випадково стрибати на 10..200 мкс, викликаючи резонанс диференціатора.</text>
+<text x="60.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">• Висновок: Жорсткий контур керування живе ТІЛЬКИ в апаратному ISR; FreeRTOS отримує лише телеметрію через чергу.</text>
+</svg>

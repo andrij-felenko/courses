@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фізика подієвих сигналів: комбінаційний асинхронний та синхронізований шляхи</text>
+<text x="410.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Поширення сигналу події в часі: Асинхронний проти Синхронного шляху</text>
+<rect x="40.0" y="70.0" width="740.0" height="125.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.4"/>
+<text x="55.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Асинхронний канал (Microchip EVSYS / STM32 EXTI): чиста логіка, тактування вимкнене</text>
+<text x="120.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Вхід (генератор):</text>
+<line x1="130.0" y1="132.0" x2="220.0" y2="132.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="220.0" y1="132.0" x2="220.0" y2="112.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="220.0" y1="112.0" x2="400.0" y2="112.0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="120.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Вихід (споживач):</text>
+<line x1="130.0" y1="172.0" x2="224.0" y2="172.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="224.0" y1="172.0" x2="224.0" y2="152.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="224.0" y1="152.0" x2="400.0" y2="152.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="220.0" y1="106.0" x2="220.0" y2="178.0" stroke="#e0a800" stroke-width="1.2" stroke-dasharray="2 2"/>
+<line x1="224.0" y1="106.0" x2="224.0" y2="178.0" stroke="#e0a800" stroke-width="1.2" stroke-dasharray="2 2"/>
+<rect x="477.9" y="116.0" width="204.1" height="52.0" rx="6" fill="#e8f5e9" stroke="#27ae60" stroke-width="1.5"/><text x="580.0" y="132.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="580.0" dy="0.0">Затримка вентилів t_prop ≈ 2–5 нс</tspan><tspan x="580.0" dy="13.0">Не потребує тактової частоти</tspan><tspan x="580.0" dy="13.0">Працює в режимі глибокого сну</tspan></text>
+<rect x="40.0" y="215.0" width="740.0" height="140.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.4"/>
+<text x="55.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="start" font-weight="700">Синхронний канал із вирівнюванням домену тактування (CDC Resynchronization)</text>
+<text x="127.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">Тактовий сигнал CLK_B:</text>
+<line x1="130.0" y1="269.0" x2="148.0" y2="269.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="148.0" y1="269.0" x2="148.0" y2="255.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="148.0" y1="255.0" x2="166.0" y2="255.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="166.0" y1="255.0" x2="166.0" y2="269.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="166.0" y1="269.0" x2="184.0" y2="269.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="184.0" y1="269.0" x2="184.0" y2="255.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="184.0" y1="255.0" x2="202.0" y2="255.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="202.0" y1="255.0" x2="202.0" y2="269.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="202.0" y1="269.0" x2="220.0" y2="269.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="220.0" y1="269.0" x2="220.0" y2="255.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="220.0" y1="255.0" x2="238.0" y2="255.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="238.0" y1="255.0" x2="238.0" y2="269.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="238.0" y1="269.0" x2="256.0" y2="269.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="256.0" y1="269.0" x2="256.0" y2="255.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="256.0" y1="255.0" x2="274.0" y2="255.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="274.0" y1="255.0" x2="274.0" y2="269.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="274.0" y1="269.0" x2="292.0" y2="269.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="292.0" y1="269.0" x2="292.0" y2="255.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="292.0" y1="255.0" x2="310.0" y2="255.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="310.0" y1="255.0" x2="310.0" y2="269.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="310.0" y1="269.0" x2="328.0" y2="269.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="328.0" y1="269.0" x2="328.0" y2="255.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="328.0" y1="255.0" x2="346.0" y2="255.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="346.0" y1="255.0" x2="346.0" y2="269.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="346.0" y1="269.0" x2="364.0" y2="269.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="364.0" y1="269.0" x2="364.0" y2="255.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="364.0" y1="255.0" x2="382.0" y2="255.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="382.0" y1="255.0" x2="382.0" y2="269.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="120.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Подія з домену A:</text>
+<line x1="130.0" y1="299.0" x2="175.0" y2="299.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="175.0" y1="299.0" x2="175.0" y2="285.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="175.0" y1="285.0" x2="230.0" y2="285.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="230.0" y1="285.0" x2="230.0" y2="299.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="230.0" y1="299.0" x2="380.0" y2="299.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="120.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">Строб у домені B:</text>
+<line x1="130.0" y1="331.0" x2="274.0" y2="331.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="274.0" y1="331.0" x2="274.0" y2="315.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="274.0" y1="315.0" x2="310.0" y2="315.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="310.0" y1="315.0" x2="310.0" y2="331.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="310.0" y1="331.0" x2="380.0" y2="331.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<rect x="475.1" y="269.0" width="209.8" height="52.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="580.0" y="285.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="580.0" dy="0.0">Подвійний D-тригер (CDC 2-FF)</tspan><tspan x="580.0" dy="13.0">Затримка: строго 2 такти CLK_B</tspan><tspan x="580.0" dy="13.0">Повний захист від метастабільності</tspan></text>
+</svg>

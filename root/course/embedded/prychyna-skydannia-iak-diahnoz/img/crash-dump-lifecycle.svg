@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл аварійного дампу (Flight Recorder)</text>
+<text x="480.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">від перехоплення краху в ядрі до збереження в Retention RAM та відправки телеметрії після перезапуску</text>
+<rect x="30.0" y="120.0" width="138.0" height="102.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="99.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">1. Аварія / HardFault</text>
+<text x="99.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Ділення на 0, NULL-ptr,</text>
+<text x="99.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">помилка шини або Assert</text>
+<line x1="168.0" y1="171.0" x2="183.0" y2="171.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="183.0" y="120.0" width="138.0" height="102.0" rx="6" fill="#fdf6e3" stroke="#b08900" stroke-width="1.6"/>
+<text x="252.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b08900" text-anchor="middle" font-weight="700">2. Зняття знімка</text>
+<text x="252.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">PC, LR, SP, CFSR, HFSR,</text>
+<text x="252.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">верхівка стека, активна задача</text>
+<line x1="321.0" y1="171.0" x2="336.0" y2="171.0" stroke="#b08900" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="336.0" y="120.0" width="138.0" height="102.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="405.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">3. Запис у .noinit</text>
+<text x="405.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Збереження в Retention RAM,</text>
+<text x="405.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">розрахунок контрольної CRC32</text>
+<line x1="474.0" y1="171.0" x2="489.0" y2="171.0" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="489.0" y="120.0" width="138.0" height="102.0" rx="6" fill="#eef2f7" stroke="#333333" stroke-width="1.6"/>
+<text x="558.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-weight="700">4. Системний Reset</text>
+<text x="558.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">NVIC_SystemReset() / IWDG;</text>
+<text x="558.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">пам'ять SRAM не скидається!</text>
+<line x1="627.0" y1="171.0" x2="642.0" y2="171.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="642.0" y="120.0" width="138.0" height="102.0" rx="6" fill="#f3e8ff" stroke="#6b21a8" stroke-width="1.6"/>
+<text x="711.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b21a8" text-anchor="middle" font-weight="700">5. Валідація при старті</text>
+<text x="711.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Перевірка MAGIC (0x43525348)</text>
+<text x="711.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">та CRC32; захист від шуму POR</text>
+<line x1="780.0" y1="171.0" x2="795.0" y2="171.0" stroke="#6b21a8" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="795.0" y="120.0" width="138.0" height="102.0" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.6"/>
+<text x="864.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">6. Телеметрія &amp; Звіт</text>
+<text x="864.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Передача в хмару/UART/Flash;</text>
+<text x="864.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">очищення скриньки після ACK</text>
+<rect x="60.0" y="250.0" width="840.0" height="150.0" rx="6" fill="none" stroke="#333333" stroke-width="1.5"/>
+<text x="80.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Структура збереженої пам'яті Retention RAM (.noinit)</text>
+<rect x="78.0" y="295.0" width="125.0" height="55.0" rx="4" fill="#f3e8ff" stroke="#6b21a8" stroke-width="1.2"/>
+<text x="140.5" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b21a8" text-anchor="middle" font-weight="700">MAGIC (4B)</text>
+<text x="140.5" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">0x43525348 ('CRSH')</text>
+<rect x="211.0" y="295.0" width="125.0" height="55.0" rx="4" fill="#fdf6e3" stroke="#b08900" stroke-width="1.2"/>
+<text x="273.5" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b08900" text-anchor="middle" font-weight="700">REASON (4B)</text>
+<text x="273.5" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">RCC_CSR raw flags</text>
+<rect x="344.0" y="295.0" width="145.0" height="55.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="416.5" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">FAULT REG (16B)</text>
+<text x="416.5" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">CFSR, HFSR, BFAR...</text>
+<rect x="497.0" y="295.0" width="145.0" height="55.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="569.5" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">CORE REG (32B)</text>
+<text x="569.5" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">PC, LR, SP, R0-R12...</text>
+<rect x="650.0" y="295.0" width="135.0" height="55.0" rx="4" fill="#eef2f7" stroke="#333333" stroke-width="1.2"/>
+<text x="717.5" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="middle" font-weight="700">STACK DUMP (64B)</text>
+<text x="717.5" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">16 слів стека аварії</text>
+<rect x="793.0" y="295.0" width="115.0" height="55.0" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="850.5" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">CRC32 (4B)</text>
+<text x="850.5" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Контрольна сума</text>
+<text x="80.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start" font-weight="700">Розміщення в Linker Script: .noinit (NOLOAD) : { *(.noinit*) } &gt; RAM  — стартап-код не затирає нулями при ресеті!</text>
+<rect x="10.1" y="419.2" width="939.8" height="31.5" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/><text x="480.0" y="439.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">Чорна скринька перетворює раптовий крах на структурований звіт: адреса інструкції, стан шини, стековий контекст і причина ресету.</tspan></text>
+</svg>

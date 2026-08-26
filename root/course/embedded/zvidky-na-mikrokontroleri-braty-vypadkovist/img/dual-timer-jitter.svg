@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Екстракція ентропії з дрейфу незалежних генераторів (HSE кварц vs LSI RC)</text>
+<rect x="35.0" y="60.0" width="340.0" height="110.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="50.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">Швидкий таймер (Timer 1)</text>
+<text x="50.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Джерело: Кварцовий резонатор (HSE)</text>
+<text x="50.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Частота: f_fast = 168 МГц (стабільність 10 ppm)</text>
+<text x="50.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Лічильник: 32-бітний регістр CNT зростає що 5.95 нс</text>
+<rect x="445.0" y="60.0" width="340.0" height="110.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="460.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Повільний релаксатор (LSI / Watchdog)</text>
+<text x="460.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Джерело: Внутрішній RC-генератор (LSI)</text>
+<text x="460.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Частота: f_slow ≈ 32 кГц (термодрейф ~2–5%)</text>
+<text x="460.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Подія: генерує імпульс Input Capture / переривання</text>
+<rect x="240.0" y="195.0" width="340.0" height="65.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.6"/>
+<text x="410.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Регістр захоплення (Input Capture CCR)</text>
+<text x="410.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Запис поточного значення швидкого лічильника CNT</text>
+<text x="410.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">за кожним переднім фронтом повільного RC</text>
+<line x1="205.0" y1="173.0" x2="300.0" y2="191.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="615.0" y1="173.0" x2="520.0" y2="191.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="140.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Потік лічби CNT</text>
+<text x="620.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Фронт захоплення</text>
+<line x1="410.0" y1="263.0" x2="410.0" y2="280.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="160.0" y="285.0" width="500.0" height="60.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<rect x="170.0" y="295.0" width="360.0" height="40.0" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.0"/>
+<text x="350.0" y="311.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Старші розряди [31..2]: детермінована база</text>
+<text x="350.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Визначаються середнім відношенням f_fast / f_slow</text>
+<rect x="540.0" y="295.0" width="110.0" height="40.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="595.0" y="311.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Біти [1..0] LSB</text>
+<text x="595.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Фазовий джиттер!</text>
+</svg>

@@ -1039,8 +1039,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-protocol-bench.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -1055,8 +1061,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-2g-3g-sunset.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-registration-guard.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "com-transport/lorawan",
@@ -1115,8 +1133,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-hardware-signals.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-burst-power.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-modem-power-sequence.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "com-transport/suputnykovyi-kanal-dlia-prystroiv",
@@ -1129,8 +1165,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-energy-cost-model.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -1149,8 +1191,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-backoff-jitter.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sf-distributed/failure-detection",
@@ -1167,8 +1215,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "comp": [
+            {
+              "file": "comp-offline-storage-media.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-store-forward-queue.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sf-distributed/idempotency",
@@ -1189,7 +1249,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -1203,8 +1263,18 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-lua-dissector.md",
+              "status": "recheck"
+            },
+            {
+              "file": "proj-uart-dma-sniffer.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -1219,7 +1289,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         },
         {
@@ -1233,8 +1303,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-mavlink-v1-v2.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-tlv-parser.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sf-distributed/service-discovery",
@@ -1247,8 +1329,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-embedded-rpc.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-async-rpc-dispatcher.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "ref": "sf-security/authenticated-encryption",
@@ -1261,8 +1355,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-schema-codegen.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "stend-protokolu",
@@ -1271,8 +1371,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-fuzz-harness.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     }

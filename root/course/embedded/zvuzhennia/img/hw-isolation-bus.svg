@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратний поділ шини живлення та інтерфейсів перемичками</text>
+<rect x="32.3" y="139.3" width="155.5" height="61.4" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/><text x="110.0" y="159.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="110.0" dy="0.0">ГОЛОВНИЙ MCU</tspan><tspan x="110.0" dy="15.0">(Майстер I2C / SPI)</tspan><tspan x="110.0" dy="15.0">Живлення 3.3 В</tspan></text>
+<line x1="185.0" y1="120.0" x2="320.0" y2="120.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="250.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">VCC (3.3 В)</text>
+<line x1="185.0" y1="170.0" x2="320.0" y2="170.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="250.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">I2C (SDA / SCL)</text>
+<rect x="320.0" y="45.0" width="160.0" height="250.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.4"/>
+<text x="400.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Група A (Сенсори)</text>
+<rect x="340.0" y="98.5" width="120.0" height="43.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/><text x="400.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">Давач 1 (IMU)</tspan><tspan x="400.0" dy="13.0">0x68</tspan></text>
+<rect x="340.0" y="198.5" width="120.0" height="43.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/><text x="400.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="400.0" dy="0.0">Давач 2 (Баро)</tspan><tspan x="400.0" dy="13.0">0x76</tspan></text>
+<line x1="320.0" y1="120.0" x2="340.0" y2="120.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="320.0" y1="170.0" x2="340.0" y2="170.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="340.0" y1="170.0" x2="340.0" y2="220.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="340.0" y1="220.0" x2="340.0" y2="220.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<rect x="500.0" y="95.0" width="65.0" height="50.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="532.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">R_ZERO</text>
+<text x="532.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">[РОЗРИВ]</text>
+<line x1="460.0" y1="120.0" x2="500.0" y2="120.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="565.0" y1="120.0" x2="600.0" y2="120.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="3 3"/>
+<rect x="500.0" y="155.0" width="65.0" height="45.0" rx="4" fill="#fff3e0" stroke="#e67e22" stroke-width="1.8"/>
+<text x="532.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b9770e" text-anchor="middle" font-weight="700">JP_I2C</text>
+<text x="532.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b9770e" text-anchor="middle" font-weight="700">[МІСТОК]</text>
+<line x1="460.0" y1="170.0" x2="500.0" y2="170.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="565.0" y1="170.0" x2="600.0" y2="170.0" stroke="#1a1a1a" stroke-width="1.8" stroke-dasharray="3 3"/>
+<rect x="600.0" y="45.0" width="200.0" height="250.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.6"/>
+<text x="700.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Група B (Зовнішній блок)</text>
+<rect x="630.0" y="98.5" width="140.0" height="43.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/><text x="700.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="700.0" dy="0.0">EEPROM / Flash</tspan><tspan x="700.0" dy="13.0">(Шина живлення)</tspan></text>
+<rect x="620.0" y="198.5" width="160.0" height="43.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="700.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="700.0" dy="0.0">Радіомодуль / Драйвер</tspan><tspan x="700.0" dy="13.0">[ПРОБИТИЙ ЧИП: КЗ!]</tspan></text>
+<text x="420.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">Розмикання R_ZERO миттєво доводить: якщо MCU та Група A ожили — дефект праворуч у Групі B</text>
+</svg>

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="820.0" height="500.0" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="420.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Руйнування на друкованій платі: втома припою SAC305 та вигин MLCC</text>
+<rect x="22.0" y="60.0" width="390.0" height="435.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="22.0" y="60.0" width="390.0" height="32.0" rx="8" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="217.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Термічна втома SAC305 (CTE Mismatch)</text>
+<rect x="37.0" y="105.0" width="360.0" height="115.0" rx="6" fill="#f8fafc" stroke="#1d4ed8" stroke-width="1.2"/>
+<text x="47.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1d4ed8" text-anchor="start" font-weight="700">Фізичний механізм різниці КТР (CTE)</text>
+<text x="47.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Текстоліт FR-4 розширюється з коефіцієнтом 14–17 ppm/°C.</text>
+<text x="47.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Керамічний чип / кремній має КТР лише 3–7 ppm/°C.</text>
+<text x="47.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• При зміні температури (ΔT) виникає потужний зсув пайки:</text>
+<text x="47.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">  ΔL = L · (CTE_pcb − CTE_chip) · ΔT</text>
+<rect x="37.0" y="230.0" width="360.0" height="115.0" rx="6" fill="#f8fafc" stroke="#d97706" stroke-width="1.2"/>
+<text x="47.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="start" font-weight="700">Чому SAC305 ламається швидше за Sn63Pb37</text>
+<text x="47.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Безсвинцевий SAC305 (Sn96.5 Ag3.0 Cu0.5) значно жорсткіший.</text>
+<text x="47.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Модуль пружності E = 50 ГПа проти 32 ГПа у свинцевого.</text>
+<text x="47.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Інтерметаліди (Cu6Sn5, Ni3Sn4) утворюють крихкий шар.</text>
+<text x="47.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Припой не розвантажує напруження пластично, а накопичує тріщини.</text>
+<rect x="37.0" y="355.0" width="360.0" height="115.0" rx="6" fill="#f8fafc" stroke="#047857" stroke-width="1.2"/>
+<text x="47.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#047857" text-anchor="start" font-weight="700">Інженерний захист паяних з'єднань</text>
+<text x="47.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Зниження ΔT за рахунок тепловідводу й правильного корпусу.</text>
+<text x="47.0" y="409.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Підливка компаунду Underfill під великі BGA/QFN чипи.</text>
+<text x="47.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Спеціальні виводи (Gull-wing) замість жорстких плоских паянь.</text>
+<text x="47.0" y="443.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Фіксація силіконом (RTV Staking) важких конденсаторів і дроселів.</text>
+<rect x="428.0" y="60.0" width="390.0" height="435.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="428.0" y="60.0" width="390.0" height="32.0" rx="8" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="623.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Тріщини кераміки MLCC (Flex Cracking)</text>
+<rect x="443.0" y="105.0" width="360.0" height="115.0" rx="6" fill="#f8fafc" stroke="#b91c1c" stroke-width="1.2"/>
+<text x="453.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="start" font-weight="700">Крихкість кераміки BaTiO3 та вигин плати</text>
+<text x="453.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Кераміка титанату барію має високу міцність на стиск,</text>
+<text x="453.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">  але вкрай низьку міцність на розтяг (&lt; 100 МПа).</text>
+<text x="453.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• При вигині плати паяний шов тягне зовнішній шар кераміки.</text>
+<text x="453.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Виникає характерна тріщина під кутом 45° від паяльної галтелі.</text>
+<rect x="443.0" y="230.0" width="360.0" height="115.0" rx="6" fill="#f8fafc" stroke="#b91c1c" stroke-width="1.2"/>
+<text x="453.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="start" font-weight="700">Катастрофічний режим відмови: КЗ живлення</text>
+<text x="453.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Тріщина перетинає внутрішні протилежні електроди.</text>
+<text x="453.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Волога з повітря проникає в тріщину -&gt; дендритний ріст.</text>
+<text x="453.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Конденсатор перетворюється на резистор 1–10 Ом, гріється,</text>
+<text x="453.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">  спричиняє вигоряння плати або коротке замикання батареї.</text>
+<rect x="443.0" y="355.0" width="360.0" height="115.0" rx="6" fill="#f8fafc" stroke="#047857" stroke-width="1.2"/>
+<text x="453.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#047857" text-anchor="start" font-weight="700">Правила топології PCB проти Flex Cracking</text>
+<text x="453.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Орієнтація: розташовувати MLCC паралельно осі вигину плати.</text>
+<text x="453.0" y="409.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Відстань &gt; 5–10 мм від отворів гвинтів, роз'ємів і ліній скрайбування.</text>
+<text x="453.0" y="426.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Використання Soft-Termination (полімерні еластичні виводи).</text>
+<text x="453.0" y="443.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Розвантажувальні фрезеровані пази (Slots) біля зон механічного тиску.</text>
+</svg>

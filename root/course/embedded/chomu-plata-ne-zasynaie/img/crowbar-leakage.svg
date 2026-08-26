@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 790 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="790" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="390.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Наскрізний струм пари КМОН-інвертора при плаваючому вході</text>
+<rect x="10.0" y="10.0" width="760.0" height="400.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="390.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Наскрізний струм (crowbar leakage) у вхідному КМОН-буфері</text>
+<rect x="30.0" y="60.0" width="210.0" height="330.0" rx="6" fill="#f8fafc" stroke="#27ae60" stroke-width="1.5"/>
+<text x="135.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Визначений рівень</text>
+<text x="135.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Vin = 0 В або Vin = 3.3 В</text>
+<rect x="45.0" y="120.0" width="180.0" height="110.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="135.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхід LOW (0 В)</text>
+<text x="135.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">PMOS: ВВІМКНЕНО (провідний)</text>
+<text x="135.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">NMOS: ВИМКНЕНО (закритий)</text>
+<text x="135.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Витік: &lt; 1 нА (ізоляція)</text>
+<rect x="45.0" y="245.0" width="180.0" height="110.0" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.0"/>
+<text x="135.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхід HIGH (3.3 В)</text>
+<text x="135.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">PMOS: ВИМКНЕНО (закритий)</text>
+<text x="135.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">NMOS: ВВІМКНЕНО (провідний)</text>
+<text x="135.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Витік: &lt; 1 нА (ізоляція)</text>
+<text x="135.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Один із ключів завжди закритий</text>
+<rect x="260.0" y="60.0" width="270.0" height="330.0" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="395.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Плаваюча ніжка (Floating)</text>
+<text x="395.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Vin зависає на рівні ~1.65 В</text>
+<line x1="345.0" y1="125.0" x2="445.0" y2="125.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="395.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">VDD = 3.3 В</text>
+<rect x="371.0" y="149.0" width="48.0" height="32.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="395.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">PMOS (ON)</text>
+<line x1="395.0" y1="125.0" x2="395.0" y2="149.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="280.0" y1="215.0" x2="360.0" y2="215.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+<circle cx="280.0" cy="215.0" r="4.0" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="290.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Vin ~ 1.65 В</text>
+<text x="290.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">(наводки)</text>
+<line x1="360.0" y1="165.0" x2="371.0" y2="165.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="360.0" y1="265.0" x2="371.0" y2="265.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="360.0" y1="165.0" x2="360.0" y2="265.0" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="395.0" y1="181.0" x2="395.0" y2="249.0" stroke="#c0392b" stroke-width="2.0"/>
+<rect x="371.0" y="249.0" width="48.0" height="32.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="395.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">NMOS (ON)</text>
+<line x1="395.0" y1="281.0" x2="395.0" y2="315.0" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="355.0" y1="315.0" x2="435.0" y2="315.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="370.0" y1="320.0" x2="420.0" y2="320.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="385.0" y1="325.0" x2="405.0" y2="325.0" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="395.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">GND (0 В)</text>
+<line x1="440.0" y1="140.0" x2="440.0" y2="302.0" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="5,3"/>
+<path d="M440.0 312.0 L435.0 302.0 L445.0 302.0 Z" fill="#c0392b" stroke="#c0392b"/>
+<text x="450.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">I_витік</text>
+<text x="450.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">100–400 мкА</text>
+<text x="450.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">на кожен пін!</text>
+<rect x="272.0" y="352.0" width="246.0" height="30.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<text x="395.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Обидва транзистори прочинені!</text>
+<rect x="550.0" y="60.0" width="200.0" height="330.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="650.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Analog Mode (Hi-Z)</text>
+<text x="650.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Правильна конфігурація</text>
+<rect x="565.0" y="125.0" width="170.0" height="90.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="650.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхідний буфер</text>
+<text x="650.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">ВІДРІЗАНО ВІД ПІНА</text>
+<text x="650.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">ключем комутації</text>
+<text x="650.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">тригер Шмітта вимкнено</text>
+<rect x="565.0" y="230.0" width="170.0" height="80.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="650.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Результат у сні:</text>
+<text x="650.0" y="272.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Наскрізний струм = 0</text>
+<text x="650.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Витік: &lt; 0.1 нА</text>
+<rect x="560.0" y="325.0" width="180.0" height="55.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+<text x="650.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Всі невживані ніжки</text>
+<text x="650.0" y="363.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">→ в режим Analog!</text>
+</svg>

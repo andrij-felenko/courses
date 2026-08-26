@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1003.5 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1003.5" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Комунікаційні ролі та топології в розподілених вбудованих мережах</text>
+<text x="480.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Розподіл ініціативи, детермінізм доступу до середовища та складність маршрутизації</text>
+<rect x="24.0" y="80.0" width="216.0" height="240.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<rect x="24.0" y="80.0" width="216.0" height="36.0" rx="8" fill="#2457d6" stroke="#2457d6" stroke-width="1.8"/>
+<rect x="24.0" y="104.0" width="216.0" height="12.0" rx="0" fill="#2457d6" stroke="#2457d6" stroke-width="0.0"/>
+<text x="132.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">1. Master-Slave (Опитування)</text>
+<text x="34.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Ініціатива: виключно Master.</text>
+<text x="34.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Slaves відповідають лише на запит.</text>
+<text x="27.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Плюси: 100% захист від колізій на RS-485.</text>
+<text x="34.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Мінуси: затримка опитування (latency),</text>
+<text x="34.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">  холостий трафік при відсутності змін.</text>
+<rect x="258.0" y="80.0" width="216.0" height="240.0" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="258.0" y="80.0" width="216.0" height="36.0" rx="8" fill="#27ae60" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="258.0" y="104.0" width="216.0" height="12.0" rx="0" fill="#27ae60" stroke="#27ae60" stroke-width="0.0"/>
+<text x="366.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">2. Client-Server (Запит-відповідь)</text>
+<text x="268.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Ініціатива: Клієнт за потребою події.</text>
+<text x="268.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Сервер виконує дію та повертає статус.</text>
+<text x="268.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Плюси: асинхронність, економія каналу,</text>
+<text x="268.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">  паралельні транзакції за Sequence ID.</text>
+<text x="268.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Мінуси: потрібен арбітраж або дуплекс.</text>
+<rect x="492.0" y="80.0" width="216.0" height="240.0" rx="8" fill="#fff3cd" stroke="#d35400" stroke-width="1.8"/>
+<rect x="492.0" y="80.0" width="216.0" height="36.0" rx="8" fill="#d35400" stroke="#d35400" stroke-width="1.8"/>
+<rect x="492.0" y="104.0" width="216.0" height="12.0" rx="0" fill="#d35400" stroke="#d35400" stroke-width="0.0"/>
+<text x="600.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">3. Peer-to-Peer (Рівноправний)</text>
+<text x="502.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Ініціатива: будь-який вузол (Event / Pub).</text>
+<text x="502.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Прямий обмін даними між сусідами.</text>
+<text x="495.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Плюси: мінімальний час реакції на аварії,</text>
+<text x="502.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">  немає єдиної точки відмови (SPOF).</text>
+<text x="502.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Мінуси: ризик колізій та шторму подій.</text>
+<rect x="726.0" y="80.0" width="216.0" height="240.0" rx="8" fill="#f3e8fd" stroke="#7d3c98" stroke-width="1.8"/>
+<rect x="726.0" y="80.0" width="216.0" height="36.0" rx="8" fill="#7d3c98" stroke="#7d3c98" stroke-width="1.8"/>
+<rect x="726.0" y="104.0" width="216.0" height="12.0" rx="0" fill="#7d3c98" stroke="#7d3c98" stroke-width="0.0"/>
+<text x="834.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">4. Mesh Coordinator (Координатор)</text>
+<text x="736.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Ініціатива: ведення мережевого дерева.</text>
+<text x="736.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Роздача адрес, синхронізація часу,</text>
+<text x="736.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">  маршрутизація транзитних пакетів.</text>
+<text x="736.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Плюси: покриття великих просторів.</text>
+<text x="736.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Мінуси: висока пам'ять на таблиці роутингу.</text>
+<rect x="24.0" y="350.0" width="912.0" height="105.0" rx="8" fill="#f8f9fa" stroke="#bdc3c7" stroke-width="1.5"/>
+<text x="40.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Ключовий критерій вибору архітектурної моделі:</text>
+<text x="40.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Фізичний напівдуплекс без апаратного арбітражу (RS-485 / голий UART)  -&gt;  Master-Slave або Client-Server із токеном.</text>
+<text x="40.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Шинні інтерфейси з арбітражем пріоритетів (CAN-bus / I2C Multi-Master)  -&gt;  Peer-to-Peer із подієвою моделлю.</text>
+<text x="40.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Бездротові транзитні топології з ретрансляцією (LoRa Mesh / Zigbee)   -&gt;  Mesh Coordinator + Рухомі вузли.</text>
+</svg>

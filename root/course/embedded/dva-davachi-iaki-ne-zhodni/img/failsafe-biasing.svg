@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-32.5 -10 852.5 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-32.5" y="-10" width="852.5" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Принцип захисного зміщення при виборі між двома незгідними давачами</text>
+<rect x="20.0" y="20.0" width="780.0" height="380.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="410.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Безпечне зміщення (Fail-Safe Biasing) та перехресні характеристики</text>
+<line x1="70.0" y1="320.0" x2="360.0" y2="320.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="70.0" y1="90.0" x2="70.0" y2="320.0" stroke="#333333" stroke-width="1.5"/>
+<text x="215.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Положення педалі (0% → 100%)</text>
+<text x="60.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="end">Напруга АЦП (В)</text>
+<text x="62.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">0V</text>
+<text x="62.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">1.0V</text>
+<text x="62.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">2.5V</text>
+<text x="62.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">4.5V</text>
+<line x1="90.0" y1="295.0" x2="340.0" y2="110.0" stroke="#2457d6" stroke-width="2.5"/>
+<text x="345.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-weight="700">Канал 1: 0.5V → 4.5V</text>
+<line x1="90.0" y1="110.0" x2="340.0" y2="295.0" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6 3"/>
+<text x="345.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">Канал 2: 4.5V → 0.5V (інверсний)</text>
+<text x="215.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">V₁ + V₂ = 5.0V (Константа)</text>
+<text x="215.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">КЗ на VCC чи GND миттєво руйнує суму</text>
+<rect x="420.0" y="80.0" width="360.0" height="290.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="600.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Політика асиметричного ризику (1oo2 Bias)</text>
+<rect x="435.0" y="126.0" width="330.0" height="48.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/><text x="600.0" y="140.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">1. Педаль газу / Дросель (APPS):</tspan><tspan x="600.0" dy="13.0">Розбіжність &gt; 10% → Педаль = 0% (Холостий хід)</tspan><tspan x="600.0" dy="13.0">Ризик: Самовільний розгін смертельний</tspan></text>
+<rect x="435.0" y="201.0" width="330.0" height="48.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="600.0" y="215.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">2. Температура акумулятора (BMS):</tspan><tspan x="600.0" dy="13.0">T₁ = 42°C, T₂ = 68°C → Обираємо MAX(T₁, T₂) = 68°C</tspan><tspan x="600.0" dy="13.0">Ризик: Недооцінка нагріву веде до пожежі</tspan></text>
+<rect x="435.0" y="276.0" width="330.0" height="48.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="600.0" y="290.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">3. Висота приземлення дрона:</tspan><tspan x="600.0" dy="13.0">h₁ = 4.2 м, h₂ = 1.8 м → Обираємо MIN(h₁, h₂) = 1.8 м</tspan><tspan x="600.0" dy="13.0">Ризик: Завищення висоти веде до удару об землю</tspan></text>
+<text x="410.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-style="italic">Коли розбіжність неможливо арбітрувати — обирається стан найменшого фізичного ризику</text>
+</svg>

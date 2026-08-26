@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Покроковий алгоритм початкового оживлення друкованої плати (Bring-Up Flow)</text>
+<rect x="60.0" y="41.0" width="240.0" height="68.0" rx="8" fill="#eef1f5" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="180.0" y="61.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Холодний візуальний огляд</text>
+<text x="180.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">Мікроскоп: полярність діодів/танталів,</tspan><tspan x="180.0" dy="12.0">відсутність містків і кульок припою</tspan></text>
+<line x1="180.0" y1="109.0" x2="180.0" y2="151.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="151.0" width="240.0" height="68.0" rx="8" fill="#eef1f5" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="180.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Продзвонка шин живлення</text>
+<text x="180.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">Опір VCC ↔ GND у режимі Ом/діод:</tspan><tspan x="180.0" dy="12.0">заряд конденсаторів, відсутність КЗ</tspan></text>
+<line x1="180.0" y1="219.0" x2="180.0" y2="261.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="261.0" width="240.0" height="68.0" rx="8" fill="#fef6e7" stroke="#b8860b" stroke-width="1.8"/>
+<text x="180.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b8860b" text-anchor="middle" font-weight="700">3. Подача V_in з лімітом струму</text>
+<text x="180.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">БЖ у режимі CC/CV (ліміт 50–100 мА):</tspan><tspan x="180.0" dy="12.0">моніторинг струму спокою (I &lt; I_lim)</tspan></text>
+<line x1="180.0" y1="329.0" x2="180.0" y2="371.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="371.0" width="240.0" height="68.0" rx="8" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="180.0" y="391.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">4. Тепловий контроль (IPA/LWIR)</text>
+<text x="180.0" y="411.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">Швидка перевірка на гарячі точки:</tspan><tspan x="180.0" dy="12.0">нормальна температура всіх IC</tspan></text>
+<line x1="300.0" y1="405.0" x2="430.0" y2="405.0" stroke="#6b7280" stroke-width="1.8"/>
+<line x1="430.0" y1="405.0" x2="430.0" y2="75.0" stroke="#6b7280" stroke-width="1.8"/>
+<line x1="430.0" y1="75.0" x2="560.0" y2="75.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="560.0" y="41.0" width="240.0" height="68.0" rx="8" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="680.0" y="61.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">5. Замір шин LDO / DC-DC</text>
+<text x="680.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="680.0" dy="0.0">Мультиметр/осцилограф на Test Points:</tspan><tspan x="680.0" dy="12.0">рівень напруг та відсутність пульсацій</tspan></text>
+<line x1="680.0" y1="109.0" x2="680.0" y2="151.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="560.0" y="151.0" width="240.0" height="68.0" rx="8" fill="#eef6ef" stroke="#27ae60" stroke-width="1.8"/>
+<text x="680.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">6. Перевірка NRST і кварцу</text>
+<text x="680.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="680.0" dy="0.0">Рівень Reset (&gt;0.8·VDD) та стабільна</tspan><tspan x="680.0" dy="12.0">генерація годинника (Active probe / MCO)</tspan></text>
+<line x1="680.0" y1="219.0" x2="680.0" y2="261.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="560.0" y="261.0" width="240.0" height="68.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="680.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">7. Зв'язок з SWD / JTAG</text>
+<text x="680.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="680.0" dy="0.0">Підключення налагоджувача: зчитування</tspan><tspan x="680.0" dy="12.0">IDCODE та перший тестовий Blink</tspan></text>
+<rect x="560.0" y="371.0" width="240.0" height="68.0" rx="8" fill="#27ae60" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="680.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">ПЛАТА ОЖИВЛЕНА!</text>
+<text x="680.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle">Перехід до функціональних тестів</text>
+<line x1="680.0" y1="329.0" x2="680.0" y2="371.0" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arrow)"/>
+</svg>

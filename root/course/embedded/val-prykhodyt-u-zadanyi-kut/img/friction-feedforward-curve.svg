@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="520.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Модель тертя механічного приводу та функція прямої компенсації (Feedforward)</text>
+<rect x="30.0" y="60.0" width="475.0" height="395.0" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.4"/>
+<text x="267.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e293b" text-anchor="middle" font-weight="700">Фізична характеристика тертя вала</text>
+<text x="267.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Тертя спокою (Stiction) + ефект Страйбека + в'язке тертя</text>
+<rect x="55.0" y="120.0" width="425.0" height="230.0" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<line x1="65.0" y1="235.0" x2="470.0" y2="235.0" stroke="#64748b" stroke-width="1.5"/>
+<line x1="267.0" y1="130.0" x2="267.0" y2="340.0" stroke="#64748b" stroke-width="1.5"/>
+<text x="465.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="end" font-weight="700">ω (швидкість)</text>
+<text x="275.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="start" font-weight="700">τ_fric (момент тертя)</text>
+<path d="M 267.0,170.0 L 280.0,185.0 L 310.0,200.0 L 370.0,190.0 L 450.0,160.0" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-linejoin="round"/>
+<path d="M 267.0,300.0 L 254.0,285.0 L 224.0,270.0 L 164.0,280.0 L 84.0,310.0" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="267.0" cy="170.0" r="4.0" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="267.0" cy="300.0" r="4.0" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="285.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">+τ_stiction (зрив)</text>
+<text x="250.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">−τ_stiction</text>
+<line x1="310.0" y1="200.0" x2="310.0" y2="235.0" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="315.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0284c7" text-anchor="start">Кулонівське тертя τ_c</text>
+<text x="440.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="end" font-weight="700">В'язке тертя: k_v · ω</text>
+<rect x="55.0" y="360.0" width="425.0" height="80.0" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="267.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Головна пастка: при нульовій швидкості тертя найвище!</text>
+<text x="267.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ПІД-регулятор запізнюється зі створенням моменту страгування,</text>
+<text x="267.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">що породжує зону застопорення (Dead Zone) і затримку старту</text>
+<rect x="535.0" y="60.0" width="475.0" height="395.0" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.4"/>
+<text x="772.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#166534" text-anchor="middle" font-weight="700">Алгоритм Stiction &amp; Dynamic Feedforward</text>
+<text x="772.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Миттєве додавання розрахованого моменту до уставки струму</text>
+<rect x="560.0" y="120.0" width="425.0" height="230.0" rx="4" fill="#ffffff" stroke="#bbf7d0" stroke-width="1.0"/>
+<line x1="570.0" y1="235.0" x2="975.0" y2="235.0" stroke="#64748b" stroke-width="1.5"/>
+<line x1="772.0" y1="130.0" x2="772.0" y2="340.0" stroke="#64748b" stroke-width="1.5"/>
+<text x="970.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="end" font-weight="700">ω* (задана)</text>
+<text x="780.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">τ_ff (добавка)</text>
+<path d="M 772.0,235.0 L 776.0,185.0 L 850.0,185.0 L 960.0,155.0" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-linejoin="round"/>
+<path d="M 772.0,235.0 L 768.0,285.0 L 694.0,285.0 L 584.0,315.0" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-linejoin="round"/>
+<text x="850.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">+τ_c + k_v·ω*</text>
+<text x="690.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">−τ_c − k_v·ω*</text>
+<text x="785.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Stiction-імпульс</text>
+<rect x="560.0" y="360.0" width="425.0" height="80.0" rx="4" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.0"/>
+<text x="772.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#065f46" text-anchor="middle" font-weight="700">Формула повного моменту випередження:</text>
+<text x="772.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#047857" text-anchor="middle" font-weight="700">τ_cmd = τ_PID + J·α* + τ_coulomb·sgn(ω*) + k_v·ω* + τ_gravity(θ)</text>
+<text x="772.0" y="424.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Похибка регулювання падає до 5–10 разів без зміни коефіцієнтів ПІД</text>
+</svg>

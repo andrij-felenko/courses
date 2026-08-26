@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Бінарна структура файлу байткоду .pyc (Python 3.7+)</text>
+<rect x="40.0" y="65.0" width="900.0" height="420.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<rect x="60.0" y="95.0" width="860.0" height="190.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="490.0" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Заголовок файлу .pyc (16 байтів / 4 слова по 32 біти)</text>
+<rect x="80.0" y="145.0" width="185.0" height="115.0" rx="5" fill="#f8fafc" stroke="#2457d6" stroke-width="1.2"/>
+<text x="172.5" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Байти 0..3 (4B)</text>
+<text x="172.5" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Magic Number</text>
+<line x1="88.0" y1="193.0" x2="257.0" y2="193.0" stroke="#2457d6" stroke-width="0.6"/>
+<text x="172.5" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">2B: версія байткоду</text>
+<text x="172.5" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">2B: константа \r\n</text>
+<text x="172.5" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Приклад: 0x0A0D0D34</text>
+<rect x="285.0" y="145.0" width="185.0" height="115.0" rx="5" fill="#f8fafc" stroke="#27ae60" stroke-width="1.2"/>
+<text x="377.5" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Байти 4..7 (4B)</text>
+<text x="377.5" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Bit Field (Прапорці)</text>
+<line x1="293.0" y1="193.0" x2="462.0" y2="193.0" stroke="#27ae60" stroke-width="0.6"/>
+<text x="377.5" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">біт 0: 0=mtime, 1=hash</text>
+<text x="377.5" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">біт 1: check / uncheck</text>
+<text x="377.5" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Стандарт PEP 552</text>
+<rect x="490.0" y="145.0" width="210.0" height="115.0" rx="5" fill="#f8fafc" stroke="#c0392b" stroke-width="1.2"/>
+<text x="595.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Байти 8..11 (4B)</text>
+<text x="595.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Timestamp / Hash[0..3]</text>
+<line x1="498.0" y1="193.0" x2="692.0" y2="193.0" stroke="#c0392b" stroke-width="0.6"/>
+<text x="595.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Час модифікації (mtime)</text>
+<text x="595.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">або перші 4 байти</text>
+<text x="595.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">хешу SIPHASH-24</text>
+<rect x="720.0" y="145.0" width="180.0" height="115.0" rx="5" fill="#f8fafc" stroke="#b78103" stroke-width="1.2"/>
+<text x="810.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Байти 12..15 (4B)</text>
+<text x="810.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b78103" text-anchor="middle" font-weight="700">File Size / Hash[4..7]</text>
+<line x1="728.0" y1="193.0" x2="892.0" y2="193.0" stroke="#b78103" stroke-width="0.6"/>
+<text x="810.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Розмір .py файлу (bytes)</text>
+<text x="810.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">або другі 4 байти</text>
+<text x="810.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">хешу SIPHASH-24</text>
+<rect x="60.0" y="305.0" width="860.0" height="155.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="490.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Корисне навантаження: маршалізований PyCodeObject (Байти 16..кінець)</text>
+<rect x="80.0" y="352.0" width="255.0" height="90.0" rx="5" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="207.5" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">marshal.dump(code_object)</text>
+<line x1="88.0" y1="384.0" x2="327.0" y2="384.0" stroke="#c0392b" stroke-width="0.6"/>
+<text x="207.5" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Серіалізована структура коду</text>
+<text x="207.5" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Константи co_consts, імена co_names</text>
+<text x="207.5" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Таблиця рядків co_linetable</text>
+<rect x="360.0" y="352.0" width="255.0" height="90.0" rx="5" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="487.5" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">co_code (Байткод-інструкції)</text>
+<line x1="368.0" y1="384.0" x2="607.0" y2="384.0" stroke="#c0392b" stroke-width="0.6"/>
+<text x="487.5" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Послідовність 16-бітних слів інструкцій</text>
+<text x="487.5" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Опокоди: LOAD_FAST, STORE_NAME...</text>
+<text x="487.5" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Таблиця переходів та обробників</text>
+<rect x="640.0" y="352.0" width="260.0" height="90.0" rx="5" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.0"/>
+<text x="770.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Десеріалізація через C-API</text>
+<line x1="648.0" y1="384.0" x2="892.0" y2="384.0" stroke="#c0392b" stroke-width="0.6"/>
+<text x="770.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">PyMarshal_ReadObjectFromString()</text>
+<text x="770.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Швидке відновлення без парсингу тексту</text>
+<text x="770.0" y="432.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Перевірка цілісності об'єкта</text>
+</svg>

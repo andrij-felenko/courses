@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 360" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="360" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритм відбілювання Джона фон Неймана (Von Neumann Decorrelator)</text>
+<rect x="35.0" y="60.0" width="410.0" height="205.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="50.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Правило обробки некорельованих бітових пар</text>
+<rect x="50.0" y="95.0" width="380.0" height="26.0" rx="6" fill="#f3f4f6" stroke="#333333" stroke-width="1.0"/>
+<text x="95.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пара (2k, 2k+1)</text>
+<text x="215.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ймовірність</text>
+<text x="345.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дія / Вихід</text>
+<rect x="50.0" y="121.0" width="380.0" height="26.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="95.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0  0</text>
+<text x="215.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">(1 - p)²</text>
+<text x="345.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Відкинути (немає виходу)</text>
+<rect x="50.0" y="147.0" width="380.0" height="26.0" rx="6" fill="#f0fdf4" stroke="#333333" stroke-width="0.8"/>
+<text x="95.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">0  1</text>
+<text x="215.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">(1 - p) · p</text>
+<text x="345.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Видати біт 0</text>
+<rect x="50.0" y="173.0" width="380.0" height="26.0" rx="6" fill="#f0fdf4" stroke="#333333" stroke-width="0.8"/>
+<text x="95.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1  0</text>
+<text x="215.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">p · (1 - p)</text>
+<text x="345.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Видати біт 1</text>
+<rect x="50.0" y="199.0" width="380.0" height="26.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="95.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1  1</text>
+<text x="215.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">p²</text>
+<text x="345.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Відкинути (немає виходу)</text>
+<text x="50.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Математичний доказ строгої рівності:</text>
+<text x="50.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">P(01) = (1-p)·p = p·(1-p) = P(10) ⇒ P(Вихід=0) = P(Вихід=1) = 0.5</text>
+<rect x="470.0" y="60.0" width="315.0" height="205.0" rx="6" fill="#fafbfc" stroke="#333333" stroke-width="1.5"/>
+<text x="627.5" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перетворення бітового потоку</text>
+<rect x="527.5" y="97.5" width="200.1" height="35.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.2"/><text x="627.5" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="627.5" dy="0.0">Зсунутий вхідний потік (p = 0.65)</tspan><tspan x="627.5" dy="13.0">1 1  0 1  0 0  1 0  1 1  0 1</tspan></text>
+<line x1="627.5" y1="140.0" x2="627.5" y2="165.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="702.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фільтр пар</text>
+<rect x="496.1" y="167.5" width="262.8" height="35.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.2"/><text x="627.5" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="627.5" dy="0.0">Розпізнані пари:</tspan><tspan x="627.5" dy="13.0">[11:✕] [01:→0] [00:✕] [10:→1] [11:✕] [01:→0]</tspan></text>
+<line x1="627.5" y1="210.0" x2="627.5" y2="232.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="497.8" y="236.8" width="259.4" height="22.5" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.4"/><text x="627.5" y="251.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="627.5" dy="0.0">Ідеально збалансований потік:  0  1  0</tspan></text>
+<rect x="35.0" y="275.0" width="750.0" height="65.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.4"/><text x="410.0" y="297.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="410.0" dy="0.0">Ціна декорелятора Фон Неймана: вихідна швидкість падає у 4–8 разів (пропускна здатність E ≤ 0.25).</tspan><tspan x="410.0" dy="14.3">Алгоритм ефективно знищує постійний зсув частоти 0/1 (Bias), проте не рятує від наявності</tspan><tspan x="410.0" dy="14.3">міжбітової автокореляції — для її усунення обов'язкове криптографічне хеш-кондиціювання.</tspan></text>
+</svg>

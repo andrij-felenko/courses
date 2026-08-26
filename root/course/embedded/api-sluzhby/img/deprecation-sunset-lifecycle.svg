@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 496.76" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="496.76" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл депрекації та виведення ендпоінтів: від попередження до Sunset</text>
+<line x1="30.0" y1="460.0" x2="910.0" y2="460.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="470.0" y="475.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часова шкала життєвого циклу API (місяці / роки)</text>
+<rect x="40.0" y="20.0" width="205.0" height="400.0" rx="8" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="40.0" y="20.0" width="205.0" height="54.0" rx="8" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="142.5" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">1. Чинна версія (Active)</text>
+<text x="142.5" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">v1 у продакшні</text>
+<rect x="260.0" y="20.0" width="205.0" height="400.0" rx="8" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="260.0" y="20.0" width="205.0" height="54.0" rx="8" fill="#fdf0e6" stroke="#c07a2e" stroke-width="1.5"/>
+<text x="362.5" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c07a2e" text-anchor="middle" font-weight="700">2. Оголошення депрекації</text>
+<text x="362.5" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Deprecation &amp; Sunset</text>
+<rect x="480.0" y="20.0" width="205.0" height="400.0" rx="8" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="480.0" y="20.0" width="205.0" height="54.0" rx="8" fill="#fbebee" stroke="#c0392b" stroke-width="1.5"/>
+<text x="582.5" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">3. Вікна блекауту (Brownout)</text>
+<text x="582.5" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Тестові відключення</text>
+<rect x="700.0" y="20.0" width="200.0" height="400.0" rx="8" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="700.0" y="20.0" width="200.0" height="54.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/>
+<text x="800.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#333333" text-anchor="middle" font-weight="700">4. Виведення (Sunset / 410)</text>
+<text x="800.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Остаточний вихід</text>
+<text x="142.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">HTTP 200 OK</text>
+<rect x="50.0" y="115.0" width="185.0" height="90.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="142.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Повний розвиток фіч</text>
+<text x="142.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• 100% пристроїв на v1</text>
+<text x="142.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Без попереджень у логах</text>
+<text x="142.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• SLA підтримується 24/7</text>
+<rect x="50.0" y="220.0" width="185.0" height="80.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.0"/>
+<text x="142.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Стан пристроїв:</text>
+<text x="142.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Парк працює штатно,</text>
+<text x="142.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">нових версій ще немає.</text>
+<text x="362.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c07a2e" text-anchor="middle" font-weight="700">Заголовки RFC 8594</text>
+<rect x="270.0" y="115.0" width="185.0" height="125.0" rx="6" fill="#fdf0e6" stroke="#c07a2e" stroke-width="1.0"/>
+<text x="362.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Deprecation: @1773446400</text>
+<text x="362.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Sunset: 15 Nov 2026 GMT</text>
+<text x="362.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Link: &lt;.../v2&gt;; rel='migr'</text>
+<text x="362.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Метрики звернень за ID</text>
+<text x="362.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Когорти старих прошивок</text>
+<text x="362.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Повідомлення розробникам</text>
+<rect x="270.0" y="255.0" width="185.0" height="80.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="362.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Моніторинг:</text>
+<text x="362.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Графік спадання v1 трафіку,</text>
+<text x="362.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">виявлення сплячих вузлів.</text>
+<text x="582.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Контрольований блекаут</text>
+<rect x="490.0" y="115.0" width="185.0" height="125.0" rx="6" fill="#fbebee" stroke="#c0392b" stroke-width="1.0"/>
+<text x="582.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">5 хв штучного вимкнення</text>
+<text x="582.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Повернення 410 Gone / 429</text>
+<text x="582.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Перевірка сигналізацій</text>
+<text x="582.0" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Тест реакції підтримки</text>
+<text x="582.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• 1 година за тиждень до...</text>
+<text x="582.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">• Викриття забутих систем</text>
+<rect x="490.0" y="255.0" width="185.0" height="80.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="582.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Результат фази:</text>
+<text x="582.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Всі, хто ігнорував Sunset,</text>
+<text x="582.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">терміново оновлюють код.</text>
+<text x="800.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">HTTP 410 Gone / Адаптер</text>
+<rect x="710.0" y="115.0" width="180.0" height="125.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="800.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Варіант А: Фізичний 410</text>
+<text x="800.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ендпоінт видалено з коду.</text>
+<text x="800.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Варіант Б: L7-адаптер</text>
+<text x="800.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Проксі трансформує v1-&gt;v2</text>
+<text x="800.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">для 'вічних' старих плат.</text>
+<rect x="710.0" y="255.0" width="180.0" height="80.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.0"/>
+<text x="800.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Фінал еволюції:</text>
+<text x="800.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Сервер очищено від спадщини,</text>
+<text x="800.0" y="313.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">старі прилади не зламано.</text>
+</svg>

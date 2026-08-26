@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="900.0" height="430.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="460.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Алгоритм відновлення шини тактуванням (9-Clock Pulse Sequence + STOP)</text>
+<rect x="2.3" y="97.3" width="105.5" height="35.3" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="55.0" y="111.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="55.0" dy="0.0">SCL</tspan><tspan x="55.0" dy="14.3">(GPIO Bitbang)</tspan></text>
+<rect x="9.1" y="217.3" width="91.8" height="35.3" rx="6" fill="#fff7ed" stroke="#d97706" stroke-width="1.5"/><text x="55.0" y="231.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700"><tspan x="55.0" dy="0.0">SDA</tspan><tspan x="55.0" dy="14.3">(Line State)</tspan></text>
+<line x1="100.0" y1="85.0" x2="890.0" y2="85.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="100.0" y1="145.0" x2="890.0" y2="145.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="100.0" y1="205.0" x2="890.0" y2="205.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="100.0" y1="265.0" x2="890.0" y2="265.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="132.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">#1</text>
+<text x="187.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">#2</text>
+<text x="242.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">#3</text>
+<text x="297.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">#4</text>
+<text x="352.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">#5</text>
+<text x="407.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">#6</text>
+<text x="462.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">#7</text>
+<text x="517.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">#8</text>
+<text x="572.0" y="161.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">#9</text>
+<polyline points="105.0,85.0 120.0,85.0 120.0,145.0 145.0,145.0 145.0,85.0 175.0,85.0 175.0,145.0 200.0,145.0 200.0,85.0 230.0,85.0 230.0,145.0 255.0,145.0 255.0,85.0 285.0,85.0 285.0,145.0 310.0,145.0 310.0,85.0 340.0,85.0 340.0,145.0 365.0,145.0 365.0,85.0 395.0,85.0 395.0,145.0 420.0,145.0 420.0,85.0 450.0,85.0 450.0,145.0 475.0,145.0 475.0,85.0 505.0,85.0 505.0,145.0 530.0,145.0 530.0,85.0 560.0,85.0 560.0,145.0 585.0,145.0 585.0,85.0 615.0,85.0 630.0,145.0 670.0,145.0 670.0,85.0 880.0,85.0" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+<polyline points="105.0,265.0 420.0,265.0 430.0,205.0 645.0,205.0 645.0,265.0 690.0,265.0 690.0,205.0 880.0,205.0" fill="none" stroke="#d97706" stroke-width="2.2"/>
+<line x1="430.0" y1="60.0" x2="430.0" y2="290.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+<rect x="295.8" y="52.5" width="268.4" height="31.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="430.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="430.0" dy="0.0">Ведений відпустив SDA (видав '1' або NACK)</tspan><tspan x="430.0" dy="13.0">Підтяжка підняла SDA до 3.3 В</tspan></text>
+<rect x="625.0" y="180.0" width="110.0" height="110.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+<text x="680.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">Умова STOP</text>
+<text x="673.0" y="216.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">SDA 0 → 1</text>
+<text x="673.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">при SCL = 1</text>
+<text x="680.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Скидання автомата</text>
+<rect x="110.0" y="315.0" width="500.0" height="32.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="360.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Фаза 1: До 9 імпульсів SCL (виштовхування застряглих бітів)</text>
+<rect x="620.0" y="315.0" width="260.0" height="32.0" rx="4" fill="#eef6ef" stroke="#27ae60" stroke-width="1.0"/>
+<text x="750.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Фаза 2: Валідний STOP + перевірка IDLE</text>
+<rect x="35.0" y="376.4" width="850.0" height="37.3" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="460.0" y="391.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="460.0" dy="0.0">Алгоритм: 1) Перевести SCL/SDA в GPIO Open-Drain; 2) Якщо SDA=0, генерувати до 9 тактів на SCL (t_LOW ≥ 5 мкс, t_HIGH ≥ 5 мкс);</tspan><tspan x="460.0" dy="14.3">3) Перевіряти SDA на кожному такті; щойно SDA=1 — ведений відпустив шину; 4) Згенерувати умову STOP; 5) Відновити I2C HAL.</tspan></text>
+</svg>

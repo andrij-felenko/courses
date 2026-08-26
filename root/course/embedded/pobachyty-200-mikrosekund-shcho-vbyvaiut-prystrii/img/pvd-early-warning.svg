@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 813.4 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="813.4" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="720.0" height="350.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="40.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="700">Градуйований захист: часове вікно між PVD-перериванням та апаратним BOD</text>
+<line x1="70.0" y1="330.0" x2="710.0" y2="330.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="70.0" y1="335.0" x2="70.0" y2="80.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="58.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end" font-weight="700">U (В)</text>
+<text x="705.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">час t</text>
+<line x1="70.0" y1="110.0" x2="670.0" y2="110.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="5 4"/>
+<text x="680.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start">3.3 В (Норма)</text>
+<line x1="70.0" y1="180.0" x2="670.0" y2="180.0" stroke="#3498db" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="680.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#3498db" text-anchor="start" font-weight="700">2.9 В (Поріг PVD)</text>
+<line x1="70.0" y1="260.0" x2="670.0" y2="260.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="680.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">2.2 В (Апаратний BOD)</text>
+<rect x="170.0" y="180.0" width="110.0" height="80.0" rx="0" fill="#ebf5fb" stroke="#3498db" stroke-width="1.0"/>
+<text x="225.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2980b9" text-anchor="middle" font-weight="700">Вікно Δt (15–80 мкс)</text>
+<polyline points="70.0,110.0 140.0,110.0 170.0,180.0 280.0,260.0 320.0,300.0 360.0,300.0 400.0,110.0 670.0,110.0" fill="none" stroke="#2c3e50" stroke-width="2.4" stroke-linejoin="round"/>
+<rect x="376.1" y="175.5" width="287.9" height="69.0" rx="4" fill="#f4fbf7" stroke="#27ae60" stroke-width="1.0"/><text x="520.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="520.0" dy="0.0">Дії обробника PVD_IRQHandler:</tspan><tspan x="520.0" dy="13.0">1. Аварійна зупинка ШІМ/радіо (зниження струму)</tspan><tspan x="520.0" dy="13.0">2. Запис причини у Retention SRAM</tspan><tspan x="520.0" dy="13.0">3. Блокування запису у Flash/EEPROM</tspan></text>
+<circle cx="170.0" cy="180.0" r="4.0" fill="#3498db" stroke="#ffffff" stroke-width="1.5"/>
+<text x="165.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#3498db" text-anchor="end" font-weight="700">PVD переривання</text>
+<circle cx="280.0" cy="260.0" r="4.0" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+<text x="290.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Hard Reset (BOD)</text>
+</svg>

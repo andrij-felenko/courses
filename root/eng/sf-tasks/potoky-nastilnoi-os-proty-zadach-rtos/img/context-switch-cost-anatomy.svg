@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія перемикання контексту: Linux (GPOS) проти FreeRTOS (MCU)</text>
+<text x="420.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Linux виконує зміну простору адрес і скидання кешів; RTOS змінює лише кілька слів у RAM</text>
+<rect x="30.0" y="68.0" width="375.0" height="345.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="217.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Linux на x86-64 / ARM64 (GPOS)</text>
+<text x="217.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Типовий час: 1.5 – 10+ мкс (залежно від кешу)</text>
+<rect x="45.0" y="125.0" width="345.0" height="34.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="0.8"/>
+<text x="55.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start" font-weight="700">1. Перехід у ядро (Syscall / Timer IRQ)</text>
+<text x="55.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Зміна рівня привілеїв: User Space (Ring 3) → Kernel (Ring 0)</text>
+<rect x="45.0" y="163.0" width="345.0" height="34.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="0.8"/>
+<text x="55.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start" font-weight="700">2. Збереження регістрів у стек ядра</text>
+<text x="55.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">push rax..r15, rsp, rip, rflags, оновлення структури TSS</text>
+<rect x="45.0" y="201.0" width="345.0" height="34.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="0.8"/>
+<text x="55.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start" font-weight="700">3. Виклик __schedule() та CFS</text>
+<text x="55.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Балансування дерева vruntime, вибір наступної task_struct</text>
+<rect x="45.0" y="239.0" width="345.0" height="34.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="0.8"/>
+<text x="55.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start" font-weight="700">4. Зміна віртуальної пам'яті (switch_mm)</text>
+<text x="55.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Запис нового значення в регістр CR3 (Page Table Base)</text>
+<rect x="45.0" y="277.0" width="345.0" height="34.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="0.8"/>
+<text x="55.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start" font-weight="700">5. Інвалідація TLB / зміна ASID</text>
+<text x="55.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Очищення або тегування буфера трансляції адрес (TLB)</text>
+<rect x="45.0" y="315.0" width="345.0" height="34.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="0.8"/>
+<text x="55.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start" font-weight="700">6. Відновлення регістрів і sysret/iret</text>
+<text x="55.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Холодний L1/L2 кеш: промахи під час читання нового коду</text>
+<text x="217.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Витрати: MMU, зміна сторінок, промахи кешу пам'яті</text>
+<text x="217.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Затримка залежить від стану кешу та розміру робочого набору</text>
+<rect x="435.0" y="68.0" width="375.0" height="345.0" rx="8" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="622.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">FreeRTOS на ARM Cortex-M (RTOS)</text>
+<text x="622.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Типовий час: 0.12 – 0.5 мкс (12 – 50 тактів)</text>
+<rect x="450.0" y="125.0" width="345.0" height="34.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="0.8"/>
+<text x="460.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">1. Апаратне автозбереження (Cortex-M)</text>
+<text x="460.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Процесор сам кладе в стек задачі (PSP): R0-R3, R12, LR, PC, xPSR</text>
+<rect x="450.0" y="163.0" width="345.0" height="34.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="0.8"/>
+<text x="460.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">2. Виклик виключення PendSV</text>
+<text x="460.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">PendSV має найнижчий пріоритет переривання (не блокує ISR)</text>
+<rect x="450.0" y="201.0" width="345.0" height="34.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="0.8"/>
+<text x="460.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">3. Програмне збереження решти регістрів</text>
+<text x="460.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Асемблерна інструкція: stmdb r0!, {r4-r11, r14}</text>
+<rect x="450.0" y="239.0" width="345.0" height="34.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="0.8"/>
+<text x="460.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">4. Зміна вказівника TCB у пам'яті</text>
+<text x="460.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">pxCurrentTCB-&gt;pxTopOfStack = PSP; pxCurrentTCB = pxNewTCB;</text>
+<rect x="450.0" y="277.0" width="345.0" height="34.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="0.8"/>
+<text x="460.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">5. Програмне відновлення регістрів</text>
+<text x="460.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Асемблерна інструкція: ldmia r0!, {r4-r11, r14}</text>
+<rect x="450.0" y="315.0" width="345.0" height="34.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="0.8"/>
+<text x="460.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start" font-weight="700">6. Апаратне повернення (bx lr)</text>
+<text x="460.0" y="341.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">Апаратний вихід: відновлення R0-R3/PC, жодного MMU/TLB</text>
+<text x="622.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Витрати: лише читання/запис 16 слів RAM (Cortex-M)</text>
+<text x="622.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Єдиний плоский адресний простір, детермінований час</text>
+<rect x="30.0" y="424.0" width="780.0" height="44.0" rx="6" fill="#fff7e6" stroke="#caa24a" stroke-width="1.5"/><text x="420.0" y="442.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">Ключова різниця: у Linux вартість перемикання недетермінована через кеш і MMU.</tspan><tspan x="420.0" dy="13.7">В RTOS перемикання є строго фіксованою за часом послідовністю інструкцій збереження в RAM.</tspan></text>
+</svg>

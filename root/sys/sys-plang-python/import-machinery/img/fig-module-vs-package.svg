@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння структури модулів і пакунків у CPython</text>
+<rect x="40.0" y="70.0" width="275.0" height="410.0" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="177.5" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">1. Звичайний модуль (Leaf)</text>
+<line x1="52.0" y1="115.0" x2="303.0" y2="115.0" stroke="#2457d6" stroke-width="1.0"/>
+<rect x="52.0" y="126.0" width="251.0" height="46.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="60.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Файл</text>
+<text x="60.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">math.py або regex.so</text>
+<rect x="52.0" y="180.0" width="251.0" height="46.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="60.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Ознака</text>
+<text x="60.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Окремий файл без каталогу</text>
+<rect x="52.0" y="234.0" width="251.0" height="46.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="60.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">__path__</text>
+<text x="60.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Відсутній (атрибут не задано)</text>
+<rect x="52.0" y="288.0" width="251.0" height="46.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="60.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Підмодулі</text>
+<text x="60.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Не може мати дочірніх модулів</text>
+<rect x="52.0" y="342.0" width="251.0" height="46.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="60.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Завантажувач</text>
+<text x="60.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">SourceFileLoader / ExtensionLoader</text>
+<rect x="52.0" y="396.0" width="251.0" height="46.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="60.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">origin</text>
+<text x="60.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Повний шлях до .py / .so файлу</text>
+<rect x="352.0" y="70.0" width="275.0" height="410.0" rx="8" fill="#e8f8f0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="489.5" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">2. Регулярний пакунок</text>
+<line x1="364.0" y1="115.0" x2="615.0" y2="115.0" stroke="#27ae60" stroke-width="1.0"/>
+<rect x="364.0" y="126.0" width="251.0" height="46.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="372.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Каталог</text>
+<text x="372.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">pkg/ з файлом __init__.py</text>
+<rect x="364.0" y="180.0" width="251.0" height="46.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="372.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Ознака</text>
+<text x="372.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Наявність файлу __init__.py</text>
+<rect x="364.0" y="234.0" width="251.0" height="46.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="372.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">__path__</text>
+<text x="372.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Список із одного шляху: ['pkg/']</text>
+<rect x="364.0" y="288.0" width="251.0" height="46.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="372.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Підмодулі</text>
+<text x="372.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Пошук ведеться всередині pkg/</text>
+<rect x="364.0" y="342.0" width="251.0" height="46.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="372.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Завантажувач</text>
+<text x="372.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">SourceFileLoader для __init__.py</text>
+<rect x="364.0" y="396.0" width="251.0" height="46.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="372.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">origin</text>
+<text x="372.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Шлях до pkg/__init__.py</text>
+<rect x="665.0" y="70.0" width="275.0" height="410.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="802.5" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">3. Просторовий пакунок (PEP 420)</text>
+<line x1="677.0" y1="115.0" x2="928.0" y2="115.0" stroke="#c0392b" stroke-width="1.0"/>
+<rect x="677.0" y="126.0" width="251.0" height="46.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="685.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Каталоги</text>
+<text x="685.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Каталоги без __init__.py по sys.path</text>
+<rect x="677.0" y="180.0" width="251.0" height="46.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="685.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Ознака</text>
+<text x="685.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Відсутність __init__.py</text>
+<rect x="677.0" y="234.0" width="251.0" height="46.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="685.0" y="248.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">__path__</text>
+<text x="685.0" y="266.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">_NamespacePath з кількох каталогів</text>
+<rect x="677.0" y="288.0" width="251.0" height="46.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="685.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Підмодулі</text>
+<text x="685.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Пошук об'єднує всі каталоги</text>
+<rect x="677.0" y="342.0" width="251.0" height="46.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="685.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Завантажувач</text>
+<text x="685.0" y="374.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">_NamespaceLoader (без коду)</text>
+<rect x="677.0" y="396.0" width="251.0" height="46.0" rx="4" fill="#ffffff" stroke="#333333" stroke-width="0.8"/>
+<text x="685.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">origin</text>
+<text x="685.0" y="428.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">None (немає фізичного файлу)</text>
+</svg>

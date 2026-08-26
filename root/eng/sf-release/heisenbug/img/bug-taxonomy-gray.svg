@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1090 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1090" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Таксономія програмних помилок за Джимом Греєм та розвитком</text>
+<rect x="40.0" y="70.0" width="480.0" height="215.0" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="48.0" y="78.0" width="464.0" height="32.0" rx="4" fill="#eef4ff" stroke="none" stroke-width="1.5"/>
+<text x="280.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">Боровські баги (Bohrbugs)</text>
+<text x="60.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Детерміновані, легко відтворювані помилки.</text>
+<text x="60.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Проявляються надійно за однакового набору вхідних даних.</text>
+<text x="60.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Легко ізолюються модульним тестом і фіксуються відладчиком.</text>
+<text x="60.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Аналогія: класична детермінована модель атома Бора.</text>
+<line x1="55.0" y1="247.0" x2="505.0" y2="247.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="280.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Детермінізм: 100% | Стійкі до спостереження</text>
+<rect x="560.0" y="70.0" width="480.0" height="215.0" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<rect x="568.0" y="78.0" width="464.0" height="32.0" rx="4" fill="#fdecea" stroke="none" stroke-width="1.5"/>
+<text x="800.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Гейзенбаги (Heisenbugs)</text>
+<text x="580.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Плаваючий дефект, що змінюється або зникає при спробі</text>
+<text x="580.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• його дослідити (додавання логів printf, запуск у gdb, -O0).</text>
+<text x="580.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Причини: гонки потоків, неініціалізована пам'ять, таймінги I/O.</text>
+<text x="580.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Аналогія: квантовий принцип невизначеності Гейзенберга.</text>
+<line x1="575.0" y1="247.0" x2="1025.0" y2="247.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="800.0" y="269.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Детермінізм: низький | Чутливі до спостереження</text>
+<rect x="40.0" y="310.0" width="480.0" height="215.0" rx="8" fill="#ffffff" stroke="#b8860b" stroke-width="2.0"/>
+<rect x="48.0" y="318.0" width="464.0" height="32.0" rx="4" fill="#fff8e1" stroke="none" stroke-width="1.5"/>
+<text x="280.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#b8860b" text-anchor="middle" font-weight="700">Мандальбаги (Mandelbugs)</text>
+<text x="60.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Складні помилки з хаотичною, нелінійною поведінкою.</text>
+<text x="60.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Причина лежить у далекій, непрямій залежності або затримці:</text>
+<text x="60.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• переповнення буфера кілька хвилин тому, фрагментація купи.</text>
+<text x="60.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Аналогія: фрактал Мандельброта (прості правила → хаос).</text>
+<line x1="55.0" y1="487.0" x2="505.0" y2="487.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="280.0" y="509.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b8860b" text-anchor="middle" font-weight="700">Складність: екстремальна | Довгий ланцюг причини</text>
+<rect x="560.0" y="310.0" width="480.0" height="215.0" rx="8" fill="#ffffff" stroke="#7c3aed" stroke-width="2.0"/>
+<rect x="568.0" y="318.0" width="464.0" height="32.0" rx="4" fill="#f3e8ff" stroke="none" stroke-width="1.5"/>
+<text x="800.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#7c3aed" text-anchor="middle" font-weight="700">Шредінбаги (Schroedinbugs)</text>
+<text x="580.0" y="372.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Дефект, який не проявляється взагалі впродовж місяців</text>
+<text x="580.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• або років роботи в продакшені, доки хтось не помітить у коді,</text>
+<text x="580.0" y="416.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• що він теоретично не повинен був працювати взагалі.</text>
+<text x="580.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Аналогія: кіт Шредінгера (стан колапсує при спостереженні).</text>
+<line x1="575.0" y1="487.0" x2="1025.0" y2="487.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="800.0" y="509.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="700">Стан: прихований парадокс | Збій після усвідомлення</text>
+</svg>

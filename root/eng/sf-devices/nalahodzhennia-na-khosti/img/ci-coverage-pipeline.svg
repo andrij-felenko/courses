@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автоматизований конвеєр перевірки вбудованого коду в CI/CD</text>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр автоматизації тестування вбудованого коду (CI/CD Pipeline)</text>
+<rect x="32.0" y="60.0" width="120.0" height="130.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="92.0" cy="86.0" r="14.0" fill="#ffffff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="92.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1</text>
+<text x="92.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Збірка з ASan / UBSan</text>
+<text x="92.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">clang</text>
+<text x="92.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">-fsanitize=address,undefined</text>
+<line x1="154.0" y1="125.0" x2="174.0" y2="125.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="176.0" y="60.0" width="120.0" height="130.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<circle cx="236.0" cy="86.0" r="14.0" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="236.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">2</text>
+<text x="236.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Запуск Unit-тестів</text>
+<text x="236.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Миттєве виявлення помилок</text>
+<text x="236.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">пам'яті та UB</text>
+<line x1="298.0" y1="125.0" x2="318.0" y2="125.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="320.0" y="60.0" width="120.0" height="130.0" rx="6" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.5"/>
+<circle cx="380.0" cy="86.0" r="14.0" fill="#ffffff" stroke="#ca8a04" stroke-width="2.0"/>
+<text x="380.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ca8a04" text-anchor="middle" font-weight="700">3</text>
+<text x="380.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Valgrind Memcheck</text>
+<text x="380.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Пошук неініціалізованих</text>
+<text x="380.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">змінних у RAM</text>
+<line x1="442.0" y1="125.0" x2="462.0" y2="125.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="464.0" y="60.0" width="120.0" height="130.0" rx="6" fill="#faf5ff" stroke="#9333ea" stroke-width="1.5"/>
+<circle cx="524.0" cy="86.0" r="14.0" fill="#ffffff" stroke="#9333ea" stroke-width="2.0"/>
+<text x="524.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9333ea" text-anchor="middle" font-weight="700">4</text>
+<text x="524.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Звіт покриття Gcov / Lcov</text>
+<text x="524.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Перевірка 100%</text>
+<text x="524.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">покриття критичних гілок</text>
+<line x1="586.0" y1="125.0" x2="606.0" y2="125.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="608.0" y="60.0" width="120.0" height="130.0" rx="6" fill="#f8fafc" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="668.0" cy="86.0" r="14.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="668.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">5</text>
+<text x="668.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Релізний шлюз (Gate)</text>
+<text x="668.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Блокування злиття</text>
+<text x="668.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">при дефектах пам'яті</text>
+<rect x="32.0" y="220.0" width="696.0" height="140.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="380.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ключові переваги для автономного CI/CD конвеєра</text>
+<circle cx="52.0" cy="274.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="64.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Повна незалежність від заліза:</text>
+<text x="277.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Тести виконуються на стандартних x86-64 / ARM64 раннерах у хмарі без фізичних плат</text>
+<circle cx="52.0" cy="300.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="64.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Паралелізація та масштабування:</text>
+<text x="277.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Сотні тестових наборів запускаються паралельно у Docker-контейнерах за лічені секунди</text>
+<circle cx="52.0" cy="326.0" r="4.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="64.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">100% повторюваність збоїв:</text>
+<text x="277.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Детерміновані віртуальні моки усувають плаваючі апаратні збої та шуми живлення</text>
+</svg>

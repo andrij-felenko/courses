@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Схемотехніка драйвера АЦП та демпфування комутаційного удару</text>
+<text x="470.0" y="47.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Зовнішній конденсатор Cext живить імпульсний заряд Csample, а Rext ізолює підсилювач від втрати стійкості</text>
+<rect x="20.0" y="80.0" width="140.0" height="320.0" rx="6" fill="#f9fafb" stroke="#6b7280" stroke-width="1.2"/>
+<text x="90.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Джерело сигналу</text>
+<circle cx="90.0" cy="160.0" r="14.0" fill="#ffffff" stroke="#1a56db" stroke-width="1.8"/>
+<text x="90.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a56db" text-anchor="middle" font-weight="700">Vsig</text>
+<line x1="90.0" y1="174.0" x2="90.0" y2="184.0" stroke="#333333" stroke-width="1.5"/><line x1="78.0" y1="184.0" x2="102.0" y2="184.0" stroke="#333333" stroke-width="1.5"/><line x1="82.0" y1="188.0" x2="98.0" y2="188.0" stroke="#333333" stroke-width="1.5"/><line x1="86.0" y1="192.0" x2="94.0" y2="192.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="90.0" y1="146.0" x2="90.0" y2="125.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="90.0" y1="125.0" x2="120.0" y2="125.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<rect x="120.0" y="117.0" width="30.0" height="16.0" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="135.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Rsrc</text>
+<line x1="150.0" y1="125.0" x2="180.0" y2="125.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="90.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Високий або</text>
+<text x="90.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">невідомий опір</text>
+<text x="90.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">давача (до 100 кОм)</text>
+<rect x="180.0" y="80.0" width="200.0" height="320.0" rx="6" fill="#f9fafb" stroke="#1a56db" stroke-width="1.5"/>
+<text x="280.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a56db" text-anchor="middle" font-weight="700">Драйвер АЦП (ОП)</text>
+<polygon points="240.0,150.0 290.0,180.0 240.0,210.0" fill="#ffffff" stroke="#333333" stroke-width="1.8"/>
+<text x="250.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">+</text>
+<text x="250.0" y="196.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">−</text>
+<line x1="160.0" y1="125.0" x2="210.0" y2="125.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="210.0" y1="125.0" x2="210.0" y2="165.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="210.0" y1="165.0" x2="240.0" y2="165.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="290.0" y1="180.0" x2="310.0" y2="180.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<circle cx="310.0" cy="180.0" r="2.5" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<polyline points="310.0,180.0 310.0,220.0 225.0,220.0 225.0,195.0 240.0,195.0" fill="none" stroke="#1a1a1a" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="280.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Низький вихідний Zout</text>
+<text x="280.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Швидке наростання (Slew)</text>
+<text x="280.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Смуга GBW &gt; 10..50 МГц</text>
+<rect x="400.0" y="80.0" width="200.0" height="320.0" rx="6" fill="#f9fafb" stroke="#0e9f6e" stroke-width="1.5"/>
+<text x="500.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0e9f6e" text-anchor="middle" font-weight="700">Зовнішній RC демпфер</text>
+<line x1="310.0" y1="180.0" x2="440.0" y2="180.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="440.0" y="170.0" width="45.0" height="20.0" rx="2" fill="#ffffff" stroke="#0e9f6e" stroke-width="2.0"/>
+<text x="462.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0e9f6e" text-anchor="middle" font-weight="700">Rext</text>
+<text x="462.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">10..50 Ом</text>
+<line x1="485.0" y1="180.0" x2="540.0" y2="180.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="540.0" cy="180.0" r="3.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="540.0" y1="180.0" x2="540.0" y2="215.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="526.0" y1="221.0" x2="554.0" y2="221.0" stroke="#0e9f6e" stroke-width="2.2"/><line x1="526.0" y1="229.0" x2="554.0" y2="229.0" stroke="#0e9f6e" stroke-width="2.2"/>
+<line x1="540.0" y1="235.0" x2="540.0" y2="260.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="540.0" y1="260.0" x2="540.0" y2="270.0" stroke="#333333" stroke-width="1.5"/><line x1="528.0" y1="270.0" x2="552.0" y2="270.0" stroke="#333333" stroke-width="1.5"/><line x1="532.0" y1="274.0" x2="548.0" y2="274.0" stroke="#333333" stroke-width="1.5"/><line x1="536.0" y1="278.0" x2="544.0" y2="278.0" stroke="#333333" stroke-width="1.5"/>
+<text x="540.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0e9f6e" text-anchor="middle" font-weight="700">Cext &gt;= 20 · Csample</text>
+<text x="540.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(наприклад, 1 нФ NPO)</text>
+<text x="500.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0e9f6e" text-anchor="middle" font-weight="700">Поглинає зарядний удар</text>
+<text x="500.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Запобігає генерації ОП</text>
+<rect x="620.0" y="80.0" width="300.0" height="320.0" rx="6" fill="#edf2f7" stroke="#7e3af2" stroke-width="1.8"/>
+<text x="770.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7e3af2" text-anchor="middle" font-weight="700">Кристал SAR АЦП</text>
+<line x1="540.0" y1="180.0" x2="640.0" y2="180.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="640.0" cy="180.0" r="4.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="640.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вивід ADC_IN</text>
+<line x1="640.0" y1="180.0" x2="675.0" y2="180.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<rect x="675.0" y="172.0" width="35.0" height="16.0" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="692.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Rsw</text>
+<line x1="710.0" y1="180.0" x2="735.0" y2="180.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<circle cx="735.0" cy="180.0" r="2.5" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="735.0" y1="180.0" x2="755.0" y2="162.0" stroke="#e02424" stroke-width="2.0"/>
+<circle cx="760.0" cy="180.0" r="2.5" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="745.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#e02424" text-anchor="middle" font-weight="700">S_sample</text>
+<line x1="760.0" y1="180.0" x2="790.0" y2="180.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="790.0" y1="180.0" x2="790.0" y2="215.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="778.0" y1="221.0" x2="802.0" y2="221.0" stroke="#7e3af2" stroke-width="2.2"/><line x1="778.0" y1="229.0" x2="802.0" y2="229.0" stroke="#7e3af2" stroke-width="2.2"/>
+<line x1="790.0" y1="235.0" x2="790.0" y2="260.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<line x1="790.0" y1="260.0" x2="790.0" y2="270.0" stroke="#333333" stroke-width="1.5"/><line x1="778.0" y1="270.0" x2="802.0" y2="270.0" stroke="#333333" stroke-width="1.5"/><line x1="782.0" y1="274.0" x2="798.0" y2="274.0" stroke="#333333" stroke-width="1.5"/><line x1="786.0" y1="278.0" x2="794.0" y2="278.0" stroke="#333333" stroke-width="1.5"/>
+<text x="790.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7e3af2" text-anchor="middle" font-weight="700">Csample (~5..20 пФ)</text>
+<rect x="650.0" y="230.0" width="240.0" height="50.0" rx="4" fill="#ffffff" stroke="#e02424" stroke-width="1.2"/>
+<text x="770.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#e02424" text-anchor="middle" font-weight="700">Комутаційний удар (Kickback):</text>
+<text x="770.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">delta_V = Vin · Csample / (Cext + Csample)</text>
+</svg>

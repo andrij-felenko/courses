@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-41.46 -10 928.86 540" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-41.46" y="-10" width="928.86" height="540" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="840.0" height="520.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шарувата архітектура вбудованого програмного забезпечення</text>
+<rect x="60.0" y="60.0" width="720.0" height="76.0" rx="6" fill="#e8f4fd" stroke="#1d6fa5" stroke-width="1.8"/>
+<text x="420.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1d6fa5" text-anchor="middle" font-weight="700">Рівень застосунку (Application Layer)</text>
+<text x="420.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Бізнес-логіка, кінцеві автомати (FSM), політики збору телеметрії, контури керування</text>
+<rect x="60.0" y="160.0" width="720.0" height="76.0" rx="6" fill="#f3e8fd" stroke="#7e22ce" stroke-width="1.8"/>
+<text x="420.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#7e22ce" text-anchor="middle" font-weight="700">Рівень служб і проміжного ПЗ (Services / Middleware)</text>
+<text x="420.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Диспетчер подій, кільцеві буфери, файлова система (LittleFS), протоколи зв'язку, логи</text>
+<rect x="60.0" y="260.0" width="720.0" height="76.0" rx="6" fill="#e8fdf5" stroke="#047857" stroke-width="1.8"/>
+<text x="420.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#047857" text-anchor="middle" font-weight="700">Рівень плати й драйверів пристроїв (BSP / Device Drivers)</text>
+<text x="420.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Драйвери зовнішніх мікросхем: сенсори (BME280), флеш-пам'ять (W25Q), дисплеї, кнопки</text>
+<rect x="60.0" y="360.0" width="720.0" height="76.0" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.8"/>
+<text x="420.0" y="386.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#b45309" text-anchor="middle" font-weight="700">Рівень апаратної абстракції чипа (HAL / Low-Level LL)</text>
+<text x="420.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Контролери периферії MCU: GPIO, I2C, SPI, UART, DMA, таймери, переривання NVIC</text>
+<line x1="35.0" y1="95.0" x2="35.0" y2="400.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="22.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Прямі виклики вниз</text>
+<line x1="805.0" y1="400.0" x2="805.0" y2="95.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="818.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Події та черги вгору</text>
+<rect x="60.0" y="450.0" width="720.0" height="48.0" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+<text x="420.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#334155" text-anchor="middle" font-weight="700">Апаратне забезпечення: Кремній MCU (Cortex-M) + Зовнішні сенсори та шини</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратна підсистема внутрішнього профілювання ARM Cortex-M (DWT + ITM)</text>
+<rect x="40.0" y="60.0" width="480.0" height="290.0" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+<text x="280.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#334155" text-anchor="middle" font-weight="700">Cortex-M Processor Core &amp; Internal Debug Block</text>
+<rect x="60.0" y="122.3" width="150.0" height="45.3" rx="6" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/><text x="135.0" y="141.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="135.0" dy="0.0">ALU &amp; Pipeline</tspan><tspan x="135.0" dy="14.3">Виконання інструкцій</tspan></text>
+<rect x="55.0" y="205.2" width="160.0" height="59.6" rx="6" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5"/><text x="135.0" y="224.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="135.0" dy="0.0">CoreDebug Registers</tspan><tspan x="135.0" dy="14.3">DEMCR (TRCENA біт 24)</tspan><tspan x="135.0" dy="14.3">DHCSR / DCRSR</tspan></text>
+<rect x="265.9" y="115.2" width="208.1" height="59.6" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text x="370.0" y="134.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="370.0" dy="0.0">DWT (Data Watchpoint &amp; Trace)</tspan><tspan x="370.0" dy="14.3">DWT-&gt;CYCCNT (32-біт лічильник)</tspan><tspan x="370.0" dy="14.3">CPICNT, EXCCNT, SLEEPCNT</tspan></text>
+<rect x="265.9" y="235.2" width="208.1" height="59.6" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/><text x="370.0" y="254.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="370.0" dy="0.0">ITM (Instrumentation Trace)</tspan><tspan x="370.0" dy="14.3">32 Стимул-порти (ITM-&gt;PORT[0])</tspan><tspan x="370.0" dy="14.3">Апаратний буфер FIFO подій</tspan></text>
+<line x1="135.0" y1="185.0" x2="135.0" y2="205.0" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="215.0" y1="235.0" x2="270.0" y2="155.0" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="215.0" y1="245.0" x2="270.0" y2="265.0" stroke="#d97706" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="210.0" y1="145.0" x2="270.0" y2="145.0" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="370.0" y1="195.0" x2="370.0" y2="225.0" stroke="#d97706" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="570.0" y="100.0" width="240.0" height="200.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="690.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">TPIU &amp; Фізичний вивід</text>
+<rect x="574.5" y="157.0" width="230.9" height="56.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="690.0" y="175.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="690.0" dy="0.0">TPIU Serial Formatter</tspan><tspan x="690.0" dy="13.0">Асинхронний протокол NRZ / Manchester</tspan><tspan x="690.0" dy="13.0">Швидкість до 10-50 Мбіт/с</tspan></text>
+<rect x="574.3" y="242.3" width="231.4" height="45.3" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/><text x="690.0" y="261.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="690.0" dy="0.0">Вивід SWO (PB3 / TRACESWO)</tspan><tspan x="690.0" dy="14.3">Підключення до J-Link / ST-Link</tspan></text>
+<line x1="470.0" y1="265.0" x2="570.0" y2="185.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="525.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Пакети
+траси</text>
+<line x1="690.0" y1="218.0" x2="690.0" y2="240.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>

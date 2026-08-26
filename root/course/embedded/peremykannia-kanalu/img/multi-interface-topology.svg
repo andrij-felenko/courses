@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура вузла з кількома фізичними каналами зв'язку</text>
+<rect x="200.0" y="55.0" width="420.0" height="60.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="410.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Застосунок і генератор телеметрії</text>
+<text x="410.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Кільцевий енергонезалежний буфер черги офлайну (Flash / RAM)</text>
+<rect x="120.0" y="155.0" width="580.0" height="110.0" rx="6" fill="#edf2f7" stroke="#2b6cb0" stroke-width="2.0"/>
+<text x="410.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2b6cb0" text-anchor="middle" font-weight="700">Диспетчер інтерфейсів (Transport &amp; Failover Manager)</text>
+<rect x="135.0" y="195.0" width="170.0" height="55.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="220.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">L1/L2 Link Sense</text>
+<text x="220.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">PHY Interrupts / MDIO</text>
+<rect x="325.0" y="195.0" width="170.0" height="55.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="410.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">L3/L7 Health Probe</text>
+<text x="410.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">ICMP Echo / TLS Keepalive</text>
+<rect x="515.0" y="195.0" width="170.0" height="55.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<text x="600.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автомат гістерезису</text>
+<text x="600.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Hold-down &amp; Fallback delay</text>
+<line x1="410.0" y1="115.0" x2="410.0" y2="155.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="310.0" width="320.0" height="100.0" rx="6" fill="#e6fffa" stroke="#234e52" stroke-width="1.6"/>
+<text x="220.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#234e52" text-anchor="middle" font-weight="700">Основний інтерфейс (Primary: Ethernet / Wi-Fi)</text>
+<text x="220.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Висока швидкість · Нульова вартість трафіку</text>
+<text x="220.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Пріоритетна метрика маршруту (Default GW)</text>
+<text x="220.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Постійний моніторинг PHY + L7 пінги</text>
+<rect x="440.0" y="310.0" width="320.0" height="100.0" rx="6" fill="#fffaf0" stroke="#7b341e" stroke-width="1.6"/>
+<text x="600.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7b341e" text-anchor="middle" font-weight="700">Резервний інтерфейс (Backup: Cellular LTE / NB-IoT)</text>
+<text x="600.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Тарифікація мегабайтів · Автономне покриття</text>
+<text x="600.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Керування живленням: Cold / Warm / Hot Standby</text>
+<text x="600.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Активація за вимогою (Failover Trigger)</text>
+<line x1="220.0" y1="265.0" x2="220.0" y2="310.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="600.0" y1="265.0" x2="600.0" y2="310.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="190.0" y="450.0" width="440.0" height="50.0" rx="12" fill="#f7fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="410.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Віддалений сервер застосунку / Хмарний брокер</text>
+<line x1="220.0" y1="410.0" x2="270.0" y2="450.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="600.0" y1="410.0" x2="550.0" y2="450.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

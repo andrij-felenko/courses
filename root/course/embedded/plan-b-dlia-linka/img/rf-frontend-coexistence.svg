@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратна комутація РЧ-трактів та захист від інтермодуляції</text>
+<rect x="20.0" y="20.0" width="900.0" height="400.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="40.0" y="140.0" width="130.0" height="180.0" rx="6" fill="#f6f8fa" stroke="#333333" stroke-width="1.5"/>
+<text x="105.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хост МК</text>
+<text x="105.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(STM32 / ESP32)</text>
+<text x="105.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">GPIO перемикання</text>
+<text x="105.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">SPI / UART шини</text>
+<text x="105.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Логіка арбітражу</text>
+<rect x="220.0" y="80.0" width="150.0" height="90.0" rx="4" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="295.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Sub-GHz SX1262</text>
+<text x="295.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">868 / 915 МГц (+22 дБм)</text>
+<text x="295.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">TX/RX порт</text>
+<rect x="220.0" y="270.0" width="150.0" height="90.0" rx="4" fill="#e9eefb" stroke="#2457d6" stroke-width="1.5"/>
+<text x="295.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">2.4 GHz PHY / SoC</text>
+<text x="295.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">2400–2483 МГц (+20 дБм)</text>
+<text x="295.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">TX/RX порт</text>
+<line x1="170.0" y1="125.0" x2="220.0" y2="125.0" stroke="#333333" stroke-width="1.5"/>
+<text x="195.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">SPI</text>
+<line x1="170.0" y1="315.0" x2="220.0" y2="315.0" stroke="#333333" stroke-width="1.5"/>
+<text x="195.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">SDIO</text>
+<rect x="420.0" y="80.0" width="130.0" height="90.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="485.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Смуговий SAW</text>
+<text x="485.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">863–870 МГц</text>
+<text x="485.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Подавлення 3-ї</text>
+<text x="485.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">гармоніки &gt; 45 дБ</text>
+<line x1="370.0" y1="125.0" x2="420.0" y2="125.0" stroke="#27ae60" stroke-width="2.0"/>
+<rect x="420.0" y="270.0" width="130.0" height="90.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="485.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Керамічний BPF</text>
+<text x="485.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">2400–2500 МГц</text>
+<text x="485.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Захист LNA від</text>
+<text x="485.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">блокування Sub-GHz</text>
+<line x1="370.0" y1="315.0" x2="420.0" y2="315.0" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="600.0" y="175.0" width="130.0" height="110.0" rx="6" fill="#fdf0e6" stroke="#c07a2e" stroke-width="1.5"/>
+<text x="665.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c07a2e" text-anchor="middle" font-weight="700">RF SPDT Switch</text>
+<text x="665.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">PE4259 / SKY13317</text>
+<text x="665.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ізоляція &gt; 35 дБ</text>
+<text x="665.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Втрати &lt; 0.5 дБ</text>
+<text x="665.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Час перемикання &lt; 2 мкс</text>
+<line x1="550.0" y1="125.0" x2="600.0" y2="195.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="550.0" y1="315.0" x2="600.0" y2="265.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="170.0" y1="230.0" x2="600.0" y2="230.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,4"/>
+<text x="385.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">CTRL (GPIO: 0 = 868 МГц, 1 = 2.4 ГГц)</text>
+<rect x="780.0" y="205.0" width="120.0" height="50.0" rx="4" fill="#f6f8fa" stroke="#333333" stroke-width="1.5"/>
+<text x="840.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дводіапазонна</text>
+<text x="840.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">антена (Dual-Band)</text>
+<line x1="730.0" y1="230.0" x2="780.0" y2="230.0" stroke="#333333" stroke-width="2.0"/>
+</svg>

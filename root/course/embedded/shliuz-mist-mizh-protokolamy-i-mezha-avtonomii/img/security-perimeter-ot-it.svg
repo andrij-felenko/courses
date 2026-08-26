@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Шлюз як межа безпеки: захист польового OT-периметра від атак з IT/WAN</text>
+<rect x="24.0" y="60.0" width="210.0" height="330.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.8"/>
+<text x="129.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#dc2626" text-anchor="middle" font-weight="700">НЕДОВІРЕНА ЗОНА</text>
+<text x="129.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(Публічний інтернет / WAN)</text>
+<rect x="36.0" y="135.0" width="186.0" height="48.0" rx="4" fill="#ffffff" stroke="#fca5a5" stroke-width="1.2"/>
+<text x="129.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">Сканування портів</text>
+<text x="129.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Шкідливий ботнет</text>
+<rect x="36.0" y="193.0" width="186.0" height="48.0" rx="4" fill="#ffffff" stroke="#fca5a5" stroke-width="1.2"/>
+<text x="129.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">Replay / Spoofing</text>
+<text x="129.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Підміна пакетів</text>
+<rect x="36.0" y="251.0" width="186.0" height="48.0" rx="4" fill="#ffffff" stroke="#fca5a5" stroke-width="1.2"/>
+<text x="129.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">DoS / Перевантаження</text>
+<text x="129.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Забиття шини трафіком</text>
+<rect x="36.0" y="309.0" width="186.0" height="48.0" rx="4" fill="#ffffff" stroke="#fca5a5" stroke-width="1.2"/>
+<text x="129.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="middle" font-weight="700">Прямі ін'єкції</text>
+<text x="129.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Спроби збити прошивку</text>
+<rect x="254.0" y="60.0" width="330.0" height="330.0" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2.2"/>
+<text x="419.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">ШЛЮЗ ЯК БРАНДМАУЕР (SECURE EDGE)</text>
+<text x="419.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Нульова довіра (Zero-Trust Boundary)</text>
+<rect x="266.0" y="135.0" width="306.0" height="48.0" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="419.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Закриті вхідні порти (No Listen)</text>
+<text x="419.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Лише вихідні клієнтські mTLS-сесії</text>
+<rect x="266.0" y="193.0" width="306.0" height="48.0" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="419.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. Апаратний захист ключів (TPM/SE)</text>
+<text x="419.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Secure Boot, зашифроване сховище</text>
+<rect x="266.0" y="251.0" width="306.0" height="48.0" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="419.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. Повна санітизація низхідних команд</text>
+<text x="419.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Перевірка діапазонів, Rate-limit, ACL</text>
+<rect x="266.0" y="309.0" width="306.0" height="48.0" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.4"/>
+<text x="419.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">4. Фізична ізоляція шин (Air-Gap logic)</text>
+<text x="419.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Неможливість прямої маршрутизації IP → RS485</text>
+<rect x="604.0" y="60.0" width="210.0" height="330.0" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.8"/>
+<text x="709.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#059669" text-anchor="middle" font-weight="700">ДОВІРЕНА ЗОНА</text>
+<text x="709.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(Польові контролери / OT)</text>
+<rect x="616.0" y="135.0" width="186.0" height="48.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="709.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#059669" text-anchor="middle" font-weight="700">Modbus RTU вузли</text>
+<text x="709.0" y="171.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Без криптографії та паролів</text>
+<rect x="616.0" y="193.0" width="186.0" height="48.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="709.0" y="213.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#059669" text-anchor="middle" font-weight="700">CANopen приводи</text>
+<text x="709.0" y="229.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Відкритий протокол без захисту</text>
+<rect x="616.0" y="251.0" width="186.0" height="48.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="709.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#059669" text-anchor="middle" font-weight="700">BLE маяки</text>
+<text x="709.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Мінімальний стек пам'яті</text>
+<rect x="616.0" y="309.0" width="186.0" height="48.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="709.0" y="329.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#059669" text-anchor="middle" font-weight="700">Датчики 4-20 мА</text>
+<text x="709.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Аналогові сигнальні ланцюги</text>
+<line x1="224.0" y1="225.0" x2="254.0" y2="225.0" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="3 3"/>
+<text x="239.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle" font-weight="700">✗ БЛОК</text>
+<line x1="584.0" y1="225.0" x2="604.0" y2="225.0" stroke="#059669" stroke-width="2.0"/>
+<line x1="596.0" y1="225.0" x2="604.0" y2="225.0" stroke="#059669" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="594.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="middle" font-weight="700">✓ ВАЛІДНО</text>
+<text x="420.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Шлюз повністю виключає прямий мережевий контакт між незахищеними польовими МК та зовнішньою мережею</text>
+</svg>

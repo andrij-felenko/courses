@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Еволюція діалектів регулярних виразів та правила екранування</text>
+<rect x="30.0" y="55.0" width="240.0" height="310.0" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="150.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e293b" text-anchor="middle" font-weight="700">BRE (POSIX Базові)</text>
+<text x="150.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle">grep, sed, ed, vi</text>
+<line x1="45.0" y1="110.0" x2="255.0" y2="110.0" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="45.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">• Метасимволи: . ^ $ * [ ]</text>
+<text x="45.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">• Групи: \( ... \)</text>
+<text x="45.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">• Діапазон лічильника: \{m,n\}</text>
+<text x="45.0" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">• Зворотні посилання: \1 ... \9</text>
+<text x="45.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">• Символи ( { + ? | є ЛІТЕРАЛАМИ</text>
+<text x="45.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">• Немає вбудованого +, ?, |</text>
+<text x="45.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#334155" text-anchor="start">• GNU-розширення: \+, \?, \|</text>
+<rect x="295.0" y="55.0" width="250.0" height="310.0" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+<text x="420.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e40af" text-anchor="middle" font-weight="700">ERE (POSIX Розширені)</text>
+<text x="420.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#3b82f6" text-anchor="middle">egrep, awk, regcomp(REG_EXTENDED)</text>
+<line x1="310.0" y1="110.0" x2="530.0" y2="110.0" stroke="#bfdbfe" stroke-width="1.5"/>
+<text x="310.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e3a8a" text-anchor="start">• Всі можливості BRE плюс:</text>
+<text x="310.0" y="167.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e3a8a" text-anchor="start">• Групи БЕЗ слешів: ( ... )</text>
+<text x="310.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e3a8a" text-anchor="start">• Лічильники: {m,n}</text>
+<text x="310.0" y="231.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e3a8a" text-anchor="start">• Квантифікатори: +, ?</text>
+<text x="310.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e3a8a" text-anchor="start">• Чергування: |</text>
+<text x="310.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e3a8a" text-anchor="start">• Літерали: \(, \{, \+, \?, \|</text>
+<text x="310.0" y="327.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e3a8a" text-anchor="start">• У стандарті НЕМАЄ \1 (посилань)</text>
+<rect x="570.0" y="55.0" width="240.0" height="310.0" rx="8" fill="#faf5ff" stroke="#d8b4fe" stroke-width="1.5"/>
+<text x="690.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b21a8" text-anchor="middle" font-weight="700">PCRE (Perl-сумісні)</text>
+<text x="690.0" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9333ea" text-anchor="middle">PCRE2, Python, JS, Java, PHP</text>
+<line x1="585.0" y1="110.0" x2="795.0" y2="110.0" stroke="#e9d5ff" stroke-width="1.5"/>
+<text x="585.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#581c87" text-anchor="start">• Всі можливості ERE плюс:</text>
+<text x="585.0" y="164.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#581c87" text-anchor="start">• Нефіксуючі групи: (?: ... )</text>
+<text x="585.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#581c87" text-anchor="start">• Lookahead: (?= ... ), (?! ... )</text>
+<text x="585.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#581c87" text-anchor="start">• Lookbehind: (?&lt;= ... ), (?&lt;! ... )</text>
+<text x="585.0" y="251.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#581c87" text-anchor="start">• Атомарні групи: (?&gt; ... )</text>
+<text x="585.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#581c87" text-anchor="start">• Ліниві квантифікатори: *?, +?</text>
+<text x="585.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#581c87" text-anchor="start">• Посесивні: ++, *+, ?+</text>
+<text x="585.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#581c87" text-anchor="start">• Класи: \d, \w, \s, \b, \p{L}</text>
+<line x1="270.0" y1="205.0" x2="295.0" y2="205.0" stroke="#3b82f6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="545.0" y1="205.0" x2="570.0" y2="205.0" stroke="#9333ea" stroke-width="2.0" marker-end="url(#arrow)"/>
+</svg>
