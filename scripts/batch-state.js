@@ -8,8 +8,10 @@
  *   node scripts/batch-state.js --book programming --kind book --apply
  *
  * Без --apply: тільки звіт + `scripts/_finish/state-<book>.json`.
- * З --apply: додатково реєструє в маніфесті все, що ВЖЕ на диску (статті → done, вставки → done)
- *            через scripts/manifest-patch.js. Нічого не пише й не переписує — лише статуси.
+ * З --apply: реєструє те, що ВЖЕ на диску, але в маніфест не потрапило (фаза «Маніфест» не
+ *            відпрацювала): статті pending→done, незареєстровані вставки. Статті й вставки в
+ *            `recheck` НЕ ЧІПАЄ — цей статус ставить конвеєр Antigravity, а в `done` переводить
+ *            ЛЮДИНА через `review-*` (`.agents/rules/pipeline.md`). Нічого не пише — лише статуси.
  *
  * ⚠️ Джерело правди — ДИСК, не журнал прогону: убиті агенти часто вже записали файл,
  *    але результату не повернули, тож у журналі їх нема (див. пам'ять batch-resume-recovery).
@@ -47,13 +49,17 @@ function topics() {
   }));
 }
 
-/* ⚠️ `recheck`/`update`/`deeper` — це НАВМИСНІ прапорці людини («передивитись», «переписати»,
-   «поглибити»), а не слід урваного батчу. Батч, якого вбили, лишає статтю в `pending`: фаза
-   «Маніфест» просто не відпрацювала. Доти скрипт не розрізняв цього й на --apply переводив
-   у `done` все, що лежить на диску, — тобто після переїзду на v7 одним рухом оголосив би
-   переглянутими 2324 теми, яких ніхто не переглядав. Тепер такі теми лише показуємо. */
-const HUMAN_FLAG = new Set(['recheck', 'update', 'deeper']);
-const flaggedArticles = [];  // файл є, статус — навмисний прапорець → НЕ чіпаємо
+/* ⚠️ `recheck` — НЕ слід урваного батчу, а домовлений проміжний стан
+   (`.agents/rules/pipeline.md`): `finish-batch.js` Antigravity ставить його КОЖНІЙ написаній
+   статті й вставці. Сімнадцять перевірок кажуть, що конвеєр свою частину зробив, — це не те
+   саме, що «людина це читала». **У `done` переводить ЛЮДИНА (через `review-*`), а не батч.**
+   `update`/`deeper` — так само чужа воля, тільки вже людська.
+   Урваний батч лишає статтю в `pending`: фаза «Маніфест» просто не відпрацювала. Доти скрипт
+   цього не розрізняв і на --apply переводив у `done` все, що лежить на диску, — тобто одним
+   рухом видав би за прочитане людиною 2324 теми, які чекають саме на неї, і знищив би чергу
+   ревізії. Тепер такі теми лише показуємо. */
+const AWAITS_HUMAN = new Set(['recheck', 'update', 'deeper']);
+const flaggedArticles = [];  // файл є, статус чекає людського ока → НЕ чіпаємо
 const flaggedInserts = [];   // те саме для вставок
 const unregArticles = [];   // файл є, статус не done → зареєструвати
 const missingArticles = []; // статус pending, файла нема → ще писати
@@ -69,7 +75,7 @@ for (const T of topics()) {
   for (const [ver, file] of [['basic', T.slug + '.md'], ['detailed', T.slug + '-d.md']]) {
     const st = T.topic[ver] && T.topic[ver].status;
     const onDisk = fs.existsSync(path.join(T.dir, file));
-    if (onDisk && HUMAN_FLAG.has(st)) { flaggedArticles.push({ slug: T.slug, ver, status: st }); units.push({ section: T.section, slug: T.slug, title: T.title || T.slug, level: ver }) }
+    if (onDisk && AWAITS_HUMAN.has(st)) { flaggedArticles.push({ slug: T.slug, ver, status: st }); units.push({ section: T.section, slug: T.slug, title: T.title || T.slug, level: ver }) }
     else if (onDisk && st !== 'done') { unregArticles.push({ section: T.section, slug: T.slug, ver, status: st }); units.push({ section: T.section, slug: T.slug, title: T.title || T.slug, level: ver }) }
     else if (onDisk && st === 'done') units.push({ section: T.section, slug: T.slug, title: T.title || T.slug, level: ver });
     else if (!onDisk && st === 'pending') missingArticles.push(T.section + '/' + T.slug + ' ' + ver);
@@ -79,7 +85,7 @@ for (const T of topics()) {
   for (const k of TYPES) for (const i of (T.topic[k] || [])) {
     const onDisk = fs.existsSync(path.join(T.dir, i.file));
     if (!onDisk) missingInserts.push({ section: T.section, topicSlug: T.slug, topicTitle: T.title, file: i.file, type: k, why: 'у маніфесті, файла нема' });
-    else if (HUMAN_FLAG.has(i.status)) flaggedInserts.push({ topicSlug: T.slug, file: i.file, status: i.status });
+    else if (AWAITS_HUMAN.has(i.status)) flaggedInserts.push({ topicSlug: T.slug, file: i.file, status: i.status });
     else if (i.status !== 'done') notDoneInserts.push({ section: T.section, topicSlug: T.slug, file: i.file, type: k, status: i.status });
   }
   // вставки, що лежать на диску, але в маніфесті їх нема
@@ -88,13 +94,13 @@ for (const T of topics()) {
   const ownFiles = new Set([T.slug + '.md', T.slug + '-d.md']);
   if (fs.existsSync(T.dir)) for (const f of fs.readdirSync(T.dir)) {
     /* Статус нової вставки беремо в її ТЕМИ. Урваний батч лишає тему в pending → стаття
-       щойно стала done, отже й вставка done. А тема з навмисним прапорцем (recheck після
-       переїзду) не могла свою вставку переглянути — реєструвати її як done означало б
-       оголосити переглянутим те, чого ніхто не бачив; беремо той самий прапорець. */
+       щойно стала done, отже й вставка done. А тема в `recheck` ще чекає людського ока —
+       її вставка так само; зареєструвати вставку як done означало б видати за прочитане
+       людиною те, чого людина не бачила. Беремо той самий статус, що в теми. */
     if (INS_RE.test(f) && !reg.has(f) && !ownFiles.has(f)) {
       const ownerSt = (T.topic.detailed && T.topic.detailed.status) || (T.topic.basic && T.topic.basic.status);
       unregInserts.push({ section: T.section, topicSlug: T.slug, topicTitle: T.title, file: f, type: f.split('-')[0],
-                          asStatus: HUMAN_FLAG.has(ownerSt) ? ownerSt : 'done' });
+                          asStatus: AWAITS_HUMAN.has(ownerSt) ? ownerSt : 'done' });
     }
   }
   // вставки, обіцяні в ПРОЗІ, але не написані (обидва формати лінка — §6 і відносний)
@@ -106,7 +112,9 @@ for (const T of topics()) {
     // ⚠️ лише вставки ВЛАСНОЇ теми — звіряємо І КНИГУ, І слуг. Лінк на чужу вставку законний:
     // її файл лежить у теці тієї теми. Пастка: однакові слуги в різних книгах (тема «crc» є і в
     // programming, і в communications) — порівняння лише за слугом дає хибне «файла нема».
-    for (const m of txt.matchAll(/\]\((?:book|guide):([a-z0-9-]+)\/([a-z0-9-]+)\/((?:hist|comp|math|proj|api)-[a-z0-9-]+\.md)\)/g)) {
+    // ⚠️ префікс лише `root:` — `book:`/`guide:` зняті ще при переході на єдину адресу, і доти
+    // цей матчер не знаходив НІЧОГО: «обіцяні в прозі» завжди виходило 0.
+    for (const m of txt.matchAll(/\]\(root:([a-z0-9-]+)\/([a-z0-9-]+)\/((?:hist|comp|math|proj|api)-[a-z0-9-]+\.md)\)/g)) {
       if (m[1] === BOOK && m[2] === T.slug) refs.add(m[3]);
     }
     for (const m of txt.matchAll(/\]\(((?:hist|comp|math|proj|api)-[a-z0-9-]+\.md)\)/g)) refs.add(m[1]);
@@ -128,9 +136,9 @@ line(`  статті НА ДИСКУ, але не done у маніфесті: ${
 line(`  статті pending, файла НЕМА (ще писати):   ${missingArticles.length}` + (missingArticles.length ? ' → ' + missingArticles.slice(0, 12).join(', ') + (missingArticles.length > 12 ? ' …' : '') : ''));
 line(`  вставки НА ДИСКУ, у маніфесті НЕМА:       ${unregInserts.length}` + (unregInserts.length ? ' → ' + unregInserts.map((i) => i.topicSlug + '/' + i.file).join(', ') : ''));
 line(`  вставки в маніфесті зі статусом ≠ done:   ${notDoneInserts.length}`);
-line(`  ── НЕ ЧІПАЮ (навмисні прапорці людини) ──`);
-line(`  статті recheck/update/deeper:             ${flaggedArticles.length}` + (flaggedArticles.length ? ` (${[...new Set(flaggedArticles.map((a) => a.status))].join(', ')})` : ''));
-line(`  вставки recheck/update/deeper:            ${flaggedInserts.length}` + (flaggedInserts.length ? ` (${[...new Set(flaggedInserts.map((i) => i.status))].join(', ')})` : ''));
+line(`  ── НЕ ЧІПАЮ (чекають людського ока) ──`);
+line(`  статті recheck (Antigravity) / update / deeper:             ${flaggedArticles.length}` + (flaggedArticles.length ? ` (${[...new Set(flaggedArticles.map((a) => a.status))].join(', ')})` : ''));
+line(`  вставки recheck (Antigravity) / update / deeper:            ${flaggedInserts.length}` + (flaggedInserts.length ? ` (${[...new Set(flaggedInserts.map((i) => i.status))].join(', ')})` : ''));
 line(`  вставки ОБІЦЯНІ, але не написані:         ${missingInserts.length}` + (missingInserts.length ? '\n' + missingInserts.map((i) => '      · ' + i.topicSlug + '/' + i.file + '  (' + i.why + ')').join('\n') : ''));
 
 const OUTDIR = path.join(ROOT, 'scripts', '_finish');
