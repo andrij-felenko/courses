@@ -45,7 +45,10 @@ jobs:
         run: |
           mkdir -p _site
           cp -r src/front/. _site/
-          rsync -a --exclude='.git' root/ _site/root/
+          # Генератори фігур і кеш Python у прод не їдуть: сайт фетчить лише .md, .json
+          # і .svg, а `figs.py` важить 72 МБ і живе для автора, не для читача.
+          rsync -a --exclude='.git' --exclude='*.py' --exclude='__pycache__' \
+                --exclude='*.pyc' --exclude='*.log' root/ _site/root/
           rm -f _site/build-search-index.js
           echo "--- _site ---"; ls _site
 
