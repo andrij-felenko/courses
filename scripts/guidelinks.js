@@ -27,6 +27,10 @@ const M = require("./lib/manifest7.js");
 const only = process.argv.slice(2).filter((a) => !a.startsWith("--"));
 
 /* Індекс усього корпусу: "<книга>/<тема>" → чи є готова версія. */
+/* Читач щось побачить, якщо текст Є. `recheck`/`update`/`deeper` — готові статті
+   з позначкою чернетки, а не порожнеча; порожні лише `pending` і `empty`. */
+const written = (s) => s === "done" || s === "update" || s === "deeper" || s === "recheck";
+
 const T = new Map();
 for (const [bslug, meta] of M.books()) {
   const bk = M.loadBook(meta.bookDir);
@@ -35,7 +39,7 @@ for (const [bslug, meta] of M.books()) {
     if (!t.own) continue;
     const b = (t.node.basic && t.node.basic.status) || "empty";
     const d = (t.node.detailed && t.node.detailed.status) || "empty";
-    T.set(bslug + "/" + t.slug, { book: bslug, bs: b, ds: d, done: b === "done" || d === "done" });
+    T.set(bslug + "/" + t.slug, { book: bslug, bs: b, ds: d, done: written(b) || written(d) });
   }
 }
 
