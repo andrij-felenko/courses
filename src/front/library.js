@@ -277,6 +277,7 @@
 
     return cardShell({
       href: "read.html?book=" + esc(s.slug), accent: accent, ico: ico, kind: s.kind, title: s.title, desc: desc, pct: pct,
+      read: s.read, total: s.planned,
       left: esc(KIND_GROUPS[s.kind] || cap(W.group || "Групи")) + " " + s.groups +
             (s.chapters ? " · розділів " + s.chapters : "") +
             (isCourse && s.read ? " · прочитано " + s.read : ""),
@@ -288,6 +289,15 @@
      Заливка тла = відсоток написаного (варіант 8): стан читається периферійним
      зором, без окремої смужки. Праворуч — знак книги, щоб її впізнавали в лице.
      Унизу один рядок: ліворуч склад, праворуч «написано / усього» через скісну. */
+  /* Другий показник — ВЛАСНИЙ прогрес читача. Заливка тла каже, скільки написано
+     (стан корпусу); ця смужка — скільки з того прочитано. Два різні питання, тому
+     й показані по-різному: одне тлом, друге явною смужкою з числом. */
+  function readRow(read, total) {
+    var p = total ? Math.round((read || 0) / total * 100) : 0;
+    return '<div class="lc-read"><span class="lc-read-track"><i style="width:' + p + '%"></i></span>' +
+      '<span class="lc-read-num">' + (read || 0) + ' / ' + total + ' прочитано</span></div>';
+  }
+
   function cardShell(o) {
     return '<a class="lib-card lib-card-' + esc(o.kind || "") + '" href="' + o.href +
       '" style="--accent:' + o.accent + ';--p:' + (o.pct || 0) + '">' +
@@ -296,7 +306,8 @@
       '<span class="lc-ico" aria-hidden="true">' + o.ico + '</span></div>' +
       '<p class="lc-desc">' + esc(o.desc || "") + '</p>' +
       '<div class="lc-foot"><span class="lc-left">' + o.left + '</span>' +
-      '<span class="lc-right">' + o.right + '</span></div></a>';
+      '<span class="lc-right">' + o.right + '<i>написано</i></span></div>' +
+      readRow(o.read, o.total) + '</a>';
   }
 
 
@@ -305,9 +316,9 @@
      теми її немає. Тому картка веде не в читач, а на рівень глибше — у список
      книг збірки, який виглядає так само, як полиця. Числа — сума по книгах. */
   function groupStat(g) {
-    var st = { slug: g.slug, title: g.title, asks: g.asks || "", books: g.items.length, groups: 0, chapters: 0, planned: 0, done: 0 };
+    var st = { slug: g.slug, title: g.title, asks: g.asks || "", books: g.items.length, groups: 0, chapters: 0, planned: 0, done: 0, read: 0 };
     g.items.forEach(function (s) {
-      st.groups += s.groups; st.chapters += s.chapters; st.planned += s.planned; st.done += s.done;
+      st.groups += s.groups; st.chapters += s.chapters; st.planned += s.planned; st.done += s.done; st.read += s.read;
     });
     return st;
   }
@@ -321,6 +332,7 @@
 
     return cardShell({
       href: "#" + esc(kind) + "/" + esc(st.slug), accent: accent, ico: ico, kind: kind, title: st.title, desc: DESC[st.slug] || cap(st.asks || ""), pct: pct,
+      read: st.read, total: st.planned,
       left: "книг " + st.books + (st.chapters ? " · розділів " + st.chapters : ""),
       right: (complete ? String(st.planned) : st.done) + " / " + st.planned
     });
@@ -361,13 +373,14 @@
   var SHELVES = [];
 
   function tile(s) {
-    var planned = 0, done = 0;
-    s.items.forEach(function (x) { planned += x.planned; done += x.done; });
+    var planned = 0, done = 0, read = 0;
+    s.items.forEach(function (x) { planned += x.planned; done += x.done; read += x.read; });
     return cardShell({
       href: "#" + esc(s.kind), accent: KIND_ACCENT[s.kind] || "#1d6fa4",
       ico: KIND_ICON[s.kind] || "📘", kind: s.kind,
       title: s.shelf, desc: SHELF_DESC[s.kind] || cap(s.asks || ""),
       pct: planned ? Math.round(done / planned * 100) : 0,
+      read: read, total: planned,
       left: s.items.length + " " + plural(s.items.length, "книга", "книги", "книг"),
       right: done + " / " + planned
     });
@@ -389,35 +402,35 @@
   function viewHome() {
     var live = SHELVES.filter(function (s) { return s.items.length; });
     var books = live.reduce(function (a, s) { return a + s.items.length; }, 0);
-    return '<header class="lib-hero"><div class="kicker">Бібліотека</div><h1>Мої книги</h1>' +
+    return '<header class="lib-hero"><div class="lib-wrap"><div class="kicker">Бібліотека</div><h1>Мої книги</h1>' +
       '<p>' + (live.length
         ? books + ' ' + plural(books, "книга", "книги", "книг") + ' на ' + live.length + ' ' + plural(live.length, "полиці", "полицях", "полицях") +
           '. Полиця відповідає на своє питання — вибери, яке зараз твоє.'
-        : "Полиці зʼявляться, коли книги переїдуть у нове дерево.") + '</p></header>' +
+        : "Полиці зʼявляться, коли книги переїдуть у нове дерево.") + '</p></div></header>' +
       '<div class="lib-shelf lib-shelf-home">' + SHELVES.map(tile).join("") + '</div>';
   }
   function viewShelf(s) {
-    return '<header class="lib-hero lib-hero-sub"><div class="kicker">' + esc(s.shelf) + '</div>' +
+    return '<header class="lib-hero lib-hero-sub"><div class="lib-wrap"><div class="kicker">' + esc(s.shelf) + '</div>' +
       '<h1>' + esc(cap(s.asks || s.shelf)) + '</h1>' +
       '<p>' + s.items.length + ' ' + plural(s.items.length, "книга", "книги", "книг") +
-      (s.groups.length ? ' · ' + s.groups.length + ' ' + plural(s.groups.length, "збірка", "збірки", "збірок") : "") + '</p></header>' +
+      (s.groups.length ? ' · ' + s.groups.length + ' ' + plural(s.groups.length, "збірка", "збірки", "збірок") : "") + '</p></div></header>' +
       (s.items.length
         ? grid(s.kind, s.groups.map(function (g) { return groupCard(s.kind, g); }).join("") + s.loose.map(card).join(""))
         : empty());
   }
   function viewGroup(s, g) {
-    return '<header class="lib-hero lib-hero-sub"><div class="kicker">' + esc(s.shelf) + ' · збірка</div>' +
+    return '<header class="lib-hero lib-hero-sub"><div class="lib-wrap"><div class="kicker">' + esc(s.shelf) + ' · збірка</div>' +
       '<h1>' + esc(g.title) + '</h1>' +
       '<p>' + g.items.length + ' ' + plural(g.items.length, "книга", "книги", "книг") +
-      (g.asks ? ' · ' + esc(g.asks) : "") + '</p></header>' +
+      (g.asks ? ' · ' + esc(g.asks) : "") + '</p></div></header>' +
       grid(s.kind, g.items.map(card).join(""));
   }
   /* Вигляд «усе на одній сторінці» — той самий матеріал без переходів. */
   function viewAll() {
-    return '<header class="lib-hero"><div class="kicker">Бібліотека</div><h1>Мої книги</h1>' +
-      '<p>Усі полиці на одній сторінці.</p></header>' +
+    return '<header class="lib-hero"><div class="lib-wrap"><div class="kicker">Бібліотека</div><h1>Мої книги</h1>' +
+      '<p>Усі полиці на одній сторінці.</p></div></header>' +
       SHELVES.map(function (s) {
-        return '<section class="lib-sect"><div class="lib-sect-head"><h2 class="lib-sect-ttl">' + esc(s.shelf) +
+        return '<section class="lib-sect lib-wrap"><div class="lib-sect-head"><h2 class="lib-sect-ttl">' + esc(s.shelf) +
           '</h2><span class="lib-sect-count">' + s.items.length + '</span><span class="lib-sect-line"></span>' +
           '<span class="lib-sect-note">' + esc(s.asks) + '</span></div>' +
           (s.items.length ? s.groups.map(function (g) {
@@ -468,6 +481,9 @@
     if (group) parts.push({ t: group.title, h: "" });
 
     parkTools();
+    /* Тіло — в ОДНІЙ колонці з картками: доти max-width стояв лише на сітці, а
+       заголовки лишались притиснуті до краю вікна, і на широкому екрані макет
+       мав дві різні ліві межі (0 і 375px). Тепер межа одна на всіх. */
     root.innerHTML = topbar(parts) + (getView() === "one" ? viewAll()
       : group ? viewGroup(shelf, group)
       : shelf ? viewShelf(shelf)

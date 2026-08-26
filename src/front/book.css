@@ -1038,11 +1038,16 @@ html[data-libview="tabs"] .lib-sect-head { display: none; }
 html[data-libview="tabs"] .lib-hero-nums { display: none; }
 html[data-libview="one"] .lib-seg { display: none; }
 
+/* ОДНА колонка на всю сторінку: і заголовки, і картки міряються від неї. Доти
+   max-width стояв лише на сітці, а заголовки лишались притиснуті до краю вікна —
+   на 2000px макет мав дві різні ліві межі (0 і 375px), і сторінка не складалася. */
+.lib-wrap { max-width: 1240px; margin: 0 auto; padding: 0 1.6rem; }
 .lib-shelf {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 1.2rem;
-  /* поля навколо сітки: без них картки впираються в самі краї вікна */
   padding: 1.5rem 1.6rem 2.5rem; max-width: 1240px; margin: 0 auto;
 }
+/* Усередині колонки сітка вже не міряє себе сама — межу задає колонка. */
+.lib-wrap .lib-shelf { max-width: none; margin: 0; padding: 1rem 0 2rem; }
 .lib-shelf.shelf-in { animation: shelf-in 0.18s ease; }
 @keyframes shelf-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) {
@@ -1118,9 +1123,16 @@ html[data-libview="one"] .lib-seg { display: none; }
      а не рябіти. Заливка прогресу лягає зверху тим самим кольором іще на 12%. */
   background: color-mix(in srgb, var(--accent) 9%, var(--bg-alt));
   text-decoration: none; color: inherit; box-shadow: var(--shadow);
-  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  transition: margin 0.15s, padding 0.15s, box-shadow 0.15s, border-color 0.15s;
 }
-.lib-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
+/* Наведення НЕ зсуває картку: вона росте на місці. Від'ємне поле розсуває рамку
+   на 4px у всі боки, а внутрішній відступ додає рівно стільки ж — тож вміст
+   лишається піксель у піксель там, де був, і ніщо не міняє розміру.
+   (Був `translateY(-4px)`: картка підстрибувала, і разом з нею — увесь текст.) */
+.lib-card:hover {
+  margin: -4px; padding: calc(0.75rem + 4px) calc(0.95rem + 4px) calc(0.6rem + 4px);
+  z-index: 2; box-shadow: var(--shadow-lg); border-color: var(--accent);
+}
 .lc-fill {
   position: absolute; inset: 0 auto 0 0; width: calc(var(--p, 0) * 1%);
   background: color-mix(in srgb, var(--accent) 12%, transparent);
@@ -1160,6 +1172,16 @@ html[data-libview="one"] .lib-seg { display: none; }
   font-size: 0.76rem; color: var(--muted);
 }
 .lc-right { font-weight: 800; color: var(--text); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.lc-right i { font-style: normal; font-weight: 600; color: var(--muted); margin-left: 0.35rem; font-size: 0.92em; }
+/* Прочитане — ВЛАСНИЙ прогрес читача, тому явна смужка з числом, а не тло:
+   тло вже зайняте станом корпусу («скільки написано»). */
+.lc-read { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.4rem; }
+.lc-read-track {
+  flex: 1 1 auto; height: 4px; border-radius: 2px; overflow: hidden;
+  background: color-mix(in srgb, var(--accent) 18%, var(--border));
+}
+.lc-read-track i { display: block; height: 100%; background: var(--accent); border-radius: 2px; }
+.lc-read-num { flex: none; font-size: 0.68rem; color: var(--muted); font-variant-numeric: tabular-nums; }
 .lib-card-group { border-left-width: 6px; }
 .lib-card-group .lc-kicker { color: var(--text); opacity: 0.6; }
 

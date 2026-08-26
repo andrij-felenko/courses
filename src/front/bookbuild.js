@@ -245,8 +245,11 @@
         '<span class="lc-ico" aria-hidden="true">' + (mi + 1) + '</span></div>' +
         '<p class="lc-desc">' + _esc(chaps.join(" · ")) + '</p>' +
         '<div class="lc-foot"><span class="lc-left">' + (st.chap ? "розділів " + st.chap + " · " : "") +
-        "тем " + st.steps + (st.rd ? " · прочитано " + st.rd : "") + '</span>' +
-        '<span class="lc-right">' + st.wr + ' / ' + st.steps + '</span></div></a>';
+        "тем " + st.steps + '</span>' +
+        '<span class="lc-right">' + st.wr + ' / ' + st.steps + '<i>написано</i></span></div>' +
+        '<div class="lc-read"><span class="lc-read-track"><i style="width:' +
+        (st.steps ? Math.round(st.rd / st.steps * 100) : 0) + '%"></i></span>' +
+        '<span class="lc-read-num">' + st.rd + ' / ' + st.steps + ' прочитано</span></div></a>';
     }
 
 
