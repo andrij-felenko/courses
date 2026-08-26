@@ -66,55 +66,92 @@ html[data-density="compact"] .lib-sect-note { margin-left: auto; font-size: 0.68
 /* ── Полиця → ПАНЕЛЬ зі рядками (не сітка карток) ── */
 html[data-density="compact"] .lib-shelf { display: block; border: 1px solid var(--border); background: var(--bg); }
 
-/* Картка → рядок даних: ▍акцент | іконка Назва [тег] ······ статистика бар → */
+/* Картка → РЯДОК ТАБЛИЦІ. Колонки фіксовані, тож числа сусідніх рядків стоять
+   одне під одним — саме цього бракувало: доти єдиним чинним правилом лишалося
+   `flex-direction: row`, яке клало вертикальну картку набік, і кожен елемент
+   міряв себе сам. Решта правил компактного режиму зверталась до розмітки, якої
+   вже немає (`lib-cover`, `lib-body`, `lib-stats`, `lib-bar`, `lib-cta`…) —
+   жодне з десяти не збігалося, тому праве крило рядка розповзалося й обрізалось.
+
+   Обгортки `lc-head`/`lc-foot`/`lc-read` стають `display: contents`, тож у сітку
+   потрапляють самі клітинки, а не коробки. */
 html[data-density="compact"] .lib-card {
-  display: flex; flex-direction: row; align-items: center;
+  display: grid;
+  grid-template-columns:
+    1.4rem                 /* знак */
+    minmax(7rem, 13rem)    /* назва */
+    minmax(0, 1fr)         /* опис — єдина колонка, що стискається */
+    7.5rem                 /* склад: галузей · розділів */
+    6.5rem                 /* написано */
+    3.5rem                 /* смужка прочитаного */
+    6.5rem;                /* число прочитаного */
+  align-items: center; column-gap: 0.85rem;
+  padding: 0.34rem 0.8rem;
   border: 0; border-bottom: 1px solid var(--border);
   border-left: 3px solid var(--accent, #1d6fa4);
   border-radius: 0; box-shadow: none; background: var(--bg);
   transition: background 0.1s;
 }
 html[data-density="compact"] .lib-card:last-child { border-bottom: 0; }
-html[data-density="compact"] .lib-card:hover { transform: none; box-shadow: none; background: var(--accent-light); }
-html[data-density="compact"] .lib-card-guide, html[data-density="compact"] .lib-card-cat { border-color: var(--border); border-left-color: var(--accent); }
+/* Наведення не рухає рядок: у щільному списку зсув на 4px читається як стрибок. */
+html[data-density="compact"] .lib-card:hover {
+  margin: 0; padding: 0.34rem 0.8rem;
+  box-shadow: none; background: var(--accent-light); border-color: var(--border);
+  border-left-color: var(--accent);
+}
+html[data-density="compact"] .lib-card-guide,
+html[data-density="compact"] .lib-card-cat { border-color: var(--border); border-left-color: var(--accent); }
 
-/* Ліва частина рядка: іконка + назва + тип-тег (обкладинки більше нема) */
-html[data-density="compact"] .lib-cover {
-  flex: 1 1 auto; min-width: 0; min-height: 0;
-  flex-direction: row; align-items: center; justify-content: flex-start; gap: 0.55rem;
-  background: none; padding: 0.42rem 0.6rem; color: var(--text);
-}
-html[data-density="compact"] .lib-card-guide .lib-cover, html[data-density="compact"] .lib-card-cat .lib-cover { min-height: 0; background: none; }
-html[data-density="compact"] .lib-card-cat .lib-cover::before { display: none; }   /* міліметрівка — атрибут обкладинки */
-html[data-density="compact"] .lib-ico { position: static; order: 1; flex: 0 0 auto; align-self: center; font-size: 1.05rem; filter: none; line-height: 1; margin: 0 0.6rem 0 0.3rem; }   /* іконка — праворуч рядка */
-html[data-density="compact"] .lib-cover-ttl {
-  font-size: 0.86rem; font-weight: 700; color: var(--text); text-shadow: none;
-  max-width: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-html[data-density="compact"] .lib-kind {
-  position: static; order: 3; flex: 0 0 auto; margin-left: 0.2rem;
-  background: none; border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
-  color: var(--accent); font-size: 0.54rem; padding: 0.05rem 0.38rem; border-radius: 2px;
+html[data-density="compact"] .lc-head,
+html[data-density="compact"] .lc-foot,
+html[data-density="compact"] .lc-read { display: contents; }
+
+/* Заливка «скільки написано» в рядку перетворюється на волосінь по низу: стан
+   так само видно периферійним зором, але рядки більше не рябіють блоками різної
+   ширини — саме вони й робили полицю строкатою. */
+html[data-density="compact"] .lc-fill {
+  inset: auto auto 0 0; height: 2px; width: calc(var(--p, 0) * 1%);
+  background: color-mix(in srgb, var(--accent) 60%, transparent);
 }
 
-/* Права частина рядка: статистика (моно) + тонкий бар + стрілка */
-html[data-density="compact"] .lib-body { flex: 0 0 auto; display: flex; flex-direction: row; align-items: center; gap: 1.1rem; padding: 0 0.7rem 0 0.5rem; }
-html[data-density="compact"] .lib-desc { display: none; }
-html[data-density="compact"] .lib-stats { display: flex; gap: 1.1rem; border: 0; margin: 0; }
-html[data-density="compact"] .lib-stat-row { border: 0; padding: 0; gap: 0.35rem; font-size: 0.78rem; align-items: baseline; }
-html[data-density="compact"] .lib-stat-k { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.08em; }
-html[data-density="compact"] .lib-stat-v { font-family: var(--mono); font-size: 0.8rem; }
-html[data-density="compact"] .lib-bar { width: 64px; height: 3px; margin: 0; flex: 0 0 auto; border-radius: 0; }
-html[data-density="compact"] .lib-bar span { border-radius: 0; }
-html[data-density="compact"] .lib-foot { margin: 0; gap: 0; }
-html[data-density="compact"] .lib-modnote { display: none; }              /* прогрес видно з чисел і бару */
-html[data-density="compact"] .lib-cta { font-size: 0; color: var(--text-muted); }
-html[data-density="compact"] .lib-cta::after { content: "→"; font-size: 0.85rem; }
-html[data-density="compact"] .lib-card:hover .lib-cta { text-decoration: none; }
-html[data-density="compact"] .lib-card:hover .lib-cta::after { color: var(--accent); }
+html[data-density="compact"] .lc-ico { order: -1; margin: 0; font-size: 1rem; line-height: 1; }
+html[data-density="compact"] .lc-ttl {
+  margin: 0; font-size: 0.86rem; font-weight: 700; line-height: 1.25;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+html[data-density="compact"] .lc-desc {
+  /* Базовий опис — це `-webkit-box` із затиском на три рядки; у рядку таблиці
+     потрібен один, тож коробку скидаємо назад у блок, інакше `text-overflow`
+     не має на чому спрацювати. */
+  display: block; -webkit-line-clamp: none;
+  margin: 0; font-size: 0.76rem; color: var(--muted); line-height: 1.25;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+html[data-density="compact"] .lc-left {
+  font-size: 0.7rem; color: var(--muted); white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}
+/* Числа — моношириною і по правому краю: так однакові розряди стоять стовпчиком. */
+html[data-density="compact"] .lc-right,
+html[data-density="compact"] .lc-read-num {
+  text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+html[data-density="compact"] .lc-right { font-size: 0.78rem; font-weight: 700; }
+html[data-density="compact"] .lc-right i { display: none; }        /* заголовок колонки, не підпис кожного рядка */
+html[data-density="compact"] .lc-read-num { font-size: 0.68rem; }
+html[data-density="compact"] .lc-read-track { margin: 0; width: 100%; }
+
+/* Вужчає екран — колонки здаються справа наліво, у порядку зростання потрібності. */
+@media (max-width: 1100px) {
+  html[data-density="compact"] .lib-card { grid-template-columns: 1.4rem minmax(7rem, 13rem) minmax(0, 1fr) 7.5rem 6.5rem; }
+  html[data-density="compact"] .lc-read-track, html[data-density="compact"] .lc-read-num { display: none; }
+}
+@media (max-width: 820px) {
+  html[data-density="compact"] .lib-card { grid-template-columns: 1.4rem minmax(0, 1fr) 6.5rem; }
+  html[data-density="compact"] .lc-desc, html[data-density="compact"] .lc-left { display: none; }
+}
 
 @media (max-width: 720px) {
-  html[data-density="compact"] .lib-stats, html[data-density="compact"] .lib-bar { display: none; }
   html[data-density="compact"] .lib-seg { width: 100%; }
 }
 
