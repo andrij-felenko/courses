@@ -161,8 +161,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-ebnf-notation.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-backus-naur.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cnf-transformation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-recursive-descent.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "regular-languages",
@@ -313,8 +337,30 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-kleene-fixed-point.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-recursion-theorem-proof.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-fixed-point-evaluator.md",
+              "status": "recheck"
+            },
+            {
+              "file": "proj-quine-generator.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "term-rewriting-systems",

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="120.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мікроконтролер (Host)</text>
+<text x="470.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">16-бітний експандер MCP23017</text>
+<text x="810.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Периферія та контакти</text>
+<rect x="30.0" y="55.0" width="180.0" height="400.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.8"/>
+<rect x="72.8" y="81.2" width="94.4" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="120.0" y="101.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">I2C Master</tspan><tspan x="120.0" dy="15.6">(SDA, SCL)</tspan></text>
+<rect x="41.8" y="212.3" width="156.4" height="45.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="120.0" y="231.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">Зовнішнє переривання</tspan><tspan x="120.0" dy="14.3">EXTI (спад фронту)</tspan></text>
+<rect x="47.3" y="342.4" width="145.4" height="45.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="120.0" y="361.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="120.0" dy="0.0">Обробник подій</tspan><tspan x="120.0" dy="14.3">(зчитує INTCAP/GPIO)</tspan></text>
+<rect x="350.0" y="55.0" width="240.0" height="400.0" rx="8" fill="#faf5ff" stroke="#9333ea" stroke-width="2.0"/>
+<rect x="385.0" y="67.3" width="170.0" height="45.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="470.0" y="86.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b21a8" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">Внутрішні регістри:</tspan><tspan x="470.0" dy="14.3">IODIR, GPINTEN, DEFVAL</tspan></text>
+<rect x="365.9" y="133.5" width="208.1" height="43.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="470.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="470.0" dy="0.0">Фіксатор переривання:</tspan><tspan x="470.0" dy="13.0">INTFA/B (прапорці), INTCAP (стан)</tspan></text>
+<line x1="210.0" y1="105.0" x2="350.0" y2="105.0" stroke="#333333" stroke-width="2.0"/>
+<text x="280.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">SDA / SCL</text>
+<text x="280.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Опитування ~30 мкс</text>
+<line x1="350.0" y1="235.0" x2="210.0" y2="235.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="280.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">INTA / INTB (Wired-OR)</text>
+<text x="280.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Відкритий стік + підтяжка</text>
+<rect x="370.0" y="226.0" width="200.0" height="28.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="470.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">GPA0..GPA3</text>
+<line x1="590.0" y1="240.0" x2="710.0" y2="240.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="710.0" y="220.0" width="200.0" height="40.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.4"/>
+<text x="810.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">4 × Кінцеві вимикачі</text>
+<text x="810.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">GPINTEN = 1 (на зміну)</text>
+<rect x="370.0" y="291.0" width="200.0" height="28.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="470.0" y="309.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">GPA4..GPA7</text>
+<line x1="590.0" y1="305.0" x2="710.0" y2="305.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="710.0" y="285.0" width="200.0" height="40.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.4"/>
+<text x="810.0" y="301.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">4 × Сигнальні входи тривоги</text>
+<text x="810.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Зафіксовано в INTCAP</text>
+<rect x="370.0" y="366.0" width="200.0" height="28.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="470.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">GPB0..GPB7</text>
+<line x1="590.0" y1="380.0" x2="710.0" y2="380.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="710.0" y="360.0" width="200.0" height="40.0" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.4"/>
+<text x="810.0" y="376.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">8 × Керування реле / LED</text>
+<text x="810.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Виходи Push-Pull (OLATB)</text>
+</svg>

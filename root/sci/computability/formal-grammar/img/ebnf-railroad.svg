@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 310" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="310" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Синтаксична діаграма (Railroad Diagram): правило EBNF для арифметичного виразу</text>
+<text x="440.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Правило:  Expr = Term , { ( &quot;+&quot; | &quot;-&quot; ) , Term } ;</text>
+<line x1="60.0" y1="140.0" x2="150.0" y2="140.0" stroke="#333333" stroke-width="2.0"/>
+<rect x="183.2" y="121.5" width="53.6" height="37.0" rx="6" fill="#edf2fd" stroke="#2457d6" stroke-width="1.6"/><text x="210.0" y="144.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">Term</tspan></text>
+<line x1="236.8" y1="140.0" x2="310.0" y2="140.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="310.0" y1="140.0" x2="770.0" y2="140.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="770.0" y1="140.0" x2="830.0" y2="140.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="730.0" y1="140.0" x2="730.0" y2="220.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="730.0" y1="220.0" x2="680.0" y2="220.0" stroke="#333333" stroke-width="1.8"/>
+<rect x="585.2" y="203.5" width="49.6" height="33.0" rx="6" fill="#edf2fd" stroke="#2457d6" stroke-width="1.6"/><text x="610.0" y="224.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle"><tspan x="610.0" dy="0.0">Term</tspan></text>
+<line x1="585.2" y1="220.0" x2="520.0" y2="220.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="520.0" y1="220.0" x2="480.0" y2="195.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="520.0" y1="220.0" x2="480.0" y2="245.0" stroke="#333333" stroke-width="1.6"/>
+<rect x="433.7" y="183.0" width="32.5" height="24.0" rx="12" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="450.0" y="199.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0"> + </tspan></text>
+<rect x="433.7" y="233.0" width="32.5" height="24.0" rx="12" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="450.0" y="249.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="450.0" dy="0.0"> − </tspan></text>
+<line x1="420.0" y1="195.0" x2="380.0" y2="220.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="420.0" y1="245.0" x2="380.0" y2="220.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="380.0" y1="220.0" x2="310.0" y2="220.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="310.0" y1="220.0" x2="310.0" y2="140.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="100.0" y1="140.0" x2="130.0" y2="140.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="785.0" y1="140.0" x2="815.0" y2="140.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="680.0" y1="220.0" x2="660.0" y2="220.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="345.0" y1="220.0" x2="325.0" y2="220.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<circle cx="55.0" cy="140.0" r="6.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.0"/>
+<circle cx="835.0" cy="140.0" r="6.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.0"/>
+<text x="70.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Вхід</text>
+<text x="820.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Вихід</text>
+<text x="440.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Квадратні блоки — нетермінали; заокруглені — термінали; розгалуження — альтернат; петля — { ... }</text>
+</svg>

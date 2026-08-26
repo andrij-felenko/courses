@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Скінченний автомат процесу ініціалізації: валідація, збереження та відкат</text>
+<rect x="69.6" y="68.8" width="120.9" height="42.5" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="130.0" y="86.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="130.0" dy="0.0">STATE_INIT</tspan><tspan x="130.0" dy="15.0">Читання NVS флеш</tspan></text>
+<rect x="333.3" y="68.8" width="173.3" height="42.5" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="420.0" y="86.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">STATE_CONNECT_SAVED</tspan><tspan x="420.0" dy="15.0">Спроба входу в AP за NVS</tspan></text>
+<rect x="623.5" y="68.8" width="193.0" height="42.5" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/><text x="720.0" y="86.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="720.0" dy="0.0">STATE_OPERATIONAL</tspan><tspan x="720.0" dy="15.0">Мережа активна (Station OK)</tspan></text>
+<rect x="141.5" y="209.3" width="197.0" height="61.4" rx="6" fill="#fff9db" stroke="#f59f00" stroke-width="1.5"/><text x="240.0" y="229.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="240.0" dy="0.0">STATE_PROVISIONING_ACTIVE</tspan><tspan x="240.0" dy="15.0">Запуск BLE / SoftAP реклами</tspan><tspan x="240.0" dy="15.0">Очікування облікових даних</tspan></text>
+<rect x="491.7" y="209.3" width="216.6" height="61.4" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="600.0" y="229.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="600.0" dy="0.0">STATE_VALIDATING_STATION</tspan><tspan x="600.0" dy="15.0">Тестове підключення до AP:</tspan><tspan x="600.0" dy="15.0">4-way handshake + DHCP IP test</tspan></text>
+<rect x="285.5" y="359.3" width="269.1" height="61.4" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="420.0" y="379.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">STATE_PROV_FAILED (Fallback)</tspan><tspan x="420.0" dy="15.0">Повідомлення клієнту: «AUTH_FAIL»</tspan><tspan x="420.0" dy="15.0">Відкат до попереднього стану / Таймаут</tspan></text>
+<line x1="200.0" y1="90.0" x2="320.0" y2="90.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="260.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Є NVS дані</text>
+<line x1="130.0" y1="120.0" x2="180.0" y2="200.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="125.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Порожній NVS</text>
+<line x1="525.0" y1="90.0" x2="615.0" y2="90.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="570.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">IP отримано</text>
+<line x1="380.0" y1="120.0" x2="300.0" y2="200.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="370.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Невдача (3 спроби)</text>
+<line x1="365.0" y1="240.0" x2="465.0" y2="240.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="415.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">RX: SSID + Pass</text>
+<line x1="640.0" y1="200.0" x2="700.0" y2="125.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="710.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Успіх: Запис NVS</text>
+<line x1="560.0" y1="285.0" x2="480.0" y2="350.0" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="555.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Помилка автентифікації</text>
+<line x1="360.0" y1="360.0" x2="270.0" y2="285.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="285.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Нова спроба</text>
+<line x1="720.0" y1="125.0" x2="720.0" y2="450.0" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="4,4"/>
+<line x1="720.0" y1="450.0" x2="180.0" y2="450.0" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="4,4"/>
+<line x1="180.0" y1="450.0" x2="180.0" y2="285.0" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="450.0" y="465.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Апаратна кнопка: Factory Reset (утримування 5 с) → Очищення NVS → Примусовий PROV</text>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автомат станів: перехід між Captive Portal та робочим клієнтським режимом</text>
+<rect x="60.0" y="75.0" width="180.0" height="60.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/><text x="150.0" y="101.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">BOOT / INIT</tspan><tspan x="150.0" dy="13.7">Читання конфігурації NVS</tspan></text>
+<rect x="380.0" y="75.0" width="180.0" height="60.0" rx="6" fill="#e9eefb" stroke="#2457d6" stroke-width="1.5"/><text x="470.0" y="101.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">STA_CONNECTING</tspan><tspan x="470.0" dy="15.0">Спроба з'єднання з AP</tspan></text>
+<rect x="700.0" y="75.0" width="180.0" height="60.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="790.0" y="101.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="790.0" dy="0.0">STA_OPERATIONAL</tspan><tspan x="790.0" dy="13.7">Робочий режим (IoT/Data)</tspan></text>
+<rect x="350.0" y="290.0" width="240.0" height="75.0" rx="6" fill="#fdf0e6" stroke="#c0392b" stroke-width="1.5"/><text x="470.0" y="316.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">AP_CAPTIVE_PORTAL</tspan><tspan x="470.0" dy="15.0">SoftAP + DNS-пастка + HTTP</tspan><tspan x="470.0" dy="15.0">(Очікування налаштувань)</tspan></text>
+<line x1="240.0" y1="105.0" x2="375.0" y2="105.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="310.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">NVS має SSID</text>
+<line x1="150.0" y1="135.0" x2="370.0" y2="290.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="210.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">NVS порожній або
+затиснуто кнопку</text>
+<line x1="560.0" y1="105.0" x2="695.0" y2="105.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="630.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">IP отримано (DHCP)</text>
+<line x1="470.0" y1="135.0" x2="470.0" y2="285.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="550.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Помилка / Таймаут
+(3 невдалі спроби)</text>
+<line x1="350.0" y1="325.0" x2="150.0" y2="140.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="180.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">POST /api/save OK
+-&gt; Запис NVS -&gt; Рестарт</text>
+<path d="M 790 135 C 790 325, 660 330, 595 330" fill="none" stroke="#6b7280" stroke-width="1.8" stroke-dasharray="4,4" marker-end="url(#arrow)"/>
+<text x="760.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Втрата мережі &gt; 5 хв
+або кнопка скидання</text>
+</svg>

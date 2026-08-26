@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 780 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="780" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Профілі струму: Continuous проти Single-shot режиму</text>
+<rect x="20.0" y="20.0" width="720.0" height="400.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<rect x="40.0" y="35.0" width="320.0" height="38.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="200.0" y="57.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="200.0" dy="0.0">Continuous Mode (безперервне вимірювання)</tspan></text>
+<line x1="60.0" y1="230.0" x2="340.0" y2="230.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="60.0" y1="230.0" x2="60.0" y2="90.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="335.0" y1="230.0" x2="350.0" y2="230.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="60.0" y1="95.0" x2="60.0" y2="80.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="355.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">t</text>
+<text x="50.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end">I, мА</text>
+<rect x="61.0" y="130.0" width="270.0" height="100.0" rx="6" fill="#fdecea" stroke="none" stroke-width="1.5"/>
+<line x1="60.0" y1="130.0" x2="330.0" y2="130.0" stroke="#c0392b" stroke-width="2.6"/>
+<line x1="56.0" y1="130.0" x2="60.0" y2="130.0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="52.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">2.5 мА</text>
+<rect x="50.0" y="255.0" width="300.0" height="145.0" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/><text x="200.0" y="295.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="200.0" dy="0.0">Аналоговий тракт і АЦП увімкнені постійно.</tspan><tspan x="200.0" dy="14.3"></tspan><tspan x="200.0" dy="14.3">• Струм I_avg ≈ 2.5 мА</tspan><tspan x="200.0" dy="14.3">• Батарея CR2032 (220 мА·год) сідає за:</tspan><tspan x="200.0" dy="14.3">   220 / 2.5 = 88 годин (менше 4 діб!)</tspan><tspan x="200.0" dy="14.3">• Швидке оновлення, але марнування заряду</tspan></text>
+<rect x="400.0" y="35.0" width="320.0" height="38.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="560.0" y="57.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="560.0" dy="0.0">Single-shot / Duty-Cycled Mode (циклічний сон)</tspan></text>
+<line x1="420.0" y1="230.0" x2="700.0" y2="230.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="420.0" y1="230.0" x2="420.0" y2="90.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="695.0" y1="230.0" x2="710.0" y2="230.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="420.0" y1="95.0" x2="420.0" y2="80.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="715.0" y="234.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start">t</text>
+<text x="410.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end">I, мА</text>
+<rect x="440.0" y="130.0" width="25.0" height="100.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="452.5" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">5 мс</text>
+<rect x="560.0" y="130.0" width="25.0" height="100.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="572.5" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">5 мс</text>
+<rect x="680.0" y="130.0" width="25.0" height="100.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="692.5" y="122.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">5 мс</text>
+<line x1="420.0" y1="226.0" x2="690.0" y2="226.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="695.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start">0.5 мкА (сон)</text>
+<line x1="440.0" y1="245.0" x2="560.0" y2="245.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="440.0" y1="240.0" x2="440.0" y2="250.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="560.0" y1="240.0" x2="560.0" y2="250.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="500.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Період вибірки T_sample (1 с)</text>
+<rect x="410.0" y="255.0" width="300.0" height="145.0" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/><text x="560.0" y="301.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="560.0" dy="0.0">Давач спить 99.5% часу й прокидається на 5 мс.</tspan><tspan x="560.0" dy="11.7"></tspan><tspan x="560.0" dy="11.7">• I_avg = (2.5 мА × 5 мс + 0.5 мкА × 995 мс) / 1000 мс</tspan><tspan x="560.0" dy="11.7">• I_avg ≈ 12.5 мкА + 0.5 мкА = 13.0 мкА</tspan><tspan x="560.0" dy="11.7">• Ресурс CR2032: 220 мА·год / 13 мкА ≈ 1.9 року!</tspan><tspan x="560.0" dy="11.7">• Економія заряду: у 192 рази</tspan></text>
+</svg>

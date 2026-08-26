@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Функціональне зонування 4-чипової плати та топологія шарів</text>
+<rect x="20.0" y="45.0" width="900.0" height="420.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="40.0" y="65.0" width="860.0" height="380.0" rx="6" fill="#f8fafc" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="470.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">4-шарова друкована плата (L1: Signals, L2: Solid GND, L3: Power 3.3V, L4: Signals/GND)</text>
+<rect x="60.0" y="115.0" width="230.0" height="230.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="175.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">ЗОНА A: MEMS та RTC</text>
+<rect x="75.0" y="155.0" width="200.0" height="40.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="175.0" y="171.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">Чип 2: BME280</tspan><tspan x="175.0" dy="13.7">(Датчик T / RH / P)</tspan></text>
+<rect x="75.0" y="205.0" width="200.0" height="40.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/><text x="175.0" y="221.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="175.0" dy="0.0">Чип 3: DS3231 RTC</tspan><tspan x="175.0" dy="13.7">(TCXO 32 кГц + Батарея)</tspan></text>
+<text x="175.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Віддалено від джерел тепла</text>
+<text x="175.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Підтяжки I2C 2.2 кОм</text>
+<text x="175.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Опорна земля без шумних струмів</text>
+<text x="175.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Захисний екран Guard Ring</text>
+<rect x="310.0" y="115.0" width="260.0" height="230.0" rx="6" fill="#f3f4f6" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="440.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">ЗОНА B: Цифрове ядро МК</text>
+<rect x="330.0" y="160.0" width="220.0" height="50.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="440.0" y="181.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="440.0" dy="0.0">STM32 / ESP32 МК</tspan><tspan x="440.0" dy="14.3">(LQFP-48 / QFN-48)</tspan></text>
+<text x="440.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Блокувальні керамічні C 100 нФ</text>
+<text x="440.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">  на кожну пару VDD/VSS</text>
+<text x="440.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Кварцовий резонатор 8 МГц</text>
+<text x="440.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">  з охоронним кільцем GND</text>
+<text x="440.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Короткі перехідні отвори Via</text>
+<rect x="590.0" y="115.0" width="290.0" height="110.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="735.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ЗОНА C: Швидкісна пам'ять SPI</text>
+<rect x="605.0" y="150.0" width="260.0" height="35.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="735.0" y="171.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="735.0" dy="0.0">Чип 1: W25Q128JV (SOIC-8, 50 МГц)</tspan></text>
+<text x="735.0" y="202.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Узгоджувальні резистори 22..33 Ом біля МК</text>
+<text x="735.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Довжина траси &lt; 30 мм, правило 3W</text>
+<rect x="590.0" y="235.0" width="290.0" height="110.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="735.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">ЗОНА D: Польовий інтерфейс RS-485</text>
+<rect x="605.0" y="270.0" width="260.0" height="35.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="735.0" y="291.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="735.0" dy="0.0">Чип 4: SN65HVD72 + TVS SM712</tspan></text>
+<text x="735.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• TVS і термінатор 120R біля роз'єму</text>
+<text x="735.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">• Імпульсні струми стікають до клеми GND</text>
+<rect x="60.0" y="360.0" width="820.0" height="70.0" rx="4" fill="#e2e8f0" stroke="#333333" stroke-width="1.5"/>
+<text x="470.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#333333" text-anchor="middle" font-weight="700">СУЦІЛЬНА ПЛОЩИНА ЗЕМЛІ (Layer 2 Solid Ground Plane) — БЕЗ РОЗРІЗІВ</text>
+<text x="470.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Високочастотні зворотні струми SPI і RS-485 локалізуються строго під власними доріжками на L1.</text>
+<text x="470.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Функціональне просторове зонування запобігає затіканню цифрового шуму в зону MEMS датчика.</text>
+</svg>

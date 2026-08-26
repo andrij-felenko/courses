@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="120.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Мікроконтролер (Master)</text>
+<text x="470.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">I2C-комутатор TCA9548A (0x70)</text>
+<text x="810.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ізольовані субшини I2C</text>
+<rect x="30.0" y="55.0" width="180.0" height="390.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.8"/>
+<rect x="57.9" y="81.2" width="124.2" height="47.6" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="120.0" y="101.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">MCU I2C Master</tspan><tspan x="120.0" dy="15.6">SDA / SCL</tspan></text>
+<rect x="72.4" y="212.3" width="95.2" height="45.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="120.0" y="231.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="120.0" dy="0.0">GPIO Reset</tspan><tspan x="120.0" dy="14.3">(активний 0)</tspan></text>
+<rect x="66.1" y="342.4" width="107.8" height="45.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="120.0" y="361.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle"><tspan x="120.0" dy="0.0">Головний домен</tspan><tspan x="120.0" dy="14.3">VCC = 3.3 В</tspan></text>
+<rect x="370.0" y="55.0" width="200.0" height="390.0" rx="8" fill="#eff6ff" stroke="#2457d6" stroke-width="2.0"/>
+<rect x="395.2" y="67.3" width="149.6" height="45.3" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="470.0" y="86.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">Регістр керування</tspan><tspan x="470.0" dy="14.3">(вибір каналу 0..7)</tspan></text>
+<rect x="411.6" y="133.5" width="116.9" height="43.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="470.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle"><tspan x="470.0" dy="0.0">ADDR піни A0..A2</tspan><tspan x="470.0" dy="13.0">(база 0x70..0x77)</tspan></text>
+<rect x="385.0" y="195.0" width="170.0" height="235.0" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+<text x="470.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">FET-перемикачі</text>
+<rect x="395.0" y="237.0" width="150.0" height="26.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="425.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">CH0</text>
+<text x="495.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">SD0 / SC0</text>
+<rect x="395.0" y="287.0" width="150.0" height="26.0" rx="4" fill="#f9fafb" stroke="#6b7280" stroke-width="1.2"/>
+<text x="425.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">CH1</text>
+<text x="495.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">SD1 / SC1</text>
+<rect x="395.0" y="337.0" width="150.0" height="26.0" rx="4" fill="#f9fafb" stroke="#6b7280" stroke-width="1.2"/>
+<text x="425.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">CH2</text>
+<text x="495.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">SD2 / SC2</text>
+<rect x="395.0" y="387.0" width="150.0" height="26.0" rx="4" fill="#f9fafb" stroke="#6b7280" stroke-width="1.2"/>
+<text x="425.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">CH7</text>
+<text x="495.0" y="404.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">SD7 / SC7</text>
+<line x1="210.0" y1="105.0" x2="370.0" y2="105.0" stroke="#333333" stroke-width="2.0"/>
+<text x="290.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">SDA / SCL</text>
+<text x="290.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Спільна шина</text>
+<line x1="210.0" y1="235.0" x2="370.0" y2="235.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="290.0" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">RESET</text>
+<line x1="570.0" y1="250.0" x2="710.0" y2="250.0" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="710.0" y="232.0" width="200.0" height="36.0" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.4"/>
+<text x="810.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Датчик IMU #0 (0x68)</text>
+<text x="810.0" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">C_bus0 &lt; 50 пФ</text>
+<line x1="570.0" y1="300.0" x2="710.0" y2="300.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="710.0" y="282.0" width="200.0" height="36.0" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.4"/>
+<text x="810.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Датчик IMU #1 (0x68)</text>
+<text x="810.0" y="311.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">C_bus1 &lt; 50 пФ</text>
+<line x1="570.0" y1="350.0" x2="710.0" y2="350.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="710.0" y="332.0" width="200.0" height="36.0" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.4"/>
+<text x="810.0" y="347.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Датчик IMU #2 (0x68)</text>
+<text x="810.0" y="361.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">C_bus2 &lt; 50 пФ</text>
+<line x1="570.0" y1="400.0" x2="710.0" y2="400.0" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="710.0" y="382.0" width="200.0" height="36.0" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.4"/>
+<text x="810.0" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">Датчик IMU #7 (0x68)</text>
+<text x="810.0" y="411.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">C_bus7 &lt; 50 пФ</text>
+</svg>

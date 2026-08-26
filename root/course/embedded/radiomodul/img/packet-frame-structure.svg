@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 320" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="320" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура кадру в ефірі та апаратна обробка Packet Handler</text>
+<text x="40.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Кадр в ефірі (Over-The-Air Frame):</text>
+<rect x="40.0" y="85.0" width="130.0" height="50.0" rx="4" fill="#e0e7ff" stroke="#4338ca" stroke-width="1.5"/>
+<text x="105.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#312e81" text-anchor="middle" font-weight="700">Преамбула</text>
+<text x="105.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0xAA / 0x55 (4-8B)</text>
+<rect x="175.0" y="85.0" width="120.0" height="50.0" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+<text x="235.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#78350f" text-anchor="middle" font-weight="700">Sync Word</text>
+<text x="235.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Мережевий ID (2-4B)</text>
+<rect x="300.0" y="85.0" width="80.0" height="50.0" rx="4" fill="#f3e8ff" stroke="#7e22ce" stroke-width="1.5"/>
+<text x="340.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#581c87" text-anchor="middle" font-weight="700">Length</text>
+<text x="340.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0..255 (1B)</text>
+<rect x="385.0" y="85.0" width="200.0" height="50.0" rx="4" fill="#dcfce7" stroke="#15803d" stroke-width="1.5"/>
+<text x="485.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#14532d" text-anchor="middle" font-weight="700">Дані (Payload) + Скремблювання</text>
+<text x="485.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Data Whitening LFSR (1..64/255 байтів)</text>
+<rect x="590.0" y="85.0" width="130.0" height="50.0" rx="4" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+<text x="655.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7f1d1d" text-anchor="middle" font-weight="700">CRC-16 / 32</text>
+<text x="655.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Контрольна сума (2B)</text>
+<line x1="105.0" y1="135.0" x2="105.0" y2="170.0" stroke="#333333" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="105.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Бітова синхронізація</text>
+<text x="105.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">AGC + Clock Slicer</text>
+<line x1="235.0" y1="135.0" x2="235.0" y2="170.0" stroke="#333333" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="235.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вирівнювання байтів</text>
+<text x="235.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Початок пакетного FIFO</text>
+<line x1="485.0" y1="135.0" x2="485.0" y2="170.0" stroke="#333333" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="485.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дескремблювання LFSR</text>
+<text x="485.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Запис у буфер RX FIFO</text>
+<line x1="655.0" y1="135.0" x2="655.0" y2="170.0" stroke="#333333" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="655.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Перевірка CRC</text>
+<text x="655.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Сигнал переривання IRQ</text>
+<rect x="240.0" y="250.0" width="280.0" height="45.0" rx="4" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+<text x="380.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратний FIFO Буфер (Tx / Rx 64B)</text>
+<text x="380.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Автоматичне відкидання при помилці CRC</text>
+</svg>

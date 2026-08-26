@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ковзне вікно Anti-Replay: обробка затримок і блокування повторів</text>
+<text x="470.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">ефір переставляє пакети місцями; вікно з бітовою маскою розрізняє запізнілі пакети та атаки повтору</text>
+<line x1="60.0" y1="150.0" x2="880.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.5"/>
+<line x1="870.0" y1="150.0" x2="890.0" y2="150.0" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="880.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Seq Counter</text>
+<rect x="70.0" y="80.0" width="230.0" height="140.0" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="185.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Зона 1: Застарілі (Seq ≤ last - W)</text>
+<text x="185.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">seq &lt; 937</text>
+<text x="185.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">АВТОМАТИЧНИЙ DROP</text>
+<text x="185.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">без виклику криптографії</text>
+<rect x="320.0" y="70.0" width="310.0" height="160.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="475.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Зона 2: Вікно ковзання (W = 64)</text>
+<text x="475.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">937 ≤ seq ≤ 1000</text>
+<text x="340.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">[937]</text>
+<text x="600.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">[1000]</text>
+<rect x="360.0" y="138.0" width="17.0" height="24.0" rx="2" fill="#27ae60" stroke="#2457d6" stroke-width="1.0"/>
+<text x="368.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">1</text>
+<rect x="379.0" y="138.0" width="17.0" height="24.0" rx="2" fill="#27ae60" stroke="#2457d6" stroke-width="1.0"/>
+<text x="387.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">1</text>
+<rect x="398.0" y="138.0" width="17.0" height="24.0" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="406.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<rect x="417.0" y="138.0" width="17.0" height="24.0" rx="2" fill="#27ae60" stroke="#2457d6" stroke-width="1.0"/>
+<text x="425.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">1</text>
+<rect x="436.0" y="138.0" width="17.0" height="24.0" rx="2" fill="#27ae60" stroke="#2457d6" stroke-width="1.0"/>
+<text x="444.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">1</text>
+<rect x="455.0" y="138.0" width="17.0" height="24.0" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="463.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<rect x="474.0" y="138.0" width="17.0" height="24.0" rx="2" fill="#27ae60" stroke="#2457d6" stroke-width="1.0"/>
+<text x="482.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">1</text>
+<rect x="493.0" y="138.0" width="17.0" height="24.0" rx="2" fill="#27ae60" stroke="#2457d6" stroke-width="1.0"/>
+<text x="501.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">1</text>
+<rect x="512.0" y="138.0" width="17.0" height="24.0" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="520.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<rect x="531.0" y="138.0" width="17.0" height="24.0" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="539.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">0</text>
+<rect x="550.0" y="138.0" width="17.0" height="24.0" rx="2" fill="#27ae60" stroke="#2457d6" stroke-width="1.0"/>
+<text x="558.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">1</text>
+<rect x="569.0" y="138.0" width="17.0" height="24.0" rx="2" fill="#27ae60" stroke="#2457d6" stroke-width="1.0"/>
+<text x="577.5" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="700">1</text>
+<text x="475.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Біт 1: прийнято раніше → REPLAY DROP</text>
+<text x="475.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Біт 0: новий у вікні → OK, ставимо біт 1</text>
+<rect x="650.0" y="80.0" width="230.0" height="140.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="765.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Зона 3: Попереду (Seq &gt; last)</text>
+<text x="765.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">seq &gt; 1000</text>
+<text x="765.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Зсув маски на (seq - last)</text>
+<text x="765.0" y="192.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">last_seq = seq, біт 0 = 1</text>
+<circle cx="615.0" cy="150.0" r="6.0" fill="#c0392b" stroke="#c0392b" stroke-width="0.0"/>
+<line x1="615.0" y1="120.0" x2="615.0" y2="150.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="615.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">last_seq = 1000</text>
+<rect x="40.0" y="255.0" width="860.0" height="185.0" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="470.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порядок обробки кадру на приймачі та критичний інваріант</text>
+<rect x="55.0" y="299.0" width="200.0" height="120.0" rx="4" fill="#fafbfc" stroke="#2457d6" stroke-width="1.4"/>
+<text x="155.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Крок 1. Перевірка Seq</text>
+<text x="155.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Якщо seq ≤ last_seq - 64 → скидання без криптографії.</text>
+<text x="155.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Якщо у вікні й біт = 1 → скидання дубліката.</text>
+<rect x="265.0" y="299.0" width="200.0" height="120.0" rx="4" fill="#fafbfc" stroke="#b9770e" stroke-width="1.4"/>
+<text x="365.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b9770e" text-anchor="middle" font-weight="700">Крок 2. Перевірка Тегу</text>
+<text x="365.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">AEAD перевіряє Auth Tag над (AAD + Ciphertext).</text>
+<text x="365.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Усі розрахунки в constant-time!</text>
+<rect x="475.0" y="299.0" width="200.0" height="120.0" rx="4" fill="#fafbfc" stroke="#27ae60" stroke-width="1.4"/>
+<text x="575.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Крок 3. Фіксація стану</text>
+<text x="575.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">ЛИШЕ після валідного тегу: оновлюємо bitmap</text>
+<text x="575.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">та last_seq. Невалідному кадру стан не міняти!</text>
+<rect x="685.0" y="299.0" width="200.0" height="120.0" rx="4" fill="#fafbfc" stroke="#27ae60" stroke-width="1.4"/>
+<text x="785.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Крок 4. Розшифрування</text>
+<text x="785.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Корисне навантаження передається обробнику</text>
+<text x="785.0" y="367.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">команд застосунку. Пристрій у безпеці.</text>
+</svg>

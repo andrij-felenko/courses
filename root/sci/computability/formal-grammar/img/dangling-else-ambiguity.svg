@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Проблема неоднозначності: dangling else для вкладеного if-виразу</text>
+<text x="470.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Рядок:  if c1 then if c2 then s1 else s2  —  два принципово різні дерева виводу</text>
+<text x="240.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Варіант А (прив'язка до ближчого if c2)</text>
+<rect x="40.0" y="100.0" width="400.0" height="350.0" rx="6" fill="#f9fbfd" stroke="#2457d6" stroke-width="1.2"/><text x="240.0" y="279.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="240.0" dy="0.0"></tspan></text>
+<line x1="240.0" y1="130.0" x2="80.0" y2="190.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="240.0" y1="130.0" x2="150.0" y2="190.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="240.0" y1="130.0" x2="220.0" y2="190.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="240.0" y1="130.0" x2="350.0" y2="190.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="350.0" y1="190.0" x2="260.0" y2="270.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="350.0" y1="190.0" x2="310.0" y2="270.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="350.0" y1="190.0" x2="360.0" y2="270.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="350.0" y1="190.0" x2="400.0" y2="270.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="350.0" y1="190.0" x2="350.0" y2="350.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="350.0" y1="190.0" x2="410.0" y2="350.0" stroke="#333333" stroke-width="1.4"/>
+<circle cx="240.0" cy="130.0" r="14.0" fill="#edf2fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="240.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">S</text>
+<circle cx="350.0" cy="190.0" r="14.0" fill="#edf2fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="350.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">S</text>
+<rect x="65.0" y="178.0" width="30.0" height="24.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="80.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">if</text>
+<rect x="135.0" y="178.0" width="30.0" height="24.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="150.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">c1</text>
+<rect x="205.0" y="178.0" width="30.0" height="24.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="220.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">then</text>
+<rect x="245.0" y="258.0" width="30.0" height="24.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="260.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">if</text>
+<rect x="295.0" y="258.0" width="30.0" height="24.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="310.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">c2</text>
+<rect x="345.0" y="258.0" width="30.0" height="24.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="360.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">then</text>
+<rect x="385.0" y="258.0" width="30.0" height="24.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="400.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">s1</text>
+<rect x="335.0" y="338.0" width="30.0" height="24.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="350.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">else</text>
+<rect x="395.0" y="338.0" width="30.0" height="24.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="410.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">s2</text>
+<text x="700.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Варіант Б (прив'язка до дальшого if c1)</text>
+<rect x="500.0" y="100.0" width="400.0" height="350.0" rx="6" fill="#fdfbfb" stroke="#c0392b" stroke-width="1.2"/><text x="700.0" y="279.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle"><tspan x="700.0" dy="0.0"></tspan></text>
+<line x1="700.0" y1="130.0" x2="530.0" y2="190.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="700.0" y1="130.0" x2="580.0" y2="190.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="700.0" y1="130.0" x2="630.0" y2="190.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="700.0" y1="130.0" x2="700.0" y2="200.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="700.0" y1="130.0" x2="810.0" y2="190.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="700.0" y1="130.0" x2="865.0" y2="190.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="700.0" y1="200.0" x2="630.0" y2="280.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="700.0" y1="200.0" x2="680.0" y2="280.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="700.0" y1="200.0" x2="730.0" y2="280.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="700.0" y1="200.0" x2="780.0" y2="280.0" stroke="#333333" stroke-width="1.4"/>
+<circle cx="700.0" cy="130.0" r="14.0" fill="#edf2fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="700.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">S</text>
+<circle cx="700.0" cy="200.0" r="14.0" fill="#edf2fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="700.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">S</text>
+<rect x="515.0" y="178.0" width="30.0" height="24.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="530.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">if</text>
+<rect x="565.0" y="178.0" width="30.0" height="24.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="580.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">c1</text>
+<rect x="615.0" y="178.0" width="30.0" height="24.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="630.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">then</text>
+<rect x="795.0" y="178.0" width="30.0" height="24.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="810.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">else</text>
+<rect x="850.0" y="178.0" width="30.0" height="24.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="865.0" y="194.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">s2</text>
+<rect x="615.0" y="268.0" width="30.0" height="24.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="630.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">if</text>
+<rect x="665.0" y="268.0" width="30.0" height="24.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="680.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">c2</text>
+<rect x="715.0" y="268.0" width="30.0" height="24.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="730.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">then</text>
+<rect x="765.0" y="268.0" width="30.0" height="24.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="780.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">s1</text>
+<text x="470.0" y="475.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Граматика без розрізнення відкритих/закритих гілок допускає обидві побудови.</text>
+</svg>

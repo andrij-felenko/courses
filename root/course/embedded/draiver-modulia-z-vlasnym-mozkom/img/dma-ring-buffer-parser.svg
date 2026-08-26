@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="880.0" height="420.0" rx="8" fill="#fdfefe" stroke="#d0d7de" stroke-width="1.0"/>
+<text x="450.0" y="35.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура неблокуючого прийому: UART DMA Circular Buffer та диспетчер рядків</text>
+<text x="410.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0969da" text-anchor="middle" font-weight="700">Кільцевий буфер у RAM (UART DMA Rx Buffer, N байтів)</text>
+<rect x="60.0" y="85.0" width="44.0" height="45.0" rx="4" fill="#e6f6ff" stroke="#0969da" stroke-width="1.5"/>
+<text x="82.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<rect x="104.0" y="85.0" width="44.0" height="45.0" rx="4" fill="#e6f6ff" stroke="#0969da" stroke-width="1.5"/>
+<text x="126.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">T</text>
+<rect x="148.0" y="85.0" width="44.0" height="45.0" rx="4" fill="#e6f6ff" stroke="#0969da" stroke-width="1.5"/>
+<text x="170.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<rect x="192.0" y="85.0" width="44.0" height="45.0" rx="4" fill="#e6f6ff" stroke="#0969da" stroke-width="1.5"/>
+<text x="214.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">C</text>
+<rect x="236.0" y="85.0" width="44.0" height="45.0" rx="4" fill="#e6f6ff" stroke="#0969da" stroke-width="1.5"/>
+<text x="258.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">S</text>
+<rect x="280.0" y="85.0" width="44.0" height="45.0" rx="4" fill="#e6f6ff" stroke="#0969da" stroke-width="1.5"/>
+<text x="302.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Q</text>
+<rect x="324.0" y="85.0" width="44.0" height="45.0" rx="4" fill="#ffebe9" stroke="#c0392b" stroke-width="1.5"/>
+<text x="346.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">\r</text>
+<rect x="368.0" y="85.0" width="44.0" height="45.0" rx="4" fill="#ffebe9" stroke="#c0392b" stroke-width="1.5"/>
+<text x="390.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">\n</text>
+<rect x="412.0" y="85.0" width="44.0" height="45.0" rx="4" fill="#e6f6ff" stroke="#0969da" stroke-width="1.5"/>
+<text x="434.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">O</text>
+<rect x="456.0" y="85.0" width="44.0" height="45.0" rx="4" fill="#e6f6ff" stroke="#0969da" stroke-width="1.5"/>
+<text x="478.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">K</text>
+<rect x="500.0" y="85.0" width="44.0" height="45.0" rx="4" fill="#ffebe9" stroke="#c0392b" stroke-width="1.5"/>
+<text x="522.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">\r</text>
+<rect x="544.0" y="85.0" width="44.0" height="45.0" rx="4" fill="#ffebe9" stroke="#c0392b" stroke-width="1.5"/>
+<text x="566.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">\n</text>
+<rect x="588.0" y="85.0" width="44.0" height="45.0" rx="4" fill="#fff8c5" stroke="#bf8700" stroke-width="1.5"/>
+<text x="610.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">+</text>
+<rect x="632.0" y="85.0" width="44.0" height="45.0" rx="4" fill="#fff8c5" stroke="#bf8700" stroke-width="1.5"/>
+<text x="654.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">C</text>
+<rect x="676.0" y="85.0" width="44.0" height="45.0" rx="4" fill="#fff8c5" stroke="#bf8700" stroke-width="1.5"/>
+<text x="698.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">R</text>
+<rect x="720.0" y="85.0" width="44.0" height="45.0" rx="4" fill="#fff8c5" stroke="#bf8700" stroke-width="1.5"/>
+<text x="742.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">E</text>
+<rect x="764.0" y="85.0" width="44.0" height="45.0" rx="4" fill="#fff8c5" stroke="#bf8700" stroke-width="1.5"/>
+<text x="786.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">G</text>
+<line x1="82.0" y1="160.0" x2="82.0" y2="135.0" stroke="#1a7f37" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="82.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a7f37" text-anchor="middle" font-weight="700">Tail (Зчитування)</text>
+<line x1="786.0" y1="160.0" x2="786.0" y2="135.0" stroke="#cf222e" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="786.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#cf222e" text-anchor="middle" font-weight="700">Head (DMA CNDTR)</text>
+<rect x="88.1" y="203.2" width="283.8" height="43.6" rx="6" fill="#f6f8fa" stroke="#8250df" stroke-width="1.5"/><text x="230.0" y="221.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="230.0" dy="0.0">UART IDLE Line Interrupt</tspan><tspan x="230.0" dy="15.6">Фіксує паузу на шині (кінець пакета)</tspan></text>
+<rect x="463.2" y="203.2" width="313.6" height="43.6" rx="6" fill="#e6f6ff" stroke="#0969da" stroke-width="1.5"/><text x="620.0" y="221.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="620.0" dy="0.0">Диспетчер рядків (Line Extractor)</tspan><tspan x="620.0" dy="15.6">Пошук \r\n · Нуль-термінація (Zero-Copy)</tspan></text>
+<line x1="230.0" y1="190.0" x2="230.0" y2="150.0" stroke="#8250df" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="370.0" y1="225.0" x2="480.0" y2="225.0" stroke="#0969da" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="118.6" y="314.4" width="322.9" height="41.3" rx="6" fill="#dafbe1" stroke="#1a7f37" stroke-width="1.5"/><text x="280.0" y="331.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="280.0" dy="0.0">Обробник відповідей на команди</tspan><tspan x="280.0" dy="14.3">Звірка з активною командою: OK / ERROR / Data</tspan></text>
+<rect x="542.4" y="314.4" width="275.2" height="41.3" rx="6" fill="#fff8c5" stroke="#bf8700" stroke-width="1.5"/><text x="680.0" y="331.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="680.0" dy="0.0">Диспетчер спонтанних URC</tspan><tspan x="680.0" dy="14.3">Таблиця префіксів: +CREG, +QIURC, RING</tspan></text>
+<line x1="560.0" y1="255.0" x2="360.0" y2="305.0" stroke="#1a7f37" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="680.0" y1="255.0" x2="680.0" y2="305.0" stroke="#bf8700" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="450.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">Повна ізоляція: URC-події не блокують очікування відповіді на поточну команду</text>
+</svg>

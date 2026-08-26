@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Руйнування однопровідного сигналу через різницю потенціалів земель</text>
+<rect x="40.0" y="50.0" width="230.0" height="240.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="155.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол 1 (Цех А)</text>
+<text x="155.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Живлення 3.3 В / GND1</text>
+<rect x="65.0" y="130.0" width="180.0" height="70.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="155.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">UART TX (МК)</text>
+<text x="155.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Рівні: 0 В або 3.3 В</text>
+<rect x="610.0" y="50.0" width="230.0" height="240.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="725.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол 2 (Цех Б)</text>
+<text x="725.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Поруч двигун / GND2</text>
+<rect x="635.0" y="130.0" width="180.0" height="70.0" rx="6" fill="#fff1f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="725.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">UART RX (МК)</text>
+<text x="725.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Вхідний поріг: 1.6 В</text>
+<line x1="245.0" y1="165.0" x2="635.0" y2="165.0" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="400.0" y1="165.0" x2="480.0" y2="165.0" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="440.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Сигнальний дріт (100 м, TX → RX)</text>
+<line x1="155.0" y1="290.0" x2="155.0" y2="340.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="725.0" y1="290.0" x2="725.0" y2="340.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="155.0" y1="340.0" x2="725.0" y2="340.0" stroke="#333333" stroke-width="2.0" stroke-dasharray="6 4"/>
+<circle cx="440.0" cy="340.0" r="22.0" fill="#fef2f2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="440.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ΔV_GND</text>
+<text x="440.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">+12 В</text>
+<text x="440.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Зсув потенціалів земель через струми промислового обладнання</text>
+<rect x="85.4" y="217.3" width="139.1" height="45.3" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/><text x="155.0" y="236.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="155.0" dy="0.0">V_TX = 0 В .. 3.3 В</tspan><tspan x="155.0" dy="14.3">відносно GND1</tspan></text>
+<rect x="636.6" y="217.3" width="176.9" height="45.3" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/><text x="725.0" y="236.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="725.0" dy="0.0">V_in = -12 В .. -8.7 В!</tspan><tspan x="725.0" dy="14.3">відносно GND2 (пробій!)</tspan></text>
+</svg>

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура системного вузла з 4 чипами</text>
+<rect x="15.0" y="45.0" width="910.0" height="460.0" rx="8" fill="#fafbfc" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="340.0" y="100.0" width="260.0" height="360.0" rx="8" fill="#edf2f7" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="470.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Головний МК (STM32 / ESP32)</text>
+<text x="470.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">ARM Cortex-M4 @ 80-170 МГц</text>
+<rect x="355.0" y="165.0" width="230.0" height="45.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="470.0" y="184.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">SPI1 Master Controller</tspan><tspan x="470.0" dy="14.3">(DMA TX/RX, до 50 МГц)</tspan></text>
+<rect x="355.0" y="220.0" width="230.0" height="45.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="470.0" y="239.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">I2C1 Master Controller</tspan><tspan x="470.0" dy="14.3">(Standard / Fast Mode 400 кГц)</tspan></text>
+<rect x="355.0" y="275.0" width="230.0" height="45.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="470.0" y="294.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">EXTI Interrupt Controller</tspan><tspan x="470.0" dy="14.3">(Апаратний таймер / будильник)</tspan></text>
+<rect x="355.0" y="330.0" width="230.0" height="45.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="470.0" y="349.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">USART1 + Hardware DE</tspan><tspan x="470.0" dy="14.3">(Автоматичне керування RS-485)</tspan></text>
+<rect x="355.0" y="385.0" width="230.0" height="55.0" rx="6" fill="#e6fffa" stroke="#27ae60" stroke-width="1.5"/><text x="470.0" y="409.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">Пам'ять ядра та Event Loop</tspan><tspan x="470.0" dy="14.3">Кільцевий буфер + Диспетчер</tspan></text>
+<rect x="670.0" y="75.0" width="235.0" height="120.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.8"/>
+<text x="787.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Чип 1: Flash W25Q128JV</text>
+<text x="787.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">NOR Flash 128 Мбіт (16 МБ)</text>
+<text x="787.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">SPI Mode 0/3, t_prog=0.8 мс</text>
+<text x="787.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">100k циклів стирання сектора</text>
+<rect x="680.0" y="168.0" width="70.0" height="20.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="715.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">C_dec 100n</text>
+<rect x="35.0" y="75.0" width="235.0" height="120.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="152.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Чип 2: Датчик BME280</text>
+<text x="152.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">T, Вологість, Тиск (MEMS)</text>
+<text x="152.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">I2C Addr: 0x76, 20-біт АЦП</text>
+<text x="152.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">IIR фільтр, Burst 8 байтів</text>
+<rect x="45.0" y="168.0" width="70.0" height="20.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="80.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">C_dec 100n</text>
+<rect x="35.0" y="260.0" width="235.0" height="135.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.8"/>
+<text x="152.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d97706" text-anchor="middle" font-weight="700">Чип 3: RTC DS3231</text>
+<text x="152.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">TCXO 32.768 кГц (±2 ppm)</text>
+<text x="152.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">I2C Addr: 0x68, Календар</text>
+<text x="152.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Апаратний будильник / INT#</text>
+<rect x="45.0" y="355.0" width="100.0" height="22.0" rx="3" fill="#ffffff" stroke="#d97706" stroke-width="1.0"/>
+<text x="95.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">CR2032 Батарея</text>
+<rect x="670.0" y="260.0" width="235.0" height="140.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="787.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Чип 4: RS-485 SN65HVD72</text>
+<text x="787.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Напівдуплексний трансивер 3.3V</text>
+<text x="787.0" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Slew-rate обмеження (250 kbps)</text>
+<text x="787.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">TVS SM712 + Термінація 120R</text>
+<rect x="680.0" y="360.0" width="85.0" height="22.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="722.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Лінії A / B</text>
+<line x1="585.0" y1="175.0" x2="670.0" y2="135.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="585.0" y1="175.0" x2="665.0" y2="135.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="600.0" y="140.0" width="65.0" height="20.0" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.0"/>
+<text x="632.0" y="166.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">SPI (4 лінії)</text>
+<line x1="355.0" y1="240.0" x2="290.0" y2="240.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="290.0" y1="140.0" x2="290.0" y2="310.0" stroke="#2457d6" stroke-width="2.0"/>
+<line x1="290.0" y1="140.0" x2="270.0" y2="140.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="290.0" y1="310.0" x2="270.0" y2="310.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="265.0" y="210.0" width="50.0" height="20.0" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.0"/>
+<text x="290.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">I2C Шина</text>
+<line x1="270.0" y1="345.0" x2="355.0" y2="295.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="280.0" y="310.0" width="60.0" height="18.0" rx="3" fill="#ffffff" stroke="#d97706" stroke-width="1.0"/>
+<text x="310.0" y="316.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">INT / SQW</text>
+<line x1="585.0" y1="350.0" x2="670.0" y2="330.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="585.0" y1="350.0" x2="665.0" y2="330.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="595.0" y="320.0" width="70.0" height="20.0" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.0"/>
+<text x="630.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">TX, RX, DE</text>
+<rect x="370.0" y="465.0" width="200.0" height="32.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/><text x="470.0" y="484.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">Єдина шина живлення 3.3V LDO + Полігон GND</tspan></text>
+</svg>

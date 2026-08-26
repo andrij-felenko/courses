@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Польова оцінка каналу: RSSI, SNR та поріг стійкого прийому</text>
+<rect x="120.0" y="65.0" width="90.0" height="154.3" rx="0" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="165.0" y="134.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">Надійний зв'язок
+PER = 0%</text>
+<rect x="120.0" y="219.3" width="90.0" height="67.5" rx="0" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.5"/>
+<text x="165.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#854d0e" text-anchor="middle" font-weight="700">Буфер завмирання
+PER &lt; 1%</text>
+<rect x="120.0" y="286.8" width="90.0" height="19.3" rx="0" fill="#fed7aa" stroke="#ea580c" stroke-width="1.5"/>
+<text x="165.0" y="300.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#9a3412" text-anchor="middle" font-weight="700">Зона обриву
+PER 1–50%</text>
+<rect x="120.0" y="306.1" width="90.0" height="28.9" rx="0" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="165.0" y="324.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Втрата зв'язку
+PER = 100%</text>
+<line x1="112.0" y1="65.0" x2="120.0" y2="65.0" stroke="#333333" stroke-width="1.5"/>
+<text x="106.0" y="69.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">0 дБм</text>
+<line x1="112.0" y1="142.1" x2="120.0" y2="142.1" stroke="#333333" stroke-width="1.5"/>
+<text x="106.0" y="146.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">-40 дБм</text>
+<line x1="112.0" y1="219.3" x2="120.0" y2="219.3" stroke="#333333" stroke-width="1.5"/>
+<text x="106.0" y="223.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">-80 дБм</text>
+<line x1="112.0" y1="257.9" x2="120.0" y2="257.9" stroke="#333333" stroke-width="1.5"/>
+<text x="106.0" y="261.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">-100 дБм</text>
+<line x1="112.0" y1="286.8" x2="120.0" y2="286.8" stroke="#333333" stroke-width="1.5"/>
+<text x="106.0" y="290.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">-115 дБм</text>
+<line x1="112.0" y1="306.1" x2="120.0" y2="306.1" stroke="#333333" stroke-width="1.5"/>
+<text x="106.0" y="310.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">-125 дБм</text>
+<line x1="112.0" y1="335.0" x2="120.0" y2="335.0" stroke="#333333" stroke-width="1.5"/>
+<text x="106.0" y="339.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">-140 дБм</text>
+<rect x="343.9" y="82.2" width="392.2" height="55.6" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/><text x="540.0" y="99.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">1. RSSI (Received Signal Strength Indicator)</tspan><tspan x="540.0" dy="14.3">Показує сумарну енергію в каналі (сигнал + завади + шум).</tspan><tspan x="540.0" dy="14.3">Високий RSSI не гарантує зв'язку, якщо поруч потужна завада!</tspan></text>
+<rect x="290.6" y="182.2" width="498.8" height="55.6" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/><text x="540.0" y="199.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">2. SNR (Signal-to-Noise Ratio)</tspan><tspan x="540.0" dy="14.3">Показує перевищення сигналу над локальним шумом.</tspan><tspan x="540.0" dy="14.3">Для LoRa допустимий SNR &lt; 0 (до −20 дБ), для FSK/BLE треба SNR &gt; +8...+14 дБ.</tspan></text>
+<rect x="303.1" y="282.2" width="473.7" height="55.6" rx="6" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.2"/><text x="540.0" y="299.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="540.0" dy="0.0">3. PER (Packet Error Rate) та Запас (Fade Margin)</tspan><tspan x="540.0" dy="14.3">Польовий тест вимагає вимірювання відсотка втрачених пакетів.</tspan><tspan x="540.0" dy="14.3">Запас 15–20 дБ над порогом чутливості гарантує зв'язок під час завмирань.</tspan></text>
+<line x1="210.0" y1="219.3" x2="343.9" y2="110.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="210.0" y1="286.8" x2="290.6" y2="210.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="210.0" y1="306.1" x2="303.1" y2="310.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+</svg>

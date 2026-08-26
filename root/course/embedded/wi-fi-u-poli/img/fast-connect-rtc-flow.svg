@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура Fast Connect через збереження параметрів у RTC Slow Memory</text>
+<rect x="60.0" y="70.0" width="240.0" height="160.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="180.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">1. Холодний старт</text>
+<text x="180.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="180.0" dy="0.0">• Повний скан ефіру</tspan><tspan x="180.0" dy="13.0">• Повне WPA2 PBKDF2</tspan><tspan x="180.0" dy="13.0">• DHCP отримання IP</tspan><tspan x="180.0" dy="13.0">• Тривалість: 2.5–4.0 с</tspan></text>
+<line x1="300.0" y1="150.0" x2="350.0" y2="150.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="325.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Збереження</text>
+<rect x="360.0" y="55.0" width="220.0" height="210.0" rx="6" fill="#fef9c3" stroke="#ca8a04" stroke-width="2.0"/>
+<text x="470.0" y="79.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#854d0e" text-anchor="middle" font-weight="700">RTC Slow Memory / SRAM</text>
+<text x="470.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">Кешовані параметри:</tspan><tspan x="470.0" dy="13.0">[1] BSSID точки (6 байт)</tspan><tspan x="470.0" dy="13.0">[2] Номер каналу (1..13)</tspan><tspan x="470.0" dy="13.0">[3] PMKID / PMKSA кеш</tspan><tspan x="470.0" dy="13.0">[4] Статична IP-конфігурація</tspan><tspan x="470.0" dy="13.0">(IP, шлюз, маска, DNS)</tspan></text>
+<rect x="375.0" y="215.0" width="190.0" height="35.0" rx="4" fill="#fef08a" stroke="#ca8a04" stroke-width="1.0"/>
+<text x="470.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#854d0e" text-anchor="middle" font-style="italic">Живиться в Deep-Sleep (&lt;10 мкА)</text>
+<line x1="580.0" y1="150.0" x2="630.0" y2="150.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="605.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Fast Init</text>
+<rect x="640.0" y="70.0" width="240.0" height="160.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="760.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">2. Пробудження з Deep-Sleep</text>
+<text x="760.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="760.0" dy="0.0">• Прямий вибір каналу</tspan><tspan x="760.0" dy="13.0">• Миттєва асоціація BSSID</tspan><tspan x="760.0" dy="13.0">• PMKSA без PBKDF2</tspan><tspan x="760.0" dy="13.0">• Статичний IP (без DHCP)</tspan><tspan x="760.0" dy="13.0">• Час до UDP: 80–120 мс!</tspan></text>
+<rect x="60.0" y="300.0" width="820.0" height="85.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.3"/>
+<text x="470.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Цикл автономного польового вузла:</text>
+<rect x="80.0" y="335.0" width="160.0" height="38.0" rx="4" fill="#f1f5f9" stroke="#333333" stroke-width="1.2"/>
+<text x="160.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="160.0" dy="0.0">Deep-Sleep 10 хв</tspan><tspan x="160.0" dy="11.7">(I = 12 мкА)</tspan></text>
+<rect x="260.0" y="335.0" width="170.0" height="38.0" rx="4" fill="#e0e7ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="345.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="345.0" dy="0.0">Пробудження + Замір</tspan><tspan x="345.0" dy="11.7">(15 мс @ 25 мА)</tspan></text>
+<rect x="450.0" y="335.0" width="210.0" height="38.0" rx="4" fill="#dcfce7" stroke="#27ae60" stroke-width="1.2"/>
+<text x="555.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="555.0" dy="0.0">Fast Connect + UDP TX</tspan><tspan x="555.0" dy="11.7">(90 мс @ 150 мА)</tspan></text>
+<rect x="680.0" y="335.0" width="180.0" height="38.0" rx="4" fill="#f1f5f9" stroke="#333333" stroke-width="1.2"/>
+<text x="770.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="770.0" dy="0.0">Засинання в RTC</tspan><tspan x="770.0" dy="11.7">(5 мс @ 15 мА)</tspan></text>
+</svg>

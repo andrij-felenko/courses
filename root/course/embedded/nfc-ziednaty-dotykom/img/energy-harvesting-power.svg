@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Збір енергії поля (Energy Harvesting) та діагностика повністю знеструмленого приладу</text>
+<rect x="30.0" y="50.0" width="440.0" height="380.0" rx="8" fill="#fafbfc" stroke="#333333" stroke-width="1.5"/>
+<text x="250.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол збору енергії (Energy Harvesting)</text>
+<rect x="50.0" y="110.0" width="100.0" height="70.0" rx="6" fill="#edf7ed" stroke="#27ae60" stroke-width="1.5"/>
+<text x="100.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">NFC Антена</text>
+<text x="100.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">13.56 МГц</text>
+<line x1="150.0" y1="145.0" x2="190.0" y2="145.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="190.0" y="110.0" width="110.0" height="70.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+<text x="245.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">Випрямляч</text>
+<text x="245.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">RF -&gt; DC</text>
+<line x1="300.0" y1="145.0" x2="340.0" y2="145.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="340.0" y="110.0" width="110.0" height="70.0" rx="6" fill="#fef3e8" stroke="#ea580c" stroke-width="1.5"/>
+<text x="395.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#ea580c" text-anchor="middle" font-weight="700">Пін V_OUT</text>
+<text x="395.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">2.8–3.3 В</text>
+<line x1="395.0" y1="180.0" x2="395.0" y2="230.0" stroke="#ea580c" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="180.0" y="230.0" width="120.0" height="60.0" rx="6" fill="#f1f5f9" stroke="#333333" stroke-width="1.2"/>
+<text x="240.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конденсатор C_buf</text>
+<text x="240.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">4.7 – 22 мкФ</text>
+<line x1="395.0" y1="260.0" x2="300.0" y2="260.0" stroke="#ea580c" stroke-width="1.5"/>
+<rect x="330.0" y="230.0" width="120.0" height="60.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="390.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Ультра-LP MCU</text>
+<text x="390.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">I_act &lt; 1.5 мА</text>
+<rect x="180.0" y="320.0" width="270.0" height="90.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="315.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Двопортова пам'ять EEPROM</text>
+<text x="315.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="315.0" dy="0.0">Чорна скринька: дамп аварій (HardFault)</tspan><tspan x="315.0" dy="12.3">Статистика датчиків, калібрування, серійник</tspan><tspan x="315.0" dy="12.3">Читається навіть при мертвому MCU</tspan></text>
+<rect x="490.0" y="50.0" width="440.0" height="380.0" rx="8" fill="#fafbfc" stroke="#333333" stroke-width="1.5"/>
+<text x="710.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часова діаграма живлення від поля (Zero-Power Boot)</text>
+<text x="510.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">RF Поле:</text>
+<line x1="580.0" y1="125.0" x2="640.0" y2="125.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="640.0" y1="125.0" x2="645.0" y2="105.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="645.0" y1="105.0" x2="870.0" y2="105.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="870.0" y1="105.0" x2="875.0" y2="125.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="875.0" y1="125.0" x2="910.0" y2="125.0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="510.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ea580c" text-anchor="start" font-weight="700">V_OUT (В):</text>
+<line x1="580.0" y1="195.0" x2="640.0" y2="195.0" stroke="#ea580c" stroke-width="1.5"/>
+<path d="M 640 195 Q 655 160 670 160 L 870 160 Q 885 190 900 195" fill="none" stroke="#ea580c" stroke-width="2"/>
+<text x="675.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ea580c" text-anchor="middle" font-weight="700">3.0 В</text>
+<text x="510.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">MCU Стан:</text>
+<rect x="580.0" y="225.0" width="90.0" height="28.0" rx="3" fill="#f1f5f9" stroke="#6b7280" stroke-width="1.0"/>
+<text x="625.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вимкнено (0V)</text>
+<rect x="675.0" y="225.0" width="60.0" height="28.0" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+<text x="705.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">Boot (2мс)</text>
+<rect x="740.0" y="225.0" width="125.0" height="28.0" rx="3" fill="#dcfce7" stroke="#27ae60" stroke-width="1.2"/>
+<text x="802.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">I2C Запис логів у EEPROM</text>
+<rect x="870.0" y="225.0" width="45.0" height="28.0" rx="3" fill="#f1f5f9" stroke="#6b7280" stroke-width="1.0"/>
+<text x="892.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Off</text>
+<text x="510.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">RF Read:</text>
+<rect x="770.0" y="290.0" width="120.0" height="28.0" rx="3" fill="#dbeafe" stroke="#2457d6" stroke-width="1.2"/>
+<text x="830.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Смартфон читає EEPROM</text>
+<rect x="505.0" y="335.0" width="410.0" height="80.0" rx="6" fill="#f0f9ff" stroke="#bae6fd" stroke-width="1.0"/>
+<text x="710.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0369a1" text-anchor="middle" font-weight="700">Перевага Zero-Power архітектури:</text>
+<text x="710.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">Прилад без батареї або у глибокому збої живиться від</tspan><tspan x="710.0" dy="12.3">телефона сервісника і віддає повну історію несправностей.</tspan></text>
+</svg>

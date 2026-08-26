@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-40 -45 840 465" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-40" y="-45" width="840" height="465" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="17.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Просторові пастки радіоефіру: прихований і засвічений вузли</text>
+<rect x="20.0" y="45.0" width="720.0" height="175.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="35.0" y="68.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="left" font-weight="700">1. Проблема прихованого вузла (Hidden Terminal)</text>
+<circle cx="130.0" cy="125.0" r="160.0" fill="none" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4,4"/>
+<circle cx="630.0" cy="125.0" r="160.0" fill="none" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,4"/>
+<circle cx="130.0" cy="125.0" r="24.0" fill="#eef6ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="130.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол A</text>
+<circle cx="380.0" cy="125.0" r="26.0" fill="#e0f2fe" stroke="#2457d6" stroke-width="2.0"/>
+<text x="380.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол B</text>
+<text x="380.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">(приймач)</text>
+<circle cx="630.0" cy="125.0" r="24.0" fill="#fdecea" stroke="#c0392b" stroke-width="2.0"/>
+<text x="630.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол C</text>
+<line x1="158.0" y1="125.0" x2="350.0" y2="125.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="255.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">DATA A→B</text>
+<line x1="602.0" y1="125.0" x2="410.0" y2="125.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="505.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">DATA C→B</text>
+<text x="380.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">КОЛІЗІЯ на B! (A і C не чують один одного)</text>
+<text x="380.0" y="193.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Рішення: 4-етапний обмін RTS/CTS. Вузол B надсилає CTS, який чує C і виставляє NAV (мовчить).</text>
+<rect x="20.0" y="230.0" width="720.0" height="175.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="35.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="left" font-weight="700">2. Проблема засвіченого вузла (Exposed Terminal)</text>
+<circle cx="110.0" cy="310.0" r="22.0" fill="#f1f5f9" stroke="#333333" stroke-width="1.5"/>
+<text x="110.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">A</text>
+<circle cx="290.0" cy="310.0" r="24.0" fill="#eef6ef" stroke="#27ae60" stroke-width="2.0"/>
+<text x="290.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">B (TX)</text>
+<circle cx="470.0" cy="310.0" r="24.0" fill="#fef3c7" stroke="#d97706" stroke-width="2.0"/>
+<text x="470.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">C (TX)</text>
+<circle cx="650.0" cy="310.0" r="22.0" fill="#f1f5f9" stroke="#333333" stroke-width="1.5"/>
+<text x="650.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">D</text>
+<line x1="262.0" y1="310.0" x2="136.0" y2="310.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="200.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">B передає на A</text>
+<line x1="498.0" y1="310.0" x2="624.0" y2="310.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="560.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">C хоче передати на D</text>
+<line x1="316.0" y1="310.0" x2="444.0" y2="310.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+<text x="380.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">C чує носій від B</text>
+<text x="380.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Хибне блокування: C чує B і помилково мовчить, хоча його передача на D не завадить прийому A!</text>
+<text x="380.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Наслідок: штучна недоутилізація радіоефіру та затримка передачі незалежних потоків.</text>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія кадру: логічна структура пакета та фізичний вигляд у лінії</text>
+<text x="430.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Корисні поля захищаються CRC-16, після чого весь пакет пакується в COBS-оболонку</text>
+<text x="30.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Логічний пакет (структура в пам'яті мікроконтролера):</text>
+<rect x="30.0" y="105.0" width="80.0" height="44.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="70.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">MSG ID</text>
+<text x="70.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(1 байт)</text>
+<rect x="118.0" y="105.0" width="80.0" height="44.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="158.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">SEQ NUM</text>
+<text x="158.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(1 байт)</text>
+<rect x="206.0" y="105.0" width="110.0" height="44.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="261.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">PAYLOAD LEN</text>
+<text x="261.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(2 байти)</text>
+<rect x="324.0" y="105.0" width="260.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="454.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">PAYLOAD (КОРИСНІ ДАНІ)</text>
+<text x="454.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(0 .. 250 байтів)</text>
+<rect x="592.0" y="105.0" width="120.0" height="44.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="652.0" y="124.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">CRC-16 CCITT</text>
+<text x="652.0" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(2 байти)</text>
+<line x1="30.0" y1="155.0" x2="584.0" y2="155.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+<text x="295.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Область розрахунку CRC-16 (покриває заголовок і корисні дані)</text>
+<line x1="430.0" y1="195.0" x2="430.0" y2="220.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="430.0" y1="220.0" x2="430.0" y2="235.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="445.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start" font-style="italic">COBS-кодування (усунення всіх 0x00)</text>
+<text x="30.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Фізичний кадр на лінії (те, що передається по UART / RS-485):</text>
+<rect x="30.0" y="270.0" width="110.0" height="44.0" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.6"/>
+<text x="85.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">COBS Overhead</text>
+<text x="85.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(1 байт)</text>
+<rect x="148.0" y="270.0" width="480.0" height="44.0" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="388.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">COBS Encoded Payload &amp; Header &amp; CRC</text>
+<text x="388.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(байти 0x01 .. 0xFF, жодного 0x00)</text>
+<rect x="636.0" y="270.0" width="110.0" height="44.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.6"/>
+<text x="691.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">DELIMITER</text>
+<text x="691.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">0x00 (1 байт)</text>
+</svg>

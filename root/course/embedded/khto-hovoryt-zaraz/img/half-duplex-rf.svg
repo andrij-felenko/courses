@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Чому CSMA/CD не працює в радіо: напівдуплекс і динамічний діапазон</text>
+<rect x="20.0" y="50.0" width="345.0" height="310.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="192.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дротовий Ethernet (CSMA/CD)</text>
+<line x1="50.0" y1="150.0" x2="335.0" y2="150.0" stroke="#333333" stroke-width="3.0"/>
+<text x="192.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">спільний мідний коаксіал / вита пара</text>
+<rect x="50.0" y="175.0" width="105.0" height="55.0" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="102.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол A (TX)</text>
+<text x="102.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">+2.5 V на шину</text>
+<line x1="102.0" y1="175.0" x2="102.0" y2="153.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="230.0" y="175.0" width="105.0" height="55.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="282.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вузол B (TX)</text>
+<text x="282.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">+2.5 V на шину</text>
+<line x1="282.0" y1="175.0" x2="282.0" y2="153.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="50.0" y="245.0" width="285.0" height="98.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/><text x="192.5" y="279.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="192.5" dy="0.0">Напруга подвоюється: U = 2.5V + 2.5V = 5.0V</tspan><tspan x="192.5" dy="11.7">Компаратор на вході бачить аномальний рівень прямо під час TX!</tspan><tspan x="192.5" dy="11.7">Результат: миттєве виявлення колізії (CD),</tspan><tspan x="192.5" dy="11.7">переривання передачі та скидання jam-сигналу.</tspan></text>
+<rect x="395.0" y="50.0" width="345.0" height="310.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="567.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Радіоефір (CSMA/CA)</text>
+<rect x="415.0" y="100.0" width="140.0" height="60.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="485.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Локальний TX</text>
+<text x="485.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">+20 dBm (100 мВт)</text>
+<circle cx="630.0" cy="130.0" r="14.0" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="630.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">RF</text>
+<line x1="555.0" y1="130.0" x2="616.0" y2="130.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="644.0" y1="130.0" x2="680.0" y2="130.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="680.0" y1="130.0" x2="705.0" y2="130.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="705.0" y1="110.0" x2="705.0" y2="150.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="705.0" y1="130.0" x2="720.0" y2="110.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="705.0" y1="130.0" x2="720.0" y2="150.0" stroke="#333333" stroke-width="1.5"/>
+<text x="685.0" y="95.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">чужий RX: -85 dBm (3 пВт)</text>
+<line x1="670.0" y1="100.0" x2="640.0" y2="118.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="415.0" y="175.0" width="140.0" height="55.0" rx="4" fill="#f1f5f9" stroke="#6b7280" stroke-width="1.2"/>
+<text x="485.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Локальний LNA / RX</text>
+<text x="485.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">від'єднаний (ізоляція 25 dB)</text>
+<line x1="555.0" y1="202.0" x2="620.0" y2="142.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+<rect x="415.0" y="245.0" width="305.0" height="98.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="567.5" y="279.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="567.5" dy="0.0">Різниця потужностей: 105 dB (у 30 мільярдів разів!)</tspan><tspan x="567.5" dy="11.7">Власний передавач миттєво спалив би чутливий LNA.</tspan><tspan x="567.5" dy="11.7">ВЧ-ключ відмикає вхід RX під час передачі.</tspan><tspan x="567.5" dy="11.7">Станція принципово глуха під час власного мовлення!</tspan></text>
+</svg>

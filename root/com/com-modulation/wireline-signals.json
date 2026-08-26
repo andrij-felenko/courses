@@ -30,11 +30,29 @@
           "slug": "pam4",
           "title": "PAM4: чотирирівнева амплітудна модуляція",
           "basic": {
-            "status": "pending"
+            "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "hist": [
+            {
+              "file": "hist-pam4-standards.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-pam4-snr-penalty.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-pam4-sim.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     },
@@ -119,8 +137,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-cvbs-timings.md",
+              "status": "recheck"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-ntsc-color-compat.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cvbs-spectral-interleaving.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cvbs-dsp-synth.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "cvbs-signal",

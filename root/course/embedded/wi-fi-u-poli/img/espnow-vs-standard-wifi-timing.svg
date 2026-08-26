@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часовий та енергетичний профіль: стандартний Wi-Fi проти ESP-NOW</text>
+<rect x="40.0" y="60.0" width="860.0" height="140.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="60.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Класичне Wi-Fi підключення (Холодний старт: Scan + Handshake + DHCP)</text>
+<rect x="60.0" y="98.0" width="220.0" height="50.0" rx="4" fill="#fee2e2" stroke="#ef4444" stroke-width="1.2"/>
+<text x="170.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="170.0" dy="0.0">1. Скан каналів 1..13</tspan><tspan x="170.0" dy="13.0">(800 мс @ 110 мА)</tspan></text>
+<rect x="290.0" y="98.0" width="140.0" height="50.0" rx="4" fill="#fecaca" stroke="#dc2626" stroke-width="1.2"/>
+<text x="360.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="360.0" dy="0.0">2. Probe / Auth</tspan><tspan x="360.0" dy="13.0">(200 мс @ 140 мА)</tspan></text>
+<rect x="440.0" y="98.0" width="180.0" height="50.0" rx="4" fill="#fca5a5" stroke="#b91c1c" stroke-width="1.2"/>
+<text x="530.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="530.0" dy="0.0">3. 4-Way Handshake</tspan><tspan x="530.0" dy="13.0">(350 мс @ 220 мА)</tspan></text>
+<rect x="630.0" y="98.0" width="160.0" height="50.0" rx="4" fill="#fecaca" stroke="#dc2626" stroke-width="1.2"/>
+<text x="710.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="710.0" dy="0.0">4. DHCP оренда IP</tspan><tspan x="710.0" dy="13.0">(600 мс @ 130 мА)</tspan></text>
+<rect x="800.0" y="98.0" width="80.0" height="50.0" rx="4" fill="#bbf7d0" stroke="#16a34a" stroke-width="1.2"/>
+<text x="840.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="840.0" dy="0.0">Payload</tspan><tspan x="840.0" dy="13.0">(50 мс)</tspan></text>
+<text x="60.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Сумарний час увімкненого радіо: ≈ 2000–3000 мс   |   Витрачений заряд: Q ≈ 350–450 мА·с (мКл)</text>
+<rect x="40.0" y="230.0" width="860.0" height="145.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="60.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">ESP-NOW: безз'єднувальна передача сирого Action Frame (P2P без асоціації)</text>
+<rect x="60.0" y="268.0" width="180.0" height="50.0" rx="4" fill="#dcfce7" stroke="#22c55e" stroke-width="1.2"/>
+<text x="150.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="150.0" dy="0.0">1. Пробудження радіо</tspan><tspan x="150.0" dy="13.0">(1.5 мс @ 80 мА)</tspan></text>
+<rect x="250.0" y="268.0" width="240.0" height="50.0" rx="4" fill="#bbf7d0" stroke="#16a34a" stroke-width="1.2"/>
+<text x="370.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="370.0" dy="0.0">2. Action Frame TX + MAC ACK</tspan><tspan x="370.0" dy="13.0">(2.5 мс @ 160 мА)</tspan></text>
+<rect x="500.0" y="268.0" width="180.0" height="50.0" rx="4" fill="#dcfce7" stroke="#22c55e" stroke-width="1.2"/>
+<text x="590.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="590.0" dy="0.0">3. Перехід у Deep-Sleep</tspan><tspan x="590.0" dy="13.0">(0.2 мс)</tspan></text>
+<text x="60.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Сумарний час увімкненого радіо: ≈ 4.0–4.5 мс   |   Витрачений заряд: Q ≈ 0.6 мА·с (мКл)</text>
+<rect x="705.1" y="269.5" width="129.8" height="61.0" rx="6" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.5"/><text x="770.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#065f46" text-anchor="middle" font-weight="700"><tspan x="770.0" dy="0.0">Економія заряду</tspan><tspan x="770.0" dy="13.0">в 600–700 разів!</tspan><tspan x="770.0" dy="13.0">Батарея служить</tspan><tspan x="770.0" dy="13.0">роками замість днів</tspan></text>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 960 520" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="960" height="520" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="940.0" height="500.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автомат стану здоров'я пристрою (Circuit Breaker)</text>
+<rect x="40.0" y="80.0" width="250.0" height="240.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="165.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">1. CLOSED (Замкнений)</text>
+<text x="165.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Штатний робочий стан</text>
+<rect x="55.0" y="150.0" width="220.0" height="95.0" rx="6" fill="#ffffff" stroke="#bbf7d0" stroke-width="1.5"/><text x="165.0" y="179.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="165.0" dy="0.0">• Усі транзакції дозволені</tspan><tspan x="165.0" dy="14.3">• Лічильник помилок = 0</tspan><tspan x="165.0" dy="14.3">• При успіху: скидання помилок</tspan><tspan x="165.0" dy="14.3">• При збої: failures++</tspan></text>
+<rect x="55.0" y="255.0" width="220.0" height="50.0" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/><text x="165.0" y="276.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="165.0" dy="0.0">Умова переходу:</tspan><tspan x="165.0" dy="13.7">failures &gt;= FAIL_THRESHOLD</tspan></text>
+<rect x="650.0" y="80.0" width="250.0" height="240.0" rx="8" fill="#fdf2f2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="775.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">2. OPEN (Розірваний)</text>
+<text x="775.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Ізоляція несправного чипа</text>
+<rect x="665.0" y="150.0" width="220.0" height="95.0" rx="6" fill="#ffffff" stroke="#fecaca" stroke-width="1.5"/><text x="775.0" y="179.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="775.0" dy="0.0">• Звернення блокуються O(1)</tspan><tspan x="775.0" dy="14.3">• Шина не навантажується</tspan><tspan x="775.0" dy="14.3">• Повернення ERR_OFFLINE</tspan><tspan x="775.0" dy="14.3">• Запуск таймера кулдауну</tspan></text>
+<rect x="665.0" y="255.0" width="220.0" height="50.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/><text x="775.0" y="276.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="775.0" dy="0.0">Умова переходу:</tspan><tspan x="775.0" dy="13.7">Час охолодження T_cool минув</tspan></text>
+<rect x="345.0" y="280.0" width="250.0" height="190.0" rx="8" fill="#eff6ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="470.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">3. HALF-OPEN (Пробний)</text>
+<text x="470.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Перевірка готовності чипа</text>
+<rect x="360.0" y="345.0" width="220.0" height="65.0" rx="6" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.5"/><text x="470.0" y="367.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="470.0" dy="0.0">• Дозволено 1 тестовий запит</tspan><tspan x="470.0" dy="14.3">• Успіх → повернення в CLOSED</tspan><tspan x="470.0" dy="14.3">• Збій → повернення в OPEN</tspan></text>
+<rect x="360.0" y="415.0" width="220.0" height="45.0" rx="6" fill="#dbeafe" stroke="#2457d6" stroke-width="1.5"/><text x="470.0" y="440.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="470.0" dy="0.0">Відновлення або повторна ізоляція</tspan></text>
+<line x1="290.0" y1="160.0" x2="650.0" y2="160.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="470.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Серія помилок (failures &gt;= N) → РОЗРИВ</text>
+<line x1="720.0" y1="320.0" x2="595.0" y2="370.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="710.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Кулдаун минув →</text>
+<line x1="345.0" y1="370.0" x2="220.0" y2="320.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="230.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">← Тест успішний</text>
+<line x1="595.0" y1="410.0" x2="670.0" y2="320.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="665.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Тест провалено →</text>
+</svg>

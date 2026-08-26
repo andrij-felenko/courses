@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Покроковий алгоритм безпечної передачі радіопакета в умовах слабкого живлення</text>
+<rect x="30.0" y="30.0" width="880.0" height="380.0" rx="8" fill="#ffffff" stroke="#e1e4e8" stroke-width="1.5"/>
+<text x="50.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">Послідовність безпечної передачі пакета: програмне збереження шини живлення</text>
+<rect x="55.0" y="100.0" width="195.0" height="260.0" rx="6" fill="#eef4fb" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="152.5" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#3b82f6" text-anchor="middle" font-weight="700">1. Аудит живлення</text>
+<text x="152.5" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Pre-TX Check</text>
+<line x1="70.0" y1="158.0" x2="235.0" y2="158.0" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="67.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Зчитування V_bat під навантаженням</text>
+<text x="67.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Якщо V &lt; 2.5 В -&gt; відкласти або зменшити TX</text>
+<text x="67.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Перевірка BOR прапорця в RCC/PMU</text>
+<line x1="253.0" y1="230.0" x2="272.0" y2="230.0" stroke="#94a3b8" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="275.0" y="100.0" width="195.0" height="260.0" rx="6" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="372.5" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">2. Зниження F_cpu</text>
+<text x="372.5" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Clock Throttling</text>
+<line x1="290.0" y1="158.0" x2="455.0" y2="158.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="287.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Зниження CPU: 80 МГц -&gt; 2 МГц</text>
+<text x="287.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Економія: мінус 15-25 мА струму ядра</text>
+<text x="287.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Вивільнення заряду C_bulk для PA</text>
+<line x1="473.0" y1="230.0" x2="492.0" y2="230.0" stroke="#94a3b8" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="495.0" y="100.0" width="195.0" height="260.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+<text x="592.5" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="middle" font-weight="700">3. Плавний пуск PA</text>
+<text x="592.5" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Power Ramping</text>
+<line x1="510.0" y1="158.0" x2="675.0" y2="158.0" stroke="#d97706" stroke-width="1.0"/>
+<text x="507.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• PA Ramp Time: 10..40 мкс</text>
+<text x="507.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Зниження di/dt індуктивного удару</text>
+<text x="507.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Ступінчастий підйом вихідної потужності</text>
+<line x1="693.0" y1="230.0" x2="712.0" y2="230.0" stroke="#94a3b8" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="715.0" y="100.0" width="195.0" height="260.0" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="812.5" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">4. Відновлення</text>
+<text x="812.5" y="144.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Post-TX Recharge</text>
+<line x1="730.0" y1="158.0" x2="895.0" y2="158.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="727.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Вимкнення PA -&gt; Сон ядра</text>
+<text x="727.0" y="209.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Пауза t_recharge = 3..5·τ</text>
+<text x="727.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Повний заряд C_bulk до наступного TX</text>
+<rect x="55.0" y="375.0" width="830.0" height="25.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="470.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сумарний ефект: піковий струм плати зменшено на 20-30 мА, виключено індуктивні викиди L·di/dt та усунуто Bootloop</text>
+</svg>

@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-19.5 -10 1335.76 650" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-19.5" y="-10" width="1335.76" height="650" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="530.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тріада ARQ: реакція на втрату кадру в часі</text>
+<text x="530.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">порівняння Stop-and-Wait, Go-Back-N та Selective Repeat за однакової втрати кадру №1</text>
+<rect x="30.0" y="70.0" width="320.0" height="550.0" rx="8" fill="#fafbfc" stroke="#333333" stroke-width="1.2"/>
+<text x="190.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Stop-and-Wait</text>
+<text x="190.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Простоює повний RTO при втраті</text>
+<line x1="85.0" y1="125.0" x2="85.0" y2="605.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="295.0" y1="125.0" x2="295.0" y2="605.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="85.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">TX</text>
+<text x="295.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">RX</text>
+<line x1="85.0" y1="100.0" x2="295.0" y2="140.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="190.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Кадр 0</text>
+<line x1="295.0" y1="140.0" x2="85.0" y2="180.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="190.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">ACK 0</text>
+<line x1="85.0" y1="200.0" x2="295.0" y2="240.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="190.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Кадр 1 (втрата)</text>
+<line x1="85.0" y1="220.0" x2="247.0" y2="299.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+<text x="273.6" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">✕ Загублено</text>
+<line x1="73.0" y1="200.0" x2="73.0" y2="370.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="69.0" y1="200.0" x2="77.0" y2="200.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="69.0" y1="370.0" x2="77.0" y2="370.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="67.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Таймаут RTO сплив</text>
+<line x1="85.0" y1="380.0" x2="295.0" y2="420.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="190.0" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Кадр 1 (повтор)</text>
+<line x1="295.0" y1="420.0" x2="85.0" y2="460.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="190.0" y="437.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">ACK 1</text>
+<line x1="85.0" y1="480.0" x2="295.0" y2="520.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="190.0" y="497.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Кадр 2</text>
+<line x1="295.0" y1="520.0" x2="85.0" y2="560.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="190.0" y="537.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">ACK 2</text>
+<rect x="370.0" y="70.0" width="320.0" height="550.0" rx="8" fill="#fafbfc" stroke="#333333" stroke-width="1.2"/>
+<text x="530.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Go-Back-N (N=4)</text>
+<text x="530.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Скидає 2 і 3, повторює все вікно</text>
+<line x1="425.0" y1="125.0" x2="425.0" y2="605.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="635.0" y1="125.0" x2="635.0" y2="605.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="425.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">TX</text>
+<text x="635.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">RX</text>
+<line x1="425.0" y1="100.0" x2="635.0" y2="140.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="530.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Кадр 0</text>
+<line x1="425.0" y1="130.0" x2="635.0" y2="170.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="530.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Кадр 1 (втрата)</text>
+<line x1="425.0" y1="160.0" x2="635.0" y2="200.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="530.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Кадр 2</text>
+<line x1="425.0" y1="190.0" x2="635.0" y2="230.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="530.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Кадр 3</text>
+<line x1="635.0" y1="140.0" x2="425.0" y2="180.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="530.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">ACK 0</text>
+<line x1="425.0" y1="150.0" x2="689.0" y2="208.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+<text x="763.2" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">✕ Загублено</text>
+<line x1="425.0" y1="200.0" x2="635.0" y2="220.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="2,2"/>
+<text x="643.0" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">Відкинуто 2 (не по черзі)</text>
+<line x1="425.0" y1="230.0" x2="635.0" y2="250.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="2,2"/>
+<text x="643.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start">Відкинуто 3 (не по черзі)</text>
+<line x1="413.0" y1="130.0" x2="413.0" y2="330.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="409.0" y1="130.0" x2="417.0" y2="130.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="409.0" y1="330.0" x2="417.0" y2="330.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="407.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Таймаут кадру 1</text>
+<line x1="425.0" y1="340.0" x2="635.0" y2="380.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="530.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Кадр 1 (повтор)</text>
+<line x1="425.0" y1="370.0" x2="635.0" y2="410.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="530.0" y="387.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Кадр 2 (повтор)</text>
+<line x1="425.0" y1="400.0" x2="635.0" y2="440.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="530.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Кадр 3 (повтор)</text>
+<line x1="635.0" y1="380.0" x2="425.0" y2="420.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="530.0" y="397.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">ACK 1</text>
+<rect x="710.0" y="70.0" width="320.0" height="550.0" rx="8" fill="#fafbfc" stroke="#333333" stroke-width="1.2"/>
+<text x="870.0" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Selective Repeat (W=4)</text>
+<text x="870.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Буферизує 2 і 3, шле лише №1</text>
+<line x1="765.0" y1="125.0" x2="765.0" y2="605.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="975.0" y1="125.0" x2="975.0" y2="605.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="765.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">TX</text>
+<text x="975.0" y="121.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">RX</text>
+<line x1="765.0" y1="100.0" x2="975.0" y2="140.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="870.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Кадр 0</text>
+<line x1="765.0" y1="130.0" x2="975.0" y2="170.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="870.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Кадр 1 (втрата)</text>
+<line x1="765.0" y1="160.0" x2="975.0" y2="200.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="870.0" y="177.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Кадр 2</text>
+<line x1="765.0" y1="190.0" x2="975.0" y2="230.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="870.0" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Кадр 3</text>
+<line x1="975.0" y1="140.0" x2="765.0" y2="180.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="870.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">ACK 0</text>
+<line x1="765.0" y1="150.0" x2="1131.0" y2="208.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+<text x="1252.8" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">✕ Загублено</text>
+<line x1="975.0" y1="200.0" x2="765.0" y2="240.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="863.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">ACK 2 (буфер RX: 2)</text>
+<line x1="975.0" y1="230.0" x2="765.0" y2="270.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="870.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">ACK 3 (буфер RX: 2,3)</text>
+<line x1="753.0" y1="130.0" x2="753.0" y2="330.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="749.0" y1="130.0" x2="757.0" y2="130.0" stroke="#6b7280" stroke-width="1.2"/>
+<line x1="749.0" y1="330.0" x2="757.0" y2="330.0" stroke="#6b7280" stroke-width="1.2"/>
+<text x="747.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Таймаут кадру 1</text>
+<line x1="765.0" y1="340.0" x2="975.0" y2="380.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="870.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Кадр 1 (повтор)</text>
+<line x1="975.0" y1="380.0" x2="765.0" y2="420.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="870.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">ACK 3 (віддано 1,2,3)</text>
+<line x1="765.0" y1="440.0" x2="975.0" y2="480.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="870.0" y="457.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Кадр 4</text>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-44.5 -10 844.5 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-44.5" y="-10" width="844.5" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="400.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динаміка струму та стабілізація напруги розв'язувальними конденсаторами</text>
+<text x="400.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динамічний сплеск струму та компенсація розв'язувальними конденсаторами</text>
+<line x1="80.0" y1="350.0" x2="730.0" y2="350.0" stroke="#333333" stroke-width="1.6"/>
+<line x1="80.0" y1="80.0" x2="80.0" y2="350.0" stroke="#333333" stroke-width="1.6"/>
+<text x="720.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">Час t →</text>
+<text x="70.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">Струм I / Напруга V</text>
+<polyline points="80,320 160,320 180,130 460,130 480,320 730,320" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-linejoin="round"/>
+<text x="300.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Струм радіотрансивера I_peak ≈ 350 мА (TX Burst)</text>
+<text x="150.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end">I_idle ≈ 20 мА</text>
+<polyline points="80,210 160,210 210,300 460,315 530,210 730,210" fill="none" stroke="#8a5fb0" stroke-width="2.0" stroke-dasharray="5 4" stroke-linejoin="round"/>
+<text x="360.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8a5fb0" text-anchor="middle" font-weight="700">Без буферної ємності: глибоке просідання → Brownout Reset (МК зависає)</text>
+<polyline points="80,210 160,210 200,230 460,235 510,210 730,210" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linejoin="round"/>
+<text x="360.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">З розрахованою Bulk-ємністю: допустиме просідання ΔV ≤ 100 мВ</text>
+<line x1="80.0" y1="280.0" x2="730.0" y2="280.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="720.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end" font-weight="700">Поріг скидання Brownout Reset (V_BOR = 2.7 В)</text>
+<line x1="80.0" y1="210.0" x2="730.0" y2="210.0" stroke="#333333" stroke-width="1.0" stroke-dasharray="2 2"/>
+<text x="70.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="end">3.3 В</text>
+<text x="400.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">Локальні конденсатори компенсують затримку реакції стабілізатора, утримуючи напругу шини вище порога Brownout</text>
+</svg>

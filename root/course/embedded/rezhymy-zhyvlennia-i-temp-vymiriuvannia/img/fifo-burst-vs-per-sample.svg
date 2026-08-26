@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 460" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="460" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">FIFO-буферизація: пакетне вичитування проти частих пробуджень</text>
+<rect x="20.0" y="20.0" width="720.0" height="410.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.2"/>
+<rect x="40.0" y="35.0" width="680.0" height="32.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="380.0" y="55.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">Сценарій А: Зчитування на кожен відлік (100 Гц без FIFO) — неефективно</tspan></text>
+<line x1="175.0" y1="180.0" x2="700.0" y2="180.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="710.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">t</text>
+<rect x="190.0" y="125.0" width="12.0" height="55.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<line x1="196.0" y1="198.0" x2="196.0" y2="182.0" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="226.0" y="125.0" width="12.0" height="55.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<line x1="232.0" y1="198.0" x2="232.0" y2="182.0" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="262.0" y="125.0" width="12.0" height="55.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<line x1="268.0" y1="198.0" x2="268.0" y2="182.0" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="298.0" y="125.0" width="12.0" height="55.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<line x1="304.0" y1="198.0" x2="304.0" y2="182.0" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="334.0" y="125.0" width="12.0" height="55.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<line x1="340.0" y1="198.0" x2="340.0" y2="182.0" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="370.0" y="125.0" width="12.0" height="55.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<line x1="376.0" y1="198.0" x2="376.0" y2="182.0" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="406.0" y="125.0" width="12.0" height="55.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<line x1="412.0" y1="198.0" x2="412.0" y2="182.0" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="442.0" y="125.0" width="12.0" height="55.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<line x1="448.0" y1="198.0" x2="448.0" y2="182.0" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="478.0" y="125.0" width="12.0" height="55.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<line x1="484.0" y1="198.0" x2="484.0" y2="182.0" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="514.0" y="125.0" width="12.0" height="55.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<line x1="520.0" y1="198.0" x2="520.0" y2="182.0" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="550.0" y="125.0" width="12.0" height="55.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<line x1="556.0" y1="198.0" x2="556.0" y2="182.0" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="586.0" y="125.0" width="12.0" height="55.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<line x1="592.0" y1="198.0" x2="592.0" y2="182.0" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="622.0" y="125.0" width="12.0" height="55.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<line x1="628.0" y1="198.0" x2="628.0" y2="182.0" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="658.0" y="125.0" width="12.0" height="55.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.0"/>
+<line x1="664.0" y1="198.0" x2="664.0" y2="182.0" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="275.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">Переривання DRDY кожні 10 мс (100 разів/сек)</text>
+<rect x="40.0" y="95.0" width="120.0" height="75.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="100.0" y="118.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="100.0" dy="0.0">МК витрачає</tspan><tspan x="100.0" dy="11.7">енергію на старт</tspan><tspan x="100.0" dy="11.7">PLL та вихід</tspan><tspan x="100.0" dy="11.7">зі сну 100 р/с!</tspan></text>
+<rect x="40.0" y="240.0" width="680.0" height="32.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="380.0" y="260.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">Сценарій Б: Накопичення у FIFO (32 семпли) + пакетний Burst Read — оптимум</tspan></text>
+<line x1="60.0" y1="380.0" x2="700.0" y2="380.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="710.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle">t</text>
+<rect x="80.0" y="368.0" width="320.0" height="12.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="240.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">МК у глибокому сні (Stop mode ~1.5 мкА) протягом 320 мс</text>
+<line x1="400.0" y1="402.0" x2="400.0" y2="382.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="400.0" y="414.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">INT: FIFO Watermark (32 семпли)</text>
+<rect x="400.0" y="305.0" width="28.0" height="75.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="414.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Burst DMA
+(~1.5 мс)</text>
+<rect x="428.0" y="368.0" width="220.0" height="12.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.0"/>
+<text x="538.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">Знову глибокий сон...</text>
+<rect x="480.0" y="280.0" width="220.0" height="70.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="590.0" y="300.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle"><tspan x="590.0" dy="0.0">РЕЗУЛЬТАТ:</tspan><tspan x="590.0" dy="11.7">МК прокидається лише 3 рази/с</tspan><tspan x="590.0" dy="11.7">замість 100 разів/с.</tspan><tspan x="590.0" dy="11.7">Енерговитрати ядра падають у 8–12 разів!</tspan></text>
+</svg>

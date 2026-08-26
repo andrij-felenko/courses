@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Придушення ємнісних перехресних завад між шинами SPI та I2C</text>
+<rect x="30.0" y="45.0" width="420.0" height="370.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="240.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">НЕПРАВИЛЬНО: Тісне паралельне трасування</text>
+<line x1="70.0" y1="130.0" x2="400.0" y2="130.0" stroke="#27ae60" stroke-width="3.0"/>
+<text x="235.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">SPI SCK (50 МГц, tr = 1.5 нс, dV/dt &gt; 2 В/нс)</text>
+<line x1="140.0" y1="130.0" x2="140.0" y2="190.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+<text x="152.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Cm</text>
+<line x1="200.0" y1="130.0" x2="200.0" y2="190.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+<text x="212.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Cm</text>
+<line x1="260.0" y1="130.0" x2="260.0" y2="190.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+<text x="272.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Cm</text>
+<line x1="320.0" y1="130.0" x2="320.0" y2="190.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+<text x="332.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Cm</text>
+<line x1="70.0" y1="190.0" x2="400.0" y2="190.0" stroke="#2457d6" stroke-width="2.5"/>
+<text x="235.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">I2C SDA / SCL (Високий імпеданс, R_pullup = 4.7k)</text>
+<rect x="60.0" y="240.0" width="360.0" height="75.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/><text x="240.0" y="267.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="240.0" dy="0.0">Наслідок: Ємнісний струм Ic = Cm · (dV/dt)</tspan><tspan x="240.0" dy="13.7">створює імпульсний викид V_noise &gt; 0.8 В на лінії I2C.</tspan><tspan x="240.0" dy="13.7">Датчик BME280 сприймає заваду як хибний ACK/START!</tspan></text>
+<rect x="60.0" y="335.0" width="360.0" height="60.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/><text x="240.0" y="361.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="240.0" dy="0.0">Результат: Зависання апаратного контролера I2C</tspan><tspan x="240.0" dy="13.7">у стані BUSY та збій протоколу зв'язку.</tspan></text>
+<rect x="480.0" y="45.0" width="430.0" height="370.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="695.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">ПРАВИЛЬНО: Правило 3W + Охоронна земля GND</text>
+<line x1="520.0" y1="130.0" x2="870.0" y2="130.0" stroke="#27ae60" stroke-width="3.0"/>
+<text x="695.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">SPI SCK (Траса шириною W = 0.2 мм)</text>
+<line x1="520.0" y1="165.0" x2="870.0" y2="165.0" stroke="#333333" stroke-width="4.0"/>
+<text x="695.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-weight="700">GND Guard Trace з прошивними отворами Via на L2</text>
+<circle cx="560.0" cy="165.0" r="3.5" fill="#cbd5e1" stroke="#1a1a1a" stroke-width="1.2"/>
+<circle cx="630.0" cy="165.0" r="3.5" fill="#cbd5e1" stroke="#1a1a1a" stroke-width="1.2"/>
+<circle cx="700.0" cy="165.0" r="3.5" fill="#cbd5e1" stroke="#1a1a1a" stroke-width="1.2"/>
+<circle cx="770.0" cy="165.0" r="3.5" fill="#cbd5e1" stroke="#1a1a1a" stroke-width="1.2"/>
+<circle cx="840.0" cy="165.0" r="3.5" fill="#cbd5e1" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="520.0" y1="205.0" x2="870.0" y2="205.0" stroke="#2457d6" stroke-width="2.5"/>
+<text x="695.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">I2C SDA (Відстань S ≥ 3W = 0.6 мм до SPI)</text>
+<rect x="510.0" y="240.0" width="370.0" height="75.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="695.0" y="267.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="695.0" dy="0.0">Захист: Електричні силові лінії замикаються на Guard Trace.</tspan><tspan x="695.0" dy="13.7">Паразитна ємність знижується у 15-20 разів.</tspan><tspan x="695.0" dy="13.7">Амплітуда завади V_noise &lt; 40 мВ (безпечно для КМОН).</tspan></text>
+<rect x="510.0" y="335.0" width="370.0" height="60.0" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/><text x="695.0" y="361.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="695.0" dy="0.0">Результат: Бездоганна паралельна робота SPI DMA</tspan><tspan x="695.0" dy="13.7">та вичитування сенсорів I2C на 400 кГц.</tspan></text>
+</svg>

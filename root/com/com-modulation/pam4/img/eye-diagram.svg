@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 460" width="840" height="460">
+<rect width="840" height="460" fill="#ffffff"/>
+<rect x="114.9" y="9.0" width="610.2" height="34.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="420.0" y="30.9" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="420.0" dy="0.0">Очневий графік: одне широке вікно NRZ проти трьох звужених очей PAM4</tspan></text>
+<rect x="40.0" y="52.0" width="365.0" height="390.0" rx="8" fill="#fafbfc" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="222.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">NRZ: одне велике очко (Single Eye)</text>
+<line x1="100.0" y1="125.0" x2="375.0" y2="125.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="100.0" y1="315.0" x2="375.0" y2="315.0" stroke="#2457d6" stroke-width="2.0"/>
+<text x="95.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">+V₀ (1)</text>
+<text x="95.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="end" font-weight="700">−V₀ (0)</text>
+<path d="M 100 125 C 230 125, 230 315, 375 315" fill="none" stroke="#6b7280" stroke-width="1.8" stroke-opacity="0.6"/>
+<path d="M 100 315 C 230 315, 230 125, 375 125" fill="none" stroke="#6b7280" stroke-width="1.8" stroke-opacity="0.6"/>
+<line x1="100.0" y1="220.0" x2="375.0" y2="220.0" stroke="#9ca3af" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="378.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Поріг 0 В</text>
+<line x1="125.0" y1="130.0" x2="125.0" y2="310.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="120.0" y1="130.0" x2="130.0" y2="130.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="120.0" y1="310.0" x2="130.0" y2="310.0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="235.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">H_NRZ = 2·V₀ (Запас = V₀)</text>
+<text x="222.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Запас завадостійкості: 100%</text>
+<text x="222.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Один строб вибірки в центрі такту</text>
+<text x="222.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Типовий Raw BER &lt; 10⁻¹² (без FEC)</text>
+<rect x="435.0" y="52.0" width="365.0" height="390.0" rx="8" fill="#fafbfc" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="617.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">PAM4: три очка (Triple Stacked Eyes)</text>
+<line x1="485.0" y1="115.0" x2="760.0" y2="115.0" stroke="#ea580c" stroke-width="1.8"/>
+<line x1="485.0" y1="175.0" x2="760.0" y2="175.0" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="485.0" y1="235.0" x2="760.0" y2="235.0" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="485.0" y1="295.0" x2="760.0" y2="295.0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="480.0" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#ea580c" text-anchor="end" font-weight="700">+V₀ (L3)</text>
+<text x="480.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="end" font-weight="700">+V₀/3 (L2)</text>
+<text x="480.0" y="239.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="end" font-weight="700">−V₀/3 (L1)</text>
+<text x="480.0" y="299.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-weight="700">−V₀ (L0)</text>
+<line x1="485.0" y1="145.0" x2="760.0" y2="145.0" stroke="#9ca3af" stroke-width="1.0" stroke-dasharray="2,2"/>
+<line x1="485.0" y1="205.0" x2="760.0" y2="205.0" stroke="#9ca3af" stroke-width="1.0" stroke-dasharray="2,2"/>
+<line x1="485.0" y1="265.0" x2="760.0" y2="265.0" stroke="#9ca3af" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="764.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">+2V₀/3</text>
+<text x="764.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">0 В</text>
+<text x="764.0" y="268.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">−2V₀/3</text>
+<path d="M 485 115 C 600 115, 600 175, 760 175" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-opacity="0.5"/>
+<path d="M 485 175 C 600 175, 600 115, 760 115" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-opacity="0.5"/>
+<path d="M 485 175 C 600 175, 600 235, 760 235" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-opacity="0.5"/>
+<path d="M 485 235 C 600 235, 600 175, 760 175" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-opacity="0.5"/>
+<path d="M 485 235 C 600 235, 600 295, 760 295" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-opacity="0.5"/>
+<path d="M 485 295 C 600 295, 600 235, 760 235" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-opacity="0.5"/>
+<text x="625.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">H_PAM4 = 2·V₀ / 3 (Запас = V₀ / 3)</text>
+<text x="617.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Штраф SNR: 20·log₁₀(1/3) ≈ −9.54 дБ</text>
+<text x="617.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вимагає 3 компаратори (слайсери)</text>
+<text x="617.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle" font-weight="700">Raw BER ≈ 10⁻⁴ … 10⁻⁵ (потрібен FEC)</text>
+<text x="617.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Post-FEC BER &lt; 10⁻¹⁵ (цільовий рівень)</text>
+</svg>

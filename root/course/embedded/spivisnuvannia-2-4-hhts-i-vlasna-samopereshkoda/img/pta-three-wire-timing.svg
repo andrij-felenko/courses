@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Часова діаграма 3-провідного апаратного арбітражу пакетів (3-Wire PTA)</text>
+<text x="135.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2980b9" text-anchor="end" font-weight="700">COEX_REQ</text>
+<text x="135.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Запит каналу (BLE/Zigbee)</text>
+<line x1="150.0" y1="108.0" x2="780.0" y2="108.0" stroke="#eaeded" stroke-width="1.0"/>
+<text x="135.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#8e44ad" text-anchor="end" font-weight="700">COEX_PRI</text>
+<text x="135.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Пріоритет (High/Low)</text>
+<line x1="150.0" y1="178.0" x2="780.0" y2="178.0" stroke="#eaeded" stroke-width="1.0"/>
+<text x="135.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="end" font-weight="700">COEX_GNT</text>
+<text x="135.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Дозвіл (Grant від Wi-Fi)</text>
+<line x1="150.0" y1="248.0" x2="780.0" y2="248.0" stroke="#eaeded" stroke-width="1.0"/>
+<text x="135.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d35400" text-anchor="end" font-weight="700">RF Стан</text>
+<text x="135.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Активність у ефірі</text>
+<line x1="150.0" y1="318.0" x2="780.0" y2="318.0" stroke="#eaeded" stroke-width="1.0"/>
+<path d="M 150 100 L 240 100 L 240 75 L 520 75 L 520 100 L 780 100" fill="none" stroke="#2980b9" stroke-width="2.2"/>
+<path d="M 150 170 L 240 170 L 240 145 L 520 145 L 520 170 L 780 170" fill="none" stroke="#8e44ad" stroke-width="2.2"/>
+<path d="M 150 240 L 290 240 L 290 215 L 530 215 L 530 240 L 780 240" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+<rect x="170.0" y="280.0" width="70.0" height="32.0" rx="4" fill="#f2f4f4" stroke="#bdc3c7" stroke-width="1.0"/>
+<text x="205.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Wi-Fi RX</text>
+<rect x="240.0" y="280.0" width="90.0" height="32.0" rx="4" fill="#fef9e7" stroke="#f39c12" stroke-width="1.0"/>
+<text x="285.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b7950b" text-anchor="middle" font-weight="700">T_guard</text>
+<text x="285.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7d6608" text-anchor="middle">30..50 мкс</text>
+<rect x="330.0" y="280.0" width="180.0" height="32.0" rx="4" fill="#d4efdf" stroke="#27ae60" stroke-width="1.5"/>
+<text x="420.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#196f3d" text-anchor="middle" font-weight="700">BLE Connection Event (RX/TX)</text>
+<text x="420.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e8449" text-anchor="middle">Wi-Fi передавач заблоковано арбітром</text>
+<rect x="550.0" y="280.0" width="200.0" height="32.0" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="650.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#922b21" text-anchor="middle" font-weight="700">Wi-Fi TX Burst (+20 dBm)</text>
+<text x="650.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b03a2e" text-anchor="middle">Передача TCP/UDP пакета</text>
+<line x1="240.0" y1="60.0" x2="240.0" y2="320.0" stroke="#bdc3c7" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="290.0" y1="60.0" x2="290.0" y2="320.0" stroke="#bdc3c7" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="520.0" y1="60.0" x2="520.0" y2="320.0" stroke="#bdc3c7" stroke-width="1.0" stroke-dasharray="3,3"/>
+<line x1="240.0" y1="52.0" x2="290.0" y2="52.0" stroke="#2980b9" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="290.0" y1="52.0" x2="240.0" y2="52.0" stroke="#2980b9" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="265.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2471a3" text-anchor="middle" font-weight="700">t_req ≈ 30 мкс</text>
+<text x="420.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-style="italic">PTA арбітр оцінює пріоритет (COEX_PRI) та зупиняє передавач Wi-Fi на час критичного BLE кадру</text>
+</svg>

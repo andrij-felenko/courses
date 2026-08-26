@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 938.9 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="938.9" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двоетапна конструкція HMAC (RFC 2104) проти атак подовження повідомлення</text>
+<rect x="35.6" y="116.2" width="168.8" height="47.6" rx="6" fill="#fdf0e6" stroke="#c07a2e" stroke-width="1.5"/><text x="120.0" y="136.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9a5a1e" text-anchor="middle" font-weight="700"><tspan x="120.0" dy="0.0">Секретний ключ K</tspan><tspan x="120.0" dy="15.6">(довжина ≤ 64 байти)</tspan></text>
+<line x1="210.0" y1="120.0" x2="270.0" y2="100.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="210.0" y1="160.0" x2="270.0" y2="260.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="285.7" y="77.3" width="108.7" height="45.3" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/><text x="340.0" y="96.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="340.0" dy="0.0">K ⊕ ipad</tspan><tspan x="340.0" dy="14.3">(ipad = 0x36)</tspan></text>
+<rect x="285.7" y="237.3" width="108.7" height="45.3" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/><text x="340.0" y="256.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="340.0" dy="0.0">K ⊕ opad</tspan><tspan x="340.0" dy="14.3">(opad = 0x5C)</tspan></text>
+<rect x="268.6" y="147.3" width="142.8" height="45.3" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/><text x="340.0" y="166.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="340.0" dy="0.0">Повідомлення M</tspan><tspan x="340.0" dy="14.3">(довільна довжина)</tspan></text>
+<line x1="405.0" y1="100.0" x2="470.0" y2="125.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="405.0" y1="170.0" x2="470.0" y2="135.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="470.0" y="100.0" width="160.0" height="60.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="550.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Внутрішній геш</text>
+<text x="550.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">SHA-256( (K⊕ipad) || M )</text>
+<line x1="630.0" y1="130.0" x2="690.0" y2="170.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="660.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">32B</text>
+<line x1="405.0" y1="260.0" x2="690.0" y2="210.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="690.0" y="160.0" width="170.0" height="80.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<text x="775.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Зовнішній геш</text>
+<text x="775.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">SHA-256( (K⊕opad) || Inner )</text>
+<text x="775.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-style="italic">Захист від Length Extension</text>
+<line x1="775.0" y1="240.0" x2="775.0" y2="310.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="631.1" y="321.2" width="287.8" height="47.6" rx="6" fill="#eef6ef" stroke="#27ae60" stroke-width="1.5"/><text x="775.0" y="341.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="775.0" dy="0.0">Результат: HMAC-SHA256 (32 байти)</tspan><tspan x="775.0" dy="15.6">Код автентичності повідомлення (MAC)</tspan></text>
+<rect x="50.0" y="320.0" width="520.0" height="65.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.2"/>
+<text x="310.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Чому не можна просто SHA-256(K || M):</text>
+<text x="310.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Простий префіксний геш ламається атакою подовженням (Length Extension Attack).</text>
+</svg>

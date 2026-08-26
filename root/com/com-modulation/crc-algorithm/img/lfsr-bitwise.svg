@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 834.24 270" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="834.24" height="270" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="730.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="700">Вхідний бітовий потік M(x)</text>
+<line x1="770.0" y1="75.0" x2="685.0" y2="75.0" stroke="#2563eb" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="725.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2563eb" text-anchor="middle">1 0 1 1 0 ...</text>
+<rect x="65.0" y="88.0" width="70.0" height="44.0" rx="4" fill="#f8fafc" stroke="#333333" stroke-width="1.8"/>
+<text x="100.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">b31 (MSB)</text>
+<rect x="195.0" y="88.0" width="70.0" height="44.0" rx="4" fill="#f8fafc" stroke="#333333" stroke-width="1.8"/>
+<text x="230.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">b30</text>
+<rect x="335.0" y="88.0" width="70.0" height="44.0" rx="4" fill="#f8fafc" stroke="#333333" stroke-width="1.8"/>
+<text x="370.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">b2</text>
+<rect x="475.0" y="88.0" width="70.0" height="44.0" rx="4" fill="#f8fafc" stroke="#333333" stroke-width="1.8"/>
+<text x="510.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">b1</text>
+<rect x="615.0" y="88.0" width="70.0" height="44.0" rx="4" fill="#f8fafc" stroke="#333333" stroke-width="1.8"/>
+<text x="650.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">b0 (LSB)</text>
+<line x1="615.0" y1="110.0" x2="545.0" y2="110.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="475.0" y1="110.0" x2="405.0" y2="110.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="300.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#6b7280" text-anchor="middle" font-weight="700">· · ·</text>
+<line x1="265.0" y1="110.0" x2="280.0" y2="110.0" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="320.0" y1="110.0" x2="335.0" y2="110.0" stroke="#333333" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="195.0" y1="110.0" x2="135.0" y2="110.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="65.0" y1="110.0" x2="45.0" y2="110.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="45.0" y1="110.0" x2="45.0" y2="200.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="45.0" y1="200.0" x2="770.0" y2="200.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="770.0" y1="200.0" x2="770.0" y2="110.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="770.0" y1="110.0" x2="685.0" y2="110.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="380.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Шина зворотного зв'язку (MSB == 1 -&gt; XOR з коефіцієнтами G(x))</text>
+<circle cx="685.0" cy="110.0" r="11.0" fill="#fef2f2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="685.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">⊕</text>
+<circle cx="440.0" cy="110.0" r="11.0" fill="#fef2f2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="440.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">⊕</text>
+<line x1="440.0" y1="200.0" x2="440.0" y2="121.0" stroke="#c0392b" stroke-width="1.6"/>
+<circle cx="165.0" cy="110.0" r="11.0" fill="#fef2f2" stroke="#c0392b" stroke-width="1.8"/>
+<text x="165.0" y="107.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">⊕</text>
+<line x1="165.0" y1="200.0" x2="165.0" y2="121.0" stroke="#c0392b" stroke-width="1.6"/>
+<text x="158.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">g31</text>
+<text x="433.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">g2</text>
+<text x="685.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">g0</text>
+</svg>

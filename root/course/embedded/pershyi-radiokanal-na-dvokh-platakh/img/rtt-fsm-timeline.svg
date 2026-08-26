@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 860 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="860" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Хронологічний розбір складових затримки кругового обігу пакета (RTT)</text>
+<rect x="0.0" y="0.0" width="840.0" height="420.0" rx="6" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура кругової затримки Round-Trip Time (RTT)</text>
+<text x="50.0" y="73.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">t0: Старт передачі (МК TX)</text>
+<text x="790.0" y="73.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">t1: Отримання ACK (IRQ TX_DS)</text>
+<rect x="50.0" y="85.0" width="105.0" height="56.0" rx="3" fill="#dbeafe" stroke="#1e40af" stroke-width="1.5"/>
+<text x="102.5" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle" font-weight="700">1. SPI Write</text>
+<text x="102.5" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e40af" text-anchor="middle">32 B @ 8 МГц</text>
+<text x="102.5" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e40af" text-anchor="middle">≈ 32 мкс</text>
+<rect x="155.0" y="85.0" width="115.0" height="56.0" rx="3" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+<text x="212.5" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle" font-weight="700">2. TX Settle</text>
+<text x="212.5" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle">PLL Lock</text>
+<text x="212.5" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle">= 130 мкс</text>
+<rect x="270.0" y="85.0" width="145.0" height="56.0" rx="3" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+<text x="342.5" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-weight="700">3. Air Data</text>
+<text x="342.5" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="middle">38 B @ 2 Мбіт/с</text>
+<text x="342.5" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="middle">≈ 152 мкс</text>
+<rect x="415.0" y="85.0" width="115.0" height="56.0" rx="3" fill="#f3e8ff" stroke="#6b21a8" stroke-width="1.5"/>
+<text x="472.5" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b21a8" text-anchor="middle" font-weight="700">4. RX Switch</text>
+<text x="472.5" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b21a8" text-anchor="middle">Demod &amp; Switch</text>
+<text x="472.5" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b21a8" text-anchor="middle">≈ 130 мкс</text>
+<rect x="530.0" y="85.0" width="100.0" height="56.0" rx="3" fill="#dcfce7" stroke="#15803d" stroke-width="1.5"/>
+<text x="580.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">5. Air ACK</text>
+<text x="580.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle">ESB ACK кадр</text>
+<text x="580.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle">≈ 45 мкс</text>
+<rect x="630.0" y="85.0" width="160.0" height="56.0" rx="3" fill="#e0e7ff" stroke="#3730a3" stroke-width="1.5"/>
+<text x="710.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#3730a3" text-anchor="middle" font-weight="700">6. IRQ + Read</text>
+<text x="710.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#3730a3" text-anchor="middle">SPI Read STATUS</text>
+<text x="710.0" y="131.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#3730a3" text-anchor="middle">≈ 20 мкс</text>
+<line x1="50.0" y1="157.0" x2="790.0" y2="157.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<circle cx="50.0" cy="157.0" r="3.5" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="790.0" cy="157.0" r="3.5" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="420.0" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Повний RTT (2 Мбіт/с, 32 байти) = 32 + 130 + 152 + 130 + 45 + 20 ≈ 509 мкс</text>
+<rect x="80.0" y="230.0" width="680.0" height="150.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.4"/>
+<text x="420.0" y="254.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Залежність типового RTT від швидкості радіотракту (для 32 байтів)</text>
+<text x="110.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1d4ed8" text-anchor="start" font-weight="700">2 Мбіт/с</text>
+<text x="230.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Час у ефірі: 152 мкс</text>
+<text x="410.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">RTT: ≈ 0.5…0.7 мс</text>
+<text x="530.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Мінімальна затримка, чутливість −82 dBm</text>
+<text x="110.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1d4ed8" text-anchor="start" font-weight="700">1 Мбіт/с</text>
+<text x="230.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Час у ефірі: 304 мкс</text>
+<text x="410.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">RTT: ≈ 0.8…1.1 мс</text>
+<text x="530.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Баланс швидкості та дальності, чутливість −85 dBm</text>
+<text x="110.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1d4ed8" text-anchor="start" font-weight="700">250 кбіт/с</text>
+<text x="230.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">Час у ефірі: 1216 мкс</text>
+<text x="410.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">RTT: ≈ 2.8…3.5 мс</text>
+<text x="530.0" y="344.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Максимальна дальність зв'язку, чутливість −94 dBm</text>
+</svg>

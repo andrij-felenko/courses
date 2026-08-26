@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 950 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="950" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="470.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="700">Золоте правило: Verify-then-Decrypt (Перевір перед розшифруванням)</text>
+<text x="470.0" y="50.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">розбір неавтентифікованих даних веде до витоків пам'яті, збоїв парсера та атак за часом</text>
+<rect x="40.0" y="75.0" width="415.0" height="340.0" rx="8" fill="#fffafa" stroke="#c0392b" stroke-width="2.0"/>
+<text x="247.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">НЕБЕЗПЕЧНО: Розшифрування до тегу</text>
+<rect x="65.0" y="135.0" width="365.0" height="38.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="247.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">1. Прийом пакета з ефіру</text>
+<text x="247.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Буфер із даними від ворога</text>
+<rect x="65.0" y="181.0" width="365.0" height="38.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="247.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">2. Розшифрування в буфер</text>
+<text x="247.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Шифротекст перетворюється на Plaintext</text>
+<rect x="65.0" y="227.0" width="365.0" height="38.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="247.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">3. Парсер читає структури</text>
+<text x="247.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Читання len, cmd_id, вказівників...</text>
+<rect x="65.0" y="273.0" width="365.0" height="38.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="247.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">4. Виконання або паніка</text>
+<text x="247.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вразливість до buffer overflow / crash!</text>
+<rect x="65.0" y="319.0" width="365.0" height="38.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+<text x="247.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">5. Перевірка MAC (запізно!)</text>
+<text x="247.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Зловмисник уже експлуатував парсер</text>
+<rect x="485.0" y="75.0" width="415.0" height="340.0" rx="8" fill="#fbfdfb" stroke="#27ae60" stroke-width="2.0"/>
+<text x="692.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">БЕЗПЕЧНО: Verify-then-Decrypt</text>
+<rect x="510.0" y="135.0" width="365.0" height="38.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="692.0" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">1. Перевірка Sequence / Window</text>
+<text x="692.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Миттєве відсікання старих пакетів</text>
+<rect x="510.0" y="181.0" width="365.0" height="38.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="692.0" y="197.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">2. Обчислення Auth Tag (AEAD)</text>
+<text x="692.0" y="211.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Poly1305 / AES-CCM над AAD + Ciphertext</text>
+<rect x="510.0" y="227.0" width="365.0" height="38.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="692.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">3. Constant-Time порівняння</text>
+<text x="692.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">crypto_verify_16() без timing-витоків</text>
+<rect x="510.0" y="273.0" width="365.0" height="38.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="692.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">4. Невалідно? МИТТЄВИЙ DROP</text>
+<text x="692.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Пам'ять чиста, парсер навіть не викликався</text>
+<rect x="510.0" y="319.0" width="365.0" height="38.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="692.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">5. Валідно? Розшифрування</text>
+<text x="692.0" y="349.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Гарантовано цілісні дані без підробок</text>
+</svg>
