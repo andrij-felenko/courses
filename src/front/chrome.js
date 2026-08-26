@@ -196,7 +196,13 @@
   function schedule() {
     if (queued) return;
     queued = true;
-    requestAnimationFrame(function () { queued = false; mount(); });
+    var run = function () { queued = false; mount(); };
+    /* У СХОВАНІЙ вкладці requestAnimationFrame не викликають узагалі — сторінка не
+       малює кадрів. Відкрив статтю в фоновій вкладці (середній клік, відновлена
+       сесія) — і шапка лишалася б незібраною, а кнопки на body, доки на неї не
+       глянути. Для схованої сторінки беремо звичайний таймер. */
+    if (document.hidden) setTimeout(run, 0);
+    else requestAnimationFrame(run);
   }
 
   function start() {
