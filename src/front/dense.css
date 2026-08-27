@@ -175,24 +175,34 @@ html[data-density="compact"] .lc-read-track { margin: 0; width: 100%; }
    ДВА яруси: усе, що коротке, стоїть у першому справжньою таблицею, а другий несе
    лише опис. Через це рядок лишається рядком, а не карткою. */
 @media (max-width: 820px) {
+  /* ДВІ ЗОНИ замість однієї смуги: ліворуч читане (назва + опис), праворуч стовпчик
+     чисел. Причина не оздоблення: опис на всю ширину давав ~95 знаків у рядку при
+     комфортних 45–75 — задовга міра, око губить початок наступного рядка. Стовпчик
+     забирає ~11rem і водночас збирає докупи чотири числа, які всі про одне: стан
+     книги. Висоти це не коштує — опис і так тримає два яруси, а стовпчик лише
+     заповнює вертикаль, що досі стояла порожня. */
   html[data-density="compact"] .lib-card {
-    grid-template-columns: 1.2rem minmax(0, 1fr) 8.4rem 5.4rem 6.2rem;
+    grid-template-columns: 1.2rem minmax(0, 1fr) 12rem;
     grid-template-areas:
-      "ico ttl  left right num"
-      "ico desc desc desc desc";
-    align-items: baseline; row-gap: 0.12rem; column-gap: 0.55rem;
-    padding: 0.4rem 0.7rem;
+      "ico ttl  left"
+      ".   desc right"
+      ".   desc num";
+    align-items: baseline; row-gap: 0.2rem; column-gap: 0.9rem;
+    padding: 0.5rem 0.7rem;
   }
-  html[data-density="compact"] .lib-card:hover { padding: 0.4rem 0.7rem; }
+  html[data-density="compact"] .lib-card:hover { padding: 0.5rem 0.7rem; }
   html[data-density="compact"] .lc-ico  { grid-area: ico; align-self: center; }
   html[data-density="compact"] .lc-ttl  { grid-area: ttl; -webkit-line-clamp: 1; }
-  /* min-height під два рядки: інакше книга з коротким описом дає нижчий рядок,
-     і список знову йде сходинками. Таблиця має однакові рядки. */
   html[data-density="compact"] .lc-desc { grid-area: desc; -webkit-line-clamp: 2; min-height: 2.6em; }
-  html[data-density="compact"] .lc-left { grid-area: left; text-align: right; }
+  /* Стовпчик правий: усі три рядки по правому краю, щоб розряди стояли один під одним. */
+  html[data-density="compact"] .lc-left  { grid-area: left;  text-align: right; }
   html[data-density="compact"] .lc-right { grid-area: right; }
   html[data-density="compact"] .lc-read-num { grid-area: num; }
-  html[data-density="compact"] .lc-right i { font-size: 0.54rem; margin-left: 0.22rem; }
+  html[data-density="compact"] .lc-right i { font-size: 0.56rem; margin-left: 0.25rem; }
+  /* Три рядки стовпчика тісніше: саме вони, а не опис, задають висоту рядка. */
+  html[data-density="compact"] .lc-left,
+  html[data-density="compact"] .lc-right,
+  html[data-density="compact"] .lc-read-num { line-height: 1.35; }
 }
 
 @media (max-width: 720px) {
