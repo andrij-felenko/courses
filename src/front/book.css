@@ -1378,7 +1378,7 @@ html[data-libview="one"] .lib-seg { display: none; }
    ════════════════════════════════════════════════════════════════════════ */
 .guide-toc .module-block { margin-bottom: 1.8rem; }
 .guide-chap { margin: 0.4rem 0 1.1rem; }
-.guide-chap-head { display: flex; align-items: baseline; gap: 0.6rem; margin: 0.9rem 0 0.5rem; }
+.guide-chap-head { display: flex; align-items: baseline; gap: 0.55rem; margin: 0.9rem 0 0.45rem; padding: 0 0 0.15rem 1.05rem; }
 .guide-chap-head .gc-num { font-weight: 800; color: #16a34a; font-size: 0.92rem; font-variant-numeric: tabular-nums; }
 .guide-chap-head .gc-ttl { font-weight: 700; font-size: 1.04rem; color: var(--h2-color); }
 /* B★ — НИТКА З ВУЗЛАМИ, РОЗДІЛАМИ Й КОЛОНКАМИ.
@@ -1388,24 +1388,25 @@ html[data-libview="one"] .lib-seg { display: none; }
    поточний. Стан читається з самої нитки, без підписів.
    Розділи течуть у 2–3 колонки, коли екран дозволяє; break-inside тримає розділ цілим. */
 .guide-chapters { columns: 2 380px; column-gap: 2.2rem; }
-.guide-chap { break-inside: avoid; position: relative; margin: 0 0 0.5rem; padding-left: 0.4rem; }
-.guide-chap::before { content: ""; position: absolute; left: 0.4rem; top: 0; bottom: 0; width: 2px; background: var(--border); }
+.guide-chap { break-inside: avoid; margin: 0 0 0.6rem; }
+.guide-chap-head, .guide-steps { border-left: 2px solid var(--border); }
 .guide-steps { list-style: none; margin: 0; padding: 0; border-left: 0; }
 .guide-step { margin: 0; position: relative; }
 .guide-step > a::before, .guide-step.bridge::before {
-  content: ""; position: absolute; left: -0.32rem; top: 0.95em; width: 8px; height: 8px;
-  border-radius: 50%; background: var(--bg); border: 2px solid var(--border); z-index: 1;
+  content: ""; position: absolute; left: -6px; top: 0.82em; width: 10px; height: 10px;
+  box-sizing: border-box; border-radius: 50%; background: var(--bg);
+  border: 2px solid var(--border); z-index: 1;
 }
 .guide-step.read > a::before { background: #16a34a; border-color: #16a34a; }
 .guide-step.soon > a::before, .guide-step.bridge::before { border-style: dotted; }
-.guide-step > a, .guide-step.bridge { display: flex; align-items: baseline; gap: 0.55rem; padding: 0.46rem 0.8rem; text-decoration: none; color: var(--text); }
+.guide-step > a, .guide-step.bridge { display: flex; align-items: baseline; gap: 0.5rem; padding: 0.4rem 0.7rem 0.4rem 1.05rem; text-decoration: none; color: var(--text); }
 .guide-step > a:hover { background: var(--bg-alt); }
 .guide-step.bridge { color: var(--text-muted); font-style: italic; }
-.guide-step .gs-num { font-variant-numeric: tabular-nums; font-size: 0.72rem; color: var(--text-muted); font-weight: 700; min-width: 3.4rem; flex-shrink: 0; }
+.guide-step .gs-num { font-variant-numeric: tabular-nums; font-size: 0.72rem; color: var(--text-muted); font-weight: 700; min-width: 2.6rem; flex-shrink: 0; }
 .guide-step .gs-ico { flex-shrink: 0; }
-.guide-step .gs-ttl { flex: 1; line-height: 1.4; }
+.guide-step .gs-ttl { flex: 1 1 auto; min-width: 0; line-height: 1.35; }
 .guide-step > a:hover .gs-ttl { color: var(--accent); text-decoration: underline; }
-.guide-step .gs-subj { font-size: 0.68rem; color: #16a34a; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 0.06rem 0.5rem; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
+.guide-step .gs-subj { font-size: 0.66rem; color: #16a34a; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 0.06rem 0.5rem; border-radius: 999px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 0 1 auto; min-width: 0; max-width: 9rem; }
 .guide-step.bridge .gs-subj { color: #b45309; background: #fffbeb; border-color: #fde68a; }
 /* Прочитаний крок курсу — як у книгах: ✓ й зелений відтінок */
 .guide-step.read > a { background: color-mix(in srgb, #16a34a 5%, transparent); }

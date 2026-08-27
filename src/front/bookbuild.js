@@ -234,7 +234,9 @@
     }).then(function () {
       badges.forEach(function (e) {
         var n = _nameCache[e.getAttribute("data-book")];
-        if (n) { e.textContent = n; e.title = e.getAttribute("data-book"); }
+        /* Підказка — ПОВНА назва книги: плашка тепер має стелю 9rem і ховає хвіст
+           у три крапки, тож слуг у title став би марним, а назва потрібна. */
+        if (n) { e.textContent = n; e.title = n; }
       });
     }).catch(function () {});
   }
