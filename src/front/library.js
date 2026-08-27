@@ -269,10 +269,8 @@
     var ico = ICON[s.slug] || KIND_ICON[s.kind] || "📘";
     var desc = s.subtitle || DESC[s.slug] || "";
     var W = s.words || {};
-    var complete = s.planned > 0 && s.done === s.planned;
     var pct = s.planned ? Math.round(s.done / s.planned * 100) : 0;
-    var partial = s.done > 0 && !complete;
-    var doneVal = complete ? String(s.planned) : ('<b>' + s.done + '</b> / ' + s.planned);
+    var w = writtenLabel(s.kind, s.done, s.planned);
     var isCourse = s.kind === "course";
 
     return cardShell({
@@ -281,7 +279,7 @@
       left: esc(KIND_GROUPS[s.kind] || cap(W.group || "Групи")) + " " + s.groups +
             (s.chapters ? " · розділів " + s.chapters : "") +
             (isCourse && s.read ? " · прочитано " + s.read : ""),
-      right: complete ? String(s.planned) + " / " + s.planned : s.done + " / " + s.planned
+      right: w.num, rightLbl: w.lbl
     });
   }
 
@@ -294,8 +292,25 @@
      й показані по-різному: одне тлом, друге явною смужкою з числом. */
   function readRow(read, total) {
     var p = total ? Math.round((read || 0) / total * 100) : 0;
+    /* Усе прочитано — дріб не потрібен: «145 / 145» не каже нічого понад «145».
+       Дріб має сенс лише доти, доки чисельник відрізняється від знаменника. */
+    var done = total > 0 && (read || 0) >= total;
+    var num = done ? String(total) : ((read || 0) + ' / ' + total);
     return '<div class="lc-read"><span class="lc-read-track"><i style="width:' + p + '%"></i></span>' +
-      '<span class="lc-read-num">' + (read || 0) + ' / ' + total + ' прочитано</span></div>';
+      '<span class="lc-read-num">' + num + ' прочитано</span></div>';
+  }
+
+  /* Підпис лічильника написаного. Доки написано не все — це дріб і слово «написано».
+     Коли написано все, цікаве вже не «скільки з чого», а СКІЛЬКИ ВСЬОГО, тож дріб
+     згортається в число, а підпис називає саму одиницю: «145 тем», «215 кроків». */
+  var KIND_UNIT = {
+    course: ["крок", "кроки", "кроків"],
+    cat: ["позиція", "позиції", "позицій"],
+  };
+  function writtenLabel(kind, done, planned) {
+    if (!(planned > 0 && done >= planned)) return { num: done + " / " + planned, lbl: "написано" };
+    var u = KIND_UNIT[kind] || ["тема", "теми", "тем"];
+    return { num: String(planned), lbl: plural(planned, u[0], u[1], u[2]) };
   }
 
   function cardShell(o) {
@@ -306,7 +321,7 @@
       '<span class="lc-ico" aria-hidden="true">' + o.ico + '</span></div>' +
       '<p class="lc-desc">' + esc(o.desc || "") + '</p>' +
       '<div class="lc-foot"><span class="lc-left">' + o.left + '</span>' +
-      '<span class="lc-right">' + o.right + '<i>написано</i></span></div>' +
+      '<span class="lc-right">' + o.right + '<i>' + esc(o.rightLbl || "написано") + '</i></span></div>' +
       readRow(o.read, o.total) + '</a>';
   }
 
@@ -327,14 +342,14 @@
     var accent = ACCENT[st.slug] || KIND_ACCENT[kind] || "#1d6fa4";
     var ico = ICON[st.slug] || "📚";
     var desc = st.asks ? cap(st.asks) : (DESC[st.slug] || "");
-    var complete = st.planned > 0 && st.done === st.planned;
     var pct = st.planned ? Math.round(st.done / st.planned * 100) : 0;
+    var w = writtenLabel(kind, st.done, st.planned);
 
     return cardShell({
       href: "#" + esc(kind) + "/" + esc(st.slug), accent: accent, ico: ico, kind: kind, title: st.title, desc: DESC[st.slug] || cap(st.asks || ""), pct: pct,
       read: st.read, total: st.planned,
       left: "книг " + st.books + (st.chapters ? " · розділів " + st.chapters : ""),
-      right: (complete ? String(st.planned) : st.done) + " / " + st.planned
+      right: w.num, rightLbl: w.lbl
     });
   }
 
@@ -375,6 +390,7 @@
   function tile(s) {
     var planned = 0, done = 0, read = 0;
     s.items.forEach(function (x) { planned += x.planned; done += x.done; read += x.read; });
+    var w = writtenLabel(s.kind, done, planned);
     return cardShell({
       href: "#" + esc(s.kind), accent: KIND_ACCENT[s.kind] || "#1d6fa4",
       ico: KIND_ICON[s.kind] || "📘", kind: s.kind,
@@ -382,7 +398,7 @@
       pct: planned ? Math.round(done / planned * 100) : 0,
       read: read, total: planned,
       left: s.items.length + " " + plural(s.items.length, "книга", "книги", "книг"),
-      right: done + " / " + planned
+      right: w.num, rightLbl: w.lbl
     });
   }
 
