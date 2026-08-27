@@ -1257,7 +1257,32 @@ html[data-libview="one"] .lib-seg { display: none; }
 .lib-crumb:hover { color: var(--accent); text-decoration: underline; }
 .lib-crumb.is-here { color: var(--text); font-weight: 800; }
 .lib-crumb-sep { color: var(--border); }
-.lib-hero-sub { padding-top: 0.5rem; }
+/* ── Шапка полиці й збірки — НЕ плита ────────────────────────────────────────
+   Темний градієнт лишається тільки на головній, де герой доречний. На полиці він
+   був шкідливий одразу з трьох причин: (1) 250px під три короткі рядки, (2) назва
+   полиці дублює крихти згори, (3) кольори в ньому зашиті (#09192e…#1d4e8a), тож
+   він однаковий для всіх полиць і глухий до теми. Числа й перемикач, під які
+   плиту й малювали, з розмітки давно зникли — лишилась сама плита.
+   Тепер це заголовок: колір бере від полиці (--accent), тримається на смужці
+   ліворуч, і показує числа замість того, щоб їх ховати. */
+.lib-hero-sub {
+  background: none; color: inherit;
+  padding: 1.1rem 1.5rem 0.95rem;
+  border-bottom: 1px solid var(--border);
+}
+.lib-hero-sub .lib-wrap {
+  max-width: 1060px; margin: 0 auto;
+  border-left: 3px solid var(--accent, #1d6fa4); padding-left: 0.9rem;
+}
+.lib-hero-sub .kicker {
+  color: var(--accent, #1d6fa4); margin-bottom: 0.22rem;
+  font-size: 0.64rem; letter-spacing: 0.18em;
+}
+.lib-hero-sub h1 {
+  font-size: 1.35rem; font-weight: 800; color: var(--text);
+  margin-bottom: 0.22rem; letter-spacing: -0.01em;
+}
+.lib-hero-sub p { font-size: 0.8rem; color: var(--muted); max-width: 70ch; }
 .lib-subhead { margin: 1.2rem 0 0.6rem; font-weight: 800; font-size: 0.95rem; color: var(--muted); letter-spacing: 0.02em; }
 
 /* Картка НАДКНИГИ (збірки книг) — та сама плитка, але з «стосом» під обкладинкою:

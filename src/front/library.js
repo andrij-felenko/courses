@@ -426,16 +426,23 @@
       '<div class="lib-shelf lib-shelf-home">' + SHELVES.map(tile).join("") + '</div>';
   }
   function viewShelf(s) {
-    return '<header class="lib-hero lib-hero-sub"><div class="lib-wrap"><div class="kicker">' + esc(s.shelf) + '</div>' +
+    /* Шапка полиці НЕСЕ ЇЇ КОЛІР (--accent) і її числа. Доти вона була темною плитою
+       з зашитими відтінками: однакова для всіх полиць, глуха до теми, і показувала
+       саму лише фразу — числа й перемикач, під які її й малювали, з розмітки зникли. */
+    var pl = 0, dn = 0;
+    s.items.forEach(function (x) { pl += x.planned; dn += x.done; });
+    var w = writtenLabel(s.kind, dn, pl);
+    return '<header class="lib-hero lib-hero-sub" style="--accent:' + (KIND_ACCENT[s.kind] || "#1d6fa4") + '"><div class="lib-wrap"><div class="kicker">' + esc(s.shelf) + '</div>' +
       '<h1>' + esc(cap(s.asks || s.shelf)) + '</h1>' +
       '<p>' + s.items.length + ' ' + plural(s.items.length, "книга", "книги", "книг") +
-      (s.groups.length ? ' · ' + s.groups.length + ' ' + plural(s.groups.length, "збірка", "збірки", "збірок") : "") + '</p></div></header>' +
+      (s.groups.length ? ' · ' + s.groups.length + ' ' + plural(s.groups.length, "збірка", "збірки", "збірок") : "") +
+      (pl ? ' · ' + w.num + ' ' + w.lbl : "") + '</p></div></header>' +
       (s.items.length
         ? grid(s.kind, s.groups.map(function (g) { return groupCard(s.kind, g); }).join("") + s.loose.map(card).join(""))
         : empty());
   }
   function viewGroup(s, g) {
-    return '<header class="lib-hero lib-hero-sub"><div class="lib-wrap"><div class="kicker">' + esc(s.shelf) + ' · збірка</div>' +
+    return '<header class="lib-hero lib-hero-sub" style="--accent:' + (KIND_ACCENT[s.kind] || "#1d6fa4") + '"><div class="lib-wrap"><div class="kicker">' + esc(s.shelf) + ' · збірка</div>' +
       '<h1>' + esc(g.title) + '</h1>' +
       '<p>' + g.items.length + ' ' + plural(g.items.length, "книга", "книги", "книг") +
       (g.asks ? ' · ' + esc(g.asks) : "") + '</p></div></header>' +
