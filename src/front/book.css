@@ -725,18 +725,27 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
 /* ════════════════════════════════════════════════════════════════════════
    COVER / TABLE OF CONTENTS (домашня сторінка)
    ════════════════════════════════════════════════════════════════════════ */
+/* ── Обкладинка книги/курсу — НЕ плита ───────────────────────────────────────
+   Було: темний градієнт із зашитими відтінками, 4.5rem відступу згори й заголовок
+   на 2.6rem — разом понад 500px до першого рядка змісту. Назва книги при цьому
+   вже стоїть у липкій шапці над нею, тобто дублювалася. Кольори зашиті (#09192e,
+   #a7cae0, #5f93b5), тож обкладинка однакова для всіх 66 книг і глуха до теми.
+   Тепер це вступ на тлі сторінки: колір бере від книги (--accent), тримається на
+   смужці ліворуч, числа лишаються, бо вони корисні — лише перестають бути банером. */
 .cover-hero {
-  background: linear-gradient(135deg, #09192e 0%, #0f2744 45%, #1d4e8a 100%);
-  color: #fff; padding: 4.5rem 4rem 4rem;
+  background: none; color: inherit;
+  padding: 1.5rem 2rem 1.3rem;
+  border-bottom: 1px solid var(--border);
 }
-/* Лендинг курсу: заголовок винесено в липку .ch-header угорі, тож у геро — менший верхній відступ */
-.cover-hero.cover-hero-guide { padding-top: 2.2rem; }
-.cover-hero .kicker { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #60a5c8; margin-bottom: 1rem; }
-.cover-hero h1 { font-size: 2.6rem; font-weight: 900; line-height: 1.15; max-width: 16ch; margin-bottom: 1.25rem; }
-.cover-hero p { font-size: 1.06rem; line-height: 1.8; color: #a7cae0; max-width: 60ch; }
-.cover-stats { display: flex; flex-wrap: wrap; gap: 2.2rem; margin-top: 2.2rem; }
-.cover-stats .stat .num { font-size: 1.8rem; font-weight: 900; color: #fff; }
-.cover-stats .stat .lbl { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: #5f93b5; }
+.cover-hero > * { border-left: 3px solid var(--accent, #1d6fa4); padding-left: 1rem; }
+.cover-hero.cover-hero-guide { padding-top: 1.5rem; }
+.cover-hero .kicker { font-size: 0.64rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent, #1d6fa4); margin-bottom: 0.3rem; }
+.cover-hero h1 { font-size: 1.6rem; font-weight: 800; line-height: 1.2; max-width: 24ch; margin-bottom: 0.45rem; color: var(--text); }
+.cover-hero p { font-size: 0.92rem; line-height: 1.6; color: var(--muted); max-width: 68ch; margin: 0; }
+/* Числа — рядок фактів, а не табло: розмір їм дає вага, не кегль. */
+.cover-stats { display: flex; flex-wrap: wrap; gap: 1.4rem; margin-top: 0.9rem; }
+.cover-stats .stat .num { font-size: 1.05rem; font-weight: 800; color: var(--text); font-variant-numeric: tabular-nums; }
+.cover-stats .stat .lbl { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
 
 .toc { max-width: 1040px; margin: 0 auto; padding: 1.5rem 4rem 3rem; }
 
@@ -1360,7 +1369,7 @@ html[data-libview="one"] .lib-seg { display: none; }
 .guide-step.soon .gs-ttl { color: var(--text-muted); }
 .guide-step.soon > a:hover { background: var(--bg-alt); opacity: 0.85; }
 .guide-step.soon > a:hover .gs-ttl { color: var(--text); text-decoration: none; }
-.cover-stats .stat-written .stat-of { color: rgba(255,255,255,0.4); font-weight: 400; }
+.cover-stats .stat-written .stat-of { color: var(--muted); font-weight: 400; }
 .sb-link.soon { opacity: 0.5; cursor: default; }
 .sb-link.sb-mod { margin-top: 0.7rem; font-weight: 800; color: #cfe0ee; }
 .sb-link.sb-subchap { font-size: 0.82rem; padding-left: 1.5rem; }

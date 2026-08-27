@@ -55,79 +55,13 @@
   /* Колір книги — приглушений відтінок за змістом: тепло в термодинаміці, крига
      в конденсованій, зелень у платі, бурштин у каталозі. Насиченість навмисно
      низька: тло картки бере лише 9% цього кольору, тож полиця не рябить. */
-  var ACCENT = {
-    "physics": "#6a5aa0",
-    "math": "#3f6ba0",
-    "plang": "#5f6b8f",
-    "ph-mechanics": "#5b6f8f",
-    "ph-electromagnetism": "#6a5aa0",
-    "ph-thermodynamics": "#b06a4a",
-    "ph-waves": "#3f8fa0",
-    "ph-quantum": "#7a5fa8",
-    "ph-condensed": "#4f7f9a",
-    "math-algebra": "#3f6ba0",
-    "math-analysis": "#4a7fb0",
-    "math-geometry": "#4f8f86",
-    "math-number-theory": "#3a6098",
-    "math-combinatorics": "#7a6aa8",
-    "math-probability": "#6a8f5f",
-    "math-logic": "#5f6b8f",
-    "math-information": "#4a8296",
-    "math-numeric": "#6f7f9a",
-    "computability": "#8a6a9a",
-    "sf-apps": "#a56a52",
-    "sf-algorithms": "#8f6a9a",
-    "sf-data": "#6a7f9a",
-    "sf-devices": "#9a7a4f",
-    "sf-distributed": "#4f8296",
-    "sf-lang": "#8a6a7a",
-    "sf-ml": "#7a6f9f",
-    "sf-os": "#6b7280",
-    "sf-release": "#a5734f",
-    "sf-security": "#8f5f5f",
-    "sf-tasks": "#5f8f8a",
-    "sf-visual": "#b06a7a",
-    "sf-web": "#4f86a5",
-    "basic-chemistry": "#3f9a8a",
-    "embedded": "#c1683f",
-    "embedded-ultra": "#a8492f",
-    "progarch": "#5a6b9c",
-    "unix": "#3d8a6b",
-    "hw-analog": "#6f8f5f",
-    "hw-arch": "#5f7a8f",
-    "hw-components": "#8a7355",
-    "hw-digital": "#4f8f7a",
-    "hw-motion": "#8f6a4f",
-    "hw-pcb": "#4f8a5f",
-    "hw-power": "#b0653f",
-    "hw-sensing": "#a5853f",
-    "sys-unix": "#4a6070",
-    "sys-plang-cpp": "#6b4f8a",
-    "sys-plang-python": "#4a7a9c",
-    "sys-dron": "#7a5f8f",
-    "sys-bsystem": "#8a6a3f",
-    "sys-ide": "#5f6f8a",
-    "sys-media": "#3f8a7a",
-    "sys-notary": "#7a6a5f",
-    "sys-fw": "#6a7a5f",
-    "cat-hw-sensors": "#b08a3f",
-    "cat-hw-actuators": "#9a6a4f",
-    "cat-hw-boards": "#6f8a4f",
-    "cat-hw-parts": "#8a7355",
-    "cat-hw-connect": "#4f8296",
-    "cat-hw-power": "#b0563f",
-    "cat-hw-controls": "#8f6a8a",
-    "cat-hw-instruments": "#3f8a76",
-    "cat-hw-drivers": "#a5643f",
-    "com-signal": "#4a7f9a",
-    "com-devices": "#5f7a8f",
-    "com-transport": "#4f8a86",
-    "com-modulation": "#6a6f9f",
-    "com-medium": "#3f8296",
-    "com-protocol": "#7a6a9a"
-  };
+  /* Палітра — СПІЛЬНА, живе в bookbuild.js (він вантажиться першим і на обох
+     сторінках). Тут лише беремо її: дві копії неминуче розходяться, і саме так
+     курс був зелений у бібліотеці й синій у читачі. Запасні — на випадок, якщо
+     bookbuild чомусь не завантажився.  */
+  var ACCENT = (window.__PALETTE || {}).ACCENT || {};
   var KIND_ICON = { sci: "📚", eng: "🛠️", course: "🎓", hw: "🗂️", sys: "📗", cat: "🏷️", com: "📡" };
-  var KIND_ACCENT = { sci: "#3a6b9c", eng: "#b06a5a", course: "#16a34a", hw: "#5b6b7c", sys: "#4a6070", cat: "#8a6a3f", com: "#4a8296" };
+  var KIND_ACCENT = (window.__PALETTE || {}).KIND_ACCENT || { sci: "#3a6b9c", eng: "#b06a5a", course: "#16a34a", hw: "#5b6b7c", sys: "#4a6070", cat: "#8a6a3f", com: "#4a8296" };
   var KIND_CTA = { course: "Пройти →", hw: "Відкрити →", sys: "Відкрити →", cat: "Гортати →", com: "Читати →" };
   /* Підпис лічильника груп — множина від words.group (українська множина неправильна,
      тож тримаємо готові форми, а не доклеюємо закінчення). */

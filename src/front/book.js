@@ -1128,7 +1128,7 @@
     var live = BOOK.modules.filter(function (m) { return m.chapters.length; });
     var h = '<header class="ch-header ch-header-guide"><div class="ch-label">' +
       (BOOK.type === "reference" ? "Довідник · технологія за розділами" : "Книга · теорія за галузями") + '</div><h1>' + escapeHtml(BOOK.title) + '</h1></header>' +
-      '<header class="cover-hero cover-hero-guide">' + (BOOK.subtitle ? "<p>" + escapeHtml(BOOK.subtitle) + "</p>" : "") +
+      '<header class="cover-hero cover-hero-guide" style="--accent:' + (BOOK.accent || "#1d6fa4") + '">' + (BOOK.subtitle ? "<p>" + escapeHtml(BOOK.subtitle) + "</p>" : "") +
       '<div class="cover-stats">' + stat(live.length, "галузей") + stat(readable, "статей") + (fullCount ? stat(fullCount, "повних") : "") +
       "</div></header>" + mapToolbar(true) + '<div class="toc' + (NAV.view === "grid" ? " map-grid" : "") + '">';
     live.forEach(function (m) {
@@ -1172,7 +1172,7 @@
   function coverHtml(topics) {
     var doneCount = FLAT.filter(chReadable).length;
     var h = '<header class="ch-header ch-header-guide"><div class="ch-label">' + (BOOK.type === "catalog" ? "Каталог · довідник заліза" : "Курс · " + BOOK.modules.length + " модулів") + '</div><h1>' + escapeHtml(BOOK.title) + '</h1></header>' +
-      '<header class="cover-hero cover-hero-guide"><p>' + escapeHtml(BOOK.subtitle) + "</p>" +
+      '<header class="cover-hero cover-hero-guide" style="--accent:' + (BOOK.accent || "#1d6fa4") + '"><p>' + escapeHtml(BOOK.subtitle) + "</p>" +
       '<div class="cover-stats">' +
       stat(BOOK.modules.length, "модулів") + stat(FLAT.length, "розділів") + stat(doneCount, "готових зараз") +
       "</div></header>";

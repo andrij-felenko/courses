@@ -43,12 +43,84 @@
      (три останні лише позначаються чернеткою). pending/empty — тексту нема. */
   function _written(s) { return s === "done" || s === "update" || s === "deeper" || s === "recheck"; }
 
+  /* ЄДИНА палітра корпусу. Живе тут, бо bookbuild.js вантажать ОБИДВІ сторінки —
+     і бібліотека, і читач, — і вантажать його ПЕРШИМ. library.js бере її звідси.
+     Доти тут лежала власна копія зі слугами СТАРОГО дерева (physics, electronics,
+     unix-linux…): жодного з них не існує, тож усі 66 книг падали в запасний колір,
+     а сам запасний ще й розходився з бібліотекою — курс там зелений, тут синій. */
   var ACCENT = {
-    physics: "#6b5b95", math: "#3a6b9c", chemistry: "#3a8f80", electronics: "#b06a5a",
-    programming: "#5a5f9c", communications: "#4a8296", algorithms: "#a5648a", philosophy: "#9a7b4f",
-    "unix-linux": "#3f6b8a", "cpp-standards": "#6b4f8a", "build-systems": "#8a6a3f"
+    "physics": "#6a5aa0",
+    "math": "#3f6ba0",
+    "plang": "#5f6b8f",
+    "ph-mechanics": "#5b6f8f",
+    "ph-electromagnetism": "#6a5aa0",
+    "ph-thermodynamics": "#b06a4a",
+    "ph-waves": "#3f8fa0",
+    "ph-quantum": "#7a5fa8",
+    "ph-condensed": "#4f7f9a",
+    "math-algebra": "#3f6ba0",
+    "math-analysis": "#4a7fb0",
+    "math-geometry": "#4f8f86",
+    "math-number-theory": "#3a6098",
+    "math-combinatorics": "#7a6aa8",
+    "math-probability": "#6a8f5f",
+    "math-logic": "#5f6b8f",
+    "math-information": "#4a8296",
+    "math-numeric": "#6f7f9a",
+    "computability": "#8a6a9a",
+    "sf-apps": "#a56a52",
+    "sf-algorithms": "#8f6a9a",
+    "sf-data": "#6a7f9a",
+    "sf-devices": "#9a7a4f",
+    "sf-distributed": "#4f8296",
+    "sf-lang": "#8a6a7a",
+    "sf-ml": "#7a6f9f",
+    "sf-os": "#6b7280",
+    "sf-release": "#a5734f",
+    "sf-security": "#8f5f5f",
+    "sf-tasks": "#5f8f8a",
+    "sf-visual": "#b06a7a",
+    "sf-web": "#4f86a5",
+    "basic-chemistry": "#3f9a8a",
+    "embedded": "#c1683f",
+    "embedded-ultra": "#a8492f",
+    "progarch": "#5a6b9c",
+    "unix": "#3d8a6b",
+    "hw-analog": "#6f8f5f",
+    "hw-arch": "#5f7a8f",
+    "hw-components": "#8a7355",
+    "hw-digital": "#4f8f7a",
+    "hw-motion": "#8f6a4f",
+    "hw-pcb": "#4f8a5f",
+    "hw-power": "#b0653f",
+    "hw-sensing": "#a5853f",
+    "sys-unix": "#4a6070",
+    "sys-plang-cpp": "#6b4f8a",
+    "sys-plang-python": "#4a7a9c",
+    "sys-dron": "#7a5f8f",
+    "sys-bsystem": "#8a6a3f",
+    "sys-ide": "#5f6f8a",
+    "sys-media": "#3f8a7a",
+    "sys-notary": "#7a6a5f",
+    "sys-fw": "#6a7a5f",
+    "cat-hw-sensors": "#b08a3f",
+    "cat-hw-actuators": "#9a6a4f",
+    "cat-hw-boards": "#6f8a4f",
+    "cat-hw-parts": "#8a7355",
+    "cat-hw-connect": "#4f8296",
+    "cat-hw-power": "#b0563f",
+    "cat-hw-controls": "#8f6a8a",
+    "cat-hw-instruments": "#3f8a76",
+    "cat-hw-drivers": "#a5643f",
+    "com-signal": "#4a7f9a",
+    "com-devices": "#5f7a8f",
+    "com-transport": "#4f8a86",
+    "com-modulation": "#6a6f9f",
+    "com-medium": "#3f8296",
+    "com-protocol": "#7a6a9a"
   };
-  var KIND_ACCENT = { sci: "#3a6b9c", eng: "#b06a5a", course: "#1d6fa4", hw: "#16a34a", sys: "#6b4f8a" };
+  var KIND_ACCENT = { sci: "#3a6b9c", eng: "#b06a5a", course: "#16a34a", hw: "#5b6b7c", sys: "#4a6070", cat: "#8a6a3f", com: "#4a8296" };
+  window.__PALETTE = { ACCENT: ACCENT, KIND_ACCENT: KIND_ACCENT };   // спільна палітра — її читає library.js
   /* Родовий відмінок від words.book — для підпису «стаття <чого>». Українська відміна
      неправильна, тож тримаємо готові форми, а не доклеюємо закінчення. */
   var KIND_OF = { sci: "науки", eng: "напрямку", course: "курсу", hw: "класу", sys: "системи" };
@@ -282,7 +354,7 @@
       }
 
       var h = '<header class="ch-header ch-header-guide"><div class="ch-label">' + _esc(b.shelf || "Курс") + ' · доріжка крізь книги</div><h1>' + _esc(b.title) + '</h1></header>' +
-        '<header class="cover-hero cover-hero-guide">' +
+        '<header class="cover-hero cover-hero-guide" style="--accent:' + (b.accent || ACCENT[b.bookSlug] || KIND_ACCENT[b.kind] || "#1d6fa4") + '">' +
         '<p>' + _esc(b.subtitle || "Кожен крок — або тема предметної книги, або власна стаття курсу, що спирається на пройдене.") + '</p>' +
         '<div class="cover-stats"><div class="stat"><div class="num">' + mods.length + '</div><div class="lbl">' + _esc((W.group || "том") + "ів") + '</div></div>' +
         (hasChap ? '<div class="stat"><div class="num">' + nChap + '</div><div class="lbl">розділів</div></div>' : '') +
