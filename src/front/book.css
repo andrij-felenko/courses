@@ -838,18 +838,36 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
 .module-block.collapsed .module-head { margin-bottom: 0; border-bottom-color: transparent; }
 
 /* Плитка (grid): теми як картки, назва в 1–2 рядки */
-.toc.map-grid .ch-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 0.35rem; align-items: stretch; }
-.toc.map-grid .ch-row { height: 100%; align-items: stretch; padding: 0.4rem 0.6rem; }
+/* КОЛОНКОВИЙ ПОТІК, не сітка рядків. Доти тут стояв grid із align-items: stretch,
+   тобто КОЖНА плитка була заввишки як найвища в її рядку: назва на одне слово діставала
+   коробку під три рядки, а кінець групи добивався сірими затичками. Через це сторінка
+   й читалася важко — око шукало текст у порожнечі.
+   У колонковому потоці тема бере рівно свою висоту, порожніх клітинок не буває взагалі,
+   а читається все згори вниз, як покажчик. */
+.toc.map-grid .ch-list {
+  display: block; columns: 4 210px; column-gap: 0.5rem; gap: 0;
+}
+.toc.map-grid .ch-item { break-inside: avoid; margin: 0 0 0.34rem; }
+.toc.map-grid .ch-row { align-items: baseline; padding: 0.34rem 0.6rem; }
 .toc.map-grid .ch-open { flex-direction: column; align-items: flex-start; gap: 0; }
 .toc.map-grid .ch-open .c-go { display: none; }   /* «→» у плитці лише додавав рядок висоти */
-.toc.map-grid .ch-open .c-ttl { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }   /* 2 рядки різали 258 назв із 534, 3 рядки — 45; ціна 2300px на 14000 */
+/* Затиск знято: висота тепер вільна, тож різати назву нема потреби. */
+.toc.map-grid .ch-open .c-ttl { display: block; }   /* 2 рядки різали 258 назв із 534, 3 рядки — 45; ціна 2300px на 14000 */
 .toc.map-grid .ch-open .c-go { margin-left: 0; margin-top: auto; }
 .toc.map-grid .ch-item.pending .ch-row { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
 .toc.map-grid .module-block.collapsed .ch-list { display: none; }   /* згорнуте ховаємо й у плитці */
 
 /* Прочитана тема в мапі — трохи зеленіша + ✓ */
-.ch-item.done.read { border-color: color-mix(in srgb, #16a34a 42%, var(--border)); background: color-mix(in srgb, #16a34a 6%, var(--bg)); }
-.ch-item.done.read .c-ttl::after { content: " ✓"; color: #16a34a; font-weight: 800; font-size: 0.82em; }
+/* ПРОЧИТАНЕ. Було: зелена рамка ПЛЮС зелене тло ПЛЮС галочка — три сигнали на один
+   факт. Коли прочитано пів книги, сторінка від цього рябіє й читати її важче, а не легше.
+   Лишаємо один сигнал і тихий: галочка перед назвою, сама назва трохи відступає в тінь.
+   Прочитане має ВІДХОДИТИ, щоб непрочитане виступало — це ж і є те, що читач шукає. */
+.ch-item.done.read { border-color: var(--border); background: var(--bg); }
+.ch-item.done.read .c-ttl { color: var(--text-muted); font-weight: 500; }
+.ch-item.done.read .c-ttl::before {
+  content: "✓"; color: #16a34a; font-weight: 700; font-size: 0.8em;
+  margin-right: 0.35em; opacity: 0.85;
+}
 .read-sentinel { display: block; height: 1px; }
 
 @media (max-width: 720px) {
