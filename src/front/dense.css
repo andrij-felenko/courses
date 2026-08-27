@@ -95,6 +95,10 @@ html[data-density="compact"] .lib-card {
 html[data-density="compact"] .lib-card:last-child { border-bottom: 0; }
 /* Наведення не рухає рядок: у щільному списку зсув на 4px читається як стрибок. */
 html[data-density="compact"] .lib-card:hover {
+  /* ⚠️ transform ОБОВʼЯЗКОВО: у базі ДВА правила ховера, і перше піднімає картку
+     на translateY(-4px). Скасувати лише margin/padding мало — рядок усе одно
+     підстрибує разом із текстом, а в щільному списку це читається як смикання. */
+  transform: none;
   margin: 0; padding: 0.34rem 0.8rem;
   box-shadow: none; background: var(--accent-light); border-color: var(--border);
   border-left-color: var(--accent);
@@ -106,10 +110,20 @@ html[data-density="compact"] .lc-head,
 html[data-density="compact"] .lc-foot,
 html[data-density="compact"] .lc-read { display: contents; }
 
-/* Заливки прогресу в рядку НЕМА взагалі. Ні блоком (рябіло), ні волосінню по низу
-   (читалася як випадкова риска різної довжини під кожним рядком — див. знімок). У
-   щільному режимі стан кажуть ЧИСЛА, а колір книги несе ліва смужка. */
-html[data-density="compact"] .lc-fill { display: none; }
+/* Заливка «скільки написано» — на місці й кольорова: саме вона дає полиці впізнаване
+   лице, і читається периферійним зором швидше за будь-яке число. Але не пласким блоком:
+   градієнт від насиченого краю до майже прозорого дає глибину, а чітка МЕЖА праворуч
+   робить із випадкової плями шкалу — видно, доки саме дійшло. */
+html[data-density="compact"] .lc-fill {
+  display: block; inset: 0 auto 0 0; width: calc(var(--p, 0) * 1%);
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--accent) 30%, transparent) 0%,
+    color-mix(in srgb, var(--accent) 13%, transparent) 70%,
+    color-mix(in srgb, var(--accent) 9%, transparent) 100%);
+  border-right: 1px solid color-mix(in srgb, var(--accent) 42%, transparent);
+}
+/* Сто відсотків — межі немає: книга дописана, шкалі нема куди йти. */
+html[data-density="compact"] .lib-card[style*="--p:100"] .lc-fill { border-right: 0; }
 
 /* Знак — ГОЛИЙ значок, без коробки. У базовій картці це плитка 2.3rem із рамкою,
    радіусом і тінню; у рядку таблиці саме вона тримала висоту (37px при тексті 17px)
