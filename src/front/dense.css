@@ -106,15 +106,20 @@ html[data-density="compact"] .lc-head,
 html[data-density="compact"] .lc-foot,
 html[data-density="compact"] .lc-read { display: contents; }
 
-/* Заливка «скільки написано» в рядку перетворюється на волосінь по низу: стан
-   так само видно периферійним зором, але рядки більше не рябіють блоками різної
-   ширини — саме вони й робили полицю строкатою. */
-html[data-density="compact"] .lc-fill {
-  inset: auto auto 0 0; height: 2px; width: calc(var(--p, 0) * 1%);
-  background: color-mix(in srgb, var(--accent) 60%, transparent);
-}
+/* Заливки прогресу в рядку НЕМА взагалі. Ні блоком (рябіло), ні волосінню по низу
+   (читалася як випадкова риска різної довжини під кожним рядком — див. знімок). У
+   щільному режимі стан кажуть ЧИСЛА, а колір книги несе ліва смужка. */
+html[data-density="compact"] .lc-fill { display: none; }
 
-html[data-density="compact"] .lc-ico { order: -1; margin: 0; font-size: 1rem; line-height: 1; }
+/* Знак — ГОЛИЙ значок, без коробки. У базовій картці це плитка 2.3rem із рамкою,
+   радіусом і тінню; у рядку таблиці саме вона тримала висоту (37px при тексті 17px)
+   і роздувала КОЖЕН рядок в обох гілках. Тут доречний сам гліф. */
+html[data-density="compact"] .lc-ico {
+  order: -1; margin: 0; padding: 0;
+  width: auto; height: auto; font-size: 0.95rem; line-height: 1.2;
+  background: none; border: 0; border-radius: 0; box-shadow: none;
+}
+html[data-density="compact"] .lc-right { line-height: 1.25; }
 html[data-density="compact"] .lc-ttl {
   /* Назва переноситься, а не ріжеться: «Коливання, хвилі й світло» в один рядок
      не влазить, і обрізати її трьома крапками — це втратити дані заради розкладки. */
@@ -134,7 +139,9 @@ html[data-density="compact"] .lc-read-num {
   text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap;
 }
 html[data-density="compact"] .lc-right { font-size: 0.78rem; font-weight: 700; }
-html[data-density="compact"] .lc-right i { display: block; margin: 0; font-size: 0.62rem; font-weight: 500; }
+/* Підпис у рядок із числом: блоком він давав другий рядок і роздував ярус із 17px
+   до 39px — на вузькому екрані це третина висоти рядка ні за що. */
+html[data-density="compact"] .lc-right i { display: inline; margin-left: 0.3rem; font-size: 0.58rem; font-weight: 500; }
 html[data-density="compact"] .lc-read-num { font-size: 0.68rem; }
 html[data-density="compact"] .lc-read-track { margin: 0; width: 100%; }
 
@@ -149,25 +156,29 @@ html[data-density="compact"] .lc-read-track { margin: 0; width: 100%; }
   /* Колонка опису вужча — даємо третій рядок замість трьох крапок. */
   html[data-density="compact"] .lc-desc { -webkit-line-clamp: 3; }
 }
-/* Під 820px сім колонок в один рядок чесно не стають. Складаємо рядок у три
-   яруси — АРЕАМИ, не самоукладанням: воно розкидало клітинки по шести рядках
-   і роздувало висоту до 145px. Ховаємо лише смужку прогресу — вона декоративна. */
+/* Під 820px сім колонок в один рядок не стають. Але й розсипати рядок на три
+   яруси не можна — саме так він виріс до 108px, тобто вдвічі проти широкого. Тож
+   ДВА яруси: усе, що коротке, стоїть у першому справжньою таблицею, а другий несе
+   лише опис. Через це рядок лишається рядком, а не карткою. */
 @media (max-width: 820px) {
   html[data-density="compact"] .lib-card {
-    grid-template-columns: 1.4rem minmax(0, 1fr) 5.6rem 6rem;
+    grid-template-columns: 1.2rem minmax(0, 1fr) 8.4rem 5.4rem 6.2rem;
     grid-template-areas:
-      "ico  ttl   right right"
-      ".    desc  desc  desc"
-      ".    left  num   num";
-    row-gap: 0.1rem; padding: 0.45rem 0.8rem;
+      "ico ttl  left right num"
+      "ico desc desc desc desc";
+    align-items: baseline; row-gap: 0.12rem; column-gap: 0.55rem;
+    padding: 0.4rem 0.7rem;
   }
-  html[data-density="compact"] .lib-card:hover { padding: 0.45rem 0.8rem; }
-  html[data-density="compact"] .lc-ico  { grid-area: ico; align-self: start; }
-  html[data-density="compact"] .lc-ttl  { grid-area: ttl; }
-  html[data-density="compact"] .lc-desc { grid-area: desc; }
-  html[data-density="compact"] .lc-left { grid-area: left; }
+  html[data-density="compact"] .lib-card:hover { padding: 0.4rem 0.7rem; }
+  html[data-density="compact"] .lc-ico  { grid-area: ico; align-self: center; }
+  html[data-density="compact"] .lc-ttl  { grid-area: ttl; -webkit-line-clamp: 1; }
+  /* min-height під два рядки: інакше книга з коротким описом дає нижчий рядок,
+     і список знову йде сходинками. Таблиця має однакові рядки. */
+  html[data-density="compact"] .lc-desc { grid-area: desc; -webkit-line-clamp: 2; min-height: 2.6em; }
+  html[data-density="compact"] .lc-left { grid-area: left; text-align: right; }
   html[data-density="compact"] .lc-right { grid-area: right; }
   html[data-density="compact"] .lc-read-num { grid-area: num; }
+  html[data-density="compact"] .lc-right i { font-size: 0.54rem; margin-left: 0.22rem; }
 }
 
 @media (max-width: 720px) {
