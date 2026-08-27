@@ -379,15 +379,18 @@
         shown.forEach(function (x) {
           var m = x.m, mn = x.i + 1;
           h += '<div class="module-block" id="gm-' + mn + '"><div class="module-head"><span class="m-num">' +
-            _esc(cap(W.group || "Том")) + ' ' + mn + '</span><span class="m-ttl">' + _esc(m.title) + '</span></div>';
+            _esc(cap(W.group || "Том")) + ' ' + mn + '</span><span class="m-ttl">' + _esc(m.title) + '</span></div><div class="guide-chapters">';
           (m.chapters || []).forEach(function (c, ci) {
             var cn = mn + "." + (ci + 1);
+            /* B★: розділ загорнуто у власний блок. Так колонки не розривають його
+               навпіл (break-inside), а нитка кроків іде крізь заголовок суцільно. */
+            h += '<div class="guide-chap">';
             if (c.title) h += '<div class="guide-chap-head"><span class="gc-num">' + cn + '</span><span class="gc-ttl">' + _esc(c.title) + '</span></div>';
             h += '<ol class="guide-steps">';
             (c.topics || []).forEach(function (s, si) { h += stepHtml(s, (c.title ? cn : mn) + "." + (si + 1)); });
-            h += '</ol>';
+            h += '</ol></div>';
           });
-          h += '</div>';
+          h += '</div></div>';   // guide-chapters + module-block
         });
       }
       if (host) { host.innerHTML = h + '</div>'; fillBookNames(host); }

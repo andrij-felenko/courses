@@ -1137,8 +1137,19 @@
       h += '<div class="module-block' + (isCollapsed(m.title) ? " collapsed" : "") + '"><div class="module-head" data-collapse-group="' + escapeAttr(m.title) + '">' +
         '<span class="m-caret" aria-hidden="true">▾</span><span class="m-ttl">' + escapeHtml(m.title) + "</span>" +
         '<span class="m-prog">' + d + " / " + total + "</span></div><div class=\"ch-list\">";
+      /* A★: теми стоять ГНІЗДАМИ підрозділів. Підрозділ не окремий рівень моделі,
+         але кожна тема несе його назву в c.chap (кладе bookbuild), тож гніздо
+         збирається тут. У списковому вигляді гнізд немає — там рядок на тему. */
+      var nest = null;
       m.chapters.forEach(function (c) {
         if (!chVisible(c)) return;   // ні тексту, ні «в планах» → не показуємо
+        /* Гніздо відкриваємо ПІСЛЯ перевірки видимости: інакше підрозділ, у якому всі
+           теми приховані, лишив би заголовок без жодного рядка під ним. */
+        if (NAV.view === "grid" && c.chap && c.chap !== nest) {
+          if (nest !== null) h += "</div></div>";
+          nest = c.chap;
+          h += '<div class="ch-nest"><h5 class="nest-ttl">' + escapeHtml(c.chap) + '</h5><div class="nest-body">';
+        }
         if (c.slug) {   // є текст → читабельне (зі списку книги відкриваємо повну, якщо є)
           h += '<div class="ch-item done' + readClass(c.slug) + '"><div class="ch-row"><a class="ch-open" href="' + chHref(c.slug, null, menuVer(c)) + '">' +
             '<span class="c-ttl">' + escapeHtml(c.title) + betaTag(c) + "</span>" +
@@ -1148,6 +1159,7 @@
             '</span><span class="c-badge">незабаром</span></div></div>';
         }
       });
+      if (nest !== null) h += "</div></div>";   // A★: закрити останнє гніздо
       h += "</div></div>";
     });
     return h + "</div>";
@@ -1184,8 +1196,18 @@
         '<span class="m-caret" aria-hidden="true">▾</span><span class="m-num">Модуль ' + m.n + "</span>" +
         '<span class="m-ttl">' + escapeHtml(m.title) + "</span>" +
         '<span class="m-prog">' + done + " / " + m.chapters.length + ' готово</span></div><div class="ch-list">';
+      /* A★: у плитці теми стоять ГНІЗДАМИ підрозділів. Підрозділ у моделі рушія не
+         окремий рівень, але кожна тема несе його назву в c.chap (кладе bookbuild),
+         тож гніздо збирається тут, без правки адаптера. У списку гнізд немає —
+         там один рядок на тему, і заголовок лише додав би шуму. */
+      var nest = null;
       m.chapters.forEach(function (c) {
         var mr = m.n + "." + c.n;
+        if (NAV.view === "grid" && c.chap && c.chap !== nest) {
+          if (nest !== null) h += "</div></div>";
+          nest = c.chap;
+          h += '<div class="ch-nest"><h5 class="nest-ttl">' + escapeHtml(c.chap) + '</h5><div class="nest-body">';
+        }
         if (chReadable(c)) {
           var entry = topics[mr] || { topics: [], specs: [] };
           var tops = entry.topics || [], specs = entry.specs || [];
@@ -1221,6 +1243,7 @@
             '<span class="c-badge">незабаром</span></div></div>';
         }
       });
+      if (nest !== null) h += "</div></div>";
       h += "</div></div>";
     });
     return h + "</div>";

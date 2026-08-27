@@ -838,18 +838,33 @@ a.hist-teaser:hover .teaser-share, .teaser-share:focus-visible { opacity: 1; tra
 .module-block.collapsed .module-head { margin-bottom: 0; border-bottom-color: transparent; }
 
 /* Плитка (grid): теми як картки, назва в 1–2 рядки */
-/* КОЛОНКОВИЙ ПОТІК, не сітка рядків. Доти тут стояв grid із align-items: stretch,
-   тобто КОЖНА плитка була заввишки як найвища в її рядку: назва на одне слово діставала
-   коробку під три рядки, а кінець групи добивався сірими затичками. Через це сторінка
-   й читалася важко — око шукало текст у порожнечі.
-   У колонковому потоці тема бере рівно свою висоту, порожніх клітинок не буває взагалі,
-   а читається все згори вниз, як покажчик. */
-.toc.map-grid .ch-list {
-  display: block; columns: 4 210px; column-gap: 0.5rem; gap: 0;
+/* A★ — ГНІЗДА ПІДРОЗДІЛІВ У КОЛОНКАХ.
+   Доти тут стояв grid із align-items: stretch, тобто КОЖНА плитка була заввишки як
+   найвища в її рядку: назва на одне слово діставала коробку під три рядки, а кінець
+   групи добивався сірими затичками. Читати таке важко — око шукає текст у порожнечі.
+   Тепер: підрозділ — окреме гніздо, гнізда течуть у 2–3 колонки за шириною екрана,
+   тема бере свою висоту. Рамки навколо теми немає — її замінює коротка риска
+   ліворуч: вона дає око за що зачепитись і водночас несе стан. */
+.toc.map-grid .ch-list { display: block; columns: 3 250px; column-gap: 2rem; gap: 0; }
+.toc.map-grid .ch-nest { break-inside: avoid; margin: 0 0 1.15rem; }
+.toc.map-grid .nest-ttl {
+  margin: 0 0 0.4rem; padding-bottom: 0.25rem;
+  font-size: 0.66rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase;
+  color: var(--accent); border-bottom: 1px solid var(--border);
 }
-.toc.map-grid .ch-item { break-inside: avoid; margin: 0 0 0.34rem; }
-.toc.map-grid .ch-row { align-items: baseline; padding: 0.34rem 0.6rem; }
-.toc.map-grid .ch-open { flex-direction: column; align-items: flex-start; gap: 0; }
+.toc.map-grid .ch-item {
+  border: 0; border-left: 2px solid var(--border); border-radius: 0;
+  background: none; margin: 0 0 1px; break-inside: avoid;
+}
+.toc.map-grid .ch-item:hover { border-left-color: var(--accent); background: var(--bg-alt); }
+.toc.map-grid .ch-item.pending { border-left-style: dotted; background: none; }
+.toc.map-grid .ch-item.done.read { border-left-color: #16a34a; }
+.toc.map-grid .ch-row { align-items: baseline; padding: 0.24rem 0 0.24rem 0.65rem; }
+.toc.map-grid .ch-item .c-num { display: none; }   /* порядку в книзі немає — номер лише шумів */
+.toc.map-grid .ch-item .c-badge { font-size: 0.58rem; opacity: 0.7; }
+/* На вузькому — одна колонка: три по 250px там просто не стануть. */
+@media (max-width: 620px) { .toc.map-grid .ch-list { columns: 1; } }
+
 .toc.map-grid .ch-open .c-go { display: none; }   /* «→» у плитці лише додавав рядок висоти */
 /* Затиск знято: висота тепер вільна, тож різати назву нема потреби. */
 .toc.map-grid .ch-open .c-ttl { display: block; }   /* 2 рядки різали 258 назв із 534, 3 рядки — 45; ціна 2300px на 14000 */
@@ -1366,8 +1381,23 @@ html[data-libview="one"] .lib-seg { display: none; }
 .guide-chap-head { display: flex; align-items: baseline; gap: 0.6rem; margin: 0.9rem 0 0.5rem; }
 .guide-chap-head .gc-num { font-weight: 800; color: #16a34a; font-size: 0.92rem; font-variant-numeric: tabular-nums; }
 .guide-chap-head .gc-ttl { font-weight: 700; font-size: 1.04rem; color: var(--h2-color); }
-.guide-steps { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--border); margin-left: 0.4rem; }
-.guide-step { margin: 0; }
+/* B★ — НИТКА З ВУЗЛАМИ, РОЗДІЛАМИ Й КОЛОНКАМИ.
+   Нитка тепер суцільна: лінію несе не кожен <ol> окремо, а весь блок розділу, тож
+   вона проходить і повз заголовок — доріжка одна, а не рветься на кожному розділі.
+   Кожен крок дістав ВУЗОЛ: порожній — попереду, зелений — пройдено, синій з ореолом —
+   поточний. Стан читається з самої нитки, без підписів.
+   Розділи течуть у 2–3 колонки, коли екран дозволяє; break-inside тримає розділ цілим. */
+.guide-chapters { columns: 2 380px; column-gap: 2.2rem; }
+.guide-chap { break-inside: avoid; position: relative; margin: 0 0 0.5rem; padding-left: 0.4rem; }
+.guide-chap::before { content: ""; position: absolute; left: 0.4rem; top: 0; bottom: 0; width: 2px; background: var(--border); }
+.guide-steps { list-style: none; margin: 0; padding: 0; border-left: 0; }
+.guide-step { margin: 0; position: relative; }
+.guide-step > a::before, .guide-step.bridge::before {
+  content: ""; position: absolute; left: -0.32rem; top: 0.95em; width: 8px; height: 8px;
+  border-radius: 50%; background: var(--bg); border: 2px solid var(--border); z-index: 1;
+}
+.guide-step.read > a::before { background: #16a34a; border-color: #16a34a; }
+.guide-step.soon > a::before, .guide-step.bridge::before { border-style: dotted; }
 .guide-step > a, .guide-step.bridge { display: flex; align-items: baseline; gap: 0.55rem; padding: 0.46rem 0.8rem; text-decoration: none; color: var(--text); }
 .guide-step > a:hover { background: var(--bg-alt); }
 .guide-step.bridge { color: var(--text-muted); font-style: italic; }
