@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Спектр енергозберігаючих режимів та поведінка тактування</text>
+<text x="380.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">порівняння струму споживання, активних генераторів, збереження SRAM та часу пробудження</text>
+<rect x="30.0" y="75.0" width="160.0" height="210.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="110.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Активний режим (Run)</text>
+<line x1="38.0" y1="109.0" x2="182.0" y2="109.0" stroke="#2457d6" stroke-width="1.0"/>
+<text x="110.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Тактування:</text>
+<text x="110.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">80 МГц PLL / HSI / HSE</text>
+<text x="110.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Периферія:</text>
+<text x="110.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Всі шини й периферія</text>
+<text x="110.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Пам'ять:</text>
+<text x="110.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">SRAM повністю активна</text>
+<text x="110.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Струм:</text>
+<text x="110.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">12.0 – 20.0 мА</text>
+<text x="110.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Пробудження:</text>
+<text x="110.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Час виходу: 0 мкс</text>
+<rect x="208.0" y="75.0" width="160.0" height="210.0" rx="6" fill="#fff7e6" stroke="#caa24a" stroke-width="1.5"/>
+<text x="288.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#caa24a" text-anchor="middle" font-weight="700">Неглибокий сон (Sleep)</text>
+<line x1="216.0" y1="109.0" x2="360.0" y2="109.0" stroke="#caa24a" stroke-width="1.0"/>
+<text x="288.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Тактування:</text>
+<text x="288.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Ядро зупинено (__WFI)</text>
+<text x="288.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Периферія:</text>
+<text x="288.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">SysTick та HCLK активні</text>
+<text x="288.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Пам'ять:</text>
+<text x="288.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Периферія працює</text>
+<text x="288.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Струм:</text>
+<text x="288.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">2.5 – 5.0 мА</text>
+<text x="288.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Пробудження:</text>
+<text x="288.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Час виходу: &lt; 1 мкс</text>
+<rect x="386.0" y="75.0" width="160.0" height="210.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="466.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Глибокий сон (Stop 1/2)</text>
+<line x1="394.0" y1="109.0" x2="538.0" y2="109.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="466.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Тактування:</text>
+<text x="466.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">HCLK / PLL зупинено!</text>
+<text x="466.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Периферія:</text>
+<text x="466.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">LSE (32 кГц) + LPTIM активні</text>
+<text x="466.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Пам'ять:</text>
+<text x="466.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">SRAM збережена, I/O фіксовані</text>
+<text x="466.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Струм:</text>
+<text x="466.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">1.2 – 2.0 мкА</text>
+<text x="466.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Пробудження:</text>
+<text x="466.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Час виходу: 5 – 15 мкс</text>
+<rect x="564.0" y="75.0" width="160.0" height="210.0" rx="6" fill="#f3e8fd" stroke="#8e44ad" stroke-width="1.5"/>
+<text x="644.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8e44ad" text-anchor="middle" font-weight="700">Сплячий режим (Standby)</text>
+<line x1="572.0" y1="109.0" x2="716.0" y2="109.0" stroke="#8e44ad" stroke-width="1.0"/>
+<text x="644.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Тактування:</text>
+<text x="644.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Всі генератори OFF (крім RTC)</text>
+<text x="644.0" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Периферія:</text>
+<text x="644.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Живлення ядра знято</text>
+<text x="644.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Пам'ять:</text>
+<text x="644.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">SRAM втрачається (крім Backup)</text>
+<text x="644.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Струм:</text>
+<text x="644.0" y="233.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">0.3 – 0.8 мкА</text>
+<text x="644.0" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Пробудження:</text>
+<text x="644.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Час виходу: повний Reset</text>
+<rect x="30.0" y="300.0" width="700.0" height="65.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="380.0" y="322.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Чому звичайний SysTick несумісний зі Stop Mode: таймер SysTick розташований у домені ядра</tspan><tspan x="380.0" dy="13.7">й живиться від шини HCLK. При вході в глибокий сон генератори HCLK зупиняються для зниження струму</tspan><tspan x="380.0" dy="13.7">до 1.5 мкА. Для відліку часу сну RTOS вимагає перемикання на автономний таймер LPTIM від кварцу LSE.</tspan></text>
+</svg>

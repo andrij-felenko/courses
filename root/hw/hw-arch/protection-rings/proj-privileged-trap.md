@@ -26,6 +26,8 @@
 
 Одна програма, вісім дослідів. Збирається без жодних бібліотек: `cc -O2 -o privtrap privtrap.c`.
 
+:::tabs
+@tab C
 ```c
 /* privtrap.c — питає процесор про власний рівень і ловить його відмови.
  * Linux, x86-64.  Збірка:  cc -O2 -o privtrap privtrap.c
@@ -124,6 +126,105 @@ int main(void)
     return 0;
 }
 ```
+@tab C++
+```cpp
+// privtrap.cpp — опитування CPL та ізольоване тестування привілейованих інструкцій
+// Linux, x86-64. Збірка: g++ -O2 -std=c++20 -o privtrap privtrap.cpp
+#define _GNU_SOURCE
+#include <array>
+#include <csetjmp>
+#include <csignal>
+#include <cstdint>
+#include <cstring>
+#include <functional>
+#include <iostream>
+#include <string_view>
+
+namespace {
+
+sigjmp_buf g_resume;
+volatile sig_atomic_t g_got_signo = 0;
+volatile sig_atomic_t g_got_code = 0;
+volatile uint64_t g_produced = 0;
+
+void on_trap(int signo, siginfo_t* si, void* /*uctx*/) {
+    g_got_signo = signo;
+    g_got_code = si->si_code;
+    siglongjmp(g_resume, 1);
+}
+
+[[nodiscard]] unsigned get_cpl() noexcept {
+    uint16_t cs = 0;
+    __asm__ volatile ("mov %%cs, %0" : "=r"(cs));
+    return static_cast<unsigned>(cs & 3u);
+}
+
+struct Probe {
+    std::string_view mnem;
+    void (*run)();
+    std::string_view description;
+};
+
+void try_one(const Probe& p) {
+    g_got_signo = 0;
+    g_produced = 0;
+    if (sigsetjmp(g_resume, 1) == 0) {
+        p.run();
+        std::cout << "  " << p.mnem << " виконано, результат 0x"
+                  << std::hex << g_produced << std::dec << " (" << p.description << ")\n";
+    } else {
+        std::cout << "  " << p.mnem << " пастка: "
+                  << strsignal(g_got_signo) << ", si_code=" << g_got_code
+                  << " (" << p.description << ")\n";
+    }
+}
+
+} // namespace
+
+int main() {
+    std::cout << "рівень привілею цього процесу: CPL = " << get_cpl() << "\n\n";
+
+    struct sigaction sa{};
+    sa.sa_sigaction = on_trap;
+    sa.sa_flags = SA_SIGINFO;
+    sigemptyset(&sa.sa_mask);
+    sigaction(SIGSEGV, &sa, nullptr);
+    sigaction(SIGILL, &sa, nullptr);
+
+    constexpr std::array probes = {
+        Probe{"nop",   [] { __asm__ volatile ("nop"); }, "звичайна команда — контроль"},
+        Probe{"hlt",   [] { __asm__ volatile ("hlt"); }, "зупинка CPU"},
+        Probe{"cli",   [] { __asm__ volatile ("cli"); }, "вимикання переривань"},
+        Probe{"cr0",   [] {
+            uint64_t v = 0;
+            __asm__ volatile ("mov %%cr0, %0" : "=r"(v));
+            g_produced = v;
+        }, "читання CR0"},
+        Probe{"rdmsr", [] {
+            uint32_t lo = 0, hi = 0;
+            __asm__ volatile ("rdmsr" : "=a"(lo), "=d"(hi) : "c"(0xC0000080u));
+            g_produced = (static_cast<uint64_t>(hi) << 32) | lo;
+        }, "читання EFER MSR"},
+        Probe{"smsw",  [] {
+            uint16_t w = 0;
+            __asm__ volatile ("smsw %0" : "=r"(w));
+            g_produced = w;
+        }, "читання 16 бітів CR0"},
+        Probe{"sldt",  [] {
+            uint16_t s = 0;
+            __asm__ volatile ("sldt %0" : "=r"(s));
+            g_produced = s;
+        }, "читання селектора LDT"},
+        Probe{"ud2",   [] { __asm__ volatile ("ud2"); }, "невизначена інструкція"}
+    };
+
+    for (const auto& probe : probes) {
+        try_one(probe);
+    }
+    return 0;
+}
+```
+:::
 
 Вісім піддослідних команд підібрано не навмання. `nop` — контроль: якщо вже й вона впала, зламано саму оснастку. `hlt`, `cli`, `mov %cr0`, `rdmsr` — чотири різні способи вкласти руки в машину: спинити кристал, заглушити переривання, перепрограмувати режим процесора, залізти в машинний регістр. `smsw` і `sldt` — старі команди читання, що колись були дозволені всім. `ud2` — навпаки, команда, чия єдина робота полягає в тому, щоб бути невизначеною: процесор гарантовано відповідає на неї `#UD`. Вона потрібна, щоб відрізнити відмову «не маєш права» від відмови «такого слова взагалі не існує».
 
@@ -160,7 +261,7 @@ int main(void)
 
 Для нас цей задум обертається пасткою в буквальному сенсі. Полагодити `#GP` від `hlt` неможливо: ядро не підніме нам рівень. Отже, повторна спроба дасть той самий `#GP`, і програма зациклиться в парі «команда — обробник», не з'ївши жодного байта пам'яті й не лишивши сліду в жодному журналі. `siglongjmp` розриває це коло, викидаючи керування в наперед збережену точку основного коду.
 
-![Шлях однієї відмови: hlt у третьому кільці, відмова процесора, перехід у кільце 0, обробник ядра, сигнал і повернення в обробник програми](img/trap-roundtrip.svg)
+![Шлях однієї відмови: hlt у третьому кільці, відмова процесора, перехід у кільце 0, обробник ядра, сигнал і повернення в обробник програми](/root/hw/hw-arch/protection-rings/img/trap-roundtrip.svg)
 
 *Шлях однієї відмови туди й назад. Лічильник команд лишається на самій команді `hlt`, тому вийти з обробника звичайним поверненням не можна.*
 
@@ -172,7 +273,7 @@ int main(void)
 
 Дослід зі `smsw` показує головне непорозуміння цієї теми. Здається, що відповідей дві: команду виконано або відхилено. Насправді ядро, діставши `#GP`, має три виходи — і всі три трапляються.
 
-![Одне й те саме виключення захисту ядро може передати процесові, підмінити правдоподібним результатом або проковтнути](img/three-fates.svg)
+![Одне й те саме виключення захисту ядро може передати процесові, підмінити правдоподібним результатом або проковтнути](/root/hw/hw-arch/protection-rings/img/three-fates.svg)
 
 *Апаратна відмова однакова завжди — різниться тільки те, що з нею робить ядро.*
 
@@ -188,6 +289,8 @@ int main(void)
 
 Перенести дослід на AArch64 неможливо в найпершому рядку — і це саме по собі відповідь.
 
+:::tabs
+@tab C
 ```c
 /* AArch64: міняються лише тіла дослідів, решта програми та сама. */
 static void t_currentel(void) { unsigned long v;
@@ -199,6 +302,31 @@ static void t_ctr(void)       { unsigned long v;
 static void t_isar0(void)     { unsigned long v;
     __asm__ volatile ("mrs %0, id_aa64isar0_el1" : "=r"(v)); produced = v; }
 ```
+@tab C++
+```cpp
+// AArch64: еквівалентні лямбда-зонди на C++20
+inline auto probe_currentel = []() noexcept {
+    uint64_t v = 0;
+    __asm__ volatile ("mrs %0, CurrentEL" : "=r"(v));
+    g_produced = v >> 2;
+};
+inline auto probe_sctlr = []() noexcept {
+    uint64_t v = 0;
+    __asm__ volatile ("mrs %0, sctlr_el1" : "=r"(v));
+    g_produced = v;
+};
+inline auto probe_ctr = []() noexcept {
+    uint64_t v = 0;
+    __asm__ volatile ("mrs %0, ctr_el0" : "=r"(v));
+    g_produced = v;
+};
+inline auto probe_isar0 = []() noexcept {
+    uint64_t v = 0;
+    __asm__ volatile ("mrs %0, id_aa64isar0_el1" : "=r"(v));
+    g_produced = v;
+};
+```
+:::
 
 Регістр `CurrentEL` тримає номер поточного рівня виключень — рівно те, що ми питали на x86 через `CS`. Але доступ до нього означено лише з `EL1` і вище; на `EL0` така команда взагалі не означена — процесор бере виключення невизначеної команди, і Linux шле `SIGILL` із `si_code = 1` (`ILL_ILLOPC`). Спитати «на якому я рівні» з користувацького коду не можна. Відповідь доводиться діставати від протилежного: якщо `mrs CurrentEL` впала — ви на `EL0`.
 
@@ -210,6 +338,8 @@ static void t_isar0(void)     { unsigned long v;
 
 На Windows той самий дослід збирається навколо структурної обробки виключень, і відмову там видно чіткіше, ніж на Linux:
 
+:::tabs
+@tab C
 ```c
 /* MSVC, x64: вбудованого __asm нема — hlt виносять в окремий .asm-файл
    і викликають як звичайну функцію void do_hlt(void); */
@@ -221,6 +351,25 @@ __except (GetExceptionCode() == EXCEPTION_PRIV_INSTRUCTION   /* 0xC0000096 */
     puts("процесор відмовив: привілейована команда");
 }
 ```
+@tab C++
+```cpp
+// MSVC, x64 C++: структурна обробка виключень (SEH) у C++ коді
+#include <iostream>
+#include <windows.h>
+
+extern "C" void do_hlt();
+
+void test_privileged_seh() {
+    __try {
+        do_hlt();
+    }
+    __except (GetExceptionCode() == EXCEPTION_PRIV_INSTRUCTION
+                  ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH) {
+        std::cout << "процесор відмовив: привілейована команда (EXCEPTION_PRIV_INSTRUCTION)\n";
+    }
+}
+```
+:::
 
 Код `0xC0000096`, `STATUS_PRIVILEGED_INSTRUCTION`, означає буквально «спроба виконати привілейовану команду» — окремий, ні з чим не змішаний діагноз. А Linux зливає всі `#GP` в один `SIGSEGV` разом зі зверненнями до чужої пам'яті, і розрізняти доводиться за `si_code`. Апаратура під обома системами однакова до біта; різна лише мова, якою ОС переказує процесові одну й ту саму відмову заліза.
 
@@ -228,6 +377,8 @@ __except (GetExceptionCode() == EXCEPTION_PRIV_INSTRUCTION   /* 0xC0000096 */
 
 Дослід дає нагоду зміряти те, про що зазвичай говорять на пальцях: ціну походу в ядро й назад через пастку.
 
+:::tabs
+@tab C
 ```c
 /* потребує #include <time.h> */
 static void bench(unsigned n)
@@ -245,6 +396,29 @@ static void bench(unsigned n)
            ((double)(b.tv_sec - a.tv_sec) * 1e9 + (b.tv_nsec - a.tv_nsec)) / n);
 }
 ```
+@tab C++
+```cpp
+#include <chrono>
+#include <cstdint>
+#include <iostream>
+
+void bench_cpp(unsigned n) {
+    using clock = std::chrono::steady_clock;
+    volatile unsigned i = 0;
+
+    const auto start = clock::now();
+    for (i = 0; i < n; ++i) {
+        if (sigsetjmp(g_resume, 1) == 0) {
+            __asm__ volatile ("hlt");
+        }
+    }
+    const auto end = clock::now();
+
+    const auto total_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    std::cout << "одна відмова ≈ " << (static_cast<double>(total_ns) / n) << " нс\n";
+}
+```
+:::
 
 Порядок величини на сучасній машині — одиниці мікросекунд на одну відмову. Порівняння того варте:
 

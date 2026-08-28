@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 590" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="590" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратна перевірка привілеїв x86</text>
+<circle cx="230.0" cy="240.0" r="190.0" fill="#eaf0fd" stroke="#333333" stroke-width="1.4"/>
+<circle cx="230.0" cy="240.0" r="145.0" fill="#f4f6f8" stroke="#333333" stroke-width="1.2"/>
+<circle cx="230.0" cy="240.0" r="100.0" fill="#fff2df" stroke="#333333" stroke-width="1.2"/>
+<circle cx="230.0" cy="240.0" r="55.0" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="230.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ring 3: User Space (CPL=3)</text>
+<text x="230.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Ring 2: OS Services</text>
+<text x="230.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Ring 1: Drivers</text>
+<text x="230.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Ring 0</text>
+<text x="230.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Kernel</text>
+<rect x="480.0" y="50.0" width="460.0" height="400.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="710.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратна логіка перевірки привілеїв x86</text>
+<rect x="500.0" y="105.0" width="420.0" height="56.0" rx="6" fill="#f9fbfd" stroke="#d0d0d0" stroke-width="1.5"/><text x="710.0" y="121.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">CPL (CS[1:0]): поточний рівень виконання</tspan><tspan x="710.0" dy="15.6">DPL: рівень дескриптора (сегмента або шлюзу)</tspan><tspan x="710.0" dy="15.6">RPL (Selector[1:0]): запитаний рівень селектора</tspan></text>
+<text x="500.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Доступ до сегмента даних:</text>
+<rect x="505.1" y="196.2" width="409.9" height="47.6" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/><text x="710.0" y="216.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">max(CPL, RPL) ≤ DPL</tspan><tspan x="710.0" dy="15.6">Користувач (CPL=3) не може прочитати дескриптор з DPL &lt; 3</tspan></text>
+<text x="500.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Перехід у Кільце 0 (Syscall / Interrupt):</text>
+<rect x="556.4" y="298.4" width="307.3" height="63.2" rx="6" fill="#fff2df" stroke="#333333" stroke-width="1.5"/><text x="710.0" y="318.6" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">SYSCALL: MSR_LSTAR → RIP, MSR_STAR → CS/SS</tspan><tspan x="710.0" dy="15.6">CPU автоматично встановлює CPL = 0</tspan><tspan x="710.0" dy="15.6">Апаратна зміна стека: читання RSP0 з TSS</tspan></text>
+<text x="500.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="700">3. Ізоляція стеків ядра:</text>
+<text x="500.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start">Ядро не довіряє стеку Ring 3: стек підміняється на захищений RSP0.</text>
+<text x="490.0" y="510.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">Будь-яка спроба прямого переходу на кодовий сегмент вищого привілею без виклику шлюзу або syscall</text>
+<text x="490.0" y="535.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">негайно генерує апаратне виключення General Protection Fault (#GP, вектор 13).</text>
+</svg>

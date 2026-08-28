@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 770 400" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="770" height="400" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="380.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Анатомія та внутрішній цикл фонової задачі Idle Task</text>
+<text x="380.0" y="46.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-style="italic">звільнення пам'яті видалених задач, кооперативні поступки та перехід у стан сну</text>
+<rect x="30.0" y="75.0" width="155.0" height="215.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="107.5" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">1. Очищення пам'яті</text>
+<line x1="40.0" y1="111.0" x2="175.0" y2="111.0" stroke="#2457d6" stroke-width="1.0"/>
+<text x="107.5" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">prvCheckTasksWaiting</text>
+<text x="107.5" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Termination()</text>
+<text x="107.5" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"></text>
+<text x="107.5" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Пошук у списку видалених</text>
+<text x="107.5" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Виклик vPortFree(TCB)</text>
+<text x="107.5" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Звільнення стеку задачі</text>
+<line x1="188.0" y1="180.0" x2="207.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="210.0" y="75.0" width="155.0" height="215.0" rx="6" fill="#fff7e6" stroke="#caa24a" stroke-width="1.5"/>
+<text x="287.5" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#caa24a" text-anchor="middle" font-weight="700">2. Кооперація Yield</text>
+<line x1="220.0" y1="111.0" x2="355.0" y2="111.0" stroke="#caa24a" stroke-width="1.0"/>
+<text x="287.5" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">configIDLE_SHOULD_YIELD</text>
+<text x="287.5" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"></text>
+<text x="287.5" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Якщо в Ready є інші задачі</text>
+<text x="287.5" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">  з пріоритетом 0 (Idle):</text>
+<text x="287.5" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">  виклик taskYIELD()</text>
+<text x="287.5" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Рівний розподіл кванту</text>
+<line x1="368.0" y1="180.0" x2="387.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="390.0" y="75.0" width="155.0" height="215.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="467.5" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">3. Хук застосунку</text>
+<line x1="400.0" y1="111.0" x2="535.0" y2="111.0" stroke="#c0392b" stroke-width="1.0"/>
+<text x="467.5" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">vApplicationIdleHook()</text>
+<text x="467.5" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"></text>
+<text x="467.5" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Скидання Watchdog</text>
+<text x="467.5" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Підрахунок завантаження</text>
+<text x="467.5" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Перевірка фонових CRC</text>
+<text x="467.5" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• СУВОРО БЕЗ БЛОКУВАНЬ</text>
+<line x1="548.0" y1="180.0" x2="567.0" y2="180.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="570.0" y="75.0" width="155.0" height="215.0" rx="6" fill="#eaf7ee" stroke="#27ae60" stroke-width="1.5"/>
+<text x="647.5" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">4. Вибір режиму сну</text>
+<line x1="580.0" y1="111.0" x2="715.0" y2="111.0" stroke="#27ae60" stroke-width="1.0"/>
+<text x="647.5" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">configUSE_TICKLESS_IDLE</text>
+<text x="647.5" y="151.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"></text>
+<text x="647.5" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Tickless = 1/2:</text>
+<text x="647.5" y="187.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">  portSUPPRESS_TICKS()</text>
+<text x="647.5" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">• Tickless = 0:</text>
+<text x="647.5" y="223.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">  виконання __WFI() / __WFE()</text>
+<line x1="640.0" y1="290.0" x2="640.0" y2="310.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="640.0" y1="310.0" x2="105.0" y2="310.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="105.0" y1="310.0" x2="105.0" y2="290.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="380.0" y="325.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Нескінченний цикл планувальника for(;;) — процесор ніколи не залишається без активної задачі</text>
+<rect x="40.0" y="310.0" width="680.0" height="65.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="380.0" y="332.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="380.0" dy="0.0">Інваріант планувальника: Idle Task має пріоритет 0 і гарантує постійну наявність задачі для CPU.</tspan><tspan x="380.0" dy="13.7">Саме всередині Idle Task поєднуються очищення пам'яті видалених потоків, обслуговування фонових</tspan><tspan x="380.0" dy="13.7">хуків та занурення кристала в енергозберігаючий стан WFI або безтиковий сон Tickless Idle.</tspan></text>
+</svg>

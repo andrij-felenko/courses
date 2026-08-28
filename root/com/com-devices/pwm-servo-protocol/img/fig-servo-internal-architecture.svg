@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="860.0" height="400.0" rx="8" fill="#fafbfc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="450.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Внутрішня функціональна схема аналогового сервоприводу</text>
+<rect x="40.0" y="90.0" width="110.0" height="60.0" rx="6" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="95.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхід PWM</text>
+<text x="95.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(1.0–2.0 мс)</text>
+<line x1="150.0" y1="120.0" x2="210.0" y2="120.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="180.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">t_in</text>
+<rect x="210.0" y="80.0" width="140.0" height="80.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="280.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#92400e" text-anchor="middle" font-weight="700">Часовий</text>
+<text x="280.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#92400e" text-anchor="middle" font-weight="700">компаратор</text>
+<text x="280.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78350f" text-anchor="middle">Δt = t_in − t_ref</text>
+<line x1="350.0" y1="120.0" x2="410.0" y2="120.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="380.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Δt</text>
+<rect x="410.0" y="80.0" width="140.0" height="80.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+<text x="480.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Підсилювач</text>
+<text x="480.0" y="123.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">похибки та</text>
+<text x="480.0" y="143.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#991b1b" text-anchor="middle" font-weight="700">Deadband (3 мкс)</text>
+<line x1="550.0" y1="120.0" x2="600.0" y2="120.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="600.0" y="80.0" width="110.0" height="80.0" rx="6" fill="#e0e7ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="655.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">H-міст</text>
+<text x="655.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">(Драйвер)</text>
+<line x1="710.0" y1="120.0" x2="750.0" y2="120.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="785.0" cy="120.0" r="32.0" fill="#ffffff" stroke="#333333" stroke-width="2.0"/>
+<text x="785.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">DC Мотор</text>
+<line x1="785.0" y1="155.0" x2="785.0" y2="220.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="815.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Вал мотора</text>
+<rect x="715.0" y="220.0" width="140.0" height="65.0" rx="6" fill="#f1f5f9" stroke="#333333" stroke-width="1.5"/>
+<text x="785.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Редуктор</text>
+<text x="785.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">шестерень (1:200)</text>
+<line x1="855.0" y1="252.0" x2="875.0" y2="252.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="855.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">Вихідний вал</text>
+<line x1="715.0" y1="252.0" x2="570.0" y2="252.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="645.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Механічний зв'язок</text>
+<rect x="430.0" y="220.0" width="140.0" height="65.0" rx="6" fill="#dcfce7" stroke="#27ae60" stroke-width="1.5"/>
+<text x="500.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Потенціометр</text>
+<text x="500.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#166534" text-anchor="middle">зворотного зв'язку</text>
+<line x1="430.0" y1="252.0" x2="350.0" y2="252.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="390.0" y="242.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">R_pot</text>
+<rect x="210.0" y="220.0" width="140.0" height="65.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="280.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#92400e" text-anchor="middle" font-weight="700">Одновібратор</text>
+<text x="280.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#78350f" text-anchor="middle">t_ref = k·R_pot·C</text>
+<line x1="280.0" y1="220.0" x2="280.0" y2="160.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="295.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">t_ref</text>
+<rect x="40.0" y="330.0" width="820.0" height="65.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="450.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Контур замкнений: якщо t_in &gt; t_ref, мотор обертає редуктор вперед, змінюючи опір R_pot,</text>
+<text x="450.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">доки опорний імпульс одновібратора t_ref не зрівняється з t_in з точністю до зони нечутливості.</text>
+</svg>

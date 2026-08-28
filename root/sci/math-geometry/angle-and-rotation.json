@@ -49,6 +49,16 @@
           "detailed": {
             "status": "pending"
           }
+        },
+        {
+          "slug": "solid-angle",
+          "title": "Тілесний кут і стерадіан: геометрія сферичного конуса та світлового променя",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -141,8 +151,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-gimbal-jacobian.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-gimbal-kinematics.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "gimbal-lock",
@@ -151,7 +173,7 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
+            "status": "recheck"
           }
         }
       ]

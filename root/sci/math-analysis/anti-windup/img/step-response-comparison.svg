@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-39 -10 859 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-39" y="-10" width="859" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Порівняння перехідних процесів при великому стрибку уставки</text>
+<line x1="100.0" y1="360.0" x2="770.0" y2="360.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="100.0" y1="360.0" x2="100.0" y2="60.0" stroke="#333333" stroke-width="1.5"/>
+<text x="88.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end">Вихід процесу y(t)</text>
+<text x="763.0" y="384.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end">Час t (секунди)</text>
+<line x1="100.0" y1="165.0" x2="770.0" y2="165.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,3"/>
+<text x="90.0" y="169.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">1.0 (Уставка SP)</text>
+<text x="90.0" y="364.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">0.0</text>
+<line x1="100.0" y1="360.0" x2="100.0" y2="365.0" stroke="#333333" stroke-width="1.0"/>
+<text x="100.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">0</text>
+<line x1="234.0" y1="360.0" x2="234.0" y2="365.0" stroke="#333333" stroke-width="1.0"/>
+<text x="234.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">2</text>
+<line x1="368.0" y1="360.0" x2="368.0" y2="365.0" stroke="#333333" stroke-width="1.0"/>
+<text x="368.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">4</text>
+<line x1="502.0" y1="360.0" x2="502.0" y2="365.0" stroke="#333333" stroke-width="1.0"/>
+<text x="502.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">6</text>
+<line x1="636.0" y1="360.0" x2="636.0" y2="365.0" stroke="#333333" stroke-width="1.0"/>
+<text x="636.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">8</text>
+<line x1="770.0" y1="360.0" x2="770.0" y2="365.0" stroke="#333333" stroke-width="1.0"/>
+<text x="770.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">10</text>
+<path d="M 100 360 Q 160 320 220 145 Q 280 175 360 165 L 770 165" fill="none" stroke="#6b7280" stroke-width="1.8" stroke-dasharray="3,3"/>
+<path d="M 100 360 L 334 165 Q 468 40 602 190 Q 689 155 770 165" fill="none" stroke="#c0392b" stroke-width="2.6"/>
+<path d="M 100 360 L 334 175 Q 401 157 502 165 L 770 165" fill="none" stroke="#d97706" stroke-width="2.4"/>
+<path d="M 100 360 L 327 183 Q 394 163 468 165 L 770 165" fill="none" stroke="#27ae60" stroke-width="2.4"/>
+<line x1="110.0" y1="395.0" x2="140.0" y2="395.0" stroke="#6b7280" stroke-width="1.8" stroke-dasharray="3,3"/>
+<text x="145.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Ідеальна лінійна (без ліміту)</text>
+<line x1="310.0" y1="395.0" x2="340.0" y2="395.0" stroke="#c0392b" stroke-width="2.6"/>
+<text x="345.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">Без Anti-Windup (Overshoot ~65%)</text>
+<line x1="550.0" y1="395.0" x2="580.0" y2="395.0" stroke="#d97706" stroke-width="2.4"/>
+<text x="585.0" y="399.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="start" font-weight="700">Clamping (Overshoot ~5%)</text>
+<line x1="310.0" y1="425.0" x2="340.0" y2="425.0" stroke="#27ae60" stroke-width="2.4"/>
+<text x="345.0" y="429.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="start" font-weight="700">Back-Calculation (Overshoot &lt; 2%, швидке заспокоєння)</text>
+</svg>

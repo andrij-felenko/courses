@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="430.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Типові сили та вибір компромісів в Embedded ADR</text>
+<rect x="40.0" y="55.0" width="380.0" height="195.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="40.0" y="55.0" width="380.0" height="28.0" rx="6" fill="#e7f7ee" stroke="#27ae60" stroke-width="1.2"/>
+<text x="52.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">1. Модель виконання: RTOS vs Superloop</text>
+<rect x="50.0" y="91.0" width="360.0" height="64.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.0"/>
+<text x="60.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Варіант А: Bare-Metal Superloop</text>
+<text x="60.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Нульовий оверхед RAM, жорсткий детермінізм ISR</text>
+<rect x="50.0" y="163.0" width="360.0" height="64.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.0"/>
+<text x="60.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Варіант Б: FreeRTOS / Zephyr</text>
+<text x="60.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Витіснення, блокувальні черги, стек ~1-2 КБ/таск</text>
+<rect x="440.0" y="55.0" width="380.0" height="195.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<rect x="440.0" y="55.0" width="380.0" height="28.0" rx="6" fill="#eef6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="452.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">2. Керування пам'яттю: Pool vs Heap</text>
+<rect x="450.0" y="91.0" width="360.0" height="64.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.0"/>
+<text x="460.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Варіант А: Статичні пули (Fixed Blocks)</text>
+<text x="460.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Нульова фрагментація, O(1) виділення, фіксований RAM</text>
+<rect x="450.0" y="163.0" width="360.0" height="64.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.0"/>
+<text x="460.0" y="183.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Варіант Б: Динамічна купа (malloc/free)</text>
+<text x="460.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Гнучкість розмірів, ризик фрагментації та вичерпання</text>
+<rect x="40.0" y="270.0" width="380.0" height="195.0" rx="6" fill="#ffffff" stroke="#b7950b" stroke-width="1.8"/>
+<rect x="40.0" y="270.0" width="380.0" height="28.0" rx="6" fill="#fdf8e2" stroke="#b7950b" stroke-width="1.2"/>
+<text x="52.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">3. Мережевий транспорт: MQTT vs CoAP</text>
+<rect x="50.0" y="306.0" width="360.0" height="64.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.0"/>
+<text x="60.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Варіант А: MQTT поверх TCP/TLS</text>
+<text x="60.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Постійна сесія, брокер, QoS 0/1/2, накладні витрати TLS</text>
+<rect x="50.0" y="378.0" width="360.0" height="64.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.0"/>
+<text x="60.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Варіант Б: CoAP поверх UDP/DTLS</text>
+<text x="60.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Двоточкові запити, бінарний заголовок 4B, режим сну вузла</text>
+<rect x="440.0" y="270.0" width="380.0" height="195.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="440.0" y="270.0" width="380.0" height="28.0" rx="6" fill="#fdf2f0" stroke="#c0392b" stroke-width="1.2"/>
+<text x="452.0" y="289.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">4. Криптозахист: HW Crypto vs SW Lib</text>
+<rect x="450.0" y="306.0" width="360.0" height="64.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.0"/>
+<text x="460.0" y="326.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">Варіант А: Апаратний рушій (AES/SHA/ECC)</text>
+<text x="460.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">DMA-обробка, захищене сховище ключів, прив'язка до чіпа</text>
+<rect x="450.0" y="378.0" width="360.0" height="64.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.0"/>
+<text x="460.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">Варіант Б: Програмна бібліотека (mbedTLS)</text>
+<text x="460.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">Переносимість між чіпами, витрата циклів CPU і Flash</text>
+</svg>

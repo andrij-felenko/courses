@@ -359,6 +359,312 @@ def lease_timeline():
     render(os.path.join(IMG, "lease-timeline.svg"), W, H, *parts)
 
 
+# ── Фігура 7: 4-ланкова архітектура черги фонових задач ───────────────────────
+def queue_architecture():
+    W, H = 1180, 640
+    parts = []
+    parts.append(text(W / 2, 32, "Чотириланкова архітектура черги фонових задач",
+                      size=17, bold=True))
+
+    # Producer
+    px, py = 180, 260
+    p_box, pw, ph = box_at(px, py,
+                           "Producer (Постачальник)\n"
+                           "Веб-сервер · API Gateway\n"
+                           "Генерація task_id\n"
+                           "Серіалізація аргументів (JSON)\n"
+                           "Повертає клієнту 202 Accepted",
+                           size=11.5, bold=True, fill="#eaf0fd", stroke=NEG, min_w=240)
+    parts.append(p_box)
+
+    # Broker (Top Middle)
+    bx, by = 580, 180
+    b_box, bw, bh = box_at(bx, by,
+                           "Message Broker (Брокер)\n"
+                           "Redis Streams · RabbitMQ · AMQP\n"
+                           "Буферизація завдань у пам'яті / на диску\n"
+                           "Черги очікування (FIFO / Priority)\n"
+                           "Облік непідтверджених задач (PEL / In-flight)",
+                           size=11.5, bold=True, fill="#eaf7ef", stroke=FIELD, min_w=280)
+    parts.append(b_box)
+
+    # DLQ (Bottom Middle)
+    dx, dy = 580, 460
+    d_box, dw, dh = box_at(dx, dy,
+                           "Dead Letter Queue (DLQ)\n"
+                           "Черга збійних і отруйних повідомлень\n"
+                           "Збереження тіла, помилки й стек-трейсу\n"
+                           "Ручний аудит · Re-drive / Replay утиліта",
+                           size=11.5, bold=True, fill="#fdecea", stroke=POS, min_w=280)
+    parts.append(d_box)
+
+    # Worker Pool (Top Right)
+    wx, wy = 980, 180
+    w_box, ww, wh = box_at(wx, wy,
+                           "Consumer (Worker Pool)\n"
+                           "Master / Supervisor процес\n"
+                           "Prefetch буфер · QoS обмеження\n"
+                           "Пул воркерів (Fork / Threads / Async)\n"
+                           "Виконання бізнес-логіки та ACK",
+                           size=11.5, bold=True, fill="#faf3e0", stroke=INK, min_w=260)
+    parts.append(w_box)
+
+    # Result Backend (Bottom Right)
+    rx, ry = 980, 460
+    r_box, rw, rh = box_at(rx, ry,
+                           "Result Backend (Сховище)\n"
+                           "Redis · PostgreSQL · S3 Key-Value\n"
+                           "Статус (PENDING / SUCCESS / FAILURE)\n"
+                           "Результат виклику або виняток\n"
+                           "TTL автоматичної утилізації ключів",
+                           size=11.5, bold=True, fill="#f4f6f8", stroke=MUTED, min_w=260)
+    parts.append(r_box)
+
+    # Стрілки
+    # Producer -> Broker
+    parts.append(arrow(px + pw, py - 30, bx - bw, by + 20, color=NEG, sw=1.7))
+    parts.append(mtext((px + pw + bx - bw) / 2 - 10, py - 52,
+                       ["постановка задачі", "(XADD / basic.publish)"],
+                       size=10.5, color=NEG, lh=1.3))
+
+    # Broker <-> Worker
+    parts.append(arrow(bx + bw, by - 16, wx - ww, wy - 16, color=FIELD, sw=1.7))
+    parts.append(text((bx + bw + wx - ww) / 2, by - 28, "fetch / dispatch (Prefetch)",
+                      size=10.5, color=FIELD))
+
+    parts.append(arrow(wx - ww, wy + 16, bx + bw, by + 16, color=INK, sw=1.7))
+    parts.append(text((bx + bw + wx - ww) / 2, by + 34, "ACK (підтвердження) / NACK",
+                      size=10.5, color=INK))
+
+    # Worker -> Result Backend
+    parts.append(arrow(wx, wy + wh, rx, ry - rh, color=MUTED, sw=1.7))
+    parts.append(mtext(wx + 90, (wy + wh + ry - rh) / 2 - 8,
+                       ["запис результату", "(SET task:<id>)"],
+                       size=10.5, color=MUTED, lh=1.3))
+
+    # Worker -> DLQ
+    parts.append(arrow(wx - ww + 20, wy + wh, dx + dw, dy - 20, color=POS, sw=1.7))
+    parts.append(mtext((wx - ww + dx + dw) / 2 + 30, (wy + wh + dy) / 2 + 6,
+                       ["після max_retries", "→ вивантаження в DLQ"],
+                       size=10.5, color=POS, lh=1.3))
+
+    parts.append(text(W / 2, 590,
+                      "Чотири вузли повністю розв'язані в просторі й часі: веб-сервер не чекає виконання, "
+                      "а воркери масштабуються незалежно від обсягу HTTP-трафіку.",
+                      size=12, italic=True, color=INK))
+
+    render(os.path.join(IMG, "queue-architecture.svg"), W, H, *parts)
+
+
+# ── Фігура 8: повтори з відступом, джитер та таймаути ──────────────────────────
+def retry_backoff_jitter():
+    W, H = 1200, 560
+    parts = []
+    parts.append(text(W / 2, 32, "Механізм повторів: експоненційний відступ, тремтіння та таймаути",
+                      size=17, bold=True))
+
+    # Лінія повторів
+    y_lane = 140
+    xs = (140, 410, 720, 1040)
+    
+    b1, w1, h1 = box_at(xs[0], y_lane, "Спроба #1\nВиконання\nЗбій: 429 Rate Limit",
+                        size=11, bold=True, fill="#faf3e0", stroke=POS, min_w=150)
+    b2, w2, h2 = box_at(xs[1], y_lane, "Спроба #2\nПауза ~2–4 с\nЗбій: Lock Timeout",
+                        size=11, bold=True, fill="#faf3e0", stroke=POS, min_w=150)
+    b3, w3, h3 = box_at(xs[2], y_lane, "Спроба #3\nПауза ~6–10 с\nЗбій: Connection Reset",
+                        size=11, bold=True, fill="#faf3e0", stroke=POS, min_w=160)
+    b4, w4, h4 = box_at(xs[3], y_lane, "Вичерпано max_retries\nПеренаправлення в DLQ\nСповіщення Sentry / Alert",
+                        size=11, bold=True, fill="#fdecea", stroke=POS, min_w=200)
+
+    parts.append(arrow(xs[0] + w1, y_lane, xs[1] - w2, y_lane, color=POS, sw=1.7))
+    parts.append(text((xs[0] + w1 + xs[1] - w2) / 2, y_lane - 16, "backoff #1 (2^1 · база + jitter)",
+                      size=10, color=POS))
+
+    parts.append(arrow(xs[1] + w2, y_lane, xs[2] - w3, y_lane, color=POS, sw=1.7))
+    parts.append(text((xs[1] + w2 + xs[2] - w3) / 2, y_lane - 16, "backoff #2 (2^2 · база + jitter)",
+                      size=10, color=POS))
+
+    parts.append(arrow(xs[2] + w3, y_lane, xs[3] - w4, y_lane, color=POS, sw=1.7))
+    parts.append(text((xs[2] + w3 + xs[3] - w4) / 2, y_lane - 16, "ліміт спроб досягнуто",
+                      size=10, bold=True, color=POS))
+
+    parts.extend((b1, b2, b3, b4))
+
+    # Нижня частина: Таймаути (Soft vs Hard)
+    y_to = 360
+    sb, sw, sh = box_at(280, y_to,
+                        "Soft Time Limit (М'який таймаут)\n"
+                        "Сигнал SIGUSR1 / виняток SoftTimeLimitExceeded\n"
+                        "Воркер перехоплює виняток у коді задачі\n"
+                        "Коректне закриття транзакцій, файлів і сокетів\n"
+                        "Збереження прогресу та планова реєстрація збою",
+                        size=11.5, bold=True, fill="#faf3e0", stroke=INK, min_w=390)
+    parts.append(sb)
+
+    hb, hw, hh = box_at(920, y_to,
+                        "Hard Time Limit (Жорсткий таймаут)\n"
+                        "Сигнал ядра SIGKILL (-9) процесу воркера\n"
+                        "Примусове знищення процесу без очищення\n"
+                        "Master-процес виявляє падіння дочірнього воркера\n"
+                        "Перезапуск нового процесу та повернення задачі",
+                        size=11.5, bold=True, fill="#fdecea", stroke=POS, min_w=390)
+    parts.append(hb)
+
+    parts.append(arrow(280 + sw, y_to, 920 - hw, y_to, color=POS, sw=1.7))
+    parts.append(mtext((280 + sw + 920 - hw) / 2, y_to - 30,
+                       ["якщо воркер не завершився", "за Grace Period (напр. 15 с)"],
+                       size=10.5, color=POS, lh=1.3))
+
+    parts.append(text(W / 2, 510,
+                      "Випадковий джитер розбиває синхронні хвилі повторів, а подвійний таймаут (Soft + Hard) "
+                      "захищає пул від зависання на безкінечних циклах чи блокуючих сокетах.",
+                      size=12, italic=True, color=INK))
+
+    render(os.path.join(IMG, "retry-backoff-jitter.svg"), W, H, *parts)
+
+
+# ── Фігура 9: періодичний планувальник і розподілений замок ───────────────────
+def periodic_scheduler_lock():
+    W, H = 1140, 520
+    parts = []
+    parts.append(text(W / 2, 32, "Архітектура періодичного планувальника (Beat) та розподілений замок",
+                      size=17, bold=True))
+
+    # Лідер і Standby
+    s1, w1, h1 = box_at(220, 150,
+                        "Scheduler Вузол A (Active Leader)\n"
+                        "Утримує розподілений замок у Redis\n"
+                        "Генерує часові такти (Tick що секунду)\n"
+                        "Обчислює розклад періодичних cron-задач",
+                        size=11.5, bold=True, fill="#eaf7ef", stroke=FIELD, min_w=290)
+    parts.append(s1)
+
+    s2, w2, h2 = box_at(220, 330,
+                        "Scheduler Вузол B (Standby)\n"
+                        "Періодично намагається взяти замок\n"
+                        "Спить, поки активний Вузол A\n"
+                        "Миттєво стає лідером при збої вузла A",
+                        size=11.5, bold=True, fill="#f4f6f8", stroke=MUTED, min_w=290)
+    parts.append(s2)
+
+    # Розподілений замок
+    lk, lw, lh = box_at(590, 240,
+                        "Розподілений замок (Redlock)\n"
+                        "SET lock:scheduler <uuid> NX EX 15\n"
+                        "Автопродовження оренди кожні 5 с\n"
+                        "Запобігає подвійному плануванню",
+                        size=11.5, bold=True, fill="#eaf0fd", stroke=NEG, min_w=280)
+    parts.append(lk)
+
+    parts.append(arrow(220 + w1, 150, 590 - lw, 220, color=FIELD, sw=1.7))
+    parts.append(text((220 + w1 + 590 - lw) / 2, 172, "утримує замок", size=10.5, color=FIELD))
+
+    parts.append(arrow(220 + w2, 330, 590 - lw, 260, color=MUTED, sw=1.5))
+    parts.append(text((220 + w2 + 590 - lw) / 2, 308, "опитує замок", size=10.5, color=MUTED))
+
+    # Ready Queue & Worker Pool
+    rq, qw, qh = box_at(950, 150,
+                        "Ready Queue (Черга брокера)\n"
+                        "Звичайна черга виконання задач\n"
+                        "Планувальник НЕ виконує задачі сам —\n"
+                        "він лише пушить task_id у чергу",
+                        size=11.5, bold=True, fill="#faf3e0", stroke=INK, min_w=270)
+    parts.append(rq)
+
+    wp, ww, wh = box_at(950, 330,
+                        "Worker Pool (Пул воркерів)\n"
+                        "Вичерпує чергу готових задач\n"
+                        "Воркери не знають, чи задача надійшла\n"
+                        "від користувача, чи за cron-розкладом",
+                        size=11.5, bold=True, fill="#eaf7ef", stroke=FIELD, min_w=270)
+    parts.append(wp)
+
+    parts.append(arrow(220 + w1, 130, 950 - qw, 130, color=FIELD, sw=1.7))
+    parts.append(text((220 + w1 + 950 - qw) / 2, 116, "постановка задачі в чергу (XADD / LPUSH)",
+                      size=10.5, color=FIELD))
+
+    parts.append(arrow(950, 150 + qh, 950, 330 - wh, color=INK, sw=1.7))
+    parts.append(text(950 + 72, (150 + qh + 330 - wh) / 2, "fetch & execute",
+                      size=10.5, color=INK, anchor="middle"))
+
+    parts.append(text(W / 2, 470,
+                      "Планувальник відокремлений від воркерів: він відповідає лише за таймінг і постановку задач, "
+                      "а розподілений замок гарантує, що жодна щохвилинна задача не здублюється в кластері.",
+                      size=12, italic=True, color=INK))
+
+    render(os.path.join(IMG, "periodic-scheduler-lock.svg"), W, H, *parts)
+
+
+# ── Фігура 10: конвеєр обробки телеметрії IoT ──────────────────────────────────
+def iot_telemetry_pipeline():
+    W, H = 1180, 560
+    parts = []
+    parts.append(text(W / 2, 32, "Конвеєр фонової обробки телеметрії IoT на базі Redis Streams",
+                      size=17, bold=True))
+
+    # Вхідний шлюз
+    d_box, dw, dh = box_at(160, 200,
+                           "IoT Пристрої\n"
+                           "50 000 польових сенсорів\n"
+                           "Пакет: device_id, seq_no,\n"
+                           "temp, pressure, battery, ts",
+                           size=11.5, bold=True, fill="#eaf0fd", stroke=NEG, min_w=210)
+    parts.append(d_box)
+
+    g_box, gw, gh = box_at(420, 200,
+                           "Ingestion Gateway\n"
+                           "HTTP / MQTT веб-сервер\n"
+                           "Валідація підпису та структури\n"
+                           "XADD iot:telemetry:stream",
+                           size=11.5, bold=True, fill="#eaf0fd", stroke=NEG, min_w=210)
+    parts.append(g_box)
+
+    parts.append(arrow(160 + dw, 200, 420 - gw, 200, color=NEG, sw=1.7))
+    parts.append(text((160 + dw + 420 - gw) / 2, 184, "HTTP POST / MQTT", size=10.5, color=NEG))
+
+    # Redis Stream
+    s_box, sw, sh = box_at(710, 200,
+                           "Redis Stream\n"
+                           "«iot:telemetry:stream»\n"
+                           "Consumer Group «telemetry_workers»\n"
+                           "PEL (Pending Entries List) облік\n"
+                           "Гарантія At-least-once",
+                           size=11.5, bold=True, fill="#eaf7ef", stroke=FIELD, min_w=250)
+    parts.append(s_box)
+
+    parts.append(arrow(420 + gw, 200, 710 - sw, 200, color=FIELD, sw=1.7))
+    parts.append(text((420 + gw + 710 - sw) / 2, 184, "XADD stream *", size=10.5, color=FIELD))
+
+    # Вихідні гілки (Success / DLQ)
+    w1_box, w1w, w1h = box_at(1020, 140,
+                              "Worker · Deduplication & DB\n"
+                              "SET pkg:<dev>:<seq> NX EX 3600\n"
+                              "Запис у Time-Series DB (Timescale)\n"
+                              "XACK повідомлення в Stream",
+                              size=11, bold=True, fill="#eaf7ef", stroke=FIELD, min_w=250)
+    parts.append(w1_box)
+
+    w2_box, w2w, w2h = box_at(1020, 330,
+                              "Dead Letter Stream (DLQ)\n"
+                              "«iot:telemetry:dlq»\n"
+                              "Пошкоджені або отруйні пакети\n"
+                              "Аудит аномалій сенсорів і алертинг",
+                              size=11, bold=True, fill="#fdecea", stroke=POS, min_w=250)
+    parts.append(w2_box)
+
+    parts.append(arrow(710 + sw, 180, 1020 - w1w, 140, color=FIELD, sw=1.7))
+    parts.append(text((710 + sw + 1020 - w1w) / 2, 146, "XREADGROUP / успіх", size=10.5, color=FIELD))
+
+    parts.append(arrow(710 + sw, 220, 1020 - w2w, 330, color=POS, sw=1.7))
+    parts.append(text((710 + sw + 1020 - w2w) / 2, 286, "збій після 3 спроб", size=10.5, color=POS))
+
+    parts.append(text(W / 2, 490,
+                      "Вхідний шлюз скидає пакети в Redis Stream за частки мілісекунди, а пул воркерів з дедуплікацією "
+                      "надійно захищає часову базу даних від подвійних записів та перевантаження.",
+                      size=12, italic=True, color=INK))
+
+    render(os.path.join(IMG, "iot-telemetry-pipeline.svg"), W, H, *parts)
+
 
 if __name__ == "__main__":
     sync_vs_queue()
@@ -367,4 +673,9 @@ if __name__ == "__main__":
     hist_queue_generations()
     claim_skip_locked()
     lease_timeline()
+    queue_architecture()
+    retry_backoff_jitter()
+    periodic_scheduler_lock()
+    iot_telemetry_pipeline()
     print("figures written to", IMG)
+

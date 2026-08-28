@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Життєвий цикл ADR: скінченний автомат станів і переходів</text>
+<rect x="330.0" y="60.0" width="180.0" height="60.0" rx="6" fill="#fdf8e2" stroke="#d4ac0d" stroke-width="2.0"/>
+<text x="420.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7d6608" text-anchor="middle" font-weight="700">PROPOSED</text>
+<text x="420.0" y="104.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Чернетка / рев'ю в PR</text>
+<rect x="330.0" y="180.0" width="180.0" height="60.0" rx="6" fill="#e7f7ee" stroke="#27ae60" stroke-width="2.2"/>
+<text x="420.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">ACCEPTED</text>
+<text x="420.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Чинне правило системи</text>
+<rect x="60.0" y="180.0" width="180.0" height="60.0" rx="6" fill="#f5f5f5" stroke="#6b7280" stroke-width="1.8"/>
+<text x="150.0" y="204.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">REJECTED</text>
+<text x="150.0" y="224.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Відхилено (слід лишається)</text>
+<rect x="160.0" y="310.0" width="180.0" height="60.0" rx="6" fill="#fdf2f0" stroke="#c0392b" stroke-width="1.8"/>
+<text x="250.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">DEPRECATED</text>
+<text x="250.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Вимогу знято / вилучення</text>
+<rect x="500.0" y="310.0" width="180.0" height="60.0" rx="6" fill="#eef6ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="590.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">SUPERSEDED</text>
+<text x="590.0" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">Замінено на ADR-XXXX</text>
+<line x1="420.0" y1="120.0" x2="420.0" y2="180.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="428.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="start">консенсус команди / мердж</text>
+<line x1="330.0" y1="90.0" x2="150.0" y2="180.0" stroke="#6b7280" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="250.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">альтернатива невигідна</text>
+<line x1="360.0" y1="240.0" x2="250.0" y2="310.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="240.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="end">контекст зник</text>
+<line x1="480.0" y1="240.0" x2="590.0" y2="310.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="600.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="start">нове рішення (adr new -s)</text>
+<rect x="60.0" y="400.0" width="720.0" height="50.0" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="420.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">ІНВАРІАНТ НЕЗМІННОСТІ: жоден ADR після Accepted не видаляється і не редагується в минулому.</text>
+<text x="420.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Будь-яка зміна курсу — це створення нового запису або формальна зміна статусу на застарілий/замінений.</text>
+</svg>

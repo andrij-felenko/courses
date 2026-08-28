@@ -214,6 +214,269 @@ def fig_ring_count():
            title="Скільки рівнів привілею — від Multics до сьогодні")
 
 
+def fig_cortex_m_modes():
+    """Матриця режимів та рівнів привілеїв ARM Cortex-M."""
+    W, H = 980, 580
+    F = []
+    
+    # ── Заголовок колонок ─────────────────────────────────────
+    F.append(text(280, 48, "Привілейований рівень (Privileged)", size=15, bold=True, color=POS))
+    F.append(text(730, 48, "Непривілейований рівень (Unprivileged)", size=15, bold=True, color=NEG))
+    
+    # ── Верхній ряд: Handler Mode ──────────────────────────────
+    F.append(text(50, 150, "Handler\nMode", size=15, bold=True, color=INK))
+    F.append(text(50, 185, "(обробка\nвинятків)", size=12, color=MUTED))
+    
+    # Handler завжди привілейований
+    b_h, e_h = _box(280, 160, ["Handler Mode (Privileged)", "Виконує ISR / винятки", "Завжди стек MSP", "Повний доступ до SCB / NVIC / MPU"],
+                    size=13, fill="#fdecea", stroke=POS, sw=1.8)
+    F.append(b_h)
+    
+    # Непривілейованого Handler не існує в залізі
+    b_hx, e_hx = _box(730, 160, ["Апаратно неможливо", "Handler Mode завжди", "виконується з повними", "привілеями"],
+                      size=13, fill="#f4f6f8", stroke="#d0d0d0", color=MUTED)
+    F.append(b_hx)
+    
+    # ── Нижній ряд: Thread Mode ────────────────────────────────
+    F.append(text(50, 340, "Thread\nMode", size=15, bold=True, color=INK))
+    F.append(text(50, 375, "(основний\nпотік задач)", size=12, color=MUTED))
+    
+    b_tp, e_tp = _box(280, 350, ["Privileged Thread Mode", "Ядро RTOS / ініціалізація", "Стек MSP або PSP", "CONTROL.nPRIV = 0"],
+                      size=13, fill="#fff2df", stroke=LINE, sw=1.6)
+    b_tu, e_tu = _box(730, 350, ["Unprivileged Thread Mode", "Користувацькі задачі RTOS", "Зазвичай стек PSP", "CONTROL.nPRIV = 1"],
+                      size=13, fill="#eaf0fd", stroke=NEG, sw=1.8)
+    F += [b_tp, b_tu]
+    
+    # ── Стрілки переходів ─────────────────────────────────────
+    # Privileged Thread -> Unprivileged Thread (MSR CONTROL)
+    F.append(arrow(e_tp[1], 335, e_tu[0], 335, color=NEG, sw=2.2))
+    F.append(text((e_tp[1] + e_tu[0]) / 2, 322, "MSR CONTROL (nPRIV=1)", size=12, bold=True, color=NEG))
+    
+    # Unprivileged Thread -> Privileged Thread (ЗАБОРОНЕНО програмно)
+    F.append(line(e_tu[0], 370, e_tp[1], 370, color=POS, sw=1.8, dash="4 3"))
+    F.append(text((e_tp[1] + e_tu[0]) / 2, 385, "Прямий запис у CONTROL проігноровано!", size=11, bold=True, color=POS))
+    
+    # Thread -> Handler (SVC / Interrupt)
+    F.append(arrow(680, e_tu[2], 370, e_h[3] - 10, color=FIELD, sw=2.2))
+    F.append(text(540, 240, "Виклик SVC / Переривання (IRQs)", size=12, bold=True, color=FIELD))
+    
+    # Handler -> Thread (EXC_RETURN)
+    F.append(arrow(240, e_h[3], 240, e_tp[2], color=MUTED, sw=2.0))
+    F.append(text(210, 255, "EXC_RETURN", size=11, color=MUTED, anchor="end"))
+    
+    # ── Регістр CONTROL (панель внизу) ─────────────────────────
+    F.append(rect(120, 460, 740, 90, fill="#f9fbfd", stroke=LINE, sw=1.4, rx=6))
+    F.append(text(490, 482, "Системний регістр процесора CONTROL", size=14, bold=True))
+    F.append(text(240, 515, "Біт 0: nPRIV (0 = Privileged, 1 = Unprivileged)", size=12, color=INK))
+    F.append(text(580, 515, "Біт 1: SPSEL (0 = MSP, 1 = PSP)", size=12, color=INK))
+    F.append(text(490, 538, "Біт 2: FPCA (активність контексту апаратного FPU)", size=11, color=MUTED))
+    
+    render(os.path.join(IMG, 'cortex-m-modes.svg'), W, H, *F,
+           title="Модель привілеїв ARM Cortex-M")
+
+
+def fig_armv8_el_trustzone():
+    """Рівні винятків ARMv8-A EL0-EL3 та домени безпеки TrustZone."""
+    W, H = 1020, 620
+    F = []
+    
+    # Колонки доменів безпеки
+    F.append(text(300, 40, "Non-Secure World (Normal)", size=15, bold=True, color=NEG))
+    F.append(text(720, 40, "Secure World (TrustZone)", size=15, bold=True, color=POS))
+    
+    # EL0 (Applications)
+    y0 = 100
+    F.append(fitbox(60, y0, 900, 60, "", fill="#f4f6f8", stroke="#d0d0d0", sw=1.0))
+    F.append(text(100, y0 + 35, "EL0", size=18, bold=True, color=INK))
+    F.append(fitbox(180, y0 + 10, 240, 40, "Звичайні застосунки (Apps)", size=13, fill="#eaf0fd", stroke=NEG))
+    F.append(fitbox(600, y0 + 10, 240, 40, "Довірені застосунки (TA)", size=13, fill="#fdecea", stroke=POS))
+    
+    # EL1 (OS Kernel)
+    y1 = 200
+    F.append(fitbox(60, y1, 900, 60, "", fill="#f4f6f8", stroke="#d0d0d0", sw=1.0))
+    F.append(text(100, y1 + 35, "EL1", size=18, bold=True, color=INK))
+    F.append(fitbox(180, y1 + 10, 240, 40, "Rich OS Kernel (Linux / Win)", size=13, fill="#fff2df", stroke=LINE))
+    F.append(fitbox(600, y1 + 10, 240, 40, "Secure OS (OP-TEE / Trusty)", size=13, fill="#fdecea", stroke=POS))
+    
+    # EL2 (Hypervisor)
+    y2 = 300
+    F.append(fitbox(60, y2, 900, 60, "", fill="#f4f6f8", stroke="#d0d0d0", sw=1.0))
+    F.append(text(100, y2 + 35, "EL2", size=18, bold=True, color=INK))
+    F.append(fitbox(180, y2 + 10, 240, 40, "Hypervisor (KVM / Xen)", size=13, fill="#eafaf0", stroke=FIELD))
+    F.append(fitbox(600, y2 + 10, 240, 40, "Secure EL2 (Virtualization)", size=13, fill="#fff2df", stroke=LINE))
+    
+    # EL3 (Secure Monitor)
+    y3 = 410
+    F.append(fitbox(60, y3, 900, 74, "", fill="#fdecea", stroke=POS, sw=2.0))
+    F.append(text(100, y3 + 42, "EL3", size=20, bold=True, color=POS))
+    F.append(text(510, y3 + 28, "Secure Monitor & Firmware (TF-A / Root of Trust)", size=15, bold=True, color=POS))
+    F.append(text(510, y3 + 52, "Керує SCR_EL3, перемикає контексти світів, маршрутизує переривання SMC/FIQ", size=12, color=INK))
+    
+    # Інструкції переходів (стрілки збоку)
+    # EL0 -> EL1: SVC
+    F.append(arrow(300, y0 + 50, 300, y1 + 10, color=FIELD, sw=2.0))
+    F.append(text(340, 180, "SVC (Syscall)", size=11, bold=True, color=FIELD))
+    
+    # EL1 -> EL2: HVC
+    F.append(arrow(300, y1 + 50, 300, y2 + 10, color=FIELD, sw=2.0))
+    F.append(text(340, 280, "HVC (Hypercall)", size=11, bold=True, color=FIELD))
+    
+    # EL1/EL2 -> EL3: SMC
+    F.append(arrow(430, y1 + 30, 480, y3 + 10, color=POS, sw=2.2))
+    F.append(text(475, 370, "SMC (Secure Monitor Call)", size=12, bold=True, color=POS))
+    
+    # Повернення ERET
+    F.append(arrow(170, y3 + 10, 170, y1 + 50, color=MUTED, sw=1.8))
+    F.append(text(155, 360, "ERET", size=11, color=MUTED, anchor="end"))
+    
+    # Виноска знизу
+    F.append(text(W / 2, 530,
+                  "Рівні винятків суворо ізольовані: перехід угору (підвищення прав) відбувається ТІЛЬКИ через виняток,",
+                  size=13))
+    F.append(text(W / 2, 555,
+                  "а повернення вниз — інструкцією ERET з відновленням стану з SPSR_ELx та адреси з ELR_ELx.",
+                  size=13))
+    
+    render(os.path.join(IMG, 'armv8-el-trustzone.svg'), W, H, *F,
+           title="Рівні винятків ARMv8-A та домени TrustZone")
+
+
+def fig_x86_privilege_check():
+    """Перевірка прав x86 CPL, DPL, RPL та перемикання стеків через TSS."""
+    W, H = 980, 580
+    F = []
+    
+    # Ліва колонка: 4 Кільця
+    cx, cy = 230, 240
+    r3, r2, r1, r0 = 190, 145, 100, 55
+    F.append(circle(cx, cy, r3, fill="#eaf0fd", stroke=LINE, sw=1.4))
+    F.append(circle(cx, cy, r2, fill="#f4f6f8", stroke=LINE, sw=1.2))
+    F.append(circle(cx, cy, r1, fill="#fff2df", stroke=LINE, sw=1.2))
+    F.append(circle(cx, cy, r0, fill="#fdecea", stroke=POS, sw=1.8))
+    
+    F.append(text(cx, cy - 165, "Ring 3: User Space (CPL=3)", size=12, bold=True))
+    F.append(text(cx, cy - 120, "Ring 2: OS Services", size=11, color=MUTED))
+    F.append(text(cx, cy - 75, "Ring 1: Drivers", size=11, color=MUTED))
+    F.append(text(cx, cy + 5, "Ring 0", size=14, bold=True, color=POS))
+    F.append(text(cx, cy + 22, "Kernel", size=11, bold=True, color=POS))
+    
+    # Права колонка: Правила перевірки в кремнії
+    rx = 480
+    F.append(rect(rx, 50, 460, 400, fill="#ffffff", stroke=LINE, sw=1.5, rx=6))
+    F.append(text(rx + 230, 80, "Апаратна логіка перевірки привілеїв x86", size=14, bold=True))
+    
+    # CPL, DPL, RPL
+    F.append(fitbox(rx + 20, 105, 420, 56,
+                    ["CPL (CS[1:0]): поточний рівень виконання",
+                     "DPL: рівень дескриптора (сегмента або шлюзу)",
+                     "RPL (Selector[1:0]): запитаний рівень селектора"],
+                    size=12, fill="#f9fbfd", stroke="#d0d0d0"))
+    
+    # Правило доступу до даних
+    F.append(text(rx + 20, 185, "1. Доступ до сегмента даних:", size=13, bold=True, anchor="start"))
+    b_data, _ = _box(rx + 230, 220,
+                     ["max(CPL, RPL) ≤ DPL", "Користувач (CPL=3) не може прочитати дескриптор з DPL < 3"],
+                     size=12, fill="#eafaf0", stroke=FIELD)
+    F.append(b_data)
+    
+    # Правило переходу між кільцями
+    F.append(text(rx + 20, 275, "2. Перехід у Кільце 0 (Syscall / Interrupt):", size=13, bold=True, anchor="start"))
+    b_sys, _ = _box(rx + 230, 330,
+                    ["SYSCALL: MSR_LSTAR → RIP, MSR_STAR → CS/SS",
+                     "CPU автоматично встановлює CPL = 0",
+                     "Апаратна зміна стека: читання RSP0 з TSS"],
+                    size=12, fill="#fff2df", stroke=LINE)
+    F.append(b_sys)
+    
+    # Виноска про захист стека
+    F.append(text(rx + 20, 395, "3. Ізоляція стеків ядра:", size=13, bold=True, anchor="start"))
+    F.append(text(rx + 20, 420, "Ядро не довіряє стеку Ring 3: стек підміняється на захищений RSP0.", size=12, color=POS, anchor="start"))
+    
+    # Підпис внизу
+    F.append(text(W / 2, 510,
+                  "Будь-яка спроба прямого переходу на кодовий сегмент вищого привілею без виклику шлюзу або syscall",
+                  size=13))
+    F.append(text(W / 2, 535,
+                  "негайно генерує апаратне виключення General Protection Fault (#GP, вектор 13).",
+                  size=13, bold=True, color=POS))
+    
+    render(os.path.join(IMG, 'x86-privilege-check.svg'), W, H, *F,
+           title="Апаратна перевірка привілеїв x86")
+
+
+def fig_mpu_task_isolation():
+    """Апаратне розмежування пам'яті через MPU в RTOS."""
+    W, H = 1000, 560
+    F = []
+    
+    # Заголовки
+    F.append(text(220, 45, "Фізичний адресний простір MCU", size=14, bold=True))
+    F.append(text(540, 45, "Регіони MPU для Задачі (Task A)", size=14, bold=True))
+    F.append(text(840, 45, "Реакція MPU на доступ", size=14, bold=True))
+    
+    # ── Блоки пам'яті ─────────────────────────────────────────
+    # 1. Flash
+    F.append(rect(80, 80, 280, 70, fill="#eaf0fd", stroke=NEG, sw=1.5))
+    F.append(text(220, 108, "Flash Memory (0x08000000)", size=13, bold=True))
+    F.append(text(220, 130, "Код ядра ОС та застосунку", size=11, color=MUTED))
+    
+    F.append(rect(400, 80, 280, 70, fill="#eafaf0", stroke=FIELD, sw=1.5))
+    F.append(text(540, 108, "MPU Region 0 (Code Flash)", size=13, bold=True, color=FIELD))
+    F.append(text(540, 130, "Privileged: RO/X | Unprivileged: RO/X", size=11, color=INK))
+    
+    F.append(arrow(690, 115, 780, 115, color=FIELD, sw=2.0))
+    F.append(text(840, 115, "Дозволено (Fetch)", size=12, bold=True, color=FIELD))
+    
+    # 2. Task Private SRAM
+    F.append(rect(80, 175, 280, 70, fill="#eafaf0", stroke=FIELD, sw=1.5))
+    F.append(text(220, 203, "Task A RAM & Stack (PSP)", size=13, bold=True))
+    F.append(text(220, 225, "0x20001000 — 0x20001FFF", size=11, color=MUTED))
+    
+    F.append(rect(400, 175, 280, 70, fill="#eafaf0", stroke=FIELD, sw=1.5))
+    F.append(text(540, 203, "MPU Region 1 (Task Data)", size=13, bold=True, color=FIELD))
+    F.append(text(540, 225, "Privileged: RW | Unprivileged: RW", size=11, color=INK))
+    
+    F.append(arrow(690, 210, 780, 210, color=FIELD, sw=2.0))
+    F.append(text(840, 210, "Дозволено (RW)", size=12, bold=True, color=FIELD))
+    
+    # 3. Kernel RAM / Task B RAM (Захищена)
+    F.append(rect(80, 270, 280, 70, fill="#fdecea", stroke=POS, sw=1.8))
+    F.append(text(220, 298, "Kernel RAM & Task B Stack", size=13, bold=True, color=POS))
+    F.append(text(220, 320, "0x20000000 (MSP) / 0x20002000", size=11, color=MUTED))
+    
+    F.append(rect(400, 270, 280, 70, fill="#fdecea", stroke=POS, sw=1.8))
+    F.append(text(540, 298, "Поза регіонами Task A", size=13, bold=True, color=POS))
+    F.append(text(540, 320, "Unprivileged: NO ACCESS", size=11, bold=True, color=POS))
+    
+    F.append(arrow(690, 305, 780, 305, color=POS, sw=2.4))
+    F.append(text(840, 298, "Апаратна пастка:", size=12, bold=True, color=POS))
+    F.append(text(840, 320, "MemManage Fault (#4)", size=11, bold=True, color=POS))
+    
+    # 4. System Control Space (SCB / NVIC / MPU registers)
+    F.append(rect(80, 365, 280, 70, fill="#fff2df", stroke=LINE, sw=1.5))
+    F.append(text(220, 393, "System Control Space (SCS)", size=13, bold=True))
+    F.append(text(220, 415, "0xE000E000 (NVIC, MPU, SCB)", size=11, color=MUTED))
+    
+    F.append(rect(400, 365, 280, 70, fill="#fff2df", stroke=LINE, sw=1.5))
+    F.append(text(540, 393, "Апаратний захист ядра", size=13, bold=True))
+    F.append(text(540, 415, "Тільки Privileged доступ", size=11, color=POS))
+    
+    F.append(arrow(690, 400, 780, 400, color=POS, sw=2.4))
+    F.append(text(840, 393, "Запис відхилено:", size=12, bold=True, color=POS))
+    F.append(text(840, 415, "CFSR.MMFSR = DACCVIOL", size=11, color=POS))
+    
+    # Нижня плашка
+    F.append(text(W / 2, 490,
+                  "При кожному перемиканні контексту планувальник RTOS перепрограмує регістри MPU (RBAR, RLAR/RASR)",
+                  size=13))
+    F.append(text(W / 2, 515,
+                  "під адресні межі поточної задачі, унеможливлюючи пошкодження чужої пам'яті.",
+                  size=13))
+    
+    render(os.path.join(IMG, 'mpu-task-isolation.svg'), W, H, *F,
+           title="Розмежування пам'яті через MPU в RTOS")
+
+
 if __name__ == '__main__':
     fig_rings()
     fig_gate()
@@ -221,4 +484,9 @@ if __name__ == '__main__':
     fig_three_fates()
     fig_multics_rings()
     fig_ring_count()
+    fig_cortex_m_modes()
+    fig_armv8_el_trustzone()
+    fig_x86_privilege_check()
+    fig_mpu_task_isolation()
     print("OK:", os.listdir(IMG))
+

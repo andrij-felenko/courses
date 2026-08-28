@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Геометрія карданового замка</text>
+<text x="480.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Геометрія карданового замка (Gimbal Lock) при тангажі θ = ±90°</text>
+<text x="250.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#27ae60" text-anchor="middle" font-weight="700">Нормальний стан (θ = 0°): 3 DOF</text>
+<line x1="250.0" y1="175.0" x2="250.0" y2="95.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="262.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Z_yaw (зовнішня)</text>
+<line x1="250.0" y1="175.0" x2="340.0" y2="205.0" stroke="#d35400" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="345.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="start" font-weight="700">Y_pitch (середня)</text>
+<line x1="250.0" y1="175.0" x2="170.0" y2="215.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="165.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="end" font-weight="700">X_roll (внутрішня)</text>
+<circle cx="250.0" cy="175.0" r="5.0" fill="#1a1a1a"/>
+<rect x="130.0" y="282.6" width="240.0" height="74.8" rx="6" fill="#f4faf4" stroke="#27ae60" stroke-width="1.5"/><text x="250.0" y="300.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="250.0" dy="0.0">Осі Z_yaw, Y_pitch, X_roll</tspan><tspan x="250.0" dy="15.6">взаємно перпендикулярні.</tspan><tspan x="250.0" dy="15.6">Система покриває повний</tspan><tspan x="250.0" dy="15.6">тривимірний простір обертань.</tspan></text>
+<line x1="480.0" y1="50.0" x2="480.0" y2="380.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+<text x="710.0" y="65.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#c0392b" text-anchor="middle" font-weight="700">Карданів замок (θ = +90°): Втрата 1 DOF</text>
+<line x1="698.0" y1="195.0" x2="698.0" y2="95.0" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="692.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="end" font-weight="700">Z_yaw (зовнішня)</text>
+<line x1="722.0" y1="195.0" x2="722.0" y2="95.0" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="728.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">X_roll (повернута вгору)</text>
+<line x1="710.0" y1="175.0" x2="800.0" y2="205.0" stroke="#d35400" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="805.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="start" font-weight="700">Y_pitch</text>
+<circle cx="710.0" cy="175.0" r="5.0" fill="#1a1a1a"/>
+<line x1="640.0" y1="215.0" x2="690.0" y2="215.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+<text x="635.0" y="218.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="end" font-weight="700">Втрачена вісь (немає мотора)</text>
+<rect x="548.1" y="282.6" width="323.8" height="74.8" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5"/><text x="710.0" y="300.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle"><tspan x="710.0" dy="0.0">Вісь крену X_roll збіглася з Z_yaw.</tspan><tspan x="710.0" dy="15.6">Обертання ψ та φ діють навколо однієї прямої.</tspan><tspan x="710.0" dy="15.6">Підвіс не може парирувати рух навколо</tspan><tspan x="710.0" dy="15.6">поперечної осі. det(J) = cos(θ) = 0.</tspan></text>
+<text x="480.0" y="410.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">При вирівнюванні зовнішньої та внутрішньої осей тривісний підвіс втрачає один ступінь вільності у просторі</text>
+</svg>

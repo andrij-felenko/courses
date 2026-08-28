@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1170 690" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1170" height="690" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="580.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Режими лічби: прямий, зворотний та симетричний центрований ШІМ</text>
+<rect x="40.0" y="60.0" width="345.0" height="590.0" rx="8" fill="#ffffff" stroke="#d5d9df" stroke-width="1.4"/>
+<text x="212.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Прямий рахунок (Up-counting)</text>
+<text x="212.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Edge-aligned PWM (Mode 1)</text>
+<line x1="65.0" y1="260.0" x2="330.0" y2="260.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="65.0" y1="265.0" x2="65.0" y2="140.0" stroke="#333333" stroke-width="1.4"/>
+<text x="59.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">ARR</text>
+<text x="59.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">0</text>
+<line x1="65.0" y1="194.0" x2="320.0" y2="194.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="325.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">CCR</text>
+<line x1="65.0" y1="260.0" x2="150.0" y2="150.0" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="150.0" y1="150.0" x2="150.0" y2="260.0" stroke="#2457d6" stroke-width="2.2"/>
+<circle cx="150.0" cy="150.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="150.0" y1="260.0" x2="235.0" y2="150.0" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="235.0" y1="150.0" x2="235.0" y2="260.0" stroke="#2457d6" stroke-width="2.2"/>
+<circle cx="235.0" cy="150.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="235.0" y1="260.0" x2="320.0" y2="150.0" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="320.0" y1="150.0" x2="320.0" y2="260.0" stroke="#2457d6" stroke-width="2.2"/>
+<circle cx="320.0" cy="150.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="55.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">OCx</text>
+<line x1="65.0" y1="320.0" x2="116.0" y2="320.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="116.0" y1="320.0" x2="116.0" y2="365.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="116.0" y1="365.0" x2="150.0" y2="365.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="150.0" y1="365.0" x2="150.0" y2="320.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="150.0" y1="320.0" x2="201.0" y2="320.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="201.0" y1="320.0" x2="201.0" y2="365.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="201.0" y1="365.0" x2="235.0" y2="365.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="235.0" y1="365.0" x2="235.0" y2="320.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="235.0" y1="320.0" x2="286.0" y2="320.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="286.0" y1="320.0" x2="286.0" y2="365.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="286.0" y1="365.0" x2="320.0" y2="365.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="320.0" y1="365.0" x2="320.0" y2="320.0" stroke="#27ae60" stroke-width="2.2"/>
+<rect x="55.0" y="410.0" width="315.0" height="220.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="212.5" y="479.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="212.5" dy="0.0">Особливості прямого рахунку:</tspan><tspan x="212.5" dy="15.0">• Фронти вирівняні за початком періоду</tspan><tspan x="212.5" dy="15.0">• UEV генерується при CNT == ARR</tspan><tspan x="212.5" dy="15.0">• Спектр комутації: гармоніки на f_pwm</tspan><tspan x="212.5" dy="15.0">• Односхила модуляція (крайовий ШІМ)</tspan><tspan x="212.5" dy="15.0">• Застосування: світлодіоди, нагрівачі,</tspan><tspan x="212.5" dy="15.0">  DC-двигуни, ЦАП через RC-фільтр</tspan></text>
+<rect x="405.0" y="60.0" width="345.0" height="590.0" rx="8" fill="#ffffff" stroke="#d5d9df" stroke-width="1.4"/>
+<text x="577.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">Зворотний рахунок (Down-counting)</text>
+<text x="577.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Лічба ARR → 0</text>
+<line x1="430.0" y1="260.0" x2="695.0" y2="260.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="430.0" y1="265.0" x2="430.0" y2="140.0" stroke="#333333" stroke-width="1.4"/>
+<text x="424.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">ARR</text>
+<text x="424.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">0</text>
+<line x1="430.0" y1="194.0" x2="685.0" y2="194.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="690.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">CCR</text>
+<line x1="430.0" y1="150.0" x2="515.0" y2="260.0" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="515.0" y1="260.0" x2="515.0" y2="150.0" stroke="#2457d6" stroke-width="2.2"/>
+<circle cx="515.0" cy="260.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="515.0" y1="150.0" x2="600.0" y2="260.0" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="600.0" y1="260.0" x2="600.0" y2="150.0" stroke="#2457d6" stroke-width="2.2"/>
+<circle cx="600.0" cy="260.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="600.0" y1="150.0" x2="685.0" y2="260.0" stroke="#2457d6" stroke-width="2.2"/>
+<line x1="685.0" y1="260.0" x2="685.0" y2="150.0" stroke="#2457d6" stroke-width="2.2"/>
+<circle cx="685.0" cy="260.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="420.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">OCx</text>
+<line x1="430.0" y1="365.0" x2="464.0" y2="365.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="464.0" y1="365.0" x2="464.0" y2="320.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="464.0" y1="320.0" x2="515.0" y2="320.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="515.0" y1="320.0" x2="515.0" y2="365.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="515.0" y1="365.0" x2="549.0" y2="365.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="549.0" y1="365.0" x2="549.0" y2="320.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="549.0" y1="320.0" x2="600.0" y2="320.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="600.0" y1="320.0" x2="600.0" y2="365.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="600.0" y1="365.0" x2="634.0" y2="365.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="634.0" y1="365.0" x2="634.0" y2="320.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="634.0" y1="320.0" x2="685.0" y2="320.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="685.0" y1="320.0" x2="685.0" y2="365.0" stroke="#27ae60" stroke-width="2.2"/>
+<rect x="420.0" y="410.0" width="315.0" height="220.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="577.5" y="479.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="577.5" dy="0.0">Особливості зворотного рахунку:</tspan><tspan x="577.5" dy="15.0">• Зворотна фаза заповнення сигналу</tspan><tspan x="577.5" dy="15.0">• UEV генерується при спустошенні (0)</tspan><tspan x="577.5" dy="15.0">• Завантаження CNT значенням ARR</tspan><tspan x="577.5" dy="15.0">• Симетричний двійник прямого рахунку</tspan><tspan x="577.5" dy="15.0">• Використовується в специфічних</tspan><tspan x="577.5" dy="15.0">  протоколах генерації фазових затримок</tspan></text>
+<rect x="770.0" y="60.0" width="350.0" height="590.0" rx="8" fill="#eef7f0" stroke="#27ae60" stroke-width="1.8"/>
+<text x="945.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Центрований рахунок (Up-Down)</text>
+<text x="945.0" y="112.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Center-aligned PWM (FOC / Інвертори)</text>
+<line x1="795.0" y1="260.0" x2="1085.0" y2="260.0" stroke="#333333" stroke-width="1.4"/>
+<line x1="795.0" y1="265.0" x2="795.0" y2="140.0" stroke="#333333" stroke-width="1.4"/>
+<text x="789.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">ARR</text>
+<text x="789.0" y="264.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">0</text>
+<line x1="795.0" y1="194.0" x2="1075.0" y2="194.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="1080.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start">CCR</text>
+<line x1="795.0" y1="260.0" x2="865.0" y2="150.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="865.0" y1="150.0" x2="935.0" y2="260.0" stroke="#27ae60" stroke-width="2.2"/>
+<circle cx="865.0" cy="150.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="935.0" cy="260.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="935.0" y1="260.0" x2="1005.0" y2="150.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="1005.0" y1="150.0" x2="1075.0" y2="260.0" stroke="#27ae60" stroke-width="2.2"/>
+<circle cx="1005.0" cy="150.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="1075.0" cy="260.0" r="4.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="785.0" y="336.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="end" font-weight="700">OCx</text>
+<line x1="795.0" y1="365.0" x2="823.0" y2="365.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="823.0" y1="365.0" x2="823.0" y2="320.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="823.0" y1="320.0" x2="907.0" y2="320.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="907.0" y1="320.0" x2="907.0" y2="365.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="907.0" y1="365.0" x2="935.0" y2="365.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="865.0" y1="144.0" x2="865.0" y2="377.0" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="4 4"/>
+<line x1="935.0" y1="365.0" x2="963.0" y2="365.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="963.0" y1="365.0" x2="963.0" y2="320.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="963.0" y1="320.0" x2="1047.0" y2="320.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="1047.0" y1="320.0" x2="1047.0" y2="365.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="1047.0" y1="365.0" x2="1075.0" y2="365.0" stroke="#27ae60" stroke-width="2.2"/>
+<line x1="1005.0" y1="144.0" x2="1005.0" y2="377.0" stroke="#6b7280" stroke-width="1.1" stroke-dasharray="4 4"/>
+<rect x="785.0" y="410.0" width="320.0" height="220.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.5"/><text x="945.0" y="482.7" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="945.0" dy="0.0">Переваги центрованого ШІМ:</tspan><tspan x="945.0" dy="13.7">• Імпульси ідеально симетричні щодо центру</tspan><tspan x="945.0" dy="13.7">• Частота гармонік комутації в струмі = 2×f_pwm</tspan><tspan x="945.0" dy="13.7">• Значно менші акустичний шум та пульсації</tspan><tspan x="945.0" dy="13.7">• Безпечна вибірка струму АЦП (TRGO на вершині)</tspan><tspan x="945.0" dy="13.7">  подалі від шумів перемикання транзисторів</tspan><tspan x="945.0" dy="13.7">• Стандарт для FOC/BLDC моторних приводів</tspan></text>
+</svg>

@@ -67,6 +67,36 @@
           "detailed": {
             "status": "pending"
           }
+        },
+        {
+          "slug": "smith-predictor",
+          "title": "Предиктор Сміта: компенсація чистого запізнення в замкнених системах",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "disturbance-observer-and-adrc",
+          "title": "Спостерігач збурень (Disturbance Observer, DOB) та активне придушення збурень (ADRC)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "control-allocation-matrix-mixing",
+          "title": "Матричний розподіл зусиль (Control Allocation) та псевдоінверсія Мура–Пенроуза",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -97,6 +127,36 @@
         {
           "slug": "state-transition-matrix",
           "title": "Матриця переходу стану",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "luenberger-state-observer",
+          "title": "Спостерігач стану Люенбергера в системах автоматичного керування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "passivity-based-control-energy-tanks",
+          "title": "Керування на основі пасивності та енергетичні резервуари (Passivity-Based Control & Energy Tanks)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "impedance-and-admittance-robot-control",
+          "title": "Імпедансне та адмітансне силове керування в робототехніці",
           "basic": {
             "status": "empty"
           },
@@ -139,6 +199,42 @@
           "detailed": {
             "status": "pending"
           }
+        },
+        {
+          "slug": "describing-function-method",
+          "title": "Метод функції опису та гармонійного балансу (Describing Function Method)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          },
+          "math": [
+            {
+              "file": "math-deadband-smoothing.md",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "slug": "contact-stability-and-passivity",
+          "title": "Стійкість силового контакту: брязкіт, дискретна затримка та умова пасивності",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "control-barrier-functions-safety-filters",
+          "title": "Функції бар'єра керування (Control Barrier Functions, CBF) та QP-фільтрація безпеки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -173,8 +269,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-tracking-dynamics.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-industrial-pid.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "derivative-filter",
@@ -189,6 +297,16 @@
         {
           "slug": "relay-autotuning",
           "title": "Relay-автоналаштування",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "two-dof-pid-controller",
+          "title": "Двоступеневий ПІД-регулятор (2-DoF PID)",
           "basic": {
             "status": "empty"
           },

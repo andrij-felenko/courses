@@ -39,6 +39,16 @@
           "detailed": {
             "status": "pending"
           }
+        },
+        {
+          "slug": "queueing-theory-finite-buffer-mm1k",
+          "title": "Теорія масового обслуговування кінцевих черг (M/M/1/K)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -63,8 +73,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-covariance-properties.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-covariance-cholesky.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "covariance-matrix-intuition",

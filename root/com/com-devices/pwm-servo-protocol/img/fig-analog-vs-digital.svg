@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="820.0" height="400.0" rx="8" fill="#fafbfc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="430.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Аналоговий проти Цифрового сервоприводу: частота збудження мотора</text>
+<rect x="40.0" y="75.0" width="370.0" height="325.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="225.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="700">Аналоговий сервопривід (50 Гц)</text>
+<text x="225.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Імпульс на мотор тільки при надходженні сигналу</text>
+<line x1="60.0" y1="180.0" x2="390.0" y2="180.0" stroke="#333333" stroke-width="1.0"/>
+<path d="M 60 180 L 80 180 L 80 140 L 95 140 L 95 180 L 220 180 L 220 140 L 235 140 L 235 180 L 360 180 L 360 140 L 375 140 L 375 180 L 390 180" fill="none" stroke="#c0392b" stroke-width="2"/>
+<text x="150.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Пауза 20 мс (мотор знеструмлений)</text>
+<rect x="55.0" y="230.0" width="340.0" height="155.0" rx="4" fill="#fff1f2" stroke="#fecdd3" stroke-width="1.0"/>
+<text x="70.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Частота оновлення мотора: 50 Гц (T = 20 мс)</text>
+<text x="70.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• При малій похибці (1-2°): слабкий пусковий</text>
+<text x="80.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">момент через мізерне заповнення (duty cycle)</text>
+<text x="70.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Повільна реакція на зовнішнє навантаження</text>
+<text x="70.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Зона нечутливості (Deadband): 3–5 мкс</text>
+<text x="70.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="start" font-weight="700">• Схильність до просідання під статичною силою</text>
+<rect x="450.0" y="75.0" width="370.0" height="325.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="635.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Цифровий сервопривід (300 Гц+)</text>
+<text x="635.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Власний MCU генерує високочастотні ШІМ-пакети</text>
+<line x1="470.0" y1="180.0" x2="800.0" y2="180.0" stroke="#333333" stroke-width="1.0"/>
+<path d="M 470 180 L 480 180 L 480 140 L 492 140 L 492 180 L 505 180 L 505 140 L 517 140 L 517 180 L 530 180 L 530 140 L 542 140 L 542 180 L 555 180 L 555 140 L 567 140 L 567 180 L 580 180 L 580 140 L 592 140 L 592 180 L 605 180 L 605 140 L 617 140 L 617 180 L 630 180 L 630 140 L 642 140 L 642 180 L 655 180 L 655 140 L 667 140 L 667 180 L 680 180 L 680 140 L 692 140 L 692 180 L 705 180 L 705 140 L 717 140 L 717 180 L 730 180 L 730 140 L 742 140 L 742 180 L 755 180 L 755 140 L 767 140 L 767 180 L 780 180 L 780 140 L 792 140 L 792 180 L 800 180" fill="none" stroke="#27ae60" stroke-width="2"/>
+<text x="635.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">Постійне високочастотне підживлення (300 Гц)</text>
+<rect x="465.0" y="230.0" width="340.0" height="155.0" rx="4" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.0"/>
+<text x="480.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Внутрішній цикл PID-контролера: 250–400 Гц</text>
+<text x="480.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Максимальний пусковий момент навіть при</text>
+<text x="490.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">мінімальних відхиленнях (holding torque)</text>
+<text x="480.0" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Миттєве наростання зусилля та жорсткість</text>
+<text x="480.0" y="348.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">• Вузька зона нечутливості: 1–2 мкс</text>
+<text x="480.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="start" font-weight="700">• Підвищене енергоспоживання при утриманні</text>
+</svg>

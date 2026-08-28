@@ -310,10 +310,135 @@ def fig_lineage():
     render(os.path.join(OUT, "lineage.svg"), W, H, *p)
 
 
+# ── 6. Життєвий цикл ADR: скінченний автомат переходів ──────────────────────────
+# Статуси та події переходу. Незмінність: Accepted не редагується retroactively,
+# а переводиться в Deprecated або заміщується новим ADR зі статусом Superseded.
+def fig_lifecycle():
+    W, H = 840, 480
+    p = []
+    p.append(text(W / 2, 28, "Життєвий цикл ADR: скінченний автомат станів і переходів", size=14, bold=True))
+
+    bw, bh = 180, 60
+
+    # 1. Proposed (вгорі по центру)
+    px, py = W / 2 - bw / 2, 60
+    p.append(rect(px, py, bw, bh, fill="#fdf8e2", stroke="#d4ac0d", sw=2))
+    p.append(text(px + bw / 2, py + 24, "PROPOSED", size=12, bold=True, color="#7d6608"))
+    p.append(text(px + bw / 2, py + 44, "Чернетка / рев'ю в PR", size=9.5, color=MUTED))
+
+    # 2. Accepted (посередині)
+    ax, ay = W / 2 - bw / 2, 180
+    p.append(rect(ax, ay, bw, bh, fill="#e7f7ee", stroke=FIELD, sw=2.2))
+    p.append(text(ax + bw / 2, ay + 24, "ACCEPTED", size=12.5, bold=True, color=FIELD))
+    p.append(text(ax + bw / 2, ay + 44, "Чинне правило системи", size=9.5, color=INK))
+
+    # 3. Rejected (ліворуч від Accepted)
+    rx, ry = 60, 180
+    p.append(rect(rx, ry, bw, bh, fill="#f5f5f5", stroke=MUTED, sw=1.8))
+    p.append(text(rx + bw / 2, ry + 24, "REJECTED", size=12, bold=True, color=MUTED))
+    p.append(text(rx + bw / 2, ry + 44, "Відхилено (слід лишається)", size=9.5, color=MUTED))
+
+    # 4. Deprecated (внизу ліворуч)
+    dx, dy = 160, 310
+    p.append(rect(dx, dy, bw, bh, fill="#fdf2f0", stroke=POS, sw=1.8))
+    p.append(text(dx + bw / 2, dy + 24, "DEPRECATED", size=12, bold=True, color=POS))
+    p.append(text(dx + bw / 2, dy + 44, "Вимогу знято / вилучення", size=9.5, color=MUTED))
+
+    # 5. Superseded (внизу праворуч)
+    sx, sy = W - 160 - bw, 310
+    p.append(rect(sx, sy, bw, bh, fill="#eef6ff", stroke=NEG, sw=2))
+    p.append(text(sx + bw / 2, sy + 24, "SUPERSEDED", size=12, bold=True, color=NEG))
+    p.append(text(sx + bw / 2, sy + 44, "Замінено на ADR-XXXX", size=9.5, color=NEG))
+
+    # Стрілки переходів
+    # Proposed -> Accepted (вниз)
+    p.append(arrow(W / 2, py + bh, W / 2, ay, color=FIELD, sw=2))
+    p.append(text(W / 2 + 8, py + bh + 30, "консенсус команди / мердж", size=9.5, color=FIELD, anchor="start"))
+
+    # Proposed -> Rejected (вліво-вниз)
+    p.append(arrow(px, py + bh / 2, rx + bw / 2, ry, color=MUTED, sw=1.8))
+    p.append(text(rx + bw + 10, py + bh + 10, "альтернатива невигідна", size=9.5, color=MUTED, anchor="start"))
+
+    # Accepted -> Deprecated (вліво-вниз)
+    p.append(arrow(ax + 30, ay + bh, dx + bw / 2, dy, color=POS, sw=1.8))
+    p.append(text(dx + bw / 2 - 10, dy - 16, "контекст зник", size=9.5, color=POS, anchor="end"))
+
+    # Accepted -> Superseded (вправо-вниз)
+    p.append(arrow(ax + bw - 30, ay + bh, sx + bw / 2, sy, color=NEG, sw=2))
+    p.append(text(sx + bw / 2 + 10, sy - 16, "нове рішення (adr new -s)", size=9.5, color=NEG, anchor="start"))
+
+    # Нижній банер з інваріантом
+    p.append(rect(60, 400, W - 120, 50, fill="#f4f6f8", stroke=INK, sw=1.2))
+    p.append(text(W / 2, 422, "ІНВАРІАНТ НЕЗМІННОСТІ: жоден ADR після Accepted не видаляється і не редагується в минулому.", size=10, bold=True, color=INK))
+    p.append(text(W / 2, 438, "Будь-яка зміна курсу — це створення нового запису або формальна зміна статусу на застарілий/замінений.", size=9.5, color=MUTED))
+
+    render(os.path.join(OUT, "lifecycle.svg"), W, H, *p)
+
+
+# ── 7. Архітектурні сили та компроміси у вбудованих системах ─────────────────────
+# 4 виміри вибору в Embedded ADR: вісі сил, обмеження ресурсів і ціна вибору.
+def fig_embedded_tradeoffs():
+    W, H = 860, 500
+    p = []
+    p.append(text(W / 2, 28, "Типові сили та вибір компромісів в Embedded ADR", size=14, bold=True))
+
+    cw, ch = 380, 195
+    col1_x = 40
+    col2_x = W - 40 - cw
+
+    row1_y = 55
+    row2_y = 270
+
+    quads = [
+        (col1_x, row1_y, "1. Модель виконання: RTOS vs Superloop",
+         "Bare-Metal Superloop", "Нульовий оверхед RAM, жорсткий детермінізм ISR",
+         "FreeRTOS / Zephyr", "Витіснення, блокувальні черги, стек ~1-2 КБ/таск",
+         "#e7f7ee", FIELD),
+
+        (col2_x, row1_y, "2. Керування пам'яттю: Pool vs Heap",
+         "Статичні пули (Fixed Blocks)", "Нульова фрагментація, O(1) виділення, фіксований RAM",
+         "Динамічна купа (malloc/free)", "Гнучкість розмірів, ризик фрагментації та вичерпання",
+         "#eef6ff", NEG),
+
+        (col1_x, row2_y, "3. Мережевий транспорт: MQTT vs CoAP",
+         "MQTT поверх TCP/TLS", "Постійна сесія, брокер, QoS 0/1/2, накладні витрати TLS",
+         "CoAP поверх UDP/DTLS", "Двоточкові запити, бінарний заголовок 4B, режим сну вузла",
+         "#fdf8e2", "#b7950b"),
+
+        (col2_x, row2_y, "4. Криптозахист: HW Crypto vs SW Lib",
+         "Апаратний рушій (AES/SHA/ECC)", "DMA-обробка, захищене сховище ключів, прив'язка до чіпа",
+         "Програмна бібліотека (mbedTLS)", "Переносимість між чіпами, витрата циклів CPU і Flash",
+         "#fdf2f0", POS)
+    ]
+
+    for qx, qy, title_text, opt1_h, opt1_d, opt2_h, opt2_d, bg_col, border_col in quads:
+        p.append(rect(qx, qy, cw, ch, fill="#ffffff", stroke=border_col, sw=1.8))
+        # Заголовок квадранта
+        p.append(rect(qx, qy, cw, 28, fill=bg_col, stroke=border_col, sw=1.2))
+        p.append(text(qx + 12, qy + 19, title_text, size=11, bold=True, color=INK, anchor="start"))
+
+        # Опція 1
+        oy1 = qy + 36
+        p.append(rect(qx + 10, oy1, cw - 20, 64, fill="#f8fafc", stroke=LINE, sw=1))
+        p.append(text(qx + 20, oy1 + 20, "Варіант А: " + opt1_h, size=10, bold=True, color=FIELD, anchor="start"))
+        p.append(text(qx + 20, oy1 + 42, opt1_d, size=9.5, color=INK, anchor="start"))
+
+        # Опція 2
+        oy2 = oy1 + 72
+        p.append(rect(qx + 10, oy2, cw - 20, 64, fill="#f8fafc", stroke=LINE, sw=1))
+        p.append(text(qx + 20, oy2 + 20, "Варіант Б: " + opt2_h, size=10, bold=True, color=NEG, anchor="start"))
+        p.append(text(qx + 20, oy2 + 42, opt2_d, size=9.5, color=INK, anchor="start"))
+
+    render(os.path.join(OUT, "embedded-tradeoffs.svg"), W, H, *p)
+
+
 if __name__ == "__main__":
     fig_anatomy()
     fig_layers()
     fig_supersede()
     fig_pr()
     fig_lineage()
+    fig_lifecycle()
+    fig_embedded_tradeoffs()
     print("figs done")
+

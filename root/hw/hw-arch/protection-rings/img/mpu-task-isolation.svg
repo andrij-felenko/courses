@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розмежування пам'яті через MPU в RTOS</text>
+<text x="220.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фізичний адресний простір MCU</text>
+<text x="540.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Регіони MPU для Задачі (Task A)</text>
+<text x="840.0" y="45.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Реакція MPU на доступ</text>
+<rect x="80.0" y="80.0" width="280.0" height="70.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="220.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Flash Memory (0x08000000)</text>
+<text x="220.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Код ядра ОС та застосунку</text>
+<rect x="400.0" y="80.0" width="280.0" height="70.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="540.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">MPU Region 0 (Code Flash)</text>
+<text x="540.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Privileged: RO/X | Unprivileged: RO/X</text>
+<line x1="690.0" y1="115.0" x2="780.0" y2="115.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="840.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Дозволено (Fetch)</text>
+<rect x="80.0" y="175.0" width="280.0" height="70.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="220.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Task A RAM &amp; Stack (PSP)</text>
+<text x="220.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">0x20001000 — 0x20001FFF</text>
+<rect x="400.0" y="175.0" width="280.0" height="70.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="540.0" y="203.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">MPU Region 1 (Task Data)</text>
+<text x="540.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Privileged: RW | Unprivileged: RW</text>
+<line x1="690.0" y1="210.0" x2="780.0" y2="210.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="840.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">Дозволено (RW)</text>
+<rect x="80.0" y="270.0" width="280.0" height="70.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="220.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Kernel RAM &amp; Task B Stack</text>
+<text x="220.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">0x20000000 (MSP) / 0x20002000</text>
+<rect x="400.0" y="270.0" width="280.0" height="70.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="540.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">Поза регіонами Task A</text>
+<text x="540.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Unprivileged: NO ACCESS</text>
+<line x1="690.0" y1="305.0" x2="780.0" y2="305.0" stroke="#c0392b" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="840.0" y="298.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Апаратна пастка:</text>
+<text x="840.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">MemManage Fault (#4)</text>
+<rect x="80.0" y="365.0" width="280.0" height="70.0" rx="6" fill="#fff2df" stroke="#333333" stroke-width="1.5"/>
+<text x="220.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">System Control Space (SCS)</text>
+<text x="220.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">0xE000E000 (NVIC, MPU, SCB)</text>
+<rect x="400.0" y="365.0" width="280.0" height="70.0" rx="6" fill="#fff2df" stroke="#333333" stroke-width="1.5"/>
+<text x="540.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратний захист ядра</text>
+<text x="540.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Тільки Privileged доступ</text>
+<line x1="690.0" y1="400.0" x2="780.0" y2="400.0" stroke="#c0392b" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="840.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Запис відхилено:</text>
+<text x="840.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">CFSR.MMFSR = DACCVIOL</text>
+<text x="500.0" y="490.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">При кожному перемиканні контексту планувальник RTOS перепрограмує регістри MPU (RBAR, RLAR/RASR)</text>
+<text x="500.0" y="515.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle">під адресні межі поточної задачі, унеможливлюючи пошкодження чужої пам'яті.</text>
+</svg>

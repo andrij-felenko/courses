@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="20.0" y="20.0" width="860.0" height="460.0" rx="8" fill="#fafbfc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="450.0" y="48.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратна генерація DShot: зв'язка ОЗП → DMA → Таймер PWM (STM32)</text>
+<rect x="40.0" y="100.0" width="200.0" height="280.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="140.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">ОЗП (SRAM Buffer)</text>
+<text x="140.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">uint32_t dshot_dmabuf[17]</text>
+<rect x="50.0" y="165.0" width="180.0" height="26.0" rx="3" fill="#dbeafe" stroke="#333333" stroke-width="1.0"/>
+<text x="60.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">dshot_dmabuf[0]</text>
+<text x="220.0" y="182.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Bit 15 (MSB)</text>
+<rect x="50.0" y="197.0" width="180.0" height="26.0" rx="3" fill="#dbeafe" stroke="#333333" stroke-width="1.0"/>
+<text x="60.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">dshot_dmabuf[1]</text>
+<text x="220.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Bit 14</text>
+<rect x="50.0" y="229.0" width="180.0" height="26.0" rx="3" fill="#ffffff" stroke="#333333" stroke-width="1.0"/>
+<text x="60.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">...</text>
+<text x="220.0" y="246.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">...</text>
+<rect x="50.0" y="261.0" width="180.0" height="26.0" rx="3" fill="#fef3c7" stroke="#333333" stroke-width="1.0"/>
+<text x="60.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">dshot_dmabuf[11]</text>
+<text x="220.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Bit 4 (TLM)</text>
+<rect x="50.0" y="293.0" width="180.0" height="26.0" rx="3" fill="#dcfce7" stroke="#333333" stroke-width="1.0"/>
+<text x="53.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">dshot_dmabuf[12..15]</text>
+<text x="220.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">Bits 3..0 (CRC)</text>
+<rect x="50.0" y="325.0" width="180.0" height="26.0" rx="3" fill="#f1f5f9" stroke="#333333" stroke-width="1.0"/>
+<text x="60.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start" font-weight="700">dshot_dmabuf[16]</text>
+<text x="220.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="end">0 (Reset / Low)</text>
+<line x1="240.0" y1="240.0" x2="310.0" y2="240.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="275.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Memory Read</text>
+<rect x="310.0" y="150.0" width="180.0" height="180.0" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2.0"/>
+<text x="400.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#b45309" text-anchor="middle" font-weight="700">DMA Engine</text>
+<text x="400.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">(DMA Stream / Channel)</text>
+<text x="400.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Circular / Normal Mode</text>
+<text x="400.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-weight="700">Трансфер: 17 слів (32-bit)</text>
+<text x="400.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Trigger: TIM_UP Event</text>
+<text x="400.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Нульове навантаження CPU!</text>
+<line x1="490.0" y1="240.0" x2="560.0" y2="240.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="525.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Peripheral Write</text>
+<rect x="560.0" y="100.0" width="260.0" height="280.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2.0"/>
+<text x="690.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">Таймер (TIMx Peripheral)</text>
+<text x="690.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">PWM Mode 1  |  ARR = Period (T_bit)</text>
+<rect x="580.0" y="165.0" width="220.0" height="45.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.2"/>
+<text x="690.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">TIMx-&gt;ARR (Auto-Reload)</text>
+<text x="690.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фіксована база часу біта (1.67 мкс при DShot600)</text>
+<rect x="580.0" y="225.0" width="220.0" height="55.0" rx="4" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="690.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">TIMx-&gt;CCR1 (Compare Reg)</text>
+<text x="690.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Записується через DMA кожен період!</text>
+<text x="690.0" y="273.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">CCR = 33% ARR (0) або 66% ARR (1)</text>
+<rect x="580.0" y="295.0" width="220.0" height="65.0" rx="4" fill="#eff6ff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="690.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Вихідний пін (GPIO Output)</text>
+<text x="690.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">DShot Signal → ESC</text>
+<text x="690.0" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ідеальні апаратні фронти</text>
+<path d="M 580 185 L 525 185 L 525 210 L 490 210" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="3,3"/>
+<text x="535.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">TIM_UP Request</text>
+<rect x="40.0" y="400.0" width="820.0" height="65.0" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="450.0" y="423.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Процесор формує значення CCR у буфері ОЗП і запускає DMA. Уся 16-бітна пачка вистрілюється</text>
+<text x="450.0" y="443.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">повністю апаратно без переривань на кожен біт, що усуває будь-який джиттер затримки переривань (ISR jitter).</text>
+</svg>

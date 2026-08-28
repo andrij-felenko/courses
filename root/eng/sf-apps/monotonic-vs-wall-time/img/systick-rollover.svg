@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-23.9 -10 903.9 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-23.9" y="-10" width="903.9" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="19.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Беззнакова дельта-арифметика таймера при переповненні лічильника</text>
+<text x="440.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Переповнення 32-бітного лічильника: чому різниця переживає 0</text>
+<circle cx="220.0" cy="240.0" r="130.0" fill="#f8fafc" stroke="#94a3b8" stroke-width="2.0"/>
+<line x1="220.0" y1="100.0" x2="220.0" y2="120.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="220.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">0  ≡  2³²</text>
+<text x="220.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">хід часу ↻</text>
+<circle cx="92.0" cy="217.4" r="5.0" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="-13.9" y="194.8" width="101.8" height="45.3" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/><text x="37.0" y="214.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="37.0" dy="0.0">start</tspan><tspan x="37.0" dy="14.3">(0xFFFFFF00)</tspan></text>
+<circle cx="294.6" cy="133.5" r="5.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="318.9" y="110.9" width="81.4" height="45.3" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="359.6" y="130.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="359.6" dy="0.0">now</tspan><tspan x="359.6" dy="14.3">(+100 мс)</tspan></text>
+<path d="M 92.0 217.4 A 130 130 0 0 1 294.6 133.5" fill="none" stroke="#27ae60" stroke-width="4"/>
+<rect x="430.0" y="80.0" width="430.0" height="150.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<text x="445.0" y="106.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#c0392b" text-anchor="start" font-weight="700">✗  ПАСТКА: пряме порівняння дедлайну</text>
+<text x="445.0" y="134.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan x="445.0" dy="0.0">uint32_t deadline = start + 500;  // 0xFFFFFF00 + 500 = 244 (оберт!)</tspan><tspan x="445.0" dy="17.4">if (now &gt;= deadline) ...          // 100 &gt;= 244  -&gt; FALSE</tspan><tspan x="445.0" dy="17.4">-&gt; Але якщо now було 0xFFFFFF50: 0xFFFFFF50 &gt;= 244 -&gt; TRUE!</tspan><tspan x="445.0" dy="17.4">Таймаут спрацює МИТТЄВО ще до переходу через 0!</tspan></text>
+<rect x="430.0" y="250.0" width="430.0" height="155.0" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+<text x="445.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="start" font-weight="700">✓  ПРАВИЛЬНО: беззнакова дельта</text>
+<text x="445.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start"><tspan x="445.0" dy="0.0">if ((uint32_t)(now - start) &gt;= timeout) ...</tspan><tspan x="445.0" dy="17.4">Обчислення: 100 - 0xFFFFFF00 = 100 - (-256) = 356 мс</tspan><tspan x="445.0" dy="17.4">356 &gt;= 500  -&gt; FALSE (минуло лише 356 мс, чекаємо ще 144 мс).</tspan><tspan x="445.0" dy="17.4">Коли now дійде до 244: (244 - start) = 500 -&gt; TRUE!</tspan></text>
+</svg>

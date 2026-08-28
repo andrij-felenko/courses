@@ -2,7 +2,7 @@
 """Фігури до статті «Монотонний проти настінного часу».
 Запуск із теки теми:  python figs.py   →   ./img/*.svg
 """
-import sys, os
+import sys, os, math
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'scripts'))
 from svgkit import *
 
@@ -140,21 +140,23 @@ def fig_suspend():
 
     # рахує й уві сні: пряма 0..8
     frags.append(line(X(0), Y(0), X(10), Y(8), color=FIELD, sw=3))
-    frags.append(text(X(2.6), Y(2.9), "рахує й уві сні", size=14, color=FIELD,
+    frags.append(text(X(2.2), Y(2.5), "рахує й уві сні (continuous)", size=14, color=FIELD,
                       bold=True, anchor="start"))
 
     # спиняється: росте до 4, поличка до 7, далі знову росте
     frags.append(line(X(0), Y(0), X(4), Y(3.2), color=NEG, sw=3))
     frags.append(line(X(4), Y(3.2), X(7), Y(3.2), color=NEG, sw=3))
     frags.append(line(X(7), Y(3.2), X(10), Y(5.6), color=NEG, sw=3))
-    frags.append(text((X(4) + X(7)) / 2, Y(3.2) + 26, "спинився разом із машиною",
-                      size=14, color=NEG, bold=True))
+
+    b_freeze, _, _ = textbox((X(4) + X(7)) / 2, Y(3.9), "спинився разом із машиною",
+                             size=13, color=NEG, bold=True, fill="#ffffff", stroke=NEG)
+    frags.append(b_freeze)
 
     # прогалина праворуч
     frags.append(line(X(9.6), Y(5.28), X(9.6), Y(7.68), color=MUTED, sw=1.4, dash="4,4"))
-    b, _, _ = textbox(X(6.4), Y(1.15), "прогалина = час, який машина проспала",
-                      size=13, color=MUTED, fill="#ffffff", stroke="#d7dbe0")
-    frags.append(b)
+    b_gap, _, _ = textbox(X(8.2), Y(1.5), "прогалина = час сну",
+                          size=13, color=MUTED, fill="#ffffff", stroke="#d7dbe0")
+    frags.append(b_gap)
 
     # легенда: хто в якій родині
     CY, CH = 366, 168
@@ -267,10 +269,123 @@ def fig_clock_history():
            title="Стрічка подій: як монотонний час став окремою сутністю")
 
 
+def fig_systick_rollover():
+    """Кільцева арифметика 32-бітного лічильника при переповненні.
+    Показує чому (now - start) >= timeout працює при оберті через 0,
+    а now >= deadline (де deadline = start + timeout) ламається."""
+    W, H = 880, 440
+    frags = []
+
+    frags.append(text(W / 2, 34, "Переповнення 32-бітного лічильника: чому різниця переживає 0",
+                      size=16, bold=True, color=INK))
+
+    # Ліва частина: кільце чисел mod 2^32
+    CX, CY, R = 220, 240, 130
+    frags.append(circle(CX, CY, R, fill="#f8fafc", stroke="#94a3b8", sw=2))
+
+    # Позначка 0 / 2^32-1 вгорі
+    frags.append(line(CX, CY - R - 10, CX, CY - R + 10, color=INK, sw=2))
+    frags.append(text(CX, CY - R - 20, "0  ≡  2³²", size=14, bold=True, color=INK))
+
+    # Стрілка ходу годинника
+    frags.append(text(CX, CY, "хід часу ↻", size=13, color=MUTED))
+
+    # Точка Start (0xFFFFFF00, -256 мс до 0)
+    ang_start = math.radians(280)
+    sx = CX + R * math.sin(ang_start)
+    sy = CY - R * math.cos(ang_start)
+    frags.append(circle(sx, sy, 5, fill=INK, stroke=INK))
+    b_st, _, _ = textbox(sx - 55, sy, "start\n(0xFFFFFF00)", size=11, color=INK, bold=True, fill="#ffffff", stroke="#94a3b8")
+    frags.append(b_st)
+
+    # Точка Now (+100 мс після 0)
+    ang_now = math.radians(35)
+    nx = CX + R * math.sin(ang_now)
+    ny = CY - R * math.cos(ang_now)
+    frags.append(circle(nx, ny, 5, fill=FIELD, stroke=FIELD))
+    b_nw, _, _ = textbox(nx + 65, ny, "now\n(+100 мс)", size=11, color=FIELD, bold=True, fill="#ffffff", stroke=FIELD)
+    frags.append(b_nw)
+
+    # Дуга пройденого часу від start через 0 до now
+    frags.append(f'<path d="M {sx:.1f} {sy:.1f} A {R} {R} 0 0 1 {nx:.1f} {ny:.1f}" fill="none" stroke="{FIELD}" stroke-width="4"/>')
+
+    # Права частина: дві порівняльні плашки
+    b_bad = [
+        "✗  ПАСТКА: пряме порівняння дедлайну",
+        "uint32_t deadline = start + 500;  // 0xFFFFFF00 + 500 = 244 (оберт!)",
+        "if (now >= deadline) ...          // 100 >= 244  -> FALSE",
+        "-> Але якщо now було 0xFFFFFF50: 0xFFFFFF50 >= 244 -> TRUE!",
+        "Таймаут спрацює МИТТЄВО ще до переходу через 0!"
+    ]
+    frags.append(rect(430, 80, 430, 150, fill="#fdecea", stroke=POS, sw=1.8, rx=8))
+    frags.append(text(445, 106, b_bad[0], size=14, bold=True, color=POS, anchor="start"))
+    frags.append(mtext(445, 134, b_bad[1:], size=12, color=INK, lh=1.45, anchor="start"))
+
+    b_good = [
+        "✓  ПРАВИЛЬНО: беззнакова дельта",
+        "if ((uint32_t)(now - start) >= timeout) ...",
+        "Обчислення: 100 - 0xFFFFFF00 = 100 - (-256) = 356 мс",
+        "356 >= 500  -> FALSE (минуло лише 356 мс, чекаємо ще 144 мс).",
+        "Коли now дійде до 244: (244 - start) = 500 -> TRUE!"
+    ]
+    frags.append(rect(430, 250, 430, 155, fill="#eafaf1", stroke=FIELD, sw=1.8, rx=8))
+    frags.append(text(445, 276, b_good[0], size=14, bold=True, color=FIELD, anchor="start"))
+    frags.append(mtext(445, 304, b_good[1:], size=12, color=INK, lh=1.45, anchor="start"))
+
+    render(os.path.join(OUT, "systick-rollover.svg"), W, H, *frags,
+           title="Беззнакова дельта-арифметика таймера при переповненні лічильника")
+
+
+def fig_slewing_vs_stepping():
+    """Порівняння двох методів синхронізації часу:
+    Stepping (миттєвий стрибок, зворотний хід) проти
+    Slewing (плавне підтягування частоти без стрибків)."""
+    W, H = 880, 430
+    PL, PR, PT, PB = 100, 800, 80, 340
+    RX, RY = 10.0, 10.0
+
+    def X(r): return PL + r * (PR - PL) / RX
+    def Y(v): return PB - v * (PB - PT) / RY
+
+    frags = []
+    # осі
+    frags.append(arrow(PL, PB, PR + 20, PB, color=INK, sw=1.8))
+    frags.append(arrow(PL, PB, PL, PT - 20, color=INK, sw=1.8))
+    frags.append(text((PL + PR) / 2, PB + 44, "справжній еталонний час (UTC) →", size=14, color=MUTED))
+    frags.append(text(PL - 10, PT - 30, "показ локального годинника ↑", size=14, color=MUTED, anchor="start"))
+
+    # Ідеальна лінія (еталон)
+    frags.append(line(X(0), Y(0), X(10), Y(10), color="#cbd5e1", sw=2, dash="4,4"))
+    frags.append(text(X(9.2), Y(9.6), "еталон UTC", size=12, color=MUTED))
+
+    # Stepping (червоний): годинник поспішає на +2, на t=4 стрибає назад на 2
+    frags.append(line(X(0), Y(2), X(4), Y(6), color=POS, sw=2.8))
+    frags.append(line(X(4), Y(6), X(4), Y(4), color=POS, sw=2, dash="4,3"))
+    frags.append(line(X(4), Y(4), X(10), Y(10), color=POS, sw=2.8))
+    frags.append(circle(X(4), Y(6), 4, fill=POS, stroke=POS))
+    frags.append(circle(X(4), Y(4), 4, fill="#ffffff", stroke=POS, sw=2))
+    b_step, _, _ = textbox(X(4) - 20, Y(6) - 16, "Stepping: стрибок назад на 2 с",
+                           size=12, color=POS, bold=True, fill="#fdecea", stroke=POS)
+    frags.append(b_step)
+
+    # Slewing (зелений): годинник поспішає на +2, з t=1 частоту сповільнено (slew), сходиться на t=7
+    frags.append(line(X(0), Y(2), X(1), Y(3), color=FIELD, sw=2.8))
+    frags.append(line(X(1), Y(3), X(7), Y(7), color=FIELD, sw=3))
+    frags.append(line(X(7), Y(7), X(10), Y(10), color=FIELD, sw=2.8))
+    b_slew, _, _ = textbox(X(3.8), Y(4.8) + 38, "Slewing (adjtime): плавне сповільнення темпу (без стрибка!)",
+                           size=12, color=FIELD, bold=True, fill="#eafaf1", stroke=FIELD)
+    frags.append(b_slew)
+
+    render(os.path.join(OUT, "slewing-vs-stepping.svg"), W, H, *frags,
+           title="Корекція системного часу: Stepping проти Slewing")
+
+
 if __name__ == "__main__":
     fig_two_clocks()
     fig_which_clock()
     fig_suspend()
     fig_clock_history()
-    print("OK: img/two-clocks.svg, img/which-clock.svg, img/clocks-suspend.svg, "
-          "img/clock-history.svg")
+    fig_systick_rollover()
+    fig_slewing_vs_stepping()
+    print("OK: all SVGs generated.")
+
