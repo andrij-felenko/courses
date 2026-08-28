@@ -13,170 +13,8 @@
 * Скаляри з поля порядку групи `F_r` зберігаються у стандартному позиційному двійковому форматі або у формі Монтгомері (залежно від прапорця конфігурації).
 
 :::tabs
-```c
-#ifndef MSM_ENGINE_H
-#define MSM_ENGINE_H
-
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/* Коди помилок виконання операцій MSM */
-typedef enum {
-    MSM_SUCCESS             =  0,  /* Успішне завершення обчислення */
-    MSM_ERR_NULL_PTR        = -1,  /* Передано нульовий вказівник */
-    MSM_ERR_INVALID_SIZE    = -2,  /* Некоректний розмір масиву (n == 0 або невідповідність довжин) */
-    MSM_ERR_OUT_OF_MEMORY   = -3,  /* Недостатньо оперативної пам'яті для розміщення кошиків */
-    MSM_ERR_INVALID_CURVE   = -4,  /* Непідтримуваний ідентифікатор еліптичної кривої */
-    MSM_ERR_POINT_NOT_ON_EC = -5,  /* Вхідна точка не задовольняє рівняння кривої */
-    MSM_ERR_BACKEND_FAILED  = -6,  /* Збій апаратного прискорювача (CUDA error / OpenCL error) */
-    MSM_ERR_INVALID_CONFIG  = -7   /* Некоректні параметри конфігурації (неприпустима ширина вікна) */
-} msm_status_t;
-
-/* Ідентифікатор підтримуваних еліптичних кривих */
-typedef enum {
-    MSM_CURVE_BN254     = 1,   /* Крива BN254 (alt_bn128, Ethereum) */
-    MSM_CURVE_BLS12_381 = 2,   /* Крива BLS12-381 (Zcash, Filecoin, Ethereum 2.0) */
-    MSM_CURVE_SECP256K1 = 3    /* Крива secp256k1 (Bitcoin, EVM precompiles) */
-} msm_curve_id_t;
-
-/* Тип обчислювального бекенду */
-typedef enum {
-    MSM_BACKEND_CPU_SCALAR  = 0,  /* Базовий скалярний CPU-рушій (сумісний з будь-якою архітектурою) */
-    MSM_BACKEND_CPU_AVX512  = 1,  /* Векторизований CPU-рушій AVX-512 IFMA (52-бітне множення) */
-    MSM_BACKEND_GPU_CUDA    = 2   /* Графічний прискорювач NVIDIA CUDA */
-} msm_backend_t;
-
-/* 256-бітний елемент поля у формі Монтгомері (4 слова по 64 біти) */
-typedef struct {
-    uint64_t limbs[4];
-} msm_fe256_t;
-
-/* Точка еліптичної кривої в афінних координатах (x, y) */
-typedef struct {
-    msm_fe256_t x;
-    msm_fe256_t y;
-    bool is_infinity;
-} msm_point_affine_t;
-
-/* Проективна точка в координатах Якобі (X, Y, Z), де x = X/Z^2, y = Y/Z^3 */
-typedef struct {
-    msm_fe256_t X;
-    msm_fe256_t Y;
-    msm_fe256_t Z;
-} msm_point_jacobian_t;
-
-/* Конфігурація параметрів виконання MSM */
-typedef struct {
-    msm_curve_id_t curve;      /* Використовувана еліптична крива */
-    msm_backend_t backend;     /* Обраний обчислювальний бекенд */
-    uint32_t window_size;      /* Ширина вікна c (0 = автоматичний вибір за розміром n) */
-    uint32_t num_threads;      /* Кількість паралельних потоків (0 = auto / CPU cores) */
-    bool use_signed_digits;    /* Використовувати знакове wNAF-розбиття (зменшує кошики удвічі) */
-    bool enable_radix_sort;    /* Увімкнути порозрядне групування точок для оптимізації кешу */
-    void *custom_arena_buffer; /* Попередньо виділена пам'ять для кошиків (опціонально) */
-    size_t custom_arena_size;  /* Розмір буфера арени у байтах */
-} msm_config_t;
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* MSM_ENGINE_H */
-```
-```cpp
-#pragma once
-
-#include <cstdint>
-#include <cstddef>
-#include <array>
-#include <span>
-#include <memory>
-#include <expected>
-#include <string_view>
-#include <vector>
-#include <future>
-
-namespace msm {
-
-/* Коди результатів та помилок MSM */
-enum class Status : int32_t {
-    Success           =  0,
-    NullPointer       = -1,
-    InvalidSize       = -2,
-    OutOfMemory       = -3,
-    InvalidCurve      = -4,
-    PointNotOnCurve   = -5,
-    BackendFailed     = -6,
-    InvalidConfig     = -7
-};
-
-/* Підтримувані криві */
-enum class CurveId : uint32_t {
-    BN254     = 1,
-    BLS12_381 = 2,
-    Secp256k1 = 3
-};
-
-/* Апаратні бекенди */
-enum class Backend : uint32_t {
-    CpuScalar = 0,
-    CpuAvx512 = 1,
-    GpuCuda   = 2
-};
-
-/* 256-бітний елемент поля */
-struct FieldElement256 {
-    std::array<uint64_t, 4> limbs{};
-
-    [[nodiscard]] constexpr bool is_zero() const noexcept {
-        return (limbs[0] | limbs[1] | limbs[2] | limbs[3]) == 0;
-    }
-};
-
-/* Афінна точка (x, y) */
-struct PointAffine {
-    FieldElement256 x{};
-    FieldElement256 y{};
-    bool is_infinity{true};
-
-    static constexpr PointAffine infinity() noexcept {
-        return PointAffine{{}, {}, true};
-    }
-};
-
-/* Проективна точка в координатах Якобі (X, Y, Z) */
-struct PointJacobian {
-    FieldElement256 X{};
-    FieldElement256 Y{};
-    FieldElement256 Z{};
-
-    [[nodiscard]] bool is_infinity() const noexcept {
-        return Z.is_zero();
-    }
-
-    static constexpr PointJacobian infinity() noexcept {
-        return PointJacobian{{}, {}, {}};
-    }
-};
-
-/* Конфігураційний дескриптор рушія MSM */
-struct Config {
-    CurveId curve{CurveId::BN254};
-    Backend backend{Backend::CpuScalar};
-    uint32_t window_size{0};       // 0 = автоматичний розрахунок оптимального c
-    uint32_t num_threads{0};       // 0 = апаратний максимум апаратних потоків
-    bool use_signed_digits{true};  // Зменшує кількість кошиків удвічі
-    bool enable_radix_sort{true};  // Оптимізація локальності L3-кешу процесора
-    std::span<uint8_t> arena_buffer{};
-};
-
-} // namespace msm
-```
+:::code api-msm-engine/c/1-zaholovni-faily-ta.h
+:::code api-msm-engine/cpp/1-zaholovni-faily-ta.hpp
 :::
 
 ## 2. Специфікація функцій ядра MSM
@@ -194,90 +32,8 @@ ArenaSize = num_threads · (2^{c − 1} · sizeof(point_jacobian_t)) + Padding
 Функція `msm_execute` є головною точкою входу. Вона валідує вхідні вказівники, автоматично підбирає ширину вікна `c` (якщо передано `window_size == 0`), розподіляє обчислення між потоками пулу, виконує зворотне накопичення та повертає точку в координатах Якобі.
 
 :::tabs
-```c
-/**
- * Ініціалізація структури конфігурації значеннями за замовчуванням.
- * @param config Вказівник на структуру конфігурації.
- * @param curve  Ідентифікатор еліптичної кривої.
- */
-void msm_config_init_default(msm_config_t *config, msm_curve_id_t curve);
-
-/**
- * Розрахунок мінімального обсягу пам'яті арени для обробки n точок.
- * @param config Вказівник на конфігурацію.
- * @param n      Кількість вхідних точок.
- * @return Необхідний розмір буфера у байтах.
- */
-size_t msm_calculate_arena_size(const msm_config_t *config, size_t n);
-
-/**
- * Головна функція обчислення мультискалярного множення:
- * result = sum_{i=0}^{n-1} scalars[i] * points[i]
- *
- * @param result  Вказівник на вихідну точку в координатах Якобі.
- * @param points  Масив вхідних афінних точок базису розміром n.
- * @param scalars Масив 256-бітних скалярів розміром n.
- * @param n       Кількість пар (точка, скаляр).
- * @param config  Вказівник на параметри запуску (може бути NULL для дефолтних налаштувань).
- * @return Статус виконання (MSM_SUCCESS у разі успіху).
- */
-msm_status_t msm_execute(
-    msm_point_jacobian_t *result,
-    const msm_point_affine_t *points,
-    const msm_fe256_t *scalars,
-    size_t n,
-    const msm_config_t *config
-);
-
-/**
- * Пакетна конвертація масиву точок з координат Якобі в афінні координати
- * з використанням алгоритму Монтгомері (одна інверсія в полі).
- *
- * @param out_affine  Масив вихідних афінних точок розміром count.
- * @param in_jacobian Масив вхідних проективних точок розміром count.
- * @param count       Кількість конвертованих точок.
- * @param curve       Ідентифікатор кривої.
- * @return Статус виконання.
- */
-msm_status_t msm_batch_to_affine(
-    msm_point_affine_t *out_affine,
-    const msm_point_jacobian_t *in_jacobian,
-    size_t count,
-    msm_curve_id_t curve
-);
-```
-```cpp
-namespace msm {
-
-/**
- * Розрахунок мінімального обсягу пам'яті арени для заданого розміру задачі.
- */
-[[nodiscard]] size_t calculate_arena_size(const Config& config, size_t n) noexcept;
-
-/**
- * Високорівневий інтерфейс обчислення MSM за алгоритмом Піппенджера.
- *
- * @param points  Вхідний масив афінних точок базису.
- * @param scalars Вхідний масив скалярів однакової розмірності.
- * @param config  Конфігураційні параметри рушія.
- * @return Результуюча точка або код помилки (std::expected).
- */
-[[nodiscard]] std::expected<PointJacobian, Status> execute(
-    std::span<const PointAffine> points,
-    std::span<const FieldElement256> scalars,
-    const Config& config = Config{}
-);
-
-/**
- * Пакетне перетворення точок з координат Якобі в афінні координати.
- */
-[[nodiscard]] std::expected<std::vector<PointAffine>, Status> batch_to_affine(
-    std::span<const PointJacobian> in_jacobian,
-    CurveId curve = CurveId::BN254
-);
-
-} // namespace msm
-```
+:::code api-msm-engine/c/syhnatury-ta-opys.h
+:::code api-msm-engine/cpp/syhnatury-ta-opys.hpp
 :::
 
 ## 3. Асинхронний інтерфейс та черга завдань
@@ -287,79 +43,8 @@ namespace msm {
 Користувач ініціалізує контекст черги `msm_async_queue_t`, відправляє завдання через `msm_async_submit` і отримує дескриптор `msm_task_handle_t`. Очікування завершення виконується через `msm_async_wait` або опитування статусу через `msm_async_poll`.
 
 :::tabs
-```c
-/* Дескриптор асинхронної черги обчислень */
-typedef struct msm_async_queue msm_async_queue_t;
-
-/* Дескриптор асинхронного завдання */
-typedef struct msm_task_handle msm_task_handle_t;
-
-/**
- * Створення черги асинхронних завдань MSM.
- * @param num_workers Кількість фонових робочих потоків.
- * @return Вказівник на створену чергу або NULL у разі помилки.
- */
-msm_async_queue_t* msm_async_queue_create(uint32_t num_workers);
-
-/**
- * Відправка завдання MSM у неблокуючу чергу обчислень.
- */
-msm_task_handle_t* msm_async_submit(
-    msm_async_queue_t *queue,
-    msm_point_jacobian_t *result,
-    const msm_point_affine_t *points,
-    const msm_fe256_t *scalars,
-    size_t n,
-    const msm_config_t *config
-);
-
-/**
- * Очікування завершення асинхронного завдання (блокуючий виклик).
- */
-msm_status_t msm_async_wait(msm_task_handle_t *task);
-
-/**
- * Неблокуюча перевірка готовності завдання.
- * @return true, якщо обчислення завершено.
- */
-bool msm_async_poll(msm_task_handle_t *task);
-
-/**
- * Знищення черги завдань та вивільнення ресурсів.
- */
-void msm_async_queue_destroy(msm_async_queue_t *queue);
-```
-```cpp
-namespace msm {
-
-/* Неблокуюча черга завдань обчислення MSM */
-class AsyncQueue {
-public:
-    explicit AsyncQueue(uint32_t num_workers = std::thread::hardware_concurrency());
-    ~AsyncQueue();
-
-    AsyncQueue(const AsyncQueue&) = delete;
-    AsyncQueue& operator=(const AsyncQueue&) = delete;
-
-    AsyncQueue(AsyncQueue&&) noexcept = default;
-    AsyncQueue& operator=(AsyncQueue&&) noexcept = default;
-
-    /**
-     * Відправка асинхронного завдання, що повертає std::future.
-     */
-    [[nodiscard]] std::future<std::expected<PointJacobian, Status>> submit(
-        std::span<const PointAffine> points,
-        std::span<const FieldElement256> scalars,
-        Config config = Config{}
-    );
-
-private:
-    struct Impl;
-    std::unique_ptr<Impl> impl_;
-};
-
-} // namespace msm
-```
+:::code api-msm-engine/c/3-asynkhronnyi-interfeis.h
+:::code api-msm-engine/cpp/3-asynkhronnyi-interfeis.hpp
 :::
 
 ## 4. Специфікація двійкової серіалізації та валідації точок
@@ -376,65 +61,8 @@ private:
      - `0x20 (Sign Flag / Sort Flag)`: 1, якщо координата `y` є більшою за `(p - 1) / 2` (визначає вибір знаку кореня при відновленні `y = ±sqrt(x³ + b)`).
 
 :::tabs
-```c
-/* Формати двійкової серіалізації точок */
-typedef enum {
-    MSM_FORMAT_UNCOMPRESSED = 0,  /* Повний двійковий формат (x || y) */
-    MSM_FORMAT_COMPRESSED   = 1   /* Стиснений формат (x + bit flags) */
-} msm_serialization_format_t;
-
-/**
- * Серіалізація точки еліптичної кривої у двійковий буфер.
- * @param out_bytes Буфер вихідних байтів (мінімум 64 або 32 байти для BN254).
- * @param point     Вхідна афінна точка.
- * @param format    Обраний формат серіалізації.
- * @param curve     Ідентифікатор кривої.
- */
-msm_status_t msm_point_serialize(
-    uint8_t *out_bytes,
-    const msm_point_affine_t *point,
-    msm_serialization_format_t format,
-    msm_curve_id_t curve
-);
-
-/**
- * Десеріалізація та валідація точки з перевіркою належності підгрупі.
- */
-msm_status_t msm_point_deserialize(
-    msm_point_affine_t *point,
-    const uint8_t *in_bytes,
-    msm_serialization_format_t format,
-    msm_curve_id_t curve
-);
-```
-```cpp
-namespace msm {
-
-enum class SerializationFormat : uint32_t {
-    Uncompressed = 0,
-    Compressed   = 1
-};
-
-/**
- * Серіалізація афінної точки у вектор байтів.
- */
-[[nodiscard]] std::expected<std::vector<uint8_t>, Status> serialize_point(
-    const PointAffine& point,
-    SerializationFormat format = SerializationFormat::Compressed,
-    CurveId curve = CurveId::BN254
-);
-
-/**
- * Десеріалізація точки з перевіркою рівняння кривої.
- */
-[[nodiscard]] std::expected<PointAffine, Status> deserialize_point(
-    std::span<const uint8_t> in_bytes,
-    SerializationFormat format = SerializationFormat::Compressed,
-    CurveId curve = CurveId::BN254
-);
-
-} // namespace msm
-```
+:::code api-msm-engine/c/4-spetsyfikatsiia.h
+:::code api-msm-engine/cpp/4-spetsyfikatsiia.hpp
 :::
 
 ## 5. Таблиця конфігураційних параметрів та поведінка за замовчуванням
@@ -494,46 +122,8 @@ enum class SerializationFormat : uint32_t {
    - Розподіл пам'яті Shared Memory на один мультипроцесор (SM): 48–96 КБ для локального накопичення кошиків.
 
 :::tabs
-```c
-/* Конфігурація середовища виконання GPU CUDA */
-typedef struct {
-    int32_t device_id;         /* Ідентифікатор відеокарти (0, 1, ...) */
-    void *cuda_stream;         /* Дескриптор потоку cudaStream_t */
-    bool enable_p2p_access;    /* Дозволити прямий обмін між кількома GPU */
-} msm_cuda_config_t;
-
-/**
- * Ініціалізація GPU-контексту для кривої.
- */
-msm_status_t msm_cuda_init_context(msm_cuda_config_t *cuda_cfg, msm_curve_id_t curve);
-
-/**
- * Звільнення виділеної пам'яті на графічному процесорі.
- */
-void msm_cuda_release_context(msm_cuda_config_t *cuda_cfg);
-```
-```cpp
-namespace msm {
-
-struct CudaConfig {
-    int32_t device_id{0};
-    void* cuda_stream{nullptr};
-    bool enable_p2p_access{false};
-};
-
-class CudaContext {
-public:
-    explicit CudaContext(CudaConfig config, CurveId curve = CurveId::BN254);
-    ~CudaContext();
-
-    CudaContext(const CudaContext&) = delete;
-    CudaContext& operator=(const CudaContext&) = delete;
-
-    [[nodiscard]] Status synchronize() noexcept;
-};
-
-} // namespace msm
-```
+:::code api-msm-engine/c/vymohy-do-rozmishchennia.h
+:::code api-msm-engine/cpp/vymohy-do-rozmishchennia.hpp
 :::
 
 ## 9. Специфікація GLV-декомпозиції скалярів
@@ -547,63 +137,8 @@ k_i = k_{i, 1} + k_{i, 2} · lambda \pmod r
 Функція `msm_glv_decompose_scalars` розбиває вхідний масив із `n` скалярів на два масиви скалярів половинної довжини (по 128 бітів), після чого функція `msm_glv_execute` виконує розширене мультискалярне множення над базисом точок `P_i` та `phi(P_i)`.
 
 :::tabs
-```c
-/**
- * Розклад масиву 256-бітних скалярів на дві половини за алгоритмом Бабая.
- * @param k1_out  Вихідний масив перших половин скалярів (128 бітів).
- * @param k2_out  Вихідний масив других половин скалярів (128 бітів).
- * @param scalars Вхідний масив 256-бітних скалярів розміром n.
- * @param n       Кількість скалярів.
- * @param curve   Ідентифікатор кривої.
- */
-msm_status_t msm_glv_decompose_scalars(
-    msm_fe256_t *k1_out,
-    msm_fe256_t *k2_out,
-    const msm_fe256_t *scalars,
-    size_t n,
-    msm_curve_id_t curve
-);
-
-/**
- * Виконання MSM з використанням попередньо обчисленого ендоморфізму GLV.
- */
-msm_status_t msm_glv_execute(
-    msm_point_jacobian_t *result,
-    const msm_point_affine_t *points,
-    const msm_fe256_t *k1,
-    const msm_fe256_t *k2,
-    size_t n,
-    const msm_config_t *config
-);
-```
-```cpp
-namespace msm {
-
-struct GlvDecomposedScalars {
-    std::vector<FieldElement256> k1;
-    std::vector<FieldElement256> k2;
-};
-
-/**
- * GLV-декомпозиція масиву скалярів.
- */
-[[nodiscard]] std::expected<GlvDecomposedScalars, Status> glv_decompose_scalars(
-    std::span<const FieldElement256> scalars,
-    CurveId curve = CurveId::BN254
-);
-
-/**
- * Виконання комбінованого GLV-MSM.
- */
-[[nodiscard]] std::expected<PointJacobian, Status> glv_execute(
-    std::span<const PointAffine> points,
-    std::span<const FieldElement256> k1,
-    std::span<const FieldElement256> k2,
-    const Config& config = Config{}
-);
-
-} // namespace msm
-```
+:::code api-msm-engine/c/9-spetsyfikatsiia-glv.h
+:::code api-msm-engine/cpp/9-spetsyfikatsiia-glv.hpp
 :::
 
 ## 10. Специфікація обчислень із фіксованим базисом (Fixed-Base MSM)
@@ -613,68 +148,8 @@ struct GlvDecomposedScalars {
 Рушій підтримує режим фіксованого базису (Fixed-Base MSM): функція `msm_fixed_base_table_create` один раз будує розширену таблицю кратних точок, що дозволяє зменшити кількість операцій додавання при кожному наступному виклику `msm_fixed_base_execute` у 2–3 рази.
 
 :::tabs
-```c
-/* Контекст попередньо обчисленої таблиці фіксованого базису */
-typedef struct msm_fixed_base_table msm_fixed_base_table_t;
-
-/**
- * Створення таблиці попередніх обчислень для фіксованого набору точок.
- * @param points Масив точок базису розміром n.
- * @param n      Розмір базису.
- * @param window_size Ширина вікна попередніх обчислень (наприклад, 4 або 8 бітів).
- * @param curve  Ідентифікатор кривої.
- */
-msm_fixed_base_table_t* msm_fixed_base_table_create(
-    const msm_point_affine_t *points,
-    size_t n,
-    uint32_t window_size,
-    msm_curve_id_t curve
-);
-
-/**
- * Прискорене обчислення MSM над фіксованим базисом.
- */
-msm_status_t msm_fixed_base_execute(
-    msm_point_jacobian_t *result,
-    const msm_fixed_base_table_t *table,
-    const msm_fe256_t *scalars,
-    size_t n
-);
-
-/**
- * Звільнення пам'яті таблиці фіксованого базису.
- */
-void msm_fixed_base_table_destroy(msm_fixed_base_table_t *table);
-```
-```cpp
-namespace msm {
-
-class FixedBaseTable {
-public:
-    explicit FixedBaseTable(
-        std::span<const PointAffine> points,
-        uint32_t window_size = 4,
-        CurveId curve = CurveId::BN254
-    );
-    ~FixedBaseTable();
-
-    FixedBaseTable(const FixedBaseTable&) = delete;
-    FixedBaseTable& operator=(const FixedBaseTable&) = delete;
-
-    FixedBaseTable(FixedBaseTable&&) noexcept = default;
-    FixedBaseTable& operator=(FixedBaseTable&&) noexcept = default;
-
-    [[nodiscard]] std::expected<PointJacobian, Status> execute(
-        std::span<const FieldElement256> scalars
-    ) const noexcept;
-
-private:
-    struct Impl;
-    std::unique_ptr<Impl> impl_;
-};
-
-} // namespace msm
-```
+:::code api-msm-engine/c/10-spetsyfikatsiia.h
+:::code api-msm-engine/cpp/10-spetsyfikatsiia.hpp
 :::
 
 ## 11. Специфікація пакетного мульти-MSM (Batched Multi-MSM API)
@@ -688,39 +163,8 @@ Q_k = ∑_{i=1}^n s_{k, i} · P_i,   де k = 1, ..., K
 Пакетний інтерфейс `msm_execute_batched` обробляє спільний базис точок за один прохід через пам'ять: точка `P_i` зчитується з оперативної пам'яті лише один раз і додається до відповідних кошиків усіх `K` незалежних задач. Це зменшує загальний трафік оперативної пам'яті у `K` разів, підвищуючи сумарну пропускну здатність системи на 70–85%.
 
 :::tabs
-```c
-/**
- * Одночасне обчислення K незалежних мультискалярних множень над спільним базисом точок.
- * @param results    Масив із K вихідних точок у координатах Якобі.
- * @param points     Спільний масив із n афінних точок базису.
- * @param scalars_2d Двовимірний масив скалярів розміром K * n.
- * @param n          Кількість точок у базисі.
- * @param batch_size Кількість незалежних задач K.
- * @param config     Параметри конфігурації.
- */
-msm_status_t msm_execute_batched(
-    msm_point_jacobian_t *results,
-    const msm_point_affine_t *points,
-    const msm_fe256_t *scalars_2d,
-    size_t n,
-    size_t batch_size,
-    const msm_config_t *config
-);
-```
-```cpp
-namespace msm {
-
-/**
- * Пакетне виконання K мультискалярних множень над спільним базисом.
- */
-[[nodiscard]] std::expected<std::vector<PointJacobian>, Status> execute_batched(
-    std::span<const PointAffine> points,
-    std::span<const std::vector<FieldElement256>> batch_scalars,
-    const Config& config = Config{}
-);
-
-} // namespace msm
-```
+:::code api-msm-engine/c/11-spetsyfikatsiia.c
+:::code api-msm-engine/cpp/11-spetsyfikatsiia.cpp
 :::
 
 ## 12. Специфікація телеметрії та профілювання продуктивності
@@ -728,59 +172,8 @@ namespace msm {
 Для детального аналізу вузьких місць у конвеєрі доведень API надає інтерфейс збору апаратних метрик виконання. Структура `msm_telemetry_t` фіксує точний розподіл часу між фазами алгоритму Піппенджера, кількість виконаних операцій поля та показники утилізації пропускної здатності шини пам'яті.
 
 :::tabs
-```c
-/* Структура метрик продуктивності виконання MSM */
-typedef struct {
-    double total_time_ms;          /* Загальний час виконання (мілісекунди) */
-    double bucket_accum_time_ms;   /* Час заповнення кошиків (фаза 1) */
-    double running_sum_time_ms;    /* Час зворотного зведення Running Sums (фаза 2) */
-    double horner_time_ms;         /* Час міжвіконної агрегації Горнера (фаза 3) */
-    uint64_t mixed_additions_cnt;  /* Кількість виконаних змішаних додавань */
-    uint64_t jacobian_doublings_cnt;/* Кількість виконаних подвоєнь точок */
-    double memory_bandwidth_gb_s;  /* Досягнута швидкість читання базису (ГБ/с) */
-} msm_telemetry_t;
-
-/**
- * Виконання MSM зі збором детальних метрик продуктивності.
- */
-msm_status_t msm_execute_with_telemetry(
-    msm_point_jacobian_t *result,
-    const msm_point_affine_t *points,
-    const msm_fe256_t *scalars,
-    size_t n,
-    const msm_config_t *config,
-    msm_telemetry_t *telemetry
-);
-```
-```cpp
-namespace msm {
-
-struct Telemetry {
-    double total_time_ms{0.0};
-    double bucket_accum_time_ms{0.0};
-    double running_sum_time_ms{0.0};
-    double horner_time_ms{0.0};
-    uint64_t mixed_additions_cnt{0};
-    uint64_t jacobian_doublings_cnt{0};
-    double memory_bandwidth_gb_s{0.0};
-};
-
-struct ExecutionResult {
-    PointJacobian point;
-    Telemetry telemetry;
-};
-
-/**
- * Виконання MSM зі збором телеметрії.
- */
-[[nodiscard]] std::expected<ExecutionResult, Status> execute_profiled(
-    std::span<const PointAffine> points,
-    std::span<const FieldElement256> scalars,
-    const Config& config = Config{}
-);
-
-} // namespace msm
-```
+:::code api-msm-engine/c/12-spetsyfikatsiia.c
+:::code api-msm-engine/cpp/12-spetsyfikatsiia.cpp
 :::
 
 ## 13. Змінні оточення та налаштування конфігурації середовища
@@ -825,35 +218,8 @@ C-сумісний інтерфейс `msm_execute` експортується �
 Рушій MSM надає сумісний бінарний адаптер `msm_evm_precompile_call`, який приймає сирий вхідний масив байтів calldata і записує результат у буфер returndata у суворій відповідності зі специфікаціями Ethereum.
 
 :::tabs
-```c
-/**
- * Емуляція виклику EVM Precompile G1 MSM.
- * @param out_data   Буфер returndata (64 байти для BN254 або 96 байтів для BLS12-381).
- * @param in_data    Буфер calldata (послідовність пар точка || скаляр).
- * @param in_len     Розмір calldata у байтах.
- * @param curve      Ідентифікатор кривої.
- * @return 0 у разі успіху, ненульовий код помилки EVM revert.
- */
-int32_t msm_evm_precompile_call(
-    uint8_t *out_data,
-    const uint8_t *in_data,
-    size_t in_len,
-    msm_curve_id_t curve
-);
-```
-```cpp
-namespace msm {
-
-/**
- * Емуляція виклику EVM Precompile G1 MSM.
- */
-[[nodiscard]] std::expected<std::vector<uint8_t>, Status> evm_precompile_call(
-    std::span<const uint8_t> calldata,
-    CurveId curve = CurveId::BN254
-);
-
-} // namespace msm
-```
+:::code api-msm-engine/c/16-spetsyfikatsiia.c
+:::code api-msm-engine/cpp/16-spetsyfikatsiia.cpp
 :::
 
 ## 17. Специфікація роботи з великими сторінками пам'яті (Hugepages)
@@ -863,19 +229,7 @@ namespace msm {
 Рушій надає інтерфейс алокації базису точок у великих сторінках пам'яті Hugepages (2 МБ або 1 ГБ) через системні виклики `mmap` з прапорцем `MAP_HUGETLB` (Linux) або `VirtualAlloc` з `MEM_LARGE_PAGES` (Windows).
 
 :::tabs
-```c
-/**
- * Виділення неперервного масиву точок з використанням Hugepages (2 МБ сторінки).
- * @param count Кількість точок базису.
- * @return Вказівник на вирівняну пам'ять або NULL у разі відсутності прав на Hugepages.
- */
-msm_point_affine_t* msm_alloc_hugepages_points(size_t count);
-
-/**
- * Звільнення пам'яті Hugepages.
- */
-void msm_free_hugepages_points(msm_point_affine_t *ptr, size_t count);
-```
+:::code api-msm-engine/c/17-spetsyfikatsiia-roboty.h
 ```cpp
 namespace msm {
 
@@ -893,34 +247,8 @@ namespace msm {
 Для гарантії математичної точності та виявлення прихованих алгебраїчних помилок API включає функцію оракульної верифікації `msm_oracle_verify`. Вона зіставляє результат багатопотокового конвеєра з детермінованим наївним множенням методом «подвоєння-та-додавання» (Double-and-Add) над згенерованими випадковими псевдоскалярами.
 
 :::tabs
-```c
-/**
- * Валідація результату MSM проти наївного еталонного оракула.
- * @return true, якщо координати точок повністю збігаються після приведення до афінної форми.
- */
-bool msm_oracle_verify(
-    const msm_point_jacobian_t *result,
-    const msm_point_affine_t *points,
-    const msm_fe256_t *scalars,
-    size_t n,
-    msm_curve_id_t curve
-);
-```
-```cpp
-namespace msm {
-
-/**
- * Валідація результату MSM проти еталонного оракула.
- */
-[[nodiscard]] bool verify_against_oracle(
-    const PointJacobian& result,
-    std::span<const PointAffine> points,
-    std::span<const FieldElement256> scalars,
-    CurveId curve = CurveId::BN254
-) noexcept;
-
-} // namespace msm
-```
+:::code api-msm-engine/c/18-spetsyfikatsiia.c
+:::code api-msm-engine/cpp/18-spetsyfikatsiia.cpp
 :::
 
 ## 19. Контракт пам'яті, вирівнювання та інваріанти виконання

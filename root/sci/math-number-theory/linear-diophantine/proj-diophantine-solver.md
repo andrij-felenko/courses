@@ -26,36 +26,8 @@
 Серце розв'язника — [розширений алгоритм Евкліда](root:math-number-theory/gcd-euclidean/math-bezout.md): він не лише знаходить d = НСД(a, b), а й дорогою повертає пару x₀, y₀, для якої a·x₀ + b·y₀ = d. Це та єдина цеглина, з якої виросте все інше; сам він — три паралельні рекурентні стовпчики, що йдуть в ногу з діленнями Евкліда.
 
 :::tabs
-```cpp
-#include <vector>
-#include <algorithm>
-using ll = long long;
-
-// a·x + b·y = НСД(a, b); повертає сам НСД, пише x, y
-ll ext_gcd(ll a, ll b, ll &x, ll &y) {
-    ll r0 = a, r1 = b, s0 = 1, s1 = 0, t0 = 0, t1 = 1;
-    while (r1 != 0) {
-        ll q = r0 / r1;
-        ll r = r0 - q * r1; r0 = r1; r1 = r;   // остача Евкліда
-        ll s = s0 - q * s1; s0 = s1; s1 = s;   // коефіцієнт при a
-        ll t = t0 - q * t1; t0 = t1; t1 = t;   // коефіцієнт при b
-    }
-    x = s0; y = t0;
-    return r0;                                 // a·s0 + b·t0 == r0 == НСД
-}
-```
-```python
-def ext_gcd(a, b):
-    old_r, r = a, b
-    old_s, s = 1, 0                 # коефіцієнт при a
-    old_t, t = 0, 1                 # коефіцієнт при b
-    while r != 0:
-        q = old_r // r
-        old_r, r = r, old_r - q * r
-        old_s, s = s, old_s - q * s
-        old_t, t = t, old_t - q * t
-    return old_r, old_s, old_t       # a·old_s + b·old_t == old_r == НСД
-```
+:::code proj-diophantine-solver/cpp/skelet-rozshyrenyi-evklid.cpp
+:::code proj-diophantine-solver/py/skelet-rozshyrenyi-evklid.py
 :::
 
 Одна тонкість, з якої починаються всі подальші халепи зі знаками: цей НСД **не завжди додатний**. Для від'ємних входів `r0` наприкінці успадкує їхній знак — тож перш ніж рахувати щось далі, НСД доведеться нормувати.
@@ -65,49 +37,8 @@ def ext_gcd(a, b):
 Тепер збираємо `solve`. Порядок дій буквально повторює блок-схему: спершу вироджений вихід a = b = 0, потім НСД і його нормування, потім критерій d | c, масштабування першого розв'язку й, нарешті, зведення його до найменшого за модулем зсувом параметра t.
 
 :::tabs
-```cpp
-struct Sol { int kind; ll x, y, sx, sy, d; };   // kind: 0 нема · 1 уся площина · 2 родина
-
-Sol solve(ll a, ll b, ll c) {
-    if (a == 0 && b == 0)                        // ліва частина завжди 0
-        return { c == 0 ? 1 : 0, 0, 0, 0, 0, 0 };
-    ll x0, y0, g = ext_gcd(a, b, x0, y0);
-    if (g < 0) { g = -g; x0 = -x0; y0 = -y0; }   // НСД → додатний, знак на коефіцієнти
-    if (c % g != 0)                              // критерій: d мусить ділити c
-        return { 0, 0, 0, 0, 0, 0 };
-    ll k = c / g;
-    ll x1 = x0 * k, y1 = y0 * k;                 // ⚠ можливе переповнення (див. пастки)
-    ll sx = b / g, sy = -(a / g);                // крок родини (b/d, −a/d)
-    if (sx != 0) {                               // звести перший розв'язок до найменшого |x|
-        ll m = sx < 0 ? -sx : sx;
-        ll xr = ((x1 % m) + m) % m;              // C++ % буває від'ємним — нормуємо в [0, m)
-        ll t = (xr - x1) / sx; x1 = xr; y1 += sy * t;
-    } else {                                     // b = 0: x зафіксований, зводимо y
-        ll m = sy < 0 ? -sy : sy;
-        ll yr = ((y1 % m) + m) % m;
-        ll t = (yr - y1) / sy; y1 = yr; x1 += sx * t;
-    }
-    return { 2, x1, y1, sx, sy, g };
-}
-```
-```python
-def solve(a, b, c):
-    if a == 0 and b == 0:                        # ліва частина завжди 0
-        return ("all", None) if c == 0 else ("none", None)
-    g, x0, y0 = ext_gcd(a, b)
-    if g < 0:                                    # НСД тримаємо додатним
-        g, x0, y0 = -g, -x0, -y0
-    if c % g != 0:                               # критерій: d мусить ділити c
-        return ("none", None)
-    k = c // g
-    x1, y1 = x0 * k, y0 * k                       # один розв'язок (може бути величезний)
-    sx, sy = b // g, -(a // g)                    # крок родини (b/d, −a/d)
-    if sx != 0:                                   # звести перший розв'язок до найменшого |x|
-        m = abs(sx); t = (x1 % m - x1) // sx
-    else:                                         # b = 0: x зафіксований, зводимо y
-        m = abs(sy); t = (y1 % m - y1) // sy
-    return ("family", (x1 + sx * t, y1 + sy * t, sx, sy, g))
-```
+:::code proj-diophantine-solver/cpp/povnyi-rozviazok.cpp
+:::code proj-diophantine-solver/py/povnyi-rozviazok.py
 :::
 
 Три рядки тут — не декор, а рівно ті переходи, без яких розв'язник брехатиме.
@@ -134,52 +65,8 @@ x = −129 + 8·17 = 7           y = 86 − 5·17 = 1
 Родина x = x₁ + (b/d)·t, y = y₁ − (a/d)·t тягнеться в обидва боки нескінченно. Умова x ≥ 0, y ≥ 0 відрізає від неї скінченний шматок — і весь фокус у тім, щоб знайти вікно допустимих t, не перебираючи пряму навмання. Кожна нерівність — це coef·t + base ≥ 0, а вона рівносильна одній межі на t: додатний coef дає межу знизу, від'ємний — згори.
 
 :::tabs
-```cpp
-ll floordiv(ll a, ll b) { ll q = a / b; if (a % b && a < 0) q--; return q; }  // b>0
-ll ceildiv (ll a, ll b) { ll q = a / b; if (a % b && a > 0) q++; return q; }  // b>0
-
-// -1 → нескінченно багато; 0 → жодного (або a=b=0); >0 → перелік у out
-int nonneg(ll a, ll b, ll c, std::vector<std::pair<ll,ll>> &out) {
-    Sol s = solve(a, b, c);
-    if (s.kind != 2) return 0;
-    bool haveLo = false, haveHi = false; ll lo = 0, hi = 0;
-    ll co[2] = { s.sx, s.sy }, ba[2] = { s.x, s.y };
-    for (int i = 0; i < 2; i++) {
-        ll coef = co[i], base = ba[i];
-        if (coef == 0) { if (base < 0) return 0; continue; }   // координата фіксована й від'ємна
-        if (coef > 0) { ll v = ceildiv(-base, coef);           // t ≥ ⌈−base/coef⌉
-                        lo = haveLo ? std::max(lo, v) : v; haveLo = true; }
-        else          { ll v = floordiv(base, -coef);          // t ≤ ⌊base/(−coef)⌋
-                        hi = haveHi ? std::min(hi, v) : v; haveHi = true; }
-    }
-    if (!haveLo || !haveHi) return -1;                         // вікно відкрите з одного боку
-    for (ll t = lo; t <= hi; t++)
-        out.push_back({ s.x + s.sx * t, s.y + s.sy * t });
-    return (int)out.size();
-}
-```
-```python
-def nonneg(a, b, c):
-    kind, data = solve(a, b, c)
-    if kind != "family":
-        return kind, []                          # "none" або "all"
-    x1, y1, sx, sy, g = data
-    lo = hi = None                               # межі на t: lo ≤ t ≤ hi
-    for coef, base in ((sx, x1), (sy, y1)):
-        if coef == 0:                            # координата зафіксована
-            if base < 0:
-                return "none", []                # …і вона від'ємна — розв'язків немає
-            continue
-        if coef > 0:                             # t ≥ ⌈−base/coef⌉
-            v = -(base // coef)
-            lo = v if lo is None else max(lo, v)
-        else:                                    # t ≤ ⌊base/(−coef)⌋
-            v = base // -coef
-            hi = v if hi is None else min(hi, v)
-    if lo is None or hi is None:                 # вікно відкрите з одного боку
-        return "infinite", []
-    return "list", [(x1 + sx * t, y1 + sy * t) for t in range(lo, hi + 1)]
-```
+:::code proj-diophantine-solver/cpp/perelik-nevidiemnykh.cpp
+:::code proj-diophantine-solver/py/perelik-nevidiemnykh.py
 :::
 
 Дві нерівності стягують t у відрізок [lo, hi]; лишається пробігти по ньому цілими. Зберімо, скажімо, 100 одиниць порціями по 5 і по 3:

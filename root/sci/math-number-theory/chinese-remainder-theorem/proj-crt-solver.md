@@ -43,80 +43,8 @@ x = a₁ + n₁·t                    (mod n₁·(n₂/g) = НСК(n₁, n₂))
 Ця дрібна алгебра дала більше, ніж просили. По-перше, взаємна простота перестала бути передумовою й стала окремим випадком (*g* = 1 → НСК = добуток → та сама класична відповідь). По-друге — і це вийшло задарма — **проміжні тут нікуди не роздуваються**: *t* менше за *n*₂/*g*, тому добуток *n*₁·*t* менший за НСК, тобто за саму відповідь. Формула-сума виходила за *N*, щоб туди повернутися; склеювання парами за *N* просто не виходить.
 
 :::tabs
-```py
-from math import gcd
-
-def crt_pair(a1, n1, a2, n2):
-    """Звести x ≡ a1 (mod n1) та x ≡ a2 (mod n2) в одне рівняння.
-    Повертає (a, НСК) або None, якщо система суперечлива."""
-    g = gcd(n1, n2)
-    if (a2 - a1) % g:
-        return None                                  # умова сумісності не виконана
-    lcm = n1 // g * n2                               # ділимо ДО множення — щоб не роздути
-    t = (a2 - a1) // g * pow(n1 // g, -1, n2 // g) % (n2 // g)
-    return (a1 + n1 * t) % lcm, lcm
-
-def crt(residues, moduli):
-    """Склеїти всю систему драбинкою: пара за парою."""
-    a, n = 0, 1                                      # x ≡ 0 (mod 1) — істинне для всіх x
-    for ai, ni in zip(residues, moduli):
-        merged = crt_pair(a, n, ai % ni, ni)
-        if merged is None:
-            return None
-        a, n = merged
-    return a, n
-
-print(crt([2, 3, 2], [3, 5, 7]))      # (23, 105)  — задача Сунь-цзи
-print(crt_pair(3, 4, 5, 6))           # (11, 12)   — модулі НЕ взаємно прості, та це не завада
-print(crt_pair(0, 4, 1, 6))           # None       — парне й непарне водночас
-```
-```cpp
-#include <cstdint>
-#include <numeric>      // std::gcd
-#include <optional>
-#include <vector>
-
-struct Cong { int64_t a, n; };        // x ≡ a (mod n)
-
-// розширений Евклід: НСД(a, b) плюс x, y такі, що a·x + b·y = НСД(a, b)
-static int64_t egcd(int64_t a, int64_t b, int64_t &x, int64_t &y) {
-    if (b == 0) { x = 1; y = 0; return a; }
-    int64_t x1, y1;
-    int64_t g = egcd(b, a % b, x1, y1);
-    x = y1;
-    y = x1 - (a / b) * y1;
-    return g;
-}
-
-static int64_t inv_mod(int64_t a, int64_t m) {
-    int64_t x, y;
-    egcd((a % m + m) % m, m, x, y);
-    return (x % m + m) % m;            // egcd може дати від'ємний x — нормалізуємо
-}
-
-std::optional<Cong> crt_pair(Cong u, Cong v) {
-    int64_t g = std::gcd(u.n, v.n);
-    int64_t diff = v.a - u.a;
-    if (diff % g != 0) return std::nullopt;          // умова сумісності не виконана
-    int64_t m = v.n / g;                             // модуль, за яким шукаємо t
-    int64_t lcm = u.n * m;                           // ділили ДО множення: це НСК, не добуток
-    // (diff/g mod m) · inv — обидва множники менші за m, добуток менший за m²
-    int64_t t = (int64_t)((__int128)(diff / g) % m * inv_mod(u.n / g, m) % m);
-    if (t < 0) t += m;
-    __int128 x = (__int128)u.n * t + u.a;            // < НСК + n₁ — тільки тут потрібні 128 біт
-    return Cong{ (int64_t)((x % lcm + lcm) % lcm), lcm };
-}
-
-std::optional<Cong> crt(const std::vector<int64_t> &res, const std::vector<int64_t> &mod) {
-    Cong acc{0, 1};                                  // x ≡ 0 (mod 1) — істинне для всіх x
-    for (size_t i = 0; i < mod.size(); ++i) {
-        auto merged = crt_pair(acc, Cong{res[i] % mod[i], mod[i]});
-        if (!merged) return std::nullopt;
-        acc = *merged;
-    }
-    return acc;
-}
-```
+:::code proj-crt-solver/py/skleiuvannia-shcho-ne.py
+:::code proj-crt-solver/cpp/skleiuvannia-shcho-ne.cpp
 :::
 
 Драбинка стартує з *x* ≡ 0 (mod 1) — рівняння, істинного для кожного цілого. Це не хитрощі, а нейтральний елемент склеювання: воно нічого не стверджує, тому додати його безпечно, а з ним цикл не потребує окремого випадку для першого кроку.
@@ -158,61 +86,8 @@ d₂ = ((a₂ − d₀) · n₀⁻¹ − d₁) · n₁⁻¹                     
 Алгоритм цей носить ім'я Гарві Ґарнера, який описав його 1959 року в статті «The Residue Number System» (IRE Transactions on Electronic Computers, EC-8, № 2, с. 140–147) — і описав не як окрему знахідку, а як частину відповіді на питання, що йому справді муляло. Питання те виявиться цікавішим за саму економію бітів.
 
 :::tabs
-```py
-def garner_digits(residues, moduli):
-    """Мішано-основні цифри: x = d[0] + d[1]·n[0] + d[2]·n[0]n[1] + …"""
-    k = len(moduli)
-    inv = [[0] * k for _ in range(k)]                # inv[i][j] = n[j]⁻¹ mod n[i]
-    for i in range(k):                               # модулі сталі → таблиця рахується РАЗ
-        for j in range(i):
-            inv[i][j] = pow(moduli[j], -1, moduli[i])
-    d = [0] * k
-    for i in range(k):
-        di = residues[i] % moduli[i]
-        for j in range(i):
-            di = (di - d[j]) * inv[i][j] % moduli[i]  # обидва множники < n[i]: стеля n[i]²
-        d[i] = di
-    return d
-
-def garner(residues, moduli):
-    d = garner_digits(residues, moduli)
-    x, weight = 0, 1
-    for di, ni in zip(d, moduli):                    # ЛИШЕ тут число доростає до N
-        x += di * weight
-        weight *= ni
-    return x
-
-print(garner_digits([2, 3, 2], [3, 5, 7]))   # [2, 2, 1]
-print(garner([2, 3, 2], [3, 5, 7]))          # 23 = 2 + 2·3 + 1·15
-```
-```cpp
-#include <cstdint>
-#include <vector>
-
-// Мішано-основні цифри: x = d[0] + d[1]·n[0] + d[2]·n[0]n[1] + …
-std::vector<int64_t> garner_digits(const std::vector<int64_t> &a,
-                                   const std::vector<int64_t> &n) {
-    size_t k = n.size();
-    // модулі сталі → таблицю обернених рахують РАЗ і тримають поруч із ними
-    std::vector<std::vector<int64_t>> inv(k, std::vector<int64_t>(k, 0));
-    for (size_t i = 0; i < k; ++i)
-        for (size_t j = 0; j < i; ++j)
-            inv[i][j] = inv_mod(n[j], n[i]);
-
-    std::vector<int64_t> d(k);
-    for (size_t i = 0; i < k; ++i) {
-        int64_t di = a[i] % n[i];
-        for (size_t j = 0; j < i; ++j) {
-            int64_t t = (di - d[j]) % n[i];
-            if (t < 0) t += n[i];
-            // t < n[i] та inv < n[i] → добуток < n[i]²: стеля у два машинні слова
-            di = (int64_t)((__int128)t * inv[i][j] % n[i]);
-        }
-        d[i] = di;
-    }
-    return d;                          // жодне число тут не переросло n[i]²
-}
-```
+:::code proj-crt-solver/py/harner-tsyfry-zamist.py
+:::code proj-crt-solver/cpp/harner-tsyfry-zamist.cpp
 :::
 
 C++-вкладка обриває розповідь там, де вона й мусить обірватися. Цифри пораховано — і кожне число, що брало участь у їхньому обчисленні, лишилося в межах двох машинних слів. **Збірка `x` = Σ *d*ᵢ·*w*ᵢ у неї не входить навмисно**: саме на цьому кроці число доростає до *N*, а отже, потребує довгої арифметики. Тож поки задача цього не вимагає, цей крок просто не роблять — і в цьому вся економія. Питання «а чи не завелике *x*?» ставлять цифрам, а не числу.
@@ -250,36 +125,7 @@ C++-вкладка обриває розповідь там, де вона й м
 
 Візьмімо *n* = 16 — набір {65535, 65536, 65537}:
 
-```cpp
-#include <array>
-#include <cstdint>
-
-// Три канали по 16–17 бітів дають динамічний діапазон 48 бітів:
-// 65535 · 65536 · 65537 = 281474976645120 ≈ 2⁴⁸
-constexpr std::array<uint32_t, 3> M{65535u, 65536u, 65537u};
-
-struct Rns { std::array<uint32_t, 3> c; };
-
-Rns to_rns(uint64_t x) {
-    return {{ uint32_t(x % M[0]), uint32_t(x % M[1]), uint32_t(x % M[2]) }};
-}
-
-Rns add(const Rns &a, const Rns &b) {
-    Rns r{};
-    for (int i = 0; i < 3; ++i) {
-        uint32_t s = a.c[i] + b.c[i];            // < 2·65537 — уміщається легко
-        r.c[i] = (s >= M[i]) ? s - M[i] : s;     // жодного переносу до сусіднього каналу
-    }
-    return r;
-}
-
-Rns mul(const Rns &a, const Rns &b) {
-    Rns r{};
-    for (int i = 0; i < 3; ++i)
-        r.c[i] = uint32_t((uint64_t)a.c[i] * b.c[i] % M[i]);   // ⚠️ зняти uint64_t — і див. нижче
-    return r;
-}
-```
+:::code proj-crt-solver/cpp/kanaly-shcho-ne.cpp
 
 Погляньте на цикли. У них немає ані рядка, що зв'язує канал *i* з каналом *j*. Ані переносу, ані прапорця, ані порядку — три ітерації незалежні настільки, що їх можна розкласти по трьох окремих АЛП, по трьох смугах SIMD-регістра або по трьох ділянках кристала, і вони не перемовляться жодним бітом. Ось і вся причина, чому залишкові класи взагалі існують: у звичайному додаванні старший біт мусить дочекатися молодшого, а тут чекати нема на кого й нема чого.
 
@@ -322,18 +168,7 @@ m  = m₂ + q · h
 
 Порахуймо, скільки це справді дає. Ключ на 2048 бітів, прості на 1024, [піднесення до степеня за модулем](root:math-number-theory/modular-exponentiation) — вбудоване:
 
-```py
-def sign_plain(m):
-    return pow(m, d, n)                    # один степінь за 2048-бітовим модулем
-
-def sign_crt(m):
-    m1 = pow(m, dP, p)                     # два степені за 1024-бітовими модулями
-    m2 = pow(m, dQ, q)
-    h = (m1 - m2) * qInv % p               # Гарнер на двох модулях
-    return m2 + q * h
-
-assert sign_plain(msg) == sign_crt(msg)    # те саме число, іншим шляхом
-```
+:::code proj-crt-solver/py/rsa-crt-vymiriane.py
 
 Виміряно, три прогони по сто підписів:
 
@@ -372,19 +207,7 @@ assert sign_plain(msg) == sign_crt(msg)    # те саме число, інши�
 
 Перевірмо на живому ключі. Один випадковий біт у половині *p*:
 
-```py
-from math import gcd
-
-def sign_crt_faulty(m, rng):
-    m1 = pow(m, dP, p)
-    m2 = pow(m, dQ, q)
-    m1 ^= 1 << rng.randrange(m1.bit_length())      # один перекинутий біт
-    h = (m1 - m2) * qInv % p
-    return m2 + q * h
-
-s_bad = sign_crt_faulty(msg, rng)
-print(gcd(pow(s_bad, e, n) - msg, n) == q)         # True — за 0.15 мс
-```
+:::code proj-crt-solver/py/odyn-bit-i-kliucha-nemaie.py
 
 Двісті випадкових однобітових збоїв у половині *p* — двісті влучань із двохсот, щоразу рівно *q*. Двісті збоїв у половині *q* — двісті влучань, щоразу рівно *p*. Це не імовірнісна атака з відсотком успіху, який можна перетерпіти; це арифметична тотожність, що спрацьовує щоразу. Вартість — 0.15 мс.
 

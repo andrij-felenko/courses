@@ -26,81 +26,17 @@
 
 Спочатку реалізуємо розширений алгоритм Евкліда, який повертає не лише найбільший спільний дільник (НСД), а й коефіцієнти x та y рівняння A*x + M*y = НСД(A, M).
 
-```cpp
-// Розширений алгоритм Евкліда
-// Повертає кортеж (gcd(a, b), x, y) такі, що a*x + b*y = gcd(a, b)
-std::tuple<long long, long long, long long> extendedGcd(long long a, long long b) {
-    if (b == 0) {
-        return {a, 1, 0};
-    }
-    auto [gcd, x1, y1] = extendedGcd(b, a % b);
-    long long x = y1;
-    long long y = x1 - y1 * (a / b);
-    return {gcd, x, y};
-}
-
-// Знаходження оберненого елемента за модулем m через алгоритм Евкліда
-long long modInverseGcd(long long a, long long m) {
-    auto [gcd, x, y] = extendedGcd(a, m);
-    if (gcd != 1) {
-        throw std::invalid_argument("Оберненого елемента не існує (числа не взаємно прості)");
-    }
-    return (x % m + m) % m; // Забезпечення додатного результату
-}
-```
+:::code proj-modular-inverse/cpp/3-osnovna-lohika-alhorytmy.cpp
 
 Для малої теореми Ферма відомо, що A^(M-1) = 1 mod M, отже обернений елемент дорівнює A^(M-2) mod M. Реалізуємо швидке піднесення до степеня за модулем, яке працює за логарифмічний час.
 
-```cpp
-// Швидке піднесення a до степеня b за модулем m
-long long powerMod(long long a, long long b, long long m) {
-    long long result = 1;
-    a = a % m;
-    while (b > 0) {
-        if (b % 2 == 1) {
-            result = (result * a) % m;
-        }
-        b /= 2;
-        a = (a * a) % m;
-    }
-    return result;
-}
-
-// Знаходження оберненого елемента за модулем m (m обов'язково має бути простим)
-long long modInverseFermat(long long a, long long m) {
-    return powerMod(a, m - 2, m);
-}
-```
+:::code proj-modular-inverse/cpp/3-osnovna-lohika-alhorytmy-2.cpp
 
 ### 4. Точка входу
 
 У головній функції ми перевіримо обидва методи на конкретному прикладі. Виберемо відоме просте число як модуль, щоб обидва алгоритми спрацювали успішно та показали однаковий результат.
 
-```cpp
-int main() {
-    long long a = 42;
-    long long m = 1000000007; // Відомий простий модуль
-
-    std::cout << "Шукаємо обернений елемент для a = " << a << " за модулем m = " << m << "\n";
-
-    try {
-        long long invGcd = modInverseGcd(a, m);
-        std::cout << "Результат (Евклід): " << invGcd << "\n";
-        std::cout << "Перевірка: (" << a << " * " << invGcd << ") mod " << m << " = " 
-                  << (a * invGcd) % m << "\n";
-                  
-        long long invFermat = modInverseFermat(a, m);
-        std::cout << "Результат (Ферма) : " << invFermat << "\n";
-        std::cout << "Перевірка: (" << a << " * " << invFermat << ") mod " << m << " = " 
-                  << (a * invFermat) % m << "\n";
-                  
-    } catch (const std::exception& e) {
-        std::cerr << "Помилка: " << e.what() << "\n";
-    }
-
-    return 0;
-}
-```
+:::code proj-modular-inverse/cpp/4-tochka-vkhodu.cpp
 
 ### 5. Компіляція та запуск
 

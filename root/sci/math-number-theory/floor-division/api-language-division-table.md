@@ -231,31 +231,8 @@ msub x3, x2, x1, x0         ; x3 = x0 - (x2 * x1) = x0 % x1 (остача)
 ### Практичні інженерні рекомендації
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <limits.h>
-
-// Безпечна перевірка ділення C99 перед виконанням IDIV
-bool is_safe_division_s32(int32_t a, int32_t b) {
-    if (b == 0) return false;
-    if (a == INT32_MIN && b == -1) return false;
-    return true;
-}
-```
-```cpp
-#include <cstdint>
-#include <limits>
-#include <concepts>
-
-// Ідіоматична C++20 перевірка без винятків
-template <std::signed_integral T>
-[[nodiscard]] constexpr bool is_safe_division(T a, T b) noexcept {
-    if (b == 0) return false;
-    if (a == std::numeric_limits<T>::min() && b == -1) return false;
-    return true;
-}
-```
+:::code api-language-division-table/c/main.c
+:::code api-language-division-table/cpp/main.cpp
 :::
 
 1. **Для системного програмування на C/C++:**

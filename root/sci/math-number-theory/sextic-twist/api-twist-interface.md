@@ -23,35 +23,8 @@
 Розміри байтових масивів залежать від обраного параметричного сімейства еліптичних кривих. Нижче подано конфігураційні константи для кривих BLS12-381 та BN254.
 
 :::tabs
-```c
-// Формати точок для кривої BLS12-381 (Field p size = 381 bits / 48 bytes)
-#define BLS12_381_FP_BYTES        48
-#define BLS12_381_FP2_BYTES       96   // 2 * 48 bytes (c0, c1)
-#define BLS12_381_G2_UNCOMPRESSED 192  // (x, y) in FP2 = 2 * 96 bytes
-#define BLS12_381_G2_COMPRESSED   96   // x in FP2 + flags in top bits
-
-// Формати точок для кривої BN254 / alt_bn128 (Field p size = 254 bits / 32 bytes)
-#define BN254_FP_BYTES            32
-#define BN254_FP2_BYTES           64   // 2 * 32 bytes
-#define BN254_G2_UNCOMPRESSED     128  // (x, y) in FP2 = 2 * 64 bytes
-#define BN254_G2_COMPRESSED       64   // x in FP2 + sign bit
-```
-```cpp
-// Формати точок у стилі C++20 з constexpr
-#include <cstddef>
-
-namespace crypto::config {
-    constexpr std::size_t kBls12_381FpBytes        = 48;
-    constexpr std::size_t kBls12_381Fp2Bytes       = 96;  // 2 * 48 bytes
-    constexpr std::size_t kBls12_381G2Uncompressed = 192; // (x, y) in Fp2
-    constexpr std::size_t kBls12_381G2Compressed   = 96;  // x in Fp2 + flags
-
-    constexpr std::size_t kBn254FpBytes            = 32;
-    constexpr std::size_t kBn254Fp2Bytes           = 64;
-    constexpr std::size_t kBn254G2Uncompressed     = 128;
-    constexpr std::size_t kBn254G2Compressed       = 64;
-}
-```
+:::code api-twist-interface/c/1-1-parametry-poliv-ta.c
+:::code api-twist-interface/cpp/1-1-parametry-poliv-ta.cpp
 :::
 
 У системному середовищі вибір розміру буферів вирівнюється за межами 64-бітних слів (64-bit alignment), що дозволяє використовувати SIMD-інструкції (AVX2, AVX-512, ARM Neon) для паралельного виконання множень у полем `𝔽_p`.
@@ -118,19 +91,7 @@ typedef enum {
     TWIST_ERR_DECOMPRESS_FAILED = 0x06  // Квадратний корінь для y' не існує в 𝔽_{p^2}
 } twist_status_t;
 ```
-```cpp
-#include <cstdint>
-
-enum class TwistStatus : std::uint32_t {
-    kSuccess          = 0x00, // Операцію виконано успішно
-    kNullPointer      = 0x01, // Передано порожній вказівник
-    kInvalidX         = 0x02, // Координата x не належить полю 𝔽_{p^2}
-    kNotOnCurve       = 0x03, // Точка не задовольняє рівняння E'
-    kSubgroupFailed   = 0x04, // Перевірка порядку r * Q' != O провалилася
-    kInvalidFlags     = 0x05, // Неприпустима комбінація прапорців
-    kDecompressFailed = 0x06  // Корінь для y' не існує в 𝔽_{p^2}
-};
-```
+:::code api-twist-interface/cpp/2-kody-povernennia-ta.cpp
 :::
 
 Детермінована обробка статусу гарантує, що коди помилок є взаємно виключними (mutually exclusive) і дозволяють вищому рівню застосунку точно дігностувати причину відхилення точки.
@@ -150,42 +111,8 @@ enum class TwistStatus : std::uint32_t {
 Під час ініціалізації контексту проводиться попередня таблична генерація степенів Фробеніуса для прискорення розкладу GLS під час багатьох скалярних множень.
 
 :::tabs
-```c
-/**
- * @brief Ініціалізує контекст твістованої кривої E'
- * @param ctx Повертає вказівник на створений контекст
- * @param curve_id Ідентифікатор кривої (BN254 = 1, BLS12_381 = 2)
- * @param twist_type Тип твісту (D_TYPE = 0, M_TYPE = 1)
- * @return TWIST_SUCCESS у разі успіху
- */
-twist_status_t twist_ctx_init(
-    twist_ctx_t** ctx,
-    uint32_t curve_id,
-    uint32_t twist_type
-);
-
-/**
- * @brief Звільняє ресурси контексту кривої
- */
-void twist_ctx_free(twist_ctx_t* ctx);
-```
-```cpp
-#include <memory>
-#include <expected>
-
-class TwistContext {
-public:
-    enum class CurveId : std::uint32_t { kBn254 = 1, kBls12_381 = 2 };
-    enum class TwistType : std::uint32_t { kDType = 0, kMType = 1 };
-
-    static std::expected<std::unique_ptr<TwistContext>, TwistStatus> create(
-        CurveId curve_id,
-        TwistType twist_type
-    ) noexcept;
-
-    ~TwistContext() noexcept;
-};
-```
+:::code api-twist-interface/c/3-1-stvorennia-ta.h
+:::code api-twist-interface/cpp/3-1-stvorennia-ta.cpp
 :::
 
 Контекст також виступає обгорткою над внутрішніми робочими буферами арифметики поля Монтгомері, гарантуючи ізоляцію стеків потоків виконання.
@@ -201,44 +128,8 @@ public:
 Ці перевірки є обов'язковими для кожного криптографічного виклику, який приймає точки `G_2` із зовнішніх або незахищених джерел мережі.
 
 :::tabs
-```c
-/**
- * @brief Перевіряє, чи задовольняє точка рівняння твістованої кривої E'
- * @param ctx Контекст кривої
- * @param in_g2_uncompressed Буфер з координатами (x', y') над 𝔽_{p^2}
- * @return TWIST_SUCCESS якщо точка на кривій, TWIST_ERR_NOT_ON_CURVE інакше
- */
-twist_status_t twist_g2_is_on_curve(
-    const twist_ctx_t* ctx,
-    const uint8_t* in_g2_uncompressed
-);
-
-/**
- * @brief Перевіряє належність точки до криптографічної підгрупи G₂ порядку r
- * @details Виконує множення r * Q' або оцінку ендоморфізму Фробеніуса Скотта
- * @param ctx Контекст кривої
- * @param in_g2_uncompressed Буфер точки (x', y')
- * @return TWIST_SUCCESS якщо r * Q' == O
- */
-twist_status_t twist_g2_validate_subgroup(
-    const twist_ctx_t* ctx,
-    const uint8_t* in_g2_uncompressed
-);
-```
-```cpp
-#include <span>
-
-class G2Validator {
-public:
-    [[nodiscard]] std::expected<void, TwistStatus> is_on_curve(
-        std::span<const std::uint8_t> in_g2_uncompressed
-    ) const noexcept;
-
-    [[nodiscard]] std::expected<void, TwistStatus> validate_subgroup(
-        std::span<const std::uint8_t> in_g2_uncompressed
-    ) const noexcept;
-};
-```
+:::code api-twist-interface/c/3-2-perevirka-validnosti.h
+:::code api-twist-interface/cpp/3-2-perevirka-validnosti.cpp
 :::
 
 У разі виявлення точки малого порядку функція перевірки повертає помилку негайно, упереджуючи виконання алгоритму Міллера та захищаючи приватні ключі.
@@ -254,48 +145,8 @@ public:
 Стиснення точок скорочує мережевий обсяг передавання відкритих ключів та цифрових підписів удвічі.
 
 :::tabs
-```c
-/**
- * @brief Стискає точку G₂ з формату (x', y') у формат x' + біт знаку y'
- * @param ctx Контекст кривої
- * @param out_compressed Вихідний буфер розмінності FP2_BYTES
- * @param in_uncompressed Вхідна точка розмінності 2 * FP2_BYTES
- * @return TWIST_SUCCESS у разі успіху
- */
-twist_status_t twist_g2_compress(
-    const twist_ctx_t* ctx,
-    uint8_t* out_compressed,
-    const uint8_t* in_uncompressed
-);
-
-/**
- * @brief Відновлює нестиснену точку (x', y') зі стисненого буфера
- * @details Обчислює y'^2 = x'^3 + b_twist та знаходить квадратний корінь у 𝔽_{p^2}
- * @param ctx Контекст кривої
- * @param out_uncompressed Вихідний буфер 2 * FP2_BYTES
- * @param in_compressed Вхідний стиснений буфер FP2_BYTES
- * @return TWIST_SUCCESS або TWIST_ERR_DECOMPRESS_FAILED
- */
-twist_status_t twist_g2_decompress(
-    const twist_ctx_t* ctx,
-    uint8_t* out_uncompressed,
-    const uint8_t* in_compressed
-);
-```
-```cpp
-class G2Compressor {
-public:
-    [[nodiscard]] std::expected<void, TwistStatus> compress(
-        std::span<std::uint8_t> out_compressed,
-        std::span<const std::uint8_t> in_uncompressed
-    ) const noexcept;
-
-    [[nodiscard]] std::expected<void, TwistStatus> decompress(
-        std::span<std::uint8_t> out_uncompressed,
-        std::span<const std::uint8_t> in_compressed
-    ) const noexcept;
-};
-```
+:::code api-twist-interface/c/3-3-stysnennia-ta.h
+:::code api-twist-interface/cpp/3-3-stysnennia-ta.cpp
 :::
 
 Процедура декомпресії контролює відсутність переповнення буфера та гарантує виконання в постійному часі незалежно від значення вхідних байтів.
@@ -311,38 +162,8 @@ public:
 Завдяки прямій подачі розріджених коефіцієнтів у конвеєр алгоритму Міллера обчислювальний цикл повністю минає загальне множення у полем `𝔽_{p^{12}}`.
 
 :::tabs
-```c
-/**
- * @brief Обчислює розтвістовані коефіцієнти для кроку алгоритму Міллера
- * @details Переводить Q' = (x', y') ∈ E'(𝔽_{p^2}) у розріджений елемент (x' w^2, y' w^3)
- * @param ctx Контекст кривої
- * @param out_x_coeff Вихідний коефіцієнт біля w^2 (в 𝔽_{p^2})
- * @param out_y_coeff Вихідний коефіцієнт біля w^3 (в 𝔽_{p^2})
- * @param in_g2_point Вхідна точка твістованої кривої
- * @return TWIST_SUCCESS
- */
-twist_status_t twist_g2_untwist_for_miller(
-    const twist_ctx_t* ctx,
-    uint8_t* out_x_coeff,
-    uint8_t* out_y_coeff,
-    const uint8_t* in_g2_point
-);
-```
-```cpp
-#include <vector>
-
-struct UntwistResult {
-    std::vector<std::uint8_t> x_coeff;
-    std::vector<std::uint8_t> y_coeff;
-};
-
-class MillerUntwister {
-public:
-    [[nodiscard]] std::expected<UntwistResult, TwistStatus> untwist_for_miller(
-        std::span<const std::uint8_t> in_g2_point
-    ) const noexcept;
-};
-```
+:::code api-twist-interface/c/3-4-peretvorennia.c
+:::code api-twist-interface/cpp/3-4-peretvorennia.cpp
 :::
 
 Розріджені вихідні коефіцієнти передаються безпосередньо у низькорівневий мультиплікатор без копіювання буферів.

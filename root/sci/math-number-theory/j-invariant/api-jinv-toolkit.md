@@ -33,66 +33,8 @@ include/
 ### 2.1. Типи даних C та C++
 
 :::tabs
-```c
-/* Коди помилок бібліотеки libjinv */
-typedef enum {
-    JINV_OK = 0,                  /* Успішне виконання */
-    JINV_ERR_SINGULAR_CURVE = 1,  /* Крива є сингулярною (дискримінант Delta = 0) */
-    JINV_ERR_DIVISION_BY_ZERO = 2,/* Спроба ділення на нульовий елемент поля */
-    JINV_ERR_INVALID_PARAM = 3,   /* Некоректні вхідні параметри функції */
-    JINV_ERR_NO_ROOT = 4,         /* Корінь многочлена не знайдено у базовому полі */
-    JINV_ERR_BUFFER_OVERFLOW = 5  /* Недостатній розмір вихідного буфера */
-} jinv_status_t;
-
-/* Елемент квадратичного розширення F_{p^2} = {re + im * i} */
-typedef struct {
-    int64_t re; /* Дійсна частина: re in [0, p - 1] */
-    int64_t im; /* Уявна частина: im in [0, p - 1] */
-} fp2_t;
-
-/* Загальна форма Вейєрштрасса: y^2 + a1*xy + a3*y = x^3 + a2*x^2 + a4*x + a6 */
-typedef struct {
-    fp2_t a1, a2, a3, a4, a6;
-} curve_general_t;
-
-/* Коротка форма Вейєрштрасса: y^2 = x^3 + A*x + B */
-typedef struct {
-    fp2_t a; /* Лінійний коефіцієнт A */
-    fp2_t b; /* Вільний член B */
-} curve_short_t;
-```
-```cpp
-#pragma once
-#include <cstdint>
-#include <system_error>
-
-namespace jinv {
-
-enum class ErrorCode {
-    Ok = 0,
-    SingularCurve,
-    DivisionByZero,
-    InvalidParam,
-    NoRoot,
-    BufferOverflow
-};
-
-struct FieldElement2 {
-    int64_t re{0};
-    int64_t im{0};
-};
-
-struct GeneralWeierstrassCurve {
-    FieldElement2 a1, a2, a3, a4, a6;
-};
-
-struct ShortWeierstrassCurve {
-    FieldElement2 a;
-    FieldElement2 b;
-};
-
-} // namespace jinv
-```
+:::code api-jinv-toolkit/c/2-1-typy-danykh-c-ta-c.c
+:::code api-jinv-toolkit/cpp/2-1-typy-danykh-c-ta-c.hpp
 :::
 
 ### 2.2. Детальний опис функцій модуля арифметики (C API)
@@ -257,31 +199,8 @@ namespace jinv {
 ### 8.1. Структури та функції пошуку коренів
 
 :::tabs
-```c
-typedef struct {
-    fp2_t coeffs[8]; /* Коефіцієнти полінома ступеня <= 7 */
-    int degree;
-} poly_fp2_t;
-
-jinv_status_t poly_fp2_find_roots(
-    poly_fp2_t poly,
-    fp2_t *roots_out,
-    int *num_roots,
-    int64_t p
-);
-```
-```cpp
-namespace jinv {
-struct PolynomialFp2 {
-    std::vector<FieldElement2> coeffs;
-};
-
-[[nodiscard]] std::vector<FieldElement2> find_roots(
-    const PolynomialFp2& poly,
-    int64_t p
-);
-}
-```
+:::code api-jinv-toolkit/c/8-1-struktury-ta-funktsii.c
+:::code api-jinv-toolkit/cpp/8-1-struktury-ta-funktsii.cpp
 :::
 
 Алгоритм виконує два послідовні кроки:
@@ -305,23 +224,7 @@ j(\tau) = 1/q + 744 + 196884 · q + 21493760 · q² + 864299970 · q³ + O(q⁴)
 ### 9.2. Опис функцій комплексного API
 
 :::tabs
-```c
-typedef struct {
-    double re;
-    double im;
-} complex64_t;
-
-jinv_status_t jinv_complex_reduce_to_fundamental(
-    complex64_t tau_in,
-    complex64_t *tau_out
-);
-
-jinv_status_t jinv_complex_eval_fourier(
-    complex64_t tau,
-    complex64_t *j_out,
-    int num_terms
-);
-```
+:::code api-jinv-toolkit/c/9-2-opys-funktsii.h
 ```cpp
 #include <complex>
 
@@ -362,18 +265,7 @@ typedef enum {
 
 jinv_reduction_type_t curve_analyze_reduction(curve_general_t curve, int64_t p);
 ```
-```cpp
-namespace jinv {
-enum class ReductionType {
-    Good = 0,
-    MultiplicativeSplit,
-    MultiplicativeNonSplit,
-    Additive
-};
-
-[[nodiscard]] ReductionType analyze_reduction(const GeneralWeierstrassCurve& curve, int64_t p);
-}
-```
+:::code api-jinv-toolkit/cpp/11-modul-analizu-typiv.cpp
 :::
 
 Геометричний зв'язок із j-інваріантом:
@@ -396,25 +288,7 @@ typedef enum {
 
 jinv_security_flags_t curve_audit_security(curve_short_t crv, int64_t p, int64_t order);
 ```
-```cpp
-#include <cstdint>
-
-namespace jinv {
-enum class SecurityFlags : uint32_t {
-    Ok = 0,
-    Anomalous = 1 << 0,
-    LowEmbedding = 1 << 1,
-    Singular = 1 << 2,
-    CmWeak = 1 << 3
-};
-
-[[nodiscard]] SecurityFlags audit_security(
-    const ShortWeierstrassCurve& crv,
-    int64_t p,
-    int64_t order
-);
-}
-```
+:::code api-jinv-toolkit/cpp/12-modul-audytu.cpp
 :::
 
 Функція перевіряє:
@@ -456,180 +330,15 @@ namespace jinv {
 
 ### 14.1. Декларація заголовка `elliptic.hpp`
 
-```cpp
-#pragma once
-#include <cstdint>
-#include <optional>
-#include <vector>
-#include <concepts>
-#include <span>
-
-namespace jinv {
-
-/* Концепт простого модуля поля */
-template <int64_t P>
-concept ValidPrime = (P > 2) && (P % 4 == 3);
-
-/* Шаблонний клас елемента поля F_{p^2} */
-template <int64_t P>
-requires ValidPrime<P>
-class FieldExtension2 {
-public:
-    int64_t re{0};
-    int64_t im{0};
-
-    constexpr FieldExtension2() noexcept = default;
-    constexpr FieldExtension2(int64_t r, int64_t i = 0) noexcept;
-
-    [[nodiscard]] constexpr bool operator==(const FieldExtension2& o) const noexcept;
-    [[nodiscard]] constexpr FieldExtension2 operator+(const FieldExtension2& o) const noexcept;
-    [[nodiscard]] constexpr FieldExtension2 operator-(const FieldExtension2& o) const noexcept;
-    [[nodiscard]] constexpr FieldExtension2 operator*(const FieldExtension2& o) const noexcept;
-    [[nodiscard]] constexpr FieldExtension2 inv() const noexcept;
-    [[nodiscard]] constexpr FieldExtension2 conj() const noexcept;
-    [[nodiscard]] constexpr int64_t norm() const noexcept;
-};
-
-/* Клас короткої форми кривої Вейєрштрасса */
-template <int64_t P>
-class EllipticCurve {
-private:
-    FieldExtension2<P> m_a;
-    FieldExtension2<P> m_b;
-
-public:
-    constexpr EllipticCurve(FieldExtension2<P> a, FieldExtension2<P> b) noexcept;
-
-    [[nodiscard]] constexpr FieldExtension2<P> a() const noexcept { return m_a; }
-    [[nodiscard]] constexpr FieldExtension2<P> b() const noexcept { return m_b; }
-
-    /* Обчислення дискримінанта Delta = -16(4A^3 + 27B^2) */
-    [[nodiscard]] constexpr FieldExtension2<P> discriminant() const noexcept;
-
-    /* Обчислення j-інваріанта: повертає std::nullopt для сингулярних кривих */
-    [[nodiscard]] std::optional<FieldExtension2<P>> j_invariant() const noexcept;
-
-    /* Відновлення канонічної кривої за числовим інваріантом */
-    [[nodiscard]] static EllipticCurve from_j(FieldExtension2<P> j0) noexcept;
-
-    /* Перевірка, чи є криві твістами */
-    [[nodiscard]] bool is_twist_of(const EllipticCurve& other) const noexcept;
-};
-
-/* Дослідник графа надсингулярних ізогеній */
-template <int64_t P>
-class IsogenyGraph {
-public:
-    [[nodiscard]] static std::vector<FieldExtension2<P>> get_2neighbors(FieldExtension2<P> j_vertex);
-    [[nodiscard]] static size_t count_connected_component(FieldExtension2<P> start_j);
-};
-
-} // namespace jinv
-```
+:::code api-jinv-toolkit/cpp/14-1-deklaratsiia.hpp
 
 ## 15. Приклади використання бібліотеки
 
 У наступних табах наведено повні приклади використання бібліотеки для мов C та C++:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdint.h>
-#include <stdbool.h>
-
-#define P_MOD 431LL
-
-typedef struct { int64_t re, im; } fp2_t;
-typedef struct { fp2_t a, b; } curve_short_t;
-
-/* Модульні допоміжні операції */
-static inline int64_t mod(int64_t x) { int64_t r = x % P_MOD; return r < 0 ? r + P_MOD : r; }
-static inline fp2_t fp2_add(fp2_t x, fp2_t y) { return (fp2_t){ mod(x.re + y.re), mod(x.im + y.im) }; }
-static inline fp2_t fp2_sub(fp2_t x, fp2_t y) { return (fp2_t){ mod(x.re - y.re), mod(x.im - y.im) }; }
-static inline fp2_t fp2_mul(fp2_t x, fp2_t y) {
-    return (fp2_t){ mod(x.re * y.re - x.im * y.im), mod(x.re * y.im + x.im * y.re) };
-}
-static int64_t p_pow(int64_t b, int64_t e) {
-    int64_t r = 1; b = mod(b);
-    while (e > 0) { if (e & 1) r = mod(r * b); b = mod(b * b); e >>= 1; }
-    return r;
-}
-static inline fp2_t fp2_inv(fp2_t x) {
-    int64_t n_inv = p_pow(mod(x.re * x.re + x.im * x.im), P_MOD - 2);
-    return (fp2_t){ mod(x.re * n_inv), mod(-x.im * n_inv) };
-}
-
-/* API-функція обчислення j-інваріанта */
-bool jinv_compute(curve_short_t crv, fp2_t *j_res) {
-    fp2_t a3 = fp2_mul(crv.a, fp2_mul(crv.a, crv.a));
-    fp2_t b2 = fp2_mul(crv.b, crv.b);
-    fp2_t num = fp2_mul((fp2_t){1728, 0}, fp2_mul((fp2_t){4, 0}, a3));
-    fp2_t den = fp2_add(fp2_mul((fp2_t){4, 0}, a3), fp2_mul((fp2_t){27, 0}, b2));
-
-    if (den.re == 0 && den.im == 0) return false;
-    *j_res = fp2_mul(num, fp2_inv(den));
-    return true;
-}
-
-int main(void) {
-    printf("=== Демонстрація C API libjinv ===\n");
-    curve_short_t e1 = { {1, 0}, {0, 0} }; /* y^2 = x^3 + x */
-    fp2_t j1;
-    if (jinv_compute(e1, &j1)) {
-        printf("Крива y^2 = x^3 + x -> j = %lld (очікується 1728 mod 431 = %lld)\n",
-               (long long)j1.re, (long long)(1728 % P_MOD));
-    }
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <optional>
-#include <cstdint>
-
-constexpr int64_t P_PRIME = 431;
-
-struct Fp2 {
-    int64_t re{0}, im{0};
-    constexpr Fp2() = default;
-    constexpr Fp2(int64_t r, int64_t i = 0) : re((r % P_PRIME + P_PRIME) % P_PRIME), im((i % P_PRIME + P_PRIME) % P_PRIME) {}
-
-    constexpr bool operator==(const Fp2& o) const = default;
-    constexpr Fp2 operator+(const Fp2& o) const { return { re + o.re, im + o.im }; }
-    constexpr Fp2 operator-(const Fp2& o) const { return { re - o.re, im - o.im }; }
-    constexpr Fp2 operator*(const Fp2& o) const { return { re * o.re - im * o.im, re * o.im + im * o.re }; }
-
-    constexpr Fp2 inv() const {
-        int64_t norm = (re * re + im * im) % P_PRIME;
-        int64_t res = 1, b = norm, exp = P_PRIME - 2;
-        while (exp > 0) { if (exp & 1) res = (res * b) % P_PRIME; b = (b * b) % P_PRIME; exp >>= 1; }
-        return { re * res, -im * res };
-    }
-};
-
-class EllipticCurve {
-public:
-    Fp2 a, b;
-    constexpr EllipticCurve(Fp2 a_val, Fp2 b_val) : a(a_val), b(b_val) {}
-
-    [[nodiscard]] std::optional<Fp2> j_invariant() const noexcept {
-        Fp2 a3 = a * a * a, b2 = b * b;
-        Fp2 num = Fp2(1728) * (Fp2(4) * a3);
-        Fp2 den = (Fp2(4) * a3) + (Fp2(27) * b2);
-        if (den == Fp2(0, 0)) return std::nullopt;
-        return num * den.inv();
-    }
-};
-
-int main() {
-    std::cout << "=== Демонстрація C++20 API libjinv ===\n";
-    EllipticCurve e1(Fp2(1), Fp2(0));
-    if (auto j = e1.j_invariant()) {
-        std::cout << "Крива y^2 = x^3 + x -> j = " << j->re << " (очікується: " << 1728 % P_PRIME << ")\n";
-    }
-    return 0;
-}
-```
+:::code api-jinv-toolkit/c/15-pryklady-vykorystannia.c
+:::code api-jinv-toolkit/cpp/15-pryklady-vykorystannia.cpp
 :::
 
 ## 16. Життєвий цикл сесії криптографічного аналізу

@@ -25,22 +25,7 @@ Sₖ = Sₖ₋₁² − 2      (усе за модулем Mₚ)
 
 Поки `Mₚ` влазить у 64-бітне слово (тобто `p ≤ 61`; `M₆₁ = 2⁶¹ − 1` — найбільше просте Мерсенна, що вміщується в машинне слово), усе роблять апаратні цілі. Єдина тонкість — переповнення: `Sₖ²` сягає `2p` бітів, тож проміжний квадрат треба тримати в **ширшому** типі, ніж самі `Sₖ`. Найпрямолінійніша версія бере остачу оператором `%`:
 
-```c
-#include <stdint.h>
-
-/* Тест для малих p: Mp = 2ᵖ−1 має влізти в 64 біти (p ≤ 61). */
-int lucas_lehmer_small(int p) {
-    if (p == 2) return 1;                      /* M₂ = 3 просте; рекурсія стартує з p ≥ 3 */
-    uint64_t M = ((uint64_t)1 << p) - 1;       /* Mp = 2ᵖ − 1 */
-    uint64_t s = 4;
-    for (int i = 0; i < p - 2; i++) {
-        unsigned __int128 sq = (unsigned __int128)s * s;   /* до 2¹²² — треба 128 біт! */
-        uint64_t r = (uint64_t)(sq % M);                   /* остача діленням */
-        s = (r >= 2) ? r - 2 : r + M - 2;                  /* s = (r − 2) за модулем M */
-    }
-    return s == 0;
-}
-```
+:::code proj-lucas-lehmer/c/navchalna-versiia-na-64.c
 
 Тут уже видно дві пастки в мініатюрі. Квадрат `s * s` **мусить** обчислюватися в `unsigned __int128` — інакше результат тихо загорнеться в 64 бітах і тест почне брехати. А `r − 2` після зведення може піти в мінус (коли `r` дорівнює `0` або `1`), тож віднімання йде за модулем: `r + M − 2`. Прогнавши це по всіх `p`, дістаємо рівно те, що треба:
 
@@ -77,112 +62,15 @@ uint64_t reduce_small(unsigned __int128 x, int p) {
 
 Серце реалізації — зведення за модулем. Воно дослівно повторює `reduce_small`, тільки «розрізати на бите `p`» стає роботою зі зсувами по масиву. Позначмо `Q = p / 32` і `R = p % 32`: оскільки `p` — просте більше за двійку, воно непарне й не кратне `32`, тож `R` завжди в межах `[1, 31]` (це важливо — межовий випадок `R = 0` не трапляється).
 
-```c
-#include <stdint.h>
-#include <string.h>
-
-typedef uint32_t limb;                 /* слово 32 біти; добуток двох влазить у 64 */
-
-/* довжина числа в бітах (номер старшого одиничного біта) */
-static int bit_length(const limb *a, int words) {
-    for (int i = words - 1; i >= 0; i--)
-        if (a[i]) { int b = 32; while (!((a[i] >> (b - 1)) & 1u)) b--; return 32 * i + b; }
-    return 0;
-}
-
-/* out[0..n) = a[0..W) >> p */
-static void shift_right_p(const limb *a, int W, int p, limb *out, int n) {
-    int Q = p / 32, R = p % 32;                 /* R ∈ [1,31] */
-    for (int i = 0; i < n; i++) {
-        uint64_t lo = (i + Q     < W) ? a[i + Q]     : 0;
-        uint64_t hi = (i + Q + 1 < W) ? a[i + Q + 1] : 0;
-        out[i] = (limb)((lo >> R) | (hi << (32 - R)));
-    }
-}
-
-/* a[0..W) += b[0..W) */
-static void add_inplace(limb *a, const limb *b, int W) {
-    uint64_t carry = 0;
-    for (int i = 0; i < W; i++) {
-        uint64_t cur = (uint64_t)a[i] + b[i] + carry;
-        a[i] = (limb)cur;
-        carry = cur >> 32;
-    }
-}
-
-/* ⋆ серце всього ⋆   r[0..n) = prod[0..2n) mod (2ᵖ − 1),  жодного ділення */
-static void reduce_mod_mp(const limb *prod, int p, limb *r, int n) {
-    int W = 2 * n, Q = p / 32, R = p % 32;
-    limb acc[W], low[W], high[W];               /* C99 VLA — для наочності */
-    memcpy(acc, prod, W * sizeof(limb));
-    while (bit_length(acc, W) > p) {            /* доки згори лишаються біти */
-        for (int i = 0; i < W; i++)            /* low = acc & (2ᵖ − 1) */
-            low[i] = (i < Q) ? acc[i] : (i == Q ? (acc[i] & ((1u << R) - 1)) : 0);
-        shift_right_p(acc, W, p, high, W);     /* high = acc >> p */
-        memset(acc, 0, W * sizeof(limb));
-        add_inplace(acc, low, W);
-        add_inplace(acc, high, W);             /* acc = low + high — згортка */
-    }
-    for (int i = 0; i < n; i++) r[i] = acc[i];
-    int is_mp = 1;                              /* остача == Mp (усі одиниці)? */
-    for (int i = 0; i < n - 1; i++) if (r[i] != 0xFFFFFFFFu) is_mp = 0;
-    if (r[n - 1] != (1u << R) - 1) is_mp = 0;
-    if (is_mp) memset(r, 0, n * sizeof(limb));  /* … значить нуль */
-}
-```
+:::code proj-lucas-lehmer/c/velyki-chysla-chyslo-iak.c
 
 Другий дорогий шматок — саме піднесення до квадрата. Найпростіше множення — «стовпчиком», кожне слово на кожне; для числа з `n` лімбів це `n²` множень слів:
 
-```c
-/* prod[0..2n) = a[0..n)²  — множення «стовпчиком», O(n²) */
-static void square(const limb *a, int n, limb *prod) {
-    memset(prod, 0, 2 * n * sizeof(limb));
-    for (int i = 0; i < n; i++) {
-        uint64_t carry = 0;
-        for (int j = 0; j < n; j++) {
-            uint64_t cur = (uint64_t)prod[i + j] + (uint64_t)a[i] * a[j] + carry;
-            prod[i + j] = (limb)cur;
-            carry = cur >> 32;
-        }
-        prod[i + n] += (limb)carry;
-    }
-}
-```
+:::code proj-lucas-lehmer/c/velyki-chysla-chyslo-iak-2.c
 
 Лишилося відняти двійку за модулем — те саме `r + M − 2`, лише з поширенням позики по лімбах, з тим самим доглядом за випадком `s < 2`. Ось повний тест і його «стовпчиковий» рушій:
 
-```c
-/* s = (s − 2) mod Mp,  вхід s ∈ [0, Mp) */
-static void sub2_mod_mp(limb *s, int p, int n) {
-    int R = p % 32, above = 0;
-    for (int i = 1; i < n; i++) if (s[i]) above = 1;
-    if (!(s[0] >= 2 || above)) {               /* s дорівнює 0 або 1: спершу + Mp */
-        limb d = 2 - s[0];
-        for (int i = 0; i < n; i++) s[i] = 0xFFFFFFFFu;
-        s[n - 1] = (1u << R) - 1;               /* s = Mp */
-        limb b = d;                             /* далі відняти d ∈ {1,2} */
-        for (int i = 0; i < n && b; i++) { limb o = s[i]; s[i] = o - b; b = (o < b); }
-        return;
-    }
-    limb b = 2;                                 /* s ≥ 2: проста позика */
-    for (int i = 0; i < n && b; i++) { limb o = s[i]; s[i] = o - b; b = (o < b); }
-}
-
-int lucas_lehmer(int p) {                       /* p — непарне просте */
-    if (p == 2) return 1;
-    int n = (p + 31) / 32;
-    limb s[n], prod[2 * n];                      /* демо-буфери на стеку */
-    memset(s, 0, n * sizeof(limb));
-    s[0] = 4;                                    /* S₀ = 4 */
-    for (int k = 0; k < p - 2; k++) {
-        square(s, n, prod);                     /* prod = s²          (2n лімбів) */
-        reduce_mod_mp(prod, p, s, n);           /* s = prod mod Mp    (n лімбів)  */
-        sub2_mod_mp(s, p, n);                   /* s = s − 2                     */
-    }
-    for (int i = 0; i < n; i++) if (s[i]) return 0;
-    return 1;                                    /* Sₚ₋₂ ≡ 0 ⇒ Mp просте */
-}
-```
+:::code proj-lucas-lehmer/c/velyki-chysla-chyslo-iak-3.c
 
 Цей код доводить простоту `M₅₂₁`, `M₆₀₇`, `M₁₂₇₉` (числа на сотні цифр) за частки секунди й відхиляє `M₅₂₃` — попри просте `523` — бо простий показник ще не гарантує простого `Mₚ`. Кожен крок ілюстрований на схемі: квадрат подвоює довжину, згортка повертає її назад, і все — без ділення.
 

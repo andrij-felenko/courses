@@ -15,46 +15,8 @@
 Гіпотенуза дорівнює c = m² + n². Для фіксованого m вона найменша при n = 1 і становить m² + 1. Щойно m² + 1 перевищить N, жодне більше n уже не врятує — усі трійки з таким m завеликі. Звідси стеля для m: m ≤ ⌊√N⌋. А всередині, за фіксованого m, цикл по n можна обірвати, тільки-но m² + n² перескочить N, бо далі n лише зростає.
 
 :::tabs
-```python
-from math import gcd, isqrt
-
-def primitive_triples(limit):
-    """Усі примітивні трійки з гіпотенузою c ≤ limit."""
-    for m in range(2, isqrt(limit) + 1):
-        for n in range(1, m):
-            c = m * m + n * n
-            if c > limit:
-                break                       # більші n лише збільшать c
-            if (m - n) % 2 == 1 and gcd(m, n) == 1:   # різна парність + взаємна простота
-                a, b = m * m - n * n, 2 * m * n
-                yield (min(a, b), max(a, b), c)
-```
-```cpp
-#include <cstdint>
-#include <numeric>   // std::gcd
-#include <utility>   // std::swap
-#include <vector>
-
-using u64 = uint64_t;
-struct Triple { u64 a, b, c; };
-
-// Усі примітивні трійки з гіпотенузою c ≤ limit.
-std::vector<Triple> primitive_triples(u64 limit) {
-    std::vector<Triple> out;
-    for (u64 m = 2; m * m + 1 <= limit; ++m) {
-        for (u64 n = 1; n < m; ++n) {
-            u64 c = m * m + n * n;
-            if (c > limit) break;                          // більші n лише збільшать c
-            if (((m - n) & 1u) && std::gcd(m, n) == 1) {   // різна парність + взаємна простота
-                u64 a = m * m - n * n, b = 2 * m * n;
-                if (a > b) std::swap(a, b);
-                out.push_back({a, b, c});
-            }
-        }
-    }
-    return out;
-}
-```
+:::code proj-generate-triples/py/sposib-pershyi-priamyi.py
+:::code proj-generate-triples/cpp/sposib-pershyi-priamyi.cpp
 :::
 
 Щоб дістати з примітивних **усі** трійки до межі, кожну домножуємо на k, доки гіпотенуза влазить, — надбудова однакова будь-якою мовою:
@@ -119,72 +81,8 @@ C:  c′ = −2a + 2b + 3c ,   c′ − c = 2(b + c − a) > 0   (бо c > a, b 
 Гіпотенуза завжди більша за будь-який катет, тож обидві різниці додатні — гіпотенуза росте на кожному кроці вглиб. Обхід у ширину (черга: виймаємо вузол, ставимо в неї трьох його дітей) із таким відтином:
 
 :::tabs
-```python
-from collections import deque
-
-# Три матриці Барнінґа–Голла — діють на стовпчик (a, b, c)ᵀ.
-A = (( 1, -2, 2), ( 2, -1, 2), ( 2, -2, 3))
-B = (( 1,  2, 2), ( 2,  1, 2), ( 2,  2, 3))
-C = ((-1,  2, 2), (-2,  1, 2), (-2,  2, 3))
-
-def times(M, t):
-    a, b, c = t
-    return tuple(r[0] * a + r[1] * b + r[2] * c for r in M)
-
-def primitive_tree(limit):
-    """Усі примітивні трійки з c ≤ limit — обхід дерева від (3, 4, 5)."""
-    if limit < 5:
-        return
-    q = deque([(3, 4, 5)])
-    while q:
-        a, b, c = q.popleft()
-        yield (min(a, b), max(a, b), c)
-        for M in (A, B, C):
-            child = times(M, (a, b, c))
-            if child[2] <= limit:            # гіпотенуза дитини завжди більша за батькову
-                q.append(child)
-```
-```cpp
-#include <array>
-#include <cstdint>
-#include <queue>
-#include <utility>   // std::swap
-#include <vector>
-
-using i64 = int64_t;
-using Triple = std::array<i64, 3>;
-using Mat = std::array<std::array<int, 3>, 3>;
-
-// Три матриці Барнінґа–Голла — діють на стовпчик (a, b, c)ᵀ.
-static const Mat A = {{{ 1, -2, 2}, { 2, -1, 2}, { 2, -2, 3}}};
-static const Mat B = {{{ 1,  2, 2}, { 2,  1, 2}, { 2,  2, 3}}};
-static const Mat C = {{{-1,  2, 2}, {-2,  1, 2}, {-2,  2, 3}}};
-
-Triple times(const Mat& M, const Triple& t) {
-    return {{ M[0][0]*t[0] + M[0][1]*t[1] + M[0][2]*t[2],
-              M[1][0]*t[0] + M[1][1]*t[1] + M[1][2]*t[2],
-              M[2][0]*t[0] + M[2][1]*t[1] + M[2][2]*t[2] }};
-}
-
-// Усі примітивні трійки з c ≤ limit — обхід дерева від (3, 4, 5).
-std::vector<Triple> primitive_tree(i64 limit) {
-    std::vector<Triple> out;
-    if (limit < 5) return out;
-    std::queue<Triple> q;
-    q.push({{3, 4, 5}});
-    while (!q.empty()) {
-        Triple t = q.front(); q.pop();
-        Triple s = t;
-        if (s[0] > s[1]) std::swap(s[0], s[1]);
-        out.push_back(s);
-        for (const Mat& M : {A, B, C}) {
-            Triple ch = times(M, t);
-            if (ch[2] <= limit) q.push(ch);      // дитина завжди «глибша» за гіпотенузою
-        }
-    }
-    return out;
-}
-```
+:::code proj-generate-triples/py/sposib-druhyi-derevo.py
+:::code proj-generate-triples/cpp/sposib-druhyi-derevo.cpp
 :::
 
 Пастки тут інші, ніж у Евкліда.

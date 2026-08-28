@@ -39,106 +39,18 @@ namespace MathLib {
 
 Тепер реалізуємо класичний метод "справа наліво" (Right-to-Left). Він чудово лягає на цикли `while` та побітові операції.
 
-```cpp
-#include "pow_mod.h"
-
-namespace MathLib {
-    // Спеціалізація для uint64_t
-    template <>
-    uint64_t pow_mod<uint64_t>(uint64_t base, uint64_t exponent, uint64_t mod) {
-        if (mod == 0) {
-            throw std::invalid_argument("Modulo cannot be zero");
-        }
-        if (mod == 1) {
-            return 0; // Будь-яке число mod 1 дорівнює 0
-        }
-
-        uint64_t result = 1;
-        base = base % mod;
-
-        while (exponent > 0) {
-            // Перевіряємо наймолодший біт (еквівалент exponent % 2 == 1)
-            if (exponent & 1) {
-                result = Utils::mul_mod(result, base, mod);
-            }
-            
-            // Піднесення основи до квадрата
-            base = Utils::mul_mod(base, base, mod);
-            
-            // Зсуваємо показник на 1 біт вправо (еквівалент exponent / 2)
-            exponent >>= 1;
-        }
-
-        return result;
-    }
-}
-```
+:::code proj-fast-pow-mod/cpp/3-osnovna-lohika-alhorytmu.cpp
 
 ### 4. Робота з BigInt
 
 Для криптографії `uint64_t` замало. Якщо ви маєте власний клас `BigInt` (або використовуєте бібліотеку GMP), шаблонна функція потребує лише наявності перевантажених операторів. Приклад обгортки для `BigInt`:
 
-```cpp
-class BigInt {
-public:
-    // ... імплементація конструкторів та зберігання даних ...
-    
-    BigInt operator*(const BigInt& other) const;
-    BigInt operator%(const BigInt& mod) const;
-    BigInt& operator>>=(size_t shift);
-    bool is_odd() const;
-    bool is_zero() const;
-};
-
-// Алгоритм виглядатиме ідентично завдяки перевантаженню
-BigInt pow_mod_big(BigInt base, BigInt exponent, BigInt mod) {
-    BigInt result = BigInt(1);
-    base = base % mod;
-    
-    while (!exponent.is_zero()) {
-        if (exponent.is_odd()) {
-            result = (result * base) % mod;
-        }
-        base = (base * base) % mod;
-        exponent >>= 1;
-    }
-    return result;
-}
-```
+:::code proj-fast-pow-mod/cpp/4-robota-z-bigint.cpp
 
 ### 5. Тести (Unit tests)
 
 Закінчимо простою перевіркою коректності нашої реалізації.
 
-```cpp
-#include <iostream>
-#include <cassert>
-
-using namespace MathLib;
-
-void test_pow_mod() {
-    // 3^13 mod 17 = 12
-    assert(pow_mod<uint64_t>(3, 13, 17) == 12);
-    
-    // 2^10 mod 1000 = 24
-    assert(pow_mod<uint64_t>(2, 10, 1000) == 24);
-    
-    // 5^0 mod 7 = 1
-    assert(pow_mod<uint64_t>(5, 0, 7) == 1);
-    
-    // Великі числа (менше 64 біт, але легко переповнюються без __uint128_t)
-    uint64_t large_base = 1000000007;
-    uint64_t large_exp = 999999999;
-    uint64_t mod = 1000000009;
-    assert(pow_mod<uint64_t>(large_base, large_exp, mod) > 0);
-    
-    std::cout << "All pow_mod tests passed!" << std::endl;
-}
-
-int main() {
-    test_pow_mod();
-    return 0;
-}
-```
+:::code proj-fast-pow-mod/cpp/5-testy-unit-tests.cpp
 
 Цей 5-компонентний підхід забезпечує надійність, типобезпечність та легкість міграції коду до промислових проєктів із використанням справжніх довгої арифметики.

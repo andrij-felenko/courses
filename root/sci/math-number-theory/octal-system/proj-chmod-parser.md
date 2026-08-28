@@ -20,59 +20,7 @@
 
 Розглянемо практичну реалізацію цього рішення:
 
-```cpp
-#include <string_view>
-#include <charconv>
-#include <system_error>
-#include <optional>
-#include <cstdint>
-
-// Предметна модель вісімкових прав Unix
-struct UnixPermissions {
-    uint16_t special : 3;
-    uint16_t user    : 3;
-    uint16_t group   : 3;
-    uint16_t other   : 3;
-
-    // Збираємо 12-бітну маску для системних викликів (наприклад, chmod)
-    [[nodiscard]] uint16_t to_mask() const noexcept {
-        return (special << 9) | (user << 6) | (group << 3) | other;
-    }
-};
-
-// Парсер, що не генерує винятків і не виділяє пам'яті
-std::optional<UnixPermissions> parse_chmod_octal(std::string_view input) noexcept {
-    // 1. Відкидаємо можливий програмістський префікс "0o" або класичний "0"
-    if (input.starts_with("0o") || input.starts_with("0O")) {
-        input.remove_prefix(2);
-    } else if (input.starts_with('0') && input.length() > 1) {
-        input.remove_prefix(1);
-    }
-
-    // 2. Права не можуть містити більше ніж 4 вісімкові цифри (максимум 7777)
-    if (input.empty() || input.length() > 4) {
-        return std::nullopt;
-    }
-
-    uint16_t raw_val = 0;
-    
-    // 3. Безпечний парсинг з основою 8 без аллокацій
-    auto [ptr, ec] = std::from_chars(input.data(), input.data() + input.size(), raw_val, 8);
-
-    // 4. Перевірка на успіх і відсутність зайвого «сміття» в кінці рядка
-    if (ec != std::errc() || ptr != input.data() + input.size()) {
-        return std::nullopt;
-    }
-
-    // 5. Розпакування зсувами для ініціалізації бітових полів
-    return UnixPermissions{
-        static_cast<uint16_t>((raw_val >> 9) & 7),
-        static_cast<uint16_t>((raw_val >> 6) & 7),
-        static_cast<uint16_t>((raw_val >> 3) & 7),
-        static_cast<uint16_t>(raw_val & 7)
-    };
-}
-```
+:::code proj-chmod-parser/cpp/main.cpp
 
 Функція приймає `std::string_view`, тому вона вміє працювати зі зрізами рядків прямо з буфера (наприклад, пам'ять, відображена через `mmap`), уникаючи будь-яких копіювань. Сама `std::from_chars` приймає вказівник на початок і кінець фрагмента, чітко задану основу системи числення `8` і записує перетворене значення у змінну `raw_val`. Після цього ми розкладаємо отримане число на чотири логічні складові. Для цього використовується побітовий зсув вправо `>>` та маска `& 7`. Сімка у двійковій системі — це `111`, що ідеально виділяє рівно три молодші біти, відтинаючи все зайве, і ми отримуємо чисте значення кожної вісімкової цифри.
 

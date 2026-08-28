@@ -37,44 +37,8 @@ a = q · b + (r + 1)
 Для випадку `a = 0` формула вимагає окремої перевірки, або ж можна застосувати альтернативний вираз через остачу: `(a / b) + ((a % b) != 0)`.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-
-// Безпечне ділення за стелею для 32-бітних беззнакових чисел
-uint32_t safe_ceil_div_u32(uint32_t a, uint32_t b) {
-    if (b == 0) return 0; // Захист від ділення на нуль
-    if (a == 0) return 0;
-    
-    // Формула без ризику переповнення a + b - 1
-    return 1U + (a - 1U) / b;
-}
-
-// Альтернативний безрозгалужений варіант через остачу
-uint32_t safe_ceil_div_branchless(uint32_t a, uint32_t b) {
-    if (b == 0) return 0;
-    return (a / b) + ((a % b) != 0U);
-}
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <stdexcept>
-#include <concepts>
-
-// Ідіоматичний C++20 шаблонний алгоритм із концептами
-template <std::unsigned_integral T>
-[[nodiscard]] constexpr T safe_ceil_div(T a, T b) {
-    if (b == 0) {
-        throw std::invalid_argument("Division by zero in safe_ceil_div");
-    }
-    if (a == 0) return 0;
-    
-    // Безпечне обчислення без арифметичного переповнення
-    return static_cast<T>(1) + (a - static_cast<T>(1)) / b;
-}
-```
+:::code proj-division-implementations/c/matematychna.c
+:::code proj-division-implementations/cpp/matematychna.cpp
 :::
 
 ---
@@ -109,128 +73,8 @@ template <std::unsigned_integral T>
 4. Перевіримо рівність: `q_eucl * b + r_eucl = 3 * (-3) + 2 = -7` (остача `2 >= 0` виконує вимогу Евкліда!).
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <limits.h>
-
-typedef struct {
-    int64_t quot;
-    int64_t rem;
-} div_result_t;
-
-// Безпечне ділення за підлогою (Floor Division) у стилі Python //
-div_result_t floor_div_s64(int64_t a, int64_t b) {
-    div_result_t res;
-    if (b == 0) {
-        res.quot = 0; res.rem = 0; return res;
-    }
-    // Захист від апаратного переповнення INT64_MIN / -1
-    if (a == INT64_MIN && b == -1) {
-        res.quot = INT64_MAX; res.rem = 0; return res;
-    }
-
-    res.quot = a / b;
-    res.rem  = a % b;
-    
-    // Коригуємо, якщо остача не нульова і знаки a та b відрізняються
-    bool has_rem = (res.rem != 0);
-    bool diff_signs = ((a < 0) ^ (b < 0));
-    
-    if (has_rem && diff_signs) {
-        res.quot -= 1;
-        res.rem  += b;
-    }
-    return res;
-}
-
-// Безпечне евклідове ділення (Euclidean Division) зі строго невід'ємною остачею
-div_result_t euclidean_div_s64(int64_t a, int64_t b) {
-    div_result_t res;
-    if (b == 0) {
-        res.quot = 0; res.rem = 0; return res;
-    }
-    if (a == INT64_MIN && b == -1) {
-        res.quot = INT64_MAX; res.rem = 0; return res;
-    }
-
-    res.quot = a / b;
-    res.rem  = a % b;
-    
-    if (res.rem < 0) {
-        if (b > 0) {
-            res.quot -= 1;
-            res.rem  += b;
-        } else {
-            res.quot += 1;
-            res.rem  -= b;
-        }
-    }
-    return res;
-}
-```
-```cpp
-#include <cstdint>
-#include <utility>
-#include <concepts>
-#include <expected>
-#include <limits>
-
-template <std::signed_integral T>
-struct DivResult {
-    T quot;
-    T rem;
-};
-
-enum class DivError {
-    DivisionByZero,
-    Overflow
-};
-
-// Ідіоматичний C++23 результат ділення через std::expected
-template <std::signed_integral T>
-[[nodiscard]] constexpr std::expected<DivResult<T>, DivError> floor_div(T a, T b) noexcept {
-    if (b == 0) {
-        return std::unexpected(DivError::DivisionByZero);
-    }
-    if (a == std::numeric_limits<T>::min() && b == -1) {
-        return std::unexpected(DivError::Overflow);
-    }
-    
-    T q = a / b;
-    T r = a % b;
-    
-    if (r != 0 && ((a < 0) ^ (b < 0))) {
-        q -= 1;
-        r += b;
-    }
-    return DivResult<T>{q, r};
-}
-
-template <std::signed_integral T>
-[[nodiscard]] constexpr std::expected<DivResult<T>, DivError> euclidean_div(T a, T b) noexcept {
-    if (b == 0) {
-        return std::unexpected(DivError::DivisionByZero);
-    }
-    if (a == std::numeric_limits<T>::min() && b == -1) {
-        return std::unexpected(DivError::Overflow);
-    }
-    
-    T q = a / b;
-    T r = a % b;
-    
-    if (r < 0) {
-        if (b > 0) {
-            q -= 1;
-            r -= b;
-        } else {
-            q += 1;
-            r -= b;
-        }
-    }
-    return DivResult<T>{q, r};
-}
-```
+:::code proj-division-implementations/c/alhorytm-korektsii-dlia.c
+:::code proj-division-implementations/cpp/alhorytm-korektsii-dlia.cpp
 :::
 
 ---
@@ -265,49 +109,8 @@ template <std::signed_integral T>
    - Результат: `9`.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-
-// Обчислення коректного циклічного індексу у буфері розміру N
-size_t ring_buffer_wrap_index(int32_t index, size_t buffer_size) {
-    if (buffer_size == 0) return 0;
-    
-    int32_t n = (int32_t)buffer_size;
-    int32_t rem = index % n;
-    
-    // Коригуємо від'ємну остачу C99 у додатній діапазон [0, N-1]
-    if (rem < 0) {
-        rem += n;
-    }
-    return (size_t)rem;
-}
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <span>
-#include <optional>
-
-template <typename T>
-class RingBufferSpan {
-private:
-    std::span<T> storage_;
-
-public:
-    explicit constexpr RingBufferSpan(std::span<T> storage) noexcept 
-        : storage_(storage) {}
-
-    [[nodiscard]] constexpr T& at_wrapped(std::int32_t index) const {
-        const auto n = static_cast<std::int32_t>(storage_.size());
-        std::int32_t rem = index % n;
-        if (rem < 0) {
-            rem += n;
-        }
-        return storage_[static_cast<std::size_t>(rem)];
-    }
-};
-```
+:::code proj-division-implementations/c/pokrokovyi-rozbir.c
+:::code proj-division-implementations/cpp/pokrokovyi-rozbir.cpp
 :::
 
 ---
@@ -332,82 +135,8 @@ q ≈ ⌊ ⌊x / 2^{k-1}⌋ · μ / 2^{k+1} ⌋
 Якщо після першого віднімання `r ≥ m`, виконується єдина корекція `r = r - m`. Цей алгоритм виключає апаратне ділення взагалі, замінюючи його 2 множеннями великих чисел.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    uint32_t modulus;
-    uint32_t k;       // Кількість бітів дільника
-    uint64_t mu;      // Попередньо обчислена константа μ = ⌊2^(2k) / m⌋
-} barrett_config_t;
-
-// Ініціалізація констант Барретта
-barrett_config_t barrett_init(uint32_t m) {
-    barrett_config_t cfg;
-    cfg.modulus = m;
-    
-    uint32_t k = 0;
-    uint32_t temp = m;
-    while (temp > 0) {
-        k++;
-        temp >>= 1;
-    }
-    cfg.k = k;
-    cfg.mu = (1ULL << (2 * k)) / m;
-    return cfg;
-}
-
-// Швидке обчислення остачі x % m за Барреттом без апаратного ділення
-uint32_t barrett_reduce(uint64_t x, const barrett_config_t* cfg) {
-    uint32_t k = cfg->k;
-    uint32_t m = cfg->modulus;
-    
-    // Обчислимо приблизну частку q = ⌊ (⌊x / 2^(k-1)⌋ * μ) / 2^(k+1) ⌋
-    uint64_t q = ((x >> (k - 1)) * cfg->mu) >> (k + 1);
-    
-    // Остача r = x - q * m
-    int64_t r = (int64_t)x - (int64_t)(q * m);
-    
-    // Корекція якщо r >= m або r < 0
-    while (r >= m) {
-        r -= m;
-    }
-    while (r < 0) {
-        r += m;
-    }
-    return (uint32_t)r;
-}
-```
-```cpp
-#include <cstdint>
-#include <concepts>
-#include <bit>
-
-class BarrettReducer {
-private:
-    std::uint32_t modulus_;
-    unsigned int k_;
-    std::uint64_t mu_;
-
-public:
-    explicit constexpr BarrettReducer(std::uint32_t m) noexcept 
-        : modulus_(m), k_(std::bit_width(m)), mu_((1ULL << (2 * std::bit_width(m))) / m) {}
-
-    [[nodiscard]] constexpr std::uint32_t reduce(std::uint64_t x) const noexcept {
-        const std::uint64_t q = ((x >> (k_ - 1)) * mu_) >> (k_ + 1);
-        std::int64_t r = static_cast<std::int64_t>(x) - static_cast<std::int64_t>(q * modulus_);
-        
-        while (r >= modulus_) {
-            r -= modulus_;
-        }
-        while (r < 0) {
-            r += modulus_;
-        }
-        return static_cast<std::uint32_t>(r);
-    }
-};
-```
+:::code proj-division-implementations/c/alhorytmichnyi-mekhanizm.c
+:::code proj-division-implementations/cpp/alhorytmichnyi-mekhanizm.cpp
 :::
 
 ---
@@ -447,34 +176,8 @@ public:
 Якщо `a ≥ 0`, знаковий біт дорівнює `0`, маска дорівнює `0`, і вираз спрощується до `a >> k`. Якщо `a < 0`, знаковий біт дорівнює `1`, і до числа додається `2^k - 1`, що зсуває округлення убік нуля.
 
 :::tabs
-```c
-#include <stdint.h>
-
-// Оптимізоване усічене ділення знакового 32-бітного числа на 2^k без розгалужень
-int32_t fast_trunc_div_pow2(int32_t a, uint32_t k) {
-    // Формуємо маску: (2^k - 1) якщо a < 0, і 0 якщо a >= 0
-    int32_t mask = (a >> 31) & ((1 << k) - 1);
-    return (a + mask) >> k;
-}
-
-// Оптимізоване ділення за підлогою на 2^k (прямий арифметичний зсув)
-int32_t fast_floor_div_pow2(int32_t a, uint32_t k) {
-    return a >> k; // У C23 / C++20 арифметичний зсув гарантований для signed
-}
-```
-```cpp
-#include <cstdint>
-#include <concepts>
-#include <bit>
-
-// C++20 шаблонований безрозгалужений зсув
-template <std::signed_integral T>
-[[nodiscard]] constexpr T fast_trunc_div_pow2(T a, unsigned int k) noexcept {
-    constexpr auto bits = sizeof(T) * 8 - 1;
-    const T bias = (a >> bits) & ((static_cast<T>(1) << k) - 1);
-    return (a + bias) >> k;
-}
-```
+:::code proj-division-implementations/c/bezrozhaluzhena-korektsiia.c
+:::code proj-division-implementations/cpp/bezrozhaluzhena-korektsiia.cpp
 :::
 
 ---
@@ -484,66 +187,8 @@ template <std::signed_integral T>
 На мобільних процесорах та серверах архітектури ARM64 (AArch64) векторне розширення NEON також не надає інструкції для ділення 32-бітних векторних цілих чисел. Векторизація досягається через комбінацію інструкцій `vmull_u32` (довге множення двох 32-бітних векторів у 64-бітний результат) та `vshrq_n_u64` (векторний зсув 64-бітних цілих).
 
 :::tabs
-```c
-#include <arm_neon.h>
-#include <stdint.h>
-#include <stddef.h>
-
-// Векторне ділення 4 елементів uint32_t на 10 для ARM64 NEON
-void vec_div10_neon(const uint32_t* src, uint32_t* dst, size_t count) {
-    size_t i = 0;
-    uint32x2_t mult = vdup_n_u32(0xCCCCCCCDU);
-    
-    for (; i + 3 < count; i += 4) {
-        uint32x4_t v = vld1q_u32(src + i);
-        
-        // Множимо нижню пару (0, 1) та верхню пару (2, 3)
-        uint64x2_t prod_low  = vmull_u32(vget_low_u32(v), mult);
-        uint64x2_t prod_high = vmull_high_u32(v, mult);
-        
-        // Зсуваємо обидва 64-бітні вектори на 35 бітів праворуч
-        uint32x2_t q_low  = vmovn_u64(vshrq_n_u64(prod_low, 35));
-        uint32x2_t q_high = vmovn_u64(vshrq_n_u64(prod_high, 35));
-        
-        // Об'єднуємо два 32-бітні вектори розміром 2 у єдиний 32-бітний вектор розміром 4
-        uint32x4_t res = vcombine_u32(q_low, q_high);
-        vst1q_u32(dst + i, res);
-    }
-    
-    for (; i < count; i++) {
-        dst[i] = src[i] / 10U;
-    }
-}
-```
-```cpp
-#include <arm_neon.h>
-#include <cstdint>
-#include <cstddef>
-#include <span>
-
-// Ідіоматична C++20 NEON векторизація для ARM64
-void vec_div10_neon(std::span<const std::uint32_t> src, std::span<std::uint32_t> dst) noexcept {
-    const std::size_t count = src.size();
-    std::size_t i = 0;
-    const uint32x2_t mult = vdup_n_u32(0xCCCCCCCDU);
-    
-    for (; i + 3 < count; i += 4) {
-        const uint32x4_t v = vld1q_u32(src.data() + i);
-        
-        const uint64x2_t prod_low  = vmull_u32(vget_low_u32(v), mult);
-        const uint64x2_t prod_high = vmull_high_u32(v, mult);
-        
-        const uint32x2_t q_low  = vmovn_u64(vshrq_n_u64(prod_low, 35));
-        const uint32x2_t q_high = vmovn_u64(vshrq_n_u64(prod_high, 35));
-        
-        vst1q_u32(dst.data() + i, vcombine_u32(q_low, q_high));
-    }
-    
-    for (; i < count; ++i) {
-        dst[i] = src[i] / 10U;
-    }
-}
-```
+:::code proj-division-implementations/c/vektoryzatsiia.c
+:::code proj-division-implementations/cpp/vektoryzatsiia.cpp
 :::
 
 ---
@@ -555,73 +200,8 @@ void vec_div10_neon(std::span<const std::uint32_t> src, std::span<std::uint32_t>
 Магічний множник `M = 0xCCCCCCCD` підставляється у беззнакове множення нижніх 32-бітних слів інструкцією `_mm256_mul_epu32`, а потім результати зсуваються на 35 бітів праворуч інструкцією `_mm256_srli_epi64`.
 
 :::tabs
-```c
-#include <immintrin.h>
-#include <stdint.h>
-#include <stddef.h>
-
-// Паралельне ділення 8 елементів uint32_t на константу 10 за допомогою AVX2
-void vec_div10_avx2(const uint32_t* src, uint32_t* dst, size_t count) {
-    size_t i = 0;
-    __m256i multiplier = _mm256_set1_epi64x(0xCCCCCCCDULL);
-    
-    for (; i + 7 < count; i += 8) {
-        __m256i v = _mm256_loadu_si256((const __m256i*)(src + i));
-        
-        // Обробка парних 32-бітних елементів (0, 2, 4, 6)
-        __m256i prod_even = _mm256_mul_epu32(v, multiplier);
-        __m256i q_even = _mm256_srli_epi64(prod_even, 35);
-        
-        // Обробка непарних 32-бітних елементів (1, 3, 5, 7)
-        __m256i v_odd = _mm256_srli_epi64(v, 32);
-        __m256i prod_odd = _mm256_mul_epu32(v_odd, multiplier);
-        __m256i q_odd = _mm256_srli_epi64(prod_odd, 35);
-        
-        // Об'єднуємо результати частки назад у 32-бітний вектор
-        __m256i q_odd_shifted = _mm256_slli_epi64(q_odd, 32);
-        __m256i res = _mm256_or_si256(q_even, q_odd_shifted);
-        
-        _mm256_storeu_si256((__m256i*)(dst + i), res);
-    }
-    
-    // Скалярний хвіст масиву
-    for (; i < count; i++) {
-        dst[i] = src[i] / 10U;
-    }
-}
-```
-```cpp
-#include <immintrin.h>
-#include <cstdint>
-#include <cstddef>
-#include <span>
-
-// Ідіоматична C++20 SIMD векторизація ділення масиву на 10
-void vec_div10_avx2(std::span<const std::uint32_t> src, std::span<std::uint32_t> dst) noexcept {
-    const std::size_t count = src.size();
-    std::size_t i = 0;
-    const __m256i multiplier = _mm256_set1_epi64x(0xCCCCCCCDULL);
-    
-    for (; i + 7 < count; i += 8) {
-        const __m256i v = _mm256_loadu_si256(reinterpret_cast<const __m256i*>(src.data() + i));
-        
-        const __m256i prod_even = _mm256_mul_epu32(v, multiplier);
-        const __m256i q_even = _mm256_srli_epi64(prod_even, 35);
-        
-        const __m256i v_odd = _mm256_srli_epi64(v, 32);
-        const __m256i prod_odd = _mm256_mul_epu32(v_odd, multiplier);
-        const __m256i q_odd = _mm256_srli_epi64(prod_odd, 35);
-        
-        const __m256i res = _mm256_or_si256(q_even, _mm256_slli_epi64(q_odd, 32));
-        
-        _mm256_storeu_si256(reinterpret_cast<__m256i*>(dst.data() + i), res);
-    }
-    
-    for (; i < count; ++i) {
-        dst[i] = src[i] / 10U;
-    }
-}
-```
+:::code proj-division-implementations/c/praktychna-realizatsiia.c
+:::code proj-division-implementations/cpp/praktychna-realizatsiia.cpp
 :::
 
 ---

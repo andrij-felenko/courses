@@ -42,85 +42,8 @@
 Тепер сам пошук. Для фіксованого показника `n` і межі `N` пробіжімо всі пари `a ≤ b < N`, складімо `s = aⁿ + bⁿ` і спитаймо: чи `s` — точний `n`-й степінь? Єдиний чесний спосіб — цілий корінь `n`-го степеня: найбільше ціле `c`, для якого `cⁿ ≤ s`, знайдене бінарним пошуком, а не через `round(s**(1/n))`, чия рухома кома збреше рівно на промахах. Якщо `cⁿ = s` — маємо розв'язок; ні — занотуймо, наскільки близько підійшли.
 
 :::tabs
-```python
-def iroot(s, n):
-    """Ціла частина кореня n-го степеня з s — точно, лише на цілих."""
-    if s < 2:
-        return s
-    hi = 1 << (-(-s.bit_length() // n))   # 2^⌈біти/n⌉ — завідомо не менше кореня
-    lo = hi >> 1
-    while lo < hi:                        # бінарний пошук найбільшого r: rⁿ ≤ s
-        mid = (lo + hi + 1) >> 1
-        if mid ** n <= s:
-            lo = mid
-        else:
-            hi = mid - 1
-    return lo
-
-def search(n, N):
-    """Прочесати 1 ≤ a ≤ b < N: розв'язок або найтісніший промах."""
-    best = None                           # (відносний промах, a, b, cc, delta)
-    for a in range(1, N):
-        an = a ** n
-        for b in range(a, N):
-            s = an + b ** n
-            c = iroot(s, n)               # cⁿ ≤ s < (c+1)ⁿ
-            if c ** n == s:
-                return f"РОЗВ'ЯЗОК: {a}^{n} + {b}^{n} = {c}^{n}"
-            lo, hi = s - c ** n, (c + 1) ** n - s
-            cc = c if lo < hi else c + 1   # найближчий n-й степінь
-            delta = cc ** n - s            # >0: сума нижча за ccⁿ
-            rel = abs(delta) / s
-            if best is None or rel < best[0]:
-                best = (rel, a, b, cc, delta)
-    rel, a, b, cc, delta = best
-    sign = "−" if delta > 0 else "+"
-    return (f"немає розв'язку при a, b < {N};  найтісніше:  "
-            f"{a}^{n} + {b}^{n} = {cc}^{n} {sign} {abs(delta)}")
-
-print(search(3, 1000))
-# немає розв'язку при a, b < 1000;  найтісніше:  791^3 + 812^3 = 1010^3 − 1
-```
-```cpp
-#include <cstdio>
-#include <cstdint>
-using u128 = unsigned __int128;
-
-u128 ipow(uint64_t x, int n) { u128 p = 1; while (n--) p *= x; return p; }
-
-uint64_t iroot(u128 s, int n) {               // ⌊ⁿ√s⌋ — бінарний пошук, лише цілими
-    uint64_t lo = 1, hi = 2'000'000'000ull;   // верхня межа з запасом для діапазону
-    while (lo < hi) {
-        uint64_t mid = lo + (hi - lo + 1) / 2;
-        if (ipow(mid, n) <= s) lo = mid; else hi = mid - 1;
-    }
-    return lo;
-}
-
-int main() {
-    const int n = 3, N = 1000;
-    long double bestRel = 2.0L;
-    uint64_t bA = 0, bB = 0, bC = 0; long long bDelta = 0;
-    for (uint64_t a = 1; a < (uint64_t)N; ++a)
-        for (uint64_t b = a; b < (uint64_t)N; ++b) {
-            u128 s = ipow(a, n) + ipow(b, n);
-            uint64_t c = iroot(s, n);                    // cⁿ ≤ s < (c+1)ⁿ
-            u128 below = ipow(c, n), above = ipow(c + 1, n);
-            if (below == s) { printf("РОЗВ'ЯЗОК\n"); return 0; }
-            uint64_t cc = (s - below < above - s) ? c : c + 1;
-            long long delta = (long long)((__int128)ipow(cc, n) - (__int128)s);
-            long double rel = (delta < 0 ? -delta : delta) / (long double)s;
-            if (rel < bestRel) { bestRel = rel; bA = a; bB = b; bC = cc; bDelta = delta; }
-        }
-    printf("немає розв'язку при a, b < %d;  найтісніше:  "
-           "%llu^%d + %llu^%d = %llu^%d %c %lld\n", N,
-           (unsigned long long)bA, n, (unsigned long long)bB, n,
-           (unsigned long long)bC, n, bDelta > 0 ? '-' : '+',
-           bDelta > 0 ? bDelta : -bDelta);
-    // немає розв'язку при a, b < 1000;  найтісніше:  791^3 + 812^3 = 1010^3 - 1
-    return 0;
-}
-```
+:::code proj-search-and-near-misses/py/perebirnyk.py
+:::code proj-search-and-near-misses/cpp/perebirnyk.cpp
 :::
 
 Перебір при `a, b < 1000` не знаходить жодного розв'язку — зате знаходить промахи, і найтісніший із них теж схибив рівно на одиницю: `791³ + 812³ = 1010³ − 1`. Ось де серце справи: щілина буває `1`, `2`, скільки завгодно мала — але ніколи не нуль. Промахів «на одиницю» безліч; влучань «на нуль» — жодного.
@@ -130,40 +53,8 @@ int main() {
 Щоб зловити підробку, велетенські числа рахувати взагалі не обов'язково. Якби рівність `aⁿ + bⁿ = cⁿ` була справжня, вона трималася б за будь-яким модулем. Отже, досить узяти кілька малих `m`, порахувати остачі (це копійки) — і один-єдиний незбіг остач стає довічним свідоцтвом брехні. Мова [модульної арифметики](root:math-number-theory/modular-arithmetic) тут і швидка, і безпечна: остачі малі, переповнення нема.
 
 :::tabs
-```python
-def refuted_by(a, b, c, n, mods=(2, 9, 7, 13)):
-    """Дешево спростувати aⁿ+bⁿ=cⁿ: знайти модуль, за яким рівність не тримається.
-    Повертає такий модуль або 0, якщо жоден із проби підробки не викрив."""
-    for m in mods:
-        if (pow(a, n, m) + pow(b, n, m) - pow(c, n, m)) % m != 0:
-            return m
-    return 0
-
-print(refuted_by(1782, 1841, 1922, 12))   # 2 — гине вже на парності
-print(refuted_by(3987, 4365, 4472, 12))   # 9 — переживає парність, гине за модулем 9
-```
-```cpp
-#include <cstdio>
-#include <cstdint>
-
-uint64_t modpow(uint64_t x, uint64_t n, uint64_t m) {   // xⁿ mod m — швидке піднесення
-    uint64_t r = 1 % m; x %= m;
-    while (n) { if (n & 1) r = r * x % m; x = x * x % m; n >>= 1; }
-    return r;
-}
-
-// Модуль, за яким aⁿ+bⁿ=cⁿ не тримається (0 — жоден із проби не викрив).
-uint64_t refuted_by(uint64_t a, uint64_t b, uint64_t c, uint64_t n) {
-    for (uint64_t m : {2ull, 9ull, 7ull, 13ull})
-        if ((modpow(a, n, m) + modpow(b, n, m) + m - modpow(c, n, m)) % m) return m;
-    return 0;
-}
-
-int main() {
-    printf("%llu\n", (unsigned long long)refuted_by(1782, 1841, 1922, 12)); // 2
-    printf("%llu\n", (unsigned long long)refuted_by(3987, 4365, 4472, 12)); // 9
-}
-```
+:::code proj-search-and-near-misses/py/desheve-syto-samozvantsia.py
+:::code proj-search-and-near-misses/cpp/desheve-syto-samozvantsia.cpp
 :::
 
 Перший самозванець гине миттєво на парності: `1782` парне, `1841` непарне, їхня сума в дванадцятому степені непарна, а `1922¹²` парне — парне не дорівнює непарному, і ніякі 40 цифр рахувати не треба. Другий хитріший: він переживає і парність, і останню цифру, — та ламається за модулем `9`, бо `3987` і `4365` обидва діляться на `9`, тож ліва частина кратна дев'яти, а `4472¹² ≡ 1`. Найголовніше: `modpow` не виходить за 64 біти й ніде не тримає 44-значного числа — а проте певно засвідчує, що `4472¹²` не є тією сумою. Щоб упіймати брехню, самого велетня будувати не конче.

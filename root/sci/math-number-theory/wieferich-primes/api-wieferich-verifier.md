@@ -23,36 +23,8 @@
 Перелічувальний тип кодів завершення та статусів виконання обчислювальних операцій:
 
 :::tabs
-```c
-typedef enum {
-    WIEFERICH_SUCCESS             = 0,  // Успішне завершення операції
-    WIEFERICH_IS_PRIME_WIEFERICH  = 1,  // Число є простим Віферіха: a^(p-1) ≡ 1 (mod p²)
-    WIEFERICH_IS_NON_WIEFERICH    = 2,  // Число є звичайним простим: a^(p-1) ≢ 1 (mod p²)
-    WIEFERICH_ERROR_NOT_PRIME     = -1, // Передане число не є простим (композитне)
-    WIEFERICH_ERROR_EVEN_NUMBER   = -2, // Число є парним (p = 2 не підтримується)
-    WIEFERICH_ERROR_INVALID_BASE  = -3, // Некоректна основа порівняння (a < 2)
-    WIEFERICH_ERROR_OUT_OF_MEMORY = -4, // Помилка виділення динамічної пам'яті
-    WIEFERICH_ERROR_INVALID_RANGE = -5, // Некоректний діапазон пошуку (start > end)
-    WIEFERICH_ERROR_NULL_POINTER  = -6  // Передано нулевий вказівник на обов'язковий буфер
-} wieferich_status_t;
-```
-```cpp
-namespace wieferich {
-
-enum class status : int32_t {
-    success             = 0,  // Успішне завершення операції
-    is_prime_wieferich  = 1,  // Число є простим Віферіха: a^(p-1) ≡ 1 (mod p²)
-    is_non_wieferich    = 2,  // Число є звичайним простим: a^(p-1) ≢ 1 (mod p²)
-    error_not_prime     = -1, // Передане число не є простим
-    error_even_number   = -2, // Число є парним
-    error_invalid_base  = -3, // Некоректна основа порівняння
-    error_out_of_memory = -4, // Помилка виділення пам'яті
-    error_invalid_range = -5, // Некоректний діапазон пошуку
-    error_null_pointer  = -6  // Некоректний вказівник
-};
-
-} // namespace wieferich
-```
+:::code api-wieferich-verifier/c/1-wieferich-status-t.c
+:::code api-wieferich-verifier/cpp/1-wieferich-status-t.cpp
 :::
 
 Кожен код помилки має від'ємне значення, що дозволяє легко перевіряти результат виклику за допомогою умови `status < 0`. Позитивні значення використовуються для уточнення логічного результату перевірки простого числа, що спрощує побудову умовних переходів у програмі клієнта.
@@ -72,20 +44,7 @@ typedef struct {
     double              execution_time; // Час обчислення в мікросекундах
 } wieferich_result_t;
 ```
-```cpp
-namespace wieferich {
-
-struct result {
-    std::uint64_t       prime{0};          // Перевірене просте число p
-    std::uint64_t       base{2};           // Основа порівняння a
-    std::uint64_t       remainder{0};      // Остачка (a^(p-1) mod p²)
-    std::uint64_t       fermat_quotient{0};// Частка Віферіха
-    bool                is_wieferich{false}; // Прапорець Віферіха
-    double              execution_time{0.0}; // Час виконання в мікросекундах
-};
-
-} // namespace wieferich
-```
+:::code api-wieferich-verifier/cpp/2-wieferich-result-t.cpp
 :::
 
 Поля структури описують повний математичний та обчислювальний стан перевірки:
@@ -111,20 +70,7 @@ typedef struct {
     bool                verbose;        // Детальний вивід прогресу в stdout
 } wieferich_config_t;
 ```
-```cpp
-namespace wieferich {
-
-struct config {
-    std::uint64_t       start_range{3};    // Початкове значення діапазону p
-    std::uint64_t       end_range{1000000};// Кінцеве значення діапазону p
-    std::uint64_t       base{2};           // Основа піднесення до степеня
-    std::uint32_t       num_threads{0};    // Кількість робочих потоків (0 = auto)
-    bool                use_montgomery{true}; // Арифметика Монтгомері
-    bool                verbose{false};    // Детальний вивід прогресу
-};
-
-} // namespace wieferich
-```
+:::code api-wieferich-verifier/cpp/3-wieferich-config-t.cpp
 :::
 
 Детальне розшифрування полів конфігурації:
@@ -310,44 +256,6 @@ wieferich_tool [ПАРАМЕТРИ] --start <ПОЧАТОК> --end <КІНЕЦЬ
 Нижче наведено два повноцінні приклади використання C API та C++20 API у прикладних програмах.
 
 :::tabs
-```c
-#include <stdio.h>
-#include "wieferich_api.h"
-
-int main(void) {
-    wieferich_result_t res;
-    wieferich_status_t status = wieferich_verify_prime(1093, 2, &res);
-
-    if (status == WIEFERICH_IS_PRIME_WIEFERICH) {
-        printf("Число %glu є простим числом Віферіха!\n", res.prime);
-        printf("  Остача: %glu, Частка W(p): %glu\n", res.remainder, res.fermat_quotient);
-    } else {
-        printf("Число не є числом Віферіха. Статус: %d\n", status);
-    }
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include "wieferich_api.h"
-
-int main() {
-    wieferich::config cfg{};
-    cfg.start_range = 3;
-    cfg.end_range = 10000000;
-    cfg.base = 2;
-    cfg.num_threads = 8;
-    cfg.use_montgomery = true;
-
-    auto [status, results] = wieferich::search_range(cfg);
-
-    if (status == wieferich::status::success) {
-        std::cout << "Пошук завершено. Знайдено простих Віферіха: " << results.size() << '\n';
-        for (const auto& res : results) {
-            std::cout << "  - p = " << res.prime << " (час: " << res.execution_time << " us)\n";
-        }
-    }
-    return 0;
-}
-```
+:::code api-wieferich-verifier/c/intehratsiini-pryklady.c
+:::code api-wieferich-verifier/cpp/intehratsiini-pryklady.cpp
 :::

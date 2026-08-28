@@ -58,86 +58,8 @@ t = ⌊(Q − qₙ₋₁) / qₙ⌋
 Процедура цілочисельна й теоретико-числова, тож зважена оцінка мов тягне у два боки. C++ дає точність і швидкість: увесь рахунок — у цілих, порівняння відстаней теж цілочисельне, без жодної коми. Python бере ясністю й тим, що цілі в ньому необмежені (переповнення просто не існує), а `Fraction` дає точний раціональний вхід задарма. Обидва варіанти реалізують той самий алгоритм: розклад Евкліда → рекурента підхідних дробів → напівпідхідний під стелею → вибір ближчого.
 
 :::tabs
-```cpp
-#include <cstdint>
-#include <cstdlib>   // llabs
-
-struct Frac { long long p, q; };
-
-// floor(a / b) для b > 0 (цілочисельне ділення в C++ округляє до нуля,
-// тож для від'ємного діленого потрібна поправка):
-static long long floordiv(long long a, long long b) {
-    long long t = a / b;
-    return (a % b < 0) ? t - 1 : t;
-}
-
-// Найближчий до a/b дріб p/q зі знаменником 1 ≤ q ≤ Q.
-// Вхід ТОЧНИЙ: a, b цілі, b ≠ 0, Q ≥ 1. Повертає нескоротний {p, q}.
-// Припущення: значення комфортно вкладаються в int64 (до ~1e9).
-Frac best_rational(long long a, long long b, long long Q) {
-    if (b < 0) { a = -a; b = -b; }          // тримаємо знаменник додатним
-    long long num = a, den = b;
-    long long p = 1, pp = 0;                 // чисельники підхідних «−1» і «−2»
-    long long q = 0, qq = 1;                 // знаменники «−1» і «−2»
-
-    while (den != 0) {                       // кроки Евкліда для (a, b)
-        long long ai = floordiv(num, den);   // чергова неповна частка
-        long long qn = ai * q + qq;          // знаменник наступного підхідного
-
-        if (qn > Q) {                        // стеля пробита — шукаємо напівпідхідний
-            long long t = (Q - qq) / q;      // найвищий щабель, що влазить
-            if (t > 0) {
-                long long sp = pp + t * p, sq = qq + t * q;
-                // порівняти │a/b − p/q│ і │a/b − sp/sq│ без дробів:
-                //   │a·q − b·p│·sq   vs   │a·sq − b·sp│·q   (спільний множник b скорочено).
-                // Множимо в __int128 — потрійний добуток легко перебиває int64:
-                __int128 e1 = (__int128)a * q  - (__int128)b * p;   if (e1 < 0) e1 = -e1;
-                __int128 e2 = (__int128)a * sq - (__int128)b * sp;  if (e2 < 0) e2 = -e2;
-                if (e2 * q < e1 * sq) return { sp, sq };            // напівпідхідний ближчий
-            }
-            return { p, q };                 // інакше лишається сам підхідний
-        }
-
-        long long pn = ai * p + pp;          // чисельник наступного підхідного
-        pp = p; qq = q; p = pn; q = qn;      // зсув вікна рекуренти
-        long long rem = num - ai * den;      // остача Евкліда, 0 ≤ rem < den
-        num = den; den = rem;
-    }
-    return { p, q };                         // ланцюг обірвався: a/b влазить точно
-}
-```
-```py
-from fractions import Fraction
-from math import floor
-
-def best_rational(x, Q):
-    """Найближчий до x дріб p/q зі знаменником 1 ≤ q ≤ Q (Q ≥ 1).
-    x — int, float або Fraction; повертає Fraction.
-    Те саме, що stdlib Fraction(x).limit_denominator(Q), лише з відкритим нутром."""
-    target = x if isinstance(x, Fraction) else Fraction(x)
-    a = floor(target)
-    pp, qq = 1, 0                    # підхідний «−1»:  1/0
-    p,  q  = a, 1                    # підхідний [a₀]:  a/1
-    frac = target - a
-
-    while frac != 0:
-        y = 1 / frac                 # перевертаємо хвіст — це крок Евкліда
-        a = floor(y)
-        p2, q2 = a*p + pp, a*q + qq  # наступний підхідний за рекурентою
-        if q2 > Q:                   # він вискочить за стелю — спиняємось
-            break
-        pp, qq, p, q = p, q, p2, q2  # зсуваємо вікно
-        frac = y - a
-
-    best = Fraction(p, q)            # остання підхідна, що влізла
-    if frac != 0:                    # ланцюг не скінчився → є напівпідхідні
-        t = (Q - qq) // q            # найвищий щабель: qq + t·q ≤ Q
-        if t > 0:
-            semi = Fraction(pp + t*p, qq + t*q)
-            if abs(target - semi) < abs(target - best):
-                best = semi          # напівпідхідний виявився ближчим
-    return best
-```
+:::code proj-best-approximation/cpp/main.cpp
+:::code proj-best-approximation/py/main.py
 :::
 
 **Пастка на живому числі: best_rational(π, 100).**

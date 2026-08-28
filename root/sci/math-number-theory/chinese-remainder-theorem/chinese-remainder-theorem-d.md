@@ -141,54 +141,8 @@ x = 2·70 + 3·21 + 2·15 = 140 + 63 + 30 = 233
 Обчислення дослівно за формулою. Модулі попарно взаємно прості — інакше оберненого немає, і код мусить це помітити, а не мовчки повернути сміття.
 
 :::tabs
-```py
-from math import prod
-
-def crt(residues, moduli):
-    """Розв'язати x ≡ residues[i] (mod moduli[i]) для попарно взаємно простих moduli."""
-    N = prod(moduli)
-    x = 0
-    for a, n in zip(residues, moduli):
-        Ni = N // n
-        Mi = pow(Ni, -1, n)      # обернений; кине ValueError, якщо НСД(Ni, n) ≠ 1
-        x += a * Ni * Mi
-    return x % N
-
-print(crt([2, 3, 2], [3, 5, 7]))     # 23 — задача Сунь-цзи
-```
-```cpp
-#include <cstdint>
-#include <vector>
-#include <stdexcept>
-
-// розширений Евклід: НСД(a, b) плюс x, y такі, що a·x + b·y = НСД(a, b)
-static int64_t egcd(int64_t a, int64_t b, int64_t &x, int64_t &y) {
-    if (b == 0) { x = 1; y = 0; return a; }
-    int64_t x1, y1;
-    int64_t g = egcd(b, a % b, x1, y1);
-    x = y1;
-    y = x1 - (a / b) * y1;
-    return g;
-}
-
-static int64_t inv_mod(int64_t a, int64_t m) {
-    int64_t x, y;
-    if (egcd(a % m, m, x, y) != 1) throw std::domain_error("модулі не взаємно прості");
-    return (x % m + m) % m;          // egcd може дати від'ємний x — нормалізуємо
-}
-
-int64_t crt(const std::vector<int64_t> &res, const std::vector<int64_t> &mod) {
-    int64_t N = 1;
-    for (int64_t n : mod) N *= n;
-    __int128 x = 0;                  // добуток a·Nᵢ·Mᵢ переростає int64_t уже на скромних модулях
-    for (size_t i = 0; i < mod.size(); ++i) {
-        int64_t Ni = N / mod[i];
-        int64_t Mi = inv_mod(Ni % mod[i], mod[i]);
-        x += (__int128)res[i] * Ni % N * Mi % N;   // зводимо після кожного множення
-    }
-    return (int64_t)(x % N);
-}
-```
+:::code chinese-remainder-theorem-d/py/main.py
+:::code chinese-remainder-theorem-d/cpp/main.cpp
 :::
 
 Різниця між вкладками — не синтаксис, а те, з чим кожна мова лишає читача сам на сам. Python має довгу арифметику вбудовану, тож `x += a * Ni * Mi` безпечне за будь-яких модулів, а `pow(Ni, -1, n)` уже вміє шукати обернений і сам кидає помилку на не взаємно простих. У C++ обидві ці послуги доводиться надати собі власноруч: обернений — через розширений Евкліда, а захист від переповнення — через `__int128` і зведення за модулем після кожного множення.

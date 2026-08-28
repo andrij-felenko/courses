@@ -40,48 +40,8 @@
 Структура містить математичні константи еліптичної кривої, необхідні для виконання 2D-декомпозиції GLV:
 
 :::tabs
-```c
-typedef struct {
-    const char *curve_name;       /* Текстовий ідентифікатор кривої (наприклад "secp256k1") */
-    uint64_t p[4];                /* Просте число модуля поля F_p */
-    uint64_t r[4];                /* Порядок підгрупи точок кривої r */
-    uint64_t beta[4];             /* Кубічний корінь з одиниці u полі F_p (beta^3 = 1 mod p) */
-    uint64_t lambda[4];           /* Власне значення ендоморфізму (lambda^2 + lambda + 1 = 0 mod r) */
-    
-    /* Матриця короткого базису ґратки L */
-    uint64_t b11[2];              /* Елемент b11 (128 бітів) */
-    uint64_t b12[2];              /* Елемент b12 (128 бітів) */
-    uint64_t b21[2];              /* Елемент b21 (128 бітів) */
-    uint64_t b22[2];              /* Елемент b22 (128 бітів) */
-    
-    /* Розширені константи фіксованої точності для константного ділення */
-    uint64_t g1[4];               /* g1 = floor(2^384 * b22 / r) */
-    uint64_t g2[4];               /* g2 = floor(2^384 * b21 / r) */
-    uint16_t fixed_shift;         /* Величина побітового зсуву (зазвичай 384) */
-} glv_curve_config_2d_t;
-```
-```cpp
-namespace crypto::glv {
-
-struct CurveConfig2D {
-    std::string_view curve_name;            // Текстовий ідентифікатор кривої
-    std::array<uint64_t, 4> p{};            // Просте число модуля поля F_p
-    std::array<uint64_t, 4> r{};            // Порядок підгрупи точок кривої r
-    std::array<uint64_t, 4> beta{};         // Кубічний корінь з одиниці у полі F_p
-    std::array<uint64_t, 4> lambda{};       // Власне значення ендоморфізму
-    
-    std::array<uint64_t, 2> b11{};          // Елемент b11 короткого базису
-    std::array<uint64_t, 2> b12{};          // Елемент b12 короткого базису
-    std::array<uint64_t, 2> b21{};          // Елемент b21 короткого базису
-    std::array<uint64_t, 2> b22{};          // Елемент b22 короткого базису
-    
-    std::array<uint64_t, 4> g1{};           // Константа масштабування g1
-    std::array<uint64_t, 4> g2{};           // Константа масштабування g2
-    uint16_t fixed_shift{384};              // Величина побітового зсуву
-};
-
-} // namespace crypto::glv
-```
+:::code api-glv-decomposer/c/main.c
+:::code api-glv-decomposer/cpp/konfihuratsiia-kryvoi-glv.cpp
 :::
 
 Кожне поле даної структури має строго визначене числове призначення. Масив `p` описує 256-бітний модуль поля у форматі Little-Endian. Масив `r` визначає порядок кривої. Константи `b11, b12, b21, b22` утворюють матрицю редукованого базису Гаусса. Поля `g1` та `g2` зберігають 256-бітні коефіцієнти масштабування.
@@ -101,18 +61,7 @@ typedef struct {
     uint8_t k2_is_negative;       /* 1 якщо k2 від'ємний, інакше 0 */
 } glv_split_2d_t;
 ```
-```cpp
-namespace crypto::glv {
-
-struct Split2D {
-    std::array<uint64_t, 2> k1{};           // Модуль першого скаляра k1
-    std::array<uint64_t, 2> k2{};           // Модуль другого скаляра k2
-    bool k1_is_negative{false};             // Прапор знака k1
-    bool k2_is_negative{false};             // Прапор знака k2
-};
-
-} // namespace crypto::glv
-```
+:::code api-glv-decomposer/cpp/rezultat-2d-dekompozytsii.cpp
 :::
 
 Поля `k1` та `k2` представляють абсолютні значення знайдених коефіцієнтів розкладу. Прапори `k1_is_negative` та `k2_is_negative` показують знак відповідного скаляра.
@@ -201,18 +150,7 @@ glv_status_t glv_mul_2d(
     const glv_curve_config_2d_t *config
 );
 ```
-```cpp
-namespace crypto::glv {
-
-[[nodiscard]] Status mul_2d(
-    std::span<uint64_t, 12> res_point,
-    std::span<const uint64_t, 12> point,
-    std::span<const uint64_t, 4> scalar,
-    const CurveConfig2D& config
-) noexcept;
-
-} // namespace crypto::glv
-```
+:::code api-glv-decomposer/cpp/konstantne-2d-skaliarne.cpp
 :::
 
 Призначення: Обчисляє скалярний добуток `res_point = [scalar] point` у координатах Якобі `(X:Y:Z)`.
@@ -249,26 +187,7 @@ namespace crypto::glv {
 
 У мові Rust створення безпечної обгортки (safe wrapper) навколо C-API реалізується за допомогою наступного паттерну:
 
-```rust
-pub struct GlvCurveConfig {
-    inner: glv_curve_config_2d_t,
-}
-
-impl GlvCurveConfig {
-    pub fn new(curve_name: &str) -> Result<Self, GlvError> {
-        let mut config = std::mem::MaybeUninit::uninit();
-        let c_name = std::ffi::CString::new(curve_name)?;
-        unsafe {
-            let status = glv_init_curve_2d(config.as_mut_ptr(), c_name.as_ptr());
-            if status == 0 {
-                Ok(Self { inner: config.assume_init() })
-            } else {
-                Err(GlvError::from_status(status))
-            }
-        }
-    }
-}
-```
+:::code api-glv-decomposer/rust/main.rs
 
 Обгортка на мові Rust гарантує автоматичне виклики знищення пам'яті (RAII) та виключає можливість передачі нульових вказівників у систему.
 
@@ -276,20 +195,7 @@ impl GlvCurveConfig {
 
 У мові Go інтеграція виконується напряму через заголовочний файл `glv_decomposer.h`:
 
-```go
-// #include "glv_decomposer.h"
-import "C"
-import "unsafe"
-
-func DecomposeScalar(scalar [4]uint64, config *C.glv_curve_config_2d_t) (C.glv_split_2d_t, error) {
-    var split C.glv_split_2d_t
-    status := C.glv_decompose_2d(&split, (*C.uint64_t)(unsafe.Pointer(&scalar[0])), config)
-    if status != 0 {
-        return split, fmt.Errorf("GLV decomposition failed with status: %d", status)
-    }
-    return split, nil
-}
-```
+:::code api-glv-decomposer/go/main.go
 
 Використання `cgo` дозволяє легко підключати високопродуктивний C-модуль декомпозиції до криптографічних сервісів на мові Go без накладних витрат на міжпроцесну взаємодію.
 
