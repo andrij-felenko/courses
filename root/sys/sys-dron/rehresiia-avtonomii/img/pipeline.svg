@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 870 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="870" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="30.0" y="60.0" width="160.0" height="100.0" rx="8" fill="#eaf2fd" stroke="#2457d6" stroke-width="2.0"/>
+<text x="110.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">КОМІТ / PULL REQUEST</text>
+<text x="110.0" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">зміна коду / тюнінг</text>
+<text x="110.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">PID, EKF, навігація</text>
+<text x="110.0" y="146.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">тригер CI/CD runner</text>
+<line x1="190.0" y1="110.0" x2="230.0" y2="110.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="230.0" y="45.0" width="230.0" height="130.0" rx="8" fill="#eef8f0" stroke="#27ae60" stroke-width="2.2"/>
+<text x="345.0" y="69.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">МАТРИЦЯ СЦЕНАРІЇВ SITL</text>
+<text x="345.0" y="93.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Lockstep-час (dt=4 мс)</text>
+<text x="345.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Прискорення: 20x реального</text>
+<text x="345.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Сценарій 1: Штиль (номінал)</text>
+<text x="345.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Сценарій 2: Вітер + пориви 12 м/с</text>
+<line x1="460.0" y1="110.0" x2="500.0" y2="110.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="500.0" y="50.0" width="160.0" height="120.0" rx="8" fill="#fff9ec" stroke="#caa24a" stroke-width="2.0"/>
+<text x="580.0" y="74.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c5c0a" text-anchor="middle" font-weight="700">ЕКСТРАКТОР ЛОГІВ</text>
+<text x="580.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">ULog / DataFlash / CSV</text>
+<text x="580.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">vehicle_local_position</text>
+<text x="580.0" y="138.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">battery_status, actuators</text>
+<text x="580.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c5c0a" text-anchor="middle">інтерполяція кроку dt</text>
+<line x1="660.0" y1="110.0" x2="700.0" y2="110.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="700.0" y="60.0" width="135.0" height="100.0" rx="8" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/>
+<text x="767.5" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">ЕТАЛОН (GOLDEN)</text>
+<text x="767.5" y="108.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Базовий маршрут</text>
+<text x="767.5" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ансамбль 10 прогонів</text>
+<text x="767.5" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Довірчий інтервал 3σ</text>
+<line x1="580.0" y1="170.0" x2="580.0" y2="220.0" stroke="#caa24a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="530.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c5c0a" text-anchor="middle">тестовий трек</text>
+<path d="M 767 160 L 767 205 L 590 240" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="767.5" y="207.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">еталонний трек</text>
+<rect x="160.0" y="220.0" width="430.0" height="145.0" rx="10" fill="#f4f6f8" stroke="#333333" stroke-width="2.2"/>
+<text x="375.0" y="244.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">МОДУЛЬ ПОРІВНЯННЯ ТРАЄКТОРІЙ (REGRESSION RUNNER)</text>
+<rect x="175.0" y="258.0" width="125.0" height="92.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.4"/>
+<text x="237.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Cross-Track (XTE)</text>
+<text x="237.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">RMS / 95% / Max</text>
+<text x="237.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Коридор відхилення</text>
+<text x="237.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Зрізання кутів</text>
+<rect x="312.0" y="258.0" width="125.0" height="92.0" rx="6" fill="#ffffff" stroke="#caa24a" stroke-width="1.4"/>
+<text x="374.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c5c0a" text-anchor="middle" font-weight="700">Фреше та DTW</text>
+<text x="374.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Відстань повідка δ_dF</text>
+<text x="374.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Викривлення часу DTW</text>
+<text x="374.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Зсув фази маневру</text>
+<rect x="449.0" y="258.0" width="125.0" height="92.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="511.0" y="276.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Енергія та час</text>
+<text x="511.0" y="294.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">ΔE = ∫ U·I dt (Дж)</text>
+<text x="511.0" y="314.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Час між точками Δt</text>
+<text x="511.0" y="332.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Насичення моторів</text>
+<line x1="590.0" y1="292.5" x2="650.0" y2="292.5" stroke="#333333" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="650.0" y="225.0" width="175.0" height="135.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="2.0"/>
+<text x="737.5" y="249.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">ГЕЙТ ВЕРДИКТУ CI</text>
+<rect x="662.0" y="263.0" width="70.0" height="42.0" rx="5" fill="#eef8f0" stroke="#27ae60" stroke-width="1.5"/>
+<text x="697.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">PASS</text>
+<text x="697.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Злиття OK</text>
+<rect x="742.0" y="263.0" width="70.0" height="42.0" rx="5" fill="#fdeeed" stroke="#c0392b" stroke-width="1.5"/>
+<text x="777.0" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">FAIL</text>
+<text x="777.0" y="297.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Регресія</text>
+<text x="737.5" y="323.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">JUnit XML + JSON звіт</text>
+<text x="737.5" y="343.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">3D-накладання траєкторій</text>
+<text x="430.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Автоматизований цикл: кожна зміна коду перевіряється на збереження геометрії польоту</text>
+</svg>

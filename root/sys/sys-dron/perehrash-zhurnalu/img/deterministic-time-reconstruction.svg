@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 540" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="540" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Дискретне квантування часу та впорядкування сенсорних потоків у черзі переграшу</text>
+<rect x="40.0" y="50.0" width="920.0" height="85.0" rx="5" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="60.0" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Віртуальна шкала часу Simulated Time (t_sim)</text>
+<line x1="80.0" y1="108.0" x2="900.0" y2="108.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="120.0" y1="102.0" x2="120.0" y2="114.0" stroke="#333333" stroke-width="2.0"/>
+<text x="120.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1000000 мкс</text>
+<text x="120.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крок 0</text>
+<line x1="280.0" y1="102.0" x2="280.0" y2="114.0" stroke="#333333" stroke-width="2.0"/>
+<text x="280.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1001000 мкс</text>
+<text x="280.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крок 1 (+1 мс)</text>
+<line x1="440.0" y1="102.0" x2="440.0" y2="114.0" stroke="#333333" stroke-width="2.0"/>
+<text x="440.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1002000 мкс</text>
+<text x="440.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крок 2 (+2 мс)</text>
+<line x1="600.0" y1="102.0" x2="600.0" y2="114.0" stroke="#333333" stroke-width="2.0"/>
+<text x="600.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1003000 мкс</text>
+<text x="600.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крок 3 (+3 мс)</text>
+<line x1="760.0" y1="102.0" x2="760.0" y2="114.0" stroke="#333333" stroke-width="2.0"/>
+<text x="760.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">1004000 мкс</text>
+<text x="760.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Крок 4 (+4 мс)</text>
+<rect x="40.0" y="145.0" width="920.0" height="215.0" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="60.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Багаточастотні пакети з ULog (вхідна черга пріоритетів за міткою часу)</text>
+<text x="60.0" y="198.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="start" font-weight="700">IMU (1000 Гц):</text>
+<line x1="160.0" y1="194.0" x2="910.0" y2="194.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<circle cx="120.0" cy="194.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="160.0" cy="194.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="200.0" cy="194.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="240.0" cy="194.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="280.0" cy="194.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="320.0" cy="194.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="360.0" cy="194.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="400.0" cy="194.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="440.0" cy="194.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="480.0" cy="194.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="520.0" cy="194.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="560.0" cy="194.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="600.0" cy="194.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="640.0" cy="194.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="680.0" cy="194.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="720.0" cy="194.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="760.0" cy="194.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="800.0" cy="194.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="840.0" cy="194.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="880.0" cy="194.0" r="4.0" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<text x="60.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">Baro (100 Гц):</text>
+<line x1="160.0" y1="234.0" x2="910.0" y2="234.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<rect x="115.0" y="229.0" width="10.0" height="10.0" rx="2" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="275.0" y="229.0" width="10.0" height="10.0" rx="2" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="435.0" y="229.0" width="10.0" height="10.0" rx="2" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="595.0" y="229.0" width="10.0" height="10.0" rx="2" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="755.0" y="229.0" width="10.0" height="10.0" rx="2" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+<text x="60.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#8b5cf6" text-anchor="start" font-weight="700">Mag (50 Гц):</text>
+<line x1="160.0" y1="274.0" x2="910.0" y2="274.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<rect x="115.0" y="269.0" width="10.0" height="10.0" rx="2" fill="#8b5cf6" stroke="#8b5cf6" stroke-width="1.5"/>
+<rect x="435.0" y="269.0" width="10.0" height="10.0" rx="2" fill="#8b5cf6" stroke="#8b5cf6" stroke-width="1.5"/>
+<rect x="755.0" y="269.0" width="10.0" height="10.0" rx="2" fill="#8b5cf6" stroke="#8b5cf6" stroke-width="1.5"/>
+<text x="60.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">GNSS (10 Гц):</text>
+<line x1="160.0" y1="314.0" x2="910.0" y2="314.0" stroke="#e2e8f0" stroke-width="1.0"/>
+<circle cx="280.0" cy="314.0" r="6.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<circle cx="760.0" cy="314.0" r="6.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+<text x="300.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">● IMU (Acc/Gyro)</text>
+<text x="480.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">■ Baro (Pressure/Alt)</text>
+<text x="660.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#8b5cf6" text-anchor="middle" font-weight="700">■ Mag (Heading)</text>
+<text x="840.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">● GNSS (Pos/Vel/Fix)</text>
+<rect x="40.0" y="370.0" width="920.0" height="135.0" rx="5" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="60.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Механізм кроку симуляції Lockstep Execution (Без гонок потоків)</text>
+<rect x="60.0" y="408.0" width="270.0" height="80.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/><text x="195.0" y="438.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="195.0" dy="0.0">1. Вибірка з черги пріоритетів</tspan><tspan x="195.0" dy="13.0">Вилучення всіх повідомлень</tspan><tspan x="195.0" dy="13.0">із міткою t_msg &lt;= t_sim_next</tspan></text>
+<line x1="335.0" y1="448.0" x2="365.0" y2="448.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="365.0" y="408.0" width="270.0" height="80.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/><text x="500.0" y="438.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="500.0" dy="0.0">2. Публікація в uORB та крок EKF</tspan><tspan x="500.0" dy="13.0">Атомарне оновлення буферів</tspan><tspan x="500.0" dy="13.0">Виклик прогнозу і корекції EKF2</tspan></text>
+<line x1="640.0" y1="448.0" x2="670.0" y2="448.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="670.0" y="408.0" width="270.0" height="80.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/><text x="805.0" y="438.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="805.0" dy="0.0">3. Просування віртуального часу</tspan><tspan x="805.0" dy="13.0">t_sim = t_sim + dt_step</tspan><tspan x="805.0" dy="13.0">Скидання вихідного логу на диск</tspan></text>
+</svg>

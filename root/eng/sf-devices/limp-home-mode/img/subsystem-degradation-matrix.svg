@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560">
+  <defs>
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 15px; font-weight: 700; fill: #212121; }
+      .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; fill: #616161; }
+      .row-name { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; font-weight: 700; fill: #212121; }
+      .row-detail { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 9px; fill: #757575; }
+      .legend-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 10px; fill: #424242; }
+    </style>
+  </defs>
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff" rx="8" />
+  <text x="25" y="32" class="title" font-size="15">Матриця каскадної деградації функцій при переході в Limp-Home</text>
+  <text x="25" y="48" class="subtitle" font-size="11">Розподіл пріоритетів та бюджету потужності між критичними й допоміжними підсистемами</text>
+  <rect x="240" y="64" width="136" height="40" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5" rx="4" />
+  <text x="308.0" y="80" font-size="11" font-weight="700" text-anchor="middle" fill="#2e7d32">NORMAL</text>
+  <text x="308.0" y="94" font-size="10" text-anchor="middle" fill="#424242">Повний</text>
+  <rect x="382" y="64" width="136" height="40" fill="#fffde7" stroke="#f57f17" stroke-width="1.5" rx="4" />
+  <text x="450.0" y="80" font-size="11" font-weight="700" text-anchor="middle" fill="#f57f17">THROTTLED</text>
+  <text x="450.0" y="94" font-size="10" text-anchor="middle" fill="#424242">Термо-спад</text>
+  <rect x="524" y="64" width="136" height="40" fill="#fff3e0" stroke="#e65100" stroke-width="1.5" rx="4" />
+  <text x="592.0" y="80" font-size="11" font-weight="700" text-anchor="middle" fill="#e65100">LIMP L1</text>
+  <text x="592.0" y="94" font-size="10" text-anchor="middle" fill="#424242">Тяга 50%</text>
+  <rect x="666" y="64" width="136" height="40" fill="#ffebee" stroke="#c62828" stroke-width="1.5" rx="4" />
+  <text x="734.0" y="80" font-size="11" font-weight="700" text-anchor="middle" fill="#c62828">LIMP L2</text>
+  <text x="734.0" y="94" font-size="10" text-anchor="middle" fill="#424242">Доліт 35%</text>
+  <rect x="808" y="64" width="136" height="40" fill="#eceff1" stroke="#37474f" stroke-width="1.5" rx="4" />
+  <text x="876.0" y="80" font-size="11" font-weight="700" text-anchor="middle" fill="#37474f">SAFE STATE</text>
+  <text x="876.0" y="94" font-size="10" text-anchor="middle" fill="#424242">Стоп/Посадка</text>
+  <rect x="25" y="110" width="208" height="56" fill="#fcfcfc" stroke="#e0e0e0" rx="4" />
+  <text x="33" y="132" class="row-name" font-size="11">Силові приводи (ESC/Мотори)</text>
+  <text x="33" y="150" class="row-detail" font-size="9">ШІМ, струм фаз, динаміка</text>
+  <rect x="240" y="110" width="136" height="56" fill="#e8f5e9" stroke="#4caf50" stroke-width="1" rx="4" />
+  <text x="308.0" y="133" font-size="10" font-weight="600" text-anchor="middle" fill="#1b5e20">100% тяга</text>
+  <text x="308.0" y="151" font-size="10" font-weight="600" text-anchor="middle" fill="#1b5e20">25кГц</text>
+  <rect x="382" y="110" width="136" height="56" fill="#fffde7" stroke="#fbc02d" stroke-width="1" rx="4" />
+  <text x="450.0" y="133" font-size="10" font-weight="600" text-anchor="middle" fill="#f57f17">80% струм</text>
+  <text x="450.0" y="151" font-size="10" font-weight="600" text-anchor="middle" fill="#f57f17">16кГц</text>
+  <rect x="524" y="110" width="136" height="56" fill="#fff3e0" stroke="#ff9800" stroke-width="1" rx="4" />
+  <text x="592.0" y="133" font-size="10" font-weight="600" text-anchor="middle" fill="#e65100">50% струм</text>
+  <text x="592.0" y="151" font-size="10" font-weight="600" text-anchor="middle" fill="#e65100">10кГц</text>
+  <rect x="666" y="110" width="136" height="56" fill="#fff3e0" stroke="#ff9800" stroke-width="1" rx="4" />
+  <text x="734.0" y="142" font-size="10" font-weight="600" text-anchor="middle" fill="#e65100">35% тяга (спуск)</text>
+  <rect x="808" y="110" width="136" height="56" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="1" rx="4" />
+  <text x="876.0" y="142" font-size="10" font-weight="600" text-anchor="middle" fill="#757575">0% (Вимкнено)</text>
+  <rect x="25" y="170" width="208" height="56" fill="#fcfcfc" stroke="#e0e0e0" rx="4" />
+  <text x="33" y="192" class="row-name" font-size="11">Критична навігація (IMU/FCU)</text>
+  <text x="33" y="210" class="row-detail" font-size="9">Оцінка кута, стабілізація</text>
+  <rect x="240" y="170" width="136" height="56" fill="#e8f5e9" stroke="#4caf50" stroke-width="1" rx="4" />
+  <text x="308.0" y="193" font-size="10" font-weight="600" text-anchor="middle" fill="#1b5e20">1000Гц FOC</text>
+  <text x="308.0" y="211" font-size="10" font-weight="600" text-anchor="middle" fill="#1b5e20">Повна</text>
+  <rect x="382" y="170" width="136" height="56" fill="#e8f5e9" stroke="#4caf50" stroke-width="1" rx="4" />
+  <text x="450.0" y="193" font-size="10" font-weight="600" text-anchor="middle" fill="#1b5e20">1000Гц FOC</text>
+  <text x="450.0" y="211" font-size="10" font-weight="600" text-anchor="middle" fill="#1b5e20">Повна</text>
+  <rect x="524" y="170" width="136" height="56" fill="#fffde7" stroke="#fbc02d" stroke-width="1" rx="4" />
+  <text x="592.0" y="193" font-size="10" font-weight="600" text-anchor="middle" fill="#f57f17">500Гц</text>
+  <text x="592.0" y="211" font-size="10" font-weight="600" text-anchor="middle" fill="#f57f17">Стабільний</text>
+  <rect x="666" y="170" width="136" height="56" fill="#fffde7" stroke="#fbc02d" stroke-width="1" rx="4" />
+  <text x="734.0" y="193" font-size="10" font-weight="600" text-anchor="middle" fill="#f57f17">250Гц</text>
+  <text x="734.0" y="211" font-size="10" font-weight="600" text-anchor="middle" fill="#f57f17">Базовий кут</text>
+  <rect x="808" y="170" width="136" height="56" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="1" rx="4" />
+  <text x="876.0" y="202" font-size="10" font-weight="600" text-anchor="middle" fill="#757575">Стоп-лог в NVS</text>
+  <rect x="25" y="230" width="208" height="56" fill="#fcfcfc" stroke="#e0e0e0" rx="4" />
+  <text x="33" y="252" class="row-name" font-size="11">Канал зв'язку / Телеметрія</text>
+  <text x="33" y="270" class="row-detail" font-size="9">Радіолінк, резервний CAN</text>
+  <rect x="240" y="230" width="136" height="56" fill="#e8f5e9" stroke="#4caf50" stroke-width="1" rx="4" />
+  <text x="308.0" y="262" font-size="10" font-weight="600" text-anchor="middle" fill="#1b5e20">50Гц Телеметрія</text>
+  <rect x="382" y="230" width="136" height="56" fill="#e8f5e9" stroke="#4caf50" stroke-width="1" rx="4" />
+  <text x="450.0" y="262" font-size="10" font-weight="600" text-anchor="middle" fill="#1b5e20">20Гц Телеметрія</text>
+  <rect x="524" y="230" width="136" height="56" fill="#fffde7" stroke="#fbc02d" stroke-width="1" rx="4" />
+  <text x="592.0" y="262" font-size="10" font-weight="600" text-anchor="middle" fill="#f57f17">5Гц Стан + DTC</text>
+  <rect x="666" y="230" width="136" height="56" fill="#fff3e0" stroke="#ff9800" stroke-width="1" rx="4" />
+  <text x="734.0" y="262" font-size="10" font-weight="600" text-anchor="middle" fill="#e65100">1Гц SOS-координати</text>
+  <rect x="808" y="230" width="136" height="56" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="1" rx="4" />
+  <text x="876.0" y="262" font-size="10" font-weight="600" text-anchor="middle" fill="#757575">0.2Гц Маяк пошуку</text>
+  <rect x="25" y="290" width="208" height="56" fill="#fcfcfc" stroke="#e0e0e0" rx="4" />
+  <text x="33" y="312" class="row-name" font-size="11">Оптичний потік та лідар</text>
+  <text x="33" y="330" class="row-detail" font-size="9">Висотомір, сенсори землі</text>
+  <rect x="240" y="290" width="136" height="56" fill="#e8f5e9" stroke="#4caf50" stroke-width="1" rx="4" />
+  <text x="308.0" y="322" font-size="10" font-weight="600" text-anchor="middle" fill="#1b5e20">Повна (50Гц)</text>
+  <rect x="382" y="290" width="136" height="56" fill="#e8f5e9" stroke="#4caf50" stroke-width="1" rx="4" />
+  <text x="450.0" y="322" font-size="10" font-weight="600" text-anchor="middle" fill="#1b5e20">Повна (50Гц)</text>
+  <rect x="524" y="290" width="136" height="56" fill="#fffde7" stroke="#fbc02d" stroke-width="1" rx="4" />
+  <text x="592.0" y="322" font-size="10" font-weight="600" text-anchor="middle" fill="#f57f17">Знижена (20Гц)</text>
+  <rect x="666" y="290" width="136" height="56" fill="#fff3e0" stroke="#ff9800" stroke-width="1" rx="4" />
+  <text x="734.0" y="322" font-size="10" font-weight="600" text-anchor="middle" fill="#e65100">Висотомір (10Гц)</text>
+  <rect x="808" y="290" width="136" height="56" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="1" rx="4" />
+  <text x="876.0" y="322" font-size="10" font-weight="600" text-anchor="middle" fill="#757575">Вимкнено</text>
+  <rect x="25" y="350" width="208" height="56" fill="#fcfcfc" stroke="#e0e0e0" rx="4" />
+  <text x="33" y="372" class="row-name" font-size="11">Супутній комп'ютер (SBC/AI)</text>
+  <text x="33" y="390" class="row-detail" font-size="9">Нейромережі, трекінг цілей</text>
+  <rect x="240" y="350" width="136" height="56" fill="#e8f5e9" stroke="#4caf50" stroke-width="1" rx="4" />
+  <text x="308.0" y="382" font-size="10" font-weight="600" text-anchor="middle" fill="#1b5e20">Повна (15 Вт)</text>
+  <rect x="382" y="350" width="136" height="56" fill="#fffde7" stroke="#fbc02d" stroke-width="1" rx="4" />
+  <text x="450.0" y="382" font-size="10" font-weight="600" text-anchor="middle" fill="#f57f17">Еко CPU (8 Вт)</text>
+  <rect x="524" y="350" width="136" height="56" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="1" rx="4" />
+  <text x="592.0" y="382" font-size="10" font-weight="600" text-anchor="middle" fill="#757575">Вимкнено (0 Вт)</text>
+  <rect x="666" y="350" width="136" height="56" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="1" rx="4" />
+  <text x="734.0" y="382" font-size="10" font-weight="600" text-anchor="middle" fill="#757575">Вимкнено (0 Вт)</text>
+  <rect x="808" y="350" width="136" height="56" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="1" rx="4" />
+  <text x="876.0" y="382" font-size="10" font-weight="600" text-anchor="middle" fill="#757575">Вимкнено (0 Вт)</text>
+  <rect x="25" y="410" width="208" height="56" fill="#fcfcfc" stroke="#e0e0e0" rx="4" />
+  <text x="33" y="432" class="row-name" font-size="11">Підвіс камери та корисне</text>
+  <text x="33" y="450" class="row-detail" font-size="9">Сервоприводи, живлення камери</text>
+  <rect x="240" y="410" width="136" height="56" fill="#e8f5e9" stroke="#4caf50" stroke-width="1" rx="4" />
+  <text x="308.0" y="442" font-size="10" font-weight="600" text-anchor="middle" fill="#1b5e20">Стабілізація ON</text>
+  <rect x="382" y="410" width="136" height="56" fill="#e8f5e9" stroke="#4caf50" stroke-width="1" rx="4" />
+  <text x="450.0" y="442" font-size="10" font-weight="600" text-anchor="middle" fill="#1b5e20">Стабілізація ON</text>
+  <rect x="524" y="410" width="136" height="56" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="1" rx="4" />
+  <text x="592.0" y="433" font-size="10" font-weight="600" text-anchor="middle" fill="#757575">Парк</text>
+  <text x="592.0" y="451" font-size="10" font-weight="600" text-anchor="middle" fill="#757575">Вимкнено</text>
+  <rect x="666" y="410" width="136" height="56" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="1" rx="4" />
+  <text x="734.0" y="442" font-size="10" font-weight="600" text-anchor="middle" fill="#757575">Знеструмлено</text>
+  <rect x="808" y="410" width="136" height="56" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="1" rx="4" />
+  <text x="876.0" y="442" font-size="10" font-weight="600" text-anchor="middle" fill="#757575">Знеструмлено</text>
+  <rect x="25" y="470" width="208" height="56" fill="#fcfcfc" stroke="#e0e0e0" rx="4" />
+  <text x="33" y="492" class="row-name" font-size="11">Підсвітка та нагрівачі</text>
+  <text x="33" y="510" class="row-detail" font-size="9">Фари, обігрів трубки Піто</text>
+  <rect x="240" y="470" width="136" height="56" fill="#e8f5e9" stroke="#4caf50" stroke-width="1" rx="4" />
+  <text x="308.0" y="493" font-size="10" font-weight="600" text-anchor="middle" fill="#1b5e20">100% Фари</text>
+  <text x="308.0" y="511" font-size="10" font-weight="600" text-anchor="middle" fill="#1b5e20">Нагрів</text>
+  <rect x="382" y="470" width="136" height="56" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="1" rx="4" />
+  <text x="450.0" y="502" font-size="10" font-weight="600" text-anchor="middle" fill="#757575">Вимкнено (Еко)</text>
+  <rect x="524" y="470" width="136" height="56" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="1" rx="4" />
+  <text x="592.0" y="502" font-size="10" font-weight="600" text-anchor="middle" fill="#757575">Знеструмлено</text>
+  <rect x="666" y="470" width="136" height="56" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="1" rx="4" />
+  <text x="734.0" y="502" font-size="10" font-weight="600" text-anchor="middle" fill="#757575">Знеструмлено</text>
+  <rect x="808" y="470" width="136" height="56" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="1" rx="4" />
+  <text x="876.0" y="502" font-size="10" font-weight="600" text-anchor="middle" fill="#757575">Знеструмлено</text>
+  <rect x="25" y="525" width="12" height="12" fill="#e8f5e9" stroke="#4caf50" stroke-width="1.2" rx="2" />
+  <text x="43" y="535" class="legend-text" font-size="10">Повна функція (100%)</text>
+  <rect x="255" y="525" width="12" height="12" fill="#fffde7" stroke="#fbc02d" stroke-width="1.2" rx="2" />
+  <text x="273" y="535" class="legend-text" font-size="10">Знижена потужність / частота</text>
+  <rect x="485" y="525" width="12" height="12" fill="#fff3e0" stroke="#ff9800" stroke-width="1.2" rx="2" />
+  <text x="503" y="535" class="legend-text" font-size="10">Мінімальний аварійний профіль</text>
+  <rect x="715" y="525" width="12" height="12" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="1.2" rx="2" />
+  <text x="733" y="535" class="legend-text" font-size="10">Скинуте навантаження (Off)</text>
+</svg>

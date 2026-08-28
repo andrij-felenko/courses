@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1000 580" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1000" height="580" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="980.0" height="560.0" rx="0" fill="#ffffff" stroke="#d1d5db" stroke-width="1.0"/>
+<rect x="20.0" y="15.0" width="940.0" height="45.0" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="490.0" y="43.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Матриця сценаріїв відмов: від інжекції аномалії до Failsafe-дії</text>
+<rect x="30.0" y="75.0" width="160.0" height="34.0" rx="4" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="110.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Домен відмови</text>
+<rect x="205.0" y="75.0" width="180.0" height="34.0" rx="4" fill="#fee2e2" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="295.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тип аномалії</text>
+<rect x="400.0" y="75.0" width="170.0" height="34.0" rx="4" fill="#e0e7ff" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="485.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Точка інжекції</text>
+<rect x="585.0" y="75.0" width="180.0" height="34.0" rx="4" fill="#fef3c7" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="675.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механізм детекції</text>
+<rect x="780.0" y="75.0" width="170.0" height="34.0" rx="4" fill="#dcfce7" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="865.0" y="97.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Реакція Failsafe</text>
+<rect x="20.0" y="120.0" width="940.0" height="98.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="110.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Радіозв'язок</text>
+<text x="110.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">та телеметрія</text>
+<text x="295.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Обрив RC / GCS,</text>
+<text x="295.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">втрата 90% пакетів,</text>
+<text x="295.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">стрибки джитеру &gt;500ms</text>
+<text x="485.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">MAVLink Proxy / UDP</text>
+<text x="485.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">(дроп пакетів, затримка,</text>
+<text x="485.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">втрата HEARTBEAT)</text>
+<text x="675.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle">Таймаут лінка (Watchdog),</text>
+<text x="675.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle">ковзне вікно Link Quality,</text>
+<text x="675.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle">лічильник втрат кадрів</text>
+<text x="865.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Таймаут-пауза (Loiter),</text>
+<text x="865.0" y="173.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">повернення додому (RTL),</text>
+<text x="865.0" y="189.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">аварійна автопосадка</text>
+<rect x="20.0" y="226.0" width="940.0" height="98.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="110.0" y="271.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Навігаційні</text>
+<text x="110.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">сенсори (GNSS/Mag)</text>
+<text x="295.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Глушіння (Jamming),</text>
+<text x="295.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">спуфінг координат,</text>
+<text x="295.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">аномалія магнітометра</text>
+<text x="485.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">HAL Sensor Driver /</text>
+<text x="485.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">HIL_SENSOR &amp; GPS_RAW_INT</text>
+<text x="485.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">(шум, зсув, високий HDOP)</text>
+<text x="675.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle">Брама нев'язок EKF (NIS),</text>
+<text x="675.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle">тест на узгодженість швидкості,</text>
+<text x="675.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle">скидання курсу (Yaw Reset)</text>
+<text x="865.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Перехід у Dead Reckoning,</text>
+<text x="865.0" y="279.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">утримання висоти (Altitude),</text>
+<text x="865.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">автопосадка за потоком</text>
+<rect x="20.0" y="332.0" width="940.0" height="98.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="110.0" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Силова</text>
+<text x="110.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">установка (ESC/Мотор)</text>
+<text x="295.0" y="369.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Згорання ESC,</text>
+<text x="295.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">відмова 1 мотора,</text>
+<text x="295.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">асиметрія тяги (пропелер)</text>
+<text x="485.0" y="369.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">SITL Physics Engine /</text>
+<text x="485.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">Body Wrench / PWM Cut</text>
+<text x="485.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">(обнулення тяги ротора)</text>
+<text x="675.0" y="369.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle">Телеметрія DShot (eRPM),</text>
+<text x="675.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle">спостерігач нев'язок моментів,</text>
+<text x="675.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle">тривале насичення інтеграла</text>
+<text x="865.0" y="369.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Аварійний плоский спін (Flat Spin),</text>
+<text x="865.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">перерахунок матриці мікшування,</text>
+<text x="865.0" y="401.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">аварійний керований спуск</text>
+<rect x="20.0" y="438.0" width="940.0" height="98.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="110.0" y="483.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Аеродинаміка</text>
+<text x="110.0" y="499.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">та сервоприводи</text>
+<text x="295.0" y="475.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">Заклинювання елерона,</text>
+<text x="295.0" y="491.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">засмічення трубки Піто,</text>
+<text x="295.0" y="507.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle">обмерзання датчика швидкості</text>
+<text x="485.0" y="475.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">HIL_ACTUATOR_CONTROLS /</text>
+<text x="485.0" y="491.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">Dynamic Pressure Scaling</text>
+<text x="485.0" y="507.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle">(фіксація кута, нульовий тиск)</text>
+<text x="675.0" y="475.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle">Синтетичний оцінювач вітру,</text>
+<text x="675.0" y="491.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle">монітор відхилення від траєкторії,</text>
+<text x="675.0" y="507.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle">детектор звалювання (Stall)</text>
+<text x="865.0" y="475.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">Синтетична швидкість за GNSS,</text>
+<text x="865.0" y="491.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">компенсація залишку кермами,</text>
+<text x="865.0" y="507.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="700">викид рятувального парашута</text>
+</svg>

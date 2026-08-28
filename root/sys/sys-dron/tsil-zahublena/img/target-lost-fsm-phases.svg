@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 920 500" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="920" height="500" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="0.0" y="0.0" width="900.0" height="480.0" rx="0" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кінцевий автомат (FSM) відновлення супроводу та відмови від цілі</text>
+<rect x="40.0" y="70.0" width="230.0" height="150.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="155.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">1. TRACKING (Супровід)</text>
+<line x1="50.0" y1="106.0" x2="260.0" y2="106.0" stroke="#27ae60" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="55.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Прямий візуальний контакт</text>
+<text x="55.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Оновлення EKF цілі (30–60 Гц)</text>
+<text x="55.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Оцінка швидкості [v_x, v_y, v_z]</text>
+<text x="55.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Збереження Re-ID дескриптора</text>
+<text x="55.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">• Коваріація похибки P мінімальна</text>
+<rect x="335.0" y="70.0" width="245.0" height="150.0" rx="8" fill="#eff6ff" stroke="#2457d6" stroke-width="2.0"/>
+<text x="457.5" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">2. COAST (Екстраполяція)</text>
+<line x1="345.0" y1="106.0" x2="570.0" y2="106.0" stroke="#2457d6" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="350.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Таймаут T_coast: 0.5–2.0 с</text>
+<text x="350.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Рух камери за вектором v_last</text>
+<text x="350.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Прогноз позиції: p_k = p_0 + v·Δt</text>
+<text x="350.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Розширення стробу Махаланобіса</text>
+<text x="350.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">• Очікування виходу з оклюзії</text>
+<rect x="640.0" y="70.0" width="220.0" height="150.0" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="2.0"/>
+<text x="750.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">3. SEARCH (Пошук)</text>
+<line x1="650.0" y1="106.0" x2="850.0" y2="106.0" stroke="#d97706" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="655.0" y="128.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Таймаут T_search: 2–10 с</text>
+<text x="655.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Оптичний Zoom-out (FOV+)</text>
+<text x="655.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Спіральне/секторне сканування</text>
+<text x="655.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Фільтрація Re-ID та Gate</text>
+<text x="655.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="start">• Збільшення висоти огляду</text>
+<rect x="335.0" y="295.0" width="245.0" height="140.0" rx="8" fill="#fef2f2" stroke="#c0392b" stroke-width="2.0"/>
+<text x="457.5" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">4. DISENGAGED / FAILSAFE</text>
+<line x1="345.0" y1="331.0" x2="570.0" y2="331.0" stroke="#c0392b" stroke-width="1.0" stroke-dasharray="2,2"/>
+<text x="350.0" y="353.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• Повна втрата цілі (Timeout)</text>
+<text x="350.0" y="373.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• LOITER: зависання в точці</text>
+<text x="350.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• MISSION RESUME: далі за WPT</text>
+<text x="350.0" y="413.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">• RTL: повернення на точку старту</text>
+<line x1="270.0" y1="115.0" x2="335.0" y2="115.0" stroke="#2457d6" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="302.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">Зрив детекції</text>
+<text x="302.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">score &lt; γ_conf</text>
+<line x1="335.0" y1="160.0" x2="270.0" y2="160.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="302.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Re-acquired</text>
+<text x="302.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">d_M &lt; γ &amp; S_app &gt; γ</text>
+<line x1="580.0" y1="115.0" x2="640.0" y2="115.0" stroke="#d97706" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="610.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="middle" font-weight="700">t &gt; T_coast</text>
+<text x="610.0" y="127.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(0.5–2.0 с)</text>
+<line x1="750.0" y1="70.0" x2="750.0" y2="45.0" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="4,2"/>
+<line x1="750.0" y1="45.0" x2="155.0" y2="45.0" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="4,2"/>
+<line x1="155.0" y1="45.0" x2="155.0" y2="70.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="450.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Перезахоплення під час пошуку (Строб + Re-ID валідація)</text>
+<line x1="750.0" y1="220.0" x2="750.0" y2="365.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="750.0" y1="365.0" x2="580.0" y2="365.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="670.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">t &gt; T_search (Таймаут пошуку)</text>
+<text x="670.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Ціль не знайдена → Failsafe</text>
+<line x1="335.0" y1="365.0" x2="155.0" y2="365.0" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+<line x1="155.0" y1="365.0" x2="155.0" y2="220.0" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="155.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Нове цілевказання / Скидання</text>
+<rect x="40.0" y="445.0" width="820.0" height="25.0" rx="4" fill="#f4f6f8" stroke="#333333" stroke-width="1.0"/>
+<text x="450.0" y="461.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Детерміновані фази: безперервний контроль безпеки, захист від безконтрольного крутіння та зависання</text>
+</svg>

@@ -180,11 +180,17 @@
           "slug": "homography",
           "title": "Гомографія: перетворення площини в площину",
           "basic": {
-            "status": "pending"
+            "status": "recheck"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-homography-estimator.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "pose-estimation",
@@ -233,6 +239,16 @@
           "title": "Оптимізація пучком (bundle adjustment)",
           "basic": {
             "status": "pending"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "epipolar-geometry",
+          "title": "Епіполярна геометрія та ректифікація стереопари: фундаментальна матриця, епіполярні лінії та 1D-пошук відповідностей",
+          "basic": {
+            "status": "empty"
           },
           "detailed": {
             "status": "pending"
