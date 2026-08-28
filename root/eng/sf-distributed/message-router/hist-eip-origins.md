@@ -22,21 +22,7 @@
 
 У перших системах на базі MQSeries та JMS логіку розгалуження потоків кодували безпосередньо всередині відправників. Коли банківський сервіс чекауту створював подію «Оплата замовлення завершена», його код перетворювався на нагромадження жорстких викликів черг:
 
-```java
-// Жорстке зчеплення всередині відправника (антипатерн)
-queueSession.createProducer("QUEUE_FRAUD_INSPECT").send(msg);
-queueSession.createProducer("QUEUE_LEDGER_ACCOUNTING").send(msg);
-
-if (customer.getCountry().equals("DE")) {
-    queueSession.createProducer("QUEUE_SEPA_FRANKFURT").send(msg);
-} else if (customer.getCountry().equals("US")) {
-    queueSession.createProducer("QUEUE_FEDWIRE_NEWYORK").send(msg);
-}
-
-if (order.getTotalAmount() > 50000) {
-    queueSession.createProducer("QUEUE_EXECUTIVE_AUDIT").send(msg);
-}
-```
+:::code hist-eip-origins/java/pastka-spaheti-intehratsii.java
 
 Щойно аналітичний відділ просив додати нову чергу для навчання моделей оцінки попиту, або фінансовий регулятор змінював правила аудиту валютних угод, інженери мусили змінювати код самого сервісу чекауту, проходити повне регресійне тестування і здійснювати ризикований повторний реліз критичного платіжного моноліту.
 
@@ -85,20 +71,7 @@ if (order.getTotalAmount() > 50000) {
 
 Головна інновація Apache Camel полягала в тому, що він надав розробникам чисту декларативну предметно-орієнтовану мову (DSL), реалізовану безпосередньо мовами Java, Scala та Kotlin, яка буквально повторювала графічну нотацію каталогу Хопа:
 
-```java
-// Лаконічний DSL Apache Camel, що повторює EIP
-from("kafka:orders.incoming")
-    .routeId("OrderDispatchPipeline")
-    .wireTap("direct:auditLog")
-    .choice()
-        .when(header("region").isEqualTo("EU"))
-            .to("kafka:orders.eu.processing")
-        .when(header("region").isEqualTo("US"))
-            .to("kafka:orders.us.processing")
-        .otherwise()
-            .to("kafka:orders.unrouted.dlq")
-    .end();
-```
+:::code hist-eip-origins/java/povernennia-do-vytokiv.java
 
 Коли у 2014 році Мартін Фаулер і Джеймс Льюїс сформулювали маніфест мікросервісної архітектури, одним із ключових правил вони проголосили принцип: **«Розумні кінцеві точки, прості канали зв'язку» (Smart endpoints and dumb pipes)**.
 

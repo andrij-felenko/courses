@@ -13,53 +13,8 @@
 ### Метадані активності (Activity Definition)
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    char step_id[64];
-    char activity_name[64];
-    char queue_name[64];
-    uint32_t timeout_seconds;
-    uint32_t heartbeat_timeout_seconds;
-    uint32_t max_retries;
-    double backoff_coefficient;
-    bool is_compensation;
-} ActivityMetadata;
-
-typedef struct {
-    char execution_id[64];
-    char workflow_id[64];
-    uint32_t attempt_number;
-    const char *payload_json;
-    size_t payload_len;
-} ActivityTaskContext;
-```
-```cpp
-#include <string>
-#include <chrono>
-#include <cstdint>
-#include <string_view>
-
-struct ActivityMetadata {
-    std::string step_id;
-    std::string activity_name;
-    std::string queue_name;
-    std::chrono::seconds timeout{30};
-    std::chrono::seconds heartbeat_timeout{5};
-    uint32_t max_retries{5};
-    double backoff_coefficient{2.0};
-    bool is_compensation{false};
-};
-
-struct ActivityTaskContext {
-    std::string execution_id;
-    std::string workflow_id;
-    uint32_t attempt_number{1};
-    std::string_view payload_json;
-};
-```
+:::code api-orchestrator-contracts/c/main.c
+:::code api-orchestrator-contracts/cpp/main.cpp
 :::
 
 #### Опис полів метаданих активності:

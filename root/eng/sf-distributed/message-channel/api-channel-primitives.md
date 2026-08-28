@@ -78,40 +78,8 @@ channel_destroy()  Дозволено       Заборонено   Заборо�
 ### 2.1. Конфігурація, створення та знищення каналу
 
 :::tabs
-```c
-typedef struct msg_channel msg_channel_t;
-
-typedef struct {
-    size_t capacity;              // Максимальна кількість елементів у буфері (0 для Rendezvous)
-    size_t max_message_size;      // Максимальний розмір корисного навантаження (байтів)
-    uint32_t flags;               // Бітові прапорці конфігурації
-    uint32_t watermark_high;      // Поріг активації зворотного тиску (кількість msg)
-    uint32_t watermark_low;       // Поріг відновлення прийому даних
-} channel_config_t;
-
-int channel_open(msg_channel_t **chan_out, const channel_config_t *config);
-int channel_close(msg_channel_t *chan);
-int channel_destroy(msg_channel_t *chan);
-```
-```cpp
-#include <cstddef>
-#include <cstdint>
-#include <expected>
-#include <memory>
-
-struct ChannelConfig {
-    std::size_t capacity{1024};
-    std::size_t max_message_size{65536};
-    std::uint32_t flags{0};
-    std::uint32_t watermark_high{819};
-    std::uint32_t watermark_low{205};
-};
-
-class MessageChannel;
-
-[[nodiscard]] std::expected<std::unique_ptr<MessageChannel>, int>
-open_channel(const ChannelConfig& config);
-```
+:::code api-channel-primitives/c/2-1-konfihuratsiia.h
+:::code api-channel-primitives/cpp/2-1-konfihuratsiia.cpp
 :::
 
 #### Детальний аналіз параметрів та гарантій:
@@ -128,41 +96,8 @@ open_channel(const ChannelConfig& config);
 ### 2.2. Примітиви публікації (Producer Interface)
 
 :::tabs
-```c
-typedef struct {
-    const void *payload;         // Вказівник на бінарні дані повідомлення
-    size_t length;               // Довжина даних у байтах
-    uint64_t correlation_id;     // Ідентифікатор запиту для зв'язування відповіді
-    uint32_t message_type;       // Ідентифікатор схеми (Datatype Channel ID)
-    uint32_t flags;              // Прапорці доставки (наприклад, PERSISTENT, URGENT)
-} message_t;
-
-int channel_send(msg_channel_t *chan, const message_t *msg);
-int channel_try_send(msg_channel_t *chan, const message_t *msg);
-int channel_send_timeout(msg_channel_t *chan, const message_t *msg, uint32_t timeout_ms);
-```
-```cpp
-#include <chrono>
-#include <cstddef>
-#include <cstdint>
-#include <expected>
-#include <span>
-
-struct OutgoingMessage {
-    std::span<const std::byte> payload;
-    std::uint64_t correlation_id{0};
-    std::uint32_t message_type{0};
-    std::uint32_t flags{0};
-};
-
-class IChannelSender {
-public:
-    virtual ~IChannelSender() = default;
-    virtual std::expected<void, int> send(const OutgoingMessage& msg) = 0;
-    virtual std::expected<void, int> try_send(const OutgoingMessage& msg) = 0;
-    virtual std::expected<void, int> send_timeout(const OutgoingMessage& msg, std::chrono::milliseconds timeout) = 0;
-};
-```
+:::code api-channel-primitives/c/2-2-prymityvy-publikatsii.h
+:::code api-channel-primitives/cpp/2-2-prymityvy-publikatsii.cpp
 :::
 
 #### Семантика виконання та володіння даними:
@@ -176,44 +111,8 @@ public:
 ### 2.3. Примітиви вичитування (Consumer Interface)
 
 :::tabs
-```c
-typedef struct {
-    void *payload;               // Виділений буфер для запису отриманих даних
-    size_t buffer_capacity;      // Доступна місткість буфера отримувача
-    size_t received_length;      // Реальна довжина прочитаного повідомлення
-    uint64_t correlation_id;     // Скопійований correlation_id відправника
-    uint32_t message_type;       // Отриманий ідентифікатор типу даних
-    uint64_t timestamp_ns;       // Часова мітка збереження в каналі (UNIX epoch ns)
-} message_recv_t;
-
-int channel_recv(msg_channel_t *chan, message_recv_t *msg_out);
-int channel_try_recv(msg_channel_t *chan, message_recv_t *msg_out);
-int channel_recv_timeout(msg_channel_t *chan, message_recv_t *msg_out, uint32_t timeout_ms);
-```
-```cpp
-#include <chrono>
-#include <cstddef>
-#include <cstdint>
-#include <expected>
-#include <optional>
-#include <span>
-#include <vector>
-
-struct ReceivedMessage {
-    std::vector<std::byte> payload;
-    std::uint64_t correlation_id{0};
-    std::uint32_t message_type{0};
-    std::uint64_t timestamp_ns{0};
-};
-
-class IChannelReceiver {
-public:
-    virtual ~IChannelReceiver() = default;
-    virtual std::expected<ReceivedMessage, int> recv() = 0;
-    virtual std::expected<std::optional<ReceivedMessage>, int> try_recv() = 0;
-    virtual std::expected<ReceivedMessage, int> recv_timeout(std::chrono::milliseconds timeout) = 0;
-};
-```
+:::code api-channel-primitives/c/2-3-prymityvy.h
+:::code api-channel-primitives/cpp/2-3-prymityvy.cpp
 :::
 
 #### Захист від пошкодження пам'яті споживача:
@@ -240,29 +139,7 @@ typedef struct {
 int channel_send_iov(msg_channel_t *chan, const message_iov_t *msg_iov);
 int channel_recv_iov(msg_channel_t *chan, struct iovec *iov, size_t iovcnt, size_t *total_bytes_read);
 ```
-```cpp
-#include <cstddef>
-#include <cstdint>
-#include <expected>
-#include <span>
-
-struct IoVectorChunk {
-    std::span<const std::byte> data;
-};
-
-struct VectorizedMessage {
-    std::span<const IoVectorChunk> chunks;
-    std::uint64_t correlation_id{0};
-    std::uint32_t message_type{0};
-};
-
-class IVectorizedChannel {
-public:
-    virtual ~IVectorizedChannel() = default;
-    virtual std::expected<void, int> send_iov(const VectorizedMessage& msg) = 0;
-    virtual std::expected<std::size_t, int> recv_iov(std::span<std::span<std::byte>> buffers) = 0;
-};
-```
+:::code api-channel-primitives/cpp/2-4-vektornyi-vvid-vyvid.cpp
 :::
 
 Векторний запис дозволяє склеювати заголовок повідомлення, згенерований одним модулем, та бінарне корисне навантаження зі статичної пам'яті без попереднього створення проміжного суміжного буфера.
@@ -272,51 +149,8 @@ public:
 ### 2.5. Управління зворотним тиском та спостережуваність
 
 :::tabs
-```c
-typedef enum {
-    FLOW_CONTROL_RESUME = 0,     // Відновити прийом нових пакетів
-    FLOW_CONTROL_PAUSE  = 1      // Призупинити продюсерів (активувати зворотний тиск)
-} flow_signal_t;
-
-typedef struct {
-    uint64_t messages_sent;      // Загальна кількість успішно надісланих повідомлень
-    uint64_t messages_received;  // Загальна кількість вичитаних повідомлень
-    uint64_t bytes_transferred;  // Загальний обсяг переданих даних
-    uint32_t current_depth;      // Поточна кількість елементів у буфері
-    uint32_t waiting_producers;  // Кількість заблокованих потоків-відправників
-    uint32_t waiting_consumers;  // Кількість заблокованих потоків-отримувачів
-    uint64_t high_watermark_hits;// Лічильник спрацювань зворотного тиску
-} channel_metrics_t;
-
-int channel_set_flow(msg_channel_t *chan, flow_signal_t signal);
-int channel_get_metrics(const msg_channel_t *chan, channel_metrics_t *metrics_out);
-```
-```cpp
-#include <cstdint>
-#include <expected>
-
-enum class FlowSignal : std::uint8_t {
-    Resume = 0,
-    Pause  = 1
-};
-
-struct ChannelMetrics {
-    std::uint64_t messages_sent{0};
-    std::uint64_t messages_received{0};
-    std::uint64_t bytes_transferred{0};
-    std::uint32_t current_depth{0};
-    std::uint32_t waiting_producers{0};
-    std::uint32_t waiting_consumers{0};
-    std::uint64_t high_watermark_hits{0};
-};
-
-class IChannelDiagnostics {
-public:
-    virtual ~IChannelDiagnostics() = default;
-    virtual std::expected<void, int> set_flow(FlowSignal signal) = 0;
-    [[nodiscard]] virtual ChannelMetrics get_metrics() const = 0;
-};
-```
+:::code api-channel-primitives/c/2-5-upravlinnia-zvorotnym.h
+:::code api-channel-primitives/cpp/2-5-upravlinnia-zvorotnym.cpp
 :::
 
 Ці функції дозволяють моніторинговим агентам (Prometheus, OpenTelemetry) знімати метрики глибини черги без зупинки основного конвеєра та програмно активувати аварійне гальмування при перевантаженні споживачів.

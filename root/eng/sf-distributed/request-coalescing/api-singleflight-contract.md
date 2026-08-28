@@ -43,37 +43,7 @@ func (g *Group) Forget(key string)
 
 Нижче наведено ідіоматичний шаблон обробки паралельних запитів із захистом від клієнтських обривів та контролем дедлайнів:
 
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "time"
-    "golang.org/x/sync/singleflight"
-)
-
-var sf singleflight.Group
-
-func fetchUserData(ctx context.Context, userID string) (string, error) {
-    ch := sf.DoChan(userID, func() (any, error) {
-        // Важке звернення до бази даних або мікросервісу
-        time.Sleep(100 * time.Millisecond)
-        return fmt.Sprintf("Data for %s", userID), nil
-    })
-
-    select {
-    case <-ctx.Done():
-        // Клієнтський таймаут: не блокуємо поточного викликача
-        return "", ctx.Err()
-    case res := <-ch:
-        if res.Err != nil {
-            return "", res.Err
-        }
-        return res.Val.(string), nil
-    }
-}
-```
+:::code api-singleflight-contract/go/main.go
 
 ## Конфігурація NGINX: директиви proxy_cache_lock
 
@@ -138,27 +108,7 @@ typed_config:
 
 Бібліотека `DataLoader` вирішує задачу об'єднання та пакетування однакових запитів у середовищах із циклом подій (англ. *event loop*), зокрема в серверах GraphQL на базі Node.js. Вона координує асинхронні звернення, групуючи індивідуальні виклики в один пакетний запит протягом одного такту черги мікротасок.
 
-```typescript
-import DataLoader from 'dataloader';
-
-interface User {
-    id: string;
-    name: string;
-}
-
-// Функція пакетного завантаження
-async function batchGetUsers(ids: readonly string[]): Promise<(User | Error)[]> {
-    const users = await db.users.findMany({ where: { id: { in: [...ids] } } });
-    const userMap = new Map(users.map(u => [u.id, u]));
-    return ids.map(id => userMap.get(id) || new Error(`User ${id} not found`));
-}
-
-const userLoader = new DataLoader<string, User>(batchGetUsers, {
-    cache: true,              // Дедуплікація однакових ключів у межах одного такту
-    maxBatchSize: 100,        // Максимальна кількість ключів в одному SQL-запиті
-    batchScheduleFn: callback => setTimeout(callback, 5) // Часове вікно збирання 5 мс
-});
-```
+:::code api-singleflight-contract/ts/index.ts
 
 ### Контракт методів DataLoader
 

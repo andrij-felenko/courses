@@ -29,7 +29,8 @@
           "proj": [
             {
               "file": "proj-rpc-resilience.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -40,24 +41,29 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-remote-facade-contract.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ],
           "hist": [
             {
               "file": "hist-remote-facade-origins.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-batch-aggregation-pipeline.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -80,19 +86,23 @@
           "hist": [
             {
               "file": "hist-chandra-toueg.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-completeness-and-accuracy.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-swim-failure-detector.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -114,19 +124,23 @@
           "math": [
             {
               "file": "math-phi-derivation-and-scale.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-phi-accrual-detector.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-phi-detector-contract.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         },
@@ -148,19 +162,23 @@
           "comp": [
             {
               "file": "comp-active-vs-passive-probing.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-resilient-health-endpoint.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-health-probes-spec.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -188,7 +206,8 @@
           "proj": [
             {
               "file": "proj-soft-state-registry.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -223,7 +242,8 @@
           "proj": [
             {
               "file": "proj-deadline-propagation.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -252,7 +272,8 @@
           "proj": [
             {
               "file": "proj-resilient-retry-client.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -274,19 +295,24 @@
           "math": [
             {
               "file": "math-sliding-window-statistics.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-lockfree-circuit-breaker.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-circuit-breaker-config.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         },
@@ -308,19 +334,23 @@
           "math": [
             {
               "file": "math-bulkhead-sizing.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-resilient-bulkhead.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-bulkhead-config.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -331,7 +361,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -342,13 +373,16 @@
           "proj": [
             {
               "file": "proj-resilient-policy-enforcer.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-degradation-policy.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         }

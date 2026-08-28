@@ -62,21 +62,7 @@ FOR UPDATE SKIP LOCKED;
 
 Для розробника це виглядає як магія: можна написати звичайну функцію з послідовними рядками коду:
 
-```go
-func OnboardingWorkflow(ctx workflow.Context, userID string) error {
-    // Крок 1: Миттєва дія
-    err := workflow.ExecuteActivity(ctx, ChargeFeeActivity, userID, 500).Get(ctx, nil)
-    if err != nil {
-        return err
-    }
-
-    // Крок 2: Очікування зовнішньої дії тривалістю 3 дні
-    workflow.Sleep(ctx, 3 * 24 * time.Hour)
-
-    // Крок 3: Наступна дія після триденного сну
-    return workflow.ExecuteActivity(ctx, SendWelcomeEmailActivity, userID).Get(ctx, nil)
-}
-```
+:::code durable-workflows-d/go/sutnist-paradyhmy-durable.go
 
 Якщо під час триденного сну сервер згорить, контейнер перезапуститься 50 разів, а дата-центр мігрує в інший регіон, на четвертий день функція продовжить виконання **рівно з рядка виклику `SendWelcomeEmailActivity`**, зберігаючи значення `userID` та успішний статус попереднього списання коштів.
 
@@ -230,50 +216,13 @@ func OnboardingWorkflow(ctx workflow.Context, userID string) error {
 ### 1. Паралельне виконання (Fan-Out / Fan-In)
 Уявімо задачу генерації квартального звіту, де потрібно опитати 100 незалежних філій:
 
-```go
-func GenerateQuarterlyReportWorkflow(ctx workflow.Context, branchIDs []string) (Report, error) {
-    // Створюємо слайс ф'ючерсів
-    futures := make([]workflow.Future, len(branchIDs))
-
-    // Запускаємо 100 активностей паралельно
-    for i, id := range branchIDs {
-        futures[i] = workflow.ExecuteActivity(ctx, FetchBranchDataActivity, id)
-    }
-
-    // Очікуємо завершення всіх задач (Fan-In / Join)
-    results := make([]BranchData, len(branchIDs))
-    for i, f := range futures {
-        err := f.Get(ctx, &results[i])
-        if err != nil {
-            return Report{}, err
-        }
-    }
-
-    return aggregateReport(results), nil
-}
-```
+:::code durable-workflows-d/go/1-paralelne-vykonannia-fan.go
 Рушій одночасно помістить 100 задач у чергу, десятки вільних воркерів розберуть їх паралельно, а процес отримає результати, щойно вони будуть готові. При цьому в історії подій буде зафіксовано планування та результати всіх 100 активностей.
 
 ### 2. Змагання асинхронних операцій (Racing Futures / Select)
 Якщо необхідно запросити ціну в трьох конкуруючих постачальників і взяти першу отриману відповідь:
 
-```go
-func FastQuoteWorkflow(ctx workflow.Context) (Quote, error) {
-    selector := workflow.NewSelector(ctx)
-    var winningQuote Quote
-
-    for _, vendor := range []string{"VendorA", "VendorB", "VendorC"} {
-        f := workflow.ExecuteActivity(ctx, RequestQuoteActivity, vendor)
-        selector.AddFuture(f, func(f workflow.Future) {
-            f.Get(ctx, &winningQuote)
-        })
-    }
-
-    // Чекаємо першого переможця
-    selector.Select(ctx)
-    return winningQuote, nil
-}
-```
+:::code durable-workflows-d/go/2-zmahannia-asynkhronnykh.go
 
 ## Пастки детермінізму та керування версіями (Versioning)
 
@@ -311,23 +260,7 @@ func OrderWorkflow(ctx workflow.Context) error {
 
 Для безпечної модифікації коду платформи довговічного виконання надають спеціальний механізм патчування версій:
 
-```go
-// Версія 2 (КОРЕКТНА МІГРАЦІЯ ЧЕРЕЗ GetVersion):
-func OrderWorkflow(ctx workflow.Context) error {
-    // Вказуємо унікальний ID зміни та діапазон версій
-    v := workflow.GetVersion(ctx, "add-address-validation", workflow.DefaultVersion, 1)
-    
-    if v == 1 {
-        // Нові процеси виконають валідацію
-        workflow.ExecuteActivity(ctx, ValidateAddressActivity).Get(ctx, nil)
-    }
-    // Старі процеси з v == DefaultVersion пропустять цей блок і підуть далі
-
-    workflow.ExecuteActivity(ctx, ReserveInventoryActivity).Get(ctx, nil)
-    workflow.ExecuteActivity(ctx, ProcessPaymentActivity).Get(ctx, nil)
-    return nil
-}
-```
+:::code durable-workflows-d/go/bezpechne-versionuvannia.go
 
 Метод `GetVersion` працює за наступним детермінованим алгоритмом:
 1. Якщо в історії процесу вже є маркер версії `"add-address-validation"`, метод повертає записане число `1`.
@@ -346,18 +279,7 @@ func OrderWorkflow(ctx workflow.Context) error {
 
 Для розв'язання цієї проблеми використовується примітив **Continue-As-New**:
 
-```go
-func DevicePollingWorkflow(ctx workflow.Context, deviceState State) error {
-    for i := 0; i < 1000; i++ {
-        // Опитування пристрою та оновлення стану
-        deviceState = pollDevice(ctx, deviceState)
-        workflow.Sleep(ctx, 10 * time.Second)
-    }
-
-    // Досягнуто ліміту ітерацій: перезапуск із чистою історією
-    return workflow.NewContinueAsNewError(ctx, DevicePollingWorkflow, deviceState)
-}
-```
+:::code durable-workflows-d/go/neskinchenni-protsesy-ta.go
 
 Механізм `ContinueAsNew` атомарно завершує поточний життєвий цикл процесу і створює новий процес із тим самим ідентифікатором (`WorkflowID`), передаючи йому накопичений стан `deviceState` як вхідний аргумент. При цьому стара історія подій архівується, а новий процес стартує з абсолютно чистого журналу з першого номера події.
 
@@ -369,48 +291,7 @@ func DevicePollingWorkflow(ctx workflow.Context, deviceState State) error {
 
 У довговічному процесі компенсації реалізуються за допомогою звичайних блоків `try/catch` або списку функцій очищення через `defer`:
 
-```go
-func BookingWorkflow(ctx workflow.Context) (err error) {
-    var compensations []func(workflow.Context)
-
-    // Гарантоване виконання компенсацій у разі виникнення помилки
-    defer func() {
-        if err != nil {
-            // Створюємо ізольований контекст, який ігнорує скасування батька
-            disconnectedCtx, _ := workflow.NewDisconnectedContext(ctx)
-            for i := len(compensations) - 1; i >= 0; i-- {
-                compensations[i](disconnectedCtx)
-            }
-        }
-    }()
-
-    // Крок 1: Бронювання готелю
-    err = workflow.ExecuteActivity(ctx, BookHotelActivity).Get(ctx, nil)
-    if err != nil {
-        return err
-    }
-    compensations = append(compensations, func(c workflow.Context) {
-        workflow.ExecuteActivity(c, CancelHotelActivity)
-    })
-
-    // Крок 2: Оренда автомобіля
-    err = workflow.ExecuteActivity(ctx, RentCarActivity).Get(ctx, nil)
-    if err != nil {
-        return err // Автоматично викличе CancelHotelActivity через defer
-    }
-    compensations = append(compensations, func(c workflow.Context) {
-        workflow.ExecuteActivity(c, CancelCarActivity)
-    })
-
-    // Крок 3: Викуп авіаквитків
-    err = workflow.ExecuteActivity(ctx, BookFlightActivity).Get(ctx, nil)
-    if err != nil {
-        return err // Викличе CancelCarActivity, а потім CancelHotelActivity
-    }
-
-    return nil
-}
-```
+:::code durable-workflows-d/go/rozpodilena-kompensatsiia.go
 
 Зверніть увагу на використання `workflow.NewDisconnectedContext`. Якщо процес було скасовано ззовні або його батьківський контекст отримав таймаут, звичайний контекст буде заблоковано. Відокремлений контекст гарантує, що компенсаційні дії обов'язково виконаються до кінця навіть у процесі, що скасовується.
 

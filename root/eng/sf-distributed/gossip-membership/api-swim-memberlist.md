@@ -42,30 +42,8 @@
 Заголовок зонда має фіксовану структуру полів, оптимізовану для швидкого розбору безпосередньо в буфері отримання ядра:
 
 :::tabs
-```c
-#pragma pack(push, 1)
-struct swim_probe_header {
-    uint16_t magic;          /* Магічне число протоколу: 0x5357 ("SW") */
-    uint8_t  msg_type;       /* Тип повідомлення: PING (0x01), ACK (0x02), PING_REQ (0x03) */
-    uint8_t  flags;          /* Бітові прапорці: [0-3] LHM рівень, [4] IPv6, [5-7] резерв */
-    uint64_t seq_no;         /* Монотонний номер послідовності зонду для точного матчингу Ack */
-    uint32_t target_ip;      /* IPv4-адреса цілі (використовується в PING_REQ, інакше 0) */
-    uint16_t target_port;    /* Порт цілі (використовується в PING_REQ, інакше 0) */
-};
-#pragma pack(pop)
-```
-```cpp
-#pragma pack(push, 1)
-struct alignas(1) SwimProbeHeader {
-    uint16_t magic{0x5357};  // Магічне число протоколу ("SW")
-    uint8_t  msg_type{0};    // Код операції
-    uint8_t  flags{0};       // Рівень LHM та службові прапорці
-    uint64_t seq_no{0};      // Монотонний ідентифікатор зонду
-    uint32_t target_ip{0};   // IPv4 адреса цілі
-    uint16_t target_port{0}; // Порт цілі
-};
-#pragma pack(pop)
-```
+:::code api-swim-memberlist/c/polia-zaholovka-povidomlen.c
+:::code api-swim-memberlist/cpp/polia-zaholovka-povidomlen.cpp
 :::
 
 Поле `flags` дозволяє передавати метадані про стан здоров'я відправника. Молодші 4 біти містять поточне значення локального множника здоров'я (Local Health Multiplier, LHM) у діапазоні від 0 до 8. Якщо одержувач бачить, що відправник має високий LHM, він автоматично коригує свої очікування щодо часу затримки зворотного зв'язку.
@@ -198,152 +176,13 @@ struct alignas(1) SwimGossipItem {
 ### Структури конфігурації та представлення вузла
 
 :::tabs
-```c
-typedef enum {
-    SWIM_NODE_ALIVE   = 0,
-    SWIM_NODE_SUSPECT = 1,
-    SWIM_NODE_DEAD    = 2,
-    SWIM_NODE_LEFT    = 3
-} swim_node_status_t;
-
-typedef struct {
-    uint32_t ip;                    /* Мережева IPv4-адреса у форматі Network Byte Order */
-    uint16_t port;                  /* UDP-порт для обміну дейтаграмами */
-    uint64_t incarnation;           /* Поточний номер інкарнації вузла */
-    swim_node_status_t status;      /* Поточний статус членства */
-    uint64_t state_change_time_ms;  /* Монотонна часова мітка останньої зміни стану */
-    uint8_t  suspect_confirmations; /* Кількість незалежних підтверджень підозри */
-} swim_member_t;
-
-typedef struct {
-    uint32_t bind_ip;               /* Локальна адреса для прив'язки сокета */
-    uint16_t bind_port;             /* Локальний порт */
-    uint32_t probe_interval_ms;     /* Інтервал між раундами зондування (T_probe) */
-    uint32_t probe_timeout_ms;      /* Таймаут прямої відповіді (T_ack) */
-    uint32_t indirect_checks_k;     /* Кількість посередників для непрямих перевірок */
-    uint32_t suspicion_multiplier;  /* Множник розрахунку максимального часу підозри */
-    uint32_t retransmit_multiplier; /* Множник кількості повторних передач плітки */
-    
-    /* Колбеки сповіщення прикладного коду про зміну топології */
-    void (*on_node_join)(const swim_member_t *member, void *userdata);
-    void (*on_node_leave)(const swim_member_t *member, void *userdata);
-    void (*on_node_failed)(const swim_member_t *member, void *userdata);
-    void (*on_user_message)(const uint8_t *data, size_t len, void *userdata);
-    void *userdata;                 /* Користувацький контекст для передачі в колбеки */
-} swim_config_t;
-```
-```cpp
-#include <cstdint>
-#include <chrono>
-#include <functional>
-#include <string_view>
-#include <span>
-
-namespace swim {
-
-enum class NodeStatus : uint8_t {
-    Alive   = 0,
-    Suspect = 1,
-    Dead    = 2,
-    Left    = 3
-};
-
-struct Member {
-    uint32_t ip{0};
-    uint16_t port{0};
-    uint64_t incarnation{0};
-    NodeStatus status{NodeStatus::Alive};
-    std::chrono::steady_clock::time_point state_change_time;
-    uint8_t suspect_confirmations{0};
-};
-
-struct Config {
-    uint32_t bind_ip{0};
-    uint16_t bind_port{0};
-    std::chrono::milliseconds probe_interval{1000};
-    std::chrono::milliseconds probe_timeout{200};
-    uint32_t indirect_checks_k{3};
-    uint32_t suspicion_multiplier{4};
-    uint32_t retransmit_multiplier{3};
-
-    std::function<void(const Member&)> on_node_join;
-    std::function<void(const Member&)> on_node_leave;
-    std::function<void(const Member&)> on_node_failed;
-    std::function<void(std::span<const uint8_t>)> on_user_message;
-};
-
-} // namespace swim
-```
+:::code api-swim-memberlist/c/struktury-konfihuratsii-ta.h
+:::code api-swim-memberlist/cpp/struktury-konfihuratsii-ta.cpp
 :::
 
 ### Функції керування життєвим циклом вузла
 
 :::tabs
-```c
-/*
- * swim_create - ініціалізує екземпляр вузла, прив'язує неблокуючий UDP-сокет.
- * Повертає вказівник на створений контекст або NULL у разі помилки виділення пам'яті чи сокета.
- */
-swim_context_t* swim_create(const swim_config_t *config);
-
-/*
- * swim_join - підключає поточний вузол до кластера через відому адресу сіда (seed node).
- * Надсилає пакет прямого зондування із прапорцем Join. Повертає 0 у разі успіху, -1 у разі помилки.
- */
-int swim_join(swim_context_t *ctx, uint32_t seed_ip, uint16_t seed_port);
-
-/*
- * swim_step - головна ітерація протокольного циклу.
- * Виконує обробку черги вхідних дейтаграм, відправку зондів за розкладом,
- * перевірку спливання таймерів підозр та пакування пліток у вихідні дейтаграми.
- */
-void swim_step(swim_context_t *ctx);
-
-/*
- * swim_broadcast_user_message - публікує прикладне повідомлення через буфер пліток.
- * Повідомлення автоматично додається до черги ретрансляції та поширюється за O(log N) раундів.
- */
-int swim_broadcast_user_message(swim_context_t *ctx, const uint8_t *data, size_t len);
-
-/*
- * swim_leave - ініціює коректний вихід вузла з кластера.
- * Формує повідомлення LEAVE з найвищим пріоритетом, розсилає його сусідам та закриває дескриптори.
- */
-void swim_leave(swim_context_t *ctx);
-
-/*
- * swim_destroy - зупиняє всі таймери, звільняє сокети та очищає виділену динамічну пам'ять.
- */
-void swim_destroy(swim_context_t *ctx);
-```
-```cpp
-#include <memory>
-#include <expected>
-#include <string>
-#include <span>
-
-namespace swim {
-
-class SwimCluster {
-public:
-    // Фабричний метод ініціалізації екземпляра
-    static std::expected<std::unique_ptr<SwimCluster>, std::string> Create(const Config &config);
-
-    virtual ~SwimCluster() = default;
-
-    // Підключення до кластера через адресу сіда
-    virtual std::expected<void, std::string> Join(uint32_t seed_ip, uint16_t seed_port) = 0;
-
-    // Ітерація протокольного циклу (викликається в таймері або event-loop)
-    virtual void Step() = 0;
-
-    // Публікація прикладних пліток на весь кластер
-    virtual std::expected<void, std::string> BroadcastUserMessage(std::span<const uint8_t> data) = 0;
-
-    // Коректний вихід із кластера (Graceful shutdown)
-    virtual void Leave() = 0;
-};
-
-} // namespace swim
-```
+:::code api-swim-memberlist/c/funktsii-keruvannia.h
+:::code api-swim-memberlist/cpp/funktsii-keruvannia.cpp
 :::

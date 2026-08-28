@@ -6,30 +6,7 @@
 
 Таблиця вихідної скриньки оптимізована для двох режимів експлуатації: високої інтенсивності вставок транзакцій застосунку та швидкого декодування журналом WAL із мінімальним дисковим роздуванням (*table bloat*).
 
-```sql
-CREATE TABLE public.outbox (
-    id             UUID                     NOT NULL,
-    aggregate_type VARCHAR(128)             NOT NULL,
-    aggregate_id   VARCHAR(128)             NOT NULL,
-    type           VARCHAR(256)             NOT NULL,
-    payload        JSONB                    NOT NULL,
-    headers        JSONB                    DEFAULT '{}'::jsonb NOT NULL,
-    created_at     TIMESTAMP WITH TIME ZONE DEFAULT clock_timestamp() NOT NULL,
-    
-    CONSTRAINT pk_outbox PRIMARY KEY (id)
-)
-WITH (
-    autovacuum_vacuum_scale_factor = 0.01,
-    autovacuum_vacuum_threshold = 100,
-    autovacuum_vacuum_cost_limit = 2000,
-    fillfactor = 90
-);
-
--- Індекс для режиму періодичного опитування (Polling Publisher).
--- Якщо ретрансляція здійснюється виключно через CDC (Debezium), індекс не потрібен.
-CREATE INDEX idx_outbox_polling ON public.outbox (created_at ASC)
-    INCLUDE (aggregate_id, aggregate_type, type);
-```
+:::code api-outbox-cdc-config/sql/skhema-reliatsiinoi.sql
 
 ### Фізична організація дискових сторінок та налаштування зберігання
 
@@ -156,25 +133,7 @@ contentType:  "application/json"
 
 Для безпечної роботи реплікаційного слота обліковий запис Debezium повинен володіти суворо обмеженими правами:
 
-```sql
--- 1. Створення службового користувача з правами реплікації
-CREATE USER cdc_debezium_user WITH REPLICATION ENCRYPTED PASSWORD 'strong_password';
-
--- 2. Надання прав на читання схеми та таблиці outbox
-GRANT USAGE ON SCHEMA public TO cdc_debezium_user;
-GRANT SELECT ON TABLE public.outbox TO cdc_debezium_user;
-
--- 3. Створення таблиці для механізму пульсу (heartbeat)
-CREATE TABLE public.outbox_heartbeat (
-    id             INT PRIMARY KEY,
-    last_heartbeat TIMESTAMPTZ NOT NULL
-);
-INSERT INTO public.outbox_heartbeat (id, last_heartbeat) VALUES (1, NOW());
-GRANT SELECT, UPDATE ON TABLE public.outbox_heartbeat TO cdc_debezium_user;
-
--- 4. Створення вибіркової публікації тільки для таблиці outbox
-CREATE PUBLICATION dbz_outbox_publication FOR TABLE public.outbox, public.outbox_heartbeat;
-```
+:::code api-outbox-cdc-config/sql/nalashtuvannia-prav.sql
 
 ## Діагностика та моніторинг реплікаційного слота
 

@@ -96,53 +96,13 @@ Content-Type: application/json
 
 Скрипт зчитує всі ключі з множини `tag:<tag_name>`, видаляє ці ключі з кешу, а потім видаляє сам ключ множини тегу. Для запобігання блокуванню Redis при великій кількості ключів (>10 000) замість важкого `DEL` застосовується неблокуюча команда `UNLINK`.
 
-```lua
--- KEYS[1]: Ключ тегу (наприклад, "tag:item:42")
--- Повертає: Кількість видалених ключів
-
-local tag_key = KEYS[1]
-local keys_to_del = redis.call('SMEMBERS', tag_key)
-
-if #keys_to_del == 0 then
-    redis.call('UNLINK', tag_key)
-    return 0
-end
-
--- Неблокуюче видалення всіх пов'язаних ключів у фоновому потоці Redis
-local deleted_count = redis.call('UNLINK', unpack(keys_to_del))
-
--- Видаляємо сам індексний ключ тегу
-redis.call('UNLINK', tag_key)
-
-return deleted_count
-```
+:::code api-invalidation-protocol/lua/skrypt-1-atomarne.lua
 
 ### Скрипт 2: Атомарний запис із валідацією лізи (`set_if_lease_valid.lua`)
 
 Запобігає гонці застарілого запису (Stale-Read Race), перевіряючи, чи видана читачеві ліза все ще є чинною на момент завершення запиту до бази даних.
 
-```lua
--- KEYS[1]: Ключ кешу (наприклад, "product:42")
--- ARGV[1]: Нове значення (JSON рядок)
--- ARGV[2]: TTL у секундах
--- ARGV[3]: Токен лізи клієнта (lease_token)
-
-local key = KEYS[1]
-local value = ARGV[1]
-local ttl = tonumber(ARGV[2])
-local client_lease = tonumber(ARGV[3])
-local lease_key = "lease:" .. key
-
-local current_lease = tonumber(redis.call('GET', lease_key))
-
--- Якщо ліза в системі змінилася (відбувся запис/інвалідація), відхиляємо запізнілий запис
-if current_lease and current_lease > client_lease then
-    return 0 -- Відхилено: застаріла ліза (захист від Stale-Read Race)
-end
-
-redis.call('SET', key, value, 'EX', ttl)
-return 1 -- Успішно записано
-```
+:::code api-invalidation-protocol/lua/skrypt-2-atomarnyi-zapys.lua
 
 ## 4. Інтерфейс Purge Router (gRPC IDL)
 

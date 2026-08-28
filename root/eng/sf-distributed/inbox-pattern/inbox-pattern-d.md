@@ -99,23 +99,7 @@
 
 У синхронному варіанті вичитування з черги, дедуплікація та бізнес-логіка виконуються безпосередньо в обробнику події в одному потоці виконання:
 
-```sql
-BEGIN TRANSACTION;
-
--- 1. Спроба вставити ідентифікатор повідомлення
-INSERT INTO inbox_messages (message_id, event_type, status, processed_at)
-VALUES ('evt-84920', 'OrderPaid', 'PROCESSED', NOW())
-ON CONFLICT (message_id) DO NOTHING;
-
--- Якщо рядок не вставився (rows_affected == 0), це дублікат:
--- негайно робимо COMMIT або ROLLBACK і шлемо ACK брокеру.
-
--- 2. Виконання бізнес-мутації
-UPDATE accounts SET balance = balance - 500 WHERE user_id = 42;
-INSERT INTO ledger (order_id, amount) VALUES ('ord-99', 500);
-
-COMMIT;
-```
+:::code inbox-pattern-d/sql/1-synkhronnyi-inbox-inline.sql
 
 **Переваги:** Мінімальна затримка реакції (latency) — бізнес-ефект настає миттєво після прийому повідомлення; повна відсутність додаткових фонових процесів, диспетчерів чи внутрішніх черг.
 
@@ -140,23 +124,7 @@ COMMIT;
 
 У сучасних реляційних базах даних (PostgreSQL 9.5+, MySQL 8.0+, Oracle) цю задачу вирішує механізм `FOR UPDATE SKIP LOCKED`. Він дозволяє воркеру заблокувати порцію рядків і водночас наказує іншим воркерам пропускати вже зайняті рядки без очікування:
 
-```sql
-WITH target_batch AS (
-    SELECT message_id
-    FROM inbox_messages
-    WHERE status = 'RECEIVED'
-    ORDER BY created_at ASC
-    LIMIT 10
-    FOR UPDATE SKIP LOCKED
-)
-UPDATE inbox_messages m
-SET status = 'PROCESSING',
-    locked_until = NOW() + INTERVAL '30 seconds',
-    locked_by = 'worker-pod-4'
-FROM target_batch b
-WHERE m.message_id = b.message_id
-RETURNING m.message_id, m.payload;
-```
+:::code inbox-pattern-d/sql/blokuvannia-vybirky-cherez.sql
 
 ![Конкурентна обробка та розподілені лізи в Inbox](img/inbox-concurrency-and-leases.svg)
 *Механіка конкурентної вибірки: вибірка доступних завдань через блокування рядків із пропуском зайнятих унеможливлює стан гонитви між незалежними воркерами.*

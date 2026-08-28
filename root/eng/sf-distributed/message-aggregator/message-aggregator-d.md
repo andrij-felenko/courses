@@ -182,40 +182,7 @@ W_min = R · (Latency_max - Latency_min)
 
 При використанні кластера Redis для збереження стану безстанційних агрегаторів ключовим завданням є уникнення стану гонитви (*Race Condition*). Для цього всі операції над кошиком інкапсулюються в атомарний Lua-скрипт:
 
-```lua
--- Lua-скрипт атомарного додавання та оцінки завершення
-local corr_id = KEYS[1]
-local seq_num = ARGV[1]
-local expected_total = tonumber(ARGV[2])
-local payload = ARGV[3]
-local now_ts = tonumber(ARGV[4])
-
--- 1. Перевірка надгробка
-if redis.call('EXISTS', 'tombstone:' .. corr_id) == 1 then
-    return -1 -- TOMBSTONE_REJECTED
-end
-
--- 2. Дедуплікація та додавання елемента
-local added = redis.call('HSETNX', 'bucket:' .. corr_id, seq_num, payload)
-if added == 0 then
-    return 0 -- DUPLICATE
-end
-
--- 3. Оновлення таймера бездіяльності у Sorted Set
-redis.call('ZADD', 'active_buckets_ttl', now_ts, corr_id)
-
--- 4. Перевірка повноти
-local count = redis.call('HLEN', 'bucket:' .. corr_id)
-if expected_total > 0 and count == expected_total then
-    local items = redis.call('HGETALL', 'bucket:' .. corr_id)
-    redis.call('DEL', 'bucket:' .. corr_id)
-    redis.call('ZREM', 'active_buckets_ttl', corr_id)
-    redis.call('SETEX', 'tombstone:' .. corr_id, 3600, '1')
-    return items -- Повернення повного комплекту для емісії
-end
-
-return 1 -- Накопичення триває
-```
+:::code message-aggregator-d/lua/main.lua
 
 Використання впорядкованої множини (*Sorted Set*) `active_buckets_ttl` дозволяє фоновому процесу-прибиральнику знаходити прострочені дедлайни за логарифмічний час за допомогою команди `ZRANGEBYSCORE active_buckets_ttl 0 (now - timeout_ms) LIMIT 0 100`, виключаючи необхідність повного перебору ключів бази даних.
 
@@ -223,24 +190,7 @@ return 1 -- Накопичення триває
 
 У транзакційних системах із підвищеними вимогами до аудиту (банківські шлюзи, бухгалтерські реєстри) агрегація реалізується на базі таблиць PostgreSQL. Для захисту від паралельних конфліктів застосовується індекс унікальності:
 
-```sql
-CREATE TABLE aggregation_items (
-    correlation_id VARCHAR(64) NOT NULL,
-    sequence_number BIGINT NOT NULL,
-    payload JSONB NOT NULL,
-    received_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    PRIMARY KEY (correlation_id, sequence_number)
-);
-
-CREATE TABLE aggregation_sessions (
-    correlation_id VARCHAR(64) PRIMARY KEY,
-    expected_total BIGINT,
-    items_count BIGINT DEFAULT 0,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    last_activity TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    status VARCHAR(20) DEFAULT 'COLLECTING'
-);
-```
+:::code message-aggregator-d/sql/main.sql
 
 Вставка елемента здійснюється з умовою `ON CONFLICT (correlation_id, sequence_number) DO NOTHING`. Фоновий воркер для обробки прострочених сесій використовує неблокуюче сканування `SELECT correlation_id FROM aggregation_sessions WHERE status = 'COLLECTING' AND last_activity < NOW() - INTERVAL '5 seconds' FOR UPDATE SKIP LOCKED LIMIT 50`, що дозволяє десяткам паралельних потоків обробляти тайм-аути без взаємного блокування.
 

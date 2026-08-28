@@ -9,100 +9,8 @@
 Усі числові поля багатобайтових заголовків передаються у стандартному мережному порядку байтів (Big-Endian). Перед відправкою середовище виконує конвертацію через `htons()` та `htonl()`, а при отриманні — через `ntohs()` та `ntohl()`, що гарантує коректну роботу в гетерогенних кластерах із різною архітектурою процесорів.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-#define DSM_PAGE_SIZE       4096
-#define DSM_MAX_NODES       64
-#define DSM_MAX_CHUNKS      128
-
-typedef enum {
-    DSM_SUCCESS             =  0,
-    DSM_ERR_INVALID_PARAM   = -1,
-    DSM_ERR_NO_MEMORY       = -2,
-    DSM_ERR_MPROTECT_FAILED = -3,
-    DSM_ERR_SIGNAL_FAILED   = -4,
-    DSM_ERR_OUT_OF_BOUNDS   = -5,
-    DSM_ERR_BUFFER_OVERFLOW = -6
-} dsm_status_t;
-
-typedef enum {
-    DSM_PAGE_INVALID = 0,   /* PROT_NONE: байти відсутні або застарілі */
-    DSM_PAGE_READ_ONLY,     /* PROT_READ: чистий стан, читання без збоїв */
-    DSM_PAGE_DIRTY_TWINNED  /* PROT_READ|WRITE: активний двійник, дозволено запис */
-} dsm_page_state_t;
-
-/* Заголовок неперервного сегмента відмінностей всередині 4 КБ сторінки */
-typedef struct __attribute__((packed)) {
-    uint16_t offset;        /* Зсув від початку сторінки (0 .. 4095) */
-    uint16_t length;        /* Довжина модифікованого діапазону в байтах (1 .. 4096) */
-} dsm_diff_header_t;
-
-/* Структура бінарного пакета різниці сторінки */
-typedef struct {
-    uint32_t page_id;       /* Глобальний логічний індекс сторінки */
-    uint32_t epoch_id;      /* Індекс часового інтервалу / епохи вузла-автора */
-    uint16_t chunk_count;   /* Кількість окремих змінених діапазонів */
-    uint16_t data_bytes;    /* Сумарний розмір корисних байтів даних */
-    uint8_t  payload[DSM_PAGE_SIZE]; /* Буфер заголовків dsm_diff_header_t та сирих даних */
-} dsm_diff_packet_t;
-
-/* Конфігурація ініціалізації середовища DSM */
-typedef struct {
-    size_t   shared_heap_size;   /* Загальний розмір спільного адресного простору в байтах */
-    uint32_t node_id;            /* Унікальний ідентифікатор локального вузла (0 .. DSM_MAX_NODES-1) */
-    uint32_t total_nodes;        /* Загальна кількість вузлів у кластері */
-    bool     enable_simd_diff;   /* Прапорець активації AVX2/AVX-512 прискорення */
-} dsm_config_t;
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <span>
-#include <vector>
-#include <system_error>
-
-constexpr size_t DsmPageSize = 4096;
-constexpr size_t DsmMaxNodes = 64;
-constexpr size_t DsmMaxChunks = 128;
-
-enum class DsmErrorCode : int {
-    Success = 0,
-    InvalidParam = -1,
-    NoMemory = -2,
-    MprotectFailed = -3,
-    SignalFailed = -4,
-    OutOfBounds = -5,
-    BufferOverflow = -6
-};
-
-enum class PageAccessState : uint8_t {
-    Invalid = 0,
-    ReadOnly = 1,
-    DirtyTwinned = 2
-};
-
-struct alignas(uint16_t) DiffChunkHeader {
-    uint16_t offset{0};
-    uint16_t length{0};
-};
-
-struct DiffPacket {
-    uint32_t pageId{0};
-    uint32_t epochId{0};
-    uint16_t chunkCount{0};
-    std::vector<std::byte> payload;
-};
-
-struct DsmEngineConfig {
-    size_t sharedHeapSize{1024 * 1024 * 64};
-    uint32_t nodeId{0};
-    uint32_t totalNodes{1};
-    bool enableSimdAcceleration{true};
-};
-```
+:::code api-dsm-runtime/c/bazovi-typy-danykh-ta.c
+:::code api-dsm-runtime/cpp/bazovi-typy-danykh-ta.cpp
 :::
 
 ## Організація адресного простору та вирівнювання
@@ -120,19 +28,7 @@ mmap(DSM_BASE_ADDRESS, config->shared_heap_size, PROT_NONE, MAP_PRIVATE | MAP_AN
 Ініціалізація та демонтаж середовища відповідають за безпечну інтеграцію з ядром операційної системи, реєстрацію розширених обробників сигналів та формування пулів двійників.
 
 :::tabs
-```c
-/* Ініціалізація середовища DSM, пулу двійників та обробника SIGSEGV */
-dsm_status_t dsm_init(const dsm_config_t *config);
-
-/* Виділення спільного діапазону пам'яті */
-void* dsm_alloc_shared(size_t size_bytes);
-
-/* Звільнення виділеної спільної пам'яті */
-void dsm_free_shared(void *ptr);
-
-/* Демонтаж середовища DSM та відновлення системних обробників сигналів */
-void dsm_destroy(void);
-```
+:::code api-dsm-runtime/c/keruvannia-zhyttievym.h
 ```cpp
 class IDsmRuntime {
 public:
@@ -199,18 +95,7 @@ dsm_status_t dsm_apply_diff(uint8_t *target_page, const dsm_diff_packet_t *packe
 /* Консолідація сторінки: злиття накопиченого ланцюжка різниць у новий еталон */
 dsm_status_t dsm_consolidate_page(uint32_t page_id);
 ```
-```cpp
-class IDsmDiffEngine {
-public:
-    virtual ~IDsmDiffEngine() = default;
-    virtual size_t computeDiff(std::span<const std::byte, DsmPageSize> page,
-                               std::span<const std::byte, DsmPageSize> twin,
-                               DiffPacket& packetOut) noexcept = 0;
-    virtual std::expected<void, DsmErrorCode> applyDiff(std::span<std::byte, DsmPageSize> targetPage,
-                                                        const DiffPacket& packetIn) noexcept = 0;
-    virtual std::expected<void, DsmErrorCode> consolidatePage(uint32_t pageId) noexcept = 0;
-};
-```
+:::code api-dsm-runtime/cpp/operatsii-nyzkoho-rivnia.cpp
 :::
 
 Вимоги та інваріанти низькорівневих операцій:
@@ -232,95 +117,6 @@ public:
 Нижче наведено фрагмент коду паралельної обробки даних, де два незалежні вузли паралельно модифікують суміжні змінні всередині однієї сторінки, використовуючи наданий інтерфейс.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdint.h>
-
-void execute_distributed_worker(uint32_t my_node_id) {
-    dsm_config_t config = {
-        .shared_heap_size = 1024 * 1024 * 16, /* 16 МБ */
-        .node_id = my_node_id,
-        .total_nodes = 2,
-        .enable_simd_diff = true
-    };
-
-    if (dsm_init(&config) != DSM_SUCCESS) {
-        fprintf(stderr, "Помилка ініціалізації середовища DSM\n");
-        return;
-    }
-
-    /* Виділяємо спільний масив на 8192 байти (2 сторінки) */
-    uint64_t *shared_data = (uint64_t*)dsm_alloc_shared(8192);
-    if (!shared_data) {
-        dsm_destroy();
-        return;
-    }
-
-    /* Стартовий бар'єр синхронізації */
-    dsm_barrier(0);
-
-    /* Вузол 0 модифікує перше 64-бітне слово, Вузол 1 — десяте */
-    if (my_node_id == 0) {
-        dsm_lock_acquire(100);
-        shared_data[0] = 0xDEADBEEFCAFEBABE;
-        dsm_lock_release(100);
-    } else if (my_node_id == 1) {
-        dsm_lock_acquire(200);
-        shared_data[10] = 0x0123456789ABCDEF;
-        dsm_lock_release(200);
-    }
-
-    /* Фінальний бар'єр для злиття відмінностей */
-    dsm_barrier(1);
-
-    /* Обидва вузли гарантовано бачать коректні зміни сусіда */
-    dsm_free_shared(shared_data);
-    dsm_destroy();
-}
-```
-```cpp
-#include <iostream>
-#include <cstdint>
-#include <span>
-
-void executeDistributedWorkerCpp(uint32_t myNodeId) {
-    DsmEngineConfig config{
-        .sharedHeapSize = 1024 * 1024 * 16,
-        .nodeId = myNodeId,
-        .totalNodes = 2,
-        .enableSimdAcceleration = true
-    };
-
-    // Приклад виклику C++ обгортки середовища
-    if (dsm_init(reinterpret_cast<const dsm_config_t*>(&config)) != DSM_SUCCESS) {
-        std::cerr << "Не вдалося ініціалізувати середовище DSM\n";
-        return;
-    }
-
-    auto* memoryBlock = static_cast<uint64_t*>(dsm_alloc_shared(8192));
-    if (memoryBlock == nullptr) {
-        dsm_destroy();
-        return;
-    }
-
-    std::span<uint64_t> sharedArray{memoryBlock, 8192 / sizeof(uint64_t)};
-
-    dsm_barrier(0);
-
-    if (myNodeId == 0) {
-        dsm_lock_acquire(100);
-        sharedArray[0] = 0xDEADBEEFCAFEBABEULL;
-        dsm_lock_release(100);
-    } else if (myNodeId == 1) {
-        dsm_lock_acquire(200);
-        sharedArray[10] = 0x0123456789ABCDEFULL;
-        dsm_lock_release(200);
-    }
-
-    dsm_barrier(1);
-
-    dsm_free_shared(memoryBlock);
-    dsm_destroy();
-}
-```
+:::code api-dsm-runtime/c/povnyi-pryklad.c
+:::code api-dsm-runtime/cpp/povnyi-pryklad.cpp
 :::

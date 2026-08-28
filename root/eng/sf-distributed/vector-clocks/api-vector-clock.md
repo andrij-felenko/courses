@@ -22,63 +22,8 @@
 #### 2. Базові структури та коди статусів
 
 :::tabs
-```c
-typedef uint64_t vc_counter_t;
-typedef uint32_t vc_node_id_t;
-
-/* Окремий запис версійного вектора для конкретного актора */
-typedef struct {
-    vc_node_id_t node_id;
-    vc_counter_t counter;
-    uint64_t physical_wall_time_ms; /* UTC мітка в мілісекундах для евристичного прибирання сміття */
-} vc_entry_t;
-
-/* Динамічний векторний годинник із підтримкою динамічного росту */
-typedef struct {
-    vc_entry_t *entries;
-    size_t count;
-    size_t capacity;
-    bool is_sorted; /* оптимізаційний прапорець для бінарного пошуку O(log N) */
-} vc_dynamic_clock_t;
-
-/* Коди помилок бібліотеки */
-typedef enum {
-    VC_OK = 0,
-    VC_ERR_NULL_PTR = -1,
-    VC_ERR_OUT_OF_MEMORY = -2,
-    VC_ERR_BUFFER_TOO_SMALL = -3,
-    VC_ERR_CORRUPTED_DATA = -4,
-    VC_ERR_NODE_NOT_FOUND = -5,
-    VC_ERR_CAPACITY_EXCEEDED = -6,
-    VC_ERR_COUNTER_OVERFLOW = -7
-} vc_status_t;
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-
-using NodeId = uint32_t;
-using Counter = uint64_t;
-
-// Окремий запис версійного вектора для конкретного актора
-struct Entry {
-    NodeId node_id{0};
-    Counter counter{0};
-    uint64_t physical_wall_time_ms{0}; // UTC мітка в мілісекундах
-};
-
-// Коди помилок та статусів бібліотеки
-enum class Status : int32_t {
-    Ok = 0,
-    NullPtr = -1,
-    OutOfMemory = -2,
-    BufferTooSmall = -3,
-    CorruptedData = -4,
-    NodeNotFound = -5,
-    CapacityExceeded = -6,
-    CounterOverflow = -7
-};
-```
+:::code api-vector-clock/c/main.c
+:::code api-vector-clock/cpp/2-bazovi-struktury-ta-kody.cpp
 :::
 
 #### 3. Таблиця функцій основного інтерфейсу
@@ -169,44 +114,7 @@ sizeof(node_id) + sizeof(counter) + sizeof(timestamp) = 4 + 8 + 8 = 20 байт�
 
 Для безпечної інтеграції в сучасні C++ кодові бази бібліотека надає RAII-обгортку з семантикою переміщення та підтримкою стандартних алгоритмів:
 
-```cpp
-namespace vclock {
-
-class VectorClockHandle {
-public:
-    explicit VectorClockHandle(size_t initial_capacity = 8);
-    VectorClockHandle(std::initializer_list<std::pair<vc_node_id_t, vc_counter_t>> init);
-
-    // RAII та заборона неявного копіювання важких ресурсів
-    ~VectorClockHandle();
-    VectorClockHandle(const VectorClockHandle& other);
-    VectorClockHandle& operator=(const VectorClockHandle& other);
-    VectorClockHandle(VectorClockHandle&& other) noexcept;
-    VectorClockHandle& operator=(VectorClockHandle&& other) noexcept;
-
-    // Основні операції
-    void tick(vc_node_id_t node_id);
-    void set(vc_node_id_t node_id, vc_counter_t counter);
-    [[nodiscard]] vc_counter_t get(vc_node_id_t node_id) const noexcept;
-    void merge(const VectorClockHandle& other);
-    void prune(size_t max_entries);
-
-    // Порівняння та перевірка причинності
-    [[nodiscard]] VectorComparison compare(const VectorClockHandle& other) const noexcept;
-    [[nodiscard]] bool dominates(const VectorClockHandle& other) const noexcept;
-    [[nodiscard]] bool is_concurrent_with(const VectorClockHandle& other) const noexcept;
-
-    // Серіалізація
-    [[nodiscard]] std::vector<uint8_t> to_binary() const;
-    static std::expected<VectorClockHandle, vc_status_t> from_binary(std::span<const uint8_t> data);
-    [[nodiscard]] std::string to_json() const;
-
-private:
-    vc_dynamic_clock_t raw_;
-};
-
-} // namespace vclock
-```
+:::code api-vector-clock/cpp/vysokorivneva-c-obhortka.hpp
 
 ### Філософія обробки помилок та діагностика
 

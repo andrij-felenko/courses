@@ -122,43 +122,13 @@ T_wan   = 2 · 120 мс + 2 мс = 242 мс  (уповільнення в 11 р�
 
 Первинний ключ таблиці формується як складений індекс (Composite Primary Key), першим елементом якого є обов'язковий дескриптор юрисдикції чи країни:
 
-```sql
-CREATE TABLE customers (
-    jurisdiction_code VARCHAR(8) NOT NULL, -- 'EU_EEA', 'US_FED', 'APAC'
-    tenant_id         UUID NOT NULL,
-    user_id           UUID NOT NULL,
-    full_name         VARCHAR(128) NOT NULL,
-    email             VARCHAR(128) NOT NULL,
-    balance           DECIMAL(18, 2) NOT NULL,
-    created_at        TIMESTAMPTZ NOT NULL,
-    PRIMARY KEY (jurisdiction_code, tenant_id, user_id)
-);
-```
+:::code data-residency-d/sql/1-anatomiia-heo.sql
 
 ### 2. Механізм розрізання та розміщення партицій
 
 СКБД розбиває простір ключів на логічні діапазони (Ranges у CockroachDB, Tablets у Google Spanner / YugabyteDB). Декларативна конфігурація вказує рушію зберігання зв'язок між значенням префікса ключа та фізичними тегами серверів:
 
-```sql
--- Прив'язка діапазонів ключів до локальних регіонів дата-центрів
-ALTER TABLE customers CONFIGURE ZONE USING
-    num_replicas = 3,
-    constraints = '{
-        "+region=eu-central-1": 1,
-        "+region=eu-west-1": 1,
-        "+region=eu-west-3": 1
-    }'
-    WHERE jurisdiction_code = 'EU_EEA';
-
-ALTER TABLE customers CONFIGURE ZONE USING
-    num_replicas = 3,
-    constraints = '{
-        "+region=us-east-1": 1,
-        "+region=us-east-2": 1,
-        "+region=us-west-2": 1
-    }'
-    WHERE jurisdiction_code = 'US_FED';
-```
+:::code data-residency-d/sql/2-mekhanizm-rozrizannia-ta.sql
 
 Коли клієнт виконує операцію `INSERT INTO customers (jurisdiction_code, ...) VALUES ('EU_EEA', ...)`, координатор запису звертається до метаданих кластера і скеровує команду безпосередньо до лідера Raft-групи у Франкфурті. Запис ніколи не передається через океан, що забезпечує:
 * **Мінімальну латентність запису:** Локальний RTT між Франкфуртом і Парижем становить менше 10 мс (замість 140 мс до США).

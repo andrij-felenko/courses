@@ -11,44 +11,8 @@
 Головною структурою для відстеження розподіленої транзакції є `XID` (англ. *Transaction Identifier*). Вона містить глобальний ідентифікатор транзакції та кваліфікатор конкретної гілки, що дозволяє одному бізнес-процесу охоплювати кілька незалежних ресурсів.
 
 :::tabs
-```c
-#define XIDDATASIZE 128 /* максимальний розмір буфера даних */
-#define MAXGTRIDSIZE 64 /* максимальний розмір глобального ID */
-#define MAXBQUALSIZE 64 /* максимальний розмір кваліфікатора гілки */
-
-struct xid_t {
-    long formatID;          /* формат ідентифікатора (-1 = null, 0 = OSI CCR, >0 = вендор) */
-    long gtrid_length;      /* довжина глобального ідентифікатора транзакції (1..64) */
-    long bqual_length;      /* довжина кваліфікатора гілки транзакції (1..64) */
-    char data[XIDDATASIZE]; /* масив байтів: gtrid + bqual */
-};
-typedef struct xid_t XID;
-```
-```cpp
-#include <cstdint>
-#include <string_view>
-#include <span>
-#include <array>
-
-struct TransactionId {
-    static constexpr size_t kMaxDataSize = 128;
-    static constexpr size_t kMaxGtridSize = 64;
-    static constexpr size_t kMaxBqualSize = 64;
-
-    int64_t format_id{-1};
-    int64_t gtrid_length{0};
-    int64_t bqual_length{0};
-    std::array<std::byte, kMaxDataSize> data{};
-
-    [[nodiscard]] std::span<const std::byte> global_transaction_id() const noexcept {
-        return std::span<const std::byte>(data.data(), static_cast<size_t>(gtrid_length));
-    }
-
-    [[nodiscard]] std::span<const std::byte> branch_qualifier() const noexcept {
-        return std::span<const std::byte>(data.data() + gtrid_length, static_cast<size_t>(bqual_length));
-    }
-};
-```
+:::code api-xa-protocol/c/struktury-danykh.c
+:::code api-xa-protocol/cpp/struktury-danykh.hpp
 :::
 
 ## Таблиця функцій ресурсного менеджера (`xa_switch_t`)
@@ -56,43 +20,8 @@ struct TransactionId {
 Кожна бібліотека доступу до бази даних (клієнт Oracle, PostgreSQL, IBM DB2, MySQL) експортує глобальну структуру `xa_switch_t`. Менеджер транзакцій під час запуску отримує вказівник на цю структуру й викликає її методи для керування транзакціями:
 
 :::tabs
-```c
-struct xa_switch_t {
-    char name[32];          /* ім'я RM (наприклад, "PostgreSQL_XA", "Oracle_XA") */
-    long flags;             /* прапорці можливостей (TMNOFLAGS, TMREGISTER тощо) */
-    long version;           /* версія інтерфейсу (константа 0) */
-    int (*xa_open_entry)(char *xa_info, int rmid, long flags);
-    int (*xa_close_entry)(char *xa_info, int rmid, long flags);
-    int (*xa_start_entry)(XID *xid, int rmid, long flags);
-    int (*xa_end_entry)(XID *xid, int rmid, long flags);
-    int (*xa_rollback_entry)(XID *xid, int rmid, long flags);
-    int (*xa_prepare_entry)(XID *xid, int rmid, long flags);
-    int (*xa_commit_entry)(XID *xid, int rmid, long flags);
-    int (*xa_recover_entry)(XID *xids, long count, int rmid, long flags);
-    int (*xa_forget_entry)(XID *xid, int rmid, long flags);
-    int (*xa_complete_entry)(int *handle, int *retval, int rmid, long flags);
-};
-```
-```cpp
-#include <string_view>
-#include <span>
-#include <expected>
-
-class IResourceManager {
-public:
-    virtual ~IResourceManager() = default;
-
-    virtual std::expected<void, int> open(std::string_view info, int rm_id, int64_t flags) = 0;
-    virtual std::expected<void, int> close(std::string_view info, int rm_id, int64_t flags) = 0;
-    virtual std::expected<void, int> start(const TransactionId& xid, int rm_id, int64_t flags) = 0;
-    virtual std::expected<void, int> end(const TransactionId& xid, int rm_id, int64_t flags) = 0;
-    virtual std::expected<int, int> prepare(const TransactionId& xid, int rm_id, int64_t flags) = 0;
-    virtual std::expected<void, int> commit(const TransactionId& xid, int rm_id, int64_t flags) = 0;
-    virtual std::expected<void, int> rollback(const TransactionId& xid, int rm_id, int64_t flags) = 0;
-    virtual std::expected<size_t, int> recover(std::span<TransactionId> xids, int rm_id, int64_t flags) = 0;
-    virtual std::expected<void, int> forget(const TransactionId& xid, int rm_id, int64_t flags) = 0;
-};
-```
+:::code api-xa-protocol/c/tablytsia-funktsii.h
+:::code api-xa-protocol/cpp/tablytsia-funktsii.cpp
 :::
 
 ## Скінченний автомат станів транзакційної гілки в XA
@@ -157,40 +86,11 @@ public:
 
 ### PostgreSQL
 
-```sql
--- 1. Відкриття транзакції та виконання операцій
-BEGIN;
-UPDATE accounts SET balance = balance - 500 WHERE id = 101;
-
--- 2. Фаза 1: підготовка та скидання стану на диск (аналог xa_prepare)
-PREPARE TRANSACTION 'global_tx_branch_pg_01';
-
--- 3. Перегляд списку підвислих (In-Doubt) транзакцій (аналог xa_recover)
-SELECT gid, prepared, owner, database FROM pg_prepared_xacts;
-
--- 4. Фаза 2: остаточна фіксація або відкат (аналог xa_commit / xa_rollback)
-COMMIT PREPARED 'global_tx_branch_pg_01';
--- або у разі відкату:
-ROLLBACK PREPARED 'global_tx_branch_pg_01';
-```
+:::code api-xa-protocol/sql/postgresql.sql
 
 ### MySQL (InnoDB)
 
-```sql
--- 1. Початок гілки транзакції (xa_start)
-XA START 'global_tx_001', 'mysql_branch_01';
-UPDATE warehouse SET items_count = items_count - 1 WHERE item_id = 42;
-XA END 'global_tx_001', 'mysql_branch_01';
-
--- 2. Фаза 1: підготовка (xa_prepare)
-XA PREPARE 'global_tx_001', 'mysql_branch_01';
-
--- 3. Моніторинг нефіксованих транзакцій (xa_recover)
-XA RECOVER;
-
--- 4. Фаза 2: коміт (xa_commit)
-XA COMMIT 'global_tx_001', 'mysql_branch_01';
-```
+:::code api-xa-protocol/sql/mysql-innodb.sql
 
 ## Повний життєвий цикл розподіленої транзакції
 

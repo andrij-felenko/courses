@@ -42,28 +42,7 @@
 
 Для створення вузлів, об'єднання їх у реплікаційні групи та призначення специфічних обробників використовуються вбудовані процедури:
 
-```sql
--- 1. Створення та реєстрація локального лідера в кластері
-SELECT bdr.create_node(
-    node_name := 'node_frankfurt_1',
-    local_dsn := 'host=10.0.1.5 port=5432 dbname=production user=bdr_admin password=secret'
-);
-
--- 2. Приєднання до існуючого кластера через віддалений лідер
-SELECT bdr.join_node_group(
-    join_target_dsn := 'host=10.0.2.5 port=5432 dbname=production user=bdr_admin password=secret',
-    node_group_name := 'global_ecommerce_cluster',
-    pause_on_join := false
-);
-
--- 3. Реєстрація спеціалізованого резолвера для конкретної таблиці
-SELECT bdr.alter_table_conflict_handler(
-    relation := 'orders'::regclass,
-    handler_name := 'orders_crdt_field_merge',
-    handler_type := 'custom_function',
-    function_name := 'public.resolve_orders_conflict(bdr.conflict_data)'
-);
-```
+:::code api-multi-leader-config/sql/administratyvni-sql.sql
 
 #### Системні таблиці діагностики BDR
 
@@ -121,26 +100,7 @@ group_replication_flow_control_certifier_threshold = 25000
 
 Для перевірки здоров'я групи використовуються запити до таблиць продуктивності:
 
-```sql
--- Статус учасників групи та їхні ролі
-SELECT 
-    member_id, 
-    member_host, 
-    member_port, 
-    member_state, 
-    member_role, 
-    member_version 
-FROM performance_schema.replication_group_members;
-
--- Моніторинг черги сертифікації та кількості відхилених транзакцій
-SELECT 
-    channel_name,
-    count_transactions_in_queue AS cert_queue_len,
-    count_transactions_checked AS total_checked,
-    count_conflicts_detected AS total_conflicts,
-    count_transactions_rows_validating AS cert_db_size
-FROM performance_schema.replication_group_member_stats;
-```
+:::code api-multi-leader-config/sql/diahnostyka-stanu-mgr.sql
 
 Значення `member_state = ONLINE` свідчить про повну працездатність, `RECOVERING` — про процес наздоганяння пропущеного бінарного журналу під час старту, а `UNREACHABLE` — про підозру на мережеву ізоляцію або аварію вузла.
 

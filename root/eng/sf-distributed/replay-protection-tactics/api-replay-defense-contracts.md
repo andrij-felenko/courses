@@ -60,36 +60,7 @@ CanonicalString =
 
 Секціонування за діапазоном дат (`Range Partitioning`) є критично важливим для забезпечення сталої швидкості роботи індексів. Без секціонування таблиця вхідних повідомлень через кілька місяців розростається до сотень мільйонів рядків. Видалення застарілих даних командою `DELETE` викликає блокування рядків, фрагментацію табличного простору (Table Bloat) та деградацію продуктивності автовакууму (PostgreSQL Autovacuum). Секціонування дозволяє очищати дані за минулі дні миттєвою операцією від'єднання та видалення секції `DROP TABLE`.
 
-```sql
--- Перелік статусів життєвого циклу обробки повідомлення
-CREATE TYPE inbox_status AS ENUM ('PROCESSING', 'PROCESSED', 'FAILED');
-
--- Головна таблиця вхідних повідомлень із Range-секціонуванням за датою створення
-CREATE TABLE inbox_messages (
-    idempotency_key   VARCHAR(64)  NOT NULL,
-    consumer_group    VARCHAR(64)  NOT NULL,
-    source_event_id   VARCHAR(64)  NOT NULL,
-    fencing_token     BIGINT       NOT NULL DEFAULT 0,
-    status            inbox_status NOT NULL DEFAULT 'PROCESSING',
-    response_payload  JSONB        NULL,
-    response_status   INT          NULL,
-    error_message     TEXT         NULL,
-    created_at        TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
-    updated_at        TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
-    PRIMARY KEY (created_at, consumer_group, idempotency_key)
-) PARTITION BY RANGE (created_at);
-
--- Добові секції (приклад автоматичного або ручного створення)
-CREATE TABLE inbox_messages_2026_08_20 PARTITION OF inbox_messages
-    FOR VALUES FROM ('2026-08-20 00:00:00+00') TO ('2026-08-21 00:00:00+00');
-
-CREATE TABLE inbox_messages_2026_08_21 PARTITION OF inbox_messages
-    FOR VALUES FROM ('2026-08-21 00:00:00+00') TO ('2026-08-22 00:00:00+00');
-
--- Індекс для миттєвої перевірки дублікатів у межах групи споживачів
-CREATE INDEX idx_inbox_consumer_lookup 
-    ON inbox_messages (consumer_group, idempotency_key);
-```
+:::code api-replay-defense-contracts/sql/postgresql-ddl.sql
 
 ### PostgreSQL DDL: Бар'єр токенів огорожі (Fencing Tokens)
 
@@ -97,51 +68,7 @@ CREATE INDEX idx_inbox_consumer_lookup
 
 Збережена процедура `verify_and_update_fencing` виконує атомарну перевірку номера токена в режимі блокування рядка `FOR UPDATE`. Якщо новий токен суворо більший за поточний максимум, оренда продовжується, а максимальний номер оновлюється. Якщо токен менший або дорівнює зафіксованому, процедура негайно повертає `FALSE`, що слугує сигналом для відхилення команди.
 
-```sql
-CREATE TABLE distributed_fencing_leases (
-    resource_id       VARCHAR(128) PRIMARY KEY,
-    owner_node_id     VARCHAR(64)  NOT NULL,
-    max_fencing_token BIGINT       NOT NULL,
-    lease_expires_at  TIMESTAMPTZ  NOT NULL,
-    updated_at        TIMESTAMPTZ  NOT NULL DEFAULT NOW()
-);
-
--- Атомарна перевірка та фіксація токена огорожі
-CREATE OR REPLACE FUNCTION verify_and_update_fencing(
-    p_resource_id   VARCHAR(128),
-    p_node_id       VARCHAR(64),
-    p_fencing_token BIGINT,
-    p_lease_ttl_ms  INT
-) RETURNS BOOLEAN AS $$
-DECLARE
-    v_current_token BIGINT;
-BEGIN
-    SELECT max_fencing_token INTO v_current_token
-    FROM distributed_fencing_leases
-    WHERE resource_id = p_resource_id
-    FOR UPDATE;
-
-    IF NOT FOUND THEN
-        INSERT INTO distributed_fencing_leases(resource_id, owner_node_id, max_fencing_token, lease_expires_at)
-        VALUES (p_resource_id, p_node_id, p_fencing_token, NOW() + (p_lease_ttl_ms || ' milliseconds')::INTERVAL);
-        RETURN TRUE;
-    END IF;
-
-    IF p_fencing_token > v_current_token THEN
-        UPDATE distributed_fencing_leases
-        SET owner_node_id = p_node_id,
-            max_fencing_token = p_fencing_token,
-            lease_expires_at = NOW() + (p_lease_ttl_ms || ' milliseconds')::INTERVAL,
-            updated_at = NOW()
-        WHERE resource_id = p_resource_id;
-        RETURN TRUE;
-    ELSE
-        -- Запізнілий запит зомбі-воркера відхиляється
-        RETURN FALSE;
-    END IF;
-END;
-$$ LANGUAGE plpgsql;
-```
+:::code api-replay-defense-contracts/sql/postgresql-ddl-barier.sql
 
 ### Схема Redis для L1-кешу Nonce та ключів ідемпотентності
 
@@ -167,101 +94,8 @@ $$ LANGUAGE plpgsql;
 Нижче наведено сигнатури інтерфейсів мовами C++ та C.
 
 :::tabs
-```cpp
-#include <cstdint>
-#include <string>
-#include <string_view>
-#include <memory>
-#include <optional>
-#include <chrono>
-
-struct RequestContext {
-    std::string_view idempotency_key;
-    std::string_view nonce;
-    std::string_view signature;
-    std::chrono::system_clock::time_point timestamp;
-    uint64_t fencing_token{0};
-    std::string_view request_body;
-};
-
-enum class ValidationDecision {
-    AllowFirstTime,
-    ServeCachedResponse,
-    RejectDuplicateInFlight,
-    RejectExpiredTimestamp,
-    RejectInvalidSignature,
-    RejectStaleFencingToken
-};
-
-struct InterceptorResult {
-    ValidationDecision decision;
-    std::optional<std::string> cached_payload;
-    int http_status_code{200};
-    std::string error_message;
-};
-
-class IReplayProtectionInterceptor {
-public:
-    virtual ~IReplayProtectionInterceptor() = default;
-
-    // Попередня перевірка до виклику доменної логіки
-    [[nodiscard]] virtual InterceptorResult pre_handle(const RequestContext& ctx) = 0;
-
-    // Фіксація успішного результату для ідемпотентних повторів
-    virtual void post_handle_success(
-        std::string_view idempotency_key,
-        int status_code,
-        std::string_view response_body
-    ) = 0;
-
-    // Скасування блокування при внутрішній системній помилці
-    virtual void post_handle_failure(std::string_view idempotency_key) = 0;
-};
-```
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <time.h>
-#include <stddef.h>
-
-typedef enum {
-    DECISION_ALLOW_FIRST_TIME,
-    DECISION_SERVE_CACHED_RESPONSE,
-    DECISION_REJECT_DUPLICATE_IN_FLIGHT,
-    DECISION_REJECT_EXPIRED_TIMESTAMP,
-    DECISION_REJECT_INVALID_SIGNATURE,
-    DECISION_REJECT_STALE_FENCING_TOKEN
-} validation_decision_t;
-
-typedef struct {
-    const char* idempotency_key;
-    const char* nonce;
-    const char* signature;
-    int64_t timestamp_ms;
-    uint64_t fencing_token;
-    const char* body;
-    size_t body_len;
-} request_context_t;
-
-typedef struct {
-    validation_decision_t decision;
-    int http_status_code;
-    const char* cached_payload;
-    size_t cached_payload_len;
-    char error_message[128];
-} interceptor_result_t;
-
-typedef struct replay_interceptor_vtable {
-    interceptor_result_t (*pre_handle)(void* ctx, const request_context_t* req);
-    void (*post_handle_success)(void* ctx, const char* idemp_key, int status, const char* resp, size_t resp_len);
-    void (*post_handle_failure)(void* ctx, const char* idemp_key);
-} replay_interceptor_vtable_t;
-
-typedef struct {
-    const replay_interceptor_vtable_t* vtable;
-    void* impl_context;
-} replay_interceptor_t;
-```
+:::code api-replay-defense-contracts/cpp/main.cpp
+:::code api-replay-defense-contracts/c/stdint.h
 :::
 
 ## Крайові сценарії та самовідновлення при аваріях

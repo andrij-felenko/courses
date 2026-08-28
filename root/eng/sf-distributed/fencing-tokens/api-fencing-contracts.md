@@ -147,19 +147,7 @@ message GetFencedResponse {
 
 ### Схема таблиці з метаданими огорожі (PostgreSQL DDL)
 
-```sql
-CREATE TABLE IF NOT EXISTS cluster_resources (
-    resource_id           VARCHAR(128) PRIMARY KEY,
-    payload_data          JSONB NOT NULL,
-    highest_fencing_token BIGINT NOT NULL DEFAULT 0,
-    last_idempotency_key  VARCHAR(64),
-    updated_at            TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-
-    CONSTRAINT chk_positive_fencing_token CHECK (highest_fencing_token >= 0)
-);
-
-CREATE INDEX idx_cluster_resources_fencing ON cluster_resources (resource_id, highest_fencing_token);
-```
+:::code api-fencing-contracts/sql/main.sql
 
 ### Шаблон атомарного умовного оновлення
 
@@ -234,23 +222,7 @@ IF highest_fencing_token <= :token;
 
 Якщо як спільне сховище використовується Redis, атомарність операції «перевірити токен і записати нові дані» досягається виконанням Lua-скрипта на стороні сервера:
 
-```lua
--- KEYS[1]: ключ ресурсу даних (наприклад, "data:account:48291")
--- KEYS[2]: ключ метаданих токена (наприклад, "token:account:48291")
--- ARGV[1]: новий токен (fencing_token)
--- ARGV[2]: нові дані (payload)
-
-local current_token = redis.call('GET', KEYS[2])
-local req_token = tonumber(ARGV[1])
-
-if not current_token or req_token >= tonumber(current_token) then
-    redis.call('SET', KEYS[2], req_token)
-    redis.call('SET', KEYS[1], ARGV[2])
-    return {1, req_token} -- Успіх: статус 1
-else
-    return {0, tonumber(current_token)} -- Відхилено: статус 0, поточний максимум
-end
-```
+:::code api-fencing-contracts/lua/main.lua
 
 ---
 

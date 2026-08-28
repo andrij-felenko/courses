@@ -9,76 +9,9 @@
 Для коректної роботи в умовах багатопотокової конкурентності та розподілених воркерів таблиця вхідної скриньки повинна підтримувати суворі обмеження первинного ключа, перевірку допустимих статусів та механізм блокування через часові лізи (leases).
 
 :::tabs
-```sql
--- PostgreSQL DDL (Рекомендована промислова конфігурація)
-CREATE TABLE inbox_messages (
-    message_id       VARCHAR(128) NOT NULL,
-    consumer_group   VARCHAR(64)  NOT NULL DEFAULT 'default',
-    event_type       VARCHAR(128) NOT NULL,
-    payload          JSONB        NOT NULL,
-    status           VARCHAR(32)  NOT NULL DEFAULT 'RECEIVED',
-    retry_count      INTEGER      NOT NULL DEFAULT 0,
-    max_retries      INTEGER      NOT NULL DEFAULT 5,
-    last_error       TEXT,
-    locked_until     TIMESTAMPTZ,
-    locked_by        VARCHAR(64),
-    created_at       TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
-    processed_at     TIMESTAMPTZ,
-    PRIMARY KEY (message_id, consumer_group),
-    CONSTRAINT chk_inbox_status CHECK (status IN ('RECEIVED', 'PROCESSING', 'PROCESSED', 'FAILED'))
-);
-
--- Частковий індекс для конкурентної вибірки активних завдань воркерами
-CREATE INDEX idx_inbox_active_polling 
-ON inbox_messages (consumer_group, created_at) 
-WHERE status IN ('RECEIVED', 'PROCESSING');
-
--- Частковий індекс для фонового процесу очищення (TTL Pruning)
-CREATE INDEX idx_inbox_processed_cleanup 
-ON inbox_messages (processed_at) 
-WHERE status = 'PROCESSED';
-```
-```sql
--- MySQL 8.0+ DDL (з підтримкою InnoDB та JSON)
-CREATE TABLE inbox_messages (
-    message_id       VARCHAR(128) NOT NULL,
-    consumer_group   VARCHAR(64)  NOT NULL DEFAULT 'default',
-    event_type       VARCHAR(128) NOT NULL,
-    payload          JSON         NOT NULL,
-    status           VARCHAR(32)  NOT NULL DEFAULT 'RECEIVED',
-    retry_count      INT          NOT NULL DEFAULT 0,
-    max_retries      INT          NOT NULL DEFAULT 5,
-    last_error       TEXT,
-    locked_until     DATETIME(6)  NULL,
-    locked_by        VARCHAR(64)  NULL,
-    created_at       DATETIME(6)  NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-    processed_at     DATETIME(6)  NULL,
-    PRIMARY KEY (message_id, consumer_group),
-    INDEX idx_inbox_polling (consumer_group, status, locked_until, created_at),
-    INDEX idx_inbox_cleanup (processed_at)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-```
-```sql
--- SQLite DDL (для вбудованих застосунків та крайових вузлів)
-CREATE TABLE inbox_messages (
-    message_id       TEXT NOT NULL,
-    consumer_group   TEXT NOT NULL DEFAULT 'default',
-    event_type       TEXT NOT NULL,
-    payload          TEXT NOT NULL,
-    status           TEXT NOT NULL CHECK(status IN ('RECEIVED', 'PROCESSING', 'PROCESSED', 'FAILED')),
-    retry_count      INTEGER NOT NULL DEFAULT 0,
-    max_retries      INTEGER NOT NULL DEFAULT 5,
-    last_error       TEXT,
-    locked_until     INTEGER, -- Час у мілісекундах Epoch Unix
-    locked_by        TEXT,
-    created_at       INTEGER NOT NULL,
-    processed_at     INTEGER,
-    PRIMARY KEY (message_id, consumer_group)
-);
-
-CREATE INDEX idx_inbox_polling ON inbox_messages (consumer_group, status, locked_until);
-CREATE INDEX idx_inbox_cleanup ON inbox_messages (processed_at);
-```
+:::code api-inbox-storage-schema/sql/ddl-vyznachennia-tablytsi.sql
+:::code api-inbox-storage-schema/sql/ddl-vyznachennia-tablytsi-2.sql
+:::code api-inbox-storage-schema/sql/ddl-vyznachennia-tablytsi-3.sql
 :::
 
 ## Детальний опис полів та інваріантів
@@ -140,73 +73,15 @@ CREATE INDEX idx_inbox_cleanup ON inbox_messages (processed_at);
 
 ### 1. Синхронна атомарна дедуплікація (Inline режим)
 
-```sql
--- Виконується в межах єдиної транзакції разом із бізнес-змінами
-INSERT INTO inbox_messages (
-    message_id, 
-    consumer_group, 
-    event_type, 
-    payload, 
-    status, 
-    processed_at
-) VALUES (
-    :message_id, 
-    :consumer_group, 
-    :event_type, 
-    :payload, 
-    'PROCESSED', 
-    NOW()
-) ON CONFLICT (message_id, consumer_group) DO NOTHING;
-
--- Перевірка кількості вставлених рядків:
--- Якщо rows_affected == 0 -> дублікат! Відкочуємо транзакцію і негайно шлемо ACK брокеру.
--- Якщо rows_affected == 1 -> нове повідомлення. Продовжуємо виконання доменного коду.
-```
+:::code api-inbox-storage-schema/sql/1-synkhronna-atomarna.sql
 
 ### 2. Конкурентна вибірка завдань пулом воркерів (Staged режим)
 
-```sql
-WITH candidate_batch AS (
-    SELECT message_id, consumer_group
-    FROM inbox_messages
-    WHERE consumer_group = :consumer_group
-      AND (
-          status = 'RECEIVED'
-          OR (status = 'PROCESSING' AND locked_until < NOW())
-      )
-    ORDER BY created_at ASC
-    LIMIT :batch_size
-    FOR UPDATE SKIP LOCKED
-)
-UPDATE inbox_messages m
-SET status = 'PROCESSING',
-    locked_until = NOW() + (:lease_seconds || ' seconds')::INTERVAL,
-    locked_by = :worker_instance_id
-FROM candidate_batch c
-WHERE m.message_id = c.message_id
-  AND m.consumer_group = c.consumer_group
-RETURNING m.message_id, m.event_type, m.payload, m.retry_count;
-```
+:::code api-inbox-storage-schema/sql/2-konkurentna-vybirka.sql
 
 ### 3. Фіксація помилки з експоненційним запізненням
 
-```sql
-UPDATE inbox_messages
-SET retry_count = retry_count + 1,
-    last_error = :error_message,
-    status = CASE 
-        WHEN retry_count + 1 >= max_retries THEN 'FAILED' 
-        ELSE 'RECEIVED' 
-    END,
-    -- Якщо статус лишається RECEIVED, відсуваємо час наступної обробки (Backoff)
-    locked_until = CASE 
-        WHEN retry_count + 1 < max_retries THEN NOW() + (POWER(2, retry_count) || ' seconds')::INTERVAL
-        ELSE NULL 
-    END,
-    locked_by = NULL
-WHERE message_id = :message_id
-  AND consumer_group = :consumer_group;
-```
+:::code api-inbox-storage-schema/sql/3-fiksatsiia-pomylky-z.sql
 
 ### 4. Пакетне фонове очищення застарілих записів (TTL Pruning)
 

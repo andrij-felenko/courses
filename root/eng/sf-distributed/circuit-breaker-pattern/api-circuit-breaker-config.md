@@ -58,58 +58,9 @@
 
 Інтерфейс запобіжника забезпечує як стандартний шлях виконання запитів, так і методи примусового операційного втручання (Maintenance Mode):
 
-```cpp
-namespace resilience {
+:::code api-circuit-breaker-config/cpp/main.cpp
 
-class ICircuitBreaker {
-public:
-    virtual ~ICircuitBreaker() = default;
-
-    // Основний цикл виконання
-    virtual bool allow_request() noexcept = 0;
-    virtual void record_success(std::chrono::nanoseconds duration) noexcept = 0;
-    virtual void record_error(std::chrono::nanoseconds duration, const std::exception& error) noexcept = 0;
-
-    // Запит поточного стану та метрик
-    virtual State get_state() const noexcept = 0;
-    virtual Metrics get_metrics() const noexcept = 0;
-
-    // Примусове операційне втручання
-    virtual void transition_to_disabled_state() noexcept = 0;   // Запобіжник вимкнено (завжди пропускає)
-    virtual void transition_to_forced_open_state() noexcept = 0; // Запобіжник примусово розімкнено (блокує все)
-    virtual void reset() noexcept = 0;                          // Скидання статистики та повернення в CLOSED
-};
-
-} // namespace resilience
-```
-
-```go
-package resilience
-
-import (
-	"context"
-	"time"
-)
-
-type ICircuitBreaker interface {
-	// Основний цикл перевірки та запису
-	AllowRequest() bool
-	RecordSuccess(duration time.Duration)
-	RecordError(duration time.Duration, err error)
-
-	// Запит стану та метрик
-	GetState() State
-	GetMetrics() Metrics
-
-	// Операційне управління
-	TransitionToDisabled()
-	TransitionToForcedOpen()
-	Reset()
-
-	// Обгортка для виконання функцій
-	Execute(ctx context.Context, action func(ctx context.Context) error) error
-}
-```
+:::code api-circuit-breaker-config/go/main.go
 
 ## Система подій та слухачів (Lifecycle Event Listeners)
 

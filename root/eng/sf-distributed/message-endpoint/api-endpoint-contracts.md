@@ -52,80 +52,13 @@
 
 ### Оголошення структур мовою C++20
 
-```cpp
-#include <string>
-#include <optional>
-#include <unordered_map>
-#include <cstdint>
-
-struct MessageHeaders {
-    // Ідентифікатори та кореляція
-    std::string id;                                     // UUIDv7
-    std::optional<std::string> correlation_id;
-    std::optional<std::string> causation_id;
-    
-    // Адресація та маршрутизація
-    std::string partition_key;                          // Ключ сутності
-    std::optional<std::string> reply_to;                // Адреса відповіді
-    std::string destination;                            // Цільовий топік/черга
-    
-    // Метадані вмісту та часу
-    std::string content_type = "application/json";
-    int64_t timestamp_utc_ms = 0;
-    int64_t expires_at_utc_ms = 0;                      // 0 = без обмеження
-    uint16_t schema_version = 1;
-    
-    // Стан надійності
-    uint32_t delivery_attempt = 1;
-    bool redelivered = false;
-    
-    // Розподілене трасування W3C
-    std::string traceparent;
-    std::string tracestate;
-    
-    // Користувацькі додаткові атрибути
-    std::unordered_map<std::string, std::string> custom_attributes;
-};
-
-template <typename TPayload>
-struct Message {
-    MessageHeaders headers;
-    TPayload payload;
-};
-```
+:::code api-endpoint-contracts/cpp/oholoshennia-struktur.cpp
 
 ## 2. Інтерфейс вихідного шлюзу (Messaging Gateway)
 
 Шлюз повідомлень надає прикладному коду синхронні та асинхронні методи відправки повідомлень. Його головна відповідальність — повністю приховати від доменного коду факт використання конкретного мережевого протоколу, сокетів, пулів з'єднань і форматів серіалізації.
 
-```cpp
-#include <future>
-#include <chrono>
-
-template <typename TRequest, typename TResponse = void>
-class IMessagingGateway {
-public:
-    virtual ~IMessagingGateway() = default;
-
-    // Асинхронна одностороння публікація події (Fire-and-Forget)
-    // Повертає future, який виконується після передачі в локальний буфер або Outbox.
-    virtual std::future<void> sendAsync(const Message<TRequest>& message) = 0;
-
-    // Синхронна відправка з очікуванням підтвердження від брокера
-    // Блокує викликальний потік до отримання мережевого Publisher Confirm.
-    virtual void sendSync(
-        const Message<TRequest>& message,
-        std::chrono::milliseconds timeout
-    ) = 0;
-
-    // Асинхронний запит-відповідь (Request-Reply)
-    // Створює тимчасову чергу відповідей і повертає майбутній результат.
-    virtual std::future<Message<TResponse>> sendAndReceiveAsync(
-        const Message<TRequest>& request,
-        std::chrono::milliseconds timeout
-    ) = 0;
-};
-```
+:::code api-endpoint-contracts/cpp/2-interfeis-vykhidnoho.cpp
 
 ### Поведінкові вимоги та контракти методів вихідного шлюзу
 
@@ -137,47 +70,7 @@ public:
 
 Вхідна кінцева точка перетворює потік повідомлень із черги на виклики бізнес-методів. Ключовим елементом контракту є розділення самої бізнес-обробки та керування життєвим циклом підтвердження доставки через об'єкт `IAcknowledgmentHandle`.
 
-```cpp
-#include <memory>
-#include <string>
-#include <exception>
-
-// Дескриптор явного підтвердження обробки повідомлення
-class IAcknowledgmentHandle {
-public:
-    virtual ~IAcknowledgmentHandle() = default;
-
-    // Успішна фіксація: видалити повідомлення з черги брокера (Commit/ACK)
-    virtual void ack() = 0;
-
-    // Тимчасова відмова: повернути повідомлення в чергу для повторної спроби (NACK/Requeue)
-    virtual void nack(bool requeue, const std::string& reason) = 0;
-
-    // Фатальна помилка (отруйний пакет): перемістити повідомлення в Dead-Letter Queue (DLQ)
-    virtual void rejectToDlq(const std::string& error_code, const std::string& error_details) = 0;
-};
-
-// Інтерфейс зворотного виклику для вхідних бізнес-повідомлень
-template <typename TPayload>
-class IMessageListener {
-public:
-    virtual ~IMessageListener() = default;
-
-    // Викликається воркером при успішній десеріалізації вхідного повідомлення
-    virtual void onMessage(
-        const Message<TPayload>& message,
-        std::unique_ptr<IAcknowledgmentHandle> ack_handle
-    ) = 0;
-
-    // Викликається при пошкодженні даних, невідомому форматі або помилці схеми
-    virtual void onSystemError(
-        const std::string& raw_payload_bytes,
-        const MessageHeaders& raw_headers,
-        const std::exception& error,
-        std::unique_ptr<IAcknowledgmentHandle> ack_handle
-    ) = 0;
-};
-```
+:::code api-endpoint-contracts/cpp/3-interfeis-vkhidnoho.cpp
 
 ### Інваріанти безпеки та обробка аварійних ситуацій у слухачі
 
@@ -212,36 +105,7 @@ public:
               └───────────────( stop() )────────┴──────┘
 ```
 
-```cpp
-enum class AdapterState {
-    STOPPED,        // Адаптер ініціалізовано, але з'єднання не відкриті
-    CONNECTING,     // Триває встановлення TCP-сесії, TLS та аутентифікація
-    RUNNING,        // Активне вичитування повідомлень і передача воркерам
-    PAUSED,         // Тимчасова зупинка вичитування через протитиск або спрацювання запобіжника
-    RECONNECTING,   // Втрата зв'язку: триває експоненційне очікування перед новою спробою
-    DRAINING        // Зупинка: нові пакети не приймаються, триває завершення активних задач
-};
-
-class IChannelAdapterLifecycle {
-public:
-    virtual ~IChannelAdapterLifecycle() = default;
-
-    // Відкриття з'єднань, реєстрація споживачів та запуск диспетчера
-    virtual void start() = 0;
-
-    // Тимчасове призупинення вичитування сокета (Backpressure / Circuit Breaker)
-    virtual void pause() = 0;
-
-    // Відновлення вичитування після нормалізації черг або відновлення БД
-    virtual void resume() = 0;
-
-    // Безпечне дренування активних завдань і плавне закриття ресурсів
-    virtual void stop(std::chrono::milliseconds drain_timeout) = 0;
-
-    // Отримання поточного стану автомата
-    virtual AdapterState getState() const = 0;
-};
-```
+:::code api-endpoint-contracts/cpp/4-zhyttievyi-tsykl.cpp
 
 ### Опис фаз життєвого циклу
 
@@ -253,39 +117,7 @@ public:
 
 Налаштування поведінки кінцевої точки здійснюється через типізовану структуру конфігурації. Ці параметри визначають пропускну здатність, споживання пам'яті процесу та стійкість до відмов.
 
-```cpp
-struct EndpointConfig {
-    // 1. Мережевий транспорт та брокер
-    std::string broker_endpoint_url;
-    std::string queue_or_topic_name;
-    std::string consumer_group_id;
-    
-    // 2. Якість обслуговування (QoS) та префетч
-    uint16_t prefetch_count = 50;           // Максимум непідтверджених повідомлень
-    bool enable_auto_ack = false;           // Суворо заборонено для надійних систем
-    
-    // 3. Пул воркерів та шардування
-    uint16_t worker_threads_count = 8;      // Кількість паралельних ниток обробки
-    size_t worker_queue_capacity = 1000;    // Максимальна глибина черги одного воркера
-    
-    // 4. Пороги протитиску (Backpressure Watermarks)
-    double high_watermark_ratio = 0.80;     // При 80% заповнення буферів -> pause()
-    double low_watermark_ratio = 0.20;      // При спаді заповнення до 20% -> resume()
-    
-    // 5. Політика повторів (Retry Policy)
-    uint32_t max_retry_attempts = 5;
-    std::chrono::milliseconds initial_retry_interval{100};
-    std::chrono::milliseconds max_retry_interval{30000};
-    double backoff_multiplier = 2.0;
-    bool enable_full_jitter = true;
-    
-    // 6. Мертва черга (DLQ)
-    std::string dlq_topic_name = "dead_letter_queue";
-    
-    // 7. Безпечне завершення (Graceful Shutdown)
-    std::chrono::milliseconds drain_timeout{25000};
-};
-```
+:::code api-endpoint-contracts/cpp/5-konfihuratsiini.cpp
 
 ### Інженерне обґрунтування та правила вибору параметрів
 
@@ -302,34 +134,7 @@ struct EndpointConfig {
 
 Сховище ідемпотентності забезпечує дедуплікацію повідомлень на вході доменної логіки. Інтерфейс підтримує протокол двоетапного захоплення (Two-Phase Claim), що запобігає як повторній обробці вже виконаних подій, так і блокуванню повідомлень при раптовому падінні воркера посеред виконання.
 
-```cpp
-enum class ClaimResult {
-    ACQUIRED_NEW,       // Повідомлення нове: блокування захоплено, виконати бізнес-домен
-    DUPLICATE_RESOLVED, // Повідомлення вже було успішно оброблено раніше -> негайний ACK
-    IN_FLIGHT_CONFLICT  // Повідомлення прямо зараз обробляється іншим воркером -> відкласти
-};
-
-class IIdempotencyStore {
-public:
-    virtual ~IIdempotencyStore() = default;
-
-    // Спроба атомарно захопити право на обробку Message-ID
-    // lock_ttl захищає від вічного зависання при падінні процесу
-    virtual ClaimResult tryClaim(
-        const std::string& message_id,
-        std::chrono::milliseconds lock_ttl
-    ) = 0;
-
-    // Фіксація успішної обробки з тривалим часом зберігання запису
-    virtual void markProcessed(
-        const std::string& message_id,
-        std::chrono::milliseconds record_ttl
-    ) = 0;
-
-    // Звільнення блокування при помилці для дозволу повторних спроб
-    virtual void releaseClaim(const std::string& message_id) = 0;
-};
-```
+:::code api-endpoint-contracts/cpp/6-kontrakt-skhovyshcha.cpp
 
 ### Механіка взаємодії активатора зі сховищем ідемпотентності
 
@@ -341,18 +146,7 @@ public:
 
 Патерн **Селективний споживач** (англ. *Selective Consumer*) дозволяє кінцевій точці фільтрувати потік повідомлень на рівні заголовків, відсікаючи нецікаві події до моменту виділення пам'яті під бізнес-об'єкт.
 
-```cpp
-class IMessageSelector {
-public:
-    virtual ~IMessageSelector() = default;
-
-    // Повертає true, якщо повідомлення відповідає критеріям підписки
-    virtual bool matches(const MessageHeaders& headers) const = 0;
-    
-    // Текстовий вираз селектора у форматі SQL-92 (наприклад: "country = 'UA' AND amount > 100")
-    virtual std::string getExpression() const = 0;
-};
-```
+:::code api-endpoint-contracts/cpp/7-selektyvnyi-spozhyvach.cpp
 
 ### Рівні фільтрації в розподіленому конвеєрі
 
@@ -363,25 +157,7 @@ public:
 
 Коли розмір корисного навантаження перевищує ліміт брокера повідомлень (наприклад, 1 МБ у Kafka або 256 КБ у RabbitMQ/AWS SQS), шлюз та активатор кінцевої точки автоматично підключають механізм **Claim Check** (Квитанція у камері схову).
 
-```cpp
-class IClaimCheckPayloadStore {
-public:
-    virtual ~IClaimCheckPayloadStore() = default;
-
-    // Збереження великого бінарного об'єкта в S3/Blob Storage
-    // Повертає URI збереженого ресурсу (квитанцію)
-    virtual std::future<std::string> uploadPayloadAsync(
-        const std::string& payload_bytes,
-        std::chrono::milliseconds timeout
-    ) = 0;
-
-    // Завантаження бінарного об'єкта за URI квитанції
-    virtual std::future<std::string> downloadPayloadAsync(
-        const std::string& claim_check_uri,
-        std::chrono::milliseconds timeout
-    ) = 0;
-};
-```
+:::code api-endpoint-contracts/cpp/8-kontrakt-kvytantsii-u.cpp
 
 ### Протокол прозорої підміни тіла повідомлення
 

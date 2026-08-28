@@ -124,18 +124,7 @@
 
 Оскільки процеси можуть тривати тижні чи місяці, зміна вихідного коду може зламати replay для вже запущених екземплярів. Для безпечного оновлення застосовується примітив версіонування:
 
-```go
-// Приклад виклику workflow.GetVersion у середовищі Go/Temporal
-version := workflow.GetVersion(ctx, "ChangeID_AddFraudCheck", workflow.DefaultVersion, 1)
-if version == workflow.DefaultVersion {
-    // Стара поведінка для процесів, що стартували до релізу
-    ctx.ExecuteActivity("ProcessPayment", orderID)
-} else {
-    // Нова логіка для всіх нових процесів
-    ctx.ExecuteActivity("CheckFraudScore", orderID)
-    ctx.ExecuteActivity("ProcessPayment", orderID)
-}
-```
+:::code api-durable-primitives/go/main.go
 
 * **DefaultVersion:** спеціальне значення (`-1`), яке повертається під час replay, якщо у збереженій історії ще не було запису про цю зміну коду.
 * **Семантика:** `GetVersion` записує маркер версії в журнал історії при першому проході. Наступні replay гарантовано повертають зафіксовану версію, забезпечуючи детермінізм.

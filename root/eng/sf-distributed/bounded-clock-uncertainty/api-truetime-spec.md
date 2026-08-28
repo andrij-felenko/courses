@@ -9,82 +9,8 @@
 Всі часові мітки в інтерфейсі виражаються як 64-бітні знакові цілі числа (`int64_t`), що представляють кількість наносекунд від початку епохи Unix (1970-01-01 00:00:00 UTC). Секунди координації (англ. *leap seconds*) згладжуються на рівні операційної системи та драйвера (технологія *leap smearing*), тому шкала часу є неперервною та монотонною.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Часовий інтервал TrueTime в наносекундах */
-typedef struct {
-    int64_t earliest_ns; /* Нижня межа довірчого інтервалу (t_local - ε) */
-    int64_t latest_ns;   /* Верхня межа довірчого інтервалу (t_local + ε) */
-} tt_interval_ns_t;
-
-/* Статус джерела синхронізації */
-typedef enum {
-    TT_SOURCE_GPS_LOCKED      = 0, /* GNSS активний, сигнал PPS стабільний (ε < 10 мкс) */
-    TT_SOURCE_PTP_LOCKED      = 1, /* Апаратний PTP IEEE 1588 активний (ε < 50 мкс) */
-    TT_SOURCE_ATOMIC_HOLDOVER = 2, /* Робота від рубідієвого генератора без GPS (ε повільно росте) */
-    TT_SOURCE_NTP_FALLBACK    = 3, /* Аварійний режим NTP (ε від 1 до 50 мс) */
-    TT_SOURCE_UNSYNCHRONIZED  = 4  /* Критичний збій: перевищено ліміт безпеки MAX_UNCERTAINTY */
-} tt_source_status_t;
-
-/* Структура діагностики стану годинника */
-typedef struct {
-    tt_source_status_t status;
-    int64_t current_uncertainty_ns;     /* Поточне значення ε в наносекундах */
-    int64_t max_allowed_uncertainty_ns; /* Поріг аварійної паніки */
-    int64_t time_since_last_sync_ns;    /* Час від останнього сеансу корекції */
-    int32_t active_satellites;          /* Кількість відстежуваних супутників */
-    double estimated_drift_ppm;         /* Оцінена швидкість локального дрейфу */
-} tt_diagnostics_t;
-```
-```cpp
-#include <cstdint>
-#include <chrono>
-#include <string_view>
-
-namespace truetime {
-
-using Nanoseconds = std::chrono::nanoseconds;
-using Microseconds = std::chrono::microseconds;
-
-/* Часовий інтервал TrueTime на базі стандартних типів chrono */
-struct Interval {
-    Nanoseconds earliest{0};
-    Nanoseconds latest{0};
-
-    [[nodiscard]] constexpr Nanoseconds width() const noexcept {
-        return latest - earliest;
-    }
-
-    [[nodiscard]] constexpr Nanoseconds uncertainty() const noexcept {
-        return width() / 2;
-    }
-
-    [[nodiscard]] constexpr bool contains(Nanoseconds t) const noexcept {
-        return earliest <= t && t <= latest;
-    }
-};
-
-enum class SourceStatus : std::uint8_t {
-    GpsLocked = 0,
-    PtpLocked = 1,
-    AtomicHoldover = 2,
-    NtpFallback = 3,
-    Unsynchronized = 4
-};
-
-struct Diagnostics {
-    SourceStatus status{SourceStatus::Unsynchronized};
-    Nanoseconds current_uncertainty{0};
-    Nanoseconds max_allowed_uncertainty{0};
-    Nanoseconds time_since_last_sync{0};
-    std::int32_t active_satellites{0};
-    double estimated_drift_ppm{0.0};
-};
-
-} // namespace truetime
-```
+:::code api-truetime-spec/c/1-bazovi-typy-danykh-ta.c
+:::code api-truetime-spec/cpp/1-bazovi-typy-danykh-ta.cpp
 :::
 
 ## 2. Публічний клієнтський інтерфейс (TrueTime Core API)
@@ -92,47 +18,8 @@ struct Diagnostics {
 Клієнтський інтерфейс розроблено для мінімізації накладних витрат у критичному шляху обробки розподілених запитів. Отримання поточного часу оптимізовано через механізм відображення пам'яті спільного простору ядра (vDSO) або атомарні змінні користувацького простору, що дозволяє виконувати виклик `tt_now()` безпосередньо за 10–30 наносекунд без перемикання контексту ядра ОС.
 
 :::tabs
-```c
-/* Опитує підсистему часу та повертає поточний інтервал [earliest, latest] */
-tt_interval_ns_t tt_now(void);
-
-/* Перевіряє, чи момент часу target_time_ns гарантовано минув */
-bool tt_after(int64_t target_time_ns);
-
-/* Перевіряє, чи момент часу target_time_ns гарантовано знаходиться в майбутньому */
-bool tt_before(int64_t target_time_ns);
-
-/* Блокує потік виконання, доки не настане умова tt_after(commit_ts_ns) == true */
-void tt_commit_wait(int64_t commit_ts_ns);
-
-/* Отримує поточний діагностичний стан підсистеми */
-int tt_get_diagnostics(tt_diagnostics_t *out_diag);
-```
-```cpp
-namespace truetime {
-
-class ITimeService {
-public:
-    virtual ~ITimeService() = default;
-
-    /* Повертає поточний довірчий інтервал часу */
-    [[nodiscard]] virtual Interval now() const = 0;
-
-    /* Перевірка настання моменту в минулому */
-    [[nodiscard]] virtual bool after(Nanoseconds target_time) const = 0;
-
-    /* Перевірка знаходження моменту в майбутньому */
-    [[nodiscard]] virtual bool before(Nanoseconds target_time) const = 0;
-
-    /* Бар'єр Commit Wait */
-    virtual void commit_wait(Nanoseconds commit_timestamp) const = 0;
-
-    /* Отримання повної діагностики підсистеми */
-    [[nodiscard]] virtual Diagnostics get_diagnostics() const = 0;
-};
-
-} // namespace truetime
-```
+:::code api-truetime-spec/c/2-publichnyi-kliientskyi.h
+:::code api-truetime-spec/cpp/2-publichnyi-kliientskyi.cpp
 :::
 
 ### Детальна специфікація функцій ядра
@@ -174,56 +61,8 @@ public:
 Драйвер синхронізації є проміжним шаром між апаратними контролерами точного часу та користувацьким простором СУБД. Він відповідає за періодичне опитування зовнішніх еталонів, фільтрацію викидів (фільтр Калмана) та динамічну зміну частоти ходу ядра (англ. *clock slewing*).
 
 :::tabs
-```c
-/* Інтерфейс плагіна апаратного джерела */
-typedef struct {
-    const char *driver_name;
-    
-    /* Ініціалізація апаратного пристрою (відкриття дескрипторів /dev/ptpX або /dev/ppsX) */
-    int (*init)(void);
-    
-    /* Отримання поточного зсуву та похибки від зовнішнього еталону */
-    int (*poll_sample)(int64_t *utc_time_ns, int64_t *reference_error_ns);
-    
-    /* Плавне коригування частоти локального генератора (ppb, parts-per-billion) */
-    int (*adjust_frequency_ppb)(double offset_ppb);
-    
-    /* Звільнення ресурсів при зупинці демона */
-    void (*shutdown)(void);
-} tt_hardware_driver_t;
-```
-```cpp
-#include <memory>
-#include <expected>
-#include <string_view>
-
-namespace truetime {
-
-struct TimeSample {
-    Nanoseconds utc_time{0};
-    Nanoseconds reference_error{0};
-};
-
-enum class DriverError : std::uint8_t {
-    DeviceNotAvailable,
-    SignalLost,
-    InvalidMeasurement,
-    HardwareFault
-};
-
-class IHardwareDriver {
-public:
-    virtual ~IHardwareDriver() = default;
-
-    [[nodiscard]] virtual std::string_view name() const noexcept = 0;
-    virtual std::expected<void, DriverError> initialize() = 0;
-    [[nodiscard]] virtual std::expected<TimeSample, DriverError> poll_sample() = 0;
-    virtual std::expected<void, DriverError> adjust_frequency(double offset_ppb) = 0;
-    virtual void shutdown() noexcept = 0;
-};
-
-} // namespace truetime
-```
+:::code api-truetime-spec/c/4-interfeis-draivera.h
+:::code api-truetime-spec/cpp/4-interfeis-draivera.cpp
 :::
 
 ## 5. Контракт інтеграції з транзакційним рушієм СУБД

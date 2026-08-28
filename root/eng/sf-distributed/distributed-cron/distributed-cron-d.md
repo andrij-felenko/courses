@@ -66,22 +66,7 @@
 
 Замість вибору лідера всі періодичні задачі зберігаються у реляційній базі даних у спільній таблиці розкладів. Кожен запис містить колонки `job_id`, `cron_expression`, `next_run_at` та `status`. Усі репліки сервісу раз на секунду виконують конкурентний запит на захоплення готових до виконання рядків:
 
-```sql
-UPDATE cron_jobs
-SET status = 'RUNNING',
-    locked_by = 'worker-pod-4',
-    locked_until = NOW() + INTERVAL '5 minutes'
-WHERE id IN (
-    SELECT id
-    FROM cron_jobs
-    WHERE next_run_at <= NOW()
-      AND (status = 'IDLE' OR locked_until < NOW())
-    ORDER BY next_run_at ASC
-    LIMIT 50
-    FOR UPDATE SKIP LOCKED
-)
-RETURNING *;
-```
+:::code distributed-cron-d/sql/main.sql
 
 Конструкція `FOR UPDATE SKIP LOCKED` дозволяє транзакціям пропускати вже заблоковані сусідніми процесами рядки без очікування, що запобігає виникненню взаємних блокувань.
 

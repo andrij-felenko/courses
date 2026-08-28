@@ -28,13 +28,15 @@
           "proj": [
             {
               "file": "proj-bounded-channel.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-channel-primitives.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -63,13 +65,15 @@
           "proj": [
             {
               "file": "proj-durable-p2p-queue.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-amqp-p2p.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -92,19 +96,23 @@
           "math": [
             {
               "file": "math-fanout-backpressure.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-pubsub-broker.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-pubsub-protocol.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -127,7 +135,8 @@
           "proj": [
             {
               "file": "proj-append-log.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -149,7 +158,8 @@
           "proj": [
             {
               "file": "proj-competing-worker-pool.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -171,13 +181,15 @@
           "proj": [
             {
               "file": "proj-message-endpoint.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-endpoint-contracts.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -195,7 +207,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
@@ -206,19 +219,22 @@
           "comp": [
             {
               "file": "comp-broker-clustering-and-topologies.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-message-broker-engine.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-broker-wire-protocol.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -246,7 +262,8 @@
           "proj": [
             {
               "file": "proj-distributed-message-bus.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -268,7 +285,8 @@
           "proj": [
             {
               "file": "proj-brokerless-bus.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -296,7 +314,8 @@
           "proj": [
             {
               "file": "proj-resilient-bus-bridge.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -318,7 +337,8 @@
           "proj": [
             {
               "file": "proj-reliable-bridge.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -340,13 +360,15 @@
           "proj": [
             {
               "file": "proj-mini-esb.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-esb-pipeline.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }

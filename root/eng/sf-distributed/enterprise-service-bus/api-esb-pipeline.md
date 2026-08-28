@@ -96,67 +96,19 @@
 
 ### 3.2. Інтерфейс стадії конвеєра (`IPipelineStage`)
 
-```cpp
-// C++ контракт інтерфейсу стадії посередництва
-enum class StageResult {
-    Continue,      // Успішна обробка, передати конверт наступній стадії
-    Filtered,      // Повідомлення відсіяно фільтром (нормальне завершення)
-    Fault,         // Виникла непереборна помилка обробки
-    Retry,         // Тимчасовий збій, запит на повторну спробу
-    AsyncSuspend   // Асинхронна пауза (очікування I/O або сигналу події)
-};
-
-class IPipelineStage {
-public:
-    virtual ~IPipelineStage() = default;
-    
-    // Унікальне ім'я стадії для метрик, трасування та конфігурації
-    [[nodiscard]] virtual std::string_view name() const noexcept = 0;
-    
-    // Ініціалізація внутрішніх ресурсів стадії
-    virtual bool initialize(const StageConfig& config) = 0;
-    
-    // Головний метод обробки повідомлення
-    virtual StageResult process(Exchange& exchange) = 0;
-    
-    // Коректне звільнення ресурсів при зупинці конвеєра (Graceful Shutdown)
-    virtual void destroy() noexcept = 0;
-};
-```
+:::code api-esb-pipeline/cpp/3-2-interfeis-stadii.cpp
 
 ### 3.3. Інтерфейс маршрутизатора за змістом (`IContentBasedRouter`)
 
 Маршрутизатор аналізує поля заголовків або тіло повідомлення і повертає вектор кінцевих адрес призначення:
 
-```cpp
-class IContentBasedRouter {
-public:
-    virtual ~IContentBasedRouter() = default;
-    
-    // Оцінка правил та повернення списку цільових адрес (Unicast / Multicast)
-    [[nodiscard]] virtual std::vector<std::string> route(const NormalizedMessage& message) const = 0;
-    
-    // Динамічна реєстрація правила маршрутизації без зупинки процесу
-    virtual void register_rule(std::string_view rule_expression, std::string_view target_endpoint) = 0;
-};
-```
+:::code api-esb-pipeline/cpp/3-3-interfeis.cpp
 
 ### 3.4. Інтерфейс транслятора схем (`IMessageTranslator`)
 
 Транслятор виконує двостороннє семантичне та структурне перетворення корисного навантаження між канонічною моделлю шини та специфічними протокольними форматами інтегрованих систем:
 
-```cpp
-class IMessageTranslator {
-public:
-    virtual ~IMessageTranslator() = default;
-    
-    // Трансформація корисного навантаження у цільову схему даних
-    virtual std::expected<NormalizedMessage, TranslationError> translate(
-        const NormalizedMessage& source_message,
-        std::string_view target_schema_id
-    ) const = 0;
-};
-```
+:::code api-esb-pipeline/cpp/3-4-interfeis-transliatora.cpp
 
 ---
 

@@ -42,72 +42,9 @@ S_cpu(N) = 1 + 2 + 3 + ... + N = N · (N + 1) ÷ 2 = O(N²)
 Коли кількість подій у поточному запуску наближається до встановленого порогу (зазвичай 1 000–2 000 подій), функція робочого процесу викликає команду завершення поточного циклу, передаючи акумульований стан як аргумент наступного запуску:
 
 :::tabs
-```go
-func BillingAccountWorkflow(ctx workflow.Context, state AccountState) error {
-    eventCount := 0
-
-    for {
-        // Очікування зовнішнього сигналу або таймера
-        var signal DepositSignal
-        selector := workflow.NewSelector(ctx)
-        selector.AddReceive(workflow.GetSignalChannel(ctx, "Deposit"), func(c workflow.ReceiveChannel, _ bool) {
-            c.Receive(ctx, &signal)
-            state.Balance += signal.Amount
-            eventCount++
-        })
-        selector.Select(ctx)
-
-        // Перевірка порогу відсікання історії
-        if eventCount >= 1000 || workflow.GetInfo(ctx).GetCurrentHistoryLength() >= 2000 {
-            // Атомарний перехід: поточний RunID закривається, новий RunID стартує зі state
-            return workflow.NewContinueAsNewError(ctx, BillingAccountWorkflow, state)
-        }
-    }
-}
-```
-```typescript
-import { condition, defineSignal, setHandler, continueAsNew } from '@temporalio/workflow';
-
-export async function billingAccountWorkflow(state: AccountState): Promise<void> {
-  let eventCount = 0;
-  const depositSignal = defineSignal<[number]>('Deposit');
-
-  setHandler(depositSignal, (amount) => {
-    state.balance += amount;
-    eventCount++;
-  });
-
-  while (true) {
-    await condition(() => eventCount > 0);
-    eventCount = 0;
-
-    if (state.totalProcessedSignals >= 1000) {
-      // Атомарний перезапуск із чистим журналом подій
-      await continueAsNew<typeof billingAccountWorkflow>(state);
-    }
-  }
-}
-```
-```cpp
-// C++ SDK: виклик Continue-As-New через контекстний метод
-class BillingAccountWorkflow {
-public:
-    void run(WorkflowContext& ctx, AccountState state) {
-        int event_count = 0;
-        
-        while (true) {
-            auto signal = ctx.wait_for_signal<DepositSignal>("Deposit");
-            state.balance += signal.amount;
-            event_count++;
-
-            if (event_count >= 1000) {
-                // Атомарна передача знімка стану в новий запуск
-                ctx.continue_as_new("BillingAccountWorkflow", ContinueAsNewOptions{}, state);
-            }
-        }
-    }
-};
-```
+:::code durable-workflow-cluster-under-load-d/go/main.go
+:::code durable-workflow-cluster-under-load-d/ts/index.ts
+:::code durable-workflow-cluster-under-load-d/cpp/main.cpp
 :::
 
 Під час виконання `ContinueAsNew` кластер оркестратора здійснює неподільну транзакцію:

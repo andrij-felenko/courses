@@ -113,71 +113,8 @@ routing_policy:
 Якщо як стратегію обрано `custom_hook`, рушій динамічно завантажує спільну бібліотеку (`.so` або `.dll`) та викликає експортовану функцію злиття для кожного рядка, що зазнав одночасної модифікації:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-
-typedef struct {
-    const char*    datacenter_id;
-    uint64_t       logical_timestamp;
-    const uint8_t* payload;
-    size_t         payload_len;
-} MutationRecord;
-
-typedef struct {
-    uint8_t* merged_payload;
-    size_t   merged_payload_len;
-    int      should_delete; /* 1 = перетворити на Tombstone, 0 = зберегти */
-} ConflictResolutionResult;
-
-/**
- * @brief Точка входу користувацького злиття конфліктів (C ABI)
- * @param key Ключ сутності, на якій виник конфлікт
- * @param key_len Довжина ключа в байтах
- * @param local Поточний локальний стан рядка
- * @param remote Вхідна мутація з віддаленого датацентру
- * @param out_result Буфер для результуючого об'єднаного значення
- * @return 0 при успіху, ненульовий код помилки
- */
-int resolve_write_conflict(
-    const char*                     key,
-    size_t                          key_len,
-    const MutationRecord*           local,
-    const MutationRecord*           remote,
-    ConflictResolutionResult*       out_result
-);
-```
-```cpp
-#include <span>
-#include <string_view>
-#include <vector>
-#include <cstdint>
-#include <expected>
-
-struct MutationRecord {
-    std::string_view         datacenter_id;
-    uint64_t                 logical_timestamp{0};
-    std::span<const uint8_t> payload;
-};
-
-struct ConflictResolutionResult {
-    std::vector<uint8_t> merged_payload;
-    bool                 should_delete{false}; // true = Tombstone маркер
-};
-
-/**
- * @brief Ідіоматичний C++20 інтерфейс користувацького злиття конфліктів
- * @param key Ключ сутності
- * @param local Поточний локальний стан рядка
- * @param remote Вхідна мутація з віддаленого датацентру
- * @return Результат злиття або код помилки
- */
-std::expected<ConflictResolutionResult, int> resolve_write_conflict(
-    std::string_view      key,
-    const MutationRecord& local,
-    const MutationRecord& remote
-);
-```
+:::code api-replication-topology-config/c/main.c
+:::code api-replication-topology-config/cpp/main.cpp
 :::
 
 ---
