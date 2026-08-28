@@ -60,13 +60,16 @@
           "math": [
             {
               "file": "math-lss-stopping.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-stopping-range-sim.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
@@ -95,19 +98,22 @@
           "math": [
             {
               "file": "math-band-bending.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-inversion-profile-sim.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-inversion-parameters-ref.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         }
@@ -136,13 +142,16 @@
           "math": [
             {
               "file": "math-continuity-equation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-haynes-shockley-sim.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -165,7 +174,8 @@
           "math": [
             {
               "file": "math-diffusion-equation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -193,7 +203,9 @@
           "proj": [
             {
               "file": "proj-diffusion-simulation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -216,13 +228,16 @@
           "math": [
             {
               "file": "math-srh-derivation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-srh-calculator.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -262,19 +277,23 @@
           "math": [
             {
               "file": "math-kroemer-band-offset.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-heterojunction-solver.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-hemt-hbt-params.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         },
@@ -303,13 +322,16 @@
           "math": [
             {
               "file": "math-schottky-transport.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-schottky-sim.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -326,19 +348,23 @@
           "hist": [
             {
               "file": "hist-bardeen-barrier.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ],
           "math": [
             {
               "file": "math-tlm-derivation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-tlm-analyzer.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -366,7 +392,9 @@
           "proj": [
             {
               "file": "proj-contact-calculator.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         },
@@ -383,25 +411,30 @@
           "hist": [
             {
               "file": "hist-zener.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "comp": [
             {
               "file": "comp-tvs.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-avalanche.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-breakdown-sim.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }

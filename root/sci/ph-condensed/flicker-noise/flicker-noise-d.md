@@ -295,61 +295,8 @@ S_ch1,ch2(f) = S_sample(f) + S_amp1,amp2(f) / √(N_avg)           [крос-с�
 Наведемо експериментальну реалізацію спектрального синтезу 1/f шуму мовами Python та C++:
 
 :::tabs
-```py
-import numpy as np
-
-def generate_flicker_noise(num_samples: int, sample_rate: float) -> np.ndarray:
-    """Генерація часового ряду фліккер-шуму 1/f методом зворотного FFT."""
-    # Генерація випадкових фаз та білого шуму в частотній області
-    freqs = np.fft.rfftfreq(num_samples, d=1.0 / sample_rate)
-    freqs[0] = freqs[1]  # Попередження ділення на нуль для DC-компоненти
-    
-    # Амплітуда спадає як 1/sqrt(f), що дає потужність 1/f
-    amplitude_weights = 1.0 / np.sqrt(freqs)
-    amplitude_weights[0] = 0.0  # Усунення постійного зміщення
-    
-    phases = np.random.uniform(0, 2 * np.pi, len(freqs))
-    complex_spectrum = amplitude_weights * np.exp(1j * phases)
-    
-    # Зворотне FFT для отримання часового ряду
-    noise_time_series = np.fft.irfft(complex_spectrum, n=num_samples)
-    return noise_time_series / np.std(noise_time_series)
-```
-```cpp
-#include <vector>
-#include <cmath>
-#include <random>
-#include <complex>
-#include <span>
-
-// Проста реалізація дискретного перетворення Фур'є для генерації 1/f шуму
-std::vector<double> generate_flicker_noise(size_t num_samples) {
-    std::vector<std::complex<double>> spectrum(num_samples / 2 + 1);
-    std::mt19937 gen(1337);
-    std::uniform_real_distribution<double> dist(0.0, 2.0 * M_PI);
-
-    spectrum[0] = 0.0; // Нульове DC зміщення
-    for (size_t k = 1; k < spectrum.size(); ++k) {
-        double freq = static_cast<double>(k);
-        double amp = 1.0 / std::sqrt(freq);
-        double phase = dist(gen);
-        spectrum[k] = std::polar(amp, phase);
-    }
-
-    // Зворотне ДПФ для розрахунку відліків у часовій області
-    std::vector<double> noise(num_samples, 0.0);
-    double N = static_cast<double>(num_samples);
-    for (size_t n = 0; n < num_samples; ++n) {
-        double sum = 0.0;
-        for (size_t k = 1; k < spectrum.size(); ++k) {
-            double angle = 2.0 * M_PI * k * n / N;
-            sum += spectrum[k].real() * std::cos(angle) - spectrum[k].imag() * std::sin(angle);
-        }
-        noise[n] = sum;
-    }
-    return noise;
-}
-```
+:::code flicker-noise-d/py/main.py
+:::code flicker-noise-d/cpp/main.cpp
 :::
 
 > 🔧 **Навіщо це.**
