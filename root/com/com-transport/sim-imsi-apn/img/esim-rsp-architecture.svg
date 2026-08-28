@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Архітектура дистанційного завантаження профілів eSIM (GSMA SGP.22 RSP)</text>
+<rect x="20.0" y="50.0" width="840.0" height="160.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.2"/>
+<text x="35.0" y="72.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Мережева інфраструктура віддаленого керування профілями (Remote Infrastructure)</text>
+<rect x="40.0" y="90.0" width="230.0" height="105.0" rx="6" fill="#ffffff" stroke="#b9770e" stroke-width="1.8"/>
+<text x="155.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b9770e" text-anchor="middle" font-weight="700">SM-DP+ Сервер</text>
+<text x="155.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Data Preparation + Secure Routing</text>
+<text x="155.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Шифрування профілів оператора</text>
+<text x="155.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b9770e" text-anchor="middle" font-weight="700">Генерація зв'язки Bound Profile Package</text>
+<rect x="320.0" y="90.0" width="230.0" height="105.0" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.8"/>
+<text x="435.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#7c3aed" text-anchor="middle" font-weight="700">SM-DS Сервер</text>
+<text x="435.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Discovery Server (GSMA Root)</text>
+<text x="435.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Повідомлення про наявність профілю</text>
+<text x="435.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c3aed" text-anchor="middle" font-weight="700">Реєстрація за EID чипа</text>
+<rect x="600.0" y="90.0" width="240.0" height="105.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+<text x="720.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">GSMA CI (Root PKI)</text>
+<text x="720.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Сертифікаційний центр довіри</text>
+<text x="720.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Підпис сертифікатів eUICC та SM-DP+</text>
+<text x="720.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Захист від підробних серверів</text>
+<rect x="20.0" y="230.0" width="840.0" height="270.0" rx="8" fill="#f0f9ff" stroke="#0891b2" stroke-width="1.5"/>
+<text x="35.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0891b2" text-anchor="start" font-weight="700">Клієнтський пристрій (Device Host) з чипом eUICC</text>
+<rect x="40.0" y="270.0" width="260.0" height="215.0" rx="6" fill="#ffffff" stroke="#0891b2" stroke-width="1.5"/>
+<text x="170.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0891b2" text-anchor="middle" font-weight="700">LPA (Local Profile Assistant)</text>
+<text x="170.0" y="318.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">LPD: Profile Download (HTTPS/TLS)</text>
+<text x="170.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">LDS: Discovery Service Client</text>
+<text x="170.0" y="362.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">LUI: User Interface / QR-сканер</text>
+<text x="170.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0891b2" text-anchor="middle" font-weight="700">Комунікація з eUICC через APDU</text>
+<text x="170.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">ES10x інтерфейс з ISD-R</text>
+<text x="170.0" y="438.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Передача зашифрованого BPP</text>
+<text x="170.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Команди Enable / Disable / Delete</text>
+<rect x="340.0" y="270.0" width="500.0" height="215.0" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2.0"/>
+<text x="590.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">eUICC Апаратний чип (Soldered IC / EID)</text>
+<rect x="360.0" y="315.0" width="140.0" height="155.0" rx="5" fill="#fef2f2" stroke="#c0392b" stroke-width="1.2"/>
+<text x="430.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">ECASD</text>
+<text x="430.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Root PKI ключі</text>
+<text x="430.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Сертифікат eUICC</text>
+<text x="430.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Перевірка підпису</text>
+<text x="430.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">сервера SM-DP+</text>
+<text x="430.0" y="442.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Крипто-ядро</text>
+<rect x="515.0" y="315.0" width="145.0" height="155.0" rx="5" fill="#fdf4ff" stroke="#7c3aed" stroke-width="1.2"/>
+<text x="587.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="middle" font-weight="700">ISD-R</text>
+<text x="587.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Root Security Domain</text>
+<text x="587.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Створення ISD-P</text>
+<text x="587.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Керування життєвим</text>
+<text x="587.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c3aed" text-anchor="middle" font-weight="700">циклом профілів</text>
+<text x="587.0" y="446.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Розшифрування BPP</text>
+<rect x="675.0" y="315.0" width="150.0" height="155.0" rx="5" fill="#fefce8" stroke="#b9770e" stroke-width="1.2"/>
+<text x="750.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b9770e" text-anchor="middle" font-weight="700">ISD-P (Профілі)</text>
+<text x="750.0" y="358.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Профіль Оператора A</text>
+<text x="750.0" y="378.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Профіль Оператора B</text>
+<text x="750.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Ізольовані файлові</text>
+<text x="750.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b9770e" text-anchor="middle" font-weight="700">системи USIM (Ki, IMSI)</text>
+<text x="750.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Лише ОДИН активний</text>
+<line x1="155.0" y1="195.0" x2="155.0" y2="270.0" stroke="#b9770e" stroke-width="2.0"/>
+<text x="185.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b9770e" text-anchor="middle" font-weight="700">ES9+ (BPP)</text>
+<line x1="300.0" y1="390.0" x2="360.0" y2="390.0" stroke="#0891b2" stroke-width="2.0"/>
+<text x="330.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0891b2" text-anchor="middle" font-weight="700">ES10</text>
+</svg>

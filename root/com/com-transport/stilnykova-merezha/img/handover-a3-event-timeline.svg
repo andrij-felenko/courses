@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="100%" height="100%">
+<style>
+  .bg { fill: #0f172a; }
+  .title { font-family: sans-serif; font-size: 15px; font-weight: 700; fill: #f8fafc; }
+  .subtitle { font-family: sans-serif; font-size: 11px; fill: #94a3b8; }
+  .axis { stroke: #475569; stroke-width: 1.5; }
+  .grid { stroke: #334155; stroke-width: 1; stroke-dasharray: 4,4; }
+  .sig-srv { stroke: #38bdf8; stroke-width: 2.5; fill: none; }
+  .sig-tgt { stroke: #4ade80; stroke-width: 2.5; fill: none; }
+  .ttt-zone { fill: #38bdf8; fill-opacity: 0.12; stroke: #38bdf8; stroke-width: 1; stroke-dasharray: 2,2; }
+  .event-line { stroke: #f43f5e; stroke-width: 1.5; stroke-dasharray: 3,3; }
+  .txt-axis { font-family: sans-serif; font-size: 10px; fill: #94a3b8; }
+  .txt-lbl { font-family: sans-serif; font-size: 12px; font-weight: 700; fill: #f8fafc; }
+  .txt-note { font-family: sans-serif; font-size: 10px; fill: #cbd5e1; }
+  .box-note { fill: #1e293b; stroke: #475569; stroke-width: 1; rx: 4px; }
+</style>
+<defs>
+  <marker id="arr-axis" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+    <polygon points="0 0, 8 3, 0 6" fill="#475569" />
+  </marker>
+</defs>
+<rect class="bg" width="960" height="500" />
+<text class="title" font-size="15" x="30" y="32">Процес естафетної передачі (Handover): Подія A3, Гістерезис та Time-to-Trigger</text>
+<text class="subtitle" font-size="11" x="30" y="48">Запобігання ефекту «пінг-понгу» при перетині меж суміжних сот</text>
+<line class="axis" x1="80" y1="420" x2="900" y2="420" marker-end="url(#arr-axis)" />
+<line class="axis" x1="80" y1="420" x2="80" y2="110" marker-end="url(#arr-axis)" />
+<text class="txt-axis" font-size="10" x="860" y="445">Час (t)</text>
+<text class="txt-axis" font-size="10" x="15" y="125">RSRP (dBm)</text>
+<path class="sig-srv" d="M 80 220 C 300 230, 460 290, 630 350 S 830 385, 880 395" />
+<path class="sig-tgt" d="M 80 395 C 300 370, 460 310, 630 255 S 830 210, 880 200" />
+<rect class="box-note" x="100" y="65" width="220" height="52" />
+<line x1="110" y1="82" x2="135" y2="82" stroke="#38bdf8" stroke-width="3" />
+<text class="txt-lbl" font-size="12" x="145" y="86" fill="#38bdf8">Serving Cell (Поточна)</text>
+<line x1="110" y1="102" x2="135" y2="102" stroke="#4ade80" stroke-width="3" />
+<text class="txt-lbl" font-size="12" x="145" y="106" fill="#4ade80">Target Cell (Сусідня)</text>
+<rect class="box-note" x="340" y="65" width="220" height="52" />
+<text class="txt-lbl" font-size="12" x="350" y="86" fill="#f59e0b">Умова події A3:</text>
+<text class="txt-note" font-size="10" x="350" y="104">RSRP_tgt &gt; RSRP_srv + Hys + Off</text>
+<rect class="box-note" x="580" y="65" width="220" height="52" />
+<text class="txt-lbl" font-size="12" x="592" y="86" fill="#4ade80">Виконання естафети:</text>
+<text class="txt-note" font-size="10" x="592" y="104">• X2/Xn Handover Command</text>
+<line class="grid" x1="400" y1="420" x2="400" y2="135" />
+<text class="txt-axis" font-size="10" x="400" y="438" text-anchor="middle">RSRP₁ = RSRP₂</text>
+<line class="event-line" x1="490" y1="420" x2="490" y2="135" />
+<text class="txt-axis" font-size="10" x="490" y="438" text-anchor="middle">A3 Вхід</text>
+<rect class="ttt-zone" x="490" y="135" width="160" height="285" />
+<line class="event-line" x1="650" y1="420" x2="650" y2="135" />
+<text class="txt-axis" font-size="10" x="650" y="438" text-anchor="middle">Звіт вимірювань</text>
+<line class="event-line" x1="800" y1="420" x2="800" y2="135" />
+<text class="txt-axis" font-size="10" x="800" y="438" text-anchor="middle">Перемикання (HO)</text>
+</svg>

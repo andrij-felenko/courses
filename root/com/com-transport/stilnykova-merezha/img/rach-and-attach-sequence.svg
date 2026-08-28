@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 580" width="100%" height="100%">
+<style>
+  .bg { fill: #0f172a; }
+  .title { font-family: sans-serif; font-size: 15px; font-weight: 700; fill: #f8fafc; }
+  .subtitle { font-family: sans-serif; font-size: 11px; fill: #94a3b8; }
+  .node-box { fill: #1e293b; stroke: #475569; stroke-width: 1.5; rx: 6px; }
+  .node-title { font-family: sans-serif; font-size: 12px; font-weight: 700; fill: #f1f5f9; }
+  .node-sub { font-family: sans-serif; font-size: 10px; fill: #94a3b8; }
+  .lifeline { stroke: #334155; stroke-width: 1.5; stroke-dasharray: 4,4; }
+  .phase-box { fill: #1e293b; fill-opacity: 0.5; stroke: #3b82f6; stroke-width: 1; stroke-dasharray: 3,3; rx: 4px; }
+  .phase-title { font-family: sans-serif; font-size: 11px; font-weight: 700; fill: #60a5fa; }
+  .msg-line { stroke-width: 1.5; }
+  .msg-ul { stroke: #38bdf8; }
+  .msg-dl { stroke: #4ade80; }
+  .msg-core { stroke: #a78bfa; }
+  .msg-txt { font-family: sans-serif; font-size: 11px; font-weight: 600; fill: #e2e8f0; }
+  .msg-detail { font-family: sans-serif; font-size: 10px; fill: #94a3b8; }
+</style>
+<defs>
+  <marker id="arr-ul" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+    <polygon points="0 0, 8 3, 0 6" fill="#38bdf8" />
+  </marker>
+  <marker id="arr-dl" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+    <polygon points="0 0, 8 3, 0 6" fill="#4ade80" />
+  </marker>
+  <marker id="arr-core" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+    <polygon points="0 0, 8 3, 0 6" fill="#a78bfa" />
+  </marker>
+</defs>
+<rect class="bg" width="960" height="580" />
+<text class="title" font-size="15" x="30" y="32">Процедура підключення: Випадковий доступ (RACH) та реєстрація в ядрі (Attach)</text>
+<text class="subtitle" font-size="11" x="30" y="48">Від фізичної синхронізації до виділення радіоносіїв (Default EPS Bearer / PDU Session)</text>
+<rect class="node-box" x="60" y="65" width="120" height="48" />
+<text class="node-title" font-size="12" x="120" y="85" text-anchor="middle">UE (Модем)</text>
+<text class="node-sub" font-size="10" x="120" y="101" text-anchor="middle">SIM / RRC / NAS</text>
+<line class="lifeline" x1="120" y1="115" x2="120" y2="555" />
+<rect class="node-box" x="320" y="65" width="120" height="48" />
+<text class="node-title" font-size="12" x="380" y="85" text-anchor="middle">eNodeB / gNodeB</text>
+<text class="node-sub" font-size="10" x="380" y="101" text-anchor="middle">PHY / MAC / RRC</text>
+<line class="lifeline" x1="380" y1="115" x2="380" y2="555" />
+<rect class="node-box" x="580" y="65" width="120" height="48" />
+<text class="node-title" font-size="12" x="640" y="85" text-anchor="middle">MME / AMF</text>
+<text class="node-sub" font-size="10" x="640" y="101" text-anchor="middle">Контролер ядра</text>
+<line class="lifeline" x1="640" y1="115" x2="640" y2="555" />
+<rect class="node-box" x="800" y="65" width="120" height="48" />
+<text class="node-title" font-size="12" x="860" y="85" text-anchor="middle">HSS / UDM</text>
+<text class="node-sub" font-size="10" x="860" y="101" text-anchor="middle">База абонентів</text>
+<line class="lifeline" x1="860" y1="115" x2="860" y2="555" />
+<line class="msg-line msg-dl" x1="380" y1="140" x2="120" y2="140" marker-end="url(#arr-dl)" />
+<text class="msg-txt" font-size="11" x="135" y="134">1. PBCH / PDSCH: MIB + SIB1 + SIB2</text>
+<text class="msg-detail" font-size="10" x="135" y="154">Синхронізація (PSS/SSS), смуга DL, параметри PRACH, TAC, PLMN</text>
+<rect class="phase-box" x="40" y="176" width="420" height="150" />
+<text class="phase-title" font-size="11" x="50" y="192">ФАЗА ВИПАДКОВОГО ДОСТУПУ (4-Step CBRA RACH)</text>
+<line class="msg-line msg-ul" x1="120" y1="215" x2="380" y2="215" marker-end="url(#arr-ul)" />
+<text class="msg-txt" font-size="11" x="135" y="209">Msg1: PRACH Preamble (Zadoff-Chu seq)</text>
+<line class="msg-line msg-dl" x1="380" y1="250" x2="120" y2="250" marker-end="url(#arr-dl)" />
+<text class="msg-txt" font-size="11" x="135" y="244">Msg2: RAR (Timing Advance, UL Grant, TC-RNTI)</text>
+<line class="msg-line msg-ul" x1="120" y1="285" x2="380" y2="285" marker-end="url(#arr-ul)" />
+<text class="msg-txt" font-size="11" x="135" y="279">Msg3: RRCSetupRequest (UE-ID: S-TMSI / Random)</text>
+<line class="msg-line msg-dl" x1="380" y1="320" x2="120" y2="320" marker-end="url(#arr-dl)" />
+<text class="msg-txt" font-size="11" x="135" y="314">Msg4: RRCSetup (Contention Resolution, C-RNTI)</text>
+<line class="msg-line msg-ul" x1="120" y1="365" x2="380" y2="365" marker-end="url(#arr-ul)" />
+<text class="msg-txt" font-size="11" x="135" y="359">RRCSetupComplete + NAS: Attach Request (IMSI/GUTI)</text>
+<line class="msg-line msg-core" x1="380" y1="397" x2="640" y2="397" marker-end="url(#arr-core)" />
+<text class="msg-txt" font-size="11" x="395" y="391">S1-AP: Initial UE Message (Attach Request)</text>
+<line class="msg-line msg-core" x1="640" y1="433" x2="860" y2="433" marker-end="url(#arr-core)" />
+<text class="msg-txt" font-size="11" x="655" y="427">Authentication Information Request</text>
+<line class="msg-line msg-core" x1="860" y1="465" x2="640" y2="465" marker-end="url(#arr-core)" />
+<text class="msg-txt" font-size="11" x="655" y="459">Auth Vectors (RAND, AUTN, XRES, K_ASME)</text>
+<line class="msg-line msg-dl" x1="640" y1="501" x2="120" y2="501" marker-end="url(#arr-dl)" />
+<text class="msg-txt" font-size="11" x="135" y="495">NAS: Authentication Request (RAND, AUTN) - Security Activation</text>
+<line class="msg-line msg-dl" x1="380" y1="537" x2="120" y2="537" marker-end="url(#arr-dl)" />
+<text class="msg-txt" font-size="11" x="135" y="531">RRC: SecurityModeCommand &amp; RRCReconfiguration (Default Bearer / IP)</text>
+</svg>

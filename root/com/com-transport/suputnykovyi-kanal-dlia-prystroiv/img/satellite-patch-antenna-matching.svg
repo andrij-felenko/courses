@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 930.24 440" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="930.24" height="440" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конструкція антени RHCP та схема буферизації живлення</text>
+<rect x="10.0" y="10.0" width="800.0" height="410.0" rx="10" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<rect x="25.0" y="30.0" width="370.0" height="380.0" rx="8" fill="#fafbfc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="210.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Керамічна патч-антена RHCP (1621 МГц)</text>
+<rect x="80.0" y="75.0" width="260.0" height="150.0" rx="4" fill="#e2e8f0" stroke="#333333" stroke-width="1.5"/>
+<text x="210.0" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Плата заземлення (Ground Plane ≥ 50 × 50 мм)</text>
+<rect x="130.0" y="105.0" width="160.0" height="100.0" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.8"/>
+<text x="210.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">Кераміка ε_r ≈ 36</text>
+<text x="210.0" y="158.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle">25 × 25 × 4 мм</text>
+<circle cx="185.0" cy="175.0" r="5.0" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="185.0" y1="175.0" x2="150.0" y2="195.0" stroke="#c0392b" stroke-width="1.2"/>
+<text x="145.0" y="208.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Зміщена точка запитки (RHCP)</text>
+<line x1="130.0" y1="118.0" x2="143.0" y2="105.0" stroke="#d97706" stroke-width="2.0"/>
+<line x1="277.0" y1="205.0" x2="290.0" y2="192.0" stroke="#d97706" stroke-width="2.0"/>
+<text x="275.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">зрізи кутів
+(зсув фази 90°)</text>
+<rect x="40.0" y="240.0" width="340.0" height="155.0" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/><text x="210.0" y="297.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="210.0" dy="0.0">Вимоги до антени супутникового вузла:</tspan><tspan x="210.0" dy="11.7">• Права кругова поляризація (RHCP, Axial Ratio &lt; 3 дБ)</tspan><tspan x="210.0" dy="11.7">• Екранує втрати від обертання площини Фарадея в іоносфері</tspan><tspan x="210.0" dy="11.7">• Чистий горизонт (Sky View) без металевих перешкод</tspan><tspan x="210.0" dy="11.7">• Розмір екранної площини задає резонансну частоту та КСХ</tspan></text>
+<rect x="425.0" y="30.0" width="370.0" height="380.0" rx="8" fill="#fafbfc" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="610.0" y="52.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Буферизація імпульсного струму (до 2 А)</text>
+<rect x="440.0" y="80.0" width="80.0" height="50.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="480.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Батарея</text>
+<text x="480.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Li-SOCl2 (3.6В)</text>
+<rect x="540.0" y="80.0" width="95.0" height="50.0" rx="4" fill="#fff8e1" stroke="#f0b429" stroke-width="1.4"/>
+<text x="587.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700">Soft-Start / LDO</text>
+<text x="587.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">I_max ≤ 150 мА</text>
+<rect x="655.0" y="80.0" width="125.0" height="50.0" rx="4" fill="#eafaf1" stroke="#27ae60" stroke-width="1.4"/>
+<text x="717.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Суперконденсатор</text>
+<text x="717.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">0.22…0.5 Ф (ESR &lt; 50 мОм)</text>
+<line x1="520.0" y1="105.0" x2="540.0" y2="105.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="635.0" y1="105.0" x2="655.0" y2="105.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="717.0" y1="130.0" x2="717.0" y2="165.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="717.0" y1="165.0" x2="717.0" y2="185.0" stroke="#c0392b" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="745.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="start" font-weight="700">Піковий імпульс
+1.5…2.0 А (8.3 мс)</text>
+<rect x="480.0" y="185.0" width="270.0" height="45.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.6"/>
+<text x="615.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Підсилювач потужності (PA Transceiver)</text>
+<text x="615.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Iridium 9603N / Swarm M138</text>
+<rect x="440.0" y="245.0" width="340.0" height="150.0" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/><text x="610.0" y="299.8" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="610.0" dy="0.0">Фізична проблема просідання напруги (Brownout):</tspan><tspan x="610.0" dy="11.7">• Первинні батареї мають високий внутрішній опір (ESR &gt; 5…15 Ом)</tspan><tspan x="610.0" dy="11.7">• Стрибок струму 2 А викликає падіння ΔU = I · R_esr &gt; 10 В (колапс!)</tspan><tspan x="610.0" dy="11.7">• Суперконденсатор накопичує енергію E = 0.5 · C · (U1² - U2²)</tspan><tspan x="610.0" dy="11.7">• Soft-start обмежує струм заряду, запобігаючи скиданню мікроконтролера</tspan></text>
+</svg>

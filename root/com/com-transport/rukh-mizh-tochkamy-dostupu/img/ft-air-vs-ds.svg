@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Два режими Fast Transition: Over-the-Air проти Over-the-DS</text>
+<rect x="40.0" y="55.0" width="350.0" height="295.0" rx="8" fill="#fbfcff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="215.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">FT Over-the-Air (Прямий ефір)</text>
+<text x="215.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Клієнт перемикає радіо на канал Target AP</text>
+<rect x="55.0" y="115.0" width="320.0" height="44.0" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.1"/>
+<text x="215.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">1. STA залишає Current AP</text>
+<text x="215.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Перемикання синтезатора на цільовий канал</text>
+<rect x="55.0" y="167.0" width="320.0" height="44.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.1"/>
+<text x="215.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">2. FT Auth Request → Target AP</text>
+<text x="215.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Передача SNonce та MDIE напряму по радіо</text>
+<rect x="55.0" y="219.0" width="320.0" height="44.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.1"/>
+<text x="215.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. FT Auth Response ← Target AP</text>
+<text x="215.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Target AP надсилає ANonce та підтвердження</text>
+<rect x="55.0" y="271.0" width="320.0" height="44.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.1"/>
+<text x="215.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">4. FT Reassociation Req / Resp</text>
+<text x="215.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Фінальне узгодження PTK та шифрування каналу</text>
+<rect x="430.0" y="55.0" width="350.0" height="295.0" rx="8" fill="#fdfbf9" stroke="#c0392b" stroke-width="1.5"/>
+<text x="605.0" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="700">FT Over-the-DS (Через мережу DS)</text>
+<text x="605.0" y="96.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Попереднє узгодження через робочий лінк</text>
+<rect x="445.0" y="115.0" width="320.0" height="44.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.1"/>
+<text x="605.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. FT Action Request → Current AP</text>
+<text x="605.0" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">STA залишається на старому радіоканалі</text>
+<rect x="445.0" y="167.0" width="320.0" height="44.0" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.1"/>
+<text x="605.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">2. Тунелювання через дріт (DS)</text>
+<text x="605.0" y="200.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Current AP пересилає запит до Target AP по LAN</text>
+<rect x="445.0" y="219.0" width="320.0" height="44.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.1"/>
+<text x="605.0" y="236.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">3. FT Action Response ← Current AP</text>
+<text x="605.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Відповідь Target AP повертається через старий лінк</text>
+<rect x="445.0" y="271.0" width="320.0" height="44.0" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.1"/>
+<text x="605.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">4. Миттєвий перехід на новий канал</text>
+<text x="605.0" y="304.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Лише 1 пара кадрів: FT Reassociation Req/Resp</text>
+<text x="410.0" y="368.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Over-the-DS усуває паузу на радіосканування: передача даних не переривається до моменту реасоціації</text>
+</svg>

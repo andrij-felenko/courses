@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 450" width="100%" height="100%">
+<style>
+  .bg { fill: #0f172a; }
+  .title { font-family: sans-serif; font-size: 15px; font-weight: 700; fill: #f8fafc; }
+  .subtitle { font-family: sans-serif; font-size: 11px; fill: #94a3b8; }
+  .state-card { rx: 8px; stroke-width: 2; }
+  .st-idle { fill: #1e293b; stroke: #38bdf8; }
+  .st-conn { fill: #1e293b; stroke: #4ade80; }
+  .st-inact { fill: #1e293b; stroke: #f59e0b; }
+  .st-name { font-family: sans-serif; font-size: 13px; font-weight: 700; }
+  .st-desc { font-family: sans-serif; font-size: 10px; fill: #cbd5e1; }
+  .trans-line { stroke-width: 1.5; fill: none; }
+  .t-blue { stroke: #38bdf8; }
+  .t-green { stroke: #4ade80; }
+  .t-yellow { stroke: #f59e0b; }
+  .t-red { stroke: #f43f5e; }
+  .trans-txt { font-family: sans-serif; font-size: 10px; font-weight: 600; fill: #f1f5f9; }
+  .trans-sub { font-family: sans-serif; font-size: 9px; fill: #94a3b8; }
+</style>
+<defs>
+  <marker id="arr-b" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+    <polygon points="0 0, 8 3, 0 6" fill="#38bdf8" />
+  </marker>
+  <marker id="arr-g" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+    <polygon points="0 0, 8 3, 0 6" fill="#4ade80" />
+  </marker>
+  <marker id="arr-y" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+    <polygon points="0 0, 8 3, 0 6" fill="#f59e0b" />
+  </marker>
+  <marker id="arr-r" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+    <polygon points="0 0, 8 3, 0 6" fill="#f43f5e" />
+  </marker>
+</defs>
+<rect class="bg" width="940" height="450" />
+<text class="title" font-size="15" x="30" y="32">Автомат станів керування радіоресурсами (RRC State Machine)</text>
+<text class="subtitle" font-size="11" x="30" y="48">Еволюція станів зв'язку від класичного LTE (IDLE/CONNECTED) до 5G NR (RRC_INACTIVE)</text>
+<rect class="state-card st-idle" x="35" y="85" width="240" height="280" />
+<text class="st-name" font-size="13" x="155" y="115" text-anchor="middle" fill="#38bdf8">RRC_IDLE</text>
+<text class="st-desc" font-size="10" x="50" y="145">• TX вимкнено (енергозбереження)</text>
+<text class="st-desc" font-size="10" x="50" y="168">• Періодичний DRX / eDRX цикл</text>
+<text class="st-desc" font-size="10" x="50" y="191">• Слухання Paging каналу</text>
+<text class="st-desc" font-size="10" x="50" y="214">• Вимірювання для переобрання</text>
+<text class="st-desc" font-size="10" x="50" y="235">  соти (Cell Reselection S-критерій)</text>
+<text class="st-desc" font-size="10" x="50" y="258">• Немає C-RNTI та RRC-контексту</text>
+<text class="st-desc" font-size="10" x="50" y="281">• Локація відома з точністю до TAC</text>
+<text class="st-desc" font-size="10" x="50" y="315" fill="#38bdf8">Час переходу: ~100–150 мс</text>
+<rect class="state-card st-conn" x="665" y="85" width="240" height="280" />
+<text class="st-name" font-size="13" x="785" y="115" text-anchor="middle" fill="#4ade80">RRC_CONNECTED</text>
+<text class="st-desc" font-size="10" x="680" y="145">• Активний прийом і передача даних</text>
+<text class="st-desc" font-size="10" x="680" y="168">• Виділений ідентифікатор C-RNTI</text>
+<text class="st-desc" font-size="10" x="680" y="191">• Налаштовані радіоносії (DRB/SRB)</text>
+<text class="st-desc" font-size="10" x="680" y="214">• Контроль каналу (CQI, PMI, RI)</text>
+<text class="st-desc" font-size="10" x="680" y="237">• Звіти вимірювань для Handover</text>
+<text class="st-desc" font-size="10" x="680" y="260">• Керування потужністю (TPC)</text>
+<text class="st-desc" font-size="10" x="680" y="283">• Постійний моніторинг PDCCH</text>
+<text class="st-desc" font-size="10" x="680" y="315" fill="#4ade80">Затримка пакету: &lt; 1–4 мс</text>
+<rect class="state-card st-inact" x="350" y="240" width="240" height="185" />
+<text class="st-name" font-size="13" x="470" y="265" text-anchor="middle" fill="#f59e0b">RRC_INACTIVE (5G/LTE-A)</text>
+<text class="st-desc" font-size="10" x="365" y="290">• Контекст безпеки збережено в RAN</text>
+<text class="st-desc" font-size="10" x="365" y="310">• Зв'язок Core (N2/N3) залишається</text>
+<text class="st-desc" font-size="10" x="365" y="330">• Пристрій спить як в IDLE</text>
+<text class="st-desc" font-size="10" x="365" y="350">• Швидке відновлення без ядра</text>
+<text class="st-desc" font-size="10" x="365" y="370">• Призначено I-RNTI і RNA</text>
+<text class="st-desc" font-size="10" x="365" y="395" fill="#f59e0b">Час відновлення: &lt; 10–15 мс</text>
+<path class="trans-line t-green" d="M 275 125 C 400 65, 540 65, 665 125" marker-end="url(#arr-g)" />
+<text class="trans-txt" font-size="10" x="470" y="85" text-anchor="middle">RRC Setup (RACH, MO Data / MT Paging)</text>
+<text class="trans-sub" font-size="9" x="470" y="100" text-anchor="middle">Повне встановлення RRC та носіїв ядра</text>
+<path class="trans-line t-red" d="M 665 175 C 540 140, 400 140, 275 175" marker-end="url(#arr-r)" />
+<text class="trans-txt" font-size="10" x="470" y="152" text-anchor="middle">RRCRelease (Inactivity Timer / Detach)</text>
+<path class="trans-line t-yellow" d="M 685 365 C 655 400, 625 390, 590 375" marker-end="url(#arr-y)" />
+<text class="trans-txt" font-size="10" x="655" y="420" text-anchor="middle">RRCRelease (suspendConfig)</text>
+<path class="trans-line t-green" d="M 550 240 C 585 200, 625 195, 665 215" marker-end="url(#arr-g)" />
+<text class="trans-txt" font-size="10" x="575" y="200" text-anchor="middle">RRCResumeRequest</text>
+<path class="trans-line t-red" d="M 350 340 C 320 345, 300 345, 275 330" marker-end="url(#arr-r)" />
+<text class="trans-txt" font-size="10" x="290" y="370" text-anchor="middle">RNA fail / Core release</text>
+</svg>

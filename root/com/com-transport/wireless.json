@@ -69,6 +69,16 @@
               "status": "recheck"
             }
           ]
+        },
+        {
+          "slug": "ads-b-transponder",
+          "title": "ADS-B та авіаційні транспондери Mode S: вторинна радіолокація та цифрове спостереження",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -103,8 +113,26 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "api": [
+            {
+              "file": "api-80211kvr-ie.md",
+              "status": "recheck"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-roaming-hysteresis.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-roaming-manager.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "esp-now",
@@ -114,6 +142,26 @@
           },
           "detailed": {
             "status": "recheck"
+          }
+        },
+        {
+          "slug": "wifi-management-frames",
+          "title": "Кадри керування 802.11: Beacon, Vendor IE та передача без асоціації",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "wifi-nan-aware",
+          "title": "Wi-Fi NAN (Wi-Fi Aware): енергоефективне виявлення пристроїв без точки доступу",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
           }
         }
       ]

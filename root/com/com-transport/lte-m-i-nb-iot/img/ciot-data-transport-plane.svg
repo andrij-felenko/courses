@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="440.0" y="24.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оптимізації передачі даних CIoT: Control Plane (DoNAS) проти User Plane</text>
+<rect x="40.0" y="50.0" width="385.0" height="340.0" rx="8" fill="#ecfeff" stroke="#0891b2" stroke-width="1.5"/>
+<text x="232.5" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#0891b2" text-anchor="middle" font-weight="700">1. Control Plane CIoT (Data over NAS)</text>
+<text x="232.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Пакет даних упаковано в сигнальні повідомлення NAS</text>
+<rect x="80.0" y="125.0" width="305.0" height="36.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="232.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Термінал (UE)</text>
+<rect x="80.0" y="190.0" width="305.0" height="36.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="232.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Базова станція (eNodeB)</text>
+<rect x="80.0" y="255.0" width="305.0" height="36.0" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.2"/>
+<text x="232.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7c3aed" text-anchor="middle" font-weight="700">Сервер керування (MME)</text>
+<rect x="80.0" y="320.0" width="305.0" height="36.0" rx="6" fill="#ffffff" stroke="#0891b2" stroke-width="1.2"/>
+<text x="232.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0891b2" text-anchor="middle" font-weight="700">SGW / SCEF (Шлюз)</text>
+<line x1="232.0" y1="161.0" x2="232.0" y2="188.0" stroke="#0891b2" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="310.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0891b2" text-anchor="middle">RRC (NAS PDU)</text>
+<line x1="232.0" y1="226.0" x2="232.0" y2="253.0" stroke="#0891b2" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="305.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0891b2" text-anchor="middle">S1-MME (S1-AP)</text>
+<line x1="232.0" y1="291.0" x2="232.0" y2="318.0" stroke="#0891b2" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="315.0" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0891b2" text-anchor="middle">S11 (GTP-C / T6a)</text>
+<rect x="55.0" y="362.0" width="355.0" height="22.0" rx="4" fill="#cffafe" stroke="#0891b2" stroke-width="1.0"/>
+<text x="232.5" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0891b2" text-anchor="middle" font-weight="700">Мінімум сигналізації: без встановлення Data Radio Bearer (DRB)</text>
+<rect x="455.0" y="50.0" width="385.0" height="340.0" rx="8" fill="#fdf4ff" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="647.5" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7c3aed" text-anchor="middle" font-weight="700">2. User Plane CIoT (Suspend / Resume)</text>
+<text x="647.5" y="92.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Збереження контексту безпеки та відновлення RRC</text>
+<rect x="495.0" y="125.0" width="305.0" height="36.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+<text x="647.0" y="147.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Термінал (UE)</text>
+<rect x="495.0" y="190.0" width="305.0" height="36.0" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="647.0" y="212.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Базова станція (eNodeB)</text>
+<rect x="495.0" y="255.0" width="305.0" height="36.0" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+<text x="647.0" y="284.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Сервер керування (MME)</text>
+<rect x="495.0" y="320.0" width="305.0" height="36.0" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.2"/>
+<text x="647.0" y="342.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#7c3aed" text-anchor="middle" font-weight="700">Шлюз даних (SGW / PGW)</text>
+<line x1="647.0" y1="161.0" x2="647.0" y2="188.0" stroke="#7c3aed" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="740.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c3aed" text-anchor="middle">RRC Resume (DRB)</text>
+<line x1="575.0" y1="226.0" x2="575.0" y2="318.0" stroke="#7c3aed" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="640.0" y="275.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c3aed" text-anchor="middle" font-weight="700">S1-U (GTP-U трафік)</text>
+<line x1="725.0" y1="226.0" x2="725.0" y2="253.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="780.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Без MME</text>
+<rect x="470.0" y="362.0" width="355.0" height="22.0" rx="4" fill="#fae8ff" stroke="#7c3aed" stroke-width="1.0"/>
+<text x="647.5" y="377.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#7c3aed" text-anchor="middle" font-weight="700">Висока швидкість: прямий тракт даних без навантаження на MME</text>
+<rect x="40.0" y="400.0" width="800.0" height="48.0" rx="6" fill="#f8fafc" stroke="#6b7280" stroke-width="1.0"/>
+<text x="440.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="440.0" dy="0.0">Control Plane (DoNAS) ідеальний для поодиноких телеметричних звітів (≤ 100 байтів у NB-IoT),</tspan><tspan x="440.0" dy="11.9">тоді як User Plane оптимізація переважає при передачі пачок даних, оновленні прошивки (FOTA) та в LTE-M.</tspan></text>
+</svg>

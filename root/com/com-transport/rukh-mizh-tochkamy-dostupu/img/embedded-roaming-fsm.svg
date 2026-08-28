@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 410" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="410" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Скінченний автомат клієнтського роумінгу (Embedded Wi-Fi SoC)</text>
+<rect x="50.0" y="75.0" width="210.0" height="80.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="155.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">1. CONNECTED</text>
+<text x="155.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="155.0" dy="0.0">Фільтрація RSSI (EWMA)</tspan><tspan x="155.0" dy="13.0">Моніторинг Beacon Loss</tspan></text>
+<line x1="260.0" y1="115.0" x2="310.0" y2="115.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="285.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">RSSI &lt; -75</text>
+<rect x="310.0" y="75.0" width="210.0" height="80.0" rx="8" fill="#eef3ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="415.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">2. TARGETED_SCAN</text>
+<text x="415.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="415.0" dy="0.0">Скан каналів 802.11k</tspan><tspan x="415.0" dy="13.0">або фоновий скан</tspan></text>
+<line x1="520.0" y1="115.0" x2="570.0" y2="115.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="545.0" y="103.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-weight="700">Знайдено</text>
+<rect x="570.0" y="75.0" width="200.0" height="80.0" rx="8" fill="#fff7e6" stroke="#c0392b" stroke-width="1.6"/>
+<text x="670.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">3. EVALUATE</text>
+<text x="670.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="670.0" dy="0.0">Перевірка умови:</tspan><tspan x="670.0" dy="12.3">RSSI_кандидат &gt; RSSI_пот + Δ</tspan></text>
+<line x1="670.0" y1="155.0" x2="670.0" y2="235.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="725.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Δ &gt; 6 dBm</text>
+<line x1="670.0" y1="75.0" x2="670.0" y2="48.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="670.0" y1="48.0" x2="155.0" y2="48.0" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="155.0" y1="48.0" x2="155.0" y2="75.0" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="415.0" y="42.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Δ ≤ 6 dBm (залишаємося на старій AP, усунення пінг-понгу)</text>
+<rect x="570.0" y="235.0" width="200.0" height="80.0" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.6"/>
+<text x="670.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">4. HANDOVER (FT/Reassoc)</text>
+<text x="670.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle"><tspan x="670.0" dy="0.0">802.11r швидкий перехід</tspan><tspan x="670.0" dy="12.3">або Fast Reassociation</tspan></text>
+<rect x="310.0" y="235.0" width="210.0" height="80.0" rx="8" fill="#eafaf0" stroke="#27ae60" stroke-width="1.6"/>
+<text x="415.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">5. POST_HANDOVER</text>
+<text x="415.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="415.0" dy="0.0">Відправка Gratuitous ARP</tspan><tspan x="415.0" dy="13.0">Перевірка IP / DHCP</tspan></text>
+<line x1="570.0" y1="275.0" x2="520.0" y2="275.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="545.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Успіх</text>
+<line x1="310.0" y1="275.0" x2="280.0" y2="275.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="280.0" y1="275.0" x2="280.0" y2="195.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="280.0" y1="195.0" x2="155.0" y2="195.0" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="155.0" y1="195.0" x2="155.0" y2="155.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="215.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Канал активний</text>
+<rect x="50.0" y="235.0" width="210.0" height="80.0" rx="8" fill="#ffebee" stroke="#c0392b" stroke-width="1.4"/>
+<text x="155.0" y="258.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">DISCONNECTED (Fail)</text>
+<text x="155.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="155.0" dy="0.0">Beacon Timeout</tspan><tspan x="155.0" dy="12.3">Повний скан усіх каналів</tspan></text>
+<line x1="85.0" y1="155.0" x2="85.0" y2="235.0" stroke="#c0392b" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="60.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle">Втрата AP</text>
+<text x="410.0" y="385.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Гістерезис за рівнем сигналу (ΔRSSI) та таймер затримки запобігають нескінченним перемиканням між точками</text>
+</svg>

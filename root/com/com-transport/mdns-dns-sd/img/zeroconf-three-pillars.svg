@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Три опори архітектури Zero-Configuration Networking</text>
+<rect x="40.0" y="65.0" width="280.0" height="400.0" rx="10" fill="#eef3fb" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="50.0" y="75.0" width="260.0" height="36.0" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="180.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2457d6" text-anchor="middle" font-weight="700">1. Адресація (Link-Local)</text>
+<text x="60.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">IPv4: 169.254.0.0/16 (RFC 3927)</text>
+<text x="60.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">IPv6: fe80::/10 (RFC 4862)</text>
+<text x="60.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">• Зондування: ARP Probe / DAD</text>
+<text x="60.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">• Анонс: ARP Announcement</text>
+<text x="60.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">• Захист: Defending</text>
+<text x="60.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Пристрій сам обирає IP</text>
+<text x="60.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">без DHCP-сервера</text>
+<rect x="360.0" y="65.0" width="280.0" height="400.0" rx="10" fill="#fdf3e6" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="370.0" y="75.0" width="260.0" height="36.0" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+<text x="500.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#d97706" text-anchor="middle" font-weight="700">2. Імена (Multicast DNS)</text>
+<text x="380.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">mDNS (RFC 6762)</text>
+<text x="380.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Група: 224.0.0.251:5353</text>
+<text x="380.0" y="175.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">IPv6: [ff02::fb]:5353</text>
+<text x="380.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">• Домен верхнього рівня .local</text>
+<text x="380.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">• Зондування імен хостів</text>
+<text x="380.0" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">• Tie-breaking при колізіях</text>
+<text x="380.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Зв'язок mydevice.local &lt;-&gt; IP</text>
+<text x="380.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">без центрального DNS</text>
+<rect x="680.0" y="65.0" width="280.0" height="400.0" rx="10" fill="#eef8f1" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="690.0" y="75.0" width="260.0" height="36.0" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/>
+<text x="820.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#16a34a" text-anchor="middle" font-weight="700">3. Служби (DNS-SD)</text>
+<text x="700.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">DNS-Based Discovery (RFC 6763)</text>
+<text x="700.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Семантика DNS-записів:</text>
+<text x="700.0" y="181.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">• PTR: пошук екземплярів типу</text>
+<text x="700.0" y="201.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">• SRV: цільовий хост і порт</text>
+<text x="700.0" y="221.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">• TXT: параметри (key=value)</text>
+<text x="700.0" y="247.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">Пошук «принтер», «веб-інтерфейс»</text>
+<text x="700.0" y="267.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start">без попередньої конфігурації</text>
+<rect x="40.0" y="485.0" width="920.0" height="52.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/><text x="500.0" y="515.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">Результат: пристрій увімкнено в мережу — він дістає IP, публікує ім'я і відкриває служби за 0 секунд конфігурації</tspan></text>
+</svg>
