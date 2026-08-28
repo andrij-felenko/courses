@@ -20,23 +20,7 @@
 
 **Прошарок ролей.** Полагодити це можна одним ходом — вставити прошарок. Користувач не отримує права напряму; він отримує роль (редактор, модератор, адміністратор), а вже роль несе набір прав. «Усе, що може редактор» описано один раз; прийняв людину — видав роль, а не п'ятдесят галочок; знялася потреба — забрав роль, і права зникли всі разом. Це рольова модель (англ. *role-based access control*, RBAC) — та сама, на якій тримається переважна більшість застосунків, і на ній вони й спиняються.
 
-```ts
-// одні ворота: рішення тут, а не розсіяне по місцях застосування
-type Perm = `${string}:${string}`;                 // "client:delete"
-
-const rolePerms: Record<string, Perm[]> = {
-  manager:  ["client:delete", "client:read"],
-  operator: ["client:read"],
-};
-
-function can(user: { roles: string[] }, perm: Perm): boolean {
-  // deny-by-default: доки жодна роль не дала право — «ні»
-  return user.roles.some(r => (rolePerms[r] ?? []).includes(perm));
-}
-
-// місце застосування лише питає й кориться:
-if (!can(current, "client:delete")) throw new Forbidden();
-```
+:::code authorization-models/ts/index.ts
 
 ![Прошарок ролей: людям видають ролі, ролям — права; зв'язок «кожен до кожного» розпадається на два простих](/root/eng/sf-security/authorization-models/img/rbac-layer.svg)
 

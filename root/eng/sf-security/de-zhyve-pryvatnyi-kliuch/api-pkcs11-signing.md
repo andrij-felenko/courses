@@ -23,20 +23,7 @@
 
 ### 2.1. Основні числові та дескрипторні типи
 
-```c
-typedef unsigned char     CK_BYTE;
-typedef unsigned char     CK_BBOOL;
-typedef unsigned long int CK_ULONG;
-typedef CK_ULONG          CK_RV;              /* Return Value / Код повернення */
-typedef CK_ULONG          CK_SLOT_ID;         /* Ідентифікатор слота */
-typedef CK_ULONG          CK_SESSION_HANDLE;  /* Дескриптор сесії */
-typedef CK_ULONG          CK_OBJECT_HANDLE;   /* Дескриптор криптографічного об'єкта */
-typedef CK_ULONG          CK_OBJECT_CLASS;    /* Клас об'єкта (CKO_*) */
-typedef CK_ULONG          CK_KEY_TYPE;        /* Тип ключа (CKK_*) */
-typedef CK_ULONG          CK_MECHANISM_TYPE;  /* Алгоритмічний механізм (CKM_*) */
-typedef CK_ULONG          CK_ATTRIBUTE_TYPE;  /* Тип атрибута об'єкта (CKA_*) */
-typedef CK_ULONG          CK_USER_TYPE;       /* Роль користувача (CKU_*) */
-```
+:::code api-pkcs11-signing/c/2-1-osnovni-chyslovi-ta.c
 
 ### 2.2. Структура криптографічного атрибута (`CK_ATTRIBUTE`)
 
@@ -187,22 +174,7 @@ CK_RV C_Logout(CK_SESSION_HANDLE hSession);
 
 ## 5. Специфікація функцій пошуку криптографічних об'єктів
 
-```c
-CK_RV C_FindObjectsInit(
-    CK_SESSION_HANDLE hSession,   /* Дескриптор сесії */
-    CK_ATTRIBUTE_PTR  pTemplate,  /* Шаблон пошуку (масив CK_ATTRIBUTE) */
-    CK_ULONG          ulCount     /* Кількість атрибутів у шаблоні */
-);
-
-CK_RV C_FindObjects(
-    CK_SESSION_HANDLE    hSession,          /* Дескриптор сесії */
-    CK_OBJECT_HANDLE_PTR phObject,          /* Вихідний масив знайдених дескрипторів */
-    CK_ULONG             ulMaxObjectCount,  /* Максимальна кількість об'єктів за виклик */
-    CK_ULONG_PTR         pulObjectCount     /* Фактична кількість знайдених об'єктів */
-);
-
-CK_RV C_FindObjectsFinal(CK_SESSION_HANDLE hSession);
-```
+:::code api-pkcs11-signing/c/5-spetsyfikatsiia-funktsii.h
 
 ---
 
@@ -236,21 +208,7 @@ CK_RV C_Sign(
 
 ### Двоетапний виклик `C_Sign` (Two-pass Signature Sizing):
 
-```c
-/* Крок 1: Запит необхідного розміру підпису */
-CK_ULONG sigLen = 0;
-CK_RV rv = C_Sign(hSession, digest, 32, NULL, &sigLen);
-if (rv != CKR_OK) {
-    /* Обробка помилки */
-}
-
-/* Крок 2: Виділення пам'яті під буфер та отримання підпису */
-CK_BYTE *signature = (CK_BYTE *)malloc(sigLen);
-rv = C_Sign(hSession, digest, 32, signature, &sigLen);
-if (rv == CKR_OK) {
-    /* Підпис успішно накладено в апаратному чипі */
-}
-```
+:::code api-pkcs11-signing/c/dvoetapnyi-vyklyk-c-sign.c
 
 ---
 
@@ -258,48 +216,11 @@ if (rv == CKR_OK) {
 
 Для того, щоб приватний ключ ніколи не з'являвся на хості навіть під час його народження, застосунок викликає функцію апаратної генерації:
 
-```c
-CK_RV C_GenerateKeyPair(
-    CK_SESSION_HANDLE    hSession,                    /* Дескриптор RW-сесії */
-    CK_MECHANISM_PTR     pMechanism,                  /* CKM_EC_KEY_PAIR_GEN або CKM_RSA_PKCS_KEY_PAIR_GEN */
-    CK_ATTRIBUTE_PTR     pPublicKeyTemplate,          /* Шаблон відкритого ключа */
-    CK_ULONG             ulPublicKeyAttributeCount,   /* Кількість атрибутів відкритого ключа */
-    CK_ATTRIBUTE_PTR     pPrivateKeyTemplate,         /* Шаблон приватного ключа */
-    CK_ULONG             ulPrivateKeyAttributeCount,  /* Кількість атрибутів приватного ключа */
-    CK_OBJECT_HANDLE_PTR phPublicKey,                 /* Дескриптор згенерованого PubKey */
-    CK_OBJECT_HANDLE_PTR phPrivateKey                 /* Дескриптор згенерованого PrivKey */
-);
-```
+:::code api-pkcs11-signing/c/7-heneratsiia-pary.c
 
 ### Приклад шаблону безпечної генерації ECDSA P-256:
 
-```c
-/* OID для кривої secp256r1 / NIST P-256: 1.2.840.10045.3.1.7 */
-static CK_BYTE ec_p256_params[] = {
-    0x06, 0x08, 0x2A, 0x86, 0x48, 0xCE, 0x3D, 0x03, 0x01, 0x07
-};
-
-CK_BBOOL bTrue  = CK_TRUE;
-CK_BBOOL bFalse = CK_FALSE;
-char privLabel[] = "Secure-Device-ECDSA-Key";
-char pubLabel[]  = "Secure-Device-ECDSA-PubKey";
-
-CK_ATTRIBUTE pubTemplate[] = {
-    { CKA_TOKEN,         &bTrue,             sizeof(bTrue) },
-    { CKA_VERIFY,        &bTrue,             sizeof(bTrue) },
-    { CKA_ECDSA_PARAMS,  ec_p256_params,     sizeof(ec_p256_params) },
-    { CKA_LABEL,         pubLabel,           strlen(pubLabel) }
-};
-
-CK_ATTRIBUTE privTemplate[] = {
-    { CKA_TOKEN,         &bTrue,             sizeof(bTrue) },
-    { CKA_PRIVATE,       &bTrue,             sizeof(bTrue) },
-    { CKA_SENSITIVE,     &bTrue,             sizeof(bTrue) },
-    { CKA_EXTRACTABLE,   &bFalse,            sizeof(bFalse) }, /* Заборона експорту назавжди */
-    { CKA_SIGN,          &bTrue,             sizeof(bTrue) },
-    { CKA_LABEL,         privLabel,          strlen(privLabel) }
-};
-```
+:::code api-pkcs11-signing/c/pryklad-shablonu.c
 
 ---
 

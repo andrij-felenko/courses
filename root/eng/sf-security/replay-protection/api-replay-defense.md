@@ -91,37 +91,8 @@ SigningKey           = HMAC(DateRegionServiceKey, "aws4_request")
 #### Визначення структур заголовка мовами C та C++
 
 :::tabs
-```c
-#include <stdint.h>
-
-// Базовий заголовок ESP (RFC 4303)
-struct esp_header {
-    uint32_t spi;       // Ідентифікатор Security Association (SA)
-    uint32_t seq_no;    // Молодші 32 біти лічильника послідовності (Sequence Number)
-};
-
-// Трейлер ESP
-struct esp_trailer {
-    uint8_t pad_length; // Кількість байтів вирівнювання (0..255)
-    uint8_t next_proto; // Тип вкладеного протоколу (IPv4=4, IPv6=41, TCP=6, UDP=17)
-};
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-
-// Базовий заголовок ESP (RFC 4303)
-struct EspHeader {
-    uint32_t spi{0};       // Ідентифікатор Security Association (SA)
-    uint32_t seq_no{0};    // Молодші 32 біти лічильника послідовності (Sequence Number)
-};
-
-// Трейлер ESP
-struct EspTrailer {
-    uint8_t pad_length{0}; // Кількість байтів вирівнювання (0..255)
-    uint8_t next_proto{0}; // Тип вкладеного протоколу (IPv4=4, IPv6=41, TCP=6, UDP=17)
-};
-```
+:::code api-replay-defense/c/main.c
+:::code api-replay-defense/cpp/main.cpp
 :::
 
 #### Механізм розширених номерів послідовності (ESN, 64-біт)

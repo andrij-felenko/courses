@@ -290,76 +290,8 @@ enum class AuthResult : uint32_t {
 Для захисту від пропуску інструкцій умовного переходу критичні блоки виконуються двічі з використанням комплементарної логіки та асемблерних бар'єрів пам'яті, що блокують оптимізації компілятора:
 
 :::tabs
-```c
-#include <stdint.h>
-
-#define BARRIER() __asm__ volatile("" ::: "memory")
-
-void execute_secure_boot(void) {
-    volatile uint32_t auth_token = STATUS_UNINITIALIZED;
-    
-    /* Перший крок верифікації */
-    auth_token = verify_crypto_signature();
-    BARRIER();
-    
-    if (auth_token != STATUS_AUTH_SUCCESS) {
-        hardware_tamper_lockout();
-    }
-    BARRIER();
-    
-    /* Другий крок: незалежна комплементарна перевірка */
-    uint32_t recheck = verify_crypto_signature();
-    BARRIER();
-    
-    /* Зворотне порівняння: перевірка на стан помилки */
-    if (recheck == STATUS_AUTH_FAILURE || recheck == STATUS_UNINITIALIZED) {
-        hardware_tamper_lockout();
-    }
-    BARRIER();
-    
-    /* Третій бар'єр: подвійне замикання результату */
-    if ((auth_token ^ recheck) != 0U) {
-        hardware_tamper_lockout();
-    }
-    
-    /* Запуск ядра дозволено лише за проходження всіх трьох бар'єрів */
-    boot_application_firmware();
-}
-```
-```cpp
-#include <cstdint>
-#include <span>
-
-inline void compiler_barrier() noexcept {
-    asm volatile("" ::: "memory");
-}
-
-void execute_secure_boot() {
-    volatile AuthResult token = AuthResult::Uninitialized;
-
-    token = verify_crypto_signature();
-    compiler_barrier();
-
-    if (token != AuthResult::Success) {
-        hardware_tamper_lockout();
-    }
-    compiler_barrier();
-
-    const AuthResult recheck = verify_crypto_signature();
-    compiler_barrier();
-
-    if (recheck == AuthResult::Failure || recheck == AuthResult::Uninitialized) {
-        hardware_tamper_lockout();
-    }
-    compiler_barrier();
-
-    if (static_cast<uint32_t>(token) != static_cast<uint32_t>(recheck)) {
-        hardware_tamper_lockout();
-    }
-
-    boot_application_firmware();
-}
-```
+:::code zbiini-ataky-hlitchynh-dekapsuliatsiia-i-chomu-d/c/main.c
+:::code zbiini-ataky-hlitchynh-dekapsuliatsiia-i-chomu-d/cpp/main.cpp
 :::
 
 Повний комплект промислових відмовостійких типів даних, безпечних макросів порівняння та конфігураційних бітових масок регістрів тампера наведено у довіднику [Інтерфейси відмовостійких типів та бар'єрів виконання](root:sf-security/zbiini-ataky-hlitchynh-dekapsuliatsiia-i-chomu/api-fault-hardened-primitives.md).

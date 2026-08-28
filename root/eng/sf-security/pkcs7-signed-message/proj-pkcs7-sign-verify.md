@@ -35,248 +35,10 @@
 
 :::tabs
 @tab C (OpenSSL 3.x)
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <openssl/bio.h>
-#include <openssl/cms.h>
-#include <openssl/err.h>
-#include <openssl/pem.h>
-#include <openssl/x509.h>
-#include <openssl/x509_vfy.h>
-
-/*
- * Створення відокремленого підпису CMS (Detached Signature)
- */
-int cms_sign_detached(const char *data_file, const char *cert_file,
-                      const char *key_file, const char *out_p7s_file) {
-    int ret = 0;
-    BIO *in_data = NULL;
-    BIO *out_sig = NULL;
-    BIO *cert_bio = NULL;
-    BIO *key_bio = NULL;
-    X509 *sign_cert = NULL;
-    EVP_PKEY *sign_key = NULL;
-    CMS_ContentInfo *cms = NULL;
-
-    /* Завантаження сертифіката підписувача */
-    cert_bio = BIO_new_file(cert_file, "r");
-    if (!cert_bio) goto cleanup;
-    sign_cert = PEM_read_bio_X509(cert_bio, NULL, NULL, NULL);
-    if (!sign_cert) goto cleanup;
-
-    /* Завантаження приватного ключа */
-    key_bio = BIO_new_file(key_file, "r");
-    if (!key_bio) goto cleanup;
-    sign_key = PEM_read_bio_PrivateKey(key_bio, NULL, NULL, NULL);
-    if (!sign_key) goto cleanup;
-
-    /* Відкриття вхідного файлу даних */
-    in_data = BIO_new_file(data_file, "rb");
-    if (!in_data) goto cleanup;
-
-    /*
-     * CMS_sign з прапорцями:
-     * - CMS_DETACHED: дані не вбудовуються в контейнер (eContent = NULL)
-     * - CMS_BINARY: заборона MIME-канонізації CRLF (бінарна прошивка)
-     * - CMS_NOSMIMECAP: не додавати застарілі S/MIME можливості
-     * - CMS_STREAM: увімкнення потокового однопрохідного режиму
-     */
-    unsigned int flags = CMS_DETACHED | CMS_BINARY | CMS_NOSMIMECAP | CMS_STREAM;
-    cms = CMS_sign(sign_cert, sign_key, NULL, in_data, flags);
-    if (!cms) goto cleanup;
-
-    /* Створення вихідного файлу для підпису DER/PEM */
-    out_sig = BIO_new_file(out_p7s_file, "wb");
-    if (!out_sig) goto cleanup;
-
-    /* Потоковий запис CMS структури в DER форматі */
-    if (!i2d_CMS_bio_stream(out_sig, cms, in_data, flags)) {
-        goto cleanup;
-    }
-
-    ret = 1; /* Успіх */
-
-cleanup:
-    if (!ret) {
-        ERR_print_errors_fp(stderr);
-    }
-    CMS_ContentInfo_free(cms);
-    BIO_free(in_data);
-    BIO_free(out_sig);
-    BIO_free(cert_bio);
-    BIO_free(key_bio);
-    X509_free(sign_cert);
-    EVP_PKEY_free(sign_key);
-    return ret;
-}
-
-/*
- * Потокова верифікація відокремленого підпису CMS
- */
-int cms_verify_detached(const char *data_file, const char *sig_p7s_file,
-                        const char *ca_file) {
-    int ret = 0;
-    BIO *in_data = NULL;
-    BIO *in_sig = NULL;
-    CMS_ContentInfo *cms = NULL;
-    X509_STORE *store = NULL;
-
-    /* Створення довіреного сховища сертифікатів CA */
-    store = X509_STORE_new();
-    if (!store) goto cleanup;
-    if (!X509_STORE_load_locations(store, ca_file, NULL)) {
-        goto cleanup;
-    }
-
-    /* Зчитування CMS структури підпису */
-    in_sig = BIO_new_file(sig_p7s_file, "rb");
-    if (!in_sig) goto cleanup;
-    cms = d2i_CMS_bio(in_sig, NULL);
-    if (!cms) goto cleanup;
-
-    /* Відкриття бінарного файлу даних */
-    in_data = BIO_new_file(data_file, "rb");
-    if (!in_data) goto cleanup;
-
-    /*
-     * Потокова верифікація CMS_verify:
-     * - in_data: зовнішній відкритий потік даних
-     * - store: довірений якір Root CA
-     * - CMS_BINARY: суворе побайтове читання без перетворень
-     */
-    unsigned int flags = CMS_BINARY;
-    if (CMS_verify(cms, NULL, store, in_data, NULL, flags) <= 0) {
-        goto cleanup;
-    }
-
-    ret = 1; /* Підпис валідний і ланцюг довірений */
-
-cleanup:
-    if (!ret) {
-        ERR_print_errors_fp(stderr);
-    }
-    CMS_ContentInfo_free(cms);
-    BIO_free(in_data);
-    BIO_free(in_sig);
-    X509_STORE_free(store);
-    return ret;
-}
-```
+:::code proj-pkcs7-sign-verify/c/realizatsiia-na-c-ta-c-23.c
 
 @tab C++23 (Ідіоматичний)
-```cpp
-#include <expected>
-#include <filesystem>
-#include <format>
-#include <memory>
-#include <string>
-#include <string_view>
-#include <vector>
-
-#include <openssl/bio.h>
-#include <openssl/cms.h>
-#include <openssl/err.h>
-#include <openssl/pem.h>
-#include <openssl/x509.h>
-#include <openssl/x509_vfy.h>
-
-namespace fs = std::filesystem;
-
-namespace crypto {
-
-// RAII делектори для об'єктів OpenSSL
-struct OpenSslDeleter {
-    void operator()(BIO* b) const noexcept { BIO_free(b); }
-    void operator()(X509* x) const noexcept { X509_free(x); }
-    void operator()(EVP_PKEY* k) const noexcept { EVP_PKEY_free(k); }
-    void operator()(CMS_ContentInfo* c) const noexcept { CMS_ContentInfo_free(c); }
-    void operator()(X509_STORE* s) const noexcept { X509_STORE_free(s); }
-    void operator()(ASN1_OCTET_STRING* o) const noexcept { ASN1_OCTET_STRING_free(o); }
-    void operator()(ASN1_OBJECT* o) const noexcept { ASN1_OBJECT_free(o); }
-    void operator()(X509_CRL* c) const noexcept { X509_CRL_free(c); }
-};
-
-template <typename T>
-using SslPtr = std::unique_ptr<T, OpenSslDeleter>;
-
-[[nodiscard]] std::string get_openssl_errors() {
-    SslPtr<BIO> bio_err{BIO_new(BIO_s_mem())};
-    ERR_print_errors(bio_err.get());
-    char* data = nullptr;
-    long len = BIO_get_mem_data(bio_err.get(), &data);
-    return (data && len > 0) ? std::string(data, static_cast<size_t>(len)) : "Невідома криптографічна помилка";
-}
-
-// Створення відокремленого підпису CMS
-[[nodiscard]] std::expected<void, std::string> sign_detached(
-    const fs::path& data_path,
-    const fs::path& cert_path,
-    const fs::path& key_path,
-    const fs::path& out_p7s_path) noexcept {
-
-    SslPtr<BIO> cert_bio{BIO_new_file(cert_path.string().c_str(), "r")};
-    if (!cert_bio) return std::unexpected(std::format("Не вдалося відкрити {}", cert_path.string()));
-
-    SslPtr<X509> cert{PEM_read_bio_X509(cert_bio.get(), nullptr, nullptr, nullptr)};
-    if (!cert) return std::unexpected(std::format("Помилка сертифіката: {}", get_openssl_errors()));
-
-    SslPtr<BIO> key_bio{BIO_new_file(key_path.string().c_str(), "r")};
-    if (!key_bio) return std::unexpected(std::format("Не вдалося відкрити {}", key_path.string()));
-
-    SslPtr<EVP_PKEY> pkey{PEM_read_bio_PrivateKey(key_bio.get(), nullptr, nullptr, nullptr)};
-    if (!pkey) return std::unexpected(std::format("Помилка приватного ключа: {}", get_openssl_errors()));
-
-    SslPtr<BIO> in_data{BIO_new_file(data_path.string().c_str(), "rb")};
-    if (!in_data) return std::unexpected(std::format("Не вдалося відкрити {}", data_path.string()));
-
-    constexpr unsigned int flags = CMS_DETACHED | CMS_BINARY | CMS_NOSMIMECAP | CMS_STREAM;
-    SslPtr<CMS_ContentInfo> cms{CMS_sign(cert.get(), pkey.get(), nullptr, in_data.get(), flags)};
-    if (!cms) return std::unexpected(std::format("CMS_sign помилка: {}", get_openssl_errors()));
-
-    SslPtr<BIO> out_sig{BIO_new_file(out_p7s_path.string().c_str(), "wb")};
-    if (!out_sig) return std::unexpected(std::format("Не вдалося створити {}", out_p7s_path.string()));
-
-    if (!i2d_CMS_bio_stream(out_sig.get(), cms.get(), in_data.get(), flags)) {
-        return std::unexpected(std::format("Помилка серіалізації DER: {}", get_openssl_errors()));
-    }
-
-    return {};
-}
-
-// Потокова перевірка відокремленого підпису CMS
-[[nodiscard]] std::expected<void, std::string> verify_detached(
-    const fs::path& data_path,
-    const fs::path& sig_p7s_path,
-    const fs::path& ca_path) noexcept {
-
-    SslPtr<X509_STORE> store{X509_STORE_new()};
-    if (!store) return std::unexpected("Помилка виділення пам'яті під X509_STORE");
-
-    if (!X509_STORE_load_locations(store.get(), ca_path.string().c_str(), nullptr)) {
-        return std::unexpected(std::format("Помилка завантаження CA {}: {}", ca_path.string(), get_openssl_errors()));
-    }
-
-    SslPtr<BIO> in_sig{BIO_new_file(sig_p7s_path.string().c_str(), "rb")};
-    if (!in_sig) return std::unexpected(std::format("Не вдалося відкрити підпис {}", sig_p7s_path.string()));
-
-    SslPtr<CMS_ContentInfo> cms{d2i_CMS_bio(in_sig.get(), nullptr)};
-    if (!cms) return std::unexpected(std::format("Помилка парсингу DER CMS: {}", get_openssl_errors()));
-
-    SslPtr<BIO> in_data{BIO_new_file(data_path.string().c_str(), "rb")};
-    if (!in_data) return std::unexpected(std::format("Не вдалося відкрити дані {}", data_path.string()));
-
-    constexpr unsigned int flags = CMS_BINARY;
-    if (CMS_verify(cms.get(), nullptr, store.get(), in_data.get(), nullptr, flags) <= 0) {
-        return std::unexpected(std::format("Перевірка CMS не пройдена: {}", get_openssl_errors()));
-    }
-
-    return {};
-}
-
-} // namespace crypto
-```
+:::code proj-pkcs7-sign-verify/cpp/realizatsiia-na-c-ta-c-23.cpp
 :::
 
 ---
@@ -337,36 +99,10 @@ using SslPtr = std::unique_ptr<T, OpenSslDeleter>;
 
 :::tabs
 @tab C (OpenSSL 3.x)
-```c
-/* Додавання власного підписаного атрибута перед фіналізацією підпису */
-CMS_SignerInfo *si = CMS_add1_signer(cms, sign_cert, sign_key, EVP_sha256(), flags);
-if (!si) goto cleanup;
-
-/* Створення ASN.1 рядка з версією апаратної плати */
-ASN1_OCTET_STRING *hw_rev = ASN1_OCTET_STRING_new();
-ASN1_OCTET_STRING_set(hw_rev, (const unsigned char*)"HW_REV_3.2", 10);
-
-/* Додавання атрибута за числовим OID підприємства */
-ASN1_OBJECT *custom_oid = OBJ_txt2obj("1.3.6.1.4.1.99999.1.1", 1);
-CMS_signed_add1_attr_by_OBJ(si, custom_oid, V_ASN1_OCTET_STRING, hw_rev, -1);
-
-ASN1_OBJECT_free(custom_oid);
-ASN1_OCTET_STRING_free(hw_rev);
-```
+:::code proj-pkcs7-sign-verify/c/prohramne-dodavannia-ta.h
 
 @tab C++23 (Ідіоматичний)
-```cpp
-// Додавання власного підписаного атрибута через RAII-обгортки
-CMS_SignerInfo* si = CMS_add1_signer(cms.get(), cert.get(), pkey.get(), EVP_sha256(), flags);
-if (!si) return std::unexpected("Помилка додавання підписувача");
-
-SslPtr<ASN1_OCTET_STRING> hw_rev{ASN1_OCTET_STRING_new()};
-constexpr std::string_view rev_str = "HW_REV_3.2";
-ASN1_OCTET_STRING_set(hw_rev.get(), reinterpret_cast<const unsigned char*>(rev_str.data()), static_cast<int>(rev_str.size()));
-
-SslPtr<ASN1_OBJECT> custom_oid{OBJ_txt2obj("1.3.6.1.4.1.99999.1.1", 1)};
-CMS_signed_add1_attr_by_OBJ(si, custom_oid.get(), V_ASN1_OCTET_STRING, hw_rev.get(), -1);
-```
+:::code proj-pkcs7-sign-verify/cpp/prohramne-dodavannia-ta.hpp
 :::
 
 Під час верифікації на приймачі цей атрибут вилучається через `CMS_signed_get0_data_by_OBJ()`. Оскільки він захищений загальним цифровим підписом `signedAttrs`, зловмисник не зможе змінити рядок конфігурації без порушення валідності криптографічного підпису.
@@ -433,33 +169,10 @@ CMS_signed_add1_attr_by_OBJ(si, custom_oid.get(), V_ASN1_OCTET_STRING, hw_rev.ge
 
 :::tabs
 @tab C (OpenSSL 3.x)
-```c
-/* Увімкнення перевірки CRL для всього ланцюга сертифікатів */
-X509_STORE_set_flags(store, X509_V_FLAG_CRL_CHECK | X509_V_FLAG_CRL_CHECK_ALL);
-
-/* Завантаження бінарного або PEM файлу CRL у довірене сховище */
-BIO *crl_bio = BIO_new_file("revocations.crl", "r");
-X509_CRL *crl = PEM_read_bio_X509_CRL(crl_bio, NULL, NULL, NULL);
-if (crl) {
-    X509_STORE_add_crl(store, crl);
-    X509_CRL_free(crl);
-}
-BIO_free(crl_bio);
-```
+:::code proj-pkcs7-sign-verify/c/perevirka-spyskiv.c
 
 @tab C++23 (Ідіоматичний)
-```cpp
-// Увімкнення суворої перевірки CRL у C++23
-X509_STORE_set_flags(store.get(), X509_V_FLAG_CRL_CHECK | X509_V_FLAG_CRL_CHECK_ALL);
-
-SslPtr<BIO> crl_bio{BIO_new_file("revocations.crl", "r")};
-if (crl_bio) {
-    SslPtr<X509_CRL> crl{PEM_read_bio_X509_CRL(crl_bio.get(), nullptr, nullptr, nullptr)};
-    if (crl) {
-        X509_STORE_add_crl(store.get(), crl.get());
-    }
-}
-```
+:::code proj-pkcs7-sign-verify/cpp/perevirka-spyskiv.cpp
 :::
 
 Якщо сертифікат підписувача внесено до списку відкликання, функція `CMS_verify()` повертає `0`, а функція діагностики помилок фіксує код `X509_V_ERR_CERT_REVOKED`, блокуючи застосування оновлення.
@@ -566,28 +279,7 @@ modinfo -F sig_hashalgo my_driver.ko
 
 Для автоматизованої збірки обох прикладів використовується наступний файл `CMakeLists.txt`:
 
-```cmake
-cmake_minimum_required(VERSION 3.20)
-project(cms_sign_verify C CXX)
-
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_STANDARD_REQUIRED ON)
-
-set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-find_package(OpenSSL 3.0 REQUIRED)
-
-# Збірка C версії
-add_executable(cms_tool_c main.c)
-target_link_libraries(cms_tool_c PRIVATE OpenSSL::Crypto OpenSSL::SSL)
-target_compile_options(cms_tool_c PRIVATE -Wall -Wextra -Wpedantic -Werror)
-
-# Збірка C++23 версії
-add_executable(cms_tool_cpp main.cpp)
-target_link_libraries(cms_tool_cpp PRIVATE OpenSSL::Crypto OpenSSL::SSL)
-target_compile_options(cms_tool_cpp PRIVATE -Wall -Wextra -Wpedantic -Werror)
-```
+:::code proj-pkcs7-sign-verify/cmake/CMakeLists.txt
 
 ---
 
@@ -595,30 +287,7 @@ target_compile_options(cms_tool_cpp PRIVATE -Wall -Wextra -Wpedantic -Werror)
 
 Для тестування розроблених утиліт необхідно створити локальний тестовий центр сертифікації та згенерувати підписи через стандартний інструмент командного рядка:
 
-```bash
-# 1. Генерація закритого ключа та самопідписаного сертифіката Root CA
-openssl req -x509 -newkey rsa:3072 -nodes -keyout ca.key -out ca.crt -days 3650 \
-    -subj "/CN=Embedded Root CA/O=Industrial IoT/C=UA"
-
-# 2. Генерація ключа та сертифіката підписувача коду (Code Signing Leaf)
-openssl req -newkey rsa:3072 -nodes -keyout signer.key -out signer.csr \
-    -subj "/CN=Firmware Release Signer/O=Industrial IoT/C=UA"
-
-# 3. Підпис сертифіката підписувача з розширенням ExtendedKeyUsage = codeSigning
-openssl x509 -req -in signer.csr -CA ca.crt -CAkey ca.key -CAcreateserial \
-    -out signer.crt -days 730 -extfile <(echo -e "extendedKeyUsage=critical,codeSigning\nkeyUsage=critical,digitalSignature")
-
-# 4. Створення тестового бінарного файлу прошивки
-dd if=/dev/urandom of=firmware.bin bs=1M count=10
-
-# 5. Генерація відокремленого підпису CMS через OpenSSL CLI
-openssl cms -sign -binary -nodetach -in firmware.bin -signer signer.crt -inkey signer.key \
-    -outform DER -out firmware.bin.p7s
-
-# 6. Перевірка підпису через OpenSSL CLI
-openssl cms -verify -binary -in firmware.bin.p7s -inform DER -content firmware.bin \
-    -CAfile ca.crt -out /dev/null
-```
+:::code proj-pkcs7-sign-verify/sh/main.sh
 
 ---
 

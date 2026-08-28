@@ -18,131 +18,11 @@
 
 Ось усе, що знадобиться далі:
 
-```cpp
-#include <algorithm>
-#include <array>
-#include <cstdint>
-#include <cstring>
-#include <vector>
-
-using Block = std::array<uint8_t, 16>;
-
-// AES-128: одне оборотне перетворення 16-байтового блока під ключем.
-// Реалізація — з бібліотеки або з апаратного блока; тут потрібен лише інтерфейс.
-struct Aes128 {
-    explicit Aes128(const Block& key);
-    void encrypt_block(const uint8_t in[16], uint8_t out[16]) const;
-    void decrypt_block(const uint8_t in[16], uint8_t out[16]) const;
-};
-
-struct Subsample { uint32_t clear_bytes = 0, enc_bytes = 0; };
-
-struct TrackEnc {                            // з tenc — типове на всю доріжку
-    uint8_t is_protected = 0, per_sample_iv_size = 0;
-    uint8_t crypt_byte_block = 0, skip_byte_block = 0;
-    Block   kid{};
-    std::vector<uint8_t> constant_iv;
-};
-
-struct SampleEnc {                           // з senc — на кожен семпл
-    std::vector<uint8_t>   iv;
-    std::vector<Subsample> subsamples;       // порожньо → захищений увесь семпл
-};
-```
+:::code proj-cenc-decrypt/cpp/shcho-distaiemo-z-faila.cpp
 
 :::tabs
-```cpp
-struct Reader {
-    const uint8_t* p;
-    uint8_t  u8()  { return *p++; }
-    uint16_t u16() { uint16_t v = uint16_t(p[0] << 8 | p[1]); p += 2; return v; }
-    uint32_t u32() { uint32_t v = uint32_t(p[0]) << 24 | uint32_t(p[1]) << 16
-                                | uint32_t(p[2]) << 8  | p[3];  p += 4; return v; }
-    void skip(size_t n) { p += n; }
-};
-
-// tenc — типові параметри доріжки: moov → … → stsd → encv → sinf → schi → tenc
-TrackEnc parse_tenc(Reader r) {
-    TrackEnc t;
-    const uint32_t vf = r.u32();               // FullBox: 1 Б версія + 3 Б прапорці
-    r.u8();                                    // reserved
-    if ((vf >> 24) == 0) {
-        r.u8();                                // версія 0 — ще один reserved
-    } else {
-        const uint8_t b = r.u8();              // версія 1 — візерунок у двох півбайтах
-        t.crypt_byte_block = b >> 4;           // скільки блоків шифрувати
-        t.skip_byte_block  = b & 0x0F;         // скільки лишити чистими
-    }
-    t.is_protected       = r.u8();
-    t.per_sample_iv_size = r.u8();             // 0, 8 або 16 — БЕЗ цього senc не розібрати
-    for (uint8_t& b : t.kid) b = r.u8();       // номер ключа, а не сам ключ
-    if (t.is_protected && t.per_sample_iv_size == 0) {
-        const uint8_t n = r.u8();              // саме випадок cbcs
-        t.constant_iv.assign(r.p, r.p + n);
-        r.skip(n);
-    }
-    return t;
-}
-
-// senc — на кожен семпл: початкове значення й пари «чисто / захищено»
-std::vector<SampleEnc> parse_senc(Reader r, const TrackEnc& t) {
-    const uint32_t vf = r.u32();
-    const bool has_subsamples = (vf & 0x000002) != 0;   // прапорець, не версія
-    const uint32_t count = r.u32();
-
-    std::vector<SampleEnc> out(count);
-    for (SampleEnc& s : out) {
-        s.iv.assign(r.p, r.p + t.per_sample_iv_size);
-        r.skip(t.per_sample_iv_size);
-        if (!has_subsamples) continue;                  // захищений увесь семпл
-        const uint16_t m = r.u16();
-        s.subsamples.resize(m);
-        for (Subsample& ss : s.subsamples) {
-            ss.clear_bytes = r.u16();                   // 16 бітів
-            ss.enc_bytes   = r.u32();                   // а тут уже 32
-        }
-    }
-    return out;
-}
-```
-```python
-import struct
-
-def parse_tenc(b):
-    ver, off = b[0], 4          # FullBox: версія + прапорці
-    off += 1                    # reserved
-    if ver == 0:
-        crypt = skip = 0
-        off += 1
-    else:
-        crypt, skip = b[off] >> 4, b[off] & 0x0F
-        off += 1
-    is_protected, iv_size = b[off], b[off + 1]
-    kid = b[off + 2:off + 18]
-    off += 18
-    const_iv = b''
-    if is_protected and iv_size == 0:
-        n = b[off]
-        const_iv = b[off + 1:off + 1 + n]
-    return dict(crypt=crypt, skip=skip, iv_size=iv_size, kid=kid, const_iv=const_iv)
-
-
-def parse_senc(b, iv_size):
-    has_subsamples = int.from_bytes(b[1:4], 'big') & 0x000002
-    count, = struct.unpack_from('>I', b, 4)
-    off, out = 8, []
-    for _ in range(count):
-        iv, off = b[off:off + iv_size], off + iv_size
-        pairs = []
-        if has_subsamples:
-            m, = struct.unpack_from('>H', b, off)
-            off += 2
-            for _ in range(m):
-                pairs.append(struct.unpack_from('>HI', b, off))   # 16 бітів і 32
-                off += 6
-        out.append((iv, pairs))
-    return out
-```
+:::code proj-cenc-decrypt/cpp/shcho-distaiemo-z-faila-2.cpp
+:::code proj-cenc-decrypt/py/main.py
 :::
 
 Дрібниця, на якій ловляться: чисті байти рахують шістнадцятьма бітами, захищені — тридцятьма двома. Це не примха. Чиста частина — це заголовки, вони короткі назавжди; захищена — це тіло кадру, і воно легко переростає 65 535 байтів. Прочитаєш обидва поля однаково — розбір поїде на першому ж семплі й далі даватиме беззмістовні, але правдоподібні числа.
@@ -162,50 +42,7 @@ def parse_senc(b, iv_size):
 
 Ключове слово — **потік**. Не «шифр для ділянки», а один потік байтів на весь семпл. І це змушує зробити з нього об'єкт зі станом.
 
-```cpp
-class CtrKeystream {
-public:
-    CtrKeystream(const Aes128& aes, const uint8_t* iv, size_t iv_size)
-        : aes_(aes), pos_(16) {                 // pos_ == 16 → блок гами ще не породжено
-        counter_.fill(0);
-        std::memcpy(counter_.data(), iv, iv_size);   // 8 Б лягають у СТАРШІ вісім байтів
-    }
-
-    // Накладає гаму на n байтів. Стан живе МІЖ викликами — і номер блока, і позиція в ньому.
-    void apply(uint8_t* data, size_t n) {
-        for (size_t i = 0; i < n; ++i) {
-            if (pos_ == 16) {
-                aes_.encrypt_block(counter_.data(), pad_.data());
-                bump();
-                pos_ = 0;
-            }
-            data[i] ^= pad_[pos_++];
-        }
-    }
-
-private:
-    void bump() {                               // +1 до молодших восьми байтів
-        for (int i = 15; i >= 8; --i)           // старший байт — лівіший, як усюди в ISO BMFF
-            if (++counter_[i] != 0) break;      // далі йдемо лише тоді, коли байт перекотився через нуль
-    }
-    const Aes128& aes_;
-    Block  counter_{}, pad_{};
-    size_t pos_;
-};
-
-void decrypt_cenc(const Aes128& aes, const SampleEnc& s, uint8_t* sample, size_t size) {
-    CtrKeystream ks(aes, s.iv.data(), s.iv.size());   // ОДИН на весь семпл
-
-    if (s.subsamples.empty()) { ks.apply(sample, size); return; }
-
-    size_t off = 0;
-    for (const Subsample& ss : s.subsamples) {
-        off += ss.clear_bytes;                  // чисті байти просто перестрибуємо
-        ks.apply(sample + off, ss.enc_bytes);   // потік продовжується з того місця, де спинився
-        off += ss.enc_bytes;
-    }
-}
-```
+:::code proj-cenc-decrypt/cpp/cenc-odyn-naskriznyi-potik.cpp
 
 Зверніть увагу, що́ саме переживає стрибок. Не тільки номер блока — ще й `pos_`, позиція всередині поточного блока гами. Якщо захищена ділянка скінчилася посеред блока, недобрані байти цього блока дістануться наступній ділянці. Потік гами — це стрічка байтів, а не послідовність незалежних порцій по шістнадцять.
 
@@ -235,42 +72,7 @@ void decrypt_cenc(const Aes128& aes, const SampleEnc& s, uint8_t* sample, size_t
 
 Тут усе навпаки. Початкове значення одне на всю доріжку — сталий IV із `tenc`, той самий для кожного семпла. Але **ланцюг зчеплення починається заново на кожній захищеній ділянці**: стандарт вимагає прикладати IV до першого зашифрованого блока кожної підділянки. Незалежність ділянок і дає ту саму паралельність, яку в `cenc` дає лічильник.
 
-```cpp
-void decrypt_cbcs(const Aes128& aes, const SampleEnc& s,
-                  const TrackEnc& t, uint8_t* sample, size_t size) {
-    const std::vector<uint8_t>& iv = s.iv.empty() ? t.constant_iv : s.iv;
-    const unsigned crypt = t.crypt_byte_block ? t.crypt_byte_block : 1u;
-    const unsigned skip  = t.skip_byte_block;          // 9 для відео, 0 — суцільно
-
-    auto range = [&](uint8_t* p, size_t n) {
-        Block chain{};
-        std::memcpy(chain.data(), iv.data(), iv.size());   // ланцюг — З НУЛЯ, від сталого IV
-        const size_t blocks = n / 16;                  // неповний хвіст лишається чистим
-        for (size_t i = 0; i < blocks; ) {
-            const size_t take = std::min<size_t>(crypt, blocks - i);
-            for (size_t k = 0; k < take; ++k, ++i) {
-                uint8_t* b = p + i * 16;
-                Block cipher;
-                std::memcpy(cipher.data(), b, 16);     // запам'ятати ДО розшифрування
-                aes.decrypt_block(b, b);
-                for (int j = 0; j < 16; ++j) b[j] ^= chain[j];
-                chain = cipher;                        // наступна ланка — попередній ШИФРОТЕКСТ
-            }
-            if (skip == 0) break;                      // візерунка немає — шифруємо все
-            i += skip;                                 // пропущені блоки ланцюг не рвуть
-        }
-    };
-
-    if (s.subsamples.empty()) { range(sample, size); return; }
-
-    size_t off = 0;
-    for (const Subsample& ss : s.subsamples) {
-        off += ss.clear_bytes;
-        range(sample + off, ss.enc_bytes);             // IV і візерунок — заново на КОЖНІЙ
-        off += ss.enc_bytes;
-    }
-}
-```
+:::code proj-cenc-decrypt/cpp/cbcs-lantsiuh-zanovo-na.cpp
 
 Два місця в цьому циклі варті окремого погляду. Перше: `blocks = n / 16` — якщо захищена ділянка не кратна шістнадцяти, останні кілька байтів лишаються відкритим текстом. Доповнювати їх нема куди, бо довжина не має права змінитися, а неповний блок зчеплення не шифрують. Друге: `i += skip` не чіпає `chain`. Дев'ять пропущених блоків не розривають ланцюг — наступний зашифрований блок зчіплюється з попереднім **зашифрованим**, ніби чистих між ними не було. Ланцюг рветься лише на межі підділянки.
 

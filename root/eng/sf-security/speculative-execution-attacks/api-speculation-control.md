@@ -108,78 +108,8 @@
 Нижче наведено повноцінну реалізацію системного контролера ізоляції потоків на мовах C та C++.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <errno.h>
-#include <sys/prctl.h>
-
-/* Блокування непрямої спекуляції та спекулятивного читання пам'яті */
-int enable_process_isolation(void) {
-    /* Незворотно блокуємо отруєння непрямих переходів (STIBP / IBPB) */
-    if (prctl(PR_SET_SPECULATION_CTRL,
-              PR_SPEC_INDIRECT_BRANCH,
-              PR_SPEC_FORCE_DISABLE, 0, 0) != 0) {
-        perror("prctl PR_SPEC_INDIRECT_BRANCH");
-        return -1;
-    }
-
-    /* Забороняємо спекулятивний обхід черги збереження (SSBD) */
-    if (prctl(PR_SET_SPECULATION_CTRL,
-              PR_SPEC_STORE_BYPASS,
-              PR_SPEC_FORCE_DISABLE, 0, 0) != 0) {
-        perror("prctl PR_SPEC_STORE_BYPASS");
-        return -1;
-    }
-
-    return 0;
-}
-
-/* Перевірка поточного статусу захищеності процесу */
-int is_isolation_enforced(void) {
-    int res = prctl(PR_GET_SPECULATION_CTRL, PR_SPEC_INDIRECT_BRANCH, 0, 0, 0);
-    if (res < 0) {
-        return -1;
-    }
-    /* Перевіряємо чи прапорець встановлено через prctl та зафіксовано незворотно */
-    return (res & PR_SPEC_PRCTL) && (res & PR_SPEC_FORCE_DISABLE);
-}
-```
-```cpp
-#include <iostream>
-#include <system_error>
-#include <cerrno>
-#include <sys/prctl.h>
-
-namespace security {
-
-enum class SpeculationTarget : unsigned long {
-    IndirectBranch = PR_SPEC_INDIRECT_BRANCH,
-    StoreBypass    = PR_SPEC_STORE_BYPASS,
-    L1dFlush       = PR_SPEC_L1D_FLUSH
-};
-
-class ProcessSpeculationController {
-public:
-    static void force_disable(SpeculationTarget target) {
-        const auto resource = static_cast<unsigned long>(target);
-        if (::prctl(PR_SET_SPECULATION_CTRL, resource, PR_SPEC_FORCE_DISABLE, 0, 0) != 0) {
-            throw std::system_error(errno, std::generic_category(),
-                                    "Не вдалося встановити PR_SPEC_FORCE_DISABLE");
-        }
-    }
-
-    [[nodiscard]] static bool is_force_disabled(SpeculationTarget target) noexcept {
-        const auto resource = static_cast<unsigned long>(target);
-        const int status = ::prctl(PR_GET_SPECULATION_CTRL, resource, 0, 0, 0);
-        if (status < 0) {
-            return false;
-        }
-        return (status & PR_SPEC_PRCTL) && (status & PR_SPEC_FORCE_DISABLE);
-    }
-};
-
-} // namespace security
-```
+:::code api-speculation-control/c/prohramnyi-interfeis.c
+:::code api-speculation-control/cpp/prohramnyi-interfeis.cpp
 :::
 
 ### Інтерфейс діагностики ядра Linux у `sysfs`
@@ -216,54 +146,6 @@ public:
 Якщо потрібна максимальна продуктивність у гарячих циклах, застосовують техніку **безгалузевого маскування індексу** (Branchless Clamping / SLH): індекс обчислюється суто арифметично без використання команд умовного переходу `Jcc`. Оскільки в коді немає гілки, блок передбачення переходів не може зробити помилкову ставку.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-#include <x86intrin.h>
-
-/* Безгалузеве маскування індексу (Branchless Sanitization) */
-static inline size_t sanitize_speculative_index(size_t index, size_t limit) {
-    /* Якщо index < limit, старший біт різниці дорівнює 0, маска = 0xFFFFFFFFFFFFFFFF;
-       якщо index >= limit, маска стає 0x0000000000000000 */
-    int64_t mask = ((int64_t)(index ^ limit) | (int64_t)(index - limit)) >> 63;
-    return index & (size_t)(~mask);
-}
-
-/* Читання елемента з апаратним бар'єром LFENCE */
-uint8_t secure_read_with_fence(const uint8_t *arr, size_t len, size_t idx) {
-    if (idx < len) {
-        _mm_lfence(); /* Повна зупинка спекулятивного конвеєра */
-        return arr[idx];
-    }
-    return 0;
-}
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <span>
-#include <optional>
-#include <x86intrin.h>
-
-namespace security {
-
-template <typename T>
-[[nodiscard]] size_t sanitize_index(size_t index, size_t limit) noexcept {
-    const auto s_idx = static_cast<int64_t>(index);
-    const auto s_lim = static_cast<int64_t>(limit);
-    const int64_t mask = ((s_idx ^ s_lim) | (s_idx - s_lim)) >> 63;
-    return index & static_cast<size_t>(~mask);
-}
-
-template <typename T>
-[[nodiscard]] std::optional<T> secure_read_fenced(std::span<const T> data, size_t index) noexcept {
-    if (index < data.size()) {
-        _mm_lfence(); // Бар'єр серіалізації: гарантує завершення перевірки меж
-        return data[index];
-    }
-    return std::nullopt;
-}
-
-} // namespace security
-```
+:::code api-speculation-control/c/barier-lfence-proty.c
+:::code api-speculation-control/cpp/barier-lfence-proty.cpp
 :::

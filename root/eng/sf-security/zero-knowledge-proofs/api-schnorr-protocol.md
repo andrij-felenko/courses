@@ -36,47 +36,7 @@
 
 Опис статусів операцій дозволяє чітко розрізняти криптографічні відхилення доказів від технічних помилок виділення пам'яті чи некоректних аргументів.
 
-```cpp
-#include <cstdint>
-#include <cstddef>
-
-// Перелік статусів виконання операцій та кодів помилок
-enum class ZkpStatus : uint32_t {
-    SUCCESS               = 0x00, // Операція виконана успішно
-    ERR_INVALID_PARAMS    = 0x01, // Некоректні математичні параметри групи (p, q, g)
-    ERR_OUT_OF_RANGE      = 0x02, // Вхідні дані виходять за дозволені межі полів
-    ERR_ZERO_COMMITMENT   = 0x03, // Згенеровано тривіальне зобов'язання r = 0 або r = 1
-    ERR_VERIFICATION_FAIL = 0x04, // Математична тотожність g^s ≡ r * y^c не справдилася
-    ERR_NONCE_REUSE       = 0x05, // Виявлено повторне використання тимчасового nonce k
-    ERR_NULL_POINTER      = 0x06, // Передано нульовий вказівник на буфер даних
-    ERR_BUFFER_TOO_SMALL  = 0x07  // Розмір вихідного буфера є недостатнім
-};
-
-// Контейнер публічних параметрів групи
-struct SchnorrGroupParams {
-    const uint8_t* p_bytes;  // Буфер байтів модуля p (big-endian)
-    size_t         p_len;    // Довжина p у байтах (наприклад, 256 або 384)
-    const uint8_t* q_bytes;  // Буфер байтів порядку q (big-endian)
-    size_t         q_len;    // Довжина q у байтах (наприклад, 32)
-    const uint8_t* g_bytes;  // Буфер байтів генератора g (big-endian)
-    size_t         g_len;    // Довжина g у байтах
-};
-
-// Контейнер пакетного неінтерактивного доказу π = (r, s)
-struct SchnorrProof {
-    uint8_t r_bytes[384];    // Зобов'язання r (розмір відповідає p_len)
-    size_t  r_len;
-    uint8_t s_bytes[32];     // Відповідь s (розмір відповідає q_len)
-    size_t  s_len;
-};
-
-// Контейнер стану детермінованого генератора nonce за RFC 6979
-struct SchnorrRfc6979State {
-    uint8_t v_key[32];       // Внутрішній вектор V для HMAC-SHA256
-    uint8_t k_key[32];       // Внутрішній ключ K для HMAC-SHA256
-    size_t  hash_len;
-};
-```
+:::code api-schnorr-protocol/cpp/spetsyfikatsiia-struktur.cpp
 
 ## 3. Сигнатури та специфікація API
 
@@ -102,87 +62,25 @@ ZkpStatus schnorr_validate_group_params(
 
 Функція відповідає за генерацію випадкового одноразового значення `k` та обчислення публічного значення `r = g^k mod p`. Сгенерований nonce `k` є строго секретним і повинен зберігатися в захищеній пам'яті до завершення генерації доказу. Одразу після використання буфер пам'яті з `k` має бути надійно очищений функцією `explicit_bzero` або її захищеним аналогом, щоб унеможливити витік через знімки оперативної пам'яті чи дамп ядра.
 
-```cpp
-/**
- * @brief Генерує випадкове зобов'язання r = g^k mod p та зберігає секретний nonce k.
- * 
- * @param params Указатель на валідовані параметри групи.
- * @param out_k Вихідний буфер для збереження тимчасового secret nonce k (розмір q_len).
- * @param out_r Вихідний буфер для публічного зобов'язання r (розмір p_len).
- * @return ZkpStatus SUCCESS у разі успіху, інакше код помилки.
- */
-ZkpStatus schnorr_commit(
-    const SchnorrGroupParams* params,
-    uint8_t*                  out_k,
-    uint8_t*                  out_r
-);
-```
+:::code api-schnorr-protocol/cpp/2-funktsiia-heneratsii.cpp
 
 ### 3. Функція обчислення відповіді (Prover Phase 2)
 
 Ця функція приймає випробовувальний виклик `c` (отриманий від перевіряльника у випадку інтерактивного діалогу або обчислений через хеш-функцію Фіата — Шаміра для неінтерактивного режиму) і комбінує його з приватним ключем `x` та тимчасовим nonce `k`.
 
-```cpp
-/**
- * @brief Обчислює підтверджувальну відповідь s = (k + c * x) mod q.
- * 
- * @param params Указатель на параметри групи.
- * @param secret_x Приватний ключ доводжувача (розмір q_len).
- * @param k_nonce Тимчасовий secret nonce з фази 1 (розмір q_len).
- * @param challenge Випробовувальний виклик c (розмір q_len).
- * @param out_s Вихідний буфер для відповіді s (розмір q_len).
- * @return ZkpStatus SUCCESS у разі успіху.
- */
-ZkpStatus schnorr_respond(
-    const SchnorrGroupParams* params,
-    const uint8_t*            secret_x,
-    const uint8_t*            k_nonce,
-    const uint8_t*            challenge,
-    uint8_t*                  out_s
-);
-```
+:::code api-schnorr-protocol/cpp/3-funktsiia-obchyslennia.cpp
 
 ### 4. Функція неінтерактивного доведення NIZK (Prover Combined)
 
 Функція об'єднує генерацію `k`, обчислення хеш-виклику `c = H(g, y, r)` та формування відповіді `s` у єдиний атомарний виклик. Вона гарантує правильний порядок обчислень і запобігає витоку тимчасових змінних за межі локального стека.
 
-```cpp
-/**
- * @brief Автономно будує неінтерактивний доказ π = (r, s) за допомогою хешування Фіата — Шаміра.
- * 
- * @param params Параметри групи.
- * @param secret_x Приватний ключ доводжувача.
- * @param public_y Публічний ключ доводжувача y = g^x mod p.
- * @param out_proof Вихідна структура доказу.
- * @return ZkpStatus SUCCESS у разі успіху.
- */
-ZkpStatus schnorr_nizk_prove(
-    const SchnorrGroupParams* params,
-    const uint8_t*            secret_x,
-    const uint8_t*            public_y,
-    SchnorrProof*             out_proof
-);
-```
+:::code api-schnorr-protocol/cpp/4-funktsiia.cpp
 
 ### 5. Функція верифікації (Verifier)
 
 Верифікатор не має доступу до секретних змінних `x` чи `k`. Функція виконує обчислення `c = H(g, y, r)` та перевіряє фундаментальну тотожність `g^s ≡ r · y^c (mod p)`.
 
-```cpp
-/**
- * @brief Перевіряє тотожність g^s ≡ r * y^c (mod p).
- * 
- * @param params Параметри групи.
- * @param public_y Публічний ключ доводжувача y.
- * @param proof Структура доказу (r, s).
- * @return ZkpStatus SUCCESS якщо доказ дійсний, ERR_VERIFICATION_FAIL якщо некоректний.
- */
-ZkpStatus schnorr_nizk_verify(
-    const SchnorrGroupParams* params,
-    const uint8_t*            public_y,
-    const SchnorrProof*       proof
-);
-```
+:::code api-schnorr-protocol/cpp/5-funktsiia-veryfikatsii.cpp
 
 ## 4. Карта перевірок та санітарна обробка вхідних даних
 

@@ -18,30 +18,37 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-kernel-random-syscalls.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "hist": [
             {
               "file": "hist-lavarand-and-trng-flaws.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
             {
               "file": "math-min-entropy-extraction.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-health-tests-rct-apt.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -70,7 +77,8 @@
           "proj": [
             {
               "file": "proj-fast-key-erasure.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -93,19 +101,23 @@
           "hist": [
             {
               "file": "hist-feistel-to-rijndael.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
             {
               "file": "math-spn-galois.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-aes-constant-time.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -127,13 +139,16 @@
           "math": [
             {
               "file": "math-berlekamp-massey.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-chacha20-stream.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -171,7 +186,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 5
+            "level": 5,
+            "recode": true
           }
         },
         {
@@ -198,7 +214,8 @@
           "proj": [
             {
               "file": "proj-merkle-damgard.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -210,7 +227,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           }
         },
         {
@@ -221,30 +239,36 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-phc-and-evolution.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
             {
               "file": "math-tmto-and-entropy.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-argon2-rehash-pipeline.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-password-hashers.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         }
@@ -272,19 +296,23 @@
           "math": [
             {
               "file": "math-pohlig-hellman.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-dlog-solvers.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-dlog-interface.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -307,19 +335,25 @@
           "math": [
             {
               "file": "math-lattice-foundations.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-lwe-implementation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-pqc-standards.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -354,13 +388,15 @@
           "proj": [
             {
               "file": "proj-cert-chain-verify.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-x509-asn1.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -372,7 +408,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           }
         },
         {
@@ -399,7 +436,8 @@
           "proj": [
             {
               "file": "proj-rsa-implementation.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -417,30 +455,37 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "api": [
             {
               "file": "api-crypto-key-exchange.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "hist": [
             {
               "file": "hist-merkle-diffie-hellman.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-subgroup-confinement.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-ecdh-x25519.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -468,7 +513,8 @@
           "proj": [
             {
               "file": "proj-paillier-implementation.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -512,13 +558,15 @@
           "math": [
             {
               "file": "math-shannon-entropy-proof.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-one-time-pad.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -546,7 +594,8 @@
           "proj": [
             {
               "file": "proj-shamir-secret-sharing.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -580,7 +629,8 @@
           "proj": [
             {
               "file": "proj-pohlig-hellman.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -602,13 +652,15 @@
           "math": [
             {
               "file": "math-gram-schmidt-reduction.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-lattice-reduction.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },

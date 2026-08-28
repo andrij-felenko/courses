@@ -112,41 +112,8 @@ P(01) = (1 − p) · p = p · (1 − p) = P(10)
 ```
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Повертає true, якщо згенеровано новий вихідний біт */
-bool von_neumann_extract(uint8_t b1, uint8_t b2, uint8_t *out_bit) {
-    if (b1 == 0 && b2 == 1) {
-        *out_bit = 0;
-        return true;
-    }
-    if (b1 == 1 && b2 == 0) {
-        *out_bit = 1;
-        return true;
-    }
-    return false; /* 00 або 11 — скидання пари */
-}
-```
-```cpp
-#include <cstdint>
-#include <optional>
-
-namespace trng {
-
-[[nodiscard]] constexpr std::optional<uint8_t> von_neumann_extract(uint8_t b1, uint8_t b2) noexcept {
-    if (b1 == 0 && b2 == 1) {
-        return 0;
-    }
-    if (b1 == 1 && b2 == 0) {
-        return 1;
-    }
-    return std::nullopt; // 00 або 11 — відкидання
-}
-
-} // namespace trng
-```
+:::code entropy-source-d/c/usunennia-zmishchennia.c
+:::code entropy-source-d/cpp/usunennia-zmishchennia.cpp
 :::
 
 Плата за симетрію — суттєве падіння пропускної здатності. Навіть для майже симетричного джерела (`p = 0.5`) зберігається лише `25%` сирих бітів, а якщо вхід зміщений до `p = 0.8`, швидкість падає до `16%`.
@@ -211,54 +178,8 @@ namespace trng {
 - **`getrandom(2)`:** спеціалізований системний виклик (доданий у Linux 3.17). За замовчуванням він **гарантовано блокує потік** до моменту, поки ядро не накопичить 256 бітів підтвердженої ентропії. Після одноразової ініціалізації виклик більше ніколи не блокується і працює зі швидкістю гігабайт на секунду.
 
 :::tabs
-```c
-#include <sys/random.h>
-#include <stdio.h>
-#include <stdint.h>
-
-int main(void) {
-    uint8_t key[32];
-
-    /* Блокує процес, якщо ядро ще не накопичило 256 бітів ентропії */
-    ssize_t res = getrandom(key, sizeof(key), 0);
-    if (res != sizeof(key)) {
-        perror("getrandom failed");
-        return 1;
-    }
-
-    printf("Криптографічний ключ успішно згенеровано.\n");
-    return 0;
-}
-```
-```cpp
-#include <sys/random.h>
-#include <array>
-#include <cstddef>
-#include <cstdint>
-#include <iostream>
-#include <span>
-#include <system_error>
-
-namespace crypto {
-
-[[nodiscard]] bool get_random_key(std::span<std::byte> out) noexcept {
-    ssize_t ret = ::getrandom(out.data(), out.size(), 0);
-    return ret == static_cast<ssize_t>(out.size());
-}
-
-} // namespace crypto
-
-int main() {
-    std::array<std::byte, 32> key{};
-    if (!crypto::get_random_key(key)) {
-        std::cerr << "Помилка виклику getrandom\n";
-        return 1;
-    }
-
-    std::cout << "Криптографічний ключ згенеровано безпечно.\n";
-    return 0;
-}
-```
+:::code entropy-source-d/c/interfeisy-prostoru.c
+:::code entropy-source-d/cpp/interfeisy-prostoru.cpp
 :::
 
 Повний довідник прапорців системного виклику `getrandom(2)`, функції `getentropy(3)` та псевдофайлів підсистеми `/proc/sys/kernel/random/` зібрано в [довіднику інтерфейсів ядра](root:sf-security/entropy-source/api-kernel-random-syscalls.md).

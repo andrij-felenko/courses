@@ -292,70 +292,8 @@ carry = 0
 Нижче наведено практичний приклад реалізації захищеної функції порівняння та мультиплексора:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-/* Безпечне константне порівняння двох буферів */
-bool secure_memequal(const void *b1, const void *b2, size_t len) {
-    const uint8_t *p1 = (const uint8_t *)b1;
-    const uint8_t *p2 = (const uint8_t *)b2;
-    uint8_t diff = 0;
-
-    for (size_t i = 0; i < len; ++i) {
-        diff |= (p1[i] ^ p2[i]);
-    }
-
-    /* Компіляторний бар'єр: блокує видалення акумуляції */
-    __asm__ __volatile__("" : "+r"(diff) : : "memory");
-
-    return (diff == 0);
-}
-
-/* Безгалузевий вибір між двома 32-бітними числами */
-uint32_t secure_select32(uint32_t choice_bit, uint32_t val_true, uint32_t val_false) {
-    /* Формуємо маску 0xFFFFFFFF або 0x00000000 */
-    uint32_t mask = (uint32_t)(-(int32_t)(choice_bit & 1));
-    return (val_true & mask) | (val_false & ~mask);
-}
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <span>
-#include <concepts>
-#include <type_traits>
-
-namespace security {
-
-// Безпечне порівняння двох блоків пам'яті за константний час
-[[nodiscard]] bool secure_memequal(std::span<const uint8_t> a, std::span<const uint8_t> b) noexcept {
-    if (a.size() != b.size()) {
-        return false;
-    }
-
-    uint8_t diff = 0;
-    for (size_t i = 0; i < a.size(); ++i) {
-        diff |= (a[i] ^ b[i]);
-    }
-
-    // Запобігаємо оптимізаціям компілятора
-    asm volatile("" : "+r"(diff) : : "memory");
-
-    return (diff == 0);
-}
-
-// Безгалузевий вибір за допомогою бітової маски
-template <std::unsigned_integral T>
-[[nodiscard]] constexpr T secure_select(bool choice, T val_true, T val_false) noexcept {
-    using SignedT = std::make_signed_t<T>;
-    const T mask = static_cast<T>(-static_cast<SignedT>(choice ? 1 : 0));
-    return (val_true & mask) | (val_false & ~mask);
-}
-
-} // namespace security
-```
+:::code timing-attack-d/c/main.c
+:::code timing-attack-d/cpp/main.cpp
 :::
 
 Повний довідник стандартних інтерфейсів та інструментів операційних систем для константного часу наведено у вставці [Інтерфейси та бібліотечні примітиви константного часу](root:sf-security/timing-attack/api-constant-time-primitives.md). Готовий стенд з практичним побайтовим зламом вразливого сервера міститься у проекті [Програмна реалізація та експлойт таймінг-атаки](root:sf-security/timing-attack/proj-remote-timing-attack-demo.md).

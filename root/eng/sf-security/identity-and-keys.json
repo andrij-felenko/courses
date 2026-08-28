@@ -28,7 +28,8 @@
           "proj": [
             {
               "file": "proj-login-flow.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -50,7 +51,8 @@
           "proj": [
             {
               "file": "proj-totp-engine.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -73,13 +75,15 @@
           "proj": [
             {
               "file": "proj-passkey-verification.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-webauthn-ceremonies.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -124,7 +128,8 @@
           "proj": [
             {
               "file": "proj-challenge-auth.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
@@ -152,7 +157,8 @@
           "proj": [
             {
               "file": "proj-digest-client.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -180,13 +186,15 @@
           "proj": [
             {
               "file": "proj-scram-crypto.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-scram-attributes.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -208,7 +216,8 @@
           "proj": [
             {
               "file": "proj-ticket-verification.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
@@ -236,7 +245,8 @@
           "proj": [
             {
               "file": "proj-sasl-negotiation.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
@@ -260,7 +270,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
@@ -271,7 +282,8 @@
           "proj": [
             {
               "file": "proj-oauth-flow.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
@@ -299,7 +311,8 @@
           "proj": [
             {
               "file": "proj-oidc-rp-auth.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
@@ -327,7 +340,8 @@
           "proj": [
             {
               "file": "proj-pkce-exchange.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
@@ -355,7 +369,8 @@
           "hist": [
             {
               "file": "hist-kaminsky-attack.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
@@ -367,13 +382,17 @@
           "proj": [
             {
               "file": "proj-dnssec-val.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-dnssec-records.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -401,13 +420,15 @@
           "proj": [
             {
               "file": "proj-dnssec-val.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-dnssec-records.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -425,12 +446,14 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-est-rfc7030.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "hist": [
@@ -442,7 +465,9 @@
           "proj": [
             {
               "file": "proj-device-identity-mtls.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -458,25 +483,31 @@
           "api": [
             {
               "file": "api-pkcs11-signing.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "comp": [
             {
               "file": "comp-hsm-token-kms.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
             {
               "file": "hist-hsm-and-key-ceremonies.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-pkcs11-token-sign.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -492,13 +523,15 @@
           "api": [
             {
               "file": "api-signing-service-rpc.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ],
           "comp": [
             {
               "file": "comp-keyless-signing-models.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
@@ -510,7 +543,9 @@
           "proj": [
             {
               "file": "proj-remote-signer-client.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -526,25 +561,30 @@
           "api": [
             {
               "file": "api-ocsp-stapling-and-crl.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "hist": [
             {
               "file": "hist-diginotar-and-revocation-crisis.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
             {
               "file": "math-bloom-crlite-filter.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-firmware-key-revocation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -567,13 +607,16 @@
           "proj": [
             {
               "file": "proj-secret-rotation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-vault-transit.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         },

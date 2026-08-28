@@ -173,23 +173,7 @@ navigator.requestMediaKeySystemAccess(
 
 Об'єкт конфігурації дозволяє детально визначити вимоги плеєра до криптографічних можливостей платформи:
 
-```typescript
-interface MediaKeySystemConfiguration {
-  label?: string;
-  initDataTypes?: string[];              // ['cenc', 'keyids', 'webm']
-  audioCapabilities?: MediaKeySystemMediaCapability[];
-  videoCapabilities?: MediaKeySystemMediaCapability[];
-  distinctiveIdentifier?: "required" | "optional" | "not-allowed";
-  persistentState?: "required" | "optional" | "not-allowed";
-  sessionTypes?: string[];               // ['temporary', 'persistent-license']
-}
-
-interface MediaKeySystemMediaCapability {
-  contentType: string;                   // MIME-тип із кодеками: 'video/mp4; codecs="avc1.640028"'
-  robustness?: string;                   // Рівень стійкості: 'SW_SECURE_CRYPTO', 'HW_SECURE_ALL' тощо
-  encryptionScheme?: "cenc" | "cbcs" | "cbcs-1-9" | null;
-}
-```
+:::code api-eme-interfaces/ts/struktura.ts
 
 ### Семантика прапорців конфіденційності та стану
 
@@ -239,23 +223,7 @@ mediaKeys.setServerCertificate(serverCertificate: BufferSource): Promise<void>
 
 ### Сигнатура та властивості
 
-```typescript
-interface MediaKeySession extends EventTarget {
-  readonly sessionId: string;
-  readonly expiration: number;           // Час закінчення ліцензії в епосі Unix (мс) або NaN
-  readonly keyStatuses: MediaKeyStatusMap;
-  readonly closed: Promise<MediaKeySessionClosedReason>;
-
-  generateRequest(initDataType: string, initData: BufferSource): Promise<void>;
-  load(sessionId: string): Promise<boolean>;
-  update(response: BufferSource): Promise<void>;
-  close(): Promise<void>;
-  remove(): Promise<void>;
-
-  onmessage: ((this: MediaKeySession, ev: MediaKeyMessageEvent) => any) | null;
-  onkeystatuseschange: ((this: MediaKeySession, ev: Event) => any) | null;
-}
-```
+:::code api-eme-interfaces/ts/syhnatura-ta-vlastyvosti.ts
 
 ### Стан та переходи життєвого циклу сесії
 
@@ -272,18 +240,7 @@ interface MediaKeySession extends EventTarget {
 #### 1. `MediaKeyMessageEvent` (`message`)
 Виникає, коли CDM формує запит ліцензії або сертифіката, який необхідно передати через мережу на сервер.
 
-```typescript
-interface MediaKeyMessageEvent extends Event {
-  readonly messageType: MediaKeyMessageType;
-  readonly message: ArrayBuffer;        // Бінарний челендж ліцензії (Challenge)
-}
-
-type MediaKeyMessageType = 
-  | "license-request"                   // Первинний запит ліцензії
-  | "license-renewal"                   // Запит на оновлення ліцензії, термін якої збігає
-  | "license-release"                   // Повідомлення про звільнення офлайн-ліцензії
-  | "individualization-request";        // Запит на персоналізацію/сертифікацію CDM
-```
+:::code api-eme-interfaces/ts/1-mediakeymessageevent.ts
 
 - `"license-request"`: Стандартний початковий запит для отримання ключів контенту.
 - `"license-renewal"`: Запит періодичного оновлення ліцензії (наприклад, під час трансляції спортивних подій кожні 15 хвилин або під час оренди фільму).
@@ -293,25 +250,7 @@ type MediaKeyMessageType =
 #### 2. `keystatuseschange`
 Виникає щоразу, коли статус хоча б одного ключа в сесії змінюється (ключ успішно завантажено, термін дії минув, або виявлено невідповідність HDCP).
 
-```typescript
-interface MediaKeyStatusMap {
-  readonly size: number;
-  has(keyId: BufferSource): boolean;
-  get(keyId: BufferSource): MediaKeyStatus | undefined;
-  entries(): IterableIterator<[ArrayBuffer, MediaKeyStatus]>;
-  keys(): IterableIterator<ArrayBuffer>;
-  values(): IterableIterator<MediaKeyStatus>;
-}
-
-type MediaKeyStatus = 
-  | "usable"                            // Ключ активний, розшифрування працює
-  | "expired"                           // Термін дії ліцензії вичерпано
-  | "released"                          // Ліцензію вивільнено клієнтом
-  | "output-restricted"                 // Заборонено політикою виводу (наприклад, потрібен HDCP 2.2)
-  | "output-downscaled"                 // Дозволено лише зі штучним зниженням роздільної здатності
-  | "status-pending"                    // Статус обробляється CDM
-  | "internal-error";                   // Збій у криптографічному модулі
-```
+:::code api-eme-interfaces/ts/2-keystatuseschange.ts
 
 ### Поведінка плеєра при зміні статусів
 

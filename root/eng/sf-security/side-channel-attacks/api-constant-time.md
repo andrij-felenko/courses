@@ -8,18 +8,7 @@
 
 Інтерфейс оголошено в заголовному файлі `<ctcrypto/constant_time.h>`.
 
-```c
-#ifndef CT_CRYPTO_CONSTANT_TIME_H
-#define CT_CRYPTO_CONSTANT_TIME_H
-
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-#if defined(__cplusplus)
-extern "C" {
-#endif
-```
+:::code api-constant-time/c/1-zaholovnyi-fail-makrosy.h
 
 ### 1.1 Тип логічного вибору (ct_choice_t)
 
@@ -45,21 +34,7 @@ typedef uint32_t ct_choice_t;
 
 Сучасні оптимізуючі компілятори Clang, GCC та MSVC під час статичного аналізу коду розпізнають типові ідіоми побітового вибору виду `y ^ (mask & (x ^ y))` і намагаються згорнути їх у машинний код з умовними переходами `JNE/JE` або умовними інструкціями `CMOV`. Для гарантованого придушення такої оптимізації визначено системні бар'єри:
 
-```c
-#if defined(__GNUC__) || defined(__clang__)
-#define CT_BARRIER_32(x) do { __asm__ volatile ("" : "+r" (x)); } while(0)
-#define CT_BARRIER_64(x) do { __asm__ volatile ("" : "+r" (x)); } while(0)
-#define CT_BARRIER_PTR(p) do { __asm__ volatile ("" : "+r" (p)); } while(0)
-#elif defined(_MSC_VER)
-#define CT_BARRIER_32(x) do { _ReadWriteBarrier(); } while(0)
-#define CT_BARRIER_64(x) do { _ReadWriteBarrier(); } while(0)
-#define CT_BARRIER_PTR(p) do { _ReadWriteBarrier(); } while(0)
-#else
-#define CT_BARRIER_32(x) ((void)0)
-#define CT_BARRIER_64(x) ((void)0)
-#define CT_BARRIER_PTR(p) ((void)0)
-#endif
-```
+:::code api-constant-time/c/1-2-makrosy-barieriv.c
 
 ## 2. Захист від спекулятивних атак (Spectre Mitigations API)
 
@@ -67,37 +42,7 @@ typedef uint32_t ct_choice_t;
 
 Модуль надає апаратні бар'єри серіалізації та маски безпечного спекулятивного індексування:
 
-```c
-/* Примусова серіалізація конвеєра для зупинки спекулятивного виконання (LFENCE / CSDB) */
-static inline void ct_speculation_barrier(void) {
-    #if defined(__x86_64__) || defined(_M_X64)
-    #if defined(__GNUC__) || defined(__clang__)
-    __asm__ volatile ("lfence" ::: "memory");
-    #else
-    _mm_lfence();
-    #endif
-    #elif defined(__aarch64__)
-    __asm__ volatile ("isb" ::: "memory");
-    #else
-    CT_BARRIER_32(0);
-    #endif
-}
-
-/* Безпечне обмеження індексу масиву без умовних переходів для запобігання Spectre-v1 */
-static inline size_t ct_speculative_clamp_index(size_t idx, size_t max_len) {
-    /* Якщо idx < max_len, маска = 0xFF..FF, інакше 0x00..00 */
-    size_t diff = idx ^ max_len;
-    size_t sub = idx - max_len;
-    size_t borrow = (idx & ~max_len) | ((~diff) & sub);
-    size_t mask = -((borrow >> ((sizeof(size_t) * 8) - 1)) & 1);
-    
-    #if defined(__GNUC__) || defined(__clang__)
-    __asm__ volatile ("" : "+r" (mask));
-    #endif
-    
-    return idx & mask;
-}
-```
+:::code api-constant-time/c/2-zakhyst-vid.c
 
 ### Гарантія спекулятивного захисту:
 - Навіть якщо процесор спекулятивно виконує інструкції читання пам'яті за хибно передбаченим розгалуженням, `ct_speculative_clamp_index` перетворює позамежовий індекс на `0`, гарантуючи відсутність витоку рядків кешу чутливих областей пам'яті.
@@ -203,19 +148,7 @@ int ct_memcmp_lex(const void *a, const void *b, size_t len);
 
 Функції вибірки замінюють небезпечне пряме звернення до пам'яті `table[secret_idx]` на повне лінійне сканування, ізолюючи кеш процесора від секретного індексу.
 
-```c
-/* Вибірка 8-бітного байта з таблиці довільного розміру */
-uint8_t ct_lookup_u8(const uint8_t *table, size_t table_len, size_t secret_idx);
-
-/* Вибірка 32-бітного слова з масиву */
-uint32_t ct_lookup_u32(const uint32_t *table, size_t table_len, size_t secret_idx);
-
-/* Вибірка 64-бітного слова з масиву */
-uint64_t ct_lookup_u64(const uint64_t *table, size_t table_len, size_t secret_idx);
-
-/* Копіювання елемента довільного фіксованого розміру elem_size з масиву */
-void ct_lookup_element(void *dst, const void *table, size_t num_elems, size_t elem_size, size_t secret_idx);
-```
+:::code api-constant-time/c/6-bezpechni-tablychni.h
 
 ### Інваріанти безпеки табличної вибірки:
 1. Функція зчитує кожен елемент масиву `table[0..table_len-1]` рівно один раз у строго послідовному порядку адрес.
@@ -238,25 +171,7 @@ typedef struct {
 ```
 
 ### 7.2 Арифметичні функції
-```c
-/* Додавання двох 256-бітних чисел із поверненням біта перенесення */
-uint64_t ct_bn256_add(ct_bn256_t *r, const ct_bn256_t *a, const ct_bn256_t *b);
-
-/* Віднімання двох 256-бітних чисел із поверненням біта позики */
-uint64_t ct_bn256_sub(ct_bn256_t *r, const ct_bn256_t *a, const ct_bn256_t *b);
-
-/* Модульне додавання r = (a + b) mod p */
-void ct_bn256_mod_add(ct_bn256_t *r, const ct_bn256_t *a, const ct_bn256_t *b, const ct_bn256_t *p);
-
-/* Модульне віднімання r = (a - b) mod p */
-void ct_bn256_mod_sub(ct_bn256_t *r, const ct_bn256_t *a, const ct_bn256_t *b, const ct_bn256_t *p);
-
-/* Умовний вибір 256-бітного числа */
-void ct_bn256_select(ct_choice_t c, ct_bn256_t *r, const ct_bn256_t *a, const ct_bn256_t *b);
-
-/* Умовна перестановка двох 256-бітних чисел */
-void ct_bn256_cswap(ct_choice_t c, ct_bn256_t *a, ct_bn256_t *b);
-```
+:::code api-constant-time/c/7-2-aryfmetychni-funktsii.h
 
 ### Інваріанти модульної арифметики:
 - Усі операції модульного додавання та віднімання гарантують, що результат `r < p`, за умови що вхідні операнди `a < p` та `b < p`.
@@ -304,19 +219,7 @@ typedef struct {
 ```
 
 ### 9.2 Функції теоретико-числового перетворення та вибірки
-```c
-/* Постійночасове пряме теоретико-числове перетворення (NTT) */
-void ct_poly_ntt(ct_pqc_poly256_t *p, const int16_t *zetas_table, int16_t q);
-
-/* Постійночасове обернене теоретико-числове перетворення (InvNTT) */
-void ct_poly_invntt(ct_pqc_poly256_t *p, const int16_t *zetas_inv_table, int16_t q);
-
-/* Поточкове множення двох поліномів у просторі NTT */
-void ct_poly_basemul(ct_pqc_poly256_t *r, const ct_pqc_poly256_t *a, const ct_pqc_poly256_t *b, int16_t q);
-
-/* Постійночасове зведення за модулем q за алгоритмом Барретта/Монтгомері */
-void ct_poly_reduce_coefficients(ct_pqc_poly256_t *p, int16_t q);
-```
+:::code api-constant-time/c/9-2-funktsii-teoretyko.h
 
 ### Контракт NTT-обчислень:
 Усі метеликові операції (Cooley-Tukey та Gentleman-Sande) виконуються з використанням константних таблиць твідових множників `zetas_table` за строго фіксовану кількість тактів без залежності від нульових коефіцієнтів.
@@ -346,33 +249,7 @@ uint8_t ct_base64_decode_char(char c, ct_choice_t *is_valid);
 
 Для координації обчислювальних ресурсів, керування захищеними областями пам'яті та налаштування політик захисту бібліотека надає структуру контексту `ct_context_t`.
 
-```c
-typedef enum {
-    CT_FLAG_NONE             = 0x00,
-    CT_FLAG_SECURE_WIPE      = 0x01, /* Автоматичне занулення буферів при звільненні */
-    CT_FLAG_LOCK_PAGES       = 0x02, /* Фіксація пам'яті в RAM (mlock) */
-    CT_FLAG_DISABLE_COREDUMP = 0x04, /* Заборона створення дампів пам'яті процесу */
-    CT_FLAG_BARRIER_STRICT   = 0x08  /* Примусова вставка асемблерних бар'єрів */
-} ct_context_flags_t;
-
-typedef struct {
-    ct_context_flags_t flags;
-    ct_rng_fn custom_rng;
-    void *user_data;
-} ct_context_t;
-
-/* Ініціалізація криптографічного контексту */
-int ct_context_init(ct_context_t *ctx, ct_context_flags_t flags, ct_rng_fn rng);
-
-/* Звільнення ресурсів та деактивація контексту */
-void ct_context_destroy(ct_context_t *ctx);
-
-/* Виділення пам'яті з охоронними сторінками (Guard Pages) */
-void *ct_alloc_guarded(ct_context_t *ctx, size_t size);
-
-/* Звільнення захищеної пам'яті з гарантованим зануленням */
-void ct_free_guarded(ct_context_t *ctx, void *ptr, size_t size);
-```
+:::code api-constant-time/c/11-keruvannia-bezpechnym.h
 
 ### Контракт охоронних сторінок (Guard Pages):
 Функція `ct_alloc_guarded` оточує виділений буфер пам'яті двома недоступними сторінками пам'яті зі статусом `PROT_NONE`. Будь-яка спроба переповнення або недоповнення буфера (Buffer Overflow/Underflow) викликає негайне апаратне переривання `SIGSEGV`, запобігаючи несанкціонованому зчитуванню сусідніх криптографічних ключів у купі.
@@ -382,34 +259,10 @@ void ct_free_guarded(ct_context_t *ctx, void *ptr, size_t size);
 Для побудови алгоритмів із захистом вищих порядків (ISW probing security) інтерфейс надає структури та оператори розділення секретів на `d + 1` часток.
 
 ### 12.1 Типи замаскованих змінних
-```c
-#define CT_MAX_MASKING_SHARES 8
-
-typedef struct {
-    uint8_t shares[CT_MAX_MASKING_SHARES];
-    size_t order; /* Порядок маскування d (кількість часток = d + 1) */
-} ct_masked_byte_t;
-
-typedef struct {
-    uint32_t shares[CT_MAX_MASKING_SHARES];
-    size_t order;
-} ct_masked_word32_t;
-```
+:::code api-constant-time/c/12-1-typy-zamaskovanykh.c
 
 ### 12.2 Функції маскування та відновлення
-```c
-/* Створення замаскованого представлення секретного байта */
-int ct_mask_byte_create(ct_masked_byte_t *dst, uint8_t secret, size_t order, ct_rng_fn rng);
-
-/* Відновлення відкритого байта з часток: secret = share_0 ^ share_1 ^ ... ^ share_d */
-uint8_t ct_mask_byte_reconstruct(const ct_masked_byte_t *src);
-
-/* Безпечне почасткове додавання за модулем 2 (XOR): z = x ^ y */
-void ct_mask_byte_xor(ct_masked_byte_t *z, const ct_masked_byte_t *x, const ct_masked_byte_t *y);
-
-/* Безпечне нелінійне множення ISW: z = x & y */
-int ct_mask_byte_and_isw(ct_masked_byte_t *z, const ct_masked_byte_t *x, const ct_masked_byte_t *y, ct_rng_fn rng);
-```
+:::code api-constant-time/c/12-2-funktsii-maskuvannia.h
 
 ### Контракт гаджета множення ISW:
 - Функція `ct_mask_byte_and_isw` вимагає передачі свіжої ентропії через `rng` обсягом `d * (d + 1) / 2` випадкових байтів.
@@ -419,28 +272,7 @@ int ct_mask_byte_and_isw(ct_masked_byte_t *z, const ct_masked_byte_t *x, const c
 
 Для автоматизованої перевірки відсутності витоків у модульних тестах бібліотека надає стандартизований інтерфейс статистичного аналізу за критерієм Велча (TVLA).
 
-```c
-typedef struct {
-    double mean_fixed;
-    double m2_fixed;
-    uint64_t count_fixed;
-    double mean_random;
-    double m2_random;
-    uint64_t count_random;
-} ct_tvla_accumulator_t;
-
-/* Ініціалізація структури статистичного збору */
-void ct_tvla_init(ct_tvla_accumulator_t *acc);
-
-/* Додавання вимірювання до вибірки (is_fixed == true для фіксованого класу) */
-void ct_tvla_feed(ct_tvla_accumulator_t *acc, bool is_fixed, double metric_val);
-
-/* Обчислення підсумкового значення статистики t-критерію Велча */
-double ct_tvla_compute_t(const ct_tvla_accumulator_t *acc);
-
-/* Перевірка, чи не перевищує статистика критичний поріг (дефолтний поріг 4.5) */
-bool ct_tvla_is_leakage_free(const ct_tvla_accumulator_t *acc, double threshold);
-```
+:::code api-constant-time/c/13-prohramnyi-interfeis.h
 
 ### Інтерпретація результатів TVLA:
 - Якщо `ct_tvla_compute_t(acc)` повертає значення за абсолютною величиною `|t| <= 4.5`, гіпотеза про відсутність витоку приймається.

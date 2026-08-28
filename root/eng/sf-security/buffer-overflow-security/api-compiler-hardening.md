@@ -93,64 +93,8 @@ sudo sysctl -w kernel.randomize_va_space=2
 У ядрі Linux 6.6 впроваджено спеціалізовані команди системного виклику `prctl()` для керування станом апаратного тіньового стека Intel CET безпосередньо з простору користувача:
 
 :::tabs
-```c
-#include <sys/prctl.h>
-#include <stdio.h>
-
-#ifndef PR_SET_SHADOW_STACK_STATUS
-#define PR_SET_SHADOW_STACK_STATUS 75
-#define PR_GET_SHADOW_STACK_STATUS 74
-#define PR_LOCK_SHADOW_STACK_STATUS 76
-#define PR_SHADOW_STACK_ENABLE     (1UL << 0)
-#define PR_SHADOW_STACK_WRITE      (1UL << 1)
-#endif
-
-int configure_shadow_stack(void) {
-    // Примусова активація апаратного тіньового стека для поточного процесу
-    if (prctl(PR_SET_SHADOW_STACK_STATUS, PR_SHADOW_STACK_ENABLE, 0, 0, 0) != 0) {
-        perror("Помилка: процесор або ядро не підтримують Intel CET");
-        return -1;
-    }
-
-    // Блокування подальшої зміни статусу для захисту від вимкнення зловмисником
-    if (prctl(PR_LOCK_SHADOW_STACK_STATUS, PR_SHADOW_STACK_ENABLE, 0, 0, 0) != 0) {
-        perror("Помилка блокування конфігурації Shadow Stack");
-        return -1;
-    }
-
-    return 0;
-}
-```
-```cpp
-#include <sys/prctl.h>
-#include <iostream>
-#include <expected>
-#include <system_error>
-
-#ifndef PR_SET_SHADOW_STACK_STATUS
-#define PR_SET_SHADOW_STACK_STATUS 75
-#define PR_GET_SHADOW_STACK_STATUS 74
-#define PR_LOCK_SHADOW_STACK_STATUS 76
-#define PR_SHADOW_STACK_ENABLE     (1UL << 0)
-#define PR_SHADOW_STACK_WRITE      (1UL << 1)
-#endif
-
-enum class ShadowStackError {
-    NotSupported,
-    LockFailed
-};
-
-// Ідіоматична обгортка C++23 з поверненням типізованого результату
-std::expected<void, ShadowStackError> configure_shadow_stack() noexcept {
-    if (prctl(PR_SET_SHADOW_STACK_STATUS, PR_SHADOW_STACK_ENABLE, 0, 0, 0) != 0) {
-        return std::unexpected(ShadowStackError::NotSupported);
-    }
-    if (prctl(PR_LOCK_SHADOW_STACK_STATUS, PR_SHADOW_STACK_ENABLE, 0, 0, 0) != 0) {
-        return std::unexpected(ShadowStackError::LockFailed);
-    }
-    return {};
-}
-```
+:::code api-compiler-hardening/c/main.c
+:::code api-compiler-hardening/cpp/main.cpp
 :::
 
 Цей інтерфейс дозволяє високонавантаженим службам та захищеним серверам гарантувати неможливість підміни адрес повернення, навіть якщо сам бінарний файл було скомпільовано без прапорця `-fcf-protection=full`.

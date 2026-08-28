@@ -38,88 +38,8 @@ Decompress_q(y, d) = ⌈ (q / 2^d) · y ⌋
 Нижче наведено специфікацію системного API. У вкладці C показано сирі виклики з урахуванням покажчиків і розмірів буферів, а у вкладці C++ — сучасне C++20 обгортання з використанням `std::span` та `std::array`.
 
 :::tabs
-```c
-#ifndef ML_KEM_H
-#define ML_KEM_H
-
-#include <stddef.h>
-#include <stdint.h>
-
-#define MLKEM768_PUBLICKEYBYTES  1184
-#define MLKEM768_SECRETKEYBYTES  2400
-#define MLKEM768_CIPHERTEXTBYTES 1088
-#define MLKEM768_BYTES           32
-
-typedef enum {
-    MLKEM_SUCCESS = 0,
-    MLKEM_ERROR_RNG_FAILED = -1,
-    MLKEM_ERROR_INVALID_CIPHERTEXT = -2,
-    MLKEM_ERROR_BUFFER_TOO_SMALL = -3,
-    MLKEM_ERROR_CORRUPTED_KEY = -4
-} mlkem_status_t;
-
-mlkem_status_t crypto_kem_keypair(
-    uint8_t pk[MLKEM768_PUBLICKEYBYTES],
-    uint8_t sk[MLKEM768_SECRETKEYBYTES]
-);
-
-mlkem_status_t crypto_kem_enc(
-    uint8_t ct[MLKEM768_CIPHERTEXTBYTES],
-    uint8_t ss[MLKEM768_BYTES],
-    const uint8_t pk[MLKEM768_PUBLICKEYBYTES]
-);
-
-mlkem_status_t crypto_kem_dec(
-    uint8_t ss[MLKEM768_BYTES],
-    const uint8_t ct[MLKEM768_CIPHERTEXTBYTES],
-    const uint8_t sk[MLKEM768_SECRETKEYBYTES]
-);
-
-#endif // ML_KEM_H
-```
-```cpp
-#ifndef ML_KEM_HPP
-#define ML_KEM_HPP
-
-#include <array>
-#include <span>
-#include <system_error>
-#include <cstdint>
-
-namespace mlkem768 {
-
-constexpr std::size_t PublicKeyBytes  = 1184;
-constexpr std::size_t SecretKeyBytes  = 2400;
-constexpr std::size_t CiphertextBytes = 1088;
-constexpr std::size_t SharedSecretBytes = 32;
-
-using PublicKey    = std::array<std::uint8_t, PublicKeyBytes>;
-using SecretKey    = std::array<std::uint8_t, SecretKeyBytes>;
-using Ciphertext   = std::array<std::uint8_t, CiphertextBytes>;
-using SharedSecret = std::array<std::uint8_t, SharedSecretBytes>;
-
-struct KeyPair {
-    PublicKey  pk;
-    SecretKey  sk;
-};
-
-struct EncapsulationResult {
-    Ciphertext   ct;
-    SharedSecret ss;
-};
-
-class KEM {
-public:
-    static KeyPair generate_keypair();
-    static EncapsulationResult encapsulate(std::span<const std::uint8_t, PublicKeyBytes> pk);
-    static SharedSecret decapsulate(std::span<const std::uint8_t, CiphertextBytes> ct,
-                                    std::span<const std::uint8_t, SecretKeyBytes> sk);
-};
-
-} // namespace mlkem768
-
-#endif // ML_KEM_HPP
-```
+:::code api-pqc-standards/c/2-api-interfeisu-ml-kem.h
+:::code api-pqc-standards/cpp/2-api-interfeisu-ml-kem.hpp
 :::
 
 ### Детальний розбір механізму роботи точок входу API
@@ -148,85 +68,8 @@ ML-DSA використовує схему підпису на основі пі
 ## 4. API інтерфейсу ML-DSA (FIPS 204)
 
 :::tabs
-```c
-#ifndef ML_DSA_H
-#define ML_DSA_H
-
-#include <stddef.h>
-#include <stdint.h>
-
-#define MLDSA65_PUBLICKEYBYTES 1952
-#define MLDSA65_SECRETKEYBYTES 4032
-#define MLDSA65_SIGBYTES       3309
-
-typedef enum {
-    MLDSA_SUCCESS = 0,
-    MLDSA_ERROR_INVALID_SIGNATURE = -1,
-    MLDSA_ERROR_VERIFICATION_FAILED = -2,
-    MLDSA_ERROR_RNG = -3
-} mldsa_status_t;
-
-mldsa_status_t crypto_sign_keypair(
-    uint8_t pk[MLDSA65_PUBLICKEYBYTES],
-    uint8_t sk[MLDSA65_SECRETKEYBYTES]
-);
-
-mldsa_status_t crypto_sign_signature(
-    uint8_t sig[MLDSA65_SIGBYTES],
-    size_t *siglen,
-    const uint8_t *msg,
-    size_t msglen,
-    const uint8_t sk[MLDSA65_SECRETKEYBYTES]
-);
-
-mldsa_status_t crypto_sign_verify(
-    const uint8_t sig[MLDSA65_SIGBYTES],
-    size_t siglen,
-    const uint8_t *msg,
-    size_t msglen,
-    const uint8_t pk[MLDSA65_PUBLICKEYBYTES]
-);
-
-#endif // ML_DSA_H
-```
-```cpp
-#ifndef ML_DSA_HPP
-#define ML_DSA_HPP
-
-#include <array>
-#include <span>
-#include <system_error>
-#include <cstdint>
-
-namespace mldsa65 {
-
-constexpr std::size_t PublicKeyBytes = 1952;
-constexpr std::size_t SecretKeyBytes = 4032;
-constexpr std::size_t SignatureBytes = 3309;
-
-using PublicKey = std::array<std::uint8_t, PublicKeyBytes>;
-using SecretKey = std::array<std::uint8_t, SecretKeyBytes>;
-using Signature = std::array<std::uint8_t, SignatureBytes>;
-
-struct KeyPair {
-    PublicKey pk;
-    SecretKey sk;
-};
-
-class DigitalSignature {
-public:
-    static KeyPair generate_keypair();
-    static Signature sign(std::span<const std::uint8_t> message,
-                          std::span<const std::uint8_t, SecretKeyBytes> sk);
-    static bool verify(std::span<const std::uint8_t> message,
-                       std::span<const std::uint8_t, SignatureBytes> signature,
-                       std::span<const std::uint8_t, PublicKeyBytes> pk);
-};
-
-} // namespace mldsa65
-
-#endif // ML_DSA_HPP
-```
+:::code api-pqc-standards/c/4-api-interfeisu-ml-dsa.h
+:::code api-pqc-standards/cpp/4-api-interfeisu-ml-dsa.hpp
 :::
 
 ### Процедура створення та перевірки підпису у коді

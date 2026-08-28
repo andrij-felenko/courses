@@ -23,18 +23,7 @@ void Tss2_TctiLdr_Finalize(
     TSS2_TCTI_CONTEXT **tcti
 );
 ```
-```cpp
-// У C++ заголовок <tss2/tss2_tctildr.h> підключається у просторі extern "C"
-#include <memory>
-#include <tss2/tss2_tctildr.h>
-
-struct TctiDeleter {
-    void operator()(TSS2_TCTI_CONTEXT* ctx) const noexcept {
-        if (ctx) Tss2_TctiLdr_Finalize(&ctx);
-    }
-};
-using TctiContextPtr = std::unique_ptr<TSS2_TCTI_CONTEXT, TctiDeleter>;
-```
+:::code api-tss2-esapi/cpp/mekhanizm-dynamichnoho.cpp
 :::
 
 #### Доступні плагіни транспорту TCTI
@@ -96,37 +85,8 @@ using EsysContextPtr = std::unique_ptr<ESYS_CONTEXT, EsysDeleter>;
 Функція `Esys_CreatePrimary` створює первинний ключ в обраній ієрархії на основі її детермінованого зерна (Primary Seed) та переданого шаблону криптографічних параметрів `TPM2B_PUBLIC`.
 
 :::tabs
-```c
-TSS2_RC Esys_CreatePrimary(
-    ESYS_CONTEXT *esysContext,
-    ESYS_TR primaryHandle,           // ESYS_TR_RH_OWNER або ESYS_TR_RH_ENDORSEMENT
-    ESYS_TR shandle1,                 // ESYS_TR_PASSWORD або дескриптор сесії
-    ESYS_TR shandle2,                 // ESYS_TR_NONE
-    ESYS_TR shandle3,                 // ESYS_TR_NONE
-    const TPM2B_PUBLIC *inPublic,     // Шаблон параметрів ключа
-    const TPM2B_DATA *outsideInfo,    // Ефемерні зовнішні дані (Nonce) або NULL
-    const TPML_PCR_SELECTION *creationPCR, // Список PCR для фіксації створення
-    ESYS_TR *objectHandle,            // Вихідний дескриптор створеного ключа
-    TPM2B_PUBLIC **outPublic,         // Згенерована публічна частина ключа
-    TPM2B_CREATION_DATA **creationData,
-    TPM2B_DIGEST **creationHash,
-    TPMT_TK_CREATION **creationTicket
-);
-```
-```cpp
-// У C++20 аргументи огортаються у RAII-обгортки для тимчасових handles
-class ScopedEsysHandle {
-public:
-    ScopedEsysHandle(ESYS_CONTEXT* ctx, ESYS_TR handle = ESYS_TR_NONE) noexcept
-        : m_ctx(ctx), m_handle(handle) {}
-    ~ScopedEsysHandle() { if (m_ctx && m_handle != ESYS_TR_NONE) Esys_FlushContext(m_ctx, m_handle); }
-    [[nodiscard]] ESYS_TR get() const noexcept { return m_handle; }
-    [[nodiscard]] ESYS_TR* ptr() noexcept { return &m_handle; }
-private:
-    ESYS_CONTEXT* m_ctx;
-    ESYS_TR m_handle;
-};
-```
+:::code api-tss2-esapi/c/heneratsiia-pervynnoho.c
+:::code api-tss2-esapi/cpp/heneratsiia-pervynnoho.cpp
 :::
 
 ### Запечатування та розпечатування даних (Sealing / Unsealing)
@@ -134,28 +94,7 @@ private:
 Операції Sealing в ESAPI реалізуються через створення об'єкта типу `TPM2_ALG_KEYEDHASH` під батьківським первинним ключем. Секретні дані розміщуються у структурі `TPM2B_SENSITIVE_CREATE`.
 
 :::tabs
-```c
-/* Виклики створення, завантаження та розпечатування секрету в ESAPI */
-TSS2_RC Esys_Create(
-    ESYS_CONTEXT *esysContext, ESYS_TR parentHandle,
-    ESYS_TR shandle1, ESYS_TR shandle2, ESYS_TR shandle3,
-    const TPM2B_SENSITIVE_CREATE *inSensitive, const TPM2B_PUBLIC *inPublic,
-    const TPM2B_DATA *outsideInfo, const TPML_PCR_SELECTION *creationPCR,
-    TPM2B_PRIVATE **outPrivate, TPM2B_PUBLIC **outPublic,
-    TPM2B_CREATION_DATA **creationData, TPM2B_DIGEST **creationHash, TPMT_TK_CREATION **creationTicket
-);
-
-TSS2_RC Esys_Load(
-    ESYS_CONTEXT *esysContext, ESYS_TR parentHandle,
-    ESYS_TR shandle1, ESYS_TR shandle2, ESYS_TR shandle3,
-    const TPM2B_PRIVATE *inPrivate, const TPM2B_PUBLIC *inPublic, ESYS_TR *objectHandle
-);
-
-TSS2_RC Esys_Unseal(
-    ESYS_CONTEXT *esysContext, ESYS_TR itemHandle,
-    ESYS_TR shandle1, ESYS_TR shandle2, ESYS_TR shandle3, TPM2B_SENSITIVE_DATA **outData
-);
-```
+:::code api-tss2-esapi/c/zapechatuvannia-ta.h
 ```cpp
 // У C++ динамічні структури пам'яті ESAPI вивільняються через std::unique_ptr та Esys_Free
 auto freePrivate = [](TPM2B_PRIVATE* p) { Esys_Free(p); };
@@ -171,26 +110,7 @@ using UniqueTpmPublic = std::unique_ptr<TPM2B_PUBLIC, decltype(freePublic)>;
 Для розпечатування даних під вимірювання завантаження необхідно розпочати сесію політики `TPM2_SE_POLICY` та оновити її накопичувальний хеш через виклик `Esys_PolicyPCR`.
 
 :::tabs
-```c
-TSS2_RC Esys_StartAuthSession(
-    ESYS_CONTEXT *esysContext,
-    ESYS_TR tpmKey, ESYS_TR bind,
-    ESYS_TR shandle1, ESYS_TR shandle2, ESYS_TR shandle3,
-    const TPM2B_NONCE *nonceCaller,
-    TPM2_SE sessionType,             // TPM2_SE_POLICY або TPM2_SE_HMAC
-    const TPMT_SYM_DEF *symmetric,   // Параметри шифрування сесії (напр., AES-128-CFB)
-    TPMI_ALG_HASH authHash,          // TPM2_ALG_SHA256
-    ESYS_TR *sessionHandle
-);
-
-TSS2_RC Esys_PolicyPCR(
-    ESYS_CONTEXT *esysContext,
-    ESYS_TR policySession,
-    ESYS_TR shandle1, ESYS_TR shandle2, ESYS_TR shandle3,
-    const TPM2B_DIGEST *pcrDigest,   // Очікуване значення гешу або NULL для поточних PCR
-    const TPML_PCR_SELECTION *pcrs   // Маска вимірюваних регістрів PCR
-);
-```
+:::code api-tss2-esapi/c/stvorennia-ta-otsinka.h
 ```cpp
 // У C++ сесія авторизації обгортається в RAII дескриптор, що викликає Esys_FlushContext
 ScopedEsysHandle session(esysCtx);
@@ -218,29 +138,7 @@ FAPI (Feature API) виступає найвищим рівнем абстрак
 Конфігураційні профілі FAPI описують деталі криптографічних алгоритмів (довжину ключів, алгоритми гешування, схеми підпису), позбавляючи розробника необхідності заповнювати складні структури `TPM2B_PUBLIC`.
 
 :::tabs
-```c
-// Ініціалізація FAPI з використанням системного профілю
-TSS2_RC Fapi_Initialize(
-    FAPI_CONTEXT **fapiContext, 
-    const char *uri
-);
-
-// Створення та запечатування секрету за 1 виклик
-TSS2_RC Fapi_Seal(
-    FAPI_CONTEXT *fapiContext,
-    const char *path,                // Шлях до об'єкта "/HS/SRK/my_secret"
-    const char *type,                // Тип політики "pcr"
-    const uint8_t *data, size_t numData,
-    const char *policyPath
-);
-
-// Вилучення запечатаного секрету
-TSS2_RC Fapi_Unseal(
-    FAPI_CONTEXT *fapiContext,
-    const char *path,
-    uint8_t **data, size_t *numData
-);
-```
+:::code api-tss2-esapi/c/osnovni-funktsii-c-api.h
 ```cpp
 // У C++ високорівневий FAPI контекст обгортається у std::unique_ptr
 struct FapiDeleter {
@@ -258,25 +156,7 @@ using FapiContextPtr = std::unique_ptr<FAPI_CONTEXT, FapiDeleter>;
 
 ### Типовий ланцюжок команд запечатування секрету
 
-```bash
-# 1. Генерація Primary Key у Owner ієрархії
-tpm2_createprimary -C o -g sha256 -G rsa -c primary.ctx
-
-# 2. Розрахунок дайджесту політики для регістрів PCR 0 та 7
-tpm2_createpolicy --policy-pcr -l sha256:0,7 -L policy.digest
-
-# 3. Створення та запечатування ключа шифрування диска
-tpm2_create -C primary.ctx -u secret.pub -r secret.priv -L policy.digest -i luks_pass.key
-
-# 4. Завантаження запечатаного об'єкта у віртуальний простір TPM
-tpm2_load -C primary.ctx -u secret.pub -r secret.priv -c secret.ctx
-
-# 5. Відкриття сесії політики, підтвердження стану PCR та розпечатування
-tpm2_startauthsession --policy-session -S session.ctx
-tpm2_policypcr -S session.ctx -l sha256:0,7
-tpm2_unseal -c secret.ctx -p session:session.ctx
-tpm2_flushcontext session.ctx
-```
+:::code api-tss2-esapi/sh/main.sh
 
 ### Довідник кодів повернення та помилок стеку TSS2 (`TSS2_RC`)
 

@@ -26,32 +26,8 @@
 2. **Обчислення секрету:** Під час повторного виклику з виділеним буфером `key` вказівник `keylen` повинен містити фактичну місткість виділеного буфера. Функція обчислює скалярний добуток або модульний степінь, записує байти секрету в буфер і оновлює `keylen` фактичною кількістю записаних байтів.
 
 :::tabs
-```c
-size_t secret_len = 0;
-/* Крок 1: запит необхідного розміру буфера */
-if (EVP_PKEY_derive(ctx, NULL, &secret_len) <= 0) {
-    /* Обробка помилки: неможливо визначити довжину секрету */
-}
-
-uint8_t *secret = (uint8_t*)malloc(secret_len);
-/* Крок 2: фактичне обчислення спільного секрету */
-if (!secret || EVP_PKEY_derive(ctx, secret, &secret_len) <= 0) {
-    /* Обробка помилки: збій під час скалярного множення */
-}
-```
-```cpp
-size_t secret_len = 0;
-// Крок 1: запит необхідного розміру буфера
-if (EVP_PKEY_derive(ctx, nullptr, &secret_len) <= 0) {
-    // Обробка помилки: неможливо визначити довжину секрету
-}
-
-std::vector<uint8_t> secret(secret_len);
-// Крок 2: фактичне обчислення спільного секрету
-if (EVP_PKEY_derive(ctx, secret.data(), &secret_len) <= 0) {
-    // Обробка помилки: збій під час скалярного множення
-}
-```
+:::code api-crypto-key-exchange/c/povedinka-parametriv-ta.c
+:::code api-crypto-key-exchange/cpp/povedinka-parametriv-ta.cpp
 :::
 
 ### Налаштування параметрів класичного MODP DH через OSSL_PARAM
@@ -59,36 +35,8 @@ if (EVP_PKEY_derive(ctx, secret.data(), &secret_len) <= 0) {
 Під час використання класичного обміну за модулем у скінченних полях (FFDHE) OpenSSL 3.0 вимагає конфігурації параметрів групи (модуля `p` та генератора `g`) або вказівки стандартизованої іменованої групи (наприклад, RFC 7919 `ffdhe2048` чи `ffdhe3072`):
 
 :::tabs
-```c
-EVP_PKEY_CTX *pctx = EVP_PKEY_CTX_new_from_name(NULL, "DH", NULL);
-EVP_PKEY_paramgen_init(pctx);
-
-char group_name[] = "ffdhe3072";
-OSSL_PARAM params[2];
-params[0] = OSSL_PARAM_construct_utf8_string("group", group_name, sizeof(group_name));
-params[1] = OSSL_PARAM_construct_end();
-
-EVP_PKEY_CTX_set_params(pctx, params);
-EVP_PKEY *dh_params = NULL;
-EVP_PKEY_paramgen(pctx, &dh_params);
-EVP_PKEY_CTX_free(pctx);
-```
-```cpp
-auto pctx = std::unique_ptr<EVP_PKEY_CTX, decltype(&EVP_PKEY_CTX_free)>(
-    EVP_PKEY_CTX_new_from_name(nullptr, "DH", nullptr), &EVP_PKEY_CTX_free);
-EVP_PKEY_paramgen_init(pctx.get());
-
-char group_name[] = "ffdhe3072";
-std::array<OSSL_PARAM, 2> params = {
-    OSSL_PARAM_construct_utf8_string("group", group_name, sizeof(group_name)),
-    OSSL_PARAM_construct_end()
-};
-
-EVP_PKEY_CTX_set_params(pctx.get(), params.data());
-EVP_PKEY *raw_params = nullptr;
-EVP_PKEY_paramgen(pctx.get(), &raw_params);
-auto dh_params = std::unique_ptr<EVP_PKEY, decltype(&EVP_PKEY_free)>(raw_params, &EVP_PKEY_free);
-```
+:::code api-crypto-key-exchange/c/nalashtuvannia-parametriv.h
+:::code api-crypto-key-exchange/cpp/nalashtuvannia-parametriv.hpp
 :::
 
 ### Валідація віддаленого ключа піра

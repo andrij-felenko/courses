@@ -178,71 +178,8 @@ N_total = 50 000 запитів/с · 600 с = 30 000 000 одноразових
 Нижче наведено базову структуру перевірки та фіксації номера послідовності мовами C та C++:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-#define REPLAY_WIN_SIZE 64
-
-typedef struct {
-    uint64_t seq_max;
-    uint64_t bitmap;
-} replay_filter_t;
-
-bool replay_filter_check(const replay_filter_t *f, uint64_t seq) {
-    if (seq == 0) return false;
-    if (seq > f->seq_max) return true; // новий пакет
-    uint64_t diff = f->seq_max - seq;
-    if (diff >= REPLAY_WIN_SIZE) return false; // занадто старий
-    return (f->bitmap & ((uint64_t)1 << diff)) == 0; // true якщо ще не бачили
-}
-
-void replay_filter_commit(replay_filter_t *f, uint64_t seq) {
-    if (seq > f->seq_max) {
-        uint64_t diff = seq - f->seq_max;
-        f->bitmap = (diff < REPLAY_WIN_SIZE) ? ((f->bitmap << diff) | 1) : 1;
-        f->seq_max = seq;
-    } else {
-        uint64_t diff = f->seq_max - seq;
-        if (diff < REPLAY_WIN_SIZE) {
-            f->bitmap |= ((uint64_t)1 << diff);
-        }
-    }
-}
-```
-```cpp
-#include <cstdint>
-
-class ReplayFilter {
-public:
-    static constexpr uint64_t WindowSize = 64;
-
-    [[nodiscard]] bool check(uint64_t seq) const noexcept {
-        if (seq == 0) return false;
-        if (seq > seq_max_) return true;
-        const uint64_t diff = seq_max_ - seq;
-        if (diff >= WindowSize) return false;
-        return (bitmap_ & (uint64_t{1} << diff)) == 0;
-    }
-
-    void commit(uint64_t seq) noexcept {
-        if (seq > seq_max_) {
-            const uint64_t diff = seq - seq_max_;
-            bitmap_ = (diff < WindowSize) ? ((bitmap_ << diff) | 1) : 1;
-            seq_max_ = seq;
-        } else {
-            const uint64_t diff = seq_max_ - seq;
-            if (diff < WindowSize) {
-                bitmap_ |= (uint64_t{1} << diff);
-            }
-        }
-    }
-
-private:
-    uint64_t seq_max_{0};
-    uint64_t bitmap_{0};
-};
-```
+:::code replay-protection-d/c/main.c
+:::code replay-protection-d/cpp/main.cpp
 :::
 
 Повний багатослівний варіант вікна з підтримкою 128/512 бітів та багатопотокового середовища наведено у [проєкті реалізації ковзного бітового вікна](root:sf-security/replay-protection/proj-sliding-window.md). А формати заголовків ESP, правила ESN та параметри SecOC описано у [довіднику протокольних контрактів захисту від повтору](root:sf-security/replay-protection/api-replay-defense.md).

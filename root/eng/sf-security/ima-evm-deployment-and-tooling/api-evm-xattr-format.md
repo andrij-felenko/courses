@@ -72,18 +72,7 @@ struct signature_v2_hdr {
     uint8_t sig[];       /* Сирі байти цифрового підпису (PKCS#1 v1.5 RSA або ECDSA) */
 } __attribute__((packed));
 ```
-```cpp
-// Ідіоматична C++20 структура з упакованим вирівнюванням
-#pragma pack(push, 1)
-struct SignatureV2Hdr {
-    uint8_t type;
-    uint8_t version;
-    uint8_t hash_algo;
-    uint32_t keyid;      // Big-endian Key ID
-    uint16_t sig_size;   // Big-endian розмір підпису
-};
-#pragma pack(pop)
-```
+:::code api-evm-xattr-format/cpp/main.cpp
 :::
 
 Поле `keyid` являє собою останні 4 байти ідентифікатора відкритого ключа (Key ID / SKID з X.509 сертифіката). Це дозволяє ядру не перебирати всі сертифікати у брелоку `.ima`, а миттєво знайти потрібний відкритий ключ за його хеш-ідентифікатором при виконанні системного виклику.

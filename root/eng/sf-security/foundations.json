@@ -29,19 +29,23 @@
           "math": [
             {
               "file": "math-attack-tree-evaluation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-attack-tree-evaluator.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-threat-model-schema.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         },
@@ -53,7 +57,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
@@ -70,13 +75,16 @@
           "proj": [
             {
               "file": "proj-seccomp-sandbox.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-boundary-contract.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -88,7 +96,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -99,19 +108,24 @@
           "math": [
             {
               "file": "math-attack-surface-metric.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-attack-surface-reducer.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-attack-surface-control.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         }
@@ -133,7 +147,8 @@
           "hist": [
             {
               "file": "hist-beyondcorp-and-perimeter-death.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
@@ -145,13 +160,16 @@
           "proj": [
             {
               "file": "proj-spire-workload-mtls.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-spiffe-workload-contract.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -163,12 +181,14 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-saltzer-schroeder.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
@@ -180,13 +200,16 @@
           "proj": [
             {
               "file": "proj-privilege-separation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-linux-privileges.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -198,7 +221,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -215,13 +239,16 @@
           "proj": [
             {
               "file": "proj-failsafe-auth-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-secure-defaults-checklist.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         },
@@ -229,10 +256,12 @@
           "slug": "authorization-models",
           "title": "Моделі авторизації",
           "basic": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -243,7 +272,8 @@
           "proj": [
             {
               "file": "proj-rebac-check.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -255,24 +285,30 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-capsicum-rights.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "hist": [
             {
               "file": "hist-confused-deputy-and-capabilities.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-capsicum-sandbox.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -289,25 +325,31 @@
           "api": [
             {
               "file": "api-lsm-and-selinux.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "hist": [
             {
               "file": "hist-orange-book-and-mac.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
             {
               "file": "math-lattice-security-models.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-mac-decision-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -346,19 +388,23 @@
           "math": [
             {
               "file": "math-syn-cookie-entropy.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-syn-cookie-eval.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-scrubbing-pipeline.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         },
@@ -380,19 +426,24 @@
           "math": [
             {
               "file": "math-bucket-dynamics.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-token-bucket.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-rate-limit-headers.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }

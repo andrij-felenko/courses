@@ -14,81 +14,8 @@
 3. **Статистичні метрики якості сигналу:** середньоквадратичне значення модуля вектора помилки (EVM RMS), розраховане за сузір'ям модуляції, та інтегральне відношення сигнал/шум (SNR) у смузі вимірювання.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-/**
- * @brief Комплексний квадратурний відлік I/Q у форматі чисел із рухомою комою.
- */
-typedef struct {
-    float i;  /**< Синфазна складова (In-phase), нормована в діапазон [-1.0, 1.0] */
-    float q;  /**< Квадратурна складова (Quadrature), нормована в діапазон [-1.0, 1.0] */
-} rf_iq_sample_f32_t;
-
-/**
- * @brief Вектор апаратних ознак кремнієвої сигнатури передавача (RF-DNA).
- */
-typedef struct {
-    /* 1. Модуляційні неідеальності аналогового тракту */
-    double cfo_hz;              /**< Зсув несучої частоти від номіналу (Carrier Frequency Offset), Гц */
-    double cfo_ppm;             /**< Нормоване відхилення частоти в частках на мільйон (PPM) */
-    double iq_gain_imbalance;   /**< Амплітудний дисбаланс alpha = RMS(I) / RMS(Q), [0.8 .. 1.2] */
-    double iq_phase_skew_deg;   /**< Фазова неортогональність змішувача, градуси [-10.0 .. +10.0] */
-    double dc_offset_i;         /**< Постійне зміщення синфазного каналу (LO leakage) [-0.2 .. +0.2] */
-    double dc_offset_q;         /**< Постійне зміщення квадратурного каналу [-0.2 .. +0.2] */
-    double image_rejection_db;  /**< Рівень придушення дзеркального каналу (IRR), дБ */
-
-    /* 2. Часові характеристики перехідного процесу ввімкнення підсилювача (Turn-On Transient) */
-    double transient_rise_ns;   /**< Тривалість наростання імпульсу від 10% до 90% потужності, нс */
-    double transient_overshoot; /**< Відносний коефіцієнт перерегулювання амплітуди (Overshoot) */
-    double transient_settle_ns; /**< Час заспокоєння фази генератора PLL до стабільного стану, нс */
-
-    /* 3. Статистичні показники якості сигналу */
-    double evm_rms_percent;     /**< Модуль вектора помилки (Error Vector Magnitude), % */
-    double snr_db;              /**< Оцінене відношення сигнал/шум у смузі вимірювання, дБ */
-    uint32_t sample_count;      /**< Кількість відліків, використаних для усереднення */
-} rf_emitter_fingerprint_t;
-```
-```cpp
-#include <complex>
-#include <cstdint>
-#include <chrono>
-#include <optional>
-
-namespace rf_metrics {
-
-using IqSample = std::complex<float>;
-
-struct ModulationImperfections {
-    double cfo_hz{0.0};
-    double cfo_ppm{0.0};
-    double gain_imbalance{1.0};
-    double phase_skew_deg{0.0};
-    std::complex<double> dc_offset{0.0, 0.0};
-    double image_rejection_db{0.0};
-};
-
-struct TransientProfile {
-    std::chrono::nanoseconds rise_time{0};
-    double overshoot_ratio{0.0};
-    std::chrono::nanoseconds settling_time{0};
-};
-
-struct SignalQuality {
-    double evm_rms_percent{0.0};
-    double snr_db{0.0};
-    std::size_t sample_count{0};
-};
-
-struct EmitterFingerprint {
-    ModulationImperfections modulation;
-    TransientProfile transient;
-    SignalQuality quality;
-};
-
-} // namespace rf_metrics
-```
+:::code api-rf-metrics/c/1-bazovi-typy-vidlikiv-ta.c
+:::code api-rf-metrics/cpp/1-bazovi-typy-vidlikiv-ta.cpp
 :::
 
 ### Математичні правила валідації полів дескриптора
@@ -107,68 +34,8 @@ struct EmitterFingerprint {
 Кожен сенсорний вузол пеленгаційної мережі прив'язується до спільної шкали часу за допомогою апаратного захвату міток 1PPS від GNSS-приймача. Систематичні апаратні затримки у фідерних лініях та трактах оцифрування SDR калібруються індивідуально для кожної станції та віднімаються від виміряного часу `timestamp_raw_ns`.
 
 :::tabs
-```c
-/**
- * @brief Просторові координати географічної точки у системі WGS-84 або локальній площині.
- */
-typedef struct {
-    double x_meters;  /**< Координата X (Схід / Easting), метри */
-    double y_meters;  /**< Координата Y (Північ / Northing), метри */
-    double z_meters;  /**< Висота над рівнем моря (Altitude), метри */
-} rf_geo_point_t;
-
-/**
- * @brief Приймальна станція когерентної пеленгаційної мережі.
- */
-typedef struct {
-    uint32_t station_id;       /**< Унікальний ідентифікатор станції перехоплення */
-    rf_geo_point_t location;   /**< Точні координати фазового центру антени станції */
-    uint64_t timestamp_raw_ns; /**< Відмітка часу прийому фронту імпульсу (GPS/PTP), наносекунди */
-    double snr_db;             /**< Рівень сигналу на приймачі, дБ */
-    bool sync_locked;          /**< Прапорець наявності фазового замикання синхронізатора 1PPS */
-} tdoa_sensor_node_t;
-
-/**
- * @brief Результат розв'язання гіперболічної задачі позиціонування.
- */
-typedef struct {
-    rf_geo_point_t estimated_pos;  /**< Розраховані координати цілі */
-    double gdop;                   /**< Геометричний фактор погіршення точності (Geometric Dilution) */
-    double confidence_radius_m;    /**< Радіус круга ймовірного положення (CEP 95%), метри */
-    uint32_t iterations_used;      /**< Кількість ітерацій алгоритму Гаусса-Ньютона */
-    bool converged;                /**< Статус успішної збіжності розв'язку */
-} tdoa_localization_result_t;
-```
-```cpp
-#include <cstdint>
-#include <chrono>
-
-namespace rf_metrics {
-
-struct GeoPoint3D {
-    double x_meters{0.0};
-    double y_meters{0.0};
-    double z_meters{0.0};
-};
-
-struct SensorNode {
-    std::uint32_t station_id{0};
-    GeoPoint3D location;
-    std::chrono::nanoseconds timestamp{0};
-    double snr_db{0.0};
-    bool sync_locked{false};
-};
-
-struct LocalizationResult {
-    GeoPoint3D estimated_pos;
-    double gdop{0.0};
-    double confidence_radius_m{0.0};
-    std::uint32_t iterations_used{0};
-    bool converged{false};
-};
-
-} // namespace rf_metrics
-```
+:::code api-rf-metrics/c/2-struktury-riznytsevo.c
+:::code api-rf-metrics/cpp/2-struktury-riznytsevo.cpp
 :::
 
 ### Інтерпретація геометричного фактора GDOP
@@ -191,71 +58,8 @@ CEP_95 ≈ 2.45 · c · σ_t · GDOP
 Керування радіопомітністю пристрою здійснюється через спеціалізований дескриптор налаштувань. Він визначає режим розширення спектра, швидкість переналаштування синтезатора частот, діапазон адаптивного регулювання вихідної потужності (TPC) та статистичні параметри псевдовипадкового джитеру передачі.
 
 :::tabs
-```c
-/**
- * @brief Режими формування радіовипромінювання низької помітності.
- */
-typedef enum {
-    RF_LPI_MODE_BURST = 0,   /**< Ультракороткі пакетні спалахи зі стисненням у часі */
-    RF_LPI_MODE_DSSS  = 1,   /**< Пряме розширення спектра послідовністю прямого множення */
-    RF_LPI_MODE_FHSS  = 2,   /**< Псевдовипадкові стрибки частоти */
-    RF_LPI_MODE_HYBRID = 3   /**< Гібридний режим DSSS + FHSS */
-} rf_lpi_mode_t;
-
-/**
- * @brief Конфігурація передавача в режимі скритності (LPI/LPD).
- */
-typedef struct {
-    rf_lpi_mode_t mode;        /**< Обраний режим маскування */
-    double tx_power_dbm;       /**< Поточна вихідна потужність передавача, дБм [-30.0 .. +20.0] */
-    uint32_t burst_duration_us;/**< Тривалість випромінювання одного пакета, мікросекунди [50 .. 2000] */
-    uint32_t min_interval_ms;  /**< Мінімальний інтервал між пакетами (радіомовчання), мс */
-    uint32_t max_interval_ms;  /**< Максимальний інтервал (рандомізація інтервалу / jitter) */
-    
-    /* Параметри DSSS */
-    uint16_t dsss_spreading_factor; /**< Коефіцієнт розширення спектра (чіпів на інформаційний біт) */
-    uint64_t dsss_pn_poly;          /**< Генераторний поліном псевдовипадкової послідовності */
-
-    /* Параметри FHSS */
-    uint32_t fhss_hop_rate_hz;      /**< Швидкість стрибків по частоті (hops/sec) */
-    uint16_t fhss_channel_count;    /**< Кількість робочих частотних каналів у сітці */
-} rf_stealth_config_t;
-```
-```cpp
-#include <cstdint>
-#include <chrono>
-
-namespace rf_metrics {
-
-enum class StealthMode : std::uint8_t {
-    Burst = 0,
-    Dsss = 1,
-    Fhss = 2,
-    Hybrid = 3
-};
-
-struct DsssParams {
-    std::uint16_t spreading_factor{64};
-    std::uint64_t pn_polynomial{0x800000000000000DULL};
-};
-
-struct FhssParams {
-    std::uint32_t hop_rate_hz{1000};
-    std::uint16_t channel_count{256};
-};
-
-struct StealthConfig {
-    StealthMode mode{StealthMode::Burst};
-    double tx_power_dbm{0.0};
-    std::chrono::microseconds burst_duration{500};
-    std::chrono::milliseconds min_silence_interval{1000};
-    std::chrono::milliseconds max_silence_interval{5000};
-    DsssParams dsss;
-    FhssParams fhss;
-};
-
-} // namespace rf_metrics
-```
+:::code api-rf-metrics/c/3-parametry-konfihuratsii.c
+:::code api-rf-metrics/cpp/3-parametry-konfihuratsii.cpp
 :::
 
 ---
@@ -279,33 +83,8 @@ P_d = Q( ( (γ_th / σ_w²) - N · (1 + SNR) ) / √(2 · N · (1 + 2 · SNR)) )
 ```
 
 :::tabs
-```c
-/**
- * @brief Оцінка ймовірності виявлення радіометром.
- */
-typedef struct {
-    double bandwidth_hz;     /**< Смуга аналізу радіометра, Гц */
-    double integration_time_s; /**< Час інтегрування енергії, с */
-    double target_snr_db;    /**< Рівень сигналу цілі відносно шуму, дБ */
-    double prob_false_alarm; /**< Задана ймовірність хибної тривоги (наприклад, 1e-4) */
-    double prob_detection;   /**< Розрахована ймовірність виявлення [0.0 .. 1.0] */
-    double detection_margin_db; /**< Запас скритності (від'ємне значення = сигнал приховано) */
-} rf_detection_margin_t;
-```
-```cpp
-namespace rf_metrics {
-
-struct DetectionMetrics {
-    double bandwidth_hz{0.0};
-    double integration_time_s{0.0};
-    double target_snr_db{0.0};
-    double prob_false_alarm{1e-4};
-    double prob_detection{0.0};
-    double detection_margin_db{0.0};
-};
-
-} // namespace rf_metrics
-```
+:::code api-rf-metrics/c/4-detektor-enerhii-ta.c
+:::code api-rf-metrics/cpp/4-detektor-enerhii-ta.cpp
 :::
 
 Якщо розрахований показник `detection_margin_db < 0`, сигнал знаходиться нижче порогу виявлення радіометра для заданого рівня `P_fa`, що підтверджує ефективність обраної конфігурації LPI/LPD.

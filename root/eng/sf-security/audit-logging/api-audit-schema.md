@@ -113,58 +113,8 @@
 Для високонавантажених сервісів, модулів ядра операційної системи та драйверів накопичувачів використовується бінарний заголовок фіксованої довжини (128 байтів), вирівняний по 64-бітній межі для запобігання накладним витратам на невирівняний доступ до пам'яті.
 
 :::tabs
-```c
-#include <stdint.h>
-
-#define AUDIT_MAGIC 0x41554454 /* 'AUDT' */
-#define HASH_SIZE 32
-
-#pragma pack(push, 1)
-
-struct audit_record_header {
-    uint32_t magic;                 /* Магічні байти 'AUDT' */
-    uint16_t version;               /* Версія бінарного формату (напр. 1) */
-    uint16_t header_size;           /* Розмір заголовка в байтах (128) */
-    uint64_t sequence_number;       /* Монотонний порядковий номер запису */
-    uint64_t timestamp_nanos;       /* Наносекунди від Unix Epoch (UTC) */
-    uint32_t payload_length;        /* Довжина корисного навантаження (JSON/Protobuf) */
-    uint32_t key_epoch;             /* Поточна епоха Forward-Secure ключа */
-    uint8_t  prev_hash[HASH_SIZE];  /* SHA-256 геш попереднього запису */
-    uint8_t  signature[HASH_SIZE];  /* HMAC-SHA256 підпис поточного запису */
-    uint8_t  reserved[16];          /* Резерв для майбутніх розширень (вирівнювання) */
-};
-
-#pragma pack(pop)
-```
-```cpp
-#include <cstdint>
-#include <array>
-#include <span>
-
-namespace security::audit {
-
-constexpr uint32_t AuditMagic = 0x41554454; /* 'AUDT' */
-constexpr size_t HashSize = 32;
-
-#pragma pack(push, 1)
-struct AuditRecordHeader {
-    uint32_t magic{AuditMagic};
-    uint16_t version{1};
-    uint16_t header_size{sizeof(AuditRecordHeader)};
-    uint64_t sequence_number{0};
-    uint64_t timestamp_nanos{0};
-    uint32_t payload_length{0};
-    uint32_t key_epoch{0};
-    std::array<uint8_t, HashSize> prev_hash{};
-    std::array<uint8_t, HashSize> signature{};
-    std::array<uint8_t, 16> reserved{};
-};
-#pragma pack(pop)
-
-static_assert(sizeof(AuditRecordHeader) == 128, "Header size must be exactly 128 bytes");
-
-} // namespace security::audit
-```
+:::code api-audit-schema/c/2-binarne-predstavlennia.c
+:::code api-audit-schema/cpp/2-binarne-predstavlennia.cpp
 :::
 
 ## 3. Контракт програмного інтерфейсу WORM (libworm_audit)
@@ -186,59 +136,8 @@ static_assert(sizeof(AuditRecordHeader) == 128, "Header size must be exactly 128
 ### 3.2. Сигнатури функцій та класів
 
 :::tabs
-```c
-#include <stddef.h>
-#include <stdint.h>
-
-typedef struct worm_context worm_context_t;
-
-/* Ініціалізація клієнта журналу аудиту */
-int worm_audit_init(worm_context_t** ctx, const char* storage_path, const uint8_t* master_key_32b);
-
-/* Атомарний запис події з оновленням геш-ланцюга та просуванням ключа */
-int worm_audit_append(worm_context_t* ctx, const uint8_t* payload, size_t length, uint64_t* out_seq);
-
-/* Синхронізація буферів на енергонезалежний носій (fsync/O_SYNC) */
-int worm_audit_flush(worm_context_t* ctx);
-
-/* Верифікація діапазону записів на предмет незмінності та коректності підписів */
-int worm_audit_verify(const char* log_file_path, const uint8_t* base_key_32b, uint64_t from_seq, uint64_t to_seq);
-
-/* Звільнення ресурсів та безпечне затирання секретів у пам'яті */
-void worm_audit_close(worm_context_t* ctx);
-```
-```cpp
-#include <string_view>
-#include <span>
-#include <memory>
-#include <expected>
-#include <cstdint>
-
-namespace security::audit {
-
-enum class WormError {
-    InvalidParam = -1,
-    DiskFull = -2,
-    ChainBroken = -3,
-    SignatureFailed = -4,
-    KeyExhausted = -5,
-    IoError = -6
-};
-
-class IWormAuditStorage {
-public:
-    virtual ~IWormAuditStorage() = default;
-
-    virtual std::expected<uint64_t, WormError> append(std::span<const uint8_t> payload) = 0;
-    virtual std::expected<void, WormError> flush() = 0;
-    virtual std::expected<void, WormError> verifyRange(uint64_t from_seq, uint64_t to_seq) const = 0;
-};
-
-std::expected<std::unique_ptr<IWormAuditStorage>, WormError>
-createWormStorage(std::string_view storage_path, std::span<const uint8_t, 32> master_key);
-
-} // namespace security::audit
-```
+:::code api-audit-schema/c/stddef.h
+:::code api-audit-schema/cpp/3-2-syhnatury-funktsii-ta.cpp
 :::
 
 ### 3.3. Гарантії та інваріанти

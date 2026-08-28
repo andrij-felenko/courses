@@ -23,25 +23,29 @@
           "hist": [
             {
               "file": "hist-ssl-to-tls13.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "comp": [
             {
               "file": "comp-tls12-vs-tls13.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
             {
               "file": "math-hkdf-keyschedule.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-record-codec.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
@@ -76,7 +80,8 @@
           "proj": [
             {
               "file": "proj-openssl-handshake.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -94,30 +99,37 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-otr-to-signal.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-double-ratchet.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-double-ratchet.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-signal-protocol.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -129,7 +141,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -140,23 +153,30 @@
           "math": [
             {
               "file": "math-sliding-bitmap.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-sliding-window.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             },
             {
               "file": "proj-timestamp-nonce-cache.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-replay-defense.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         },
@@ -210,7 +230,8 @@
           "proj": [
             {
               "file": "proj-wpa2-ptk-derivation.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -232,13 +253,16 @@
           "proj": [
             {
               "file": "proj-pairing-crypto.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-pairing-matrix.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -254,7 +278,8 @@
           "proj": [
             {
               "file": "proj-smp-crypto.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
@@ -294,7 +319,8 @@
           "proj": [
             {
               "file": "proj-nfc-relay-emulator.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -311,7 +337,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -322,13 +349,16 @@
           "proj": [
             {
               "file": "proj-secure-mavlink.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-signing-spec.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -356,13 +386,15 @@
           "proj": [
             {
               "file": "proj-srtp-crypto.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-srtp-packet.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -384,7 +416,8 @@
           "proj": [
             {
               "file": "proj-cenc-decrypt.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -412,19 +445,22 @@
           "comp": [
             {
               "file": "comp-tee-secure-path.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-license-exchange.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-eme-interfaces.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -453,19 +489,23 @@
           "math": [
             {
               "file": "math-envelope-limits.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-envelope-crypto.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-kms-envelope.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         },
@@ -476,12 +516,15 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-kernel-crypto-xts.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "hist": [
@@ -493,13 +536,16 @@
           "math": [
             {
               "file": "math-gf128-tweak-multiplication.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-xts-sector-crypto.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }

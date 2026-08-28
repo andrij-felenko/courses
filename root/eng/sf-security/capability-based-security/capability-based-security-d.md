@@ -33,56 +33,8 @@
 Розглянемо архітектуру привілейованого сервісу в класичній моделі:
 
 :::tabs
-```c
-#include <fcntl.h>
-#include <unistd.h>
-#include <string.h>
-
-/* Код привілейованого заступника (виконується з UID 0) */
-void handle_client_request(const char *user_chosen_path, const char *data) {
-    /* 1. Запис результатів клієнта */
-    int fd_out = open(user_chosen_path, O_WRONLY | O_CREAT | O_TRUNC, 0600);
-    if (fd_out >= 0) {
-        write(fd_out, data, strlen(data));
-        close(fd_out);
-    }
-
-    /* 2. Запис внутрішнього системного білінгу від власного імені */
-    int fd_bill = open("/var/log/service.bill", O_WRONLY | O_APPEND);
-    if (fd_bill >= 0) {
-        write(fd_bill, "BILLING_RECORD: +1 operation\n", 29);
-        close(fd_bill);
-    }
-}
-```
-```cpp
-#include <fcntl.h>
-#include <unistd.h>
-#include <string_view>
-#include <system_error>
-
-namespace legacy_service {
-
-/* Код привілейованого заступника (виконується з UID 0) */
-void handle_client_request(std::string_view user_chosen_path, std::string_view data) {
-    /* 1. Запис результатів клієнта */
-    int fd_out = ::open(user_chosen_path.data(), O_WRONLY | O_CREAT | O_TRUNC, 0600);
-    if (fd_out >= 0) {
-        ::write(fd_out, data.data(), data.size());
-        ::close(fd_out);
-    }
-
-    /* 2. Запис внутрішнього системного білінгу від власного імені */
-    int fd_bill = ::open("/var/log/service.bill", O_WRONLY | O_APPEND);
-    if (fd_bill >= 0) {
-        constexpr std::string_view record = "BILLING_RECORD: +1 operation\n";
-        ::write(fd_bill, record.data(), record.size());
-        ::close(fd_bill);
-    }
-}
-
-} // namespace legacy_service
-```
+:::code capability-based-security-d/c/mekhanika-ataky.c
+:::code capability-based-security-d/cpp/mekhanika-ataky.cpp
 :::
 
 Якщо непривілейований користувач передасть у параметрі `user_chosen_path` шлях до системного файлу `"/var/log/service.bill"`, сервіс відкриє цей файл для запису даних клієнта. Оскільки процес працює з привілеями `root`, виклик `open()` завершиться успішно, і внутрішній журнал буде знищений.
@@ -179,74 +131,8 @@ Capsicum спирається на дві концепції:
 2. **Звуження прав дескрипторів (`cap_rights_limit`):** Кожен класичний файловий дескриптор Unix розширюється структурою `cap_rights_t`, що містить бітові прапорці дозволених дій (`CAP_READ`, `CAP_WRITE`, `CAP_SEEK`, `CAP_FSTAT`, `CAP_MMAP`).
 
 :::tabs
-```c
-#include <sys/capsicum.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-
-void run_sandboxed(void) {
-    /* 1. Відкриваємо файл у звичайному режимі */
-    int fd = open("/tmp/output.dat", O_RDWR | O_CREAT, 0600);
-
-    /* 2. Обмежуємо дескриптор лише правом читання та fstat */
-    cap_rights_t rights;
-    cap_rights_init(&rights, CAP_READ, CAP_FSTAT);
-    cap_rights_limit(fd, &rights);
-
-    /* 3. Входимо в режим повної ізоляції */
-    cap_enter();
-
-    /* Прямий open тепер неможливий: */
-    int bad = open("/etc/passwd", O_RDONLY); /* Повертає -1, errno = ECAPMODE */
-
-    /* Запис у fd заборонено на рівні дескриптора: */
-    write(fd, "test", 4); /* Повертає -1, errno = ENOTCAPABLE */
-}
-```
-```cpp
-#include <sys/capsicum.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <system_error>
-#include <cerrno>
-
-namespace capsicum_demo {
-
-void run_sandboxed() {
-    /* 1. Відкриваємо файл у звичайному режимі */
-    int fd = ::open("/tmp/output.dat", O_RDWR | O_CREAT, 0600);
-    if (fd < 0) {
-        throw std::system_error(errno, std::generic_category(), "open failed");
-    }
-
-    /* 2. Обмежуємо дескриптор лише правом читання та fstat */
-    cap_rights_t rights;
-    ::cap_rights_init(&rights, CAP_READ, CAP_FSTAT);
-    if (::cap_rights_limit(fd, &rights) < 0) {
-        ::close(fd);
-        throw std::system_error(errno, std::generic_category(), "cap_rights_limit failed");
-    }
-
-    /* 3. Входимо в режим повної ізоляції */
-    if (::cap_enter() < 0) {
-        ::close(fd);
-        throw std::system_error(errno, std::generic_category(), "cap_enter failed");
-    }
-
-    /* Прямий open тепер неможливий: повертає -1, errno = ECAPMODE */
-    int bad = ::open("/etc/passwd", O_RDONLY);
-    (void)bad;
-
-    /* Запис у fd заборонено: повертає -1, errno = ENOTCAPABLE */
-    ssize_t w = ::write(fd, "test", 4);
-    (void)w;
-
-    ::close(fd);
-}
-
-} // namespace capsicum_demo
-```
+:::code capability-based-security-d/c/3-1-capsicum-freebsd.c
+:::code capability-based-security-d/cpp/3-1-capsicum-freebsd.cpp
 :::
 
 Для навігації структурою каталогів усередині пісочниці Capsicum застосовує виклики `openat(dirfd, "sub/path", ...)`: дескриптор каталогу `dirfd` слугує коренем ізольованого піддерева ([детальніше у практичній реалізації пісочниці на Capsicum](root:sf-security/capability-based-security/proj-capsicum-sandbox.md)).

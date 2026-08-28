@@ -150,19 +150,7 @@ if (ptr == MAP_FAILED) {
     perror("mmap з підтримкою PROT_MTE зазнав невдачі");
 }
 ```
-```cpp
-#include <sys/mman.h>
-#include <iostream>
-#include <span>
-#include <cstddef>
-#include <system_error>
-
-void* raw_ptr = ::mmap(nullptr, 65536, PROT_READ | PROT_WRITE | PROT_MTE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-if (raw_ptr == MAP_FAILED) {
-    throw std::system_error(errno, std::generic_category(), "mmap з PROT_MTE зазнав невдачі");
-}
-std::span<std::byte> mte_buffer(static_cast<std::byte*>(raw_ptr), 65536);
-```
+:::code api-memory-sanitizers/cpp/vydilennia-tehovanoi.cpp
 :::
 
 Якщо прапорець `PROT_MTE` не вказано, ядро виділяє звичайні сторінки без ініціалізації Tag RAM. Виконання інструкцій `STG` над такою пам'яттю призведе до генерації винятку відмови сторінки або апаратного збою шини. Під час обробки сторінкового переривання ядро Linux виділяє 128 байтів фізичної Tag RAM на кожні 4 КБ фізичного фрейму пам'яті, забезпечуючи рівно 4 біти тегу на кожні 16 байтів даних.
@@ -180,40 +168,8 @@ std::span<std::byte> mte_buffer(static_cast<std::byte*>(raw_ptr), 65536);
 Коли ядро перехоплює порушення MTE, воно надсилає процесу сигнал `SIGSEGV`. Для отримання точної діагностики програма може зареєструвати розширений обробник через `sigaction()` з прапорцем `SA_SIGINFO`:
 
 :::tabs
-```c
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-void mte_signal_handler(int sig, siginfo_t *info, void *ucontext) {
-    if (sig == SIGSEGV) {
-        if (info->si_code == SEGV_MTESERR) {
-            printf("[!] MTE Synchronous Fault за адресою: %p\n", info->si_addr);
-            printf("[!] Зафіксовано невідповідність тегу (Use-After-Free або Buffer Overflow)!\n");
-        } else if (info->si_code == SEGV_MTEAERR) {
-            printf("[!] MTE Asynchronous Fault: адреса недоступна в асинхронному режимі.\n");
-        }
-        exit(1);
-    }
-}
-```
-```cpp
-#include <signal.h>
-#include <iostream>
-#include <cstdlib>
-
-void mte_cpp_signal_handler(int sig, siginfo_t *info, void *ucontext) {
-    if (sig == SIGSEGV) {
-        if (info->si_code == SEGV_MTESERR) {
-            std::cerr << "[!] MTE Synchronous Fault за адресою: " << info->si_addr << "\n"
-                      << "[!] Зафіксовано невідповідність тегу (Use-After-Free або Buffer Overflow)!\n";
-        } else if (info->si_code == SEGV_MTEAERR) {
-            std::cerr << "[!] MTE Asynchronous Fault: адреса недоступна в асинхронному режимі.\n";
-        }
-        std::exit(1);
-    }
-}
-```
+:::code api-memory-sanitizers/c/main.c
+:::code api-memory-sanitizers/cpp/obrobka-syhnaliv.cpp
 :::
 
 #### Структура кодів `si_code` для MTE

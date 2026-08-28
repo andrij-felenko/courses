@@ -24,21 +24,7 @@ struct cap_rights {
 };
 typedef struct cap_rights cap_rights_t;
 ```
-```cpp
-#include <cstdint>
-#include <array>
-
-namespace capsicum {
-
-inline constexpr uint32_t RightsVersion00 = 0;
-inline constexpr uint32_t CurrentRightsVersion = RightsVersion00;
-
-struct alignas(uint64_t) InternalRightsLayout {
-    std::array<uint64_t, 2> raw_bits{};
-};
-
-} // namespace capsicum
-```
+:::code api-capsicum-rights/cpp/vnutrishnia-orhanizatsiia.cpp
 :::
 
 Старші біти першого слова `cr_rights[0]` зарезервовані під бітові прапорці версії формату (`CAP_RIGHTS_VERSION`). Коли системний виклик отримує покажчик на `cap_rights_t`, ядро спершу верифікує номер версії. Якщо простір користувача передає структуру з невідомою ядру версією, системний виклик негайно повертає помилку `EINVAL`. Це гарантує стабільність бінарного інтерфейсу (ABI) при додаванні нових категорій прав у майбутніх версіях операційної системи.
@@ -57,29 +43,7 @@ int cap_enter(void);
 /* Отримання поточного стану ізоляції процесу */
 int cap_getmode(u_int *modep);
 ```
-```cpp
-#include <sys/capsicum.h>
-#include <system_error>
-#include <cerrno>
-
-namespace capsicum {
-
-inline void enter() {
-    if (::cap_enter() < 0) {
-        throw std::system_error(errno, std::generic_category(), "cap_enter failed");
-    }
-}
-
-[[nodiscard]] inline bool is_capability_mode() {
-    u_int mode = 0;
-    if (::cap_getmode(&mode) < 0) {
-        throw std::system_error(errno, std::generic_category(), "cap_getmode failed");
-    }
-    return mode != 0;
-}
-
-} // namespace capsicum
-```
+:::code api-capsicum-rights/cpp/keruvannia-rezhymom.cpp
 :::
 
 #### Семантика, інваріанти та блокування системних викликів
@@ -96,63 +60,8 @@ inline void enter() {
 Capsicum розширює кожен запис таблиці файлових дескрипторів процесу полем прав. Процес може ініціалізувати маску, обмежити права існуючого дескриптора, отримати поточну маску або перевірити наявність необхідних повноважень.
 
 :::tabs
-```c
-#include <sys/capsicum.h>
-#include <stdbool.h>
-
-/* Ініціалізація структури списком прав; список завершується 0 */
-cap_rights_t *cap_rights_init(cap_rights_t *rights, ...);
-
-/* Обмеження прав дескриптора fd вказаною маскою */
-int cap_rights_limit(int fd, const cap_rights_t *rights);
-
-/* Отримання поточної маски прав дескриптора */
-int cap_rights_get(int fd, cap_rights_t *rights);
-
-/* Перевірка, чи маска big містить усі права маски little */
-bool cap_rights_contains(const cap_rights_t *big, const cap_rights_t *little);
-```
-```cpp
-#include <sys/capsicum.h>
-#include <system_error>
-#include <cerrno>
-
-namespace capsicum {
-
-class Rights {
-public:
-    template <typename... Args>
-    explicit Rights(Args... args) noexcept {
-        ::cap_rights_init(&raw_, args..., 0);
-    }
-
-    [[nodiscard]] const cap_rights_t* get() const noexcept { return &raw_; }
-    [[nodiscard]] cap_rights_t* get() noexcept { return &raw_; }
-
-    [[nodiscard]] bool contains(const Rights& sub) const noexcept {
-        return ::cap_rights_contains(&raw_, sub.get());
-    }
-
-    void apply_to(int fd) const {
-        if (::cap_rights_limit(fd, &raw_) < 0) {
-            throw std::system_error(errno, std::generic_category(), "cap_rights_limit failed");
-        }
-    }
-
-    [[nodiscard]] static Rights from_fd(int fd) {
-        Rights r;
-        if (::cap_rights_get(fd, r.get()) < 0) {
-            throw std::system_error(errno, std::generic_category(), "cap_rights_get failed");
-        }
-        return r;
-    }
-
-private:
-    cap_rights_t raw_{};
-};
-
-} // namespace capsicum
-```
+:::code api-capsicum-rights/c/capsicum.h
+:::code api-capsicum-rights/cpp/manipuliatsiia-maskamy.cpp
 :::
 
 #### Інваріант монотонного звуження прав (Monotonicity Invariant)
@@ -200,42 +109,8 @@ cap_rights_contains(cur_rights, new_rights) == true
 У seL4 права доступу до об'єкта кодуються 4-бітним полем `seL4_CapRights_t`:
 
 :::tabs
-```c
-#include <stdint.h>
-
-typedef uintptr_t seL4_Word;
-typedef seL4_Word seL4_CapRights_t;
-
-#define seL4_CanRead        (1 << 0)  /* 0x1: читання даних або отримання IPC-повідомлень */
-#define seL4_CanWrite       (1 << 1)  /* 0x2: запис даних або надсилання IPC-повідомлень */
-#define seL4_CanGrant       (1 << 2)  /* 0x4: право передавати інші повноваження через IPC */
-#define seL4_CanGrantReply  (1 << 3)  /* 0x8: право передавати одноразовий токен відповіді */
-#define seL4_AllRights      (seL4_CanRead | seL4_CanWrite | seL4_CanGrant | seL4_CanGrantReply)
-```
-```cpp
-#include <cstdint>
-
-namespace sel4 {
-
-enum class CapRights : uint32_t {
-    None        = 0,
-    CanRead     = 1U << 0, /* Читання / отримання IPC */
-    CanWrite    = 1U << 1, /* Запис / надсилання IPC */
-    CanGrant    = 1U << 2, /* Передача повноважень через IPC */
-    CanGrantReply = 1U << 3, /* Одноразова відповідь */
-    AllRights   = CanRead | CanWrite | CanGrant | CanGrantReply
-};
-
-[[nodiscard]] constexpr CapRights operator|(CapRights a, CapRights b) noexcept {
-    return static_cast<CapRights>(static_cast<uint32_t>(a) | static_cast<uint32_t>(b));
-}
-
-[[nodiscard]] constexpr CapRights operator&(CapRights a, CapRights b) noexcept {
-    return static_cast<CapRights>(static_cast<uint32_t>(a) & static_cast<uint32_t>(b));
-}
-
-} // namespace sel4
-```
+:::code api-capsicum-rights/c/bazovi-masky-prav-dostupu.c
+:::code api-capsicum-rights/cpp/bazovi-masky-prav-dostupu.hpp
 :::
 
 Право `seL4_CanGrant` є критичним для запобігання несанкціонованому поширенню повноважень (Confinement Problem): якщо процес не має біта `seL4_CanGrant` на каналі зв'язку, ядро апаратно блокує спробу вкласти дескриптор іншого об'єкта в IPC-повідомлення.
@@ -247,108 +122,8 @@ enum class CapRights : uint32_t {
 Маніпуляція простором повноважень здійснюється через виклики методів кореневого CNode.
 
 :::tabs
-```c
-#include <sel4/sel4.h>
-
-/* Створення нового повноваження зі звуженням прав та бейджем */
-seL4_Error seL4_CNode_Mint(
-    seL4_CNode service,        /* CNode, у якому виконується операція */
-    seL4_Word dest_index,      /* Індекс цільового слота */
-    seL4_Uint8 dest_depth,     /* Глибина адресації цільового слота */
-    seL4_CNode src_root,       /* Кореневий CNode джерела */
-    seL4_Word src_index,       /* Індекс слота джерела */
-    seL4_Uint8 src_depth,      /* Глибина адресації джерела */
-    seL4_CapRights_t rights,   /* Нова (звужена) маска прав */
-    seL4_CapData_t badge       /* Ідентифікатор (бейдж) для розрізнення клієнтів */
-);
-
-/* Копіювання повноваження без зміни бейджа */
-seL4_Error seL4_CNode_Copy(
-    seL4_CNode service, seL4_Word dest_index, seL4_Uint8 dest_depth,
-    seL4_CNode src_root, seL4_Word src_index, seL4_Uint8 src_depth,
-    seL4_CapRights_t rights
-);
-
-/* Переміщення повноваження зі слота в слот із вивільненням джерела */
-seL4_Error seL4_CNode_Move(
-    seL4_CNode service, seL4_Word dest_index, seL4_Uint8 dest_depth,
-    seL4_CNode src_root, seL4_Word src_index, seL4_Uint8 src_depth
-);
-
-/* Каскадне відкликання: рекурсивне видалення всіх похідних копій */
-seL4_Error seL4_CNode_Revoke(
-    seL4_CNode service, seL4_Word index, seL4_Uint8 depth
-);
-
-/* Очищення окремого слота CNode */
-seL4_Error seL4_CNode_Delete(
-    seL4_CNode service, seL4_Word index, seL4_Uint8 depth
-);
-```
-```cpp
-#include <sel4/sel4.h>
-#include <expected>
-#include <cstdint>
-
-namespace sel4 {
-
-enum class Error : int {
-    NoError = seL4_NoError,
-    InvalidArgument = seL4_InvalidArgument,
-    InvalidCapability = seL4_InvalidCapability,
-    IllegalOperation = seL4_IllegalOperation,
-    RangeError = seL4_RangeError,
-    DeleteFirst = seL4_DeleteFirst,
-    RevokeFirst = seL4_RevokeFirst,
-    NotEnoughMemory = seL4_NotEnoughMemory
-};
-
-struct SlotRef {
-    seL4_CNode root;
-    seL4_Word index;
-    seL4_Uint8 depth;
-};
-
-class CNodeManager {
-public:
-    explicit CNodeManager(seL4_CNode service_cnode) noexcept : service_{service_cnode} {}
-
-    [[nodiscard]] std::expected<void, Error> mint(
-        const SlotRef& dest, const SlotRef& src,
-        seL4_CapRights_t rights, seL4_CapData_t badge) const noexcept
-    {
-        int res = ::seL4_CNode_Mint(
-            service_, dest.index, dest.depth,
-            src.root, src.index, src.depth,
-            rights, badge);
-        if (res != seL4_NoError) {
-            return std::unexpected(static_cast<Error>(res));
-        }
-        return {};
-    }
-
-    [[nodiscard]] std::expected<void, Error> revoke(const SlotRef& target) const noexcept {
-        int res = ::seL4_CNode_Revoke(service_, target.index, target.depth);
-        if (res != seL4_NoError) {
-            return std::unexpected(static_cast<Error>(res));
-        }
-        return {};
-    }
-
-    [[nodiscard]] std::expected<void, Error> remove(const SlotRef& target) const noexcept {
-        int res = ::seL4_CNode_Delete(service_, target.index, target.depth);
-        if (res != seL4_NoError) {
-            return std::unexpected(static_cast<Error>(res));
-        }
-        return {};
-    }
-
-private:
-    seL4_CNode service_;
-};
-
-} // namespace sel4
-```
+:::code api-capsicum-rights/c/sel4.h
+:::code api-capsicum-rights/cpp/operatsii-nad-slotamy.cpp
 :::
 
 #### Механізм бейджів (Badges) та дерево похідних (CDT)

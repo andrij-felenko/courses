@@ -74,36 +74,8 @@ enum class RatchetStatus {
 Ініціалізація сесії виконується після успішного завершення протоколу X3DH. Залежно від ролі учасника (ініціатор чи відповідач), початковий стан налаштовується по-різному:
 
 :::tabs
-```c
-// Ініціалізація на боці Аліси (ініціатор сесії)
-ratchet_status_t ratchet_init_alice(
-    ratchet_session_t     *session,
-    const uint8_t          shared_master_key[32],
-    const uint8_t          bob_dh_public_key[32]
-);
-
-// Ініціалізація на боці Боба (відповідач)
-ratchet_status_t ratchet_init_bob(
-    ratchet_session_t     *session,
-    const uint8_t          shared_master_key[32],
-    const dh_keypair_t    *bob_dh_keypair
-);
-```
-```cpp
-// Ініціалізація на боці Аліси (ініціатор сесії)
-RatchetStatus ratchet_init_alice(
-    RatchetSession               &session,
-    std::span<const uint8_t, 32>  shared_master_key,
-    std::span<const uint8_t, 32>  bob_dh_public_key
-);
-
-// Ініціалізація на боці Боба (відповідач)
-RatchetStatus ratchet_init_bob(
-    RatchetSession               &session,
-    std::span<const uint8_t, 32>  shared_master_key,
-    const DhKeyPair              &bob_dh_keypair
-);
-```
+:::code api-signal-protocol/c/4-kontrakt-initsializatsii.h
+:::code api-signal-protocol/cpp/4-kontrakt-initsializatsii.hpp
 :::
 
 - **Для Аліси:** функція генерує нову пару ключів `dhs_A`, встановлює відкритий ключ Боба `dhr_pub = bob_dh_public_key`, обчислює `SS = X25519(dhs_priv_A, dhr_pub)` і розгортає перший кореневий ключ `rk` та ланцюг відправлення `cks`. Сесія негайно готова до шифрування вихідних повідомлень.
@@ -114,41 +86,8 @@ RatchetStatus ratchet_init_bob(
 Функції шифрування та дешифрування виконують повний цикл криптографічних операцій, включно з оновленням станів храповиків та затиранням одноразових ключів:
 
 :::tabs
-```c
-// Шифрування відкритого тексту
-ratchet_status_t ratchet_encrypt(
-    ratchet_session_t     *session,
-    const uint8_t         *plaintext,
-    size_t                 plaintext_len,
-    message_header_t      *out_header,
-    uint8_t               *out_ciphertext,
-    size_t                *out_ciphertext_len
-);
-
-// Дешифрування зашифрованого кадру
-ratchet_status_t ratchet_decrypt(
-    ratchet_session_t     *session,
-    const message_header_t *in_header,
-    const uint8_t         *in_ciphertext,
-    size_t                 in_ciphertext_len,
-    uint8_t               *out_plaintext,
-    size_t                *out_plaintext_len
-);
-```
-```cpp
-// Шифрування відкритого тексту
-std::expected<EncryptedFrame, RatchetStatus> ratchet_encrypt(
-    RatchetSession              &session,
-    std::span<const uint8_t>     plaintext
-);
-
-// Дешифрування зашифрованого кадру
-std::expected<std::vector<uint8_t>, RatchetStatus> ratchet_decrypt(
-    RatchetSession              &session,
-    const MessageHeader         &in_header,
-    std::span<const uint8_t>     in_ciphertext
-);
-```
+:::code api-signal-protocol/c/5-kontrakt-shyfruvannia-ta.h
+:::code api-signal-protocol/cpp/5-kontrakt-shyfruvannia-ta.hpp
 :::
 
 #### Послідовність виконання `ratchet_encrypt`:

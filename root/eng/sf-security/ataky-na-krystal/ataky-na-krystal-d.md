@@ -175,18 +175,7 @@ typedef uint32_t secure_bool_t;
 #define SECURE_TRUE   ((secure_bool_t)0x55AA55AAU)
 #define SECURE_FALSE  ((secure_bool_t)0xAA55AA55U)
 ```
-```cpp
-#include <cstdint>
-
-namespace sec {
-
-enum class SecureBool : std::uint32_t {
-    True  = 0x55AA55AAU,
-    False = 0xAA55AA55U
-};
-
-} // namespace sec
-```
+:::code ataky-na-krystal-d/cpp/main.cpp
 :::
 
 Між константами `0x55AA55AA` (`0b0101010110101010...`) та `0xAA55AA55` (`0b1010101001010101...`) інвертовано кожен із 32 бітів:

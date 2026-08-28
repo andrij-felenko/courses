@@ -38,23 +38,7 @@ argon2id (рекомендація OWASP):
 Найважливіше в цьому рядку — він **самодостатній**: алгоритм, параметри й сіль лежать усередині. Тому за рік, піднявши параметри під швидше залізо, старі записи не доведеться чіпати — бібліотека прочитає їхні власні параметри з рядка й звірить правильно.
 
 :::tabs
-```ts
-import argon2 from "argon2";
-
-const ARGON: argon2.Options = {
-  type: argon2.argon2id,
-  memoryCost: 19456,   // КіБ → 19 МіБ
-  timeCost: 2,         // проходи
-  parallelism: 1,
-};
-
-async function register(email: string, password: string, db: Db): Promise<void> {
-  const norm = email.trim().toLowerCase();
-  // хеш уже містить і сіль, і параметри — зберігаємо рядок як є
-  const pwHash = await argon2.hash(password, ARGON);
-  await db.insertUser({ email: norm, pwHash });
-}
-```
+:::code proj-login-flow/ts/krok-1-reiestratsiia.ts
 ```python
 from argon2 import PasswordHasher
 
@@ -66,45 +50,7 @@ def register(email: str, password: str, db) -> None:
     pw_hash = ph.hash(password)          # рядок $argon2id$v=19$m=19456,...
     db.insert_user(email=norm, pw_hash=pw_hash)
 ```
-```go
-import (
-    "crypto/rand"
-    "encoding/base64"
-    "fmt"
-    "strings"
-
-    "golang.org/x/crypto/argon2"
-)
-
-const (
-    argonMem  = 19 * 1024 // 19 МіБ у КіБ = 19456
-    argonTime = 2
-    argonPar  = 1
-    keyLen    = 32
-)
-
-// збираємо PHC-рядок вручну: $argon2id$v=..$m=..,t=..,p=..$<сіль>$<хеш>
-func hashPassword(password string) (string, error) {
-    salt := make([]byte, 16)
-    if _, err := rand.Read(salt); err != nil { // crypto/rand — CSPRNG
-        return "", err
-    }
-    key := argon2.IDKey([]byte(password), salt, argonTime, argonMem, argonPar, keyLen)
-    b64 := base64.RawStdEncoding
-    return fmt.Sprintf("$argon2id$v=%d$m=%d,t=%d,p=%d$%s$%s",
-        argon2.Version, argonMem, argonTime, argonPar,
-        b64.EncodeToString(salt), b64.EncodeToString(key)), nil
-}
-
-func register(email, password string, db *DB) error {
-    norm := strings.ToLower(strings.TrimSpace(email))
-    h, err := hashPassword(password)
-    if err != nil {
-        return err
-    }
-    return db.InsertUser(norm, h)
-}
-```
+:::code proj-login-flow/go/krok-1-reiestratsiia.go
 :::
 
 **Пастка кроку.** Тут три способи все зіпсувати. Перший — узяти швидкий хеш («він же теж хеш»): він захищає від випадкового підглядання в базу, але не від перебору, а саме перебору ми й боїмося. Другий — самому «підсолити й похешувати кілька разів у циклі»: сіль argon2id генерує сам і вшиває в результат, а саморобні схеми з циклом SHA стабільно виходять слабшими за перевірену функцію. Третій, специфічний для bcrypt: він мовчки відкидає все після 72-го байта вводу, тож дуже довгі паролі — або спроба «підсилити» bcrypt, згодувавши йому вже готовий SHA-хеш, — обертаються тим, що частина секрета просто не рахується.
@@ -121,100 +67,9 @@ func register(email, password string, db *DB) error {
 Це й є перелічення користувачів (user enumeration) — витік не пароля, а списку зареєстрованих, з якого починають прицільний фішинг чи підстановку викрадених деінде паролів. Ліки не в тому, щоб зробити наявний акаунт швидшим, а в тому, щоб **зрівняти** відсутній із наявним: коли користувача не знайдено, сервер усе одно проганяє argon2 — проти заздалегідь порахованого фіктивного хешу з тими самими параметрами, — марнує стільки ж часу й повертає те саме повідомлення. Плюс сама звірка байтів іде за сталий час: перевірка не вискакує на першій розбіжності (інакше довжина спільного початку теж підтікала б у часі), і `argon2.verify` та `subtle.ConstantTimeCompare` роблять це за нас.
 
 :::tabs
-```ts
-import argon2 from "argon2";
-
-// ESM: рахуємо фіктивний хеш один раз під час старту, з ТИМИ САМИМИ параметрами
-const DUMMY_HASH = await argon2.hash("dummy-password-never-matches", ARGON);
-
-async function login(email: string, password: string, db: Db): Promise<User | null> {
-  const norm = email.trim().toLowerCase();
-  const user = await db.findUser(norm);
-  // немає користувача → усе одно звіряємо проти фіктивного хешу:
-  // стільки ж часу, те саме повідомлення — існування акаунта не витікає
-  const hash = user?.pwHash ?? DUMMY_HASH;
-  const ok = await argon2.verify(hash, password);   // звірка за сталий час
-  return ok && user ? user : null;
-}
-```
-```python
-from argon2 import PasswordHasher
-from argon2.exceptions import VerifyMismatchError
-
-ph = PasswordHasher(memory_cost=19456, time_cost=2, parallelism=1)
-# фіктивний хеш із тими самими параметрами — рахуємо один раз під час старту
-DUMMY_HASH = ph.hash("dummy-password-never-matches")
-
-def login(email: str, password: str, db):
-    norm = email.strip().lower()
-    user = db.find_user(norm)                # None, якщо немає
-    stored = user.pw_hash if user else DUMMY_HASH
-    try:
-        ph.verify(stored, password)          # кине VerifyMismatchError, якщо не збіглося
-    except VerifyMismatchError:
-        return None                          # те саме «ні» на обидва випадки
-    return user                              # None → так само вхід не відбувся
-```
-```go
-import (
-    "crypto/subtle"
-    "encoding/base64"
-    "errors"
-    "fmt"
-    "strings"
-
-    "golang.org/x/crypto/argon2"
-)
-
-type argonParams struct {
-    mem, time uint32
-    par       uint8
-}
-
-// розібрати PHC-рядок назад на параметри, сіль і хеш
-func decodeHash(encoded string) (p argonParams, salt, key []byte, err error) {
-    parts := strings.Split(encoded, "$") // ["", "argon2id", "v=19", "m=..,t=..,p=..", сіль, хеш]
-    if len(parts) != 6 {
-        return p, nil, nil, errors.New("поганий формат хешу")
-    }
-    if _, err = fmt.Sscanf(parts[3], "m=%d,t=%d,p=%d", &p.mem, &p.time, &p.par); err != nil {
-        return p, nil, nil, err
-    }
-    b64 := base64.RawStdEncoding
-    if salt, err = b64.DecodeString(parts[4]); err != nil {
-        return p, nil, nil, err
-    }
-    if key, err = b64.DecodeString(parts[5]); err != nil {
-        return p, nil, nil, err
-    }
-    return p, salt, key, nil
-}
-
-func verifyPassword(encoded, password string) bool {
-    p, salt, key, err := decodeHash(encoded)
-    if err != nil {
-        return false
-    }
-    calc := argon2.IDKey([]byte(password), salt, p.time, p.mem, p.par, uint32(len(key)))
-    return subtle.ConstantTimeCompare(key, calc) == 1 // звірка за сталий час
-}
-
-// заздалегідь порахований фіктивний хеш (ті самі параметри)
-var dummyHash, _ = hashPassword("dummy-password-never-matches")
-
-func login(email, password string, db *DB) *User {
-    norm := strings.ToLower(strings.TrimSpace(email))
-    user := db.FindUser(norm) // nil, якщо немає
-    stored := dummyHash
-    if user != nil {
-        stored = user.PwHash
-    }
-    if verifyPassword(stored, password) && user != nil {
-        return user
-    }
-    return nil
-}
-```
+:::code proj-login-flow/ts/krok-2-vkhid-zviryty-parol.ts
+:::code proj-login-flow/py/krok-2-vkhid-zviryty-parol.py
+:::code proj-login-flow/go/krok-2-vkhid-zviryty-parol.go
 :::
 
 Одну межу цієї гри треба назвати чесно: сталий час на сервері — не абсолют, а «досить рівно». Пошук у базі, мережа, збирач сміття додають свій шум у мілісекундах, і виміряти наносекунди звідси годі. Але дорога, керована операція тут одна — argon2, і вона на два-три порядки більша за той шум. Тому не ганяються за наносекундами: досить закрити **грубий** розрив — той, у якому наявний акаунт коштує чверть секунди, а відсутній п'ять мілісекунд.
@@ -256,20 +111,7 @@ def new_session_token() -> str:
     # token_urlsafe(16) = 16 байтів ентропії, base64url без набивки
     return secrets.token_urlsafe(16)
 ```
-```go
-import (
-    "crypto/rand"
-    "encoding/base64"
-)
-
-func newSessionToken() (string, error) {
-    b := make([]byte, 16) // 128 бітів
-    if _, err := rand.Read(b); err != nil { // crypto/rand, НЕ math/rand
-        return "", err
-    }
-    return base64.RawURLEncoding.EncodeToString(b), nil
-}
-```
+:::code proj-login-flow/go/krok-3-vydaty-zheton-sto.go
 :::
 
 **Пастка кроку.** Найпоширеніша — узяти зручний, але некрипто-генератор: `Math.random`, поточний час, лічильник чи послідовний числовий ідентифікатор рядка в базі. Усе це передбачуване: сусідні жетони відрізняються на крок, а бачивши кілька — вгадують решту. Друга пастка — заощадити на довжині: жетон на 32 чи 64 біти вже потрапляє в зону, де ферма машин перебирає його за розумний час, надто якщо живих сесій багато й досить влучити в **будь-яку**.
@@ -284,70 +126,9 @@ func newSessionToken() (string, error) {
 Ось де сходяться два секрети. Пароль слабкий, тому його хеш **навмисно повільний** — щоб кожна з мільярдів спроб перебору коштувала часу. Жетон уже несе 128 бітів повної ентропії, перебрати його неможливо в принципі — тож повільний хеш на ньому нічого не додав би до безпеки, зате важив би на **кожному** запиті, де сесію треба впізнати. Тому SHA-256: він миттєвий, солі не потребує (жетон і так рівномірно випадковий), а від витоку бази захищає незгірш — маючи лише відбиток, з нього не відновиш живий жетон.
 
 :::tabs
-```ts
-import { createHash, randomBytes } from "node:crypto";
-
-const sha256 = (s: string) => createHash("sha256").update(s).digest("hex");
-
-interface Session { userId: string; createdAt: number; lastSeen: number; }
-
-async function createSession(userId: string, db: Db): Promise<string> {
-  const token = randomBytes(16).toString("base64url");
-  const now = Date.now();
-  // у базі — лише ВІДБИТОК жетона; сам жетон їде тільки в cookie до клієнта
-  await db.putSession(sha256(token), { userId, createdAt: now, lastSeen: now });
-  return token;
-}
-
-async function resolveSession(token: string, db: Db): Promise<Session | null> {
-  return db.getSession(sha256(token));   // шукаємо за відбитком
-}
-```
-```python
-import hashlib, secrets, time
-
-def _sha256(s: str) -> str:
-    return hashlib.sha256(s.encode()).hexdigest()
-
-def create_session(user_id: str, db) -> str:
-    token = secrets.token_urlsafe(16)
-    now = time.time()
-    # зберігаємо лише відбиток, не сам жетон
-    db.put_session(_sha256(token),
-                   {"user_id": user_id, "created_at": now, "last_seen": now})
-    return token
-
-def resolve_session(token: str, db):
-    return db.get_session(_sha256(token))    # пошук за відбитком
-```
-```go
-import (
-    "crypto/sha256"
-    "encoding/hex"
-    "time"
-)
-
-type Session struct {
-    UserID    string
-    CreatedAt time.Time
-    LastSeen  time.Time
-}
-
-func tokenHash(token string) string {
-    sum := sha256.Sum256([]byte(token))
-    return hex.EncodeToString(sum[:])
-}
-
-func createSession(userID string, db *DB) (string, error) {
-    token, err := newSessionToken()
-    if err != nil {
-        return "", err
-    }
-    now := time.Now()
-    db.PutSession(tokenHash(token), Session{UserID: userID, CreatedAt: now, LastSeen: now})
-    return token, nil // повертаємо сам жетон — він піде в cookie
-}
-```
+:::code proj-login-flow/ts/krok-4-de-zhyty-zhetonu.ts
+:::code proj-login-flow/py/krok-4-de-zhyty-zhetonu.py
+:::code proj-login-flow/go/krok-4-de-zhyty-zhetonu.go
 :::
 
 Є й інший шлях — **не зберігати нічого**. Замість запису в базі жетон роблять самоописним: кладуть у нього, хто ти й доки він чинний, і підписують секретним ключем сервера (HMAC) — це родина [підписаних токенів (JWT)](root:sf-web/jwt-tokens). Тоді сервер не заглядає у сховище зовсім, лише перевіряє підпис. Ціна — відкликати такий жетон важко: він чинний, доки не сплив термін, бо викидати з бази нема чого. Тому підписані токени роблять короткоживучими, а серверні сесії легко гасять, стерши рядок. Що обрати — зважують у [керуванні сесіями](root:sf-web/session-management): серверне сховище дає миттєве відкликання ціною звірки з базою на кожному запиті, підпис дає без-баз-ний масштаб ціною млявого відкликання.
@@ -373,53 +154,9 @@ Set-Cookie: sid=<жетон>; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=12
 > 🔧 **Навіщо це.** Прапорець `Secure` має сенс лише тому, що канал шифрований: cookie їде тільки поверх [TLS](root:sf-security/tls), інакше перший-ліпший на шляху прочитав би її відкритим текстом. Без TLS решта прапорців — замок на дверях із вибитим вікном.
 
 :::tabs
-```ts
-function sessionCookie(token: string): string {
-  const twoWeeks = 60 * 60 * 24 * 14; // секунд
-  return [
-    `sid=${token}`,
-    "HttpOnly",       // недосяжна для document.cookie
-    "Secure",         // лише поверх HTTPS
-    "SameSite=Lax",   // не піде на чужий POST → щит від CSRF
-    "Path=/",
-    `Max-Age=${twoWeeks}`,
-  ].join("; ");
-}
-
-// у обробнику входу:
-res.setHeader("Set-Cookie", sessionCookie(token));
-```
-```python
-def session_cookie(token: str) -> str:
-    two_weeks = 60 * 60 * 24 * 14  # секунд
-    return "; ".join([
-        f"sid={token}",
-        "HttpOnly",       # недосяжна для document.cookie
-        "Secure",         # лише поверх HTTPS
-        "SameSite=Lax",   # щит від CSRF
-        "Path=/",
-        f"Max-Age={two_weeks}",
-    ])
-
-# у Flask те саме роблять напряму:
-# resp.set_cookie("sid", token, httponly=True, secure=True,
-#                 samesite="Lax", max_age=two_weeks, path="/")
-```
-```go
-import "net/http"
-
-func setSessionCookie(w http.ResponseWriter, token string) {
-    http.SetCookie(w, &http.Cookie{
-        Name:     "sid",
-        Value:    token,
-        Path:     "/",
-        HttpOnly: true,                 // JS не дістане
-        Secure:   true,                 // лише HTTPS
-        SameSite: http.SameSiteLaxMode, // щит від CSRF
-        MaxAge:   60 * 60 * 24 * 14,    // 14 діб у секундах
-    })
-}
-```
+:::code proj-login-flow/ts/krok-5-cookie-chotyry.ts
+:::code proj-login-flow/py/krok-5-cookie-chotyry.py
+:::code proj-login-flow/go/krok-5-cookie-chotyry.go
 :::
 
 **Пастка кроку.** Забути `HttpOnly` — і будь-який XSS перетворюється на крадіжку сесії. Забути `Secure` — і жетон витікає на першому ж запиті, який чомусь пішов відкритим HTTP. Забути `SameSite` на старому браузері — і відкриваєшся CSRF. Ще дві пастки поза цим списком: занадто широкий `Domain` (наприклад `.example.com`) розсилає cookie всім піддоменам, зокрема чужим і ненадійним; а найгрубіша — взагалі не класти жетон у cookie, а тягати його в URL (де він осідає в логах і в заголовку Referer) чи в `localStorage` (звідки його дістає той-таки XSS, від якого рятує `HttpOnly`).
@@ -431,77 +168,9 @@ func setSessionCookie(w http.ResponseWriter, token string) {
 Обидва годинники мусять цокати **на сервері**. `Max-Age` у cookie — лише підказка браузеру, і її легко підробити чи знехтувати; істина — у серверному записі, з якого впізнавання й читає час. Тому перевірка терміну живе поряд зі звіркою відбитка:
 
 :::tabs
-```ts
-const IDLE_MS = 1000 * 60 * 60 * 24 * 7;      // 7 діб без активності — просрочка
-const ABSOLUTE_MS = 1000 * 60 * 60 * 24 * 14; // 14 діб від входу — жорстка стеля
-
-async function authenticate(token: string, db: Db): Promise<Session | null> {
-  const s = await db.getSession(sha256(token));
-  if (!s) return null;
-  const now = Date.now();
-  if (now - s.lastSeen > IDLE_MS || now - s.createdAt > ABSOLUTE_MS) {
-    await db.deleteSession(sha256(token));  // мертву — прибрати
-    return null;
-  }
-  await db.touchSession(sha256(token), now); // ковзне вікно бездіяльності
-  return s;
-}
-
-// РОТАЦІЯ під час входу — проти фіксації сесії:
-async function loginAndStart(user: User, oldToken: string | null, db: Db): Promise<string> {
-  if (oldToken) await db.deleteSession(sha256(oldToken)); // старий ідентифікатор — мертвий
-  return createSession(user.id, db);                      // свіжий, невідомий нападнику
-}
-```
-```python
-IDLE = 60 * 60 * 24 * 7        # 7 діб без активності — просрочка
-ABSOLUTE = 60 * 60 * 24 * 14   # 14 діб від входу — жорстка стеля
-
-def authenticate(token: str, db):
-    s = db.get_session(_sha256(token))
-    if s is None:
-        return None
-    now = time.time()
-    if now - s["last_seen"] > IDLE or now - s["created_at"] > ABSOLUTE:
-        db.delete_session(_sha256(token))   # мертву — прибрати
-        return None
-    db.touch_session(_sha256(token), now)   # ковзне вікно бездіяльності
-    return s
-
-# РОТАЦІЯ під час входу — проти фіксації сесії:
-def login_and_start(user, old_token, db) -> str:
-    if old_token:
-        db.delete_session(_sha256(old_token))  # старий ідентифікатор — мертвий
-    return create_session(user.id, db)         # свіжий, невідомий нападнику
-```
-```go
-const (
-    idle     = 7 * 24 * time.Hour  // без активності — просрочка
-    absolute = 14 * 24 * time.Hour // від входу — жорстка стеля
-)
-
-func authenticate(token string, db *DB) *Session {
-    s := db.GetSession(tokenHash(token))
-    if s == nil {
-        return nil
-    }
-    now := time.Now()
-    if now.Sub(s.LastSeen) > idle || now.Sub(s.CreatedAt) > absolute {
-        db.DeleteSession(tokenHash(token)) // мертву — прибрати
-        return nil
-    }
-    db.TouchSession(tokenHash(token), now) // ковзне вікно бездіяльності
-    return s
-}
-
-// РОТАЦІЯ під час входу — проти фіксації сесії:
-func loginAndStart(user *User, oldToken string, db *DB) (string, error) {
-    if oldToken != "" {
-        db.DeleteSession(tokenHash(oldToken)) // старий ідентифікатор — мертвий
-    }
-    return createSession(user.ID, db) // свіжий, невідомий нападнику
-}
-```
+:::code proj-login-flow/ts/krok-6-termin-i-rotatsiia.ts
+:::code proj-login-flow/py/krok-6-termin-i-rotatsiia.py
+:::code proj-login-flow/go/krok-6-termin-i-rotatsiia.go
 :::
 
 Ротація в момент входу — не забаганка, а ліки від окремого нападу. Уяви фіксацію сесії (session fixation): зловмисник заздалегідь підсовує жертві **відомий йому** жетон — через посилання чи через cookie, — жертва входить, і якщо жетон при вході не змінився, нападник тепер тримає в руках чинну, вже впізнану сесію. Розрив простий: щойно піднявся рівень довіри (стався вхід), старий жетон гасять і видають свіжий, якого нападник не знає. З тієї ж причини жетон обов'язково міняють при зміні пароля.

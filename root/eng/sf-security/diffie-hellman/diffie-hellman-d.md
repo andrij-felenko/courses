@@ -330,53 +330,8 @@ y² = x³ + 486662 · x² + x  (mod 2²⁵⁵ - 19)
 4. **Бітове маскування скаляра (Clamping):** У випадково згенерованому 32-байтному закритому ключі примусово скидаються біти 0, 1, 2 (що робить скаляр кратним кофактору кривої `h = 8` і повністю нейтралізує атаки на малі підгрупи), скидається біт 255 та встановлюється біт 254 (гарантуючи сталий час виконання).
 
 :::tabs
-```c
-#include <stdint.h>
-#include <string.h>
-
-/* Бітове маскування (clamping) закритого скаляра X25519 за RFC 7748 */
-void x25519_clamp_scalar(uint8_t scalar[32]) {
-    scalar[0]  &= 248; /* Скидання бітів 0, 1, 2: скаляр стає кратним 8 (імунітет до кофактора) */
-    scalar[31] &= 127; /* Скидання біта 255 */
-    scalar[31] |= 64;  /* Встановлення біта 254: фіксована бітова довжина */
-}
-
-/* Перевірка публічного ключа на нейтральний елемент (усі нулі) за константний час */
-int x25519_is_zero_public_key(const uint8_t pubkey[32]) {
-    uint8_t acc = 0;
-    for (int i = 0; i < 32; ++i) {
-        acc |= pubkey[i];
-    }
-    /* Повертає 1, якщо ключ складається виключно з нулів, і 0 в іншому випадку */
-    return (acc == 0);
-}
-```
-```cpp
-#include <array>
-#include <span>
-#include <cstdint>
-#include <algorithm>
-
-namespace crypto {
-
-/* Бітове маскування (clamping) закритого скаляра X25519 за RFC 7748 */
-constexpr void clamp_scalar(std::span<uint8_t, 32> scalar) noexcept {
-    scalar[0]  &= 248; // Скидання бітів 0, 1, 2: кратність 8 (імунітет до кофактора)
-    scalar[31] &= 127; // Скидання біта 255
-    scalar[31] |= 64;  // Встановлення біта 254: фіксована бітова довжина
-}
-
-/* Перевірка публічного ключа на нульову точку за константний час */
-[[nodiscard]] constexpr bool is_zero_public_key(std::span<const uint8_t, 32> pubkey) noexcept {
-    uint8_t acc = 0;
-    for (const uint8_t byte : pubkey) {
-        acc |= byte;
-    }
-    return acc == 0;
-}
-
-} // namespace crypto
-```
+:::code diffie-hellman-d/c/main.c
+:::code diffie-hellman-d/cpp/main.cpp
 :::
 
 ### Постквантовий гібридний обмін ключами (X25519 + ML-KEM)

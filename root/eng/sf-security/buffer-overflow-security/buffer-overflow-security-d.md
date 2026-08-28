@@ -37,19 +37,7 @@ void process_user_input(int connection_fd) {
 
 Згідно зі специфікацією викликів System V AMD64 ABI, перші 6 цілочисельних аргументів передаються через регістри загального призначення (`%rdi`, `%rsi`, `%rdx`, `%rcx`, `%r8`, `%r9`), а верхівка стека перед інструкцією `call` повинна бути вирівняна по 16 байтах. Під час компіляції компілятор GCC транслює функцію `process_user_input` у наступну послідовність машинних інструкцій:
 
-```nasm
-process_user_input:
-    pushq   %rbp                ; Збереження базового покажчика кадру caller (8 байтів)
-    movq    %rsp, %rbp          ; Встановлення нового базового покажчика кадру
-    subq    $80, %rsp           ; Виділення 80 байтів на стеку (64 буфер + 16 вирівнювання)
-    movl    %edi, -68(%rbp)     ; Збереження аргументу connection_fd
-    leaq    -64(%rbp), %rax     ; Обчислення адреси username_buffer
-    movq    %rax, %rsi          ; Передача другого аргументу у read_socket_data
-    movl    -68(%rbp), %edi     ; Передача першого аргументу у read_socket_data
-    call    read_socket_data    ; Виклик підпрограми зчитування
-    leave                       ; Еквівалент: movq %rbp, %rsp; popq %rbp
-    ret                         ; Вилучення Saved RIP зі стека у регістр %rip
-```
+:::code buffer-overflow-security-d/asm/main.s
 
 Фізичне розташування даних на стеку демонструє діаграма пам'яті:
 
@@ -266,24 +254,7 @@ Intel CET реалізує концепцію **подвійного стека*
     BK->fd = FD;                        \
 }
 ```
-```cpp
-// Концептуальна модель вилучення вузла в C++ з контролем цілісності покажчиків:
-struct ChunkNode {
-    ChunkNode* fd{nullptr};
-    ChunkNode* bk{nullptr};
-};
-
-bool unlink_safe(ChunkNode* p) noexcept {
-    if (!p || !p->fd || !p->bk) return false;
-    // Перевірка цілісності: суміжний вузол повинен посилатися назад на поточний
-    if (p->fd->bk != p || p->bk->fd != p) {
-        return false; // Пошкодження зв'язного списку виявлено
-    }
-    p->fd->bk = p->bk;
-    p->bk->fd = p->fd;
-    return true;
-}
-```
+:::code buffer-overflow-security-d/cpp/mekhanika-psuvannia-kuchi.cpp
 :::
 
 У старіших версіях Glibc (до 2.3.6) ця операція сліпо записувала адресу `BK` у комірку пам'яті за адресою `FD + offset`, і навпаки. Підробляючи поля `fd` та `bk`, зловмисник отримував найпотужніший примітив експлуатації — **довільний запис 8 байтів за довільною адресою** (англ. *Write-What-Where Primitive*), що дозволяло переписати таблицю GOT (Global Offset Table), покажчики обробників сигналів або таблиці віртуальних методів C++ ([Use-After-Free](root:sf-security/use-after-free)).
@@ -350,68 +321,8 @@ jne     .L_asan_report_error ; якщо пам'ять отруєна — нег�
 Нижче наведено практичний приклад переходу від небезпечного C-стилю до сучасних захищених абстракцій C++20/C++23:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
-
-#define USERNAME_MAX_CAPACITY 64
-
-// Захищена функція копіювання з контролем меж буфера
-bool copy_username_bounded(char *dest, size_t dest_capacity, const char *src) {
-    if (!dest || !src || dest_capacity == 0) {
-        return false;
-    }
-
-    // Використання snprintf гарантує запис не більше dest_capacity байтів
-    // і обов'язкову наявність завершального нуль-термінатора '\0'
-    int written = snprintf(dest, dest_capacity, "%s", src);
-
-    // Якщо довжина джерела перевищує або дорівнює місткості — відбулося обрізання
-    if (written < 0 || (size_t)written >= dest_capacity) {
-        // Очищаємо цільовий буфер для запобігання використанню обрізаних даних
-        dest[0] = '\0';
-        return false;
-    }
-
-    return true;
-}
-```
-```cpp
-#include <iostream>
-#include <string_view>
-#include <array>
-#include <span>
-#include <expected>
-#include <algorithm>
-
-constexpr size_t UsernameMaxCapacity = 64;
-
-enum class CopyError {
-    BufferOverflow,
-    InvalidInput
-};
-
-// Ідіоматична функція C++23 з використанням std::span та std::expected
-template <size_t N>
-std::expected<void, CopyError> copy_username_safe(
-    std::array<char, N>& destination, 
-    std::string_view source
-) noexcept {
-    if (source.empty()) {
-        return std::unexpected(CopyError::InvalidInput);
-    }
-
-    // std::string_view зберігає розмір, унеможливлюючи сканування довільної пам'яті
-    if (source.size() >= N) {
-        return std::unexpected(CopyError::BufferOverflow);
-    }
-
-    std::copy(source.begin(), source.end(), destination.begin());
-    destination[source.size()] = '\0';
-    return {};
-}
-```
+:::code buffer-overflow-security-d/c/main.c
+:::code buffer-overflow-security-d/cpp/zakhyshcheni-paterny.cpp
 :::
 
 Повна реалізація контейнера з користувацькою канаркою пам'яті та тестами виявлення переповнення наведена в [інженерному проекті реалізації захищеного буфера з канаркою](root:sf-security/buffer-overflow-security/proj-safe-string-buffer.md).

@@ -22,19 +22,7 @@ int verify_token(const uint8_t *user_buf, const uint8_t *secret_buf, size_t len)
     return 0; /* Розбіжність */
 }
 ```
-```cpp
-#include <openssl/crypto.h>
-#include <span>
-#include <cstdint>
-
-/* Безпечна C++ обгортка для spans */
-[[nodiscard]] bool verify_token(std::span<const uint8_t> user_buf, std::span<const uint8_t> secret_buf) noexcept {
-    if (user_buf.size() != secret_buf.size()) {
-        return false;
-    }
-    return CRYPTO_memcmp(user_buf.data(), secret_buf.data(), user_buf.size()) == 0;
-}
-```
+:::code api-constant-time-primitives/cpp/1-crypto-memcmp-openssl-ta.cpp
 :::
 
 - **Параметри:**
@@ -60,19 +48,7 @@ int check_auth_tag(const unsigned char *tag1, const unsigned char *tag2, size_t 
     return (sodium_memcmp(tag1, tag2, len) == 0);
 }
 ```
-```cpp
-#include <sodium.h>
-#include <span>
-#include <cstdint>
-
-/* C++ обгортка з перевіркою розмірів */
-[[nodiscard]] bool check_auth_tag(std::span<const uint8_t> tag1, std::span<const uint8_t> tag2) noexcept {
-    if (tag1.size() != tag2.size()) {
-        return false;
-    }
-    return sodium_memcmp(tag1.data(), tag2.data(), tag1.size()) == 0;
-}
-```
+:::code api-constant-time-primitives/cpp/2-sodium-memcmp-libsodium.cpp
 :::
 
 - **Параметри:** Вказівники на порівнювані масиви та розмір `len`.
@@ -94,19 +70,7 @@ int bsd_safe_compare(const void *b1, const void *b2, size_t len) {
     return (timingsafe_bcmp(b1, b2, len) == 0);
 }
 ```
-```cpp
-#include <string.h>
-#include <span>
-#include <cstddef>
-
-/* C++ інтерфейс для системного виклику */
-[[nodiscard]] bool bsd_safe_compare(std::span<const std::byte> b1, std::span<const std::byte> b2) noexcept {
-    if (b1.size() != b2.size()) {
-        return false;
-    }
-    return timingsafe_bcmp(b1.data(), b2.data(), b1.size_bytes()) == 0;
-}
-```
+:::code api-constant-time-primitives/cpp/3-timingsafe-bcmp-bsd.cpp
 :::
 
 - **Семантика повернення:** Повертає `0` у разі повної ідентичності буферів, або ненульове число при розбіжності. На відміну від застарілої функції `bcmp`, гарантує постійний час виконання на рівні ядра операційної системи.
@@ -126,107 +90,8 @@ int bsd_safe_compare(const void *b1, const void *b2, size_t len) {
 Нижче наведено повну бібліотеку базових примітивів:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-
-/* Перетворення булевого прапорця (0 або 1) на бітову маску (0x00..0 або 0xFF..F) */
-static inline uint32_t ct_bool_to_mask32(uint32_t bit) {
-    return (uint32_t)(-(int32_t)(bit & 1));
-}
-
-/* Перевірка на нуль: повертає маску 0xFFFFFFFF якщо val == 0, інакше 0x00000000 */
-static inline uint32_t ct_is_zero_mask32(uint32_t val) {
-    uint64_t v = val;
-    return (uint32_t)(~((v | (0 - v)) >> 31) & 1) ? 0xFFFFFFFFU : 0x00000000U;
-}
-
-/* Безгалузевий мультиплексор: якщо mask == 0xFFFFFFFF, повертає a, якщо 0, повертає b */
-static inline uint32_t ct_select32(uint32_t mask, uint32_t a, uint32_t b) {
-    return (a & mask) | (b & ~mask);
-}
-
-/* Умовне копіювання буфера: якщо flag == 1, копіює src в dst, інакше dst не змінюється */
-static inline void ct_conditional_copy(uint8_t flag, uint8_t *dst, const uint8_t *src, size_t len) {
-    uint8_t mask = (uint8_t)(-(int8_t)(flag & 1));
-    for (size_t i = 0; i < len; ++i) {
-        dst[i] ^= mask & (src[i] ^ dst[i]);
-    }
-    /* Компіляторний бар'єр пам'яті */
-    __asm__ __volatile__("" : "+m"(*dst) : : "memory");
-}
-
-/* Умовний обмін двох буферів (Conditional Swap) за константний час */
-static inline void ct_conditional_swap(uint8_t flag, uint8_t *a, uint8_t *b, size_t len) {
-    uint8_t mask = (uint8_t)(-(int8_t)(flag & 1));
-    for (size_t i = 0; i < len; ++i) {
-        uint8_t delta = mask & (a[i] ^ b[i]);
-        a[i] ^= delta;
-        b[i] ^= delta;
-    }
-    __asm__ __volatile__("" : "+m"(*a), "+m"(*b) : : "memory");
-}
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <span>
-#include <concepts>
-#include <type_traits>
-
-namespace ct {
-
-// Перетворення прапорця 0/1 у суцільну маску
-template <std::unsigned_integral T>
-[[nodiscard]] constexpr T to_mask(T bit) noexcept {
-    using SignedT = std::make_signed_t<T>;
-    return static_cast<T>(-static_cast<SignedT>(bit & 1));
-}
-
-// Безгалузевий вибір між двома значеннями
-template <std::unsigned_integral T>
-[[nodiscard]] constexpr T select(T mask, T a, T b) noexcept {
-    return (a & mask) | (b & ~mask);
-}
-
-// Умовне копіювання за константний час
-template <typename T>
-void conditional_copy(bool flag, std::span<T> dst, std::span<const T> src) noexcept {
-    if (dst.size() != src.size()) return;
-
-    const uint8_t mask = static_cast<uint8_t>(-static_cast<int8_t>(flag ? 1 : 0));
-    auto* dst_bytes = reinterpret_cast<uint8_t*>(dst.data());
-    const auto* src_bytes = reinterpret_cast<const uint8_t*>(src.data());
-    const size_t total_bytes = dst.size_bytes();
-
-    for (size_t i = 0; i < total_bytes; ++i) {
-        dst_bytes[i] ^= mask & (src_bytes[i] ^ dst_bytes[i]);
-    }
-
-    asm volatile("" : : "r"(dst_bytes) : "memory");
-}
-
-// Умовний обмін пам'яті двох діапазонів
-template <typename T>
-void conditional_swap(bool flag, std::span<T> a, std::span<T> b) noexcept {
-    if (a.size() != b.size()) return;
-
-    const uint8_t mask = static_cast<uint8_t>(-static_cast<int8_t>(flag ? 1 : 0));
-    auto* a_bytes = reinterpret_cast<uint8_t*>(a.data());
-    auto* b_bytes = reinterpret_cast<uint8_t*>(b.data());
-    const size_t total_bytes = a.size_bytes();
-
-    for (size_t i = 0; i < total_bytes; ++i) {
-        const uint8_t delta = mask & (a_bytes[i] ^ b_bytes[i]);
-        a_bytes[i] ^= delta;
-        b_bytes[i] ^= delta;
-    }
-
-    asm volatile("" : : "r"(a_bytes), "r"(b_bytes) : "memory");
-}
-
-} // namespace ct
-```
+:::code api-constant-time-primitives/c/main.c
+:::code api-constant-time-primitives/cpp/biblioteka-vlasnykh.cpp
 :::
 
 ## Крайові випадки та правила безпечної інтеграції
@@ -256,24 +121,7 @@ void conditional_swap(bool flag, std::span<T> a, std::span<T> b) noexcept {
 /* Блокування оптимізації масивів у пам'яті */
 #define MEMORY_BARRIER() __asm__ __volatile__("" : : : "memory")
 ```
-```cpp
-#include <concepts>
-
-namespace ct {
-
-// Шаблонна функція приховування значення від компілятора у C++
-template <typename T>
-inline void hide_value(T& var) noexcept {
-    asm volatile("" : "+r"(var) : : "memory");
-}
-
-// Повний бар'єр пам'яті
-inline void memory_barrier() noexcept {
-    asm volatile("" : : "memory");
-}
-
-} // namespace ct
-```
+:::code api-constant-time-primitives/cpp/kompiliatorni-bariery.hpp
 :::
 
 ### Апаратні прапорці детермінованого часу (Hardware DIT Modes)

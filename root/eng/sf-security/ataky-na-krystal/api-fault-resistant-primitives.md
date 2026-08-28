@@ -91,20 +91,7 @@ typedef uint32_t secure_token_t;
 #define SECURE_TOKEN_INIT      ((secure_token_t)0x3C3C3C3CU)
 #define SECURE_TOKEN_PANIC     ((secure_token_t)0xFFFFFFFFU)
 ```
-```cpp
-#include <cstdint>
-
-namespace sec {
-
-enum class Token : std::uint32_t {
-    True  = 0x55AA55AAU,
-    False = 0xAA55AA55U,
-    Init  = 0x3C3C3C3CU,
-    Panic = 0xFFFFFFFFU
-};
-
-} // namespace sec
-```
+:::code api-fault-resistant-primitives/cpp/2-1-konstanty.cpp
 :::
 
 **Інваріант надійності:** бінарна інверсія між станами:
@@ -127,18 +114,7 @@ Hamming_Distance(SECURE_TOKEN_TRUE, SECURE_TOKEN_FALSE) = 32
 
 secure_token_t hardened_memcmp(const void *buf_a, const void *buf_b, size_t len);
 ```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <span>
-
-namespace sec {
-
-[[nodiscard]] Token constant_time_compare(std::span<const std::uint8_t> a,
-                                          std::span<const std::uint8_t> b) noexcept;
-
-} // namespace sec
-```
+:::code api-fault-resistant-primitives/cpp/hardened-memcmp.cpp
 :::
 
 - **Параметри:**
@@ -165,22 +141,7 @@ secure_token_t hardened_verify_payload(const uint8_t *computed_mac,
                                        size_t mac_len,
                                        uint32_t entropy);
 ```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <span>
-
-namespace sec {
-
-class HardenedVerifier {
-public:
-    [[nodiscard]] static Token verify(std::span<const std::uint8_t> computed,
-                                      std::span<const std::uint8_t> expected,
-                                      std::uint32_t entropy) noexcept;
-};
-
-} // namespace sec
-```
+:::code api-fault-resistant-primitives/cpp/hardened-verify-payload.cpp
 :::
 
 - **Параметри:**

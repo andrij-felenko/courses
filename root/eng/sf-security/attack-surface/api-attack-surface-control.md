@@ -19,35 +19,7 @@
 
 int syscall(SYS_seccomp, unsigned int operation, unsigned int flags, void *args);
 ```
-```cpp
-#include <linux/seccomp.h>
-#include <linux/filter.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-#include <system_error>
-#include <expected>
-#include <span>
-
-namespace seccomp_api {
-
-enum class Operation : unsigned int {
-    SetModeStrict = SECCOMP_SET_MODE_STRICT,
-    SetModeFilter = SECCOMP_SET_MODE_FILTER,
-    GetActionAvail = SECCOMP_GET_ACTION_AVAIL,
-    GetNotifSizes = SECCOMP_GET_NOTIF_SIZES
-};
-
-[[nodiscard]] inline std::expected<int, std::error_code> invoke_seccomp(
-    Operation op, unsigned int flags, void* args) noexcept {
-    int res = ::syscall(SYS_seccomp, static_cast<unsigned int>(op), flags, args);
-    if (res < 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return res;
-}
-
-} // namespace seccomp_api
-```
+:::code api-attack-surface-control/cpp/1-systemnyi-vyklyk-seccomp.cpp
 :::
 
 ### 1.1. Операції (`operation`)
@@ -87,62 +59,8 @@ enum class Operation : unsigned int {
 Фільтрація виконується за допомогою псевдокоду класичного Berkeley Packet Filter (cBPF). Інструкції BPF представляють послідовність операцій завантаження, порівняння та умовних переходів над структурою `seccomp_data`.
 
 :::tabs
-```c
-#include <linux/filter.h>
-#include <linux/seccomp.h>
-
-struct sock_filter {
-    __u16 code;   /* Код операції BPF (інструкція завантаження, переходу або повернення) */
-    __u8  jt;     /* Зсув переходу при True (кількість інструкцій для пропуску) */
-    __u8  jf;     /* Зсув переходу при False */
-    __u32 k;      /* Багатоцільове поле (константа, номер виклику, зміщення в пам'яті) */
-};
-
-struct sock_fprog {
-    unsigned short      len;     /* Кількість інструкцій у масиві filter */
-    struct sock_filter *filter;  /* Вказівник на масив інструкцій */
-};
-
-struct seccomp_data {
-    int   nr;                    /* Номер системного виклику (__NR_*) */
-    __u32 arch;                  /* Ідентифікатор архітектури (AUDIT_ARCH_X86_64 тощо) */
-    __u64 instruction_pointer;   /* Адреса інструкції CPU, що ініціювала виклик */
-    __u64 args[6];               /* 6 аргументів системного виклику */
-};
-```
-```cpp
-#include <linux/filter.h>
-#include <linux/seccomp.h>
-#include <cstdint>
-#include <span>
-
-namespace seccomp_api {
-
-struct SockFilter {
-    uint16_t code{0};
-    uint8_t  jt{0};
-    uint8_t  jf{0};
-    uint32_t k{0};
-};
-
-struct SockFilterProgram {
-    uint16_t len{0};
-    const SockFilter* filter{nullptr};
-
-    explicit SockFilterProgram(std::span<const SockFilter> instructions) noexcept
-        : len{static_cast<uint16_t>(instructions.size())},
-          filter{instructions.data()} {}
-};
-
-struct SeccompData {
-    int32_t  nr{0};
-    uint32_t arch{0};
-    uint64_t instruction_pointer{0};
-    uint64_t args[6]{0, 0, 0, 0, 0, 0};
-};
-
-} // namespace seccomp_api
-```
+:::code api-attack-surface-control/c/2-struktury-bpf-filtratsii.c
+:::code api-attack-surface-control/cpp/2-struktury-bpf-filtratsii.cpp
 :::
 
 Кожна інструкція `sock_filter` виконує елементарну дію віртуальної машини BPF. Регістр акумулятора завантажує номер виклику (`BPF_LD | BPF_W | BPF_ABS`), після чого інструкції порівняння (`BPF_JMP | BPF_JEQ | BPF_K`) зіставляють значення з дозволеними константами. У разі збігу лічильник команд переходить на фінальну інструкцію дозволу `SECCOMP_RET_ALLOW`.
@@ -157,22 +75,7 @@ struct SeccompData {
 
 int prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0);
 ```
-```cpp
-#include <sys/prctl.h>
-#include <system_error>
-#include <expected>
-
-namespace seccomp_api {
-
-[[nodiscard]] inline std::expected<void, std::error_code> set_no_new_privs() noexcept {
-    if (::prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0) == -1) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return {};
-}
-
-} // namespace seccomp_api
-```
+:::code api-attack-surface-control/cpp/3-zapobihannia-eskalatsii.cpp
 :::
 
 **Семантика:** Після встановлення значення `1` процес та всі його дочірні процеси ніколи не зможуть отримати додаткові привілеї через біти `setuid`/`setgid` на виконуваних файлах або файлові можливості (file capabilities). Ця дія є строго односторонньою та незворотною: жоден наступний системний виклик не може повернути значення `0`.
@@ -187,22 +90,7 @@ namespace seccomp_api {
 
 int unshare(int flags);
 ```
-```cpp
-#include <sched.h>
-#include <system_error>
-#include <expected>
-
-namespace seccomp_api {
-
-[[nodiscard]] inline std::expected<void, std::error_code> unshare_namespaces(int flags) noexcept {
-    if (::unshare(flags) == -1) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return {};
-}
-
-} // namespace seccomp_api
-```
+:::code api-attack-surface-control/cpp/4-izoliatsiia-prostoriv.cpp
 :::
 
 ### Деталізація прапорців просторів імен
@@ -221,48 +109,8 @@ namespace seccomp_api {
 Починаючи з версії ядра Linux 5.13, з'явився модуль безпеки Landlock (LSM). Він дозволяє непривілейованому процесу створювати набори правил обмеження доступу до ієрархії файлової системи без необхідності прав адміністратора `root`.
 
 :::tabs
-```c
-#include <linux/landlock.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-
-/* Створення набору правил Landlock */
-int landlock_create_ruleset(const struct landlock_ruleset_attr *attr, size_t size, __u32 flags);
-
-/* Додавання правила для конкретного файлового дескриптора */
-int landlock_add_rule(int ruleset_fd, enum landlock_rule_type rule_type, const void *rule_attr, __u32 flags);
-
-/* Застосування обмежень до поточного процесу */
-int landlock_restrict_self(int ruleset_fd, __u32 flags);
-```
-```cpp
-#include <linux/landlock.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-#include <system_error>
-#include <expected>
-
-namespace landlock_api {
-
-[[nodiscard]] inline std::expected<int, std::error_code> create_ruleset(
-    const landlock_ruleset_attr* attr, size_t size, uint32_t flags) noexcept {
-    int fd = ::syscall(SYS_landlock_create_ruleset, attr, size, flags);
-    if (fd < 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return fd;
-}
-
-[[nodiscard]] inline std::expected<void, std::error_code> restrict_self(
-    int ruleset_fd, uint32_t flags) noexcept {
-    if (::syscall(SYS_landlock_restrict_self, ruleset_fd, flags) < 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return {};
-}
-
-} // namespace landlock_api
-```
+:::code api-attack-surface-control/c/landlock.h
+:::code api-attack-surface-control/cpp/5-obmezhennia-failovoi.cpp
 :::
 
 Landlock дозволяє процесу дозволити читання або запис виключно для вказаних каталогів (наприклад, конфігураційного каталогу `/etc/app` або тимчасового буфера `/tmp/sandbox`), повністю забороняючи звернення до решти файлової системи навіть при наявності системних викликів `openat` та `read`. На відміну від `chroot`, Landlock не вимагає прав `root` і захищає від атак виходу з ізоляції через відносні шляхи `..` та відкриті файлові дескриптори.
@@ -284,32 +132,7 @@ int pledge(const char *promises, const char *execpromises);
 /* Обмеження доступу до файлової системи за конкретними шляхами */
 int unveil(const char *path, const char *permissions);
 ```
-```cpp
-#include <unistd.h>
-#include <string_view>
-#include <system_error>
-#include <expected>
-
-namespace openbsd_api {
-
-[[nodiscard]] inline std::expected<void, std::error_code> apply_pledge(
-    std::string_view promises, const char* execpromises = nullptr) noexcept {
-    if (::pledge(promises.data(), execpromises) == -1) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return {};
-}
-
-[[nodiscard]] inline std::expected<void, std::error_code> apply_unveil(
-    std::string_view path, std::string_view permissions) noexcept {
-    if (::unveil(path.data(), permissions.data()) == -1) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return {};
-}
-
-} // namespace openbsd_api
-```
+:::code api-attack-surface-control/cpp/6-1-openbsd-pledge-ta.cpp
 :::
 
 ### Таблиця еквівалентів категорій OpenBSD `pledge` та Linux Seccomp

@@ -24,45 +24,8 @@ OpenSSL дозволяє оптимізувати цей процес:
 ### Сигнатури функцій OpenSSL 3.0
 
 :::tabs
-```c
-#include <openssl/evp.h>
-#include <openssl/params.h>
-
-/* Отримання дескриптора алгоритму */
-EVP_MAC *EVP_MAC_fetch(OSSL_LIB_CTX *libctx, const char *algorithm, const char *properties);
-
-/* Створення та копіювання контексту */
-EVP_MAC_CTX *EVP_MAC_CTX_new(EVP_MAC *mac);
-EVP_MAC_CTX *EVP_MAC_CTX_dup(const EVP_MAC_CTX *src);
-
-/* Ініціалізація ключем та параметрами OSSL_PARAM */
-int EVP_MAC_init(EVP_MAC_CTX *ctx, const unsigned char *key, size_t keylen, const OSSL_PARAM params[]);
-
-/* Потокове оновлення та фіналізація */
-int EVP_MAC_update(EVP_MAC_CTX *ctx, const unsigned char *data, size_t datalen);
-int EVP_MAC_final(EVP_MAC_CTX *ctx, unsigned char *out, size_t *outl, size_t outsize);
-
-/* Звільнення пам'яті */
-void EVP_MAC_CTX_free(EVP_MAC_CTX *ctx);
-void EVP_MAC_free(EVP_MAC *mac);
-```
-```cpp
-#include <openssl/evp.h>
-#include <openssl/params.h>
-
-// Сигнатури функцій OpenSSL C API залишаються ідентичними в C++
-// Проте ідіоматичний C++ огортає їх у RAII-покажчики std::unique_ptr:
-extern "C" {
-    EVP_MAC *EVP_MAC_fetch(OSSL_LIB_CTX *libctx, const char *algorithm, const char *properties);
-    EVP_MAC_CTX *EVP_MAC_CTX_new(EVP_MAC *mac);
-    EVP_MAC_CTX *EVP_MAC_CTX_dup(const EVP_MAC_CTX *src);
-    int EVP_MAC_init(EVP_MAC_CTX *ctx, const unsigned char *key, size_t keylen, const OSSL_PARAM params[]);
-    int EVP_MAC_update(EVP_MAC_CTX *ctx, const unsigned char *data, size_t datalen);
-    int EVP_MAC_final(EVP_MAC_CTX *ctx, unsigned char *out, size_t *outl, size_t outsize);
-    void EVP_MAC_CTX_free(EVP_MAC_CTX *ctx);
-    void EVP_MAC_free(EVP_MAC *mac);
-}
-```
+:::code api-hmac-interfaces/c/evp.h
+:::code api-hmac-interfaces/cpp/syhnatury-funktsii-openssl.hpp
 :::
 
 ### Таблиця параметрів OSSL_PARAM для HMAC
@@ -89,98 +52,8 @@ extern "C" {
 ### Робочий приклад використання OpenSSL EVP_MAC
 
 :::tabs
-```c
-#include <stdio.h>
-#include <string.h>
-#include <openssl/evp.h>
-#include <openssl/params.h>
-#include <openssl/core_names.h>
-
-int compute_openssl_hmac_sha256(
-    const unsigned char *key, size_t key_len,
-    const unsigned char *data, size_t data_len,
-    unsigned char *out_mac, size_t *out_mac_len)
-{
-    EVP_MAC *mac = EVP_MAC_fetch(NULL, "HMAC", NULL);
-    if (!mac) return 0;
-
-    EVP_MAC_CTX *ctx = EVP_MAC_CTX_new(mac);
-    if (!ctx) {
-        EVP_MAC_free(mac);
-        return 0;
-    }
-
-    char digest_name[] = "SHA256";
-    OSSL_PARAM params[2];
-    params[0] = OSSL_PARAM_construct_utf8_string(OSSL_MAC_PARAM_DIGEST, digest_name, 0);
-    params[1] = OSSL_PARAM_construct_end();
-
-    int ok = 1;
-    ok &= EVP_MAC_init(ctx, key, key_len, params);
-    ok &= EVP_MAC_update(ctx, data, data_len);
-    ok &= EVP_MAC_final(ctx, out_mac, out_mac_len, 32);
-
-    EVP_MAC_CTX_free(ctx);
-    EVP_MAC_free(mac);
-    return ok;
-}
-```
-```cpp
-#include <array>
-#include <cstddef>
-#include <cstdint>
-#include <memory>
-#include <span>
-#include <stdexcept>
-#include <string_view>
-#include <openssl/evp.h>
-#include <openssl/params.h>
-#include <openssl/core_names.h>
-
-namespace crypto {
-
-class OpenSslHmac {
-public:
-    explicit OpenSslHmac(std::span<const uint8_t> key, std::string_view hash_name = "SHA256")
-        : mac_(EVP_MAC_fetch(nullptr, "HMAC", nullptr), EVP_MAC_free),
-          ctx_(nullptr, EVP_MAC_CTX_free)
-    {
-        if (!mac_) throw std::runtime_error("Не вдалося завантажити провайдер HMAC");
-        ctx_.reset(EVP_MAC_CTX_new(mac_.get()));
-        if (!ctx_) throw std::runtime_error("Не вдалося створити контекст EVP_MAC_CTX");
-
-        std::array<OSSL_PARAM, 2> params{};
-        params[0] = OSSL_PARAM_construct_utf8_string(
-            OSSL_MAC_PARAM_DIGEST, const_cast<char*>(hash_name.data()), hash_name.size());
-        params[1] = OSSL_PARAM_construct_end();
-
-        if (EVP_MAC_init(ctx_.get(), key.data(), key.size(), params.data()) <= 0) {
-            throw std::runtime_error("Помилка ініціалізації EVP_MAC_init");
-        }
-    }
-
-    void update(std::span<const uint8_t> data) {
-        if (EVP_MAC_update(ctx_.get(), data.data(), data.size()) <= 0) {
-            throw std::runtime_error("Помилка оновлення EVP_MAC_update");
-        }
-    }
-
-    [[nodiscard]] std::array<uint8_t, 32> finalize() {
-        std::array<uint8_t, 32> out{};
-        size_t written = 0;
-        if (EVP_MAC_final(ctx_.get(), out.data(), &written, out.size()) <= 0) {
-            throw std::runtime_error("Помилка фіналізації EVP_MAC_final");
-        }
-        return out;
-    }
-
-private:
-    std::unique_ptr<EVP_MAC, decltype(&EVP_MAC_free)> mac_;
-    std::unique_ptr<EVP_MAC_CTX, decltype(&EVP_MAC_CTX_free)> ctx_;
-};
-
-} // namespace crypto
-```
+:::code api-hmac-interfaces/c/robochyi-pryklad.c
+:::code api-hmac-interfaces/cpp/robochyi-pryklad.cpp
 :::
 
 ## 2. Інтерфейс ядра Linux (Linux Kernel Crypto API)
@@ -206,25 +79,7 @@ private:
 ### Сигнатури функцій ядра Linux
 
 :::tabs
-```c
-#include <crypto/hash.h>
-#include <linux/crypto.h>
-
-/* Виділення та звільнення трансформації алгоритму */
-struct crypto_shash *crypto_alloc_shash(const char *alg_name, u32 type, u32 mask);
-void crypto_free_shash(struct crypto_shash *tfm);
-
-/* Встановлення таємного ключа сесії */
-int crypto_shash_setkey(struct crypto_shash *tfm, const u8 *key, unsigned int keylen);
-
-/* Одноразове обчислення підпису над неперервним буфером */
-int crypto_shash_digest(struct shash_desc *desc, const u8 *data, unsigned int len, u8 *out);
-
-/* Потоковий API для фрагментованих пакетів (sk_buff) */
-int crypto_shash_init(struct shash_desc *desc);
-int crypto_shash_update(struct shash_desc *desc, const u8 *data, unsigned int len);
-int crypto_shash_final(struct shash_desc *desc, u8 *out);
-```
+:::code api-hmac-interfaces/c/hash.h
 ```cpp
 // У просторі ядра Linux компіляція здійснюється виключно компілятором C (GCC/Clang для ядра).
 // C++ у ядрі заборонений через відсутність середовища виконання, винятків та RTTI (§5).
@@ -241,114 +96,8 @@ int crypto_shash_final(struct shash_desc *desc, u8 *out);
 ### Робочий модуль ядра Linux
 
 :::tabs
-```c
-#include <linux/module.h>
-#include <linux/crypto.h>
-#include <crypto/hash.h>
-#include <linux/err.h>
-#include <linux/slab.h>
-
-int kernel_compute_hmac_sha256(const u8 *key, unsigned int key_len,
-                               const u8 *data, unsigned int data_len,
-                               u8 *out_mac)
-{
-    struct crypto_shash *tfm;
-    struct shash_desc *desc;
-    int ret;
-
-    /* 1. Виділення трансформації HMAC на базі SHA-256 */
-    tfm = crypto_alloc_shash("hmac(sha256)", 0, 0);
-    if (IS_ERR(tfm)) {
-        pr_err("crypto_alloc_shash hmac(sha256) failed: %ld\n", PTR_ERR(tfm));
-        return PTR_ERR(tfm);
-    }
-
-    /* 2. Встановлення секретного ключа */
-    ret = crypto_shash_setkey(tfm, key, key_len);
-    if (ret) {
-        crypto_free_shash(tfm);
-        return ret;
-    }
-
-    /* 3. Виділення пам'яті під дескриптор зі збереженням секретного стану */
-    desc = kmalloc(sizeof(*desc) + crypto_shash_descsize(tfm), GFP_KERNEL);
-    if (!desc) {
-        crypto_free_shash(tfm);
-        return -ENOMEM;
-    }
-    desc->tfm = tfm;
-
-    /* 4. Одноразове обчислення дайджесту */
-    ret = crypto_shash_digest(desc, data, data_len, out_mac);
-
-    /* 5. Безпечне очищення чутливих даних дескриптора */
-    kfree_sensitive(desc);
-    crypto_free_shash(tfm);
-    return ret;
-}
-```
-```cpp
-// Приклад виклику криптопідсистеми з простору користувача через сокети AF_ALG (C++20)
-#include <array>
-#include <cstdint>
-#include <cstring>
-#include <span>
-#include <stdexcept>
-#include <sys/socket.h>
-#include <linux/if_alg.h>
-#include <unistd.h>
-
-namespace crypto {
-
-class LinuxAfAlgHmac {
-public:
-    explicit LinuxAfAlgHmac(std::span<const uint8_t> key) {
-        sock_ = socket(AF_ALG, SOCK_SEQPACKET, 0);
-        if (sock_ < 0) throw std::runtime_error("Не вдалося відкрити AF_ALG сокет");
-
-        struct sockaddr_alg sa{};
-        sa.salg_family = AF_ALG;
-        std::strcpy(reinterpret_cast<char*>(sa.salg_type), "hash");
-        std::strcpy(reinterpret_cast<char*>(sa.salg_name), "hmac(sha256)");
-
-        if (bind(sock_, reinterpret_cast<struct sockaddr*>(&sa), sizeof(sa)) < 0) {
-            close(sock_);
-            throw std::runtime_error("Помилка bind AF_ALG hmac(sha256)");
-        }
-        if (setsockopt(sock_, SOL_ALG, ALG_SET_KEY, key.data(), key.size()) < 0) {
-            close(sock_);
-            throw std::runtime_error("Помилка встановлення ключа ALG_SET_KEY");
-        }
-        op_sock_ = accept(sock_, nullptr, nullptr);
-        if (op_sock_ < 0) {
-            close(sock_);
-            throw std::runtime_error("Помилка accept AF_ALG");
-        }
-    }
-
-    ~LinuxAfAlgHmac() {
-        if (op_sock_ >= 0) close(op_sock_);
-        if (sock_ >= 0) close(sock_);
-    }
-
-    [[nodiscard]] std::array<uint8_t, 32> sign(std::span<const uint8_t> data) {
-        if (write(op_sock_, data.data(), data.size()) < 0) {
-            throw std::runtime_error("Помилка запису даних у AF_ALG сокет");
-        }
-        std::array<uint8_t, 32> out{};
-        if (read(op_sock_, out.data(), out.size()) != static_cast<ssize_t>(out.size())) {
-            throw std::runtime_error("Помилка читання підпису з AF_ALG сокета");
-        }
-        return out;
-    }
-
-private:
-    int sock_{-1};
-    int op_sock_{-1};
-};
-
-} // namespace crypto
-```
+:::code api-hmac-interfaces/c/robochyi-modul-iadra-linux.c
+:::code api-hmac-interfaces/cpp/robochyi-modul-iadra-linux.cpp
 :::
 
 ## 3. Інтерфейси Web Crypto API та Node.js
@@ -365,72 +114,13 @@ private:
 2. **`crypto.subtle.sign()`:** асинхронно обчислює HMAC над буфером `ArrayBuffer` або типізованим масивом `Uint8Array`.
 3. **`crypto.subtle.verify()`:** виконує вбудоване константне порівняння отриманого підпису з очікуваним значенням безпосередньо у скомпільованому коді браузерного рушія C++, запобігаючи витоку за часом виконання.
 
-```typescript
-// Повний цикл підписування та перевірки у TypeScript
-async function runWebCryptoHmacDemo(): Promise<void> {
-    const rawKey = new Uint8Array([0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b,
-                                  0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b,
-                                  0x0b, 0x0b, 0x0b, 0x0b]);
-    const message = new TextEncoder().encode("Hi There");
-
-    // 1. Імпорт ключа в захищений криптографічний контекст
-    const cryptoKey: CryptoKey = await crypto.subtle.importKey(
-        "raw",
-        rawKey,
-        { name: "HMAC", hash: { name: "SHA-256" } },
-        false, // Заборона експорту значення ключа в JS-пам'ять
-        ["sign", "verify"]
-    );
-
-    // 2. Обчислення підпису
-    const signatureBuffer: ArrayBuffer = await crypto.subtle.sign(
-        "HMAC",
-        cryptoKey,
-        message
-    );
-
-    // 3. Константна перевірка автентичності
-    const isValid: boolean = await crypto.subtle.verify(
-        "HMAC",
-        cryptoKey,
-        signatureBuffer,
-        message
-    );
-
-    console.log(`Статус перевірки: ${isValid ? "OK" : "FAILED"}`);
-}
-```
+:::code api-hmac-interfaces/ts/index.ts
 
 ### Node.js Crypto API
 
 У серверному середовищі Node.js модуль `node:crypto` надає прямий доступ до оптимізованих C++ обгорток OpenSSL через клас `Hmac` та функцію `crypto.timingSafeEqual`:
 
-```javascript
-import crypto from 'node:crypto';
-
-// Одноразове підписування рядка чи бінарного буфера
-function signPayload(secretKey, payloadString) {
-    const hmac = crypto.createHmac('sha256', secretKey);
-    hmac.update(payloadString, 'utf8');
-    return hmac.digest('hex');
-}
-
-// Захищена верифікація з обов'язковою попередньою перевіркою довжини буферів
-function verifyPayload(secretKey, payloadString, expectedHexSignature) {
-    const computedSignature = crypto.createHmac('sha256', secretKey)
-                                    .update(payloadString, 'utf8')
-                                    .digest();
-    const expectedSignature = Buffer.from(expectedHexSignature, 'hex');
-
-    // Перевірка рівності довжин перед викликом timingSafeEqual:
-    // timingSafeEqual викидає виняток RangeError, якщо довжини буферів не збігаються!
-    if (computedSignature.length !== expectedSignature.length) {
-        return false;
-    }
-
-    return crypto.timingSafeEqual(computedSignature, expectedSignature);
-}
-```
+:::code api-hmac-interfaces/js/index.js
 
 ## 4. Еталонні вектори валідації RFC 4231 (HMAC-SHA-256)
 
@@ -476,47 +166,8 @@ function verifyPayload(secretKey, payloadString, expectedHexSignature) {
 У старих проектах часто зустрічається застарілий інтерфейс `HMAC_CTX` бібліотеки OpenSSL 1.1.1:
 
 :::tabs
-```c
-/* Застарілий підхід OpenSSL 1.1.1 (deprecated у 3.0) */
-#include <openssl/hmac.h>
-
-void legacy_openssl_hmac(const unsigned char *key, int key_len,
-                         const unsigned char *data, size_t data_len,
-                         unsigned char *out_mac, unsigned int *out_len)
-{
-    HMAC_CTX *ctx = HMAC_CTX_new();
-    HMAC_Init_ex(ctx, key, key_len, EVP_sha256(), NULL);
-    HMAC_Update(ctx, data, data_len);
-    HMAC_Final(ctx, out_mac, out_len);
-    HMAC_CTX_free(ctx);
-}
-```
-```cpp
-// Застарілий підхід OpenSSL 1.1.1 з використанням RAII-обгортки (deprecated у 3.0)
-#include <memory>
-#include <span>
-#include <array>
-#include <openssl/hmac.h>
-
-namespace legacy {
-
-[[nodiscard]] std::array<uint8_t, 32> hmac_sha256(
-    std::span<const uint8_t> key,
-    std::span<const uint8_t> data)
-{
-    std::unique_ptr<HMAC_CTX, decltype(&HMAC_CTX_free)> ctx(HMAC_CTX_new(), HMAC_CTX_free);
-    if (!ctx) return {};
-
-    HMAC_Init_ex(ctx.get(), key.data(), static_cast<int>(key.size()), EVP_sha256(), nullptr);
-    HMAC_Update(ctx.get(), data.data(), data.size());
-    std::array<uint8_t, 32> out{};
-    unsigned int len = 0;
-    HMAC_Final(ctx.get(), out.data(), &len);
-    return out;
-}
-
-} // namespace legacy
-```
+:::code api-hmac-interfaces/c/6-mihratsiia-z-openssl-1-1.c
+:::code api-hmac-interfaces/cpp/6-mihratsiia-z-openssl-1-1.cpp
 :::
 
 ### Чому OpenSSL відмовився від HMAC_CTX:
@@ -548,102 +199,8 @@ namespace legacy {
 ### Контракт виклику PKCS#11 у C та C++
 
 :::tabs
-```c
-#include <stdio.h>
-#include <string.h>
-
-/* Типізовані структури PKCS#11 (Cryptoki) */
-typedef unsigned long CK_RV;
-typedef unsigned long CK_SESSION_HANDLE;
-typedef unsigned long CK_OBJECT_HANDLE;
-typedef unsigned long CK_MECHANISM_TYPE;
-
-#define CKR_OK 0x00000000
-#define CKM_SHA256_HMAC 0x00000251
-
-typedef struct CK_MECHANISM {
-    CK_MECHANISM_TYPE mechanism;
-    void *pParameter;
-    unsigned long ulParameterLen;
-} CK_MECHANISM;
-
-/* Сигнатури стандартних функцій Cryptoki */
-CK_RV C_SignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM *pMechanism, CK_OBJECT_HANDLE hKey);
-CK_RV C_Sign(CK_SESSION_HANDLE hSession, unsigned char *pData, unsigned long ulDataLen,
-             unsigned char *pSignature, unsigned long *pulSignatureLen);
-
-/* Приклад використання апаратного HMAC */
-int hsm_sign_message(CK_SESSION_HANDLE session, CK_OBJECT_HANDLE hmac_key,
-                     const unsigned char *data, unsigned long data_len,
-                     unsigned char *signature, unsigned long *sig_len)
-{
-    CK_MECHANISM mech = { CKM_SHA256_HMAC, NULL, 0 };
-    CK_RV rv;
-
-    /* 1. Ініціалізація операції підпису на захищеному токені */
-    rv = C_SignInit(session, &mech, hmac_key);
-    if (rv != CKR_OK) return 0;
-
-    /* 2. Обчислення підпису всередині HSM (ключ не потрапляє в RAM хоста) */
-    rv = C_Sign(session, (unsigned char *)data, data_len, signature, sig_len);
-    return (rv == CKR_OK);
-}
-```
-```cpp
-#include <array>
-#include <cstddef>
-#include <cstdint>
-#include <span>
-#include <stdexcept>
-
-namespace hsm {
-
-using SessionHandle = unsigned long;
-using ObjectHandle = unsigned long;
-using ReturnValue = unsigned long;
-
-constexpr ReturnValue CkrOk = 0;
-constexpr unsigned long CkmSha256Hmac = 0x00000251;
-
-struct Mechanism {
-    unsigned long mechanism;
-    void* parameter;
-    unsigned long parameter_len;
-};
-
-extern "C" {
-    ReturnValue C_SignInit(SessionHandle hSession, Mechanism* pMechanism, ObjectHandle hKey);
-    ReturnValue C_Sign(SessionHandle hSession, unsigned char* pData, unsigned long ulDataLen,
-                       unsigned char* pSignature, unsigned long* pulSignatureLen);
-}
-
-class HsmHmacSigner {
-public:
-    HsmHmacSigner(SessionHandle session, ObjectHandle key) noexcept
-        : session_(session), key_(key) {}
-
-    [[nodiscard]] std::array<uint8_t, 32> sign(std::span<const uint8_t> data) const {
-        Mechanism mech{ CkmSha256Hmac, nullptr, 0 };
-        if (C_SignInit(session_, &mech, key_) != CkrOk) {
-            throw std::runtime_error("Помилка C_SignInit у HSM");
-        }
-
-        std::array<uint8_t, 32> signature{};
-        unsigned long sig_len = signature.size();
-        if (C_Sign(session_, const_cast<unsigned char*>(data.data()), data.size(),
-                   signature.data(), &sig_len) != CkrOk) {
-            throw std::runtime_error("Помилка C_Sign у HSM");
-        }
-        return signature;
-    }
-
-private:
-    SessionHandle session_;
-    ObjectHandle key_;
-};
-
-} // namespace hsm
-```
+:::code api-hmac-interfaces/c/kontrakt-vyklyku-pkcs-11-u.c
+:::code api-hmac-interfaces/cpp/kontrakt-vyklyku-pkcs-11-u.cpp
 :::
 
 ## 8. Інтерфейси у сучасних системних мовах: Go та Rust
@@ -654,27 +211,7 @@ private:
 
 Стандартна бібліотека Go реалізує інтерфейс `hash.Hash`:
 
-```go
-package main
-
-import (
-    "crypto/hmac"
-    "crypto/sha256"
-)
-
-// Генерація HMAC-SHA256 підпису
-func Sign(key, data []byte) []byte {
-    mac := hmac.New(sha256.New, key)
-    mac.Write(data)
-    return mac.Sum(nil)
-}
-
-// Захищена верифікація через hmac.Equal (вбудований константний час)
-func Verify(key, data, expectedMAC []byte) bool {
-    actualMAC := Sign(key, data)
-    return hmac.Equal(actualMAC, expectedMAC)
-}
-```
+:::code api-hmac-interfaces/go/main.go
 
 #### Чому `hmac.Equal` обов'язковий:
 Функція `hmac.Equal(mac1, mac2)` у стандартній бібліотеці Go виконує побайтове `XOR`-порівняння через `crypto/subtle.ConstantTimeCompare` і додатково перевіряє рівність довжин без витоку інформації через часові розгалуження. Використання оператора `bytes.Equal(mac1, mac2)` у Go є грубою вразливістю, оскільки він реалізований на базі інструкцій SIMD із раннім виходом.
@@ -683,28 +220,7 @@ func Verify(key, data, expectedMAC []byte) bool {
 
 У Rust ідіоматична робота з HMAC базується на системі типажів `crypto-bigint` та `digest`:
 
-```rust
-use hmac::{Hmac, Mac};
-use sha2.Sha256;
-use subtle::ConstantTimeEq;
-
-type HmacSha256 = Hmac<Sha256>;
-
-fn sign(key: &[u8], data: &[u8]) -> [u8; 32] {
-    let mut mac = HmacSha256::new_from_slice(key)
-        .expect("HMAC може приймати ключ будь-якої довжини");
-    mac.update(data);
-    mac.finalize().into_bytes().into()
-}
-
-fn verify(key: &[u8], data: &[u8], expected_mac: &[u8]) -> bool {
-    let mut mac = HmacSha256::new_from_slice(key)
-        .expect("HMAC може приймати ключ будь-якої довжини");
-    mac.update(data);
-    // Метод verify_slice використовує ConstantTimeEq
-    mac.verify_slice(expected_mac).is_ok()
-}
-```
+:::code api-hmac-interfaces/rust/main.rs
 
 Крейт `subtle` гарантує через асемблерні чорні скриньки (`black_box`), що компілятор `rustc` / LLVM не оптимізує цикл перевірки підпису у векторний код із достроковим перериванням.
 

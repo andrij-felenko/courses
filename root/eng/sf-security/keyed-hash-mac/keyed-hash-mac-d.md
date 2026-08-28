@@ -306,30 +306,8 @@ bool vulnerable_memcmp(const uint8_t *a, const uint8_t *b, size_t len) {
 Правильна перевірка зобов'язана виконуватися у **константному часі** (Constant-Time):
 
 :::tabs
-```c
-/* БЕЗПЕЧНО: Час роботи повністю незалежний від позиції та наявності розбіжностей */
-bool constant_time_memcmp(const uint8_t *a, const uint8_t *b, size_t len) {
-    volatile uint8_t diff = 0;
-    
-    for (size_t i = 0; i < len; ++i) {
-        diff |= (uint8_t)(a[i] ^ b[i]);
-    }
-    
-    return diff == 0;
-}
-```
-```cpp
-/* БЕЗПЕЧНО: Час роботи повністю незалежний від позиції та наявності розбіжностей */
-[[nodiscard]] bool constant_time_memcmp(std::span<const uint8_t> a,
-                                        std::span<const uint8_t> b) noexcept {
-    if (a.size() != b.size()) return false;
-    volatile uint8_t diff = 0;
-    for (size_t i = 0; i < a.size(); ++i) {
-        diff |= static_cast<uint8_t>(a[i] ^ b[i]);
-    }
-    return diff == 0;
-}
-```
+:::code keyed-hash-mac-d/c/main.c
+:::code keyed-hash-mac-d/cpp/main.cpp
 :::
 
 Використання ключового слова `volatile` є критичним: агресивні оптимізатори сучасних компіляторів (GCC, Clang) здатні розпізнати шаблон накопичення `diff` і автоматично згорнути його у векторну інструкцію з раннім перериванням, якщо не заблокувати це бар'єрами пам'яті.

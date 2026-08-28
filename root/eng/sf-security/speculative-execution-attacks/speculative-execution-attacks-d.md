@@ -84,40 +84,8 @@ Commit/Retire (In-Order) ← Reorder Buffer (ROB) ← ALU / Load / Store
 Чому цей захист розвалився в кремнії? Розгляньмо три мікрооперації, запущені непривілейованим кодом:
 
 :::tabs
-```c
-/* kernel_address — заборонений покажчик на пам'ять ядра */
-uint8_t probe_array[256 * 4096];
-
-void trigger_meltdown(const uint8_t *kernel_address) {
-    /* 1. Спроба прямого читання пам'яті ядра */
-    uint8_t secret = *kernel_address; 
-
-    /* 2. Транзитне мапування секрету в зміщення масиву-зонда */
-    uint8_t dummy = probe_array[secret * 4096];
-    (void)dummy;
-}
-```
-```cpp
-#include <cstdint>
-#include <array>
-#include <span>
-
-namespace meltdown {
-
-constexpr size_t PageSize = 4096;
-alignas(64) std::array<uint8_t, 256 * PageSize> probe_array{};
-
-void trigger(const uint8_t* kernel_address) noexcept {
-    // 1. Непривілейоване читання пам'яті Ring 0
-    uint8_t secret = *kernel_address;
-
-    // 2. Спекулятивне звернення до зонда
-    volatile uint8_t dummy = probe_array[static_cast<size_t>(secret) * PageSize];
-    static_cast<void>(dummy);
-}
-
-} // namespace meltdown
-```
+:::code speculative-execution-attacks-d/c/mikroarkhitekturna.c
+:::code speculative-execution-attacks-d/cpp/mikroarkhitekturna.cpp
 :::
 
 На апаратному рівні процесорів Intel процеси завантаження даних із кешу L1D та перевірки прав доступу в блоці керування пам'яттю (MMU) відбувалися **паралельно**:
@@ -139,44 +107,8 @@ void trigger(const uint8_t* kernel_address) noexcept {
 Варіант 1 (Spectre-v1) експлуатує провісник умовних розгалужень (англ. *Pattern History Table*, PHT / *Branch Direction Predictor*). Розгляньмо класичний захисний шаблон перевірки меж масиву, присутній у будь-якому ядрі чи пісочниці:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-
-struct SafeArray {
-    unsigned int length;
-    uint8_t data[16];
-};
-
-uint8_t victim_function(const struct SafeArray *arr, size_t x, const uint8_t *probe) {
-    if (x < arr->length) {
-        return probe[arr->data[x] * 4096];
-    }
-    return 0;
-}
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <span>
-#include <vector>
-
-namespace spectre_v1 {
-
-struct SafeBuffer {
-    size_t length;
-    std::vector<uint8_t> data;
-};
-
-[[nodiscard]] uint8_t victim_function(const SafeBuffer& buffer, size_t x, std::span<const uint8_t> probe) noexcept {
-    if (x < buffer.length) {
-        return probe[buffer.data[x] * 4096];
-    }
-    return 0;
-}
-
-} // namespace spectre_v1
-```
+:::code speculative-execution-attacks-d/c/spectre-variant-1-cve-2017.c
+:::code speculative-execution-attacks-d/cpp/spectre-variant-1-cve-2017.cpp
 :::
 
 Програміст очікує, що код усередині блоку `if` виконається *лише тоді*, коли індекс `x` гарантовано валідний. Проте на рівні машинних команд процесор бачить перехід `JAE` (jump if above or equal).
@@ -271,36 +203,8 @@ set_up_target:
 Для блокування спекулятивного виходу за межі масивів використовують інструкцію серіалізації конвеєра `LFENCE` (Load Fence):
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-#include <x86intrin.h>
-
-uint8_t secure_array_access(const uint8_t *arr, size_t len, size_t index) {
-    if (index < len) {
-        /* lfence блокує виконання наступних команд до розв'язання гілки */
-        _mm_lfence();
-        return arr[index];
-    }
-    return 0;
-}
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <optional>
-#include <span>
-#include <x86intrin.h>
-
-[[nodiscard]] std::optional<uint8_t> secure_read(std::span<const uint8_t> arr, size_t index) noexcept {
-    if (index < arr.size()) {
-        // Бар'єр запобігає випереджальному доступу до пам'яті
-        _mm_lfence();
-        return arr[index];
-    }
-    return std::nullopt;
-}
-```
+:::code speculative-execution-attacks-d/c/3-aparatni-bariery-ta.c
+:::code speculative-execution-attacks-d/cpp/3-aparatni-bariery-ta.cpp
 :::
 
 З моменту публікації Spectre компанії Intel та AMD оновили мікрокод процесорів: інструкція `LFENCE` стала суворо серіалізувальною (англ. *dispatch/execution barrier*). Вона забороняє процесору видавати будь-які наступні мікрооперації на виконання, доки всі попередні умовні переходи не завершаться архітектурно на стадії commit.

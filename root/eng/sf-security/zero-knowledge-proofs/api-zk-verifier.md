@@ -28,30 +28,7 @@
 
 Переходи між станами автомата є строго монотонними. Будь-яке порушення послідовності викликів функцій переводить сесію у термінальний стан помилки `ZK_STATE_ERROR`.
 
-```c
-typedef enum {
-    ZK_STATE_UNINITIALIZED = 0,
-    ZK_STATE_WAITING_COMMITMENT = 1,
-    ZK_STATE_CHALLENGE_GENERATED = 2,
-    ZK_STATE_VERIFIED_ACCEPTED = 3,
-    ZK_STATE_VERIFIED_REJECTED = 4,
-    ZK_STATE_ERROR = 5
-} zk_verifier_state_t;
-
-typedef struct {
-    zk_protocol_id_t     protocol_id;     /* Ідентифікатор типу протоколу */
-    zk_verifier_state_t  state;           /* Поточний стан автомата */
-    uint64_t             session_id;      /* Унікальний ID сесії взаємодії */
-    uint32_t             security_bits;   /* Рівень безпеки (наприклад, 128 або 256 біт) */
-    
-    zk_field_element_t   public_input[8];  /* Загальнодоступний вхід x */
-    uint32_t             public_input_len;
-    
-    zk_field_element_t   commitment_R;    /* Зобов'язання R від доводжувача */
-    zk_field_element_t   challenge_e;     /* Випадковий виклик верифікатора */
-    zk_field_element_t   response_s;      /* Відповідь s від доводжувача */
-} zk_interactive_session_t;
-```
+:::code api-zk-verifier/c/struktura-stanu.c
 
 ### Структура SNARK-доказу та CRS параметрів
 
@@ -59,22 +36,7 @@ typedef struct {
 
 Точка `alpha_g1` та `beta_g2` закодовані під час фази довіреної установки (англ. *trusted setup*). Масив `ic_query` містить комбінацію точок для лінійної комбінації публічних сигналів входу.
 
-```c
-typedef struct {
-    zk_curve_point_g1_t  pi_a;            /* Елемент A у групі G1 */
-    zk_curve_point_g2_t  pi_b;            /* Елемент B у групі G2 */
-    zk_curve_point_g1_t  pi_c;            /* Елемент C у групі G1 */
-} zk_snark_groth16_proof_t;
-
-typedef struct {
-    zk_curve_point_g1_t  alpha_g1;
-    zk_curve_point_g2_t  beta_g2;
-    zk_curve_point_g2_t  gamma_g2;
-    zk_curve_point_g2_t  delta_g2;
-    zk_curve_point_g1_t *ic_query;       /* Масив точок публічного входу */
-    uint32_t             ic_query_len;
-} zk_verification_key_t;
-```
+:::code api-zk-verifier/c/struktura-snark-dokazu-ta.c
 
 ## 2. Коди помилок та детальний аналіз виключних ситуацій
 
@@ -108,55 +70,7 @@ typedef struct {
 
 Кожна функція перевіряє поточний стан структури `session` перед виконанням операцій.
 
-```c
-/**
- * @brief Ініціалізація нової верифікаційної сесії.
- * @param session Вказівник на структуру сесії.
- * @param protocol Ідентифікатор криптографічного протоколу.
- * @param public_inputs Масив публічних даних x.
- * @param inputs_len Кількість елементів публічного входу.
- * @return ZK_SUCCESS або код помилки.
- */
-int32_t zk_verifier_init(
-    zk_interactive_session_t *session,
-    zk_protocol_id_t          protocol,
-    const zk_field_element_t *public_inputs,
-    uint32_t                  inputs_len
-);
-
-/**
- * @brief Прийом зобов'язання R від доводжувача та перехід у стан WAITING_COMMITMENT.
- * @param session Вказівник на активну сесію.
- * @param commitment_R Байт-масив зобов'язання R.
- * @return ZK_SUCCESS у разі коректності елемента.
- */
-int32_t zk_verifier_process_commitment(
-    zk_interactive_session_t *session,
-    const zk_field_element_t *commitment_R
-);
-
-/**
- * @brief Генерація криптографічно стійкого виклику e (Challenge).
- * @param session Вказівник на активну сесію.
- * @param out_challenge Буфер для запису згенерованого числа e.
- * @return ZK_SUCCESS при успішній генерації з системного джерела CSPRNG.
- */
-int32_t zk_verifier_generate_challenge(
-    zk_interactive_session_t *session,
-    zk_field_element_t       *out_challenge
-);
-
-/**
- * @brief Отримання відповіді s, перевірка алгебраїчного рівняння та фіналізація.
- * @param session Вказівник на активну сесію.
- * @param response_s Байт-масив відповіді s.
- * @return ZK_SUCCESS якщо доказ прийнято, або ZK_ERR_VERIFICATION_FAILED при відхиленні.
- */
-int32_t zk_verifier_process_response(
-    zk_interactive_session_t *session,
-    const zk_field_element_t *response_s
-);
-```
+:::code api-zk-verifier/c/skvoznyi-potik.h
 
 ### Неінтерактивний API (NIZK / ZK-SNARK Verifier)
 
@@ -164,22 +78,7 @@ int32_t zk_verifier_process_response(
 
 Обчислювальний порядок функції дорівнює `O(1)` відносно розміру доказу, та `O(|x|)` відносно кількості публічних сигналів входу.
 
-```c
-/**
- * @brief Однокрокова перевірка стислого неінтерактивного доказу ZK-SNARK (Groth16).
- * @param vk Вказівник на перевірочний ключ (Verification Key).
- * @param proof Вказівник на структуру доказу (pi_a, pi_b, pi_c).
- * @param public_inputs Вектор публічних вхідних сигналів.
- * @param inputs_len Кількість публічних сигналів.
- * @return ZK_SUCCESS якщо спарювання e(A,B) == e(alpha,beta) * e(x, gamma) * e(C, delta).
- */
-int32_t zk_nizk_groth16_verify(
-    const zk_verification_key_t   *vk,
-    const zk_snark_groth16_proof_t *proof,
-    const zk_field_element_t      *public_inputs,
-    uint32_t                       inputs_len
-);
-```
+:::code api-zk-verifier/c/neinteraktyvnyi-api-nizk.c
 
 ## 4. Схема переходів станів автомата верифікатора
 

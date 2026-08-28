@@ -20,45 +20,7 @@
 
 Один виняток псує картину: найдавніший шаблон на ім'я `ima`. У нього немає поля довжини даних узагалі, хеш файлу лежить голими двадцятьма байтами без довжини, а ім'я ядро хешує в буфері на 256 байтів, доповненому нулями. Це не примха, а слід епохи, коли шаблон був один-єдиний і поля не треба було розрізняти.
 
-```py
-import hashlib, struct, sys
-
-class Cursor:
-    def __init__(self, blob, order):
-        self.b, self.o, self.order = blob, 0, order
-
-    def u32(self):
-        v = struct.unpack_from(self.order + "I", self.b, self.o)[0]
-        self.o += 4
-        return v
-
-    def take(self, n):
-        v = self.b[self.o:self.o + n]
-        self.o += n
-        return v
-
-    def more(self):
-        return self.o < len(self.b)
-
-
-def entries(blob, dlen):
-    if not blob:
-        return
-    # журнал написано в порядку байтів тієї машини; номер регістра малий,
-    # тож чужий порядок видно вже з першого поля
-    order = "<" if struct.unpack_from("<I", blob, 0)[0] < 256 else ">"
-    c, n = Cursor(blob, order), 0
-    while c.more():
-        n += 1
-        pcr = c.u32()
-        digest = c.take(dlen)
-        name = c.take(c.u32()).decode("ascii")
-        if name == "ima":                              # найдавніший шаблон
-            body = c.take(20) + c.take(c.u32()).ljust(256, b"\x00")
-        else:
-            body = c.take(c.u32())                     # пари «довжина + поле» підряд
-        yield n, pcr, digest, name, body
-```
+:::code proj-replay-measurements/py/rozibraty-zapys.py
 
 `body` — це рівно ті байти, які хешувало ядро, тож звірка запису з самим собою коштує один виклик хеша.
 
@@ -70,44 +32,7 @@ def entries(blob, dlen):
 
 Друга — проміжні значення. Знімок регістра беруть в одну мить, журнал росте в іншу, атомарно прочитати їх разом ніяк. Тому запам'ятовуємо стан регістра **після кожного запису**: тоді знімок шукається серед усіх станів одним пошуком у словнику, і відповідь виходить не «так чи ні», а «так, станом на запис такий-то».
 
-```py
-def replay(blob, algo):
-    h = lambda b: hashlib.new(algo, b).digest()
-    dlen = hashlib.new(algo).digest_size
-    pcr, trace = b"\x00" * dlen, {}
-    broken, violations = [], []
-    for n, _idx, digest, name, body in entries(blob, dlen):
-        if digest == b"\x00" * dlen:            # порушення: у список ідуть нулі,
-            violations.append((n, name))        # а в чип — одиниці
-            digest = b"\xff" * dlen
-        elif digest != h(body):
-            broken.append((n, name))            # запис не сходиться сам із собою
-        pcr = h(pcr + digest)
-        trace[pcr] = n
-    return trace, broken, violations
-
-
-def main(path, quoted_hex, algo="sha1"):
-    trace, broken, violations = replay(open(path, "rb").read(), algo)
-    total = max(trace.values(), default=0)
-
-    for n, name in broken:
-        print(f"запис {n} ({name}): хеш запису не відповідає власним даним")
-    for n, name in violations:
-        print(f"запис {n} ({name}): порушення — регістр отруєно навмисне")
-
-    at = trace.get(bytes.fromhex(quoted_hex))
-    if at is None:
-        print("знімок із чипа не збігається з жодним станом ланцюга — журналу вірити не можна")
-    elif at == total:
-        print(f"збіг на останньому записі: чип підтверджує всі {total} рядків")
-    else:
-        print(f"збіг на записі {at}: рядки {at + 1}..{total} дописано вже після знімка")
-
-
-if __name__ == "__main__":
-    main(*sys.argv[1:])
-```
+:::code proj-replay-measurements/py/sklasty-lantsiuh.py
 
 Номер запису тут — не абстракція: він збігається з номером рядка в текстовому переказі, тож `sed -n '4187p'` одразу показує, про який файл ідеться. Скільки записів має бути, каже `runtime_measurements_count`: збігається з нашим лічильником — розбір не з'їхав.
 

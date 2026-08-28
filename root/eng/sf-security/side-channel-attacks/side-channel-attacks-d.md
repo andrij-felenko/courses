@@ -68,24 +68,7 @@ int insecure_verify(const uint8_t *expected_mac, const uint8_t *user_mac, size_t
     return 1;
 }
 ```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <span>
-
-[[nodiscard]] bool insecure_verify(std::span<const uint8_t> expected_mac,
-                                   std::span<const uint8_t> user_mac) noexcept {
-    if (expected_mac.size() != user_mac.size()) {
-        return false;
-    }
-    for (size_t i = 0; i < expected_mac.size(); ++i) {
-        if (expected_mac[i] != user_mac[i]) {
-            return false; // Достроковий вихід при першому неспівпалому байті
-        }
-    }
-    return true;
-}
-```
+:::code side-channel-attacks-d/cpp/3-1-dostrokovyi-vykhid-u.cpp
 :::
 
 Якщо супротивник вгадав лише перший байт автентифікаційного тегу, функція перевірить два байти замість одного, збільшивши загальний час обробки запиту сервером на `Δt ≈ 5–15` наносекунд. Передаючи тисячі підроблених тегів і фільтруючи мережевий джиттер статистичними методами (медіанна фільтрація, оцінка квантилів), атакуючий байт за байтом підбирає повний 256-бітний підпис за `256 · 256 = 65 536` запитів замість повного перебору `2²⁵⁶`.
@@ -218,20 +201,7 @@ if (untrusted_index < array1_size) {
     uint8_t dummy = array2[secret * 64];
 }
 ```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <span>
-
-void speculative_leak(size_t untrusted_index,
-                      std::span<const uint8_t> array1,
-                      std::span<const uint8_t> array2) noexcept {
-    if (untrusted_index < array1.size()) {
-        const uint8_t secret = array1[untrusted_index];
-        [[maybe_unused]] volatile uint8_t dummy = array2[secret * 64];
-    }
-}
-```
+:::code side-channel-attacks-d/cpp/6-4-spekuliatyvni-ta.cpp
 :::
 
 Якщо атакувальник попередньо натренує блок передбачення переходів процесора (BPU) на серії валідних індексів, а потім передасть позамежовий `untrusted_index`, процесор спекулятивно зчитає байт `secret` з пам'яті ядра та звернеться до `array2[secret * 64]`. Навіть після відкату транзакції рядок кешу `array2[secret * 64]` залишається в кеші L1, дозволяючи відновити `secret` за допомогою Flush+Reload.
@@ -279,38 +249,8 @@ q = gcd((s')ᵉ - m, N)
 Програмний код не повинен містити жодних умовних розгалужень або табличних звернень, що залежать від секретних даних. Замість конструкцій `if (secret) { x = a; }` застосовують побітові маски:
 
 :::tabs
-```c
-#include <stdint.h>
-
-/* Безпечний умовний вибір постійного часу:
-   Повертає a, якщо condition == 1, інакше b */
-uint32_t ct_select_u32(uint32_t condition, uint32_t a, uint32_t b) {
-    uint32_t mask = -(condition);
-    #if defined(__GNUC__) || defined(__clang__)
-    __asm__ volatile ("" : "+r" (mask));
-    #endif
-    return b ^ (mask & (a ^ b));
-}
-```
-```cpp
-#include <cstdint>
-#include <concepts>
-
-namespace crypto::constant_time {
-
-/* Постійночасовий вибір значення для цілих типів */
-template <std::unsigned_integral T>
-[[nodiscard]] constexpr T select(bool condition, T a, T b) noexcept {
-    const T cond_val = condition ? static_cast<T>(1) : static_cast<T>(0);
-    T mask = static_cast<T>(-static_cast<T>(cond_val));
-    #if defined(__GNUC__) || defined(__clang__)
-    asm volatile ("" : "+r" (mask));
-    #endif
-    return b ^ (mask & (a ^ b));
-}
-
-} // namespace crypto::constant_time
-```
+:::code side-channel-attacks-d/c/main.c
+:::code side-channel-attacks-d/cpp/9-1-prohramuvannia.hpp
 :::
 
 Повний набір інженерних примітивів постійного часу (маски, `ct_memcmp`, драбина Монтгомері, безпечне стирання пам'яті) реалізовано в [практичних алгоритмах та інженерних примітивах](root:sf-security/side-channel-attacks/proj-constant-time-crypto.md).

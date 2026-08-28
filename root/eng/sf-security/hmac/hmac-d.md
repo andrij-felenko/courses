@@ -270,52 +270,8 @@ Full_JWT = Token + "." + Signature
 Для повного усунення витоку інформації функція перевірки повинна завжди переглядати всі байти масиву без умовних переходів, акумулюючи побітову різницю через операцію `OR` над покажчиками з кваліфікатором `volatile`:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-
-/* Безпечне константне порівняння масивів однакової довжини */
-int constant_time_memcmp(const void *a, const void *b, size_t len) {
-    const volatile uint8_t *p1 = (const volatile uint8_t *)a;
-    const volatile uint8_t *p2 = (const volatile uint8_t *)b;
-    uint8_t diff = 0;
-
-    for (size_t i = 0; i < len; ++i) {
-        diff |= (p1[i] ^ p2[i]);
-    }
-
-    /* Повертає 1 при повній ідентичності, 0 при будь-якій розбіжності */
-    return (diff == 0);
-}
-```
-```cpp
-#include <cstddef>
-#include <cstdint>
-#include <span>
-
-namespace crypto {
-
-/**
- * Константне порівняння двох бінарних масивів для захисту від Side-Channel атак.
- */
-[[nodiscard]] bool constant_time_equals(std::span<const uint8_t> a, std::span<const uint8_t> b) noexcept {
-    if (a.size() != b.size()) {
-        return false;
-    }
-
-    const volatile uint8_t* p1 = a.data();
-    const volatile uint8_t* p2 = b.data();
-    uint8_t diff = 0;
-
-    for (size_t i = 0; i < a.size(); ++i) {
-        diff |= static_cast<uint8_t>(p1[i] ^ p2[i]);
-    }
-
-    return diff == 0;
-}
-
-} // namespace crypto
-```
+:::code hmac-d/c/main.c
+:::code hmac-d/cpp/main.cpp
 :::
 
 Повні вихідні тексти самодостатньої реалізації HMAC-SHA256 мовами C та C++20, демонстраційний експлойт атаки подовження довжини та RAII-обгортки для безпечного затирання секретної пам'яті наведено у вставці [Практична реалізація HMAC-SHA256 та захист від атак за часом](root:sf-security/hmac/proj-hmac-impl.md).

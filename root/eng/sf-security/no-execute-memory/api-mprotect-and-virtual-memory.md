@@ -97,19 +97,7 @@ BOOL VirtualProtect(LPVOID lpAddress, SIZE_T dwSize, DWORD flNewProtect, PDWORD 
 
 ### Сигнатури системних викликів Linux
 
-```c
-#define _GNU_SOURCE
-#include <sys/mman.h>
-
-/* Виділення апаратного ключа захисту (повертає числовий індекс 1..15) */
-int pkey_alloc(unsigned int flags, unsigned int access_rights);
-
-/* Звільнення раніше виділеного ключа */
-int pkey_free(int pkey);
-
-/* Прив'язка діапазону сторінок до ключа pkey */
-int pkey_mprotect(void *addr, size_t len, int prot, int pkey);
-```
+:::code api-mprotect-and-virtual-memory/c/mman.h
 
 ### Семантика регістру PKRU
 
@@ -127,20 +115,7 @@ int pkey_mprotect(void *addr, size_t len, int prot, int pkey);
 
 ### Структура заголовка сегмента (Elf64_Phdr)
 
-```c
-#include <elf.h>
-
-typedef struct {
-    uint32_t   p_type;   /* Тип сегмента */
-    uint32_t   p_flags;  /* Прапорці прав доступу (PF_R, PF_W, PF_X) */
-    Elf64_Off  p_offset; /* Зміщення у файлі */
-    Elf64_Addr p_vaddr;  /* Віртуальна адреса завантаження */
-    Elf64_Addr p_paddr;  /* Фізична адреса */
-    uint64_t   p_filesz; /* Розмір даних у файлі */
-    uint64_t   p_memsz;  /* Розмір сегмента в RAM */
-    uint64_t   p_align;  /* Вирівнювання (4096 байтів) */
-} Elf64_Phdr;
-```
+:::code api-mprotect-and-virtual-memory/c/struktura-zaholovka.c
 
 ### Типи сегментів безпеки (p_type)
 

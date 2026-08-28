@@ -8,29 +8,7 @@ C-бібліотека надає низькорівневий апаратни�
 
 ### 1.1 Структури даних та типи
 
-```c
-/* Контекст параметрів циклічної групи еліптичної кривої (наприклад, secp256k1 або ed25519) */
-typedef struct pedersen_context_s pedersen_context_t;
-
-/* Структура 256-бітного елемента поля або скаляра (BigEndian) */
-typedef struct {
-    uint8_t bytes[32];
-} pedersen_scalar_t;
-
-/* Структура 33-бітного стиснутого елемента групи / точки кривої */
-typedef struct {
-    uint8_t bytes[33];
-} pedersen_point_t;
-
-/* Коди помилок API */
-typedef enum {
-    PEDERSEN_SUCCESS = 0,
-    PEDERSEN_ERROR_INVALID_PARAM = -1,
-    PEDERSEN_ERROR_VERIFICATION_FAILED = -2,
-    PEDERSEN_ERROR_RNG_FAILED = -3,
-    PEDERSEN_ERROR_BUFFER_TOO_SMALL = -4
-} pedersen_error_t;
-```
+:::code api-cryptographic-commitment/c/main.c
 
 ### 1.2 Сигнатури функцій C-API та детальний розбір аргументів
 
@@ -96,41 +74,7 @@ pedersen_error_t pedersen_combine(
 
 ### 2.1 C++ / Rust API класи специфікації
 
-```cpp
-namespace crypto::kzg {
-
-struct Polynomial {
-    std::vector<Scalar> coefficients; // f(X) = a0 + a1*X + ... + ad*X^d
-};
-
-struct KZGCommitment {
-    G1Point point; // C = [f(tau)]1
-};
-
-struct KZGProof {
-    G1Point proof_point; // pi = [q(tau)]1
-};
-
-class KZGScheme {
-public:
-    // Завантаження Structured Reference String (SRS) з файлу Trusted Setup
-    static KZGScheme load_srs(const std::string& srs_file_path, size_t max_degree);
-
-    // Створення зобов'язання C для полінома f(X)
-    KZGCommitment commit(const Polynomial& poly) const;
-
-    // Створення доказу оцінки в точці z: f(z) = y
-    KZGProof open_eval(const Polynomial& poly, const Scalar& z, const Scalar& y) const;
-
-    // Верифікація доказу через білінійне спарювання e(C - [y]1, [1]2) == e(pi, [tau - z]2)
-    bool verify_eval(const KZGCommitment& commitment, 
-                     const Scalar& z, 
-                     const Scalar& y, 
-                     const KZGProof& proof) const;
-};
-
-} // namespace crypto::kzg
-```
+:::code api-cryptographic-commitment/cpp/main.cpp
 
 ---
 

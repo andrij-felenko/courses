@@ -22,32 +22,8 @@
 Усі функції системного API повертають 32-бітний перелічувальний код статусу `dlog_status_t`. Значення `0` (`DLOG_SUCCESS`) строго сигналізує про успішне завершення операції та наявність вірного результату.
 
 :::tabs
-```c
-typedef enum {
-    DLOG_SUCCESS             = 0,   // Логарифм успішно знайдено
-    DLOG_NOT_FOUND           = 1,   // Логарифм не існує у вказаній групі або діапазоні
-    DLOG_INVALID_PARAM       = 2,   // Некоректні вхідні аргументи (p <= 2, g = 0, y >= p)
-    DLOG_OUT_OF_MEMORY       = 3,   // Недостатньо пам'яті для виділення хеш-таблиці BSGS
-    DLOG_TIMEOUT             = 4,   // Перевищено встановлений ліміт часу виконання
-    DLOG_MAX_STEPS_EXCEEDED  = 5,   // Перевищено максимальну кількість кроків алгоритму
-    DLOG_COLLISION_FAILED    = 6,   // Непридатна колізія в Pollard Rho (НСД(Δb, N) > 1)
-    DLOG_COMPUTE_ERROR       = 7,   // Арифметичне переповнення або ділення на нуль
-    DLOG_NOT_IMPLEMENTED     = 99   // Метод не підтримується для даної конфігурації
-} dlog_status_t;
-```
-```cpp
-enum class Status : std::int32_t {
-    Success            = 0,   // Логарифм успішно знайдено
-    NotFound           = 1,   // Логарифм не існує у вказаній групі або діапазоні
-    InvalidParam       = 2,   // Некоректні вхідні аргументи
-    OutOfMemory        = 3,   // Недостатньо пам'яті для виділення хеш-таблиці BSGS
-    Timeout            = 4,   // Перевищено встановлений ліміт часу виконання
-    MaxStepsExceeded   = 5,   // Перевищено максимальну кількість кроків алгоритму
-    CollisionFailed    = 6,   // Непридатна колізія в Pollard Rho (НСД > 1)
-    ComputeError       = 7,   // Арифметичне переповнення або ділення на нуль
-    NotImplemented     = 99   // Метод не підтримується для даної конфігурації
-};
-```
+:::code api-dlog-interface/c/2-povnyi-dovidnyk-kodiv.c
+:::code api-dlog-interface/cpp/2-povnyi-dovidnyk-kodiv.cpp
 :::
 
 ### Детальна інтерпретація та діагностика помилок
@@ -187,57 +163,14 @@ struct Result {
 ### 5.1. Керування конфігурацією та контекстом
 
 :::tabs
-```c
-/**
- * @brief Ініціалізує структуру конфігурації значеннями за замовчуванням.
- */
-dlog_status_t dlog_config_init_default(dlog_config_t *config);
-
-/**
- * @brief Створює непрозорий контекст розв'язувача.
- */
-dlog_status_t dlog_context_create(const dlog_config_t *config, void **out_ctx);
-
-/**
- * @brief Звільняє всі ресурси контексту.
- */
-void dlog_context_destroy(void *ctx);
-```
-```cpp
-namespace dlog::api {
-    class Context {
-    public:
-        explicit Context(const Config& config = {});
-        ~Context();
-        Context(const Context&) = delete;
-        Context& operator=(const Context&) = delete;
-        Context(Context&&) noexcept;
-        Context& operator=(Context&&) noexcept;
-
-        [[nodiscard]] void* get_native_handle() const noexcept;
-    private:
-        void* handle_ = nullptr;
-    };
-}
-```
+:::code api-dlog-interface/c/5-1-keruvannia.h
+:::code api-dlog-interface/cpp/5-1-keruvannia.hpp
 :::
 
 ### 5.2. Виконання обчислення логарифма
 
 :::tabs
-```c
-/**
- * @brief Обчислює дискретний логарифм x для рівняння g^x ≡ y (mod p).
- */
-dlog_status_t dlog_solve_uint64(
-    void *ctx,
-    uint64_t g,
-    uint64_t y,
-    uint64_t p,
-    uint64_t group_order,
-    dlog_result_t *result
-);
-```
+:::code api-dlog-interface/c/5-2-vykonannia.c
 ```cpp
 namespace dlog::api {
     [[nodiscard]] Result solve(
@@ -255,95 +188,7 @@ namespace dlog::api {
 
 Для розробників на C++ надається потокобезпечна Header-only обгортка у просторі імен `dlog::api`. Вона забезпечує суворе дотримання концепції RAII, обробку помилок через об'єкти `std::optional` або винятки `dlog::Exception`, а також підтримку типів `std::chrono`.
 
-```cpp
-#pragma once
-#include <cstdint>
-#include <optional>
-#include <chrono>
-#include <string>
-#include <stdexcept>
-
-namespace dlog::api {
-
-// Виняток для помилок конфігурації або арифметики
-class Exception : public std::runtime_error {
-public:
-    explicit Exception(const std::string& msg, dlog_status_t status)
-        : std::runtime_error(msg), status_(status) {}
-
-    [[nodiscard]] dlog_status_t status() const noexcept { return status_; }
-private:
-    dlog_status_t status_;
-};
-
-struct SolverOptions {
-    Method method = Method::Auto;
-    std::size_t max_memory_bytes = 1024 * 1024 * 512; // 512 MiB
-    std::uint64_t max_steps = 10000000000ULL;
-    std::uint32_t num_threads = 0;
-    bool verbose = false;
-};
-
-struct ExecutionReport {
-    std::uint64_t exponent = 0;
-    bool success = false;
-    std::uint64_t steps = 0;
-    std::chrono::duration<double, std::milli> execution_time{0};
-    std::size_t memory_bytes = 0;
-    std::string error_message;
-};
-
-class DiscreteLogEngine {
-public:
-    explicit DiscreteLogEngine(SolverOptions options = {}) 
-        : opts_(std::move(options)) {}
-
-    [[nodiscard]] ExecutionReport solve(
-        std::uint64_t g, 
-        std::uint64_t y, 
-        std::uint64_t p, 
-        std::uint64_t group_order
-    ) const {
-        dlog_config_t cfg;
-        dlog_config_init_default(&cfg);
-        cfg.method = static_cast<dlog_method_t>(opts_.method);
-        cfg.max_memory_bytes = opts_.max_memory_bytes;
-        cfg.max_steps = opts_.max_steps;
-        cfg.num_threads = opts_.num_threads;
-        cfg.verbose_logging = opts_.verbose;
-
-        void* ctx = nullptr;
-        if (dlog_context_create(&cfg, &ctx) != DLOG_SUCCESS) {
-            throw Exception("Failed to create dlog context", DLOG_OUT_OF_MEMORY);
-        }
-
-        dlog_result_t res;
-        dlog_status_t st = dlog_solve_uint64(ctx, g, y, p, group_order, &res);
-        dlog_context_destroy(ctx);
-
-        ExecutionReport report;
-        report.success = (st == DLOG_SUCCESS);
-        report.exponent = res.exponent;
-        report.steps = res.steps_executed;
-        report.execution_time = std::chrono::duration<double, std::milli>(res.time_elapsed_ms);
-        report.memory_bytes = res.memory_used_bytes;
-        
-        if (!report.success) {
-            report.error_message = "Status code: " + std::to_string(static_cast<int>(st));
-        }
-
-        return report;
-    }
-
-    void update_options(const SolverOptions& opts) { opts_ = opts; }
-    [[nodiscard]] const SolverOptions& options() const noexcept { return opts_; }
-
-private:
-    SolverOptions opts_;
-};
-
-} // namespace dlog::api
-```
+:::code api-dlog-interface/cpp/6-obhortka-c-object.hpp
 
 ## 7. Специфікація інструментарію командного рядка (CLI Tool)
 

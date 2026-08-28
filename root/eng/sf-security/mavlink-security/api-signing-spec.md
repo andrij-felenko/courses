@@ -123,50 +123,8 @@ N = 32 (Key) + 10 (Header) + LEN (Payload) + 2 (CRC) + 1 (Link) + 6 (Time)
 Бібліотека реалізації протоколу MAVLink оперує набором стандартизованих масок прапорців та кодів повернення:
 
 :::tabs
-```c
-// Маска прапорця наявності підпису у полі incompat_flags (байт 2 кадру)
-#define MAVLINK_IFLAG_SIGNED                 0x01
-
-// Фіксована довжина блоку підпису у фізичному кадрі (байти)
-#define MAVLINK_SIGNATURE_BLOCK_LEN          13
-
-// Прапорці конфігурації у структурі mavlink_signing_t
-#define MAVLINK_SIGNING_FLAG_SIGN_OUTGOING   0x01
-
-// Коди статусу кадрування у структурі mavlink_status_t
-#define MAVLINK_FRAMING_INCOMPLETE           0
-#define MAVLINK_FRAMING_OK                   1
-#define MAVLINK_FRAMING_BAD_CRC              2
-#define MAVLINK_FRAMING_BAD_SIGNATURE        3
-
-// Максимальна кількість незалежних потоків підпису в таблиці сесій
-#define MAVLINK_MAX_SIGNING_STREAMS          16
-```
-```cpp
-namespace mavlink {
-
-// Маска прапорця наявності підпису у полі incompat_flags
-inline constexpr uint8_t kFlagSigned = 0x01;
-
-// Фіксована довжина блоку підпису у фізичному кадрі (байти)
-inline constexpr size_t kSignatureBlockLen = 13;
-
-// Прапорці конфігурації підписування
-inline constexpr uint8_t kSigningFlagSignOutgoing = 0x01;
-
-// Коди статусу кадрування
-enum class FramingStatus : uint8_t {
-    Incomplete   = 0,
-    Ok           = 1,
-    BadCrc       = 2,
-    BadSignature = 3
-};
-
-// Максимальна кількість незалежних потоків підпису в таблиці сесій
-inline constexpr size_t kMaxSigningStreams = 16;
-
-} // namespace mavlink
-```
+:::code api-signing-spec/c/praportsi-konstanty-ta.c
+:::code api-signing-spec/cpp/praportsi-konstanty-ta.cpp
 :::
 
 ### Структури даних контексту підпису
@@ -174,96 +132,8 @@ inline constexpr size_t kMaxSigningStreams = 16;
 Контекст підпису зберігає стан криптографічного рушія, налаштування вихідного підписування, спільний секретний ключ та таблицю зареєстрованих потоків сесій.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-// Запис стану одного вхідного потоку сесії
-typedef struct __mavlink_signing_stream_t {
-    uint8_t  link_id;        // Ідентифікатор фізичного каналу зв'язку
-    uint8_t  sysid;          // Системний номер відправника (System ID)
-    uint8_t  compid;         // Номер компонента відправника (Component ID)
-    uint8_t  flags;          // Резервні прапорці стану потоку
-    uint64_t last_timestamp; // Останній успішно валідований час (в одиницях по 10 мкс)
-} mavlink_signing_stream_t;
-
-// Таблиця потоків сесій для відстеження Replay-атак
-typedef struct __mavlink_signing_streams_t {
-    uint16_t num_signing_streams;
-    mavlink_signing_stream_t stream[MAVLINK_MAX_SIGNING_STREAMS];
-} mavlink_signing_streams_t;
-
-struct __mavlink_status;
-
-// Загальний контекст підпису для інтерфейсу MAVLink
-typedef struct __mavlink_signing_t {
-    uint8_t  flags;                             // MAVLINK_SIGNING_FLAG_SIGN_OUTGOING
-    uint8_t  link_id;                           // Локальний ідентифікатор каналу
-    uint64_t timestamp;                         // Поточний монотонний час передавача
-    uint8_t  secret_key[32];                    // 256-бітний спільний секретний ключ
-    mavlink_signing_streams_t *streams;         // Вказівник на таблицю вхідних потоків
-    bool (*accept_unsigned_callback)(const struct __mavlink_status *status, uint32_t msgid);
-} mavlink_signing_t;
-```
-```cpp
-#include <cstdint>
-#include <array>
-#include <span>
-#include <functional>
-
-// Стан одного зареєстрованого потоку в C++
-struct MavlinkSigningStream {
-    uint8_t  link_id{0};
-    uint8_t  sysid{0};
-    uint8_t  compid{0};
-    uint8_t  flags{0};
-    uint64_t last_timestamp{0};
-};
-
-// Таблиця потоків для запобігання атакам повтору
-struct MavlinkSigningStreams {
-    static constexpr size_t kMaxStreams = 16;
-    uint16_t num_streams{0};
-    std::array<MavlinkSigningStream, kMaxStreams> streams{};
-
-    MavlinkSigningStream* findStream(uint8_t sysid, uint8_t compid, uint8_t link_id) noexcept {
-        for (uint16_t i = 0; i < num_streams; ++i) {
-            if (streams[i].sysid == sysid &&
-                streams[i].compid == compid &&
-                streams[i].link_id == link_id) {
-                return &streams[i];
-            }
-        }
-        return nullptr;
-    }
-
-    MavlinkSigningStream* allocateStream(uint8_t sysid, uint8_t compid, uint8_t link_id) noexcept {
-        if (num_streams < kMaxStreams) {
-            auto& s = streams[num_streams++];
-            s.sysid = sysid;
-            s.compid = compid;
-            s.link_id = link_id;
-            s.last_timestamp = 0;
-            return &s;
-        }
-        return nullptr;
-    }
-};
-
-struct MavlinkStatus;
-
-using AcceptUnsignedCallback = std::function<bool(const MavlinkStatus& status, uint32_t msgid)>;
-
-// Контекст підпису MAVLink в ідіоматичному C++
-struct MavlinkSigningContext {
-    uint8_t  flags{0};
-    uint8_t  link_id{0};
-    uint64_t timestamp{0};
-    std::array<uint8_t, 32> secret_key{};
-    MavlinkSigningStreams*  streams{nullptr};
-    AcceptUnsignedCallback  accept_unsigned_fn{nullptr};
-};
-```
+:::code api-signing-spec/c/struktury-danykh-kontekstu.c
+:::code api-signing-spec/cpp/struktury-danykh-kontekstu.cpp
 :::
 
 ### Повідомлення конфігурації підпису: SETUP_SIGNING (#256)
@@ -376,53 +246,8 @@ struct MavlinkTunnel {
 Стандартний C-генератор коду протоколу MAVLink надає низькорівневі функції для інтеграції підпису в контур зв'язку.
 
 :::tabs
-```c
-// Підписання вихідного повідомлення та запис повного кадру в буфер
-uint16_t mavlink_sign_packet(
-    mavlink_channel_t chan,
-    uint8_t *out_buffer,
-    const mavlink_message_t *msg,
-    mavlink_signing_t *signing_ctx
-);
-
-// Перевірка підпису вхідного повідомлення
-bool mavlink_check_signature(
-    const mavlink_message_t *msg,
-    const mavlink_status_t *status,
-    mavlink_signing_t *signing_ctx
-);
-
-// Прототип функції зворотного виклику для вибіркового дозволу непідписаних повідомлень
-typedef bool (*mavlink_accept_unsigned_t)(
-    const mavlink_status_t *status,
-    uint32_t msgid
-);
-```
-```cpp
-#include <cstdint>
-#include <span>
-#include <string_view>
-
-class IMavlinkSigningEngine {
-public:
-    virtual ~IMavlinkSigningEngine() = default;
-
-    // Підписання повідомлення та упаковка в буфер відправки
-    virtual uint16_t signMessage(
-        uint8_t channel,
-        std::span<uint8_t> out_buffer,
-        const MavlinkMessage& msg,
-        MavlinkSigningContext& signing_ctx
-    ) = 0;
-
-    // Перевірка валідності вхідного підписаного кадру
-    virtual bool verifyMessage(
-        const MavlinkMessage& msg,
-        const MavlinkStatus& status,
-        MavlinkSigningContext& signing_ctx
-    ) = 0;
-};
-```
+:::code api-signing-spec/c/syhnatury-funktsii-api.h
+:::code api-signing-spec/cpp/syhnatury-funktsii-api.cpp
 :::
 
 ### Вимоги до роботи з пам'яттю та апаратного виконання

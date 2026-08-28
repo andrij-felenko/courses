@@ -74,20 +74,7 @@ inline int openat_safe(int dirfd, std::string_view pathname, int flags, mode_t m
 int fstat(int fd, struct stat *statbuf);
 int fstatat(int dirfd, const char *pathname, struct stat *statbuf, int flags);
 ```
-```cpp
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <expected>
-#include <system_error>
-
-inline std::expected<struct stat, std::error_code> get_file_stat(int fd) {
-    struct stat st{};
-    if (::fstat(fd, &st) != 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return st;
-}
-```
+:::code api-descriptor-syscalls/cpp/2-fstat-ta-fstatat.cpp
 :::
 
 - **Властивості `fstat`:** операція виконується безпосередньо над структурою `struct file`, яка вже зберігається в пам'яті ядра процесу. Це гарантує, що отримані метадані (тип файлу `st_mode`, ідентифікатор власника `st_uid`, розмір `st_size`, номер інода `st_ino`) точно належать тому об'єкту, з якого відбуватиметься подальше читання чи запис.
@@ -108,19 +95,7 @@ inline std::expected<struct stat, std::error_code> get_file_stat(int fd) {
 int fchmod(int fd, mode_t mode);
 int fchown(int fd, uid_t owner, gid_t group);
 ```
-```cpp
-#include <sys/stat.h>
-#include <unistd.h>
-#include <expected>
-#include <system_error>
-
-inline std::expected<void, std::error_code> set_permissions_safe(int fd, mode_t mode) {
-    if (::fchmod(fd, mode) != 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return {};
-}
-```
+:::code api-descriptor-syscalls/cpp/3-fchmod-ta-fchown-zmina.cpp
 :::
 
 - **Безпековий ефект:** зміна атрибутів виконується атомарно на рівні інода файлової системи. Навіть якщо атакуючий процес перейменує файл у каталозі, права зміняться виключно на цільовому іноді жертви, не торкаючись підсунутих системних файлів.
@@ -186,42 +161,8 @@ inline int safe_rename_no_replace(int olddirfd, std::string_view oldpath,
 Для повного контролю над резолвінгом шляхів у контейнерах та пісочницях ядро Linux 5.6 ввело системний виклик `openat2()`.
 
 :::tabs
-```c
-#include <fcntl.h>
-#include <sys/syscall.h>
-#include <linux/openat2.h>
-#include <unistd.h>
-
-struct open_how {
-    __u64 flags;        /* Стандартні прапорці O_RDONLY, O_CREAT тощо */
-    __u64 mode;         /* Вісімкові права доступу */
-    __u64 resolve;      /* Прапорці сімейства RESOLVE_* */
-};
-
-int openat2(int dirfd, const char *pathname,
-            struct open_how *how, size_t size);
-```
-```cpp
-#include <fcntl.h>
-#include <sys/syscall.h>
-#include <linux/openat2.h>
-#include <unistd.h>
-#include <string_view>
-#include <expected>
-#include <system_error>
-
-inline std::expected<int, std::error_code> open_beneath_safe(int dirfd, std::string_view path, uint64_t flags) {
-    struct open_how how{};
-    how.flags = flags;
-    how.resolve = RESOLVE_BENEATH | RESOLVE_NO_SYMLINKS;
-
-    long fd = ::syscall(SYS_openat2, dirfd, path.data(), &how, sizeof(how));
-    if (fd < 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return static_cast<int>(fd);
-}
-```
+:::code api-descriptor-syscalls/c/main.c
+:::code api-descriptor-syscalls/cpp/systemnyi-vyklyk-openat2.cpp
 :::
 
 ### Прапорці резолвінгу (`RESOLVE_*`)
