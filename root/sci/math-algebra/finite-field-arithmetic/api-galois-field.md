@@ -17,98 +17,9 @@
 
 :::tabs
 @tab C
-```c
-#ifndef GF256_API_H
-#define GF256_API_H
-
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-
-/**
- * @brief Коди повернення та статусів виконання операцій API
- */
-typedef enum {
-    GF_SUCCESS              =  0,  /**< Операцію виконано успішно */
-    GF_ERR_NULL_POINTER     = -1,  /**< Передано нульовий вказівник у критичний параметр */
-    GF_ERR_DIVISION_BY_ZERO = -2,  /**< Спроба ділення на нуль або інверсії нуля */
-    GF_ERR_INVALID_POLY     = -3,  /**< Заданий многочлен не є незвідним */
-    GF_ERR_OUT_OF_BOUNDS    = -4,  /**< Значення параметра виходить за межі поля */
-    GF_ERR_NOT_INITIALIZED  = -5   /**< Таблиці або контекст не були ініціалізовані */
-} gf_status_t;
-
-/**
- * @brief Контекст розширеного поля GF(2^m) для розрядності m <= 64
- */
-typedef struct {
-    uint64_t poly;           /**< Незвідний многочлен (без старшого біта x^m) */
-    uint64_t field_size;     /**< Загальна кількість елементів q = 2^m */
-    uint64_t poly_mask;      /**< Бітова маска нижніх m бітів (2^m - 1) */
-    uint8_t  m;              /**< Степінь розширення поля (1..64) */
-    bool     is_primitive;   /**< Прапор примітивності заданого полінома */
-} gf2m_context_t;
-
-/**
- * @brief Предобчислені таблиці логарифмів та експонент для GF(2^8)
- */
-typedef struct {
-    uint8_t exp_table[512];  /**< Таблиця експонент (продубльована для запобігання mod 255) */
-    uint8_t log_table[256];  /**< Таблиця дискретних логарифмів */
-    bool    initialized;     /**< Прапор готовності таблиць до роботи */
-} gf256_tables_t;
-
-#endif /* GF256_API_H */
-```
+:::code api-galois-field/c/struktury-danykh-api.h
 @tab C++
-```cpp
-#ifndef GALOIS_TYPES_HPP
-#define GALOIS_TYPES_HPP
-
-#include <array>
-#include <cstdint>
-#include <cstddef>
-#include <system_error>
-
-namespace galois {
-
-/**
- * @brief C++20 коди помилок у вигляді скінченного перелічення
- */
-enum class ErrorCode : int {
-    Success = 0,
-    NullPointer = -1,
-    DivisionByZero = -2,
-    InvalidPolynomial = -3,
-    OutOfBounds = -4,
-    NotInitialized = -5
-};
-
-/**
- * @brief Метадані та атрибути поля GF(2^m)
- */
-template <typename T>
-struct FieldContext {
-    uint64_t poly{0};
-    uint64_t field_size{0};
-    uint64_t poly_mask{0};
-    uint8_t m{0};
-    bool is_primitive{false};
-};
-
-/**
- * @brief Таблиці експонент та дискретних логарифмів
- */
-template <size_t Order = 256>
-struct FieldTables {
-    std::array<uint8_t, Order * 2> exp_table{};
-    std::array<uint8_t, Order> log_table{};
-    bool initialized{false};
-};
-
-} // namespace galois
-
-#endif // GALOIS_TYPES_HPP
-```
+:::code api-galois-field/cpp/struktury-danykh-api.hpp
 :::
 
 ## 2. Повний специфікований каталог функцій C/C++ API
@@ -189,35 +100,9 @@ namespace galois {
 
 :::tabs
 @tab C
-```c
-uint8_t gf256_mul_ct(uint8_t a, uint8_t b, uint16_t poly) {
-    uint8_t res = 0;
-    for (int i = 0; i < 8; i++) {
-        uint8_t mask = (uint8_t)(-(b & 1));
-        res ^= (a & mask);
-        uint8_t carry = (uint8_t)(-(a >> 7));
-        a = (a << 1) ^ ((poly & 0xFF) & carry);
-        b >>= 1;
-    }
-    return res;
-}
-```
+:::code api-galois-field/c/4-gf256-mul-ct-constant.c
 @tab C++
-```cpp
-namespace galois {
-    [[nodiscard]] constexpr uint8_t multiply_constant_time(uint8_t a, uint8_t b, uint16_t poly) noexcept {
-        uint8_t res = 0;
-        for (int i = 0; i < 8; ++i) {
-            uint8_t mask = static_cast<uint8_t>(0) - (b & 1);
-            res ^= (a & mask);
-            uint8_t carry = static_cast<uint8_t>(0) - ((a >> 7) & 1);
-            a = static_cast<uint8_t>(a << 1) ^ ((poly & 0xFF) & carry);
-            b >>= 1;
-        }
-        return res;
-    }
-}
-```
+:::code api-galois-field/cpp/4-gf256-mul-ct-constant.cpp
 :::
 
 - **Часова складність:** `O(m)` = 8 фіксованих ітерацій.
@@ -258,78 +143,7 @@ typedef struct {
 } gf256_ops_t;
 ```
 @tab C++
-```cpp
-#ifndef GALOIS_FIELD_HPP
-#define GALOIS_FIELD_HPP
-
-#include <array>
-#include <cstdint>
-#include <optional>
-#include <type_traits>
-#include <concepts>
-
-namespace galois {
-
-template <typename T>
-concept UnsignedInteger = std::is_unsigned_v<T> && !std::is_same_v<T, bool>;
-
-template <UnsignedInteger T, size_t m, T IrreduciblePolynomial>
-class Field {
-public:
-    static_assert(m > 0 && m <= sizeof(T) * 8, "Степінь m повинна відповідати розміру типу T");
-
-    using value_type = T;
-
-    constexpr Field() noexcept = default;
-
-    [[nodiscard]] constexpr T add(T a, T b) const noexcept {
-        return a ^ b;
-    }
-
-    [[nodiscard]] constexpr T subtract(T a, T b) const noexcept {
-        return a ^ b;
-    }
-
-    [[nodiscard]] constexpr T multiply_constant_time(T a, T b) const noexcept {
-        T res = 0;
-        T cur_a = a;
-        T cur_b = b;
-        const T poly_lower = IrreduciblePolynomial & ((static_cast<T>(1) << m) - 1);
-
-        for (size_t i = 0; i < m; ++i) {
-            T mask = static_cast<T>(0) - (cur_b & 1);
-            res ^= (cur_a & mask);
-            T carry = static_cast<T>(0) - ((cur_a >> (m - 1)) & 1);
-            cur_a = static_cast<T>(cur_a << 1) ^ (poly_lower & carry);
-            cur_b = static_cast<T>(cur_b >> 1);
-        }
-        return res;
-    }
-
-    [[nodiscard]] constexpr std::optional<T> inverse_fermat(T a) const noexcept {
-        if (a == 0) return std::nullopt;
-        T result = 1;
-        T base = a;
-        uint64_t exponent = (1ULL << m) - 2;
-
-        while (exponent > 0) {
-            if (exponent & 1) {
-                result = multiply_constant_time(result, base);
-            }
-            base = multiply_constant_time(base, base);
-            exponent >>= 1;
-        }
-        return result;
-    }
-};
-
-using GF256_AES = Field<uint8_t, 8, 0x11B>;
-using GF64_CRCPOLY = Field<uint64_t, 64, 0x1BULL>;
-
-} // namespace galois
-
-#endif // GALOIS_FIELD_HPP
-```
+:::code api-galois-field/cpp/3-spetsyfikatsiia-c-20.hpp
 :::
 
 ## 4. Зведена таблиця часової та просторової складності операцій

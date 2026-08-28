@@ -33,68 +33,9 @@ Pᵢ = ∏ⱼ₌₁ⁱ (n - k + j) = (n - k + 1) · (n - k + 2) · … · (n - k
 Хоча мультиплікативний метод запобігає обчисленню факторіалів, проміжний добуток `res * (n - k + i)` усе ж може викликати переповнення 64-бітного регістра, якщо підсумковий біноміальний коефіцієнт `C(n, k)` наближається до `2⁶⁴ - 1`. Для беззнакового типу `uint64_t` максимальним значенням `n`, для якого можна гарантовано обчислити **будь-який** коефіцієнт `C(n, k)` цим методом, є `n = 62` (оскільки `C(62, 31) ≈ 4.65 × 10¹⁸ < 2⁶⁴`). Для `n ≥ 63` серединні коефіцієнти вимагають перевірки на переповнення або використання 128-бітних типів (`__int128` у GCC/Clang).
 
 :::tabs
-```py
-def ncr_multiplicative(n: int, k: int) -> int:
-    """Обчислення C(n, k) за допомогою мультиплікативної формули.
-    У Python цілі числа мають необмежену розрядність, тому переповнення неможливе.
-    Складність за часом: O(k), додаткова пам'ять: O(1).
-    """
-    if k < 0 or k > n:
-        return 0
-    if k == 0 or k == n:
-        return 1
-    
-    # Використовуємо симетрію C(n, k) = C(n, n - k) для мінімізації ітерацій
-    if k > n - k:
-        k = n - k
-        
-    res = 1
-    for i in range(1, k + 1):
-        res = res * (n - k + i) // i
-    return res
-```
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-// Обчислення C(n, k) мультиплікативним методом для C (до n <= 62)
-uint64_t ncr_multiplicative(uint32_t n, uint32_t k) {
-    if (k > n) return 0;
-    if (k == 0 || k == n) return 1;
-    if (k > n - k) k = n - k;
-
-    uint64_t res = 1;
-    for (uint32_t i = 1; i <= k; ++i) {
-        res = res * (n - k + i) / i;
-    }
-    return res;
-}
-```
-```cpp
-#include <cstdint>
-#include <algorithm>
-#include <optional>
-#include <limits>
-
-// Ідіоматична C++20 реалізація з constexpr та суворим контролем переповнення 64-бітного регістра
-[[nodiscard]] constexpr std::optional<std::uint64_t> ncr_multiplicative(std::uint32_t n, std::uint32_t k) noexcept {
-    if (k > n) return 0;
-    if (k == 0 || k == n) return 1;
-    k = std::min(k, n - k);
-
-    std::uint64_t res = 1;
-    for (std::uint32_t i = 1; i <= k; ++i) {
-        std::uint64_t next_term = n - k + i;
-        
-        // Перевірка на переповнення перед множенням
-        if (res > std::numeric_limits<std::uint64_t>::max() / next_term) {
-            return std::nullopt; // Сигналізуємо про переповнення розрядної сітки
-        }
-        res = (res * next_term) / i;
-    }
-    return res;
-}
-```
+:::code proj-binomial-coefficients/py/hranychni-mozhlyvosti-64.py
+:::code proj-binomial-coefficients/c/hranychni-mozhlyvosti-64.c
+:::code proj-binomial-coefficients/cpp/hranychni-mozhlyvosti-64.cpp
 :::
 
 ### 2. Динамічне програмування за трикутником Паскаля O(n·k)
@@ -114,73 +55,9 @@ C(i, j) = C(i - 1, j - 1) + C(i - 1, j)
 Якщо оновлювати масив зліва направо (`j = 1 … k`), значення `dp[j - 1]` буде перезаписано новим значенням з поточного `i`-го рядка ще до того, як воно буде використане для обчислення `dp[j]`. Це призведе до повторного врахування доданків та спотворення результатів. При обході справа наліво значення `dp[j - 1]` зберігає значення з попереднього `(i - 1)`-го рядка, що гарантує сувору відповідність тотожності Паскаля.
 
 :::tabs
-```py
-def ncr_pascal_dp(n: int, k: int) -> int:
-    """Обчислення C(n, k) за допомогою одновимірного табличного ДП.
-    Часова складність: O(n * k), додаткова пам'ять: O(k).
-    """
-    if k < 0 or k > n:
-        return 0
-    k = min(k, n - k)
-    
-    dp = [0] * (k + 1)
-    dp[0] = 1
-    
-    for i in range(1, n + 1):
-        # Зворотний цикл від min(i, k) до 1 запобігає перезапису попередніх значень
-        for j in range(min(i, k), 0, -1):
-            dp[j] = dp[j] + dp[j - 1]
-            
-    return dp[k]
-```
-```c
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
-
-// Динамічне програмування для C(n, k) з безпечним динамічним виділенням пам'яті
-uint64_t ncr_pascal_dp(uint32_t n, uint32_t k) {
-    if (k > n) return 0;
-    if (k > n - k) k = n - k;
-
-    uint64_t *dp = (uint64_t *)calloc(k + 1, sizeof(uint64_t));
-    if (!dp) return 0; // Перевірка виділення пам'яті
-    dp[0] = 1;
-
-    for (uint32_t i = 1; i <= n; ++i) {
-        uint32_t limit = i < k ? i : k;
-        for (uint32_t j = limit; j > 0; --j) {
-            dp[j] += dp[j - 1];
-        }
-    }
-
-    uint64_t result = dp[k];
-    free(dp);
-    return result;
-}
-```
-```cpp
-#include <cstdint>
-#include <vector>
-#include <algorithm>
-
-// Ідіоматичний C++20 з контейнером std::vector (автоматичне керування пам'яттю RAII)
-[[nodiscard]] std::uint64_t ncr_pascal_dp(std::uint32_t n, std::uint32_t k) {
-    if (k > n) return 0;
-    k = std::min(k, n - k);
-
-    std::vector<std::uint64_t> dp(k + 1, 0);
-    dp[0] = 1;
-
-    for (std::uint32_t i = 1; i <= n; ++i) {
-        std::uint32_t limit = std::min(i, k);
-        for (std::uint32_t j = limit; j > 0; --j) {
-            dp[j] += dp[j - 1];
-        }
-    }
-    return dp[k];
-}
-```
+:::code proj-binomial-coefficients/py/optymizatsiia.py
+:::code proj-binomial-coefficients/c/optymizatsiia.c
+:::code proj-binomial-coefficients/cpp/optymizatsiia.cpp
 :::
 
 ### 3. Модулярні комбінації C(n, k) mod p за допомогою Малої теореми Ферма
@@ -214,138 +91,9 @@ invFact[i - 1] = invFact[i] · i (mod p)
 Це дозволяє за час `O(N)` підготувати всі масиви і надалі відповідати на будь-який запит `C(n, k) mod p` за точний час **O(1)**.
 
 :::tabs
-```py
-MOD = 10**9 + 7
-
-def precompute_factorials(max_n: int, p: int = MOD):
-    """Попереднє обчислення факторіалів та обернених факторіалів за O(N)."""
-    fact = [1] * (max_n + 1)
-    inv_fact = [1] * (max_n + 1)
-    
-    for i in range(1, max_n + 1):
-        fact[i] = (fact[i - 1] * i) % p
-        
-    # Модулярне обернення для N! за Малою теоремою Ферма O(log p)
-    inv_fact[max_n] = pow(fact[max_n], p - 2, p)
-    
-    # Лінійне оновлення всіх попередніх обернених факторіалів O(N)
-    for i in range(max_n - 1, -1, -1):
-        inv_fact[i] = (inv_fact[i + 1] * (i + 1)) % p
-        
-    return fact, inv_fact
-
-def ncr_mod(n: int, k: int, fact: list, inv_fact: list, p: int = MOD) -> int:
-    """Запит C(n, k) mod p за O(1)."""
-    if k < 0 or k > n:
-        return 0
-    return (fact[n] * inv_fact[k] % p) * inv_fact[n - k] % p
-```
-```c
-#include <stdint.h>
-#include <stdlib.h>
-
-#define MOD 1000000007ULL
-
-// Швидке модулярне піднесення до степеня O(log exp)
-static uint64_t power_mod(uint64_t base, uint64_t exp, uint64_t mod) {
-    uint64_t res = 1;
-    base %= mod;
-    while (exp > 0) {
-        if (exp % 2 == 1) res = (res * base) % mod;
-        base = (base * base) % mod;
-        exp /= 2;
-    }
-    return res;
-}
-
-typedef struct {
-    uint64_t *fact;
-    uint64_t *inv_fact;
-    uint32_t max_n;
-} CombMod;
-
-CombMod *comb_mod_init(uint32_t max_n) {
-    CombMod *cm = (CombMod *)malloc(sizeof(CombMod));
-    if (!cm) return NULL;
-    cm->max_n = max_n;
-    cm->fact = (uint64_t *)malloc((max_n + 1) * sizeof(uint64_t));
-    cm->inv_fact = (uint64_t *)malloc((max_n + 1) * sizeof(uint64_t));
-    if (!cm->fact || !cm->inv_fact) {
-        free(cm->fact);
-        free(cm->inv_fact);
-        free(cm);
-        return NULL;
-    }
-
-    cm->fact[0] = 1;
-    for (uint32_t i = 1; i <= max_n; ++i) {
-        cm->fact[i] = (cm->fact[i - 1] * i) % MOD;
-    }
-
-    cm->inv_fact[max_n] = power_mod(cm->fact[max_n], MOD - 2, MOD);
-    for (int32_t i = (int32_t)max_n - 1; i >= 0; --i) {
-        cm->inv_fact[i] = (cm->inv_fact[i + 1] * (i + 1)) % MOD;
-    }
-    return cm;
-}
-
-uint64_t ncr_mod(const CombMod *cm, uint32_t n, uint32_t k) {
-    if (!cm || k > n) return 0;
-    return (cm->fact[n] * cm->inv_fact[k] % MOD) * cm->inv_fact[n - k] % MOD;
-}
-
-void comb_mod_free(CombMod *cm) {
-    if (cm) {
-        free(cm->fact);
-        free(cm->inv_fact);
-        free(cm);
-    }
-}
-```
-```cpp
-#include <cstdint>
-#include <vector>
-#include <stdexcept>
-
-// Стандартний клас RAII в C++20 для безпечного збереження модулярних масивів
-class ModularCombinatorics {
-public:
-    static constexpr std::uint64_t MOD = 1'000'000'007ULL;
-
-    explicit ModularCombinatorics(std::size_t max_n)
-        : fact_(max_n + 1, 1), inv_fact_(max_n + 1, 1) {
-        
-        for (std::size_t i = 1; i <= max_n; ++i) {
-            fact_[i] = (fact_[i - 1] * i) % MOD;
-        }
-
-        inv_fact_[max_n] = power_mod(fact_[max_n], MOD - 2);
-        for (std::size_t i = max_n; i > 0; --i) {
-            inv_fact_[i - 1] = (inv_fact_[i] * i) % MOD;
-        }
-    }
-
-    [[nodiscard]] std::uint64_t ncr(std::size_t n, std::size_t k) const noexcept {
-        if (k > n || n >= fact_.size()) return 0;
-        return (fact_[n] * inv_fact_[k] % MOD) * inv_fact_[n - k] % MOD;
-    }
-
-private:
-    std::vector<std::uint64_t> fact_;
-    std::vector<std::uint64_t> inv_fact_;
-
-    static std::uint64_t power_mod(std::uint64_t base, std::uint64_t exp) noexcept {
-        std::uint64_t res = 1;
-        base %= MOD;
-        while (exp > 0) {
-            if (exp & 1) res = (res * base) % MOD;
-            base = (base * base) % MOD;
-            exp >>= 1;
-        }
-        return res;
-    }
-};
-```
+:::code proj-binomial-coefficients/py/liniine-poperednie.py
+:::code proj-binomial-coefficients/c/liniine-poperednie.c
+:::code proj-binomial-coefficients/cpp/liniine-poperednie.cpp
 :::
 
 ### 4. Теорема Люка для гігантських параметрів n та k (n, k ≥ p)

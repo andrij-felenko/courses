@@ -18,20 +18,7 @@
 
 Чому саме **кортеж** (незмінний), а не список? Список у множину не покласти — він не хешований; ба гірше, порівнювати структуру, яку можна тихо змінити на місці, — джерело помилок, що не відтворюються. Кортеж хешований, незмінний, і два рівні кортежі рівні буквально. Це і є канонічна форма для перестановки: жодних двох різних записів того самого елемента.
 
-```python
-def pmul(g, h):                 # g після h:  (g·h)[i] = g[h[i]]
-    return tuple(g[h[i]] for i in range(len(g)))
-
-def pinv(g):                    # обернена перестановка
-    inv = [0] * len(g)
-    for i, gi in enumerate(g):
-        inv[gi] = i
-    return tuple(inv)
-
-e3 = (0, 1, 2)                  # тотожність
-r  = (1, 2, 0)                  # поворот  0→1→2→0
-s1 = (0, 2, 1)                  # відбиття, що лишає вершину 0 на місці
-```
+:::code proj-group-computation/py/element-musyt-buty.py
 
 Один рядок в `pmul` вимагає обережності — **домовленість про порядок**. Ми кладемо `g·h` як «спершу h, потім g», тобто `(g·h)(i) = g(h(i))`, як у композиції функцій справа наліво. Домовленість вільна, але, обравши, її треба тримати скрізь: перевернете її подумки в одному місці — і обернені елементи та суміжні класи почнуть тихо виходити неправильними, а програма ні на що не поскаржиться, бо синтаксично все чинне.
 
@@ -44,22 +31,7 @@ s1 = (0, 2, 1)                  # відбиття, що лишає вершин
 ![Побудова групи з двох твірних: множимо всі пари, нові добутки додаємо, аж поки множення не перестане виводити за межі — тоді множина замкнена](img/group-closure.svg)
 *Замикання за операцією. З двох твірних r та s₁ добутки поступово дають r², s₂, s₃ та e — і на шостому елементі множення вже нікуди не веде: група D₃ побудована, |G| = 6.*
 
-```python
-def closure(gens, op):
-    """Замкнути твірні за операцією op — уся породжена група."""
-    G = set(gens)
-    frontier = list(gens)          # елементи, ще не перемножені з усіма
-    while frontier:
-        fresh = []
-        for a in list(G):
-            for b in frontier:
-                for x in (op(a, b), op(b, a)):
-                    if x not in G:
-                        G.add(x)
-                        fresh.append(x)
-        frontier = fresh
-    return G
-```
+:::code proj-group-computation/py/pobuduvaty-vsiu-hrupu-z.py
 
 Множина `G` служить двом цілям одразу: це і відповідь, і журнал уже баченого — перевірка `x not in G` не дає кружляти по тих самих елементах вічно. Ось як із двох твірних виростає D₃:
 
@@ -75,21 +47,7 @@ def closure(gens, op):
 
 Порядок елемента g — це найменше m > 0, для якого gᵐ = e. Означення само підказує алгоритм: множ g на себе й лічи кроки, доки не впадеш у нейтральний. У скінченній групі це станеться неодмінно.
 
-```python
-def order(g, op, e):
-    x, m = g, 1
-    while x != e:
-        x = op(x, g)
-        m += 1
-    return m
-
-def cyclic(g, op, e):              # ⟨g⟩ — усі степені g
-    sub, x = {e}, g
-    while x != e:
-        sub.add(x)
-        x = op(x, g)
-    return sub
-```
+:::code proj-group-computation/py/poriadok-elementa-i.py
 
 Тут ховається маленька, але промовиста перлина. Обернений елемент можна знайти **самою лише операцією**, без жодної спеціальної формули: у скінченній групі g⁻¹ = g^(m−1), де m — порядок g, адже g · g^(m−1) = gᵐ = e. Рушій, який уміє тільки множити, уміє й обертати:
 
@@ -204,138 +162,8 @@ True                           # кожен порядок ділить |G| — 
 Нижче — усе разом, у двох мовах. Python читається як сама математика — множини, кортежі, генератори лягають на поняття один-в-один, тому він тут головний. C++ виражає ту саму абстракцію інакше: рушій параметризовано **шаблоном** за типом елемента й операцією, а роль множин грає `std::set`; це показує, що незалежність від природи елемента — не риса мови, а властивість самого алгоритму.
 
 :::tabs
-```python
-# Побудова скінченної групи й перевірка теореми Лагранжа.
-# Рушій нічого не знає про природу елементів — лише про операцію op.
-
-def closure(gens, op):
-    """Замкнути твірні за операцією: уся породжена група."""
-    G = set(gens)
-    frontier = list(gens)
-    while frontier:
-        fresh = []
-        for a in list(G):
-            for b in frontier:
-                for x in (op(a, b), op(b, a)):
-                    if x not in G:
-                        G.add(x)
-                        fresh.append(x)
-        frontier = fresh
-    return G
-
-def order(g, op, e):
-    """Порядок елемента: найменше m>0 з gᵐ = e."""
-    x, m = g, 1
-    while x != e:
-        x = op(x, g)
-        m += 1
-    return m
-
-def left_cosets(G, H, op):
-    """Ліві суміжні класи gH, здедупльовані як множини."""
-    seen, cosets = set(), []
-    for g in sorted(G):
-        c = frozenset(op(g, h) for h in H)
-        if c not in seen:
-            seen.add(c)
-            cosets.append(c)
-    return cosets
-
-def lagrange(G, H, op):
-    idx = len(left_cosets(G, H, op))
-    return idx, len(G) == idx * len(H) and len(G) % len(H) == 0
-
-# група 1: симетрії трикутника D₃, елемент = перестановка (кортеж образів)
-def pmul(g, h):                         # g після h: (g·h)[i] = g[h[i]]
-    return tuple(g[h[i]] for i in range(len(g)))
-
-e3 = (0, 1, 2)
-r  = (1, 2, 0)                          # поворот 0→1→2→0
-s1 = (0, 2, 1)                          # відбиття, що лишає вершину 0
-D3 = closure([r, s1], pmul)
-H  = closure([r], pmul)                 # підгрупа поворотів
-print("D3: |G| =", len(D3), " порядки:", sorted(order(g, pmul, e3) for g in D3))
-print("   Лагранж за ⟨r⟩:", lagrange(D3, H, pmul))    # (2, True)
-
-# група 2: оборотні лишки Z₇*, елемент = ціле; РУШІЙ той самий
-def mul7(a, b):
-    return (a * b) % 7
-
-Z7 = closure([3], mul7)
-H7 = closure([2], mul7)
-print("Z7*: |G| =", len(Z7), " порядки:", sorted(order(g, mul7, 1) for g in Z7))
-print("   Лагранж за ⟨2⟩:", lagrange(Z7, H7, mul7))   # (2, True)
-```
-```cpp
-// Побудова скінченної групи й перевірка Лагранжа.
-// Рушій параметризовано шаблоном: тип елемента T + операція Op.
-#include <iostream>
-#include <vector>
-#include <set>
-
-template <class T, class Op>
-std::set<T> closure(std::vector<T> gens, Op op) {
-    std::set<T> G(gens.begin(), gens.end());
-    std::vector<T> frontier = gens;
-    while (!frontier.empty()) {
-        std::vector<T> fresh;
-        std::vector<T> snap(G.begin(), G.end());       // копія: G зростатиме
-        for (const T& a : snap)
-            for (const T& b : frontier)
-                for (const T& x : { op(a, b), op(b, a) })
-                    if (G.insert(x).second) fresh.push_back(x);
-        frontier = std::move(fresh);
-    }
-    return G;
-}
-
-template <class T, class Op>
-int order(T g, Op op, const T& e) {
-    T x = g; int m = 1;
-    while (x != e) { x = op(x, g); ++m; }
-    return m;
-}
-
-template <class T, class Op>
-std::vector<std::set<T>> left_cosets(const std::set<T>& G,
-                                     const std::set<T>& H, Op op) {
-    std::set<std::set<T>> seen;
-    std::vector<std::set<T>> out;
-    for (const T& g : G) {
-        std::set<T> c;
-        for (const T& h : H) c.insert(op(g, h));         // клас як множина
-        if (seen.insert(c).second) out.push_back(c);
-    }
-    return out;
-}
-
-using Perm = std::vector<int>;
-Perm pmul(const Perm& g, const Perm& h) {                // g після h
-    Perm p(g.size());
-    for (int i = 0; i < (int)g.size(); ++i) p[i] = g[h[i]];
-    return p;
-}
-
-int main() {
-    // група 1: D₃ як перестановки
-    Perm e3{0,1,2}, r{1,2,0}, s1{0,2,1};
-    auto D3 = closure<Perm>({r, s1}, pmul);
-    auto H  = closure<Perm>({r}, pmul);
-    auto cs = left_cosets(D3, H, pmul);
-    std::cout << "D3: |G|=" << D3.size() << "  |H|=" << H.size()
-              << "  [G:H]=" << cs.size()
-              << "  Lagrange=" << (D3.size() == cs.size() * H.size()) << "\n";
-
-    // група 2: Z₇* — той самий рушій, інша операція
-    auto mul7 = [](int a, int b) { return (a * b) % 7; };
-    auto Z7 = closure<int>({3}, mul7);
-    auto H7 = closure<int>({2}, mul7);
-    auto cz = left_cosets(Z7, H7, mul7);
-    std::cout << "Z7*: |G|=" << Z7.size() << "  |H|=" << H7.size()
-              << "  [G:H]=" << cz.size()
-              << "  Lagrange=" << (Z7.size() == cz.size() * H7.size()) << "\n";
-}
-```
+:::code proj-group-computation/py/povna-prohrama.py
+:::code proj-group-computation/cpp/main.cpp
 :::
 
 Обидві програми друкують те саме: |D₃| = 6 з порядками 1, 2, 2, 2, 3, 3 і зійденим Лагранжем, |Z₇\*| = 6 із порядками, що всі ділять шістку. І там, і там ядро жодним словом не згадує ні трикутник, ні модуль 7 — воно оперує чистим «скелетом» групи. Саме про це й уся теорема: доведене для скелета збувається в кожному тілі, яке цей скелет носить.

@@ -179,44 +179,8 @@ A = F · s = |F| · |s| · cos θ
 Той самий розрахунок у реальному C-коді для мікроконтролера (C99, `<math.h>`):
 
 :::tabs
-```c
-#include <math.h>
-
-typedef struct { float x, y; } Vec2;
-
-float dot(Vec2 a, Vec2 b) {        /* скалярний добуток */
-    return a.x * b.x + a.y * b.y;
-}
-
-float magnitude(Vec2 a) {          /* довжина = корінь з a·a */
-    return sqrtf(dot(a, a));
-}
-
-/* кут між векторами у радіанах, чверть-незалежно */
-float angle_between(Vec2 a, Vec2 b) {
-    float c = dot(a, b) / (magnitude(a) * magnitude(b));
-    if (c >  1.0f) c =  1.0f;      /* затиск проти похибки округлення */
-    if (c < -1.0f) c = -1.0f;      /* інакше acosf поверне NaN */
-    return acosf(c);
-}
-```
-```python
-import math
-
-
-def dot(a, b):                     # скалярний добуток
-    return a[0] * b[0] + a[1] * b[1]
-
-
-def magnitude(a):                  # довжина = корінь з a·a
-    return math.sqrt(dot(a, a))
-
-
-def angle_between(a, b):           # кут між векторами у радіанах
-    c = dot(a, b) / (magnitude(a) * magnitude(b))
-    c = max(-1.0, min(1.0, c))     # затиск проти похибки округлення,
-    return math.acos(c)            # інакше acos кине ValueError
-```
+:::code dot-product-d/c/main.c
+:::code dot-product-d/py/main.py
 :::
 
 Дві пастки тут реальні, не вигадані. По-перше, `dot(a, a)` для довжини — не `a.x*a.x + a.y*a.y` руками: переписувати вже наявну формулу — зайвий шанс на одрук. По-друге, затиск косинуса в межі [−1, 1] обов'язковий: через скінченну точність `float` частка може вийти, скажімо, 1.0000001, і тоді `acosf` поверне NaN, який тихо отруїть весь подальший розрахунок. Один `if` рятує від важковловного збою керування.
