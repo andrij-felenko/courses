@@ -11,81 +11,8 @@
 Кожен елемент дерева всередині дискової сторінки представлений структурою `GISTENTRY`. Вона об'єднує ключ предикату, покажчик на реляцію, адресу сторінки та службові прапорці стану.
 
 :::tabs
-```c
-#include "postgres.h"
-#include "access/gist.h"
-#include "access/itup.h"
-
-/* Запис елемента індексу GiST у C API */
-typedef struct GISTENTRY {
-    Datum       key;        /* Значення ключа або обмежувальний предикат (наприклад, BOX) */
-    Relation    rel;        /* Дескриптор індексованої таблиці каталогу */
-    Page        page;       /* Вказівник на дискову сторінку в буферному пулі */
-    OffsetNumber offset;    /* Порядковий номер кортежу на сторінці (Line Pointer) */
-    bool        leafkey;    /* true, якщо запис розміщений у листовому вузлі */
-    bool        is_null;    /* true, якщо значення індексованого стовпця є NULL */
-} GISTENTRY;
-
-/* Вектор елементів сторінки для операцій Union та PickSplit */
-typedef struct GistEntryVector {
-    int32       n;          /* Кількість елементів у масиві */
-    GISTENTRY   vector[FLEXIBLE_ARRAY_MEMBER];
-} GistEntryVector;
-
-/* Результат розщеплення сторінки: розподіл записів між двома сторінками */
-typedef struct GIST_SPLITVEC {
-    OffsetNumber *spl_left;       /* Масив зсувів кортежів для лівої нової сторінки */
-    int           spl_nleft;      /* Кількість елементів ліворуч */
-    Datum         spl_ldatum;     /* Об'єднаний узагальнювальний ключ (Union) лівої сторінки */
-
-    OffsetNumber *spl_right;      /* Масив зсувів кортежів для правої нової сторінки */
-    int           spl_nright;     /* Кількість елементів праворуч */
-    Datum         spl_rdatum;     /* Об'єднаний узагальнювальний ключ (Union) правої сторінки */
-} GIST_SPLITVEC;
-```
-```cpp
-#include <cstdint>
-#include <span>
-#include <vector>
-#include <memory>
-#include <optional>
-
-/* Ідіоматична C++ обгортка над внутрішніми структурами GiST */
-struct GistEntryView {
-    uintptr_t raw_key{0};
-    uint32_t page_id{0};
-    uint16_t offset{0};
-    bool is_leaf{false};
-    bool is_null{false};
-};
-
-struct GistSplitResult {
-    std::vector<uint16_t> left_offsets;
-    uintptr_t left_union_key{0};
-
-    std::vector<uint16_t> right_offsets;
-    uintptr_t right_union_key{0};
-};
-
-class IGistOperatorClass {
-public:
-    virtual ~IGistOperatorClass() = default;
-
-    [[nodiscard]] virtual bool consistent(const GistEntryView& entry,
-                                          uintptr_t query,
-                                          uint16_t strategy,
-                                          bool& out_recheck) const = 0;
-
-    [[nodiscard]] virtual uintptr_t compute_union(std::span<const GistEntryView> entries) const = 0;
-
-    [[nodiscard]] virtual float penalty(const GistEntryView& orig_entry,
-                                        const GistEntryView& new_entry) const = 0;
-
-    [[nodiscard]] virtual GistSplitResult pick_split(std::span<const GistEntryView> entries) const = 0;
-
-    [[nodiscard]] virtual bool equal(uintptr_t key_a, uintptr_t key_b) const = 0;
-};
-```
+:::code api-gist-methods/c/1-bazovi-struktury-danykh.c
+:::code api-gist-methods/cpp/1-bazovi-struktury-danykh.cpp
 :::
 
 ## 2. Специфікація методів операторного класу GiST
@@ -118,134 +45,15 @@ public:
 Обчислює мінімальну відстань від запитуваної точки до обмежувальної області внутрішнього вузла або до конкретної геометрії в листовому вузлі. Це дозволяє організувати чергу з пріоритетом для миттєвого пошуку найближчих географічних об'єктів (`ORDER BY location <-> point(...) LIMIT k`) без перебору всієї таблиці.
 
 :::tabs
-```c
-#include "postgres.h"
-#include "fmgr.h"
-#include "access/gist.h"
-
-/* Сигнатури експортованих C-функцій операторного класу GiST */
-
-Datum my_gist_consistent(PG_FUNCTION_ARGS) {
-    GISTENTRY *entry = (GISTENTRY *) PG_GETARG_POINTER(0);
-    Datum query = PG_GETARG_DATUM(1);
-    StrategyNumber strategy = (StrategyNumber) PG_GETARG_UINT16(2);
-    bool *recheck = (bool *) PG_GETARG_POINTER(4);
-
-    *recheck = false; /* Встановити true, якщо стиснення втратне */
-    /* Обчислення перетину або вміщення предикату */
-    PG_RETURN_BOOL(true);
-}
-
-Datum my_gist_union(PG_FUNCTION_ARGS) {
-    GistEntryVector *entryvec = (GistEntryVector *) PG_GETARG_POINTER(0);
-    int *sizep = (int *) PG_GETARG_POINTER(1);
-    /* Обчислення спільного обмежувального прямокутника для всіх entryvec->vector */
-    PG_RETURN_DATUM((Datum) 0);
-}
-
-Datum my_gist_penalty(PG_FUNCTION_ARGS) {
-    GISTENTRY *origentry = (GISTENTRY *) PG_GETARG_POINTER(0);
-    GISTENTRY *newentry = (GISTENTRY *) PG_GETARG_POINTER(1);
-    float *penalty = (float *) PG_GETARG_POINTER(2);
-    /* Penalty = Area(Union(orig, new)) - Area(orig) */
-    *penalty = 0.0f;
-    PG_RETURN_POINTER(penalty);
-}
-
-Datum my_gist_picksplit(PG_FUNCTION_ARGS) {
-    GistEntryVector *entryvec = (GistEntryVector *) PG_GETARG_POINTER(0);
-    GIST_SPLITVEC *v = (GIST_SPLITVEC *) PG_GETARG_POINTER(1);
-    /* Квадратичний або лінійний поділ Гуттмана */
-    PG_RETURN_POINTER(v);
-}
-```
-```cpp
-#include <iostream>
-#include <span>
-#include <vector>
-#include <algorithm>
-#include <cmath>
-
-/* Двовимірний обмежувальний прямокутник (Bounding Box) */
-struct BoundingBox {
-    double xmin{0.0}, ymin{0.0}, xmax{0.0}, ymax{0.0};
-
-    [[nodiscard]] double area() const noexcept {
-        return std::max(0.0, xmax - xmin) * std::max(0.0, ymax - ymin);
-    }
-
-    [[nodiscard]] bool intersects(const BoundingBox& other) const noexcept {
-        return !(xmin > other.xmax || xmax < other.xmin ||
-                 ymin > other.ymax || ymax < other.ymin);
-    }
-
-    [[nodiscard]] BoundingBox enclose(const BoundingBox& other) const noexcept {
-        return {
-            std::min(xmin, other.xmin),
-            std::min(ymin, other.ymin),
-            std::max(xmax, other.xmax),
-            std::max(ymax, other.ymax)
-        };
-    }
-};
-
-/* C++ реалізація логіки обчислення штрафу та перевірки предикатів */
-class BoxGistOperator final {
-public:
-    [[nodiscard]] static bool consistent(const BoundingBox& entry_box,
-                                         const BoundingBox& query_box,
-                                         uint16_t strategy,
-                                         bool& out_recheck) noexcept {
-        out_recheck = false;
-        switch (strategy) {
-            case 1: /* Перетин (Overlaps: &&) */
-                return entry_box.intersects(query_box);
-            case 2: /* Вміщення (Contains: @>) */
-                return entry_box.xmin <= query_box.xmin && entry_box.xmax >= query_box.xmax &&
-                       entry_box.ymin <= query_box.ymin && entry_box.ymax >= query_box.ymax;
-            default:
-                return false;
-        }
-    }
-
-    [[nodiscard]] static BoundingBox compute_union(std::span<const BoundingBox> boxes) noexcept {
-        if (boxes.empty()) return {};
-        BoundingBox acc = boxes.front();
-        for (size_t i = 1; i < boxes.size(); ++i) {
-            acc = acc.enclose(boxes[i]);
-        }
-        return acc;
-    }
-
-    [[nodiscard]] static float penalty(const BoundingBox& orig_box,
-                                       const BoundingBox& new_box) noexcept {
-        const double current_area = orig_box.area();
-        const double union_area = orig_box.enclose(new_box).area();
-        return static_cast<float>(union_area - current_area);
-    }
-};
-```
+:::code api-gist-methods/c/7-distance-optsionalno.c
+:::code api-gist-methods/cpp/7-distance-optsionalno.cpp
 :::
 
 ## 3. Реєстрація операторного класу мовою SQL
 
 Після збирання модуля у динамічну бібліотеку `.so` операторний клас пов'язується з типом даних і реєструється в системному каталозі:
 
-```sql
-CREATE OPERATOR CLASS box_gist_ops
-    DEFAULT FOR TYPE box USING gist AS
-    OPERATOR 1  && (box, box),      -- Перетин фігур
-    OPERATOR 2  @> (box, box),      -- Повне вміщення
-    OPERATOR 3  <@ (box, box),      -- Вміщено у фігуру
-    OPERATOR 4  ~= (box, box),      -- Геометрична рівність
-    FUNCTION 1  my_gist_consistent(internal, box, smallint, oid, internal),
-    FUNCTION 2  my_gist_union(internal, internal),
-    FUNCTION 3  my_gist_compress(internal),
-    FUNCTION 4  my_gist_decompress(internal),
-    FUNCTION 5  my_gist_penalty(internal, internal, internal),
-    FUNCTION 6  my_gist_picksplit(internal, internal),
-    FUNCTION 7  my_gist_equal(box, box, internal);
-```
+:::code api-gist-methods/sql/main.sql
 
 ## 4. Контрактні інваріанти та протокол взаємодії з рушієм
 

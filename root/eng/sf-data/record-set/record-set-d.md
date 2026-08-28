@@ -65,48 +65,8 @@ X₂ = 20 / 0.015  ≈ 1333      запити/с
 Набір рядків описує сам себе, тому інструмент над ним пишеться **один раз на всі запити**.
 
 :::tabs
-```cs
-// Один експортер на ВСІ запити: він не знає ні таблиць, ні предметних класів —
-// усе, що йому треба, набір розповідає про себе сам.
-static void ExportCsv(DataTable table, TextWriter output)
-{
-    var columns = table.Columns.Cast<DataColumn>().ToList();
-
-    // заголовок — зі схеми набору
-    output.WriteLine(string.Join(",", columns.Select(c => Quote(c.ColumnName))));
-
-    foreach (DataRow row in table.Rows)
-    {
-        // порожня комірка й порожній рядок — різні речі, тому питаємо явно
-        var cells = columns.Select(c =>
-            row.IsNull(c) ? "" : Quote(Convert.ToString(row[c], CultureInfo.InvariantCulture)));
-        output.WriteLine(string.Join(",", cells));
-    }
-}
-
-static string Quote(string s) =>
-    s.IndexOfAny(new[] { ',', '"', '\n' }) >= 0
-        ? "\"" + s.Replace("\"", "\"\"") + "\""
-        : s;
-```
-```ts
-// Набір рядків, що описує сам себе: колонки з іменами й типами + значення.
-type Column = { name: string; type: "int" | "text" | "real" | "time" };
-type Cell = string | number | null;            // null — це саме NULL, окремий стан
-type RecordSet = { columns: Column[]; rows: Cell[][] };
-
-// Той самий експортер для будь-якого запиту: він читає схему, а не знає її наперед.
-function exportCsv(rs: RecordSet): string {
-  const quote = (s: string) =>
-    /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
-
-  const head = rs.columns.map((c) => quote(c.name)).join(",");
-  const body = rs.rows.map((row) =>
-    row.map((v) => (v === null ? "" : quote(String(v)))).join(","),
-  );
-  return [head, ...body].join("\n");
-}
-```
+:::code record-set-d/cs/main.cs
+:::code record-set-d/ts/index.ts
 :::
 
 Та сама здатність робить можливою [прив'язку даних](root:sf-apps/data-binding): віджет-таблиця отримує набір і сам будує колонки, бо в наборі написано, які вони й що в них. На цьому ж стоїть [інтерфейс, породжений метаданими](root:sf-apps/metadata-driven-ui) — екрани, які не програмують під кожну сутність, а описують даними.
@@ -186,24 +146,7 @@ function exportCsv(rs: RecordSet): string {
 
 Коли настає час записати, набір обходить рядки й перетворює стани на оператори:
 
-```sql
--- рядок 42: був status='paid', total=1200.00 → став status='review'
-UPDATE orders
-   SET status = @status
- WHERE id     = @id
-   AND status = @orig_status
-   AND total  = @orig_total;
--- @status='review', @id=42, @orig_status='paid', @orig_total=1200.00
-
--- рядок 45: доданий у наборі
-INSERT INTO orders (customer_id, total, status) VALUES (@customer_id, @total, @status);
-
--- рядок 43: позначений вилученим
-DELETE FROM orders
- WHERE id     = @id
-   AND status = @orig_status
-   AND total  = @orig_total;
-```
+:::code record-set-d/sql/main.sql
 
 Ключове тут — умова `WHERE`. Вона згадує не тільки ключ, а й **початкові** значення. Якщо між читанням і записом рядок хтось змінив, умова не збіжиться й оператор змінить нуль рядків. Кількість змінених рядків, яку повертає база, і є відповіддю на питання «мене випередили?». Це [оптимістичне блокування](root:sf-data/optimistic-locking) в чистому вигляді, і набір рядків реалізує його майже задарма — початкові значення в нього вже є, зберігати їх окремо не треба. Саме так працює `CommandBuilder` в ADO.NET: він будує `UPDATE` і `DELETE` з умовою по всіх початкових значеннях рядка, а нуль змінених рядків перетворює на помилку узгодження.
 

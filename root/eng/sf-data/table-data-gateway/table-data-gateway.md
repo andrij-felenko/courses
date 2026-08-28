@@ -37,75 +37,8 @@
 Ось як це виглядає в коді. Задача суто бекендова — розмова з базою, — тож пишемо мовами, що там реально живуть; TypeScript і Python лягають на неї однаково природно.
 
 :::tabs
-```ts
-// Таблиця: orders(id INTEGER PRIMARY KEY, customer_id TEXT, total REAL, status TEXT)
-type Row = { id: number; customer_id: string; total: number; status: string };
-
-// Один об'єкт на всю таблицю. Тут — увесь SQL до orders і жодного правила.
-class OrderTableGateway {
-  // пошук: методи беруть КЛЮЧ/КРИТЕРІЙ і повертають сирі рядки (record set)
-  find(id: number): Promise<Row | undefined> {
-    return db.get("SELECT * FROM orders WHERE id = ?", id);
-  }
-  findByStatus(status: string): Promise<Row[]> {
-    return db.all("SELECT * FROM orders WHERE status = ?", status);
-  }
-
-  // зміни: теж за ключем, для будь-якого рядка таблиці
-  async insert(customerId: string, total: number, status: string): Promise<number> {
-    const res = await db.run(
-      "INSERT INTO orders (customer_id, total, status) VALUES (?, ?, ?)",
-      customerId, total, status,
-    );
-    return res.lastID;
-  }
-  async update(id: number, total: number, status: string): Promise<void> {
-    await db.run("UPDATE orders SET total = ?, status = ? WHERE id = ?", total, status, id);
-  }
-  async delete(id: number): Promise<void> {
-    await db.run("DELETE FROM orders WHERE id = ?", id);
-  }
-}
-
-// Виклик: правило живе ЗОВНІ, шлюз лише віддає й приймає рядки.
-const gw = new OrderTableGateway();
-for (const row of await gw.findByStatus("paid")) {
-  if (row.total > 1000) await gw.update(row.id, row.total, "review");
-}
-```
-```py
-# Таблиця: orders(id INTEGER PRIMARY KEY, customer_id TEXT, total REAL, status TEXT)
-
-# Один об'єкт на всю таблицю. Тут — увесь SQL до orders і жодного правила.
-class OrderTableGateway:
-    # пошук: методи беруть КЛЮЧ/КРИТЕРІЙ і повертають сирі рядки (record set)
-    def find(self, id):
-        return db.execute("SELECT * FROM orders WHERE id = ?", (id,)).fetchone()
-
-    def find_by_status(self, status):
-        return db.execute("SELECT * FROM orders WHERE status = ?", (status,)).fetchall()
-
-    # зміни: теж за ключем, для будь-якого рядка таблиці
-    def insert(self, customer_id, total, status):
-        cur = db.execute(
-            "INSERT INTO orders (customer_id, total, status) VALUES (?, ?, ?)",
-            (customer_id, total, status),
-        )
-        return cur.lastrowid
-
-    def update(self, id, total, status):
-        db.execute("UPDATE orders SET total = ?, status = ? WHERE id = ?", (total, status, id))
-
-    def delete(self, id):
-        db.execute("DELETE FROM orders WHERE id = ?", (id,))
-
-
-# Виклик: правило живе ЗОВНІ, шлюз лише віддає й приймає рядки.
-gw = OrderTableGateway()
-for row in gw.find_by_status("paid"):
-    if row["total"] > 1000:
-        gw.update(row["id"], row["total"], "review")
-```
+:::code table-data-gateway/ts/index.ts
+:::code table-data-gateway/py/main.py
 :::
 
 Значення в кожному запиті передане окремим параметром (`?`), а не вклеєне в текст `SELECT`, — і зробити цю розмову стійкою до лихого вводу треба саме тут, в одному місці. А правило `total > 1000` стоїть **над** шлюзом, у коді, що його кличе: шлюз не вирішує, що робити з рядком, — він лише дістає й записує рядки. Повний робочий шлюз із усіма пастками — від склеєного з рядків SQL до межі транзакції — розібрано [окремо](root:sf-data/table-data-gateway/proj-table-data-gateway.md).

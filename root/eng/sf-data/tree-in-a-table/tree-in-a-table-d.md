@@ -60,24 +60,7 @@ CREATE INDEX idx_categories_parent_id ON categories(parent_id);
 1. **Якірний член (Anchor Member):** базовий невибірковий запит, що повертає початковий вузол (або множину стартових вузлів) нульового рівня.
 2. **Рекурсивний член (Recursive Member):** запит, що з'єднує робочу проміжну таблицю попереднього кроку з основною таблицею за умовою `child.parent_id = parent.id`.
 
-```sql
-WITH RECURSIVE category_tree AS (
-    -- Якірний член: починаємо з обраного кореня (наприклад, id = 1)
-    SELECT id, parent_id, name, 0 AS depth, ARRAY[id] AS path
-    FROM categories
-    WHERE id = 1
-
-    UNION ALL
-
-    -- Рекурсивний член: приєднуємо дітей до знайдених батьків
-    SELECT c.id, c.parent_id, c.name, ct.depth + 1, ct.path || c.id
-    FROM categories c
-    JOIN category_tree ct ON c.parent_id = ct.id
-)
-SELECT id, parent_id, name, depth, path
-FROM category_tree
-ORDER BY depth, id;
-```
+:::code tree-in-a-table-d/sql/mekhanizm-vykonannia.sql
 
 ![Список суміжності та рекурсивний CTE](/root/eng/sf-data/tree-in-a-table/img/fig2-adjacency-list-and-cte.svg)
 *Архітектура списку суміжності та покрокова ітерація рекурсивного табличного виразу до досягнення фіксованої точки.*
@@ -191,19 +174,7 @@ WHERE path LIKE '/1/2/%';
 
 У цій моделі кожен вузол отримує два цілих числа: лівий ключ `lft` та правий ключ `rgt`. Ці ключі формуються за допомогою повного ейлерового обходу графа в глибину (DFS). Під час першого входу у вузол лічильник кроків записується в `lft`, алгоритм рекурсивно обходить усіх дітей, і перед виходом із вузла поточне значення лічильника записується в `rgt`.
 
-```sql
-CREATE TABLE categories_nested (
-    id SERIAL PRIMARY KEY,
-    lft INT NOT NULL,
-    rgt INT NOT NULL,
-    name VARCHAR(128) NOT NULL,
-    CONSTRAINT chk_nested_valid CHECK (lft < rgt)
-);
-
-CREATE INDEX idx_nested_lft ON categories_nested (lft);
-CREATE INDEX idx_nested_rgt ON categories_nested (rgt);
-CREATE INDEX idx_nested_range ON categories_nested (lft, rgt);
-```
+:::code tree-in-a-table-d/sql/model-3-vkladeni-mnozhyny.sql
 
 ![Вкладені множини Джо Селко](/root/eng/sf-data/tree-in-a-table/img/fig4-nested-sets-intervals.svg)
 *Топологічне інтервальне кодування моделі вкладених множин: миттєве діапазонне сканування на читання та висока ціна зсуву ключів на запис.*
@@ -287,23 +258,7 @@ COMMIT;
 
 Замість збереження структурних атрибутів (`parent_id`, `path`, `lft`/`rgt`) всередині основної таблиці створюється окрема нормалізована таблиця-міст (Bridge Table), яка матеріалізує всі прямі та транзитивні шляхи між усіма парами предків і нащадків у дереві:
 
-```sql
--- Таблиця сутностей (не містить жодних зовнішніх ключів дерева)
-CREATE TABLE categories_node (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(128) NOT NULL
-);
-
--- Таблиця замикання: зберігає всі пари (предок, нащадок) та відстань між ними
-CREATE TABLE category_closure (
-    ancestor_id INT NOT NULL REFERENCES categories_node(id) ON DELETE CASCADE,
-    descendant_id INT NOT NULL REFERENCES categories_node(id) ON DELETE CASCADE,
-    depth INT NOT NULL,
-    PRIMARY KEY (ancestor_id, descendant_id)
-);
-
-CREATE INDEX idx_closure_descendant ON category_closure (descendant_id, depth);
-```
+:::code tree-in-a-table-d/sql/model-4-tablytsia.sql
 
 ![Таблиця замикання](/root/eng/sf-data/tree-in-a-table/img/fig5-closure-table.svg)
 *Матриця транзитивних зв'язків таблиці замикання: швидкі індексовані з'єднання та підтримка посилальної цілісності.*
@@ -360,27 +315,7 @@ SELECT :new_id, :new_id, 0;
 - Видаляються старі зв'язки між предками попереднього батька та всіма нащадками переміщуваної гілки;
 - Створюються нові зв'язки шляхом декартового добутку (`CROSS JOIN`) між предками нового батька та нащадками переміщуваного вузла.
 
-```sql
-BEGIN;
--- Крок 1: Видалення старих предків для переміщуваного піддерева
-DELETE FROM category_closure
-WHERE descendant_id IN (
-    SELECT descendant_id FROM category_closure WHERE ancestor_id = :moving_id
-)
-AND ancestor_id IN (
-    SELECT ancestor_id FROM category_closure
-    WHERE descendant_id = :moving_id AND ancestor_id != :moving_id
-);
-
--- Крок 2: Встановлення нових зв'язків
-INSERT INTO category_closure (ancestor_id, descendant_id, depth)
-SELECT supertree.ancestor_id, subtree.descendant_id, supertree.depth + subtree.depth + 1
-FROM category_closure AS supertree
-CROSS JOIN category_closure AS subtree
-WHERE supertree.descendant_id = :new_parent_id
-  AND subtree.ancestor_id = :moving_id;
-COMMIT;
-```
+:::code tree-in-a-table-d/sql/kanonichni-operatsii-nad.sql
 
 Повний набір готових DDL-скриптів, тригерів та індексів для всіх чотирьох моделей наведено у вставці [📋 Схеми DDL та контракт SQL-запитів для чотирьох моделей дерев](root:sf-data/tree-in-a-table/api-tree-sql-schemata.md).
 

@@ -200,72 +200,8 @@ r = ('2026-07-14 00:00:00', 0)      → load → 2026-07-14 00:00 → save → (
 Записати це виконуваним — справа десятка рядків, і, що приємно, апарат перекладається в код майже дослівно. Пара `save`/`load` заходить параметром, бо закони — не про конкретний `OrderMapper`, а про будь-яку пару стрілок.
 
 :::tabs
-```ts
-/** Закон 1 — рівність. Закон 2 — НЕ рівність, а лише нерухомість другого прогону. */
-function checkLaws<D, R>(
-  save: (o: D) => R,
-  load: (r: R) => D,
-  eq: (a: D, b: D) => boolean,
-  rowEq: (a: R, b: R) => boolean,
-  objects: readonly D[],
-  rows: readonly R[],
-): string {
-  const e = (r: R): R => save(load(r));
-
-  // Обов'язок: нічого не загубити.
-  for (const o of objects) {
-    if (!eq(load(save(o)), o))
-      throw new Error(`закон 1 впав на ${JSON.stringify(o)}: об'єкт повернувся іншим`);
-  }
-
-  // Наслідок: e(r) може НЕ дорівнювати r — але e(e(r)) мусить дорівнювати e(r).
-  for (const r of rows) {
-    const once = e(r), twice = e(once);
-    if (!rowEq(twice, once))
-      throw new Error(`закон 2 впав на ${JSON.stringify(r)}: друге збереження щось змінило`);
-  }
-  return "обидва закони тримаються";
-}
-
-// колонка-текст placed_at ↔ Date
-const save = (d: Date) => d.toISOString();
-const load = (s: string) => new Date(s);
-
-checkLaws(save, load,
-  (a, b) => a.getTime() === b.getTime(),   // рівність домену
-  (a, b) => a === b,                       // рівність рядків
-  [new Date("2026-07-14T00:00:00Z"), new Date("2026-07-14T09:31:07.250Z")],
-  ["2026-07-14", "2026-07-14T00:00:00Z", "2026-07-14T00:00:00.000Z"]);
-```
-```py
-def check_laws(save, load, objects, rows,
-               eq=lambda a, b: a == b, row_eq=lambda a, b: a == b):
-    """Закон 1 — рівність. Закон 2 — НЕ рівність, а лише нерухомість другого прогону."""
-    e = lambda r: save(load(r))
-
-    # Обов'язок: нічого не загубити.
-    for o in objects:
-        if not eq(load(save(o)), o):
-            raise AssertionError(f"закон 1 впав на {o!r}: об'єкт повернувся іншим")
-
-    # Наслідок: e(r) може НЕ дорівнювати r — але e(e(r)) мусить дорівнювати e(r).
-    for r in rows:
-        once = e(r)
-        twice = e(once)
-        if not row_eq(twice, once):
-            raise AssertionError(f"закон 2 впав на {r!r}: друге збереження щось змінило")
-
-    return "обидва закони тримаються"
-
-
-# колонка-текст placed_at ↔ datetime
-save = lambda d: d.isoformat()
-load = lambda s: datetime.fromisoformat(s)
-
-check_laws(save, load,
-           objects=[datetime(2026, 7, 14), datetime(2026, 7, 14, 9, 31, 7, 250000)],
-           rows=["2026-07-14", "2026-07-14 00:00:00", "2026-07-14T00:00:00"])
-```
+:::code math-mapper-round-trip/ts/index.ts
+:::code math-mapper-round-trip/py/main.py
 :::
 
 Обидві версії на цих даних друкують `обидва закони тримаються`, а на маперу, що ріже час, падають на законі (1) — саме там, де й мають. Об'єкти для `objects` вигідно не вигадувати руками, а генерувати: закон (1) — це рівно те, що в перевірці властивостями звуть **«туди й назад»** (англ. *there and back again*, за оглядом властивостей Скотта Влашина) — класична пара «пряме перетворення та обернене», знайома за `decode(encode(a)) == a`. Мапер — той самий випадок, тільки замість байтів база.

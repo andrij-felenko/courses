@@ -28,7 +28,8 @@
           "proj": [
             {
               "file": "proj-utf8-decoder.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -39,7 +40,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -50,13 +52,16 @@
           "proj": [
             {
               "file": "proj-fast-iso8601.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-format-reference.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -67,30 +72,36 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-apollo-to-rfc9562.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-birthday-paradox.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-uuidv7-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-rfc9562-layouts.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         }
@@ -108,18 +119,22 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-crockford-discovery.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-streaming-ndjson.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -141,13 +156,17 @@
           "proj": [
             {
               "file": "proj-streaming-parser.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-xml-parser-contract.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -158,24 +177,30 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-evolution-to-zerocopy.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-zerocopy-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-schema-and-traversal.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -186,7 +211,8 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -197,13 +223,15 @@
           "math": [
             {
               "file": "math-coordinate-precision.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-gpx-to-geojson.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -242,13 +270,16 @@
           "proj": [
             {
               "file": "proj-validator-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-keywords-reference.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ]
         },
@@ -264,13 +295,16 @@
           "hist": [
             {
               "file": "hist-from-hdf-to-parquet.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-avro-container-parser.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }

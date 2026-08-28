@@ -241,36 +241,8 @@ ALTER TABLE users ADD COLUMN phone_e164 varchar(16);
 Розгортається код версії v1.1. Логіка запису оновлюється так, щоб заповнювати обидва стовпці:
 
 :::tabs
-```go
-// Логіка оновлення профілю у версії коду v1.1 (Dual Write)
-func UpdateUserPhone(ctx context.Context, db *sql.DB, userID int64, rawPhone string) error {
-    normalizedPhone, err := formatE164(rawPhone)
-    if err != nil {
-        return fmt.Errorf("невалідний телефон: %w", err)
-    }
-
-    query := `
-        UPDATE users 
-        SET phone = $1, 
-            phone_e164 = $2, 
-            updated_at = NOW() 
-        WHERE id = $3`
-    _, err = db.ExecContext(ctx, query, rawPhone, normalizedPhone, userID)
-    return err
-}
-```
-```cpp
-// Логіка оновлення профілю у версії коду v1.1 (Dual Write)
-void update_user_phone(PgConnection& conn, int64_t user_id, std::string_view raw_phone) {
-    std::string normalized_phone = format_e164(raw_phone);
-
-    std::string query = std::format(
-        "UPDATE users SET phone = '{}', phone_e164 = '{}', updated_at = NOW() WHERE id = {};",
-        raw_phone, normalized_phone, user_id
-    );
-    PgResultPtr res(conn.exec(query));
-}
-```
+:::code database-migration-pipeline-d/go/main.go
+:::code database-migration-pipeline-d/cpp/faza-2-podviinyi-zapys-ta.cpp
 :::
 
 Паралельно запускається асинхронний бекфіл історичних даних:
@@ -452,41 +424,8 @@ SET statement_timeout = '30000ms';
 Коли міграція переривається через `lock_timeout`, раннер не повинен падати відразу. Застосовується стратегія повторних спроб із випадковим відступом (Jitter):
 
 :::tabs
-```c
-/* Обчислення паузи перед повторною спробою захоплення блокування */
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <time.h>
-
-long calculate_backoff_delay_ms(int attempt, long base_ms, long max_ms) {
-    long delay = base_ms * (1L << attempt);
-    if (delay > max_ms) {
-        delay = max_ms;
-    }
-    /* Додавання випадкового джитера від 0 до 50% */
-    long jitter = rand() % (delay / 2 + 1);
-    return delay + jitter;
-}
-```
-```cpp
-// Обчислення паузи перед повторною спробою захоплення блокування (C++)
-#include <chrono>
-#include <random>
-#include <algorithm>
-
-std::chrono::milliseconds calculate_backoff_delay(int attempt, 
-                                                  std::chrono::milliseconds base, 
-                                                  std::chrono::milliseconds max_delay) {
-    auto factor = 1ULL << std::min(attempt, 30);
-    auto raw_delay = std::min(base * factor, max_delay);
-
-    static thread_local std::mt19937_64 rng(std::random_device{}());
-    std::uniform_int_distribution<int64_t> dist(0, raw_delay.count() / 2);
-
-    return raw_delay + std::chrono::milliseconds(dist(rng));
-}
-```
+:::code database-migration-pipeline-d/c/main.c
+:::code database-migration-pipeline-d/cpp/alhorytm-povtoriv-z.cpp
 :::
 
 ---

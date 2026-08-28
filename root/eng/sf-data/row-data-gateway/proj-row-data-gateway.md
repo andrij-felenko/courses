@@ -25,136 +25,8 @@ CREATE TABLE orders (
 Після цього `save()` не питає викликача нічого: `persisted` сам каже йому, `INSERT` це чи `UPDATE`. Задача суто бекендова — розмова з базою, — тож пишемо мовами, що там реально живуть; TypeScript і Python лягають на неї однаково природно.
 
 :::tabs
-```ts
-import { DatabaseSync } from "node:sqlite";
-
-const db = new DatabaseSync(":memory:");
-type Row = { id: number; customer_id: string; total: number; status: string };
-
-// ── ШЛЮЗ: рівно один рядок — його поля, три дієслова й прапорець наявності. ──
-class OrderGateway {
-  id: number | null;
-  persisted: boolean;                        // ← чи мій рядок уже в базі
-
-  constructor(
-    public customerId: string,
-    public total: number,
-    public status = "new",
-    init: { id?: number; persisted?: boolean } = {},
-  ) {
-    this.id = init.id ?? null;
-    this.persisted = init.persisted ?? false;
-  }
-
-  // єдина точка запису: сам обирає INSERT чи UPDATE за прапорцем
-  save(): void {
-    if (this.persisted) this.update();
-    else this.insert();
-  }
-
-  private insert(): void {
-    const info = db
-      .prepare("INSERT INTO orders (customer_id, total, status) VALUES (?, ?, ?)")
-      .run(this.customerId, this.total, this.status);
-    this.id = Number(info.lastInsertRowid);  // база видала ключ
-    this.persisted = true;                   // відтепер я в базі
-  }                                          // node:sqlite фіксує кожен .run() сам
-
-  private update(): void {
-    db.prepare("UPDATE orders SET customer_id = ?, total = ?, status = ? WHERE id = ?")
-      .run(this.customerId, this.total, this.status, this.id);
-  }
-
-  delete(): void {
-    if (!this.persisted) return;
-    db.prepare("DELETE FROM orders WHERE id = ?").run(this.id);
-    this.id = null;                          // ключа немає
-    this.persisted = false;                  // рядка немає
-  }
-}
-
-// ── ШУКАЧ: окремий клас; виконує SELECT і будує з кожного рядка свій шлюз. ──
-class OrderFinder {
-  // рядок ПРИЙШОВ із бази → шлюз одразу позначено як наявний
-  private static load(r: Row): OrderGateway {
-    return new OrderGateway(r.customer_id, r.total, r.status,
-                            { id: r.id, persisted: true });
-  }
-
-  static find(id: number): OrderGateway | null {
-    const r = db.prepare("SELECT * FROM orders WHERE id = ?").get(id) as Row | undefined;
-    return r ? OrderFinder.load(r) : null;
-  }
-
-  static findByStatus(status: string): OrderGateway[] {
-    const rows = db.prepare("SELECT * FROM orders WHERE status = ?").all(status) as Row[];
-    return rows.map((r) => OrderFinder.load(r));
-  }
-}
-```
-```py
-import sqlite3
-
-db = sqlite3.connect(":memory:")
-db.row_factory = sqlite3.Row
-
-
-# ── ШЛЮЗ: рівно один рядок — його поля, три дієслова й прапорець наявності. ──
-class OrderGateway:
-    def __init__(self, customer_id, total, status="new", *, id=None, persisted=False):
-        self.id = id
-        self.customer_id = customer_id
-        self.total = total
-        self.status = status
-        self.persisted = persisted          # ← чи мій рядок уже в базі
-
-    # єдина точка запису: сам обирає INSERT чи UPDATE за прапорцем
-    def save(self):
-        self._update() if self.persisted else self._insert()
-
-    def _insert(self):
-        cur = db.execute(
-            "INSERT INTO orders (customer_id, total, status) VALUES (?, ?, ?)",
-            (self.customer_id, self.total, self.status),
-        )
-        self.id = cur.lastrowid             # база видала ключ
-        self.persisted = True               # відтепер я в базі
-        db.commit()
-
-    def _update(self):
-        db.execute(
-            "UPDATE orders SET customer_id = ?, total = ?, status = ? WHERE id = ?",
-            (self.customer_id, self.total, self.status, self.id),
-        )
-        db.commit()
-
-    def delete(self):
-        if not self.persisted:
-            return
-        db.execute("DELETE FROM orders WHERE id = ?", (self.id,))
-        db.commit()
-        self.id = None                      # ключа немає
-        self.persisted = False              # рядка немає
-
-
-# ── ШУКАЧ: окремий клас; виконує SELECT і будує з кожного рядка свій шлюз. ──
-class OrderFinder:
-    @staticmethod
-    def _load(r):
-        # рядок ПРИЙШОВ із бази → шлюз одразу позначено як наявний
-        return OrderGateway(r["customer_id"], r["total"], r["status"],
-                            id=r["id"], persisted=True)
-
-    @staticmethod
-    def find(id):
-        r = db.execute("SELECT * FROM orders WHERE id = ?", (id,)).fetchone()
-        return OrderFinder._load(r) if r else None
-
-    @staticmethod
-    def find_by_status(status):
-        rows = db.execute("SELECT * FROM orders WHERE status = ?", (status,)).fetchall()
-        return [OrderFinder._load(r) for r in rows]
-```
+:::code proj-row-data-gateway/ts/praporets-ia-vzhe-v-bazi-i.ts
+:::code proj-row-data-gateway/py/praporets-ia-vzhe-v-bazi-i.py
 :::
 
 Дві речі в цьому коді варто прочитати повільно. Перша — кожне значення передане **окремим параметром** (`?`), а не вклеєне в текст запиту; вся розмова з базою замкнена в цих двох класах, і зробити її стійкою до підставленого лихого вводу треба саме тут, в одному місці, а не в кожному контролері. Друга — конструктор шлюзу й фабрика шукача (`load`) розходяться навмисне: конструктор народжує **новий** рядок (`persisted = false`), а `load` одягає в об'єкт рядок, що **вже є** (`persisted = true`). Один і той самий клас, а два входи — і кожен ставить прапорець за своєю правдою.
@@ -163,20 +35,7 @@ class OrderFinder:
 
 Найкраще прапорець видно в дії. Проженемо один рядок крізь усе його життя й подивимося, який SQL шлюз при цьому вимовляє:
 
-```py
-gw = OrderGateway("c-19", 1200.0)   # persisted=False, id=None — рядка ще немає
-gw.save()                            # persisted False → INSERT
-print(gw.id, gw.persisted)           # 1 True
-
-gw.status = "paid"
-gw.save()                            # persisted True → UPDATE (а не другий INSERT!)
-
-again = OrderFinder.find(1)          # persisted True одразу — рядок із бази
-again.total = 999.0
-again.save()                         # UPDATE
-
-gw.delete()                          # DELETE; далі gw.id=None, gw.persisted=False
-```
+:::code proj-row-data-gateway/py/povnyi-obert-novyi-insert.py
 
 Ось що з цього поїде в базу — не переказ, а рівно ті запити, що їх складає код вище:
 
@@ -212,33 +71,8 @@ total = 999.0;  save()
 Візьмімо той самий `OrderGateway` і додаймо йому рішення «чи можна скасувати замовлення» разом із дією `cancel`:
 
 :::tabs
-```ts
-class OrderGateway {
-  // ⚠️ додали предметне правило В шлюз — і це вже не шлюз
-  canCancel(): boolean {
-    return this.status === "new" || this.status === "paid";
-  }
-
-  cancel(): void {
-    if (!this.canCancel())
-      throw new Error(`замовлення в статусі ${this.status} не скасувати`);
-    this.status = "cancelled";
-    this.save();
-  }
-}
-```
-```py
-class OrderGateway:
-    # ⚠️ додали предметне правило В шлюз — і це вже не шлюз
-    def can_cancel(self):
-        return self.status in ("new", "paid")
-
-    def cancel(self):
-        if not self.can_cancel():
-            raise ValueError(f"замовлення в статусі {self.status!r} не скасувати")
-        self.status = "cancelled"
-        self.save()
-```
+:::code proj-row-data-gateway/ts/mezha-na-ochakh-odyn.ts
+:::code proj-row-data-gateway/py/mezha-na-ochakh-odyn.py
 :::
 
 Поля ті самі, три дієслова ті самі — а об'єкт уже інший. Тепер він **знає предметне правило** (коли замовлення скасовне) і сам його застосовує. Об'єкт, що поєднав у собі рядок бази й правила над ним, має власне ім'я — [Active Record](root:sf-data/active-record). Ми не перепроєктовували клас, не міняли доступ до бази — лише вклали одне рішення, і межа перейдена.
@@ -343,26 +177,7 @@ for o in orders:
 
 Сто замовлень — сто один запит: один по список і сто по позиції, кожен окремою поїздкою в базу. На десятці рядків у розробника непомітно, на тисячі в проді сторінка лягає. Це — [проблема N+1](root:sf-data/lazy-loading), тільки написана руками: шукач так само зручний, як ліниве звертання до поля, і так само мовчки множить запити. Лікується вона не відмовою від шукача, а одним питанням до бази замість ста:
 
-```py
-from collections import defaultdict
-
-class OrderLineFinder:
-    @staticmethod
-    def find_by_orders(order_ids):
-        marks = ",".join("?" * len(order_ids))         # → WHERE order_id IN (?, ?, …)
-        rows = db.execute(
-            f"SELECT * FROM order_lines WHERE order_id IN ({marks})", order_ids
-        ).fetchall()
-        return [OrderLineGateway._load(r) for r in rows]
-
-orders = OrderFinder.find_by_status("paid")            # 1 запит
-lines = OrderLineFinder.find_by_orders([o.id for o in orders])   # +1 на ВСІХ
-by_order = defaultdict(list)
-for ln in lines:
-    by_order[ln.order_id].append(ln)                   # групуємо в пам'яті
-for o in orders:
-    o.lines = by_order[o.id]
-```
+:::code proj-row-data-gateway/py/ruchne-pidvantazhennia.py
 
 Два запити замість ста одного, скільки б не було замовлень. Єдиний обережний момент — довжина списку в `IN (…)`: бази мають стелю на кількість параметрів (SQLite історично близько 999), тож на великих вибірках його ріжуть пачками. Як саме ці числа ростуть із розміром вибірки — [розкладено окремо](root:sf-data/active-record/math-n-plus-one.md); нам досить бачити, що межа між «швидко» і «повзе» — це один зайвий запит, схований у циклі.
 

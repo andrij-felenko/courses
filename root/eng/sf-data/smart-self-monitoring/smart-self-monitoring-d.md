@@ -260,25 +260,7 @@ smartctl -l selftest /dev/sdb
 
 ### Основні сценарії використання smartctl
 
-```bash
-# Загальна інформація про пристрій (модель, серійний номер, версія прошивки)
-smartctl -i /dev/sda
-
-# Експрес-оцінка здоров'я (SMART Overall Health Assessment)
-smartctl -H /dev/sda
-
-# Вивід повної таблиці атрибутів (для SATA)
-smartctl -A /dev/sda
-
-# Детальний звіт про здоров'я накопичувача NVMe
-smartctl -a /dev/nvme0
-
-# Опитування диска SATA, підключеного через апаратний RAID-контролер MegaRAID
-smartctl -d megaraid,0 -a /dev/sda
-
-# Опитування диска в USB-кишені з мостом SAT
-smartctl -d sat -a /dev/sdb
-```
+:::code smart-self-monitoring-d/sh/osnovni-stsenarii.sh
 
 ### Конфігурація фонового демона smartd
 
@@ -311,30 +293,7 @@ DEVICESCAN -a \
 
 Приклад обробника сповіщень `/usr/local/bin/smart-alert.sh`:
 
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
-
-# Демон smartd передає змінні середовища:
-# SMARTD_DEVICE — пристрій (/dev/sda)
-# SMARTD_MESSAGE — текст повідомлення про помилку
-# SMARTD_FAILTYPE — тип збою (EmailTest, Health, Attribute)
-
-PAYLOAD=$(cat <<EOF
-{
-  "device": "${SMARTD_DEVICE}",
-  "type": "${SMARTD_FAILTYPE}",
-  "message": "${SMARTD_MESSAGE}",
-  "timestamp": "$(date -Iseconds)"
-}
-EOF
-)
-
-# Відправка JSON-тривоги у внутрішній моніторинг (Alertmanager / Webhook)
-curl -s -X POST -H "Content-Type: application/json" \
-     -d "${PAYLOAD}" \
-     http://alertmanager.internal:9093/api/v2/alerts || true
-```
+:::code smart-self-monitoring-d/sh/konfihuratsiia-fonovoho.sh
 
 ### Гаряча заміна дисків та багатошляховий доступ (Multipath)
 

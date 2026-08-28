@@ -61,166 +61,15 @@
 Патерн тут не прив'язаний до заліза й однаково живе на бекенді Node й у Python-сервісах, тож покажу обома. Спершу домен — зверни увагу, чого в ньому **нема**:
 
 :::tabs
-```ts
-// ── ДОМЕН: жодного натяку на базу ──────────────────────────────
-class Money {
-  constructor(readonly cents: number, readonly currency: string) {}
-  plus(o: Money): Money {
-    if (o.currency !== this.currency) throw new Error("різні валюти не додаються");
-    return new Money(this.cents + o.cents, this.currency);
-  }
-  times(k: number): Money { return new Money(Math.round(this.cents * k), this.currency); }
-}
-
-class OrderLine {
-  constructor(readonly sku: string, readonly qty: number, readonly price: Money) {}
-  subtotal(): Money { return this.price.times(this.qty); }
-}
-
-type Status = "new" | "shipped" | "cancelled";
-
-class Order {
-  constructor(
-    readonly id: number | null,
-    readonly placedAt: Date,
-    readonly lines: readonly OrderLine[],
-    private status: Status = "new",
-  ) {
-    if (lines.length === 0) throw new Error("замовлення без позицій не буває");
-  }
-
-  get state(): Status { return this.status; }
-
-  total(): Money {
-    return this.lines.slice(1).reduce((s, l) => s.plus(l.subtotal()), this.lines[0].subtotal());
-  }
-
-  cancel(): void {
-    if (this.status === "shipped") throw new Error("відвантажене не скасовують");
-    this.status = "cancelled";
-  }
-}
-```
-```py
-from dataclasses import dataclass
-from datetime import datetime
-from functools import reduce
-import operator
-
-# ── ДОМЕН: жодного натяку на базу ──────────────────────────────
-@dataclass(frozen=True)
-class Money:
-    cents: int
-    currency: str
-
-    def __add__(self, other: "Money") -> "Money":
-        if other.currency != self.currency:
-            raise ValueError("різні валюти не додаються")
-        return Money(self.cents + other.cents, self.currency)
-
-    def __mul__(self, k: int) -> "Money":
-        return Money(self.cents * k, self.currency)
-
-
-@dataclass(frozen=True)
-class OrderLine:
-    sku: str
-    qty: int
-    price: Money
-
-    def subtotal(self) -> Money:
-        return self.price * self.qty
-
-
-class Order:
-    def __init__(self, id, placed_at, lines, status="new"):
-        if not lines:
-            raise ValueError("замовлення без позицій не буває")
-        self.id = id
-        self.placed_at = placed_at
-        self.lines = list(lines)
-        self.status = status
-
-    def total(self) -> Money:
-        return reduce(operator.add, (l.subtotal() for l in self.lines))
-
-    def cancel(self) -> None:
-        if self.status == "shipped":
-            raise ValueError("відвантажене не скасовують")
-        self.status = "cancelled"
-```
+:::code data-mapper-d/ts/iak-vin-vyhliadaie-v-kodi.ts
+:::code data-mapper-d/py/iak-vin-vyhliadaie-v-kodi.py
 :::
 
 У цьому коді нема слова «база». Його можна взяти й запустити в порожньому проєкті без жодної залежності. Тепер мапер — і в ньому, навпаки, зібрано **весь** бруд перекладу:
 
 :::tabs
-```ts
-class OrderMapper {
-  constructor(private readonly db: Db) {}
-
-  async findById(id: number): Promise<Order | null> {
-    const head = await this.db.one(
-      `SELECT id, placed_at, currency, status FROM orders WHERE id = $1`, [id]);
-    if (!head) return null;
-
-    const rows = await this.db.all(
-      `SELECT sku, qty, price_cents FROM order_lines WHERE order_id = $1 ORDER BY id`, [id]);
-
-    // збірка назад: дві таблиці → один об'єкт; копійки + код валюти → Money
-    const lines = rows.map(r => new OrderLine(r.sku, r.qty, new Money(r.price_cents, head.currency)));
-    return new Order(head.id, new Date(head.placed_at), lines, head.status);
-  }
-
-  async insert(order: Order): Promise<number> {
-    const total = order.total();                        // Money → дві колонки
-    const { id } = await this.db.one(
-      `INSERT INTO orders (placed_at, total_cents, currency, status)
-       VALUES ($1, $2, $3, $4) RETURNING id`,
-      [order.placedAt, total.cents, total.currency, order.state]);
-
-    for (const l of order.lines) {
-      await this.db.run(
-        `INSERT INTO order_lines (order_id, sku, qty, price_cents) VALUES ($1, $2, $3, $4)`,
-        [id, l.sku, l.qty, l.price.cents]);
-    }
-    return id;
-  }
-}
-```
-```py
-class OrderMapper:
-    def __init__(self, conn):          # conn.row_factory = sqlite3.Row
-        self._conn = conn
-
-    def find_by_id(self, order_id: int) -> Order | None:
-        head = self._conn.execute(
-            "SELECT id, placed_at, currency, status FROM orders WHERE id = ?",
-            (order_id,)).fetchone()
-        if head is None:
-            return None
-
-        rows = self._conn.execute(
-            "SELECT sku, qty, price_cents FROM order_lines WHERE order_id = ? ORDER BY id",
-            (order_id,)).fetchall()
-
-        # збірка назад: дві таблиці → один об'єкт; копійки + код валюти → Money
-        lines = [OrderLine(r["sku"], r["qty"], Money(r["price_cents"], head["currency"]))
-                 for r in rows]
-        return Order(head["id"], datetime.fromisoformat(head["placed_at"]),
-                     lines, head["status"])
-
-    def insert(self, order: Order) -> int:
-        total = order.total()                          # Money → дві колонки
-        cur = self._conn.execute(
-            "INSERT INTO orders (placed_at, total_cents, currency, status) VALUES (?, ?, ?, ?)",
-            (order.placed_at.isoformat(), total.cents, total.currency, order.status))
-        order_id = cur.lastrowid
-
-        self._conn.executemany(
-            "INSERT INTO order_lines (order_id, sku, qty, price_cents) VALUES (?, ?, ?, ?)",
-            [(order_id, l.sku, l.qty, l.price.cents) for l in order.lines])
-        return order_id
-```
+:::code data-mapper-d/ts/iak-vin-vyhliadaie-v-kodi-2.ts
+:::code data-mapper-d/py/iak-vin-vyhliadaie-v-kodi-2.py
 :::
 
 Найцікавіше в `findById` — не запити, а **збірка**. Мапер не «заповнює поля»: він читає два різні набори рядків і **відбудовує з них цілий об'єкт** через звичайний конструктор, разом із його правилами. Саме тому переклад не зводиться до відповідності «поле — колонка», і саме тому мапер не виводиться сам собою з назв колонок: рішення «оці дві колонки — насправді один `Money`» ухвалює людина. Повний мапер — із транзакцією, оновленням, видаленням і пастками, що на них чигають, — я розібрав окремо [в коді робочого мапера](root:sf-data/data-mapper/proj-hand-written-mapper.md).
@@ -249,25 +98,7 @@ class OrderMapper:
 
 Писати такий мапер на кожну сутність вручну — марудна робота, і саме тому існують ORM. Чиста демонстрація патерна — імперативне (класичне) відображення в SQLAlchemy: клас лишається звичайним, а відповідність описують **зовні** й прикріплюють одним викликом.
 
-```py
-from sqlalchemy import Table, Column, Integer, String
-from sqlalchemy.orm import registry
-
-mapper_registry = registry()
-
-orders = Table(
-    "orders", mapper_registry.metadata,
-    Column("id", Integer, primary_key=True),
-    Column("placed_at", String),
-    Column("total_cents", Integer),
-    Column("currency", String(3)),
-    Column("status", String(16)),
-)
-
-# Order — той самий звичайний клас, що й вище: без спадкування,
-# без декораторів, без жодного рядка про базу у власному коді.
-mapper_registry.map_imperatively(Order, orders)
-```
+:::code data-mapper-d/py/mapery-iakykh-ne-pyshut.py
 
 Документація SQLAlchemy прямо зазначає, що клас за такого відображення не містить жодних декларативних атрибутів; сам спосіб з'явився ще у випуску 2006 року й нині подається як рідше вживаний — типовим став декларативний. У PHP цей патерн узагалі покладено в основу фреймворку: офіційна документація Doctrine 2 стверджує, що ORM тримається на Data Mapper і прагне повного відділення доменної логіки від збереження, а сутності є звичайними об'єктами без обов'язкового базового класу. У світі Java до цього ж табору належить Hibernate, у .NET — NHibernate.
 

@@ -125,73 +125,9 @@ COMMIT;
 
 :::tabs
 @tab C
-```c
-#include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
-
-typedef struct {
-    int id;
-    char payload[128];
-} db_row_t;
-
-typedef struct {
-    int id;
-    char cached_val[128];
-} cache_row_t;
-
-// Імітація атомарної транзакції
-bool save_with_outbox(db_row_t *db, size_t *db_sz, int id, const char *data) {
-    db[*db_sz].id = id;
-    strncpy(db[*db_sz].payload, data, 127);
-    (*db_sz)++;
-    return true;
-}
-
-// Фонова синхронізація кешу
-void sync_cache(const db_row_t *db, size_t db_sz, cache_row_t *cache, size_t *c_sz) {
-    for (size_t i = 0; i < db_sz; ++i) {
-        cache[i].id = db[i].id;
-        strncpy(cache[i].cached_val, db[i].payload, 127);
-    }
-    *c_sz = db_sz;
-}
-```
+:::code polyglot-persistence-d/c/main.c
 @tab C++
-```cpp
-#include <iostream>
-#include <string>
-#include <unordered_map>
-#include <vector>
-
-class PolyglotStore {
-public:
-    void commit_order(int id, const std::string& data) {
-        // 1. Атомарний запис у primary store
-        primary_store_[id] = data;
-        outbox_queue_.push_back({id, data});
-    }
-
-    void process_sync() {
-        for (const auto& [id, payload] : outbox_queue_) {
-            // 2. Ідемпотентне оновлення кешу та пошукового індексу
-            read_cache_[id] = payload;
-        }
-        outbox_queue_.clear();
-    }
-
-    std::string fast_read(int id) const {
-        auto it = read_cache_.find(id);
-        if (it != read_cache_.end()) return it->second;
-        return "";
-    }
-
-private:
-    std::unordered_map<int, std::string> primary_store_;
-    std::vector<std::pair<int, std::string>> outbox_queue_;
-    std::unordered_map<int, std::string> read_cache_;
-};
-```
+:::code polyglot-persistence-d/cpp/main.cpp
 :::
 
 Повну виробничу реалізацію сервісу замовлень з інвертованим індексом та підтримкою версіонування наведено у практичному проєкті [Розробка поліглотного сервісу замовлень на C та C++](root:sf-data/polyglot-persistence/proj-polyglot-order-service.md).

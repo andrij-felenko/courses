@@ -197,59 +197,8 @@ ORDER BY (device_id, timestamp);
 Нижче наведено приклад векторизованого обчислення фільтра мовами C та C++:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
-
-#define VECTOR_LEN 1024
-
-/* Векторизована фільтрація стовпця цілих чисел:
-   Формує вектор вибірки (selection vector) без розгалужень у тілі циклу */
-size_t filter_vector_i32(const int32_t* restrict column, 
-                         size_t count, 
-                         int32_t threshold, 
-                         uint16_t* restrict sel_vector) {
-    size_t matches = 0;
-    
-    /* Компілятор розгортає цей цикл за допомогою SIMD векторів (AVX2/AVX-512) */
-    for (size_t i = 0; i < count; ++i) {
-        bool pass = (column[i] > threshold);
-        sel_vector[matches] = (uint16_t)i;
-        matches += pass ? 1 : 0;
-    }
-    
-    return matches;
-}
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <span>
-#include <vector>
-
-namespace columnar {
-
-constexpr size_t VECTOR_LEN = 1024;
-
-/* Ідіоматична векторизована фільтрація на сучасному C++20 з використанням std::span */
-size_t filter_vector(std::span<const int32_t> column, 
-                     int32_t threshold, 
-                     std::span<uint16_t> sel_vector) noexcept {
-    size_t matches = 0;
-    const size_t count = column.size();
-    
-    for (size_t i = 0; i < count; ++i) {
-        const bool pass = (column[i] > threshold);
-        sel_vector[matches] = static_cast<uint16_t>(i);
-        matches += pass ? 1 : 0;
-    }
-    
-    return matches;
-}
-
-} // namespace columnar
-```
+:::code columnar-storage-d/c/main.c
+:::code columnar-storage-d/cpp/main.cpp
 :::
 
 ---

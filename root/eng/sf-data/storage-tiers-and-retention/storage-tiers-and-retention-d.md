@@ -177,77 +177,8 @@
 Нижче наведено фрагмент ядра маршрутизації та атомарної фіксації нового ярусу:
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <pthread.h>
-
-typedef enum { TIER_HOT, TIER_WARM, TIER_COLD } tier_t;
-typedef enum { STATE_ONLINE, STATE_MIGRATING } state_t;
-
-typedef struct {
-    uint64_t chunk_id;
-    tier_t current_tier;
-    state_t state;
-    uint32_t checksum;
-    pthread_rwlock_t lock;
-} chunk_descriptor_t;
-
-// Атомарна підміна ярусу після завершення фонового копіювання
-bool commit_chunk_migration(chunk_descriptor_t *chunk, tier_t new_tier, uint32_t verified_crc) {
-    pthread_rwlock_wrlock(&chunk->lock);
-    
-    // Перевірка інваріантів перед фіксацією
-    if (chunk->state != STATE_MIGRATING || chunk->checksum != verified_crc) {
-        chunk->state = STATE_ONLINE; // Відкат стану при невідповідності
-        pthread_rwlock_unlock(&chunk->lock);
-        return false;
-    }
-    
-    chunk->current_tier = new_tier;
-    chunk->state = STATE_ONLINE;
-    pthread_rwlock_unlock(&chunk->lock);
-    return true;
-}
-```
-```cpp
-#include <cstdint>
-#include <shared_mutex>
-#include <mutex>
-#include <optional>
-
-enum class StorageTier : uint8_t { Hot, Warm, Cold };
-enum class ChunkState : uint8_t { Online, Migrating };
-
-class ChunkDescriptor {
-public:
-    ChunkDescriptor(uint64_t id, uint32_t crc)
-        : id_(id), checksum_(crc), tier_(StorageTier::Hot), state_(ChunkState::Online) {}
-
-    bool commit_migration(StorageTier new_tier, uint32_t verified_crc) {
-        std::unique_lock lock(rw_mutex_);
-        if (state_ != ChunkState::Migrating || checksum_ != verified_crc) {
-            state_ = ChunkState::Online; // Відкат при збої
-            return false;
-        }
-        tier_ = new_tier;
-        state_ = ChunkState::Online;
-        return true;
-    }
-
-    StorageTier get_tier() const {
-        std::shared_lock lock(rw_mutex_);
-        return tier_;
-    }
-
-private:
-    const uint64_t id_;
-    const uint32_t checksum_;
-    StorageTier tier_;
-    ChunkState state_;
-    mutable std::shared_mutex rw_mutex_;
-};
-```
+:::code storage-tiers-and-retention-d/c/main.c
+:::code storage-tiers-and-retention-d/cpp/main.cpp
 :::
 
 ---

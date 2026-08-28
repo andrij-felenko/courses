@@ -198,19 +198,7 @@ CREATE TABLE outbox_events (
 
 2. Коли сервіс виконує бізнес-операцію, він у межах **однієї локальної ACID-транзакції** оновлює реляційні таблиці та записує готову доменну подію у таблицю `outbox_events`:
 
-```sql
-BEGIN;
-INSERT INTO orders (id, customer_id, total, status) VALUES (101, 42, 1500, 'PAID');
-INSERT INTO outbox_events (id, aggregate_type, aggregate_id, event_type, payload)
-VALUES (
-    gen_random_uuid(), 
-    'Order', 
-    '101', 
-    'OrderPaid', 
-    '{"order_id": 101, "customer_id": 42, "amount": 1500, "items": [501, 502]}'
-);
-COMMIT;
-```
+:::code change-data-capture-d/sql/main.sql
 
 3. Конектор CDC налаштовується на вичитування **виключно таблиці `outbox_events`** через WAL.
 4. Спеціалізований маршрутизатор подій (наприклад, Debezium Outbox Event Router) перехоплює подію, витягує `payload` і публікує його в топік Kafka з назвою `Order.events`, використовуючи `aggregate_id` як ключ повідомлення.

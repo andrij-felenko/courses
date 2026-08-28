@@ -38,115 +38,8 @@
 Фреймворк тут нічого не додає до суті, тож найкраще видно на класі, написаному від руки. З'єднання з базою клас бере сам — і це не недбалість прикладу, а частина патерну.
 
 :::tabs
-```ts
-// Таблиця: orders(id INTEGER PRIMARY KEY, customer_id TEXT, total REAL, status TEXT)
-type Row = { id: number; customer_id: string; total: number; status: string };
-
-class Order {
-  id: number | null = null;      // ключа немає → рядка ще немає
-  customerId = "";
-  total = 0;
-  status = "new";
-
-  // ── знайти себе: рядок → об'єкт ──
-  static async find(id: number): Promise<Order | null> {
-    const row: Row | undefined = await db.get("SELECT * FROM orders WHERE id = ?", id);
-    if (!row) return null;
-    const o = new Order();
-    o.id = row.id;
-    o.customerId = row.customer_id;
-    o.total = row.total;
-    o.status = row.status;
-    return o;
-  }
-
-  // ── зберегти себе: об'єкт → рядок ──
-  async save(): Promise<void> {
-    if (this.id === null) {
-      const res = await db.run(
-        "INSERT INTO orders (customer_id, total, status) VALUES (?, ?, ?)",
-        this.customerId, this.total, this.status,
-      );
-      this.id = res.lastID;      // рядок народився — об'єкт запам'ятав свій ключ
-    } else {
-      await db.run(
-        "UPDATE orders SET customer_id = ?, total = ?, status = ? WHERE id = ?",
-        this.customerId, this.total, this.status, this.id,
-      );
-    }
-  }
-
-  async delete(): Promise<void> {
-    if (this.id === null) return;
-    await db.run("DELETE FROM orders WHERE id = ?", this.id);
-    this.id = null;              // ключ забрали → об'єкт знову «без рядка»
-  }
-
-  // ── предметне правило: на тих самих даних, у тому ж класі ──
-  canCancel(): boolean {
-    return this.status === "new" || this.status === "paid";
-  }
-}
-
-const order = await Order.find(42);
-if (order?.canCancel()) {
-  order.status = "cancelled";
-  await order.save();            // об'єкт сам знає, що це UPDATE рядка 42
-}
-```
-```py
-# Таблиця: orders(id INTEGER PRIMARY KEY, customer_id TEXT, total REAL, status TEXT)
-class Order:
-    def __init__(self, customer_id: str = "", total: float = 0.0, status: str = "new"):
-        self.id: int | None = None      # ключа немає → рядка ще немає
-        self.customer_id = customer_id
-        self.total = total
-        self.status = status
-
-    # ── знайти себе: рядок → об'єкт ──
-    @classmethod
-    def find(cls, id: int) -> "Order | None":
-        row = db.execute(
-            "SELECT customer_id, total, status FROM orders WHERE id = ?", (id,)
-        ).fetchone()
-        if row is None:
-            return None
-        order = cls(*row)
-        order.id = id
-        return order
-
-    # ── зберегти себе: об'єкт → рядок ──
-    def save(self) -> None:
-        if self.id is None:
-            cur = db.execute(
-                "INSERT INTO orders (customer_id, total, status) VALUES (?, ?, ?)",
-                (self.customer_id, self.total, self.status),
-            )
-            self.id = cur.lastrowid     # рядок народився — об'єкт запам'ятав свій ключ
-        else:
-            db.execute(
-                "UPDATE orders SET customer_id = ?, total = ?, status = ? WHERE id = ?",
-                (self.customer_id, self.total, self.status, self.id),
-            )
-        db.commit()
-
-    def delete(self) -> None:
-        if self.id is None:
-            return
-        db.execute("DELETE FROM orders WHERE id = ?", (self.id,))
-        db.commit()
-        self.id = None                  # ключ забрали → об'єкт знову «без рядка»
-
-    # ── предметне правило: на тих самих даних, у тому ж класі ──
-    def can_cancel(self) -> bool:
-        return self.status in ("new", "paid")
-
-
-order = Order.find(42)
-if order and order.can_cancel():
-    order.status = "cancelled"
-    order.save()                        # об'єкт сам знає, що це UPDATE рядка 42
-```
+:::code active-record-d/ts/index.ts
+:::code active-record-d/py/iak-vono-vyhliadaie-rukamy.py
 :::
 
 Увесь двигун патерну сховано в одному `if` усередині `save()`: **немає ключа — значить, рядка ще немає, і це `INSERT`; є ключ — рядок існує, і це `UPDATE`**. Об'єкт тримає в собі не лише дані рядка, а й відповідь на питання «а чи я вже в базі?». Тому той, хто його викликає, ніколи не думає, вставка це чи оновлення: він каже «збережись» — і об'єкт розбирається сам.
@@ -162,40 +55,8 @@ if order and order.can_cancel():
 Саме це й роблять фреймворки. У Rails клас моделі порожній: жодного поля не оголошено, бо всі вони приїдуть зі схеми таблиці `orders` під час роботи. Django йде тим самим шляхом у зворотний бік — поля оголошують у класі, а схему таблиці генерують із них [міграцією](root:sf-data/database-migrations). Одна й та сама монета: або клас із схеми, або схема з класу, але описувати відповідність двічі не доводиться нікому.
 
 :::tabs
-```rb
-# Уся модель. Полів не оголошено — Active Record прочитає їх зі схеми таблиці orders.
-class Order < ApplicationRecord
-  belongs_to :customer
-
-  # єдине, що тут написали руками, — предметне правило
-  def can_cancel?
-    %w[new paid].include?(status)
-  end
-end
-
-order = Order.find(42)
-if order.can_cancel?
-  order.status = "cancelled"
-  order.save!
-end
-```
-```py
-# Поля оголошено в класі — схему таблиці Django згенерує з них міграцією.
-class Order(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
-    total = models.DecimalField(max_digits=10, decimal_places=2)
-    status = models.CharField(max_length=16, default="new")
-
-    # єдине, що тут написали руками, — предметне правило
-    def can_cancel(self) -> bool:
-        return self.status in ("new", "paid")
-
-
-order = Order.objects.get(pk=42)
-if order.can_cancel():
-    order.status = "cancelled"
-    order.save()
-```
+:::code active-record-d/ruby/main.rb
+:::code active-record-d/py/chomu-na-tsomu-zmohly.py
 :::
 
 Майже порожній клас, який уже вміє знайти себе, зберегти себе й відповісти на `where`, — ось звідки взялася слава патерну. Дрібні відмінності в розкладці є: Django тримає фінайдери на менеджері `objects`, а не прямо на класі. Але суть однакова — знання про базу живе в самій моделі. Rails додав до цього ще й «конвенцію понад конфігурацію»: клас `Order` шукає таблицю `orders` без жодного налаштування, просто бо так домовилися. Нічого не описуєш — воно вже працює.

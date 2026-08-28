@@ -16,48 +16,7 @@
 
 Здатність носія оголошена в Identify Controller — у полі SANICAP за зсувом 328 від початку чотирикілобайтної структури. Три молодші біти означають, відповідно, крипто-стирання, блокове стирання й перезапис.
 
-```c
-#define _GNU_SOURCE
-#include <endian.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <linux/nvme_ioctl.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/ioctl.h>
-#include <unistd.h>
-
-#define NVME_ADMIN_GET_LOG   0x02
-#define NVME_ADMIN_IDENTIFY  0x06
-#define NVME_ADMIN_SANITIZE  0x84
-
-/* Від'ємне — ядро не пустило (errno). Додатне — статус від самого контролера. */
-static int admin(int fd, struct nvme_passthru_cmd *c)
-{
-    int rc = ioctl(fd, NVME_IOCTL_ADMIN_CMD, c);
-    return rc < 0 ? -errno : rc;
-}
-
-static int read_sanicap(int fd, uint32_t *sanicap)
-{
-    uint8_t id[4096] = {0};
-    struct nvme_passthru_cmd c = {
-        .opcode     = NVME_ADMIN_IDENTIFY,
-        .addr       = (uint64_t)(uintptr_t)id,
-        .data_len   = sizeof id,
-        .cdw10      = 1,              /* CNS = 1: Identify Controller */
-        .timeout_ms = 15000,
-    };
-    int rc = admin(fd, &c);
-    if (rc) return rc;
-
-    uint32_t le;
-    memcpy(&le, id + 328, 4);         /* SANICAP — байти 331:328 */
-    *sanicap = le32toh(le);           /* дані від контролера — little-endian */
-    return 0;
-}
-```
+:::code proj-drive-the-sanitize/c/krok-pershyi-chy-vmiie.c
 
 Зверніть увагу на дві різні домовленості про порядок байтів у одній структурі. Поля `cdwN` ядро приймає в порядку хоста й перекладає саме — ви кладете туди звичайне число. А от **буфер даних** приходить просто з дроту, як його виклав контролер, тобто в little-endian, і на машині з іншим порядком байтів `le32toh` перестане бути тотожністю. Плутанина тут дає не аварію, а тихо неправильні числа.
 
@@ -65,24 +24,7 @@ static int read_sanicap(int fd, uint32_t *sanicap)
 
 Уся команда вміщається в один CDW10. Дія — в бітах 2:0: `2` — блокове стирання, `3` — перезапис, `4` — крипто-стирання (`1` — вихід із режиму помилки, окрема історія). Біт 3 (AUSE) дозволяє пристроєві вийти зі стану санітизації, не довівши її до кінця; біти 7:4 — кількість проходів перезапису, біт 8 — інверсія візерунка між проходами, біт 9 (NODAS) — заборона звільняти логічні блоки після завершення. CDW11 несе сам візерунок перезапису.
 
-```c
-static int sanitize_start(int fd, unsigned sanact, int no_dealloc)
-{
-    uint32_t cdw10 = (sanact & 0x7)                        /* SANACT */
-                   | (0u << 3)                             /* AUSE = 0 */
-                   | (0u << 4)                             /* OWPASS */
-                   | (0u << 8)                             /* OIPBP */
-                   | ((uint32_t)(no_dealloc != 0) << 9);   /* NODAS */
-
-    struct nvme_passthru_cmd c = {
-        .opcode     = NVME_ADMIN_SANITIZE,
-        .cdw10      = cdw10,
-        .cdw11      = 0,             /* OVRPAT — візерунок для перезапису */
-        .timeout_ms = 60000,
-    };
-    return admin(fd, &c);
-}
-```
+:::code proj-drive-the-sanitize/c/krok-druhyi-podaty-komandu.c
 
 `timeout_ms` тут стосується самої команди, а не операції. Шістдесят секунд — це запас на те, щоб контролер прийняв прохання; сама санітизація може тривати години й до цього таймауту жодного стосунку не має.
 
@@ -92,66 +34,7 @@ static int sanitize_start(int fd, unsigned sanact, int no_dealloc)
 
 Поступ живе в окремій сторінці журналу з ідентифікатором 81h. Її беруть звичайною Get Log Page: молодший байт CDW10 — номер сторінки, старша половина — розмір у подвійних словах **мінус одиниця** (поле лічить від нуля, і забути цю одиницю — найпоширеніша помилка на цьому місці).
 
-```c
-struct sanitize_log {            /* сторінка журналу 81h, рівно 512 байтів */
-    uint16_t sprog;              /* чисельник дробу зі знаменником 65536 */
-    uint16_t sstat;              /* 2:0 — стан, 7:3 — зроблені проходи, 8 — GDE */
-    uint32_t scdw10;             /* CDW10 команди, що почала операцію */
-    uint32_t etfo, etfbe, etfce; /* оцінки часу, секунди */
-    uint32_t etfownd, etfbewnd, etfcewnd;
-    uint8_t  rsvd[480];
-};
-
-static int read_sanitize_log(int fd, struct sanitize_log *out)
-{
-    uint32_t numd = sizeof *out / 4 - 1;    /* 127, а не 128 */
-    struct nvme_passthru_cmd c = {
-        .opcode     = NVME_ADMIN_GET_LOG,
-        .nsid       = 0xffffffff,
-        .addr       = (uint64_t)(uintptr_t)out,
-        .data_len   = sizeof *out,
-        .cdw10      = 0x81 | (numd << 16),  /* LID | NUMDL */
-        .timeout_ms = 15000,
-    };
-    return admin(fd, &c);
-}
-
-static const char *state_name(unsigned s)
-{
-    switch (s) {
-    case 0: return "ніколи не санітизували";
-    case 1: return "завершено успішно";
-    case 2: return "триває";
-    case 3: return "завершено з помилкою";
-    case 4: return "успішно, блоки не звільнено";
-    default: return "невідомий стан";
-    }
-}
-
-static int watch(int fd)
-{
-    for (;;) {
-        struct sanitize_log lg;
-        int rc = read_sanitize_log(fd, &lg);
-        if (rc) return rc;
-
-        unsigned sstat = le16toh(lg.sstat);
-        unsigned state = sstat & 0x7;
-
-        if (state != 2) {
-            printf("\n%s · проходів %u · уся медіа стерта: %s\n",
-                   state_name(state), (sstat >> 3) & 0x1f,
-                   (sstat & 0x100) ? "так" : "ні");
-            return (state == 1 || state == 4) ? 0 : -1;
-        }
-        /* +32768 — округлення до найближчого, а не вниз */
-        printf("\rтриває: %3u %%",
-               (le16toh(lg.sprog) * 100u + 32768u) / 65536u);
-        fflush(stdout);
-        sleep(1);
-    }
-}
-```
+:::code proj-drive-the-sanitize/c/krok-tretii-vidsotok.c
 
 SPROG — не відсоток і не байти, а чисельник дробу зі сталим знаменником 65536. Знаменник вибрано степенем двійки навмисно: прошивці не потрібен ділильник, вона просто зсуває. Розбирати SPROG варто лише тоді, коли стан дорівнює двом; в усіх інших станах його вміст нічого не означає.
 
@@ -161,27 +44,7 @@ SPROG — не відсоток і не байти, а чисельник дро
 
 Лишається зібрати все докупи.
 
-```c
-int main(int argc, char **argv)
-{
-    const char *dev = argc > 1 ? argv[1] : "/dev/nvme0";
-    int fd = open(dev, O_RDONLY);          /* вузол контролера, не простору імен */
-    if (fd < 0) { perror(dev); return 1; }
-
-    uint32_t sanicap;
-    int rc = read_sanicap(fd, &sanicap);
-    if (rc) { fprintf(stderr, "Identify не вдався: %d\n", rc); return 1; }
-
-    if (!(sanicap & 0x2)) {
-        fprintf(stderr, "блокового стирання немає (SANICAP = 0x%08x)\n", sanicap);
-        return 1;
-    }
-    rc = sanitize_start(fd, 2 /* block erase */, 0);
-    if (rc) { fprintf(stderr, "Sanitize відхилено: %d\n", rc); return 1; }
-
-    return watch(fd) ? 1 : 0;
-}
-```
+:::code proj-drive-the-sanitize/c/krok-tretii-vidsotok-2.c
 
 ## Те саме для ATA: відповідь у регістрах
 
@@ -189,45 +52,7 @@ int main(int argc, char **argv)
 
 Але цікаве починається з відповіді. SANITIZE STATUS EXT не передає **жодного байта даних** — це команда протоколу Non-data, і поступ вона лишає в регістрах пристрою. Регістри ж SCSI-транспорт назовні не показує: він знає лише «команда вдалася / не вдалася». Тому SAT-прошарок має окремий гачок — біт CK_COND у CDB. Виставлений, він змушує транспорт удавати помилку навіть при успіху, аби мати привід повернути sense-буфер, а в ньому — дескриптор 09h із копією регістрів.
 
-```c
-#include <scsi/sg.h>
-
-/* progress — частка від 0xFFFF; flags — байт стану (біти 7:4) */
-static int ata_sanitize_status(int fd, unsigned *progress, unsigned *flags)
-{
-    uint8_t cdb[16] = {0}, sense[64] = {0};
-    sg_io_hdr_t io;
-
-    cdb[0]  = 0x85;             /* ATA PASS-THROUGH (16) */
-    cdb[1]  = (3 << 1) | 1;     /* PROTOCOL = 3 (Non-data), EXTEND = 1 */
-    cdb[2]  = 0x20;             /* CK_COND = 1, T_LENGTH = 0 */
-    cdb[4]  = 0x00;             /* FEATURE (7:0) = SANITIZE STATUS EXT */
-    cdb[14] = 0xb4;             /* COMMAND = SANITIZE DEVICE */
-
-    memset(&io, 0, sizeof io);
-    io.interface_id    = 'S';
-    io.dxfer_direction = SG_DXFER_NONE;
-    io.cmdp = cdb;   io.cmd_len   = sizeof cdb;
-    io.sbp  = sense; io.mx_sb_len = sizeof sense;
-    io.timeout = 10000;
-
-    if (ioctl(fd, SG_IO, &io) < 0) return -errno;
-
-    unsigned code = sense[0] & 0x7f;
-    if (code != 0x72 && code != 0x73) return -EPROTO;  /* потрібен descriptor-формат */
-
-    unsigned end = 8 + sense[7];
-    if (end > sizeof sense) end = sizeof sense;
-    for (unsigned i = 8; i + 13 < end; i += sense[i + 1] + 2) {
-        if (sense[i] != 0x09) continue;                /* ATA Status Return */
-        const uint8_t *d = sense + i;
-        *flags    = d[4];                              /* COUNT (15:8) */
-        *progress = ((unsigned)d[9] << 8) | d[7];      /* LBA_MID : LBA_LOW */
-        return 0;
-    }
-    return -ENOENT;
-}
-```
+:::code proj-drive-the-sanitize/c/te-same-dlia-ata-vidpovid.c
 
 У байті прапорців біт 7 означає, що остання операція завершилася без помилки, біт 6 — що операція триває, біт 5 — що пристрій у замороженому стані, біт 4 — що заборону на замороження встановлено. Відсоток рахують від 0xFFFF: `(100 * (progress + 1)) / 0xFFFF`, і повний 0xFFFF читають як сто.
 

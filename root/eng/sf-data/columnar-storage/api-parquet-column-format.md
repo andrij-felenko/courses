@@ -203,31 +203,8 @@ Primary Index (primary.idx у пам'яті):
 Дані зберігаються послідовністю незалежних стиснених блоків. Розмір нестисненого блоку за замовчуванням становить від 64 КБ до 1 МБ.
 
 :::tabs
-```c
-#include <stdint.h>
-
-#pragma pack(push, 1)
-struct ClickHouseCompressedBlockHeader {
-    uint8_t  cityhash128_checksum[16]; /* 128-бітний хеш CityHash128 від заголовка та payload */
-    uint8_t  compression_method;       /* 0x82 = LZ4, 0x90 = ZSTD, 0x02 = NONE */
-    uint32_t compressed_size_with_header; /* Розмір стиснених даних + 9 байтів заголовка */
-    uint32_t uncompressed_size;        /* Точний розмір розпакованих даних у байтах */
-};
-#pragma pack(pop)
-```
-```cpp
-#include <cstdint>
-#include <array>
-
-#pragma pack(push, 1)
-struct ClickHouseCompressedBlockHeader {
-    std::array<std::uint8_t, 16> cityhash128_checksum{}; /* 128-бітний CityHash128 */
-    std::uint8_t                 compression_method{0};  /* 0x82 = LZ4, 0x90 = ZSTD */
-    std::uint32_t                compressed_size_with_header{0};
-    std::uint32_t                uncompressed_size{0};
-};
-#pragma pack(pop)
-```
+:::code api-parquet-column-format/c/main.c
+:::code api-parquet-column-format/cpp/main.cpp
 :::
 
 - `cityhash128_checksum`: захищає дані від пошкоджень на дисковому контролері;

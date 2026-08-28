@@ -18,7 +18,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
@@ -29,7 +30,8 @@
           "proj": [
             {
               "file": "proj-ftl-sim-c.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -51,13 +53,15 @@
           "proj": [
             {
               "file": "proj-gc-simulator.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-gc-trim.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -86,13 +90,15 @@
           "proj": [
             {
               "file": "proj-waf-simulator.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-waf-metrics.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -110,7 +116,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -127,7 +134,8 @@
           "proj": [
             {
               "file": "proj-wear-leveling.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -138,24 +146,30 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-nand-ecc-bbt.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "hist": [
             {
               "file": "hist-nand-tolerance.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-bbt-remapper.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }
@@ -172,7 +186,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -183,13 +198,16 @@
           "proj": [
             {
               "file": "proj-smart-reader.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-smart-protocols.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -211,7 +229,8 @@
           "api": [
             {
               "file": "api-discard-controls.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -222,7 +241,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -233,7 +253,8 @@
           "proj": [
             {
               "file": "proj-drive-the-sanitize.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -289,7 +310,8 @@
           "proj": [
             {
               "file": "proj-syndrome-decoder.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -328,7 +350,8 @@
           "proj": [
             {
               "file": "proj-raid-simulator.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [

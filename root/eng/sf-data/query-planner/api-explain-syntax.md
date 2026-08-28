@@ -9,21 +9,7 @@
 ### PostgreSQL
 У PostgreSQL параметри передаються у круглих дужках через кому, що дозволяє комбінувати діагностичні прапорці:
 
-```sql
-EXPLAIN [ ( option [, ...] ) ] statement
-EXPLAIN [ ANALYZE ] [ VERBOSE ] statement
-
--- Де option може бути:
--- ANALYZE [ boolean ]
--- VERBOSE [ boolean ]
--- COSTS [ boolean ]
--- SETTINGS [ boolean ]
--- BUFFERS [ boolean ]
--- WAL [ boolean ]
--- TIMING [ boolean ]
--- SUMMARY [ boolean ]
--- FORMAT { TEXT | XML | JSON | YAML }
-```
+:::code api-explain-syntax/sql/main.sql
 
 ### MySQL (від версії 8.0.18)
 У MySQL починаючи з версії 8.0.18 впроваджено підтримку деревоподібного виводу та замірів часу:

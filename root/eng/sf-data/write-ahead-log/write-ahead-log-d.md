@@ -130,62 +130,9 @@
 
 :::tabs
 @tab C
-```c
-#include <stdint.h>
-#include <stdbool.h>
-#include <stdio.h>
-
-typedef uint64_t LSN;
-
-typedef struct {
-    LSN lsn;
-    LSN prev_lsn;
-    LSN undo_next_lsn;
-    uint32_t xid;
-    uint32_t type;
-    uint32_t page_id;
-    int32_t new_val;
-} WalRecord;
-
-void aries_redo_scan(WalRecord *log, size_t count, int32_t *pages, LSN *page_lsns) {
-    for (size_t i = 0; i < count; ++i) {
-        WalRecord *rec = &log[i];
-        // Перевірка ідемпотентності: застосовуємо лише якщо LSN запису новіший за PageLSN
-        if (rec->lsn > page_lsns[rec->page_id]) {
-            pages[rec->page_id] = rec->new_val;
-            page_lsns[rec->page_id] = rec->lsn;
-            printf("Redo: застосовано LSN %llu до сторінки %u\n", (unsigned long long)rec->lsn, rec->page_id);
-        }
-    }
-}
-```
+:::code write-ahead-log-d/c/main.c
 @tab C++
-```cpp
-#include <vector>
-#include <iostream>
-#include <cstdint>
-
-using LSN = uint64_t;
-
-struct WalRecord {
-    LSN lsn{0};
-    LSN prev_lsn{0};
-    LSN undo_next_lsn{0};
-    uint32_t xid{0};
-    uint32_t page_id{0};
-    int32_t new_val{0};
-};
-
-void aries_redo_scan(const std::vector<WalRecord>& log, std::vector<int32_t>& pages, std::vector<LSN>& page_lsns) {
-    for (const auto& rec : log) {
-        if (rec.lsn > page_lsns[rec.page_id]) {
-            pages[rec.page_id] = rec.new_val;
-            page_lsns[rec.page_id] = rec.lsn;
-            std::cout << "Redo: застосовано LSN " << rec.lsn << " до сторінки " << rec.page_id << "\n";
-        }
-    }
-}
-```
+:::code write-ahead-log-d/cpp/main.cpp
 :::
 
 Практична побудова повноцінного рушія відновлення доступна у проєкті [Розробка міні-рушія відновлення WAL за протоколом ARIES](root:sf-data/write-ahead-log/proj-mini-wal-engine.md).

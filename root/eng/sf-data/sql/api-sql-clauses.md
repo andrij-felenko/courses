@@ -27,18 +27,7 @@
 
 При використанні операторів зовнішнього з'єднання (`LEFT / RIGHT / FULL OUTER JOIN`) критично важливим є місце розташування умов фільтрації:
 
-```sql
-/* Варіант A: Умова в секції ON */
-SELECT c.id, c.name, o.total
-FROM customers c
-LEFT JOIN orders o ON c.id = o.customer_id AND o.status = 'completed';
-
-/* Варіант B: Умова в секції WHERE */
-SELECT c.id, c.name, o.total
-FROM customers c
-LEFT JOIN orders o ON c.id = o.customer_id
-WHERE o.status = 'completed';
-```
+:::code api-sql-clauses/sql/main.sql
 
 Механіка виконання обох варіантів кардинально відрізняється:
 - **Умова в секції `ON` (Варіант A):** Обчислюється безпосередньо під час формування з'єднання. Якщо для клієнта немає замовлень зі статусом `'completed'`, клієнт все одно залишається в результуючому наборі, а поля таблиці `orders` (`o.total`, `o.status`) заповнюються маркерами `NULL`.

@@ -179,45 +179,8 @@ MAX_SAFE_INTEGER = 2⁵³ - 1 = 9 007 199 254 740 991
 **Практична перевірка округлення великих цілих у C та C++:**
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdint.h>
-#include <inttypes.h>
-
-int main(void) {
-    uint64_t original_id = 9007199254740993ULL; /* 2^53 + 1 */
-    
-    /* Парсинг числа в тип double (як це робить штатний JSON парсер) */
-    double parsed_as_double = (double)original_id;
-    uint64_t recovered_id = (uint64_t)parsed_as_double;
-
-    printf("Початковий ID:    %" PRIu64 "\n", original_id);
-    printf("Після double:     %" PRIu64 "\n", recovered_id);
-    printf("Втрата точності:  %s\n", (original_id != recovered_id) ? "ТАК (значення змінено!)" : "НІ");
-
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <cstdint>
-#include <format>
-
-int main() {
-    constexpr std::uint64_t original_id = 9007199254740993ULL; // 2^53 + 1
-
-    // Парсинг числа у звичайний double (стандартна поведінка generic парсерів)
-    const double parsed_as_double = static_cast<double>(original_id);
-    const auto recovered_id = static_cast<std::uint64_t>(parsed_as_double);
-
-    std::cout << std::format("Початковий ID:    {}\n", original_id);
-    std::cout << std::format("Після double:     {}\n", recovered_id);
-    std::cout << std::format("Втрата точності:  {}\n", 
-                             (original_id != recovered_id) ? "ТАК (значення змінено!)" : "НІ");
-
-    return 0;
-}
-```
+:::code json-format-d/c/fizychna-mezha-mantysy-53.c
+:::code json-format-d/cpp/fizychna-mezha-mantysy-53.cpp
 :::
 
 #### Двійкові дроби проти десяткових чисел
@@ -285,74 +248,8 @@ int main() {
 **Концептуальна схема бітової фільтрації токенів у C та C++:**
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdint.h>
-#include <inttypes.h>
-
-#if defined(_MSC_VER)
-#include <intrin.h>
-static inline int ctz64(uint64_t mask) {
-    unsigned long idx;
-    _BitScanForward64(&idx, mask);
-    return (int)idx;
-}
-#else
-static inline int ctz64(uint64_t mask) {
-    return __builtin_ctzll(mask);
-}
-#endif
-
-/* Демонстрація вилучення структурних токенів через бітову маску */
-int main(void) {
-    /* 
-       Вхідний рядок (16 байтів):  { "a" : [ 1 , 2 ] }
-       Позиції:                    0 123 4 5 6 7 8 9 0
-    */
-    uint64_t candidate_mask = (1ULL << 0) | (1ULL << 4) | (1ULL << 5) | 
-                              (1ULL << 7) | (1ULL << 9) | (1ULL << 10);
-    uint64_t in_string_mask = (1ULL << 2); /* символ 'a' всередині лапок */
-
-    /* Вилучення токенів поза рядками */
-    uint64_t structural_mask = candidate_mask & (~in_string_mask);
-
-    printf("Знайдені індекси структурних токенів: ");
-    while (structural_mask != 0) {
-        int idx = ctz64(structural_mask);
-        printf("%d ", idx);
-        structural_mask &= (structural_mask - 1); /* Скидання молодшого біта */
-    }
-    printf("\n");
-
-    return 0;
-}
-```
-```cpp
-#include <iostream>
-#include <cstdint>
-#include <bit>
-
-int main() {
-    // Вхідний рядок (16 байтів):  { "a" : [ 1 , 2 ] }
-    // Позиції токенів:            0 123 4 5 6 7 8 9 0
-    constexpr std::uint64_t candidate_mask = (1ULL << 0) | (1ULL << 4) | (1ULL << 5) | 
-                                             (1ULL << 7) | (1ULL << 9) | (1ULL << 10);
-    constexpr std::uint64_t in_string_mask = (1ULL << 2); // 'a' всередині лапок
-
-    // Фільтрація структури однією операцією над бітовою маскою
-    std::uint64_t structural_mask = candidate_mask & (~in_string_mask);
-
-    std::cout << "Знайдені індекси структурних токенів: ";
-    while (structural_mask != 0) {
-        const int idx = std::countr_zero(structural_mask); // C++20 count trailing zeros
-        std::cout << idx << " ";
-        structural_mask &= (structural_mask - 1); // Скидання молодшого встановленого біта
-    }
-    std::cout << "\n";
-
-    return 0;
-}
-```
+:::code json-format-d/c/etap-2-syntaksychnyi.c
+:::code json-format-d/cpp/etap-2-syntaksychnyi.cpp
 :::
 
 ### Потоковий розбір: модель SAX та формат NDJSON

@@ -13,86 +13,8 @@
 Сховище — це дві «таблиці» в пам'яті (покупці й замовлення) плюс поле `queries`. Домовимося про єдине правило: **кожен метод, що дістає дані, — це один похід у базу, тож він штовхає лічильник**. Так один об'єкт бере на себе роль і бази, і секундоміра.
 
 :::tabs
-```py
-class Db:
-    """Фейкове сховище: дві «таблиці» в пам'яті; кожен похід рахуємо."""
-    def __init__(self) -> None:
-        self.customers = {
-            1: {"id": 1, "name": "Ада",   "city": "Лондон"},
-            2: {"id": 2, "name": "Грейс", "city": "Нью-Йорк"},
-            3: {"id": 3, "name": "Лінус", "city": "Гельсінкі"},
-        }
-        # 100 замовлень, розкидані лише на трьох покупців: (i % 3) + 1
-        self.orders = {
-            i: {"id": i, "customer_id": (i % 3) + 1, "total": 10 * i}
-            for i in range(1, 101)
-        }
-        self.queries = 0                                  # лічильник запитів
-
-    def find_all_orders(self) -> list[dict]:
-        self.queries += 1                                 # один SELECT на весь список
-        return [dict(r) for r in self.orders.values()]
-
-    def find_customer(self, cid: int) -> dict:
-        self.queries += 1                                 # один SELECT на один рядок
-        return dict(self.customers[cid])
-
-    def find_customers(self, ids: list[int]) -> dict[int, dict]:
-        self.queries += 1                                 # один SELECT ... WHERE id IN (...)
-        want = set(ids)
-        return {cid: dict(r) for cid, r in self.customers.items() if cid in want}
-
-    def find_orders_join_customer(self) -> list[dict]:
-        self.queries += 1                                 # один SELECT ... JOIN — покупець їде в кожному рядку
-        out = []
-        for r in self.orders.values():
-            row = dict(r)
-            row["customer"] = dict(self.customers[r["customer_id"]])
-            out.append(row)
-        return out
-```
-```ts
-type Row = Record<string, any>;
-
-class Db {
-  // дві «таблиці» в пам'яті; кожен похід рахуємо
-  private customers = new Map<number, Row>([
-    [1, { id: 1, name: "Ада",   city: "Лондон" }],
-    [2, { id: 2, name: "Грейс", city: "Нью-Йорк" }],
-    [3, { id: 3, name: "Лінус", city: "Гельсінкі" }],
-  ]);
-  private orders = new Map<number, Row>(
-    Array.from({ length: 100 }, (_, k): [number, Row] => {
-      const i = k + 1;                       // замовлення розкидані на трьох: (i % 3) + 1
-      return [i, { id: i, customerId: (i % 3) + 1, total: 10 * i }];
-    }),
-  );
-  queries = 0;                                            // лічильник запитів
-
-  findAllOrders(): Row[] {
-    this.queries++;                                       // один SELECT на весь список
-    return [...this.orders.values()].map((r) => ({ ...r }));
-  }
-  findCustomer(id: number): Row {
-    this.queries++;                                       // один SELECT на один рядок
-    return { ...this.customers.get(id)! };
-  }
-  findCustomers(ids: number[]): Map<number, Row> {
-    this.queries++;                                       // один SELECT ... WHERE id IN (...)
-    const want = new Set(ids);
-    const out = new Map<number, Row>();
-    for (const [id, r] of this.customers) if (want.has(id)) out.set(id, { ...r });
-    return out;
-  }
-  findOrdersJoinCustomer(): Row[] {
-    this.queries++;                                       // один SELECT ... JOIN — покупець їде в кожному рядку
-    return [...this.orders.values()].map((r) => ({
-      ...r,
-      customer: { ...this.customers.get(r.customerId)! },
-    }));
-  }
-}
-```
+:::code proj-lazy-loading-graph/py/skhovyshche-shcho-rakhuie.py
+:::code proj-lazy-loading-graph/ts/skhovyshche-shcho-rakhuie.ts
 :::
 
 Кожен метод повертає **свіжі копії** рядків, а не самі внутрішні об'єкти — так, як робить справжня база: вона матеріалізує нові рядки на кожен запит, і два різні `find_customer(1)` дають два різні об'єкти в пам'яті. Ця дрібниця стане важливою, коли дійде до тотожності.
@@ -102,96 +24,8 @@ class Db {
 Тепер побудуємо над цим сховищем трьох різних лінивих посередників до покупця — ліниве поле, віртуальний проксі й привид. Усі троє мають ту саму мету (не ходити в базу, поки по покупця не прийшли), але тримають лінь у різних місцях.
 
 :::tabs
-```py
-# 1) Ліниве поле: лінь живе в самому Order — порожній слот плюс властивість.
-class OrderLazyField:
-    def __init__(self, db: Db, row: dict) -> None:
-        self._db = db
-        self.id = row["id"]
-        self.total = row["total"]
-        self._customer_id = row["customer_id"]
-        self._customer: dict | None = None                # ще не тягли
-    @property
-    def customer(self) -> dict:
-        if self._customer is None:
-            self._customer = self._db.find_customer(self._customer_id)
-        return self._customer
-
-# 2) Віртуальний проксі: ОКРЕМИЙ об'єкт із тим самим інтерфейсом, що й покупець.
-class CustomerProxy:
-    def __init__(self, db: Db, cid: int) -> None:
-        self._db, self._cid, self._real = db, cid, None
-    def _load(self) -> dict:
-        if self._real is None:
-            self._real = self._db.find_customer(self._cid)  # справжнього створює раз
-        return self._real
-    @property
-    def name(self) -> str: return self._load()["name"]      # кожен метод делегує
-    @property
-    def city(self) -> str: return self._load()["city"]
-
-# 3) Привид: сам покупець, але створений з одним id і порожніми полями.
-class CustomerGhost:
-    def __init__(self, db: Db, cid: int) -> None:
-        self._db = db
-        self.id = cid                                       # тотожність правильна від початку
-        self._loaded = False
-        self._name = self._city = ""
-    def _fill(self) -> None:
-        if not self._loaded:
-            row = self._db.find_customer(self.id)           # один запит — і ВСІ поля разом
-            self._name, self._city = row["name"], row["city"]
-            self._loaded = True
-    @property
-    def name(self) -> str: self._fill(); return self._name
-    @property
-    def city(self) -> str: self._fill(); return self._city
-```
-```ts
-// 1) Ліниве поле: лінь живе в самому Order — порожній слот плюс геттер.
-class OrderLazyField {
-  readonly id: number;
-  readonly total: number;
-  private customerId: number;
-  private _customer: Row | null = null;                    // ще не тягли
-  constructor(private db: Db, row: Row) {
-    this.id = row.id;
-    this.total = row.total;
-    this.customerId = row.customerId;
-  }
-  get customer(): Row {
-    return (this._customer ??= this.db.findCustomer(this.customerId));
-  }
-}
-
-// 2) Віртуальний проксі: окремий об'єкт із тим самим інтерфейсом.
-interface Customer { readonly name: string; readonly city: string; }
-
-class CustomerProxy implements Customer {
-  private real: Row | null = null;
-  constructor(private db: Db, private id: number) {}
-  private load(): Row { return (this.real ??= this.db.findCustomer(this.id)); }  // справжнього — раз
-  get name(): string { return this.load().name; }          // кожен метод делегує
-  get city(): string { return this.load().city; }
-}
-
-// 3) Привид: сам покупець з одним id і порожніми полями.
-class CustomerGhost implements Customer {
-  private loaded = false;
-  private _name = "";
-  private _city = "";
-  constructor(private db: Db, readonly id: number) {}       // тотожність правильна від початку
-  private fill(): void {
-    if (this.loaded) return;
-    const row = this.db.findCustomer(this.id);              // один запит — і ВСІ поля разом
-    this._name = row.name;
-    this._city = row.city;
-    this.loaded = true;
-  }
-  get name(): string { this.fill(); return this._name; }
-  get city(): string { this.fill(); return this._city; }
-}
-```
+:::code proj-lazy-loading-graph/py/try-zahlushky-nad-odnym.py
+:::code proj-lazy-loading-graph/ts/try-zahlushky-nad-odnym.ts
 :::
 
 Тепер підключимо лічильник і поштрикаємо заглушку пальцем, дивлячись на число. Проксі тут — але точнісінько так само поводяться ліниве поле й привид:
@@ -341,74 +175,8 @@ console.log(db.queries);                   // 1
 Складемо всі чотири стратегії в один стенд і виміряємо їх поряд, кожну на свіжому лічильнику:
 
 :::tabs
-```py
-def scenario_naive() -> int:
-    db = Db()
-    orders = [OrderLazyField(db, r) for r in db.find_all_orders()]
-    for o in orders: _ = o.customer["name"]
-    return db.queries
-
-def scenario_identity_map() -> int:
-    db = Db()
-    imap = IdentityMap(db)
-    for r in db.find_all_orders(): _ = imap.customer(r["customer_id"])["name"]
-    return db.queries
-
-def scenario_batch() -> int:
-    db = Db()
-    rows = db.find_all_orders()
-    customers = db.find_customers([r["customer_id"] for r in rows])
-    for r in rows: _ = customers[r["customer_id"]]["name"]
-    return db.queries
-
-def scenario_join() -> int:
-    db = Db()
-    for row in db.find_orders_join_customer(): _ = row["customer"]["name"]
-    return db.queries
-
-print("запитів  стратегія")
-for run, name in [(scenario_naive,        "ліниво в циклі"),
-                  (scenario_identity_map, "+ мапа тотожності"),
-                  (scenario_batch,        "пакетний IN-запит"),
-                  (scenario_join,         "жадібний JOIN")]:
-    print(f"{run():>7}  {name}")
-```
-```ts
-function scenarioNaive(): number {
-  const db = new Db();
-  const orders = db.findAllOrders().map((r) => new OrderLazyField(db, r));
-  for (const o of orders) void o.customer.name;
-  return db.queries;
-}
-function scenarioIdentityMap(): number {
-  const db = new Db();
-  const imap = new IdentityMap(db);
-  for (const r of db.findAllOrders()) void imap.customer(r.customerId).name;
-  return db.queries;
-}
-function scenarioBatch(): number {
-  const db = new Db();
-  const rows = db.findAllOrders();
-  const customers = db.findCustomers(rows.map((r) => r.customerId));
-  for (const r of rows) void customers.get(r.customerId)!.name;
-  return db.queries;
-}
-function scenarioJoin(): number {
-  const db = new Db();
-  for (const row of db.findOrdersJoinCustomer()) void (row.customer as Row).name;
-  return db.queries;
-}
-
-console.log("запитів  стратегія");
-for (const [run, name] of [
-  [scenarioNaive,        "ліниво в циклі"],
-  [scenarioIdentityMap,  "+ мапа тотожності"],
-  [scenarioBatch,        "пакетний IN-запит"],
-  [scenarioJoin,         "жадібний JOIN"],
-] as [() => number, string][]) {
-  console.log(`${String(run()).padStart(7)}  ${name}`);
-}
-```
+:::code proj-lazy-loading-graph/py/povnyi-stend-i-drabyna.py
+:::code proj-lazy-loading-graph/ts/povnyi-stend-i-drabyna.ts
 :::
 
 ```

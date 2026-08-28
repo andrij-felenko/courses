@@ -35,7 +35,8 @@
           "proj": [
             {
               "file": "proj-stale-race-and-leases.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -63,7 +64,8 @@
           "proj": [
             {
               "file": "proj-singleflight-xfetch.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -85,7 +87,8 @@
           "proj": [
             {
               "file": "proj-cache-admission.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -114,7 +117,8 @@
           "proj": [
             {
               "file": "proj-caching-patterns.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -136,13 +140,16 @@
           "proj": [
             {
               "file": "proj-resilient-cache.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-cache-policy.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         }
@@ -176,7 +183,8 @@
           "proj": [
             {
               "file": "proj-lru-clock.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -205,19 +213,24 @@
           "math": [
             {
               "file": "math-incremental-view-calculus.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-incremental-view-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-postgresql-clickhouse-views.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -229,7 +242,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
@@ -246,13 +260,16 @@
           "proj": [
             {
               "file": "proj-wal-cdc-parser.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-debezium-pgoutput.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -274,7 +291,8 @@
           "proj": [
             {
               "file": "proj-search-sync-pipeline.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }

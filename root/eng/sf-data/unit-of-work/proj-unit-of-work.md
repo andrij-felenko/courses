@@ -20,69 +20,11 @@
 
 Почнімо з того, чого одиниця роботи торкатиметься. Об'єкти домену — звичайні, про базу не знають нічого (це й є суть [Data Mapper](root:sf-data/data-mapper)); ключ `id` спершу порожній — його призначить база на вставці.
 
-```py
-class Entity:
-    def __init__(self):
-        self.id = None                      # призначить база на INSERT
-
-class Customer(Entity):
-    def __init__(self, name, points=0):
-        super().__init__()
-        self.name, self.points = name, points
-
-class Order(Entity):
-    def __init__(self, customer):
-        super().__init__()
-        self.customer = customer            # посилання на батька
-        self.total = 0
-```
+:::code proj-unit-of-work/py/karkas-domen-i-mapery.py
 
 Мапер знає таблицю, вміє перекласти об'єкт у рядок і назад, виконати три команди — і, що важливо для порядку, **оголошує свої залежності**: на які типи цей вказує зовнішнім ключем. Метод `fields` віддає ті поля, що йдуть у знімок.
 
-```py
-class CustomerMapper:
-    entity = Customer
-    depends_on = ()                                     # ні на кого не вказує
-
-    def load(self, id, cur):
-        row = cur.execute("SELECT id, name, points FROM customer WHERE id=?",
-                          (id,)).fetchone()
-        if row is None: return None
-        o = Customer(row[1], row[2]); o.id = row[0]; return o
-
-    def insert(self, o, cur):
-        cur.execute("INSERT INTO customer(name, points) VALUES (?, ?)",
-                    (o.name, o.points))
-        o.id = cur.lastrowid                            # база призначила ключ
-    def update(self, o, cur):
-        cur.execute("UPDATE customer SET name=?, points=? WHERE id=?",
-                    (o.name, o.points, o.id))
-    def delete(self, o, cur):
-        cur.execute("DELETE FROM customer WHERE id=?", (o.id,))
-    def fields(self, o):
-        return {"name": o.name, "points": o.points}
-
-class OrderMapper:
-    entity = Order
-    depends_on = (Customer,)                            # order.customer → потрібен спершу
-
-    def load(self, id, cur):
-        row = cur.execute('SELECT id, customer_id, total FROM "order" WHERE id=?',
-                          (id,)).fetchone()
-        if row is None: return None
-        o = Order.__new__(Order); o.id = row[0]
-        o.customer = None; o.total = row[2]; return o   # клієнта підтягне окремо
-    def insert(self, o, cur):
-        cur.execute('INSERT INTO "order"(customer_id, total) VALUES (?, ?)',
-                    (o.customer.id, o.total))            # ЧИТАЄ o.customer.id — має вже бути!
-        o.id = cur.lastrowid
-    def update(self, o, cur):
-        cur.execute('UPDATE "order" SET total=? WHERE id=?', (o.total, o.id))
-    def delete(self, o, cur):
-        cur.execute('DELETE FROM "order" WHERE id=?', (o.id,))
-    def fields(self, o):
-        return {"customer_id": o.customer.id if o.customer else None, "total": o.total}
-```
+:::code proj-unit-of-work/py/karkas-domen-i-mapery-2.py
 
 Затримайся на одному рядку — `o.customer.id` в `OrderMapper.insert`. Замовлення пише в стовпець `customer_id` **ключ свого клієнта**. А ключ у клієнта з'являється лише після того, як його вставили в базу. Ось звідки візьметься весь клопіт із порядком: не можна вставити замовлення, поки клієнт не вставлений і не дістав ключа. Тримай цей рядок в голові — до нього все повернеться.
 
@@ -91,185 +33,8 @@ class OrderMapper:
 Тепер сама одиниця роботи. Вона тримає з'єднання (одне з'єднання = одна транзакція), мапери за типом, карту тотожності `(тип, ключ) → об'єкт`, знімки `об'єкт → поля`, і два явні списки — новостворені й видалені. Чому новий і видалений — явні, а змінений — ні? Бо зміну знімок **вгадає** (поле розійшлося), а от народження й смерть — ні: щойно створеного об'єкта карта ще не бачила, тож нема з чим звіряти, а видалення — це намір, а не зміна поля.
 
 :::tabs
-```py
-import copy
-
-class UnitOfWork:
-    def __init__(self, conn, mappers):
-        self._conn = conn
-        self._cur = conn.cursor()
-        self._mappers = {m.entity: m for m in mappers}
-        self._identity = {}        # (тип, ключ) → об'єкт  — карта тотожності
-        self._snapshots = {}       # об'єкт → знімок полів
-        self._new, self._removed = [], []
-
-    # ── завантаження: тут народжується і карта, і знімок ──
-    def read(self, cls, id):
-        key = (cls, id)
-        if key in self._identity:
-            return self._identity[key]                 # той самий об'єкт — Identity Map
-        obj = self._mappers[cls].load(id, self._cur)   # Data Mapper дістає рядок
-        if obj is None:
-            return None
-        self._identity[key] = obj
-        self._snapshot(obj)                            # запам'ятати стан на мить читання
-        return obj
-
-    def _snapshot(self, obj):
-        self._snapshots[obj] = copy.deepcopy(self._mappers[type(obj)].fields(obj))
-
-    # ── явна реєстрація для того, чого знімок не вгадає ──
-    def register_new(self, obj):
-        self._new.append(obj)                          # ключа ще нема — в карту потрапить на зливі
-    def register_removed(self, obj):
-        if obj in self._new:
-            self._new.remove(obj); return              # народжене й убите — базі байдуже
-        if obj not in self._removed:
-            self._removed.append(obj)
-
-    # ── автовідстеження: хто розійшовся зі своїм знімком ──
-    def _dirty(self):
-        out = []
-        for obj, snap in self._snapshots.items():
-            if obj in self._removed:
-                continue
-            if self._mappers[type(obj)].fields(obj) != snap:   # хоч одне поле інше
-                out.append(obj)
-        return out
-
-    # ── топосорт за залежностями маперів: батько перед дитиною ──
-    def _toposort(self, objs):
-        order, seen = [], set()
-        def visit(t):
-            if t in seen: return
-            seen.add(t)
-            for parent in self._mappers[t].depends_on:
-                visit(parent)
-            order.append(t)                            # батьки лягають раніше
-        for o in objs:
-            visit(type(o))
-        rank = {t: i for i, t in enumerate(order)}
-        return sorted(objs, key=lambda o: rank[type(o)])
-
-    # ── злив: проштовхнути SQL у транзакцію (ще НЕ завершити її) ──
-    def flush(self):
-        dirty = self._dirty()                          # порахувати ДО вставок
-        for obj in self._toposort(self._new):          # згори вниз: батьки першими
-            self._mappers[type(obj)].insert(obj, self._cur)   # призначає obj.id
-            self._identity[(type(obj), obj.id)] = obj         # аж тепер має ключ → у карту
-            self._snapshot(obj)                               # свіжий базовий знімок
-        for obj in dirty:
-            self._mappers[type(obj)].update(obj, self._cur)
-            self._snapshot(obj)                               # скинути «брудність»
-        for obj in reversed(self._toposort(self._removed)):   # знизу вгору: діти першими
-            self._mappers[type(obj)].delete(obj, self._cur)
-            self._identity.pop((type(obj), obj.id), None)
-            self._snapshots.pop(obj, None)
-        self._new.clear(); self._removed.clear()
-
-    # ── фіксація: злити, а тоді завершити транзакцію ──
-    def commit(self):
-        try:
-            self.flush()                               # увесь накопичений SQL
-            self._conn.commit()                        # і аж тепер — остаточно
-        except Exception:
-            self._conn.rollback()                      # усе або нічого
-            raise
-```
-```ts
-type Ctor<T = object> = new (...a: never[]) => T;
-
-interface Mapper<T = { id: number | null }> {
-  entity: Ctor<T>;
-  dependsOn: Ctor[];                                    // на які типи вказує ФК
-  load(id: number, tx: Tx): Promise<T | null>;
-  insert(o: T, tx: Tx): Promise<void>;                  // має заповнити o.id
-  update(o: T, tx: Tx): Promise<void>;
-  delete(o: T, tx: Tx): Promise<void>;
-  fields(o: T): Record<string, unknown>;
-}
-
-class UnitOfWork {
-  readonly #mappers = new Map<Ctor, Mapper>();
-  readonly #identity = new Map<string, { id: number | null }>();   // "Тип#ключ" → об'єкт
-  readonly #snapshots = new Map<object, string>();                 // об'єкт → знімок (серіалізований)
-  readonly #tracked: object[] = [];                               // порядок обходу знімків
-  #new: { id: number | null }[] = [];
-  #removed: { id: number | null }[] = [];
-
-  constructor(private readonly tx: Tx, mappers: Mapper[]) {
-    for (const m of mappers) this.#mappers.set(m.entity, m);
-  }
-
-  // ── завантаження: карта + знімок в одну мить ──
-  async read<T extends { id: number | null }>(cls: Ctor<T>, id: number): Promise<T | null> {
-    const key = `${cls.name}#${id}`;
-    if (this.#identity.has(key)) return this.#identity.get(key) as T;
-    const obj = await this.#mappers.get(cls)!.load(id, this.tx) as T | null;
-    if (!obj) return null;
-    this.#identity.set(key, obj);
-    this.#snapshot(obj);
-    return obj;
-  }
-
-  registerNew(o: { id: number | null }): void { this.#new.push(o); }
-  registerRemoved(o: { id: number | null }): void {
-    const i = this.#new.indexOf(o);
-    if (i >= 0) { this.#new.splice(i, 1); return; }     // народжене й убите — пропустити
-    if (!this.#removed.includes(o)) this.#removed.push(o);
-  }
-
-  #mapperOf(o: object): Mapper { return this.#mappers.get(o.constructor as Ctor)!; }
-  #snapshot(o: object): void {
-    this.#snapshots.set(o, JSON.stringify(this.#mapperOf(o).fields(o)));
-    if (!this.#tracked.includes(o)) this.#tracked.push(o);
-  }
-
-  // ── автовідстеження: хто розійшовся зі знімком ──
-  #dirty(): object[] {
-    return this.#tracked.filter(o =>
-      !this.#removed.includes(o as { id: number | null }) &&
-      JSON.stringify(this.#mapperOf(o).fields(o)) !== this.#snapshots.get(o));
-  }
-
-  // ── топосорт: батько перед дитиною ──
-  #toposort<T extends object>(objs: T[]): T[] {
-    const order: Ctor[] = [], seen = new Set<Ctor>();
-    const visit = (t: Ctor) => {
-      if (seen.has(t)) return;
-      seen.add(t);
-      for (const p of this.#mappers.get(t)!.dependsOn) visit(p);
-      order.push(t);
-    };
-    for (const o of objs) visit(o.constructor as Ctor);
-    const rank = new Map(order.map((t, i) => [t, i] as const));
-    return [...objs].sort((a, b) =>
-      rank.get(a.constructor as Ctor)! - rank.get(b.constructor as Ctor)!);
-  }
-
-  // ── злив: SQL у транзакцію, але транзакція ще жива ──
-  async flush(): Promise<void> {
-    const dirty = this.#dirty();                        // порахувати ДО вставок
-    for (const o of this.#toposort(this.#new)) {        // згори вниз
-      await this.#mapperOf(o).insert(o, this.tx);       // призначає o.id
-      this.#identity.set(`${o.constructor.name}#${(o as { id: number }).id}`, o as { id: number });
-      this.#snapshot(o);
-    }
-    for (const o of dirty) { await this.#mapperOf(o).update(o, this.tx); this.#snapshot(o); }
-    for (const o of this.#toposort(this.#removed).reverse()) {   // знизу вгору
-      await this.#mapperOf(o).delete(o, this.tx);
-      this.#identity.delete(`${o.constructor.name}#${(o as { id: number }).id}`);
-      this.#snapshots.delete(o);
-    }
-    this.#new = []; this.#removed = [];
-  }
-
-  async commit(): Promise<void> {
-    try { await this.flush(); await this.tx.commit(); }
-    catch (e) { await this.tx.rollback(); throw e; }
-  }
-}
-```
+:::code proj-unit-of-work/py/iadro-znimok-na.py
+:::code proj-unit-of-work/ts/index.ts
 :::
 
 Прочитай `commit` знизу вгору й побачиш увесь патерн у чотири ходи. `_dirty()` звіряє кожен знімок із поточним станом — так автовідстеження знаходить змінених. `_toposort` шикує об'єкти за графом зовнішніх ключів. `flush` виконує вставки (батьки першими), оновлення й видалення (діти першими) через мапери. І лише `commit` завершує транзакцію — або відкочує все на будь-якому збої.
@@ -278,26 +43,7 @@ class UnitOfWork {
 
 Заведемо базу в пам'яті й проженемо повний цикл.
 
-```py
-import sqlite3
-conn = sqlite3.connect(":memory:")
-conn.executescript('''
-  CREATE TABLE customer("id" INTEGER PRIMARY KEY, name TEXT, points INT);
-  CREATE TABLE "order"("id" INTEGER PRIMARY KEY, customer_id INT, total INT);
-''')
-mappers = [CustomerMapper(), OrderMapper()]
-
-# ── операція 1: створити клієнта й замовлення ──
-uow = UnitOfWork(conn, mappers)
-alice = Customer("Аліса")
-order = Order(alice); order.total = 250
-uow.register_new(order)                # навмисне В НЕПРАВИЛЬНОМУ порядку:
-uow.register_new(alice)                #   спершу замовлення, тоді клієнт
-uow.commit()
-
-print(alice.id)                        # → 1  — база призначила ключ клієнтові
-print(conn.execute('SELECT customer_id FROM "order"').fetchone())   # → (1,)
-```
+:::code proj-unit-of-work/py/iak-vono-bizhyt.py
 
 Ми зареєстрували замовлення **раніше** за клієнта — а база не спіткнулася. Топосорт побачив, що `OrderMapper.depends_on == (Customer,)`, і всупереч порядку реєстрації вставив спершу `alice` (дістала ключ `1`), а тоді `order`, чий `customer_id` у базі вже дорівнює `1`. Той самий рядок `o.customer.id`, що я просив запам'ятати, спрацював без пригод саме тому, що ключ клієнта на той момент уже існував.
 

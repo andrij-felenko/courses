@@ -122,66 +122,9 @@ unitOfWork.Commit(); // Пакетне збереження змін через 
 
 :::tabs
 @tab C
-```c
-#include <stdio.h>
-#include <stdbool.h>
-#include <string.h>
-
-typedef struct {
-    int id;
-    char username[32];
-    char email[64];
-} user_record_t;
-
-typedef struct {
-    user_record_t current;
-    user_record_t snapshot; // Початковий знімок для Dirty Checking
-    bool is_dirty;
-} persistence_context_entry_t;
-
-void check_and_save(persistence_context_entry_t *entry) {
-    if (strcmp(entry->current.username, entry->snapshot.username) != 0 ||
-        strcmp(entry->current.email, entry->snapshot.email) != 0) {
-        entry->is_dirty = true;
-        printf("[SQL] UPDATE users SET username='%s', email='%s' WHERE id=%d;\n",
-               entry->current.username, entry->current.email, entry->current.id);
-        entry->snapshot = entry->current; // Синхронізація знімка
-    } else {
-        printf("[No-Op] Сутність id=%d не змінювалася. SQL запит пропущено.\n", entry->current.id);
-    }
-}
-```
+:::code orm-d/c/main.c
 @tab C++
-```cpp
-#include <iostream>
-#include <string>
-#include <memory>
-
-struct UserRecord {
-    int id;
-    std::string username;
-    std::string email;
-};
-
-class PersistenceEntry {
-public:
-    UserRecord current;
-    UserRecord snapshot;
-
-    PersistenceEntry(UserRecord record) : current(record), snapshot(record) {}
-
-    void flush() {
-        if (current.username != snapshot.username || current.email != snapshot.email) {
-            std::cout << "[SQL] UPDATE users SET username='" << current.username 
-                      << "', email='" << current.email 
-                      << "' WHERE id=" << current.id << ";\n";
-            snapshot = current;
-        } else {
-            std::cout << "[No-Op] Змін для id=" << current.id << " не виявлено.\n";
-        }
-    }
-};
-```
+:::code orm-d/cpp/main.cpp
 :::
 
 Повну робочу реалізацію рушія Data Mapper та Unit of Work мовами C та C++ наведено у практичному проєкті [Розробка міні-ORM: патерни Data Mapper та Unit of Work](root:sf-data/orm/proj-mini-orm-data-mapper.md).

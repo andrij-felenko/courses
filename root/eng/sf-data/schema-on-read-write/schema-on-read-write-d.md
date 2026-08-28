@@ -114,66 +114,9 @@ Apache Parquet поєднує гнучкість документоорієнт�
 
 :::tabs
 @tab C
-```c
-#include <stdio.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-#include <stdlib.h>
-
-// 1. Schema-on-write: Пряме читання за зміщенням O(1)
-typedef struct {
-    uint32_t user_id;
-    double balance;
-    uint32_t created_at;
-} account_record_t;
-
-double read_balance_write(const account_record_t *rec) {
-    return rec->balance; // 1 інструкція процесора
-}
-
-// 2. Schema-on-read: Текстовий парсинг рядка O(N)
-double read_balance_read(const char *json_like_str) {
-    const char *key = "\"balance\":";
-    const char *pos = strstr(json_like_str, key);
-    if (!pos) return 0.0;
-    pos += strlen(key);
-    return strtod(pos, NULL); // Лексичний розбір десяткового дробу
-}
-```
+:::code schema-on-read-write-d/c/main.c
 @tab C++
-```cpp
-#include <iostream>
-#include <string_view>
-#include <charconv>
-#include <optional>
-
-namespace schema {
-
-// 1. Schema-on-write
-struct Account {
-    uint32_t user_id;
-    double balance;
-    uint32_t created_at;
-};
-
-// 2. Schema-on-read швидкий парсер через std::string_view
-std::optional<double> extract_balance(std::string_view payload) {
-    constexpr std::string_view key = "\"balance\":";
-    auto pos = payload.find(key);
-    if (pos == std::string_view::npos) return std::nullopt;
-
-    payload.remove_prefix(pos + key.size());
-    double balance = 0.0;
-    auto res = std::from_chars(payload.data(), payload.data() + payload.size(), balance);
-    if (res.ec == std::errc{}) {
-        return balance;
-    }
-    return std::nullopt;
-}
-
-} // namespace schema
-```
+:::code schema-on-read-write-d/cpp/main.cpp
 :::
 
 Повний стенд тестування з вимірюванням латентності та кеш-промахів на 100 000 записах наведено у практичному проєкті [Розробка та порівняльний бенчмарк парсерів Schema-on-write та Schema-on-read на C та C++](root:sf-data/schema-on-read-write/proj-schema-parsers-benchmark.md).

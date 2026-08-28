@@ -241,79 +241,8 @@ struct WindowsGuid {
 Розгляньмо, як виглядає правильна, безпечна робота з конвертацією обома мовами.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <string.h>
-
-typedef struct {
-    uint8_t bytes[16];
-} rfc_uuid_t;
-
-typedef struct {
-    uint32_t Data1;
-    uint16_t Data2;
-    uint16_t Data3;
-    uint8_t  Data4[8];
-} win_guid_t;
-
-/* Безпечна конвертація Windows GUID -> RFC 4122 Big-Endian байтовий масив */
-void win_guid_to_rfc_uuid(const win_guid_t *src, rfc_uuid_t *dst) {
-    /* Розпакування 32-бітного Data1 у 4 байти Big-Endian */
-    dst->bytes[0] = (uint8_t)(src->Data1 >> 24);
-    dst->bytes[1] = (uint8_t)(src->Data1 >> 16);
-    dst->bytes[2] = (uint8_t)(src->Data1 >> 8);
-    dst->bytes[3] = (uint8_t)(src->Data1);
-
-    /* Розпакування 16-бітного Data2 у 2 байти Big-Endian */
-    dst->bytes[4] = (uint8_t)(src->Data2 >> 8);
-    dst->bytes[5] = (uint8_t)(src->Data2);
-
-    /* Розпакування 16-бітного Data3 у 2 байти Big-Endian */
-    dst->bytes[6] = (uint8_t)(src->Data3 >> 8);
-    dst->bytes[7] = (uint8_t)(src->Data3);
-
-    /* Поле Data4 копіюється як є (побайтний масив) */
-    memcpy(&dst->bytes[8], src->Data4, 8);
-}
-```
-```cpp
-#include <array>
-#include <cstdint>
-#include <cstring>
-#include <span>
-
-struct RfcUuid {
-    std::array<uint8_t, 16> bytes{};
-};
-
-struct WindowsGuid {
-    uint32_t data1;
-    uint16_t data2;
-    uint16_t data3;
-    std::array<uint8_t, 8> data4;
-};
-
-[[nodiscard]] constexpr RfcUuid to_rfc_uuid(const WindowsGuid& src) noexcept {
-    RfcUuid dst{};
-
-    dst.bytes[0] = static_cast<uint8_t>(src.data1 >> 24);
-    dst.bytes[1] = static_cast<uint8_t>(src.data1 >> 16);
-    dst.bytes[2] = static_cast<uint8_t>(src.data1 >> 8);
-    dst.bytes[3] = static_cast<uint8_t>(src.data1);
-
-    dst.bytes[4] = static_cast<uint8_t>(src.data2 >> 8);
-    dst.bytes[5] = static_cast<uint8_t>(src.data2);
-
-    dst.bytes[6] = static_cast<uint8_t>(src.data3 >> 8);
-    dst.bytes[7] = static_cast<uint8_t>(src.data3);
-
-    for (size_t i = 0; i < 8; ++i) {
-        dst.bytes[8 + i] = src.data4[i];
-    }
-
-    return dst;
-}
-```
+:::code uuid-and-guid-d/c/main.c
+:::code uuid-and-guid-d/cpp/main.cpp
 :::
 
 ### Практичні правила вибору та збереження

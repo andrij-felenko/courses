@@ -187,110 +187,9 @@ FROM pg_prepared_statements;
 
 :::tabs
 @tab C
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sqlite3.h>
-
-// Приклад безпечної роботи з підготовленим виразом у SQLite на чистому C
-int query_user_balance(sqlite3 *db, int64_t user_id, double *out_balance) {
-    const char *sql = "SELECT balance FROM accounts WHERE id = ?;";
-    sqlite3_stmt *stmt = NULL;
-
-    // 1. Компіляція шаблону запиту в байт-код VDBE
-    int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
-    if (rc != SQLITE_OK) {
-        fprintf(stderr, "Помилка підготовки виразу: %s\n", sqlite3_errmsg(db));
-        return -1;
-    }
-
-    // 2. Зв'язування параметра за індексом 1 (індексація починається з 1)
-    sqlite3_bind_int64(stmt, 1, user_id);
-
-    // 3. Покрокове виконання скомпільованого байт-коду
-    rc = sqlite3_step(stmt);
-    if (rc == SQLITE_ROW) {
-        *out_balance = sqlite3_column_double(stmt, 0);
-        rc = SQLITE_OK;
-    } else if (rc == SQLITE_DONE) {
-        // Рядок не знайдено
-        rc = SQLITE_NOTFOUND;
-    } else {
-        fprintf(stderr, "Помилка виконання виразу: %s\n", sqlite3_errmsg(db));
-        rc = -1;
-    }
-
-    // 4. Обов'язкове звільнення ресурсів виразу
-    sqlite3_finalize(stmt);
-    return rc;
-}
-```
+:::code prepared-statements-d/c/robota-cherez-systemnyi.c
 @tab C++
-```cpp
-#include <iostream>
-#include <string_view>
-#include <optional>
-#include <expected>
-#include <memory>
-#include <span>
-#include <sqlite3.h>
-
-// Автоматичне керування життєвим циклом sqlite3_stmt через RAII
-struct StmtDeleter {
-    void operator()(sqlite3_stmt* stmt) const noexcept {
-        if (stmt) {
-            sqlite3_finalize(stmt);
-        }
-    }
-};
-
-using ScopedStmt = std::unique_ptr<sqlite3_stmt, StmtDeleter>;
-
-class AccountRepository {
-private:
-    sqlite3* db_{nullptr};
-
-public:
-    explicit AccountRepository(sqlite3* db) noexcept : db_(db) {}
-
-    enum class DbError {
-        PrepareFailed,
-        BindFailed,
-        StepFailed,
-        NotFound
-    };
-
-    // Безпечне виконання з типізованою обробкою результатів (C++23 std::expected)
-    std::expected<double, DbError> get_balance(int64_t user_id) const noexcept {
-        constexpr std::string_view query = "SELECT balance FROM accounts WHERE id = ?;";
-        sqlite3_stmt* raw_stmt = nullptr;
-
-        // 1. Компіляція виразу
-        int rc = sqlite3_prepare_v2(db_, query.data(), static_cast<int>(query.size()), &raw_stmt, nullptr);
-        if (rc != SQLITE_OK) {
-            return std::unexpected(DbError::PrepareFailed);
-        }
-
-        ScopedStmt stmt(raw_stmt); // Гарантія виклику sqlite3_finalize при виході
-
-        // 2. Зв'язування параметра
-        if (sqlite3_bind_int64(stmt.get(), 1, user_id) != SQLITE_OK) {
-            return std::unexpected(DbError::BindFailed);
-        }
-
-        // 3. Отримання результату
-        rc = sqlite3_step(stmt.get());
-        if (rc == SQLITE_ROW) {
-            return sqlite3_column_double(stmt.get(), 0);
-        } else if (rc == SQLITE_DONE) {
-            return std::unexpected(DbError::NotFound);
-        }
-
-        return std::unexpected(DbError::StepFailed);
-    }
-};
-```
+:::code prepared-statements-d/cpp/robota-cherez-systemnyi.cpp
 :::
 
 ### Повторне використання підготовленого виразу без перекомпіляції
@@ -299,83 +198,9 @@ public:
 
 :::tabs
 @tab C
-```c
-// Пакетне оновлення балансів через багаторазовий запуск одного виразу
-int batch_update_balances(sqlite3 *db, const int64_t *ids, const double *amounts, size_t count) {
-    const char *sql = "UPDATE accounts SET balance = balance + ? WHERE id = ?;";
-    sqlite3_stmt *stmt = NULL;
-
-    if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
-        return -1;
-    }
-
-    // Відкриття транзакції для пакетного запису
-    sqlite3_exec(db, "BEGIN TRANSACTION;", NULL, NULL, NULL);
-
-    for (size_t i = 0; i < count; i++) {
-        // Зв'язування нових параметрів
-        sqlite3_bind_double(stmt, 1, amounts[i]);
-        sqlite3_bind_int64(stmt, 2, ids[i]);
-
-        if (sqlite3_step(stmt) != SQLITE_DONE) {
-            sqlite3_finalize(stmt);
-            sqlite3_exec(db, "ROLLBACK;", NULL, NULL, NULL);
-            return -1;
-        }
-
-        // Скидання стану виконання для наступної ітерації (без перепарсингу!)
-        sqlite3_reset(stmt);
-        sqlite3_clear_bindings(stmt);
-    }
-
-    sqlite3_exec(db, "COMMIT;", NULL, NULL, NULL);
-    sqlite3_finalize(stmt);
-    return 0;
-}
-```
+:::code prepared-statements-d/c/povtorne-vykorystannia.c
 @tab C++
-```cpp
-#include <vector>
-#include <span>
-#include <string_view>
-#include <sqlite3.h>
-
-struct BalanceAdjustment {
-    int64_t account_id;
-    double delta;
-};
-
-// Пакетне оновлення з використанням std::span та RAII
-bool batch_adjust_balances(sqlite3* db, std::span<const BalanceAdjustment> adjustments) noexcept {
-    constexpr std::string_view sql = "UPDATE accounts SET balance = balance + ? WHERE id = ?;";
-    sqlite3_stmt* raw_stmt = nullptr;
-
-    if (sqlite3_prepare_v2(db, sql.data(), static_cast<int>(sql.size()), &raw_stmt, nullptr) != SQLITE_OK) {
-        return false;
-    }
-
-    ScopedStmt stmt(raw_stmt);
-
-    sqlite3_exec(db, "BEGIN TRANSACTION;", nullptr, nullptr, nullptr);
-
-    for (const auto& item : adjustments) {
-        sqlite3_bind_double(stmt.get(), 1, item.delta);
-        sqlite3_bind_int64(stmt.get(), 2, item.account_id);
-
-        if (sqlite3_step(stmt.get()) != SQLITE_DONE) {
-            sqlite3_exec(db, "ROLLBACK;", nullptr, nullptr, nullptr);
-            return false;
-        }
-
-        // Скидання ітератора виконання без втрати скомпільованого байт-коду
-        sqlite3_reset(stmt.get());
-        sqlite3_clear_bindings(stmt.get());
-    }
-
-    sqlite3_exec(db, "COMMIT;", nullptr, nullptr, nullptr);
-    return true;
-}
-```
+:::code prepared-statements-d/cpp/povtorne-vykorystannia.cpp
 :::
 
 Повний приклад власного рушія віртуальної машини, що транслює абстрактне синтаксичне дерево у байт-код та демонструє порівняння продуктивності на мікрорівні, наведено у проектній роботі [з реалізації віртуальної машини з підготовкою запитів та бенчмарком](root:sf-data/prepared-statements/proj-prepared-statement-engine.md).

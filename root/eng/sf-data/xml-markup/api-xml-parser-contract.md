@@ -124,49 +124,13 @@ interface Element : Node {
 
 Головний контракт обробки потоку документа, просторів імен, відкривальних та закривальних тегів:
 
-```java
-public interface ContentHandler {
-    // Керування життєвим циклом документа
-    void setDocumentLocator(Locator locator);
-    void startDocument() throws SAXException;
-    void endDocument() throws SAXException;
-
-    // Зв'язування та розрив префіксів просторів імен
-    void startPrefixMapping(String prefix, String uri) throws SAXException;
-    void endPrefixMapping(String prefix) throws SAXException;
-
-    // Обробка тегів і тексту
-    void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException;
-    void endElement(String uri, String localName, String qName) throws SAXException;
-    void characters(char[] ch, int start, int length) throws SAXException;
-    void ignorableWhitespace(char[] ch, int start, int length) throws SAXException;
-
-    // Додаткові метадані
-    void processingInstruction(String target, String data) throws SAXException;
-    void skippedEntity(String name) throws SAXException;
-}
-```
+:::code api-xml-parser-contract/java/syhnatury-interfeisu-org.java
 
 ### Сигнатури інтерфейсу `org.xml.sax.Attributes`
 
 Контракт доступу до колекції атрибутів, переданої у виклик `startElement`:
 
-```java
-public interface Attributes {
-    int getLength();
-    String getURI(int index);
-    String getLocalName(int index);
-    String getQName(int index);
-    String getType(int index);       // "CDATA", "ID", "IDREF", "NMTOKEN" тощо
-    String getValue(int index);
-
-    int getIndex(String uri, String localName);
-    int getIndex(String qName);
-    String getType(String uri, String localName);
-    String getValue(String uri, String localName);
-    String getValue(String qName);
-}
-```
+:::code api-xml-parser-contract/java/syhnatury-interfeisu-org-2.java
 
 ### Сигнатури інтерфейсу `org.xml.sax.ErrorHandler`
 
@@ -215,51 +179,7 @@ public interface ErrorHandler {
 
 Повний набір методів для читання, навігації, перевірки передумов та вилучення типізованих значень:
 
-```java
-public interface XMLStreamReader extends XMLStreamConstants {
-    // Рух курсора
-    int     next() throws XMLStreamException;
-    void    require(int type, String namespaceURI, String localName) throws XMLStreamException;
-    String  getElementText() throws XMLStreamException;
-    int     nextTag() throws XMLStreamException;
-    boolean hasNext() throws XMLStreamException;
-    void    close() throws XMLStreamException;
-
-    // Властивості поточного елемента
-    String  getNamespaceURI();
-    String  getLocalName();
-    String  getPrefix();
-    boolean hasName();
-    QName   getName();
-
-    // Доступ до атрибутів поточного елемента
-    int     getAttributeCount();
-    String  getAttributeNamespace(int index);
-    String  getAttributeLocalName(int index);
-    String  getAttributePrefix(int index);
-    String  getAttributeType(int index);
-    String  getAttributeValue(int index);
-    String  getAttributeValue(String namespaceURI, String localName);
-    boolean isAttributeSpecified(int index);
-
-    // Доступ до просторів імен
-    int     getNamespaceCount();
-    String  getNamespacePrefix(int index);
-    String  getNamespaceURI(int index);
-
-    // Доступ до текстового вмісту
-    char[]  getTextCharacters();
-    int     getTextCharacters(int sourceStart, char[] target, int targetStart, int length) throws XMLStreamException;
-    int     getTextStart();
-    int     getTextLength();
-    String  getText();
-    boolean hasText();
-
-    // Діагностика локації у потоці
-    Location getLocation();
-    int      getEventType();
-}
-```
+:::code api-xml-parser-contract/java/spetsyfikatsiia-metodiv.java
 
 ### Інженерні переваги pull-моделі
 

@@ -25,91 +25,7 @@ void put(const K& key, V val);        // вставка; якщо місця н�
 
 Класична навчальна збірка з двох стандартних контейнерів — `std::list<std::pair<K,V>>` плюс `std::unordered_map<K, std::list<...>::iterator>` — цю вимогу формально виконує (ітератори `std::list` не псуються від чужих вставок і вилучень). Але платить за це тричі: два окремих виділення пам'яті на кожен запис, вузли розкидані по купі, і ключ збережено двічі. Тому нижче — та сама ідея, складена вручну: усі вузли живуть в одному масиві, а роль покажчиків грають 32-бітні номери слотів.
 
-```cpp
-#include <cstdint>
-#include <optional>
-#include <unordered_map>
-#include <vector>
-
-// Точний LRU зі стелею в cap записів.
-// Вузли лежать у суцільному масиві; зв'язки — номери слотів, а не покажчики.
-template <class K, class V>
-class LruCache {
-    static constexpr uint32_t NIL = 0xFFFFFFFFu;
-    struct Node { K key; V val; uint32_t prev = NIL, next = NIL; };
-
-    std::vector<Node> slots_;                 // усі записи живуть тут
-    std::unordered_map<K, uint32_t> index_;   // ключ → номер слота
-    uint32_t head_ = NIL, tail_ = NIL, cap_;
-    uint64_t hits_ = 0, misses_ = 0, evictions_ = 0;
-
-public:
-    explicit LruCache(uint32_t cap) : cap_(cap) {
-        slots_.reserve(cap_);       // жодного перерозподілу за весь час життя
-        index_.reserve(cap_ * 2);   // щоб таблиця не перебудовувалася на ходу
-    }
-
-    // Значення повертаємо КОПІЄЮ: посилання назовні віддавати не можна —
-    // наступний put може витіснити саме цей запис і перевикористати слот.
-    std::optional<V> get(const K& key) {
-        auto it = index_.find(key);
-        if (it == index_.end()) { ++misses_; return std::nullopt; }
-        ++hits_;
-        touch(it->second);                    // ЧИТАННЯ, ЯКЕ ПИШЕ
-        return slots_[it->second].val;
-    }
-
-    void put(const K& key, V val) {
-        if (auto it = index_.find(key); it != index_.end()) {
-            slots_[it->second].val = std::move(val);
-            touch(it->second);
-            return;
-        }
-        uint32_t i;
-        if (slots_.size() < cap_) {           // кеш іще не повний — новий слот
-            i = static_cast<uint32_t>(slots_.size());
-            slots_.emplace_back();
-        } else {                              // повний — жертва з хвоста
-            i = tail_;
-            unlink(i);
-            index_.erase(slots_[i].key);      // ключ ще живий: слот не чіпали
-            ++evictions_;
-        }
-        slots_[i].key = key;
-        slots_[i].val = std::move(val);
-        index_.emplace(key, i);
-        push_front(i);
-    }
-
-    double hit_ratio() const {
-        uint64_t n = hits_ + misses_;
-        return n ? static_cast<double>(hits_) / static_cast<double>(n) : 0.0;
-    }
-
-private:
-    void unlink(uint32_t i) {
-        Node& n = slots_[i];
-        (n.prev == NIL ? head_ : slots_[n.prev].next) = n.next;
-        (n.next == NIL ? tail_ : slots_[n.next].prev) = n.prev;
-        n.prev = n.next = NIL;
-    }
-
-    void push_front(uint32_t i) {
-        Node& n = slots_[i];
-        n.prev = NIL;
-        n.next = head_;
-        if (head_ != NIL) slots_[head_].prev = i;
-        head_ = i;
-        if (tail_ == NIL) tail_ = i;
-    }
-
-    void touch(uint32_t i) {
-        if (i == head_) return;               // найсвіжіший — робити нічого
-        unlink(i);
-        push_front(i);
-    }
-};
-```
+:::code proj-lru-clock/cpp/tochnyi-lru-dvi-vymohy.cpp
 
 Три місця тут не декоративні, і кожне колись комусь коштувало вечора.
 
@@ -145,35 +61,7 @@ private:
 
 Але жодне з цих чисел не варто брати на віру, зокрема й моє: заголовок алокатора, коефіцієнт заповнення й вирівнювання залежать від збірки. Виміряйте своє — це двадцять рядків:
 
-```cpp
-#include <cstddef>
-#include <memory>
-
-inline size_t g_index_bytes = 0;              // C++17 inline-змінна
-
-template <class T>
-struct CountingAlloc {
-    using value_type = T;
-    CountingAlloc() = default;
-    template <class U> CountingAlloc(const CountingAlloc<U>&) {}
-
-    T* allocate(size_t n) {
-        g_index_bytes += n * sizeof(T);
-        return std::allocator<T>{}.allocate(n);
-    }
-    void deallocate(T* p, size_t n) {
-        g_index_bytes -= n * sizeof(T);
-        std::allocator<T>{}.deallocate(p, n);
-    }
-    template <class U> bool operator==(const CountingAlloc<U>&) const { return true; }
-};
-
-using Index = std::unordered_map<
-    uint64_t, uint32_t, std::hash<uint64_t>, std::equal_to<uint64_t>,
-    CountingAlloc<std::pair<const uint64_t, uint32_t>>>;
-
-// заповнити Index десятьма мільйонами пар і надрукувати g_index_bytes / 10'000'000
-```
+:::code proj-lru-clock/cpp/shistnadtsiat-baitiv-na.cpp
 
 Одне застереження до результату: лічильник бачить лише те, скільки контейнер **попросив**, а не скільки алокатор насправді зайняв. Справжня цифра завжди більша — на заголовок і на округлення розміру шматка. Тому поруч із цим числом варто дивитися ще й на `RSS` процесу до й після заповнення: різниця між ними й буде правдою.
 
@@ -183,23 +71,7 @@ using Index = std::unordered_map<
 
 Найпростіші ліки виглядають так:
 
-```cpp
-template <class K, class V>
-class LockedLru {
-    LruCache<K, V> impl_;
-    std::mutex mu_;                     // shared_mutex тут НЕ допоможе
-
-public:
-    std::optional<V> get(const K& key) {
-        std::lock_guard lk(mu_);        // ексклюзивний навіть на читанні
-        return impl_.get(key);
-    }
-    void put(const K& key, V val) {
-        std::lock_guard lk(mu_);
-        impl_.put(key, std::move(val));
-    }
-};
-```
+:::code proj-lru-clock/cpp/chytannia-iake-pyshe-i.cpp
 
 Коментар про `std::shared_mutex` — головне в цьому фрагменті. Замок «багато читачів або один письменник» рятує там, де читачі справді лише читають. Тут кожне влучання пише, тож усі мусять брати замок ексклюзивно, і читачі стають у чергу один до одного. Ані розділення на читачів і письменників, ані атомарні операції на окремих полях цього не змінюють: перестановка вузла — це п'ять записів у чотири різні місця, і вони мусять статися разом.
 
@@ -229,72 +101,7 @@ public:
 
 Важливо не переплутати, що саме тут замінили. Хеш-індекс нікуди не подівся — без нього ключ не знайти. CLOCK прибрав **структуру порядку**: список зі своїми перестановками замінено на масив прапорців і одну змінну-стрілку.
 
-```cpp
-// CLOCK: кільце слотів + один БАЙТ прапорця на слот (не біт — див. нижче).
-template <class K, class V>
-class ClockCache {
-    struct Slot { K key; V val; };
-
-    std::vector<Slot> slots_;
-    std::vector<uint8_t> ref_;                // прапорці звернення
-    std::unordered_map<K, uint32_t> index_;
-    uint32_t hand_ = 0, cap_;
-    uint64_t hits_ = 0, misses_ = 0, evictions_ = 0, steps_ = 0;
-
-public:
-    explicit ClockCache(uint32_t cap) : cap_(cap) {
-        slots_.reserve(cap_);
-        ref_.reserve(cap_);
-        index_.reserve(cap_ * 2);
-    }
-
-    std::optional<V> get(const K& key) {
-        auto it = index_.find(key);
-        if (it == index_.end()) { ++misses_; return std::nullopt; }
-        ++hits_;
-        ref_[it->second] = 1;                 // УВЕСЬ облік свіжості — цей рядок
-        return slots_[it->second].val;
-    }
-
-    void put(const K& key, V val) {
-        if (auto it = index_.find(key); it != index_.end()) {
-            slots_[it->second].val = std::move(val);
-            ref_[it->second] = 1;
-            return;
-        }
-        uint32_t i;
-        if (slots_.size() < cap_) {
-            i = static_cast<uint32_t>(slots_.size());
-            slots_.push_back(Slot{key, std::move(val)});
-            ref_.push_back(1);
-        } else {
-            i = evict();                      // слот i звільнено й вилучено з індексу
-            slots_[i] = Slot{key, std::move(val)};
-            ref_[i] = 1;
-        }
-        index_.emplace(key, i);
-    }
-
-    double steps_per_eviction() const {
-        return evictions_ ? static_cast<double>(steps_) / evictions_ : 0.0;
-    }
-
-private:
-    uint32_t evict() {
-        for (;;) {
-            uint32_t i = hand_;
-            hand_ = (hand_ + 1 == cap_) ? 0 : hand_ + 1;
-            ++steps_;
-            if (ref_[i] == 0) {               // жертва знайдена
-                index_.erase(slots_[i].key);  // ключ ще на місці — слот не чіпали
-                ++evictions_;
-                return i;
-            }
-            ref_[i] = 0;                      // другий шанс
-        }
-    }
-};
-```
+:::code proj-lru-clock/cpp/clock-uves-oblik-svizhosti.cpp
 
 Один рядок у цьому коді — не деталь реалізації, а прихована політика: `ref_.push_back(1)` і `ref_[i] = 1` після вставки, тобто **новачок отримує прапорець одиницею**. Це дарує йому цілий оберт стрілки недоторканності — і саме через це CLOCK так само беззахисний перед наскрізним проходом даними, як і LRU: мільйон одноразових ключів заходить із повним імунітетом. Поставте новачкові нуль — і він помре при першому ж наближенні стрілки, якщо до нього не звернулися повторно. Це вже інша політика з іншими вадами, але знати, що ця розвилка сидить в одному символі, корисно: у чужому коді вона ніде не підписана.
 
@@ -362,18 +169,7 @@ use(v);                            // читаємо з чужого, уже п�
 
 **Витік вузлів і осиротілі записи в індексі.** У версії з `new Node` є два дзеркальні способи все зламати: вилучити з індексу, але забути звільнити вузол (витік), або звільнити вузол, але забути вилучити з індексу (звернення до звільненої пам'яті). Обидва зникають самі, коли слоти живуть у масиві: володіння не переходить нікуди, слот просто перевикористовується. Але один інваріант варто перевіряти в зневаджувальній збірці, бо він ловить усі помилки цього класу за один прохід:
 
-```cpp
-void audit() const {
-    assert(index_.size() == slots_.size());
-    size_t n = 0;
-    for (uint32_t i = head_; i != NIL; i = slots_[i].next) {
-        auto it = index_.find(slots_[i].key);
-        assert(it != index_.end() && it->second == i);   // індекс і список згодні
-        ++n;
-    }
-    assert(n == slots_.size());                          // і в списку всі
-}
-```
+:::code proj-lru-clock/cpp/pastky.cpp
 
 **Хибне спільне використання на масиві прапорців.** Тепер зрозуміло, чому вище стояв байт, а не біт. Якби прапорці лежали упакованими по одному біту, встановлення прапорця стало б читанням-зміною-записом цілого слова — і два потоки, що ставлять сусідні біти, губили б результати одне одного. Це не «трохи неточність»: у моделі пам'яті C++ окремою одиницею є **байт**, тож два записи в різні біти одного байта — це гонка з невизначеною поведінкою, а два записи в різні байти — цілком законна дія, навіть звичайними операціями. Ціна відмови від упаковки для 10 млн записів:
 

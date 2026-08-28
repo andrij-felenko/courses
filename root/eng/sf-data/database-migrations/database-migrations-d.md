@@ -137,53 +137,9 @@ DETAIL: rule _RETURN on view user_profiles_view depends on column "phone"
 
 :::tabs
 @tab C
-```c
-#include <stdio.h>
-#include <stdbool.h>
-#include <string.h>
-
-typedef struct {
-    char column_name[32];
-    char data_type[16];
-    bool is_nullable;
-} column_schema_t;
-
-bool validate_schema_compatibility(column_schema_t *current_schema, size_t count, const char *required_col) {
-    for (size_t i = 0; i < count; ++i) {
-        if (strcmp(current_schema[i].column_name, required_col) == 0) {
-            printf("Колонка %s знайдена в схемі бази даних.\n", required_col);
-            return true;
-        }
-    }
-    fprintf(stderr, "Помилка несумісності: колонка %s відсутня!\n", required_col);
-    return false;
-}
-```
+:::code database-migrations-d/c/main.c
 @tab C++
-```cpp
-#include <iostream>
-#include <vector>
-#include <string>
-#include <algorithm>
-
-struct ColumnSchema {
-    std::string name;
-    std::string type;
-    bool is_nullable;
-};
-
-bool validate_schema_compatibility(const std::vector<ColumnSchema>& schema, const std::string& required_col) {
-    auto it = std::find_if(schema.begin(), schema.end(), [&](const ColumnSchema& col) {
-        return col.name == required_col;
-    });
-    if (it != schema.end()) {
-        std::cout << "Колонка " << required_col << " знайдена в схемі.\n";
-        return true;
-    }
-    std::cerr << "Помилка несумісності: колонка " << required_col << " відсутня!\n";
-    return false;
-}
-```
+:::code database-migrations-d/cpp/main.cpp
 :::
 
 Практична розробка власного повноцінного рушія міграцій доступна у проєкті [Розробка міні-рушія міграцій схеми бази даних](root:sf-data/database-migrations/proj-mini-migration-runner.md).

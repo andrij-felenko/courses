@@ -23,25 +23,31 @@
           "hist": [
             {
               "file": "hist-btree-birth.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-btree-fanout.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-bplus-tree.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 5
             }
           ],
           "api": [
             {
               "file": "api-gist-methods.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -53,12 +59,15 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "api": [
             {
               "file": "api-parquet-column-format.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 5
             }
           ],
           "hist": [
@@ -70,13 +79,16 @@
           "math": [
             {
               "file": "math-columnar-compression.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-columnar-scan.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }
@@ -111,13 +123,15 @@
           "proj": [
             {
               "file": "proj-b-tree.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-b-tree.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -146,7 +160,8 @@
           "proj": [
             {
               "file": "proj-lsm-engine.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -157,7 +172,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -168,7 +184,8 @@
           "proj": [
             {
               "file": "proj-append-only-store.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -185,18 +202,23 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-fat32-structures.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-fat32-reader.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -207,12 +229,15 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-littlefs-lowlevel.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "hist": [
@@ -224,7 +249,9 @@
           "proj": [
             {
               "file": "proj-flash-log-allocator.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -235,7 +262,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -257,12 +285,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-atomic-config.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -273,12 +303,15 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-durability-syscalls.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "hist": [
@@ -290,7 +323,9 @@
           "proj": [
             {
               "file": "proj-atomic-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -318,13 +353,15 @@
           "proj": [
             {
               "file": "proj-multipart-parser.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-tus-protocol.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ]
         },
@@ -347,19 +384,22 @@
           "math": [
             {
               "file": "math-erasure-coding.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-presigned-signer.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-s3-operations.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ]
         }

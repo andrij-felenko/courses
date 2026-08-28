@@ -9,56 +9,8 @@
 Спершу — об'єктний бік, спільний для всіх трьох. Гроші тримаємо парою «сума в найдрібнішій одиниці + валюта», щоб не тягти сюди ще й окремий тип грошей:
 
 :::tabs
-```ts
-class Money { constructor(readonly cents: number, readonly ccy: string) {} }
-
-abstract class Payment {
-  constructor(readonly id: number, readonly amount: Money, readonly createdAt: Date) {}
-  abstract settle(): void;
-}
-class CardPayment extends Payment {
-  constructor(id: number, amount: Money, createdAt: Date,
-              readonly cardLast4: string, readonly authCode: string) {
-    super(id, amount, createdAt);
-  }
-  settle() { /* провести через платіжний шлюз */ }
-}
-class BankTransfer extends Payment {
-  constructor(id: number, amount: Money, createdAt: Date,
-              readonly iban: string, readonly reference: string) {
-    super(id, amount, createdAt);
-  }
-  settle() { /* звірити з банківською випискою */ }
-}
-```
-```python
-from dataclasses import dataclass
-from datetime import datetime
-
-@dataclass(frozen=True)
-class Money:
-    cents: int
-    ccy: str
-
-@dataclass(frozen=True)
-class Payment:
-    id: int
-    amount: Money
-    created_at: datetime
-    def settle(self) -> None: ...
-
-@dataclass(frozen=True)
-class CardPayment(Payment):
-    card_last4: str
-    auth_code: str
-    def settle(self) -> None: ...      # провести через платіжний шлюз
-
-@dataclass(frozen=True)
-class BankTransfer(Payment):
-    iban: str
-    reference: str
-    def settle(self) -> None: ...      # звірити з банківською випискою
-```
+:::code proj-inheritance-mapping/ts/part.ts
+:::code proj-inheritance-mapping/py/part.py
 :::
 
 Об'єктна форма однакова завжди. Розходяться три способи в тому, у скільки таблиць і як саме її розкласти.
@@ -71,42 +23,12 @@ class BankTransfer(Payment):
 
 **Ідея.** Всю ієрархію — в одну таблицю. Одна колонка-**розрізнювач** (англ. *discriminator*) каже, який різновид у цьому рядку; далі йдуть спільні колонки, а за ними — колонки геть усіх підтипів підряд. Рядок картки заповнює свої колонки, а «чужі» (банківські) лишає порожніми, і навпаки.
 
-```sql
-CREATE TABLE payments (
-  id           BIGINT      PRIMARY KEY,
-  kind         VARCHAR(16) NOT NULL,          -- розрізнювач: 'card' | 'bank'
-  amount_cents BIGINT      NOT NULL,
-  currency     CHAR(3)     NOT NULL,
-  created_at   TIMESTAMPTZ NOT NULL,
-  -- поля CardPayment (NULL у банківських рядках)
-  card_last4   CHAR(4),
-  auth_code    VARCHAR(32),
-  -- поля BankTransfer (NULL у карткових рядках)
-  iban         VARCHAR(34),
-  reference    VARCHAR(64),
-  CHECK (kind IN ('card', 'bank'))
-);
-```
+:::code proj-inheritance-mapping/sql/odna-tablytsia-na-vsiu.sql
 
 Мапер простий, і вся його суть — у розгалуженні за `kind`. Прочитавши рядок, він дивиться на розрізнювач і будує потрібний підтип:
 
 :::tabs
-```ts
-type Row = {
-  id: number; kind: 'card' | 'bank'; amount_cents: number; currency: string;
-  created_at: string; card_last4: string | null; auth_code: string | null;
-  iban: string | null; reference: string | null;
-};
-
-function fromRow(r: Row): Payment {
-  const amount = new Money(r.amount_cents, r.currency);
-  const at = new Date(r.created_at);
-  switch (r.kind) {
-    case 'card': return new CardPayment(r.id, amount, at, r.card_last4!, r.auth_code!);
-    case 'bank': return new BankTransfer(r.id, amount, at, r.iban!, r.reference!);
-  }
-}
-```
+:::code proj-inheritance-mapping/ts/odna-tablytsia-na-vsiu.ts
 ```python
 def from_row(r: dict) -> Payment:
     amount = Money(r["amount_cents"], r["currency"])
@@ -146,65 +68,15 @@ ALTER TABLE payments ADD CONSTRAINT bank_fields_present
 
 **Ідея.** Дати кожному класу ієрархії власну таблицю. Спільне (`id`, сума, дата) живе в кореневій `payments`; кожен підтип — окрема таблиця тільки зі своїми полями, і її первинний ключ водночас є зовнішнім ключем на корінь. Один платіж — це рядок у базовій таблиці плюс рядок в одній підтабличній, склеєні спільним `id`.
 
-```sql
-CREATE TABLE payments (                        -- спільний корінь
-  id           BIGINT      PRIMARY KEY,
-  kind         VARCHAR(16) NOT NULL,
-  amount_cents BIGINT      NOT NULL,
-  currency     CHAR(3)     NOT NULL,
-  created_at   TIMESTAMPTZ NOT NULL,
-  CHECK (kind IN ('card', 'bank'))
-);
-CREATE TABLE card_payments (
-  id         BIGINT      PRIMARY KEY REFERENCES payments(id) ON DELETE CASCADE,
-  card_last4 CHAR(4)     NOT NULL,              -- NOT NULL повернувся!
-  auth_code  VARCHAR(32) NOT NULL
-);
-CREATE TABLE bank_transfers (
-  id        BIGINT      PRIMARY KEY REFERENCES payments(id) ON DELETE CASCADE,
-  iban      VARCHAR(34) NOT NULL,
-  reference VARCHAR(64) NOT NULL
-);
-```
+:::code proj-inheritance-mapping/sql/tablytsia-na-klas-zbirka.sql
 
 Одразу видно виграш: `card_last4 NOT NULL` тепер законне, бо в цій таблиці немає жодного банківського рядка, якому та колонка була б чужа. Цілісність, що випала в попередній схемі, повернулася сама собою.
 
 Запис коштує двох вставок — у базу й у підтаблицю, — і робити їх треба разом: якщо друга впаде, перша має відкотитися, інакше в базі лишиться «платіж без різновиду». Тому обидві йдуть однією [транзакцією](root:sf-data/transactions-acid):
 
 :::tabs
-```ts
-async function insert(p: Payment, tx: Tx): Promise<void> {
-  const kind = p instanceof CardPayment ? 'card' : 'bank';
-  await tx.query(
-    `INSERT INTO payments(id, kind, amount_cents, currency, created_at)
-     VALUES ($1, $2, $3, $4, $5)`,
-    [p.id, kind, p.amount.cents, p.amount.ccy, p.createdAt]);
-  if (p instanceof CardPayment)
-    await tx.query(
-      `INSERT INTO card_payments(id, card_last4, auth_code) VALUES ($1, $2, $3)`,
-      [p.id, p.cardLast4, p.authCode]);
-  else if (p instanceof BankTransfer)
-    await tx.query(
-      `INSERT INTO bank_transfers(id, iban, reference) VALUES ($1, $2, $3)`,
-      [p.id, p.iban, p.reference]);
-}
-```
-```python
-def insert(p: Payment, tx) -> None:
-    kind = "card" if isinstance(p, CardPayment) else "bank"
-    tx.execute(
-        "INSERT INTO payments(id, kind, amount_cents, currency, created_at)"
-        " VALUES (%s, %s, %s, %s, %s)",
-        (p.id, kind, p.amount.cents, p.amount.ccy, p.created_at))
-    if isinstance(p, CardPayment):
-        tx.execute(
-            "INSERT INTO card_payments(id, card_last4, auth_code) VALUES (%s, %s, %s)",
-            (p.id, p.card_last4, p.auth_code))
-    elif isinstance(p, BankTransfer):
-        tx.execute(
-            "INSERT INTO bank_transfers(id, iban, reference) VALUES (%s, %s, %s)",
-            (p.id, p.iban, p.reference))
-```
+:::code proj-inheritance-mapping/ts/tablytsia-na-klas-zbirka.ts
+:::code proj-inheritance-mapping/py/tablytsia-na-klas-zbirka.py
 :::
 
 **Поліморфний запит.** А ось де по рахунку. Щоб зібрати «усі платежі» повними об'єктами, спільна таблиця має знайти кожному рядкові його підтабличну половину. Способів два. Перший — один запит із `LEFT JOIN` до кожної підтаблиці:
@@ -233,24 +105,7 @@ ORDER BY p.created_at DESC;
 
 **Ідея.** Довести роздрібнення до кінця: таблиця на кожен *конкретний* різновид, і жодної спільної. `card_payments` і `bank_transfers` самодостатні — кожна містить і спільні колонки (сума, дата), і свої. Таблиці `payments` немає взагалі: абстрактний `Payment` живе поняттям лише в коді, а в схемі йому нічого не відповідає.
 
-```sql
-CREATE TABLE card_payments (
-  id           BIGINT      PRIMARY KEY,
-  amount_cents BIGINT      NOT NULL,           -- спільні колонки —
-  currency     CHAR(3)     NOT NULL,           --   дубльовані в обох
-  created_at   TIMESTAMPTZ NOT NULL,           --   таблицях
-  card_last4   CHAR(4)     NOT NULL,
-  auth_code    VARCHAR(32) NOT NULL
-);
-CREATE TABLE bank_transfers (
-  id           BIGINT      PRIMARY KEY,
-  amount_cents BIGINT      NOT NULL,
-  currency     CHAR(3)     NOT NULL,
-  created_at   TIMESTAMPTZ NOT NULL,
-  iban         VARCHAR(34) NOT NULL,
-  reference    VARCHAR(64) NOT NULL
-);
-```
+:::code proj-inheritance-mapping/sql/tablytsia-na-konkretnyi.sql
 
 Мапер тут найпростіший: кожен різновид лягає у власну таблицю цілком, без розрізнювача й без з'єднань. Читання одного карткового платежу — `SELECT * FROM card_payments WHERE id = $1`, і ти вже знаєш його тип із самої назви таблиці. `NOT NULL` доступний на всьому — таблиця однорідна.
 

@@ -148,25 +148,7 @@ GROUP BY department_id;
 
 Синтаксис віконної функції спирається на ключове слово `OVER`:
 
-```sql
-SELECT employee_id,
-       first_name,
-       department_id,
-       salary,
-       /* Сума зарплат по всьому відділу поруч із кожним співробітником */
-       SUM(salary) OVER (PARTITION BY department_id) AS dept_payroll,
-       /* Порядковий номер співробітника за рівнем зарплати у відділі */
-       ROW_NUMBER() OVER (
-           PARTITION BY department_id 
-           ORDER BY salary DESC
-       ) AS salary_rank,
-       /* Зарплата попереднього співробітника у відсортованому списку */
-       LAG(salary, 1) OVER (
-           PARTITION BY department_id 
-           ORDER BY salary DESC
-       ) AS prev_higher_salary
-FROM employees;
-```
+:::code sql-d/sql/analitychni-vikonni.sql
 
 Компоненти віконної специфікації:
 - **`PARTITION BY`:** Розбиває вибірку на незалежні сегменти (аналог `GROUP BY`, але без схлопування рядків).
@@ -199,46 +181,13 @@ WHERE salary > (SELECT AVG(salary) FROM employees);
 
 Стандарт SQL:1999 стандартизував спільні табличні вирази через ключове слово `WITH`. Вони замінюють нечитабельні глибоко вкладені підзапити іменованими тимчасовими реляційними блоками:
 
-```sql
-WITH DepartmentStats AS (
-    SELECT department_id,
-           AVG(salary) AS avg_dept_salary,
-           COUNT(*) AS staff_count
-    FROM employees
-    GROUP BY department_id
-),
-HighSalaryEmployees AS (
-    SELECT e.employee_id, e.first_name, e.salary, e.department_id
-    FROM employees e
-    WHERE e.salary > 80000
-)
-SELECT h.first_name, h.salary, d.avg_dept_salary, d.staff_count
-FROM HighSalaryEmployees h
-JOIN DepartmentStats d ON h.department_id = d.department_id;
-```
+:::code sql-d/sql/spilni-tablychni-vyrazy.sql
 
 ### Рекурсивні запити: обхід графів та ієрархій
 
 Математична реляційна алгебра за визначенням не здатна обчислювати транзитивні замикання (наприклад, знайти всіх підлеглих у дереві корпоративної ієрархії довільної глибини). Для розв'язання цієї проблеми використовується рекурсивна форма `WITH RECURSIVE`:
 
-```sql
-WITH RECURSIVE OrgHierarchy AS (
-    /* Базова частина (Anchor Member): починаємо з генерального директора */
-    SELECT employee_id, manager_id, first_name, 1 AS depth
-    FROM employees
-    WHERE manager_id IS NULL
-
-    UNION ALL
-
-    /* Рекурсивна частина (Recursive Member): приєднуємо підлеглих */
-    SELECT e.employee_id, e.manager_id, e.first_name, o.depth + 1
-    FROM employees e
-    JOIN OrgHierarchy o ON e.manager_id = o.employee_id
-)
-SELECT employee_id, manager_id, first_name, depth
-FROM OrgHierarchy
-ORDER BY depth, employee_id;
-```
+:::code sql-d/sql/rekursyvni-zapyty-obkhid.sql
 
 **Алгоритм виконання рекурсивного CTE рушієм СУБД:**
 1. Рушій обчислює базову частину (Anchor) і записує отримані кортежі в робочу таблицю `WorkTable` та результуючу таблицю `ResultTable`.
@@ -321,86 +270,8 @@ SELECT * FROM users WHERE login = '' OR '1'='1' --' AND password = '...';
 Нижче наведено порівняння реалізації підготовленого виразу мовами C та C++:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <sqlite3.h>
-
-/* Безпечна вибірка балансу користувача мовою C */
-int get_user_balance(sqlite3 *db, int user_id, double *out_balance) {
-    sqlite3_stmt *stmt = NULL;
-    const char *sql = "SELECT balance FROM accounts WHERE user_id = ?;";
-    int rc;
-
-    /* 1. Компіляція синтаксичного дерева */
-    rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
-    if (rc != SQLITE_OK) {
-        fprintf(stderr, "Помилка prepare: %s\n", sqlite3_errmsg(db));
-        return rc;
-    }
-
-    /* 2. Прив'язка бінарного параметра */
-    sqlite3_bind_int(stmt, 1, user_id);
-
-    /* 3. Ітерація по курсору */
-    rc = sqlite3_step(stmt);
-    if (rc == SQLITE_ROW) {
-        *out_balance = sqlite3_column_double(stmt, 0);
-        sqlite3_finalize(stmt);
-        return SQLITE_OK;
-    }
-
-    sqlite3_finalize(stmt);
-    return (rc == SQLITE_DONE) ? SQLITE_NOTFOUND : rc;
-}
-```
-```cpp
-#include <iostream>
-#include <string_view>
-#include <memory>
-#include <stdexcept>
-#include <optional>
-#include <sqlite3.h>
-
-/* Ідіоматична обгортка мовою C++ з RAII-керуванням ресурсами */
-class StatementHandle {
-public:
-    explicit StatementHandle(sqlite3* db, std::string_view sql) {
-        sqlite3_stmt* raw_stmt = nullptr;
-        if (sqlite3_prepare_v2(db, sql.data(), static_cast<int>(sql.size()), &raw_stmt, nullptr) != SQLITE_OK) {
-            throw std::runtime_error(sqlite3_errmsg(db));
-        }
-        stmt_.reset(raw_stmt);
-    }
-
-    [[nodiscard]] sqlite3_stmt* get() const noexcept { return stmt_.get(); }
-
-private:
-    struct Deleter {
-        void operator()(sqlite3_stmt* s) const noexcept {
-            if (s) sqlite3_finalize(s);
-        }
-    };
-    std::unique_ptr<sqlite3_stmt, Deleter> stmt_;
-};
-
-std::optional<double> get_user_balance(sqlite3* db, int user_id) {
-    StatementHandle stmt(db, "SELECT balance FROM accounts WHERE user_id = ?;");
-
-    if (sqlite3_bind_int(stmt.get(), 1, user_id) != SQLITE_OK) {
-        throw std::runtime_error("Помилка прив'язки цілочислового параметра");
-    }
-
-    int rc = sqlite3_step(stmt.get());
-    if (rc == SQLITE_ROW) {
-        return sqlite3_column_double(stmt.get(), 0);
-    }
-    if (rc == SQLITE_DONE) {
-        return std::nullopt;
-    }
-
-    throw std::runtime_error("Помилка під час зчитування кортежу");
-}
-```
+:::code sql-d/c/main.c
+:::code sql-d/cpp/main.cpp
 :::
 
 > 🔧 **Навіщо це.**

@@ -231,18 +231,7 @@ t_sleep = random(0, min(T_max, T_base · 2^attempt))
 
 Для вирішення цієї проблеми застосовують патерн **примусового оновлення версії кореня агрегату (Force Increment / Aggregate Root Version Bumping)**: будь-яка операція додавання, видалення або зміни дочірнього елемента зобов'язана виконати явний CAS-інкремент версії кореневого об'єкта:
 
-```sql
--- У межах транзакції додавання позиції товару:
-INSERT INTO order_items (order_id, sku, price_cents, quantity)
-VALUES (101, 'MOUSE', 5000, 1);
-
--- Примусовий інкремент версії батьківського замовлення:
-UPDATE orders
-SET lock_version = lock_version + 1,
-    updated_at = CURRENT_TIMESTAMP
-WHERE id = 101
-  AND lock_version = 5;
-```
+:::code optimistic-locking-d/sql/patern-versionuvannia.sql
 
 Якщо інша транзакція паралельно додала інший елемент і вже збільшила `lock_version` до `6`, другий запит поверне `affected_rows = 0`, транзакція відкотиться, і інваріант кредитного ліміту буде збережено.
 
@@ -333,21 +322,7 @@ EXEC
 
 Для подолання цього обмеження застосовують патерн **шардованих лічильників (Sharded Counters / Distributed Accumulators)**:
 
-```sql
-CREATE TABLE product_stock_shards (
-    product_id BIGINT NOT NULL,
-    shard_id INT NOT NULL,
-    available_stock INT NOT NULL CHECK (available_stock >= 0),
-    lock_version BIGINT NOT NULL DEFAULT 1,
-    PRIMARY KEY (product_id, shard_id)
-);
-
--- Розбиваємо 100 одиниць товару на 10 незалежних слотів:
-INSERT INTO product_stock_shards (product_id, shard_id, available_stock)
-VALUES 
-    (501, 0, 10), (501, 1, 10), (501, 2, 10), (501, 3, 10), (501, 4, 10),
-    (501, 5, 10), (501, 6, 10), (501, 7, 10), (501, 8, 10), (501, 9, 10);
-```
+:::code optimistic-locking-d/sql/patern-shardovanykh.sql
 
 Коли клієнт бронює одиницю товару:
 1. Застосунок випадково обирає слот: `random_shard = rand() % 10`.
@@ -451,173 +426,18 @@ SQLSTATE: 40001
 Розглянемо практичний приклад реалізації оптимістичного блокування для системи інвентаризації складських залишків.
 
 #### 1. Структура таблиці (DDL)
-```sql
-CREATE TABLE warehouse_inventory (
-    sku VARCHAR(64) PRIMARY KEY,
-    item_name VARCHAR(255) NOT NULL,
-    available_stock INT NOT NULL CHECK (available_stock >= 0),
-    reserved_stock INT NOT NULL DEFAULT 0,
-    lock_version BIGINT NOT NULL DEFAULT 1,
-    last_updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
--- Початкові дані
-INSERT INTO warehouse_inventory (sku, item_name, available_stock, reserved_stock, lock_version)
-VALUES ('CPU-RYZEN-9', 'AMD Ryzen 9 7950X', 15, 0, 1);
-```
+:::code optimistic-locking-d/sql/1-struktura-tablytsi-ddl.sql
 
 #### 2. SQL-шаблон безпечного резервування товару (CAS UPDATE)
-```sql
--- Крок 1: Читання поточного стану без блокувань
-SELECT sku, available_stock, reserved_stock, lock_version
-FROM warehouse_inventory
-WHERE sku = 'CPU-RYZEN-9';
--- Отримано: available_stock = 15, reserved_stock = 0, lock_version = 1
-
--- Крок 2: Бізнес-перевірка в пам'яті: 15 >= 2 (потрібно зарезервувати 2 шт.)
-
--- Крок 3: Атомарна фіксація з предикатом версії
-UPDATE warehouse_inventory
-SET available_stock = available_stock - 2,
-    reserved_stock = reserved_stock + 2,
-    lock_version = lock_version + 1,
-    last_updated_at = CURRENT_TIMESTAMP
-WHERE sku = 'CPU-RYZEN-9'
-  AND lock_version = 1;
-```
+:::code optimistic-locking-d/sql/2-sql-shablon-bezpechnoho.sql
 
 #### 3. Реалізація клієнтської логіки резервування мовами C та C++
 
 Нижче наведено фрагмент коду, що демонструє роботу з абстрактним драйвером реляційної СУБД та перевірку `affected_rows`:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-
-/* Результат виконання SQL-команди */
-typedef struct {
-    int64_t affected_rows;
-    bool has_error;
-    char error_msg[128];
-} SqlExecResult;
-
-/* Структура складського запису */
-typedef struct {
-    char sku[64];
-    int32_t available_stock;
-    int32_t reserved_stock;
-    uint64_t lock_version;
-} InventoryItem;
-
-/* Імітація виклику інтерфейсу бази даних */
-SqlExecResult execute_inventory_update(const char *sku, int32_t qty, uint64_t expected_version);
-bool fetch_inventory_item(const char *sku, InventoryItem *out_item);
-
-/* Функція резервування товару з оптимістичною перевіркою */
-bool reserve_stock_optimistic(const char *sku, int32_t reserve_qty) {
-    InventoryItem item;
-    
-    // 1. Читання стану без блокування СУБД
-    if (!fetch_inventory_item(sku, &item)) {
-        fprintf(stderr, "Помилка: товар %s не знайдено\n", sku);
-        return false;
-    }
-
-    // 2. Перевірка бізнес-інваріанту в пам'яті
-    if (item.available_stock < reserve_qty) {
-        fprintf(stderr, "Брак залишків: доступно %d, запитано %d\n", 
-                item.available_stock, reserve_qty);
-        return false;
-    }
-
-    // 3. Атомарна спроба CAS-модифікації
-    SqlExecResult res = execute_inventory_update(sku, reserve_qty, item.lock_version);
-    
-    if (res.has_error) {
-        fprintf(stderr, "Системна помилка СУБД: %s\n", res.error_msg);
-        return false;
-    }
-
-    // 4. Перевірка кількості змінених рядків
-    if (res.affected_rows == 0) {
-        // Колізія: рядок було змінено паралельною транзакцією
-        fprintf(stderr, "Колізія версії для SKU %s (очікувалась версія %lu)\n", 
-                sku, item.lock_version);
-        return false; // Сигнал для запуску повторної спроби (Retry)
-    }
-
-    printf("Успішно зарезервовано %d шт. для товару %s\n", reserve_qty, sku);
-    return true;
-}
-```
-```cpp
-#include <iostream>
-#include <string>
-#include <string_view>
-#include <cstdint>
-#include <expected>
-
-struct InventoryItem {
-    std::string sku;
-    int32_t available_stock{0};
-    int32_t reserved_stock{0};
-    uint64_t lock_version{0};
-};
-
-enum class ReservationError {
-    ItemNotFound,
-    InsufficientStock,
-    VersionConflict,
-    DatabaseFailure
-};
-
-class InventoryRepository {
-public:
-    virtual ~InventoryRepository() = default;
-    [[nodiscard]] virtual std::expected<InventoryItem, ReservationError> get_by_sku(std::string_view sku) const = 0;
-    [[nodiscard]] virtual std::expected<int64_t, ReservationError> execute_cas_reserve(
-        std::string_view sku, int32_t qty, uint64_t expected_version) = 0;
-};
-
-class StockService {
-public:
-    explicit StockService(InventoryRepository& repo) : repo_(repo) {}
-
-    [[nodiscard]] std::expected<void, ReservationError> reserve_stock(std::string_view sku, int32_t qty) {
-        // 1. Читання стану сутності без блокувань
-        auto item_res = repo_.get_by_sku(sku);
-        if (!item_res) {
-            return std::unexpected(item_res.error());
-        }
-
-        const auto& item = *item_res;
-
-        // 2. Валідація бізнес-правил у пам'яті
-        if (item.available_stock < qty) {
-            return std::unexpected(ReservationError::InsufficientStock);
-        }
-
-        // 3. Атомарне CAS-оновлення
-        auto rows_res = repo_.execute_cas_reserve(sku, qty, item.lock_version);
-        if (!rows_res) {
-            return std::unexpected(rows_res.error());
-        }
-
-        // 4. Перевірка колізії конкурентного доступу
-        if (*rows_res == 0) {
-            return std::unexpected(ReservationError::VersionConflict);
-        }
-
-        return {};
-    }
-
-private:
-    InventoryRepository& repo_;
-};
-```
+:::code optimistic-locking-d/c/main.c
+:::code optimistic-locking-d/cpp/main.cpp
 :::
 
 ---

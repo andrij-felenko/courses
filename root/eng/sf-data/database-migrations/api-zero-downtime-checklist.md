@@ -55,21 +55,7 @@ ALTER TABLE orders VALIDATE CONSTRAINT fk_user;
 
 #### Безпечний патерн приєднання нової секції:
 
-```sql
--- 1. Створення окремої таблиці секції
-CREATE TABLE logs_2026_08 (LIKE logs INCLUDING ALL);
-
--- 2. Додавання перевірочного обмеження CHECK, що повністю покриває діапазон
-ALTER TABLE logs_2026_08 ADD CONSTRAINT check_partition_bounds 
-    CHECK (log_date >= '2026-08-01' AND log_date < '2026-09-01');
-
--- 3. Приєднання секції (миттєво, оскільки CHECK-обмеження гарантує валідність діапазону)
-ALTER TABLE logs ATTACH PARTITION logs_2026_08 
-    FOR VALUES FROM ('2026-08-01') TO ('2026-09-01');
-
--- 4. Видалення надлишкового обмеження CHECK після успішного приєднання
-ALTER TABLE logs_2026_08 DROP CONSTRAINT check_partition_bounds;
-```
+:::code api-zero-downtime-checklist/sql/bezpechnyi-patern.sql
 
 ---
 
@@ -99,19 +85,7 @@ CREATE INDEX CONCURRENTLY idx_users_email ON users(email);
 
 #### Безпечний чотирикроковий рецепт Zero-Downtime
 
-```sql
--- Крок 1: Додавання перевірочного обмеження без валідації (миттєве оновлення метаданих)
-ALTER TABLE users ADD CONSTRAINT check_email_not_null CHECK (email IS NOT NULL) NOT VALID;
-
--- Крок 2: Валідація накопичених даних у фоновому режимі (ShareUpdateExclusiveLock, запис відкритий!)
-ALTER TABLE users VALIDATE CONSTRAINT check_email_not_null;
-
--- Крок 3: Встановлення справжнього NOT NULL (миттєво, бо перевірку вже підтверджено обмеженням)
-ALTER TABLE users ALTER COLUMN email SET NOT NULL;
-
--- Крок 4: Видалення тепер уже надлишкового обмеження CHECK
-ALTER TABLE users DROP CONSTRAINT check_email_not_null;
-```
+:::code api-zero-downtime-checklist/sql/bezpechnyi-chotyrykrokovyi.sql
 
 ---
 
@@ -138,32 +112,7 @@ ALTER TABLE orders ADD INDEX idx_created_at (created_at),
 
 Для швидкого виявлення заблокованих запитів під час міграцій використовуються системні каталоги:
 
-```sql
--- Пошук транзакцій, які очікують блокування, та процесів, що їх утримують (PostgreSQL)
-SELECT 
-    blocked_locks.pid     AS blocked_pid,
-    blocked_activity.usename  AS blocked_user,
-    blocking_locks.pid    AS blocking_pid,
-    blocking_activity.usename AS blocking_user,
-    blocked_activity.query    AS blocked_statement,
-    blocking_activity.query   AS blocking_statement
-FROM  pg_catalog.pg_locks         blocked_locks
-JOIN pg_catalog.pg_stat_activity blocked_activity ON blocked_activity.pid = blocked_locks.pid
-JOIN pg_catalog.pg_locks         blocking_locks 
-    ON blocking_locks.locktype = blocked_locks.locktype
-    AND blocking_locks.database IS NOT DISTINCT FROM blocked_locks.database
-    AND blocking_locks.relation IS NOT DISTINCT FROM blocked_locks.relation
-    AND blocking_locks.page IS NOT DISTINCT FROM blocked_locks.page
-    AND blocking_locks.tuple IS NOT DISTINCT FROM blocked_locks.tuple
-    AND blocking_locks.virtualxid IS NOT DISTINCT FROM blocked_locks.virtualxid
-    AND blocking_locks.transactionid IS NOT DISTINCT FROM blocked_locks.transactionid
-    AND blocking_locks.classid IS NOT DISTINCT FROM blocked_locks.classid
-    AND blocking_locks.objid IS NOT DISTINCT FROM blocked_locks.objid
-    AND blocking_locks.objsubid IS NOT DISTINCT FROM blocked_locks.objsubid
-    AND blocking_locks.pid != blocked_locks.pid
-JOIN pg_catalog.pg_stat_activity blocking_activity ON blocking_activity.pid = blocking_locks.pid
-WHERE NOT blocked_locks.granted;
-```
+:::code api-zero-downtime-checklist/sql/diahnostychni-sql-zapyty.sql
 
 ---
 

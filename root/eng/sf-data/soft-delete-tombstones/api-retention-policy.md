@@ -14,31 +14,7 @@
 
 Для бізнес-коду це означає, що запит `SELECT * FROM accounts` на етапі виконання автоматично перетворюється на `SELECT * FROM accounts WHERE deleted_at IS NULL`. Оптимізатор запитів враховує цей предикат під час вибору плану виконання: якщо для таблиці створено частковий індекс із тією самою умовою, планувальник обирає швидке сканування компактного індексу замість повного перегляду таблиці.
 
-```sql
--- 1. Увімкнення механізму безпеки на рівні рядків для цільової таблиці
-ALTER TABLE accounts ENABLE ROW LEVEL SECURITY;
-
--- За замовчуванням власник таблиці та суперкористувач ігнорують RLS. 
--- Команда FORCE гарантує, що політики застосовуватимуться навіть до власника схеми,
--- що унеможливлює випадкове виконання скриптів без урахування м'якого видалення.
-ALTER TABLE accounts FORCE ROW LEVEL SECURITY;
-
--- 2. Політика для стандартних користувачів та бізнес-сервісів (видимі лише активні рядки)
--- Конструкція USING фільтрує читання (SELECT), а WITH CHECK забороняє створення або 
--- модифікацію рядків, які не відповідають критерію живого запису.
-CREATE POLICY active_records_only ON accounts
-    FOR ALL
-    TO application_user
-    USING (deleted_at IS NULL)
-    WITH CHECK (deleted_at IS NULL);
-
--- 3. Політика для аудиторів та фонового сервісу очищення (повний доступ до всіх рядків)
-CREATE POLICY audit_and_purge_access ON accounts
-    FOR ALL
-    TO purge_daemon_user, compliance_auditor
-    USING (TRUE)
-    WITH CHECK (TRUE);
-```
+:::code api-retention-policy/sql/kontrakt-reliatsiinoho.sql
 
 #### Динамічне перемикання контексту через сесійні змінні
 
@@ -58,18 +34,7 @@ CREATE POLICY dynamic_context_policy ON accounts
 
 Щоб тимчасово отримати доступ до м'яко видалених записів у межах поточної транзакції (наприклад, для відновлення помилково видаленого клієнта), сервіс виконує:
 
-```sql
-BEGIN;
--- Встановлюємо локальний прапорець сесії лише на час поточної транзакції
-SET LOCAL app.override_soft_delete = 'true';
-
--- Запит повертає як активні, так і м'яко видалені рядки
-SELECT id, email, deleted_at FROM accounts WHERE id = 42;
-
--- Відновлення запису
-UPDATE accounts SET deleted_at = NULL WHERE id = 42;
-COMMIT;
-```
+:::code api-retention-policy/sql/dynamichne-peremykannia.sql
 
 #### Контракт часткових індексів (Partial Index Specification)
 
@@ -77,18 +42,7 @@ COMMIT;
 
 Головна перевага часткового індексу полягає в тому, що м'яко видалені рядки взагалі не потрапляють у структуру B-Tree. Це зменшує глибину дерева індексу, дозволяє тримати весь гарячий індекс у кеші оперативної пам'яті (Buffer Pool) і повністю ліквідує деградацію операцій вставки нових записів.
 
-```sql
--- Частковий унікальний індекс: гарантує унікальність email лише серед живих записів
-CREATE UNIQUE INDEX idx_accounts_unique_active_email 
-    ON accounts (email) 
-    WHERE deleted_at IS NULL;
-
--- Частковий індекс для оптимізації фонового процесу очищення застарілих даних
--- Забезпечує миттєвий пошук кандидатів на фізичне видалення без сканування всієї таблиці
-CREATE INDEX idx_accounts_retention_purge 
-    ON accounts (deleted_at) 
-    WHERE deleted_at IS NOT NULL;
-```
+:::code api-retention-policy/sql/kontrakt-chastkovykh.sql
 
 ---
 
@@ -178,73 +132,9 @@ AND gc_grace_seconds = 864000;
 
 :::tabs
 @tab C
-```c
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    const char *table_name;
-    const char *time_column;
-    const char *primary_key;
-    uint32_t retention_days;
-    uint32_t batch_size;
-    uint32_t throttle_sleep_ms;
-} PurgePolicyConfig;
-
-typedef struct {
-    uint64_t rows_scanned;
-    uint64_t rows_purged;
-    uint64_t batches_executed;
-    uint64_t duration_ms;
-    bool completed_without_errors;
-} PurgeExecutionStats;
-
-/**
- * Виконує неблокувальне порційне очищення м'яко видалених записів.
- * @param config Декларативна конфігурація таблиці та лімітів
- * @param stats Структура для запису телеметрії виконання
- * @return 0 при успіху, код помилки у разі збою
- */
-int execute_chunked_purge(const PurgePolicyConfig *config, PurgeExecutionStats *stats);
-```
+:::code api-retention-policy/c/main.c
 @tab C++
-```cpp
-#include <string>
-#include <chrono>
-#include <expected>
-#include <cstdint>
-
-struct PurgePolicyConfig {
-    std::string table_name;
-    std::string time_column;
-    std::string primary_key;
-    std::chrono::hours retention_window{24 * 30}; // 30 днів
-    uint32_t batch_size{5000};
-    std::chrono::milliseconds throttle_delay{100};
-};
-
-struct PurgeExecutionStats {
-    uint64_t rows_scanned{0};
-    uint64_t rows_purged{0};
-    uint64_t batches_executed{0};
-    std::chrono::milliseconds duration{0};
-};
-
-enum class PurgeError {
-    ConnectionFailed,
-    LockTimeout,
-    ForeignKeyViolation,
-    KmsShreddingFailed
-};
-
-class IPurgeEngine {
-public:
-    virtual ~IPurgeEngine() = default;
-    
-    [[nodiscard]] virtual std::expected<PurgeExecutionStats, PurgeError> 
-    execute_chunked_purge(const PurgePolicyConfig& config) noexcept = 0;
-};
-```
+:::code api-retention-policy/cpp/main.cpp
 :::
 
 #### Обробка крайових випадків реплікації та реляційних каскадів

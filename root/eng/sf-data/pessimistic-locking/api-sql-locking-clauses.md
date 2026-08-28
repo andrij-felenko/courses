@@ -80,19 +80,7 @@ FOR { UPDATE | NO KEY UPDATE | SHARE | KEY SHARE } [ OF table_name [, ...] ] [ N
 
 ### PostgreSQL (файл `postgresql.conf` або сесійні змінні `SET`)
 
-```sql
--- Максимальний час очікування будь-якого замка перед аварійним перериванням запиту (0 = нескінченно)
-SET lock_timeout = '3s';
-
--- Максимальний час виконання будь-якого оператора SQL
-SET statement_timeout = '10s';
-
--- Захист від завислих транзакцій: автоматичний розрив з'єднання, якщо транзакція відкрита без активних запитів
-SET idle_in_transaction_session_timeout = '30s';
-
--- Час очікування перед першим запуском детектора взаємних блокувань (Deadlock Detector)
-SET deadlock_timeout = '1s';
-```
+:::code api-sql-locking-clauses/sql/postgresql-fail-postgresql.sql
 
 Параметр `idle_in_transaction_session_timeout` критично важливий для захисту від помилок додатків: якщо бекенд відкрив транзакцію, заблокував гарячий рядок через `SELECT ... FOR UPDATE`, а потім завис на зовнішньому HTTP-виклику, PostgreSQL примусово розірве TCP-з'єднання через 30 секунд, відкотить транзакцію і звільнить замок для інших процесів.
 
@@ -112,33 +100,7 @@ SET GLOBAL innodb_deadlock_detect = ON;
 
 Для виявлення сесій, які утримують замки і блокують інші транзакції, адміністратори використовують системне представлення `pg_locks` разом із таблицею активності процесів `pg_stat_activity`:
 
-```sql
--- Перегляд активних блокувань та заблокованих запитів
-SELECT
-    blocked_locks.pid     AS blocked_pid,
-    blocked_activity.usename  AS blocked_user,
-    blocking_locks.pid    AS blocking_pid,
-    blocking_activity.usename AS blocking_user,
-    blocked_activity.query    AS blocked_statement,
-    blocking_activity.query   AS current_statement_in_blocking_process,
-    now() - blocked_activity.query_start AS waiting_duration
-FROM  pg_catalog.pg_locks         blocked_locks
-JOIN pg_catalog.pg_stat_activity blocked_activity ON blocked_activity.pid = blocked_locks.pid
-JOIN pg_catalog.pg_locks         blocking_locks 
-    ON blocking_locks.locktype = blocked_locks.locktype
-    AND blocking_locks.database IS NOT DISTINCT FROM blocked_locks.database
-    AND blocking_locks.relation IS NOT DISTINCT FROM blocked_locks.relation
-    AND blocking_locks.page IS NOT DISTINCT FROM blocked_locks.page
-    AND blocking_locks.tuple IS NOT DISTINCT FROM blocked_locks.tuple
-    AND blocking_locks.virtualxid IS NOT DISTINCT FROM blocked_locks.virtualxid
-    AND blocking_locks.transactionid IS NOT DISTINCT FROM blocked_locks.transactionid
-    AND blocking_locks.classid IS NOT DISTINCT FROM blocked_locks.classid
-    AND blocking_locks.objid IS NOT DISTINCT FROM blocked_locks.objid
-    AND blocking_locks.objsubid IS NOT DISTINCT FROM blocked_locks.objsubid
-    AND blocking_locks.pid != blocked_locks.pid
-JOIN pg_catalog.pg_stat_activity blocking_activity ON blocking_activity.pid = blocking_locks.pid
-WHERE NOT blocked_locks.granted;
-```
+:::code api-sql-locking-clauses/sql/diahnostyka-blokuvan-u.sql
 
 Для миттєвого знаходження ідентифікаторів процесів (PID), які безпосередньо блокують конкретну сесію, використовується вбудована функція PostgreSQL:
 
@@ -151,21 +113,7 @@ SELECT pg_blocking_pids(12345);
 
 У сучасних версіях MySQL моніторинг замків виконується через підсистему `performance_schema`:
 
-```sql
--- Інформація про заблоковані транзакції та очікування у MySQL InnoDB
-SELECT 
-    r.trx_id waiting_trx_id,
-    r.trx_mysql_thread_id waiting_thread,
-    r.trx_query waiting_query,
-    b.trx_id blocking_trx_id,
-    b.trx_mysql_thread_id blocking_thread,
-    b.trx_query blocking_query
-FROM performance_schema.data_lock_waits w
-JOIN information_schema.innodb_trx b 
-    ON b.trx_id = w.blocking_engine_transaction_id
-JOIN information_schema.innodb_trx r 
-    ON r.trx_id = w.requesting_engine_transaction_id;
-```
+:::code api-sql-locking-clauses/sql/diahnostyka-blokuvan-u-2.sql
 
 ## 7. Стандартизовані коди помилок та винятків (SQLSTATE)
 

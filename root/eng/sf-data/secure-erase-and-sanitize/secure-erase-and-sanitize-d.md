@@ -81,20 +81,7 @@ dd: writing to '/dev/sda': No space left on device
 
 Перша — **SECURITY ERASE UNIT**, частина набору функцій SECURITY, що з'явився ще в часи, коли метою було замкнути диск паролем. Стирання там — не самостійна дія, а спосіб вийти із замкненого стану: диск погоджується забути вміст, якщо ви доведете право знати пароль. Звідси ритуал, що дивує кожного, хто робить це вперше: щоб стерти диск, спершу треба задати йому пароль.
 
-```sh
-$ sudo hdparm -I /dev/sda | grep -A7 Security
-Security:
-        Master password revision code = 65534
-                supported
-        not     enabled
-        not     locked
-        not     frozen
-                supported: enhanced erase
-        2min for SECURITY ERASE UNIT. 2min for ENHANCED SECURITY ERASE UNIT.
-
-$ sudo hdparm --user-master u --security-set-pass p /dev/sda
-$ time sudo hdparm --user-master u --security-erase p /dev/sda
-```
+:::code secure-erase-and-sanitize-d/sh/main.sh
 
 Два рядки у виводі варті окремої уваги. `2min` — це не вимір, а оцінка самої прошивки, узята з відповіді на IDENTIFY DEVICE; SSD зазвичай заявляє дві хвилини і вкладається в секунди, бо робить крипто-стирання, а терабайтний магнітний диск чесно заявляє години. `enhanced erase` — окремий різновид, який на магнітних дисках додає прохід по перепризначених секторах, а на твердотільних найчастіше означає те саме крипто-стирання.
 

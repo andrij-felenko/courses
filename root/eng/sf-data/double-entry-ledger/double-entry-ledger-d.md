@@ -278,19 +278,7 @@ SELECT SUM(amount) FROM postings WHERE account_id = 42;
    VALUES (42, 1000000, 5000000);
    ```
 3. Коли додатку потрібно дізнатися поточний баланс, він виконує швидкий запит: бере останній збережений знімок і додає до нього суму лише тих проводок, які з'явилися після номера `sequence_num` цього знімка:
-   ```sql
-   WITH latest_snapshot AS (
-       SELECT sequence_num, balance
-       FROM balance_snapshots
-       WHERE account_id = 42
-       ORDER BY sequence_num DESC
-       LIMIT 1
-   )
-   SELECT 
-       COALESCE(s.balance, 0) + COALESCE(SUM(p.amount), 0) AS current_balance
-   FROM latest_snapshot s
-   LEFT JOIN postings p ON p.account_id = 42 AND p.sequence_num > s.sequence_num;
-   ```
+   :::code double-entry-ledger-d/sql/main.sql
 
 Складність запиту скорочується з `O(N)` до `O(k)`, де `k` — невелика кількість свіжих проводок (зазвичай менше 100 рядків), що забезпечує мілісекундний час відповіді незалежно від віку облікового запису.
 

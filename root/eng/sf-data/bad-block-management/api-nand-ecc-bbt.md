@@ -115,60 +115,8 @@
 У підсистемі Linux MTD апаратний опис таблиці BBT на флеш-носії задається структурою `nand_bbt_descr`. Нижче наведено визначення мовою C та ідіоматичний C++ еквівалент з типізованими прапорцями.
 
 :::tabs
-```c
-#include <stdint.h>
-
-#define NAND_MAX_CHIPS        8
-#define NAND_BBT_USE_FLASH    0x00020000
-#define NAND_BBT_NO_OOB       0x00040000
-#define NAND_BBT_SCANALLPAGES 0x00000400
-#define NAND_BBT_VERSION      0x00000020
-#define NAND_BBT_CREATE       0x00000001
-
-struct nand_bbt_descr {
-    int      options;                      // Бітові прапорці конфігурації
-    int      pages[NAND_MAX_CHIPS];        // Номери сторінок, де збережено BBT
-    int      offs;                         // Зміщення сигнатури або даних у сторінці
-    int      veroffs;                      // Зміщення байта версії
-    uint8_t  version[NAND_MAX_CHIPS];      // Поточна версія таблиці
-    int      len;                          // Довжина сигнатури
-    int      maxblocks;                    // Кількість блоків від кінця кристала
-    char     *pattern;                     // Магічний патерн ("Bbt0" / "1tbB")
-};
-```
-```cpp
-#include <cstdint>
-#include <string_view>
-#include <array>
-
-namespace mtd {
-
-enum class BbtOption : uint32_t {
-    CreateOnDemand = 0x00000001,
-    StoreVersion   = 0x00000020,
-    ScanAllPages   = 0x00000400,
-    UseFlashMemory = 0x00020000,
-    StoreInMainArea= 0x00040000
-};
-
-constexpr uint32_t operator|(BbtOption a, BbtOption b) noexcept {
-    return static_cast<uint32_t>(a) | static_cast<uint32_t>(b);
-}
-
-template <size_t MaxChips = 8>
-struct NandBbtDescriptor {
-    uint32_t                      options{0};
-    std::array<int32_t, MaxChips> pages{};
-    int32_t                       offset{0};
-    int32_t                       versionOffset{0};
-    std::array<uint8_t, MaxChips> version{};
-    int32_t                       patternLength{4};
-    int32_t                       maxSearchBlocks{4};
-    std::string_view              pattern{"Bbt0"};
-};
-
-} // namespace mtd
-```
+:::code api-nand-ecc-bbt/c/main.c
+:::code api-nand-ecc-bbt/cpp/main.cpp
 :::
 
 #### Ключові прапорці конфігурації (`options`):
@@ -205,21 +153,6 @@ struct NandBbtDescriptor {
 
 У середовищі Linux стан дефектних блоків можна проінспектувати та протестувати за допомогою стандартних утиліт пакета `mtd-utils`:
 
-```bash
-# Перегляд переліку розділів MTD та розмірів блоків стирання
-cat /proc/mtd
-
-# Отримання детальної інформації про апаратні параметри NAND
-mtdinfo /dev/mtd0
-
-# Сканування дефектних блоків у розділі
-nanddump --bb=dumpbad /dev/mtd0
-
-# Форматування розділу зі збереженням заводських маркерів браку
-flash_erase --jffs2 /dev/mtd0 0 0
-
-# Ручне маркування блоку як збійного (для тестування відмовостійкості)
-flash_erase --markbad /dev/mtd0 0x00400000
-```
+:::code api-nand-ecc-bbt/sh/main.sh
 
 Ці засоби дозволяють системному інженеру повністю контролювати стан напівпровідникового масиву, діагностувати виникнення динамічних збоїв під час польових випробувань та верифікувати коректність конфігурації On-Flash BBT.

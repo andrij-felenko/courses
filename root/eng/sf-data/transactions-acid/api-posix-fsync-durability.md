@@ -91,32 +91,7 @@ void sync_file_data_only(int fd) {
 
 int fd = open("wal.log", O_WRONLY | O_CREAT | O_DSYNC, 0644);
 ```
-```cpp
-#include <fcntl.h>
-#include <unistd.h>
-#include <memory>
-#include <string_view>
-#include <system_error>
-
-struct FdDeleter {
-    void operator()(int* fd_ptr) const noexcept {
-        if (fd_ptr && *fd_ptr >= 0) {
-            ::close(*fd_ptr);
-            delete fd_ptr;
-        }
-    }
-};
-
-using ScopedFd = std::unique_ptr<int, FdDeleter>;
-
-ScopedFd open_synchronous_wal(std::string_view path) {
-    int fd = ::open(path.data(), O_WRONLY | O_CREAT | O_DSYNC, 0644);
-    if (fd < 0) {
-        throw std::system_error(errno, std::generic_category(), "open failed");
-    }
-    return ScopedFd(new int(fd));
-}
-```
+:::code api-posix-fsync-durability/cpp/praportsi-open-dlia.cpp
 :::
 
 | Прапорець | Семантика | Вплив на продуктивність |
@@ -143,18 +118,7 @@ ScopedFd open_synchronous_wal(std::string_view path) {
 
 BOOL FlushFileBuffers(HANDLE hFile);
 ```
-```cpp
-#include <windows.h>
-#include <system_error>
-
-void flush_windows_handle(HANDLE handle) {
-    if (!::FlushFileBuffers(handle)) {
-        throw std::system_error(static_cast<int>(::GetLastError()),
-                                std::system_category(),
-                                "FlushFileBuffers failed");
-    }
-}
-```
+:::code api-posix-fsync-durability/cpp/ekvivalenty-v-microsoft.cpp
 :::
 
 - **Призначення**: Записує всі буферизовані дані та оновлює метадані для вказаного файлу, надсилаючи команду очищення кешу на контролер носія.

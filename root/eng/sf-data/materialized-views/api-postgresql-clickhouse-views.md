@@ -44,22 +44,7 @@ REFRESH MATERIALIZED VIEW [ CONCURRENTLY ] view_name
 * **Внутрішній алгоритм**:
   1. Створюється тимчасова таблиця, у яку повністю записується результат виконання вихідного запиту.
   2. Рушій виконує внутрішнє диференційне з'єднання старої версії представлення та тимчасової таблиці:
-     ```sql
-     -- Псевдокод внутрішнього порівняння PostgreSQL:
-     SELECT diff.* FROM (
-         SELECT 'INSERT' AS op, t.* FROM temp_table t
-         LEFT JOIN matview m ON m.unique_key = t.unique_key
-         WHERE m.unique_key IS NULL
-         UNION ALL
-         SELECT 'DELETE' AS op, m.* FROM matview m
-         LEFT JOIN temp_table t ON t.unique_key = m.unique_key
-         WHERE t.unique_key IS NULL
-         UNION ALL
-         SELECT 'UPDATE' AS op, t.* FROM temp_table t
-         JOIN matview m ON m.unique_key = t.unique_key
-         WHERE t.* IS DISTINCT FROM m.*
-     ) diff;
-     ```
+     :::code api-postgresql-clickhouse-views/sql/2-komandy-onovlennia.sql
   3. Усі знайдені різниці застосовуються як атомарний пакет операцій `INSERT`, `UPDATE` та `DELETE` безпосередньо до основного відношення в межах поточної транзакції.
 * **Накладні витрати**: конкурентне оновлення вимагає до 2.5 разів більше дискового простору та в 2–4 рази більше часу, ніж стандартний `REFRESH`, а також генерує великий обсяг записів у журналі WAL.
 
@@ -89,74 +74,19 @@ FROM pg_matviews;
 
 Найбільш надійним архітектурним патерном у ClickHouse є явне створення цільової фізичної таблиці з рушієм сімейства `MergeTree` та окреме підключення матеріалізованого представлення через конструкцію `TO`:
 
-```sql
--- 1. Цільова фізична таблиця для збереження агрегованих сум
-CREATE TABLE analytics.daily_sales_dest (
-    event_date Date,
-    category_id UInt32,
-    total_amount SimpleAggregateFunction(sum, Float64),
-    order_count SimpleAggregateFunction(sum, UInt64)
-) ENGINE = SummingMergeTree()
-PRIMARY KEY (event_date, category_id)
-ORDER BY (event_date, category_id);
-
--- 2. Матеріалізоване представлення-конвеєр
-CREATE MATERIALIZED VIEW analytics.mv_daily_sales
-TO analytics.daily_sales_dest
-AS SELECT
-    toDate(created_at) AS event_date,
-    category_id,
-    sum(amount) AS total_amount,
-    count() AS order_count
-FROM raw_data.orders
-GROUP BY event_date, category_id;
-```
+:::code api-postgresql-clickhouse-views/sql/1-syntaksys-iavnoho.sql
 
 #### 2. Рушій `AggregatingMergeTree` та функції проміжних бінарних станів
 
 Для складних агрегатів, які не можна звести до простих сум (підрахунок унікальних значень, перцентилі, квантилі), ClickHouse використовує рушій `AggregatingMergeTree`. Стовпці такої таблиці зберігають бінарні серіалізовані стани агрегатних функцій (суфікс `*State`):
 
-```sql
--- Таблиця агрегації перцентилів та унікальних користувачів
-CREATE TABLE analytics.user_metrics_dest (
-    event_date Date,
-    device_type LowCardinality(String),
-    unique_users AggregateFunction(uniq, UInt64),
-    latency_p95 AggregateFunction(quantile(0.95), Float32),
-    latency_p99 AggregateFunction(quantile(0.99), Float32)
-) ENGINE = AggregatingMergeTree()
-PRIMARY KEY (event_date, device_type)
-ORDER BY (event_date, device_type);
-
--- Матеріалізоване в'ю накопичення станів
-CREATE MATERIALIZED VIEW analytics.mv_user_metrics
-TO analytics.user_metrics_dest
-AS SELECT
-    toDate(timestamp) AS event_date,
-    device_type,
-    uniqState(user_id) AS unique_users,
-    quantileState(0.95)(latency_ms) AS latency_p95,
-    quantileState(0.99)(latency_ms) AS latency_p99
-FROM raw_data.access_logs
-GROUP BY event_date, device_type;
-```
+:::code api-postgresql-clickhouse-views/sql/2-rushii.sql
 
 #### 3. Читання агрегованих станів (суфікс `*Merge`)
 
 Під час виконання аналітичних запитів над `AggregatingMergeTree` бінарні стани окремих LSM-партів зливаються за допомогою відповідних функцій із суфіксом `*Merge`:
 
-```sql
-SELECT
-    event_date,
-    device_type,
-    uniqMerge(unique_users) AS active_users,
-    quantileMerge(0.95)(latency_p95) AS p95,
-    quantileMerge(0.99)(latency_p99) AS p99
-FROM analytics.user_metrics_dest
-WHERE event_date >= today() - INTERVAL 7 DAY
-GROUP BY event_date, device_type
-ORDER BY event_date, device_type;
-```
+:::code api-postgresql-clickhouse-views/sql/3-chytannia-ahrehovanykh.sql
 
 #### 4. Особливості та підводні камені ClickHouse
 
@@ -175,25 +105,7 @@ ORDER BY event_date, device_type;
 
 У СУБД Oracle реалізовано одну з найбільш зрілих моделей інкрементного оновлення `FAST REFRESH`. Для її функціонування над базовими таблицями створюються спеціальні системні журнали змін (Materialized View Logs):
 
-```sql
--- 1. Створення журналу змін над базовою таблицею
-CREATE MATERIALIZED VIEW LOG ON sales_orders
-WITH ROWID, PRIMARY KEY (order_id, category_id),
-SEQUENCE (amount, quantity)
-INCLUDING NEW VALUES;
-
--- 2. Створення матеріалізованого представлення з підтримкою FAST REFRESH
-CREATE MATERIALIZED VIEW mv_sales_summary
-BUILD IMMEDIATE
-REFRESH FAST ON COMMIT
-ENABLE QUERY REWRITE
-AS SELECT
-    category_id,
-    COUNT(*) AS total_orders,
-    SUM(amount) AS total_revenue
-FROM sales_orders
-GROUP BY category_id;
-```
+:::code api-postgresql-clickhouse-views/sql/oracle-database-zhurnaly.sql
 
 Внутрішня системна таблиця журналу `MLOG$_SALES_ORDERS` зберігає ідентифікатор рядка `ROWID`, мітку часу транзакції `SNAPTIME$$`, тип DML-операції `DMLTYPE$$` (`I` для вставки, `U` для оновлення, `D` для видалення) та старі й нові значення агрегатних стовпців. Під час фіксації транзакції рушій зчитує лише нові рядки з `MLOG$_` і застосовує диференційні зміни безпосередньо до `mv_sales_summary`.
 
@@ -203,23 +115,7 @@ GROUP BY category_id;
 
 У SQL Server матеріалізація досягається через накладання унікального кластеризованого індексу на стандартне представлення:
 
-```sql
--- Створення представлення з жорсткою прив'язкою до схеми
-CREATE VIEW dbo.vw_category_sales
-WITH SCHEMABINDING
-AS
-SELECT
-    category_id,
-    COUNT_BIG(*) AS total_items,
-    SUM(ISNULL(amount, 0)) AS total_revenue
-FROM dbo.order_items
-GROUP BY category_id;
-GO
-
--- Фізична матеріалізація через кластеризований індекс
-CREATE UNIQUE CLUSTERED INDEX idx_vw_category_sales
-ON dbo.vw_category_sales (category_id);
-```
+:::code api-postgresql-clickhouse-views/sql/microsoft-sql-server.sql
 
 Вимоги та обмеження SQL Server:
 1. **`WITH SCHEMABINDING`**: забороняє будь-яку зміну структури базових таблиць (видалення або зміну типів стовпців), поки існує індексоване представлення.

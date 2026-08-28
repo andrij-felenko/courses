@@ -145,40 +145,11 @@ Threshold_analyze = autovacuum_analyze_threshold + autovacuum_analyze_scale_fact
 
 #### 1. Детальний моніторинг мертвих кортежів та ефективності Autovacuum у PostgreSQL
 
-```sql
-SELECT 
-    schemaname,
-    relname AS table_name,
-    pg_size_pretty(pg_total_relation_size(relid)) AS total_size,
-    n_live_tup AS live_tuples,
-    n_dead_tup AS dead_tuples,
-    round(100.0 * n_dead_tup / nullif(n_live_tup + n_dead_tup, 0), 2) AS dead_tuple_percent,
-    last_vacuum,
-    last_autovacuum,
-    vacuum_count,
-    autovacuum_count
-FROM pg_stat_user_tables
-WHERE n_dead_tup > 500
-ORDER BY n_dead_tup DESC;
-```
+:::code api-vacuum-tuning/sql/1-detalnyi-monitorynh.sql
 
 #### 2. Виявлення блокуючих довгих транзакцій, що гальмують переміщення OldestXmin
 
-```sql
-SELECT 
-    pid,
-    usename,
-    client_addr,
-    state,
-    backend_xid,
-    backend_xmin,
-    now() - xact_start AS transaction_age,
-    now() - state_change AS state_age,
-    query
-FROM pg_stat_activity
-WHERE backend_xmin IS NOT NULL OR backend_xid IS NOT NULL
-ORDER BY transaction_age DESC;
-```
+:::code api-vacuum-tuning/sql/2-vyiavlennia-blokuiuchykh.sql
 
 #### 3. Моніторинг небезпеки вичерпання 32-бітного лічильника транзакцій (XID Wraparound)
 

@@ -117,53 +117,9 @@
 
 :::tabs
 @tab C
-```c
-#include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
-
-typedef struct {
-    char pk[64];
-    char sk[64];
-    char payload[128];
-} table_record_t;
-
-void build_user_pk(char *out_buf, size_t max_len, int user_id) {
-    snprintf(out_buf, max_len, "USER#%d", user_id);
-}
-
-void build_order_sk(char *out_buf, size_t max_len, const char *date, int order_id) {
-    snprintf(out_buf, max_len, "ORDER#%s#%04d", date, order_id);
-}
-
-bool matches_prefix(const char *sk, const char *prefix) {
-    return strncmp(sk, prefix, strlen(prefix)) == 0;
-}
-```
+:::code access-pattern-first-d/c/main.c
 @tab C++
-```cpp
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <vector>
-
-class KeyBuilder {
-public:
-    static std::string make_user_pk(int user_id) {
-        return "USER#" + std::to_string(user_id);
-    }
-
-    static std::string make_order_sk(const std::string& date, int order_id) {
-        std::ostringstream ss;
-        ss << "ORDER#" << date << "#" << order_id;
-        return ss.str();
-    }
-
-    static bool begins_with(const std::string& key, const std::string& prefix) {
-        return key.rfind(prefix, 0) == 0;
-    }
-};
-```
+:::code access-pattern-first-d/cpp/main.cpp
 :::
 
 Повну робочу реалізацію рушія з підтримкою поліморфного збереження та емуляції GSI наведено у практичному проєкті [Розробка роутера запитів Single Table Design на C та C++](root:sf-data/access-pattern-first/proj-single-table-router.md).

@@ -19,21 +19,7 @@
 
 **Умова: один HTTP-запит, дві незалежні гілки коду чіпають замовлення №42. Django ORM, карти тотожності немає взагалі.**
 
-```py
-# гілка 1 — служба оплати
-order = Order.objects.get(pk=42)            # SELECT * FROM orders WHERE id=42
-order.status = "paid"
-
-# гілка 2 — служба знижок, дістає те саме замовлення через клієнта
-customer = Customer.objects.get(pk=7)
-same = customer.orders.get(pk=42)           # ЩЕ ОДИН SELECT * FROM orders WHERE id=42
-
-order is same                               # False — два об'єкти на один рядок
-same.discount = 15
-
-order.save()   # UPDATE orders SET status='paid', discount=0  WHERE id=42
-same.save()    # UPDATE orders SET status='new',  discount=15 WHERE id=42
-```
+:::code identity-map-d/py/trishchyna-chytannia-tse.py
 
 У базі лишилося `status='new'`, `discount=15`. Оплата зникла. Не «зламалася», не «дала помилку» — **зникла тихо**, бо `same` тримав знімок рядка, зроблений до того, як `order` виставив `paid`, і чесно записав усі свої поля назад.
 
@@ -79,64 +65,8 @@ same.save()    # UPDATE orders SET status='new',  discount=15 WHERE id=42
 Зберімо мінімальну карту тотожності — вона коротка, і в ній видно все, що ми досі проговорили:
 
 :::tabs
-```py
-class IdentityMap:
-    def __init__(self, db):
-        self._objects = {}                    # (тип, ключ) → об'єкт
-        self._db = db
-
-    def get(self, cls, pk):
-        return self._objects.get((cls, pk))
-
-    def add(self, obj):
-        key = (type(obj), obj.pk)
-        existing = self._objects.get(key)
-        if existing is not None and existing is not obj:
-            raise ValueError(f"{key} уже в мапі — це двійник")
-        self._objects[key] = obj
-        return obj
-
-    def load(self, cls, pk):
-        found = self.get(cls, pk)
-        if found is not None:
-            return found                      # влучання: до бази не йдемо
-        row = self._db.select_one(cls.table, pk)
-        return self.add(cls.from_row(row)) if row else None
-```
-```ts
-type Ctor<T> = new (...args: never[]) => T;
-type Pk = string | number;
-
-class IdentityMap {
-  // Map порівнює ключі за посиланням, тож кортеж [Order, 42] не спрацює:
-  // кожен літерал масиву — новий об'єкт. Тому мапа вкладена: тип → (ключ → об'єкт).
-  readonly #byType = new Map<Ctor<unknown>, Map<Pk, unknown>>();
-
-  constructor(private readonly db: Db) {}
-
-  get<T>(cls: Ctor<T>, pk: Pk): T | undefined {
-    return this.#byType.get(cls)?.get(pk) as T | undefined;
-  }
-
-  add<T extends { pk: Pk }>(cls: Ctor<T>, obj: T): T {
-    let bucket = this.#byType.get(cls);
-    if (!bucket) this.#byType.set(cls, (bucket = new Map()));
-    const existing = bucket.get(obj.pk);
-    if (existing !== undefined && existing !== obj) {
-      throw new Error(`${cls.name}#${obj.pk} уже в мапі — це двійник`);
-    }
-    bucket.set(obj.pk, obj);
-    return obj;
-  }
-
-  async load<T extends { pk: Pk }>(cls: Ctor<T> & { fromRow(r: Row): T }, pk: Pk) {
-    const found = this.get(cls, pk);
-    if (found !== undefined) return found;     // влучання: до бази не йдемо
-    const row = await this.db.selectOne(cls, pk);
-    return row ? this.add(cls, cls.fromRow(row)) : undefined;
-  }
-}
-```
+:::code identity-map-d/py/kliuch-tse-para-a-ne.py
+:::code identity-map-d/ts/index.ts
 :::
 
 Перевірка в `add` — не педантизм, а найдешевший спосіб зловити двійника рівно тієї миті, коли він з'явився, а не через три години в звіті про зниклу оплату. Якщо якийсь шлях завантаження обійшов мапу й побудував другий об'єкт, `add` про це скаже вголос.

@@ -34,18 +34,7 @@
 
 Три запити, і аргумент у всіх трьох однаковий — масив із двох 64-бітних чисел: зсув і довжина **в байтах**, не в секторах ([керуючий канал `ioctl`](root:sys-unix/ioctl-interface): третій аргумент — просто вказівник, і його вміст описує кожен запит по-своєму).
 
-```c
-#include <linux/fs.h>     /* BLKDISCARD, BLKSECDISCARD, BLKZEROOUT */
-#include <sys/ioctl.h>
-#include <fcntl.h>
-#include <stdint.h>
-
-int fd = open("/dev/nvme0n1", O_WRONLY);        /* саме на запис */
-uint64_t range[2] = { 1ULL << 30, 256ULL << 20 };   /* зсув 1 ГіБ, довжина 256 МіБ */
-
-if (ioctl(fd, BLKDISCARD, range) < 0)
-        perror("BLKDISCARD");
-```
+:::code api-discard-controls/c/zapyty-ioctl-na-blokovomu.c
 
 | Запит | Код | Вирівнювання зсуву й довжини | Чого просить |
 |---|---|---|---|
@@ -70,18 +59,7 @@ if (ioctl(fd, BLKDISCARD, range) < 0)
 
 `FITRIM` подають не на пристрій, а на **будь-який файл або каталог усередині змонтованої файлової системи** — зазвичай на точку монтування. Реалізує його кожна файлова система сама (ext4, XFS, btrfs, F2FS), тому й поводиться він трохи по-різному.
 
-```c
-#include <linux/fs.h>     /* FITRIM; struct fstrim_range оголошено тут:
-                             __u64 start   — звідки шукати вільні блоки, байти
-                             __u64 len     — скільки байтів переглянути
-                             __u64 minlen  — найкоротша суцільна смуга, варта запиту */
-
-struct fstrim_range r = { .start = 0, .len = UINT64_MAX, .minlen = 0 };
-int fd = open("/", O_RDONLY);
-
-if (ioctl(fd, FITRIM, &r) == 0)
-        printf("віддано вниз %llu байтів\n", (unsigned long long)r.len);
-```
+:::code api-discard-controls/c/fs.h
 
 Три поля роблять три різні речі. `start` і `len` обмежують **ділянку файлової системи**, яку варто обійти, — так великий обхід ріжуть на частини, щоб не займати систему надовго. `minlen` же відсіює дрібне: смуги вільного місця, коротші за це число, у запит не потрапляють. Нуль означає «віддавати все підряд», але ядро однаково підніме `minlen` щонайменше до `discard_granularity` пристрою, бо дрібніший запит усе одно перетвориться на порожній.
 

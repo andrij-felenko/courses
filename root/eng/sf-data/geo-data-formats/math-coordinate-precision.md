@@ -142,35 +142,7 @@ e ≤ 3.068   →   e ≤ 3   →   |x| < 2⁴ = 16
 
 Ця межа в сорок сім мільйонів разів більша за найбільшу можливу координату — 180 градусів. Тому правило «координати тримають у 64-бітному типі» — не забобон обережних, а прямий наслідок нерівності.
 
-```c
-#include <stdio.h>
-#include <math.h>
-
-/* метрів на градус широти для WGS-84 */
-static double metres_per_deg_lat(double phi_deg) {
-    const double a = 6378137.0, f = 1.0 / 298.257223563;
-    const double e2 = f * (2.0 - f);
-    double s = sin(phi_deg * M_PI / 180.0);
-    double M = a * (1.0 - e2) / pow(1.0 - e2 * s * s, 1.5);
-    return M * M_PI / 180.0;
-}
-
-int main(void) {
-    const double lat[] = { 10.0, 30.0, 50.0, 70.0 };
-
-    for (int i = 0; i < 4; i++) {
-        double phi = lat[i];
-        int    e   = (int)floor(log2(phi));
-        double u32 = ldexp(1.0, e - 23);   /* 2^(e-23) */
-        double u64 = ldexp(1.0, e - 52);   /* 2^(e-52) */
-        double L   = metres_per_deg_lat(phi);
-
-        printf("%3.0f  e=%d  ulp32=%.7e = %.4f м   ulp64=%.7e = %.2e м\n",
-               phi, e, u32, u32 * L, u64, u64 * L);
-    }
-    return 0;
-}
-```
+:::code math-coordinate-precision/c/krok-sitky-chysel-iz.c
 
 ```
  10  e=3  ulp32=9.5367432e-07 = 0.1055 м   ulp64=1.7763568e-15 = 1.96e-10 м
@@ -314,88 +286,8 @@ x̂ₖ − xₖ = q · round((xₖ − x₀)/q) + x₀ − xₖ
 Половина кілометра дрейфу в найгіршому випадку — і три метри в типовому, з нічого, самим лише порядком дій. Різниця між двома схемами вся в одному: **округлювати треба перед відніманням, а не після**. Квантуй координати до цілих, і різниці стануть точними; відніми спочатку, а округлюй різниці — і кожна принесе власну похибку в спільну суму.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <math.h>
-
-#define N     10000                /* параметр квантування */
-#define K     5
-#define L_LAT 111229.064           /* м на градус широти  @50° */
-#define L_LON  71695.754           /* м на градус довготи @50° */
-
-int main(void) {
-    const double lon[K] = {30.523400, 30.524150, 30.525900, 30.527310, 30.528000};
-    const double lat[K] = {50.450100, 50.450620, 50.451080, 50.450940, 50.452250};
-    const double x0 = 30.2, x1 = 30.8, y0 = 50.2, y1 = 50.6;   /* обмежувальний прямокутник */
-
-    double kx = (N - 1) / (x1 - x0), ky = (N - 1) / (y1 - y0);
-    double qx = 1.0 / kx,            qy = 1.0 / ky;
-    printf("q_x = %.10f° = %.4f м   q_y = %.10f° = %.4f м\n",
-           qx, qx * L_LON, qy, qy * L_LAT);
-
-    long ix[K], iy[K];
-    for (int k = 0; k < K; k++) {                 /* 1. на цілочислову сітку */
-        ix[k] = lround((lon[k] - x0) * kx);
-        iy[k] = lround((lat[k] - y0) * ky);
-    }
-
-    long dx[K], dy[K];                            /* 2. різниці — цілі */
-    dx[0] = ix[0]; dy[0] = iy[0];
-    for (int k = 1; k < K; k++) { dx[k] = ix[k] - ix[k-1]; dy[k] = iy[k] - iy[k-1]; }
-
-    long ax = 0, ay = 0;                          /* 3. відновлення — часткові суми */
-    double mx = 0, my = 0;
-    for (int k = 0; k < K; k++) {
-        ax += dx[k]; ay += dy[k];
-        double ex = (ax * qx + x0 - lon[k]) * L_LON;
-        double ey = (ay * qy + y0 - lat[k]) * L_LAT;
-        if (fabs(ex) > mx) mx = fabs(ex);
-        if (fabs(ey) > my) my = fabs(ey);
-        printf("  k=%d  Δ=(%+3ld,%+3ld)  індекс=(%ld,%ld)  похибка=(%+.3f, %+.3f) м\n",
-               k, dx[k], dy[k], ax, ay, ex, ey);
-    }
-    printf("макс |Δx| = %.3f м (межа %.3f)   макс |Δy| = %.3f м (межа %.3f)\n",
-           mx, qx * L_LON / 2, my, qy * L_LAT / 2);
-    return 0;
-}
-```
-```ts
-const N = 10_000;                 // параметр квантування
-const L_LAT = 111229.064;         // м на градус широти  @50°
-const L_LON = 71695.754;          // м на градус довготи @50°
-
-const pts: [number, number][] = [
-  [30.523400, 50.450100], [30.524150, 50.450620], [30.525900, 50.451080],
-  [30.527310, 50.450940], [30.528000, 50.452250],
-];
-const [x0, x1, y0, y1] = [30.2, 30.8, 50.2, 50.6];   // обмежувальний прямокутник
-
-const kx = (N - 1) / (x1 - x0), ky = (N - 1) / (y1 - y0);
-const transform = { scale: [1 / kx, 1 / ky], translate: [x0, y0] };
-const [qx, qy] = transform.scale;
-console.log(`q_x = ${qx.toFixed(10)}° = ${(qx * L_LON).toFixed(4)} м   ` +
-            `q_y = ${qy.toFixed(10)}° = ${(qy * L_LAT).toFixed(4)} м`);
-
-// 1. на цілочислову сітку
-const idx = pts.map(([x, y]) => [Math.round((x - x0) * kx), Math.round((y - y0) * ky)]);
-
-// 2. різниці — цілі
-const deltas = idx.map((p, k) => k === 0 ? p : [p[0] - idx[k-1][0], p[1] - idx[k-1][1]]);
-
-// 3. відновлення — часткові суми
-const sgn = (v: number, d = 0) => (v >= 0 ? "+" : "") + v.toFixed(d);
-let ax = 0, ay = 0, mx = 0, my = 0;
-deltas.forEach(([dx, dy], k) => {
-  ax += dx; ay += dy;
-  const ex = (ax * qx + x0 - pts[k][0]) * L_LON;
-  const ey = (ay * qy + y0 - pts[k][1]) * L_LAT;
-  mx = Math.max(mx, Math.abs(ex)); my = Math.max(my, Math.abs(ey));
-  console.log(`  k=${k}  Δ=(${sgn(dx)},${sgn(dy)})  індекс=(${ax},${ay})  ` +
-              `похибка=(${sgn(ex, 3)}, ${sgn(ey, 3)}) м`);
-});
-console.log(`макс |Δx| = ${mx.toFixed(3)} м (межа ${(qx*L_LON/2).toFixed(3)})   ` +
-            `макс |Δy| = ${my.toFixed(3)} м (межа ${(qy*L_LAT/2).toFixed(3)})`);
-```
+:::code math-coordinate-precision/c/chomu-riznytseve.c
+:::code math-coordinate-precision/ts/index.ts
 :::
 
 ```

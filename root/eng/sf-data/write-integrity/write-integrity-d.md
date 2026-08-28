@@ -69,37 +69,7 @@
 
 **Два слоти конфігу A і B; при старті обираємо найновіший, що проходить контрольну суму.**
 
-```c
-#include <stdint.h>
-#include <string.h>
-
-typedef struct {
-    uint32_t version;     // лічильник; більший = новіший
-    config_t data;        // самі налаштування
-    uint32_t crc;         // CRC від version+data, записується ОСТАННІМ
-} slot_t;
-
-// CRC покриває все, крім самого поля crc (перші два члени структури)
-static uint32_t slot_crc(const slot_t *s) {
-    return crc32(s, offsetof(slot_t, crc));
-}
-
-static int slot_valid(const slot_t *s) {
-    return s->crc == slot_crc(s);   // сходиться → слот цілий
-}
-
-// читаємо A і B із Flash у RAM, повертаємо чинний конфіг
-config_t load_config(const slot_t *a, const slot_t *b) {
-    int a_ok = slot_valid(a);
-    int b_ok = slot_valid(b);
-
-    if (a_ok && b_ok)
-        return (a->version >= b->version) ? a->data : b->data;  // обидва цілі → новіший
-    if (a_ok) return a->data;        // лише A цілий
-    if (b_ok) return b->data;        // лише B цілий
-    return config_defaults();        // жодного — перший старт або обидва биті
-}
-```
+:::code write-integrity-d/c/main.c
 
 Простежмо за тим самим сценарієм. Збій під час запису A лишив його `crc`, що не сходиться → `a_ok == 0`; беремо ціле B з версією 8. Коли ж A дописався цілим із версією 9, обидва `*_ok == 1`, і `a->version (9) >= b->version (8)` віддає `a->data`. Жодна гілка не повертає «півнового»: або новіший цілий слот, або старіший цілий, або типові значення.
 

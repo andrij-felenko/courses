@@ -10,39 +10,7 @@
 
 ## Що взагалі треба тримати в пам'яті
 
-```c
-// ftlsim.c — навчальний посторінковий FTL: карта, запис не на місце,
-// жадібне збирання сміття, лічильник підсилення запису.
-// Збірка:  cc -O2 -o ftlsim ftlsim.c
-#include <stdio.h>
-#include <stdint.h>
-#include <string.h>
-#include <stdlib.h>
-
-#define PPB    64                  // сторінок у блоці
-#define NBLK   256                 // блоків у кристалі
-#define NPHYS  (PPB * NBLK)        // 16384 фізичні сторінки
-#define GC_LOW 2                   // поріг пулу: нижче — будимо збирача
-#define NONE   0xFFFFFFFFu
-
-enum { P_FREE, P_VALID, P_INVALID };   // стан фізичної сторінки
-
-static uint8_t  pstate[NPHYS];         // стан кожної фізичної сторінки
-static uint32_t powner[NPHYS];         // OOB: чий LPN тут лежить
-static uint16_t invalid_cnt[NBLK];     // недійсних сторінок у блоці
-static uint32_t erase_cnt[NBLK];       // скільки разів блок стирали
-
-static uint32_t map[NPHYS];            // карта: map[LPN] = PPN
-static uint32_t nlog;                  // скільки LPN бачить хост
-
-static uint32_t freelist[NBLK];        // пул стертих блоків (стек)
-static uint32_t freetop;               // скільки їх у пулі
-static uint32_t wblk, wpage;           // фронт запису: блок і зсув у ньому
-
-static uint64_t host_w, flash_w, erases, gc_copies;   // лічильники
-
-static void gc_run(void);              // наперед: ftl_write кличе збирача
-```
+:::code proj-ftl-sim-c/c/ftlsim.c
 
 Кожен рядок тут заслужив своє місце, і найцікавіше — чому їх саме стільки.
 
@@ -68,19 +36,7 @@ pstate  = 16384 · 1 Б = 16 КБ
 
 ## Розподільник: фронт запису
 
-```c
-static void push_free(uint32_t b) { freelist[freetop++] = b; }
-static uint32_t pop_free(void)    { return freelist[--freetop]; }
-
-// Наступна фізична сторінка з фронту запису.
-static uint32_t alloc_page(void) {
-    if (wpage == PPB) {             // поточний блок дописано вщерть
-        wblk = pop_free();          // беремо наступний стертий блок
-        wpage = 0;
-    }
-    return wblk * PPB + wpage++;
-}
-```
+:::code proj-ftl-sim-c/c/rozpodilnyk-front-zapysu.c
 
 Вільних сторінок у нас багато й розкидані вони по всьому кристалу — але розподільник навмисне не має права вибору. Він іде **фронтом**: заповнює поточний блок від сторінки 0 до сторінки 63 підряд, і лише коли той дописано, бере з пулу наступний стертий блок.
 
@@ -90,26 +46,7 @@ static uint32_t alloc_page(void) {
 
 ## Запис не на місце
 
-```c
-void ftl_write(uint32_t lpn, const void *data) {
-    (void)data;                          // модель: самі байти не тримаємо
-    while (freetop <= GC_LOW) gc_run();  // спершу подбали про запас
-
-    uint32_t old = map[lpn];             // ⚠ читати ТІЛЬКИ після GC
-    uint32_t new_ppn = alloc_page();
-    pstate[new_ppn] = P_VALID;
-    powner[new_ppn] = lpn;               // підписали сторінку в OOB
-    map[lpn] = new_ppn;
-    host_w++; flash_w++;                 // хост попросив — флеш зробив
-
-    if (old != NONE) {                   // стара версія стала сміттям
-        pstate[old] = P_INVALID;
-        invalid_cnt[old / PPB]++;
-    }
-}
-
-uint32_t ftl_read(uint32_t lpn) { return map[lpn]; }   // PPN або NONE
-```
+:::code proj-ftl-sim-c/c/zapys-ne-na-mistse.c
 
 Серединка цієї функції — та сама механіка запису не на місце: узяти чисту сторінку, покласти дані туди, переставити один вказівник, оголосити стару сторінку сміттям. Нового тут два рядки й один порядок слів.
 
@@ -122,41 +59,7 @@ uint32_t ftl_read(uint32_t lpn) { return map[lpn]; }   // PPN або NONE
 
 ## Жадібний збирач
 
-```c
-// Жертва — блок із найбільшим числом недійсних сторінок.
-static uint32_t pick_victim(void) {
-    uint32_t best = NONE, best_inv = 0;
-    for (uint32_t b = 0; b < NBLK; b++)
-        if (b != wblk && invalid_cnt[b] > best_inv) {
-            best = b; best_inv = invalid_cnt[b];
-        }
-    return best;
-}
-
-static void gc_run(void) {
-    uint32_t v = pick_victim();
-    if (v == NONE) {
-        fprintf(stderr, "FTL: нема чого збирати — диск справді повний\n");
-        exit(1);
-    }
-    for (uint32_t i = 0; i < PPB; i++) {        // рятуємо чинні сторінки
-        uint32_t ppn = v * PPB + i;
-        if (pstate[ppn] != P_VALID) continue;
-        uint32_t lpn = powner[ppn];             // OOB каже, чий це LPN
-        uint32_t dst = alloc_page();
-        pstate[dst] = P_VALID;
-        powner[dst] = lpn;
-        map[lpn] = dst;                         // карта — на копію
-        flash_w++; gc_copies++;                 // запис, якого хост НЕ просив
-    }
-    for (uint32_t i = 0; i < PPB; i++)          // стирання — цілим блоком
-        pstate[v * PPB + i] = P_FREE;
-    invalid_cnt[v] = 0;
-    erase_cnt[v]++;
-    erases++;
-    push_free(v);                               // блок назад у пул
-}
-```
+:::code proj-ftl-sim-c/c/zhadibnyi-zbyrach.c
 
 У `pick_victim` дві дрібниці роблять усю роботу. `b != wblk` — блок, у який зараз пише фронт, чіпати не можна: попереду фронту в ньому ще стоять вільні сторінки, і стерти його означало б викинути сам фронт. А умова `invalid_cnt[b] > best_inv` зі стартовим `best_inv = 0` фільтрує все зайве одним порівнянням: блоки з пулу й свіжостерті мають нуль недійсних сторінок і тому просто не проходять — окрема перевірка «а чи цей блок узагалі кандидат?» не потрібна.
 
@@ -182,77 +85,13 @@ static void gc_run(void) {
 
 ## Навантаження, яке не бреше
 
-```c
-static uint32_t rng;
-static uint32_t rnd(void) {          // xorshift32 — щоб прогін відтворювався
-    uint32_t x = rng;
-    x ^= x << 13; x ^= x >> 17; x ^= x << 5;
-    return rng = x;
-}
-
-// hot_share % записів б'ють у перші hot_frac % адрес.
-static uint32_t pick_lpn(uint32_t hot_share, uint32_t hot_frac) {
-    if (hot_share && rnd() % 100 < hot_share)
-        return rnd() % (nlog * hot_frac / 100);
-    return rnd() % nlog;
-}
-
-static void ftl_init(uint32_t logical_pages) {
-    nlog = logical_pages;
-    memset(pstate, P_FREE, sizeof pstate);
-    memset(invalid_cnt, 0, sizeof invalid_cnt);
-    memset(erase_cnt, 0, sizeof erase_cnt);
-    for (uint32_t i = 0; i < nlog; i++) map[i] = NONE;
-    freetop = 0;
-    for (uint32_t b = NBLK; b-- > 1; ) push_free(b);   // блок 0 — під фронт
-    wblk = 0; wpage = 0;
-    host_w = flash_w = erases = gc_copies = 0;
-}
-```
+:::code proj-ftl-sim-c/c/navantazhennia-iake-ne.c
 
 Власний `xorshift32` замість бібліотечного `rand()` — свідомий вибір. Реалізації `rand()` різняться від бібліотеки до бібліотеки, тож у читача на іншій системі вийшли б інші числа, і звірити свій прогін із наведеним тут стало б неможливо. А `xorshift` — це три зсуви та три «виключних або», описані George Marsaglia в «Xorshift RNGs» (Journal of Statistical Software, 2003); трійка зсувів (13, 17, 5) — з його ж переліку. Чотири байти стану дають однаковий потік усюди, де `uint32_t` має 32 біти, — тобто скрізь. Один підступ там усе-таки є: нуль для xorshift — нерухома точка, з нульового зерна генератор довіку видаватиме нулі. Тому зерно `2463534242` — не окраса, а необхідність.
 
 Тепер сам прогін — і в ньому та єдина деталь, без якої всі числа були б брехнею:
 
-```c
-static void run_case(const char *name, uint32_t op_pct,
-                     uint32_t hot_share, uint32_t hot_frac) {
-    uint32_t logical = (uint32_t)((uint64_t)NPHYS * 100 / (100 + op_pct));
-    rng = 2463534242u;
-    ftl_init(logical);
-
-    for (uint32_t i = 0; i < logical; i++)          // 1. заповнити диск ущерть
-        ftl_write(i, NULL);
-    for (uint32_t i = 0; i < 4 * logical; i++)      // 2. прогріти до усталеного режиму
-        ftl_write(pick_lpn(hot_share, hot_frac), NULL);
-
-    host_w = flash_w = erases = gc_copies = 0;      // 3. і ТІЛЬКИ ТЕПЕР міряти
-    for (uint32_t i = 0; i < 10 * logical; i++)
-        ftl_write(pick_lpn(hot_share, hot_frac), NULL);
-
-    uint32_t emin = 0xFFFFFFFFu, emax = 0, never = 0;
-    for (uint32_t b = 0; b < NBLK; b++) {
-        if (erase_cnt[b] == 0) { never++; continue; }
-        if (erase_cnt[b] < emin) emin = erase_cnt[b];
-        if (erase_cnt[b] > emax) emax = erase_cnt[b];
-    }
-    printf("OP=%3u%%  WA=%5.2f  копій=%8llu  стирань=%6llu"
-           "  знос %3u…%3u  поза обігом: %u   %s\n",
-           op_pct, (double)flash_w / (double)host_w,
-           (unsigned long long)gc_copies, (unsigned long long)erases,
-           emin, emax, never, name);
-}
-
-int main(void) {
-    run_case("рівномірне випадкове",     100, 0, 0);
-    run_case("рівномірне випадкове",      50, 0, 0);
-    run_case("рівномірне випадкове",      28, 0, 0);
-    run_case("рівномірне випадкове",       7, 0, 0);
-    run_case("90 % записів у 10 % адрес", 28, 90, 10);
-    run_case("90 % записів у 10 % адрес",  7, 90, 10);
-    return 0;
-}
-```
+:::code proj-ftl-sim-c/c/navantazhennia-iake-ne-2.c
 
 Три фази — і скидання лічильників між другою й третьою. Це не косметика, а те, без чого вимірювання не має сенсу. На свіжому, щойно стертому накопичувачі вільних блоків удосталь, збирач не прокидається жодного разу, і підсилення запису дорівнює рівно одиниці — **за будь-якої** політики GC, хоч би якою дурною вона була. Міряючи з порожнього диска, можна «довести» досконалість чого завгодно. Число починає щось означати лише в усталеному режимі: диск заповнено, вільні блоки народжуються тільки зі збирача, і система знайшла свою рівновагу. Прогрів у чотири повні перезаписи диска цієї рівноваги досягає з запасом: якщо збільшити його втричі, до дванадцяти, WA у найтіснішому випадку зміщується з 8.29 на 8.28 — тобто нікуди.
 

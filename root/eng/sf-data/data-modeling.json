@@ -18,7 +18,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -29,19 +30,24 @@
           "math": [
             {
               "file": "math-ledger-invariants.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-mini-ledger.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-ledger-schema.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         },
@@ -64,13 +70,17 @@
           "proj": [
             {
               "file": "proj-soft-delete-cleaner.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-retention-policy.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         },
@@ -81,7 +91,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -92,23 +103,30 @@
           "math": [
             {
               "file": "math-collision-drift.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-distributed-id.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             },
             {
               "file": "proj-sharded-counter.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-id-formats.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -125,18 +143,22 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "api": [
             {
               "file": "api-envelope-encryption-spec.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "hist": [
             {
               "file": "hist-crypto-shredding.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -148,30 +170,36 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-data-classification.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ],
           "hist": [
             {
               "file": "hist-sweeney-reidentification.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-k-anonymity.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-pii-pipeline.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -183,12 +211,14 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-lifecycle-policies.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "hist": [
@@ -200,13 +230,16 @@
           "math": [
             {
               "file": "math-tiering-cost-optimization.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-tier-migration-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -228,25 +261,30 @@
           "hist": [
             {
               "file": "hist-data-mesh-origins.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ],
           "math": [
             {
               "file": "math-sla-contract-bounds.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-contract-enforcer.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-contract-spec.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -268,19 +306,23 @@
           "math": [
             {
               "file": "math-provenance-semirings.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-column-lineage-extractor.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-openlineage-spec.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         }

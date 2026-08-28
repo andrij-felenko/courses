@@ -49,81 +49,8 @@ def place_order(cart, customer):
 Що саме одиниця роботи мусить пам'ятати? Рівно три види змін, бо рівно три речі можна зробити з рядком бази: створити новий, змінити наявний, видалити наявний. Звідси три способи зареєструвати об'єкт — новий, змінений (Фаулер зве такий «брудним», *dirty*), видалений:
 
 :::tabs
-```py
-class UnitOfWork:
-    def __init__(self, conn, mappers):
-        self._conn = conn                 # одне з'єднання = одна транзакція
-        self._mappers = mappers           # тип сутності → її Data Mapper
-        self._new, self._dirty, self._removed = [], [], []
-
-    def register_new(self, obj):
-        self._new.append(obj)             # цього ще немає в базі — вставити
-
-    def register_dirty(self, obj):        # цей у базі є й змінився — оновити
-        if obj not in self._dirty and obj not in self._new:
-            self._dirty.append(obj)
-
-    def register_removed(self, obj):      # цей у базі є й має зникнути — видалити
-        if obj in self._new:
-            self._new.remove(obj)         # народжене й одразу вбите — базі байдуже
-            return
-        if obj not in self._removed:
-            self._removed.append(obj)
-
-    def commit(self):
-        try:
-            for obj in self._new:      self._mappers[type(obj)].insert(obj, self._conn)
-            for obj in self._dirty:    self._mappers[type(obj)].update(obj, self._conn)
-            for obj in self._removed:  self._mappers[type(obj)].delete(obj, self._conn)
-            self._conn.commit()           # одна транзакція на всі зміни
-        except Exception:
-            self._conn.rollback()         # усе або нічого
-            raise
-        finally:
-            self._new.clear(); self._dirty.clear(); self._removed.clear()
-```
-```ts
-type Ctor = new (...a: never[]) => object;
-
-class UnitOfWork {
-  private newObjects: object[] = [];
-  private dirty: object[] = [];
-  private removed: object[] = [];
-
-  constructor(
-    private readonly tx: Transaction,          // одна транзакція на весь блок
-    private readonly mappers: Map<Ctor, Mapper>,
-  ) {}
-
-  registerNew(o: object): void { this.newObjects.push(o); }        // вставити
-
-  registerDirty(o: object): void {                                 // оновити
-    if (!this.dirty.includes(o) && !this.newObjects.includes(o)) this.dirty.push(o);
-  }
-
-  registerRemoved(o: object): void {                               // видалити
-    const i = this.newObjects.indexOf(o);
-    if (i >= 0) { this.newObjects.splice(i, 1); return; }          // народжене й убите — пропустити
-    if (!this.removed.includes(o)) this.removed.push(o);
-  }
-
-  async commit(): Promise<void> {
-    try {
-      for (const o of this.newObjects) await this.mapperFor(o).insert(o, this.tx);
-      for (const o of this.dirty)      await this.mapperFor(o).update(o, this.tx);
-      for (const o of this.removed)    await this.mapperFor(o).delete(o, this.tx);
-      await this.tx.commit();                  // усе або нічого
-    } catch (e) {
-      await this.tx.rollback();
-      throw e;
-    }
-  }
-
-  private mapperFor(o: object): Mapper {
-    return this.mappers.get(o.constructor as Ctor)!;
-  }
-}
-```
+:::code unit-of-work-d/py/main.py
+:::code unit-of-work-d/ts/index.ts
 :::
 
 Оформлення замовлення тепер не звертається до бази ані разу — воно лише реєструє наміри, а `commit` наприкінці зводить усе в один рейс:

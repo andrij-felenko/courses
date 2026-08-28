@@ -67,44 +67,7 @@ int wl_read (uint32_t lba, void *buf);           // прочитати логі�
 
 Ось ці домовленості в коді:
 
-```c
-#define PAGE_SIZE    2048                 // найменша порція запису
-#define PAGES          64                 // сторінок у блоці стирання
-#define EC_PAGE         0                 // сторінка з лічильником стирань
-#define DATA_PAGE       1                 // перша сторінка даних
-#define COMMIT_PAGE  (PAGES - 1)          // коміт — остання сторінка блоку
-#define DATA_PAGES   (COMMIT_PAGE - DATA_PAGE)    // 62 сторінки під дані
-#define DATA_SIZE    (DATA_PAGES * PAGE_SIZE)     // 126 976 корисних байтів
-
-#define N_PHYS       1024                 // фізичних блоків у чипі (128 МБ)
-#define N_LOG         960                 // логічних блоків назовні (~6% у запас)
-
-#define NO_BLOCK     0xFFFFu
-#define EC_MAGIC     0x57454331u          // "WEC1"
-#define COMMIT_MAGIC 0x57434D31u          // "WCM1"
-
-#define WL_THRESHOLD 4096   // допустимий розкид лічильників — звідки це число, нижче
-#define WL_CHECK_EVERY 256  // як часто взагалі перевіряти розкид
-#define WL_RESERVE      4   // недоторканний запас вільних блоків
-
-// Заголовок стирання. Пишеться в щойно стертий блок НЕГАЙНО.
-typedef struct __attribute__((packed)) {
-    uint32_t magic;                       // EC_MAGIC — тут справді заголовок
-    uint32_t ec;                          // скільки разів цей блок стирали
-    uint8_t  pad[64 - 12];
-    uint32_t crc;                         // CRC-32 усього, що вище
-} ec_hdr_t;
-
-// Коміт-заголовок. Пишеться ОСТАННІМ і робить блок дійсним.
-typedef struct __attribute__((packed)) {
-    uint32_t magic;                       // COMMIT_MAGIC
-    uint32_t lba;                         // чиї це дані
-    uint64_t seq;                         // наскрізний номер запису — суддя при відновленні
-    uint32_t data_crc;                    // CRC даних: ловить обірваний запис
-    uint8_t  pad[64 - 24];
-    uint32_t crc;
-} commit_hdr_t;
-```
+:::code proj-wear-leveling/c/rozkladka-bloku-chomu.c
 
 `crc` стоїть **останнім полем** не випадково: так контрольна сума накриває рівно все, що перед нею, і рахується як `crc32(h, sizeof *h - 4)` — без жодного окремого опису полів. Потрібні дві форми CRC — разова й потокова, бо блок ми копіюватимемо сторінка за сторінкою:
 
@@ -120,25 +83,7 @@ static inline uint32_t crc32(const void *p, uint32_t n) {
 
 Тепер видно, що тримати в RAM. Усе тут — **кеш**, який відновлюється з чипа; жоден із цих масивів не записується у флеш ніколи.
 
-```c
-typedef enum { BS_FREE = 0, BS_USED, BS_BAD } bstate_t;
-
-static uint16_t map[N_LOG];      // LBA → номер фізичного блоку (NO_BLOCK — ще не писали)
-static uint32_t ec[N_PHYS];      // лічильник стирань кожного фізичного блоку
-static uint8_t  state[N_PHYS];   // FREE / USED / BAD
-static uint64_t seq_next;        // номер, який дістанеться наступному запису
-static uint32_t op_count;        // записів від старту — щоб рідко будити статичний крок
-
-static uint16_t heap[N_PHYS];    // мін-купа вільних блоків за ec[]
-static uint16_t hpos[N_PHYS];    // hpos[b] — де блок b сидить у heap[]; NO_BLOCK — його там нема
-static int      heap_n;
-
-static uint8_t  pbuf[PAGE_SIZE]; // єдиний буфер на сторінку — більшого не тримаємо
-
-// Оголошення наперед: порядок розповіді не мусить диктувати порядок у файлі.
-static void static_wl_step(void);
-static int  block_is_clean(uint16_t b);
-```
+:::code proj-wear-leveling/c/stan-u-pamiati.h
 
 Один буфер на сторінку — це принципово. Спокусливо було б завести буфер на цілий блок і копіювати блок одним махом, але сто двадцять вісім кілобайтів RAM у контролері зазвичай просто немає. Уся робота з даними йтиме сторінками.
 
@@ -148,63 +93,11 @@ static int  block_is_clean(uint16_t b);
 
 Купа тут звичайна, з однією поправкою — кожен обмін мусить оновити ще й `hpos`, інакше зворотний покажчик збреше:
 
-```c
-static void heap_swap(int i, int j) {
-    uint16_t a = heap[i], b = heap[j];
-    heap[i] = b; heap[j] = a;
-    hpos[b] = i; hpos[a] = j;              // зворотні покажчики їдуть разом із блоками
-}
-
-static void sift_up(int i) {
-    while (i > 0) {
-        int par = (i - 1) / 2;
-        if (ec[heap[par]] <= ec[heap[i]]) break;
-        heap_swap(i, par);
-        i = par;
-    }
-}
-
-static void sift_down(int i) {
-    for (;;) {
-        int l = 2 * i + 1, r = l + 1, m = i;
-        if (l < heap_n && ec[heap[l]] < ec[heap[m]]) m = l;
-        if (r < heap_n && ec[heap[r]] < ec[heap[m]]) m = r;
-        if (m == i) break;
-        heap_swap(i, m);
-        i = m;
-    }
-}
-
-static void heap_push(uint16_t b) {
-    heap[heap_n] = b;
-    hpos[b] = heap_n;
-    heap_n++;
-    sift_up(heap_n - 1);
-}
-```
+:::code proj-wear-leveling/c/kupa-vytiahty-ne-lyshe.c
 
 Цікаве починається на видаленні. Витягти корінь уміє кожен; нам треба витягти блок із **будь-якої** позиції:
 
-```c
-// Забрати з купи блок, що сидить на позиції i (не конче в корені).
-static uint16_t heap_take(int i) {
-    uint16_t b = heap[i];
-    hpos[b] = NO_BLOCK;
-    heap_n--;
-    if (i != heap_n) {                     // дірку затикаємо останнім елементом
-        uint16_t last = heap[heap_n];
-        heap[i] = last;
-        hpos[last] = i;
-        sift_down(i);                      // він може виявитися завеликим…
-        sift_up(i);                        // …або замалим — тож пробуємо обидва боки
-    }
-    return b;
-}
-
-static uint16_t heap_pop_min(void) {       // найменш зношений вільний блок
-    return heap_n ? heap_take(0) : NO_BLOCK;
-}
-```
+:::code proj-wear-leveling/c/kupa-vytiahty-ne-lyshe-2.c
 
 Два просіювання поспіль виглядають як перестраховка — насправді це рівно те, що треба, і тільки одне з них колись спрацює. Гляньмо чому. Хай на позицію `i` став елемент `last`, узятий десь із хвоста купи. Про нього не відомо нічого: він може бути меншим за батька `i` або більшим за дітей `i`. Обидва разом — ні: батько `i` завжди не більший за колишніх дітей `i`, тож щойно `last` більший за дитину, він тим паче не менший за батька.
 
@@ -214,27 +107,7 @@ static uint16_t heap_pop_min(void) {       // найменш зношений в
 
 Виділимо в окрему функцію те, чим блок повертається у пул. Це важлива точка коду: **лічильник зносу росте тільки тут**, у єдиному місці на весь шар.
 
-```c
-// Записати EC-заголовок у щойно стертий блок.
-static int write_ec_hdr(uint16_t b, uint32_t counter) {
-    ec_hdr_t *h = (ec_hdr_t *)pbuf;
-    memset(pbuf, 0xFF, PAGE_SIZE);         // решта сторінки лишається «стертою»
-    h->magic = EC_MAGIC;
-    h->ec    = counter;
-    h->crc   = crc32(h, sizeof *h - 4);
-    return flash_write_page(b, EC_PAGE, pbuf);
-}
-
-// Стерти блок і повернути його у вільний пул.
-static int free_block(uint16_t b) {
-    if (flash_erase(b) != 0)   { state[b] = BS_BAD; return -1; }   // не стерся — не віримо
-    ec[b]++;                                                        // стирання сталося — рахуємо
-    if (write_ec_hdr(b, ec[b]) != 0) { state[b] = BS_BAD; return -1; }
-    state[b] = BS_FREE;
-    heap_push(b);
-    return 0;
-}
-```
+:::code proj-wear-leveling/c/styrannia-iedyne-mistse-de.c
 
 Між `flash_erase` і `write_ec_hdr` — той самий небезпечний проміжок у кілька мілісекунд, коли лічильник існує лише в RAM. Зробити його нульовим неможливо: стерти й записати одним неподільним рухом чип не вміє. Тому все, що ми можемо, — зробити його **якнайкоротшим** і навчитися розпізнавати наслідки при старті. Обидва завдання код виконує: запис заголовка стоїть відразу за стиранням, а що робити з блоком без заголовка — розберемо нижче.
 
@@ -242,46 +115,7 @@ static int free_block(uint16_t b) {
 
 Тепер головна функція. Читати її варто не як послідовність дій, а як послідовність станів чипа — бо саме їх побачить наступний старт, якщо обірватися.
 
-```c
-int wl_write(uint32_t lba, const void *data) {
-    commit_hdr_t *c;
-    uint16_t old, nb;
-
-    if (lba >= N_LOG) return -1;
-
-    nb = heap_pop_min();                   // найменш зношений вільний блок
-    if (nb == NO_BLOCK) return -1;         // пул порожній — це вже робота збирача сміття
-    // блок уже стертий і вже має EC-заголовок: їх поставив free_block
-
-    for (uint16_t p = 0; p < DATA_PAGES; p++)
-        if (flash_write_page(nb, DATA_PAGE + p,
-                             (const uint8_t *)data + p * PAGE_SIZE) != 0) goto bad;
-
-    memset(pbuf, 0xFF, PAGE_SIZE);
-    c = (commit_hdr_t *)pbuf;
-    c->magic    = COMMIT_MAGIC;
-    c->lba      = lba;
-    c->seq      = seq_next++;              // кожен запис — з новим, більшим номером
-    c->data_crc = crc32(data, DATA_SIZE);
-    c->crc      = crc32(c, sizeof *c - 4);
-
-    // КОМІТ. До цього рядка блок — сміття; після нього — власник lba.
-    if (flash_write_page(nb, COMMIT_PAGE, pbuf) != 0) goto bad;
-
-    old = map[lba];
-    map[lba] = nb;                         // таблиця в RAM; у флеші її нема й не треба
-    state[nb] = BS_USED;
-
-    if (old != NO_BLOCK) free_block(old);  // старий більше нікому не потрібен
-
-    if (++op_count % WL_CHECK_EVERY == 0) static_wl_step();
-    return 0;
-
-bad:
-    state[nb] = BS_BAD;                    // блок підвів — викидаємо його назавжди
-    return -1;
-}
-```
+:::code proj-wear-leveling/c/shliakh-zapysu.c
 
 Читання поруч із цим виглядає майже образливо простим — і це правильно. За знос платить лише той, хто пише:
 
@@ -331,60 +165,7 @@ int wl_read(uint32_t lba, void *buf) {
 
 Тепер сам крок. Він рідкісний, тому може дозволити собі прохід по всьому чипу:
 
-```c
-static int read_commit_hdr(uint16_t b, commit_hdr_t *out) {
-    commit_hdr_t *h = (commit_hdr_t *)pbuf;
-    if (flash_read_page(b, COMMIT_PAGE, pbuf) != 0) return -1;
-    if (h->magic != COMMIT_MAGIC) return -1;
-    if (crc32(h, sizeof *h - 4) != h->crc) return -1;
-    *out = *h;                             // копія: pbuf зараз знадобиться під дані
-    return 0;
-}
-
-// Рідкісний крок: один прохід по чипу і, якщо розкид завеликий, одне перенесення.
-static void static_wl_step(void) {
-    uint16_t src = NO_BLOCK, dst = NO_BLOCK;
-    uint32_t src_ec = 0xFFFFFFFFu, dst_ec = 0;
-    commit_hdr_t ch;
-    uint32_t crc = CRC32_INIT;
-
-    if (heap_n <= WL_RESERVE) return;      // останні вільні блоки — не наші
-
-    for (uint16_t b = 0; b < N_PHYS; b++) {
-        if (state[b] == BS_USED && ec[b] < src_ec) { src_ec = ec[b]; src = b; }
-        if (state[b] == BS_FREE && ec[b] > dst_ec) { dst_ec = ec[b]; dst = b; }
-    }
-    if (src == NO_BLOCK || dst == NO_BLOCK) return;
-    if (dst_ec - src_ec < WL_THRESHOLD) return;    // розкид у нормі — не чіпаємо
-
-    if (read_commit_hdr(src, &ch) != 0) return;    // звідси візьмемо lba холодних даних
-    heap_take(hpos[dst]);                          // ціль виходить із вільного пулу
-
-    for (uint16_t p = 0; p < DATA_PAGES; p++) {
-        if (flash_read_page(src, DATA_PAGE + p, pbuf) != 0)  goto drop_dst;
-        crc = crc32_update(crc, pbuf, PAGE_SIZE);
-        if (flash_write_page(dst, DATA_PAGE + p, pbuf) != 0) goto bad_dst;
-    }
-    if ((crc ^ 0xFFFFFFFFu) != ch.data_crc) goto drop_dst;   // холодне зіпсувалося
-
-    ch.seq = seq_next++;                   // новий номер — щоб виграв у старої копії
-    ch.crc = crc32(&ch, sizeof ch - 4);
-    memset(pbuf, 0xFF, PAGE_SIZE);
-    memcpy(pbuf, &ch, sizeof ch);
-    if (flash_write_page(dst, COMMIT_PAGE, pbuf) != 0) goto bad_dst;
-
-    map[ch.lba] = dst;                     // холодні дані живуть тепер на зношеному
-    state[dst]  = BS_USED;
-    free_block(src);                       // а молодий іде працювати в пул
-    return;
-
-drop_dst:
-    free_block(dst);                       // без коміту dst — просто сміття: стерти й у пул
-    return;
-bad_dst:
-    state[dst] = BS_BAD;
-}
-```
+:::code proj-wear-leveling/c/tryher-statychnoho.c
 
 Умова `dst_ec - src_ec < WL_THRESHOLD` — це і є «розкид більший за поріг», лише сказане про ті два блоки, яких перенесення справді торкнеться. `src` — наймолодший **зайнятий** блок, тобто той самий, що тримає найхолодніші дані; `dst` — найзношеніший **вільний**. Питати ширше немає сенсу: якщо наймолодший блок чипа лежить у пулі, то жодного перенесення й не треба — його й так візьме найближчий `heap_pop_min`.
 
@@ -394,61 +175,7 @@ bad_dst:
 
 Лишилося найцікавіше — старт. Тут ми маємо чип і жодного байта в RAM, і саме тут окупається все, що ми заклали в заголовки.
 
-```c
-int wl_mount(void) {
-    ec_hdr_t     *eh = (ec_hdr_t *)pbuf;
-    commit_hdr_t  ch, rh;
-    uint8_t       ec_ok[N_PHYS];
-    uint64_t      ec_sum = 0;
-    uint32_t      ec_cnt = 0, mean;
-
-    for (uint32_t i = 0; i < N_LOG;  i++) map[i]  = NO_BLOCK;
-    for (uint16_t b = 0; b < N_PHYS; b++) hpos[b] = NO_BLOCK;
-    heap_n = 0; seq_next = 0; op_count = 0;
-
-    // ── прохід 1: лічильники стирань ──
-    for (uint16_t b = 0; b < N_PHYS; b++) {
-        state[b] = BS_FREE; ec_ok[b] = 0; ec[b] = 0;
-        if (flash_read_page(b, EC_PAGE, pbuf) != 0) { state[b] = BS_BAD; continue; }
-        if (eh->magic == EC_MAGIC && crc32(eh, sizeof *eh - 4) == eh->crc) {
-            ec[b] = eh->ec; ec_ok[b] = 1;
-            ec_sum += eh->ec; ec_cnt++;
-        }
-        // інакше: живлення зникло МІЖ стиранням і записом заголовка —
-        // лічильник цього блоку втрачено назавжди, відновити нізвідки
-    }
-    // втраченому лічильнику даємо середній по чипу: так блок не виглядатиме
-    // ні підозріло молодим (і не збиратиме на себе весь знос), ні передчасно старим
-    mean = ec_cnt ? (uint32_t)(ec_sum / ec_cnt) : 0;
-    for (uint16_t b = 0; b < N_PHYS; b++)
-        if (!ec_ok[b] && state[b] != BS_BAD) ec[b] = mean;
-
-    // ── прохід 2: хто чим володіє; суперечки вирішує seq ──
-    for (uint16_t b = 0; b < N_PHYS; b++) {
-        if (state[b] == BS_BAD) continue;
-        if (read_commit_hdr(b, &ch) != 0) continue;     // коміту нема → блок вільний
-        if (ch.lba >= N_LOG) continue;                  // сміття від чужого формату
-        if (ch.seq >= seq_next) seq_next = ch.seq + 1;  // продовжимо нумерацію звідси
-
-        uint16_t rival = map[ch.lba];
-        if (rival == NO_BLOCK) { map[ch.lba] = b; state[b] = BS_USED; continue; }
-
-        // ДВА блоки на одну адресу: зрив між комітом і стиранням старого.
-        if (read_commit_hdr(rival, &rh) != 0) continue;
-        if (ch.seq > rh.seq) { map[ch.lba] = b; state[b] = BS_USED; state[rival] = BS_FREE; }
-        else                 { state[b] = BS_FREE; }
-    }
-
-    // ── прохід 3: усе, що не зайняте, — у пул ──
-    for (uint16_t b = 0; b < N_PHYS; b++) {
-        if (state[b] != BS_FREE) continue;
-        if (!block_is_clean(b)) { free_block(b); continue; }   // недописаний запис — стерти
-        if (!ec_ok[b] && write_ec_hdr(b, ec[b]) != 0) { free_block(b); continue; }
-        heap_push(b);                                          // чистий — просто у пул
-    }
-    return 0;
-}
-```
+:::code proj-wear-leveling/c/pidiom-iak-tablytsia.c
 
 Третій прохід приховує пастку, на яку легко наступити. Найпростіше було б прогнати `free_block` по всіх незайнятих блоках — і код став би на два рядки коротший. І тихо вбивав би чип: кожне вмикання **стирало б увесь вільний пул**. Пристрій, який вмикають десять разів на день десять років, накрутив би так тридцять шість тисяч зайвих стирань на кожен блок пулу — тобто спалив би десяток ресурсів SLC на самих лише перезавантаженнях. Шар вирівнювання зносу, що зношує флеш просто від того, що його вмикають.
 

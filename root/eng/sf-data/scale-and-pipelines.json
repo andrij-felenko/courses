@@ -35,13 +35,17 @@
           "proj": [
             {
               "file": "proj-lag-aware-read-router.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-replication-configs-and-metrics.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -70,13 +74,16 @@
           "proj": [
             {
               "file": "proj-shard-router.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-shard-coordinator-spec.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -99,13 +106,15 @@
           "proj": [
             {
               "file": "proj-cluster-fencing-controller.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-patroni-cluster-config.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -117,7 +126,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -134,7 +144,9 @@
           "proj": [
             {
               "file": "proj-failover-orchestrator.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -150,13 +162,15 @@
           "hist": [
             {
               "file": "hist-read-write-splitting-evolution.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-read-write-router.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -174,24 +188,29 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-nosql-movement.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-cap-pacelc.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-mini-kv-store.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
@@ -209,30 +228,36 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-single-table-design.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ],
           "math": [
             {
               "file": "math-partition-cardinality.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-single-table-router.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ],
           "api": [
             {
               "file": "api-dynamodb-modeling-cheatsheet.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -243,7 +268,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -254,13 +280,16 @@
           "math": [
             {
               "file": "math-dual-write-consistency.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-polyglot-order-service.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ],
           "api": [
@@ -278,12 +307,14 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-tsdb-query-and-chunk.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "hist": [
@@ -295,13 +326,16 @@
           "math": [
             {
               "file": "math-compression-entropy.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-gorilla-compressor.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }
@@ -336,13 +370,17 @@
           "proj": [
             {
               "file": "proj-pipeline-execution-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-pipeline-contract-and-manifest.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         },
@@ -353,7 +391,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -364,19 +403,24 @@
           "math": [
             {
               "file": "math-idempotent-algebra.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-idempotent-backfill-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ],
           "api": [
             {
               "file": "api-backfill-orchestration.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         }
@@ -398,7 +442,8 @@
           "api": [
             {
               "file": "api-shadow-reconciliation-contract.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "hist": [
@@ -410,7 +455,9 @@
           "proj": [
             {
               "file": "proj-state-reconciler.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -421,7 +468,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "math": [
             {
@@ -432,7 +480,9 @@
           "proj": [
             {
               "file": "proj-timeseries-stream-aggregator.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },

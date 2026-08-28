@@ -167,72 +167,8 @@ kprobe:blk_account_io_done
 Для збору статистичних полів у C++ застосунках використовується метод `GetProperty`. Цей метод дозволяє як зчитувати повний текстовий звіт про стан ущільнення, так і витягувати окремі числові лічильники операцій:
 
 :::tabs
-```cpp
-#include <iostream>
-#include <string>
-#include <memory>
-#include <rocksdb/db.h>
-#include <rocksdb/options.h>
-
-void inspect_rocksdb_amplification(rocksdb::DB* db) {
-    std::string stats_out;
-    
-    // Отримання текстового звіту про стан рівнів та Compaction WAF
-    if (db->GetProperty("rocksdb.stats", &stats_out)) {
-        std::cout << "=== RocksDB Compaction Stats ===" << std::endl;
-        std::cout << stats_out << std::endl;
-    }
-
-    // Отримання точних числових показників через GetIntProperty
-    uint64_t bytes_written_user = 0;
-    uint64_t bytes_written_flush = 0;
-    uint64_t bytes_written_compaction = 0;
-
-    db->GetIntProperty("rocksdb.stats.bytes-written", &bytes_written_user);
-    db->GetIntProperty("rocksdb.base-level-write-bytes", &bytes_written_flush);
-    db->GetIntProperty("rocksdb.compact-write-bytes", &bytes_written_compaction);
-
-    if (bytes_written_user > 0) {
-        uint64_t total_db_writes = bytes_written_flush + bytes_written_compaction;
-        double db_waf = static_cast<double>(total_db_writes) / static_cast<double>(bytes_written_user);
-
-        std::cout << "Логічний запис користувача: " << bytes_written_user / (1024 * 1024) << " MB\n";
-        std::cout << "Запис при Flush (MemTable): " << bytes_written_flush / (1024 * 1024) << " MB\n";
-        std::cout << "Запис при Compaction:       " << bytes_written_compaction / (1024 * 1024) << " MB\n";
-        std::cout << "Підсумковий Database WAF:   " << db_waf << std::endl;
-    }
-}
-```
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <rocksdb/c.h>
-
-void inspect_rocksdb_amplification_c(rocksdb_t* db) {
-    char* stats = rocksdb_property_value(db, "rocksdb.stats");
-    if (stats) {
-        printf("=== RocksDB Stats (C API) ===\n%s\n", stats);
-        free(stats);
-    }
-    
-    char* user_bytes_str = rocksdb_property_value(db, "rocksdb.stats.bytes-written");
-    char* compact_bytes_str = rocksdb_property_value(db, "rocksdb.compact-write-bytes");
-    
-    if (user_bytes_str && compact_bytes_str) {
-        unsigned long long user_bytes = strtoull(user_bytes_str, NULL, 10);
-        unsigned long long compact_bytes = strtoull(compact_bytes_str, NULL, 10);
-        
-        if (user_bytes > 0) {
-            double waf = (double)(user_bytes + compact_bytes) / (double)user_bytes;
-            printf("User Bytes: %llu, Compact Bytes: %llu, WAF: %.2f\n", 
-                   user_bytes, compact_bytes, waf);
-        }
-    }
-    
-    if (user_bytes_str) free(user_bytes_str);
-    if (compact_bytes_str) free(compact_bytes_str);
-}
-```
+:::code api-waf-metrics/cpp/main.cpp
+:::code api-waf-metrics/c/main.c
 :::
 
 ### Структура виводу `rocksdb.stats`
