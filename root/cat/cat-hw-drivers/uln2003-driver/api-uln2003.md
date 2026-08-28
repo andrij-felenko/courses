@@ -43,92 +43,9 @@
 Тепер перекладемо цю таблицю в C++ дослівно. Кожен рядок — це чотири біти, тож заведемо двовимірний масив `8 × 4`:
 
 :::tabs
-```arduino
-// Піни, куди підключені входи плати ULN2003
-const int IN1 = 8;
-const int IN2 = 9;
-const int IN3 = 10;
-const int IN4 = 11;
-
-// Вісім станів half-step. Рядок — один такт; стовпці — IN1..IN4.
-// 1 = обмотку під струмом (вхід HIGH), 0 = знеструмлено (LOW).
-const int seq[8][4] = {
-  {1, 0, 0, 0},   // крок 1
-  {1, 1, 0, 0},   // крок 2
-  {0, 1, 0, 0},   // крок 3
-  {0, 1, 1, 0},   // крок 4
-  {0, 0, 1, 0},   // крок 5
-  {0, 0, 1, 1},   // крок 6
-  {0, 0, 0, 1},   // крок 7
-  {1, 0, 0, 1},   // крок 8
-};
-
-void setup() {
-  pinMode(IN1, OUTPUT);
-  pinMode(IN2, OUTPUT);
-  pinMode(IN3, OUTPUT);
-  pinMode(IN4, OUTPUT);
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-// GPIO, куди підключені входи плати ULN2003
-#define IN1 GPIO_NUM_18
-#define IN2 GPIO_NUM_19
-#define IN3 GPIO_NUM_21
-#define IN4 GPIO_NUM_22
-
-// Вісім станів half-step. Рядок — один такт; стовпці — IN1..IN4.
-// 1 = обмотку під струмом (вхід у 1), 0 = знеструмлено.
-static const uint8_t seq[8][4] = {
-  {1, 0, 0, 0},   // крок 1
-  {1, 1, 0, 0},   // крок 2
-  {0, 1, 0, 0},   // крок 3
-  {0, 1, 1, 0},   // крок 4
-  {0, 0, 1, 0},   // крок 5
-  {0, 0, 1, 1},   // крок 6
-  {0, 0, 0, 1},   // крок 7
-  {1, 0, 0, 1},   // крок 8
-};
-
-void app_main(void) {
-  gpio_config_t io = {
-    .pin_bit_mask = (1ULL << IN1) | (1ULL << IN2) | (1ULL << IN3) | (1ULL << IN4),
-    .mode         = GPIO_MODE_OUTPUT,
-    .pull_up_en   = GPIO_PULLUP_DISABLE,
-    .pull_down_en = GPIO_PULLDOWN_DISABLE,
-    .intr_type    = GPIO_INTR_DISABLE,
-  };
-  ESP_ERROR_CHECK(gpio_config(&io));
-}
-```
-```stm32
-#include "main.h"   // CubeMX згенерував IN1_GPIO_Port / IN1_Pin і решту
-
-// Виводи задано в CubeMX: GPIO_Output, Push-Pull, No pull, Low speed.
-// Такт порту вмикає й режим виставляє MX_GPIO_Init() — окремої ініціалізації нема.
-
-// Вісім станів half-step. Рядок — один такт; стовпці — IN1..IN4.
-// 1 = обмотку під струмом (вхід у 1), 0 = знеструмлено.
-static const uint8_t seq[8][4] = {
-  {1, 0, 0, 0},   // крок 1
-  {1, 1, 0, 0},   // крок 2
-  {0, 1, 0, 0},   // крок 3
-  {0, 1, 1, 0},   // крок 4
-  {0, 0, 1, 0},   // крок 5
-  {0, 0, 1, 1},   // крок 6
-  {0, 0, 0, 1},   // крок 7
-  {1, 0, 0, 1},   // крок 8
-};
-
-// Порт і пін лежать нарізно, тож складемо їх поруч — ходитимемо циклом
-static GPIO_TypeDef *const PORTS[4] = { IN1_GPIO_Port, IN2_GPIO_Port,
-                                        IN3_GPIO_Port, IN4_GPIO_Port };
-static const uint16_t      PINS[4]  = { IN1_Pin, IN2_Pin, IN3_Pin, IN4_Pin };
-```
+:::code api-uln2003/c/arduino/riven-1-holymy-rukamy.ino
+:::code api-uln2003/c/esp-idf/riven-1-holymy-rukamy.c
+:::code api-uln2003/c/stm32/riven-1-holymy-rukamy.c
 :::
 
 Тепер — серце всього. Функція, що виставляє на чотири виводи один рядок таблиці за його номером:
@@ -174,21 +91,7 @@ void loop() {
   delay(2);              // пауза, щоб ротор устиг (мс на півкрок)
 }
 ```
-```esp-idf
-static int idx = 0;   // поточний рядок таблиці
-
-// Вічний цикл живе у власній задачі FreeRTOS — решта системи вільна.
-static void motor_task(void *arg) {
-  for (;;) {
-    apply_step(idx);              // виставити обмотки
-    idx = (idx + 1) % 8;          // наступний рядок; по колу через % 8
-    vTaskDelay(pdMS_TO_TICKS(2)); // 2 мс — потрібен тік 1 кГц
-  }                               // (CONFIG_FREERTOS_HZ=1000, інакше вийде 0)
-}
-
-// у кінці app_main():
-// xTaskCreate(motor_task, "motor", 2048, NULL, 5, NULL);
-```
+:::code api-uln2003/c/esp-idf/riven-1-holymy-rukamy-2.c
 ```stm32
 int idx = 0;   // поточний рядок таблиці
 
@@ -231,63 +134,9 @@ idx = (idx + 7) % 8;   // те саме, що (idx - 1 + 8) % 8
 Отже, у half-step-режимі на один оберт вала припадає близько **4076** наших тактів. Загорни це в код і зроби функцію «зроби N кроків у заданому напрямі»:
 
 :::tabs
-```arduino
-const long HALFSTEPS_PER_REV = 4076;   // півкроків на оберт вала (≈ 64 · 63.684)
-
-// Зробити steps півкроків. dir = +1 вперед, -1 назад.
-void moveSteps(long steps, int dir) {
-  for (long i = 0; i < steps; i++) {
-    if (dir > 0) idx = (idx + 1) % 8;
-    else         idx = (idx + 7) % 8;
-    applyStep(idx);
-    delay(2);
-  }
-}
-
-// Приклад: рівно один оберт вперед, тоді півоберту назад
-void demo() {
-  moveSteps(HALFSTEPS_PER_REV, +1);       // 360°
-  moveSteps(HALFSTEPS_PER_REV / 2, -1);   // 180° назад
-}
-```
-```esp-idf
-#define HALFSTEPS_PER_REV 4076   // півкроків на оберт вала (≈ 64 · 63.684)
-
-// Зробити steps півкроків. dir = +1 вперед, -1 назад.
-static void move_steps(long steps, int dir) {
-  for (long i = 0; i < steps; i++) {
-    if (dir > 0) idx = (idx + 1) % 8;
-    else         idx = (idx + 7) % 8;
-    apply_step(idx);
-    vTaskDelay(pdMS_TO_TICKS(2));
-  }
-}
-
-// Приклад: рівно один оберт вперед, тоді півоберту назад
-static void demo(void) {
-  move_steps(HALFSTEPS_PER_REV, +1);       // 360°
-  move_steps(HALFSTEPS_PER_REV / 2, -1);   // 180° назад
-}
-```
-```stm32
-#define HALFSTEPS_PER_REV 4076   // півкроків на оберт вала (≈ 64 · 63.684)
-
-// Зробити steps півкроків. dir = +1 вперед, -1 назад.
-static void move_steps(int32_t steps, int8_t dir) {
-  for (int32_t i = 0; i < steps; i++) {
-    if (dir > 0) idx = (idx + 1) % 8;
-    else         idx = (idx + 7) % 8;
-    apply_step(idx);
-    HAL_Delay(2);
-  }
-}
-
-// Приклад: рівно один оберт вперед, тоді півоберту назад
-static void demo(void) {
-  move_steps(HALFSTEPS_PER_REV, +1);       // 360°
-  move_steps(HALFSTEPS_PER_REV / 2, -1);   // 180° назад
-}
-```
+:::code api-uln2003/c/arduino/skilky-krokiv-na-skilky.ino
+:::code api-uln2003/c/esp-idf/skilky-krokiv-na-skilky.c
+:::code api-uln2003/c/stm32/skilky-krokiv-na-skilky.c
 :::
 
 Хочеш «повернути на 90 градусів»? Це чверть оберту: `HALFSTEPS_PER_REV / 4 ≈ 1019` півкроків. Зверни увагу — число **некругле**, і рівно на 90.000° ти не станеш: `4076 / 4 = 1019`, а це 89.98°. Для стрілки чи заслінки байдуже; для верстата — вже ні (про це у пастках).
@@ -299,58 +148,9 @@ static void demo(void) {
 У прикладах вище пауза **заморожує всю програму** на кожному такті. Поки мотор крутиться, мікроконтролер не може ні кнопку опитати, ні датчик прочитати — він тупо чекає. Для іграшки згодиться, для справжнього пристрою — ні. Позбудьмося блокування, замінивши сон на порівняння часу за вільним лічильником: `micros()` на Arduino, `esp_timer_get_time()` в ESP-IDF, `HAL_GetTick()` на STM32. Ідея скрізь та сама: не спати, а на кожному проході головного циклу питати «чи минуло вже досить часу від попереднього кроку?» — і крокувати лише тоді.
 
 :::tabs
-```arduino
-unsigned long lastStepUs = 0;      // коли зробили попередній крок (мкс)
-unsigned long stepIntervalUs = 2000;   // період між півкроками (2000 мкс = 2 мс)
-int dir = +1;
-
-void loop() {
-  unsigned long now = micros();
-  if (now - lastStepUs >= stepIntervalUs) {
-    lastStepUs = now;
-    if (dir > 0) idx = (idx + 1) % 8;
-    else         idx = (idx + 7) % 8;
-    applyStep(idx);
-  }
-  // ...тут програма вільна: читай кнопки, датчики, шли по UART...
-}
-```
-```esp-idf
-#include "esp_timer.h"
-
-static int64_t last_step_us = 0;         // коли зробили попередній крок (мкс)
-static int64_t step_interval_us = 2000;  // період між півкроками
-static int dir = +1;
-
-static void motor_task(void *arg) {
-  for (;;) {
-    int64_t now = esp_timer_get_time();   // мкс від старту, 64 біти
-    if (now - last_step_us >= step_interval_us) {
-      last_step_us = now;
-      if (dir > 0) idx = (idx + 1) % 8;
-      else         idx = (idx + 7) % 8;
-      apply_step(idx);
-    }
-    vTaskDelay(1);   // ...а тут процесор віддано іншим задачам: кнопки, Wi-Fi, UART...
-  }
-}
-```
-```stm32
-uint32_t lastStepMs = 0;       // коли зробили попередній крок (мс)
-uint32_t stepIntervalMs = 2;   // період між півкроками
-int dir = +1;
-
-while (1) {
-  uint32_t now = HAL_GetTick();   // мс від старту, лічильник SysTick
-  if (now - lastStepMs >= stepIntervalMs) {
-    lastStepMs = now;
-    if (dir > 0) idx = (idx + 1) % 8;
-    else         idx = (idx + 7) % 8;
-    apply_step(idx);
-  }
-  // ...тут програма вільна: читай кнопки, датчики, шли по UART...
-}
-```
+:::code api-uln2003/c/arduino/prybyraiemo-blokuvalnyi.ino
+:::code api-uln2003/c/esp-idf/prybyraiemo-blokuvalnyi.c
+:::code api-uln2003/c/stm32/prybyraiemo-blokuvalnyi.c
 :::
 
 Тепер швидкість — це просто величина інтервалу: менша пауза → частіші такти → швидше крутиться. Напрям — знак `dir`. І весь цей час мікроконтролер лишається живим між кроками. Перехід від сну до порівняння часу — універсальний прийом усього кооперативного коду; для мотора він особливо доречний, бо крок — подія рідка (мілісекунди), а між ними купа вільного часу.
@@ -381,83 +181,9 @@ while (1) {
 Ось як це виглядає в коді. Дроти на платі — незмінні (`D8→IN1`… `D11→IN4`), а в коді перелічуємо **виводи в магнітному порядку**:
 
 :::tabs
-```arduino
-#include <Stepper.h>
-
-// Кроків на оберт для Stepper — тут число ПОВНИХ кроків вала.
-const int STEPS_PER_REV = 2038;   // ≈ 32 · 63.684 (НЕ 2048!)
-
-// УВАГА на порядок аргументів. Дроти: D8→IN1, D9→IN2, D10→IN3, D11→IN4.
-// Але в конструктор піни йдуть у магнітному порядку обмоток 1-3-2-4:
-//   IN1=8,  IN3=10,  IN2=9,  IN4=11
-Stepper motor(STEPS_PER_REV, 8, 10, 9, 11);
-
-void setup() {
-  motor.setSpeed(10);   // швидкість в обертах за хвилину (об/хв)
-}
-
-void loop() {
-  motor.step(STEPS_PER_REV);    // рівно один оберт вперед
-  delay(1000);
-  motor.step(-STEPS_PER_REV);   // один оберт назад (знак = напрям)
-  delay(1000);
-}
-```
-```esp-idf
-#include "esp_rom_sys.h"   // esp_rom_delay_us()
-
-// Готової бібліотеки нема — обгортка над рівнем 1. Уся «магія» Stepper
-// зводиться ось до цього масиву: виводи в МАГНІТНОМУ порядку 1-3-2-4,
-// а не так, як ідуть дроти (IN1=GPIO18, IN3=GPIO21, IN2=GPIO19, IN4=GPIO22).
-static const gpio_num_t MAG[4] = { IN1, IN3, IN2, IN4 };
-
-#define STEPS_PER_REV 2038   // ПОВНИХ кроків вала, ≈ 32 · 63.684 (НЕ 2048!)
-
-// Повнокрокова послідовність (саме її ганяє Stepper): по дві сусідні обмотки.
-static const uint8_t full_seq[4][4] = {
-  {1,1,0,0}, {0,1,1,0}, {0,0,1,1}, {1,0,0,1},
-};
-
-static uint32_t step_us = 60000000UL / (10 * STEPS_PER_REV);   // 10 об/хв
-
-static void stepper_step(long steps) {
-  static int s = 0;
-  int dir = steps > 0 ? +1 : -1;
-  for (long i = 0; i < labs(steps); i++) {
-    s = (s + dir + 4) % 4;
-    for (int k = 0; k < 4; k++) gpio_set_level(MAG[k], full_seq[s][k]);
-    esp_rom_delay_us(step_us);
-  }
-}
-```
-```stm32
-// Готової бібліотеки нема — обгортка над рівнем 1. Уся «магія» Stepper
-// зводиться ось до цих двох масивів: виводи в МАГНІТНОМУ порядку 1-3-2-4,
-// а не так, як ідуть дроти.
-static GPIO_TypeDef *const MP[4] = { IN1_GPIO_Port, IN3_GPIO_Port,
-                                     IN2_GPIO_Port, IN4_GPIO_Port };
-static const uint16_t      MN[4] = { IN1_Pin, IN3_Pin, IN2_Pin, IN4_Pin };
-
-#define STEPS_PER_REV 2038   // ПОВНИХ кроків вала, ≈ 32 · 63.684 (НЕ 2048!)
-
-// Повнокрокова послідовність (саме її ганяє Stepper): по дві сусідні обмотки.
-static const uint8_t full_seq[4][4] = {
-  {1,1,0,0}, {0,1,1,0}, {0,0,1,1}, {1,0,0,1},
-};
-
-static uint32_t step_ms = 3;   // ≈ 10 об/хв при 2038 кроках на оберт
-
-static void stepper_step(int32_t steps) {
-  static uint8_t s = 0;
-  int8_t dir = steps > 0 ? +1 : -1;
-  for (int32_t i = 0; i < (steps > 0 ? steps : -steps); i++) {
-    s = (s + dir + 4) % 4;
-    for (uint8_t k = 0; k < 4; k++)
-      HAL_GPIO_WritePin(MP[k], MN[k], full_seq[s][k] ? GPIO_PIN_SET : GPIO_PIN_RESET);
-    HAL_Delay(step_ms);
-  }
-}
-```
+:::code api-uln2003/c/arduino/chomu-poriadok-piniv-ne-1.ino
+:::code api-uln2003/c/esp-idf/chomu-poriadok-piniv-ne-1.c
+:::code api-uln2003/c/stm32/chomu-poriadok-piniv-ne-1.c
 :::
 
 Розглянь конструктор пильно: `Stepper motor(2038, 8, 10, 9, 11)`. Числа `8, 10, 9, 11` — це `D8, D10, D9, D11`, тобто піни `IN1, IN3, IN2, IN4`. Дроти на платі ти **не чіпав** — вони так і йдуть 1-2-3-4. Переставлений лише **перелік у коді**. Ось ця розбіжність — «дроти по-порядку, а в дужках навхрест» — і є джерело всіх мук. Запиши собі правило одним рядком: **для 28BYJ-48 виводи перелічуються в порядку IN1, IN3, IN2, IN4 — байдуже, у конструктор `Stepper` (`8, 10, 9, 11`) чи у власний масив пінів.**
@@ -485,99 +211,9 @@ static void stepper_step(int32_t steps) {
 Порядок пінів — **той самий 1-3-2-4**, з тієї ж причини (магнітна розводка мотора нікуди не поділася). А режим half-step задають константою — у бібліотеці вона зветься `AccelStepper::HALF4WIRE` (числове значення `8`; часто в прикладах пишуть як `#define HALFSTEP 8`). «HALF» — половинний крок, «4WIRE» — чотири керовані ноги.
 
 :::tabs
-```arduino
-#include <AccelStepper.h>
-
-// HALF4WIRE = half-step, 4 керовані виводи. Далі — піни в порядку 1-3-2-4:
-//   IN1=8, IN3=10, IN2=9, IN4=11  (дроти на платі — по-порядку!)
-AccelStepper motor(AccelStepper::HALF4WIRE, 8, 10, 9, 11);
-
-const long HALFSTEPS_PER_REV = 4076;   // півкроків на оберт (half-step!)
-
-void setup() {
-  motor.setMaxSpeed(700.0);        // стеля швидкості, кроків/с
-  motor.setAcceleration(400.0);    // розгін/гальмування, кроків/с²
-  motor.moveTo(HALFSTEPS_PER_REV); // ціль: один оберт уперед (абсолютна позиція)
-}
-
-void loop() {
-  // run() робить максимум один крок за виклик і ЗАРАЗ ЖЕ повертає керування.
-  // Мотор сам розганяється й гальмує до цілі. Клич це якнайчастіше.
-  motor.run();
-
-  // Доїхали до цілі? Задамо нову — поїде назад у нуль.
-  if (motor.distanceToGo() == 0) {
-    long here = motor.currentPosition();
-    motor.moveTo(here == 0 ? HALFSTEPS_PER_REV : 0);
-  }
-}
-```
-```esp-idf
-#include <math.h>
-
-#define VMAX   700.0    // стеля швидкості, півкроків/с
-#define ACCEL  400.0    // розгін/гальмування, півкроків/с²
-
-static long position = 0;   // поточна позиція в півкроках
-
-// Трапеція швидкості руками. Ключ — формула гальмівного шляху v = sqrt(2·a·s):
-// на кожному кроці беремо меншу зі стелі й «швидкості, з якої ще встигнемо стати».
-static void move_to(long target) {
-  long total = labs(target - position);
-  int  dir   = (target > position) ? +1 : -1;
-  double v   = 1.0;                     // поточна швидкість, півкроків/с
-
-  for (long n = 0; n < total; n++) {
-    double vt = fmin(VMAX, sqrt(2.0 * ACCEL * (total - n)));
-    if (v < vt) v += ACCEL / v;         // приріст за час одного кроку (1/v секунди)
-    if (v > vt) v = vt;
-
-    idx = (idx + dir + 8) % 8;
-    apply_step(idx);
-    position += dir;
-    esp_rom_delay_us((uint32_t)(1e6 / v));
-  }
-}
-
-// Цикл блокує ЛИШЕ свою задачу FreeRTOS — Wi-Fi, кнопки й UART тим часом живі.
-// Це і є відповідник неблокувальності AccelStepper на цій платформі.
-```
-```stm32
-#include <math.h>
-
-// На STM32 трапецію природно веде ТАЙМЕР, і головний цикл не задіяно взагалі.
-// TIM2 у CubeMX: такт 1 МГц (Prescaler = SystemCoreClock/1e6 - 1), переривання
-// ввімкнено. Кожне переповнення = один півкрок; ARR = інтервал у мікросекундах.
-#define VMAX   700.0f
-#define ACCEL  400.0f
-
-volatile int32_t position = 0, remaining = 0;
-volatile int8_t  dir = +1;
-static   float   v = 1.0f;
-
-void moveTo(int32_t target) {
-  remaining = (target > position) ? target - position : position - target;
-  dir = (target > position) ? +1 : -1;
-  v = 1.0f;
-  __HAL_TIM_SET_AUTORELOAD(&htim2, (uint32_t)(1000000.0f / v) - 1);
-  HAL_TIM_Base_Start_IT(&htim2);        // далі все робить переривання
-}
-
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-  if (htim->Instance != TIM2) return;
-  if (remaining == 0) { HAL_TIM_Base_Stop_IT(&htim2); return; }
-
-  idx = (idx + dir + 8) % 8;
-  apply_step(idx);
-  position += dir;
-  remaining--;
-
-  float vt = fminf(VMAX, sqrtf(2.0f * ACCEL * (float)remaining));
-  if (v < vt) v += ACCEL / v;           // приріст за час одного кроку
-  if (v > vt) v = vt;
-  __HAL_TIM_SET_AUTORELOAD(htim, (uint32_t)(1000000.0f / v) - 1);
-}
-```
+:::code api-uln2003/c/arduino/riven-3-accelstepper.ino
+:::code api-uln2003/c/esp-idf/riven-3-accelstepper.c
+:::code api-uln2003/c/stm32/riven-3-accelstepper.c
 :::
 
 Тут кілька нових керм, і кожне варте слова.
@@ -607,18 +243,7 @@ void loop() {
   motor.runSpeed();   // рівний крок за розкладом, БЕЗ розгону/гальмування
 }
 ```
-```esp-idf
-#define SPEED 300.0   // півкроків/с; напрям задає dir
-
-static void spin_task(void *arg) {
-  const uint32_t period_us = (uint32_t)(1e6 / SPEED);
-  for (;;) {
-    idx = (idx + dir + 8) % 8;
-    apply_step(idx);
-    esp_rom_delay_us(period_us);   // рівний темп, БЕЗ розгону/гальмування
-  }
-}
-```
+:::code api-uln2003/c/esp-idf/shvydkist-bez-rozhonu-koly.c
 ```stm32
 // Той самий таймер, лише ARR більше не міняється.
 // У callback вище перед розрахунком трапеції ставимо один рядок:
@@ -693,18 +318,7 @@ static void motor_task(void *arg) {
   }
 }
 ```
-```stm32
-// Рух завершує сам таймер, коли remaining дійде нуля, — там і гасимо обмотки:
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-  if (htim->Instance != TIM2) return;
-  if (remaining == 0) {
-    HAL_TIM_Base_Stop_IT(&htim2);
-    release_coils();              // доїхали — знеструмити обмотки
-    return;
-  }
-  // ...далі як вище: крок, перерахунок швидкості, новий ARR
-}
-```
+:::code api-uln2003/c/stm32/znestrumlennia-obmotok.c
 :::
 
 > 🔧 **Навіщо це.** Тут є справжній інженерний компроміс, а не «завжди роби так». Знеструмиш — виграєш нагрів і струм, але **втратиш утримувальний момент**: вал стане вільним і зовнішня сила його проверне, а мотор цього навіть «не помітить» (лічильник кроків думатиме, що позиція та сама, — з'явиться неврахований дрейф). Не знеструмиш — тримаєш позицію залізно, але гріється і жере струм постійно. Тому рішення просте за логікою: **тримати обмотку під струмом рівно тоді й лише тоді, коли реально треба утримувати позицію проти зовнішньої сили.** Стрілка годинника між секундами може стояти знеструмлена — її ніщо не крутить; заслінку під пружиною — ні, знеструмиш і вона відскочить. У сумніві — знеструмлюй: холодніше, ощадливіше, а більшість застосувань утримувального моменту й не потребує.
