@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 430" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="430" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кінцевий автомат пошуку нуля</text>
+<text x="420.0" y="22.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Граф станів кінцевого автомата пошуку нуля (Homing FSM)</text>
+<rect x="20.0" y="56.0" width="140.0" height="48.0" rx="6" fill="#f4f6f8" stroke="#333333" stroke-width="1.8"/>
+<rect x="24.0" y="60.0" width="132.0" height="40.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="90.0" y="83.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-weight="700"><tspan x="90.0" dy="0.0">HOMING_IDLE</tspan></text>
+<rect x="210.0" y="56.0" width="140.0" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="214.0" y="60.0" width="132.0" height="40.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="280.0" y="83.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="280.0" dy="0.0">HOMING_FAST_SEEK</tspan></text>
+<rect x="410.0" y="56.0" width="140.0" height="48.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="414.0" y="60.0" width="132.0" height="40.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="480.0" y="83.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">HOMING_DECEL</tspan></text>
+<rect x="610.0" y="56.0" width="140.0" height="48.0" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<rect x="614.0" y="60.0" width="132.0" height="40.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="680.0" y="83.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700"><tspan x="680.0" dy="0.0">HOMING_RETRACT</tspan></text>
+<rect x="610.0" y="216.0" width="140.0" height="48.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="614.0" y="220.0" width="132.0" height="40.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="680.0" y="243.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="680.0" dy="0.0">HOMING_SLOW_APPROACH</tspan></text>
+<rect x="410.0" y="216.0" width="140.0" height="48.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="414.0" y="220.0" width="132.0" height="40.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="480.0" y="243.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="480.0" dy="0.0">HOMING_LATCH</tspan></text>
+<rect x="210.0" y="216.0" width="140.0" height="48.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="214.0" y="220.0" width="132.0" height="40.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="280.0" y="243.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="280.0" dy="0.0">HOMING_PARK</tspan></text>
+<rect x="20.0" y="216.0" width="140.0" height="48.0" rx="6" fill="#eafaf0" stroke="#27ae60" stroke-width="1.8"/>
+<rect x="24.0" y="220.0" width="132.0" height="40.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="90.0" y="243.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700"><tspan x="90.0" dy="0.0">HOMING_DONE</tspan></text>
+<rect x="310.0" y="336.0" width="140.0" height="48.0" rx="6" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.8"/>
+<rect x="314.0" y="340.0" width="132.0" height="40.0" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="380.0" y="363.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700"><tspan x="380.0" dy="0.0">HOMING_FAULT</tspan></text>
+<line x1="160.0" y1="80.0" x2="210.0" y2="80.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="185.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Start</text>
+<line x1="350.0" y1="80.0" x2="410.0" y2="80.0" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="380.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Hit endstop</text>
+<line x1="550.0" y1="80.0" x2="610.0" y2="80.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="580.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">v == 0</text>
+<line x1="680.0" y1="104.0" x2="680.0" y2="216.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="750.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">Retract done
+(endstop open)</text>
+<line x1="610.0" y1="240.0" x2="550.0" y2="240.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="580.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Hit endstop</text>
+<line x1="410.0" y1="240.0" x2="350.0" y2="240.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="380.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Pos = 0.000</text>
+<line x1="210.0" y1="240.0" x2="160.0" y2="240.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="185.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Parked</text>
+<line x1="90.0" y1="216.0" x2="90.0" y2="104.0" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="50.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">Ready</text>
+<line x1="280.0" y1="104.0" x2="340.0" y2="336.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="680.0" y1="264.0" x2="440.0" y2="345.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="460.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Timeout / Over-travel / Sensor stuck</text>
+</svg>

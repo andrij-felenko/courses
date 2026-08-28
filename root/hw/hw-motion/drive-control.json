@@ -93,6 +93,42 @@
             "status": "empty"
           },
           "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-braking-energy.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "anti-short-cycling-protection",
+          "title": "Захист компресорів і приводів від частих пусків (Anti-Short-Cycle)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "safe-torque-off-drive-safety-functions",
+          "title": "Безпечні функції електроприводів: STO, SS1, SS2 та SLS (IEC 61800-5-2)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "actuator-rate-limiting-phase-lag",
+          "title": "Насичення швидкості приводів: фазовий набіг, автоколивання та anti-rate-limiting",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
             "status": "pending"
           }
         }
@@ -126,7 +162,13 @@
           },
           "detailed": {
             "status": "done"
-          }
+          },
+          "math": [
+            {
+              "file": "math-commutation-phase-margin.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "bldc-commutation",
@@ -201,6 +243,16 @@
         {
           "slug": "closed-loop-stepper",
           "title": "Кроковик із замкненою петлею",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "anti-cogging-and-torque-ripple",
+          "title": "Зубчастий момент і компенсація пульсацій моменту: Anti-Cogging, калібрування LUT та гармонійне придушення",
           "basic": {
             "status": "empty"
           },

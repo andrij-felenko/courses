@@ -53,8 +53,20 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-torque-speed-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-operating-point-sim.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "motor-efficiency-curves",
@@ -89,6 +101,28 @@
         {
           "slug": "back-emf",
           "title": "ПротиЕРС (back-EMF)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "recheck"
+          },
+          "math": [
+            {
+              "file": "math-ke-kt-derivation.md",
+              "status": "recheck"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-sensorless-zcd.md",
+              "status": "recheck"
+            }
+          ]
+        },
+        {
+          "slug": "motor-dynamic-thermal-model",
+          "title": "Динамічна теплова модель і тепловий захист двигуна",
           "basic": {
             "status": "empty"
           },

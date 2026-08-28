@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 370" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="370" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Гістерезис та повторюваність кінцевика</text>
+<text x="410.0" y="22.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механічний гістерезис датчика та вплив швидкості на повторюваність</text>
+<rect x="30.0" y="45.0" width="365.0" height="290.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<text x="212.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Механічний гістерезис перемикача</text>
+<line x1="60.0" y1="260.0" x2="360.0" y2="260.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="350.0" y1="260.0" x2="370.0" y2="260.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="365.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">X, мм</text>
+<line x1="60.0" y1="260.0" x2="60.0" y2="95.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="60.0" y1="105.0" x2="60.0" y2="85.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="45.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Сигнал</text>
+<text x="45.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">HIGH</text>
+<text x="45.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">LOW</text>
+<line x1="60.0" y1="130.0" x2="250.0" y2="130.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="250.0" y1="130.0" x2="250.0" y2="220.0" stroke="#c0392b" stroke-width="2.5"/>
+<circle cx="250.0" cy="130.0" r="3.5" fill="#c0392b" stroke="none" stroke-width="1.5"/>
+<circle cx="250.0" cy="220.0" r="3.5" fill="#c0392b" stroke="none" stroke-width="1.5"/>
+<line x1="250.0" y1="220.0" x2="340.0" y2="220.0" stroke="#c0392b" stroke-width="2.0"/>
+<text x="250.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">X_trip (спрацювання)</text>
+<line x1="340.0" y1="220.0" x2="170.0" y2="220.0" stroke="#2457d6" stroke-width="2.0" stroke-dasharray="4,3"/>
+<line x1="170.0" y1="220.0" x2="170.0" y2="130.0" stroke="#2457d6" stroke-width="2.5"/>
+<circle cx="170.0" cy="220.0" r="3.5" fill="#2457d6" stroke="none" stroke-width="1.5"/>
+<circle cx="170.0" cy="130.0" r="3.5" fill="#2457d6" stroke="none" stroke-width="1.5"/>
+<line x1="170.0" y1="130.0" x2="60.0" y2="130.0" stroke="#2457d6" stroke-width="2.0" stroke-dasharray="4,3"/>
+<text x="170.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle" font-weight="700">X_release (відпускання)</text>
+<line x1="170.0" y1="175.0" x2="250.0" y2="175.0" stroke="#27ae60" stroke-width="2.0"/>
+<line x1="200.0" y1="175.0" x2="250.0" y2="175.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="220.0" y1="175.0" x2="170.0" y2="175.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="210.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Гістерезис ΔX = 0.2 мм</text>
+<text x="212.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Фіксувати нуль можна ТІЛЬКИ на одному напрямку руху!</text>
+<rect x="420.0" y="45.0" width="370.0" height="290.0" rx="8" fill="#fdfefe" stroke="#333333" stroke-width="1.5"/>
+<text x="605.0" y="70.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Похибка фіксації точки від швидкості доїзду</text>
+<line x1="450.0" y1="260.0" x2="760.0" y2="260.0" stroke="#333333" stroke-width="1.2"/>
+<line x1="750.0" y1="260.0" x2="770.0" y2="260.0" stroke="#333333" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="765.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">X, мм</text>
+<polyline points="460,260 500,250 540,220 570,160 600,160 630,220 670,250 710,260" fill="none" stroke="#c0392b" stroke-width="2.2" stroke-dasharray="4,3"/>
+<text x="500.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">v = 50 мм/с: розкид ±80 мкм</text>
+<text x="500.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">(через затримку опитування 1.5 мс)</text>
+<polyline points="560,260 575,250 585,180 590,105 595,105 600,180 610,250 625,260" fill="#eafaf0" stroke="#27ae60" stroke-width="2.5"/>
+<text x="592.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">v = 2 мм/с: розкид ±2 мкм!</text>
+<line x1="592.0" y1="95.0" x2="592.0" y2="265.0" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="2,2"/>
+<text x="592.0" y="278.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">X₀</text>
+<text x="605.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Повільний доїзд стискає похибку реакції в 25–50 разів</text>
+</svg>

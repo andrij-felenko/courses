@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-21.66 -10 881.66 450" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-21.66" y="-10" width="881.66" height="450" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="840.0" height="420.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.0"/>
+<text x="220.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Розподіл електричної потужності</text>
+<rect x="140.0" y="65.0" width="160.0" height="45.0" rx="5" fill="#eaf2f8" stroke="#2980b9" stroke-width="1.8"/>
+<text x="220.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2980b9" text-anchor="middle" font-weight="700">Батарея (48V Li-Ion)</text>
+<text x="220.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Загальний струм I_bat</text>
+<rect x="50.0" y="165.0" width="150.0" height="80.0" rx="5" fill="#fdfefe" stroke="#2457d6" stroke-width="1.5"/>
+<text x="125.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">Лівий привід (внутр.)</text>
+<text x="125.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">I_left: 5 А (або рекуперація)</text>
+<text x="125.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">P_loss = I² · R ≈ 15 Вт</text>
+<rect x="240.0" y="165.0" width="150.0" height="80.0" rx="5" fill="#fdedec" stroke="#c0392b" stroke-width="2.0"/>
+<text x="315.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Правий привід (зовн.)</text>
+<text x="315.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">I_right: 42 А (перевантаж.)</text>
+<text x="315.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">P_loss = I² · R ≈ 1050 Вт!</text>
+<line x1="180.0" y1="110.0" x2="125.0" y2="165.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="260.0" y1="110.0" x2="315.0" y2="165.0" stroke="#c0392b" stroke-width="3.0" marker-end="url(#arrow)"/>
+<text x="650.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стрибок струму та нагріву обмоток</text>
+<line x1="480.0" y1="340.0" x2="810.0" y2="340.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="480.0" y1="80.0" x2="480.0" y2="340.0" stroke="#333333" stroke-width="1.5"/>
+<text x="470.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">Струм I (А)</text>
+<rect x="520.0" y="295.0" width="55.0" height="45.0" rx="3" fill="#27ae60" stroke="#333333" stroke-width="1.2"/>
+<text x="547.0" y="287.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">8 А</text>
+<text x="547.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Прямий
+рух</text>
+<text x="547.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle">T = 42°C
+Норма</text>
+<rect x="615.0" y="240.0" width="55.0" height="100.0" rx="3" fill="#f39c12" stroke="#333333" stroke-width="1.2"/>
+<text x="642.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d35400" text-anchor="middle" font-weight="700">18 А</text>
+<text x="642.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Плавний
+поворот</text>
+<text x="642.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d35400" text-anchor="middle">T = 65°C
+Помірний</text>
+<rect x="710.0" y="110.0" width="55.0" height="230.0" rx="3" fill="#e74c3c" stroke="#c0392b" stroke-width="2.0"/>
+<text x="737.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">42 А!</text>
+<text x="737.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Розворот
+на місці</text>
+<text x="737.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">T &gt; 130°C!
+Перегрів</text>
+<line x1="480.0" y1="160.0" x2="810.0" y2="160.0" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,3"/>
+<text x="805.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="end" font-style="italic">Thermal Limit</text>
+<text x="220.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Джоулеве тепло росте як I²:
+При 5-кратному струмі втрати зростають у 25 разів!</text>
+</svg>
