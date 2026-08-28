@@ -1,0 +1,68 @@
+слуг	назва	група	A	B	C	середня	рівень	слів	Рфакт	Δ
+bus-resource-conflicts	Конфлікти шин	Спільна лінія	4	4	4	4	4	3121	2	2
+clock-stretch-arbitration	Розтягування й арбітраж	Спільна лінія	3	3	4	3.33	3	1461	1	2
+register-map	Регістрова карта	Спільна лінія	4	4	4	4	4	1228	1	3
+burst-read	Пакетне зчитування регістрів	Спільна лінія	3	3	3	3	3	2963	2	1
+fifo-register	FIFO-регістри в давачах	Спільна лінія	3	2	3	2.67	3	3017	2	1
+drdy-pattern	Шаблон DRDY і переривання давача	Спільна лінія	3	3	3	3	3	3053	2	1
+i2c-expander	I²C-розширювач	Спільна лінія	2	2	2	2	2	3063	2	0
+i2c-bus	Шина I2C	I²C	5	5	5	5	5	1157	1	4
+i2c-transaction	Транзакція I2C	I²C	4	4	4	4	4	1190	1	3
+start-stop-ack	Старт, стоп, ACK	I²C	4	4	4	4	4	1420	1	3
+i2c-addressing	Адресація I2C	I²C	4	4	4	4	4	1205	1	3
+i2c-10bit-addressing	10-бітна адресація I2C	I²C	1	1	2	1.33	1	3014	2	-1
+i2c-speeds	Режими швидкості I2C	I²C	3	3	3	3	3	3167	2	1
+i2c-bus-timing	Часові діаграми I²C: START, STOP, ACK і clock stretching	I²C	2	3	3	2.67	3	2950	2	1
+i2c-clock-stretching-timing-budget	Межі розтягування такту I2C: бюджет часу, дедлок шини і відмова від механізму в I3C	I²C	3	2	3	2.67	3	3115	2	1
+i2c-clock-stretching-hardware	Розтягування такту I2C: апаратна реалізація в контролері та на лінії	I²C	2	2	2	2	2	3075	2	0
+i2c-bus-capacity	Ємність шини I²C і вибір підтяжок	I²C	4	4	4	4	4	2974	2	2
+i2c-multimaster	Кілька ведучих на I2C	I²C	3	3	3	3	3	3081	2	1
+i2c-bus-recovery	Відновлення завислої шини I²C	I²C	2	3	3	2.67	3	2584	1	2
+smbus-standard	Стандарт SMBus: системні інваріанти, транзакції та екосистема	I²C	3	3	3	3	3	3057	2	1
+smbus-bus-design	Проєктування й налагодження шини SMBus: підтяжки, ємність, пастки, драйвери	I²C	2	2	2	2	2	2956	2	0
+i3c	Шина I3C	I²C	3	3	3	3	3	2982	2	1
+spi-bus	Шина SPI	SPI	5	5	5	5	5	1139	1	4
+spi-lines	Лінії SPI	SPI	2	2	3	2.33	2	1400	1	1
+chip-select	Вибір кристала	SPI	4	4	4	4	4	1250	1	3
+spi-mode-selection	Вибір режиму SPI: CPOL, CPHA і чотири режими	SPI	4	4	4	4	4	1441	1	3
+spi-mode-timing-and-faults	Режими SPI на рівні кристала: часовий бюджет, сумісність 0/3 і збої	SPI	3	2	3	2.67	3	3417	2	1
+spi-speed	Швидкість SPI	SPI	2	2	2	2	2	1327	1	1
+spi-timing	Тайминг SPI: t_su, t_h, t_clk	SPI	3	3	3	3	3	2976	2	1
+spi-cs-timing	Часові параметри CS у SPI	SPI	2	2	2	2	2	2970	2	0
+daisy-chain-spi	Daisy-chain у SPI	SPI	2	2	2	2	2	3022	2	0
+spi-multimaster	SPI з кількома веденими і режимами	SPI	2	2	3	2.33	2	2955	2	0
+multi-lane-spi-dual-quad-octal	Багатолінійний SPI: Dual, Quad, Octal (xSPI)	SPI	3	3	3	3	3	2951	2	1
+quad-spi-commands-and-controller	Quad-SPI: набір команд і апаратний контролер	SPI	2	3	2	2.33	2	2952	2	0
+async-serial	Асинхронна передача	Асинхронний порт	5	4	4	4.33	4	2175	1	3
+uart-frame	Кадр UART	Асинхронний порт	4	5	4	4.33	4	1410	1	3
+uart	UART: апаратний модуль і периферійний контролер	Асинхронний порт	4	3	5	4	4	2420	1	3
+baud-vs-bitrate	Baud проти біт/с	Асинхронний порт	1	1	1	1	1	2980	2	-1
+baud-rate	Швидкість baud	Асинхронний порт	3	3	3	3	3	1501	1	2
+fractional-baud	Дробовий дільник baud	Асинхронний порт	2	2	2	2	2	3123	2	0
+clock-tolerance-uart	Допуск годинника UART	Асинхронний порт	3	4	3	3.33	3	2968	2	1
+uart-oversampling	Передискретизація UART	Асинхронний порт	3	3	3	3	3	3024	2	1
+break-signal-uart	Break-сигнал UART	Асинхронний порт	2	2	2	2	2	3237	2	0
+half-duplex-uart	Напівдуплекс UART	Асинхронний порт	2	2	2	2	2	2978	2	0
+usb3-physical	USB 3.x фізично: SuperSpeed і вище	USB	3	3	3	3	3	3046	2	1
+usb-device-basics	Пристрій на шині USB: хост, енумерація, кінцеві точки, класи	USB	2	2	2	2	2	3935	2	0
+usb-c-connector	USB-C конектор	Type-C і Power Delivery	4	4	4	4	4	2572	1	3
+usb-c-connector-physics	Фізика роз'єму USB-C	Type-C і Power Delivery	2	2	2	2	2	3116	2	0
+usb-active-cable	Активні USB-кабелі	Type-C і Power Delivery	2	1	2	1.67	2	3129	2	0
+e-marker	E-Marker: чип автентифікації кабелю	Type-C і Power Delivery	3	3	2	2.67	3	2976	2	1
+usb-c-audio-adapter	USB-C аудіоадаптер: резистор Ra і режим аналогового звуку	Type-C і Power Delivery	1	1	1	1	1	3273	2	-1
+bmc-encoding	BMC-кодування: як USB-C передає біти по CC	Type-C і Power Delivery	3	3	3	3	3	3039	2	1
+usb-pd-protocol	USB PD: рівень повідомлень	Type-C і Power Delivery	4	4	4	4	4	4073	2	2
+bc12-detection-electrical	BC 1.2: електрика детекту порту, автомат станів і схемотехніка обох боків	Type-C і Power Delivery	2	2	3	2.33	2	3126	2	0
+can-bus	CAN: від фізичного кадру до контролю помилок	Шини під задачу	5	5	5	5	5	2429	1	4
+can-frame-errors	Кадр CAN	Шини під задачу	3	3	3	3	3	3193	2	1
+can-arbitration	Арбітраж CAN	Шини під задачу	4	4	4	4	4	1616	1	3
+lin-bus	LIN Bus: локальна мережа автомобільних підсистем	Шини під задачу	3	3	3	3	3	2049	1	2
+flexray	FlexRay: детермінована високошвидкісна шина для критичних систем	Шини під задачу	2	2	2	2	2	2273	1	1
+dronecan	DroneCAN	Шини під задачу	2	2	2	2	2	2393	1	1
+pwm-servo-protocol	PWM-протокол сервомашинки	Шини під задачу	3	3	3	3	3	1814	1	2
+dshot-protocol	DShot: цифровий протокол до регулятора	Шини під задачу	3	3	2	2.67	3	2603	1	2
+sd-card-protocol	Протокол SD/SDIO	Шини під задачу	3	3	3	3	3	2986	2	1
+sdio-bus	Шина SDIO	Шини під задачу	2	2	2	2	2	2964	2	0
+i2s-bus	Шина I2S	Шини під задачу	3	3	3	3	3	1474	1	2
+one-wire	1-Wire — шина на одному дроті	Шини під задачу	3	3	3	3	3	2822	1	2
+mipi-csi2	MIPI CSI-2: послідовний інтерфейс камери	Шини під задачу	3	3	3	3	3	3583	2	1

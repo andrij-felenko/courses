@@ -1,0 +1,640 @@
+{
+ "book": "sf-lang",
+ "kind": "eng",
+ "raters": [
+  "A",
+  "B",
+  "C"
+ ],
+ "topics": [
+  {
+   "slug": "declarative-vs-imperative",
+   "title": "Декларативне й імперативне",
+   "group": "Парадигми й семантика",
+   "chapter": "Парадигми",
+   "votes": [
+    4,
+    3,
+    3
+   ],
+   "mean": 3.33,
+   "level": 3,
+   "spread": 1,
+   "words": 2014,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "first-class-functions",
+   "title": "Функції як значення першого класу",
+   "group": "Парадигми й семантика",
+   "chapter": "Парадигми",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 3055,
+   "realLevel": 2,
+   "delta": 2
+  },
+  {
+   "slug": "lazy-evaluation",
+   "title": "Ліниве обчислення",
+   "group": "Парадигми й семантика",
+   "chapter": "Парадигми",
+   "votes": [
+    2,
+    3,
+    2
+   ],
+   "mean": 2.33,
+   "level": 2,
+   "spread": 1,
+   "words": 2999,
+   "realLevel": 2,
+   "delta": 0
+  },
+  {
+   "slug": "variable-scope",
+   "title": "Область видимості змінної: де ім'я має значення",
+   "group": "Парадигми й семантика",
+   "chapter": "Імена й типи",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2015,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "static-vs-dynamic-typing",
+   "title": "Статична й динамічна типізація: коли виявляється помилка",
+   "group": "Парадигми й семантика",
+   "chapter": "Імена й типи",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2080,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "type-inference",
+   "title": "Виведення типів: як компілятор здогадується сам",
+   "group": "Парадигми й семантика",
+   "chapter": "Імена й типи",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2085,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "sentinel-values",
+   "title": "Вартові значення: як позначити «нічого» всередині типу",
+   "group": "Парадигми й семантика",
+   "chapter": "Значення й посилання",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2650,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "lisp",
+   "title": "Lisp: програма як список",
+   "group": "Парадигми й семантика",
+   "chapter": "Портрети мов",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 1703,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "memory-allocator-internals",
+   "title": "Внутрішня будова алокатора",
+   "group": "Дані в пам'яті",
+   "chapter": "Купа",
+   "votes": [
+    4,
+    3,
+    3
+   ],
+   "mean": 3.33,
+   "level": 3,
+   "spread": 1,
+   "words": 2609,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "memory-leak",
+   "title": "Витік пам'яті",
+   "group": "Дані в пам'яті",
+   "chapter": "Купа",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 3024,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "constructors-destructors",
+   "title": "Конструктор і деструктор: народження й смерть об'єкта",
+   "group": "Час життя й ресурси",
+   "chapter": "Створення і звільнення",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2257,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "raii",
+   "title": "RAII: ресурс прив'язаний до часу життя",
+   "group": "Час життя й ресурси",
+   "chapter": "Створення і звільнення",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 3038,
+   "realLevel": 2,
+   "delta": 2
+  },
+  {
+   "slug": "polymorphism",
+   "title": "Поліморфізм і динамічне зв'язування",
+   "group": "Типи й поліморфізм",
+   "chapter": "Спорідненість типів",
+   "votes": [
+    5,
+    5,
+    5
+   ],
+   "mean": 5,
+   "level": 5,
+   "spread": 0,
+   "words": 2739,
+   "realLevel": 1,
+   "delta": 4
+  },
+  {
+   "slug": "inheritance",
+   "title": "Спадкування",
+   "group": "Типи й поліморфізм",
+   "chapter": "Спорідненість типів",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 3021,
+   "realLevel": 2,
+   "delta": 2
+  },
+  {
+   "slug": "abstract-class",
+   "title": "Абстрактний клас і метод",
+   "group": "Типи й поліморфізм",
+   "chapter": "Спорідненість типів",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2910,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "object-system-in-c",
+   "title": "Об'єктна система поверх C: клас, примірник, реєстрація типу",
+   "group": "Типи й поліморфізм",
+   "chapter": "Спорідненість типів",
+   "votes": [
+    3,
+    2,
+    3
+   ],
+   "mean": 2.67,
+   "level": 3,
+   "spread": 1,
+   "words": 2035,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "abstract-syntax-tree",
+   "title": "Абстрактне синтаксичне дерево (AST)",
+   "group": "Пристрій перекладача",
+   "chapter": "Розбір тексту",
+   "votes": [
+    5,
+    5,
+    5
+   ],
+   "mean": 5,
+   "level": 5,
+   "spread": 0,
+   "words": 1511,
+   "realLevel": 1,
+   "delta": 4
+  },
+  {
+   "slug": "shunting-yard",
+   "title": "Сортувальна станція Дейкстри",
+   "group": "Пристрій перекладача",
+   "chapter": "Розбір тексту",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2975,
+   "realLevel": 2,
+   "delta": 0
+  },
+  {
+   "slug": "cyk-algorithm",
+   "title": "Алгоритм Кока–Янгера–Касамі (CYK)",
+   "group": "Пристрій перекладача",
+   "chapter": "Розбір тексту",
+   "votes": [
+    1,
+    1,
+    1
+   ],
+   "mean": 1,
+   "level": 1,
+   "spread": 0,
+   "words": 1790,
+   "realLevel": 1,
+   "delta": 0
+  },
+  {
+   "slug": "regular-expressions",
+   "title": "Регулярні вирази: BRE, ERE, PCRE",
+   "group": "Пристрій перекладача",
+   "chapter": "Розбір тексту",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2269,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "register-allocation",
+   "title": "Розподіл регістрів",
+   "group": "Пристрій перекладача",
+   "chapter": "Проміжне подання й аналіз",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2503,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "preprocessor-macros",
+   "title": "Препроцесор і макроси",
+   "group": "Пристрій перекладача",
+   "chapter": "Код над кодом",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 1769,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "constexpr",
+   "title": "constexpr: обчислення на етапі компіляції",
+   "group": "Пристрій перекладача",
+   "chapter": "Код над кодом",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2953,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "reflection-metaprogramming",
+   "title": "Рефлексія й метапрограмування",
+   "group": "Пристрій перекладача",
+   "chapter": "Код над кодом",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 1793,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "jit-compilation",
+   "title": "JIT-компіляція: машинний код, породжений під час виконання",
+   "group": "Пристрій перекладача",
+   "chapter": "Байткод і віртуальні машини",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2296,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "dataflow-analysis",
+   "title": "Аналіз потоків даних",
+   "group": "Оптимізація й гарантії",
+   "chapter": "Перетворення коду",
+   "votes": [
+    4,
+    3,
+    4
+   ],
+   "mean": 3.67,
+   "level": 4,
+   "spread": 1,
+   "words": 2187,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "link-time-optimization",
+   "title": "Оптимізація на етапі лінкування (LTO)",
+   "group": "Оптимізація й гарантії",
+   "chapter": "Перетворення коду",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 1944,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "dynamic-sanitizers",
+   "title": "Динамічні санітайзери: ASan, TSan, MSan, UBSan",
+   "group": "Оптимізація й гарантії",
+   "chapter": "Інструментування",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 3101,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "profile-guided-optimization",
+   "title": "Оптимізація за профілем виконання (PGO)",
+   "group": "Оптимізація й гарантії",
+   "chapter": "Інструментування",
+   "votes": [
+    2,
+    2,
+    1
+   ],
+   "mean": 1.67,
+   "level": 2,
+   "spread": 1,
+   "words": 1940,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "translation-unit",
+   "title": "Одиниця трансляції та зв'язування: static, extern, inline",
+   "group": "Зв'язування й рантайм",
+   "chapter": "Символи й зв'язування",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2142,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "linker-script",
+   "title": "Лінкер-скрипт",
+   "group": "Зв'язування й рантайм",
+   "chapter": "Образ програми",
+   "votes": [
+    2,
+    3,
+    3
+   ],
+   "mean": 2.67,
+   "level": 3,
+   "spread": 1,
+   "words": 2331,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "cpp-static-init-order",
+   "title": "Static initialization order fiasco",
+   "group": "Зв'язування й рантайм",
+   "chapter": "Рантайм",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 1868,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "foreign-function-interface",
+   "title": "Виклик рідного коду з іншої мови (FFI)",
+   "group": "Зв'язування й рантайм",
+   "chapter": "Двійковий інтерфейс",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 3047,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "inline-assembly",
+   "title": "Вбудований асемблер у C/C++",
+   "group": "Зв'язування й рантайм",
+   "chapter": "Двійковий інтерфейс",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2592,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "weak-symbol",
+   "title": "Слабкий символ і перевизначення",
+   "group": "Зв'язування й рантайм",
+   "chapter": "Символи й зв'язування",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 3014,
+   "realLevel": 2,
+   "delta": 0
+  },
+  {
+   "slug": "elf-image",
+   "title": "ELF-образ",
+   "group": "Зв'язування й рантайм",
+   "chapter": "Образ програми",
+   "votes": [
+    2,
+    3,
+    3
+   ],
+   "mean": 2.67,
+   "level": 3,
+   "spread": 1,
+   "words": 4580,
+   "realLevel": 3,
+   "delta": 0
+  },
+  {
+   "slug": "newlib",
+   "title": "newlib — libc для вбудованих систем",
+   "group": "Зв'язування й рантайм",
+   "chapter": "Рантайм",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 4569,
+   "realLevel": 3,
+   "delta": -1
+  }
+ ]
+}

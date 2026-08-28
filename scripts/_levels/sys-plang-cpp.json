@@ -1,0 +1,1813 @@
+{
+  "book": "sys-plang-cpp",
+  "kind": "sys",
+  "raters": [
+    "A",
+    "B",
+    "C"
+  ],
+  "topics": [
+    {
+      "slug": "const-correctness",
+      "title": "Коректність за const",
+      "group": "Основи мови",
+      "chapter": "Оголошення й типи",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2610,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "auto-type-deduction",
+      "title": "auto й виведення типу",
+      "group": "Основи мови",
+      "chapter": "Оголошення й типи",
+      "votes": [
+        4,
+        3,
+        4
+      ],
+      "mean": 3.67,
+      "level": 4,
+      "spread": 1,
+      "words": 2606,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "initialization-forms",
+      "title": "Форми ініціалізації та найприкріший розбір",
+      "group": "Основи мови",
+      "chapter": "Оголошення й типи",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2701,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "decltype",
+      "title": "decltype: тип виразу разом із його категорією",
+      "group": "Основи мови",
+      "chapter": "Оголошення й типи",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2044,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "structured-bindings",
+      "title": "Структуровані зв'язування: auto [a, b]",
+      "group": "Основи мови",
+      "chapter": "Оголошення й типи",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 1955,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "cast-operators",
+      "title": "Оператори приведення: static_cast, reinterpret_cast, const_cast",
+      "group": "Основи мови",
+      "chapter": "Оголошення й типи",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2954,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "value-categories",
+      "title": "Категорії значень: lvalue, prvalue, xvalue",
+      "group": "Основи мови",
+      "chapter": "Значення й переміщення",
+      "votes": [
+        5,
+        5,
+        5
+      ],
+      "mean": 5,
+      "level": 5,
+      "spread": 0,
+      "words": 2837,
+      "realLevel": 1,
+      "delta": 4
+    },
+    {
+      "slug": "references-binding",
+      "title": "Посилання і правила зв'язування",
+      "group": "Основи мови",
+      "chapter": "Значення й переміщення",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2578,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "move-semantics",
+      "title": "Семантика переміщення і rvalue-посилання",
+      "group": "Основи мови",
+      "chapter": "Значення й переміщення",
+      "votes": [
+        5,
+        5,
+        5
+      ],
+      "mean": 5,
+      "level": 5,
+      "spread": 0,
+      "words": 2425,
+      "realLevel": 1,
+      "delta": 4
+    },
+    {
+      "slug": "rule-of-five-zero",
+      "title": "Правило п'яти й правило нуля",
+      "group": "Основи мови",
+      "chapter": "Значення й переміщення",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2780,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "copy-elision",
+      "title": "Усунення копій і гарантований RVO",
+      "group": "Основи мови",
+      "chapter": "Значення й переміщення",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2825,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "perfect-forwarding",
+      "title": "Ідеальне передавання й універсальні посилання",
+      "group": "Основи мови",
+      "chapter": "Значення й переміщення",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2874,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "namespaces-and-adl",
+      "title": "Простори імен і пошук, залежний від аргументів",
+      "group": "Основи мови",
+      "chapter": "Пошук імені",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2109,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "using-and-name-hiding",
+      "title": "Затуляння імен і using-оголошення",
+      "group": "Основи мови",
+      "chapter": "Пошук імені",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2957,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "two-phase-name-lookup",
+      "title": "Двофазний пошук імен у шаблонах",
+      "group": "Основи мови",
+      "chapter": "Пошук імені",
+      "votes": [
+        3,
+        3,
+        2
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 2185,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "overload-resolution",
+      "title": "Розв'язання перевантажень: як обирається функція",
+      "group": "Основи мови",
+      "chapter": "Вибір перевантаження",
+      "votes": [
+        5,
+        5,
+        5
+      ],
+      "mean": 5,
+      "level": 5,
+      "spread": 0,
+      "words": 2014,
+      "realLevel": 1,
+      "delta": 4
+    },
+    {
+      "slug": "three-way-comparison",
+      "title": "Тричленне порівняння (operator<=>) і переписані кандидати",
+      "group": "Основи мови",
+      "chapter": "Вибір перевантаження",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2960,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "swap-operation",
+      "title": "Обмін значеннями: swap, ADL-пошук і зобов'язання не кидати",
+      "group": "Основи мови",
+      "chapter": "Вибір перевантаження",
+      "votes": [
+        3,
+        2,
+        2
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 1989,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "customization-points",
+      "title": "Точки налаштування й об'єкти-CPO",
+      "group": "Основи мови",
+      "chapter": "Вибір перевантаження",
+      "votes": [
+        3,
+        3,
+        2
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 2290,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "object-lifetime",
+      "title": "Час життя об'єкта",
+      "group": "Об'єкти й пам'ять",
+      "chapter": "Сховище й час життя",
+      "votes": [
+        5,
+        5,
+        5
+      ],
+      "mean": 5,
+      "level": 5,
+      "spread": 0,
+      "words": 2280,
+      "realLevel": 1,
+      "delta": 4
+    },
+    {
+      "slug": "new-delete-allocation",
+      "title": "new, delete й шляхи виділення пам'яті",
+      "group": "Об'єкти й пам'ять",
+      "chapter": "Сховище й час життя",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 3089,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "alignment-placement-new",
+      "title": "Вирівнювання й розміщувальний new",
+      "group": "Об'єкти й пам'ять",
+      "chapter": "Сховище й час життя",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2952,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "custom-allocators",
+      "title": "Власні алокатори й пам'ять під контролем",
+      "group": "Об'єкти й пам'ять",
+      "chapter": "Сховище й час життя",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2969,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "std-launder",
+      "title": "std::launder і повторне використання сховища",
+      "group": "Об'єкти й пам'ять",
+      "chapter": "Сховище й час життя",
+      "votes": [
+        1,
+        1,
+        1
+      ],
+      "mean": 1,
+      "level": 1,
+      "spread": 0,
+      "words": 2674,
+      "realLevel": 1,
+      "delta": 0
+    },
+    {
+      "slug": "ownership-semantics",
+      "title": "Володіння в сигнатурі: що означає тип параметра",
+      "group": "Об'єкти й пам'ять",
+      "chapter": "Володіння ресурсом",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 1927,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "unique-ptr",
+      "title": "unique_ptr: одноосібне володіння",
+      "group": "Об'єкти й пам'ять",
+      "chapter": "Володіння ресурсом",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2164,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "shared-weak-ptr",
+      "title": "shared_ptr і weak_ptr: спільне володіння й розрив циклів",
+      "group": "Об'єкти й пам'ять",
+      "chapter": "Володіння ресурсом",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2520,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "scope-guard",
+      "title": "Охоронець області: відкат через деструктор",
+      "group": "Об'єкти й пам'ять",
+      "chapter": "Володіння ресурсом",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2954,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "dangling-references",
+      "title": "Висячі посилання й звернення після звільнення",
+      "group": "Об'єкти й пам'ять",
+      "chapter": "Володіння ресурсом",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2601,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "virtual-destructor",
+      "title": "Віртуальний деструктор і поліморфне видалення",
+      "group": "Об'єкти й пам'ять",
+      "chapter": "Класи й ієрархії",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2501,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "multiple-and-virtual-inheritance",
+      "title": "Множинне й віртуальне спадкування: розкладка підобʼєктів",
+      "group": "Об'єкти й пам'ять",
+      "chapter": "Класи й ієрархії",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2990,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "rtti-and-dynamic-cast",
+      "title": "RTTI: typeid і dynamic_cast",
+      "group": "Об'єкти й пам'ять",
+      "chapter": "Класи й ієрархії",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2148,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "empty-base-optimization",
+      "title": "Оптимізація порожньої бази й [[no_unique_address]]",
+      "group": "Об'єкти й пам'ять",
+      "chapter": "Класи й ієрархії",
+      "votes": [
+        2,
+        1,
+        2
+      ],
+      "mean": 1.67,
+      "level": 2,
+      "spread": 1,
+      "words": 2957,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "crtp",
+      "title": "CRTP: статичний поліморфізм",
+      "group": "Об'єкти й пам'ять",
+      "chapter": "Класи й ієрархії",
+      "votes": [
+        3,
+        2,
+        3
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 2963,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "deducing-this",
+      "title": "Явний параметр об'єкта (deducing this)",
+      "group": "Об'єкти й пам'ять",
+      "chapter": "Класи й ієрархії",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 1864,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "templates-basics",
+      "title": "Шаблони: параметризація типом",
+      "group": "Узагальнений код",
+      "chapter": "Шаблони",
+      "votes": [
+        5,
+        5,
+        5
+      ],
+      "mean": 5,
+      "level": 5,
+      "spread": 0,
+      "words": 2994,
+      "realLevel": 2,
+      "delta": 3
+    },
+    {
+      "slug": "template-argument-deduction",
+      "title": "Виведення аргументів шаблону",
+      "group": "Узагальнений код",
+      "chapter": "Шаблони",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2977,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "specialization-overload",
+      "title": "Спеціалізація й перевантаження шаблонів",
+      "group": "Узагальнений код",
+      "chapter": "Шаблони",
+      "votes": [
+        4,
+        3,
+        3
+      ],
+      "mean": 3.33,
+      "level": 3,
+      "spread": 1,
+      "words": 1879,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "variadic-and-folds",
+      "title": "Шаблони змінної арності й вирази згортки",
+      "group": "Узагальнений код",
+      "chapter": "Шаблони",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 1424,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "instantiation-cost",
+      "title": "Ціна інстанціювання: час компіляції й розмір бінарника",
+      "group": "Узагальнений код",
+      "chapter": "Шаблони",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2971,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "expression-templates",
+      "title": "Шаблони виразів: коли вираз стає деревом типів",
+      "group": "Узагальнений код",
+      "chapter": "Шаблони",
+      "votes": [
+        2,
+        2,
+        1
+      ],
+      "mean": 1.67,
+      "level": 2,
+      "spread": 1,
+      "words": 1842,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "sfinae-and-enable-if",
+      "title": "SFINAE й enable_if: відбір перевантажень",
+      "group": "Узагальнений код",
+      "chapter": "Обмеження й статичний вибір",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2310,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "concepts-constraints",
+      "title": "Концепти й обмеження шаблонів",
+      "group": "Узагальнений код",
+      "chapter": "Обмеження й статичний вибір",
+      "votes": [
+        5,
+        4,
+        4
+      ],
+      "mean": 4.33,
+      "level": 4,
+      "spread": 1,
+      "words": 3025,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "constexpr-if",
+      "title": "if constexpr: гілка, якої не існує",
+      "group": "Узагальнений код",
+      "chapter": "Обмеження й статичний вибір",
+      "votes": [
+        3,
+        2,
+        3
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 3074,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "constexpr-and-consteval",
+      "title": "constexpr і consteval: обчислення під час компіляції",
+      "group": "Узагальнений код",
+      "chapter": "Обчислення до запуску",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2030,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "constinit",
+      "title": "constinit: ініціалізація до запуску без обіцянки незмінності",
+      "group": "Узагальнений код",
+      "chapter": "Обчислення до запуску",
+      "votes": [
+        1,
+        1,
+        1
+      ],
+      "mean": 1,
+      "level": 1,
+      "spread": 0,
+      "words": 2984,
+      "realLevel": 2,
+      "delta": -1
+    },
+    {
+      "slug": "type-traits",
+      "title": "Риси типів (type traits)",
+      "group": "Узагальнений код",
+      "chapter": "Обчислення до запуску",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 1690,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "static-reflection",
+      "title": "Статична рефлексія C++26: оператор ^^, splice і consteval-метафункції",
+      "group": "Узагальнений код",
+      "chapter": "Обчислення до запуску",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2958,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "exceptions-mechanism",
+      "title": "Винятки: кидання, розкрутка стека, перехоплення",
+      "group": "Помилки й гарантії",
+      "chapter": "Винятки",
+      "votes": [
+        5,
+        5,
+        5
+      ],
+      "mean": 5,
+      "level": 5,
+      "spread": 0,
+      "words": 2892,
+      "realLevel": 1,
+      "delta": 4
+    },
+    {
+      "slug": "std-exception-hierarchy",
+      "title": "Ієрархія std::exception і власні типи винятків",
+      "group": "Помилки й гарантії",
+      "chapter": "Винятки",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2067,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "exception-safety-guarantees",
+      "title": "Гарантії безпеки винятків: базова, сильна, nothrow",
+      "group": "Помилки й гарантії",
+      "chapter": "Винятки",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 3023,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "noexcept",
+      "title": "noexcept: обіцянка й наслідки",
+      "group": "Помилки й гарантії",
+      "chapter": "Винятки",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2526,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "expected-error-handling",
+      "title": "expected: помилка як значення",
+      "group": "Помилки й гарантії",
+      "chapter": "Помилка як значення",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2959,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "contracts",
+      "title": "Контракти в C++: преумови, постумови та інваріанти",
+      "group": "Помилки й гарантії",
+      "chapter": "Помилка як значення",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2999,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "core-guidelines",
+      "title": "Core Guidelines: узгоджені правила стилю й безпеки",
+      "group": "Помилки й гарантії",
+      "chapter": "Узгоджені правила коду",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2970,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "gsl-support-library",
+      "title": "GSL: not_null, owner і решта підпірок Core Guidelines",
+      "group": "Помилки й гарантії",
+      "chapter": "Узгоджені правила коду",
+      "votes": [
+        1,
+        1,
+        1
+      ],
+      "mean": 1,
+      "level": 1,
+      "spread": 0,
+      "words": 3085,
+      "realLevel": 2,
+      "delta": -1
+    },
+    {
+      "slug": "stl-containers-choice",
+      "title": "Контейнери STL: вибір під задачу і ціна операцій",
+      "group": "Стандартна бібліотека",
+      "chapter": "Контейнери й обхід",
+      "votes": [
+        5,
+        4,
+        4
+      ],
+      "mean": 4.33,
+      "level": 4,
+      "spread": 1,
+      "words": 2498,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "iterators-model",
+      "title": "Ітератори: категорії й модель обходу",
+      "group": "Стандартна бібліотека",
+      "chapter": "Контейнери й обхід",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2959,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "range-based-for",
+      "title": "Цикл for за діапазоном і в що він розгортається",
+      "group": "Стандартна бібліотека",
+      "chapter": "Контейнери й обхід",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 1910,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "stl-algorithms",
+      "title": "Алгоритми STL замість ручних циклів",
+      "group": "Стандартна бібліотека",
+      "chapter": "Контейнери й обхід",
+      "votes": [
+        4,
+        3,
+        3
+      ],
+      "mean": 3.33,
+      "level": 3,
+      "spread": 1,
+      "words": 1893,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "ranges-pipelines",
+      "title": "Ranges: конвеєри перетворень і ліниві види",
+      "group": "Стандартна бібліотека",
+      "chapter": "Контейнери й обхід",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2248,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "iterator-invalidation",
+      "title": "Інвалідація ітераторів: коли посилання на елемент стає недійсним",
+      "group": "Стандартна бібліотека",
+      "chapter": "Контейнери й обхід",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2191,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "string-and-string-view",
+      "title": "string і string_view: володіти чи дивитися",
+      "group": "Стандартна бібліотека",
+      "chapter": "Словникові типи",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2321,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "span-contiguous",
+      "title": "span: невласницький вид на суцільні дані",
+      "group": "Стандартна бібліотека",
+      "chapter": "Словникові типи",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2058,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "optional",
+      "title": "optional: значення, якого може не бути",
+      "group": "Стандартна бібліотека",
+      "chapter": "Словникові типи",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2068,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "variant-and-visit",
+      "title": "variant і visit: одне з кількох",
+      "group": "Стандартна бібліотека",
+      "chapter": "Словникові типи",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2608,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "tuple-and-pair",
+      "title": "tuple і pair: кортеж значень різних типів",
+      "group": "Стандартна бібліотека",
+      "chapter": "Словникові типи",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2025,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "lambdas-and-captures",
+      "title": "Лямбди й захоплення: що живе скільки",
+      "group": "Стандартна бібліотека",
+      "chapter": "Функція як значення",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2782,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "std-function-type-erasure",
+      "title": "std::function і стирання типу: ціна колбека",
+      "group": "Стандартна бібліотека",
+      "chapter": "Функція як значення",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2204,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "coroutines",
+      "title": "Корутини: призупинення функції й час життя кадру",
+      "group": "Стандартна бібліотека",
+      "chapter": "Функція як значення",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2260,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "std-generator",
+      "title": "std::generator: лінива послідовність на корутині",
+      "group": "Стандартна бібліотека",
+      "chapter": "Функція як значення",
+      "votes": [
+        2,
+        1,
+        2
+      ],
+      "mean": 1.67,
+      "level": 2,
+      "spread": 1,
+      "words": 1566,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "chrono",
+      "title": "chrono: годинники, точки часу й тривалості",
+      "group": "Стандартна бібліотека",
+      "chapter": "Готові підсистеми",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2950,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "std-filesystem",
+      "title": "filesystem: шляхи й дії з файлами переносно",
+      "group": "Стандартна бібліотека",
+      "chapter": "Готові підсистеми",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2951,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "format-and-print",
+      "title": "format і print: типобезпечне форматування",
+      "group": "Стандартна бібліотека",
+      "chapter": "Готові підсистеми",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2150,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "std-random",
+      "title": "random: рушії, розподіли й відтворюваність",
+      "group": "Стандартна бібліотека",
+      "chapter": "Готові підсистеми",
+      "votes": [
+        1,
+        2,
+        2
+      ],
+      "mean": 1.67,
+      "level": 2,
+      "spread": 1,
+      "words": 2953,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "std-thread-jthread",
+      "title": "thread і jthread: запуск, приєднання, скасування",
+      "group": "Паралельність",
+      "chapter": "Потоки й синхронізація",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2141,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "mutex-and-raii-locks",
+      "title": "М'ютекс і RAII-замки: lock_guard, unique_lock, scoped_lock",
+      "group": "Паралельність",
+      "chapter": "Потоки й синхронізація",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 1771,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "condition-variable",
+      "title": "Умовна змінна: чекати подію, а не крутитися",
+      "group": "Паралельність",
+      "chapter": "Потоки й синхронізація",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2965,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "shared-mutex",
+      "title": "shared_mutex: багато читачів, один письменник",
+      "group": "Паралельність",
+      "chapter": "Потоки й синхронізація",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2969,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "thread-local",
+      "title": "thread_local: стан, приватний для потоку",
+      "group": "Паралельність",
+      "chapter": "Потоки й синхронізація",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3222,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "call-once-lazy-init",
+      "title": "call_once і once_flag: одноразова ініціалізація",
+      "group": "Паралельність",
+      "chapter": "Потоки й синхронізація",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 1800,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "latch-barrier-semaphore",
+      "title": "latch, barrier і counting_semaphore",
+      "group": "Паралельність",
+      "chapter": "Потоки й синхронізація",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 1975,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "future-promise",
+      "title": "future й promise: результат з іншого потоку",
+      "group": "Паралельність",
+      "chapter": "Асинхронний результат",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2975,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "async-and-packaged-task",
+      "title": "async і packaged_task: запуск із результатом",
+      "group": "Паралельність",
+      "chapter": "Асинхронний результат",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2993,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "stop-token",
+      "title": "stop_token: кооперативне скасування",
+      "group": "Паралельність",
+      "chapter": "Асинхронний результат",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2987,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "parallel-algorithms",
+      "title": "Політики виконання й паралельні алгоритми",
+      "group": "Паралельність",
+      "chapter": "Асинхронний результат",
+      "votes": [
+        3,
+        3,
+        2
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 3081,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "p2300-senders-receivers",
+      "title": "Senders і Receivers: асинхронна модель P2300",
+      "group": "Паралельність",
+      "chapter": "Асинхронний результат",
+      "votes": [
+        3,
+        2,
+        2
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 2417,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "odr-and-linkage",
+      "title": "Правило одного визначення й зв'язування імен",
+      "group": "Збірка й двійковий інтерфейс",
+      "chapter": "Зв'язування й символи",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2046,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "name-mangling",
+      "title": "Спотворення імен: як символ несе сигнатуру",
+      "group": "Збірка й двійковий інтерфейс",
+      "chapter": "Зв'язування й символи",
+      "votes": [
+        2,
+        3,
+        2
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 2983,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "abi-stability-cpp",
+      "title": "Стабільність ABI у C++ і що її ламає",
+      "group": "Збірка й двійковий інтерфейс",
+      "chapter": "Зв'язування й символи",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3044,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "extern-c-interop",
+      "title": "extern \"C\" і сумісність із C-інтерфейсами",
+      "group": "Збірка й двійковий інтерфейс",
+      "chapter": "Зв'язування й символи",
+      "votes": [
+        3,
+        3,
+        2
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 2800,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "header-hygiene",
+      "title": "Гігієна заголовків і час перезбірки",
+      "group": "Збірка й двійковий інтерфейс",
+      "chapter": "Одиниці трансляції",
+      "votes": [
+        3,
+        3,
+        2
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 3225,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "pimpl",
+      "title": "PIMPL: сховати реалізацію за вказівником",
+      "group": "Збірка й двійковий інтерфейс",
+      "chapter": "Одиниці трансляції",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2450,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "cpp-modules",
+      "title": "Модулі C++20: інтерфейс замість заголовка",
+      "group": "Збірка й двійковий інтерфейс",
+      "chapter": "Одиниці трансляції",
+      "votes": [
+        3,
+        4,
+        3
+      ],
+      "mean": 3.33,
+      "level": 3,
+      "spread": 1,
+      "words": 2969,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "chomu-c-na-mikrokontroleri",
+      "title": "Чому C++ на мікроконтролері",
+      "group": "Збірка й двійковий інтерфейс",
+      "chapter": "Мова без операційної системи",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2715,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "shcho-z-c-ne-tiahnut-u-proshyvku",
+      "title": "Що з C++ не тягнуть у прошивку: винятки, RTTI, купа, віртуальні виклики",
+      "group": "Збірка й двійковий інтерфейс",
+      "chapter": "Мова без операційної системи",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2516,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "std-typy-bez-kupy",
+      "title": "std-типи без купи: array, span, string_view, optional",
+      "group": "Збірка й двійковий інтерфейс",
+      "chapter": "Мова без операційної системи",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2364,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "cpp11-cpp14",
+      "title": "C++11 і C++14: перелом",
+      "group": "Версії стандарту",
+      "chapter": "Випуски мови",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2945,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "cpp17-features",
+      "title": "Що приніс C++17",
+      "group": "Версії стандарту",
+      "chapter": "Випуски мови",
+      "votes": [
+        3,
+        3,
+        2
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 2962,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "cpp20-features",
+      "title": "Що приніс C++20",
+      "group": "Версії стандарту",
+      "chapter": "Випуски мови",
+      "votes": [
+        4,
+        3,
+        3
+      ],
+      "mean": 3.33,
+      "level": 3,
+      "spread": 1,
+      "words": 2365,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "cpp23-features",
+      "title": "Що приніс C++23",
+      "group": "Версії стандарту",
+      "chapter": "Випуски мови",
+      "votes": [
+        3,
+        2,
+        2
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 2779,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "cpp26-features",
+      "title": "Що готує C++26: рефлексія, контракти, senders/receivers",
+      "group": "Версії стандарту",
+      "chapter": "Випуски мови",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2952,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "standardization-process",
+      "title": "Як робиться стандарт C++: комітет, папери, цикл",
+      "group": "Версії стандарту",
+      "chapter": "Стандарт у роботі",
+      "votes": [
+        1,
+        1,
+        1
+      ],
+      "mean": 1,
+      "level": 1,
+      "spread": 0,
+      "words": 3052,
+      "realLevel": 2,
+      "delta": -1
+    },
+    {
+      "slug": "compiler-support",
+      "title": "Підтримка стандартів компіляторами й прапорці",
+      "group": "Версії стандарту",
+      "chapter": "Стандарт у роботі",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3080,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "migrating-standards",
+      "title": "Перехід проєкту на новіший стандарт",
+      "group": "Версії стандарту",
+      "chapter": "Стандарт у роботі",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3008,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "feature-test-macros",
+      "title": "Макроси тестування можливостей (__cpp_*)",
+      "group": "Версії стандарту",
+      "chapter": "Стандарт у роботі",
+      "votes": [
+        1,
+        1,
+        1
+      ],
+      "mean": 1,
+      "level": 1,
+      "spread": 0,
+      "words": 2633,
+      "realLevel": 1,
+      "delta": 0
+    }
+  ]
+}

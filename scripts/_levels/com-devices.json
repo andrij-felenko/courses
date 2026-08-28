@@ -1,0 +1,1150 @@
+{
+  "book": "com-devices",
+  "kind": "com",
+  "raters": [
+    "A",
+    "B",
+    "C"
+  ],
+  "topics": [
+    {
+      "slug": "bus-resource-conflicts",
+      "title": "Конфлікти шин",
+      "group": "Спільна лінія",
+      "chapter": "Хто тримає лінію",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 3121,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "clock-stretch-arbitration",
+      "title": "Розтягування й арбітраж",
+      "group": "Спільна лінія",
+      "chapter": "Хто тримає лінію",
+      "votes": [
+        3,
+        3,
+        4
+      ],
+      "mean": 3.33,
+      "level": 3,
+      "spread": 1,
+      "words": 1461,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "register-map",
+      "title": "Регістрова карта",
+      "group": "Спільна лінія",
+      "chapter": "Ведений пристрій",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 1228,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "burst-read",
+      "title": "Пакетне зчитування регістрів",
+      "group": "Спільна лінія",
+      "chapter": "Ведений пристрій",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2963,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "fifo-register",
+      "title": "FIFO-регістри в давачах",
+      "group": "Спільна лінія",
+      "chapter": "Ведений пристрій",
+      "votes": [
+        3,
+        2,
+        3
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 3017,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "drdy-pattern",
+      "title": "Шаблон DRDY і переривання давача",
+      "group": "Спільна лінія",
+      "chapter": "Ведений пристрій",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3053,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "i2c-expander",
+      "title": "I²C-розширювач",
+      "group": "Спільна лінія",
+      "chapter": "Ведений пристрій",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3063,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "i2c-bus",
+      "title": "Шина I2C",
+      "group": "I²C",
+      "chapter": "Два дроти й транзакція",
+      "votes": [
+        5,
+        5,
+        5
+      ],
+      "mean": 5,
+      "level": 5,
+      "spread": 0,
+      "words": 1157,
+      "realLevel": 1,
+      "delta": 4
+    },
+    {
+      "slug": "i2c-transaction",
+      "title": "Транзакція I2C",
+      "group": "I²C",
+      "chapter": "Два дроти й транзакція",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 1190,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "start-stop-ack",
+      "title": "Старт, стоп, ACK",
+      "group": "I²C",
+      "chapter": "Два дроти й транзакція",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 1420,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "i2c-addressing",
+      "title": "Адресація I2C",
+      "group": "I²C",
+      "chapter": "Адресація",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 1205,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "i2c-10bit-addressing",
+      "title": "10-бітна адресація I2C",
+      "group": "I²C",
+      "chapter": "Адресація",
+      "votes": [
+        1,
+        1,
+        2
+      ],
+      "mean": 1.33,
+      "level": 1,
+      "spread": 1,
+      "words": 3014,
+      "realLevel": 2,
+      "delta": -1
+    },
+    {
+      "slug": "i2c-speeds",
+      "title": "Режими швидкості I2C",
+      "group": "I²C",
+      "chapter": "Швидкості й розтягування такту",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3167,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "i2c-bus-timing",
+      "title": "Часові діаграми I²C: START, STOP, ACK і clock stretching",
+      "group": "I²C",
+      "chapter": "Швидкості й розтягування такту",
+      "votes": [
+        2,
+        3,
+        3
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 2950,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "i2c-clock-stretching-timing-budget",
+      "title": "Межі розтягування такту I2C: бюджет часу, дедлок шини і відмова від механізму в I3C",
+      "group": "I²C",
+      "chapter": "Швидкості й розтягування такту",
+      "votes": [
+        3,
+        2,
+        3
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 3115,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "i2c-clock-stretching-hardware",
+      "title": "Розтягування такту I2C: апаратна реалізація в контролері та на лінії",
+      "group": "I²C",
+      "chapter": "Швидкості й розтягування такту",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3075,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "i2c-bus-capacity",
+      "title": "Ємність шини I²C і вибір підтяжок",
+      "group": "I²C",
+      "chapter": "Електрика лінії",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2974,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "i2c-multimaster",
+      "title": "Кілька ведучих на I2C",
+      "group": "I²C",
+      "chapter": "Електрика лінії",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3081,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "i2c-bus-recovery",
+      "title": "Відновлення завислої шини I²C",
+      "group": "I²C",
+      "chapter": "Електрика лінії",
+      "votes": [
+        2,
+        3,
+        3
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 2584,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "smbus-standard",
+      "title": "Стандарт SMBus: системні інваріанти, транзакції та екосистема",
+      "group": "I²C",
+      "chapter": "Надбудови SMBus та I3C",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3057,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "smbus-bus-design",
+      "title": "Проєктування й налагодження шини SMBus: підтяжки, ємність, пастки, драйвери",
+      "group": "I²C",
+      "chapter": "Надбудови SMBus та I3C",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2956,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "i3c",
+      "title": "Шина I3C",
+      "group": "I²C",
+      "chapter": "Надбудови SMBus та I3C",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2982,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "spi-bus",
+      "title": "Шина SPI",
+      "group": "SPI",
+      "chapter": "Лінії та вибір кристала",
+      "votes": [
+        5,
+        5,
+        5
+      ],
+      "mean": 5,
+      "level": 5,
+      "spread": 0,
+      "words": 1139,
+      "realLevel": 1,
+      "delta": 4
+    },
+    {
+      "slug": "spi-lines",
+      "title": "Лінії SPI",
+      "group": "SPI",
+      "chapter": "Лінії та вибір кристала",
+      "votes": [
+        2,
+        2,
+        3
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 1400,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "chip-select",
+      "title": "Вибір кристала",
+      "group": "SPI",
+      "chapter": "Лінії та вибір кристала",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 1250,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "spi-mode-selection",
+      "title": "Вибір режиму SPI: CPOL, CPHA і чотири режими",
+      "group": "SPI",
+      "chapter": "Полярність і фаза такту",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 1441,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "spi-mode-timing-and-faults",
+      "title": "Режими SPI на рівні кристала: часовий бюджет, сумісність 0/3 і збої",
+      "group": "SPI",
+      "chapter": "Полярність і фаза такту",
+      "votes": [
+        3,
+        2,
+        3
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 3417,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "spi-speed",
+      "title": "Швидкість SPI",
+      "group": "SPI",
+      "chapter": "Часові запаси",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 1327,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "spi-timing",
+      "title": "Тайминг SPI: t_su, t_h, t_clk",
+      "group": "SPI",
+      "chapter": "Часові запаси",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2976,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "spi-cs-timing",
+      "title": "Часові параметри CS у SPI",
+      "group": "SPI",
+      "chapter": "Часові запаси",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2970,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "daisy-chain-spi",
+      "title": "Daisy-chain у SPI",
+      "group": "SPI",
+      "chapter": "Кілька пристроїв на лініях",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3022,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "spi-multimaster",
+      "title": "SPI з кількома веденими і режимами",
+      "group": "SPI",
+      "chapter": "Кілька пристроїв на лініях",
+      "votes": [
+        2,
+        2,
+        3
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 2955,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "multi-lane-spi-dual-quad-octal",
+      "title": "Багатолінійний SPI: Dual, Quad, Octal (xSPI)",
+      "group": "SPI",
+      "chapter": "Багатолінійний обмін",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2951,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "quad-spi-commands-and-controller",
+      "title": "Quad-SPI: набір команд і апаратний контролер",
+      "group": "SPI",
+      "chapter": "Багатолінійний обмін",
+      "votes": [
+        2,
+        3,
+        2
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 2952,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "async-serial",
+      "title": "Асинхронна передача",
+      "group": "Асинхронний порт",
+      "chapter": "Кадр і передача",
+      "votes": [
+        5,
+        4,
+        4
+      ],
+      "mean": 4.33,
+      "level": 4,
+      "spread": 1,
+      "words": 2175,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "uart-frame",
+      "title": "Кадр UART",
+      "group": "Асинхронний порт",
+      "chapter": "Кадр і передача",
+      "votes": [
+        4,
+        5,
+        4
+      ],
+      "mean": 4.33,
+      "level": 4,
+      "spread": 1,
+      "words": 1410,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "uart",
+      "title": "UART: апаратний модуль і периферійний контролер",
+      "group": "Асинхронний порт",
+      "chapter": "Кадр і передача",
+      "votes": [
+        4,
+        3,
+        5
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 2,
+      "words": 2420,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "baud-vs-bitrate",
+      "title": "Baud проти біт/с",
+      "group": "Асинхронний порт",
+      "chapter": "Швидкість і дільники",
+      "votes": [
+        1,
+        1,
+        1
+      ],
+      "mean": 1,
+      "level": 1,
+      "spread": 0,
+      "words": 2980,
+      "realLevel": 2,
+      "delta": -1
+    },
+    {
+      "slug": "baud-rate",
+      "title": "Швидкість baud",
+      "group": "Асинхронний порт",
+      "chapter": "Швидкість і дільники",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 1501,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "fractional-baud",
+      "title": "Дробовий дільник baud",
+      "group": "Асинхронний порт",
+      "chapter": "Швидкість і дільники",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3123,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "clock-tolerance-uart",
+      "title": "Допуск годинника UART",
+      "group": "Асинхронний порт",
+      "chapter": "Ловіння меж біта",
+      "votes": [
+        3,
+        4,
+        3
+      ],
+      "mean": 3.33,
+      "level": 3,
+      "spread": 1,
+      "words": 2968,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "uart-oversampling",
+      "title": "Передискретизація UART",
+      "group": "Асинхронний порт",
+      "chapter": "Ловіння меж біта",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3024,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "break-signal-uart",
+      "title": "Break-сигнал UART",
+      "group": "Асинхронний порт",
+      "chapter": "Стани лінії",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3237,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "half-duplex-uart",
+      "title": "Напівдуплекс UART",
+      "group": "Асинхронний порт",
+      "chapter": "Стани лінії",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2978,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "usb3-physical",
+      "title": "USB 3.x фізично: SuperSpeed і вище",
+      "group": "USB",
+      "chapter": "Дроти й рівні напруги",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3046,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "usb-device-basics",
+      "title": "Пристрій на шині USB: хост, енумерація, кінцеві точки, класи",
+      "group": "USB",
+      "chapter": "Впізнавання пристрою",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3935,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "usb-c-connector",
+      "title": "USB-C конектор",
+      "group": "Type-C і Power Delivery",
+      "chapter": "Роз'єм і кабель",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2572,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "usb-c-connector-physics",
+      "title": "Фізика роз'єму USB-C",
+      "group": "Type-C і Power Delivery",
+      "chapter": "Роз'єм і кабель",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3116,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "usb-active-cable",
+      "title": "Активні USB-кабелі",
+      "group": "Type-C і Power Delivery",
+      "chapter": "Роз'єм і кабель",
+      "votes": [
+        2,
+        1,
+        2
+      ],
+      "mean": 1.67,
+      "level": 2,
+      "spread": 1,
+      "words": 3129,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "e-marker",
+      "title": "E-Marker: чип автентифікації кабелю",
+      "group": "Type-C і Power Delivery",
+      "chapter": "Роз'єм і кабель",
+      "votes": [
+        3,
+        3,
+        2
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 2976,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "usb-c-audio-adapter",
+      "title": "USB-C аудіоадаптер: резистор Ra і режим аналогового звуку",
+      "group": "Type-C і Power Delivery",
+      "chapter": "Роз'єм і кабель",
+      "votes": [
+        1,
+        1,
+        1
+      ],
+      "mean": 1,
+      "level": 1,
+      "spread": 0,
+      "words": 3273,
+      "realLevel": 2,
+      "delta": -1
+    },
+    {
+      "slug": "bmc-encoding",
+      "title": "BMC-кодування: як USB-C передає біти по CC",
+      "group": "Type-C і Power Delivery",
+      "chapter": "Лінія CC",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3039,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "usb-pd-protocol",
+      "title": "USB PD: рівень повідомлень",
+      "group": "Type-C і Power Delivery",
+      "chapter": "Переговори про потужність",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 4073,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "bc12-detection-electrical",
+      "title": "BC 1.2: електрика детекту порту, автомат станів і схемотехніка обох боків",
+      "group": "Type-C і Power Delivery",
+      "chapter": "Зарядка до Type-C",
+      "votes": [
+        2,
+        2,
+        3
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 3126,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "can-bus",
+      "title": "CAN: від фізичного кадру до контролю помилок",
+      "group": "Шини під задачу",
+      "chapter": "Кадр і арбітраж CAN",
+      "votes": [
+        5,
+        5,
+        5
+      ],
+      "mean": 5,
+      "level": 5,
+      "spread": 0,
+      "words": 2429,
+      "realLevel": 1,
+      "delta": 4
+    },
+    {
+      "slug": "can-frame-errors",
+      "title": "Кадр CAN",
+      "group": "Шини під задачу",
+      "chapter": "Кадр і арбітраж CAN",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3193,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "can-arbitration",
+      "title": "Арбітраж CAN",
+      "group": "Шини під задачу",
+      "chapter": "Кадр і арбітраж CAN",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 1616,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "lin-bus",
+      "title": "LIN Bus: локальна мережа автомобільних підсистем",
+      "group": "Шини під задачу",
+      "chapter": "Бортові мережі",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2049,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "flexray",
+      "title": "FlexRay: детермінована високошвидкісна шина для критичних систем",
+      "group": "Шини під задачу",
+      "chapter": "Бортові мережі",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2273,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "dronecan",
+      "title": "DroneCAN",
+      "group": "Шини під задачу",
+      "chapter": "Бортові мережі",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2393,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "pwm-servo-protocol",
+      "title": "PWM-протокол сервомашинки",
+      "group": "Шини під задачу",
+      "chapter": "Команда до привода",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 1814,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "dshot-protocol",
+      "title": "DShot: цифровий протокол до регулятора",
+      "group": "Шини під задачу",
+      "chapter": "Команда до привода",
+      "votes": [
+        3,
+        3,
+        2
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 2603,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "sd-card-protocol",
+      "title": "Протокол SD/SDIO",
+      "group": "Шини під задачу",
+      "chapter": "Носій і звук",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2986,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "sdio-bus",
+      "title": "Шина SDIO",
+      "group": "Шини під задачу",
+      "chapter": "Носій і звук",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2964,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "i2s-bus",
+      "title": "Шина I2S",
+      "group": "Шини під задачу",
+      "chapter": "Носій і звук",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 1474,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "one-wire",
+      "title": "1-Wire — шина на одному дроті",
+      "group": "Шини під задачу",
+      "chapter": "Один дріт",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2822,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "mipi-csi2",
+      "title": "MIPI CSI-2: послідовний інтерфейс камери",
+      "group": "Шини під задачу",
+      "chapter": "Гігабітні пари",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3583,
+      "realLevel": 2,
+      "delta": 1
+    }
+  ]
+}

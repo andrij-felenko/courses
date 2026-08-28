@@ -1,0 +1,878 @@
+{
+ "book": "sf-release",
+ "kind": "eng",
+ "raters": [
+  "A",
+  "B",
+  "C"
+ ],
+ "topics": [
+  {
+   "slug": "branching-models",
+   "title": "Моделі гілкування: стовбурна розробка, гілки задач, релізні гілки",
+   "group": "Спільне дерево коду",
+   "chapter": "Лінії розробки",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2959,
+   "realLevel": 2,
+   "delta": 2
+  },
+  {
+   "slug": "fork-and-upstream",
+   "title": "Форк і апстрим: життя похідного репозиторію",
+   "group": "Спільне дерево коду",
+   "chapter": "Лінії розробки",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2994,
+   "realLevel": 2,
+   "delta": 0
+  },
+  {
+   "slug": "developer-certificate-of-origin",
+   "title": "Свідоцтво про походження коду (DCO) і підпис Signed-off-by",
+   "group": "Спільне дерево коду",
+   "chapter": "Володіння кодом",
+   "votes": [
+    1,
+    1,
+    1
+   ],
+   "mean": 1,
+   "level": 1,
+   "spread": 0,
+   "words": 3015,
+   "realLevel": 2,
+   "delta": -1
+  },
+  {
+   "slug": "integration-testing",
+   "title": "Інтеграційні тести й піраміда тестів",
+   "group": "Перевірка тестами",
+   "chapter": "Тест і його межа",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 3158,
+   "realLevel": 2,
+   "delta": 2
+  },
+  {
+   "slug": "contract-testing",
+   "title": "Контрактні тести",
+   "group": "Перевірка тестами",
+   "chapter": "Тест і його межа",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2973,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "flaky-tests",
+   "title": "Миготливі тести: недетермінованість і карантин",
+   "group": "Перевірка тестами",
+   "chapter": "Плаваючі помилки",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2965,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "heisenbug",
+   "title": "Гейзенбаги та спостережницький ефект",
+   "group": "Перевірка тестами",
+   "chapter": "Плаваючі помилки",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2910,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "fault-injection",
+   "title": "Інжекція збоїв: змусити помилку статися",
+   "group": "Перевірка тестами",
+   "chapter": "Ворожий вхід і навмисний збій",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2964,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "fmea",
+   "title": "FMEA: аналіз видів і наслідків відмов",
+   "group": "Аналіз і доведення",
+   "chapter": "Аналіз відмов",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 1847,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "fault-tree-analysis",
+   "title": "Аналіз дерева відмов (FTA)",
+   "group": "Аналіз і доведення",
+   "chapter": "Аналіз відмов",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2248,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "microbenchmarking",
+   "title": "Мікробенчмарк: як не збрехати собі виміром",
+   "group": "Аналіз і доведення",
+   "chapter": "Швидкість і навантаження",
+   "votes": [
+    2,
+    3,
+    2
+   ],
+   "mean": 2.33,
+   "level": 2,
+   "spread": 1,
+   "words": 2493,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "ci-cd",
+   "title": "CI/CD",
+   "group": "Конвеєр і артефакти",
+   "chapter": "Автоматичний конвеєр",
+   "votes": [
+    5,
+    5,
+    5
+   ],
+   "mean": 5,
+   "level": 5,
+   "spread": 0,
+   "words": 2953,
+   "realLevel": 2,
+   "delta": 3
+  },
+  {
+   "slug": "infrastructure-as-code",
+   "title": "Інфраструктура як код",
+   "group": "Конвеєр і артефакти",
+   "chapter": "Автоматичний конвеєр",
+   "votes": [
+    4,
+    3,
+    4
+   ],
+   "mean": 3.67,
+   "level": 4,
+   "spread": 1,
+   "words": 3069,
+   "realLevel": 2,
+   "delta": 2
+  },
+  {
+   "slug": "container-image-and-registry",
+   "title": "Образ і реєстр: тег, дайджест, шари й звідки береться pull",
+   "group": "Конвеєр і артефакти",
+   "chapter": "Автоматичний конвеєр",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2368,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "model-artifact",
+   "title": "Модель як версійований артефакт",
+   "group": "Конвеєр і артефакти",
+   "chapter": "Автоматичний конвеєр",
+   "votes": [
+    2,
+    1,
+    2
+   ],
+   "mean": 1.67,
+   "level": 2,
+   "spread": 1,
+   "words": 3044,
+   "realLevel": 2,
+   "delta": 0
+  },
+  {
+   "slug": "vorota-biudzhetu",
+   "title": "Ворота бюджету: флеш, RAM, стек, час завантаження",
+   "group": "Конвеєр і артефакти",
+   "chapter": "Ворота збірки",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 3027,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "nichni-prohony-i-rehresiia-spozhyvannia-chasu",
+   "title": "Нічні прогони й регресія споживання, часу відгуку та пам'яті",
+   "group": "Конвеєр і артефакти",
+   "chapter": "Ворота збірки",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2128,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "versiia-zi-stanu-repozytoriiu",
+   "title": "Версія зі стану репозиторію: тег, хеш, «брудна» збірка",
+   "group": "Конвеєр і артефакти",
+   "chapter": "Склад версії",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 3041,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "artefakty-vypusku",
+   "title": "Артефакти випуску: образ, мапа, символи, SBOM, звіти тестів",
+   "group": "Конвеєр і артефакти",
+   "chapter": "Склад версії",
+   "votes": [
+    4,
+    3,
+    3
+   ],
+   "mean": 3.33,
+   "level": 3,
+   "spread": 1,
+   "words": 3009,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "notatky-vypusku",
+   "title": "Нотатки випуску: що власник має дізнатися з оновлення",
+   "group": "Конвеєр і артефакти",
+   "chapter": "Склад версії",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2960,
+   "realLevel": 2,
+   "delta": 0
+  },
+  {
+   "slug": "reviziia-platy-versiia-proshyvky",
+   "title": "Ревізія плати × версія прошивки: одна прошивка на три ревізії",
+   "group": "Конвеєр і артефакти",
+   "chapter": "Склад версії",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2960,
+   "realLevel": 2,
+   "delta": 0
+  },
+  {
+   "slug": "expand-contract",
+   "title": "Expand–contract (parallel change) для API",
+   "group": "Конвеєр і артефакти",
+   "chapter": "Версії та сумісність",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2086,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "hyrums-law",
+   "title": "Закон Гайрама (Hyrum's Law)",
+   "group": "Конвеєр і артефакти",
+   "chapter": "Версії та сумісність",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 1762,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "release-candidate-and-freeze",
+   "title": "Реліз-кандидат і заморозка коду",
+   "group": "Конвеєр і артефакти",
+   "chapter": "Дорога до релізу",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 3046,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "release-channels",
+   "title": "Канали постачання: стабільний, тестовий, нічний",
+   "group": "Конвеєр і артефакти",
+   "chapter": "Дорога до релізу",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2979,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "deployment-strategies",
+   "title": "Стратегії деплою",
+   "group": "Викочування в бій",
+   "chapter": "Поступове викочування",
+   "votes": [
+    5,
+    5,
+    5
+   ],
+   "mean": 5,
+   "level": 5,
+   "spread": 0,
+   "words": 2967,
+   "realLevel": 2,
+   "delta": 3
+  },
+  {
+   "slug": "blue-green-deployment",
+   "title": "Синьо-зелене розгортання: ізольовані середовища, миттєве перемикання трафіку та стратегії сумісності стану",
+   "group": "Викочування в бій",
+   "chapter": "Поступове викочування",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2990,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "canary-deployment",
+   "title": "Канаркове розгортання: архітектура прогресивної доставки, трикогортний аналіз та автоматичний арбітраж",
+   "group": "Викочування в бій",
+   "chapter": "Поступове викочування",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2983,
+   "realLevel": 2,
+   "delta": 2
+  },
+  {
+   "slug": "parallel-run",
+   "title": "Parallel run",
+   "group": "Викочування в бій",
+   "chapter": "Поступове викочування",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2982,
+   "realLevel": 2,
+   "delta": 0
+  },
+  {
+   "slug": "feature-flags",
+   "title": "Прапорці функцій",
+   "group": "Викочування в бій",
+   "chapter": "Перемикач замість викочування",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2957,
+   "realLevel": 2,
+   "delta": 2
+  },
+  {
+   "slug": "dark-launch",
+   "title": "Темний запуск і feature-flag-міграція",
+   "group": "Викочування в бій",
+   "chapter": "Перемикач замість викочування",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2974,
+   "realLevel": 2,
+   "delta": 0
+  },
+  {
+   "slug": "graceful-shutdown",
+   "title": "Штатне вимкнення і drain",
+   "group": "Викочування в бій",
+   "chapter": "Зміна без простою",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 3160,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "zero-downtime-migration",
+   "title": "Zero-downtime міграції даних",
+   "group": "Викочування в бій",
+   "chapter": "Зміна без простою",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 1832,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "publikatsiia-vypusku-na-server-onovlen",
+   "title": "Публікація випуску на сервер оновлень",
+   "group": "Викочування в бій",
+   "chapter": "Кампанія оновлення парку",
+   "votes": [
+    3,
+    3,
+    2
+   ],
+   "mean": 2.67,
+   "level": 3,
+   "spread": 1,
+   "words": 3085,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "keruvannia-kampaniieiu",
+   "title": "Керування кампанією: хвилі, ліміти, показники — скільки взяли, скільки повернулися, скільки замовкли",
+   "group": "Викочування в бій",
+   "chapter": "Кампанія оновлення парку",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 3061,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "container-orchestration",
+   "title": "Оркестрація",
+   "group": "Викочування в бій",
+   "chapter": "Платформа запуску",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2796,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "serverless-faas",
+   "title": "Serverless/FaaS",
+   "group": "Викочування в бій",
+   "chapter": "Платформа запуску",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2961,
+   "realLevel": 2,
+   "delta": 0
+  },
+  {
+   "slug": "capacity-planning",
+   "title": "Планування потужностей і headroom",
+   "group": "Викочування в бій",
+   "chapter": "Запас потужності",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 3206,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "autoscaling",
+   "title": "Автоскейл",
+   "group": "Викочування в бій",
+   "chapter": "Запас потужності",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 3060,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "structured-logging",
+   "title": "Структуровані логи",
+   "group": "Життя в проді",
+   "chapter": "Спостережність",
+   "votes": [
+    3,
+    4,
+    4
+   ],
+   "mean": 3.67,
+   "level": 4,
+   "spread": 1,
+   "words": 2969,
+   "realLevel": 2,
+   "delta": 2
+  },
+  {
+   "slug": "metrics-monitoring",
+   "title": "Метрики",
+   "group": "Життя в проді",
+   "chapter": "Спостережність",
+   "votes": [
+    5,
+    5,
+    5
+   ],
+   "mean": 5,
+   "level": 5,
+   "spread": 0,
+   "words": 2954,
+   "realLevel": 2,
+   "delta": 3
+  },
+  {
+   "slug": "distributed-tracing",
+   "title": "Розподілений трейсинг",
+   "group": "Життя в проді",
+   "chapter": "Спостережність",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2985,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "slo-sli-sla",
+   "title": "SLI/SLO/SLA і бюджет помилок",
+   "group": "Життя в проді",
+   "chapter": "Цілі надійності",
+   "votes": [
+    5,
+    5,
+    5
+   ],
+   "mean": 5,
+   "level": 5,
+   "spread": 0,
+   "words": 2956,
+   "realLevel": 2,
+   "delta": 3
+  },
+  {
+   "slug": "alerting",
+   "title": "Алерти",
+   "group": "Життя в проді",
+   "chapter": "Цілі надійності",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2973,
+   "realLevel": 2,
+   "delta": 2
+  },
+  {
+   "slug": "incident-response",
+   "title": "Реагування на інциденти",
+   "group": "Життя в проді",
+   "chapter": "Інциденти",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2963,
+   "realLevel": 2,
+   "delta": 2
+  },
+  {
+   "slug": "postmortems",
+   "title": "Постмортем без винних",
+   "group": "Життя в проді",
+   "chapter": "Інциденти",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2955,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "chaos-engineering",
+   "title": "Хаос-інженерія",
+   "group": "Життя в проді",
+   "chapter": "Готовність до біди",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 3020,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "disaster-recovery",
+   "title": "Бекапи і DR",
+   "group": "Життя в проді",
+   "chapter": "Готовність до біди",
+   "votes": [
+    3,
+    3,
+    4
+   ],
+   "mean": 3.33,
+   "level": 3,
+   "spread": 1,
+   "words": 3345,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "fagan-inspection",
+   "title": "Формальна інспекція (метод Фагана)",
+   "group": "Спільне дерево коду",
+   "chapter": "Читання коду людьми",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 3190,
+   "realLevel": 2,
+   "delta": 0
+  },
+  {
+   "slug": "prymusove-onovlennia-i-zhoda-vlasnyka",
+   "title": "Примусове оновлення й згода власника",
+   "group": "Викочування в бій",
+   "chapter": "Кампанія оновлення парку",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 3020,
+   "realLevel": 2,
+   "delta": 0
+  },
+  {
+   "slug": "zupynka-kampanii-i-park-onovlenyi-napolovynu",
+   "title": "Зупинка кампанії й парк, оновлений наполовину",
+   "group": "Викочування в бій",
+   "chapter": "Кампанія оновлення парку",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 4641,
+   "realLevel": 3,
+   "delta": 0
+  }
+ ]
+}

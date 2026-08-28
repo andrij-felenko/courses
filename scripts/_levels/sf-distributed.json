@@ -1,0 +1,1949 @@
+{
+  "book": "sf-distributed",
+  "kind": "eng",
+  "raters": [
+    "A",
+    "B",
+    "C"
+  ],
+  "topics": [
+    {
+      "slug": "distributed-fallacies",
+      "title": "Вісім оман розподілених обчислень (мережа надійна / латентність нуль / пропускна нескінченна / топологія стала / …) як чекліст рев'ю; чому локальний виклик ≠ віддалений (RPC-брехня); часткова відмова як нова норма",
+      "group": "Часткова відмова",
+      "chapter": "Ціна мережевого виклику",
+      "votes": [
+        5,
+        5,
+        5
+      ],
+      "mean": 5,
+      "level": 5,
+      "spread": 0,
+      "words": 3046,
+      "realLevel": 2,
+      "delta": 3
+    },
+    {
+      "slug": "remote-interface-granularity",
+      "title": "Дробність віддаленого інтерфейсу",
+      "group": "Часткова відмова",
+      "chapter": "Ціна мережевого виклику",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2971,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "failure-detection",
+      "title": "Виявлення відмов: чому мертвий вузол не відрізнити від повільного",
+      "group": "Часткова відмова",
+      "chapter": "Виявлення відмов",
+      "votes": [
+        5,
+        5,
+        5
+      ],
+      "mean": 5,
+      "level": 5,
+      "spread": 0,
+      "words": 2902,
+      "realLevel": 1,
+      "delta": 4
+    },
+    {
+      "slug": "phi-accrual-failure-detector",
+      "title": "Детектор відмов Phi Accrual",
+      "group": "Часткова відмова",
+      "chapter": "Виявлення відмов",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 1710,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "health-checks",
+      "title": "Перевірки живості й готовності",
+      "group": "Часткова відмова",
+      "chapter": "Виявлення відмов",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3038,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "timeouts-deadlines",
+      "title": "Таймаути і бюджет часу",
+      "group": "Часткова відмова",
+      "chapter": "Мовчання залежності",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 3001,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "retries-backoff",
+      "title": "Повтори",
+      "group": "Часткова відмова",
+      "chapter": "Мовчання залежності",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2980,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "circuit-breaker-pattern",
+      "title": "Запобіжник",
+      "group": "Часткова відмова",
+      "chapter": "Мовчання залежності",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2994,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "bulkhead-isolation",
+      "title": "Перебірки (bulkhead)",
+      "group": "Часткова відмова",
+      "chapter": "Мовчання залежності",
+      "votes": [
+        2,
+        3,
+        2
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 3130,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "fail-open-fail-closed",
+      "title": "Fail-open проти fail-closed",
+      "group": "Часткова відмова",
+      "chapter": "Мовчання залежності",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2985,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "lamport-clocks",
+      "title": "Чому wall-clock бреше (дрейф, NTP-стрибки) і **годинник Лампорта**",
+      "group": "Час і порядок",
+      "chapter": "Причинність і логічний час",
+      "votes": [
+        5,
+        4,
+        4
+      ],
+      "mean": 4.33,
+      "level": 4,
+      "spread": 1,
+      "words": 2807,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "vector-clocks",
+      "title": "Векторні годинники й обходи розбіжності",
+      "group": "Час і порядок",
+      "chapter": "Причинність і логічний час",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2318,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "vector-clocks-vs-crdt",
+      "title": "Векторні годинники та CRDT: відстеження причинності проти автоматичної збіжності",
+      "group": "Час і порядок",
+      "chapter": "Причинність і логічний час",
+      "votes": [
+        2,
+        1,
+        2
+      ],
+      "mean": 1.67,
+      "level": 2,
+      "spread": 1,
+      "words": 2129,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "hybrid-logical-clocks",
+      "title": "Гібридні логічні годинники (HLC)",
+      "group": "Час і порядок",
+      "chapter": "Причинність і логічний час",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 1595,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "distributed-snapshot",
+      "title": "Узгоджений знімок розподіленої системи",
+      "group": "Час і порядок",
+      "chapter": "Причинність і логічний час",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2273,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "clock-offset-drift",
+      "title": "Дрейф годинників",
+      "group": "Час і порядок",
+      "chapter": "Фізичні годинники",
+      "votes": [
+        2,
+        3,
+        3
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 2593,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "ptp-1588",
+      "title": "PTP (IEEE 1588): точна синхронізація часу в мережі",
+      "group": "Час і порядок",
+      "chapter": "Фізичні годинники",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2985,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "timestamps",
+      "title": "Мітки часу",
+      "group": "Час і порядок",
+      "chapter": "Фізичні годинники",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3036,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "bounded-clock-uncertainty",
+      "title": "Обмежена невизначеність годинника",
+      "group": "Час і порядок",
+      "chapter": "Фізичні годинники",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2965,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "consensus-problem",
+      "title": "Задача консенсусу і чому вона важка (FLP оглядово); коли потрібен консенсус, а коли ні (дорого)",
+      "group": "Згода й узгодженість",
+      "chapter": "Консенсус",
+      "votes": [
+        5,
+        5,
+        5
+      ],
+      "mean": 5,
+      "level": 5,
+      "spread": 0,
+      "words": 3154,
+      "realLevel": 2,
+      "delta": 3
+    },
+    {
+      "slug": "raft",
+      "title": "Raft",
+      "group": "Згода й узгодженість",
+      "chapter": "Консенсус",
+      "votes": [
+        5,
+        5,
+        5
+      ],
+      "mean": 5,
+      "level": 5,
+      "spread": 0,
+      "words": 3015,
+      "realLevel": 2,
+      "delta": 3
+    },
+    {
+      "slug": "two-phase-commit",
+      "title": "Двофазний коміт і його страх",
+      "group": "Згода й узгодженість",
+      "chapter": "Консенсус",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2892,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "two-generals-problem",
+      "title": "Задача двох генералів",
+      "group": "Згода й узгодженість",
+      "chapter": "Консенсус",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2906,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "byzantine-fault-tolerance",
+      "title": "Коли вузли брешуть",
+      "group": "Згода й узгодженість",
+      "chapter": "Консенсус",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2317,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "consistency-models",
+      "title": "Спектр консистентності",
+      "group": "Згода й узгодженість",
+      "chapter": "Моделі узгодженості",
+      "votes": [
+        5,
+        5,
+        5
+      ],
+      "mean": 5,
+      "level": 5,
+      "spread": 0,
+      "words": 3051,
+      "realLevel": 2,
+      "delta": 3
+    },
+    {
+      "slug": "cap-theorem",
+      "title": "CAP (і чому не «оберіть 2») + PACELC (латентність теж у ціні)",
+      "group": "Згода й узгодженість",
+      "chapter": "Моделі узгодженості",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 3300,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "eventual-consistency",
+      "title": "Кінцева узгодженість на практиці",
+      "group": "Згода й узгодженість",
+      "chapter": "Моделі узгодженості",
+      "votes": [
+        4,
+        4,
+        3
+      ],
+      "mean": 3.67,
+      "level": 4,
+      "spread": 1,
+      "words": 2966,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "replication-lag",
+      "title": "Реплікаційний лаг і сесійні гарантії",
+      "group": "Згода й узгодженість",
+      "chapter": "Моделі узгодженості",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3014,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "read-model-lag",
+      "title": "Лаг read-model як контракт",
+      "group": "Згода й узгодженість",
+      "chapter": "Моделі узгодженості",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2530,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "replication-leader-follower",
+      "title": "Лідер-фоловер / мультилідер / leaderless",
+      "group": "Дані на багатьох вузлах",
+      "chapter": "Реплікація",
+      "votes": [
+        5,
+        5,
+        5
+      ],
+      "mean": 5,
+      "level": 5,
+      "spread": 0,
+      "words": 2734,
+      "realLevel": 1,
+      "delta": 4
+    },
+    {
+      "slug": "multi-leader-replication",
+      "title": "Мультилідерна реплікація",
+      "group": "Дані на багатьох вузлах",
+      "chapter": "Реплікація",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3451,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "quorum-and-leaderless",
+      "title": "Кворуми",
+      "group": "Дані на багатьох вузлах",
+      "chapter": "Реплікація",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 3122,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "split-brain",
+      "title": "Failover і розщеплення мозку",
+      "group": "Дані на багатьох вузлах",
+      "chapter": "Реплікація",
+      "votes": [
+        4,
+        3,
+        3
+      ],
+      "mean": 3.33,
+      "level": 3,
+      "spread": 1,
+      "words": 2978,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "anti-entropy-repair",
+      "title": "Анти-ентропія",
+      "group": "Дані на багатьох вузлах",
+      "chapter": "Реплікація",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2952,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "crdt",
+      "title": "Безконфліктні типи даних (CRDT)",
+      "group": "Дані на багатьох вузлах",
+      "chapter": "Збіжність копій",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2433,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "operational-transformation",
+      "title": "Операційні перетворення (OT)",
+      "group": "Дані на багатьох вузлах",
+      "chapter": "Збіжність копій",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2802,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "partitioning-sharding",
+      "title": "Шардинг",
+      "group": "Дані на багатьох вузлах",
+      "chapter": "Розкрій і межі",
+      "votes": [
+        5,
+        5,
+        5
+      ],
+      "mean": 5,
+      "level": 5,
+      "spread": 0,
+      "words": 3102,
+      "realLevel": 2,
+      "delta": 3
+    },
+    {
+      "slug": "cell-based-architecture",
+      "title": "Комірки і штампи",
+      "group": "Дані на багатьох вузлах",
+      "chapter": "Розкрій і межі",
+      "votes": [
+        3,
+        3,
+        2
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 2150,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "tenant-isolation",
+      "title": "Мультиарендність",
+      "group": "Дані на багатьох вузлах",
+      "chapter": "Розкрій і межі",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2905,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "data-residency",
+      "title": "Резидентність даних",
+      "group": "Дані на багатьох вузлах",
+      "chapter": "Розкрій і межі",
+      "votes": [
+        1,
+        1,
+        1
+      ],
+      "mean": 1,
+      "level": 1,
+      "spread": 0,
+      "words": 3071,
+      "realLevel": 2,
+      "delta": -1
+    },
+    {
+      "slug": "leader-election",
+      "title": "Вибори лідера як прикладний патерн",
+      "group": "Координація й довгі процеси",
+      "chapter": "Право на дію",
+      "votes": [
+        4,
+        4,
+        3
+      ],
+      "mean": 3.67,
+      "level": 4,
+      "spread": 1,
+      "words": 3034,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "distributed-locks",
+      "title": "Розподілені замки й лізи",
+      "group": "Координація й довгі процеси",
+      "chapter": "Право на дію",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 3231,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "fencing-tokens",
+      "title": "Fencing-токени розподілених блокувань",
+      "group": "Координація й довгі процеси",
+      "chapter": "Право на дію",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 1589,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "distributed-cron",
+      "title": "Розподілений cron",
+      "group": "Координація й довгі процеси",
+      "chapter": "Право на дію",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2965,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "saga-pattern",
+      "title": "Сага",
+      "group": "Координація й довгі процеси",
+      "chapter": "Сага й надійний обмін",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 3002,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "outbox-pattern",
+      "title": "Transactional outbox",
+      "group": "Координація й довгі процеси",
+      "chapter": "Сага й надійний обмін",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3083,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "inbox-pattern",
+      "title": "Вхідна скринька (inbox)",
+      "group": "Координація й довгі процеси",
+      "chapter": "Сага й надійний обмін",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2977,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "durable-workflows",
+      "title": "Durable workflows",
+      "group": "Координація й довгі процеси",
+      "chapter": "Довговічні процеси",
+      "votes": [
+        3,
+        4,
+        3
+      ],
+      "mean": 3.33,
+      "level": 3,
+      "spread": 1,
+      "words": 3020,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "durable-workflow-cluster-under-load",
+      "title": "Кластер довговічних процесів під навантаженням: колеса таймерів, гарячі сутності, багатоарендність",
+      "group": "Координація й довгі процеси",
+      "chapter": "Довговічні процеси",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 1887,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "orchestration-vs-choreography",
+      "title": "Оркестрація проти хореографії: хто веде багатокроковий процес",
+      "group": "Координація й довгі процеси",
+      "chapter": "Довговічні процеси",
+      "votes": [
+        3,
+        3,
+        2
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 2195,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "reconciliation",
+      "title": "Звірка",
+      "group": "Координація й довгі процеси",
+      "chapter": "Звірка станів",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2968,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "gossip-protocols",
+      "title": "Gossip-протоколи",
+      "group": "Плітки",
+      "chapter": "Механіка поширення",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 1775,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "gossip-dissemination",
+      "title": "Розповсюдження інформації через плітки: anti-entropy та rumor-mongering",
+      "group": "Плітки",
+      "chapter": "Механіка поширення",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 1951,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "gossip-pull-vs-push",
+      "title": "Стратегії поширення пліток: Push, Pull та гібридний Push-Pull",
+      "group": "Плітки",
+      "chapter": "Механіка поширення",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 1769,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "gossip-topology",
+      "title": "Топології пліток: повний граф, випадкові оверлеї та ієрархічні структури",
+      "group": "Плітки",
+      "chapter": "Механіка поширення",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 1633,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "gossip-vs-multicast",
+      "title": "Gossip vs IP Multicast",
+      "group": "Плітки",
+      "chapter": "Стійкість і межі",
+      "votes": [
+        1,
+        1,
+        2
+      ],
+      "mean": 1.33,
+      "level": 1,
+      "spread": 1,
+      "words": 1880,
+      "realLevel": 1,
+      "delta": 0
+    },
+    {
+      "slug": "bimodal-multicast",
+      "title": "Bimodal Multicast (pbcast)",
+      "group": "Плітки",
+      "chapter": "Стійкість і межі",
+      "votes": [
+        1,
+        1,
+        1
+      ],
+      "mean": 1,
+      "level": 1,
+      "spread": 0,
+      "words": 1546,
+      "realLevel": 1,
+      "delta": 0
+    },
+    {
+      "slug": "gossip-security",
+      "title": "Безпека пліток: Byzantine gossip, підписи та Sybil-атаки",
+      "group": "Плітки",
+      "chapter": "Стійкість і межі",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 1698,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "gossip-membership",
+      "title": "Плітки й членство в кластері (gossip, SWIM)",
+      "group": "Плітки",
+      "chapter": "Плітки в кластері",
+      "votes": [
+        3,
+        4,
+        3
+      ],
+      "mean": 3.33,
+      "level": 3,
+      "spread": 1,
+      "words": 1711,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "scuttlebutt-protocol",
+      "title": "Протокол узгодження Scuttlebutt",
+      "group": "Плітки",
+      "chapter": "Плітки в кластері",
+      "votes": [
+        2,
+        2,
+        1
+      ],
+      "mean": 1.67,
+      "level": 2,
+      "spread": 1,
+      "words": 1536,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "gossip-in-action",
+      "title": "Gossip на практиці (Cassandra, Consul, Dynamo, Memberlist)",
+      "group": "Плітки",
+      "chapter": "Плітки в кластері",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2167,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "message-channel",
+      "title": "Канал повідомлень: архітектурна абстракція зв'язку, моделі буферизації та мультиплексування",
+      "group": "Транспорт повідомлень",
+      "chapter": "Канали й черги",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2980,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "message-queue",
+      "title": "Черга повідомлень (point-to-point)",
+      "group": "Транспорт повідомлень",
+      "chapter": "Канали й черги",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 3227,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "publish-subscribe",
+      "title": "Pub/sub (тема)",
+      "group": "Транспорт повідомлень",
+      "chapter": "Канали й черги",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2955,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "event-log",
+      "title": "Журнал подій (Kafka-модель)",
+      "group": "Транспорт повідомлень",
+      "chapter": "Канали й черги",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 3221,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "competing-consumers",
+      "title": "Конкурентні споживачі",
+      "group": "Транспорт повідомлень",
+      "chapter": "Канали й черги",
+      "votes": [
+        3,
+        3,
+        2
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 3149,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "message-endpoint",
+      "title": "Кінцева точка повідомлень: як з'єднати прикладний домен із чергою без спагеті залежностей",
+      "group": "Транспорт повідомлень",
+      "chapter": "Канали й черги",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2966,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "message-broker",
+      "title": "Брокер повідомлень: архітектура посередника, маршрутизація, керування потоком та надійність",
+      "group": "Транспорт повідомлень",
+      "chapter": "Брокери й шини",
+      "votes": [
+        3,
+        4,
+        4
+      ],
+      "mean": 3.67,
+      "level": 4,
+      "spread": 1,
+      "words": 3063,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "message-bus",
+      "title": "Шина повідомлень: архітектура інтеграційної магістралі, канонічна модель даних та розв'язання зв'язності n×m",
+      "group": "Транспорт повідомлень",
+      "chapter": "Брокери й шини",
+      "votes": [
+        2,
+        3,
+        2
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 3067,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "message-bus-topology",
+      "title": "Топологія шини повідомлень: від централізованого хабу до однорангової мережі",
+      "group": "Транспорт повідомлень",
+      "chapter": "Брокери й шини",
+      "votes": [
+        1,
+        2,
+        1
+      ],
+      "mean": 1.33,
+      "level": 1,
+      "spread": 1,
+      "words": 2970,
+      "realLevel": 2,
+      "delta": -1
+    },
+    {
+      "slug": "message-bridge-protocol-gap",
+      "title": "Міст повідомлень: подолання протокольного розриву між різнорідними брокерами",
+      "group": "Транспорт повідомлень",
+      "chapter": "Брокери й шини",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3092,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "message-bridge-georeplication-topologies",
+      "title": "Топології мостів і геореплікація: трансляція зміщень, аварійне перемикання та пропускна здатність",
+      "group": "Транспорт повідомлень",
+      "chapter": "Брокери й шини",
+      "votes": [
+        2,
+        2,
+        1
+      ],
+      "mean": 1.67,
+      "level": 2,
+      "spread": 1,
+      "words": 2989,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "enterprise-service-bus",
+      "title": "Enterprise Service Bus (ESB): шина корпоративних сервісів",
+      "group": "Транспорт повідомлень",
+      "chapter": "Брокери й шини",
+      "votes": [
+        1,
+        1,
+        1
+      ],
+      "mean": 1,
+      "level": 1,
+      "spread": 0,
+      "words": 2952,
+      "realLevel": 2,
+      "delta": -1
+    },
+    {
+      "slug": "message-router",
+      "title": "Маршрутизатор повідомлень",
+      "group": "Обробка повідомлень",
+      "chapter": "Маршрутизація потоку",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2950,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "message-filter",
+      "title": "Фільтр повідомлень: відсікання шуму та захист контурів у розподілених потоках",
+      "group": "Обробка повідомлень",
+      "chapter": "Маршрутизація потоку",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3064,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "pipes-and-filters",
+      "title": "Канали та фільтри: архітектура конвеєрної обробки розподілених потоків",
+      "group": "Обробка повідомлень",
+      "chapter": "Маршрутизація потоку",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2997,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "message-splitter",
+      "title": "Розділювач повідомлень: декомпозиція складених пакетів у розподілених потоках",
+      "group": "Обробка повідомлень",
+      "chapter": "Перетворення й склад",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2982,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "message-aggregator",
+      "title": "Патерн агрегації та ресеквенсингу повідомлень (Message Aggregator)",
+      "group": "Обробка повідомлень",
+      "chapter": "Перетворення й склад",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2735,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "message-translator",
+      "title": "Транслятор повідомлень і канонічна модель",
+      "group": "Обробка повідомлень",
+      "chapter": "Перетворення й склад",
+      "votes": [
+        2,
+        3,
+        2
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 2981,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "claim-check",
+      "title": "Квитанція в камері схову",
+      "group": "Обробка повідомлень",
+      "chapter": "Перетворення й склад",
+      "votes": [
+        1,
+        2,
+        1
+      ],
+      "mean": 1.33,
+      "level": 1,
+      "spread": 1,
+      "words": 3056,
+      "realLevel": 2,
+      "delta": -1
+    },
+    {
+      "slug": "delivery-guarantees",
+      "title": "At-most-once / at-least-once / effectively-once",
+      "group": "Обробка повідомлень",
+      "chapter": "Семантика доставки",
+      "votes": [
+        5,
+        5,
+        5
+      ],
+      "mean": 5,
+      "level": 5,
+      "spread": 0,
+      "words": 3090,
+      "realLevel": 2,
+      "delta": 3
+    },
+    {
+      "slug": "idempotency",
+      "title": "Ідемпотентність",
+      "group": "Обробка повідомлень",
+      "chapter": "Семантика доставки",
+      "votes": [
+        5,
+        4,
+        5
+      ],
+      "mean": 4.67,
+      "level": 5,
+      "spread": 1,
+      "words": 3010,
+      "realLevel": 2,
+      "delta": 3
+    },
+    {
+      "slug": "idempotent-consumers-deep",
+      "title": "Ідемпотентні консюмери ГЛИБОКО",
+      "group": "Обробка повідомлень",
+      "chapter": "Семантика доставки",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3065,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "out-of-order-tolerance",
+      "title": "Толерантність до безладу",
+      "group": "Обробка повідомлень",
+      "chapter": "Семантика доставки",
+      "votes": [
+        3,
+        3,
+        2
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 2069,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "replay-protection-tactics",
+      "title": "Захист від переграних повідомлень як тактика",
+      "group": "Обробка повідомлень",
+      "chapter": "Семантика доставки",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 1989,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "poison-message",
+      "title": "Poison message / карантин",
+      "group": "Обробка повідомлень",
+      "chapter": "Непридатні повідомлення",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2437,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "dead-letter-queue",
+      "title": "Мертва черга",
+      "group": "Обробка повідомлень",
+      "chapter": "Непридатні повідомлення",
+      "votes": [
+        2,
+        3,
+        2
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 3088,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "service-discovery",
+      "title": "Виявлення сервісів",
+      "group": "Шлях запиту",
+      "chapter": "Адреса й балансування",
+      "votes": [
+        4,
+        4,
+        3
+      ],
+      "mean": 3.67,
+      "level": 4,
+      "spread": 1,
+      "words": 3011,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "load-balancing",
+      "title": "Балансування L4 vs L7",
+      "group": "Шлях запиту",
+      "chapter": "Адреса й балансування",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 1629,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "maglev-hashing",
+      "title": "Алгоритм хешування Maglev",
+      "group": "Шлях запиту",
+      "chapter": "Адреса й балансування",
+      "votes": [
+        1,
+        2,
+        2
+      ],
+      "mean": 1.67,
+      "level": 2,
+      "spread": 1,
+      "words": 1666,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "sidecar",
+      "title": "Sidecar і Ambassador",
+      "group": "Шлях запиту",
+      "chapter": "Сітка й супутні процеси",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3015,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "service-mesh",
+      "title": "Сервісна сітка",
+      "group": "Шлях запиту",
+      "chapter": "Сітка й супутні процеси",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2494,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "control-data-plane",
+      "title": "Площина управління і площина даних",
+      "group": "Шлях запиту",
+      "chapter": "Сітка й супутні процеси",
+      "votes": [
+        3,
+        3,
+        2
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 3045,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "hedged-requests",
+      "title": "Хеджовані запити",
+      "group": "Шлях запиту",
+      "chapter": "Хвіст затримки",
+      "votes": [
+        2,
+        3,
+        2
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 3008,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "request-coalescing",
+      "title": "Request coalescing / single-flight",
+      "group": "Шлях запиту",
+      "chapter": "Хвіст затримки",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 1489,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "fan-out-strategies",
+      "title": "Fan-out on-write vs on-read",
+      "group": "Шлях запиту",
+      "chapter": "Хвіст затримки",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3031,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "distributed-cache",
+      "title": "Розподілений кеш (memcached/Redis-клас)",
+      "group": "Кеш і спільна пам'ять",
+      "chapter": "Рівні кешу",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 1938,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "cdn",
+      "title": "CDN",
+      "group": "Кеш і спільна пам'ять",
+      "chapter": "Рівні кешу",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 1968,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "content-addressed-assets",
+      "title": "Незмінна статика: відбиток вмісту в адресі",
+      "group": "Кеш і спільна пам'ять",
+      "chapter": "Рівні кешу",
+      "votes": [
+        2,
+        1,
+        2
+      ],
+      "mean": 1.67,
+      "level": 2,
+      "spread": 1,
+      "words": 2822,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "cache-key-design",
+      "title": "Дизайн ключів і гарячі ключі",
+      "group": "Кеш і спільна пам'ять",
+      "chapter": "Гарячі ключі",
+      "votes": [
+        3,
+        3,
+        2
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 2319,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "cache-stampede",
+      "title": "Thundering herd / cache stampede і lock/coalescing",
+      "group": "Кеш і спільна пам'ять",
+      "chapter": "Гарячі ключі",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 1694,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "cache-invalidation-patterns",
+      "title": "Патерни інвалідації",
+      "group": "Кеш і спільна пам'ять",
+      "chapter": "Інвалідація й когерентність",
+      "votes": [
+        3,
+        3,
+        4
+      ],
+      "mean": 3.33,
+      "level": 3,
+      "spread": 1,
+      "words": 1737,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "cache-coherence-services",
+      "title": "Кеш-когерентність МІЖ СЕРВІСАМИ",
+      "group": "Кеш і спільна пам'ять",
+      "chapter": "Інвалідація й когерентність",
+      "votes": [
+        2,
+        2,
+        3
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 1995,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "distributed-shared-memory",
+      "title": "Розподілена спільна пам'ять",
+      "group": "Кеш і спільна пам'ять",
+      "chapter": "Спільна пам'ять вузлів",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3237,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "software-dsm-twin-diff",
+      "title": "Software DSM та механізм Twin-and-Diff",
+      "group": "Кеш і спільна пам'ять",
+      "chapter": "Спільна пам'ять вузлів",
+      "votes": [
+        1,
+        1,
+        1
+      ],
+      "mean": 1,
+      "level": 1,
+      "spread": 0,
+      "words": 2696,
+      "realLevel": 1,
+      "delta": 0
+    },
+    {
+      "slug": "load-shedding",
+      "title": "Скидання навантаження і плавна деградація",
+      "group": "Тиск навантаження",
+      "chapter": "Керування перевантаженням",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 3132,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "graceful-degradation-primary",
+      "title": "Graceful degradation як ПЕРВИННА стратегія",
+      "group": "Тиск навантаження",
+      "chapter": "Керування перевантаженням",
+      "votes": [
+        2,
+        3,
+        3
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 2796,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "admission-control",
+      "title": "Admission control",
+      "group": "Тиск навантаження",
+      "chapter": "Керування перевантаженням",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3140,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "adaptive-concurrency",
+      "title": "Адаптивні ліміти конкурентності",
+      "group": "Тиск навантаження",
+      "chapter": "Керування перевантаженням",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3135,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "fairness-quotas",
+      "title": "Чесність розподілу",
+      "group": "Тиск навантаження",
+      "chapter": "Керування перевантаженням",
+      "votes": [
+        2,
+        3,
+        2
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 3021,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "backpressure-end-to-end",
+      "title": "Наскрізний протитиск",
+      "group": "Тиск навантаження",
+      "chapter": "Протитиск і черга",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2144,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "queue-load-leveling",
+      "title": "Черга як вирівнювач",
+      "group": "Тиск навантаження",
+      "chapter": "Протитиск і черга",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3256,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "metastable-failures",
+      "title": "Метастабільні відмови",
+      "group": "Тиск навантаження",
+      "chapter": "Каскади й самопідсилення",
+      "votes": [
+        3,
+        4,
+        4
+      ],
+      "mean": 3.67,
+      "level": 4,
+      "spread": 1,
+      "words": 2309,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "thundering-herd",
+      "title": "Гримуча отара на масштабі",
+      "group": "Тиск навантаження",
+      "chapter": "Каскади й самопідсилення",
+      "votes": [
+        3,
+        2,
+        2
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 1859,
+      "realLevel": 1,
+      "delta": 1
+    }
+  ]
+}

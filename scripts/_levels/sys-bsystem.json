@@ -1,0 +1,691 @@
+{
+  "book": "sys-bsystem",
+  "kind": "sys",
+  "raters": [
+    "A",
+    "B",
+    "C"
+  ],
+  "topics": [
+    {
+      "slug": "dependency-graph",
+      "title": "Граф залежностей і порядок робіт",
+      "group": "Модель і тулчейн",
+      "chapter": "Від джерел до артефакту",
+      "votes": [
+        5,
+        5,
+        5
+      ],
+      "mean": 5,
+      "level": 5,
+      "spread": 0,
+      "words": 2969,
+      "realLevel": 2,
+      "delta": 3
+    },
+    {
+      "slug": "configure-and-generate",
+      "title": "Конфігурація, генерація і збірка поза деревом джерел",
+      "group": "Модель і тулчейн",
+      "chapter": "Від джерел до артефакту",
+      "votes": [
+        4,
+        5,
+        5
+      ],
+      "mean": 4.67,
+      "level": 5,
+      "spread": 1,
+      "words": 3165,
+      "realLevel": 2,
+      "delta": 3
+    },
+    {
+      "slug": "compilation-database",
+      "title": "База даних компіляції (compile_commands.json)",
+      "group": "Модель і тулчейн",
+      "chapter": "Від джерел до артефакту",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2949,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "make",
+      "title": "make: правила, цілі, змінні й чому Makefile такий",
+      "group": "Модель і тулчейн",
+      "chapter": "Компілятори й правила",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2797,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "compiler-families",
+      "title": "GCC, Clang і MSVC: де вони розходяться",
+      "group": "Модель і тулчейн",
+      "chapter": "Компілятори й правила",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3660,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "build-flags",
+      "title": "Прапорці збірки: оптимізація, налагоджувальні символи, попередження",
+      "group": "Модель і тулчейн",
+      "chapter": "Компілятори й правила",
+      "votes": [
+        3,
+        4,
+        3
+      ],
+      "mean": 3.33,
+      "level": 3,
+      "spread": 1,
+      "words": 3573,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "build-speed",
+      "title": "Швидкість збірки: Ninja, ccache, PCH, unity",
+      "group": "Модель і тулчейн",
+      "chapter": "Час збірки",
+      "votes": [
+        3,
+        4,
+        3
+      ],
+      "mean": 3.33,
+      "level": 3,
+      "spread": 1,
+      "words": 3342,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "jobserver-protocol",
+      "title": "Протокол Jobserver: координація паралелізму між процесами збірки",
+      "group": "Модель і тулчейн",
+      "chapter": "Час збірки",
+      "votes": [
+        2,
+        1,
+        1
+      ],
+      "mean": 1.33,
+      "level": 1,
+      "spread": 1,
+      "words": 2409,
+      "realLevel": 1,
+      "delta": 0
+    },
+    {
+      "slug": "dependency-manager-model",
+      "title": "Модель менеджера залежностей C++",
+      "group": "Залежності",
+      "chapter": "Менеджери й версії",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2973,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "conan",
+      "title": "Conan: рецепти, профілі, бінарні пакети",
+      "group": "Залежності",
+      "chapter": "Менеджери й версії",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2857,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "vcpkg",
+      "title": "vcpkg: порти, тріплети, маніфестний режим",
+      "group": "Залежності",
+      "chapter": "Менеджери й версії",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2548,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "vendoring-submodules",
+      "title": "Вендоринг і git-сабмодулі",
+      "group": "Залежності",
+      "chapter": "Менеджери й версії",
+      "votes": [
+        3,
+        3,
+        2
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 2765,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "version-pinning",
+      "title": "Закріплення версій і замки залежностей",
+      "group": "Залежності",
+      "chapter": "Менеджери й версії",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2330,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "dev-packages-and-pkg-config",
+      "title": "Заголовки й -dev пакунки: pkg-config і де лежить чужий API",
+      "group": "Залежності",
+      "chapter": "Системні пакунки й установлення",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2581,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "install-prefix-and-destdir",
+      "title": "Куди ставиться програма: prefix, DESTDIR і /usr/local",
+      "group": "Залежності",
+      "chapter": "Системні пакунки й установлення",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2543,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "reproducible-builds",
+      "title": "Відтворювані збірки",
+      "group": "Залежності",
+      "chapter": "Відтворюваність",
+      "votes": [
+        3,
+        4,
+        3
+      ],
+      "mean": 3.33,
+      "level": 3,
+      "spread": 1,
+      "words": 3011,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "hermetic-builds",
+      "title": "Герметичні системи збірки: модель Bazel та Buck2",
+      "group": "Залежності",
+      "chapter": "Відтворюваність",
+      "votes": [
+        3,
+        2,
+        3
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 2548,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "generator-expressions",
+      "title": "Генераторні вирази: рішення, відкладене до генерації",
+      "group": "CMake",
+      "chapter": "Мова CMakeLists",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 3033,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "usage-requirements",
+      "title": "Вимоги вжитку: PUBLIC, PRIVATE, INTERFACE",
+      "group": "CMake",
+      "chapter": "Цілі й вимоги вжитку",
+      "votes": [
+        5,
+        5,
+        5
+      ],
+      "mean": 5,
+      "level": 5,
+      "spread": 0,
+      "words": 2985,
+      "realLevel": 2,
+      "delta": 3
+    },
+    {
+      "slug": "cmake-presets",
+      "title": "CMakePresets: конфігурації як декларація",
+      "group": "CMake",
+      "chapter": "Конфігурація прогону",
+      "votes": [
+        2,
+        2,
+        3
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 2970,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "cache-and-options",
+      "title": "Кеш CMake, опції та їхнє життя між прогонами",
+      "group": "CMake",
+      "chapter": "Конфігурація прогону",
+      "votes": [
+        3,
+        4,
+        3
+      ],
+      "mean": 3.33,
+      "level": 3,
+      "spread": 1,
+      "words": 2971,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "cmake-toolchain-file",
+      "title": "Файл тулчейна: як CMake дізнається про чужу платформу",
+      "group": "CMake",
+      "chapter": "Конфігурація прогону",
+      "votes": [
+        3,
+        4,
+        4
+      ],
+      "mean": 3.67,
+      "level": 4,
+      "spread": 1,
+      "words": 3090,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "find-package",
+      "title": "find_package: Config проти Module й імпортовані цілі",
+      "group": "CMake",
+      "chapter": "Чужий код у збірці",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 3026,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "fetchcontent-subprojects",
+      "title": "FetchContent і підпроєкти: чужий код усередині збірки",
+      "group": "CMake",
+      "chapter": "Чужий код у збірці",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3072,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "custom-commands",
+      "title": "Власні команди й цілі: кодогенерація у збірці",
+      "group": "CMake",
+      "chapter": "Згенеровані файли",
+      "votes": [
+        3,
+        4,
+        3
+      ],
+      "mean": 3.33,
+      "level": 3,
+      "spread": 1,
+      "words": 3016,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "configure-file-templates",
+      "title": "configure_file: значення конфігурації у згенерованих файлах",
+      "group": "CMake",
+      "chapter": "Згенеровані файли",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2936,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "ctest",
+      "title": "CTest: реєстрація й запуск тестів",
+      "group": "CMake",
+      "chapter": "Тести, установлення, пакування",
+      "votes": [
+        2,
+        3,
+        2
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 2985,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "install-and-export",
+      "title": "install і export: зробити проєкт придатним для find_package",
+      "group": "CMake",
+      "chapter": "Тести, установлення, пакування",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2956,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "cpack",
+      "title": "CPack: збірка дистрибутива",
+      "group": "CMake",
+      "chapter": "Тести, установлення, пакування",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2481,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "cmake-policies",
+      "title": "Політики CMake: як мова змінюється, не ламаючи старі проєкти",
+      "group": "CMake",
+      "chapter": "Звички й сумісність",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2801,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "cmake-antipatterns",
+      "title": "Антипатерни CMake і чому вони живучі",
+      "group": "CMake",
+      "chapter": "Звички й сумісність",
+      "votes": [
+        2,
+        3,
+        2
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 2958,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "cross-compilation",
+      "title": "Крос-компіляція: хост, ціль і що між ними",
+      "group": "Чужі платформи",
+      "chapter": "Крос-збірка",
+      "votes": [
+        5,
+        4,
+        5
+      ],
+      "mean": 4.67,
+      "level": 5,
+      "spread": 1,
+      "words": 2936,
+      "realLevel": 1,
+      "delta": 4
+    },
+    {
+      "slug": "target-triple-sysroot",
+      "title": "Цільовий тріплет і sysroot",
+      "group": "Чужі платформи",
+      "chapter": "Крос-збірка",
+      "votes": [
+        3,
+        3,
+        4
+      ],
+      "mean": 3.33,
+      "level": 3,
+      "spread": 1,
+      "words": 2746,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "windows-toolchain-nuances",
+      "title": "Нюанси Windows: MSVC, рантайми, шляхи, кодування",
+      "group": "Чужі платформи",
+      "chapter": "Крос-збірка",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2927,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "android-ndk-nuances",
+      "title": "Нюанси Android: NDK, ABI, рівень API",
+      "group": "Чужі платформи",
+      "chapter": "Крос-збірка",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2274,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "platformio",
+      "title": "PlatformIO: збірка під будь-який МК",
+      "group": "Чужі платформи",
+      "chapter": "Тулчейни мікроконтролерів",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2296,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "vendor-lock-in",
+      "title": "Прив'язка до платформи (vendor lock-in)",
+      "group": "Чужі платформи",
+      "chapter": "Тулчейни мікроконтролерів",
+      "votes": [
+        1,
+        1,
+        1
+      ],
+      "mean": 1,
+      "level": 1,
+      "spread": 0,
+      "words": 2546,
+      "realLevel": 1,
+      "delta": 0
+    },
+    {
+      "slug": "esp-idf-struktura-proiektu-komponenty-menuconfig",
+      "title": "ESP-IDF: структура проєкту, компоненти, menuconfig",
+      "group": "Чужі платформи",
+      "chapter": "Прошивка й розкладка пам'яті",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2592,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "map-fail",
+      "title": "Map-файл: що з'їло флеш і RAM",
+      "group": "Чужі платформи",
+      "chapter": "Прошивка й розкладка пам'яті",
+      "votes": [
+        2,
+        3,
+        3
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 2408,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "svoi-sektsii-bufer-dma-stek-i-kupa-pid-svii-obsiah",
+      "title": "Свої секції, буфер DMA, стек і купа під свій обсяг",
+      "group": "Чужі платформи",
+      "chapter": "Прошивка й розкладка пам'яті",
+      "votes": [
+        2,
+        3,
+        2
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 2320,
+      "realLevel": 1,
+      "delta": 1
+    }
+  ]
+}

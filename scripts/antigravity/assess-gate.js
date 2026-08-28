@@ -2,6 +2,7 @@
 /* ГЕЙТ ФАЗИ ОЦІНКИ — приймає або відхиляє розкладку рівнів по батчу.
 
    Ужиток:  node scripts/antigravity/assess-gate.js --batch scripts/_finish/_batch-<книга>.json
+            node scripts/antigravity/assess-gate.js --batch <файл> --inserts
 
    Коди:  0 — розкладку прийнято, можна писати
           1 — ВІДХИЛЕНО: пусти фазу оцінки наново
@@ -24,7 +25,13 @@
    судити її має суддя читанням. Перевіряємо РОЗКЛАДКУ як ціле: якщо середня по
    батчу лягла низько, це означає не «нам трапився пакет дрібних тем», а що оцінювач
    поставив усім по одиниці, не розкладаючи. Шістнадцять тем, з яких половина нічого
-   не тримає, — це не книга, це збій оцінки.                                        */
+   не тримає, — це не книга, це збій оцінки.
+
+   `--inserts` робить те саме з рівнями ВСТАВОК, і потреба та сама. Р1-підлоги вставок
+   (proj- 650, api- 700, math- 650) майже збігаються з тим, що конвеєр писав раніше
+   САМ (виміряні медіани 737, 784, 781) — тобто розкладка «усім вставкам по одиниці»
+   відтворює старий недопис один в один і проходить зелено. Саме на вставках він і був
+   найгірший: удвічі-втричі нижче за норму, гірше, ніж на статтях.                    */
 "use strict";
 const fs = require("fs");
 const path = require("path");
@@ -50,20 +57,33 @@ catch (e) { console.error(`не прочитати ${BATCH}: ${e.message}`); pro
 const list = (Array.isArray(j) ? j : (j.topics || j.units || [])).filter((x) => x && typeof x === "object" && x.dir);
 if (!list.length) { console.error(`у ${BATCH} немає записів із "dir" — фаза оцінки не відпрацювала взагалі`); process.exit(1); }
 
-const lv = (x) => { const n = Math.round(Number(x.level)); return Number.isFinite(n) && n >= 1 && n <= 5 ? n : null; };
-const levels = list.map(lv);
-const missing = list.filter((x, i) => levels[i] === null);
-const good = levels.filter((n) => n !== null);
+const INSERTS = argv.includes("--inserts");
+const clamp = (v) => { const n = Math.round(Number(v)); return Number.isFinite(n) && n >= 1 && n <= 5 ? n : null; };
 
-console.log(`\n=== ГЕЙТ ОЦІНКИ: ${path.basename(BATCH)} · спроба ${TRY}/${MAX_TRIES} ===\n`);
+/* одиниці оцінки: теми (дефолт) або вставки (--inserts) */
+let units;
+if (INSERTS) {
+  units = [];
+  for (const x of list)
+    for (const [file, v] of Object.entries(x.inserts || {})) units.push({ name: `${x.dir}/${file}`, level: clamp(v) });
+  if (!units.length) { console.log("у батчі немає вставок — оцінювати нічого"); process.exit(0); }
+} else {
+  units = list.map((x) => ({ name: x.dir, level: clamp(x.level) }));
+}
+const missing = units.filter((u) => u.level === null);
+const good = units.map((u) => u.level).filter((x) => x !== null);
+
+console.log(`
+=== ГЕЙТ ОЦІНКИ${INSERTS ? " ВСТАВОК" : ""}: ${path.basename(BATCH)} · спроба ${TRY}/${MAX_TRIES} ===
+`);
 const hist = [1, 2, 3, 4, 5].map((n) => good.filter((x) => x === n).length);
 hist.forEach((c, i) => console.log(`  Р${i + 1}  ${String(c).padStart(3)}  ${"█".repeat(c)}`));
 const mean = good.length ? good.reduce((a, b) => a + b, 0) / good.length : 0;
-console.log(`\n  тем ${list.length} · оцінено ${good.length} · середня ${mean.toFixed(2)}`);
+console.log(`\n  ${INSERTS ? "вставок" : "тем"} ${units.length} · оцінено ${good.length} · середня ${mean.toFixed(2)}`);
 
 if (missing.length) {
-  console.log(`\n✖ ВІДХИЛЕНО: ${missing.length} тем без рівня`);
-  missing.slice(0, 10).forEach((x) => console.log(`    ${x.dir}`));
+  console.log(`\n✖ ВІДХИЛЕНО: ${missing.length} без рівня`);
+  missing.slice(0, 10).forEach((u) => console.log(`    ${u.name}`));
   console.log(`\nПусти фазу оцінки наново — ТИМ САМИМ промптом, на весь список.`);
   process.exit(1);
 }
@@ -80,5 +100,5 @@ if (mean < MIN_MEAN) {
   }
   process.exit(1);
 }
-console.log(`\n✓ ПРИЙНЯТО — можна писати.`);
+console.log(`\n✓ ПРИЙНЯТО — ${INSERTS ? "підлоги вставок чинні, далі гейт теми" : "можна писати"}.`);
 process.exit(0);

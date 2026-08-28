@@ -2,14 +2,24 @@
 /* ЧЕРГА ДОПИСУВАННЯ — локальна, агентів і токенів НЕ їсть.
 
    Ужиток:
-     node scripts/antigravity/update-queue.js --book <слуг> [--status update,deeper]
+     node scripts/antigravity/update-queue.js --book <слуг> [--status deeper,update]
                                               [--limit N] [--short-only] [--write]
+
+   ДЕФОЛТ — `deeper,update`, і саме в такому порядку. `deeper` («поглибити») точніший
+   за `update` («переписати»): він каже, що текст правильний, але мілкий, — а це рівно
+   те, з чим працює цей конвеєр. `update` лишається в дефолті, бо ним теж позначали
+   недопис до появи `deeper`.
 
    Навіщо окремо від write-batch. Той батч працює ТЕМАМИ: тема або написана, або ні.
    Дописування — робота іншої зернистості: у маніфесті статус має КОЖНА версія
    (`basic`, `detailed`) і КОЖНА вставка окремо, тож на дописування може стояти сама
    лише `proj-`-вставка при цілком готовій статті. Черга тому й ФАЙЛОВА: одиниця — це
    один `.md`, а не тека.
+
+   Звідки береться `deeper`. Статус проставляє звірка оцінки з розміром
+   (`scripts/levels-actual.js`): агенти дали темі рівень розкриття 1–5, скрипт зміряв
+   прозу детальної й переклав обсяг у рівень за тією ж зонною шкалою. Δ ≥ 2 (тема на
+   дві зони мілкіша за свою оцінку) → `deeper`. Δ у межах ±1 не чіпають: це допуск.
 
    Що робить: бере з маніфесту всі одиниці в потрібному статусі, звіряє їх із ДИСКОМ,
    міряє прозу тим самим `proseWords`, що й перевірка 06, дістає рівень розкриття з
@@ -39,7 +49,7 @@ const has = (k) => argv.includes(`--${k}`);
 
 const BOOK = val("book");
 if (!BOOK) { console.error("Ужиток: node scripts/antigravity/update-queue.js --book <слуг> [--status update] [--limit N] [--short-only] [--write]"); process.exit(L.USAGE); }
-const WANT = new Set((val("status") || "update").split(",").map((s) => s.trim()).filter(Boolean));
+const WANT = new Set((val("status") || "deeper,update").split(",").map((s) => s.trim()).filter(Boolean));
 const LIMIT = Number(val("limit") || 0) || 0;
 const SHORT_ONLY = has("short-only");
 

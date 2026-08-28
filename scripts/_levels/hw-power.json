@@ -1,0 +1,912 @@
+{
+  "book": "hw-power",
+  "kind": "hw",
+  "raters": [
+    "A",
+    "B",
+    "C"
+  ],
+  "topics": [
+    {
+      "slug": "linear-regulator",
+      "title": "Лінійний регулятор напруги",
+      "group": "Перетворення напруги",
+      "chapter": "Лінійні регулятори",
+      "votes": [
+        5,
+        5,
+        5
+      ],
+      "mean": 5,
+      "level": 5,
+      "spread": 0,
+      "words": 3138,
+      "realLevel": 2,
+      "delta": 3
+    },
+    {
+      "slug": "regulator-efficiency-budget",
+      "title": "ККД регулятора в енергетичному бюджеті",
+      "group": "Перетворення напруги",
+      "chapter": "Лінійні регулятори",
+      "votes": [
+        3,
+        3,
+        2
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 3009,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "pfm-burst-mode",
+      "title": "PFM і burst-mode: режими легкого навантаження",
+      "group": "Перетворення напруги",
+      "chapter": "Ключ і котушка",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2994,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "cuk-converter",
+      "title": "Перетворювач Ćuk",
+      "group": "Перетворення напруги",
+      "chapter": "Buck, boost і похідні",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3276,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "zeta-converter",
+      "title": "Zeta-перетворювач",
+      "group": "Перетворення напруги",
+      "chapter": "Buck, boost і похідні",
+      "votes": [
+        1,
+        1,
+        1
+      ],
+      "mean": 1,
+      "level": 1,
+      "spread": 0,
+      "words": 3073,
+      "realLevel": 2,
+      "delta": -1
+    },
+    {
+      "slug": "forward-converter",
+      "title": "Forward-перетворювач",
+      "group": "Перетворення напруги",
+      "chapter": "Ізольовані топології",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2991,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "push-pull-converter",
+      "title": "Двотактний (push-pull) перетворювач",
+      "group": "Перетворення напруги",
+      "chapter": "Ізольовані топології",
+      "votes": [
+        2,
+        3,
+        2
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 3089,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "half-bridge-converter",
+      "title": "Напівмістовий перетворювач",
+      "group": "Перетворення напруги",
+      "chapter": "Ізольовані топології",
+      "votes": [
+        3,
+        4,
+        4
+      ],
+      "mean": 3.67,
+      "level": 4,
+      "spread": 1,
+      "words": 3104,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "wireless-power-transfer",
+      "title": "Бездротова передача енергії: Qi і резонансна індукція",
+      "group": "Перетворення напруги",
+      "chapter": "Ізольовані топології",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3505,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "complementary-pwm-generation",
+      "title": "Комплементарна ШІМ: формування пари сигналів і апаратний генератор мертвого часу",
+      "group": "Силовий ключ і його драйвер",
+      "chapter": "Напівміст і мертвий час",
+      "votes": [
+        4,
+        3,
+        4
+      ],
+      "mean": 3.67,
+      "level": 4,
+      "spread": 1,
+      "words": 3231,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "switching-noise",
+      "title": "Шум імпульсного перетворювача",
+      "group": "Проєктування перетворювача",
+      "chapter": "Розводка й завади",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 3649,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "emi-filter",
+      "title": "ЕМС-фільтр мережі живлення",
+      "group": "Проєктування перетворювача",
+      "chapter": "Розводка й завади",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3156,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "bort-aparata",
+      "title": "Борт апарата: 12/24 В, скидання навантаження, холодний пуск",
+      "group": "Вхід і шини плати",
+      "chapter": "Вхід і його захист",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2885,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "power-rail-sequencing",
+      "title": "Секвенування шин живлення",
+      "group": "Вхід і шини плати",
+      "chapter": "Дерево шин",
+      "votes": [
+        3,
+        3,
+        2
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 3639,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "voltage-supervisor-ic",
+      "title": "Супервізор напруги (клас ІС)",
+      "group": "Вхід і шини плати",
+      "chapter": "Дерево шин",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2965,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "power-domains",
+      "title": "Силові домени мікроконтролера",
+      "group": "Вхід і шини плати",
+      "chapter": "Дерево шин",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2971,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "power-redundancy",
+      "title": "Резервування живлення",
+      "group": "Вхід і шини плати",
+      "chapter": "Кілька джерел",
+      "votes": [
+        3,
+        2,
+        2
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 3157,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "pd-sink-negotiation",
+      "title": "PD-переговори стіка: алгоритм вибору профілю",
+      "group": "Вхід і шини плати",
+      "chapter": "USB PD і павербанк",
+      "votes": [
+        2,
+        3,
+        3
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 3078,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "integrated-dc-dc",
+      "title": "Вбудований DC-DC в мікроконтролерах",
+      "group": "Точка навантаження",
+      "chapter": "Обчислювальний модуль",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3012,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "vid-voltage-identification",
+      "title": "VID: код напруги від процесора до регулятора",
+      "group": "Точка навантаження",
+      "chapter": "Ядро процесора",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3098,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "adaptive-voltage-positioning",
+      "title": "Адаптивне позиціювання напруги (AVP)",
+      "group": "Точка навантаження",
+      "chapter": "Ядро процесора",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2848,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "dcr-current-sense",
+      "title": "Вимірювання струму за DCR котушки",
+      "group": "Точка навантаження",
+      "chapter": "Ядро процесора",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2955,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "ac-power-grid",
+      "title": "Змінна мережа",
+      "group": "Мережа й змінний струм",
+      "chapter": "Енергосистема",
+      "votes": [
+        5,
+        4,
+        4
+      ],
+      "mean": 4.33,
+      "level": 4,
+      "spread": 1,
+      "words": 1444,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "generator-alternator",
+      "title": "Генератор змінного струму",
+      "group": "Мережа й змінний струм",
+      "chapter": "Енергосистема",
+      "votes": [
+        2,
+        3,
+        3
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 2977,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "hvdc",
+      "title": "HVDC — постійний струм високої напруги",
+      "group": "Мережа й змінний струм",
+      "chapter": "Енергосистема",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3029,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "hvdc-transmission",
+      "title": "Передача електроенергії постійним струмом (HVDC)",
+      "group": "Мережа й змінний струм",
+      "chapter": "Енергосистема",
+      "votes": [
+        1,
+        1,
+        1
+      ],
+      "mean": 1,
+      "level": 1,
+      "spread": 0,
+      "words": 3110,
+      "realLevel": 2,
+      "delta": -1
+    },
+    {
+      "slug": "three-phase-rotating-field",
+      "title": "Трифазний струм і обертове магнітне поле",
+      "group": "Мережа й змінний струм",
+      "chapter": "Трифазна система",
+      "votes": [
+        3,
+        3,
+        4
+      ],
+      "mean": 3.33,
+      "level": 3,
+      "spread": 1,
+      "words": 2494,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "three-phase-power-measurement",
+      "title": "Розрахунок і вимірювання потужності в трифазній мережі",
+      "group": "Мережа й змінний струм",
+      "chapter": "Трифазна система",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2953,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "switching-psu",
+      "title": "Імпульсний блок живлення",
+      "group": "Мережа й змінний струм",
+      "chapter": "Готовий мережевий блок",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3712,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "soft-start-ac",
+      "title": "Плавний пуск змінного навантаження",
+      "group": "Мережа й змінний струм",
+      "chapter": "Керування змінним навантаженням",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3166,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "insulation-classes",
+      "title": "Класи ізоляції: базова, підсилена, подвійна",
+      "group": "Мережа й змінний струм",
+      "chapter": "Ізоляція й мережева безпека",
+      "votes": [
+        4,
+        4,
+        3
+      ],
+      "mean": 3.67,
+      "level": 4,
+      "spread": 1,
+      "words": 2966,
+      "realLevel": 2,
+      "delta": 2
+    },
+    {
+      "slug": "current-safety",
+      "title": "Електробезпека",
+      "group": "Мережа й змінний струм",
+      "chapter": "Струм і людина",
+      "votes": [
+        4,
+        4,
+        5
+      ],
+      "mean": 4.33,
+      "level": 4,
+      "spread": 1,
+      "words": 1270,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "ventricular-fibrillation",
+      "title": "Фібриляція шлуночків",
+      "group": "Мережа й змінний струм",
+      "chapter": "Струм і людина",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2965,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "step-voltage",
+      "title": "Крокова й дотикова напруга",
+      "group": "Мережа й змінний струм",
+      "chapter": "Струм і людина",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2459,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "protective-grounding",
+      "title": "Захисне заземлення",
+      "group": "Мережа й змінний струм",
+      "chapter": "Струм і людина",
+      "votes": [
+        3,
+        3,
+        4
+      ],
+      "mean": 3.33,
+      "level": 3,
+      "spread": 1,
+      "words": 3197,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "pervynni-elementy",
+      "title": "Первинні елементи: літій-тіоніл, лужні, монетка",
+      "group": "Хімічне джерело",
+      "chapter": "Комірка та її хімія",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2961,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "ragone-chart",
+      "title": "Діаграма Рагоне",
+      "group": "Хімічне джерело",
+      "chapter": "Комірка та її хімія",
+      "votes": [
+        1,
+        2,
+        2
+      ],
+      "mean": 1.67,
+      "level": 2,
+      "spread": 1,
+      "words": 2594,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "battery-discharge-curve",
+      "title": "Крива розряду батареї",
+      "group": "Хімічне джерело",
+      "chapter": "Віддача під навантаженням",
+      "votes": [
+        4,
+        4,
+        4
+      ],
+      "mean": 4,
+      "level": 4,
+      "spread": 0,
+      "words": 2174,
+      "realLevel": 1,
+      "delta": 3
+    },
+    {
+      "slug": "li-ion-precharge",
+      "title": "Попередній заряд літієвої комірки",
+      "group": "Пакет і його заряд",
+      "chapter": "Заряджання комірки",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3274,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "zariad-svyntsiu-i-nimh",
+      "title": "Заряд свинцю й NiMH",
+      "group": "Пакет і його заряд",
+      "chapter": "Заряджання комірки",
+      "votes": [
+        2,
+        2,
+        3
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 2955,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "topolohiia-s-p-pid-potribnu-napruhu-i-strum",
+      "title": "Топологія S/P під потрібну напругу й струм",
+      "group": "Пакет і його заряд",
+      "chapter": "Складання пакета",
+      "votes": [
+        3,
+        4,
+        3
+      ],
+      "mean": 3.33,
+      "level": 3,
+      "spread": 1,
+      "words": 2949,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "dobir-komirok",
+      "title": "Добір комірок: партія, матчинг, вимір внутрішнього опору",
+      "group": "Пакет і його заряд",
+      "chapter": "Складання пакета",
+      "votes": [
+        3,
+        3,
+        2
+      ],
+      "mean": 2.67,
+      "level": 3,
+      "spread": 1,
+      "words": 2787,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "korotke-zamykannia-paketa",
+      "title": "Коротке замикання пакета: струм, дуга, що згорить першим",
+      "group": "Пакет і його заряд",
+      "chapter": "Небезпека пакета",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3170,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "povodzhennia-z-li-ion",
+      "title": "Поводження з Li-ion: заряд, зберігання, ушкоджена комірка",
+      "group": "Пакет і його заряд",
+      "chapter": "Небезпека пакета",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2830,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "peak-current-budgeting",
+      "title": "Пікові струми та просідання живлення",
+      "group": "Автономність і збирання енергії",
+      "chapter": "Бюджет енергії",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2539,
+      "realLevel": 1,
+      "delta": 2
+    },
+    {
+      "slug": "wi-fi-power-modes",
+      "title": "Режими енергоощадності Wi-Fi",
+      "group": "Автономність і збирання енергії",
+      "chapter": "Бюджет енергії",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 3433,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "low-power-node-battery-life",
+      "title": "Термін служби батареї автономного вузла: сон, імпульси, роки",
+      "group": "Автономність і збирання енергії",
+      "chapter": "Бюджет енергії",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 3819,
+      "realLevel": 2,
+      "delta": 1
+    },
+    {
+      "slug": "montazh-paneli-v-poli",
+      "title": "Монтаж панелі в полі: кріплення, бруд, град, тварини",
+      "group": "Автономність і збирання енергії",
+      "chapter": "Сонячна панель",
+      "votes": [
+        1,
+        2,
+        1
+      ],
+      "mean": 1.33,
+      "level": 1,
+      "spread": 1,
+      "words": 3317,
+      "realLevel": 2,
+      "delta": -1
+    },
+    {
+      "slug": "mala-vitroustanovka",
+      "title": "Мала вітроустановка: ротор, межа Бетца, крива потужності",
+      "group": "Автономність і збирання енергії",
+      "chapter": "Вітер і тепло",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2950,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "elektryka-vitriaka",
+      "title": "Електрика вітряка: генератор, випрямляч, баласт, гальмування",
+      "group": "Автономність і збирання енергії",
+      "chapter": "Вітер і тепло",
+      "votes": [
+        2,
+        2,
+        3
+      ],
+      "mean": 2.33,
+      "level": 2,
+      "spread": 1,
+      "words": 3007,
+      "realLevel": 2,
+      "delta": 0
+    },
+    {
+      "slug": "termoelektrychnyi-henerator",
+      "title": "Термоелектричний генератор: ефект Зеєбека",
+      "group": "Автономність і збирання енергії",
+      "chapter": "Вітер і тепло",
+      "votes": [
+        2,
+        2,
+        2
+      ],
+      "mean": 2,
+      "level": 2,
+      "spread": 0,
+      "words": 2913,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "rf-zbyrachi-i-kimnatne-svitlo",
+      "title": "RF-збирачі й кімнатне світло",
+      "group": "Автономність і збирання енергії",
+      "chapter": "Мікрозбирачі",
+      "votes": [
+        2,
+        1,
+        2
+      ],
+      "mean": 1.67,
+      "level": 2,
+      "spread": 1,
+      "words": 2865,
+      "realLevel": 1,
+      "delta": 1
+    },
+    {
+      "slug": "nakopychuvach-zbyracha-i-kholodnyi-start",
+      "title": "Накопичувач збирача й холодний старт",
+      "group": "Автономність і збирання енергії",
+      "chapter": "Мікрозбирачі",
+      "votes": [
+        3,
+        3,
+        3
+      ],
+      "mean": 3,
+      "level": 3,
+      "spread": 0,
+      "words": 2890,
+      "realLevel": 1,
+      "delta": 2
+    }
+  ]
+}

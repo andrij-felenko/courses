@@ -1,0 +1,555 @@
+{
+ "book": "sf-apps",
+ "kind": "eng",
+ "raters": [
+  "A",
+  "B",
+  "C"
+ ],
+ "topics": [
+  {
+   "slug": "abstraction-principle",
+   "title": "Принцип абстракції в програмуванні",
+   "group": "Принципи й межі",
+   "chapter": "Приховане й обіцяне",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2450,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "information-hiding",
+   "title": "Приховування інформації",
+   "group": "Принципи й межі",
+   "chapter": "Приховане й обіцяне",
+   "votes": [
+    5,
+    5,
+    5
+   ],
+   "mean": 5,
+   "level": 5,
+   "spread": 0,
+   "words": 3098,
+   "realLevel": 2,
+   "delta": 3
+  },
+  {
+   "slug": "worse-is-better",
+   "title": "«Гірше — це краще»: простота реалізації проти повноти семантики",
+   "group": "Принципи й межі",
+   "chapter": "Ціна складності",
+   "votes": [
+    3,
+    2,
+    2
+   ],
+   "mean": 2.33,
+   "level": 2,
+   "spread": 1,
+   "words": 3202,
+   "realLevel": 2,
+   "delta": 0
+  },
+  {
+   "slug": "single-source-of-truth",
+   "title": "Єдине джерело правди",
+   "group": "Стан, дані й збої",
+   "chapter": "Володіння станом",
+   "votes": [
+    4,
+    4,
+    3
+   ],
+   "mean": 3.67,
+   "level": 4,
+   "spread": 1,
+   "words": 3108,
+   "realLevel": 2,
+   "delta": 2
+  },
+  {
+   "slug": "errno",
+   "title": "errno та POSIX-коди помилок",
+   "group": "Стан, дані й збої",
+   "chapter": "Шлях помилки",
+   "votes": [
+    1,
+    1,
+    1
+   ],
+   "mean": 1,
+   "level": 1,
+   "spread": 0,
+   "words": 2631,
+   "realLevel": 1,
+   "delta": 0
+  },
+  {
+   "slug": "data-oriented-design",
+   "title": "Data-Oriented Design (DOD)",
+   "group": "Стан, дані й збої",
+   "chapter": "Розкладка даних",
+   "votes": [
+    4,
+    4,
+    3
+   ],
+   "mean": 3.67,
+   "level": 4,
+   "spread": 1,
+   "words": 1880,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "data-layout-aos-soa",
+   "title": "Розкладка даних у пам'яті: масив структур і структура масивів",
+   "group": "Стан, дані й збої",
+   "chapter": "Розкладка даних",
+   "votes": [
+    3,
+    3,
+    2
+   ],
+   "mean": 2.67,
+   "level": 3,
+   "spread": 1,
+   "words": 2978,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "monotonic-vs-wall-time",
+   "title": "Монотонний проти настінного часу для дедлайнів і тривалостей",
+   "group": "Стан, дані й збої",
+   "chapter": "Час і календар",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2540,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "convention-over-configuration",
+   "title": "Конвенція понад конфігурацію",
+   "group": "Складання й запуск",
+   "chapter": "Конфігурація і конвенції",
+   "votes": [
+    2,
+    2,
+    3
+   ],
+   "mean": 2.33,
+   "level": 2,
+   "spread": 1,
+   "words": 3021,
+   "realLevel": 2,
+   "delta": 0
+  },
+  {
+   "slug": "domain-model",
+   "title": "Предметна модель",
+   "group": "Предметна модель",
+   "chapter": "Форма ділової логіки",
+   "votes": [
+    5,
+    5,
+    5
+   ],
+   "mean": 5,
+   "level": 5,
+   "spread": 0,
+   "words": 2769,
+   "realLevel": 1,
+   "delta": 4
+  },
+  {
+   "slug": "ui-response-time-limits",
+   "title": "Пороги часу відгуку інтерфейсу: 0.1 с, 1 с, 10 с",
+   "group": "Інтерфейс і клієнт",
+   "chapter": "Відгук і плавність",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2965,
+   "realLevel": 2,
+   "delta": 2
+  },
+  {
+   "slug": "debouncing-throttling",
+   "title": "Дебаунс і тротлінг: як проріджувати потік подій",
+   "group": "Інтерфейс і клієнт",
+   "chapter": "Відгук і плавність",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 3165,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "list-virtualization",
+   "title": "Віртуалізація довгих списків",
+   "group": "Інтерфейс і клієнт",
+   "chapter": "Відгук і плавність",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 3119,
+   "realLevel": 2,
+   "delta": 0
+  },
+  {
+   "slug": "virtual-dom",
+   "title": "Віртуальне дерево подання і звіряння (diffing)",
+   "group": "Інтерфейс і клієнт",
+   "chapter": "Відгук і плавність",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2761,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "ajax-partial-updates",
+   "title": "Фонові запити зі сторінки: часткове оновлення без перезавантаження",
+   "group": "Інтерфейс і клієнт",
+   "chapter": "Узгодження з сервером",
+   "votes": [
+    3,
+    2,
+    3
+   ],
+   "mean": 2.67,
+   "level": 3,
+   "spread": 1,
+   "words": 2945,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "optimistic-ui-update",
+   "title": "Оптимістичне оновлення інтерфейсу й відкат невдалої зміни",
+   "group": "Інтерфейс і клієнт",
+   "chapter": "Узгодження з сервером",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2992,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "offline-first-client",
+   "title": "Офлайн-перший клієнт: локальна правда й узгодження з сервером",
+   "group": "Інтерфейс і клієнт",
+   "chapter": "Узгодження з сервером",
+   "votes": [
+    4,
+    4,
+    4
+   ],
+   "mean": 4,
+   "level": 4,
+   "spread": 0,
+   "words": 2800,
+   "realLevel": 1,
+   "delta": 3
+  },
+  {
+   "slug": "client-crash-recovery",
+   "title": "Документ переживає крах: автозбереження і журнал",
+   "group": "Інтерфейс і клієнт",
+   "chapter": "Історія документа",
+   "votes": [
+    2,
+    3,
+    2
+   ],
+   "mean": 2.33,
+   "level": 2,
+   "spread": 1,
+   "words": 3034,
+   "realLevel": 2,
+   "delta": 0
+  },
+  {
+   "slug": "android-app-model",
+   "title": "Модель застосунку Android: маніфест, дозволи, наміри",
+   "group": "Інтерфейс і клієнт",
+   "chapter": "Правила платформи",
+   "votes": [
+    3,
+    2,
+    4
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 2,
+   "words": 3233,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "push-notifications",
+   "title": "Push як канал ОС",
+   "group": "Інтерфейс і клієнт",
+   "chapter": "Правила платформи",
+   "votes": [
+    2,
+    1,
+    2
+   ],
+   "mean": 1.67,
+   "level": 2,
+   "spread": 1,
+   "words": 2869,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "metadata-driven-ui",
+   "title": "Інтерфейс, породжений метаданими",
+   "group": "Інтерфейс і клієнт",
+   "chapter": "Опис і мова інтерфейсу",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 2989,
+   "realLevel": 2,
+   "delta": 0
+  },
+  {
+   "slug": "functional-reactive-programming",
+   "title": "Функціональне реактивне програмування (FRP)",
+   "group": "Служби й команди",
+   "chapter": "Події всередині процесу",
+   "votes": [
+    2,
+    3,
+    2
+   ],
+   "mean": 2.33,
+   "level": 2,
+   "spread": 1,
+   "words": 3105,
+   "realLevel": 2,
+   "delta": 0
+  },
+  {
+   "slug": "atam-architecture-evaluation",
+   "title": "Метод оцінки архітектури ATAM",
+   "group": "Вибір і його ціна",
+   "chapter": "Оцінювання й компроміси",
+   "votes": [
+    1,
+    3,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 2,
+   "words": 2415,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "c4-architecture-model",
+   "title": "Модель опису архітектури C4",
+   "group": "Опис системи",
+   "chapter": "Модель C4",
+   "votes": [
+    2,
+    3,
+    3
+   ],
+   "mean": 2.67,
+   "level": 3,
+   "spread": 1,
+   "words": 2303,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "architecture-decision-records",
+   "title": "Журнал архітектурних рішень (ADR)",
+   "group": "Опис системи",
+   "chapter": "Записані рішення",
+   "votes": [
+    2,
+    3,
+    3
+   ],
+   "mean": 2.67,
+   "level": 3,
+   "spread": 1,
+   "words": 2877,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "design-docs",
+   "title": "Design docs і RFC",
+   "group": "Опис системи",
+   "chapter": "Записані рішення",
+   "votes": [
+    3,
+    2,
+    2
+   ],
+   "mean": 2.33,
+   "level": 2,
+   "spread": 1,
+   "words": 2862,
+   "realLevel": 1,
+   "delta": 1
+  },
+  {
+   "slug": "dependency-graph-checker",
+   "title": "Аналіз ерозії архітектури: граф залежностей",
+   "group": "Життя системи",
+   "chapter": "Еволюція як дефолт",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 1545,
+   "realLevel": 1,
+   "delta": 2
+  },
+  {
+   "slug": "logical-coupling",
+   "title": "Логічне зчеплення: залежність, видима лише в історії змін",
+   "group": "Життя системи",
+   "chapter": "Ціна накопиченої зміни",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 2972,
+   "realLevel": 2,
+   "delta": 1
+  },
+  {
+   "slug": "hardware-abstraction-layer",
+   "title": "Шар абстрагування заліза (HAL)",
+   "group": "Принципи й межі",
+   "chapter": "Приховане й обіцяне",
+   "votes": [
+    2,
+    2,
+    3
+   ],
+   "mean": 2.33,
+   "level": 2,
+   "spread": 1,
+   "words": 4720,
+   "realLevel": 3,
+   "delta": -1
+  },
+  {
+   "slug": "time-and-scheduling",
+   "title": "Прикладний час",
+   "group": "Стан, дані й збої",
+   "chapter": "Час і календар",
+   "votes": [
+    3,
+    4,
+    3
+   ],
+   "mean": 3.33,
+   "level": 3,
+   "spread": 1,
+   "words": 6053,
+   "realLevel": 4,
+   "delta": -1
+  },
+  {
+   "slug": "recurrence-scheduling",
+   "title": "Рекурентність і календарна математика",
+   "group": "Стан, дані й збої",
+   "chapter": "Час і календар",
+   "votes": [
+    2,
+    2,
+    2
+   ],
+   "mean": 2,
+   "level": 2,
+   "spread": 0,
+   "words": 3062,
+   "realLevel": 2,
+   "delta": 0
+  },
+  {
+   "slug": "i18n-as-architecture",
+   "title": "i18n як архітектура (не переклад)",
+   "group": "Інтерфейс і клієнт",
+   "chapter": "Опис і мова інтерфейсу",
+   "votes": [
+    3,
+    3,
+    3
+   ],
+   "mean": 3,
+   "level": 3,
+   "spread": 0,
+   "words": 4605,
+   "realLevel": 3,
+   "delta": 0
+  }
+ ]
+}
