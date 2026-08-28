@@ -18,20 +18,7 @@ def erasure_channel(word, p, rng):
 
 Почнімо з коду, що додає єдиний [біт парності](root:com-modulation/parity-bit) — зайвий біт, підібраний так, щоб число одиниць у слові було парним. Якщо потім стирається рівно один біт, його відновлюють однією дією: він мусить бути таким, щоб парність зійшлася знову, тобто дорівнює XOR усіх уцілілих бітів.
 
-```python
-def parity_encode(data):
-    """Додати біт парності: сумарне число одиниць стає парним."""
-    return data + [sum(data) % 2]
-
-def recover_one_erasure(received):
-    """Рівно одне None. Стертий біт = XOR решти (щоб знову було парно)."""
-    i = received.index(None)
-    received[i] = 0
-    for b in received:
-        if b is not None:
-            received[i] ^= b
-    return received
-```
+:::code proj-erasure-recovery/py/naiprostishyi-vazhil-odne.py
 
 Чому саме XOR решти? Умова парності — це одне лінійне рівняння: сума всіх бітів за модулем 2 дорівнює нулю. Один невідомий доданок у рівнянні `x₀ ⊕ x₁ ⊕ … ⊕ xₙ₋₁ = 0` знаходиться однозначно перенесенням решти на другий бік. Парність — це вже вся ідея методу, тільки в мініатюрі: одне рівняння, одна невідома. Лишається побачити її в повний зріст.
 
@@ -59,55 +46,11 @@ def recover_one_erasure(received):
 
 Систему Hₑ · x = s розв'язують звичайним [виключенням Гаусса](root:math-algebra/gauss-elimination), тільки вся арифметика — за модулем 2: додавання рядків є XOR, а множити ні на що не треба, бо коефіцієнти лише 0 або 1. Це робить код коротким і, що важливіше, **точним**: над GF(2) немає ні округлень, ні втрати значущості, тож і вибору опорного елемента «заради стійкості» не існує — опорний потрібен лише ненульовий.
 
-```python
-def solve_gf2(A, b):
-    """Розв'язати A·x = b над GF(2). Повертає x або None, якщо розв'язок не єдиний."""
-    A = [row[:] for row in A]
-    b = b[:]
-    m = len(A)
-    n = len(A[0]) if m else 0
-    where = [-1] * n                 # рядок-опора для кожного стовпця
-    row = 0
-    for col in range(n):
-        piv = next((r for r in range(row, m) if A[r][col]), None)
-        if piv is None:              # у цьому стовпці немає опори → вільна змінна
-            continue
-        A[row], A[piv] = A[piv], A[row]
-        b[row], b[piv] = b[piv], b[row]
-        where[col] = row
-        for r in range(m):           # обнулити стовпець в усіх інших рядках
-            if r != row and A[r][col]:
-                A[r] = [a ^ p for a, p in zip(A[r], A[row])]
-                b[r] ^= b[row]
-        row += 1
-    if any(w == -1 for w in where):  # лишилася вільна змінна → розв'язок не єдиний
-        return None
-    for r in range(row, m):          # рядок «0 = 1» → суперечність
-        if b[r]:
-            return None
-    x = [0] * n
-    for col in range(n):
-        x[col] = b[where[col]]
-    return x
-```
+:::code proj-erasure-recovery/py/rozviazannia-nad-gf-2.py
 
 Обгортка збирає Hₑ і s із перевірної матриці та прийнятого слова, викликає розв'язувач і вписує знайдені біти на їхні місця:
 
-```python
-def recover(H, received):
-    """Відновити стерті (None) символи лінійного коду з перевірною матрицею H."""
-    erased = [j for j, v in enumerate(received) if v is None]
-    known  = [j for j, v in enumerate(received) if v is not None]
-    A = [[H[r][j] for j in erased] for r in range(len(H))]                 # Hₑ
-    s = [sum(H[r][j] * received[j] for j in known) % 2 for r in range(len(H))]
-    x = solve_gf2(A, s)
-    if x is None:
-        return None                  # стерто більше, ніж код здатен витягти
-    out = list(received)
-    for idx, j in enumerate(erased):
-        out[j] = x[idx]
-    return out
-```
+:::code proj-erasure-recovery/py/rozviazannia-nad-gf-2-2.py
 
 Перевірмо на [коді Геммінга(7,4)](root:com-modulation/hamming-code) — семибітних словах із чотирма інформаційними бітами; його перевірна матриця має три рядки, тобто надлишковість n − k = 3.
 
@@ -151,24 +94,7 @@ def recover(H, received):
 
 Складімо все докупи: проженімо тисячі кодових слів крізь канал і порахуймо, яка частка відновилася точно.
 
-```python
-G = [[1,0,0,0, 1,1,0],
-     [0,1,0,0, 0,1,1],
-     [0,0,1,0, 1,1,1],
-     [0,0,0,1, 1,0,1]]
-H = [[1,0,1,1, 1,0,0],
-     [1,1,1,0, 0,1,0],
-     [0,1,1,1, 0,0,1]]
-
-def encode(msg):
-    return [sum(msg[i] * G[i][j] for i in range(4)) % 2 for j in range(7)]
-
-rng = random.Random(7)
-c = encode([1, 0, 1, 1])                      # 1 0 1 1 1 0 0
-for p in (0.1, 0.3, 0.5):
-    ok = sum(recover(H, erasure_channel(c, p, rng)) == c for _ in range(20000))
-    print(f"p = {p}:  відновлено {ok / 20000:.3f}")
-```
+:::code proj-erasure-recovery/py/skilky-sliv-uriatovano.py
 
 ```
 p = 0.1 :  відновлено 0.993        (закрита форма: 0.9927)

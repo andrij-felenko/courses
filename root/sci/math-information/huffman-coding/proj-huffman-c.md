@@ -16,99 +16,17 @@
 
 Пишемо й читаємо біти через проміжний 32-бітовий буфер. Писач накопичує біти від старших до молодших і висипає готові байти; наприкінці доповнює останній байт нулями:
 
-```c
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-typedef struct {
-    uint8_t *buf;        /* вихідний буфер           */
-    size_t   cap, len;   /* місткість і заповнення    */
-    uint32_t acc;        /* накопичувач біт           */
-    int      nbits;      /* скільки біт в acc (0..31) */
-} bitw_t;
-
-static void bw_init(bitw_t *w, uint8_t *buf, size_t cap) {
-    w->buf = buf; w->cap = cap; w->len = 0; w->acc = 0; w->nbits = 0;
-}
-
-static void bw_put(bitw_t *w, uint32_t bits, int n) {  /* записати n молодших біт */
-    w->acc |= (bits & ((n == 32) ? 0xFFFFFFFFu : ((1u << n) - 1))) << (32 - n - w->nbits);
-    w->nbits += n;
-    while (w->nbits >= 8) {
-        if (w->len < w->cap) w->buf[w->len++] = (uint8_t)(w->acc >> 24);
-        w->acc <<= 8;
-        w->nbits -= 8;
-    }
-}
-
-static void bw_flush(bitw_t *w) {                      /* доповнити останній байт */
-    if (w->nbits > 0 && w->len < w->cap) {
-        w->buf[w->len++] = (uint8_t)(w->acc >> 24);
-        w->acc = 0; w->nbits = 0;
-    }
-}
-```
+:::code proj-huffman-c/c/bitovyi-potik.c
 
 Читач — дзеркало: підкачує байти у буфер і віддає по біту або одразу вікно з кількох біт (для табличного декодера):
 
-```c
-typedef struct {
-    const uint8_t *buf;
-    size_t cap, pos;
-    uint32_t acc;
-    int nbits;
-} bitr_t;
-
-static void br_init(bitr_t *r, const uint8_t *buf, size_t cap) {
-    r->buf = buf; r->cap = cap; r->pos = 0; r->acc = 0; r->nbits = 0;
-}
-
-static void br_fill(bitr_t *r) {                       /* підкачати до >=24 біт */
-    while (r->nbits <= 24 && r->pos < r->cap) {
-        r->acc |= (uint32_t)r->buf[r->pos++] << (24 - r->nbits);
-        r->nbits += 8;
-    }
-}
-
-static uint32_t br_peek(bitr_t *r, int n) {            /* глянути n біт, не споживаючи */
-    br_fill(r);
-    return r->acc >> (32 - n);
-}
-
-static void br_skip(bitr_t *r, int n) {                /* спожити n біт */
-    r->acc <<= n;
-    r->nbits -= n;
-}
-```
+:::code proj-huffman-c/c/bitovyi-potik-2.c
 
 ### Побудова дерева й довжини кодів
 
 Частоти й купа — як у базовому розборі; тут нам із дерева потрібні лише **довжини кодів** на символ (канонічний код відновить решту). Дерево вже побудоване у докладному розборі функцією `huff_build`; вона `static`, і повний кодек живе в одному файлі з нею, тож досить оголосити її наперед. Обходимо дерево, накопичуючи глибину — глибина листка і є довжина його коду:
 
-```c
-#define SYMS 256
-#define MAXLEN 32
-
-typedef struct {
-    uint32_t freq;
-    int16_t  left, right, symbol;
-} node_t;
-
-/* huff_build з купою — як у докладному розборі; повертає індекс кореня */
-static int16_t huff_build(node_t *nodes, const uint32_t *freq);
-
-static void collect_lengths(const node_t *nodes, int16_t i, int depth, uint8_t *len) {
-    if (i < 0) return;                          /* немає дитини: правий бік обгортки єдиного символу */
-    if (nodes[i].symbol >= 0) {                 /* листок */
-        len[nodes[i].symbol] = (uint8_t)depth;  /* глибина листка = довжина його коду */
-        return;
-    }
-    collect_lengths(nodes, nodes[i].left,  depth + 1, len);
-    collect_lengths(nodes, nodes[i].right, depth + 1, len);
-}
-```
+:::code proj-huffman-c/c/pobudova-dereva-i-dovzhyny.c
 
 Перевірка `i < 0` у першому рядку неочевидна, але критична. `huff_build` для єдиного символу повертає **вузол-обгортку** лише з лівою дитиною (`right == -1`), щоб посадити самотній листок на глибину 1. Без цієї перевірки обхід поліз би у праву гілку обгортки й прочитав `nodes[-1]` — доступ за межами масиву. Перевірка обриває відсутню гілку, а символ дістає довжину 1 природно: його листок висить на глибині 1 під обгорткою, тож окремий випадок у самому `collect_lengths` не потрібен.
 
@@ -117,139 +35,21 @@ static void collect_lengths(const node_t *nodes, int16_t i, int depth, uint8_t *
 Маючи `len[256]`, обидві сторони будують **той самий** код. Порядок — за (довжина, символ); коди — послідовні числа з дописуванням нулів при зміні довжини. Стандартний рецепт рахує, скільки кодів кожної довжини, і стартовий код кожної довжини:
 
 :::tabs
-```c
-typedef struct { uint32_t bits; uint8_t len; } code_t;
-
-static void canonical_codes(const uint8_t *len, code_t *code) {
-    uint32_t bl_count[MAXLEN + 1] = {0};
-    for (int s = 0; s < SYMS; s++)
-        if (len[s]) bl_count[len[s]]++;
-
-    uint32_t next[MAXLEN + 1] = {0};
-    uint32_t c = 0;
-    for (int bits = 1; bits <= MAXLEN; bits++) {        /* стартовий код довжини bits */
-        c = (c + bl_count[bits - 1]) << 1;
-        next[bits] = c;
-    }
-    for (int s = 0; s < SYMS; s++) {                    /* роздати по порядку символів */
-        if (!len[s]) { code[s].len = 0; continue; }
-        code[s].bits = next[len[s]]++;
-        code[s].len  = len[s];
-    }
-}
-```
-```python
-from collections import namedtuple
-
-Code = namedtuple("Code", "bits len")           # (код, довжина); довжина 0 → символ не трапляється
-
-def canonical_codes(length):                    # length[s] — довжина коду символу s
-    bl_count = [0] * (MAXLEN + 1)
-    for s in range(SYMS):
-        if length[s]:
-            bl_count[length[s]] += 1
-
-    nxt = [0] * (MAXLEN + 1)
-    c = 0
-    for bits in range(1, MAXLEN + 1):           # стартовий код довжини bits
-        c = (c + bl_count[bits - 1]) << 1
-        nxt[bits] = c
-
-    code = [Code(0, 0)] * SYMS
-    for s in range(SYMS):                        # роздати по порядку символів
-        if not length[s]:
-            continue
-        code[s] = Code(nxt[length[s]], length[s])
-        nxt[length[s]] += 1
-    return code
-```
+:::code proj-huffman-c/c/kanonichni-kody-z-dovzhyn.c
+:::code proj-huffman-c/py/main.py
 :::
 
 ### Стиснення
 
 Тепер ціле стиснення: частоти → дерево → довжини → канонічні коди → заголовок (кількість символів + 256 довжин) → бітовий потік:
 
-```c
-/* Повертає розмір стиснутого; out має бути достатньо великий. */
-size_t huff_compress(const uint8_t *in, size_t n, uint8_t *out, size_t out_cap) {
-    uint32_t freq[SYMS] = {0};
-    for (size_t i = 0; i < n; i++) freq[in[i]]++;
-
-    uint8_t len[SYMS] = {0};
-    if (n > 0) {
-        node_t nodes[2 * SYMS];
-        int16_t root = huff_build(nodes, freq);
-        collect_lengths(nodes, root, 0, len);
-    }
-    code_t code[SYMS];
-    canonical_codes(len, code);
-
-    /* заголовок: 4 байти довжини потоку + 256 байтів довжин кодів */
-    size_t p = 0;
-    out[p++] = (uint8_t)(n);       out[p++] = (uint8_t)(n >> 8);
-    out[p++] = (uint8_t)(n >> 16); out[p++] = (uint8_t)(n >> 24);
-    memcpy(out + p, len, SYMS); p += SYMS;
-
-    bitw_t w; bw_init(&w, out + p, out_cap - p);
-    for (size_t i = 0; i < n; i++)
-        bw_put(&w, code[in[i]].bits, code[in[i]].len);
-    bw_flush(&w);
-    return p + w.len;
-}
-```
+:::code proj-huffman-c/c/stysnennia.c
 
 ### Декодування таблицею
 
 Декодер читає заголовок, відновлює канонічні коди (те саме `canonical_codes`) і будує **плоску таблицю** на `1 << MAXBITS` входів, де `MAXBITS` — найбільша наявна довжина коду. У кожну комірку, чий префікс дорівнює коду символу, кладемо символ і його довжину; потім декодуємо вікном:
 
-```c
-typedef struct { int16_t sym; uint8_t len; } dentry_t;
-
-size_t huff_decompress(const uint8_t *in, size_t n_in, uint8_t *out, size_t out_cap) {
-    if (n_in < 4 + SYMS) return 0;
-    size_t p = 0;
-    size_t n = (size_t)in[p] | ((size_t)in[p+1] << 8)
-             | ((size_t)in[p+2] << 16) | ((size_t)in[p+3] << 24);
-    p += 4;
-    uint8_t len[SYMS];
-    memcpy(len, in + p, SYMS); p += SYMS;
-    if (n == 0) return 0;
-
-    code_t code[SYMS];
-    canonical_codes(len, code);
-
-    int maxbits = 1;
-    for (int s = 0; s < SYMS; s++) if (len[s] > maxbits) maxbits = len[s];
-
-    size_t tsize = (size_t)1 << maxbits;
-    dentry_t *table = (dentry_t *)malloc(tsize * sizeof(dentry_t));
-    if (!table) return 0;
-    for (size_t i = 0; i < tsize; i++) { table[i].sym = -1; table[i].len = 0; }
-
-    for (int s = 0; s < SYMS; s++) {                   /* розкласти кожен код по комірках */
-        if (!len[s]) continue;
-        int shift = maxbits - len[s];
-        size_t base = (size_t)code[s].bits << shift;   /* старші біти = код, решта вільна */
-        size_t cnt  = (size_t)1 << shift;
-        for (size_t k = 0; k < cnt; k++) {
-            table[base + k].sym = (int16_t)s;
-            table[base + k].len = len[s];
-        }
-    }
-
-    bitr_t r; br_init(&r, in + p, n_in - p);
-    size_t produced = 0;
-    while (produced < n && produced < out_cap) {
-        uint32_t window = br_peek(&r, maxbits);
-        dentry_t e = table[window];
-        if (e.len == 0) break;                         /* пошкоджений потік — спинитися */
-        out[produced++] = (uint8_t)e.sym;
-        br_skip(&r, e.len);
-    }
-    free(table);
-    return produced;
-}
-```
+:::code proj-huffman-c/c/dekoduvannia-tablytseiu.c
 
 Зверни увагу на симетрію: і кодувальник, і декодер викликають **те саме** `canonical_codes`, тож гарантовано дістають однакові коди з однакових довжин — у цьому вся суть канонічного підходу. А `n` із заголовка каже декодеру спинитися рівно на справжній кількості символів, не плутаючи доповнення останнього байта за дані.
 

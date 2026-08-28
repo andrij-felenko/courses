@@ -164,18 +164,7 @@ int popcount_table(uint32_t x) {
          + bits_in_byte[(x >> 16) & 0xFF] + bits_in_byte[(x >> 24) & 0xFF];
 }
 ```
-```cpp
-#include <array>
-static std::array<uint8_t, 256> bits_in_byte;   // заповнити одноразово на старті
-void popcount_table_init() {
-    for (int i = 0; i < 256; i++)
-        bits_in_byte[i] = popcount_kernighan(static_cast<uint32_t>(i));
-}
-int popcount_table(uint32_t x) {
-    return bits_in_byte[x & 0xFF] + bits_in_byte[(x >> 8) & 0xFF]
-         + bits_in_byte[(x >> 16) & 0xFF] + bits_in_byte[(x >> 24) & 0xFF];
-}
-```
+:::code proj-popcount-distance/cpp/aparatnyi-popcount.cpp
 :::
 
 Плата за швидкість — 256 байтів пам'яті під таблицю; на МК із тісною RAM це варто зважити, та на флеші таблиця цілком може лежати константою. Це класичний обмін «пам'ять за час»: коли підрахунок справді гарячий, а апаратної команди катма, таблиця дає рівну, передбачувану швидкість без циклу.
@@ -185,32 +174,8 @@ int popcount_table(uint32_t x) {
 Коли код малий (десятки-сотні слів) і заданий просто списком, його [мінімальну відстань](root:math-information/hamming-bounds) знаходять прямо за означенням — найменша відстань по всіх парах різних слів:
 
 :::tabs
-```c
-// d_min малого коду: перебір усіх пар. Слова — у масиві code[0..n-1].
-int min_distance(const uint32_t *code, int n) {
-    int best = INT_MAX;
-    for (int i = 0; i < n; i++)
-        for (int j = i + 1; j < n; j++) {      // кожну пару — один раз
-            int d = hamming_distance(code[i], code[j]);
-            if (d < best) best = d;
-        }
-    return best;                                 // n < 2 → лишиться INT_MAX
-}
-```
-```cpp
-#include <span>
-#include <limits>
-// d_min малого коду: перебір усіх пар. Слова — у code.
-int min_distance(std::span<const uint32_t> code) {
-    int best = std::numeric_limits<int>::max();
-    for (size_t i = 0; i < code.size(); i++)
-        for (size_t j = i + 1; j < code.size(); j++) {  // кожну пару — один раз
-            int d = hamming_distance(code[i], code[j]);
-            if (d < best) best = d;
-        }
-    return best;                                 // менш ніж 2 слова → лишиться max
-}
-```
+:::code proj-popcount-distance/c/minimalna-vidstan-kodu.c
+:::code proj-popcount-distance/cpp/minimalna-vidstan-kodu.cpp
 ```python
 from itertools import combinations
 
@@ -245,31 +210,8 @@ def can_correct(d_min: int) -> int: return (d_min - 1) // 2  # ⌊(d_min−1)/2�
 Та сама відстань і виконує власне відновлення даних. Прийнявши (можливо, зіпсоване) слово, [декодер за найближчим сусідом](root:math-information/hamming-bounds) оголошує переданим те кодове слово, до якого відстань найменша. Для малого коду це знову прямий перебір — порахувати відстань до кожного слова й узяти мінімум:
 
 :::tabs
-```c
-// Повертає індекс найближчого кодового слова; *out_d — його відстань.
-int decode_nearest(const uint32_t *code, int n, uint32_t got, int *out_d) {
-    int best_i = 0, best_d = INT_MAX;
-    for (int i = 0; i < n; i++) {
-        int d = hamming_distance(got, code[i]);
-        if (d < best_d) { best_d = d; best_i = i; }   // ближчий — запам'ятати
-    }
-    if (out_d) *out_d = best_d;
-    return best_i;
-}
-```
-```cpp
-#include <span>
-#include <limits>
-// Повертає {індекс найближчого слова, його відстань}.
-std::pair<int, int> decode_nearest(std::span<const uint32_t> code, uint32_t got) {
-    int best_i = 0, best_d = std::numeric_limits<int>::max();
-    for (size_t i = 0; i < code.size(); i++) {
-        int d = hamming_distance(got, code[i]);
-        if (d < best_d) { best_d = d; best_i = i; }   // ближчий — запам'ятати
-    }
-    return {best_i, best_d};
-}
-```
+:::code proj-popcount-distance/c/dekoduvannia-za.c
+:::code proj-popcount-distance/cpp/dekoduvannia-za.cpp
 ```python
 def decode_nearest(code: list[int], got: int) -> tuple[int, int]:
     """Повертає (індекс найближчого слова, його відстань)."""

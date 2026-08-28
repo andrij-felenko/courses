@@ -38,85 +38,11 @@
 
 Ядро — шістдесят рядків без жодної залежності, крім NumPy:
 
-```python
-# bsc_threshold.py — поріг Шеннона на власні очі
-import numpy as np
-from math import comb
-
-_POP = np.array([bin(i).count("1") for i in range(256)], dtype=np.uint8)
-
-def popcount(a):
-    """Кількість одиничних бітів — побайтово через таблицю (numpy < 2.0 не має bitwise_count)."""
-    a = np.asarray(a, dtype=np.uint32)
-    return (_POP[a & 0xFF].astype(np.int64) + _POP[(a >> 8) & 0xFF]
-            + _POP[(a >> 16) & 0xFF] + _POP[(a >> 24) & 0xFF])
-
-def h2(p):
-    """Двійкова ентропія, біт."""
-    if p <= 0.0 or p >= 1.0:
-        return 0.0
-    return -p * np.log2(p) - (1 - p) * np.log2(1 - p)
-
-def capacity(p):
-    return 1.0 - h2(p)
-
-def random_codebook(k, n, rng):
-    """M = 2^k слів довжини n, кинутих навмання — саме той ансамбль, про який теорема."""
-    return rng.integers(0, 2, size=(1 << k, n), dtype=np.int8)
-
-def repetition_codebook(r):
-    """Повторний код як книга з двох слів: 000… і 111…"""
-    return np.array([[0] * r, [1] * r], dtype=np.int8)
-
-def simulate(book, p, trials, rng, chunk=64):
-    """Ганяє книгу крізь BSC. Декодер — найближчий сусід (він же ML).
-    Повертає: (кількість блокових похибок, частка блокових, частка бітових)."""
-    M, n = book.shape
-    k = int(round(np.log2(M)))
-    pm = 2 * book.astype(np.float32) - 1          # книга у ±1, рахуємо один раз
-    blk = 0
-    bit = 0
-    for s in range(0, trials, chunk):             # пачками — інакше t×M не влізе в пам'ять
-        t = min(chunk, trials - s)
-        msg = rng.integers(0, M, size=t)
-        noise = (rng.random((t, n)) < p).astype(np.int8)
-        recv = book[msg] ^ noise                  # канал: незалежний переворот кожного біта
-        corr = (2 * recv.astype(np.float32) - 1) @ pm.T    # t×M скалярних добутків
-        guess = np.argmax(corr, axis=1)           # max добуток = min відстань
-        blk += int((guess != msg).sum())
-        bit += int(popcount(guess ^ msg).sum())   # біти повідомлення = двійковий запис індексу
-    return blk, blk / trials, bit / (trials * k)
-
-def rep_ber(r, p):
-    """Точна залишкова похибка мажоритарного повторення ×r: хвіст біноміального розподілу."""
-    return sum(comb(r, j) * p**j * (1 - p)**(r - j) for j in range((r + 1) // 2, r + 1))
-```
+:::code proj-simulate-threshold/py/bsc_threshold.py
 
 Повідомлення — це просто **індекс** слова в книзі, тому бітові похибки лічаться без жодного окремого кодера: `guess ^ msg` дає різницю двійкових записів індексів, а `popcount` — скільки біт повідомлення поїхало. Драйвер лишається тривіальним:
 
-```python
-def sweep(title, plan, p):
-    print(f"\n=== {title}")
-    print("    n    k        M     R   P_block   помилок/спроб        BER")
-    for n, k, T in plan:
-        rng = np.random.default_rng(900 + n)      # свій сид на рядок — рядок відтворний окремо
-        cnt, pb, ber = simulate(random_codebook(k, n, rng), p, T, rng)
-        print(f"  {n:3d}  {k:3d}  {1<<k:7d}  {k/n:.3f}  {pb:.6f}  {cnt:6d}/{T:<7d}  {ber:.6f}")
-
-p = 0.1
-print(f"p = {p}   H(p) = {h2(p):.4f}   C = 1 - H(p) = {capacity(p):.4f} біта/символ")
-print(f"повторення x3: R = {1/3:.3f}, BER = {rep_ber(3,p):.5f} (незмінна)")
-print(f"повторення x5: R = {1/5:.3f}, BER = {rep_ber(5,p):.5f} (незмінна)")
-
-sweep("A. R = 1/4 = 0.250 < C: похибка падає",
-      [(8,2,40000),(16,4,40000),(24,6,40000),(32,8,40000),
-       (40,10,40000),(48,12,40000),(56,14,40000),(64,16,40000)], p)
-sweep("B. R = 3/4 = 0.750 > C: похибка росте до 1",
-      [(4,3,20000),(8,6,20000),(12,9,20000),(16,12,20000),(20,15,20000),(24,18,20000)], p)
-sweep("C. R = 1/5 = 0.200 < C: дуель із повторенням x5 (BER 0.00856)",
-      [(10,2,40000),(20,4,40000),(30,6,40000),(40,8,100000),
-       (50,10,200000),(60,12,400000),(70,14,400000)], p)
-```
+:::code proj-simulate-threshold/py/symuliator.py
 
 ## Спершу — самоперевірка
 
@@ -201,56 +127,7 @@ sweep("C. R = 1/5 = 0.200 < C: дуель із повторенням x5 (BER 0.
 
 NumPy добіг до n = 70 за десятки секунд, і далі впирається: BLAS множить float32, тобто витрачає ціле число з плаваючою комою на кожен **один** біт. А біти люблять пакуватися — у 64-бітному слові їх поміщається шістдесят чотири, і `popcount` порівнює всі шістдесят чотири за одну інструкцію. Це вже не оптимізація на відсотки, а інша розмірність задачі, і тут доречна мова, що дає дістатися до машинного слова без посередників:
 
-```cpp
-// bsc.cpp — те саме, але книга спакована в 64-бітні слова
-// збірка:  g++ -O3 -march=native -std=c++20 bsc.cpp -o bsc
-#include <bit>
-#include <cstdint>
-#include <cstdio>
-#include <random>
-#include <vector>
-
-int main() {
-    const int n = 70, k = 14;                 // R = k/n = 0.2
-    const double p = 0.1;
-    const int trials = 400000;
-    const size_t M = size_t(1) << k;
-    const int W = (n + 63) / 64;              // машинних слів на кодове слово
-
-    std::mt19937_64 rng(900 + n);
-    std::bernoulli_distribution flip(p), coin(0.5);
-
-    // книга: M випадкових слів; біти за межами n лишаються нулями в ОБОХ
-    // операндах XOR, тож у відстань не потрапляють
-    std::vector<uint64_t> book(M * W, 0);
-    for (size_t m = 0; m < M; ++m)
-        for (int i = 0; i < n; ++i)
-            if (coin(rng)) book[m * W + i / 64] |= uint64_t(1) << (i % 64);
-
-    std::uniform_int_distribution<size_t> pick(0, M - 1);
-    std::vector<uint64_t> recv(W);
-    long long errors = 0;
-
-    for (int t = 0; t < trials; ++t) {
-        size_t msg = pick(rng);
-        for (int w = 0; w < W; ++w) recv[w] = book[msg * W + w];
-        for (int i = 0; i < n; ++i)
-            if (flip(rng)) recv[i / 64] ^= uint64_t(1) << (i % 64);
-
-        int best = n + 1;
-        size_t guess = 0;
-        for (size_t m = 0; m < M; ++m) {       // груба сила, але 64 біти за такт
-            int d = 0;
-            for (int w = 0; w < W; ++w)
-                d += std::popcount(recv[w] ^ book[m * W + w]);
-            if (d < best) { best = d; guess = m; }
-        }
-        errors += (guess != msg);
-    }
-    std::printf("n=%d k=%d M=%zu R=%.3f  P_block=%.6f  (%lld/%d)\n",
-                n, k, M, double(k) / n, double(errors) / trials, errors, trials);
-}
-```
+:::code proj-simulate-threshold/cpp/bsc.cpp
 
 Генератор випадкових чисел тут інший, ніж у NumPy, тож і сама вибірка інша: числа мусять збігтися **статистично**, а не побітово. Якщо ж вони розійдуться помітно більше, ніж дозволяє лічильник похибок у дужках, — це не «інший сид», а привід шукати помилку в одному з двох.
 

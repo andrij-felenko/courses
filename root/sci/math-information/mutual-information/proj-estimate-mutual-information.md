@@ -20,25 +20,7 @@
 
 Для дискретних міток `x ∈ {0…K_X−1}`, `y ∈ {0…K_Y−1}` увесь інструмент — це двовимірна гістограма й одна сума:
 
-```python
-import numpy as np
-
-def histogram2d(x, y, kx, ky):
-    """Спільна гістограма пар (x, y): цілі мітки 0…kx−1, 0…ky−1."""
-    joint = np.zeros((kx, ky))
-    np.add.at(joint, (x, y), 1)        # +1 у клітину (xᵢ, yᵢ) для кожної пари
-    return joint
-
-def mutual_information(joint):
-    """Плаг-ін оцінка I(X;Y) зі спільної гістограми лічильників, біт."""
-    N = joint.sum()
-    pxy = joint / N                    # p̂(x, y)
-    px = pxy.sum(axis=1, keepdims=True)  # p̂(x) — сума по рядку
-    py = pxy.sum(axis=0, keepdims=True)  # p̂(y) — сума по стовпцю
-    indep = px @ py                    # p̂(x)·p̂(y) для кожної клітини
-    mask = pxy > 0                     # 0·log0 = 0 — порожні клітини пропускаємо
-    return float((pxy[mask] * np.log2(pxy[mask] / indep[mask])).sum())
-```
+:::code proj-estimate-mutual-information/py/histohrama-i-pidstanovka.py
 
 Уся стаття задачі — у двох рядках. `np.add.at` розкидає одиниці по клітинах гістограми (звичайне `joint[x, y] += 1` мовчки згубить повторні індекси — а вони тут скрізь); `indep = px @ py` зовнішнім добутком будує матрицю «як виглядав би спільний розподіл, якби X і Y були незалежні», і формула порівнює справжнє `p̂(x, y)` саме з нею. `mask` викидає порожні клітини — про пастку `log 0` докладно нижче, але вже тут видно, що без неї ніяк.
 
@@ -130,21 +112,7 @@ E[Ĥ]  ≈  H  −  (m − 1) / (2N·ln2)      біт
 
 У коді — та сама трійка ентропій, кожна з поправкою, зібрана назад у `I = H(X) + H(Y) − H(X,Y)`:
 
-```python
-def entropy_bits(counts):
-    """Наївна плаг-ін ентропія масиву лічильників, біт."""
-    N = counts.sum()
-    p = counts[counts > 0] / N
-    return -(p * np.log2(p)).sum()
-
-def mi_miller_madow(joint):
-    """I(X;Y) з поправкою Міллера–Мадоу на кожну з трьох ентропій."""
-    N = joint.sum()
-    def H_mm(counts):
-        m_plus = np.count_nonzero(counts)          # заповнені клітини
-        return entropy_bits(counts) + (m_plus - 1) / (2 * N * np.log(2))
-    return H_mm(joint.sum(axis=1)) + H_mm(joint.sum(axis=0)) - H_mm(joint)
-```
+:::code proj-estimate-mutual-information/py/zvidky-zsuv-i-iak-ioho.py
 
 Прогнавши той самий дослід із незалежними потоками через `mi_miller_madow`, дістаємо зовсім іншу картину:
 
@@ -203,25 +171,7 @@ D_x  =  Σ_y  Q(y|x) · log₂[ Q(y|x) / q(y) ]        (внесок симво�
 
 Увесь Blahut–Arimoto — це десяток рядків, і кожен прямо відповідає щойно сказаному:
 
-```python
-def blahut_arimoto(Q, tol=1e-9, max_iter=10_000):
-    """Ємність DMC із матрицею переходів Q[x, y] = P(y | x).
-    Повертає (C у бітах, оптимальний вхідний розподіл, число ітерацій)."""
-    Q = np.asarray(Q, float)
-    r = np.full(Q.shape[0], 1.0 / Q.shape[0])       # старт: рівномірний вхід
-    for step in range(1, max_iter + 1):
-        q = r @ Q                                    # вихід q(y) = Σ_x r(x) Q(y|x)
-        with np.errstate(divide="ignore", invalid="ignore"):
-            logterm = np.where(Q > 0, np.log2(Q / q), 0.0)   # 0·log0 → 0
-        D = (Q * logterm).sum(axis=1)                # D_x = KL(Q(·|x) ‖ q), біт
-        lower = float(r @ D)                         # Σ r(x)·D_x  ≤ C
-        upper = float(D.max())                       # max_x D_x   ≥ C
-        if upper - lower < tol:                      # розрив менший за поріг — стоп
-            return lower, r, step
-        r = r * np.exp2(D)                           # r(x) ← r(x)·2^{D_x}
-        r /= r.sum()                                 # перенормувати у розподіл
-    return lower, r, max_iter
-```
+:::code proj-estimate-mutual-information/py/alhorytm.py
 
 Три тонкощі, які роблять ці рядки коректними, а не лише короткими. `np.where(Q > 0, …, 0.0)` разом із `np.errstate` знешкоджує `log 0`: там, де рядок каналу має нуль, внесок клітини — нуль за домовленістю `0·log0 = 0`, і хоч numpy порахує заборонений `log` для всієї матриці, `where` викине результат ще до множення. `r @ Q` — це і є `q(y) = Σ_x r(x)Q(y|x)`, розподіл виходу одним добутком. А `r *= 2^{D_x}` — той самий крок «додати ваги тим, хто несе більше»: `2^{D_x}` бо `D_x` міряємо в бітах (в основі 2), тож множник рівно `2` у степені внеску, а не `e`.
 

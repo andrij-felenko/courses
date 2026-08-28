@@ -150,80 +150,15 @@ typedef struct {
 
 Два найрідші вузли на кожному кроці беремо з **мінімальної купи** (бінарної піраміди) — вона віддає найменший елемент за O(log n), тож уся побудова коштує O(n log n). Купу тримаємо масивом індексів вузлів, упорядкованим за їхньою вагою:
 
-```c
-typedef struct { int16_t idx[2 * SYMS]; int n; node_t *nodes; } heap_t;
-
-static void heap_push(heap_t *h, int16_t v) {
-    int i = h->n++;
-    h->idx[i] = v;
-    while (i > 0) {                       /* просіювання вгору */
-        int parent = (i - 1) / 2;
-        if (h->nodes[h->idx[parent]].freq <= h->nodes[h->idx[i]].freq) break;
-        int16_t t = h->idx[parent]; h->idx[parent] = h->idx[i]; h->idx[i] = t;
-        i = parent;
-    }
-}
-
-static int16_t heap_pop(heap_t *h) {
-    int16_t top = h->idx[0];
-    h->idx[0] = h->idx[--h->n];
-    int i = 0;                            /* просіювання вниз */
-    for (;;) {
-        int l = 2 * i + 1, r = 2 * i + 2, m = i;
-        if (l < h->n && h->nodes[h->idx[l]].freq < h->nodes[h->idx[m]].freq) m = l;
-        if (r < h->n && h->nodes[h->idx[r]].freq < h->nodes[h->idx[m]].freq) m = r;
-        if (m == i) break;
-        int16_t t = h->idx[m]; h->idx[m] = h->idx[i]; h->idx[i] = t;
-        i = m;
-    }
-    return top;
-}
-```
+:::code huffman-coding-d/c/realizatsiia-na-c.c
 
 Тепер сама побудова — пряме втілення жадібного правила. Кладемо в купу всі ненульові листки, тоді раз по раз дістаємо два найрідші, зливаємо в новий вузол і повертаємо його назад, доки не лишиться корінь:
 
-```c
-/* Повертає індекс кореня. nodes[] заповнюється; nfree — лічильник вузлів. */
-static int16_t huff_build(node_t *nodes, const uint32_t *freq) {
-    heap_t h; h.n = 0; h.nodes = nodes;
-    int nfree = 0;
-
-    for (int s = 0; s < SYMS; s++) {           /* листки лише для наявних символів */
-        if (freq[s] == 0) continue;
-        nodes[nfree] = (node_t){ freq[s], -1, -1, (int16_t)s };
-        heap_push(&h, (int16_t)nfree++);
-    }
-    if (h.n == 1) {                            /* окремий випадок: один символ */
-        int16_t only = heap_pop(&h);
-        nodes[nfree] = (node_t){ nodes[only].freq, only, -1, -1 };
-        return (int16_t)nfree++;               /* дамо йому довжину коду 1 */
-    }
-    while (h.n > 1) {                          /* зливаємо два найрідші */
-        int16_t a = heap_pop(&h);
-        int16_t b = heap_pop(&h);
-        nodes[nfree] = (node_t){ nodes[a].freq + nodes[b].freq, a, b, -1 };
-        heap_push(&h, (int16_t)nfree++);
-    }
-    return heap_pop(&h);                        /* останній — корінь */
-}
-```
+:::code huffman-coding-d/c/realizatsiia-na-c-2.c
 
 Лишається обійти дерево й зібрати коди. Рекурсія від кореня несе поточний код і його довжину; дописуємо `0`, спускаючись ліворуч, `1` — праворуч, а на листку записуємо готовий код у таблицю:
 
-```c
-typedef struct { uint32_t bits; uint8_t len; } code_t;   /* код до 32 біт */
-
-static void huff_codes(const node_t *nodes, int16_t i,
-                       uint32_t bits, uint8_t len, code_t *out) {
-    if (nodes[i].symbol >= 0) {                 /* листок — записати код */
-        out[nodes[i].symbol].bits = bits;
-        out[nodes[i].symbol].len  = len ? len : 1;   /* корінь-листок → 1 біт */
-        return;
-    }
-    huff_codes(nodes, nodes[i].left,  (bits << 1),     len + 1, out);  /* 0 */
-    huff_codes(nodes, nodes[i].right, (bits << 1) | 1, len + 1, out);  /* 1 */
-}
-```
+:::code huffman-coding-d/c/realizatsiia-na-c-3.c
 
 Маючи таблицю `code_t out[256]`, кодувальник записує вхід, виштовхуючи в бітовий потік `out[byte].bits` завдовжки `out[byte].len` для кожного байта; декодувати ж найкраще канонічно або таблицею (вище). Повний кодек — з бітовими читачем-писачем, пакуванням довжин у заголовок (канонічний варіант) і табличним декодером — зібрано в окремому [проєкті-кодеку на C](root:math-information/huffman-coding/proj-huffman-c.md), щоб тут лишити видимою саму суть алгоритму, а не службову обв'язку.
 
