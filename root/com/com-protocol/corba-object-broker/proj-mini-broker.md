@@ -76,94 +76,13 @@ interface Account {
 
 Ось увесь буфер запису:
 
-```cpp
-#include <cstdint>
-#include <cstring>
-#include <string>
-#include <vector>
-#include <array>
-#include <fstream>
-#include <cstdio>
-#include <stdexcept>
-
-inline bool host_is_little() {
-    const uint16_t probe = 0x0001;
-    uint8_t first;
-    std::memcpy(&first, &probe, 1);      // memcpy, а не каст: без порушення аліасування
-    return first == 1;
-}
-
-inline uint32_t bswap32(uint32_t v) {
-    return (v >> 24) | ((v >> 8) & 0x0000FF00u)
-         | ((v << 8) & 0x00FF0000u) | (v << 24);
-}
-
-class Out {
-    std::vector<uint8_t> b_;
-public:
-    const std::vector<uint8_t>& bytes() const { return b_; }
-
-    void align(size_t a) { while (b_.size() % a) b_.push_back(0); }
-
-    void raw(const void* p, size_t n) {
-        const uint8_t* s = static_cast<const uint8_t*>(p);
-        b_.insert(b_.end(), s, s + n);
-    }
-    void u8 (uint8_t  v) { b_.push_back(v); }
-    void u32(uint32_t v) { align(4); raw(&v, 4); }   // рідний порядок байтів
-    void i32(int32_t  v) { align(4); raw(&v, 4); }
-    void f64(double   v) { align(8); raw(&v, 8); }
-
-    void str(const std::string& s) {
-        u32(static_cast<uint32_t>(s.size() + 1));    // нуль у кінці ВХОДИТЬ у довжину
-        raw(s.data(), s.size());
-        b_.push_back(0);
-    }
-    void patch_u32(size_t at, uint32_t v) { std::memcpy(&b_[at], &v, 4); }
-};
-```
+:::code proj-mini-broker/cpp/bufer-de-same-lezhyt.cpp
 
 Рядок кодується як довжина, символи й нуль у кінці — і нуль **входить** у довжину. Це виглядає надлишковим: довжина вже все сказала, нащо ще термінатор? Пояснення історичне й прикладне водночас: приймач на C може віддати вказівник просто в буфер як `const char*` без копіювання й дописування нуля. Ціна — постійна плутанина, чи `len` уже містить нуль, чи ще ні. Помилка на одиницю тут не падає, а зсуває всі наступні поля рівно на байт, тож правило варте того, щоб записати його в коментарі поруч із кодом.
 
 Буфер читання дзеркальний, з одним доповненням: він перевіряє межі на **кожній** операції, бо довжини в повідомленні прислав хтось чужий.
 
-```cpp
-class In {
-    const uint8_t* p_;
-    size_t n_, at_ = 0;
-    bool swap_;
-    void need(size_t k) const {
-        if (k > n_ - at_) throw std::runtime_error("повідомлення обірване або збрехало про довжину");
-    }
-public:
-    In(const uint8_t* p, size_t n, bool swap) : p_(p), n_(n), swap_(swap) {}
-
-    void skip(size_t k)  { need(k); at_ += k; }
-    void align(size_t a) { size_t k = (a - at_ % a) % a; need(k); at_ += k; }
-
-    void raw(void* dst, size_t k) { need(k); std::memcpy(dst, p_ + at_, k); at_ += k; }
-
-    uint8_t  u8()  { uint8_t v; raw(&v, 1); return v; }
-    uint32_t u32() { align(4); uint32_t v; raw(&v, 4); return swap_ ? bswap32(v) : v; }
-    int32_t  i32() { return static_cast<int32_t>(u32()); }
-
-    std::string str() {
-        uint32_t len = u32();
-        if (len == 0) throw std::runtime_error("рядок без нуля в кінці");
-        need(len);                                   // перевірка ДО виділення пам'яті
-        std::string s(len - 1, '\0');
-        raw(&s[0], len - 1);
-        if (u8() != 0) throw std::runtime_error("рядок без нуля в кінці");
-        return s;
-    }
-    std::vector<uint8_t> octets(uint32_t k) {
-        need(k);
-        std::vector<uint8_t> v(k);
-        raw(v.data(), k);
-        return v;
-    }
-};
-```
+:::code proj-mini-broker/cpp/bufer-de-same-lezhyt-2.cpp
 
 Зверни увагу на `octets`: послідовність байтів **не перевертають ніколи**, хоч би який прапорець стояв у заголовку. Байт — уже найменша одиниця, перевертати в ньому нічого, і саме тому ключ об'єкта варто зберігати як байти, а не як числа: тоді жоден проміжний код не спробує бути розумним і поміняти в ньому щось місцями.
 
@@ -171,23 +90,7 @@ public:
 
 Заголовок відповідає на три питання, на які саме тіло відповісти не може: чи це взагалі наше повідомлення, як його читати і де воно закінчується.
 
-```cpp
-enum : uint8_t  { MSG_REQUEST = 0, MSG_REPLY = 1 };
-enum : uint32_t { REPLY_OK = 0, REPLY_USER_EX = 1, REPLY_SYS_EX = 2 };
-
-void put_header(Out& o, uint8_t type) {
-    o.raw("MORB", 4);                       // 0…3   мітка: наш це потік чи ні
-    o.u8(1); o.u8(0);                       // 4…5   версія
-    o.u8(host_is_little() ? 1 : 0);         // 6     біт 0 — порядок байтів
-    o.u8(type);                             // 7     запит чи відповідь
-    o.u32(0);                               // 8…11  розмір тіла — залатаємо потім
-}
-
-void finish(Out& o) {
-    // розмір відомий лише тоді, коли тіло вже написане
-    o.patch_u32(8, static_cast<uint32_t>(o.bytes().size() - 12));
-}
-```
+:::code proj-mini-broker/cpp/dvanadtsiat-baitiv.cpp
 
 Розкладка навмисно повторює GIOP: чотири байти мітки, два байти версії, байт прапорців із порядком байтів у нульовому біті, байт типу повідомлення, чотири байти розміру тіла. Мітку взято іншу — `MORB` замість `GIOP`, — щоб ніхто не сплутав іграшку зі справжнім протоколом і не спробував нею з чимось з'єднатися.
 
@@ -203,34 +106,7 @@ void finish(Out& o) {
 
 Ліки — покласти в ключ **номер життя процесу**: значення, яке щоразу інше. Тоді старий ключ не збігається з поточним і чесно дає «такого об'єкта немає».
 
-```cpp
-class AccountSkeleton;                           // визначимо нижче
-
-class ObjectTable {
-    uint32_t incarnation_;                       // «номер життя» цього процесу
-    std::vector<AccountSkeleton*> slots_;
-public:
-    explicit ObjectTable(uint32_t inc) : incarnation_(inc) {}
-
-    std::array<uint8_t, 8> activate(AccountSkeleton* sk) {
-        uint32_t idx = static_cast<uint32_t>(slots_.size());
-        slots_.push_back(sk);
-        std::array<uint8_t, 8> key{};
-        std::memcpy(key.data(),     &incarnation_, 4);
-        std::memcpy(key.data() + 4, &idx,          4);
-        return key;                              // для клієнта — просто вісім байтів
-    }
-
-    AccountSkeleton* find(const std::vector<uint8_t>& key) const {
-        if (key.size() != 8) return nullptr;
-        uint32_t inc, idx;
-        std::memcpy(&inc, key.data(),     4);
-        std::memcpy(&idx, key.data() + 4, 4);
-        if (inc != incarnation_) return nullptr; // ключ із минулого життя процесу
-        return idx < slots_.size() ? slots_[idx] : nullptr;
-    }
-};
-```
+:::code proj-mini-broker/cpp/tablytsia-obiektiv-chomu-v.cpp
 
 > 🔧 **Навіщо це.** Той самий прийом стоїть скрізь, де ідентифікатор переживає того, хто його видав: номер покоління в записі реєстру, номер епохи в лідерських протоколах, тег версії в кеші. Правило одне — **ідентифікатор мусить нести в собі, ким і коли він виданий**, інакше повторне використання номера перетворює застарілий доступ на успішний доступ не туди. Це найдешевша страховка від помилки, яку неможливо помітити з логів.
 
@@ -240,54 +116,7 @@ public:
 
 Скелет робить рівно одне перетворення: з назви операції й байтів аргументів — у справжній виклик методу.
 
-```cpp
-struct InsufficientFunds { int32_t shortfall; };
-
-class Account {                                   // спільний контракт обох сторін
-public:
-    virtual ~Account() = default;
-    virtual int32_t balance() = 0;
-    virtual void withdraw(int32_t amount) = 0;
-};
-
-class AccountImpl : public Account {              // сервант: звичайний клас C++
-    int32_t balance_;
-public:
-    explicit AccountImpl(int32_t start) : balance_(start) {}
-    int32_t balance() override { return balance_; }
-    void withdraw(int32_t amount) override {
-        if (amount > balance_) throw InsufficientFunds{amount - balance_};
-        balance_ -= amount;
-    }
-};
-
-class AccountSkeleton {
-    Account* servant_;
-public:
-    explicit AccountSkeleton(Account* s) : servant_(s) {}
-
-    void invoke(const std::string& op, In& in, Out& reply) {
-        if (op == "balance") {
-            int32_t v = servant_->balance();
-            reply.u32(REPLY_OK);
-            reply.i32(v);
-        } else if (op == "withdraw") {
-            int32_t amount = in.i32();            // читаємо строго за контрактом
-            try {
-                servant_->withdraw(amount);
-                reply.u32(REPLY_OK);
-            } catch (const InsufficientFunds& e) {
-                reply.u32(REPLY_USER_EX);
-                reply.str("IDL:bank/InsufficientFunds:1.0");
-                reply.i32(e.shortfall);
-            }
-        } else {
-            reply.u32(REPLY_SYS_EX);
-            reply.str("BAD_OPERATION");
-        }
-    }
-};
-```
+:::code proj-mini-broker/cpp/skelet-dyspetcheryzatsiia.cpp
 
 Ланцюжок `if`-ів за назвою операції — саме те, що генератор коду написав би за тебе. Він і показує, чому виклик через мережу дорожчий за локальний навіть без урахування проводу: локально ім'я методу зникає ще під час компіляції й лишається зміщенням у таблиці віртуальних функцій, а тут воно летить рядком і порівнюється рядком на кожному запиті.
 
@@ -299,64 +128,7 @@ public:
 
 Стаб успадковує `Account` — той самий клас, що й сервант. Саме тому код клієнта не бачить різниці: він тримає `Account*` і викликає віртуальний метод, а вже який об'єкт за цим вказівником, вирішує той, хто його створив.
 
-```cpp
-enum Completion { COMPLETED_NO, COMPLETED_YES, COMPLETED_MAYBE };
-struct SystemException { std::string id; Completion completed; };
-
-class AccountStub : public Account {
-    int fd_;
-    std::vector<uint8_t> key_;
-    uint32_t next_id_ = 1;
-
-    void begin(Out& o, const char* op) {
-        put_header(o, MSG_REQUEST);
-        o.u32(next_id_++);
-        o.u32(static_cast<uint32_t>(key_.size()));
-        o.raw(key_.data(), key_.size());
-        o.str(op);
-    }
-
-    In call(Out& o, std::vector<uint8_t>& reply) {
-        finish(o);
-        size_t sent = 0;
-        if (!write_all(fd_, o.bytes().data(), o.bytes().size(), &sent))
-            throw SystemException{"COMM_FAILURE",
-                                  sent == 0 ? COMPLETED_NO : COMPLETED_MAYBE};
-        if (!recv_message(fd_, reply))
-            throw SystemException{"COMM_FAILURE", COMPLETED_MAYBE};   // ось вона
-
-        bool swap = ((reply[6] & 1) != 0) != host_is_little();
-        In in(reply.data(), reply.size(), swap);
-        in.skip(12);
-        in.u32();                                   // номер запиту
-        uint32_t status = in.u32();
-
-        if (status == REPLY_USER_EX) {
-            std::string id = in.str();
-            if (id == "IDL:bank/InsufficientFunds:1.0")
-                throw InsufficientFunds{in.i32()};
-            throw SystemException{"UNKNOWN", COMPLETED_YES};
-        }
-        if (status == REPLY_SYS_EX)
-            throw SystemException{in.str(), COMPLETED_MAYBE};
-        return in;
-    }
-public:
-    AccountStub(int fd, std::vector<uint8_t> key) : fd_(fd), key_(std::move(key)) {}
-
-    int32_t balance() override {
-        Out o; begin(o, "balance");
-        std::vector<uint8_t> r;
-        In in = call(o, r);
-        return in.i32();
-    }
-    void withdraw(int32_t amount) override {
-        Out o; begin(o, "withdraw"); o.i32(amount);
-        std::vector<uint8_t> r;
-        call(o, r);
-    }
-};
-```
+:::code proj-mini-broker/cpp/stab-toi-samyi-interfeis.cpp
 
 Найважливіші три рядки тут — ті, що ставлять `Completion`. Якщо `send` зламався, не віддавши ядру жодного байта, операція точно не почалася — `COMPLETED_NO`. Якщо хоч щось пішло, а далі обірвалося, ми вже не знаємо нічого — `COMPLETED_MAYBE`. І якщо запит пішов цілком, а відповідь не прийшла, — теж `MAYBE`: між «сервер не отримав» і «сервер зробив і не встиг відповісти» з боку клієнта немає жодної різниці. Локальний виклик такого значення не має взагалі, і саме в цьому місці ілюзія «це просто метод» уперше стає неправдою на рівні типів.
 
@@ -364,158 +136,23 @@ public:
 
 ## Транспорт: складати доводиться руками
 
-```cpp
-#include <cerrno>
-#include <unistd.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-
-bool read_n(int fd, uint8_t* dst, size_t n) {
-    size_t got = 0;
-    while (got < n) {
-        ssize_t k = ::recv(fd, dst + got, n - got, 0);
-        if (k == 0) return false;                       // партнер закрив з'єднання
-        if (k < 0) { if (errno == EINTR) continue; return false; }
-        got += static_cast<size_t>(k);
-    }
-    return true;
-}
-
-bool write_all(int fd, const uint8_t* src, size_t n, size_t* sent) {
-    *sent = 0;
-    while (*sent < n) {
-        ssize_t k = ::send(fd, src + *sent, n - *sent, 0);
-        if (k < 0) { if (errno == EINTR) continue; return false; }
-        if (k == 0) return false;
-        *sent += static_cast<size_t>(k);
-    }
-    return true;
-}
-
-bool recv_message(int fd, std::vector<uint8_t>& msg) {
-    msg.assign(12, 0);
-    if (!read_n(fd, msg.data(), 12)) return false;
-    if (std::memcmp(msg.data(), "MORB", 4) != 0) return false;
-
-    bool swap = ((msg[6] & 1) != 0) != host_is_little();
-    uint32_t body;
-    std::memcpy(&body, msg.data() + 8, 4);
-    if (swap) body = bswap32(body);
-    if (body > (1u << 20)) return false;                // стеля: чужий байт не з'їсть пам'ять
-
-    msg.resize(12 + body);                              // заголовок ЛИШАЄТЬСЯ в буфері
-    return body == 0 || read_n(fd, msg.data() + 12, body);
-}
-```
+:::code proj-mini-broker/cpp/transport-skladaty.cpp
 
 Два рядки тут варті окремої уваги. `msg.resize(12 + body)` дописує тіло до вже прочитаного заголовка — тому все повідомлення лежить одним шматком і вирівнювання лічиться від нуля буфера, як і домовлялися. А `body > (1u << 20)` — це відповідь на просте питання: довжину прислав хтось із мережі, і якщо повірити їй без стелі, чотири байти `ff ff ff ff` перетворяться на спробу виділити чотири гігабайти.
 
 Решта транспорту — прямолінійна:
 
-```cpp
-int tcp_listen(uint16_t port) {                  // POSIX; у Winsock ті самі виклики,
-    int s = ::socket(AF_INET, SOCK_STREAM, 0);   // але інші типи дескриптора й помилок
-    int one = 1;
-    ::setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &one, sizeof one);
-    sockaddr_in a{};
-    a.sin_family = AF_INET;
-    a.sin_port = htons(port);
-    a.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
-    ::bind(s, reinterpret_cast<sockaddr*>(&a), sizeof a);
-    ::listen(s, 4);
-    return s;
-}
-
-int tcp_connect(const char* host, uint16_t port) {
-    int s = ::socket(AF_INET, SOCK_STREAM, 0);
-    sockaddr_in a{};
-    a.sin_family = AF_INET;
-    a.sin_port = htons(port);
-    ::inet_pton(AF_INET, host, &a.sin_addr);
-    if (::connect(s, reinterpret_cast<sockaddr*>(&a), sizeof a) != 0) { ::close(s); return -1; }
-    return s;
-}
-```
+:::code proj-mini-broker/cpp/transport-skladaty-2.cpp
 
 ## Обидва боки цілком
 
 Сервер: створити сервант, зареєструвати його в таблиці, покласти ключ у файл — це наш найгрубіший замінник посилання на об'єкт — і крутити цикл «прийняти повідомлення, розібрати, відповісти».
 
-```cpp
-void serve_one(int fd, ObjectTable& table) {
-    std::vector<uint8_t> msg;
-    while (recv_message(fd, msg)) {
-        if (msg[7] != MSG_REQUEST) continue;
-        bool swap = ((msg[6] & 1) != 0) != host_is_little();
-
-        In in(msg.data(), msg.size(), swap);
-        in.skip(12);                                  // нуль вирівнювання — початок msg
-
-        Out reply;
-        try {
-            uint32_t rid = in.u32();
-            std::vector<uint8_t> key = in.octets(in.u32());
-            std::string op = in.str();
-
-            put_header(reply, MSG_REPLY);
-            reply.u32(rid);
-
-            AccountSkeleton* sk = table.find(key);
-            if (!sk) { reply.u32(REPLY_SYS_EX); reply.str("OBJECT_NOT_EXIST"); }
-            else     { sk->invoke(op, in, reply); }
-        } catch (const std::exception&) {
-            reply = Out();                            // розбір не вдався — починаємо заново
-            put_header(reply, MSG_REPLY);
-            reply.u32(0);
-            reply.u32(REPLY_SYS_EX);
-            reply.str("MARSHAL");
-        }
-        finish(reply);
-        size_t sent = 0;
-        if (!write_all(fd, reply.bytes().data(), reply.bytes().size(), &sent)) break;
-    }
-    ::close(fd);
-}
-
-int main() {
-    ObjectTable table(0x5AF31C7Bu);                   // у житті — випадкове число
-    AccountImpl petrenko(1000);
-    AccountSkeleton sk(&petrenko);
-    auto key = table.activate(&sk);
-
-    std::ofstream("account.ref", std::ios::binary)
-        .write(reinterpret_cast<const char*>(key.data()), key.size());
-
-    int srv = tcp_listen(5099);
-    for (;;) {
-        int c = ::accept(srv, nullptr, nullptr);
-        if (c >= 0) serve_one(c, table);              // один клієнт за раз
-    }
-}
-```
+:::code proj-mini-broker/cpp/obydva-boky-tsilkom.cpp
 
 Клієнт після кількох рядків налаштування працює зі звичайним вказівником на інтерфейс:
 
-```cpp
-int main() {
-    std::ifstream f("account.ref", std::ios::binary);
-    std::vector<uint8_t> key((std::istreambuf_iterator<char>(f)),
-                              std::istreambuf_iterator<char>());
-
-    AccountStub stub(tcp_connect("127.0.0.1", 5099), key);
-    Account* acc = &stub;                             // далі про мережу ні слова
-
-    try {
-        acc->withdraw(50);
-        std::printf("залишок: %d\n", acc->balance());
-    } catch (const InsufficientFunds& e) {
-        std::printf("не вистачило %d\n", e.shortfall);
-    } catch (const SystemException& e) {
-        std::printf("зламався виклик: %s, статус %d\n", e.id.c_str(), (int)e.completed);
-    }
-}
-```
+:::code proj-mini-broker/cpp/obydva-boky-tsilkom-2.cpp
 
 Рядок `acc->withdraw(50)` тепер справді змінює число в чужому процесі. І він же ховає за собою всі триста рядків, які ми щойно написали.
 

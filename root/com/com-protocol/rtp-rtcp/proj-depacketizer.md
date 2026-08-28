@@ -33,69 +33,7 @@
 
 Заголовок читаємо з мережевого порядку байтів **побайтово**, а не накладанням структури на буфер. Причин три, і кожна вже колись коштувала комусь ночі: [порядок байтів](root:hw-arch/endianness) у мережі старшим уперед, а на процесорі частіше молодшим; поле в датаграмі може лежати за адресою, не кратною своєму розмірові, і невирівняне читання на частині архітектур падає; а сам доступ до чужого буфера через покажчик на `uint16_t` — це порушення правил псевдонімів, яке оптимізатор має право використати проти вас.
 
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <array>
-#include <vector>
-#include <functional>
-
-// ── читання з мережевого порядку байтів: старший байт іде першим ─────────────
-static inline uint16_t rd16(const uint8_t* p) {
-    return static_cast<uint16_t>(static_cast<uint32_t>(p[0]) << 8 | p[1]);
-}
-static inline uint32_t rd32(const uint8_t* p) {
-    return static_cast<uint32_t>(p[0]) << 24 | static_cast<uint32_t>(p[1]) << 16
-         | static_cast<uint32_t>(p[2]) <<  8 | static_cast<uint32_t>(p[3]);
-}
-
-struct RtpHeader {
-    uint8_t  pt     = 0;
-    bool     marker = false;
-    uint16_t seq    = 0;
-    uint32_t ts     = 0;
-    uint32_t ssrc   = 0;
-    const uint8_t* payload = nullptr;
-    size_t         payload_len = 0;
-};
-
-bool parse_rtp(const uint8_t* buf, size_t n, RtpHeader& h) {
-    if (n < 12)            return false;   // навіть на заголовок не вистачає
-    if ((buf[0] >> 6) != 2) return false;  // версія має бути друга
-
-    const bool     pad = (buf[0] >> 5) & 1;
-    const bool     ext = (buf[0] >> 4) & 1;
-    const unsigned cc  =  buf[0]       & 0x0F;
-
-    h.marker = (buf[1] >> 7) & 1;
-    h.pt     =  buf[1]       & 0x7F;
-    h.seq    = rd16(buf + 2);
-    h.ts     = rd32(buf + 4);
-    h.ssrc   = rd32(buf + 8);
-
-    size_t off = 12 + 4u * cc;             // за фіксованою частиною — список CSRC
-    if (off > n) return false;
-
-    if (ext) {                             // розширення заголовка, якщо піднято біт X
-        if (off + 4 > n) return false;
-        const size_t words = rd16(buf + off + 2);  // довжина — у 32-бітових словах,
-        off += 4 + 4 * words;                      // самі чотири байти в неї не входять
-        if (off > n) return false;
-    }
-
-    size_t end = n;
-    if (pad) {                             // набивка живе в хвості
-        if (end == off) return false;
-        const size_t k = buf[end - 1];     // останній байт каже, скільки викинути (разом із собою)
-        if (k == 0 || k > end - off) return false;
-        end -= k;
-    }
-
-    h.payload     = buf + off;
-    h.payload_len = end - off;
-    return true;
-}
-```
+:::code proj-depacketizer/cpp/krok-pershyi-dvanadtsiat.cpp
 
 Три пастки тут заховані в порядку дій. **CSRC ідуть до розширення**, тож зсув треба рахувати саме в цій черзі — інакше на потоці з мікшера навантаження зсунеться на чотири байти за кожен зведений голос. **Довжина розширення міряється словами, а не байтами**, і чотири байти самого підзаголовка в неї не входять — класична помилка на множник чотири. **Набивку зрізають із хвоста, і лічильник у ній рахує сам себе**, тож `k == 0` — це не «нема набивки», а зіпсований пакет: нуль означав би, що байт-лічильник не рахує навіть себе.
 
@@ -107,27 +45,7 @@ bool parse_rtp(const uint8_t* buf, size_t n, RtpHeader& h) {
 
 Отже, з двох тлумачень різниці ми завжди беремо **коротше**. Це і є [модульна арифметика](root:sf-lang/unsigned-overflow) в чистому вигляді: різницю рахуємо за модулем 2¹⁶, а тоді половину кола, більшу за 32767, читаємо як рух назад.
 
-```cpp
-class SeqUnwrap {
-public:
-    // опору ставимо на перший побачений номер; повертає його розгорнутим
-    uint64_t reset(uint16_t first) { ref_ = BIAS + first; return ref_; }
-
-    uint64_t unwrap(uint16_t seq) {
-        const uint16_t ref16 = static_cast<uint16_t>(ref_);         // молодші 16 біт опори
-        const uint16_t raw   = static_cast<uint16_t>(seq - ref16);  // різниця за модулем 2¹⁶
-        // коротша ЗНАКОВА відстань: до 32767 — уперед, решта кола — назад
-        const int32_t  d = (raw < 0x8000u) ? static_cast<int32_t>(raw)
-                                           : static_cast<int32_t>(raw) - 0x10000;
-        const uint64_t ext = static_cast<uint64_t>(static_cast<int64_t>(ref_) + d);
-        if (ext > ref_) ref_ = ext;   // опора рухається ЛИШЕ вперед
-        return ext;
-    }
-private:
-    static constexpr uint64_t BIAS = 0x10000;  // запас, щоб ранній безлад не пішов у мінус
-    uint64_t ref_ = 0;
-};
-```
+:::code proj-depacketizer/cpp/krok-druhyi-shistnadtsiat.cpp
 
 **Розгортання через межу переповнення**
 
@@ -163,111 +81,7 @@ ext = 0x0001_FFFE − 1                      = 0x0001_FFFD   ← назад на
 
 Ключова вигода індексації за номером: **дублікат виявляється безкоштовно**. Оскільки в кільці одночасно живуть лише номери з проміжку `[голова, голова + N)`, два різні номери ніколи не потраплять в один слот. Тому зайнятий слот означає рівно одне — той самий пакет уже лежить, і це повтор. Ніяких порівнянь, ніякого пошуку.
 
-```cpp
-struct Packet {
-    uint64_t ext    = 0;   // розгорнутий номер
-    uint32_t ts     = 0;   // мітка часу з заголовка
-    bool     marker = false;
-    std::vector<uint8_t> payload;
-};
-
-class Reorderer {
-public:
-    using OnPacket = std::function<void(const Packet&)>;
-    using OnGap    = std::function<void(uint64_t from, uint64_t count)>;
-
-    Reorderer(uint64_t depth, uint64_t hold_ns, OnPacket out, OnGap gap)
-        : depth_(depth), hold_ns_(hold_ns), out_(std::move(out)), gap_(std::move(gap)) {}
-
-    void reset(uint64_t first_ext) {
-        for (size_t i = 0; i < N; ++i) { slot_[i].payload.clear(); full_[i] = false; }
-        head_ = highest_ = first_ext;
-        stalled_ = false;
-    }
-
-    void push(Packet&& p, uint64_t now_ns) {
-        if (p.ext < head_) { ++late_; return; }        // місце цього пакета вже проїхало
-
-        if (p.ext - head_ >= MAX_DROPOUT) {            // це вже не діра, а розрив потоку
-            advance_to_(head_ + N);                    // випорожнюємо кільце по порядку
-            gap_(head_, p.ext - head_);                // решту оголошуємо однією заявою
-            lost_ += p.ext - head_;
-            head_ = highest_ = p.ext;
-            stalled_ = false;
-        } else if (p.ext >= head_ + N) {               // вікно повне — звільняємо місце
-            advance_to_(p.ext - N + 1);
-        }
-
-        const size_t i = idx(p.ext);
-        if (full_[i]) { ++dup_; return; }              // той самий номер уже лежить — повтор
-        if (p.ext > highest_) highest_ = p.ext;
-        slot_[i] = std::move(p);
-        full_[i] = true;
-
-        drain(now_ns);
-    }
-
-    // кликати і за таймером теж: без нового пакета застигла голова сама не зрушить
-    void drain(uint64_t now_ns) {
-        for (;;) {
-            const size_t i = idx(head_);
-            if (full_[i]) {                            // голова на місці — віддаємо й ідемо далі
-                out_(slot_[i]);
-                release_(i);
-                ++head_; stalled_ = false;
-                continue;
-            }
-            if (highest_ < head_) break;               // попереду взагалі нічого — просто чекаємо потік
-
-            if (!stalled_) { stalled_ = true; stall_since_ = now_ns; }
-            const bool pressure = (highest_ - head_) >= depth_;          // поріг за глибиною
-            const bool expired  = (now_ns - stall_since_) >= hold_ns_;   // поріг за часом
-            if (!pressure && !expired) break;          // бюджет іще є — чекаємо
-
-            gap_(head_, 1); ++lost_;                   // здаємось: цього пакета не буде
-            ++head_; stalled_ = false;
-        }
-    }
-
-    uint64_t late() const { return late_; }
-    uint64_t dup()  const { return dup_;  }
-    uint64_t lost() const { return lost_; }
-
-private:
-    static constexpr size_t   N           = 128;   // степінь двійки: модуль стає маскою
-    static constexpr uint64_t MAX_DROPOUT = 3000;  // за RFC 3550 A.1: далі — це вже не діра
-
-    static size_t idx(uint64_t ext) { return static_cast<size_t>(ext & (N - 1)); }
-    void release_(size_t i) { slot_[i].payload.clear(); full_[i] = false; }
-
-    // силоміць зрушити голову до target, нічого не загубивши мовчки
-    void advance_to_(uint64_t target) {
-        if (target <= head_) return;                   // важливо: інакше зб'ємо лічильник простою
-        uint64_t miss = 0;
-        while (head_ < target) {
-            const size_t i = idx(head_);
-            if (full_[i]) {
-                if (miss) { gap_(head_ - miss, miss); lost_ += miss; miss = 0; }
-                out_(slot_[i]); release_(i);
-            } else {
-                ++miss;                                // сусідні діри злипаються в одну заяву
-            }
-            ++head_;
-        }
-        if (miss) { gap_(head_ - miss, miss); lost_ += miss; }
-        stalled_ = false;
-    }
-
-    std::array<Packet, N> slot_{};
-    std::array<bool,   N> full_{};
-    uint64_t head_ = 0, highest_ = 0, stall_since_ = 0;
-    bool     stalled_ = false;
-    uint64_t depth_, hold_ns_;
-    OnPacket out_;
-    OnGap    gap_;
-    uint64_t late_ = 0, dup_ = 0, lost_ = 0;
-};
-```
+:::code proj-depacketizer/cpp/krok-tretii-vikno.cpp
 
 Дві речі в цьому коді варті окремого погляду.
 
@@ -298,53 +112,7 @@ private:
 
 Межу кадру дає **зміна мітки часу**, а не її зростання. Різниця принципова: мітка RTP — це момент **показу**, а пакети йдуть у порядку **кодування**. Коли кодек уживає двонапрямлені кадри, ці порядки не збігаються, і мітка часу законно **йде назад**. Стандарт це прямо передбачає: послідовні пакети можуть нести немонотонні мітки, якщо дані передано не в тому порядку, у якому їх узято, — тоді як номери лишаються монотонними завжди. Тому порівняння тут тільки `!=`; будь-яке `>` перетворить приймач на такий, що псує картинку рівно на складному матеріалі, де вона й так на межі.
 
-```cpp
-struct Frame {
-    uint32_t ts = 0;
-    bool     damaged = false;                    // усередині була діра або загубився маркер
-    std::vector<std::vector<uint8_t>> parts;     // навантаження пакетів у порядку номерів
-};
-
-class FrameAssembler {
-public:
-    explicit FrameAssembler(std::function<void(Frame&&)> sink) : sink_(std::move(sink)) {}
-
-    void on_packet(const Packet& p) {
-        // мітка змінилася, а маркера не було → маркерний пакет загубився
-        if (open_ && p.ts != cur_.ts) flush_(true);
-
-        if (!open_) {
-            cur_ = Frame{};
-            cur_.ts = p.ts;
-            cur_.damaged = carry_;   // діра, що трапилася між кадрами, лягає підозрою на цей
-            carry_ = false;
-            open_ = true;
-        }
-        cur_.parts.push_back(p.payload);
-
-        if (p.marker) flush_(false);  // маркер: збирати більше нічого
-    }
-
-    void on_gap(uint64_t, uint64_t) {
-        if (open_) cur_.damaged = true;  // діра всередині відкритого кадру
-        else       carry_ = true;        // діра на межі: чий це шматок, ще не відомо
-    }
-
-private:
-    void flush_(bool broken) {
-        if (!open_) return;
-        cur_.damaged = cur_.damaged || broken;
-        sink_(std::move(cur_));
-        cur_ = Frame{};
-        open_ = false;
-    }
-
-    std::function<void(Frame&&)> sink_;
-    Frame cur_;
-    bool  open_  = false;
-    bool  carry_ = false;
-};
-```
+:::code proj-depacketizer/cpp/krok-chetvertyi-zbyrannia.cpp
 
 Обробка діри тут навмисно песимістична. Коли діра трапилася між кадрами, ми не знаємо, чиї байти пропали — хвіст попереднього чи голова наступного, — і не вгадуємо: підозра переходить на наступний кадр. Хибно позначений кадр коштує одного зайвого спрацювання [приховування втрат](root:com-signal/packet-loss-concealment); неправдиво позначений цілим кадр коштує декодерові розсипаної картинки на всю групу зображень.
 
@@ -356,76 +124,11 @@ private:
 
 Ліки — випробування. Нове джерело мусить довести, що воно справді потік, а не поодинокий пакет: показати **два номери поспіль**. Число два — з приписів самого стандарту, там воно зветься `MIN_SEQUENTIAL`.
 
-```cpp
-class SsrcGuard {
-public:
-    enum Verdict { First, Same, Foreign, Switched };
-
-    Verdict check(uint32_t ssrc, uint16_t seq) {
-        if (!have_)       { cur_ = ssrc; have_ = true; return First; }
-        if (ssrc == cur_) { probation_ = 0; return Same; }
-
-        // чужий SSRC беремо на випробування: одиничний пакет нічого не доводить
-        if (ssrc != cand_ || static_cast<uint16_t>(cand_seq_ + 1) != seq) {
-            cand_ = ssrc; cand_seq_ = seq; probation_ = MIN_SEQUENTIAL - 1;
-            return Foreign;
-        }
-        cand_seq_ = seq;
-        if (--probation_ > 0) return Foreign;
-
-        cur_ = ssrc;         // два номери поспіль — джерело справді змінилося
-        return Switched;
-    }
-
-private:
-    static constexpr int MIN_SEQUENTIAL = 2;   // за RFC 3550 A.1
-    uint32_t cur_ = 0, cand_ = 0;
-    uint16_t cand_seq_ = 0;
-    int      probation_ = 0;
-    bool     have_ = false;
-};
-```
+:::code proj-depacketizer/cpp/krok-piatyi-chyi-tse.cpp
 
 І весь приймач:
 
-```cpp
-class RtpReceiver {
-public:
-    explicit RtpReceiver(std::function<void(Frame&&)> sink)
-        : asm_(std::move(sink)),
-          ring_(/*depth*/ 32, /*hold*/ 40ull * 1000 * 1000,
-                [this](const Packet& p)              { asm_.on_packet(p); },
-                [this](uint64_t from, uint64_t count){ asm_.on_gap(from, count); }) {}
-
-    void on_datagram(const uint8_t* buf, size_t n, uint64_t now_ns) {
-        RtpHeader h;
-        if (!parse_rtp(buf, n, h)) return;
-
-        switch (guard_.check(h.ssrc, h.seq)) {
-            case SsrcGuard::Foreign:  return;                    // не наш потік — мовчки геть
-            case SsrcGuard::First:
-            case SsrcGuard::Switched: ring_.reset(unwrap_.reset(h.seq)); break;
-            case SsrcGuard::Same:     break;
-        }
-
-        Packet p;
-        p.ext    = unwrap_.unwrap(h.seq);
-        p.ts     = h.ts;
-        p.marker = h.marker;
-        p.payload.assign(h.payload, h.payload + h.payload_len);
-        ring_.push(std::move(p), now_ns);
-    }
-
-    // ОБОВ'ЯЗКОВО кликати за таймером, інакше поріг часу ніколи не спрацює
-    void tick(uint64_t now_ns) { ring_.drain(now_ns); }
-
-private:
-    SsrcGuard      guard_;
-    SeqUnwrap      unwrap_;
-    FrameAssembler asm_;
-    Reorderer      ring_;
-};
-```
+:::code proj-depacketizer/cpp/krok-piatyi-chyi-tse-2.cpp
 
 Метод `tick` — не зручність, а необхідність, і його забувають частіше за все. Уся логіка бюджету часу живе в `drain`, а `drain` кликається з `push`. Отже, поки не прийде наступний пакет, застигла голова не зрушить із місця. Саме той випадок, коли час найдорожчий, — канал провалився й пакети припинилися, — це випадок, у якому приймач без таймера мовчить нескінченно. Той самий `now_ns` мусить бути [показом монотонного годинника](root:sf-apps/monotonic-vs-wall-time), а не годинника доби: перевід стрілок або підтягування часу службою синхронізації робить різницю від'ємною, а в беззнаковому `uint64_t` від'ємна різниця — це величезне додатне число, тобто миттєве спрацювання порогу на всьому, що чекало.
 

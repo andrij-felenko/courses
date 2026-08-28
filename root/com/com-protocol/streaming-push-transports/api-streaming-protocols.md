@@ -64,29 +64,7 @@ data: Другий рядок того самого повідомлення
 
 ### 1.4. Браузерний інтерфейс EventSource (JavaScript API)
 
-```typescript
-interface EventSourceInit {
-  withCredentials?: boolean; // Дозволяє передачу авторизаційних кук та HTTP-заголовків при міждоменних CORS-запитах
-}
-
-class EventSource extends EventTarget {
-  constructor(url: string | URL, eventSourceInitDict?: EventSourceInit);
-
-  static readonly CONNECTING = 0; // Встановлення з'єднання або пауза перед повторною спробою
-  static readonly OPEN = 1;       // З'єднання активне, потік подій приймається
-  static readonly CLOSED = 2;     // З'єднання остаточно закрите викликом close() або фатальною помилкою
-
-  readonly readyState: number;
-  readonly url: string;
-  readonly withCredentials: boolean;
-
-  onopen: ((this: EventSource, ev: Event) => any) | null;
-  onmessage: ((this: EventSource, ev: MessageEvent) => any) | null;
-  onerror: ((this: EventSource, ev: Event) => any) | null;
-
-  close(): void; // Примусово закриває TCP-з'єднання та блокує будь-які подальші спроби перепідключення
-}
-```
+:::code api-streaming-protocols/ts/1-4-brauzernyi-interfeis.ts
 
 Стандартний браузерний API `EventSource` має суттєве обмеження: він не підтримує метод `POST` та довільні HTTP-заголовки (наприклад, `Authorization: Bearer <token>`). У складних корпоративних системах для подолання цього обмеження використовують клієнти на базі Fetch API та інтерфейсу `ReadableStream`, які читають потік байтів і самостійно розбирають текстову граматику SSE.
 
@@ -219,32 +197,7 @@ Base64:      s3pPLMBiTxaQ1kYGzzhZRbK+xOo=
 
 Браузерний об'єкт `WebSocket` надає низькорівневий асинхронний інтерфейс для відправлення та прийому повідомлень:
 
-```typescript
-class WebSocket extends EventTarget {
-  constructor(url: string | URL, protocols?: string | string[]);
-
-  static readonly CONNECTING = 0;
-  static readonly OPEN = 1;
-  static readonly CLOSING = 2;
-  static readonly CLOSED = 3;
-
-  readonly readyState: number;
-  readonly url: string;
-  readonly protocol: string;       // Узгоджений підпротокол із Sec-WebSocket-Protocol
-  readonly extensions: string;     // Узгоджені розширення (наприклад, permessage-deflate)
-  readonly bufferedAmount: number; // Кількість байтів у вихідній черзі браузера (індикатор backpressure)
-
-  binaryType: BinaryType; // "blob" або "arraybuffer"
-
-  onopen: ((this: WebSocket, ev: Event) => any) | null;
-  onmessage: ((this: WebSocket, ev: MessageEvent) => any) | null;
-  onerror: ((this: WebSocket, ev: Event) => any) | null;
-  onclose: ((this: WebSocket, ev: CloseEvent) => any) | null;
-
-  send(data: string | ArrayBufferLike | Blob | ArrayBufferView): void;
-  close(code?: number, reason?: string): void;
-}
-```
+:::code api-streaming-protocols/ts/2-5-brauzernyi-kliientskyi.ts
 
 Властивість `bufferedAmount` є критично важливою для запобігання вичерпанню пам'яті клієнта при відправленні великих потоків даних (наприклад, запису аудіо чи відео). Якщо значення `bufferedAmount` перевищує поріг (наприклад, 1 МБ), застосунок повинен призупинити виклики `send()` до моменту скидання черги в операційну систему.
 
@@ -292,26 +245,7 @@ class WebSocket extends EventTarget {
 
 ### 3.2. Браузерний інтерфейс WebTransport (JavaScript API)
 
-```typescript
-class WebTransport {
-  constructor(url: string | URL, options?: WebTransportOptions);
-
-  readonly ready: Promise<void>;   // Виконується після завершення QUIC-рукостискання
-  readonly closed: Promise<WebTransportCloseInfo>; // Виконується при закритті сесії
-
-  // Ненадійні датаграми (аналог UDP без гарантії доставки)
-  readonly datagrams: WebTransportDatagramDuplexStream;
-
-  // Надійні незалежні потоки (аналог паралельних TCP-каналів)
-  createBidirectionalStream(): Promise<WebTransportBidirectionalStream>;
-  createUnidirectionalStream(): Promise<WritableStream<Uint8Array>>;
-
-  readonly incomingBidirectionalStreams: ReadableStream<WebTransportBidirectionalStream>;
-  readonly incomingUnidirectionalStreams: ReadableStream<ReadableStream<Uint8Array>>;
-
-  close(closeInfo?: WebTransportCloseInfo): void;
-}
-```
+:::code api-streaming-protocols/ts/3-2-brauzernyi-interfeis.ts
 
 Сесія WebTransport ініціюється розширеним методом `CONNECT` протоколу HTTP/3 із псевдозаголовком `:protocol = webtransport`. Після підтвердження сесії клієнт та сервер можуть створювати незалежні стріми або обмінюватися датаграмами через потокові об'єкти `ReadableStream` та `WritableStream`.
 

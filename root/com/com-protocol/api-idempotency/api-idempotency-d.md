@@ -109,39 +109,8 @@ Idempotency-Key: 9f8c2b1e-4a77-4e2f-9d3a-6b0c1e5f8a21
 Ось кістяк обробника: перевір ключ, і якщо він новий — зроби роботу й збережи результат; якщо вже бачений — поверни збережене.
 
 :::tabs
-```ts
-async function handleCharge(req, res) {
-  const key = req.header("Idempotency-Key");
-  if (!key) return res.status(400).send("потрібен Idempotency-Key");
-
-  // Атомарно: або застовпили ключ за собою, або дізналися, що він уже є.
-  const claimed = await store.insertIfAbsent(key);   // false, якщо ключ уже був
-  if (!claimed) {
-    const saved = await store.getResult(key);         // це повтор
-    return res.status(saved.status).json(saved.body); // та сама відповідь
-  }
-
-  const result = await charge(req.body.amount);       // робота — рівно раз
-  await store.saveResult(key, result);
-  return res.status(result.status).json(result.body);
-}
-```
-```py
-async def handle_charge(request):
-    key = request.headers.get("Idempotency-Key")
-    if not key:
-        return Response("потрібен Idempotency-Key", status=400)
-
-    # Атомарно: або застовпили ключ за собою, або дізналися, що він уже є.
-    claimed = await store.insert_if_absent(key)   # False, якщо ключ уже був
-    if not claimed:
-        saved = await store.get_result(key)        # це повтор
-        return Response(saved.body, status=saved.status)
-
-    result = await charge(request.json["amount"])  # робота — рівно раз
-    await store.save_result(key, result)
-    return Response(result.body, status=result.status)
-```
+:::code api-idempotency-d/ts/index.ts
+:::code api-idempotency-d/py/main.py
 :::
 
 Уся правильність тримається на одному слові — **атомарно**. Два повтори можуть прилетіти в один і той самий момент (клієнт не дочекався й натиснув ще раз, поки перший запит іще в дорозі). Якщо обидва спершу спитають «бачили K?» — обидва почують «ні» — обидва виконають списання. Це рівно та подвійна дія, від якої ми тікали. Рятує єдине: перевірка й запис ключа мають бути **однією неподільною дією**. На практиці це [унікальне обмеження](root:sf-data/transactions-acid) на стовпець ключа в сховищі: перший `INSERT` виграє, другий падає на порушенні унікальності — і програвач не виконує роботу, а чекає чи віддає результат переможця. Без цієї атомарності ключ ідемпотентності стає діркою, що вдає захист.

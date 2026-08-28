@@ -8,18 +8,7 @@
 
 ### Бінарна декларація методів (C / C++)
 
-```cpp
-struct IUnknown {
-    virtual HRESULT STDMETHODCALLTYPE QueryInterface(
-        /* [in] */  REFIID riid,
-        /* [out] */ void **ppvObject
-    ) = 0;
-
-    virtual ULONG STDMETHODCALLTYPE AddRef(void) = 0;
-
-    virtual ULONG STDMETHODCALLTYPE Release(void) = 0;
-};
-```
+:::code api-iunknown-and-apartments/cpp/binarna-deklaratsiia.cpp
 
 ### Специфікація поведінки та правила виклику
 
@@ -51,19 +40,7 @@ struct IUnknown {
 
 `IClassFactory` абстрагує процес виділення пам'яті та створення нових екземплярів об'єктів. Завдяки фабриці клієнт не залежить від конкретного механізму розміщення об'єкта в пам'яті (чи то статична пам'ять, чи то локальна купа DLL, чи то пул об'єктів COM+).
 
-```cpp
-struct IClassFactory : public IUnknown {
-    virtual HRESULT STDMETHODCALLTYPE CreateInstance(
-        /* [in]  */ IUnknown *pUnkOuter,
-        /* [in]  */ REFIID   riid,
-        /* [out] */ void     **ppvObject
-    ) = 0;
-
-    virtual HRESULT STDMETHODCALLTYPE LockServer(
-        /* [in] */ BOOL fLock
-    ) = 0;
-};
-```
+:::code api-iunknown-and-apartments/cpp/2-interfeis-aktyvatsii.cpp
 
 - **`CreateInstance`**:
   Створює неініціалізований екземпляр класу, запитує в нього стартовий інтерфейс `riid` та повертає його клієнту. Параметр `pUnkOuter` використовується для підтримки агрегації — патерну повторного використання коду в COM, де зовнішній об'єкт делегує виклики внутрішньому компоненту. Якщо компонент не підтримує агрегацію, а клієнт передав ненульовий `pUnkOuter`, фабрика зобов'язана негайно повернути статус `CLASS_E_NOAGGREGATION`.
@@ -160,45 +137,13 @@ HRESULT CoCreateInstance(
 
 Потік-відправник викликає `CoMarshalInterThreadInterfaceInStream`, який створює бінарний дескриптор об'єкта в пам'яті (IStream). Потік-отримувач читає потік функцією `CoGetInterfaceAndReleaseStream`, яка повертає валідний проксі, прив'язаний до поточного апартаменту отримувача, та автоматично звільняє потік.
 
-```cpp
-/* У потоці-відправнику: */
-HRESULT CoMarshalInterThreadInterfaceInStream(
-    REFIID    riid,     /* IID інтерфейсу */
-    IUnknown *pUnk,     /* Вказівник на об'єкт */
-    LPSTREAM *ppStm     /* Вихідний потік маршалінгу */
-);
-
-/* У потоці-отримувачі: */
-HRESULT CoGetInterfaceAndReleaseStream(
-    LPSTREAM  pStm,     /* Потік, створений відправником */
-    REFIID    riid,     /* IID інтерфейсу */
-    LPVOID   *ppv       /* Вихідний проксі-вказівник */
-);
-```
+:::code api-iunknown-and-apartments/cpp/1-potokovyi-marshalinh.hpp
 
 ### 2. Таблиця глобальних інтерфейсів IGlobalInterfaceTable (GIT)
 
 GIT є системним внутрішньопроцесним сервісом, доступним за ідентифікатором `CLSID_StdGlobalInterfaceTable`. Вона дозволяє зареєструвати інтерфейс один раз і безпечно отримувати проксі в довільній кількості робочих потоків за числовим 32-бітним маркером (Cookie), усуваючи необхідність створення індивідуальних потоків IStream для кожного клієнта.
 
-```cpp
-struct IGlobalInterfaceTable : public IUnknown {
-    virtual HRESULT STDMETHODCALLTYPE RegisterInterfaceInGlobal(
-        /* [in]  */ IUnknown *pUnk,
-        /* [in]  */ REFIID   riid,
-        /* [out] */ DWORD    *pdwCookie
-    ) = 0;
-
-    virtual HRESULT STDMETHODCALLTYPE RevokeInterfaceFromGlobal(
-        /* [in] */ DWORD dwCookie
-    ) = 0;
-
-    virtual HRESULT STDMETHODCALLTYPE GetInterfaceFromGlobal(
-        /* [in]  */ DWORD  dwCookie,
-        /* [in]  */ REFIID riid,
-        /* [out] */ void   **ppv
-    ) = 0;
-};
-```
+:::code api-iunknown-and-apartments/cpp/2-tablytsia-hlobalnykh.cpp
 
 ---
 

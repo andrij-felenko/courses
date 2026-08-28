@@ -17,7 +17,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -34,10 +35,12 @@
           "slug": "tcp-message-framing",
           "title": "Кадрування повідомлень у потоці TCP",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -48,7 +51,8 @@
           "proj": [
             {
               "file": "proj-framed-reader.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -75,18 +79,21 @@
             "status": "done"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-wire-codec.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-byteorder-primitives.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -114,7 +121,8 @@
           "proj": [
             {
               "file": "proj-per-bitstream.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -141,7 +149,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -152,11 +161,13 @@
           "proj": [
             {
               "file": "proj-varint.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             },
             {
               "file": "proj-framing.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -178,18 +189,22 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-cbor-and-cose.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-cbor-stream-codec.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -201,7 +216,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "math": [
             {
@@ -212,11 +228,15 @@
           "proj": [
             {
               "file": "proj-flatbuffers-parser.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             },
             {
               "file": "proj-nanopb-codec.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -253,7 +273,8 @@
             "status": "pending"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -264,13 +285,15 @@
           "proj": [
             {
               "file": "proj-crc-embedded.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-hw-crc.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -299,13 +322,17 @@
           "proj": [
             {
               "file": "proj-frame-transform.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-mavlink-coordinates.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -334,13 +361,16 @@
           "proj": [
             {
               "file": "proj-sntp-client.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-packet.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 5
             }
           ]
         }

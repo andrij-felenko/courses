@@ -15,25 +15,7 @@
 
 ## Схема сховища: одне обмеження, що робить усю роботу
 
-```sql
-CREATE TABLE idempotency_keys (
-    user_id          text        NOT NULL,   -- власник ключа
-    request_path     text        NOT NULL,   -- ендпоінт, до якого ключ прив'язаний
-    key              text        NOT NULL,   -- сам Idempotency-Key від клієнта
-    request_hash     bytea       NOT NULL,   -- відбиток тіла запиту (SHA-256)
-    state            text        NOT NULL    -- автомат: лише два стани
-                     CHECK (state IN ('in_progress', 'completed')),
-    response_status  int,                     -- заповнюється при 'completed'
-    response_headers jsonb,                   -- відібрані заголовки для відтворення
-    response_body    bytea,                   -- ТОЧНІ байти відповіді
-    locked_at        timestamptz NOT NULL DEFAULT now(),  -- коли взято claim (оренда)
-    completed_at     timestamptz,
-    expires_at       timestamptz NOT NULL,    -- доки ключ живий (вікно повторів клієнта)
-    PRIMARY KEY (user_id, request_path, key)
-);
-
-CREATE INDEX idempotency_keys_expiry ON idempotency_keys (expires_at);
-```
+:::code proj-idempotency-key/sql/skhema-skhovyshcha-odne.sql
 
 Кожен стовпець тут заслужив своє місце, але серце таблиці — `PRIMARY KEY (user_id, request_path, key)`. Це не просто спосіб знайти рядок швидко. Первинний ключ — це **унікальне обмеження**, а унікальне обмеження в базі даних — це апаратна гарантія «двох таких рядків не буде ніколи». Саме воно, а не наш код, розсудить одночасні запити. Усе інше в схемі обслуговує цю ідею.
 
@@ -103,85 +85,9 @@ func fingerprint(method, path string, body []byte) []byte {
 Ось те саме серце. Одна вставка з `ON CONFLICT DO NOTHING ... RETURNING` робить обидві справи: намагається зайняти ключ і повідомляє, чи це вдалося. Якщо повернувся рядок — ми переможці, ключ наш. Якщо не повернувся жоден — ключ уже хтось зайняв, і ми йдемо його прочитати.
 
 :::tabs
-```ts
-type Claim = { won: true } | { won: false; row: KeyRow };
-
-async function claim(
-  db: Pool, key: string, userId: string, path: string,
-  hash: Buffer, expiresAt: Date,
-): Promise<Claim> {
-  const ins = await db.query(
-    `INSERT INTO idempotency_keys
-        (user_id, request_path, key, request_hash, state, expires_at)
-     VALUES ($1, $2, $3, $4, 'in_progress', $5)
-     ON CONFLICT (user_id, request_path, key) DO NOTHING
-     RETURNING key`,
-    [userId, path, key, hash, expiresAt],
-  );
-  if (ins.rowCount === 1) return { won: true };   // рядок створено — claim наш
-
-  const sel = await db.query(
-    `SELECT state, request_hash, response_status, response_headers, response_body
-       FROM idempotency_keys
-      WHERE user_id = $1 AND request_path = $2 AND key = $3`,
-    [userId, path, key],
-  );
-  return { won: false, row: sel.rows[0] };        // ключ уже був — ось він
-}
-```
-```py
-async def claim(conn, key, user_id, path, req_hash, expires_at):
-    inserted = await conn.fetchrow(
-        """
-        INSERT INTO idempotency_keys
-            (user_id, request_path, key, request_hash, state, expires_at)
-        VALUES ($1, $2, $3, $4, 'in_progress', $5)
-        ON CONFLICT (user_id, request_path, key) DO NOTHING
-        RETURNING key
-        """,
-        user_id, path, key, req_hash, expires_at,
-    )
-    if inserted is not None:
-        return True, None                     # рядок створено — claim наш
-
-    row = await conn.fetchrow(
-        """
-        SELECT state, request_hash, response_status, response_headers, response_body
-        FROM idempotency_keys
-        WHERE user_id = $1 AND request_path = $2 AND key = $3
-        """,
-        user_id, path, key,
-    )
-    return False, row                         # ключ уже був — ось він
-```
-```go
-func claim(ctx context.Context, db *sql.DB, k keyID, hash []byte, exp time.Time) (bool, *keyRow, error) {
-    var scanned string
-    err := db.QueryRowContext(ctx,
-        `INSERT INTO idempotency_keys
-            (user_id, request_path, key, request_hash, state, expires_at)
-         VALUES ($1, $2, $3, $4, 'in_progress', $5)
-         ON CONFLICT (user_id, request_path, key) DO NOTHING
-         RETURNING key`,
-        k.userID, k.path, k.key, hash, exp,
-    ).Scan(&scanned)
-    switch {
-    case err == nil:
-        return true, nil, nil                 // рядок створено — claim наш
-    case !errors.Is(err, sql.ErrNoRows):
-        return false, nil, err                // справжня помилка БД
-    }
-    // ErrNoRows == конфлікт: ключ уже є, читаємо його
-    row := &keyRow{}
-    err = db.QueryRowContext(ctx,
-        `SELECT state, request_hash, response_status, response_headers, response_body
-           FROM idempotency_keys
-          WHERE user_id = $1 AND request_path = $2 AND key = $3`,
-        k.userID, k.path, k.key,
-    ).Scan(&row.state, &row.hash, &row.status, &row.headers, &row.body)
-    return false, row, err
-}
-```
+:::code proj-idempotency-key/ts/krok-2-atomarne.ts
+:::code proj-idempotency-key/py/krok-2-atomarne.py
+:::code proj-idempotency-key/go/main.go
 :::
 
 Go тут особливо чесний до суті: `RETURNING` при вдалій вставці повертає рядок, а при конфлікті `DO NOTHING` — жодного, тож `QueryRow(...).Scan(...)` віддає `sql.ErrNoRows`. Ця єдина розвилка `err == nil` проти `ErrNoRows` і є двома результатами гонки, названими прямо. У всіх трьох мовах ми **не** покладаємося на `SELECT` перед `INSERT` — читаємо рядок лише **після** того, як програли застовплення, коли рядок переможця вже гарантовано існує й зафіксований.
@@ -199,61 +105,8 @@ Go тут особливо чесний до суті: `RETURNING` при вда
 Ось повний обробник, що зводить застовплення й автомат докупи:
 
 :::tabs
-```ts
-async function handleCharge(req, res) {
-  const key = req.get("Idempotency-Key");
-  if (!key || !KEY_RE.test(key))
-    return res.status(400).json({ error: "потрібен коректний Idempotency-Key" });
-
-  const userId = req.auth.userId;
-  const path = req.path;
-  const raw: Buffer = req.rawBody;                     // ТОЧНІ байти, як прийшли
-  const hash = fingerprint(req.method, path, raw);
-  const expiresAt = new Date(Date.now() + KEY_TTL_MS);
-
-  const c = await claim(pool, key, userId, path, hash, expiresAt);
-
-  if (!c.won) {
-    const row = c.row;
-    if (!row.request_hash.equals(hash))                // той самий ключ, інше тіло
-      return res.status(422).json({ error: "Idempotency-Key уже вжито з іншим тілом запиту" });
-    if (row.state === "in_progress") {                 // переможець ще рахує
-      res.set("Retry-After", "1");
-      return res.status(409).json({ error: "запит із цим ключем ще виконується" });
-    }
-    return send(res, toStored(row), true);             // completed → точне відтворення
-  }
-
-  const stored = await runOnce(pool, key, userId, path, JSON.parse(raw.toString()));
-  return send(res, stored, false);                     // свіжий результат — рівно раз
-}
-```
-```py
-async def handle_charge(request):
-    key = request.headers.get("Idempotency-Key")
-    if not key or not KEY_RE.match(key):
-        return json_resp({"error": "потрібен коректний Idempotency-Key"}, 400)
-
-    user_id = request["user_id"]
-    path = request.path
-    raw = await request.read()                         # ТОЧНІ байти, як прийшли
-    req_hash = fingerprint(request.method, path, raw)
-    expires_at = datetime.now(timezone.utc) + KEY_TTL
-
-    async with pool.acquire() as conn:
-        won, row = await claim(conn, key, user_id, path, req_hash, expires_at)
-
-        if not won:
-            if bytes(row["request_hash"]) != req_hash:            # ключ той, тіло інше
-                return json_resp({"error": "Idempotency-Key уже вжито з іншим тілом"}, 422)
-            if row["state"] == "in_progress":                     # переможець ще рахує
-                return json_resp({"error": "запит із цим ключем ще виконується"},
-                                 409, headers={"Retry-After": "1"})
-            return send(to_stored(row), replayed=True)            # completed → відтворення
-
-    stored = await run_once(pool, key, user_id, path, json.loads(raw))
-    return send(stored, replayed=False)                           # свіжий результат — раз
-```
+:::code proj-idempotency-key/ts/krok-3-skinchennyi-avtomat.ts
+:::code proj-idempotency-key/py/krok-3-skinchennyi-avtomat.py
 :::
 
 Три розвилки на програвача застовплення:
@@ -264,18 +117,7 @@ async def handle_charge(request):
 
 Друга політика — **зачекати** на сервері, поки переможець допише, і тоді відтворити його відповідь. Це приємніше клієнтові (одна відповідь замість «409, спробуй ще»), але коштує утриманого з'єднання й ризикує накопиченням тих, хто чекає:
 
-```ts
-// Варіант «очікування» замість негайного 409: коротко опитуємо ключ до дедлайну.
-async function waitForResult(db, key, userId, path, deadlineMs = 3000): Promise<Stored | null> {
-  const until = Date.now() + deadlineMs;
-  while (Date.now() < until) {
-    const row = await getRow(db, key, userId, path);
-    if (row.state === "completed") return toStored(row);   // переможець дописав
-    await sleep(100);                                      // 100 мс і ще раз
-  }
-  return null;                                             // не дочекались — назад до 409
-}
-```
+:::code proj-idempotency-key/ts/krok-3-skinchennyi-avtomat-2.ts
 
 Опитувати замок можна й на боці бази — [розподіленим замком чи блокувальним читанням](root:sf-distributed/distributed-locks) (механізм, що змушує один запит чекати, поки інший тримає ресурс) рядка ключа. Це прибирає активне опитування, та натомість тримає ще й транзакцію відкритою на весь час роботи переможця — та сама плата за очікування, лише перенесена в базу. Дефолт для більшості API — `409 + Retry-After`: він робить автомат явним і не тримає ресурсів.
 
@@ -286,82 +128,8 @@ async function waitForResult(db, key, userId, path, deadlineMs = 3000): Promise<
 Переможець застовплення тепер має зробити роботу й перевести ключ у `completed`. Найважче й найтонше тут — **атомарність ефекту й завершення разом**. Якщо списати гроші, а перед записом `completed` упасти, ключ застрягне в `in_progress` над уже виконаним списанням; якщо ж навпаки позначити `completed`, а списати не встигнути — віддамо «готово» над роботою, якої не було. Обидва розриви лікуються тим, що ефект і перехід у `completed` кладуться в **одну транзакцію**:
 
 :::tabs
-```ts
-async function runOnce(db: Pool, key, userId, path, body): Promise<Stored> {
-  const client = await db.connect();
-  try {
-    await client.query("BEGIN");
-
-    // Ефект — у ТІЙ САМІЙ транзакції, що й завершення ключа.
-    const p = await client.query(
-      `INSERT INTO payments (user_id, amount, currency) VALUES ($1, $2, $3) RETURNING id`,
-      [userId, body.amount, body.currency],
-    );
-
-    const stored: Stored = {
-      status: 201,
-      headers: { "Content-Type": "application/json", Location: `/payments/${p.rows[0].id}` },
-      body: Buffer.from(JSON.stringify({ paymentId: p.rows[0].id, status: "charged" })),
-    };
-
-    await client.query(
-      `UPDATE idempotency_keys
-          SET state = 'completed', response_status = $1, response_headers = $2,
-              response_body = $3, completed_at = now()
-        WHERE user_id = $4 AND request_path = $5 AND key = $6`,
-      [stored.status, stored.headers, stored.body, userId, path, key],
-    );
-
-    await client.query("COMMIT");             // ефект і 'completed' — атомарно разом
-    return stored;
-  } catch (e) {
-    await client.query("ROLLBACK");           // ефект відкотився — звільняємо claim
-    await db.query(
-      `DELETE FROM idempotency_keys
-        WHERE user_id = $1 AND request_path = $2 AND key = $3 AND state = 'in_progress'`,
-      [userId, path, key],
-    );
-    throw e;
-  } finally {
-    client.release();
-  }
-}
-```
-```py
-async def run_once(pool, key, user_id, path, body):
-    async with pool.acquire() as conn:
-        try:
-            async with conn.transaction():
-                payment_id = await conn.fetchval(
-                    "INSERT INTO payments (user_id, amount, currency) VALUES ($1,$2,$3) RETURNING id",
-                    user_id, body["amount"], body["currency"],
-                )
-                stored = {
-                    "status": 201,
-                    "headers": {"Content-Type": "application/json",
-                                "Location": f"/payments/{payment_id}"},
-                    "body": json.dumps({"paymentId": str(payment_id),
-                                        "status": "charged"}).encode(),
-                }
-                await conn.execute(
-                    """
-                    UPDATE idempotency_keys
-                       SET state='completed', response_status=$1, response_headers=$2::jsonb,
-                           response_body=$3, completed_at=now()
-                     WHERE user_id=$4 AND request_path=$5 AND key=$6
-                    """,
-                    stored["status"], json.dumps(stored["headers"]),
-                    stored["body"], user_id, path, key,
-                )
-            return stored                       # транзакція зафіксована — ефект+'completed'
-        except Exception:
-            await pool.execute(                 # ефект відкотився — звільняємо claim
-                """DELETE FROM idempotency_keys
-                    WHERE user_id=$1 AND request_path=$2 AND key=$3 AND state='in_progress'""",
-                user_id, path, key,
-            )
-            raise
-```
+:::code proj-idempotency-key/ts/krok-4-vykonaty-rivno-raz.ts
+:::code proj-idempotency-key/py/krok-4-vykonaty-rivno-raz.py
 :::
 
 Дві речі варто розібрати. Перша: **чому на помилці ми видаляємо `in_progress`-рядок.** Застовплення зафіксувалося окремо, тож відкат транзакції з роботою його не прибирає — рядок `in_progress` залишиться висіти над списанням, якого не сталося (транзакція його відкотила). Якби ми його не звільнили, клієнтів чесний повтор дістав би `409` або, гірше, застряг би до кінця TTL. Тому на відкаті прибираємо `in_progress`-рядок — і повтор починає з чистого аркуша. Умова `AND state = 'in_progress'` тут — запобіжник: вона не дасть випадково знести вже `completed`-ключ.
@@ -386,18 +154,7 @@ function send(res, s: Stored, replayed: boolean) {
   return res.status(s.status).send(s.body);                // ті самі байти, той самий статус
 }
 ```
-```py
-def to_stored(row):
-    return {"status": row["response_status"],
-            "headers": json.loads(row["response_headers"] or "{}"),
-            "body": bytes(row["response_body"])}
-
-def send(s, replayed):
-    headers = dict(s["headers"])
-    if replayed:
-        headers["Idempotent-Replayed"] = "true"   # чесно кажемо: це відтворення
-    return raw_response(status=s["status"], headers=headers, body=s["body"])  # ті самі байти
-```
+:::code proj-idempotency-key/py/krok-5-tochne-vidtvorennia.py
 :::
 
 Три правила відтворення, кожне куплене чужою кров'ю:
@@ -416,21 +173,7 @@ def send(s, replayed):
 
 Обидва горизонти складаються в одну «виробничу» версію застовплення, що вміє **перехопити** протухлий чи завислий рядок тим самим неподільним ходом:
 
-```sql
-INSERT INTO idempotency_keys AS ik
-    (user_id, request_path, key, request_hash, state, expires_at, locked_at)
-VALUES ($1, $2, $3, $4, 'in_progress', $5, now())
-ON CONFLICT (user_id, request_path, key) DO UPDATE
-    SET request_hash = EXCLUDED.request_hash,
-        state        = 'in_progress',
-        expires_at   = EXCLUDED.expires_at,
-        locked_at    = now(),
-        response_status = NULL, response_headers = NULL, response_body = NULL
-    WHERE ik.expires_at < now()                                  -- ключ протух цілком
-       OR (ik.state = 'in_progress'
-           AND ik.locked_at < now() - interval '60 seconds')     -- переможець завис
-RETURNING (xmax = 0) AS fresh_insert;
-```
+:::code proj-idempotency-key/sql/krok-6-strok-zhyttia-ttl-i.sql
 
 Логіка читається за трьома випадками. Ключ вільний → спрацьовує `INSERT` → повертається рядок (`fresh_insert = true`) → **ми перемогли** як новий. Ключ є, але протух чи завис → спрацьовує `DO UPDATE` (умова `WHERE` пройшла) → повертається рядок (`fresh_insert = false`, бо це оновлення) → **ми перемогли** перехопленням. Ключ живий — `completed` у своєму вікні або `in_progress` іще в межах оренди → умова `WHERE` не пройшла → `DO UPDATE` нічого не оновлює → `RETURNING` **не повертає рядка** → ми не перемогли й ідемо читати ключ, як на кроці 2. Одне речення `INSERT` тепер вміщує і застовплення, і перехоплення; ознака «повернувся рядок» так само значить «claim наш».
 

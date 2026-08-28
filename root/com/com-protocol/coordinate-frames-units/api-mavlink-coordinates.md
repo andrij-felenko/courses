@@ -49,19 +49,7 @@
 
 Повідомлення транслюється автопілотом із частотою від 5 до 50 Гц і є основним джерелом геоданих для наземної станції:
 
-```c
-typedef struct __mavlink_global_position_int_t {
-    uint32_t time_boot_ms; /* Час від старту завантаження польотного контролера (мс) */
-    int32_t  lat;          /* Широта WGS84: градуси * 1e7 (-900000000..+900000000) */
-    int32_t  lon;          /* Довгота WGS84: градуси * 1e7 (-1800000000..+1800000000) */
-    int32_t  alt;          /* Абсолютна висота AMSL над рівнем моря у міліметрах (мм) */
-    int32_t  relative_alt; /* Відносна висота над точкою старту Home у міліметрах (мм) */
-    int16_t  vx;           /* Швидкість по осі X (Північ, NED) у сантиметрах на секунду (см/с) */
-    int16_t  vy;           /* Швидкість по осі Y (Схід, NED) у сантиметрах на секунду (см/с) */
-    int16_t  vz;           /* Швидкість по осі Z (Вниз, NED) у сантиметрах на секунду (см/с) */
-    uint16_t hdg;          /* Компасний курс апарата: сантиградуси 0..35999 (cdeg, 0.01 deg) */
-} mavlink_global_position_int_t;
-```
+:::code api-mavlink-coordinates/c/1-hlobalna-otsinka.c
 
 Особливості полів:
 * Поле `relative_alt` обчислюється як різниця поточної барометричної або комбінованої висоти EKF та висоти точки зльоту. Підйом апарата формує додатне значення `relative_alt > 0`.
@@ -102,44 +90,13 @@ typedef struct __mavlink_attitude_t {
 
 Повідомлення `ATTITUDE_QUATERNION` транслює орієнтацію без сингулярностей шарнірного замка:
 
-```c
-typedef struct __mavlink_attitude_quaternion_t {
-    uint32_t time_boot_ms;      /* Часовий штамп (мс) */
-    float    q1;                /* Скалярна частина кватерніона w (cos(alpha/2)) */
-    float    q2;                /* Векторна компонента x (вісь X_b) */
-    float    q3;                /* Векторна компонента y (вісь Y_b) */
-    float    q4;                /* Векторна компонента z (вісь Z_b) */
-    float    rollspeed;         /* Кутова швидкість крену (rad/s) */
-    float    pitchspeed;        /* Кутова швидкість тангажу (rad/s) */
-    float    yawspeed;          /* Кутова швидкість рискання (rad/s) */
-    float    repr_offset_q[4];  /* Кватерніон додаткового зміщення для підвісів камер */
-} mavlink_attitude_quaternion_t;
-```
+:::code api-mavlink-coordinates/c/3-prostorova-oriientatsiia.c
 
 #### 4. Командування локальною траєкторією: `SET_POSITION_TARGET_LOCAL_NED` (ID 84)
 
 Використовується зовнішніми алгоритмами автономного планування траєкторій (наприклад, супутнім комп'ютером із системою обходу перешкод):
 
-```c
-typedef struct __mavlink_set_position_target_local_ned_t {
-    uint32_t time_boot_ms;    /* Час від старту польотного контролера (мс) */
-    uint16_t type_mask;       /* Бітова маска вибору контурів керування */
-    uint8_t  target_system;   /* SYS ID цільового апарата (зазвичай 1) */
-    uint8_t  target_component;/* COMP ID цільового вузла (MAV_COMP_ID_AUTOPILOT1 = 1) */
-    uint8_t  coordinate_frame;/* Базис: MAV_FRAME_LOCAL_NED або MAV_FRAME_BODY_NED */
-    float    x;               /* Цільова координата X або зміщення (метри) */
-    float    y;               /* Цільова координата Y або зміщення (метри) */
-    float    z;               /* Цільова координата Z (метри, Z < 0 для польоту вгору) */
-    float    vx;              /* Цільова лінійна швидкість X (м/с) */
-    float    vy;              /* Цільова лінійна швидкість Y (м/с) */
-    float    vz;              /* Цільова лінійна швидкість Z (м/с) */
-    float    afx;             /* Цільове прискорення X (м/с^2) */
-    float    afy;             /* Цільове прискорення Y (м/с^2) */
-    float    afz;             /* Цільове прискорення Z (м/с^2) */
-    float    yaw;             /* Цільовий кут курсу (радіани, 0 = Північ) */
-    float    yaw_rate;        /* Цільова швидкість зміни курсу (rad/s) */
-} mavlink_set_position_target_local_ned_t;
-```
+:::code api-mavlink-coordinates/c/4-komanduvannia-lokalnoiu.c
 
 ##### Конфігурація бітової маски `type_mask` (POSITION_TARGET_TYPEMASK):
 

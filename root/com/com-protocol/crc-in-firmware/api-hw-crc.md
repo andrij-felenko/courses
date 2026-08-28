@@ -115,23 +115,7 @@ check("123456789") = 0x0376E6E7
 
 Далі зручний збіг. Завантаження `uint32_t` із пам'яті на little-endian ядрі бере байти `b₀ b₁ b₂ b₃` і кладе `b₀` в молодший байт слова. `__RBIT` перевертає всі 32 біти, тож `b₀` опиняється у **старшому** байті — з переверненими бітами. А блок читає записане слово саме старшим бітом уперед. Одна інструкція робить обидві потрібні дії разом: і відбиває біти кожного байта, і повертає байтам природний порядок.
 
-```c
-#include <stdint.h>
-#include <stddef.h>
-#include "stm32f4xx.h"      /* CMSIS: CRC, RCC, __RBIT */
-
-/* buf має бути вирівняний на 4 і кратний 4 байтам */
-uint32_t crc32_zlib_hw(const uint32_t *buf, size_t words)
-{
-    RCC->AHB1ENR |= RCC_AHB1ENR_CRCEN;   /* без цього блок мовчить */
-    CRC->CR = CRC_CR_RESET;              /* DR ← 0xFFFFFFFF */
-
-    for (size_t i = 0; i < words; i++)
-        CRC->DR = __RBIT(buf[i]);        /* відбиття входу — руками */
-
-    return __RBIT(CRC->DR) ^ 0xFFFFFFFF; /* відбиття виходу + xorout */
-}
-```
+:::code api-hw-crc/c/pryklad-crc-32-iak-u-zlib.c
 
 Покроково на буфері `"CRC on STM32"` — дванадцять байтів `43 52 43 20 6F 6E 20 53 54 4D 33 32`:
 
@@ -154,28 +138,7 @@ __RBIT(0x8481AD7D)                        = 0xBEB58121
 
 **Байтами.** Годиться для будь-якої довжини, вирівнювання не потрібне.
 
-```c
-#include <stdint.h>
-#include <stddef.h>
-#include "stm32l4xx.h"
-
-uint32_t crc32_zlib_hw_bytes(const uint8_t *buf, size_t len)
-{
-    RCC->AHB1ENR |= RCC_AHB1ENR_CRCEN;
-
-    CRC->POL  = 0x04C11DB7;                 /* нормальний запис полінома */
-    CRC->INIT = 0xFFFFFFFF;
-    CRC->CR   = (0u << CRC_CR_POLYSIZE_Pos)  /* 00 = 32 біти            */
-              | (1u << CRC_CR_REV_IN_Pos)    /* 01 = відбиття по байту  */
-              | CRC_CR_REV_OUT               /* відбиття результату     */
-              | CRC_CR_RESET;                /* DR ← INIT               */
-
-    for (size_t i = 0; i < len; i++)
-        *(volatile uint8_t *)&CRC->DR = buf[i];   /* саме STRB! */
-
-    return CRC->DR ^ 0xFFFFFFFF;
-}
-```
+:::code api-hw-crc/c/toi-samyi-rezultat-na.c
 
 **Словами.** Швидше вчетверо, але вимагає вирівнювання й кратності чотирьом; єдина відмінність — `REV_IN = 11` замість `01`, бо тепер треба перевернути ще й порядок байтів, який дало little-endian завантаження:
 

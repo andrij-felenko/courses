@@ -37,107 +37,19 @@ len ≤ MAX_FRAME = 1 048 576 (1 МіБ); більше — порушення п
 
 Спершу типи. Обробник кадру повертає ознаку: нуль — «беремо, читай далі», не нуль — «це повідомлення неприйнятне». Другого варіанта не уникнути, бо єдина коректна реакція на зіпсовану межу — розрив, і вирішує це той, хто дивиться на вміст.
 
-```c
-#include <errno.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <sys/uio.h>
-
-enum {
-    HDR       = 4,          /* ширина поля довжини */
-    MAX_FRAME = 1 << 20,    /* 1 МіБ — стеля тіла; належить специфікації */
-    BUF_MIN   = 4096,       /* з чого починає накопичувач */
-};
-
-typedef enum {
-    FR_OK = 0,      /* порція оброблена — чекаємо наступної події */
-    FR_EOF,         /* потік скінчився РІВНО на межі кадру */
-    FR_TRUNCATED,   /* потік обірвано ПОСЕРЕД кадру */
-    FR_PROTO,       /* порушення кадрування або відмова обробника */
-    FR_NOMEM,
-    FR_IO,
-} fr_status;
-
-struct conn {
-    int       fd;
-    uint8_t  *buf;    /* накопичувач; NULL до першого читання */
-    size_t    cap;    /* скільки байтів виділено */
-    size_t    have;   /* скільки байтів лежить; завжди have <= cap */
-    int     (*on_frame)(void *user, const uint8_t *body, uint32_t len);
-    void     *user;
-};
-```
+:::code proj-framed-reader/c/pryimach.c
 
 Читання числа із дроту пишуть руками, а не накладанням структури на буфер. Три причини: заголовок може стояти за непарною адресою (він настільки ж часто починається з байта 2, як і з байта 0), порядок байтів у файлі формату не залежить від порядку байтів у машині, а зайвих полів вирівнювання компілятор у цю пару функцій уже не додасть. Такий код працює однаково на будь-якій архітектурі — і в цьому сенс [явного розкладання числа на байти](root:sf-algorithms/bits-bytes-endianness).
 
-```c
-static uint32_t be32(const uint8_t *p)
-{
-    return ((uint32_t)p[0] << 24) | ((uint32_t)p[1] << 16)
-         | ((uint32_t)p[2] <<  8) |  (uint32_t)p[3];
-}
-
-static void put_be32(uint8_t *p, uint32_t v)
-{
-    p[0] = (uint8_t)(v >> 24); p[1] = (uint8_t)(v >> 16);
-    p[2] = (uint8_t)(v >>  8); p[3] = (uint8_t)v;
-}
-```
+:::code proj-framed-reader/c/pryimach-2.c
 
 Далі — ріст буфера. Уся межа пам'яті з'єднання зосереджена в цій одній функції, і це навмисне: якщо стеля перевіряється в кількох місцях, рано чи пізно одне з них відстане від інших.
 
-```c
-/* Гарантує cap >= want. Вище стелі кадру не росте НІКОЛИ. */
-static int reserve(struct conn *c, size_t want)
-{
-    const size_t ceiling = (size_t)HDR + MAX_FRAME;
-    if (want > ceiling) return 0;      /* поза специфікацією — не наша справа */
-    if (want <= c->cap)  return 1;
-
-    size_t cap = c->cap ? c->cap : (size_t)BUF_MIN;
-    while (cap < want) cap *= 2;
-    if (cap > ceiling) cap = ceiling;
-
-    uint8_t *p = realloc(c->buf, cap);
-    if (!p) return 0;
-    c->buf = p;
-    c->cap = cap;
-    return 1;
-}
-```
+:::code proj-framed-reader/c/pryimach-3.c
 
 Тепер серце — цикл розбору. Він забирає **всі** повні кадри, ущільнює хвіст і наприкінці резервує місце під те, чого поточному кадрові ще бракує.
 
-```c
-static fr_status parse_all(struct conn *c)
-{
-    size_t off  = 0;      /* скільки байтів буфера вже розібрано */
-    size_t need = HDR;    /* скільки байтів треба для наступного кроку */
-
-    while (c->have - off >= HDR) {              /* заголовок цілий? */
-        uint32_t len = be32(c->buf + off);
-        if (len > MAX_FRAME) return FR_PROTO;   /* стеля — ДО будь-якої арифметики */
-
-        need = (size_t)HDR + len;               /* тепер додавання безпечне */
-        if (c->have - off < need) break;        /* тіло ще не все — чекаємо */
-
-        if (c->on_frame(c->user, c->buf + off + HDR, len) != 0)
-            return FR_PROTO;                    /* обробник відхилив кадр */
-
-        off  += need;
-        need  = HDR;
-    }
-
-    if (off) {                                  /* хвіст — на початок буфера */
-        memmove(c->buf, c->buf + off, c->have - off);
-        c->have -= off;
-    }
-    return reserve(c, need) ? FR_OK : FR_NOMEM;
-}
-```
+:::code proj-framed-reader/c/pryimach-4.c
 
 Порядок двох рядків посередині — не стилістика, а вся безпека цієї функції. Спокуса написати `if (c->have - off < HDR + len)` однією умовою й перевіряти стелю потім виглядає нешкідливо, а на 32-бітному `size_t` перетворює приймач на решето: `len` близько чотирьох мільярдів робить із `HDR + len` [маленьке число](root:sf-lang/overflow-wraparound), умова «чи вміщується» проходить успішно для кадру, що не вміщується, і далі код читає тіло за межами буфера. Спершу порівняння зі стелею, і тільки після нього — додавання: після перевірки `len ≤ 1 048 576` сума не переповниться ніде.
 
@@ -145,40 +57,7 @@ static fr_status parse_all(struct conn *c)
 
 Нарешті — єдине місце, де кличуть ядро.
 
-```c
-fr_status conn_on_readable(struct conn *c)
-{
-    for (;;) {
-        if (!reserve(c, c->have + 1)) return FR_NOMEM;   /* місце є завжди... */
-        size_t room = c->cap - c->have;                  /* ...і воно > 0 */
-
-        ssize_t n = recv(c->fd, c->buf + c->have, room, 0);
-
-        if (n < 0) {
-            if (errno == EINTR) continue;                /* перервано сигналом */
-            if (errno == EAGAIN || errno == EWOULDBLOCK)
-                return FR_OK;                            /* черга прийому порожня */
-            return FR_IO;
-        }
-        if (n == 0)                                      /* інший бік закрив напрямок */
-            return c->have == 0 ? FR_EOF : FR_TRUNCATED;
-
-        c->have += (size_t)n;
-
-        fr_status st = parse_all(c);
-        if (st != FR_OK) return st;
-
-        if ((size_t)n < room) return FR_OK;   /* прочитали менше, ніж просили */
-    }
-}
-
-void conn_close(struct conn *c)
-{
-    free(c->buf);
-    c->buf = NULL;
-    c->cap = c->have = 0;
-}
-```
+:::code proj-framed-reader/c/pryimach-5.c
 
 Зовнішній цикл тут — не оптимізація, а вимога: [сповіщення за фронтом](root:sys-unix/select-poll-epoll) розповідає про **зміну** стану, тож не вичерпавши чергу прийому до `EAGAIN`, ви більше не почуєте про байти, які в ній уже лежать. Останній рядок дозволяє вийти на один системний виклик раніше: якщо потокове читання віддало менше, ніж мало куди покласти, черга ядра порожня, і наступний виклик усе одно поверне `EAGAIN`. Байти, що прилетять пізніше, створять нову зміну стану — тобто нову подію.
 
@@ -255,52 +134,7 @@ void conn_close(struct conn *c)
 
 Мовою, де на кожне з'єднання заводять окремий потік виконання, а планувальник сам знімає його з процесора на читанні, форма коду змінюється — і зміна ця повчальна. Накопичувач не зникає: він переїжджає в буферизований читач із бібліотеки, а цикл розбору перетворюється на прямий послідовний код.
 
-```go
-const (
-	hdrLen   = 4
-	maxFrame = 1 << 20 // 1 МіБ — та сама стеля зі специфікації
-)
-
-var ErrFrameTooLarge = errors.New("кадр більший за стелю")
-
-// ReadFrames читає кадри, доки потік не скінчиться.
-// body чинний ЛИШЕ до повернення з onFrame — далі його перезапишуть.
-func ReadFrames(r io.Reader, onFrame func(body []byte) error) error {
-	br := bufio.NewReaderSize(r, 64<<10) // накопичувач живе тут
-	var hdr [hdrLen]byte
-	body := make([]byte, 0, 4096)
-
-	for {
-		if _, err := io.ReadFull(br, hdr[:]); err != nil {
-			if err == io.EOF {
-				return nil // потік скінчився РІВНО на межі кадру
-			}
-			return err // ErrUnexpectedEOF — обірвано посеред заголовка
-		}
-
-		n := binary.BigEndian.Uint32(hdr[:])
-		if n > maxFrame { // стеля — ДО виділення пам'яті
-			return ErrFrameTooLarge
-		}
-
-		if cap(body) < int(n) { // буфер тіла росте, але не всихає
-			body = make([]byte, n)
-		}
-		body = body[:n]
-
-		if _, err := io.ReadFull(br, body); err != nil {
-			if err == io.EOF {
-				err = io.ErrUnexpectedEOF // тіла не було зовсім — теж обрив
-			}
-			return err
-		}
-
-		if err := onFrame(body); err != nil {
-			return err
-		}
-	}
-}
-```
+:::code proj-framed-reader/go/toi-samyi-pryimach-movoiu.go
 
 Порівняння двох версій показує, що саме в задачі істотне, а що — наслідок обраної моделі виконання. Зникли ущільнення хвоста, ручний зсув `off` і цикл до вичерпання: усе це тепер робить буферизований читач усередині себе. Не зникло **нічого зі специфіки кадрування**: стеля так само стоїть перед виділенням пам'яті, довжину так само читають старшим байтом уперед, тіло так само віддають покажчиком у чужий буфер із тим самим строком життя.
 
@@ -314,96 +148,13 @@ func ReadFrames(r io.Reader, onFrame func(body []byte) error) error {
 
 Друге: заголовок і тіло треба віддавати **одним** викликом. Два дрібні записи поспіль зводять докупи притримування дрібних сегментів і відкладене підтвердження — обидва механізми поодинці розумні, а разом [ставлять кадр у чергу до таймера](root:sf-os/socket-options) на десятки мілісекунд. Копіювати тіло в спільний буфер заради цього шкода, тож потрібен розсіяний запис: виклик, що бере кілька шматків пам'яті й віддає їх стекові як одну неперервну порцію. Пара `readv`/`writev` з'явилася в 4.2BSD і стандартизована в POSIX.1-2001; на сокетах зручніша її рідня `sendmsg`, бо той самий вектор вона поєднує з прапорцем, який глушить сигнал при записі в закрите з'єднання.
 
-```c
-struct out_frame {
-    uint8_t        hdr[HDR];   /* заголовок формують РАЗ, на початку */
-    const uint8_t *body;       /* тіло не копіюють — воно має пережити відправлення */
-    uint32_t       len;
-    size_t         sent;       /* скільки байтів кадру (заголовок + тіло) вже пішло */
-};
-
-static void out_begin(struct out_frame *o, const uint8_t *body, uint32_t len)
-{
-    put_be32(o->hdr, len);
-    o->body = body;
-    o->len  = len;
-    o->sent = 0;
-}
-
-/* 1 — кадр пішов увесь; 0 — черга відправлення заповнилася, повторити
-   на готовність до запису; -1 — помилка. */
-static int out_flush(int fd, struct out_frame *o)
-{
-    const size_t total = (size_t)HDR + o->len;
-
-    while (o->sent < total) {
-        struct iovec iov[2];
-        int nv = 0;
-
-        if (o->sent < HDR) {                       /* заголовок ще не весь */
-            iov[nv].iov_base = o->hdr + o->sent;
-            iov[nv].iov_len  = HDR - o->sent;
-            nv++;
-        }
-        size_t body_sent = (o->sent > HDR) ? o->sent - HDR : 0;
-        if (body_sent < o->len) {                  /* тіло ще не все */
-            iov[nv].iov_base = (void *)(o->body + body_sent);
-            iov[nv].iov_len  = o->len - body_sent;
-            nv++;
-        }
-
-        struct msghdr mh;
-        memset(&mh, 0, sizeof mh);
-        mh.msg_iov    = iov;
-        mh.msg_iovlen = (size_t)nv;
-
-        ssize_t n = sendmsg(fd, &mh, MSG_NOSIGNAL);
-        if (n < 0) {
-            if (errno == EINTR) continue;
-            if (errno == EAGAIN || errno == EWOULDBLOCK) return 0;
-            return -1;
-        }
-        o->sent += (size_t)n;
-    }
-    return 1;
-}
-```
+:::code proj-framed-reader/c/peredavach-zaholovok.c
 
 Ось як цим користуються — і різниця між двома мовами тут не косметична. Мовою C кадр віддають у два кроки, бо цикл подій ваш власний і зсув недописаного мусить пережити повернення з функції; мовою мережевих серверів усе ховається в один виклик, бо цикл сидить усередині бібліотеки.
 
 :::tabs
-```c
-/* Віддати один кадр. Цикл подій наш, тож недописаний кадр
-   мусить пережити повернення з функції. */
-struct conn_out { struct out_frame o; int busy; };
-
-static int send_frame(int fd, struct conn_out *q,
-                      const uint8_t *body, uint32_t len)
-{
-    if (q->busy)          return -1;   /* попередній кадр ще не пішов увесь */
-    if (len > MAX_FRAME)  return -1;   /* власну стелю поважають і на передачі */
-
-    out_begin(&q->o, body, len);
-    int r = out_flush(fd, &q->o);
-    q->busy = (r == 0);                /* 0 — сокет заповнився: доженемо на події */
-    return r;                          /* body МУСИТЬ дожити, доки busy */
-}
-```
-```go
-// WriteFrame віддає кадр ОДНИМ записом: заголовок і тіло йдуть у стек
-// разом, тіло нікуди не копіюється.
-func WriteFrame(w io.Writer, body []byte) error {
-	if len(body) > maxFrame {
-		return ErrFrameTooLarge
-	}
-	var hdr [hdrLen]byte
-	binary.BigEndian.PutUint32(hdr[:], uint32(len(body)))
-
-	bufs := net.Buffers{hdr[:], body}
-	_, err := bufs.WriteTo(w) // на TCP-з'єднанні — той самий розсіяний запис,
-	return err                // а часткові записи WriteTo доганяє сама
-}
-```
+:::code proj-framed-reader/c/peredavach-zaholovok-2.c
+:::code proj-framed-reader/go/peredavach-zaholovok.go
 :::
 
 ![Три стани відправлення одного кадру: зсув sent росте, і разом із ним змінюються межі шматків у векторі — від двох шматків до одного](img/framed-writer-offset.svg)

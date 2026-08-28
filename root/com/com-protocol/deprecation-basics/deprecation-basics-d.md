@@ -66,37 +66,8 @@ Link: <https://api.example.com/docs/migrate-v1>; rel="deprecation"; type="text/h
 Ключове тут — що застарілість тепер може **прочитати машина**. Клієнтський моніторинг бачить заголовок у відповіді й піднімає алерт сам, не чекаючи, поки застосунок зламається на дату зняття. Стамп цих заголовків на маршруті — кілька рядків middleware:
 
 :::tabs
-```ts
-// Express: помічаємо маршрут застарілим
-function deprecate(announced: string, sunset: string, docs: string) {
-  const depr = `@${Math.floor(Date.parse(announced) / 1000)}`;
-  const sun = new Date(sunset).toUTCString();
-  return (_req: Request, res: Response, next: NextFunction) => {
-    res.setHeader("Deprecation", depr);            // момент оголошення
-    res.setHeader("Sunset", sun);                  // момент зняття
-    res.setHeader("Link", `<${docs}>; rel="deprecation"; type="text/html"`);
-    next();
-  };
-}
-app.get("/v1/orders", deprecate("2024-06-30", "2025-12-31", DOCS), listOrdersV1);
-```
-```py
-# FastAPI: та сама позначка як залежність
-from datetime import datetime, timezone
-
-def deprecate(announced: str, sunset: str, docs: str):
-    a = datetime.fromisoformat(announced).replace(tzinfo=timezone.utc)
-    s = datetime.fromisoformat(sunset).replace(tzinfo=timezone.utc)
-    def stamp(response: Response):
-        response.headers["Deprecation"] = f"@{int(a.timestamp())}"
-        response.headers["Sunset"] = s.strftime("%a, %d %b %Y %H:%M:%S GMT")
-        response.headers["Link"] = f'<{docs}>; rel="deprecation"; type="text/html"'
-    return stamp
-
-@app.get("/v1/orders",
-         dependencies=[Depends(deprecate("2024-06-30", "2025-12-31", DOCS))])
-def list_orders_v1(): ...
-```
+:::code deprecation-basics-d/ts/index.ts
+:::code deprecation-basics-d/py/main.py
 :::
 
 **Людський канал** — те саме, але для розробника: запис у changelog, банер у дашборді, лист на пошту зареєстрованих інтеграторів, помітка в документації. Заголовок у відповіді ніхто не прочитає очима вчасно; лист і changelog не побачить моніторинг. Тому обидва канали обов'язкові — деприкейшн стає частиною контракту лише тоді, коли сигнал доходить і до коду, і до людини.

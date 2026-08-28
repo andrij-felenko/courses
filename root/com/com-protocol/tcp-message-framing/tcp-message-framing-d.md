@@ -120,58 +120,8 @@ TCP нумерує **байти**, а не повідомлення. У його
 Інваріант такого приймача формулюється одним реченням: **у буфері лежить початок потоку, з якого ще не вийшов жоден повний кадр**. Усе, що вже стало повним кадром, звідти забрано; усе, що прийшло після, — дописано в кінець. Робота на кожну подію готовності складається з трьох дій: дочитати в кінець буфера, розібрати з нього **всі** повні кадри, зсунути залишок на початок.
 
 :::tabs
-```c
-// buf — накопичувач з'єднання, have — скільки в ньому байтів
-static int on_readable(struct conn *c) {
-    ssize_t n = recv(c->fd, c->buf + c->have, sizeof c->buf - c->have, 0);
-    if (n < 0) return (errno == EAGAIN) ? OK : ERR_IO;
-    if (n == 0) return (c->have == 0) ? CLEAN_EOF : ERR_TRUNCATED;
-    c->have += (size_t)n;
-
-    size_t off = 0;                          // скільки з буфера вже розібрано
-    while (c->have - off >= HDR) {           // заголовок цілий?
-        uint32_t len = be32(c->buf + off);   // довжина зі старшим байтом уперед
-        if (len > MAX_FRAME) return ERR_PROTO;    // стеля — ДО будь-якої арифметики
-        if (c->have - off < HDR + len) break;     // тіло ще не все — чекаємо далі
-        handle_frame(c->buf + off + HDR, len);
-        off += HDR + len;
-    }
-    memmove(c->buf, c->buf + off, c->have - off); // хвіст — на початок буфера
-    c->have -= off;
-    return OK;
-}
-```
-```go
-// buf — накопичувач з'єднання, have — скільки в ньому байтів
-func (c *Conn) onReadable() error {
-	n, err := c.conn.Read(c.buf[c.have:])
-	c.have += n
-
-	off := 0 // скільки з буфера вже розібрано
-	for c.have-off >= hdrLen { // заголовок цілий?
-		raw := binary.BigEndian.Uint32(c.buf[off:])
-		if raw > maxFrame { // стеля — ДО будь-якої арифметики
-			return errProtocol
-		}
-		length := int(raw)
-		if c.have-off < hdrLen+length { // тіло ще не все — чекаємо далі
-			break
-		}
-		c.handleFrame(c.buf[off+hdrLen : off+hdrLen+length])
-		off += hdrLen + length
-	}
-	copy(c.buf, c.buf[off:c.have]) // хвіст — на початок буфера
-	c.have -= off
-
-	if err == io.EOF {
-		if c.have == 0 {
-			return nil // кінець рівно на межі кадру — чисте завершення
-		}
-		return errTruncated // обірвано посеред кадру
-	}
-	return err
-}
-```
+:::code tcp-message-framing-d/c/main.c
+:::code tcp-message-framing-d/go/main.go
 :::
 
 Ці двадцять рядків приховують кілька пасток, повз які легко пройти.

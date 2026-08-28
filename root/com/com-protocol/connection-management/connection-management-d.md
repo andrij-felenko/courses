@@ -190,19 +190,7 @@ signal(SIGPIPE, SIG_IGN);
 // Або локальне вимкнення генерації сигналу для кожного окремого виклику send
 send(fd, buffer, length, MSG_NOSIGNAL);
 ```
-```cpp
-// Ігнорування сигналу SIGPIPE на рівні ініціалізації середовища
-#include <csignal>
-
-void configureProcessSignals() noexcept {
-    std::signal(SIGPIPE, SIG_IGN);
-}
-
-// Передача прапорця MSG_NOSIGNAL при відправленні даних
-ssize_t sendDataSafely(int fd, std::string_view data) noexcept {
-    return ::send(fd, data.data(), data.size(), MSG_NOSIGNAL);
-}
-```
+:::code connection-management-d/cpp/pastka-1-napivzakrytyi.hpp
 :::
 
 ### Пастка 2: Гонитва застарілого з'єднання (Stale Connection Race)
@@ -266,35 +254,8 @@ if (r == 0) {
 Для повного виключення витоків ресурсів у сучасних мовах програмування керування орендою сокета реалізують виключно через детерміновані об'єкти-охоронці:
 
 :::tabs
-```c
-// Ризикований підхід у C: ручне повернення сокета
-PooledConnection *conn = pool_acquire(pool, 5);
-if (!conn) return -1;
-
-if (process_transaction(conn->fd) < 0) {
-    // ПОМИЛКА: достроковий вихід залишає сокет заблокованим у пулі назавжди!
-    return -1; 
-}
-pool_release(pool, conn, 0);
-return 0;
-```
-```cpp
-// Надійний підхід у C++: обгортка RAII
-int executeTransaction(ConnectionPool& pool) {
-    // Деструктор об'єкта lease гарантовано поверне сокет у пул
-    // при будь-якому шляху виходу з функції, включно з генерацією винятків
-    auto lease = pool.acquire(std::chrono::seconds(5));
-    if (!lease) {
-        return -1;
-    }
-
-    if (processTransaction(lease->fd()) < 0) {
-        lease->markBroken(); // Позначаємо сокет як пошкоджений для закриття
-        return -1;
-    }
-    return 0;
-}
-```
+:::code connection-management-d/c/main.c
+:::code connection-management-d/cpp/zakhyst-cherez-idiomu-raii.cpp
 :::
 
 ### Дренаж з'єднань під час зупинки процесу (Graceful Shutdown)

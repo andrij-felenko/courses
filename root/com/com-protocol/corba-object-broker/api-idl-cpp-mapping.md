@@ -162,19 +162,7 @@ public:
 
 ### Тіло системного винятку
 
-```cpp
-enum CORBA::CompletionStatus {
-    COMPLETED_YES,    // реалізація завершила роботу до того, як виник виняток
-    COMPLETED_NO,     // реалізація навіть не почалася
-    COMPLETED_MAYBE   // стан завершення невизначений
-};
-
-class CORBA::SystemException : public CORBA::Exception {
-public:
-    ULong            minor() const;      void minor(ULong);
-    CompletionStatus completed() const;  void completed(CompletionStatus);
-};
-```
+:::code api-idl-cpp-mapping/cpp/tilo-systemnoho-vyniatku.hpp
 
 Типовий конструктор дає `minor() == 0` і `completed() == COMPLETED_NO`.
 
@@ -321,20 +309,7 @@ interface D : B, C { };      // «діамант» законний
 
 ### Операції над посиланням
 
-```cpp
-namespace CORBA {
-    void    release(Object_ptr obj);   // на порожньому посиланні — нічого не робить
-    Boolean is_nil(Object_ptr obj);    // єдиний законний спосіб перевірити на порожнечу
-}
-// жодна з цих двох не кидає винятків
-
-class bank::Account {
-public:
-    static Account_ptr _duplicate(Account_ptr obj);      // може кинути системний виняток
-    static Account_ptr _narrow(CORBA::Object_ptr obj);   // може кинути системний виняток
-    static Account_ptr _nil();                           // не кидає нічого
-};
-```
+:::code api-idl-cpp-mapping/cpp/operatsii-nad-posylanniam.cpp
 
 | Функція | Поведінка на порожньому посиланні | Головне правило |
 |---|---|---|
@@ -464,25 +439,7 @@ namespace CORBA {
 
 ## Послідовності й прапорець `release`
 
-```cpp
-class Seq {                                     // необмежена sequence<T>
-public:
-    Seq();
-    Seq(ULong max);
-    Seq(ULong max, ULong length, T* data, Boolean release = FALSE);
-
-    ULong   maximum() const;
-    void    length(ULong);   ULong length() const;
-    T&      operator[](ULong index);
-    Boolean release() const;
-    void    replace(ULong max, ULong length, T* data, Boolean release = FALSE);
-    T*      get_buffer(Boolean orphan = FALSE);
-
-    static T*   allocbuf(ULong nelems);
-    static void freebuf(T*);
-};
-// обмежена sequence<T,N> — те саме, але без параметра max у конструкторах
-```
+:::code api-idl-cpp-mapping/cpp/poslidovnosti-i-praporets.hpp
 
 Прапорець `release` вирішує єдине питання: **чи володіє послідовність буфером, який їй дали**.
 
@@ -504,21 +461,7 @@ public:
 
 ## Серверний бік: сервант і його лічильник
 
-```cpp
-namespace PortableServer {
-    class ServantBase {
-    public:
-        virtual ~ServantBase();
-        virtual POA_ptr _default_POA();
-        virtual Boolean _is_a(const char* logical_type_id);
-        virtual Boolean _non_existent();
-        virtual void    _add_ref();
-        virtual void    _remove_ref();
-        virtual ULong   _refcount_value();
-    };
-    typedef ServantBase* Servant;
-}
-```
+:::code api-idl-cpp-mapping/cpp/servernyi-bik-servant-i.hpp
 
 Сервант живе за [підрахунком посилань](root:sf-lang/reference-counting): конструктор ставить лічильник у одиницю, `_remove_ref` при переході в нуль викликає `delete this`. У багатопотоковому брокері ці три функції **зобов'язані** бути потокобезпечними.
 
@@ -571,19 +514,7 @@ bank::Account_var acc = bank::Account::_narrow(obj);
 
 **3. Витік на `out`-параметрі в циклі.**
 
-```cpp
-// IDL: void last_statement(out string s);
-
-// ✗ — десять рядків, жоден не звільнено
-char* s;
-for (int i = 0; i < 10; ++i)
-    acc->last_statement(s);
-
-// ✓ — out() звільняє попереднє значення сам
-CORBA::String_var s;
-for (int i = 0; i < 10; ++i)
-    acc->last_statement(s);
-```
+:::code api-idl-cpp-mapping/cpp/klasychni-pastky.hpp
 
 Сира `char*`-змінна нічого про попереднє значення не знає, тому повторне використання її як `out` — це витік на кожній ітерації.
 
@@ -616,59 +547,17 @@ CORBA::String_var s = CORBA::string_dup(buf);
 
 Це та сама [безпека винятків](root:sf-lang/exception-safety), що й у будь-якому C++: між моментом виділення й моментом передачі власності не має бути коду, що кидає.
 
-```cpp
-// ✗ — якщо audit() кине, послідовність загублено
-bank::StatementSeq* Account_i::history() {
-    bank::StatementSeq* out = new bank::StatementSeq(n);
-    fill(*out);
-    audit("history");
-    return out;
-}
-
-// ✓ — власність тримає _var, а _retn() віддає її рівно на виході
-bank::StatementSeq* Account_i::history() {
-    bank::StatementSeq_var out = new bank::StatementSeq(n);
-    fill(*out);
-    audit("history");
-    return out._retn();
-}
-```
+:::code api-idl-cpp-mapping/cpp/klasychni-pastky.cpp
 
 **7. Послідовність із `release == FALSE` як `inout`.**
 
-```cpp
-char* names[] = { "Петренко", "Коваль" };
-
-// ✗ — сервант вважає, що прапорець TRUE, і спробує звільнити літерали
-bank::NameSeq seq(2, 2, names, FALSE);
-svc->rename(seq);
-
-// ✓ — послідовність володіє власними рядками
-bank::NameSeq seq(2);
-seq.length(2);
-seq[0] = CORBA::string_dup("Петренко");
-seq[1] = CORBA::string_dup("Коваль");
-svc->rename(seq);
-```
+:::code api-idl-cpp-mapping/cpp/klasychni-pastky-2.hpp
 
 **8. Сервант із пулу потоків.**
 
 POA з типовою політикою віддає виклики з пулу, тож у той самий сервант легко потрапляють два клієнти одночасно. Локальний об'єкт, який усе життя був однопотоковим, після реєстрації в адаптері стає спільним ресурсом — і далі діють звичайні правила [потокобезпечності](root:sf-tasks/thread-safety).
 
-```cpp
-// ✗ — перевірка й зміна не атомарні
-void Account_i::withdraw(CORBA::Long amount) {
-    if (amount > balance_) throw bank::InsufficientFunds(amount - balance_);
-    balance_ -= amount;
-}
-
-// ✓
-void Account_i::withdraw(CORBA::Long amount) {
-    std::lock_guard<std::mutex> lock(mu_);
-    if (amount > balance_) throw bank::InsufficientFunds(amount - balance_);
-    balance_ -= amount;
-}
-```
+:::code api-idl-cpp-mapping/cpp/klasychni-pastky-2.cpp
 
 Альтернатива — окремий POA з політикою односерійної обробки; вона знімає замки ціною пропускної здатності.
 
@@ -688,23 +577,7 @@ servant->_remove_ref();
 
 **10. Рідний виняток C++, що втік із серванта.**
 
-```cpp
-// ✗ — клієнт побачить CORBA::UNKNOWN без жодної підказки
-void Account_i::withdraw(CORBA::Long a) {
-    history_.push_back(a);            // може кинути std::bad_alloc
-    balance_ -= a;
-}
-
-// ✓ — перекладаємо на те, що є в контракті
-void Account_i::withdraw(CORBA::Long a) {
-    try {
-        history_.push_back(a);
-    } catch (const std::bad_alloc&) {
-        throw CORBA::NO_MEMORY(0, CORBA::COMPLETED_NO);
-    }
-    balance_ -= a;
-}
-```
+:::code api-idl-cpp-mapping/cpp/klasychni-pastky-3.cpp
 
 Точний конструктор похідних системних винятків мапінг не фіксує, але форму `(мінорний код, статус завершення)` дають усі брокери. Ставити `COMPLETED_NO` треба чесно: якщо частина роботи вже зроблена, значенням мусить бути `COMPLETED_YES` або `COMPLETED_MAYBE` — саме за цим полем клієнт вирішує, чи можна повторити виклик.
 

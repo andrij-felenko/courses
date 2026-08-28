@@ -28,71 +28,8 @@
 Обидва шляхи роблять те саме: перемелюють 256 значень тим самим бітовим циклом, який згодом уже не потрібен у прошивці. Різниця в тому, **де** цей цикл крутиться. Скрипт запускається як крок збірки й лишає по собі звичайний `.c`-файл, який можна відкрити й прочитати; `constexpr` прибирає крок збірки взагалі — таблицю рахує компілятор, а в об'єктний файл потрапляє вже готовий масив.
 
 :::tabs
-```py
-#!/usr/bin/env python3
-"""gen_crc_table.py — рахує таблицю CRC-32 на машині розробника й пише готовий .c
-Запуск:  python3 gen_crc_table.py crc32_table.c"""
-import sys
-
-POLY = 0xEDB88320          # CRC-32/ISO-HDLC у відбитому записі
-MASK = 0xFFFFFFFF
-
-def build():
-    t = []
-    for i in range(256):
-        c = i
-        for _ in range(8):                      # ті самі вісім кроків зсув-XOR
-            c = (c >> 1) ^ POLY if c & 1 else c >> 1
-        t.append(c & MASK)
-    return t
-
-def crc32(data, t):
-    crc = MASK
-    for b in data:
-        crc = (crc >> 8) ^ t[(crc ^ b) & 0xFF]
-    return crc ^ MASK
-
-tab = build()
-check = crc32(b"123456789", tab)
-assert check == 0xCBF43926, "профіль розійшовся: %08X" % check   # ← запобіжник збірки
-
-with open(sys.argv[1], "w") as f:
-    f.write("/* ЗГЕНЕРОВАНО gen_crc_table.py — руками не правити. */\n")
-    f.write("#include <stdint.h>\n\n")
-    f.write("const uint32_t crc32_table[256] = {\n")
-    for i in range(0, 256, 4):
-        f.write("    " + " ".join("0x%08XU," % v for v in tab[i:i + 4]) + "\n")
-    f.write("};\n")
-```
-```cpp
-// crc32_table.hpp — ту саму таблицю рахує компілятор; скрипт збірки не потрібен (C++17)
-#include <array>
-#include <cstdint>
-
-inline constexpr std::uint32_t kPoly = 0xEDB88320U;   // CRC-32/ISO-HDLC, відбитий запис
-
-constexpr std::array<std::uint32_t, 256> make_table() {
-    std::array<std::uint32_t, 256> t{};
-    for (std::uint32_t i = 0; i < 256; ++i) {
-        std::uint32_t c = i;
-        for (int k = 0; k < 8; ++k)               // ті самі вісім кроків зсув-XOR
-            c = (c & 1U) ? (c >> 1) ^ kPoly : (c >> 1);
-        t[i] = c;
-    }
-    return t;
-}
-
-inline constexpr auto kCrc32Table = make_table();  // ← лягає в .rodata, а не в RAM
-
-constexpr std::uint32_t crc32(const char* s) {     // той самий запобіжник, але в компіляторі
-    std::uint32_t crc = 0xFFFFFFFFU;
-    for (; *s; ++s)
-        crc = (crc >> 8) ^ kCrc32Table[(crc ^ static_cast<std::uint8_t>(*s)) & 0xFFU];
-    return crc ^ 0xFFFFFFFFU;
-}
-
-static_assert(crc32("123456789") == 0xCBF43926U, "профіль CRC-32 розійшовся");
-```
+:::code proj-crc-embedded/py/gen_crc_table.py
+:::code proj-crc-embedded/cpp/main.cpp
 :::
 
 Скрипт треба ще вписати в збірку, інакше згенерований файл рано чи пізно розійдеться з генератором. Правило коротке — файл оголошують похідним від скрипта, і тоді правка полінома сама тягне за собою перегенерацію:
@@ -130,31 +67,7 @@ $ arm-none-eabi-nm -S --size-sort build/fw.elf | grep crc32_table
 
 У **невідбитій** формі регістр зсувається ліворуч, і з даними зустрічається його **старший** байт. У **відбитій** — зсув праворуч, і зустрічається **молодший**. Обидві функції беруть біжуче значення регістра й повертають його ж, тому вони одразу придатні для потоку:
 
-```c
-#include <stdint.h>
-#include <stddef.h>
-
-extern const uint16_t crc16_table[256];   /* CRC-16/CCITT-FALSE, поліном 0x1021 */
-extern const uint32_t crc32_table[256];   /* CRC-32/ISO-HDLC, поліном 0xEDB88320 */
-
-/* Невідбита форма: зсув ліворуч, з даними зустрічається СТАРШИЙ байт регістра. */
-uint16_t crc16_update(uint16_t crc, const uint8_t *p, size_t n) {
-    while (n--) {
-        uint8_t idx = (uint8_t)((crc >> 8) ^ *p++);
-        crc = (uint16_t)(crc << 8) ^ crc16_table[idx];
-    }
-    return crc;
-}
-
-/* Відбита форма: зсув праворуч, з даними зустрічається МОЛОДШИЙ байт регістра. */
-uint32_t crc32_update(uint32_t crc, const uint8_t *p, size_t n) {
-    while (n--) {
-        uint8_t idx = (uint8_t)(crc ^ *p++);
-        crc = (crc >> 8) ^ crc32_table[idx];
-    }
-    return crc;
-}
-```
+:::code proj-crc-embedded/c/iadro-dvi-formy-na-vsi.c
 
 Приведення до `uint8_t` — не косметика. У відбитій формі `crc ^ *p` — це 32-бітне число, і без обрізання індекс полізе далеко за межі масиву на 256 елементів; читання за випадковою адресою дасть сміття, а на межі області — відмову шини. У невідбитій формі `crc >> 8` для 16-бітного регістра й так не перевищує 255, тож обрізання там зайве, — але хай воно буде, щоб дві функції виглядали однаково й ніхто не переніс «спрощений» рядок не туди.
 
@@ -177,23 +90,7 @@ bool crc_selftest(void) {
 
 На восьмибітному мікроконтролері з двома кілобайтами флешу під усе на світі 512 байтів таблиці — це четвертина програми. Вихід простий: індексувати не цілим байтом, а половинкою. Таблиця тоді має 16 записів замість 256, а байт заходить у регістр двома порціями.
 
-```c
-/* CRC-16/Modbus, напівбайтова таблиця: 16 записів × 2 Б = 32 байти у флеші.
-   Профіль: поліном 0x8005 (відбитий — 0xA001), старт 0xFFFF, відбиття входу й виходу. */
-static const uint16_t nib[16] = {
-    0x0000, 0xCC01, 0xD801, 0x1400, 0xF001, 0x3C00, 0x2800, 0xE401,
-    0xA001, 0x6C00, 0x7800, 0xB401, 0x5000, 0x9C01, 0x8801, 0x4400,
-};
-
-uint16_t crc16_modbus_update(uint16_t crc, const uint8_t *p, size_t n) {
-    while (n--) {
-        uint8_t b = *p++;
-        crc = (uint16_t)(crc >> 4) ^ nib[(crc ^ b) & 0x0F];         /* спершу молодший півбайт */
-        crc = (uint16_t)(crc >> 4) ^ nib[(crc ^ (b >> 4)) & 0x0F];  /* тоді старший */
-    }
-    return crc;
-}
-```
+:::code proj-crc-embedded/c/koly-i-512-baitiv-zabahato.c
 
 Порядок половинок не довільний: у відбитій формі дані входять молодшим бітом уперед, тож першим має зайти молодший півбайт. Переставите рядки місцями — код працюватиме, видаватиме стабільні числа й не збігатиметься ні з чим у світі. Ловиться це тими самими дев'ятьма байтами: прогнавши крізь цю функцію `"123456789"` зі старту `0xFFFF`, мусите дістати `0x4B37`.
 
@@ -214,30 +111,7 @@ def slices(base, k=4):
     return tabs                      # tabs[0] — звичайна байтова таблиця
 ```
 
-```c
-#include <string.h>
-
-extern const uint32_t crc32_slice[4][256];   /* 4 КБ у флеші; crc32_slice[0] — байтова таблиця */
-
-uint32_t crc32_update_fast(uint32_t crc, const uint8_t *p, size_t n) {
-    while (n >= 4) {
-        uint32_t w;
-        memcpy(&w, p, 4);                    /* безпечне завантаження слова */
-        crc ^= w;                            /* little-endian: молодший байт слова — перший */
-        crc = crc32_slice[3][ crc        & 0xFF]
-            ^ crc32_slice[2][(crc >>  8) & 0xFF]
-            ^ crc32_slice[1][(crc >> 16) & 0xFF]
-            ^ crc32_slice[0][(crc >> 24) & 0xFF];
-        p += 4;
-        n -= 4;
-    }
-    while (n--) {                            /* хвіст — звичайним байтовим ядром */
-        uint8_t idx = (uint8_t)(crc ^ *p++);
-        crc = (crc >> 8) ^ crc32_slice[0][idx];
-    }
-    return crc;
-}
-```
+:::code proj-crc-embedded/c/koly-treba-hnaty-mehabaity.c
 
 Два місця тут капосні, і обидва мовчазні. Перше: `crc ^= w` припускає, що байти в слові лягли **молодшим уперед**; на big-endian платформі те саме джерело дасть інше число, тож або платформа фіксована, або слово треба перевертати — це той самий [порядок байтів](root:hw-arch/endianness), що псує життя в кожному бінарному форматі. Друге: `*(const uint32_t *)p` замість `memcpy` виглядає швидше, але падає на невирівняній адресі — і на Cortex-M0+ це не «повільніше», а відмова процесора; чому саме так, розписано у [вирівнюванні даних](root:sf-apps/memory-alignment). Компілятор бачить `memcpy` довжиною 4 наскрізь і перетворює його на одне завантаження там, де це дозволено, тож безпечний варіант нічого не коштує.
 
@@ -245,43 +119,13 @@ uint32_t crc32_update_fast(uint32_t crc, const uint8_t *p, size_t n) {
 
 Тепер зберімо все у форму, придатну і для восьми байтів, і для двохсот кілобайтів. Уся хитрість у тому, що між порціями переносять **сирий регістр**, а не готову CRC:
 
-```c
-typedef struct { uint32_t reg; } crc32_ctx;
-
-static inline void crc32_init(crc32_ctx *c) {
-    c->reg = 0xFFFFFFFFU;                       /* старт профілю — РАЗ на весь потік */
-}
-static inline void crc32_feed(crc32_ctx *c, const uint8_t *p, size_t n) {
-    c->reg = crc32_update(c->reg, p, n);        /* скільки завгодно разів, порціями будь-якого розміру */
-}
-static inline uint32_t crc32_final(const crc32_ctx *c) {
-    return c->reg ^ 0xFFFFFFFFU;                /* фінальний XOR — РАЗ, після останнього байта */
-}
-```
+:::code proj-crc-embedded/c/potokove-iadro-init-feed.c
 
 Розбити дані на порції можна як завгодно — по 1 байту, по 37, по сторінці флешу: результат той самий, що й від одного виклику на весь блок. Помилка, яку роблять майже всі, зворотна: беруть готову одноразову `crc32(buf, len)`, кличуть її на кожну сторінку й складають результати. Кожен такий виклик починає з `0xFFFFFFFF` і закінчує фінальним XOR, тож виходить не CRC образу, а мішанина.
 
 Для кадру з UART регістр живе між перериваннями. Тут з'являється не алгоритмічна, а системна пастка: те саме поле бачать і обробник переривання, і головний цикл. Правило просте — обробник **тільки пише**, головний цикл читає результат лише після прапорця «кадр закінчився», а не паралельно з рахунком. Інакше головний цикл прочитає значення посеред того, як обробник його оновлює, — а від таких перегонів і бороняться [критичними секціями](root:sf-tasks/critical-sections). У Modbus RTU межу кадру задає тиша в лінії, тож обробників два:
 
-```c
-static volatile bool frame_done;     /* виставляє таймер, скидає головний цикл */
-static uint16_t      rx_crc;         /* чіпає ТІЛЬКИ обробник UART */
-static uint16_t      rx_len;
-
-void USART1_IRQHandler(void) {                       /* прийшов байт */
-    uint8_t b = (uint8_t)USART1->RDR;
-    if (rx_len == 0U)
-        rx_crc = 0xFFFFU;                            /* старт кадру — рівно один раз */
-    ring_put(b);
-    rx_crc = crc16_modbus_update(rx_crc, &b, 1);     /* ~16 інструкцій на байт */
-    rx_len++;
-    timer_restart(T35);                              /* кожен байт відсуває межу кадру */
-}
-
-void TIM6_IRQHandler(void) {                         /* тиша 3.5 символу — кадр скінчився */
-    frame_done = true;                               /* лише тепер rx_crc можна читати ззовні */
-}
-```
+:::code proj-crc-embedded/c/potokove-iadro-init-feed-2.c
 
 Головний цикл забирає готове й повертає лічильник у нуль — і саме прапорець, а не блокування, робить обмін безпечним: поки `frame_done` не виставлено, до `rx_crc` не торкається ніхто, крім обробника.
 
@@ -289,40 +133,7 @@ void TIM6_IRQHandler(void) {                         /* тиша 3.5 симво�
 
 Тепер найбільший споживач із двох. Образ лежить у флеші, попереду нього заголовок із довжиною й CRC, і завантажувач мусить сказати «цілий» або «битий», не тримаючи в RAM більше кількох сотень байтів.
 
-```c
-#define SLOT_BASE  0x08010000U                  /* початок слоту застосунку */
-#define SLOT_SIZE  (192U * 1024U)
-#define IMG_MAGIC  0x474D4946U                  /* довільна мітка «тут образ» */
-
-typedef struct {
-    uint32_t magic;
-    uint32_t length;      /* байтів вантажу ПІСЛЯ заголовка */
-    uint32_t crc;         /* CRC-32 того самого вантажу */
-    uint32_t entry;       /* адреса точки входу */
-} img_header;
-
-bool image_is_valid(void) {
-    const img_header *h = (const img_header *)SLOT_BASE;
-
-    if (h->magic != IMG_MAGIC)                  /* стертий слот — самі 0xFF, а не образ */
-        return false;
-    if (h->length == 0U || h->length > SLOT_SIZE - sizeof(img_header))
-        return false;                           /* довжині з заголовка ЩЕ не вірять */
-
-    crc32_ctx c;
-    crc32_init(&c);
-    const uint8_t *p = (const uint8_t *)(SLOT_BASE + sizeof(img_header));
-    uint32_t left = h->length;
-    while (left) {
-        uint32_t chunk = left > 1024U ? 1024U : left;
-        crc32_feed(&c, p, chunk);               /* внутрішній флеш адресується напряму */
-        p    += chunk;
-        left -= chunk;
-        watchdog_kick();                        /* 192 КБ довші за вікно сторожа */
-    }
-    return crc32_final(&c) == h->crc;
-}
-```
+:::code proj-crc-embedded/c/perevirka-obrazu-v.c
 
 Чотири рішення в цьому коді варті пояснення, бо кожне закриває реальну аварію.
 
@@ -334,18 +145,7 @@ bool image_is_valid(void) {
 
 **Порцію задає оперативка, а не зручність.** У цьому коді копіювати взагалі нічого не треба: внутрішній флеш Cortex-M адресується напряму, тож `p` — це справжня адреса у флеші, і `crc32_feed` читає прямо звідти. Для зовнішньої SPI-флеші той самий цикл стає таким:
 
-```c
-    uint8_t  buf[256];                          /* єдина плата оперативкою на весь образ */
-    uint32_t off = SLOT_BASE + sizeof(img_header);   /* зміщення у зовнішній флеші */
-    while (left) {
-        uint32_t chunk = left > sizeof buf ? (uint32_t)sizeof buf : left;
-        spi_flash_read(off, buf, chunk);
-        crc32_feed(&c, buf, chunk);
-        off  += chunk;
-        left -= chunk;
-        watchdog_kick();
-    }
-```
+:::code proj-crc-embedded/c/perevirka-obrazu-v-2.c
 
 І ще одна пастка, властива щойно записаному флешу: якщо перевіряєте образ одразу після запису, потрібні байти можуть ще лежати в кеші або буфері передвибірки, і процесор прочитає звідти старе. Тому кеш перед перевіркою скидають. Особливо це стосується платформ із [XIP](root:hw-arch/xip-memory-mapped-flash), де код виконується просто із зовнішньої флеші, відображеної в адресний простір: там кожне читання йде через кеш контролера, і скидання його — окрема явна операція.
 

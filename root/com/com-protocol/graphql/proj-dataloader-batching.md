@@ -32,19 +32,7 @@ query GetFeedWithAuthors {
    ```
 2. Сервер отримує масив із 20 об'єктів публікацій.
 3. Для кожного елемента масиву рушій паралельно запускає резолвер дочірнього поля `Post.author`:
-   ```typescript
-   // Наївний резолвер поля Post.author
-   const resolvers = {
-     Post: {
-       author: async (post, args, context) => {
-         return await context.db.query(
-           "SELECT id, name, avatar_url FROM users WHERE id = ?",
-           [post.author_id]
-         );
-       }
-     }
-   };
-   ```
+   :::code proj-dataloader-batching/ts/1-anatomiia-problemy-n-1-u.ts
 
 Оскільки резолвер `Post.author` є повністю ізольованою функцією, яка знає лише про свій поточний батьківський об'єкт `post`, він змушений виконати окремий мережевий запит до бази даних для кожного рядка.
 
@@ -122,245 +110,8 @@ loader.load(15) ──┘                   │                                �
 Нижче наведено повноцінні виробничі реалізації мінімального рушія DataLoader мовами TypeScript та C++.
 
 :::tabs
-```ts
-// TypeScript: Ідіоматична реалізація DataLoader з чергою мікротасок
-
-type BatchFunction<K, V> = (keys: ReadonlyArray<K>) => Promise<Array<V | Error>>;
-
-interface DataLoaderOptions<K> {
-  maxBatchSize?: number;
-  cache?: boolean;
-  cacheKeyFn?: (key: K) => string;
-}
-
-export class DataLoader<K, V> {
-  private readonly batchFn: BatchFunction<K, V>;
-  private readonly maxBatchSize: number;
-  private readonly useCache: boolean;
-  private readonly cacheKeyFn: (key: K) => any;
-  
-  // Черга ключів та відповідних їм Promise triggers для поточного пакета
-  private queue: Array<{
-    key: K;
-    resolve: (value: V) => void;
-    reject: (error: Error) => void;
-  }> = [];
-  
-  // Локальний мемоізаційний кеш у межах одного екземпляра
-  private cacheMap: Map<any, Promise<V>> = new Map();
-  private batchScheduled: boolean = false;
-
-  constructor(batchFn: BatchFunction<K, V>, options: DataLoaderOptions<K> = {}) {
-    this.batchFn = batchFn;
-    this.maxBatchSize = options.maxBatchSize ?? 1000;
-    this.useCache = options.cache ?? true;
-    this.cacheKeyFn = options.cacheKeyFn ?? ((k: K) => k);
-  }
-
-  public load(key: K): Promise<V> {
-    const cacheKey = this.cacheKeyFn(key);
-
-    // 1. Якщо увімкнено кеш і ключ уже запитувався — повертаємо готовий Promise
-    if (this.useCache) {
-      const cached = this.cacheMap.get(cacheKey);
-      if (cached !== undefined) {
-        return cached;
-      }
-    }
-
-    // 2. Створюємо новий Promise і додаємо його в чергу відкладеного виконання
-    const promise = new Promise<V>((resolve, reject) => {
-      this.queue.push({ key, resolve, reject });
-
-      // Якщо черга досягла максимального розміру — скидаємо негайно
-      if (this.queue.length >= this.maxBatchSize) {
-        this.dispatchQueue();
-      } else if (!this.batchScheduled) {
-        // Плануємо скидання черги на наступний такт мікротасок
-        this.batchScheduled = true;
-        queueMicrotask(() => this.dispatchQueue());
-      }
-    });
-
-    if (this.useCache) {
-      this.cacheMap.set(cacheKey, promise);
-    }
-
-    return promise;
-  }
-
-  public loadMany(keys: ReadonlyArray<K>): Promise<Array<V | Error>> {
-    return Promise.all(
-      keys.map((key) => this.load(key).catch((err: Error) => err))
-    );
-  }
-
-  public clear(key: K): this {
-    const cacheKey = this.cacheKeyFn(key);
-    this.cacheMap.delete(cacheKey);
-    return this;
-  }
-
-  public clearAll(): this {
-    this.cacheMap.clear();
-    return this;
-  }
-
-  public prime(key: K, value: V | Error): this {
-    const cacheKey = this.cacheKeyFn(key);
-    if (!this.cacheMap.has(cacheKey)) {
-      const promise = value instanceof Error 
-        ? Promise.reject(value) 
-        : Promise.resolve(value);
-      // Запобігаємо unhandled rejection для помилок у кеші
-      promise.catch(() => {});
-      this.cacheMap.set(cacheKey, promise);
-    }
-    return this;
-  }
-
-  private async dispatchQueue(): Promise<void> {
-    this.batchScheduled = false;
-    const currentQueue = this.queue;
-    this.queue = [];
-
-    if (currentQueue.length === 0) return;
-
-    const keys = currentQueue.map((item) => item.key);
-
-    try {
-      // Викликаємо користувацьку пакетну функцію
-      const values = await this.batchFn(keys);
-
-      // Перевіряємо суворий інваріант контракту DataLoader
-      if (values.length !== keys.length) {
-        throw new TypeError(
-          `DataLoader batch function must return array of length ${keys.length}, but got ${values.length}`
-        );
-      }
-
-      // Розподіляємо значення по індивідуальних промісах
-      for (let i = 0; i < currentQueue.length; i++) {
-        const result = values[i];
-        if (result instanceof Error) {
-          currentQueue[i].reject(result);
-        } else {
-          currentQueue[i].resolve(result);
-        }
-      }
-    } catch (error) {
-      // Якщо впала вся пакетна функція — відхиляємо всі проміси поточного пакета
-      const err = error instanceof Error ? error : new Error(String(error));
-      for (const item of currentQueue) {
-        item.reject(err);
-      }
-    }
-  }
-}
-```
-```cpp
-// C++: Ідіоматична потокобезпечна реалізація DataLoader на базі std::future та RAII
-
-#include <iostream>
-#include <vector>
-#include <unordered_map>
-#include <memory>
-#include <future>
-#include <functional>
-#include <mutex>
-#include <stdexcept>
-#include <string>
-
-template <typename Key, typename Value>
-class DataLoader {
-public:
-    using BatchFunction = std::function<std::vector<Value>(const std::vector<Key>&)>;
-
-    explicit DataLoader(BatchFunction batchFn, size_t maxBatchSize = 1000)
-        : batchFn_(std::move(batchFn)), maxBatchSize_(maxBatchSize) {}
-
-    // Метод load реєструє ключ і повертає std::shared_future на майбутній результат
-    std::shared_future<Value> load(const Key& key) {
-        std::lock_guard<std::mutex> lock(mutex_);
-
-        // 1. Перевіряємо наявність у кеші
-        auto it = cache_.find(key);
-        if (it != cache_.end()) {
-            return it->second;
-        }
-
-        // 2. Створюємо новий promise для асинхронного результату
-        auto promisePtr = std::make_shared<std::promise<Value>>();
-        std::shared_future<Value> future = promisePtr->get_future().share();
-        cache_.emplace(key, future);
-
-        queue_.push_back({key, promisePtr});
-
-        return future;
-    }
-
-    // Скидання черги: виконання пакетного запиту для всіх накопичених ключів
-    void dispatch() {
-        std::vector<QueueItem> currentQueue;
-        {
-            std::lock_guard<std::mutex> lock(mutex_);
-            if (queue_.empty()) return;
-            currentQueue = std::move(queue_);
-            queue_.clear();
-        }
-
-        std::vector<Key> keys;
-        keys.reserve(currentQueue.size());
-        for (const auto& item : currentQueue) {
-            keys.push_back(item.key);
-        }
-
-        try {
-            // Виклик користувацької пакетної функції
-            std::vector<Value> results = batchFn_(keys);
-
-            if (results.size() != keys.size()) {
-                throw std::runtime_error(
-                    "DataLoader batch function returned vector of incorrect size: expected " +
-                    std::to_string(keys.size()) + ", got " + std::to_string(results.size())
-                );
-            }
-
-            // Розподіл результатів по promise
-            for (size_t i = 0; i < currentQueue.size(); ++i) {
-                currentQueue[i].promise->set_value(results[i]);
-            }
-        } catch (...) {
-            auto ex = std::current_exception();
-            for (auto& item : currentQueue) {
-                item.promise->set_exception(ex);
-            }
-        }
-    }
-
-    void clear(const Key& key) {
-        std::lock_guard<std::mutex> lock(mutex_);
-        cache_.erase(key);
-    }
-
-    void clearAll() {
-        std::lock_guard<std::mutex> lock(mutex_);
-        cache_.clear();
-    }
-
-private:
-    struct QueueItem {
-        Key key;
-        std::shared_ptr<std::promise<Value>> promise;
-    };
-
-    BatchFunction batchFn_;
-    size_t maxBatchSize_;
-    std::mutex mutex_;
-    std::vector<QueueItem> queue_;
-    std::unordered_map<Key, std::shared_future<Value>> cache_;
-};
-```
+:::code proj-dataloader-batching/ts/5-povna-realizatsiia.ts
+:::code proj-dataloader-batching/cpp/main.cpp
 :::
 
 ---
@@ -387,39 +138,7 @@ private:
 
 Для пакетизації зв'язку один-до-багатьох створюється спеціалізований лоадер, пакетна функція якого групує рядки за зовнішнім ключем:
 
-```typescript
-// Пакетна функція для зв'язку 1-до-багатьох: Post -> Comments[]
-async function batchGetCommentsByPostIds(
-  postIds: ReadonlyArray<string>,
-  db: DatabaseConnection
-): Promise<Array<Comment[]>> {
-  // 1. Отримуємо всі коментарі для всіх постів одним запитом
-  const rows = await db.query<CommentRow>(
-    "SELECT id, post_id, content, author_id FROM comments WHERE post_id IN (?)",
-    [postIds]
-  );
-
-  // 2. Групуємо коментарі у словник за post_id
-  const commentsByPostId = new Map<string, Comment[]>();
-  for (const postId of postIds) {
-    commentsByPostId.set(postId, []);
-  }
-
-  for (const row of rows) {
-    const list = commentsByPostId.get(row.post_id);
-    if (list !== undefined) {
-      list.push({
-        id: row.id,
-        content: row.content,
-        authorId: row.author_id
-      });
-    }
-  }
-
-  // 3. Повертаємо масив списків у ТОЧНОМУ порядку вихідних postIds
-  return postIds.map((postId) => commentsByPostId.get(postId) ?? []);
-}
-```
+:::code proj-dataloader-batching/ts/7-robota-zi-zviazkamy-odyn.ts
 
 Резолвер поля `Post.comments` набуває максимально компактного вигляду:
 
@@ -441,19 +160,7 @@ const resolvers = {
 
 Параметр `cacheKeyFn` серіалізує складений об'єкт у детермінований строковий ключ, зберігаючи працездатність кешу:
 
-```typescript
-interface PermissionKey {
-  userId: string;
-  organizationId: string;
-}
-
-const permissionLoader = new DataLoader<PermissionKey, Permission[]>(
-  async (keys) => batchFetchPermissions(keys),
-  {
-    cacheKeyFn: (key) => `${key.organizationId}:${key.userId}`
-  }
-);
-```
+:::code proj-dataloader-batching/ts/8-skladeni-kliuchi-ta.ts
 
 ---
 
@@ -498,49 +205,7 @@ DataLoader стає єдиним універсальним адаптером �
 
 Поліморфний маршрутизатор DataLoader розбиває вхідний масив ключів за типами сутностей:
 
-```typescript
-async function polymorphicNodeBatchLoader(
-  globalIds: ReadonlyArray<string>,
-  context: ExecutionContext
-): Promise<Array<Node | Error>> {
-  // 1. Групуємо ключі за типом сутності
-  const userIds: string[] = [];
-  const postIds: string[] = [];
-  const commentIds: string[] = [];
-
-  for (const gid of globalIds) {
-    const [type, rawId] = gid.split(":");
-    if (type === "User") userIds.push(rawId);
-    else if (type === "Post") postIds.push(rawId);
-    else if (type === "Comment") commentIds.push(rawId);
-  }
-
-  // 2. Паралельно викликаємо спеціалізовані лоадери для кожного типу
-  const [users, posts, comments] = await Promise.all([
-    context.loaders.userLoader.loadMany(userIds),
-    context.loaders.postLoader.loadMany(postIds),
-    context.loaders.commentLoader.loadMany(commentIds)
-  ]);
-
-  // 3. Індексуємо знайдені сутності в єдиний Map
-  const nodeMap = new Map<string, Node>();
-  userIds.forEach((id, i) => {
-    const u = users[i];
-    if (!(u instanceof Error)) nodeMap.set(`User:${id}`, u);
-  });
-  postIds.forEach((id, i) => {
-    const p = posts[i];
-    if (!(p instanceof Error)) nodeMap.set(`Post:${id}`, p);
-  });
-  commentIds.forEach((id, i) => {
-    const c = comments[i];
-    if (!(c instanceof Error)) nodeMap.set(`Comment:${id}`, c);
-  });
-
-  // 4. Повертаємо результати у вихідному порядку вхідних globalIds
-  return globalIds.map((gid) => nodeMap.get(gid) ?? new Error(`Вузол ${gid} не знайдено`));
-}
-```
+:::code proj-dataloader-batching/ts/11-polimorfnyi-dataloader.ts
 
 ---
 
@@ -565,37 +230,7 @@ DataLoader є золотим стандартом для сервісно-орі
 
 Завдяки інкапсуляції пакетної функції, тестування GraphQL-резолверів стає простим і детермінованим. Для перевірки відсутності N+1 викликів не потрібно піднімати реальну базу даних: достатньо передати тестовий екземпляр лоадера з функцією-шпигуном (Spy):
 
-```typescript
-test("резолвер Post.author пакетує виклики і усуває N+1", async () => {
-  let batchExecutionCount = 0;
-  
-  const mockBatchFn = async (ids: ReadonlyArray<string>) => {
-    batchExecutionCount++;
-    return ids.map((id) => ({ id, name: `User ${id}`, avatarUrl: "http://..." }));
-  };
-
-  const testLoader = new DataLoader(mockBatchFn);
-  const context = { loaders: { userLoader: testLoader } };
-
-  // Імітуємо виконання 10 резолверів для 10 постів (автори 1, 2, 1, 3, 2...)
-  const promises = [
-    resolvers.Post.author({ author_id: "1" }, {}, context),
-    resolvers.Post.author({ author_id: "2" }, {}, context),
-    resolvers.Post.author({ author_id: "1" }, {}, context),
-    resolvers.Post.author({ author_id: "3" }, {}, context),
-  ];
-
-  const authors = await Promise.all(promises);
-
-  // Перевіряємо результати
-  expect(authors).toHaveLength(4);
-  expect(authors[0].id).toBe("1");
-  expect(authors[2].id).toBe("1");
-
-  // КРИТИЧНА ПЕРЕВІРКА: пакетна функція викликалася РІВНО ОДИН РАЗ
-  expect(batchExecutionCount).toBe(1);
-});
-```
+:::code proj-dataloader-batching/ts/13-stratehiia-modulnoho.ts
 
 ---
 
@@ -641,23 +276,7 @@ SELECT * FROM users WHERE id IN ('3', '1', '2');
 Якщо в межах одного складного GraphQL-запиту виконується мутація та подальше читання (наприклад, зміна імені автора й повернення оновленої сутності), DataLoader може повернути старе ім'я з кешу, якщо читання відбулося до мутації.
 
 Для запобігання цій ситуації резолвер мутації зобов'язаний явно оновити або скинути кеш лоадера:
-```typescript
-const resolvers = {
-  Mutation: {
-    updateUserName: async (_parent, { id, newName }, context) => {
-      const updatedUser = await context.db.updateUser(id, { name: newName });
-      
-      // 1. Скидаємо старе значення з кешу
-      context.loaders.userLoader.clear(id);
-      
-      // 2. Або записуємо оновлене значення наперед (prime)
-      context.loaders.userLoader.prime(id, updatedUser);
-      
-      return updatedUser;
-    }
-  }
-};
-```
+:::code proj-dataloader-batching/ts/pastka-3-robota-z.ts
 
 #### Пастка 4: Ліміт розміру пакетного запиту (Max Batch Size)
 

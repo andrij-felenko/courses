@@ -64,35 +64,8 @@ module bank {
 Одне IDL дає код різними мовами. Ось той самий виклик у двох відображеннях, згенерованих з опису вище:
 
 :::tabs
-```cpp
-// C++: посилання приходить нетипізованим, тому його треба звузити до інтерфейсу
-CORBA::Object_var obj = orb->string_to_object(ior_string);
-bank::Account_var acc = bank::Account::_narrow(obj);
-if (CORBA::is_nil(acc)) { /* за цим посиланням не рахунок */ }
-
-try {
-    acc->withdraw(50);
-    CORBA::Long left = acc->balance();
-} catch (const bank::InsufficientFunds& e) {
-    // помилка, оголошена в IDL: не вистачило e.shortfall
-} catch (const CORBA::SystemException& e) {
-    // помилка, якої в IDL немає: зламався сам виклик
-}
-```
-```java
-// Java: те саме IDL, те саме звуження, інші імена згенерованих класів
-org.omg.CORBA.Object obj = orb.string_to_object(iorString);
-bank.Account acc = bank.AccountHelper.narrow(obj);
-
-try {
-    acc.withdraw(50);
-    int left = acc.balance();
-} catch (bank.InsufficientFunds e) {
-    // не вистачило e.shortfall
-} catch (org.omg.CORBA.SystemException e) {
-    // зламався сам виклик
-}
-```
+:::code corba-object-broker-d/cpp/kontrakt-iakyi-rozumiiut.cpp
+:::code corba-object-broker-d/java/main.java
 :::
 
 У цьому коді сховані дві речі, яких у локальному виклику не буває взагалі.
@@ -180,27 +153,7 @@ try {
 
 Серверний бік із такою будовою виглядає просто:
 
-```cpp
-// Сервант — звичайний клас C++, що успадковує згенерований скелет.
-class AccountImpl : public POA_bank::Account {
-    CORBA::Long balance_;
-public:
-    explicit AccountImpl(CORBA::Long start) : balance_(start) {}
-
-    CORBA::Long balance() override { return balance_; }
-
-    void withdraw(CORBA::Long amount) override {
-        if (amount > balance_) {
-            bank::InsufficientFunds e;
-            e.shortfall = amount - balance_;
-            throw e;                    // помилка з IDL — долетить до клієнта як є
-        }
-        balance_ -= amount;             // виклик прийшов із пулу потоків ORB:
-    }                                   // без блокування тут буде гонитва
-
-    void ping() override {}
-};
-```
+:::code corba-object-broker-d/cpp/khto-na-tomu-botsi.cpp
 
 Метод не знає, що його покликали з мережі, — і це рівно те, чого домагалися. Але коментар про гонитву не декоративний: брокер обслуговує з'єднання [пулом потоків](root:sf-tasks/thread-pool), тож два клієнти легко потрапляють у той самий сервант одночасно. Локальний об'єкт, який усе життя був однопотоковим, від переїзду за мережу мовчки стає спільним ресурсом. Ілюзія прозорості тримається на рівні синтаксису й ламається на рівні семантики — і це ще найлагідніший спосіб, яким вона ламається.
 

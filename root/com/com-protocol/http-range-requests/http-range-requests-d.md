@@ -221,25 +221,7 @@ off_t offset = (off_t)start_byte;
 size_t count = (size_t)(end_byte - start_byte + 1);
 ssize_t sent = sendfile(client_socket_fd, file_fd, &offset, count);
 ```
-```cpp
-#include <sys/sendfile.h>
-#include <cstdint>
-#include <cstddef>
-#include <expected>
-#include <system_error>
-
-inline std::expected<size_t, std::error_code> sendSlice(
-    int socketFd, int fileFd, uint64_t start, uint64_t end) noexcept
-{
-    off_t offset = static_cast<off_t>(start);
-    size_t count = static_cast<size_t>(end - start + 1);
-    ssize_t sent = ::sendfile(socketFd, fileFd, &offset, count);
-    if (sent < 0) {
-        return std::unexpected(std::error_code(errno, std::generic_category()));
-    }
-    return static_cast<size_t>(sent);
-}
-```
+:::code http-range-requests-d/cpp/arkhitektura-iadra-nul.cpp
 :::
 
 Системний виклик `sendfile(2)` виконує передачу безпосередньо між сторінковим кешем ядра та чергою дескрипторів DMA мережевого адаптера. Простір користувача взагалі не торкається байтів файлу, а навантаження на шину пам'яті CPU зменшується до нуля.
@@ -454,19 +436,7 @@ Access-Control-Expose-Headers: Content-Range, Accept-Ranges, Content-Length, ETa
 
 Для перевірки коректності поведінки сервера, обчислення зміщень та діагностики помилок 416 використовуються утиліти командного рядка:
 
-```bash
-# 1. Запит першого мегабайта файлу з відображенням службових заголовків
-curl -i -H "Range: bytes=0-1048575" https://cdn.example.com/video.mp4
-
-# 2. Суфіксний запит останніх 512 байтів файлу (читання moov-атома або Parquet footer)
-curl -i -H "Range: bytes=-512" https://cdn.example.com/data.parquet
-
-# 3. Перевірка роботи умовного валідатора If-Range (має повернути 206)
-curl -i -H "Range: bytes=1000-" -H 'If-Range: "pkg-v1-hash-8a9f"' https://cdn.example.com/archive.zip
-
-# 4. Перевірка спрацьовування захисту від некоректного діапазону (очікується HTTP 416)
-curl -i -H "Range: bytes=999999999999-" https://cdn.example.com/small.txt
-```
+:::code http-range-requests-d/sh/main.sh
 
 ## Реальні сценарії використання у виробничих системах
 
@@ -511,128 +481,8 @@ curl -i -H "Range: bytes=999999999999-" https://cdn.example.com/small.txt
 Нижче наведено фрагмент виробничого парсера для аналізу заголовка `Range` мовами C та C++:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdint.h>
-#include <stdbool.h>
-
-typedef struct {
-    uint64_t start;
-    uint64_t end;
-    bool is_valid;
-} SingleByteRange;
-
-SingleByteRange parse_single_range(const char *header, uint64_t file_size) {
-    SingleByteRange range = {0, 0, false};
-    if (!header || strncmp(header, "bytes=", 6) != 0 || file_size == 0) {
-        return range;
-    }
-    const char *p = header + 6;
-    char *dash = strchr(p, '-');
-    if (!dash) return range;
-
-    if (p == dash) {
-        /* Формат -suffix: останні N байтів */
-        char *end_ptr;
-        uint64_t suffix = strtoull(dash + 1, &end_ptr, 10);
-        if (end_ptr != dash + 1 && suffix > 0) {
-            range.start = (suffix >= file_size) ? 0 : (file_size - suffix);
-            range.end = file_size - 1;
-            range.is_valid = true;
-        }
-    } else if (*(dash + 1) == '\0') {
-        /* Формат start-: від start до кінця */
-        char *end_ptr;
-        uint64_t start = strtoull(p, &end_ptr, 10);
-        if (end_ptr == dash && start < file_size) {
-            range.start = start;
-            range.end = file_size - 1;
-            range.is_valid = true;
-        }
-    } else {
-        /* Формат start-end */
-        char *end_ptr1, *end_ptr2;
-        uint64_t start = strtoull(p, &end_ptr1, 10);
-        uint64_t end = strtoull(dash + 1, &end_ptr2, 10);
-        if (end_ptr1 == dash && *end_ptr2 == '\0' && start <= end && start < file_size) {
-            range.start = start;
-            range.end = (end >= file_size) ? (file_size - 1) : end;
-            range.is_valid = true;
-        }
-    }
-    return range;
-}
-```
-```cpp
-#include <string_view>
-#include <charconv>
-#include <optional>
-#include <cstdint>
-#include <algorithm>
-
-struct ByteRange {
-    uint64_t start{0};
-    uint64_t end{0};
-
-    [[nodiscard]] constexpr uint64_t length() const noexcept {
-        return end - start + 1;
-    }
-};
-
-class RangeHeaderParser {
-public:
-    [[nodiscard]] static std::optional<ByteRange> parseSingle(
-        std::string_view header,
-        uint64_t fileSize) noexcept
-    {
-        if (fileSize == 0 || !header.starts_with("bytes=")) {
-            return std::nullopt;
-        }
-        header.remove_prefix(6);
-
-        auto dashPos = header.find('-');
-        if (dashPos == std::string_view::npos) {
-            return std::nullopt;
-        }
-
-        auto startStr = header.substr(0, dashPos);
-        auto endStr = header.substr(dashPos + 1);
-
-        if (startStr.empty()) {
-            // Формат -suffix
-            uint64_t suffix = 0;
-            if (auto [p, ec] = std::from_chars(endStr.data(), endStr.data() + endStr.size(), suffix);
-                ec == std::errc{} && suffix > 0) {
-                uint64_t start = (suffix >= fileSize) ? 0 : (fileSize - suffix);
-                return ByteRange{start, fileSize - 1};
-            }
-            return std::nullopt;
-        }
-
-        uint64_t start = 0;
-        if (auto [p, ec] = std::from_chars(startStr.data(), startStr.data() + startStr.size(), start);
-            ec != std::errc{} || start >= fileSize) {
-            return std::nullopt;
-        }
-
-        if (endStr.empty()) {
-            // Формат start-
-            return ByteRange{start, fileSize - 1};
-        }
-
-        // Формат start-end
-        uint64_t end = 0;
-        if (auto [p, ec] = std::from_chars(endStr.data(), endStr.data() + endStr.size(), end);
-            ec == std::errc{} && start <= end) {
-            return ByteRange{start, std::min(end, fileSize - 1)};
-        }
-
-        return std::nullopt;
-    }
-};
-```
+:::code http-range-requests-d/c/main.c
+:::code http-range-requests-d/cpp/porivniannia-realizatsii.cpp
 :::
 
 ## Зведена таблиця поведінки статус-кодів

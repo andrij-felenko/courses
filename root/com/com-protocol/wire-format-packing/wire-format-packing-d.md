@@ -156,23 +156,7 @@ buf[3] = (uint8_t)(v);
 Оскільки формат тепер описано в байтах, а не типом C, будь-який кінець може бути написаний будь-якою мовою — і в кожній мові є свій ідіоматичний спосіб укласти ті самі шістнадцять байтів.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-
-/* Заголовок за таблицею: magic(2) ver(1) flags(1) len(2) rsv(2) time_us(8). */
-size_t enc_header(uint8_t *b, uint16_t len, uint64_t t_us)
-{
-    b[0] = 0xA7;  b[1] = 0x5E;                 /* magic */
-    b[2] = 2;                                  /* ver   */
-    b[3] = 0;                                  /* flags */
-    b[4] = (uint8_t)(len >> 8);  b[5] = (uint8_t)len;
-    b[6] = 0;     b[7] = 0;                    /* rsv, завжди нулі */
-    for (int i = 0; i < 8; i++)
-        b[8 + i] = (uint8_t)(t_us >> (56 - 8 * i));
-    return 16;
-}
-```
+:::code wire-format-packing-d/c/toi-samyi-zaholovok.c
 ```py
 import struct
 
@@ -182,32 +166,8 @@ HEADER = struct.Struct(">2sBBHHQ")   # magic, ver, flags, len, rsv, time_us
 def enc_header(length: int, t_us: int) -> bytes:
     return HEADER.pack(b"\xa7\x5e", 2, 0, length, 0, t_us)
 ```
-```ts
-function encHeader(len: number, tUs: bigint): Uint8Array {
-  const b = new Uint8Array(16);
-  const v = new DataView(b.buffer);
-  v.setUint16(0, 0xa75e);   // DataView за замовчуванням старший байт першим
-  v.setUint8(2, 2);         // ver
-  v.setUint8(3, 0);         // flags
-  v.setUint16(4, len);
-  v.setUint16(6, 0);        // rsv
-  v.setBigUint64(8, tUs);
-  return b;
-}
-```
-```go
-import "encoding/binary"
-
-func encHeader(length uint16, tUs uint64) []byte {
-    b := make([]byte, 16)
-    binary.BigEndian.PutUint16(b[0:], 0xa75e) // magic
-    b[2], b[3] = 2, 0                          // ver, flags
-    binary.BigEndian.PutUint16(b[4:], length)
-    binary.BigEndian.PutUint16(b[6:], 0)       // rsv
-    binary.BigEndian.PutUint64(b[8:], tUs)
-    return b
-}
-```
+:::code wire-format-packing-d/ts/index.ts
+:::code wire-format-packing-d/go/main.go
 :::
 
 Чотири різні мови, чотири різні ідіоми — і байт у байт однаковий результат, бо всі чотири реалізують одну табличку, а не свою розкладку структур. Python-варіант заразом показує пастку, характерну для мов із готовим пакувальником: у модулі `struct` формат `@` (типовий за замовчуванням) укладає поля **з падінгом рідної платформи**, і лише явні `<`, `>` чи `!` вимикають падінг і задають порядок байтів. Забутий символ порядку — і ви знову передаєте розкладку своєї машини.
@@ -285,23 +245,7 @@ uint32_t t = h->timestamp;
 
 Байти на прийомі приходять від когось стороннього. Навіть у службовій мережі без зловмисників це може бути пристрій із іншою версією прошивки, обірваний кадр або збій у каналі. Тому розкодувальник — це не набір зсувів, а **обмежений читач**: маленька структура з покажчиком, залишком байтів і прапорцем помилки, у якої кожне читання спершу питає «чи є ще стільки байтів?».
 
-```c
-typedef struct { const uint8_t *p; size_t left; bool bad; } rd_t;
-
-static bool take(rd_t *r, size_t n)          /* єдине місце перевірки меж */
-{
-    if (r->bad || r->left < n) { r->bad = true; return false; }
-    return true;
-}
-
-static uint16_t rd_u16(rd_t *r)
-{
-    if (!take(r, 2)) return 0;
-    uint16_t v = (uint16_t)(((uint16_t)r->p[0] << 8) | r->p[1]);
-    r->p += 2; r->left -= 2;
-    return v;
-}
-```
+:::code wire-format-packing-d/c/chytach-iakyi-ne-viryt.c
 
 Помилка тут **липка**: щойно `bad` піднято, усі подальші читання повертають нулі й нічого не рухають, тож перевіряти прапорець досить один раз наприкінці розбору — і жодна гілка не працює з напівпрочитаним повідомленням. Найчастіша діра, яку це закриває, — довіра до поля довжини: приймач читає `len`, виділяє під нього стільки-то й копіює, не звіривши `len` із реально отриманою кількістю байтів. Наслідок — читання за межами буфера з чужої пам'яті просто в мережу, тобто рівно [той клас вразливостей, що зробив ім'я Heartbleed](root:sf-security/buffer-overflow-security).
 

@@ -193,52 +193,8 @@ Cache-Control: max-age=300
 Обробник на боці сервера виглядає буденно, і головне в ньому — рахувати мітку **до** збирання важкої відповіді:
 
 :::tabs
-```ts
-app.get("/api/orders/:id", async (req, res) => {
-  // версія береться з бази одним дешевим читанням, без збирання тіла
-  const version = await db.orderVersion(req.params.id);   // напр. 17
-  if (version === null) return res.sendStatus(404);
-
-  const etag = `"order-${req.params.id}-v${version}"`;
-  res.setHeader("ETag", etag);
-  res.setHeader("Cache-Control", "private, no-cache");
-
-  if (req.headers["if-none-match"] === etag) {
-    return res.status(304).end();       // тіло не збирали взагалі
-  }
-
-  const order = await db.loadOrder(req.params.id);        // ось тут дорога робота
-  res.json(order);
-});
-```
-```go
-func orderHandler(w http.ResponseWriter, r *http.Request) {
-    id := r.PathValue("id")
-
-    // версія береться з бази одним дешевим читанням, без збирання тіла
-    version, err := db.OrderVersion(id)
-    if err != nil {
-        http.Error(w, "not found", http.StatusNotFound)
-        return
-    }
-
-    etag := fmt.Sprintf("\"order-%s-v%d\"", id, version)
-    w.Header().Set("ETag", etag)
-    w.Header().Set("Cache-Control", "private, no-cache")
-
-    if r.Header.Get("If-None-Match") == etag {
-        w.WriteHeader(http.StatusNotModified) // тіло не збирали взагалі
-        return
-    }
-
-    order, err := db.LoadOrder(id)            // ось тут дорога робота
-    if err != nil {
-        http.Error(w, "internal", http.StatusInternalServerError)
-        return
-    }
-    json.NewEncoder(w).Encode(order)
-}
-```
+:::code http-caching-d/ts/index.ts
+:::code http-caching-d/go/main.go
 :::
 
 Порядок дій тут і є вся вигода: якщо мітку можна отримати дешево, `304` коштує серверові одного індексного читання. Коли ж мітку рахують від гешу готового тіла, економиться лише трафік — теж чимало, але робота бази лишається на місці.

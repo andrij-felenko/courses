@@ -298,21 +298,7 @@ uint32_t val = ((uint32_t)ptr[0] << 24) |
                ((uint32_t)ptr[2] << 8)  |
                ((uint32_t)ptr[3]);
 ```
-```cpp
-// Безпечне зчитування Big-Endian uint32 у C++20 / C++23
-#include <bit>
-#include <cstring>
-#include <span>
-
-inline uint32_t read_be32(std::span<const uint8_t, 4> bytes) noexcept {
-    uint32_t val;
-    std::memcpy(&val, bytes.data(), sizeof(val));
-    if constexpr (std::endian::native == std::endian::little) {
-        return std::byteswap(val);
-    }
-    return val;
-}
-```
+:::code cbor-i-messagepack-d/cpp/main.cpp
 :::
 
 Сучасні компілятори GCC та Clang оптимізують цей побайтовий шаблон в одну апаратну інструкцію зміни порядку байтів `REV` (Byte Reverse) на архітектурах, що підтримують невирівняне читання, забезпечуючи максимальну швидкість без ризику апаратних винятків.

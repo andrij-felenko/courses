@@ -377,19 +377,7 @@ query ProductDetails($id: ID!) {
 
 Поширена помилка початківців — розміщення перевірок прав доступу безпосередньо всередині функцій-резолверів:
 
-```typescript
-// АНТИПАТЕРН: авторизація всередині резолвера
-const resolvers = {
-  Post: {
-    secretNotes: (post, args, context) => {
-      if (!context.currentUser.isAdmin) {
-        throw new Error("Доступ заборонено");
-      }
-      return post.secretNotes;
-    }
-  }
-};
-```
+:::code graphql-d/ts/index.ts
 
 Цей підхід стає небезпечним, щойно граф розростається: те саме поле чи сутність `Post` може бути доступне через десятки різних шляхів (`user.posts`, `feed.items`, `search.results`, `node(id)`). Якщо розробник забуде додати перевірку хоча б в одному новому резолвері, виникає вразливість витоку приватних даних (BOLA / IDOR).
 

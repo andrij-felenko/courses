@@ -68,21 +68,7 @@ def get_order(id):
     v = request.headers.get("API-Version", "1")  # без позначки — усталена версія
     return serve_order_v2(id) if v == "2" else serve_order_v1(id)
 ```
-```go
-// Позначка версії зі шляху веде запит до потрібного оброблювача.
-mux.HandleFunc("GET /v1/orders/{id}", serveOrderV1)
-mux.HandleFunc("GET /v2/orders/{id}", serveOrderV2)
-
-// Або з заголовка — коли адреса лишається чистою:
-mux.HandleFunc("GET /orders/{id}", func(w http.ResponseWriter, r *http.Request) {
-	v := r.Header.Get("API-Version") // без позначки — усталена версія
-	if v == "2" {
-		serveOrderV2(w, r)
-	} else {
-		serveOrderV1(w, r)
-	}
-})
-```
+:::code api-versioning-d/go/main.go
 :::
 
 Де саме спрацьовує цей вибір — на [шлюзі API](root:sf-web/api-gateway) на вході в систему чи в самому застосунку — деталь реалізації, не суть. Принцип незмінний: позначка версії розводить трафік по контрактах.

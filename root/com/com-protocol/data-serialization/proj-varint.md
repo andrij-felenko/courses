@@ -40,25 +40,7 @@
 Тепер — код, який реально стоїть у прошивках. Почнемо з кодувальника беззнакового 32-бітного. Ключове рішення інтерфейсу: функція має **не вгадувати**, скільки байтів вона запише, а **сказати** це викликачеві й **не вилізти** за наданий буфер. Тому вона приймає буфер, його місткість, і повертає кількість записаних байтів — або сигнал «не влізло».
 
 :::tabs
-```cpp
-#include <cstdint>
-#include <cstddef>
-
-// Закодувати value у varint у buf місткістю cap байтів.
-// Повертає число записаних байтів, або 0 якщо не влізло (буфер замалий).
-size_t varint_encode_u32(uint32_t value, uint8_t *buf, size_t cap) {
-    size_t i = 0;
-    // Поки лишаються біти ПОНАД молодші сім — ставимо прапорець «далі ще є».
-    while (value >= 0x80) {              // >= 0x80 означає: є що кодувати після цих 7 бітів
-        if (i >= cap) return 0;          // межа буфера — критична перевірка (див. пастки)
-        buf[i++] = (uint8_t)(value | 0x80);  // молодші 7 бітів + старший біт = 1
-        value >>= 7;                     // з'їли сім бітів, рухаємось далі
-    }
-    if (i >= cap) return 0;              // місце на останній байт
-    buf[i++] = (uint8_t)value;           // останній байт: старший біт = 0 (бо value < 0x80)
-    return i;
-}
-```
+:::code proj-varint/cpp/robochyi-c-koduvannia.cpp
 ```python
 # Закодувати value у varint, повернути bytes (Python сам зростає буфер).
 def varint_encode_u32(value: int) -> bytes:
@@ -70,41 +52,8 @@ def varint_encode_u32(value: int) -> bytes:
     out.append(value)                    # останній байт: старший біт = 0 (бо value < 0x80)
     return bytes(out)
 ```
-```go
-// Закодувати value у varint у buf місткістю len(buf) байтів.
-// Повертає число записаних байтів, або 0 якщо не влізло (буфер замалий).
-func VarintEncodeU32(value uint32, buf []byte) int {
-	i := 0
-	// Поки лишаються біти ПОНАД молодші сім — ставимо прапорець «далі ще є».
-	for value >= 0x80 { // >= 0x80 означає: є що кодувати після цих 7 бітів
-		if i >= len(buf) {
-			return 0 // межа буфера — критична перевірка (див. пастки)
-		}
-		buf[i] = byte(value) | 0x80 // молодші 7 бітів + старший біт = 1
-		i++
-		value >>= 7 // з'їли сім бітів, рухаємось далі
-	}
-	if i >= len(buf) {
-		return 0 // місце на останній байт
-	}
-	buf[i] = byte(value) // останній байт: старший біт = 0 (бо value < 0x80)
-	i++
-	return i
-}
-```
-```js
-// Закодувати value у varint, повернути Uint8Array (значення до 2^32-1).
-function varintEncodeU32(value) {
-    const out = [];
-    // Поки лишаються біти ПОНАД молодші сім — ставимо прапорець «далі ще є».
-    while (value >= 0x80) {              // >= 0x80 означає: є що кодувати після цих 7 бітів
-        out.push((value & 0x7f) | 0x80); // молодші 7 бітів + старший біт = 1
-        value = Math.floor(value / 128); // з'їли сім бітів (>>>7 псує 32-й біт)
-    }
-    out.push(value);                     // останній байт: старший біт = 0 (бо value < 0x80)
-    return Uint8Array.from(out);
-}
-```
+:::code proj-varint/go/robochyi-c-koduvannia.go
+:::code proj-varint/js/robochyi-c-koduvannia.js
 :::
 
 Розберімо, чому кожен рядок саме такий. Умова циклу `value >= 0x80` — це перевірка «чи є ще значущі біти поза наймолодшими сімома». Поки число не менше 128, старші біти існують, тож поточний байт **не** останній: беремо `value | 0x80` — це молодші сім бітів разом із виставленим прапорцем — і зсуваємо `value` на сім праворуч. Щойно `value` впало нижче 128, усе, що лишилось, вміщається в сім бітів: пишемо його як є, зі старшим бітом 0 (бо `value < 0x80` гарантує, що восьмий біт нульовий), і завершуємось.
@@ -114,19 +63,7 @@ function varintEncodeU32(value) {
 Для `uint64_t` код **буквально той самий**, змінюється лише тип аргумента — цикл сам ітерується стільки разів, скільки треба (до десяти для повного 64-бітного числа):
 
 :::tabs
-```cpp
-size_t varint_encode_u64(uint64_t value, uint8_t *buf, size_t cap) {
-    size_t i = 0;
-    while (value >= 0x80) {
-        if (i >= cap) return 0;
-        buf[i++] = (uint8_t)(value | 0x80);
-        value >>= 7;
-    }
-    if (i >= cap) return 0;
-    buf[i++] = (uint8_t)value;
-    return i;
-}
-```
+:::code proj-varint/cpp/robochyi-c-koduvannia-2.cpp
 ```python
 # Той самий цикл — Python-цілі й так довільної ширини, тип не має значення.
 def varint_encode_u64(value: int) -> bytes:
@@ -137,37 +74,8 @@ def varint_encode_u64(value: int) -> bytes:
     out.append(value)
     return bytes(out)
 ```
-```go
-func VarintEncodeU64(value uint64, buf []byte) int {
-	i := 0
-	for value >= 0x80 {
-		if i >= len(buf) {
-			return 0
-		}
-		buf[i] = byte(value) | 0x80
-		i++
-		value >>= 7
-	}
-	if i >= len(buf) {
-		return 0
-	}
-	buf[i] = byte(value)
-	i++
-	return i
-}
-```
-```js
-// 64-бітні значення не влазять у Number — беремо BigInt.
-function varintEncodeU64(value) {
-    const out = [];
-    while (value >= 0x80n) {
-        out.push(Number((value & 0x7fn) | 0x80n));
-        value >>= 7n;
-    }
-    out.push(Number(value));
-    return Uint8Array.from(out);
-}
-```
+:::code proj-varint/go/robochyi-c-koduvannia-2.go
+:::code proj-varint/js/robochyi-c-koduvannia-2.js
 :::
 
 Скільки байтів це може дати найбільше? Кожен байт несе сім бітів корисних. Для 32-бітного числа треба вмістити 32 біти: `⌈32 / 7⌉ = 5` байтів. Для 64-бітного — `⌈64 / 7⌉ = 10` байтів. Це верхні межі, підтверджені специфікацією Protocol Buffers: 32-бітний varint — **до 5 байтів**, 64-бітний — **до 10** (усталений факт зі специфікації кодування Protobuf). Звідси випливає розмір буфера, який гарантовано вмістить будь-який varint: **10 байтів** для 64-бітного, п'яти досить для 32-бітного.
@@ -184,81 +92,10 @@ function varintEncodeU64(value) {
 Декодування — дзеркальне, але саме **тут** живуть найгостріші пастки, бо декодер читає **ненадійний** зовнішній потік: байти могли обірватися посеред числа, канал міг зіпсувати старший біт так, що varint став «нескінченним». Тому декодер мусить, по-перше, **не читати за межу** буфера, і по-друге, **не приймати неможливо довгий** varint.
 
 :::tabs
-```cpp
-// Розкодувати varint із buf довжиною len у *out.
-// Повертає число зчитаних байтів, або 0 при помилці (обірваний або задовгий потік).
-size_t varint_decode_u32(const uint8_t *buf, size_t len, uint32_t *out) {
-    uint32_t result = 0;
-    size_t   i = 0;
-    int      shift = 0;
-
-    while (i < len) {
-        uint8_t b = buf[i++];
-        // Наростити результат: молодші 7 бітів цього байта на позицію shift.
-        result |= (uint32_t)(b & 0x7F) << shift;
-        if ((b & 0x80) == 0) {           // старший біт 0 → це останній байт числа
-            *out = result;
-            return i;                    // успіх: повертаємо, скільки байтів з'їли
-        }
-        shift += 7;
-        if (shift >= 32) return 0;        // задовгий varint для 32 бітів → потік зіпсовано
-    }
-    return 0;                            // дійшли до кінця буфера, а прапорець ще «далі є» → обірвано
-}
-```
-```python
-# Повертає (значення, число_зчитаних_байтів); (None, 0) при помилці.
-def varint_decode_u32(buf: bytes):
-    result = 0
-    shift = 0
-    for i, b in enumerate(buf):
-        # Наростити результат: молодші 7 бітів цього байта на позицію shift.
-        result |= (b & 0x7F) << shift
-        if (b & 0x80) == 0:              # старший біт 0 → це останній байт числа
-            return result & 0xFFFFFFFF, i + 1  # успіх
-        shift += 7
-        if shift >= 32:                  # задовгий varint для 32 бітів → потік зіпсовано
-            return None, 0
-    return None, 0                       # прапорець ще «далі є», а буфер скінчився → обірвано
-```
-```go
-// Повертає (значення, число зчитаних байтів); ok=false при помилці.
-func VarintDecodeU32(buf []byte) (value uint32, n int, ok bool) {
-	var result uint32
-	shift := 0
-	for i := 0; i < len(buf); i++ {
-		b := buf[i]
-		// Наростити результат: молодші 7 бітів цього байта на позицію shift.
-		result |= uint32(b&0x7F) << shift
-		if b&0x80 == 0 { // старший біт 0 → це останній байт числа
-			return result, i + 1, true // успіх
-		}
-		shift += 7
-		if shift >= 32 { // задовгий varint для 32 бітів → потік зіпсовано
-			return 0, 0, false
-		}
-	}
-	return 0, 0, false // прапорець ще «далі є», а буфер скінчився → обірвано
-}
-```
-```js
-// Повертає { value, bytes } при успіху, або null при помилці.
-function varintDecodeU32(buf) {
-    let result = 0;
-    let shift = 0;
-    for (let i = 0; i < buf.length; i++) {
-        const b = buf[i];
-        // Наростити результат: множимо на 2^shift (<< псує 32-й біт).
-        result += (b & 0x7f) * 2 ** shift;
-        if ((b & 0x80) === 0) {          // старший біт 0 → це останній байт числа
-            return { value: result >>> 0, bytes: i + 1 }; // успіх
-        }
-        shift += 7;
-        if (shift >= 32) return null;    // задовгий varint для 32 бітів → потік зіпсовано
-    }
-    return null;                         // прапорець ще «далі є», а буфер скінчився → обірвано
-}
-```
+:::code proj-varint/cpp/robochyi-c-dekoduvannia-z.cpp
+:::code proj-varint/py/robochyi-c-dekoduvannia-z.py
+:::code proj-varint/go/robochyi-c-dekoduvannia-z.go
+:::code proj-varint/js/robochyi-c-dekoduvannia-z.js
 :::
 
 Три перевірки в цьому коді — не перестраховка, а те, що відрізняє код, який виживає в полі, від коду, який падає на першому ж збійному пакеті.
@@ -272,74 +109,10 @@ function varintDecodeU32(buf) {
 Ось декодер `uint64` — знову майже той самий, лише ширший тип і межа 64:
 
 :::tabs
-```cpp
-size_t varint_decode_u64(const uint8_t *buf, size_t len, uint64_t *out) {
-    uint64_t result = 0;
-    size_t   i = 0;
-    int      shift = 0;
-
-    while (i < len) {
-        uint8_t b = buf[i++];
-        result |= (uint64_t)(b & 0x7F) << shift;
-        if ((b & 0x80) == 0) {
-            *out = result;
-            return i;
-        }
-        shift += 7;
-        if (shift >= 64) return 0;
-    }
-    return 0;
-}
-```
-```python
-# Той самий алгоритм; межа зсуву тепер 64.
-def varint_decode_u64(buf: bytes):
-    result = 0
-    shift = 0
-    for i, b in enumerate(buf):
-        result |= (b & 0x7F) << shift
-        if (b & 0x80) == 0:
-            return result & 0xFFFFFFFFFFFFFFFF, i + 1
-        shift += 7
-        if shift >= 64:
-            return None, 0
-    return None, 0
-```
-```go
-func VarintDecodeU64(buf []byte) (value uint64, n int, ok bool) {
-	var result uint64
-	shift := 0
-	for i := 0; i < len(buf); i++ {
-		b := buf[i]
-		result |= uint64(b&0x7F) << shift
-		if b&0x80 == 0 {
-			return result, i + 1, true
-		}
-		shift += 7
-		if shift >= 64 {
-			return 0, 0, false
-		}
-	}
-	return 0, 0, false
-}
-```
-```js
-// 64-бітний результат тримаємо в BigInt.
-function varintDecodeU64(buf) {
-    let result = 0n;
-    let shift = 0n;
-    for (let i = 0; i < buf.length; i++) {
-        const b = buf[i];
-        result |= BigInt(b & 0x7f) << shift;
-        if ((b & 0x80) === 0) {
-            return { value: result, bytes: i + 1 };
-        }
-        shift += 7n;
-        if (shift >= 64n) return null;
-    }
-    return null;
-}
-```
+:::code proj-varint/cpp/robochyi-c-dekoduvannia-z-2.cpp
+:::code proj-varint/py/robochyi-c-dekoduvannia-z-2.py
+:::code proj-varint/go/robochyi-c-dekoduvannia-z-2.go
+:::code proj-varint/js/robochyi-c-dekoduvannia-z-2.js
 :::
 
 Зверніть увагу на приведення `(uint64_t)(b & 0x7F)` **перед** зсувом. Це не косметика: якби ми написали `(b & 0x7F) << shift` без приведення, то `b & 0x7F` має тип `int` (через [цілочисельне підвищення](root:sf-lang/overflow-wraparound)), і зсув на 35, 42, ... позицій — це зсув за розрядність `int`, тобто **невизначена поведінка**. Приведенням до `uint64_t` **перед** зсувом ми робимо операцію в достатньо широкому беззнаковому типі, де великі зсуви коректні. Той самий клас пастки, що й у ручному складанні багатобайтових чисел зсувами взагалі.
@@ -505,96 +278,10 @@ varint(24): 24 < 0x80 → один байт 0x18
 У коді складання й розбір тега — дві крихітні функції, і обидві спираються на вже написаний varint:
 
 :::tabs
-```cpp
-// wire types
-#define WT_VARINT  0
-#define WT_I64     1
-#define WT_LEN     2
-#define WT_I32     5
-
-// Записати тег поля (номер + тип) у buf; повертає число байтів або 0.
-size_t tag_encode(uint32_t field_num, uint8_t wire_type,
-                  uint8_t *buf, size_t cap) {
-    uint32_t tag = (field_num << 3) | (wire_type & 0x07);
-    return varint_encode_u32(tag, buf, cap);      // тег — теж varint
-}
-
-// Розібрати тег: дістати номер поля й тип. Повертає число з'їдених байтів або 0.
-size_t tag_decode(const uint8_t *buf, size_t len,
-                  uint32_t *field_num, uint8_t *wire_type) {
-    uint32_t tag;
-    size_t n = varint_decode_u32(buf, len, &tag);
-    if (n == 0) return 0;                          // обірваний/зіпсований тег
-    *wire_type = (uint8_t)(tag & 0x07);            // три молодші біти — тип
-    *field_num = tag >> 3;                         // решта — номер поля
-    return n;
-}
-```
-```python
-# wire types
-WT_VARINT, WT_I64, WT_LEN, WT_I32 = 0, 1, 2, 5
-
-# Записати тег поля (номер + тип); повертає bytes.
-def tag_encode(field_num: int, wire_type: int) -> bytes:
-    tag = (field_num << 3) | (wire_type & 0x07)
-    return varint_encode_u32(tag)                  # тег — теж varint
-
-# Розібрати тег: (номер, тип, число з'їдених байтів); (None, None, 0) при помилці.
-def tag_decode(buf: bytes):
-    tag, n = varint_decode_u32(buf)
-    if n == 0:                                     # обірваний/зіпсований тег
-        return None, None, 0
-    wire_type = tag & 0x07                          # три молодші біти — тип
-    field_num = tag >> 3                            # решта — номер поля
-    return field_num, wire_type, n
-```
-```go
-// wire types
-const (
-	WtVarint = 0
-	WtI64    = 1
-	WtLen    = 2
-	WtI32    = 5
-)
-
-// Записати тег поля (номер + тип) у buf; повертає число байтів або 0.
-func TagEncode(fieldNum uint32, wireType uint8, buf []byte) int {
-	tag := (fieldNum << 3) | uint32(wireType&0x07)
-	return VarintEncodeU32(tag, buf) // тег — теж varint
-}
-
-// Розібрати тег: номер, тип, число з'їдених байтів; ok=false при помилці.
-func TagDecode(buf []byte) (fieldNum uint32, wireType uint8, n int, ok bool) {
-	tag, n, ok := VarintDecodeU32(buf)
-	if !ok { // обірваний/зіпсований тег
-		return 0, 0, 0, false
-	}
-	wireType = uint8(tag & 0x07) // три молодші біти — тип
-	fieldNum = tag >> 3          // решта — номер поля
-	return fieldNum, wireType, n, true
-}
-```
-```js
-// wire types
-const WT_VARINT = 0, WT_I64 = 1, WT_LEN = 2, WT_I32 = 5;
-
-// Записати тег поля (номер + тип); повертає Uint8Array.
-function tagEncode(fieldNum, wireType) {
-    const tag = (fieldNum << 3) | (wireType & 0x07);
-    return varintEncodeU32(tag >>> 0);             // тег — теж varint
-}
-
-// Розібрати тег: { fieldNum, wireType, bytes } або null при помилці.
-function tagDecode(buf) {
-    const r = varintDecodeU32(buf);
-    if (r === null) return null;                   // обірваний/зіпсований тег
-    return {
-        wireType: r.value & 0x07,                  // три молодші біти — тип
-        fieldNum: r.value >>> 3,                   // решта — номер поля
-        bytes: r.bytes,
-    };
-}
-```
+:::code proj-varint/cpp/rozkladka-teha-protobuf.cpp
+:::code proj-varint/py/rozkladka-teha-protobuf.py
+:::code proj-varint/go/rozkladka-teha-protobuf.go
+:::code proj-varint/js/rozkladka-teha-protobuf.js
 :::
 
 Уся щільність Protobuf зводиться до цих кількох рядків: **малий номер поля з простим типом займає рівно один байт тега**. Поле 3 типу VARINT — це один байт `0x18`; поле 1, найчастіше вживане, — `0x08`. Ось звідки береться те, що Protobuf-повідомлення з маленькими номерами полів і малими значеннями виходять напрочуд компактними: і тег, і значення — по одному байту.

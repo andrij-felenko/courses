@@ -12,50 +12,7 @@
 
 Одна пастка сидить рівно тут. Адреси в плейлисті майже завжди відносні, і відносні вони **до плейлиста**, а не до сторінки, яка запустила програвач. Сторінка може лежати на `example.com`, плейлист — на `cdn.example.net/live/v720/index.m3u8`, і рядок `seg1427.m4s` означає `cdn.example.net/live/v720/seg1427.m4s`. Візьмеш базою адресу сторінки — клієнт мовчки почне просити неіснуючі файли. Тонше: базою має бути **кінцева** адреса, після усіх переспрямувань, бо мережі роздачі ([CDN](root:sf-distributed/cdn)) залюбки переспрямовують запит на конкретний вузол.
 
-```ts
-type Variant = { url: URL; bandwidth: number; resolution?: string };
-type Segment = { url: URL; duration: number; seq: number };
-type MediaPlaylist = { targetDuration: number; mediaSequence: number;
-                       segments: Segment[]; ended: boolean };
-
-function attrs(s: string): Record<string, string> {
-  const out: Record<string, string> = {};
-  // NAME=VALUE через кому; значення у лапках саме може містити кому (CODECS)
-  for (const m of s.matchAll(/([A-Z0-9-]+)=("[^"]*"|[^,]*)/g))
-    out[m[1]] = m[2].replace(/^"|"$/g, '');
-  return out;
-}
-
-function parseMultivariant(text: string, base: URL): Variant[] {
-  const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
-  const out: Variant[] = [];
-  for (let i = 0; i < lines.length; i++) {
-    if (!lines[i].startsWith('#EXT-X-STREAM-INF:')) continue;
-    const a = attrs(lines[i].slice('#EXT-X-STREAM-INF:'.length));
-    const uri = lines[i + 1];                       // адреса — ЗАВЖДИ наступний рядок
-    if (!uri || uri.startsWith('#')) continue;
-    out.push({ url: new URL(uri, base), bandwidth: Number(a.BANDWIDTH),
-               resolution: a.RESOLUTION });
-  }
-  return out.sort((x, y) => x.bandwidth - y.bandwidth);   // від найдешевшої вгору
-}
-
-function parseMedia(text: string, base: URL): MediaPlaylist {
-  const pl: MediaPlaylist = { targetDuration: 6, mediaSequence: 0,
-                              segments: [], ended: false };
-  let dur = 0;
-  for (const l of text.split(/\r?\n/).map(s => s.trim()).filter(Boolean)) {
-    if (l.startsWith('#EXT-X-TARGETDURATION:')) pl.targetDuration = Number(l.split(':')[1]);
-    else if (l.startsWith('#EXT-X-MEDIA-SEQUENCE:')) pl.mediaSequence = Number(l.split(':')[1]);
-    else if (l.startsWith('#EXTINF:')) dur = parseFloat(l.slice(8));
-    else if (l === '#EXT-X-ENDLIST') pl.ended = true;
-    else if (!l.startsWith('#'))
-      pl.segments.push({ url: new URL(l, base), duration: dur,
-                         seq: pl.mediaSequence + pl.segments.length });
-  }
-  return pl;
-}
-```
+:::code proj-hls-client/ts/rozbir-adresa-nalezhyt.ts
 
 Однопрохідний розбір працює тому, що `EXT-X-MEDIA-SEQUENCE` гарантовано стоїть **перед першим сегментом** — так вимагає RFC 8216. Інакше довелося б читати плейлист двічі.
 
@@ -75,52 +32,7 @@ function parseMedia(text: string, base: URL): MediaPlaylist {
 
 І темп перечитування. Сервер дописує сегмент раз на `TARGETDURATION`, тож питати частіше нема з чого — нового просто не з'явиться. RFC ставить це нормою: між перечитуваннями має минути щонайменше цільова тривалість, а якщо плейлист не змінився — щонайменше її половина. Опитування десять разів на секунду не зменшить затримки ні на мілісекунду: кеш віддасть ту саму копію, а рахунок за запити виросте в сотні разів.
 
-```ts
-const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
-const MAX_BUFFER = 30;                    // секунд наперед — більше качати нема сенсу
-
-async function play(masterUrl: URL,
-                    sink: (s: Segment, bytes: ArrayBuffer) => void,
-                    buffered: () => number) {   // секунд у буфері; у браузері це дає медіаелемент
-  const top = await fetch(masterUrl.href);
-  const variants = parseMultivariant(await top.text(), new URL(top.url));
-
-  let level = 0;        // стартуємо з найдешевшої копії: першого виміру ще нізвідки взяти
-  let next = -1;        // абсолютний номер сегмента, потрібного наступним
-  let seen = '';        // тіло попереднього плейлиста — щоб побачити, що нового нема
-
-  for (;;) {
-    const res = await fetch(variants[level].url.href, { cache: 'no-store' });
-    const body = await res.text();
-    const pl = parseMedia(body, new URL(res.url));   // база — КІНЦЕВА адреса після переспрямувань
-    const fresh = body !== seen;
-    seen = body;
-
-    const firstSeq = pl.mediaSequence;
-    const lastSeq = firstSeq + pl.segments.length - 1;
-
-    if (next < 0) next = Math.max(firstSeq, lastSeq - 2);   // три тривалості від кінця
-    else if (next < firstSeq) {
-      console.warn(`вікно поїхало: пропущено ${firstSeq - next} сегментів`);
-      next = firstSeq;                                       // діру визнали, далі йдемо суцільно
-    }
-
-    while (next <= lastSeq && buffered() < MAX_BUFFER) {
-      const seg = pl.segments[next - firstSeq];
-      const got = await fetchSegment(seg, next === lastSeq);
-      if (got === 'wait') break;                  // ще не доїхав — прийдемо по нього наступного разу
-      if (got !== 'skip') sink(seg, got);
-      next++;
-
-      const want = choose(variants, level, ewma, buffered());
-      if (want !== level) { level = want; seen = ''; break; }  // інший плейлист — звірку тіл скидаємо
-    }
-
-    if (pl.ended && next > lastSeq) return;
-    await sleep(1000 * pl.targetDuration * (fresh ? 1 : 0.5));
-  }
-}
-```
+:::code proj-hls-client/ts/zhyve-vikno-rakhuiemo.ts
 
 ## Завантаження: 404 біля краю і 404 в глибині — різні події
 
@@ -128,30 +40,7 @@ async function play(masterUrl: URL,
 
 Тут же міряємо швидкість — і міряємо її **від запиту**, а не від першого байта відповіді.
 
-```ts
-type Fetched = ArrayBuffer | 'wait' | 'skip';
-
-let ewma = 0;                 // Мбіт/с — згладжена оцінка швидкості
-const ALPHA = 0.4;            // вага свіжого виміру
-
-async function fetchSegment(seg: Segment, atEdge: boolean): Promise<Fetched> {
-  for (let attempt = 0; attempt < 3; attempt++) {
-    const t0 = performance.now();          // засікаємо ДО запиту, а не з першого байта
-    const res = await fetch(seg.url.href);
-
-    if (res.ok) {
-      const bytes = await res.arrayBuffer();
-      const secs = (performance.now() - t0) / 1000;
-      const mbps = (bytes.byteLength * 8) / 1e6 / secs;
-      ewma = ewma === 0 ? mbps : ALPHA * mbps + (1 - ALPHA) * ewma;
-      return bytes;
-    }
-    if (res.status === 404 && atEdge) return 'wait';   // оголошений раніше, ніж доїхав
-    await sleep(200 * (attempt + 1));                  // вузол роздачі промазав — пробуємо ще
-  }
-  return atEdge ? 'wait' : 'skip';                     // у глибині вікна його вже нема
-}
-```
+:::code proj-hls-client/ts/zavantazhennia-404-bilia.ts
 
 ## Вибір якості: чому сама швидкість гойдає картинку
 
@@ -181,29 +70,7 @@ async function fetchSegment(seg: Segment, atEdge: boolean): Promise<Fetched> {
 
 **Буфер як другий свідок.** Швидкість — миттєва величина, і вона бреше. Буфер — накопичена: він росте рівно тоді, коли швидкість справді перевищує бітрейт, і за кілька сегментів усереднює те, чого один вимір не побачив. Тому підйом дозволяємо тільки при повному буфері, а падіння при майже порожньому — без жодних питань до швидкості.
 
-```ts
-const SAFETY = 0.8;        // беремо копію, що просить не більше 80% від виміряного
-const UP_BUFFER = 20;      // угору — лише коли в буфері вже стільки секунд
-const DOWN_BUFFER = 8;     // нижче цього падаємо негайно, хай яка гарна швидкість
-
-function choose(vars: Variant[], level: number, mbps: number, buffered: number): number {
-  const bps = mbps * 1e6;
-
-  // Униз — без умов і одразу на скільки треба: порожній буфер це вже зупинка показу.
-  if (buffered < DOWN_BUFFER || vars[level].bandwidth > bps) {
-    let i = level;
-    while (i > 0 && vars[i].bandwidth > bps * SAFETY) i--;
-    return i;
-  }
-
-  // Угору — на один щабель і з подвійним дозволом: і швидкість із запасом, і буфер.
-  const up = level + 1;
-  if (up < vars.length && buffered >= UP_BUFFER && vars[up].bandwidth <= bps * SAFETY)
-    return up;
-
-  return level;
-}
-```
+:::code proj-hls-client/ts/vybir-iakosti-chomu-sama.ts
 
 Асиметрія тут навмисна. Спуститися зарано — це кілька секунд гіршої картинки. Піднятися зарано — це порожній буфер і зупинений показ, а зупинка коштує глядачеві незрівнянно дорожче. Тому вниз можна на скільки завгодно щаблів і без дозволу буфера, а вгору — по одному й з двома підписами.
 

@@ -24,58 +24,8 @@ priority  одне з: low | normal | high
 Опишімо ці форми так, як їх природно описують у кожному стеку — і одразу отримаймо **валідацію задарма**, бо і Fastify (через JSON-схему), і FastAPI (через Pydantic) перевіряють тіло **самі**, ще до входу в обробник:
 
 :::tabs
-```ts
-import Fastify, { FastifyRequest } from 'fastify';
-
-type Priority = 'low' | 'normal' | 'high';
-interface Task { id: number; title: string; done: boolean; priority: Priority; }
-
-const app = Fastify();
-const tasks = new Map<number, Task>();   // СПІЛЬНЕ сховище, а не сесія клієнта
-let nextId = 1;
-
-// поля, спільні для схем; на створення title обов'язковий, решта — з усталеними
-const fields = {
-  title:    { type: 'string', minLength: 1, maxLength: 200 },
-  done:     { type: 'boolean' },
-  priority: { type: 'string', enum: ['low', 'normal', 'high'] },
-} as const;
-```
-```py
-from fastapi import FastAPI, HTTPException, Header, Response
-from pydantic import BaseModel, Field, ConfigDict
-from typing import Literal, Optional
-
-app = FastAPI()
-Priority = Literal['low', 'normal', 'high']
-
-class TaskIn(BaseModel):                        # тіло на СТВОРЕННЯ
-    model_config = ConfigDict(extra='forbid')   # зайве поле (напр. id) → відмова
-    title: str = Field(min_length=1, max_length=200)
-    done: bool = False
-    priority: Priority = 'normal'
-
-class TaskReplace(BaseModel):                    # тіло на PUT — усі поля обов'язкові
-    model_config = ConfigDict(extra='forbid')
-    title: str = Field(min_length=1, max_length=200)
-    done: bool
-    priority: Priority
-
-class TaskPatch(BaseModel):                      # тіло на PATCH — будь-яка підмножина
-    model_config = ConfigDict(extra='forbid')
-    title: Optional[str] = Field(default=None, min_length=1, max_length=200)
-    done: Optional[bool] = None
-    priority: Optional[Priority] = None
-
-class Task(BaseModel):                           # доменна модель / вихідне представлення
-    id: int
-    title: str
-    done: bool
-    priority: Priority
-
-tasks: dict[int, Task] = {}                       # СПІЛЬНЕ сховище, а не сесія клієнта
-_next_id = 1
-```
+:::code proj-rest-api-design/ts/resurs-i-ioho-forma-odna.ts
+:::code proj-rest-api-design/py/resurs-i-ioho-forma-odna.py
 :::
 
 Зверни увагу на `extra='forbid'` у Pydantic і `additionalProperties: false`, який ми зараз поставимо в JSON-схемах Fastify. Це той самий бар'єр: клієнт **не** протягне зайвого поля. Без нього хтось надішле `{"title": "x", "id": 999}` — і якщо код наївно розкладе тіло в об'єкт, клієнт вкраде право призначати `id`. Заборона зайвих полів — маленький рядок, що закриває цілий клас помилок.
@@ -116,27 +66,7 @@ _next_id = 1
 Тепер зберемо обробники. Кожен — це той самий конвеєр, лише з різними стадіями посередині. Почнімо зі **створення**: тіла ще немає за адресою, тож клієнт шле його на **колекцію**, а сервер сам призначає адресу й повертає її в заголовку `Location` з кодом `201 Created`.
 
 :::tabs
-```ts
-const createSchema = {
-  body: {
-    type: 'object',
-    required: ['title'],
-    additionalProperties: false,            // жодних зайвих полів (напр. id)
-    properties: {
-      ...fields,
-      done:     { ...fields.done, default: false },      // Fastify підставить усталене
-      priority: { ...fields.priority, default: 'normal' },
-    },
-  },
-};
-
-app.post('/tasks', { schema: createSchema }, (req, reply) => {
-  const body = req.body as Omit<Task, 'id'>;             // схема вже все перевірила
-  const task: Task = { id: nextId++, ...body };
-  tasks.set(task.id, task);
-  reply.code(201).header('Location', `/tasks/${task.id}`).send(task);
-});
-```
+:::code proj-rest-api-design/ts/povnyi-crud-u-kodi.ts
 ```py
 @app.post('/tasks', status_code=201)
 def create_task(body: TaskIn, response: Response) -> Task:
@@ -156,30 +86,8 @@ def create_task(body: TaskIn, response: Response) -> Task:
 Читання — найпростіше: `GET` **безпечний**, нічого не міняє, тож обробник лише знаходить і віддає. На колекції — список і `200`; на елементі — або задача й `200`, або `404`:
 
 :::tabs
-```ts
-app.get('/tasks', (_req, reply) => {
-  reply.send([...tasks.values()]);                        // 200 автоматично
-});
-
-app.get('/tasks/:id', (req, reply) => {
-  const id = Number((req.params as { id: string }).id);
-  const task = tasks.get(id);
-  if (!task) return reply.code(404).send({ error: 'task not found' });
-  reply.send(task);
-});
-```
-```py
-@app.get('/tasks')
-def list_tasks() -> list[Task]:
-    return list(tasks.values())                            # 200 автоматично
-
-@app.get('/tasks/{task_id}')
-def get_task(task_id: int) -> Task:                        # не число в id → 422 сам собою
-    task = tasks.get(task_id)
-    if task is None:
-        raise HTTPException(status_code=404, detail='task not found')
-    return task
-```
+:::code proj-rest-api-design/ts/povnyi-crud-u-kodi-2.ts
+:::code proj-rest-api-design/py/povnyi-crud-u-kodi.py
 :::
 
 Помітна дрібниця: у FastAPI тип параметра `task_id: int` сам валідує адресу — `/tasks/abc` відпаде ще до обробника. У Fastify ми зводимо `id` вручну через `Number(...)`. Дві мови, дві ідіоми, той самий намір: до логіки доходить лише коректний `id`.
@@ -187,61 +95,8 @@ def get_task(task_id: int) -> Task:                        # не число в 
 Найцікавіша пара — **зміна**. Тут і живе різниця `PUT`/`PATCH`, і саме тут її найлегше зіпсувати. `PUT` кладе **повне** представлення за відомою адресою — заміна цілком; тому його схема вимагає **всіх** полів. `PATCH` міняє **частину** — зшиває названі поля з тим, що вже лежить; його схема не вимагає жодного конкретного поля, лише щоб їх було хоч одне:
 
 :::tabs
-```ts
-const replaceSchema = {
-  body: {
-    type: 'object',
-    required: ['title', 'done', 'priority'],   // повне представлення — УСІ поля
-    additionalProperties: false,
-    properties: fields,
-  },
-};
-app.put('/tasks/:id', { schema: replaceSchema }, (req, reply) => {
-  const id = Number((req.params as { id: string }).id);
-  if (!tasks.has(id)) return reply.code(404).send({ error: 'task not found' });
-  const task: Task = { id, ...(req.body as Omit<Task, 'id'>) };
-  tasks.set(id, task);                          // заміна ЦІЛКОМ
-  reply.send(task);
-});
-
-const patchSchema = {
-  body: {
-    type: 'object',
-    minProperties: 1,                           // порожній patch — це помилка
-    additionalProperties: false,
-    properties: fields,
-  },
-};
-app.patch('/tasks/:id', { schema: patchSchema }, (req, reply) => {
-  const id = Number((req.params as { id: string }).id);
-  const current = tasks.get(id);
-  if (!current) return reply.code(404).send({ error: 'task not found' });
-  const updated: Task = { ...current, ...(req.body as Partial<Task>) };   // ЗШИВАННЯ
-  tasks.set(id, updated);
-  reply.send(updated);
-});
-```
-```py
-@app.put('/tasks/{task_id}')
-def replace_task(task_id: int, body: TaskReplace) -> Task:   # усі поля обов'язкові
-    if task_id not in tasks:
-        raise HTTPException(status_code=404, detail='task not found')
-    task = Task(id=task_id, **body.model_dump())
-    tasks[task_id] = task                                    # заміна ЦІЛКОМ
-    return task
-
-@app.patch('/tasks/{task_id}')
-def update_task(task_id: int, body: TaskPatch) -> Task:
-    current = tasks.get(task_id)
-    if current is None:
-        raise HTTPException(status_code=404, detail='task not found')
-    changes = body.model_dump(exclude_unset=True)            # лише НАЗВАНІ поля
-    if not changes:
-        raise HTTPException(status_code=400, detail='empty patch')
-    updated = current.model_copy(update=changes)             # ЗШИВАННЯ
-    tasks[task_id] = updated
-    return updated
-```
+:::code proj-rest-api-design/ts/povnyi-crud-u-kodi-3.ts
+:::code proj-rest-api-design/py/povnyi-crud-u-kodi-2.py
 :::
 
 Зверни увагу, як `exclude_unset=True` у Pydantic і `{ ...current, ...body }` у TypeScript висловлюють **одну** ідею: узяти лише те, що клієнт справді назвав, і накласти на наявне. Це і є семантика `PATCH`. А `replaceSchema` з `required: ['title', 'done', 'priority']` та окрема модель `TaskReplace` без усталених — це семантика `PUT`: не дай прислати **неповне** представлення.
@@ -313,39 +168,8 @@ def current_user(authorization: str = Header(default='')) -> str:
 Наївне «жити з цим» — списати на клієнта («не тапай двічі»). Насправді розв'язок кладуть на сервер, і він елегантний: **ключ ідемпотентності**. Клієнт генерує унікальний ключ (зазвичай UUID) і шле його заголовком `Idempotency-Key`. Сервер, обробивши перший запит із цим ключем, **запам'ятовує результат** під ним; будь-який повтор із тим самим ключем повертає **той самий** перший результат, не створюючи нічого нового:
 
 :::tabs
-```ts
-const seen = new Map<string, { status: number; body: Task }>();   // ключ → перший результат
-
-app.post('/tasks', { schema: createSchema }, (req, reply) => {
-  const key = req.headers['idempotency-key'] as string | undefined;
-  if (key && seen.has(key)) {
-    const first = seen.get(key)!;
-    return reply.code(first.status).send(first.body);   // повертаємо перший результат
-  }
-  const body = req.body as Omit<Task, 'id'>;
-  const task: Task = { id: nextId++, ...body };
-  tasks.set(task.id, task);
-  if (key) seen.set(key, { status: 201, body: task });
-  reply.code(201).header('Location', `/tasks/${task.id}`).send(task);
-});
-```
-```py
-seen: dict[str, Task] = {}                          # ключ → перший результат
-
-@app.post('/tasks', status_code=201)
-def create_task(body: TaskIn, response: Response,
-                idempotency_key: str | None = Header(default=None)) -> Task:
-    global _next_id
-    if idempotency_key and idempotency_key in seen:
-        return seen[idempotency_key]                # повертаємо перший результат
-    task = Task(id=_next_id, **body.model_dump())
-    tasks[task.id] = task
-    _next_id += 1
-    if idempotency_key:
-        seen[idempotency_key] = task
-    response.headers['Location'] = f'/tasks/{task.id}'
-    return task
-```
+:::code proj-rest-api-design/ts/post-ne-idempotentnyi-i.ts
+:::code proj-rest-api-design/py/post-ne-idempotentnyi-i.py
 :::
 
 Сховище `seen` тут у пам'яті — лише щоб показати ідею; у проді його кладуть у спільне сховище з терміном життя (скажімо, Redis на добу), інакше різні копії сервера не побачать чужих ключів. `Idempotency-Key` — усталена конвенція, яку популяризували платіжні API (Stripe зберігає код і тіло першої відповіді під ключем і віддає їх на повтори); зараз вона й оформлюється як [чернетка IETF](https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/). Є й другий шлях — віддати генерацію `id` клієнтові й створювати через `PUT /tasks/{clientUuid}`, що ідемпотентний за побудовою; ціна — відмова від серверних `id`. Обидва підходи, і глибше про те, чому ідемпотентність — частина **контракту**, а не деталь реалізації, — у темі [про ідемпотентність методів](root:com-protocol/api-idempotency).

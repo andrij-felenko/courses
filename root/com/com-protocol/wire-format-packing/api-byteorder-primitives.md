@@ -112,20 +112,7 @@ FreeBSD, NetBSD і OpenBSD дають ту саму дванадцятку `htob
 
 `std::byteswap` бере участь у розв'язанні перевантажень лише для цілих типів (`integral`), а якщо тип має біти-заповнювачі, програма **ill-formed** — не тихо неправильна, а така, що не збереться. Практично це відсікає екзотичні платформи й типи на кшталт `bool`; дробових аргументів функція не приймає взагалі, тож біти `double` спершу дістають через `std::bit_cast<uint64_t>` (або `memcpy`, якщо стандарт старіший), і лише потім перевертають.
 
-```cpp
-#include <bit>
-#include <cstdint>
-#include <cstring>
-
-// Записати double у буфер як 8 байтів big-endian — без приведення покажчиків.
-void put_f64_be(std::uint8_t *b, double v)
-{
-    std::uint64_t bits = std::bit_cast<std::uint64_t>(v);   // C++20
-    if constexpr (std::endian::native == std::endian::little)
-        bits = std::byteswap(bits);                          // C++23
-    std::memcpy(b, &bits, sizeof bits);
-}
-```
+:::code api-byteorder-primitives/cpp/main.cpp
 
 `std::bit_cast` вимагає рівних `sizeof` і тривіальної копійовності обох типів; він — законний спосіб подивитися на ті самі байти крізь інший тип, який не порушує [правил аліасування](root:sf-lang/strict-aliasing), на відміну від приведення покажчика. Будова числа [IEEE 754](root:hw-arch/floating-point) — знак, порядок, мантиса — при цьому не чіпається: переставляються лише байти вже готового подання.
 
@@ -152,24 +139,7 @@ void put_f64_be(std::uint8_t *b, double v)
 
 Мінімальне робоче застосування — прибити зсуви до специфікації так, щоб збірка падала, а не мовчала:
 
-```c
-#include <stdint.h>
-#include <stddef.h>
-#include <assert.h>
-
-struct Header {           /* внутрішнє подання, НЕ те, що йде в мережу */
-    uint16_t magic;
-    uint8_t  ver;
-    uint8_t  flags;
-    uint16_t len;
-    uint16_t rsv;
-    uint64_t time_us;
-};
-
-static_assert(offsetof(struct Header, len)     == 4,  "зсув len поїхав");
-static_assert(offsetof(struct Header, time_us) == 8,  "зсув time_us поїхав");
-static_assert(sizeof(struct Header)            == 16, "розмір заголовка поїхав");
-```
+:::code api-byteorder-primitives/c/stdint.h
 
 Зверніть увагу, що `alignof` і `offsetof` **описують** те, що вирішив компілятор за угодою платформи — [ABI](root:sf-lang/abi-calling-convention), — а не задають це. Керує розкладкою лише `packed`/`pragma pack`, і ціна цього керування — невирівняні поля.
 
@@ -223,26 +193,7 @@ magic, ver, flags, length, rsv, t_us = HEADER.unpack_from(buf, 0)
 
 ## Go: пакет `encoding/binary`
 
-```go
-import (
-    "encoding/binary"
-    "errors"
-)
-
-// Розбір заголовка magic(2) ver(1) flags(1) len(2) rsv(2) time_us(8), старший байт першим.
-func decHeader(b []byte) (ver uint8, length uint16, tUs uint64, err error) {
-    if len(b) < 16 {
-        return 0, 0, 0, errors.New("короткий заголовок")
-    }
-    if binary.BigEndian.Uint16(b[0:]) != 0xa75e {
-        return 0, 0, 0, errors.New("не той magic")
-    }
-    ver = b[2]
-    length = binary.BigEndian.Uint16(b[4:])
-    tUs = binary.BigEndian.Uint64(b[8:])
-    return ver, length, tUs, nil
-}
-```
+:::code api-byteorder-primitives/go/main.go
 
 | Засіб | Сигнатура / зміст |
 |---|---|
@@ -284,24 +235,7 @@ fn read_u32_be(buf: &[u8], off: usize) -> Option<u32> {
 
 ## Java: `ByteBuffer`
 
-```java
-import java.nio.ByteBuffer;
-
-static byte[] encHeader(int length, long tUs) {
-    ByteBuffer b = ByteBuffer.allocate(16);   // типовий порядок нового буфера — BIG_ENDIAN
-    b.putShort((short) 0xa75e);               // magic
-    b.put((byte) 2).put((byte) 0);            // ver, flags
-    b.putShort((short) length);
-    b.putShort((short) 0);                    // rsv
-    b.putLong(tUs);
-    return b.array();
-}
-
-static int lengthOf(byte[] raw) {
-    ByteBuffer b = ByteBuffer.wrap(raw);
-    return Short.toUnsignedInt(b.getShort(4)); // абсолютне читання: позиція не рухається
-}
-```
+:::code api-byteorder-primitives/java/main.java
 
 | Засіб | Зміст |
 |---|---|
@@ -319,24 +253,7 @@ static int lengthOf(byte[] raw) {
 
 ## JavaScript / TypeScript: `DataView`
 
-```ts
-function encHeader(length: number, tUs: bigint): Uint8Array {
-  const b = new Uint8Array(16);
-  const v = new DataView(b.buffer);
-  v.setUint16(0, 0xa75e);      // третього аргументу немає → big-endian
-  v.setUint8(2, 2);            // ver
-  v.setUint8(3, 0);            // flags
-  v.setUint16(4, length);
-  v.setUint16(6, 0);           // rsv
-  v.setBigUint64(8, tUs);      // 64 біти — лише через BigInt
-  return b;
-}
-
-function lengthOf(raw: Uint8Array): number {
-  const v = new DataView(raw.buffer, raw.byteOffset, raw.byteLength);
-  return v.getUint16(4);       // теж big-endian
-}
-```
+:::code api-byteorder-primitives/ts/index.ts
 
 | Метод | Підпис і зміст |
 |---|---|
