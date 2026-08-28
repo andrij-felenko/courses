@@ -62,66 +62,8 @@
 > **Умова.** Намалювати один піксель кольору `color` (RGB565) у точці (x, y) на панелі ST7789/ILI9341 по SPI; ніжки CS, DC налаштовані, контролер ініціалізований.
 
 :::tabs
-```cpp
-#include <stdint.h>
-
-// низькорівневі примітиви платформи (HAL)
-void cs_low(void);   void cs_high(void);     // вибір кристала
-void dc_command(void); void dc_data(void);   // рівень ніжки DC
-void spi_write(const uint8_t *buf, uint32_t n);
-
-static void wr_cmd(uint8_t c)  { dc_command(); spi_write(&c, 1); }
-static void wr_data(const uint8_t *b, uint32_t n) { dc_data(); spi_write(b, n); }
-
-void draw_pixel(uint16_t x, uint16_t y, uint16_t color) {
-    uint8_t win[4];
-    cs_low();
-
-    wr_cmd(0x2A);                                   // CASET: x..x
-    win[0] = x >> 8; win[1] = x; win[2] = x >> 8; win[3] = x;
-    wr_data(win, 4);
-
-    wr_cmd(0x2B);                                   // RASET: y..y
-    win[0] = y >> 8; win[1] = y; win[2] = y >> 8; win[3] = y;
-    wr_data(win, 4);
-
-    wr_cmd(0x2C);                                   // RAMWR: писати в пам'ять
-    uint8_t px[2] = { color >> 8, color };          // RGB565, старший байт уперед
-    wr_data(px, 2);
-
-    cs_high();
-}
-```
-```py
-from machine import Pin, SPI
-
-# низькорівневі примітиви платформи (ніжки CS і DC + шина SPI)
-spi = SPI(1, baudrate=40_000_000, polarity=0, phase=0)
-cs  = Pin(15, Pin.OUT, value=1)   # вибір кристала (активний нуль)
-dc  = Pin(2,  Pin.OUT, value=1)   # рівень ніжки DC
-
-def wr_cmd(c):
-    dc(0)                          # DC = 0 → команда
-    spi.write(bytes([c]))
-
-def wr_data(b):
-    dc(1)                          # DC = 1 → дані
-    spi.write(b)
-
-def draw_pixel(x, y, color):
-    cs(0)
-
-    wr_cmd(0x2A)                                    # CASET: x..x
-    wr_data(bytes([x >> 8, x & 0xFF, x >> 8, x & 0xFF]))
-
-    wr_cmd(0x2B)                                    # RASET: y..y
-    wr_data(bytes([y >> 8, y & 0xFF, y >> 8, y & 0xFF]))
-
-    wr_cmd(0x2C)                                    # RAMWR: писати в пам'ять
-    wr_data(bytes([color >> 8, color & 0xFF]))      # RGB565, старший байт уперед
-
-    cs(1)
-```
+:::code api-spi-tft/cpp/main.cpp
+:::code api-spi-tft/py/main.py
 :::
 
 Один піксель — це навчальний випадок; на практиці так само заливають цілий прямокутник, лише замість двох байтів висипають `width × height` кольорів поспіль (вікно ширше за один піксель, а потік даних — довший). Жодної арифметики адрес у МК немає: уся вона захована в лічильнику контролера.

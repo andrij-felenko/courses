@@ -12,67 +12,13 @@ RMT відтворює символи (`rmt_data_t`) з точністю до т
 
 Нижче — Arduino-ESP32 на новому RMT-API (core 3.x), де стиль `rmtInit`/`rmtWrite` узгоджений із `ledcAttach`-підходом [апаратного ШІМ](root:hw-arch/hardware-pwm). Тривалості — у тіках, tick = 0.1 мкс (джерело RMT на 10 МГц):
 
-```cpp
-#include <driver/rmt.h>          // Arduino ESP32 core 3.x
-// rmtInit(pin, RMT_TX_MODE, RMT_MEM_NUM_BLOCKS_1, 10000000)
-// → tick = 1/10MHz = 100 нс = 0.1 мкс
-
-// Тривалості у тіках (tick = 0.1 мкс) — за специфікацією WS2812B
-#define T0H  4    // 0.4 мкс HIGH для «0»
-#define T0L  9    // 0.85 мкс LOW  для «0» (9 × 0.1 ≈ 0.9, у допуску)
-#define T1H  8    // 0.8 мкс HIGH для «1»
-#define T1L  5    // 0.45 мкс LOW  для «1» (5 × 0.1 = 0.5, у допуску)
-
-// Кодує один байт у 8 RMT-символів; out — масив на 8 елементів
-void encodeByte(uint8_t b, rmt_data_t* out) {
-    for (int i = 0; i < 8; i++) {
-        int bit = (b >> (7 - i)) & 1;   // старший біт першим (MSB-first)
-        if (bit) {
-            out[i].level0    = 1;
-            out[i].duration0 = T1H;
-            out[i].level1    = 0;
-            out[i].duration1 = T1L;
-        } else {
-            out[i].level0    = 1;
-            out[i].duration0 = T0H;
-            out[i].level1    = 0;
-            out[i].duration1 = T0L;
-        }
-    }
-}
-```
+:::code proj-ws2812-rmt/cpp/koduvalnyk-baita-v-rmt.cpp
 
 CPU тут лише заповнює масив у RAM — жодних наносекундно-точних затримок у циклі. Після `rmtWrite` апаратура сама веде потік за власним таймером.
 
 ## Складання кадру GRB і відправлення
 
-```cpp
-#define N_PIXELS  60
-#define DATA_PIN  5       // ніжка даних стрічки
-
-struct RGB { uint8_t r, g, b; };   // буфер кольорів у логіці програми
-RGB pix[N_PIXELS];
-
-rmt_data_t sym[N_PIXELS * 24];     // 24 символи на піксель
-
-void ws2812_setup() {
-    // tick = 1/10_000_000 = 0.1 мкс
-    rmtInit(DATA_PIN, RMT_TX_MODE, RMT_MEM_NUM_BLOCKS_1, 10000000);
-}
-
-void ws2812_show() {
-    for (int i = 0; i < N_PIXELS; i++) {
-        // GRB — НЕ RGB! (типова пастка WS2812)
-        encodeByte(pix[i].g, &sym[i * 24 + 0]);   // G першим
-        encodeByte(pix[i].r, &sym[i * 24 + 8]);   // R другим
-        encodeByte(pix[i].b, &sym[i * 24 + 16]);  // B третім
-    }
-    // RMT жене всі N*24 символи; CPU вільний одразу після виклику
-    rmtWrite(DATA_PIN, sym, N_PIXELS * 24, RMT_WAIT_TX_DONE);
-    // Скидання ≥50 мкс — зазвичай вистачає паузи між двома викликами ws2812_show();
-    // якщо треба явно — delayMicroseconds(60)
-}
-```
+:::code proj-ws2812-rmt/cpp/skladannia-kadru-grb-i.cpp
 
 Поділ праці чіткий: CPU складає масив чисел (ціна — O(N) простих операцій), а RMT відмірює наносекунди апаратно — навіть коли Wi-Fi-[переривання](root:hw-arch/interrupts) займає ядро.
 

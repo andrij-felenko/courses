@@ -139,7 +139,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -206,7 +207,8 @@
           "proj": [
             {
               "file": "proj-ws2812-rmt.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -216,7 +218,8 @@
             },
             {
               "file": "api-ws2812-wiring.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -227,7 +230,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -238,19 +242,23 @@
           "math": [
             {
               "file": "math-charlieplexing.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-charlieplex-driver.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-charlieplex-driver.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -288,7 +296,8 @@
           "math": [
             {
               "file": "math-box-tuning.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }

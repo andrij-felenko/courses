@@ -53,52 +53,9 @@ E-ink стоїть серед [класів дисплеїв](root:embedded/disp
 **Лічильник часткових оновлень: повне кожні 20 разів.** Хост лічить часткові оновлення й сам перемикається на повне, коли привид міг би стати помітним.
 
 :::tabs
-```cpp
-#define FULL_EVERY 20            // повне оновлення кожні 20 часткових
-static uint8_t partial_count = 0;
-
-// Викликається раз на хвилину з готовим образом кадру
-void clock_tick(const uint8_t *frame) {
-    if (partial_count == 0) {
-        epd_update(frame, EPD_FULL);     // чисте повне: змиває привид
-    } else {
-        epd_update(frame, EPD_PARTIAL);  // швидко, без блимання
-    }
-    partial_count++;
-    if (partial_count >= FULL_EVERY)
-        partial_count = 0;               // наступний кадр знову повний
-}
-```
-```python
-FULL_EVERY = 20                  # повне оновлення кожні 20 часткових
-partial_count = 0
-
-# Викликається раз на хвилину з готовим образом кадру
-def clock_tick(frame):
-    global partial_count
-    if partial_count == 0:
-        epd_update(frame, EPD_FULL)      # чисте повне: змиває привид
-    else:
-        epd_update(frame, EPD_PARTIAL)   # швидко, без блимання
-    partial_count += 1
-    if partial_count >= FULL_EVERY:
-        partial_count = 0                # наступний кадр знову повний
-```
-```micropython
-FULL_EVERY = const(20)           # повне оновлення кожні 20 часткових
-partial_count = 0
-
-# Викликається раз на хвилину з готовим образом кадру
-def clock_tick(frame):
-    global partial_count
-    if partial_count == 0:
-        epd.update(frame, EPD_FULL)      # чисте повне: змиває привид
-    else:
-        epd.update(frame, EPD_PARTIAL)   # швидко, без блимання
-    partial_count += 1
-    if partial_count >= FULL_EVERY:
-        partial_count = 0                # наступний кадр знову повний
-```
+:::code eink-refresh-d/cpp/main.cpp
+:::code eink-refresh-d/py/main.py
+:::code eink-refresh-d/py/micropython/main.py
 :::
 
 ```text
