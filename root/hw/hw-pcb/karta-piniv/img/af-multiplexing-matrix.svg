@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 850 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="850" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="420.0" y="28.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Внутрішня структура виводу GPIO та селектора функцій мікроконтролера</text>
+<rect x="40.0" y="60.0" width="160.0" height="420.0" rx="8" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5"/>
+<text x="120.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Периферія та шини</text>
+<rect x="50.0" y="97.0" width="140.0" height="36.0" rx="6" fill="#eef2fb" stroke="#2457d6" stroke-width="1.4"/>
+<text x="120.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">AF0: SYSTEM (SWD/JTAG)</text>
+<rect x="50.0" y="157.0" width="140.0" height="36.0" rx="6" fill="#fdf0ea" stroke="#c0392b" stroke-width="1.4"/>
+<text x="120.0" y="180.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">AF1..AF3: TIM1..TIM8 PWM</text>
+<rect x="50.0" y="217.0" width="140.0" height="36.0" rx="6" fill="#eef7f0" stroke="#27ae60" stroke-width="1.4"/>
+<text x="120.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">AF4..AF6: I2C1..3 / SPI1..3</text>
+<rect x="50.0" y="277.0" width="140.0" height="36.0" rx="6" fill="#fef9c3" stroke="#854d0e" stroke-width="1.4"/>
+<text x="120.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#854d0e" text-anchor="middle" font-weight="700">AF7..AF9: USART1..6 / CAN</text>
+<rect x="50.0" y="337.0" width="140.0" height="36.0" rx="6" fill="#f1f5f9" stroke="#333333" stroke-width="1.4"/>
+<text x="120.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#333333" text-anchor="middle" font-weight="700">GPIO_ODR / GPIO_IDR</text>
+<rect x="50.0" y="397.0" width="140.0" height="36.0" rx="6" fill="#fce7f3" stroke="#9d174d" stroke-width="1.4"/>
+<text x="120.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#9d174d" text-anchor="middle" font-weight="700">Аналоговий комутатор ADC</text>
+<rect x="260.0" y="90.0" width="150.0" height="240.0" rx="10" fill="#f0fdf4" stroke="#27ae60" stroke-width="2.0"/>
+<text x="335.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">Селектор AF MUX</text>
+<text x="335.0" y="135.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">16-входовий комутатор</text>
+<rect x="274.9" y="157.5" width="120.3" height="35.0" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/><text x="335.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle"><tspan x="335.0" dy="0.0">Регістр AFR[x]</tspan><tspan x="335.0" dy="13.0">(4 біти: AF0..AF15)</tspan></text>
+<text x="335.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">MODER[2y+1:2y]</text>
+<text x="335.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="335.0" dy="0.0">00: Input | 01: Output</tspan><tspan x="335.0" dy="11.7">10: AF    | 11: Analog</tspan></text>
+<line x1="200.0" y1="115.0" x2="260.0" y2="130.0" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="200.0" y1="175.0" x2="260.0" y2="160.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="200.0" y1="235.0" x2="260.0" y2="190.0" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="200.0" y1="295.0" x2="260.0" y2="220.0" stroke="#854d0e" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="200.0" y1="355.0" x2="260.0" y2="250.0" stroke="#333333" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="470.0" y="60.0" width="200.0" height="420.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.8"/>
+<text x="570.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вихідний/вхідний драйвер паду</text>
+<rect x="485.0" y="105.0" width="170.0" height="80.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.4"/>
+<text x="570.0" y="125.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вихідні ключі (FETs)</text>
+<text x="570.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="570.0" dy="0.0">P-MOS (VDD) / N-MOS (VSS)</tspan><tspan x="570.0" dy="11.7">Режими: Push-Pull / Open-Drain</tspan><tspan x="570.0" dy="11.7">Керування: OTYPER + OSPEEDR</tspan></text>
+<rect x="485.0" y="195.0" width="170.0" height="60.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.4"/>
+<text x="570.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Підтяжка: PUPDR</text>
+<text x="570.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="570.0" dy="0.0">R_PU ≈ 40 кОм до VDD</tspan><tspan x="570.0" dy="11.7">R_PD ≈ 40 кОм до VSS</tspan></text>
+<rect x="485.0" y="265.0" width="170.0" height="60.0" rx="6" fill="#f8fafc" stroke="#333333" stroke-width="1.4"/>
+<text x="570.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вхід: Тригер Шмітта</text>
+<text x="570.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="570.0" dy="0.0">Гістерезис для захисту від шуму</tspan><tspan x="570.0" dy="11.7">Читання в регістр IDR</tspan></text>
+<rect x="485.0" y="335.0" width="170.0" height="60.0" rx="6" fill="#fef2f2" stroke="#c0392b" stroke-width="1.4"/>
+<text x="570.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Захисні ESD діоди</text>
+<text x="570.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="570.0" dy="0.0">Клампінг до VDD/VDDA та VSS</tspan><tspan x="570.0" dy="11.7">5V-tolerant (FT) vs 3.3V (TT)</tspan></text>
+<rect x="485.0" y="405.0" width="170.0" height="60.0" rx="6" fill="#fdf2f8" stroke="#9d174d" stroke-width="1.4"/>
+<text x="570.0" y="425.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9d174d" text-anchor="middle" font-weight="700">Аналоговий тракт (ADC/DAC)</text>
+<text x="570.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle"><tspan x="570.0" dy="0.0">Відключення тригера Шмітта</tspan><tspan x="570.0" dy="11.7">Прямий канал до вхідного MUX ADC</tspan></text>
+<line x1="410.0" y1="200.0" x2="485.0" y2="145.0" stroke="#27ae60" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="485.0" y1="295.0" x2="410.0" y2="280.0" stroke="#333333" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="200.0" y1="415.0" x2="485.0" y2="435.0" stroke="#9d174d" stroke-width="2.0" stroke-dasharray="4 4"/>
+<rect x="730.0" y="210.0" width="80.0" height="70.0" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2.2"/>
+<text x="770.0" y="238.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="700">PIN PAD</text>
+<text x="770.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">(PX_n)</text>
+<line x1="655.0" y1="145.0" x2="730.0" y2="235.0" stroke="#333333" stroke-width="2.2"/>
+<line x1="655.0" y1="225.0" x2="730.0" y2="245.0" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="655.0" y1="295.0" x2="730.0" y2="255.0" stroke="#333333" stroke-width="1.8"/>
+<line x1="655.0" y1="435.0" x2="730.0" y2="265.0" stroke="#9d174d" stroke-width="2.0" stroke-dasharray="4 4"/>
+<text x="420.0" y="502.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Конфігурація MODER, AFR та PUPDR комутує фізичний пін між цифровою периферією, GPIO або АЦП</text>
+</svg>

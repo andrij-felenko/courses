@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-20.07 -10 860.07 470" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-20.07" y="-10" width="860.07" height="470" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="820.0" height="440.0" rx="8" fill="#fafbfc" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="420.0" y="36.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Фазове вирівнювання (Skew Compensation) диференційної пари меандрами</text>
+<rect x="30.0" y="60.0" width="780.0" height="140.0" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.8"/>
+<text x="190.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#991b1b" text-anchor="middle" font-weight="700">ПОМИЛКА: Нескомпенсований поворот (Розбіжність довжин ΔL)</text>
+<path d="M 60 110 L 220 110 L 320 160 L 520 160" fill="none" stroke="#ea580c" stroke-width="3"/>
+<text x="90.0" y="102.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#9a3412" text-anchor="middle" font-weight="700">D+ (зовнішня, довша L+)</text>
+<path d="M 60 125 L 210 125 L 305 175 L 520 175" fill="none" stroke="#2563eb" stroke-width="3"/>
+<text x="90.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle" font-weight="700">D− (внутрішня, коротша L−)</text>
+<line x1="520.0" y1="150.0" x2="520.0" y2="185.0" stroke="#dc2626" stroke-width="2.0" stroke-dasharray="3,2"/>
+<line x1="520.0" y1="160.0" x2="560.0" y2="160.0" stroke="#dc2626" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="490.0" y1="175.0" x2="530.0" y2="175.0" stroke="#dc2626" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="560.0" y="95.0" width="230.0" height="90.0" rx="4" fill="#ffffff" stroke="#fca5a5" stroke-width="1.2"/>
+<text x="675.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#991b1b" text-anchor="middle" font-weight="700">Наслідки перекосу (Skew):</text>
+<text x="675.0" y="133.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle">• Фазовий зсув Δt = ΔL / v_prop</text>
+<text x="675.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle">• Генерація синфазної завади V_cm</text>
+<text x="675.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle">• Закриття 'ока' та ЕМ-випромінювання</text>
+<rect x="30.0" y="215.0" width="780.0" height="140.0" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.8"/>
+<text x="210.0" y="237.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#166534" text-anchor="middle" font-weight="700">ПРАВИЛЬНО: Меандр на короткому провіднику одразу біля вигину</text>
+<path d="M 60 265 L 220 265 L 320 315 L 520 315" fill="none" stroke="#ea580c" stroke-width="3"/>
+<text x="90.0" y="257.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#9a3412" text-anchor="middle" font-weight="700">D+ (довша траса)</text>
+<path d="M 60 280 L 210 280 L 305 330 L 340 330 L 340 345 L 355 345 L 355 330 L 370 330 L 370 345 L 385 345 L 385 330 L 520 330" fill="none" stroke="#2563eb" stroke-width="3"/>
+<text x="90.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle" font-weight="700">D− (вирівняно меандром)</text>
+<rect x="330.0" y="320.0" width="65.0" height="32.0" rx="3" fill="none" stroke="#16a34a" stroke-width="1.5"/>
+<text x="362.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">Tuning Accordion</text>
+<line x1="520.0" y1="305.0" x2="520.0" y2="340.0" stroke="#16a34a" stroke-width="2.5"/>
+<text x="520.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">Синфазний фронт</text>
+<line x1="520.0" y1="315.0" x2="550.0" y2="315.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="520.0" y1="330.0" x2="550.0" y2="330.0" stroke="#16a34a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="560.0" y="250.0" width="230.0" height="90.0" rx="4" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="675.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#166534" text-anchor="middle" font-weight="700">Правила геометрії меандра:</text>
+<text x="675.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle">• Крок зубців Pitch P ≥ 3·w</text>
+<text x="675.0" y="306.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle">• Висота зубця A ≤ 2·s</text>
+<text x="675.0" y="324.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#15803d" text-anchor="middle" font-weight="700">• Розміщення: біля джерела дисонансу!</text>
+<rect x="30.0" y="367.3" width="780.0" height="65.4" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/><text x="420.0" y="389.1" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle"><tspan x="420.0" dy="0.0">Чому компенсація має бути локальною: Якщо додати меандр наприкінці довгої лінії (біля приймача),</tspan><tspan x="420.0" dy="15.0">весь проміжний відрізок плати буде нести нескомпенсований фазовий зсув і випромінювати синфазний шум у простір.</tspan><tspan x="420.0" dy="15.0">Локальне вирівнювання біля кута або роз'єму відновлює синфазність на найранішому етапі й зберігає симетрію поля.</tspan></text>
+</svg>

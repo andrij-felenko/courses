@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 830 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="830" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="410.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Оптимізація потоку сигналів та захист термочутливих вузлів</text>
+<rect x="35.0" y="54.0" width="365.0" height="380.0" rx="8" fill="#f8fafc" stroke="#0284c7" stroke-width="1.8"/>
+<text x="217.5" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#0369a1" text-anchor="middle" font-weight="700">А. Односпрямований потік сигналів</text>
+<text x="217.5" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Усунення зворотних петель і перетинів</text>
+<rect x="60.0" y="110.0" width="315.0" height="52.0" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.4"/>
+<text x="217.5" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#475569" text-anchor="middle" font-weight="700">1. Вхідний роз'єм та захист</text>
+<text x="217.5" y="148.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Роз'єм живлення / EMI-фільтр / ESD</text>
+<line x1="217.5" y1="162.0" x2="217.5" y2="182.0" stroke="#0284c7" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="60.0" y="184.0" width="315.0" height="52.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.4"/>
+<text x="217.5" y="206.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">2. Первинне перетворення</text>
+<text x="217.5" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Buck DC-DC регулятор / LDO</text>
+<line x1="217.5" y1="236.0" x2="217.5" y2="256.0" stroke="#0284c7" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="60.0" y="258.0" width="315.0" height="52.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.4"/>
+<text x="217.5" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">3. Обробка сигналів</text>
+<text x="217.5" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Центральний MCU / DSP / Фільтри</text>
+<line x1="217.5" y1="310.0" x2="217.5" y2="330.0" stroke="#0284c7" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="60.0" y="332.0" width="315.0" height="52.0" rx="6" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.4"/>
+<text x="217.5" y="354.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="700">4. Вихідний каскад та інтерфейси</text>
+<text x="217.5" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Драйвери / Буфери / Вихідні клеми</text>
+<text x="217.5" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0369a1" text-anchor="middle" font-weight="700">Чітка лінія: Вхід → Обробка → Вихід</text>
+<rect x="420.0" y="54.0" width="365.0" height="380.0" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.8"/>
+<text x="602.5" y="78.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#b45309" text-anchor="middle" font-weight="700">Б. Просторове теплове зонування</text>
+<text x="602.5" y="94.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ізоляція джерел тепла від чутливих сенсорів</text>
+<rect x="445.0" y="114.0" width="315.0" height="80.0" rx="6" fill="#fee2e2" stroke="#c0392b" stroke-width="1.6"/>
+<text x="602.5" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="700">Гаряча зона: Потужний LDO + FET</text>
+<text x="602.5" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Розсіювання тепла: 2.5 Вт (Т = 65°C)</text>
+<text x="602.5" y="174.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Масив теплових отворів (Thermal Vias)</text>
+<line x1="450.0" y1="209.0" x2="755.0" y2="209.0" stroke="#d97706" stroke-width="2.0" stroke-dasharray="5 4"/>
+<text x="602.5" y="227.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b45309" text-anchor="middle" font-weight="700">Тепловий градієнт: ΔT / Δx = 2.8 °C/мм у текстоліті</text>
+<text x="602.5" y="241.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Фізична відстань &gt; 25 мм або проріз у платі</text>
+<rect x="445.0" y="264.0" width="315.0" height="110.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.6"/>
+<text x="602.5" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="700">Холодна зона: Прецизійні давачі</text>
+<text x="602.5" y="308.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">IMU Гіроскоп / 24-біт АЦП / TCXO</text>
+<text x="602.5" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="700">Стабільна температура (T = 28°C ± 1°C)</text>
+<text x="602.5" y="350.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Захист від теплового дрейфу нуля й напружень</text>
+<text x="602.5" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">Результат: Нульовий тепловий шум і стабільний дрейф</text>
+<text x="410.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="700">Дотримання топологічного потоку зменшує довжину ліній, а зонування усуває взаємний вплив</text>
+</svg>

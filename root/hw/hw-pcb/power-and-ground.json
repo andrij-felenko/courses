@@ -14,11 +14,17 @@
           "slug": "ground-plane",
           "title": "Шар землі (ground plane)",
           "basic": {
-            "status": "empty"
+            "status": "recheck"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-return-current-simulator.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "current-return-path",
@@ -128,11 +134,17 @@
           "slug": "pdn-impedance",
           "title": "Імпеданс шини живлення (PDN)",
           "basic": {
-            "status": "empty"
+            "status": "recheck"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-pdn-impedance-analyzer.md",
+              "status": "recheck"
+            }
+          ]
         },
         {
           "slug": "via-inductance",
@@ -151,8 +163,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "recheck"
+          },
+          "proj": [
+            {
+              "file": "proj-decoupling-loop-calc.md",
+              "status": "recheck"
+            }
+          ]
         }
       ]
     }

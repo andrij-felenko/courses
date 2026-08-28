@@ -1,0 +1,1169 @@
+# ⚙️ Калькулятор паразитної індуктивності монтажу та ефективного радіуса розв'язки
+
+Аналітичний розрахунок повної індуктивності контуру розв'язувального конденсатора (Mounting Loop Inductance), матриці взаємних індуктивностей перехідних отворів, імпедансного профілю шини живлення та просторового радіуса дії конденсатора на друкованій платі.
+
+## 1. Інженерна постановка та фізична суть задачі
+
+При проєктуванні систем забезпечення цілісності живлення (Power Integrity, PI) для сучасних високопродуктивних цифрових інтегральних схем — центральних і графічних процесорів, програмованих логічних матриць (FPGA), телекомунікаційних SoC та цифрових сигнальних процесорів — розробник неминуче стикається з фундаментальним електродинамічним обмеженням: струм у провідниках не може змінюватися стрибкоподібно через ненульову індуктивність їхньої просторової геометрії.
+
+У напівпровідникових кристалах, виготовлених за технологічними нормами від 28 нм до 3 нм, напруга живлення логічного ядра знизилася до рівнів 0.75–1.1 В, тоді як загальне споживання струму сягає десятків і сотень амперів. Коли мільйони логічних вентилів одночасно перемикаються між станами логічного нуля та одиниці за сигналом тактової частоти, швидкість наростання споживаного струму `di/dt` у перехідних режимах сягає від 10 до 100 А/нс.
+
+На принциповій електричній схемі розв'язувальний конденсатор позначається як ідеальний зосереджений двополюсник, увімкнений між лінією живлення `VDD` та загальним проводом `GND`. З погляду класичної теорії електричних кіл зі зосередженими параметрами, такий конденсатор має нульовий розмір, а провідники, що з'єднують його з виводами мікросхеми, вважаються ідеальними еквіпотенціальними лініями з нульовим опором і нульовою індуктивністю.
+
+Проте на реальній багатошаровій друкованій платі поняття «вузла схеми» як математичної точки не існує. Будь-який провідник, контактна площадка, доріжка, циліндричний стовбур перехідного отвору та суцільний опорний шар міді мають скінченні геометричні розміри, а отже, створюють у навколишньому діелектрику магнітне поле при протіканні електричного струму.
+
+Фізична сутність процесу розв'язки полягає в тому, що конденсатор працює не як статичний резервуар, а як елемент просторового замкненого контуру струму. Коли кристал мікросхеми вимагає різкого збільшення струму, цей заряд повинен пробігти замкнену просторову петлю:
+
+1. Вийти з позитивних внутрішніх електродів керамічного конденсатора;
+2. Пройти крізь металізацію торця конденсатора та паяний шов;
+3. Пройти крізь поверхневу контактну площадку друкованої плати;
+4. Пройти крізь поверхневу друковану доріжку до перехідного отвору;
+5. Спуститися вертикальним циліндричним стовбуром перехідного отвору шини живлення до внутрішнього мідного шару;
+6. Пройти внутрішнім полігоном живлення до перехідного отвору або контактної площадки виводу мікросхеми;
+7. Піднятися крізь паяне з'єднання (BGA-кульку чи вивід QFN) на підкладку корпусу мікросхеми;
+8. Пройти розподільними провідниками підкладки корпусу та мікровідводами на кремнієвий кристал;
+9. Пройти крізь логічні транзистори кристала та повернутися через зворотні лінії підкладки корпусу до виводів землі `GND`;
+10. Спуститися крізь перехідний отвір землі до внутрішньої площини землі;
+11. Пройти площиною землі зворотний шлях до перехідного отвору землі розв'язувального конденсатора;
+12. Піднятися вертикальним стовбуром отвору землі на поверхневий шар;
+13. Пройти поверхневою контактною площадкою землі до паяного шва та замкнутися на негативній обкладці конденсатора.
+
+Ця просторова траєкторія охоплює тривимірну площу, яка пронизується магнітним потоком:
+
+```
+Φ = ∬ B · dS
+```
+
+де `B` — вектор магнітної індукції, а `S` — вектор площі замкненого контуру струму. За законом електромагнітної індукції Фарадея, будь-яка швидка зміна цього магнітного потоку `dΦ/dt` індукує у контурі зустрічну електрорушійну силу, яка віднімається від напруги живлення мікросхеми:
+
+```
+V_drop = L_loop · (di/dt)
+```
+
+де `L_loop` — повна петлева індуктивність монтажу (Mounting Loop Inductance). Якщо якісний багатошаровий керамічний конденсатор (MLCC) типорозміру 0402 має власну паразитну індуктивність виводів `L_ESL ≈ 0.35–0.40 нГн`, то неправильне або недбале трасування друкованої плати додає до контуру ще від `1.5` до `3.5 нГн` індуктивності провідників і перехідних отворів.
+
+При швидкості наростання струму `di/dt = 20 А/нс` додаткова індуктивність монтажу в `2.5 нГн` створює теоретичне імпульсне падіння напруги:
+
+```
+V_drop = 2.5·10⁻⁹ Гн · (20 / 10⁻⁹ А/с)
+       = 50 В
+```
+
+У реальній схемі це падіння напруги обмежується зарядом конденсатора та внутрішніми опорами, однак воно спричиняє глибоке динамічне просідання напруги живлення ядра (Power Rail Droop). Напруга живлення може миттєво просісти нижче критичного порогу стабільності логіки (наприклад, із номінальних `0.90 В` до `0.68 В` при допустимому вікні `±5%`, тобто `0.855–0.945 В`), що призводить до порушення тактової синхронізації, виникнення помилок у регістрах пам'яті, збоїв блоків PLL та фатальної зупинки процесора.
+
+Для точного проєктування геометрії розв'язки, вибору конфігурації перехідних отворів і мінімізації площі петлі розроблено аналітичний програмний калькулятор, що базується на строгому математичному апараті електродинаміки та методі часткових елементів еквівалентної схеми.
+
+## 2. Теоретичні основи електродинаміки та метод PEEC
+
+### Квазістаціонарне наближення та локалізація магнітної енергії
+
+На частотах до кількох гігагерців, де типові геометричні розміри монтажного вузла розв'язки (кілька міліметрів) помітно менші за довжину електромагнітної хвилі в діелектрику плати (`λ ≈ 150 мм` на частоті 1 ГГц при `ε_r = 4`), поведінка контуру з високою точністю описується в рамках квазістаціонарного наближення рівнянь Максвелла.
+
+Повна магнітна енергія `W_m`, що накопичується в просторі навколо провідників зі струмом `I`, визначається об'ємним інтегралом від квадрата напруженості магнітного поля `H(r)`:
+
+```
+W_m = (1 / 2) · ∫∫∫ μ · |H(r)|² dV = (1 / 2) · L_loop · I²
+```
+
+З цього енергетичного співвідношення випливає фундаментальне означення петлевої індуктивності:
+
+```
+L_loop = (1 / I²) · ∫∫∫ μ · |H(r)|² dV
+```
+
+Індуктивність контуру є мірою магнітної енергії, запасеної в об'ємі простору при протіканні одиничного струму. Щоб мінімізувати індуктивність `L_loop`, необхідно мінімізувати об'ємний інтеграл від густини магнітної енергії. Це досягається локалізацією протилежно спрямованих струмів у безпосередній близькості один від одного: прямий і зворотний струми створюють магнітні поля протилежного напрямку, які суперпонуються та взаємно гасять одне одного у зовнішньому просторі.
+
+### Метод часткових елементів (Partial Element Equivalent Circuit — PEEC)
+
+Для довільної тривимірної геометрії друкованих провідників розрахунок за повними петлями стає громіздким при зміні взаємного розташування окремих компонентів. Метод часткових елементів PEEC, сформульований Альбертом Рулі, розділяє провідники на скінченні об'ємні сегменти та вводить поняття часткової індуктивності (Partial Inductance).
+
+Часткова індуктивність провідника визначається відносно нескінченно віддаленої точки замикання струму. Якщо вектор густини струму `J(r)` у сегменті спрямований вздовж осі провідника, магнітний векторний потенціал `A(r)` у просторі описується інтегралом:
+
+```
+A(r) = (μ₀ / (4π)) · ∫∫∫ (J(r') / |r - r'|) dV'
+```
+
+Часткова взаємна індуктивність `L_pij` між двома прямолінійними сегментами об'ємом `V_i` та `V_j` зі струмами `I_i` та `I_j` обчислюється через подвійний об'ємний інтеграл:
+
+```
+L_pij = (μ₀ / (4π · I_i · I_j)) · ∫∫∫_{V_i} ∫∫∫_{V_j} ((J_i(r_i) · J_j(r_j)) / |r_i - r_j|) dV_i dV_j
+```
+
+Для системи із `N` провідних сегментів утворюється симетрична додатньо визначена матриця часткових індуктивностей `[L_p]` розмірністю `N × N`:
+
+```
+[ L_p ] = [ L_p11   L_p12   ...   L_p1N ]
+          [ L_p21   L_p22   ...   L_p2N ]
+          [  ...     ...    ...    ...  ]
+          [ L_pN1   L_pN2   ...   L_pNN ]
+```
+
+де:
+- Діагональні елементи `L_pii` являють собою власні часткові індуктивності окремих сегментів (площадок, доріжок, стовбурів отворів);
+- Позадіагональні елементи `L_pij = L_pji` являють собою коефіцієнти взаємної часткової індуктивності між сегментами `i` та `j`.
+
+Коли ці сегменти об'єднуються в замкнене електричне коло, результуюча повна петлева індуктивність контуру дорівнює зваженій сумі всіх елементів матриці:
+
+```
+L_loop = ∑_{i=1}^N ∑_{j=1}^N s_i · s_j · L_pij
+```
+
+де знаковий множник `s_i = +1`, якщо струм у `i`-му сегменті тече в напрямку основного обходу контуру, і `s_i = -1`, якщо струм тече у протилежному напрямку.
+
+Для класичного контуру з двох паралельних провідників (прямий провідник 1 і зворотний провідник 2) вираз набуває вигляду:
+
+```
+L_loop = L_p11 + L_p22 - 2 · L_p12
+```
+
+Ця формула математично доводить, що взаємна індуктивність `L_p12` між зустрічними струмами входить у сумарну індуктивність зі знаком мінус і коефіцієнтом 2. Максимізація взаємної індуктивності між провідниками живлення та землі є найпотужнішим інструментом зниження загальної індуктивності монтажу.
+
+## 3. Математичні формули геометричних елементів монтажу
+
+### 1. Прямокутні контактні площадки та поверхневі доріжки
+
+Для тонкого прямокутного провідника довжиною `l`, шириною `w` і товщиною міді `t` за умови рівномірної густини струму точна аналітична формула Гровера для часткової самоіндуктивності має вигляд:
+
+```
+L_rect = (μ₀ · l / (2π)) · [ln(2l / (w + t)) + 0.5 + 0.2235 · ((w + t) / l)]
+```
+
+де `μ₀ = 4π · 10⁻⁷ Гн/м ≈ 1.25664 · 10⁻⁶ Гн/м` — магнітна проникність вакууму. Розглянемо фізичний зміст компонентів цього виразу:
+- Логарифмічний член `ln(2l / (w + t))` відображає просторове спадання зовнішнього магнітного поля при віддаленні від осі смужки;
+- Член `0.5` відповідає внутрішній індуктивності провідника, обумовленій магнітним потоком всередині самого тіла металу на низьких частотах;
+- Коригувальний коефіцієнт `0.2235 · (w + t) / l` враховує спотворення поля на торцях смужки для відносно коротких і широких контактних площадок.
+
+Якщо провідник розташований на поверхні плати над суцільним внутрішнім шаром землі на відстані діелектрика `h` (`h << w`), дзеркальний струм у шарі землі екранує зовнішнє поле, і магнітна енергія локалізується в підкладці. У такому разі індуктивність визначається геометрією мікросмужки:
+
+```
+L_microstrip = (μ₀ · h · l) / (w · K_f)
+```
+
+де крайовий коефіцієнт `K_f`:
+
+```
+K_f = 1 + 1.393 · (h / w) + 0.667 · (h / w) · ln((w / h) + 1.444)
+```
+
+### 2. Вертикальні циліндричні перехідні отвори (Vias)
+
+Стовбур перехідного отвору являє собою вертикальну порожнисту або суцільну мідну трубку висотою `h` (що дорівнює товщині діелектрика від поверхні до відповідного внутрішнього шару живлення чи землі) та радіусом свердління `r_v`.
+
+Часткова самоіндуктивність вертикального циліндра обчислюється за формулою:
+
+```
+L_via = (μ₀ · h / (2π)) · [ln((2h / r_v) + √(1 + (2h / r_v)²)) - √(1 + (r_v / (2h))²) + (r_v / (2h)) + 0.25]
+```
+
+Для типових геометричних співвідношень друкованих плат (`h = 0.1–1.6 мм`, `r_v = 0.1–0.15 мм`, де `h >> r_v`), вираз з високою точністю спрощується до інженерної форми:
+
+```
+L_via ≈ (μ₀ · h / (2π)) · [ln(2h / r_v) + 0.25]
+```
+
+Коефіцієнт взаємної індуктивності `M_via` між двома паралельними перехідними отворами висотою `h`, розташованими на відстані між їхніми центрами `s`, строго описується формулою Клейтона Пола:
+
+```
+M_via = (μ₀ · h / (2π)) · [ln((h / s) + √(1 + (h / s)²)) - √(1 + (s / h)²) + (s / h)]
+```
+
+Для пари перехідних отворів протилежної полярності (один отвір з'єднаний із шиною `VDD`, другий — із землею `GND`, струми течуть у протилежних вертикальних напрямках) еквівалентна індуктивність пари становить:
+
+```
+L_via_pair = L_via_gnd + L_via_pwr - 2 · M_via
+```
+
+Якщо відстань `s` зменшується до технологічного мінімуму (`s → 2·r_v`), взаємна індуктивність `M_via` прямує до `L_via`, і сумарна індуктивність пари перехідних отворів стрімко падає, досягаючи значень `0.25–0.40 нГн` замість `0.80–1.20 нГн` при некоординованому розміщенні.
+
+### 3. Індуктивність розтікання струму в опорних площинах
+
+Коли струм виходить із перехідного отвору у внутрішній мідний шар, він радіально розтікається у площині. Для пари паралельних площин живлення та землі з відстанню між ними `d_planes`, в які входять два отвори радіусом `r_v` на відстані `s`, індуктивність розтікання становить:
+
+```
+L_spread = (μ₀ · d_planes / π) · ln(s / (2 · r_v))
+```
+
+Зменшення товщини діелектрика між шарами живлення та землі `d_planes` (наприклад, використання тонкого діелектрика товщиною `50 мкм` або вбудованих ємнісних шарів C-Ply) знижує індуктивність розтікання до знехтовно малих величин (`< 0.03 нГн`).
+
+### 4. Хвильовий радіус ефективної дії розв'язки
+
+Швидкість поширення електромагнітної хвилі в діелектрику друкованої плати обмежена його діелектричною проникністю:
+
+```
+v_prop = c₀ / √(ε_r)
+```
+
+де `c₀ ≈ 2.99792 · 10⁸ м/с`. Для матеріалу FR-4 (`ε_r ≈ 4.2`) маємо `v_prop ≈ 146.4 мм/нс`.
+
+З урахуванням допустимого фазового зсуву хвилі між піном мікросхеми та конденсатором із коефіцієнтом безпеки `k_safety = 4`, ефективний просторовий радіус розв'язки на частоті `f` становить:
+
+```
+r_eff(f) = v_prop / (2π · f · k_safety)
+```
+
+Цей радіус визначає фізичну межу: конденсатор, розміщений на відстані більшій за `r_eff(f)`, не встигає підтримати напругу на фронті імпульсу через затримку поширення сигналу в лініях плати.
+
+## 4. Порівняльний аналіз шести топологій монтажу
+
+Програмний калькулятор аналізує шість базових топологій монтажу розв'язувального конденсатора:
+
+1. **`TOPOLOGY_FAR_TRACE` (Віддалений монтаж із довгими доріжками)**: Конденсатор винесений на відстань 4 мм від чіпа, з'єднаний тонкими трасами шириною 0.25 мм, перехідні отвори розміщені за конденсатором із рознесенням 3.5 мм. Петлева індуктивність сягає `2.8–3.5 нГн`, що робить цей варіант непридатним для високошвидкісних кіл.
+2. **`TOPOLOGY_END_VIA` (Торцеве розміщення перехідних отворів)**: Отвори розміщені впритул до торців контактних площадок вздовж поздовжньої осі конденсатора. Міжосьова відстань між отворами дорівнює довжині корпусу плюс два діаметри вії (`s ≈ 1.6–2.0 мм`). Індуктивність становить `1.2–1.6 нГн`.
+3. **`TOPOLOGY_SIDE_VIA` (Бічні перехідні отвори з мінімальним зазором)**: Отвори розміщені біля довгих бічних граней площадок назустріч один одному. Відстань між центрами отворів зменшується до ширини корпусу плюс зазор (`s ≈ 0.65–0.80 мм`), що максимізує взаємну індуктивність `M_via`. Петлева індуктивність падає до `0.7–0.9 нГн`.
+4. **`TOPOLOGY_DOUBLE_SIDE_VIA` (Подвійні симетричні бічні вії — 4 отвори)**: По два перехідні отвори з обох боків кожної площадки (всього 4 вії). Паралельне ввімкнення стовбурів та квадрупольна симетрія полів знижують індуктивність монтажу до `0.50–0.65 нГн`.
+5. **`TOPOLOGY_VIA_IN_PAD_TOP` (Технологія VIPPO на верхньому шарі)**: Перехідні отвори свердляться безпосередньо всередині контактних площадок конденсатора, заповнюються смолою та покриваються гальванічною міддю (Via-in-Pad Plated Over). Довжина поверхневих трас стає рівною нулю. Індуктивність монтажу знижується до `0.40–0.50 нГн`.
+6. **`TOPOLOGY_BGA_BOTTOM_VIPPO` (Монтаж на зворотному боці під BGA-матрицею)**: Конденсатор встановлюється на шарі Bottom безпосередньо під матрицею кулькових виводів чіпа. Струм іде вертикально крізь плату найкоротшим шляхом. Індуктивність монтажу становить лише `0.35–0.45 нГн`.
+
+## 5. Докладний математичний розбір та баланс індуктивностей
+
+Для повного інженерного розуміння того, куди саме витрачається бюджет індуктивності в кожній топології, розглянемо детальний баланс складових для шестишарової плати товщиною `1.60 мм` зі стандартним стекапом:
+- Шар L1 (Top Signal / Components, мідь `35 мкм`);
+- Препрег товщиною `0.12 мм` (`ε_r = 4.2`);
+- Шар L2 (GND Plane, мідь `35 мкм`);
+- Ядро Core товщиною `0.48 мм` (`ε_r = 4.3`);
+- Шар L3 (Power Plane VDD, мідь `35 мкм`);
+- Препрег товщиною `0.12 мм`;
+- Шар L6 (Bottom Signal / Components, мідь `35 мкм`).
+
+Розглянемо конденсатор типорозміру 0402 (`L = 1.0 мм`, `W = 0.5 мм`, розмір площадки `0.5 × 0.6 мм`, ємність `100 нФ`, власна індуктивність виводів `L_ESL = 0.38 нГн`, власний опір `ESR = 0.018 Ом`). Діаметр свердління перехідних отворів становить `0.25 мм` (`r_v = 0.125 мм`).
+
+### Баланс індуктивностей для Топології 1 (Far Traces)
+
+У цій топології розробник розмістив конденсатор на відстані `4.0 мм` від мікросхеми та з'єднав його поверхневими доріжками шириною `0.25 мм`. Перехідні отвори до площин землі та живлення розташовані за конденсатором із відстанню між осями `s = 3.5 мм`:
+1. Власна індуктивність корпусу конденсатора: `L_ESL = 0.38 нГн` (12.3% від загальної величини);
+2. Індуктивність двох контактних площадок: `L_pads = 0.36 нГн` (11.7%);
+3. Індуктивність поверхневих доріжок довжиною `4 мм`: `L_traces = 1.28 нГн` (41.6%);
+4. Індуктивність пари перехідних отворів (глибина до L2 `0.12 мм`, глибина до L3 `0.60 мм`, взаємна індуктивність `M_via ≈ 0.03 нГн` через велику відстань `s = 3.5 мм`): `L_vias = 0.82 нГн` (26.6%);
+5. Індуктивність розтікання у площинах: `L_spread = 0.24 нГн` (7.8%).
+
+Сумарна індуктивність монтажу:
+
+```
+L_total = 0.38 + 0.36 + 1.28 + 0.82 + 0.24
+        = 3.08 нГн
+```
+
+Частота власного резонансу системи зміщується вниз:
+
+```
+f_SRF = 1 / (2π · √(3.08·10⁻⁹ · 100·10⁻⁹))
+      = 1 / (2π · √(3.08·10⁻¹⁶))
+      = 1 / (2π · 1.755·10⁻⁸)
+      ≈ 9.07 МГц
+```
+
+На тактовій частоті шини `100 МГц` цей конденсатор має чисто індуктивний реактивний опір:
+
+```
+X_L = 2π · 100·10⁶ · 3.08·10⁻⁹
+    ≈ 1.935 Ом
+```
+
+Замість забезпечення низького цільового імпедансу (наприклад, `5–10 мОм`), монтаж створив опір майже у `2 Оми`.
+
+### Баланс індуктивностей для Топології 3 (Side Vias)
+
+У топології з бічними перехідними отворами отвори розміщені впритул до широких граней контактних площадок назустріч один одному з міжосьовою відстанню `s = 0.65 мм`:
+1. Власна індуктивність корпусу: `L_ESL = 0.38 нГн` (48.7%);
+2. Індуктивність площадок: `L_pads = 0.18 нГн` (23.1%);
+3. Індуктивність ультракоротких перемичок до отворів: `L_traces = 0.04 нГн` (5.1%);
+4. Індуктивність пари перехідних отворів (завдяки малій відстані `s = 0.65 мм` взаємна індуктивність зростає до `M_via ≈ 0.35 нГн`): `L_vias = 0.14 нГн` (17.9%);
+5. Індуктивність розтікання у площинах: `L_spread = 0.04 нГн` (5.2%).
+
+Сумарна індуктивність монтажу:
+
+```
+L_total = 0.38 + 0.18 + 0.04 + 0.14 + 0.04
+        = 0.78 нГн
+```
+
+Частота власного резонансу зростає вдвічі:
+
+```
+f_SRF = 1 / (2π · √(0.78·10⁻⁹ · 100·10⁻⁹))
+      = 1 / (2π · 8.832·10⁻⁹)
+      ≈ 18.02 МГц
+```
+
+На частоті `100 МГц` індуктивний опір становить `0.49 Ом`, що у `4 рази краще`, ніж при віддаленому трасуванні, без заміни самого конденсатора.
+
+### Баланс індуктивностей для Топології 5 (Via-in-Pad Top)
+
+При використанні перехідних отворів всередині контактних площадок (VIPPO):
+1. Власна індуктивність корпусу: `L_ESL = 0.38 нГн` (77.5%);
+2. Індуктивність площадок: `L_pads = 0.04 нГн` (8.2%);
+3. Індуктивність доріжок: `L_traces = 0.00 нГн` (0.0%);
+4. Індуктивність пари перехідних отворів: `L_vias = 0.05 нГн` (10.2%);
+5. Індуктивність розтікання: `L_spread = 0.02 нГн` (4.1%).
+
+Сумарна індуктивність монтажу:
+
+```
+L_total = 0.38 + 0.04 + 0.00 + 0.05 + 0.02
+        = 0.49 нГн
+```
+
+Резонансна частота наближається до теоретичного максимуму самого компонента:
+
+```
+f_SRF = 1 / (2π · √(0.49·10⁻⁹ · 100·10⁻⁹))
+      ≈ 22.74 МГц
+```
+
+Монтаж вносить лише `0.11 нГн` паразитної індуктивності, дозволяючи конденсатору працювати практично з паспортними характеристиками.
+
+## 6. Вихідний код аналітичного калькулятора на C99 та C++20
+
+Нижче наведено повністю працездатний, самодостатній вихідний код математичного калькулятора обома мовами.
+
+:::tabs
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <math.h>
+#include <string.h>
+
+#define SPEED_OF_LIGHT_M_S 299792458.0
+#define VACUUM_PERMEABILITY_H_M (4.0 * M_PI * 1e-7)
+
+typedef enum {
+    TOPOLOGY_FAR_TRACE = 0,
+    TOPOLOGY_END_VIA,
+    TOPOLOGY_SIDE_VIA,
+    TOPOLOGY_DOUBLE_SIDE_VIA,
+    TOPOLOGY_VIA_IN_PAD_TOP,
+    TOPOLOGY_BGA_BOTTOM_VIPPO,
+    TOPOLOGY_COUNT
+} DecouplingTopology;
+
+static const char *TOPOLOGY_DESCRIPTIONS[TOPOLOGY_COUNT] = {
+    "1. Far Traces (Віддалений монтаж, довгі траси l=4.0мм, s=3.5мм)",
+    "2. End Vias (Торцеві перехідні отвори за контактними падами)",
+    "3. Side Vias (Бічні перехідні отвори з мінімальним зазором)",
+    "4. Double Side Vias (Подвійні симетричні бічні вії, 4 отвори)",
+    "5. Via-in-Pad Top (Технологія VIPPO на верхньому шарі L1)",
+    "6. BGA Bottom VIPPO (Монтаж на звороті плати прямо під чіпом)"
+};
+
+typedef struct {
+    const char *part_name;
+    double capacitance_f;
+    double esr_ohms;
+    double esl_henries;
+    double length_m;
+    double width_m;
+    double pad_len_m;
+    double pad_width_m;
+} MlccCapacitorModel;
+
+typedef struct {
+    double dielectric_er;
+    double h_to_gnd_plane_m;
+    double h_to_pwr_plane_m;
+    double total_board_thickness_m;
+    double via_drill_diameter_m;
+    double copper_thickness_m;
+} PcbStackupModel;
+
+typedef struct {
+    double l_esl_nh;
+    double l_pads_nh;
+    double l_traces_nh;
+    double l_vias_nh;
+    double l_spread_nh;
+    double l_total_mount_nh;
+    double srf_frequency_mhz;
+    double z_at_srf_mohms;
+    double r_eff_100mhz_mm;
+    double r_eff_500mhz_mm;
+    double r_eff_1ghz_mm;
+} DetailedAnalysisResult;
+
+static double calc_partial_rect_inductance(double length_m, double width_m, double thickness_m) {
+    if (length_m <= 0.0 || width_m <= 0.0) return 0.0;
+    double wt = width_m + thickness_m;
+    double ratio = 2.0 * length_m / wt;
+    if (ratio <= 0.0) return 0.0;
+    double term = log(ratio) + 0.5 + 0.2235 * (wt / length_m);
+    return (VACUUM_PERMEABILITY_H_M * length_m / (2.0 * M_PI)) * term;
+}
+
+static double calc_via_self_inductance(double height_m, double radius_m) {
+    if (height_m <= 0.0 || radius_m <= 0.0) return 0.0;
+    double ratio = 2.0 * height_m / radius_m;
+    double term = log(ratio + sqrt(1.0 + ratio * ratio)) - sqrt(1.0 + 1.0 / (ratio * ratio)) + (radius_m / (2.0 * height_m)) + 0.25;
+    return (VACUUM_PERMEABILITY_H_M * height_m / (2.0 * M_PI)) * term;
+}
+
+static double calc_via_mutual_inductance(double height_m, double pitch_m) {
+    if (height_m <= 0.0 || pitch_m <= 0.0) return 0.0;
+    double hs = height_m / pitch_m;
+    double sh = pitch_m / height_m;
+    double term = log(hs + sqrt(1.0 + hs * hs)) - sqrt(1.0 + sh * sh) + sh;
+    return (VACUUM_PERMEABILITY_H_M * height_m / (2.0 * M_PI)) * term;
+}
+
+static double calc_plane_spreading_inductance(double plane_gap_m, double via_radius_m, double pitch_m) {
+    if (plane_gap_m <= 0.0 || via_radius_m <= 0.0 || pitch_m <= 2.0 * via_radius_m) return 0.0;
+    return (VACUUM_PERMEABILITY_H_M * plane_gap_m / M_PI) * log(pitch_m / (2.0 * via_radius_m));
+}
+
+static double calc_effective_decoupling_radius(double frequency_hz, double er, double safety_factor) {
+    if (frequency_hz <= 0.0 || er <= 0.0 || safety_factor <= 0.0) return 0.0;
+    double v_propagation = SPEED_OF_LIGHT_M_S / sqrt(er);
+    return v_propagation / (2.0 * M_PI * frequency_hz * safety_factor);
+}
+
+void analyze_decoupling_mounting(const MlccCapacitorModel *cap, const PcbStackupModel *pcb,
+                                 DecouplingTopology topology, DetailedAnalysisResult *out_res) {
+    double via_r = pcb->via_drill_diameter_m / 2.0;
+    double l_pads = 0.0;
+    double l_traces = 0.0;
+    double l_vias = 0.0;
+    double l_spread = 0.0;
+    double h_gnd = pcb->h_to_gnd_plane_m;
+    double h_pwr = pcb->h_to_pwr_plane_m;
+    double d_planes = fabs(pcb->h_to_pwr_plane_m - pcb->h_to_gnd_plane_m);
+    if (d_planes < 1e-5) d_planes = 0.0001;
+
+    switch (topology) {
+        case TOPOLOGY_FAR_TRACE: {
+            double tr_len = 0.0040;
+            double tr_w = 0.00025;
+            double via_pitch = 0.0035;
+            l_pads = 2.0 * calc_partial_rect_inductance(cap->pad_len_m, cap->pad_width_m, pcb->copper_thickness_m);
+            l_traces = 2.0 * calc_partial_rect_inductance(tr_len, tr_w, pcb->copper_thickness_m);
+            double l_vg = calc_via_self_inductance(h_gnd, via_r);
+            double l_vp = calc_via_self_inductance(h_pwr, via_r);
+            double m_v = calc_via_mutual_inductance((h_gnd + h_pwr) / 2.0, via_pitch);
+            l_vias = l_vg + l_vp - 2.0 * m_v;
+            l_spread = calc_plane_spreading_inductance(d_planes, via_r, via_pitch);
+            break;
+        }
+        case TOPOLOGY_END_VIA: {
+            double via_pitch = cap->length_m + 2.0 * via_r + 0.00020;
+            l_pads = 2.0 * calc_partial_rect_inductance(cap->pad_len_m, cap->pad_width_m, pcb->copper_thickness_m);
+            l_traces = 2.0 * calc_partial_rect_inductance(0.00030, cap->pad_width_m, pcb->copper_thickness_m);
+            double l_vg = calc_via_self_inductance(h_gnd, via_r);
+            double l_vp = calc_via_self_inductance(h_pwr, via_r);
+            double m_v = calc_via_mutual_inductance((h_gnd + h_pwr) / 2.0, via_pitch);
+            l_vias = l_vg + l_vp - 2.0 * m_v;
+            l_spread = calc_plane_spreading_inductance(d_planes, via_r, via_pitch);
+            break;
+        }
+        case TOPOLOGY_SIDE_VIA: {
+            double via_pitch = cap->width_m + 2.0 * via_r + 0.00015;
+            l_pads = 2.0 * calc_partial_rect_inductance(cap->pad_len_m, cap->pad_width_m, pcb->copper_thickness_m);
+            l_traces = 2.0 * calc_partial_rect_inductance(0.00015, cap->pad_width_m, pcb->copper_thickness_m);
+            double l_vg = calc_via_self_inductance(h_gnd, via_r);
+            double l_vp = calc_via_self_inductance(h_pwr, via_r);
+            double m_v = calc_via_mutual_inductance((h_gnd + h_pwr) / 2.0, via_pitch);
+            l_vias = l_vg + l_vp - 2.0 * m_v;
+            l_spread = calc_plane_spreading_inductance(d_planes, via_r, via_pitch);
+            break;
+        }
+        case TOPOLOGY_DOUBLE_SIDE_VIA: {
+            double via_pitch = cap->width_m + 2.0 * via_r + 0.00015;
+            l_pads = 2.0 * calc_partial_rect_inductance(cap->pad_len_m, cap->pad_width_m, pcb->copper_thickness_m);
+            l_traces = 0.5 * calc_partial_rect_inductance(0.00015, cap->pad_width_m, pcb->copper_thickness_m);
+            double l_vg = calc_via_self_inductance(h_gnd, via_r);
+            double l_vp = calc_via_self_inductance(h_pwr, via_r);
+            double m_v = calc_via_mutual_inductance((h_gnd + h_pwr) / 2.0, via_pitch);
+            l_vias = (l_vg + l_vp - 2.0 * m_v) * 0.52;
+            l_spread = calc_plane_spreading_inductance(d_planes, via_r, via_pitch) * 0.5;
+            break;
+        }
+        case TOPOLOGY_VIA_IN_PAD_TOP: {
+            double via_pitch = cap->length_m - cap->pad_len_m;
+            l_pads = 0.5 * calc_partial_rect_inductance(cap->pad_len_m, cap->pad_width_m, pcb->copper_thickness_m);
+            l_traces = 0.0;
+            double l_vg = calc_via_self_inductance(h_gnd, via_r);
+            double l_vp = calc_via_self_inductance(h_pwr, via_r);
+            double m_v = calc_via_mutual_inductance((h_gnd + h_pwr) / 2.0, via_pitch);
+            l_vias = l_vg + l_vp - 2.0 * m_v;
+            l_spread = calc_plane_spreading_inductance(d_planes, via_r, via_pitch);
+            break;
+        }
+        case TOPOLOGY_BGA_BOTTOM_VIPPO: {
+            double via_pitch = 0.00080;
+            double h_bot_gnd = pcb->total_board_thickness_m - pcb->h_to_gnd_plane_m;
+            double h_bot_pwr = pcb->total_board_thickness_m - pcb->h_to_pwr_plane_m;
+            l_pads = 0.3 * calc_partial_rect_inductance(cap->pad_len_m, cap->pad_width_m, pcb->copper_thickness_m);
+            l_traces = 0.0;
+            double l_vg = calc_via_self_inductance(h_bot_gnd, via_r);
+            double l_vp = calc_via_self_inductance(h_bot_pwr, via_r);
+            double m_v = calc_via_mutual_inductance((h_bot_gnd + h_bot_pwr) / 2.0, via_pitch);
+            l_vias = l_vg + l_vp - 2.0 * m_v;
+            l_spread = calc_plane_spreading_inductance(d_planes, via_r, via_pitch);
+            break;
+        }
+        default:
+            break;
+    }
+
+    out_res->l_esl_nh = cap->esl_henries * 1e9;
+    out_res->l_pads_nh = l_pads * 1e9;
+    out_res->l_traces_nh = l_traces * 1e9;
+    out_res->l_vias_nh = l_vias * 1e9;
+    out_res->l_spread_nh = l_spread * 1e9;
+    out_res->l_total_mount_nh = (cap->esl_henries + l_pads + l_traces + l_vias + l_spread) * 1e9;
+
+    double l_total_h = out_res->l_total_mount_nh * 1e-9;
+    if (l_total_h > 0.0 && cap->capacitance_f > 0.0) {
+        out_res->srf_frequency_mhz = (1.0 / (2.0 * M_PI * sqrt(l_total_h * cap->capacitance_f))) / 1e6;
+    } else {
+        out_res->srf_frequency_mhz = 0.0;
+    }
+
+    out_res->z_at_srf_mohms = cap->esr_ohms * 1000.0;
+    out_res->r_eff_100mhz_mm = calc_effective_decoupling_radius(100e6, pcb->dielectric_er, 4.0) * 1000.0;
+    out_res->r_eff_500mhz_mm = calc_effective_decoupling_radius(500e6, pcb->dielectric_er, 4.0) * 1000.0;
+    out_res->r_eff_1ghz_mm = calc_effective_decoupling_radius(1e9, pcb->dielectric_er, 4.0) * 1000.0;
+}
+
+int main(void) {
+    MlccCapacitorModel cap0402 = {
+        .part_name = "0402 100nF 6.3V X7R",
+        .capacitance_f = 100e-9,
+        .esr_ohms = 0.018,
+        .esl_henries = 0.38e-9,
+        .length_m = 0.0010,
+        .width_m = 0.0005,
+        .pad_len_m = 0.0005,
+        .pad_width_m = 0.0006
+    };
+
+    PcbStackupModel stackup6layer = {
+        .dielectric_er = 4.2,
+        .h_to_gnd_plane_m = 0.00012,
+        .h_to_pwr_plane_m = 0.00060,
+        .total_board_thickness_m = 0.00160,
+        .via_drill_diameter_m = 0.00025,
+        .copper_thickness_m = 0.000035
+    };
+
+    printf("==================================================================================================\n");
+    printf("  АНАЛІТИЧНИЙ КАЛЬКУЛЯТОР ІНДУКТИВНОСТІ МОНТАЖУ РОЗВ'ЯЗКИ (%s)\n", cap0402.part_name);
+    printf("  Параметри стека: 6 шарів, L2 GND=%.2f мм, L3 PWR=%.2f мм, товщина=%.2f мм, Er=%.1f\n",
+           stackup6layer.h_to_gnd_plane_m * 1000.0, stackup6layer.h_to_pwr_plane_m * 1000.0,
+           stackup6layer.total_board_thickness_m * 1000.0, stackup6layer.dielectric_er);
+    printf("==================================================================================================\n\n");
+
+    printf("%-52s | %-6s | %-6s | %-6s | %-6s | %-8s | %-9s\n",
+           "Топологія трасування", "L_pads", "L_trc", "L_vias", "L_sprd", "L_TOTAL", "SRF (MHz)");
+    printf("-----------------------------------------------------+--------+--------+--------+--------+----------+-----------\n");
+
+    for (int t = 0; t < TOPOLOGY_COUNT; ++t) {
+        DetailedAnalysisResult res;
+        analyze_decoupling_mounting(&cap0402, &stackup6layer, (DecouplingTopology)t, &res);
+        printf("%-52s | %5.2f  | %5.2f  | %5.2f  | %5.2f  | %6.2f нГн| %6.1f МГц\n",
+               TOPOLOGY_DESCRIPTIONS[t], res.l_pads_nh, res.l_traces_nh, res.l_vias_nh,
+               res.l_spread_nh, res.l_total_mount_nh, res.srf_frequency_mhz);
+    }
+
+    DetailedAnalysisResult base_res;
+    analyze_decoupling_mounting(&cap0402, &stackup6layer, TOPOLOGY_SIDE_VIA, &base_res);
+    printf("\n--------------------------------------------------------------------------------------------------\n");
+    printf("  Просторовий радіус ефективної дії конденсатора (r_eff, Er=%.1f, запас фази k=4):\n", stackup6layer.dielectric_er);
+    printf("    • f = 100 МГц  -> r_eff = %.1f мм (конденсатор живить локальну зону в радіусі ~5.8 см)\n", base_res.r_eff_100mhz_mm);
+    printf("    • f = 500 МГц  -> r_eff = %.1f мм (вимагає розміщення впритул до чіпа)\n", base_res.r_eff_500mhz_mm);
+    printf("    • f = 1.0 ГГц  -> r_eff = %.1f мм (діє виключно під BGA або всередині корпусу чіпа)\n", base_res.r_eff_1ghz_mm);
+    printf("==================================================================================================\n");
+
+    return 0;
+}
+```
+```cpp
+#include <iostream>
+#include <vector>
+#include <string>
+#include <string_view>
+#include <cmath>
+#include <numbers>
+#include <iomanip>
+#include <expected>
+#include <span>
+
+namespace pdn {
+
+constexpr double SPEED_OF_LIGHT_M_S = 299792458.0;
+constexpr double VACUUM_PERMEABILITY_H_M = 4.0 * std::numbers::pi * 1e-7;
+
+enum class Topology : uint8_t {
+    FarTrace = 0,
+    EndVia,
+    SideVia,
+    DoubleSideVia,
+    ViaInPadTop,
+    BgaBottomViPPO,
+    Count
+};
+
+constexpr std::string_view get_topology_description(Topology top) noexcept {
+    switch (top) {
+        case Topology::FarTrace:        return "1. Far Traces (Віддалений монтаж, довгі траси l=4.0мм, s=3.5мм)";
+        case Topology::EndVia:          return "2. End Vias (Торцеві перехідні отвори за контактними падами)";
+        case Topology::SideVia:         return "3. Side Vias (Бічні перехідні отвори з мінімальним зазором)";
+        case Topology::DoubleSideVia:   return "4. Double Side Vias (Подвійні симетричні бічні вії, 4 отвори)";
+        case Topology::ViaInPadTop:     return "5. Via-in-Pad Top (Технологія VIPPO на верхньому шарі L1)";
+        case Topology::BgaBottomViPPO:  return "6. BGA Bottom VIPPO (Монтаж на звороті плати прямо під чіпом)";
+        default:                        return "Невідома топологія";
+    }
+}
+
+struct CapacitorSpec {
+    std::string part_name;
+    double capacitance_f{100e-9};
+    double esr_ohms{0.018};
+    double esl_henries{0.38e-9};
+    double length_m{0.0010};
+    double width_m{0.0005};
+    double pad_len_m{0.0005};
+    double pad_width_m{0.0006};
+};
+
+struct StackupSpec {
+    double dielectric_er{4.2};
+    double h_to_gnd_plane_m{0.00012};
+    double h_to_pwr_plane_m{0.00060};
+    double total_board_thickness_m{0.00160};
+    double via_drill_diameter_m{0.00025};
+    double copper_thickness_m{0.000035};
+};
+
+struct AnalysisReport {
+    double l_esl_nh{0.0};
+    double l_pads_nh{0.0};
+    double l_traces_nh{0.0};
+    double l_vias_nh{0.0};
+    double l_spread_nh{0.0};
+    double l_total_mount_nh{0.0};
+    double srf_frequency_mhz{0.0};
+    double z_at_srf_mohms{0.0};
+    double r_eff_100mhz_mm{0.0};
+    double r_eff_500mhz_mm{0.0};
+    double r_eff_1ghz_mm{0.0};
+};
+
+class DecouplingLoopEngine {
+public:
+    static double calc_rect_inductance(double length_m, double width_m, double thickness_m) noexcept {
+        if (length_m <= 0.0 || width_m <= 0.0) return 0.0;
+        const double wt = width_m + thickness_m;
+        const double ratio = 2.0 * length_m / wt;
+        if (ratio <= 0.0) return 0.0;
+        const double term = std::log(ratio) + 0.5 + 0.2235 * (wt / length_m);
+        return (VACUUM_PERMEABILITY_H_M * length_m / (2.0 * std::numbers::pi)) * term;
+    }
+
+    static double calc_via_self_inductance(double height_m, double radius_m) noexcept {
+        if (height_m <= 0.0 || radius_m <= 0.0) return 0.0;
+        const double ratio = 2.0 * height_m / radius_m;
+        const double term = std::log(ratio + std::sqrt(1.0 + ratio * ratio))
+                          - std::sqrt(1.0 + 1.0 / (ratio * ratio))
+                          + (radius_m / (2.0 * height_m)) + 0.25;
+        return (VACUUM_PERMEABILITY_H_M * height_m / (2.0 * std::numbers::pi)) * term;
+    }
+
+    static double calc_via_mutual_inductance(double height_m, double pitch_m) noexcept {
+        if (height_m <= 0.0 || pitch_m <= 0.0) return 0.0;
+        const double hs = height_m / pitch_m;
+        const double sh = pitch_m / height_m;
+        const double term = std::log(hs + std::sqrt(1.0 + hs * hs)) - std::sqrt(1.0 + sh * sh) + sh;
+        return (VACUUM_PERMEABILITY_H_M * height_m / (2.0 * std::numbers::pi)) * term;
+    }
+
+    static double calc_spreading_inductance(double plane_gap_m, double via_radius_m, double pitch_m) noexcept {
+        if (plane_gap_m <= 0.0 || via_radius_m <= 0.0 || pitch_m <= 2.0 * via_radius_m) return 0.0;
+        return (VACUUM_PERMEABILITY_H_M * plane_gap_m / std::numbers::pi) * std::log(pitch_m / (2.0 * via_radius_m));
+    }
+
+    static double calc_effective_radius(double frequency_hz, double er, double safety_factor) noexcept {
+        if (frequency_hz <= 0.0 || er <= 0.0 || safety_factor <= 0.0) return 0.0;
+        const double v_propagation = SPEED_OF_LIGHT_M_S / std::sqrt(er);
+        return v_propagation / (2.0 * std::numbers::pi * frequency_hz * safety_factor);
+    }
+
+    static std::expected<AnalysisReport, std::string> analyze_topology(
+        const CapacitorSpec& cap, const StackupSpec& pcb, Topology topology) noexcept
+    {
+        if (cap.capacitance_f <= 0.0) return std::unexpected("Ємність конденсатора має бути додатною величиною");
+        if (pcb.dielectric_er <= 1.0) return std::unexpected("Діелектрична проникність має бути більшою за 1.0");
+
+        AnalysisReport report{};
+        const double via_r = pcb.via_drill_diameter_m / 2.0;
+        double l_pads = 0.0;
+        double l_traces = 0.0;
+        double l_vias = 0.0;
+        double l_spread = 0.0;
+        const double h_gnd = pcb.h_to_gnd_plane_m;
+        const double h_pwr = pcb.h_to_pwr_plane_m;
+        double d_planes = std::abs(pcb.h_to_pwr_plane_m - pcb.h_to_gnd_plane_m);
+        if (d_planes < 1e-5) d_planes = 0.0001;
+
+        switch (topology) {
+            case Topology::FarTrace: {
+                constexpr double tr_len = 0.0040;
+                constexpr double tr_w = 0.00025;
+                constexpr double via_pitch = 0.0035;
+                l_pads = 2.0 * calc_rect_inductance(cap.pad_len_m, cap.pad_width_m, pcb.copper_thickness_m);
+                l_traces = 2.0 * calc_rect_inductance(tr_len, tr_w, pcb.copper_thickness_m);
+                const double l_vg = calc_via_self_inductance(h_gnd, via_r);
+                const double l_vp = calc_via_self_inductance(h_pwr, via_r);
+                const double m_v = calc_via_mutual_inductance((h_gnd + h_pwr) / 2.0, via_pitch);
+                l_vias = l_vg + l_vp - 2.0 * m_v;
+                l_spread = calc_spreading_inductance(d_planes, via_r, via_pitch);
+                break;
+            }
+            case Topology::EndVia: {
+                const double via_pitch = cap.length_m + 2.0 * via_r + 0.00020;
+                l_pads = 2.0 * calc_rect_inductance(cap.pad_len_m, cap.pad_width_m, pcb.copper_thickness_m);
+                l_traces = 2.0 * calc_rect_inductance(0.00030, cap.pad_width_m, pcb.copper_thickness_m);
+                const double l_vg = calc_via_self_inductance(h_gnd, via_r);
+                const double l_vp = calc_via_self_inductance(h_pwr, via_r);
+                const double m_v = calc_via_mutual_inductance((h_gnd + h_pwr) / 2.0, via_pitch);
+                l_vias = l_vg + l_vp - 2.0 * m_v;
+                l_spread = calc_spreading_inductance(d_planes, via_r, via_pitch);
+                break;
+            }
+            case Topology::SideVia: {
+                const double via_pitch = cap.width_m + 2.0 * via_r + 0.00015;
+                l_pads = 2.0 * calc_rect_inductance(cap.pad_len_m, cap.pad_width_m, pcb.copper_thickness_m);
+                l_traces = 2.0 * calc_rect_inductance(0.00015, cap.pad_width_m, pcb.copper_thickness_m);
+                const double l_vg = calc_via_self_inductance(h_gnd, via_r);
+                const double l_vp = calc_via_self_inductance(h_pwr, via_r);
+                const double m_v = calc_via_mutual_inductance((h_gnd + h_pwr) / 2.0, via_pitch);
+                l_vias = l_vg + l_vp - 2.0 * m_v;
+                l_spread = calc_spreading_inductance(d_planes, via_r, via_pitch);
+                break;
+            }
+            case Topology::DoubleSideVia: {
+                const double via_pitch = cap.width_m + 2.0 * via_r + 0.00015;
+                l_pads = 2.0 * calc_rect_inductance(cap.pad_len_m, cap.pad_width_m, pcb.copper_thickness_m);
+                l_traces = 0.5 * calc_rect_inductance(0.00015, cap.pad_width_m, pcb.copper_thickness_m);
+                const double l_vg = calc_via_self_inductance(h_gnd, via_r);
+                const double l_vp = calc_via_self_inductance(h_pwr, via_r);
+                const double m_v = calc_via_mutual_inductance((h_gnd + h_pwr) / 2.0, via_pitch);
+                l_vias = (l_vg + l_vp - 2.0 * m_v) * 0.52;
+                l_spread = calc_spreading_inductance(d_planes, via_r, via_pitch) * 0.5;
+                break;
+            }
+            case Topology::ViaInPadTop: {
+                const double via_pitch = cap.length_m - cap.pad_len_m;
+                l_pads = 0.5 * calc_rect_inductance(cap.pad_len_m, cap.pad_width_m, pcb.copper_thickness_m);
+                l_traces = 0.0;
+                const double l_vg = calc_via_self_inductance(h_gnd, via_r);
+                const double l_vp = calc_via_self_inductance(h_pwr, via_r);
+                const double m_v = calc_via_mutual_inductance((h_gnd + h_pwr) / 2.0, via_pitch);
+                l_vias = l_vg + l_vp - 2.0 * m_v;
+                l_spread = calc_spreading_inductance(d_planes, via_r, via_pitch);
+                break;
+            }
+            case Topology::BgaBottomViPPO: {
+                constexpr double via_pitch = 0.00080;
+                const double h_bot_gnd = pcb.total_board_thickness_m - pcb.h_to_gnd_plane_m;
+                const double h_bot_pwr = pcb.total_board_thickness_m - pcb.h_to_pwr_plane_m;
+                l_pads = 0.3 * calc_rect_inductance(cap.pad_len_m, cap.pad_width_m, pcb.copper_thickness_m);
+                l_traces = 0.0;
+                const double l_vg = calc_via_self_inductance(h_bot_gnd, via_r);
+                const double l_vp = calc_via_self_inductance(h_bot_pwr, via_r);
+                const double m_v = calc_via_mutual_inductance((h_bot_gnd + h_bot_pwr) / 2.0, via_pitch);
+                l_vias = l_vg + l_vp - 2.0 * m_v;
+                l_spread = calc_spreading_inductance(d_planes, via_r, via_pitch);
+                break;
+            }
+            default:
+                return std::unexpected("Невідома конфігурація топології");
+        }
+
+        report.l_esl_nh = cap.esl_henries * 1e9;
+        report.l_pads_nh = l_pads * 1e9;
+        report.l_traces_nh = l_traces * 1e9;
+        report.l_vias_nh = l_vias * 1e9;
+        report.l_spread_nh = l_spread * 1e9;
+        report.l_total_mount_nh = (cap.esl_henries + l_pads + l_traces + l_vias + l_spread) * 1e9;
+
+        const double l_total_h = report.l_total_mount_nh * 1e-9;
+        if (l_total_h > 0.0 && cap.capacitance_f > 0.0) {
+            report.srf_frequency_mhz = (1.0 / (2.0 * std::numbers::pi * std::sqrt(l_total_h * cap.capacitance_f))) / 1e6;
+        }
+
+        report.z_at_srf_mohms = cap.esr_ohms * 1000.0;
+        report.r_eff_100mhz_mm = calc_effective_radius(100e6, pcb.dielectric_er, 4.0) * 1000.0;
+        report.r_eff_500mhz_mm = calc_effective_radius(500e6, pcb.dielectric_er, 4.0) * 1000.0;
+        report.r_eff_1ghz_mm = calc_effective_radius(1e9, pcb.dielectric_er, 4.0) * 1000.0;
+
+        return report;
+    }
+};
+
+} // namespace pdn
+
+int main() {
+    using namespace pdn;
+
+    const CapacitorSpec cap0402{
+        .part_name = "0402 100nF 6.3V X7R",
+        .capacitance_f = 100e-9,
+        .esr_ohms = 0.018,
+        .esl_henries = 0.38e-9,
+        .length_m = 0.0010,
+        .width_m = 0.0005,
+        .pad_len_m = 0.0005,
+        .pad_width_m = 0.0006
+    };
+
+    const StackupSpec pcb6layer{
+        .dielectric_er = 4.2,
+        .h_to_gnd_plane_m = 0.00012,
+        .h_to_pwr_plane_m = 0.00060,
+        .total_board_thickness_m = 0.00160,
+        .via_drill_diameter_m = 0.00025,
+        .copper_thickness_m = 0.000035
+    };
+
+    std::cout << "==================================================================================================\n"
+              << "  C++20 АНАЛІЗ ІНДУКТИВНОСТІ МОНТАЖУ PDN (" << cap0402.part_name << ")\n"
+              << "  Стек: 6 шарів, плата " << pcb6layer.total_board_thickness_m * 1000.0 << " мм, "
+              << "L2 GND=" << pcb6layer.h_to_gnd_plane_m * 1000.0 << " мм, Er=" << pcb6layer.dielectric_er << "\n"
+              << "==================================================================================================\n\n";
+
+    std::cout << std::left << std::setw(53) << "Топологія трасування" << " | "
+              << std::right << std::setw(6) << "L_pads" << " | "
+              << std::setw(6) << "L_trc" << " | "
+              << std::setw(6) << "L_vias" << " | "
+              << std::setw(6) << "L_sprd" << " | "
+              << std::setw(8) << "L_TOTAL" << " | "
+              << std::setw(9) << "SRF (MHz)" << "\n";
+    std::cout << std::string(53, '-') << "-+--------+--------+--------+--------+----------+-----------\n";
+
+    for (uint8_t i = 0; i < static_cast<uint8_t>(Topology::Count); ++i) {
+        const auto top = static_cast<Topology>(i);
+        auto res = DecouplingLoopEngine::analyze_topology(cap0402, pcb6layer, top);
+        if (!res) {
+            std::cerr << "Помилка аналізу: " << res.error() << "\n";
+            continue;
+        }
+
+        std::cout << std::left << std::setw(53) << get_topology_description(top) << " | "
+                  << std::right << std::fixed << std::setprecision(2)
+                  << std::setw(6) << res->l_pads_nh << " | "
+                  << std::setw(6) << res->l_traces_nh << " | "
+                  << std::setw(6) << res->l_vias_nh << " | "
+                  << std::setw(6) << res->l_spread_nh << " | "
+                  << std::setw(6) << res->l_total_mount_nh << " нГн | "
+                  << std::setprecision(1) << std::setw(7) << res->srf_frequency_mhz << " МГц\n";
+    }
+
+    auto side_res = DecouplingLoopEngine::analyze_topology(cap0402, pcb6layer, Topology::SideVia);
+    if (side_res) {
+        std::cout << "\n--------------------------------------------------------------------------------------------------\n"
+                  << "  Ефективний просторовий радіус розв'язки (Er=" << pcb6layer.dielectric_er << ", k=4):\n"
+                  << "    • 100 МГц -> r_eff = " << std::fixed << std::setprecision(1) << side_res->r_eff_100mhz_mm << " мм\n"
+                  << "    • 500 МГц -> r_eff = " << side_res->r_eff_500mhz_mm << " мм\n"
+                  << "    • 1.0 ГГц -> r_eff = " << side_res->r_eff_1ghz_mm << " мм\n"
+                  << "==================================================================================================\n";
+    }
+
+    return 0;
+}
+```
+:::
+
+## 7. Вплив матеріалів діелектрика та просторові радіуси розв'язки
+
+Вибір матеріалу діелектричної основи друкованої плати безпосередньо впливає на швидкість поширення електромагнітної хвилі в шині живлення, а отже, визначає критичні відстані розміщення конденсаторів.
+
+Нижче наведено порівняльний аналіз швидкості поширення сигналу `v_prop` та ефективного радіуса розв'язки `r_eff` для типових конструкційних діелектриків за умови запасу фази `k_safety = 4`:
+
+| Матеріал діелектрика | Типовий Er (1 ГГц) | Швидкість v_prop (мм/нс) | r_eff (100 МГц) | r_eff (500 МГц) | r_eff (1.0 ГГц) |
+|---|---|---|---|---|---|
+| Стандартний FR-4 | 4.40 | 143.0 мм/нс | 56.9 мм | 11.4 мм | 5.7 мм |
+| High-Tg FR-4 (IS400) | 4.15 | 147.2 мм/нс | 58.6 мм | 11.7 мм | 5.9 мм |
+| Nelco N4000-13 | 3.70 | 155.9 мм/нс | 62.0 мм | 12.4 мм | 6.2 мм |
+| Panasonic Megtron 6 | 3.40 | 162.6 мм/нс | 64.7 мм | 12.9 мм | 6.5 мм |
+| Rogers RO4350B | 3.66 | 156.7 мм/нс | 62.4 мм | 12.5 мм | 6.2 мм |
+| Фторопласт (PTFE) | 2.10 | 206.9 мм/нс | 82.3 мм | 16.5 мм | 8.2 мм |
+
+З наведених даних випливають три принципові висновки:
+1. Застосування високочастотних матеріалів із низькою діелектричною проникністю (Low-Dk) збільшує просторовий радіус ефективної дії розв'язки приблизно на 15–25% порівняно зі звичайним FR-4;
+2. На частотах понад 500 МГц для будь-якого сучасного матеріалу радіус дії розв'язувального конденсатора не перевищує 12–16 мм. Це означає, що конденсатор, розташований на відстані 2 см від піна живлення, є абсолютно безкорисним для придушення високочастотних комутаційних шумів;
+3. Для гігагерцових гармонік струму ядра єдиним просторово доступним місцем розміщення є зворотний бік плати безпосередньо під кульковими виводами мікросхеми BGA, де фізична відстань між кулькою та конденсатором визначається виключно товщиною самої друкованої плати (1.0–1.6 мм).
+
+## 8. Розрахунок масивів перехідних отворів (Via Arrays) під BGA
+
+У реальних процесорних розведеннях живлення подається не через одну пару отворів, а через регулярний масив перехідних отворів під BGA-матрицею.
+
+Розглянемо матрицю із `N_p` отворів живлення `VDD` та `N_g` отворів землі `GND`. Кожен отвір `i` взаємодіє з усіма іншими отворами `j` через матрицю часткових індуктивностей `[L_p]`.
+
+Для сітки отворів із координатами `(x_i, y_i)` міжосьова відстань між парою отворів `i` та `j` обчислюється як:
+
+```
+s_ij = √((x_i - x_j)² + (y_i - y_j)²)
+```
+
+Взаємна індуктивність між двома отворами довжиною `h` становить:
+
+```
+M_ij = (μ₀ · h / (2π)) · [ln((h / s_ij) + √(1 + (h / s_ij)²)) - √(1 + (s_ij / h)²) + (s_ij / h)]
+```
+
+Повна індуктивність масиву отворів обчислюється через обернення матриці часткових індуктивностей:
+
+```
+L_array = 1 / (uᵀ · [L_p]⁻¹ · u)
+```
+
+де `u` — одиничний вектор ваг розподілу струмів.
+
+При шаховому чергуванні виводів (Checkerboard Pattern), де кожен отвір живлення `VDD` оточений чотирма найближчими отворами землі `GND` на відстані кроку сітки BGA `p = 0.8 мм`, ефективна індуктивність на один вивід живлення падає за законом насичення:
+- 1 пара отворів: `L_eff = 0.42 нГн`;
+- Масив 2 × 2 пари (4 отвори VDD, 4 отвори GND): `L_eff = 0.12 нГн`;
+- Масив 4 × 4 пари (16 отворів VDD, 16 отворів GND): `L_eff = 0.035 нГн`;
+- Масив 8 × 8 пар (64 отвори VDD, 64 отвори GND): `L_eff = 0.011 нГн`.
+
+Шахове чергування отворів є найефективнішою конфігурацією з погляду мінімізації індуктивності, оскільки створює взаємно компенсовані квадрупольні комірки струму.
+
+## 9. Компоненти з реверсивною геометрією (0306/0508) та багатовивідні IDC
+
+Для зниження власної індуктивності керамічного моноліту виробники розробили спеціальні форм-фактори конденсаторів:
+
+### Конденсатори реверсивної геометрії (Reverse Geometry — 0306, 0508)
+
+У стандартному конденсаторі 0603 струм протікає вздовж довгого тіла компонента (`l = 1.6 мм`), а виводи мають ширину `w = 0.8 мм`. У реверсивному конденсаторі 0306 виводи розташовані вздовж довгих граней (`w = 1.6 мм`), а відстань між ними зменшена до `l = 0.8 мм`.
+
+Згідно з формулою Гровера, зменшення довжини удвічі та подвоєння ширини дає зниження власної індуктивності корпусу `L_ESL` з `0.70 нГн` до `0.15 нГн`.
+
+### Багатовивідні інтердигітальні конденсатори (IDC)
+
+Конденсатори IDC (Interdigitated Capacitors) мають 8 або 10 контактних виводів, які чергуються вздовж корпусу за схемою `VDD - GND - VDD - GND`. Струми всередині моноліту розбиваються на 4–5 паралельних зустрічних потоків, що взаємно компенсують внутрішні магнітні поля. Власна індуктивність IDC становить лише `0.035–0.050 нГн`.
+
+### Балансні чотириполюсники X2Y
+
+Конденсатори технології X2Y містять дві симетричні внутрішні обкладки та два екрануючих земляних електроди. При підключенні струми живлення та землі створюють взаємно ортогональні поля, завдяки чому власна петлева індуктивність компонента прямує до фізичного нуля (`< 0.02 нГн`).
+
+## 10. Метрологія та вимірювання паразитної індуктивності монтажу
+
+Експериментальна верифікація індуктивності монтажу вимагає спеціальних методів вимірювання на субміліомних рівнях імпедансу.
+
+### Метод 2-Port Shunt-Thru з використанням VNA
+
+Стандартне однопортове вимірювання коефіцієнта відбиття `S11` за допомогою векторного аналізатора кіл (VNA) є непридатним для вимірювання імпедансів менше 1 Ома, оскільки похибка калібрування 50-омного тракту перекриває корисний сигнал.
+
+Замість цього застосовується метод двопортового прохідного шунтування (2-Port Shunt-Thru):
+- Порт 1 VNA підключається до тестової точки конденсатора через коаксіальний кабель із хвильовим опором `Z0 = 50 Ом`;
+- Порт 2 VNA підключається паралельно до тієї самої точки;
+- Вимірюється коефіцієнт прямої передачі `S21`.
+
+Комплексний імпеданс досліджуваного вузла розв'язки обчислюється за формулою:
+
+```
+Z_DUT = (Z₀ / 2) · (S₂₁ / (1 - S₂₁))
+```
+
+При малих значеннях імпедансу (`|Z_DUT| << Z0`), формула спрощується:
+
+```
+Z_DUT ≈ (Z₀ / 2) · S₂₁ = 25 · S₂₁
+```
+
+Це дозволяє вимірювати міліомні та субміліомні імпеданси з динамічним діапазоном до `0.1 мОм`.
+
+За виміряною резонансною частотою `f_res` та відомою ємністю `C` повна індуктивність монтажу визначається як:
+
+```
+L_total_mount = 1 / ((2π · f_res)² · C)
+```
+
+## 11. Динамічний аналіз перехідних процесів у часовій області
+
+Розглянемо реакцію контуру розв'язки на імпульсний стрибок споживання струму в часовій області.
+
+Нехай навантаження споживає струм, що наростає лінійно від нуля до `ΔI` за час фронту `t_r`, після чого залишається постійним. Еквівалентне коло живлення моделюється послідовним контуром із ємністю `C`, сумарною індуктивністю монтажу `L_mount` та активним опором `ESR`.
+
+Диференціальне рівняння для відхилення напруги на кристалі `v(t)` має вигляд:
+
+```
+L_mount · C · (d²v / dt²) + ESR · C · (dv / dt) + v(t) = - L_mount · (di / dt) - ESR · i(t)
+```
+
+Характер перехідного процесу визначається коефіцієнтом демпфування:
+
+```
+ζ = (ESR / 2) · √(C / L_mount)
+```
+
+Розрізняють три режими перехідного процесу:
+1. **Коливальний режим (`ζ < 1`, типовий для кераміки з наднизьким ESR)**: Напруга живлення після початкового провалу здійснює згасаючі коливання на резонансній частоті `f_SRF`. Амплітуда першого провалу напруги (First Droop) досягає максимального значення:
+
+```
+V_droop_max ≈ ΔI · √(L_mount / C) + ΔI · ESR
+```
+
+2. **Критичне демпфування (`ζ = 1`)**: Напруга плавно повертається до номіналу без перерегулювання за мінімальний час. Для досягнення цього режиму еквівалентний опір контуру повинен дорівнювати характеристичному імпедансу: `ESR_crit = 2 · √(L_mount / C)`.
+3. **Аперіодичний режим (`ζ > 1`)**: Коливання відсутні, однак початкове падіння напруги збільшується через високий активний опір `ESR`.
+
+Цей розрахунок демонструє, що надмірне прагнення до нульового `ESR` без зменшення індуктивності `L_mount` призводить до виникнення високодобротного дзвінкового процесу (Ringing) на шині живлення, що погіршує фазовий шум генераторів і створює електромагнітні завади.
+
+## 12. Покроковий розбір оптимізації вузла живлення FPGA (Case Study)
+
+Розглянемо практичний приклад проєктування вузла живлення ядра FPGA Xilinx UltraScale+ із напругою живлення `V_CCINT = 0.85 В` та максимальним струмом комутації `ΔI = 20 А` при часі фронту `t_r = 250 пс` (`di/dt = 80 А/нс`). Допустиме вікно нестабільності напруги становить `±3%` (`±25.5 мВ`).
+
+### Крок 1. Розрахунок цільового імпедансу
+
+Цільовий імпеданс шини живлення визначається законом Ома:
+
+```
+Z_target = ΔV_max / ΔI = 0.0255 В / 20 А = 0.001275 Ом = 1.275 мОм
+```
+
+Шина живлення повинна підтримувати імпеданс не вище `1.275 мОм` у смузі частот від постійного струму до частоти зрізу `f_knee ≈ 0.35 / t_r ≈ 1.4 ГГц`.
+
+### Крок 2. Оцінка необхідної індуктивності та ємності
+
+Максимально допустима петлева індуктивність на фронті струму:
+
+```
+L_max = ΔV_max / (di/dt) = 0.0255 В / (80 · 10⁹ А/с) = 0.31875 пГн = 0.000319 нГн
+```
+
+Отримати індуктивність `0.32 пГн` від одного дискретного компонента фізично неможливо. Тому розв'язка розбивається на чотири ієрархічні рівні:
+1. Он-дай ємність кристала (On-Die Decoupling): `C_die ≈ 40 нФ`, `L_die ≈ 0.002 нГн`;
+2. Конденсатори всередині корпусу мікросхеми (Package BJT/Silicon Caps): `C_pkg ≈ 2.2 мкФ`, `L_pkg ≈ 0.02 нГн`;
+3. Масив дискретних керамічних конденсаторів 0201/0402 на зворотному боці плати під BGA;
+4. Об'ємні полімерні конденсатори 0805/1206 та танталові POSCAP навколо чіпа.
+
+### Крок 3. Розрахунок масиву конденсаторів під BGA
+
+Якщо кожен конденсатор 0201 номіналом `100 нФ` при монтажі за технологією VIPPO (Топологія 6) має повну індуктивність монтажу `L_mount = 0.42 нГн`, для отримання еквівалентної індуктивності масиву `L_array ≤ 0.025 нГн` необхідно встановити в паралель не менше:
+
+```
+N = L_mount / L_array_target = 0.42 нГн / 0.025 нГн = 16.8 ≈ 18 конденсаторів
+```
+
+Встановлення 20 конденсаторів 0201 `100 нФ` на зворотному боці плати забезпечує сумарну ємність `2.0 мкФ`, індуктивність `0.021 нГн` та сумарний `ESR_total = 18 мОм / 20 = 0.9 мОм`, що повністю вкладається у бюджет цільового імпедансу `1.275 мОм`.
+
+## 13. Паразитні ефекти вимірювальних зондів та усунення артефактів
+
+Поширеною проблемою при верифікації цілісності живлення є внесення спотворень самим вимірювальним трактом осцилографа:
+
+1. **Індуктивність земляного проводу щупа (Ground Lead Inductance)**: Стандартний щуп осцилографа з довгим земляним дротом типу «крокодил» довжиною 10 см має власну паразитну індуктивність `L_probe ≈ 100 нГн`. У поєднанні з вхідною ємністю щупа `C_probe ≈ 10–15 пФ` утворюється коливальний контур із резонансною частотою близько `130–160 МГц`. При вимірюванні швидких імпульсів струму цей контур збуджується та генерує фальшиві викиди напруги амплітудою в сотні мілівольт, яких насправді немає на платі.
+2. **Методика прямого коаксіального підключення (Coaxial Pigtail / Micro-Probe)**: Для достовірного вимірювання динамічних шумів живлення застосовують коаксіальний кабель 50 Ом, припаяний безпосередньо до контактних площадок конденсатора без використання земляних проводів, або спеціалізовані підпружинені мікропробники з відстанню між голками сигналу та землі `0.5–1.0 мм`.
+3. **Усунення блукаючих струмів обплетення**: На високих частотах різниця потенціалів землі між платою та осцилографом створює струм в обплетенні кабелю. Для його придушення на коаксіальний кабель встановлюють феритові синфазні дроселі (Coaxial Balun).
+
+## 14. Резонанси площинної порожнини (Cavity Resonances) та крайова фільтрація
+
+Пара площин живлення та землі прямокутної форми розмірами `a × b` з діелектричним проміжком `d` утворює електродинамічний об'ємний резонатор із відкритими магнітними стінками по краях плати.
+
+Власні частоти двовимірних електромагнітних коливань моди `TM_{mn}` у площинній порожнині описуються формулою:
+
+```
+f_mn = (c₀ / (2 · √(ε_r))) · √((m / a)² + (n / b)²)
+```
+
+де `m` та `n` — цілі просторові індекси мод (0, 1, 2, ...).
+
+Для типової плати розмірами `100 × 150 мм` на матеріалі FR-4 (`ε_r = 4.2`):
+- Перша мода `TM_{10}` виникає на частоті `f_10 ≈ 488 МГц`;
+- Друга мода `TM_{01}` виникає на частоті `f_01 ≈ 732 МГц`;
+- Діагональна мода `TM_{11}` виникає на частоті `f_11 ≈ 879 МГц`.
+
+На цих резонансних частотах імпеданс площини між точками живлення різко зростає в десятки разів, а по краях друкованої плати утворюється сильне радіальне випромінювання електромагнітних завад (Edge Radiation EMI).
+
+Для придушення площинних резонансів застосовується методика крайової розв'язки (Boundary Decoupling): розв'язувальні конденсатори ємністю `1–10 нФ` рівномірно розташовуються по периметру плати з кроком:
+
+```
+d_spacing ≤ λ_min / 10 = v_prop / (10 · f_max)
+```
+
+На частоті `1 ГГц` крок становить `d_spacing ≤ 15 мм`. Таке розміщення шунтує високочастотне електричне поле на краях плати, перетворюючи відкриті випромінюючі щілини на еквівалентні короткі замикання для ВЧ-поля, що знижує рівень EMI на `15–20 дБ`.
+
+## 15. Вбудована ємність плати (Embedded Capacitance Material — ECM)
+
+Для живлення кристалів із робочими частотами понад 1.5 ГГц дискретні керамічні конденсатори вичерпують свої можливості через індуктивність підвідних перехідних отворів. У таких системах застосовують технологію вбудованих ємнісних діелектриків (ECM — Embedded Capacitance Material, наприклад, 3M C-Ply, FaradFlex, Oak-Mitsui BC-2000).
+
+Матеріал ECM являє собою ультратонкий шар діелектрика товщиною від `12 мкм` до `25 мкм`, легований керамічним нанопорошком (титанатом барію `BaTiO₃`), що має відносну діелектричну проникність `ε_r = 16–30`.
+
+Питома розподілена ємність такої пари шарів живлення та землі становить:
+
+```
+C_area = (ε₀ · ε_r) / d
+```
+
+Для шару товщиною `d = 12 мкм` та `ε_r = 25`:
+
+```
+C_area = (8.854·10⁻¹² · 25) / (12·10⁻⁶) ≈ 18.45 нФ/см²
+```
+
+Плата розміром `10 × 10 см` із таким шаром отримує вбудовану розподілену ємність `1.85 мкФ` із нульовою власною індуктивністю виводів (`L_ESL = 0.000 нГн`) та відсутністю поверхневих перехідних отворів, що забезпечує наднизький імпеданс шини аж до частот `3–5 ГГц`.
+
+## 16. Практичне налаштування правил трасування розв'язки в САПР
+
+Для автоматичного контролю якості розведення розв'язки в сучасних САПР друкованих плат (Altium Designer, Cadence Allegro, KiCad) налаштовуються спеціальні правила трасування:
+
+1. **Правило пріоритету сітки розв'язки (Design Rule Priority in Altium)**: Створюється правило `Component Clearance` із зазором `0.2 мм` між мікросхемою та конденсаторами розв'язки для забезпечення фізичної близькості компонентів.
+2. **Обмеження довжини трас від піна до паду (Max Trace Length Rule)**: Задається правило `Length Constraint` для сигнальних ліній живлення від BGA-кулькового виводу до контактної площадки конденсатора: довжина не більше `1.5 мм`.
+3. **Заборона трасування тонкими лініями (Width Constraint)**: Встановлюється мінімальна ширина доріжки для підключення розв'язки `w ≥ 0.5 мм` або використання суцільного полігону (Polygon Pour).
+4. **Вимоги до термобар'єрів (Thermal Relief vs Direct Connect)**: Для перехідних отворів і контактних площадок розв'язувальних конденсаторів підключення до внутрішніх площин живлення та землі повинно виконуватися **суцільним заливанням (Direct Connect)** без термобар'єрів. Використання термобар'єрів («хрестовин») збільшує індуктивність підключення кожного перехідного отвору на `0.25–0.40 нГн`.
+
+## 17. Вплив площі петлі на випромінювану електромагнітну сумісність (EMI / EMC)
+
+Контур протікання розв'язувального струму є не лише джерелом внутрішнього просідання напруги, але й елементарною магнітною рамковою антеною.
+
+За теорією електромагнітного випромінювання, напруженість електричного поля `E_rad` у далекій зоні на відстані `R` від малого випромінюючого контуру площею `A` зі струмом `I` на частоті `f` становить:
+
+```
+E_rad = (μ₀ · π · f² · I · A) / (R · c₀) · sin(θ)
+```
+
+де `c₀` — швидкість світла, а `θ` — кут відносно нормалі до площини петлі.
+
+Цей закон розкриває критичну залежність: напруженість випромінюваного поля прямо пропорційна площі петлі `A` та росте пропорційно квадрату частоти `f²`:
+- Збільшення площі петлі у 5 разів (наприклад, перехід від бічних перехідних отворів `Side-Via` до довгих доріжок `Far-Trace`) збільшує напруженість випромінюваного поля на `14 дБ`;
+- Подвоєння тактової частоти або поява вищих гармонік струму на частоті 500 МГц замість 100 МГц підсилює випромінювання на `25 дБ` (у 18 разів).
+
+Для відповідності жорстким стандартам електромагнітної сумісності (FCC Class B, CISPR 32 Class B), де граничний рівень напруженості поля на відстані 3 метрів не повинен перевищувати `40 дБ·мкВ/м` у діапазоні 230–1000 МГц, мінімізація площі петлі монтажу є обов'язковою конструктивною вимогою. Конструкція `Via-in-Pad` під BGA знижує паразитне випромінювання на `18–22 дБ` порівняно з поверхневим трасуванням, усуваючи необхідність використання дорогих металевих екранів (Shielding Cans).
+
+Нижче наведено порівняльний аналіз випромінюваного поля для 6 топологій при струмі комутації гармоніки 100 мА на частоті 500 МГц на відстані 3 метри:
+
+| Топологія трасування розв'язки | Орієнтовна площа петлі | Напруженість поля E_rad (3 м) | Запас до межі CISPR 32 Class B |
+|---|---|---|---|
+| 1. Far Traces (довгі траси) | 18.5 мм² | 54.2 дБ·мкВ/м | Перевищення на +14.2 дБ (БРАК) |
+| 2. End Vias (торцеві отвори) | 4.8 мм² | 42.5 дБ·мкВ/м | Перевищення на +2.5 дБ (БРАК) |
+| 3. Side Vias (бічні отвори) | 1.8 мм² | 34.0 дБ·мкВ/м | Запас +6.0 дБ (НОРМА) |
+| 4. Double Side Vias (4 отвори) | 1.1 мм² | 29.7 дБ·мкВ/м | Запас +10.3 дБ (ВІДМІННО) |
+| 5. Via-in-Pad Top (VIPPO L1) | 0.8 мм² | 26.9 дБ·мкВ/м | Запас +13.1 дБ (ВІДМІННО) |
+| 6. BGA Bottom VIPPO (зворот) | 0.6 мм² | 24.4 дБ·мкВ/м | Запас +15.6 дБ (ІДЕАЛЬНО) |
+
+З таблиці наочно видно, що невдале трасування розв'язки перетворює плату на несертифікований радіопередавач завад.
+
+## 18. Виробничі допуски, надійність та правила DFM/DFA
+
+При переході від теоретичного проєктування до масового виробництва електроніки необхідно враховувати фізичні допуски виробництва друкованих плат (Design for Manufacturing, DFM) та вимоги до монтажу компонентів (Design for Assembly, DFA):
+
+1. **Точність свердління отворів (Drill Wander)**: Механічне свердління отворів діаметром 0.25 мм має виробничий допуск позиціонування свердла `±0.05 мм`. Якщо два перехідні отвори живлення та землі запроєктовані з міжосьовою відстанню `s = 0.65 мм`, реальна відстань після виготовлення плати коливається в межах від `0.55 мм` до `0.75 мм`. Це створює розкид коефіцієнта взаємної індуктивності `M_via` у діапазоні до `±15%`.
+2. **Фактор підтравлювання міді (Etch Factor)**: У процесі хімічного травлення друкованих доріжок розчин підтравлює мідь з боків під захисною маскою. Переріз провідника набуває форми трапеції, де верхня ширина менша за нижню на `10–20%`. Це зменшує ефективну площу поперечного перерізу та збільшує часткову індуктивність доріжки на `4–7%`.
+3. **Класифікація технологій Via-in-Pad за стандартом IPC-4761**: Використання перехідних отворів усередині контактних площадок вимагає застосування технології **IPC-4761 Type VII** (Filled and Capped Via). Отвір спочатку заповнюється неелектропровідною епоксидною смолою з підібраним коефіцієнтом теплового розширення (CTE), після чого торець полірується врівень із поверхнею площадки та покривається гальванічною міддю товщиною не менше `12–15 мкм`. Недотримання цієї технології призводить до того, що під час пайки припій затікає у відкритий отвір вії, залишаючи паяне з'єднання конденсатора з дефіцитом припою, що спричиняє утворення холодних пайок та розрив контакту.
+4. **Теплові напруження при монтажі під BGA**: Керамічні конденсатори розміром 0201 та 0402, розташовані на зворотному боці плати навпроти BGA-чіпа, піддаються значним механічним і термічним напруженням під час багаторазових циклів нагрівання/охолодження приладу. Різниця коефіцієнтів теплового розширення між кремнієм чіпа (`CTE ≈ 2.6 ppm/°C`), матеріалом плати FR-4 (`CTE ≈ 14–17 ppm/°C`) та керамікою конденсатора (`CTE ≈ 8–10 ppm/°C`) створює згинальні зусилля, які можуть призвести до появи мікротріщин у кераміці та короткого замикання обкладок. Для запобігання цьому явищу рекомендується використовувати компоненти з м'якими полімерними виводами (Soft Termination / Flexible Termination).
+
+## 19. Зведена інженерна методика проєктування та чек-лист
+
+Для гарантованого забезпечення цілісності живлення на етапі трасування рекомендується виконувати перевірку за наступним чек-листом:
+
+1. **[ ] Перевірка порядку з'єднання (Direct Flow Check)**: Переконайтеся, що вивід живлення мікросхеми спершу з'єднується з контактною площадкою конденсатора, і лише після неї траса йде до перехідного отвору внутрішнього шару.
+2. **[ ] Координація пар перехідних отворів (Via Pair Proximity)**: Перехідні отвори шини живлення `VDD` та землі `GND` кожного конденсатора повинні утворювати координовану пару з мінімально допустимим технологічним зазором (`s ≤ 0.8 мм`).
+3. **[ ] Орієнтація бічних вій (Side-Via Orientation)**: Для корпусів 0402, 0603 та 0805 перехідні отвори повинні розташовуватися вздовж довгих сторін площадок, а не на торцях.
+4. **[ ] Тонкий діелектрик під поверхневим шаром (L1-L2 Thin Prepreg)**: Опорний шар землі `GND` має розташовуватися на шарі L2 з мінімальною товщиною діелектрика (`h ≤ 0.10 мм`), що мінімізує індуктивність поверхневих трас.
+5. **[ ] Розміщення під BGA-матрицею (Under-BGA Decoupling)**: Для мікросхем із тактовими частотами понад 500 МГц або струмами перемикання понад 10 А високочастотні конденсатори (0201/0402 100 нФ) повинні бути встановлені безпосередньо на нижньому боці плати під матрицею чіпа з використанням технології VIPPO.
+6. **[ ] Усунення спільних перехідних отворів (No Via Sharing)**: Кожен конденсатор повинен мати власну незалежну пару перехідних отворів. Спільне використання отворів двома різними конденсаторами подвоює паразитну індуктивність для обох компонентів.
+7. **[ ] Балансування антирезонансів (Anti-Resonance Damping)**: При паралельному використанні конденсаторів різного типорозміру перевірте розрахунком частоти антирезонансних піків та використовуйте конденсатори з контрольованим помірним ESR для їхнього демпфування.
+8. **[ ] Пряме підключення без термобар'єрів (Direct Plane Connect)**: Переконайтеся, що вії розв'язки підключені до внутрішніх площин суцільною міддю без термохрестовин.
+
+## 20. Фінальна інтеграція результатів та інженерні висновки
+
+Представлена розрахункова модель та реалізований на C99 і C++20 програмний калькулятор демонструють, що паразитні параметри розв'язки на сучасних друкованих платах визначаються насамперед топологічною геометрією провідників і взаємним розташуванням перехідних отворів, а не лише паспортними характеристиками керамічних конденсаторів.
+
+Використання бічного трасування перехідних отворів (`Side-Via`), зближення координованих пар отворів живлення та землі до мінімального технологічного зазору, зменшення товщини верхнього діелектричного шару до `75–100 мкм`, а також розміщення мініатюрних конденсаторів на зворотному боці друкованої плати під матрицею BGA за технологією VIPPO дозволяють зменшити сумарну індуктивність монтажу в 4–7 разів (з `3.08 нГн` до `0.42 нГн`). Це розширює частотний діапазон ефективної дії розв'язки, пригнічує паразитні антирезонансні сплески імпедансу шини живлення та гарантує стабільну роботу високопродуктивних обчислювальних систем.
+
