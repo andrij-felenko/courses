@@ -18,30 +18,36 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 5
+            "level": 5,
+            "recode": true
           },
           "api": [
             {
               "file": "api-doc-schema.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "comp": [
             {
               "file": "comp-notified-bodies.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
             {
               "file": "hist-new-approach.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-tdf-validator.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -58,7 +64,8 @@
           "api": [
             {
               "file": "api-cvd-security-txt.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
@@ -70,7 +77,9 @@
           "proj": [
             {
               "file": "proj-secure-update-verifier.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -82,12 +91,14 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "api": [
             {
               "file": "api-astm-f3411.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "hist": [
@@ -99,7 +110,9 @@
           "proj": [
             {
               "file": "proj-remote-id-transmitter.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -115,13 +128,15 @@
           "api": [
             {
               "file": "api-usb-descriptors-bluetooth-eir.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "comp": [
             {
               "file": "comp-registries-cost-matrix.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
@@ -133,7 +148,9 @@
           "proj": [
             {
               "file": "proj-mac-oui-parser.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -181,18 +198,21 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "api": [
             {
               "file": "api-compliance-declarations.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "comp": [
             {
               "file": "comp-rohs-reach-materials.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "hist": [
@@ -204,7 +224,9 @@
           "proj": [
             {
               "file": "proj-scip-bom-analyzer.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -221,25 +243,30 @@
           "api": [
             {
               "file": "api-un383-test-summary.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "comp": [
             {
               "file": "comp-transport-regulations-matrix.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "hist": [
             {
               "file": "hist-lithium-transport-regulations.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-transport-mode-controller.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -250,12 +277,16 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "deeper",
+            "level": 3,
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-eccn-classifier-engine.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -290,7 +321,8 @@
           "proj": [
             {
               "file": "proj-lbt-simulator.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -319,7 +351,8 @@
           "proj": [
             {
               "file": "proj-toa-calculator.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -341,19 +374,22 @@
           "math": [
             {
               "file": "math-imd.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-freq-planner.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-bands.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ]
         }
@@ -394,7 +430,8 @@
           "proj": [
             {
               "file": "proj-rf-module-driver.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -433,7 +470,8 @@
           "comp": [
             {
               "file": "comp-regulatory-frameworks.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
@@ -445,7 +483,8 @@
           "proj": [
             {
               "file": "proj-spurious-emissions-mask.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [

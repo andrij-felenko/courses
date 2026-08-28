@@ -109,21 +109,7 @@ static const uint8_t glyph_bitmap_A[] = {
 };
 ```
 @tab C++
-```cpp
-#include <array>
-#include <cstdint>
-#include <span>
-
-// Бітова маска гліфа 'A' висотою 16 пікселів для вбудованого GUI
-inline constexpr std::array<std::uint8_t, 24> glyph_bitmap_A = {
-    0x00, 0x18, 0x00, 0x00, 0x3c, 0x00, 0x00, 0x7e, 0x00, 0x00, 0xdb, 0x00,
-    0x01, 0x99, 0x80, 0x03, 0x18, 0xc0, 0x07, 0xff, 0xe0, 0x0e, 0x00, 0x70
-};
-
-inline constexpr std::span<const std::uint8_t> get_glyph_A_span() noexcept {
-    return glyph_bitmap_A;
-}
-```
+:::code ne-tilky-kod-d/cpp/sposib-2-poperednia.cpp
 :::
 
 *Юридичний наслідок:* у цьому випадку у прошивку не потрапляє байткод віртуальної машини TrueType. Проте виникає юридична колізія щодо статусу **похідного твору** (*derivative work*). Шрифтові корпорації займають позицію, що растровий масив є прямим цифровим похідним твором від комп'ютерної програми шрифту, а тому створення такого масиву без комерційного дозволу на растеризацію та вшивання у вироби порушує умови EULA.
@@ -201,138 +187,9 @@ inline constexpr std::span<const std::uint8_t> get_glyph_A_span() noexcept {
 
 :::tabs
 @tab C
-```c
-#include <stdio.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-
-#define ASSET_TYPE_UNKNOWN 0
-#define ASSET_TYPE_TTF_FONT 1
-#define ASSET_TYPE_TFLITE_MODEL 2
-
-typedef struct {
-    uint32_t offset;
-    uint32_t size;
-    int type;
-    char identifier[64];
-} embedded_asset_t;
-
-/* Сканування області пам'яті на наявність сигнатур шрифтів та нейромереж */
-int find_embedded_assets(const uint8_t *rom_base, uint32_t rom_size,
-                         embedded_asset_t *out_assets, int max_assets,
-                         int *found_count) {
-    if (!rom_base || !out_assets || !found_count) return -1;
-    *found_count = 0;
-
-    for (uint32_t i = 0; i + 16 < rom_size; ++i) {
-        if (*found_count >= max_assets) break;
-
-        /* Детекція TrueType/OpenType: версія 1.0 або тег OTTO */
-        if ((rom_base[i] == 0x00 && rom_base[i+1] == 0x01 &&
-             rom_base[i+2] == 0x00 && rom_base[i+3] == 0x00) ||
-            (memcmp(&rom_base[i], "OTTO", 4) == 0)) {
-            
-            embedded_asset_t *a = &out_assets[*found_count];
-            a->offset = i;
-            a->type = ASSET_TYPE_TTF_FONT;
-            snprintf(a->identifier, sizeof(a->identifier), "font-ttf-rom-0x%08X", i);
-            a->size = 0; /* Визначається за таблицею numTables */
-            (*found_count)++;
-            i += 256;
-            continue;
-        }
-
-        /* Детекція TensorFlow Lite Micro FlatBuffers */
-        if (memcmp(&rom_base[i+4], "TFL3", 4) == 0) {
-            embedded_asset_t *a = &out_assets[*found_count];
-            a->offset = i;
-            a->type = ASSET_TYPE_TFLITE_MODEL;
-            a->size = *(const uint32_t*)&rom_base[i];
-            snprintf(a->identifier, sizeof(a->identifier), "model-tflite-rom-0x%08X", i);
-            (*found_count)++;
-            i += 512;
-            continue;
-        }
-    }
-    return 0;
-}
-```
+:::code ne-tilky-kod-d/c/main.c
 @tab C++
-```cpp
-#include <iostream>
-#include <vector>
-#include <span>
-#include <string_view>
-#include <string>
-#include <cstdint>
-#include <algorithm>
-
-enum class AssetKind {
-    Unknown,
-    TrueTypeFont,
-    TFLiteModel
-};
-
-struct EmbeddedAsset {
-    std::uint32_t offset{0};
-    std::uint32_t size{0};
-    AssetKind kind{AssetKind::Unknown};
-    std::string identifier;
-};
-
-class RomAssetScanner {
-public:
-    static std::vector<EmbeddedAsset> scan(std::span<const std::uint8_t> rom) {
-        std::vector<EmbeddedAsset> results;
-        if (rom.size() < 16) return results;
-
-        for (std::size_t i = 0; i + 16 < rom.size(); ++i) {
-            const auto window = rom.subspan(i);
-
-            // Перевірка магічних сигнатур шрифтів TrueType / OpenType
-            const bool isFont = (window[0] == 0x00 && window[1] == 0x01 && window[2] == 0x00 && window[3] == 0x00) ||
-                                (std::string_view(reinterpret_cast<const char*>(window.data()), 4) == "OTTO");
-
-            if (isFont) {
-                results.push_back(EmbeddedAsset{
-                    .offset = static_cast<std::uint32_t>(i),
-                    .size = 0,
-                    .kind = AssetKind::TrueTypeFont,
-                    .identifier = "font-ttf-rom-0x" + toHex(static_cast<std::uint32_t>(i))
-                });
-                i += 256;
-                continue;
-            }
-
-            // Перевірка сигнатури моделі TensorFlow Lite
-            if (window.size() >= 8 &&
-                std::string_view(reinterpret_cast<const char*>(window.data() + 4), 4) == "TFL3") {
-                
-                std::uint32_t modelSize = 0;
-                std::copy_n(window.data(), sizeof(std::uint32_t), reinterpret_cast<std::uint8_t*>(&modelSize));
-
-                results.push_back(EmbeddedAsset{
-                    .offset = static_cast<std::uint32_t>(i),
-                    .size = modelSize,
-                    .kind = AssetKind::TFLiteModel,
-                    .identifier = "model-tflite-rom-0x" + toHex(static_cast<std::uint32_t>(i))
-                });
-                i += 512;
-                continue;
-            }
-        }
-        return results;
-    }
-
-private:
-    static std::string toHex(std::uint32_t val) {
-        char buf[16];
-        std::snprintf(buf, sizeof(buf), "%08X", val);
-        return std::string(buf);
-    }
-};
-```
+:::code ne-tilky-kod-d/cpp/vyiavlennia-ne-kodovykh.cpp
 :::
 
 Повний практичний код інструментарію сканування бінарних файлів та алгоритм автоматичної генерації маніфесту CycloneDX наведено у проєктній вставці [Розробка сканера не-кодових активів прошивки та генератора CycloneDX SBOM](root:sys-notary/ne-tilky-kod/proj-non-code-sbom-scanner.md).

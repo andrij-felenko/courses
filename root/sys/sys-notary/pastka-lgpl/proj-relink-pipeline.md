@@ -24,110 +24,8 @@
 - Для C++ методів створюється стабільна плоска C-обгортка (`extern "C"`), щоб уникнути проблем із декодуванням імен (англ. *name mangling*) між різними версіями компіляторів.
 
 :::tabs
-```c
-/* proprietary_engine.c — Закритий модуль обробки сигналів */
-#include <stdint.h>
-#include <stddef.h>
-
-/* Експортований інтерфейс зовнішньої LGPL-бібліотеки */
-extern int lgpl_codec_compress(const uint8_t *in, size_t in_len, 
-                               uint8_t *out, size_t *out_len);
-
-/* Внутрішній пропрієтарний алгоритм: не повинен бути доступний ззовні */
-static uint32_t proprietary_math_filter(uint32_t raw_val) {
-    uint32_t acc = raw_val * 0x45D9F3B;
-    acc ^= (acc >> 16);
-    return acc + 0x1234567;
-}
-
-/* Публічна точка входу пропрієтарного ядра */
-__attribute__((visibility("default")))
-int process_sensor_stream(const uint8_t *raw_buf, size_t len, 
-                          uint8_t *out_buf, size_t *out_len) {
-    if (!raw_buf || !out_buf || !out_len || len == 0) {
-        return -1;
-    }
-
-    uint8_t preprocessed[256];
-    size_t proc_len = (len < sizeof(preprocessed)) ? len : sizeof(preprocessed);
-
-    for (size_t i = 0; i < proc_len; ++i) {
-        preprocessed[i] = (uint8_t)proprietary_math_filter(raw_buf[i]);
-    }
-
-    return lgpl_codec_compress(preprocessed, proc_len, out_buf, out_len);
-}
-```
-```cpp
-// proprietary_engine.cpp — Закритий модуль обробки сигналів
-#include <cstdint>
-#include <cstddef>
-#include <vector>
-#include <span>
-#include <expected>
-
-// Експортований C-інтерфейс зовнішньої LGPL-бібліотеки
-extern "C" int lgpl_codec_compress(const uint8_t *in, size_t in_len, 
-                                  uint8_t *out, size_t *out_len);
-
-namespace proprietary {
-
-namespace {
-// Внутрішній пропрієтарний алгоритм у безназванному просторі імен
-constexpr uint32_t math_filter(uint32_t raw_val) noexcept {
-    uint32_t acc = raw_val * 0x45D9F3B;
-    acc ^= (acc >> 16);
-    return acc + 0x1234567;
-}
-} // namespace
-
-enum class EngineError {
-    InvalidInput,
-    CompressionFailed
-};
-
-// Публічний C++ клас обробника
-class [[gnu::visibility("default")]] SensorProcessor {
-public:
-    std::expected<size_t, EngineError> process(std::span<const uint8_t> input, 
-                                               std::span<uint8_t> output) {
-        if (input.empty() || output.empty()) {
-            return std::unexpected(EngineError::InvalidInput);
-        }
-
-        std::vector<uint8_t> preprocessed;
-        preprocessed.reserve(input.size());
-        for (uint8_t b : input) {
-            preprocessed.push_back(static_cast<uint8_t>(math_filter(b)));
-        }
-
-        size_t out_written = output.size();
-        int rc = lgpl_codec_compress(preprocessed.data(), preprocessed.size(), 
-                                     output.data(), &out_written);
-        if (rc != 0) {
-            return std::unexpected(EngineError::CompressionFailed);
-        }
-
-        return out_written;
-    }
-};
-
-} // namespace proprietary
-
-// Зовнішня C-обгортка для лінкування точки входу
-extern "C" [[gnu::visibility("default")]]
-int process_sensor_stream(const uint8_t *raw_buf, size_t len, 
-                          uint8_t *out_buf, size_t *out_len) {
-    if (!raw_buf || !out_buf || !out_len) return -1;
-    
-    proprietary::SensorProcessor proc;
-    auto res = proc.process(std::span(raw_buf, len), std::span(out_buf, *out_len));
-    if (!res) return -1;
-    
-    *out_len = *res;
-    return 0;
-}
-```
+:::code proj-relink-pipeline/c/proprietary_engine.c
+:::code proj-relink-pipeline/cpp/proprietary_engine.cpp
 :::
 
 ## 2. Конвеєр підготовки об'єктного комплекту
@@ -153,36 +51,7 @@ Symbol table '.symtab' contains 4 entries:
 
 Як видно з виводу, внутрішня функція `proprietary_math_filter` стала локальною (`LOCAL`), зовнішній виклик LGPL-бібліотеки позначено як невизначений (`UND`), а публічна точка входу `process_sensor_stream` доступна для лінкера як глобальна (`GLOBAL`).
 
-```makefile
-# Makefile внутрішнього збирання релізного релінк-пакета
-
-CC = arm-none-eabi-gcc
-OBJCOPY = arm-none-eabi-objcopy
-STRIP = arm-none-eabi-strip
-
-CFLAGS = -mcpu=cortex-m4 -mthumb -O2 -fvisibility=hidden \
-         -ffunction-sections -fdata-sections -Wall
-
-all: relink_package
-
-# Збирання пропрієтарного об'єктного файлу
-proprietary_engine.o: proprietary_engine.c
-	$(CC) $(CFLAGS) -c $< -o $@
-	$(STRIP) --strip-debug $@
-	$(OBJCOPY) --localize-hidden $@
-
-# Формування комплекту для передачі клієнту
-relink_package: proprietary_engine.o
-	mkdir -p dist_relink_kit/obj
-	mkdir -p dist_relink_kit/lgpl_src
-	mkdir -p dist_relink_kit/scripts
-	cp proprietary_engine.o dist_relink_kit/obj/
-	cp -r ../submodules/lgpl_codec/* dist_relink_kit/lgpl_src/
-	cp linker_script.ld dist_relink_kit/scripts/
-	cp Makefile.customer dist_relink_kit/Makefile
-	cp README_RELINK.txt dist_relink_kit/
-	tar -czf customer_relink_bundle.tar.gz dist_relink_kit
-```
+:::code proj-relink-pipeline/make/Makefile
 
 ## 3. Клієнтський Makefile та скрипт лінкера
 
@@ -199,33 +68,7 @@ MEMORY
 }
 ```
 
-```makefile
-# Makefile.customer — Надається клієнту у складі relink kit
-
-TOOLCHAIN_PREFIX ?= arm-none-eabi-
-CC = $(TOOLCHAIN_PREFIX)gcc
-LD = $(TOOLCHAIN_PREFIX)ld
-OBJCOPY = $(TOOLCHAIN_PREFIX)objcopy
-
-CFLAGS = -mcpu=cortex-m4 -mthumb -O2 -Ilgpl_src/include
-LDFLAGS = -T scripts/linker_script.ld -Wl,--gc-sections
-
-# 1. Компіляція модифікованого клієнтом коду LGPL-бібліотеки
-lgpl_codec.o: lgpl_src/codec.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-# 2. Перелінкування пропрієтарного об'єктного файлу з новою бібліотекою
-firmware.elf: obj/proprietary_engine.o lgpl_codec.o
-	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
-
-firmware.bin: firmware.elf
-	$(OBJCOPY) -O binary $< $@
-
-clean:
-	rm -f lgpl_codec.o firmware.elf firmware.bin
-
-.PHONY: clean
-```
+:::code proj-relink-pipeline/make/3-kliientskyi-makefile-ta-2.mk
 
 Супровідний файл `README_RELINK.txt` зобов'язаний містити інформацію про точну версію компілятора (`arm-none-eabi-gcc 12.3.rel1`), інструкцію зі встановлення крос-компілятора на Linux/Windows, команду запуску утиліти прошивання (наприклад, `openocd` або `st-flash`) та опис обмежень на розмір скомпільованого коду бібліотеки, щоб модифікований бінарник не вийшов за межі доступної флеш-пам'яті мікроконтролера.
 
@@ -240,70 +83,6 @@ clean:
 4. Запускає команду перелінкування.
 5. Перевіряє скомпільований двійковий образ `firmware.bin` на наявність внесеного маркерного байтового патерну.
 
-```python
-#!/usr/bin/env python3
-"""validate_relink.py — Автоматизована перевірка можливості перелінкування."""
-import os
-import subprocess
-import sys
-import tempfile
-import shutil
-
-def run_cmd(cmd, cwd):
-    res = subprocess.run(cmd, cwd=cwd, shell=True, 
-                         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-    if res.returncode != 0:
-        print(f"ПОМИЛКА при виконанні: {cmd}\n{res.stderr}")
-        sys.exit(1)
-    return res.stdout
-
-def test_relink_kit(bundle_path):
-    temp_dir = tempfile.mkdtemp(prefix="relink_test_")
-    print(f"[+] Розгортання комплекту перелінкування у: {temp_dir}")
-    
-    # 1. Розпакування комплекту
-    shutil.unpack_archive(bundle_path, temp_dir)
-    kit_root = os.path.join(temp_dir, "dist_relink_kit")
-    
-    # 2. Первинне збирання
-    print("[+] Збирання базової прошивки клієнтським Makefile...")
-    run_cmd("make firmware.bin", cwd=kit_root)
-    
-    base_size = os.path.getsize(os.path.join(kit_root, "firmware.bin"))
-    print(f"[+] Базовий розмір бінарника: {base_size} байтів")
-    
-    # 3. Емуляція модифікації LGPL-коду клієнтом
-    print("[+] Внесення модифікації у вихідний код LGPL-бібліотеки...")
-    codec_c = os.path.join(kit_root, "lgpl_src", "codec.c")
-    with open(codec_c, "r", encoding="utf-8") as f:
-        content = f.read()
-    
-    # Додавання клієнтського хука
-    modified_content = content.replace(
-        "/* COMPRESSION_LOGIC */",
-        "/* USER_MODIFIED */ volatile int user_hook = 0xABCD1234;\n/* COMPRESSION_LOGIC */"
-    )
-    with open(codec_c, "w", encoding="utf-8") as f:
-        f.write(modified_content)
-        
-    # 4. Повторне перелінкування
-    print("[+] Повторне збирання модифікованої прошивки...")
-    run_cmd("make clean && make firmware.bin", cwd=kit_root)
-    
-    # 5. Перевірка наявності зміненого маркера у скомпільованому бінарнику
-    with open(os.path.join(kit_root, "firmware.bin"), "rb") as f:
-        bin_data = f.read()
-        
-    if b"\x34\x12\xcd\xab" in bin_data:
-        print(" УСПІХ: Модифікацію виявлено у прошивці. Комплект ліцензійно валідний.")
-    else:
-        print("❌ ВАДА: Модифікація не потрапила в образ після перелінкування!")
-        sys.exit(1)
-        
-    shutil.rmtree(temp_dir)
-
-if __name__ == "__main__":
-    test_relink_kit("customer_relink_bundle.tar.gz")
-```
+:::code proj-relink-pipeline/py/validate_relink.py
 
 Така автоматизована перевірка повністю виключає людський фактор, гарантує повну відповідність стандарту OpenChain (ISO/IEC 5230) щодо керування відкритим кодом у ланцюгах постачання та доводить юридичну бездоганність комплекту перелінкування перед передачею прошивки на виробничу лінію.
