@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр передрелізної перевірки артефактів</text>
+<text x="500.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр автоматизованої передрелізної верифікації (Pre-flight Checks)</text>
+<rect x="60.0" y="65.0" width="880.0" height="75.0" rx="8" fill="#f8fafc" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="100.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<circle cx="100.0" cy="86.0" r="14.0" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="130.0" y="91.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Етап 1: Валідація схеми та синтаксису</text>
+<text x="130.0" y="117.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Перевірка JSON Schema / Proto маніфесту: валідність обов'язкових полів, формат SemVer, UUID, типи артефактів</text>
+<line x1="500.0" y1="140.0" x2="500.0" y2="165.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="165.0" width="880.0" height="75.0" rx="8" fill="#fdf2f8" stroke="#be185d" stroke-width="1.5"/>
+<text x="100.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#be185d" text-anchor="middle" font-weight="700">2</text>
+<circle cx="100.0" cy="186.0" r="14.0" fill="#ffffff" stroke="#be185d" stroke-width="1.5"/>
+<text x="130.0" y="191.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#be185d" text-anchor="start" font-weight="700">Етап 2: Верифікація криптографічного підпису</text>
+<text x="130.0" y="217.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Перевірка підпису Ed25519/RSA-PSS публічним ключем довіреного ланцюга. Перевірка терміну дії ключів (Not After)</text>
+<line x1="500.0" y1="240.0" x2="500.0" y2="265.0" stroke="#be185d" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="265.0" width="880.0" height="75.0" rx="8" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="100.0" y="290.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#2457d6" text-anchor="middle" font-weight="700">3</text>
+<circle cx="100.0" cy="286.0" r="14.0" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="130.0" y="291.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2457d6" text-anchor="start" font-weight="700">Етап 3: Обчислення та звірка хешів артефактів</text>
+<text x="130.0" y="317.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Потокове зчитування файлів з об'єктного сховища: перевірка SHA-256 та BLAKE3 проти значень у маніфесті</text>
+<line x1="500.0" y1="340.0" x2="500.0" y2="365.0" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arrow)"/>
+<rect x="60.0" y="365.0" width="880.0" height="75.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="100.0" y="390.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#27ae60" text-anchor="middle" font-weight="700">4</text>
+<circle cx="100.0" cy="386.0" r="14.0" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="130.0" y="391.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#27ae60" text-anchor="start" font-weight="700">Етап 4: Аудит сумісності з парком пристроїв</text>
+<text x="130.0" y="417.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Звірка з Device Registry: перевірка наявності цільових моделей заліза, ревізій плат та версій завантажувача</text>
+<rect x="191.3" y="460.5" width="617.4" height="39.0" rx="6" fill="#fefce8" stroke="#ca8a04" stroke-width="1.2"/><text x="500.0" y="477.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="500.0" dy="0.0">Результат: Якщо ВСІ 4 етапи пройдено успішно → статус релізу переводиться у 'Approved/Published'.</tspan><tspan x="500.0" dy="13.0">У разі хоча б однієї помилки → публікація атомарно блокується з генерацією діагностичного звіту.</tspan></text>
+</svg>

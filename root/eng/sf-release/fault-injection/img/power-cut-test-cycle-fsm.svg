@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 570" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="570" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="1020.0" height="540.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="520.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#0f172a" text-anchor="middle" font-weight="700">Скінченний автомат циклу інжекції збоїв у тестовому конвеєрі</text>
+<text x="520.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">Послідовність синхронізації, генерації мікросекундного знеструмлення та валідації оракулом</text>
+<rect x="30.0" y="100.0" width="210.0" height="160.0" rx="6" fill="#f8fafc" stroke="#6366f1" stroke-width="1.5"/>
+<text x="135.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#4338ca" text-anchor="middle" font-weight="700">1. ГОТОВНІСТЬ (IDLE)</text>
+<text x="135.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• V_DD увімкнено (3.3 В)</text>
+<text x="135.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Цільовий пристрій працює</text>
+<text x="135.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6366f1" text-anchor="middle" font-weight="700">• Очікування тригера запису</text>
+<text x="135.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">• Розрахунок зміщення t_delay</text>
+<text x="135.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4338ca" text-anchor="middle">t_delay ∈ [0 .. 400 000] мкс</text>
+<rect x="285.0" y="100.0" width="220.0" height="160.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="395.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1d4ed8" text-anchor="middle" font-weight="700">2. ТРИГЕР ТА ВІДЛІК</text>
+<text x="395.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0284c7" text-anchor="middle" font-weight="700">• DUT подає GPIO HIGH імпульс</text>
+<text x="395.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Запуск таймера TIM2</text>
+<text x="395.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Точний апаратний відлік</text>
+<text x="395.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#ea580c" text-anchor="middle">• Ціль пише у Flash пам'ять</text>
+<text x="395.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1d4ed8" text-anchor="middle">Δt похибка &lt; 100 нс</text>
+<rect x="550.0" y="100.0" width="220.0" height="160.0" rx="6" fill="#fef2f2" stroke="#ef4444" stroke-width="1.6"/>
+<text x="660.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b91c1c" text-anchor="middle" font-weight="700">3. ЗНЕСТРУМЛЕННЯ (CUT)</text>
+<text x="660.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle" font-weight="700">• Розмикання P-MOSFET</text>
+<text x="660.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle">• Вмикання Active Crowbar</text>
+<text x="660.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Розряд шини за 800 нс</text>
+<text x="660.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Ізоляція ліній UART/SWD</text>
+<text x="660.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle">Пауза знеструмлення: 50 мс</text>
+<rect x="810.0" y="100.0" width="200.0" height="160.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+<text x="910.0" y="126.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="700">4. ВІДНОВЛЕННЯ</text>
+<text x="910.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Вимкнення Crowbar</text>
+<text x="910.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle">• Замикання P-MOSFET</text>
+<text x="910.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Подача 3.3 В на DUT</text>
+<text x="910.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">• Старт Bootloader</text>
+<text x="910.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="middle">Таймаут завантаження: 2 с</text>
+<rect x="150.0" y="330.0" width="740.0" height="190.0" rx="6" fill="#f8fafc" stroke="#059669" stroke-width="1.6"/>
+<text x="520.0" y="356.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#065f46" text-anchor="middle" font-weight="700">5. АУДИТ ЗДОРОВ'Я ТА ВЕРДИКТ ОРАКУЛА (HEALTH AUDIT)</text>
+<rect x="170.0" y="380.0" width="215.0" height="120.0" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.2"/>
+<text x="277.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">ВЕРДИКТ: УСПІХ (OK)</text>
+<text x="277.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Відкат або відновлення FS</text>
+<text x="277.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#166534" text-anchor="middle">• Валідний CRC32 пам'яті</text>
+<text x="277.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Пристрій вийшов на зв'язок</text>
+<text x="277.0" y="478.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle" font-weight="700">→ Наступна ітерація зсуву</text>
+<rect x="410.0" y="380.0" width="215.0" height="120.0" rx="4" fill="#fff1f2" stroke="#e11d48" stroke-width="1.2"/>
+<text x="517.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9f1239" text-anchor="middle" font-weight="700">ВЕРДИКТ: ЦЕГЛИНА (BRICK)</text>
+<text x="517.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#be123c" text-anchor="middle">• Bootloader завис / HardFault</text>
+<text x="517.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Відсутній вивід у консоль</text>
+<text x="517.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Пошкодження таблиці A/B</text>
+<text x="517.0" y="478.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#9f1239" text-anchor="middle" font-weight="700">→ СТОП ТЕСТ, ДЕФЕКТ CI!</text>
+<rect x="650.0" y="380.0" width="220.0" height="120.0" rx="4" fill="#fef2f2" stroke="#ef4444" stroke-width="1.2"/>
+<text x="760.0" y="402.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b91c1c" text-anchor="middle" font-weight="700">ВЕРДИКТ: SILENT DATA LOSS</text>
+<text x="760.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Пристрій завантажився</text>
+<text x="760.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle">• Але конфігурацію пошкоджено</text>
+<text x="760.0" y="458.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Метастабільні байти Flash</text>
+<text x="760.0" y="478.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle" font-weight="700">→ СТОП ТЕСТ, КРИТИЧНО!</text>
+<line x1="240.0" y1="180.0" x2="285.0" y2="180.0" stroke="#6366f1" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="505.0" y1="180.0" x2="550.0" y2="180.0" stroke="#2563eb" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="770.0" y1="180.0" x2="810.0" y2="180.0" stroke="#ef4444" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="910.0" y1="260.0" x2="790.0" y2="330.0" stroke="#d97706" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="170.0" y1="430.0" x2="135.0" y2="260.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

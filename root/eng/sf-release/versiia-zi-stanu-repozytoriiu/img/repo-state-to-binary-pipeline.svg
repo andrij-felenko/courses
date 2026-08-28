@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 490" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="490" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр перенесення стану репозиторію в бінарний образ</text>
+<text x="500.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Наскрізний конвеєр перенесення стану репозиторію у виділену секцію бінарного образу</text>
+<rect x="30.0" y="60.0" width="260.0" height="360.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="160.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Стан репозиторію (Git)</text>
+<rect x="45.0" y="110.0" width="230.0" height="60.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="160.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Граф комітів (DAG)</text>
+<text x="160.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Останній тег: v2.4.1 + 14 комітів</text>
+<rect x="45.0" y="190.0" width="230.0" height="60.0" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="160.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Робоче дерево (Worktree)</text>
+<text x="160.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Стан: Clean / Dirty (індекс і файли)</text>
+<rect x="45.0" y="270.0" width="230.0" height="70.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="160.0" y="292.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">git describe --tags --always --dirty</text>
+<text x="160.0" y="312.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Результат: v2.4.1-14-g7a3f89b</text>
+<text x="160.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Хеш: 0x7a3f89b, Прапорець: CLEAN</text>
+<line x1="290.0" y1="240.0" x2="350.0" y2="240.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="320.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Витяг</text>
+<rect x="350.0" y="60.0" width="280.0" height="360.0" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+<text x="490.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="middle" font-weight="700">2. Генератор метаданих (Build Step)</text>
+<rect x="365.0" y="110.0" width="250.0" height="80.0" rx="6" fill="#ffffff" stroke="#fcd34d" stroke-width="1.2"/>
+<text x="490.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Скрипт екстракції (CMake / Py)</text>
+<text x="490.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Розбір SemVer: major=2, minor=4, patch=1</text>
+<text x="490.0" y="170.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">SOURCE_DATE_EPOCH = timestamp коміту</text>
+<rect x="365.0" y="210.0" width="250.0" height="90.0" rx="6" fill="#ffffff" stroke="#fcd34d" stroke-width="1.2"/>
+<text x="490.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Атомарне оновлення файлу</text>
+<text x="490.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle">version_info.h.tmp -&gt; version_info.h</text>
+<text x="490.0" y="270.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle" font-style="italic">Захист кешу збірки (без зайвого rebuild)</text>
+<text x="490.0" y="286.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">Ворота чистоти: fail якщо -dirty у релізі</text>
+<rect x="365.0" y="320.0" width="250.0" height="80.0" rx="6" fill="#ffffff" stroke="#fcd34d" stroke-width="1.2"/>
+<text x="490.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Структура version_info_t</text>
+<text x="490.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Типізовані константи + бітові прапорці</text>
+<text x="490.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2457d6" text-anchor="middle">__attribute__((section(&quot;.version_header&quot;)))</text>
+<line x1="630.0" y1="240.0" x2="690.0" y2="240.0" stroke="#1a1a1a" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="660.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-weight="700">Лінковка</text>
+<rect x="690.0" y="60.0" width="280.0" height="360.0" rx="8" fill="#f0fdf4" stroke="#27ae60" stroke-width="1.5"/>
+<text x="830.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="700">3. Двійковий образ (ELF / BIN)</text>
+<rect x="705.0" y="110.0" width="250.0" height="45.0" rx="6" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="830.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Секція коду: .text</text>
+<rect x="705.0" y="165.0" width="250.0" height="135.0" rx="6" fill="#eff6ff" stroke="#2457d6" stroke-width="1.8"/>
+<text x="830.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2457d6" text-anchor="middle" font-weight="700">СЕКЦІЯ .version_header</text>
+<text x="830.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Magic: 0x56455253 (&quot;VERS&quot;)</text>
+<text x="830.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">SemVer: 2.4.1 | Build: 14</text>
+<text x="830.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Git SHA: 7a3f89b0... | Flags: 0x00</text>
+<text x="830.0" y="265.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle" font-style="italic">Фіксоване зміщення у флеш / ROM</text>
+<text x="830.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Доступ ззовні: readelf / OTA / flasher</text>
+<rect x="705.0" y="310.0" width="250.0" height="45.0" rx="6" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="830.0" y="337.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Секція констант: .rodata</text>
+<rect x="705.0" y="365.0" width="250.0" height="45.0" rx="6" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+<text x="830.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Секція даних: .data / .bss</text>
+</svg>

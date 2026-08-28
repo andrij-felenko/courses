@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 550" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="550" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="980.0" height="520.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="500.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Апаратні механізми автодетектування ревізії друкованої плати</text>
+<rect x="30.0" y="60.0" width="460.0" height="225.0" rx="6" fill="#f8fafc" stroke="#3b82f6" stroke-width="1.4"/>
+<text x="260.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1d4ed8" text-anchor="middle" font-weight="700">1. Резистивний дільник на вході ADC</text>
+<text x="260.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="260.0" dy="0.0">• 1 аналоговий пін кодує 4–8 ревізій через стабільні рівні напруги</tspan><tspan x="260.0" dy="14.2">• Прецизійні резистори 1% (ряд E96) + фільтруючий керамічний конденсатор</tspan><tspan x="260.0" dy="14.2">• Програмне вікно компаратора з гістерезисом та захистом від шуму Vref</tspan></text>
+<rect x="50.0" y="165.0" width="420.0" height="105.0" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.0"/>
+<text x="260.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle" font-weight="700">VDD (3.3V) ──[ R_top ]──●──[ R_bot ]── GND</text>
+<text x="260.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">                      │</text>
+<text x="260.0" y="220.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle">                      └──[ 100nF ]── ADC_IN (STM32/ESP32)</text>
+<text x="260.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Rev A: 0.0V (0x000)  •  Rev B: 1.65V (0x800)  •  Rev C: 3.3V (0xFFF)</text>
+<rect x="510.0" y="60.0" width="460.0" height="225.0" rx="6" fill="#f8fafc" stroke="#8b5cf6" stroke-width="1.4"/>
+<text x="740.0" y="84.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#6d28d9" text-anchor="middle" font-weight="700">2. Цифрові піни конфігурації (Strapping GPIO)</text>
+<text x="740.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="740.0" dy="0.0">• 2–3 цифрових піни з підтяжками Pull-Up (1) або Pull-Down (0)</tspan><tspan x="740.0" dy="14.2">• Зчитування бінарного коду в перші мікросекунди після Reset</tspan><tspan x="740.0" dy="14.2">• Переведення пінів у High-Z або мультиплексування для виключення витоку</tspan></text>
+<rect x="530.0" y="165.0" width="420.0" height="105.0" rx="4" fill="#ffffff" stroke="#c4b5fd" stroke-width="1.0"/>
+<text x="740.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">[ GPIO_0 ] ── 10k до VDD (Bit 0 = 1)</text>
+<text x="740.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">[ GPIO_1 ] ── 10k до GND (Bit 1 = 0)</text>
+<text x="740.0" y="232.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e293b" text-anchor="middle">[ GPIO_2 ] ── 10k до VDD (Bit 2 = 1)</text>
+<text x="740.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6d28d9" text-anchor="middle" font-weight="700">Бінарний код: [1, 0, 1] = 0x05 ──&gt; Ревізія Rev E</text>
+<rect x="30.0" y="295.0" width="460.0" height="225.0" rx="6" fill="#f8fafc" stroke="#059669" stroke-width="1.4"/>
+<text x="260.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#047857" text-anchor="middle" font-weight="700">3. Dedicated Board ID EEPROM / OTP пам'ять</text>
+<text x="260.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="260.0" dy="0.0">• Окрема мікросхема 24C02 або блок One-Time Programmable (OTP) у MCU</tspan><tspan x="260.0" dy="14.2">• Прошивається на стенді ATE під час вихідного заводського контролю</tspan><tspan x="260.0" dy="14.2">• Зберігає структуру TLV: PCB Rev, BOM Variant, серійний номер, MAC-адресу</tspan></text>
+<rect x="50.0" y="400.0" width="420.0" height="105.0" rx="4" fill="#ffffff" stroke="#6ee7b7" stroke-width="1.0"/>
+<text x="260.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#047857" text-anchor="middle" font-weight="700">Структура TLV (Type-Length-Value) у пам'яті:</text>
+<text x="260.0" y="443.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">[ Tag 0x01: Magic 0xAA55 ] [ Tag 0x02: HW Rev = 0x02 (Rev B) ]</text>
+<text x="260.0" y="463.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">[ Tag 0x03: BOM = 0x01 (No GPS) ] [ Tag 0x04: Calib Offsets... ]</text>
+<text x="260.0" y="485.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">[ CRC-16 / SHA-256 Signature ] ──&gt; Захист від пошкодження</text>
+<rect x="510.0" y="295.0" width="460.0" height="225.0" rx="6" fill="#f8fafc" stroke="#d97706" stroke-width="1.4"/>
+<text x="740.0" y="319.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="middle" font-weight="700">4. Device Tree Overlays (Linux / U-Boot)</text>
+<text x="740.0" y="345.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="740.0" dy="0.0">• Стандарт для Embedded Linux систем (Raspberry Pi CM4, i.MX8, STM32MP1)</tspan><tspan x="740.0" dy="14.2">• Базовий образ ядра Linux однаковий для всіх ревізій</tspan><tspan x="740.0" dy="14.2">• Завантажувач U-Boot читає Board ID і динамічно накладає dtbo-оверлей</tspan></text>
+<rect x="530.0" y="400.0" width="420.0" height="105.0" rx="4" fill="#ffffff" stroke="#fde68a" stroke-width="1.0"/>
+<text x="740.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="700">U-Boot зчитує Board ID: 0x03 ──&gt; Вибирає оверлей:</text>
+<text x="740.0" y="443.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">base-board.dtb + board-revC-sensors.dtbo</text>
+<text x="740.0" y="463.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1e293b" text-anchor="middle">Патчинг дерева пристроїв у RAM перед запуском zImage</text>
+<text x="740.0" y="485.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Ядро бачить суворо релевантний список I2C/SPI шин та IRQ ліній</text>
+</svg>

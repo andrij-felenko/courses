@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1090 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1090" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="540.0" y="32.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Вплив миготливих тестів на стабільність тестового набору в CI</text>
+<rect x="35.0" y="60.0" width="490.0" height="410.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="280.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Імовірність хибного збою набору: P(збій) = 1 - (1 - p)ᴺ</text>
+<line x1="55.0" y1="100.0" x2="505.0" y2="100.0" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="100.0" y1="390.0" x2="490.0" y2="390.0" stroke="#333333" stroke-width="1.5"/>
+<line x1="100.0" y1="390.0" x2="100.0" y2="150.0" stroke="#333333" stroke-width="1.5"/>
+<text x="295.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Кількість тестів у наборі (N)</text>
+<text x="65.0" y="263.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">P(збій)</text>
+<line x1="95.0" y1="390.0" x2="100.0" y2="390.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="90.0" y="394.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">0%</text>
+<line x1="95.0" y1="330.0" x2="100.0" y2="330.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="90.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">25%</text>
+<line x1="100.0" y1="330.0" x2="490.0" y2="330.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3 3"/>
+<line x1="95.0" y1="270.0" x2="100.0" y2="270.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="90.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">50%</text>
+<line x1="100.0" y1="270.0" x2="490.0" y2="270.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3 3"/>
+<line x1="95.0" y1="210.0" x2="100.0" y2="210.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="90.0" y="214.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">75%</text>
+<line x1="100.0" y1="210.0" x2="490.0" y2="210.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3 3"/>
+<line x1="95.0" y1="150.0" x2="100.0" y2="150.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="90.0" y="154.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">100%</text>
+<line x1="100.0" y1="150.0" x2="490.0" y2="150.0" stroke="#e5e7eb" stroke-width="1.0" stroke-dasharray="3 3"/>
+<line x1="100.0" y1="390.0" x2="100.0" y2="395.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="100.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">0</text>
+<line x1="178.0" y1="390.0" x2="178.0" y2="395.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="178.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">100</text>
+<line x1="256.0" y1="390.0" x2="256.0" y2="395.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="256.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">200</text>
+<line x1="334.0" y1="390.0" x2="334.0" y2="395.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="334.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">300</text>
+<line x1="412.0" y1="390.0" x2="412.0" y2="395.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="412.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">400</text>
+<line x1="490.0" y1="390.0" x2="490.0" y2="395.0" stroke="#6b7280" stroke-width="1.0"/>
+<text x="490.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">500</text>
+<polyline points="100.0,390.0 115.6,346.3 131.2,310.6 146.8,281.3 162.4,257.4 178.0,237.8 193.6,221.9 209.2,208.8 224.8,198.1 240.4,189.3 256.0,182.2 271.6,176.3 287.2,171.5 302.8,167.6 318.4,164.4 334.0,161.8 349.6,159.6 365.2,157.9 380.8,156.4 396.4,155.3 412.0,154.3 427.6,153.5 443.2,152.9 458.8,152.4 474.4,151.9 490.0,151.6" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<polyline points="100.0,390.0 115.6,367.1 131.2,346.4 146.8,327.7 162.4,310.7 178.0,295.4 193.6,281.5 209.2,269.0 224.8,257.6 240.4,247.4 256.0,238.1 271.6,229.7 287.2,222.1 302.8,215.2 318.4,209.0 334.0,203.4 349.6,198.3 365.2,193.7 380.8,189.5 396.4,185.7 412.0,182.3 427.6,179.2 443.2,176.4 458.8,173.9 474.4,171.6 490.0,169.6" fill="none" stroke="#d97706" stroke-width="2"/>
+<polyline points="100.0,390.0 115.6,385.2 131.2,380.6 146.8,376.0 162.4,371.5 178.0,367.2 193.6,362.8 209.2,358.6 224.8,354.5 240.4,350.4 256.0,346.5 271.6,342.6 287.2,338.8 302.8,335.0 318.4,331.4 334.0,327.8 349.6,324.2 365.2,320.8 380.8,317.4 396.4,314.1 412.0,310.8 427.6,307.7 443.2,304.5 458.8,301.5 474.4,298.5 490.0,295.5" fill="none" stroke="#27ae60" stroke-width="2"/>
+<rect x="255.0" y="115.0" width="235.0" height="75.0" rx="4" fill="#fafafa" stroke="#6b7280" stroke-width="1.0"/>
+<line x1="265.0" y1="132.0" x2="290.0" y2="132.0" stroke="#c0392b" stroke-width="2.5"/>
+<text x="300.0" y="136.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">p = 1.0% (N=100 → 63.4% збоїв)</text>
+<line x1="265.0" y1="152.0" x2="290.0" y2="152.0" stroke="#d97706" stroke-width="2.0"/>
+<text x="300.0" y="156.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="start" font-weight="700">p = 0.5% (N=100 → 39.4% збоїв)</text>
+<line x1="265.0" y1="172.0" x2="290.0" y2="172.0" stroke="#27ae60" stroke-width="2.0"/>
+<text x="300.0" y="176.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">p = 0.1% (N=500 → 39.3% збоїв)</text>
+<rect x="555.0" y="60.0" width="490.0" height="410.0" rx="8" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+<text x="800.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Ефект знецінення та наслідки деградації CI</text>
+<line x1="575.0" y1="100.0" x2="1025.0" y2="100.0" stroke="#6b7280" stroke-width="1.0"/>
+<rect x="580.0" y="120.0" width="440.0" height="70.0" rx="6" fill="#fff8e1" stroke="#d97706" stroke-width="1.5"/>
+<text x="595.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#d97706" text-anchor="start" font-weight="700">Хибні спрацьовування</text>
+<text x="595.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">1–2 миготливі тести руйнують стабільність усього пайплайну</text>
+<rect x="580.0" y="205.0" width="440.0" height="70.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="595.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Ефект «Хлопчик і вовки»</text>
+<text x="595.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Інженери звикають до червоного CI і перезапускають без перевірки</text>
+<rect x="580.0" y="290.0" width="440.0" height="70.0" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="595.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c0392b" text-anchor="start" font-weight="700">Пропуск справжніх регресій</text>
+<text x="595.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Реальні баги зливаються в реліз під виглядом чергового «флейка»</text>
+<rect x="580.0" y="375.0" width="440.0" height="70.0" rx="6" fill="#f3e8ff" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="595.0" y="400.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#7c3aed" text-anchor="start" font-weight="700">Параліч розробки</text>
+<text x="595.0" y="423.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start">Час команди витрачається на ручні перезапуски та суперечки зі стендом</text>
+</svg>

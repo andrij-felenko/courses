@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="980.0" height="500.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="500.0" y="34.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Стратегії випуску: мультибінарна фрагментація проти Single Binary Multi-Hardware</text>
+<rect x="30.0" y="60.0" width="450.0" height="430.0" rx="6" fill="#fff5f5" stroke="#e03131" stroke-width="1.4"/>
+<text x="255.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#c92a2a" text-anchor="middle" font-weight="700">МУЛЬТИБІНАРНИЙ ПІДХІД (Multi-Binary)</text>
+<text x="255.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Окремий артефакт під кожну ревізію плати</text>
+<rect x="50.0" y="125.0" width="410.0" height="48.0" rx="4" fill="#ffffff" stroke="#ffc9c9" stroke-width="1.2"/>
+<text x="255.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Єдина кодова база з умовним препроцесором</text>
+<text x="255.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#862e9c" text-anchor="middle">#ifdef BOARD_REV_A / #elif BOARD_REV_B / #elif BOARD_REV_C</text>
+<line x1="255.0" y1="175.0" x2="255.0" y2="200.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="50.0" y="202.0" width="410.0" height="50.0" rx="4" fill="#ffffff" stroke="#ffc9c9" stroke-width="1.2"/>
+<text x="255.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Роздільна збірка в CI: N паралельних бінарників</text>
+<text x="255.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c92a2a" text-anchor="middle">fw_revA_v2.4.bin   •   fw_revB_v2.4.bin   •   fw_revC_v2.4.bin</text>
+<line x1="255.0" y1="254.0" x2="255.0" y2="278.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="50.0" y="280.0" width="410.0" height="95.0" rx="4" fill="#ffe3e3" stroke="#ffa8a8" stroke-width="1.2"/>
+<text x="255.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c92a2a" text-anchor="middle" font-weight="700">Критичні ризики та експлуатаційні витрати:</text>
+<text x="255.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="255.0" dy="0.0">• Ризик прошити несумісний бінарник на заводі або під час OTA</tspan><tspan x="255.0" dy="13.5">• Комбінаторний вибух матриці тестування (N прошивок × M плат)</tspan><tspan x="255.0" dy="13.5">• Необхідність складного бекенду обліку ревізій кожного пристрою</tspan><tspan x="255.0" dy="13.5">• Блокування оновлення при помилці в базі серійних номерів</tspan></text>
+<rect x="50.0" y="390.0" width="410.0" height="85.0" rx="4" fill="#ffffff" stroke="#e03131" stroke-width="1.2"/>
+<text x="255.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#c92a2a" text-anchor="middle" font-weight="700">Наслідок: Окрипічування (Bricking)</text>
+<text x="255.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="255.0" dy="0.0">Несумісна конфігурація GPIO Chip Select підвішує шину SPI;</tspan><tspan x="255.0" dy="14.2">невідповідний драйвер сенсора впадає у нескінченний Bootloop.</tspan></text>
+<rect x="520.0" y="60.0" width="450.0" height="430.0" rx="6" fill="#f3faf7" stroke="#2b8a3e" stroke-width="1.4"/>
+<text x="745.0" y="86.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#2b8a3e" text-anchor="middle" font-weight="700">SINGLE BINARY MULTI-HARDWARE</text>
+<text x="745.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Один універсальний бінарний образ для всього парку</text>
+<rect x="540.0" y="125.0" width="410.0" height="48.0" rx="4" fill="#ffffff" stroke="#b2f2bb" stroke-width="1.2"/>
+<text x="745.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Єдина кодова база з таблицями дескрипторів</text>
+<text x="745.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1864ab" text-anchor="middle">Абстрактні інтерфейси VTable + таблиця сумісності ревізій</text>
+<line x1="745.0" y1="175.0" x2="745.0" y2="200.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="540.0" y="202.0" width="410.0" height="50.0" rx="4" fill="#ffffff" stroke="#b2f2bb" stroke-width="1.2"/>
+<text x="745.0" y="222.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Єдиний артефакт збірки в CI конвеєрі</text>
+<text x="745.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2b8a3e" text-anchor="middle" font-weight="700">firmware_v2.4_universal.bin (Один криптографічний підпис)</text>
+<line x1="745.0" y1="254.0" x2="745.0" y2="278.0" stroke="#333333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="540.0" y="280.0" width="410.0" height="95.0" rx="4" fill="#d3f9d8" stroke="#8ce99a" stroke-width="1.2"/>
+<text x="745.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#2b8a3e" text-anchor="middle" font-weight="700">Динамічна адаптація на етапі запуску (Phase 0):</text>
+<text x="745.0" y="322.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="745.0" dy="0.0">• Апаратне зчитування Board ID (ADC / Strapping / EEPROM)</tspan><tspan x="745.0" dy="13.5">• Автоматичне підтягування правильної карти пінів (Pinmux)</tspan><tspan x="745.0" dy="13.5">• Підключення відповідного драйвера IMU / Flash без перепрошивки</tspan><tspan x="745.0" dy="13.5">• Безпечний відкат до захищеного стану при невідомій ревізії</tspan></text>
+<rect x="540.0" y="390.0" width="410.0" height="85.0" rx="4" fill="#ffffff" stroke="#2b8a3e" stroke-width="1.2"/>
+<text x="745.0" y="412.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#2b8a3e" text-anchor="middle" font-weight="700">Результат: 100% безпека релізу та OTA</text>
+<text x="745.0" y="434.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle"><tspan x="745.0" dy="0.0">Один файл оновлення поширюється на всі плати Rev A, B, C;</tspan><tspan x="745.0" dy="14.2">виключено людський фактор на конвеєрі та збої розсинхронізації.</tspan></text>
+</svg>

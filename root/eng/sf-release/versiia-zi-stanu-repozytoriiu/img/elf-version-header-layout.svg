@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 990 484" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="990" height="484" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="490.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двійкова розкладка структури version_info_t</text>
+<text x="490.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Двійкова розкладка структури version_info_t у секції .version_header</text>
+<rect x="40.0" y="60.0" width="900.0" height="35.0" rx="4" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+<text x="100.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Зміщення (Offset)</text>
+<text x="250.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Поле структури</text>
+<text x="400.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Тип даних</text>
+<text x="540.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Приклад значення</text>
+<text x="760.0" y="82.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Призначення та інваріанти</text>
+<rect x="40.0" y="100.0" width="900.0" height="27.0" rx="0" fill="#eff6ff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="100.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0x00 .. 0x03 (4 B)</text>
+<text x="250.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2457d6" text-anchor="middle" font-weight="700">magic</text>
+<text x="400.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">uint32_t</text>
+<text x="540.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x56455253 ('VERS')</text>
+<text x="760.0" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Магічне число для швидкого пошуку в дампі</text>
+<rect x="40.0" y="127.0" width="900.0" height="27.0" rx="0" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="100.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0x04 .. 0x05 (2 B)</text>
+<text x="250.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">struct_version</text>
+<text x="400.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">uint16_t</text>
+<text x="540.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x0001 (v1)</text>
+<text x="760.0" y="145.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Версія самої структури дескриптора</text>
+<rect x="40.0" y="154.0" width="900.0" height="27.0" rx="0" fill="#fef2f2" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="100.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0x06 .. 0x07 (2 B)</text>
+<text x="250.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">flags</text>
+<text x="400.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">uint16_t</text>
+<text x="540.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x0001 (BIT_DIRTY)</text>
+<text x="760.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Бітові прапорці (Dirty, Debug, Prerelease, CI)</text>
+<rect x="40.0" y="181.0" width="900.0" height="27.0" rx="0" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="100.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0x08 .. 0x09 (2 B)</text>
+<text x="250.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">major</text>
+<text x="400.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">uint16_t</text>
+<text x="540.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">2</text>
+<text x="760.0" y="199.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Старший номер версії (злам сумісності)</text>
+<rect x="40.0" y="208.0" width="900.0" height="27.0" rx="0" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="100.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0x0A .. 0x0B (2 B)</text>
+<text x="250.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">minor</text>
+<text x="400.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">uint16_t</text>
+<text x="540.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">4</text>
+<text x="760.0" y="226.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Молодший номер (нова сумісна функціональність)</text>
+<rect x="40.0" y="235.0" width="900.0" height="27.0" rx="0" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="100.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0x0C .. 0x0D (2 B)</text>
+<text x="250.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">patch</text>
+<text x="400.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">uint16_t</text>
+<text x="540.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">1</text>
+<text x="760.0" y="253.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Номер патчу (виправлення дефектів)</text>
+<rect x="40.0" y="262.0" width="900.0" height="27.0" rx="0" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="100.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0x0E .. 0x0F (2 B)</text>
+<text x="250.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">reserved</text>
+<text x="400.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">uint16_t</text>
+<text x="540.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">0x0000</text>
+<text x="760.0" y="280.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Вирівнювання до 32-бітної межі</text>
+<rect x="40.0" y="289.0" width="900.0" height="27.0" rx="0" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="100.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0x10 .. 0x13 (4 B)</text>
+<text x="250.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">commit_count</text>
+<text x="400.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">uint32_t</text>
+<text x="540.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">14</text>
+<text x="760.0" y="307.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Кількість комітів після останнього тегу</text>
+<rect x="40.0" y="316.0" width="900.0" height="27.0" rx="0" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="100.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0x14 .. 0x1B (8 B)</text>
+<text x="250.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">git_sha_short</text>
+<text x="400.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">uint8_t[8]</text>
+<text x="540.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">&quot;7a3f89b\0&quot;</text>
+<text x="760.0" y="334.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Скорочений криптографічний хеш коміту HEAD</text>
+<rect x="40.0" y="343.0" width="900.0" height="27.0" rx="0" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="100.0" y="361.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0x1C .. 0x23 (8 B)</text>
+<text x="250.0" y="361.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">timestamp</text>
+<text x="400.0" y="361.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">uint64_t</text>
+<text x="540.0" y="361.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">1724803200</text>
+<text x="760.0" y="361.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Час коміту (SOURCE_DATE_EPOCH, Unix time)</text>
+<rect x="40.0" y="370.0" width="900.0" height="27.0" rx="0" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="100.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0x24 .. 0x43 (32 B)</text>
+<text x="250.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">tag_name</text>
+<text x="400.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">char[32]</text>
+<text x="540.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">&quot;v2.4.1\0...&quot;</text>
+<text x="760.0" y="388.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Рядок назви найближчого тегу в репозиторії</text>
+<rect x="40.0" y="397.0" width="900.0" height="27.0" rx="0" fill="#f0fdf4" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="100.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">0x44 .. 0x47 (4 B)</text>
+<text x="250.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">crc32</text>
+<text x="400.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">uint32_t</text>
+<text x="540.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">0xA3B94F12</text>
+<text x="760.0" y="415.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-style="italic">Контрольна сума CRC32 заголовка для валідації</text>
+<rect x="40.0" y="434.0" width="900.0" height="30.0" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.0"/>
+<text x="490.0" y="453.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle" font-weight="700">Загальний розмір фіксованого заголовка: 72 байти (0x48). Вирівнювання: 8 байтів.</text>
+</svg>

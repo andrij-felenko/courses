@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1010 510" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1010" height="510" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="500.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Динаміка пам'яті та фрагментація купи під час тривалого нічного тестування</text>
+<rect x="30.0" y="30.0" width="940.0" height="440.0" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+<text x="50.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e293b" text-anchor="start" font-weight="700">Динаміка пам'яті під час 8-годинного нічного тесту (Soak Test)</text>
+<text x="50.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="start">Колапс найбільшого неперервного блоку (max_free_block) при збереженні вільної пам'яті</text>
+<line x1="90.0" y1="400.0" x2="920.0" y2="400.0" stroke="#94a3b8" stroke-width="1.5"/>
+<line x1="90.0" y1="400.0" x2="90.0" y2="110.0" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="80.0" y="405.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">0 KB</text>
+<text x="80.0" y="330.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">32 KB</text>
+<text x="80.0" y="260.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">64 KB</text>
+<text x="80.0" y="190.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">96 KB</text>
+<text x="80.0" y="130.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">128 KB</text>
+<text x="80.0" y="115.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#334155" text-anchor="end" font-weight="700">Пам'ять RAM</text>
+<text x="95.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">0 год</text>
+<text x="290.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">2 год</text>
+<text x="490.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">4 год</text>
+<text x="690.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">6 год</text>
+<text x="910.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="end">8 год (Тривалість тесту)</text>
+<line x1="90.0" y1="330.0" x2="920.0" y2="330.0" stroke="#f1f5f9" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="90.0" y1="260.0" x2="920.0" y2="260.0" stroke="#f1f5f9" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="90.0" y1="190.0" x2="920.0" y2="190.0" stroke="#f1f5f9" stroke-width="1.0" stroke-dasharray="4,4"/>
+<line x1="90.0" y1="130.0" x2="920.0" y2="130.0" stroke="#f1f5f9" stroke-width="1.0" stroke-dasharray="4,4"/>
+<polyline points="90.0,165.0 290.0,180.0 490.0,200.0 690.0,220.0 920.0,240.0" fill="none" stroke="#d97706" stroke-width="2.5"/>
+<polyline points="90.0,390.0 290.0,375.0 490.0,355.0 690.0,335.0 920.0,315.0" fill="none" stroke="#c0392b" stroke-width="2.0"/>
+<polyline points="90.0,180.0 190.0,200.0 290.0,250.0 440.0,310.0 590.0,355.0 710.0,382.0 920.0,388.0" fill="none" stroke="#7c3aed" stroke-width="2.5"/>
+<circle cx="710.0" cy="382.0" r="5.0" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="625.9" y="292.8" width="168.2" height="44.4" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.2"/><text x="710.0" y="306.4" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="710.0" dy="0.0">OOM Crash на 6.2 год:</tspan><tspan x="710.0" dy="11.7">malloc(16 KB) повернув NULL,</tspan><tspan x="710.0" dy="11.7">хоча сумарно вільно 78 KB!</tspan></text>
+<line x1="710.0" y1="345.0" x2="710.0" y2="374.0" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="115.0" y="130.5" width="249.9" height="19.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.2"/><text x="240.0" y="143.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="240.0" dy="0.0">Загальна вільна пам'ять (Free Heap, ~75 KB)</tspan></text>
+<rect x="392.2" y="130.5" width="255.5" height="19.0" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.2"/><text x="520.0" y="143.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="520.0" dy="0.0">Найбільший неперервний блок (max_free_block)</tspan></text>
+<rect x="695.7" y="130.5" width="188.6" height="19.0" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1.2"/><text x="790.0" y="143.2" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle" font-weight="700"><tspan x="790.0" dy="0.0">Накопичений витік пам'яті (Leak)</tspan></text>
+</svg>

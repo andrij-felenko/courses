@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 1050 600" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="1050" height="600" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="1020.0" height="570.0" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+<text x="520.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#0f172a" text-anchor="middle" font-weight="700">Архітектура автоматизованого стенда інжекції збоїв живлення (Power-Cut)</text>
+<text x="520.0" y="58.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">Високошвидкісний комутатор, активний розряд шини та цифровий бар'єр проти фантомного живлення</text>
+<rect x="30.0" y="85.0" width="230.0" height="475.0" rx="6" fill="#f8fafc" stroke="#6366f1" stroke-width="1.5"/>
+<text x="145.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#4338ca" text-anchor="middle" font-weight="700">Хост тестування (CI / Runner)</text>
+<text x="145.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">Python / Orchestrator</text>
+<rect x="45.0" y="145.0" width="200.0" height="115.0" rx="4" fill="#ffffff" stroke="#818cf8" stroke-width="1.1"/>
+<text x="145.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#3730a3" text-anchor="middle" font-weight="700">Генератор сценаріїв</text>
+<text x="145.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Псевдовипадковий зсув</text>
+<text x="145.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Просторове сканування</text>
+<text x="145.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Розрахунок фази запису</text>
+<text x="145.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">• Крок: 1 мкс .. 100 мс</text>
+<rect x="45.0" y="275.0" width="200.0" height="130.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="145.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle" font-weight="700">Оракул цілісності</text>
+<text x="145.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Валідація CRC розділів</text>
+<text x="145.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Аудит стану LittleFS/UBIFS</text>
+<text x="145.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle">• Детекція Bootloop / Brick</text>
+<text x="145.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#15803d" text-anchor="middle">• Перевірка відкату (Rollback)</text>
+<text x="145.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">• Логування часових міток</text>
+<rect x="45.0" y="420.0" width="200.0" height="115.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="145.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle" font-weight="700">Інтерфейси зв'язку</text>
+<text x="145.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#4338ca" text-anchor="middle">USB / VCP (Команди)</text>
+<text x="145.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="middle">UART (Логи цілі)</text>
+<text x="145.0" y="500.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">SWD / JTAG (Прошивка)</text>
+<text x="145.0" y="520.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">TCP/IP (CI Агент)</text>
+<rect x="290.0" y="85.0" width="380.0" height="475.0" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text x="480.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1d4ed8" text-anchor="middle" font-weight="700">Апаратний стенд переривання живлення</text>
+<text x="480.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">Мікроконтролерний модуль + Швидкісні ключі MOSFET</text>
+<rect x="305.0" y="145.0" width="350.0" height="120.0" rx="4" fill="#ffffff" stroke="#3b82f6" stroke-width="1.2"/>
+<text x="480.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle" font-weight="700">Мікроконтролер керування (STM32 / RP2040)</text>
+<text x="480.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Апаратний таймер мікросекундних пауз (TIM2, 32-bit, 1 мкс)</text>
+<text x="480.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0284c7" text-anchor="middle">• Вхід зовнішнього тригера з DUT (GPIO EXTI / Capture)</text>
+<text x="480.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Формувач комплементарних сигналів комутації</text>
+<text x="480.0" y="245.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">• Лічильник циклів і моніторинг струму споживання</text>
+<rect x="305.0" y="280.0" width="350.0" height="130.0" rx="4" fill="#fef2f2" stroke="#ef4444" stroke-width="1.2"/>
+<text x="480.0" y="300.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#991b1b" text-anchor="middle" font-weight="700">Силовий каскад швидкісного знеструмлення</text>
+<text x="480.0" y="320.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">P-MOSFET верхнього плеча (High-Side): R_ds &lt; 15 мОм, t_off &lt; 200 нс</text>
+<text x="480.0" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle">Активний розряд (Active Crowbar N-MOSFET + 2.2 Ом на землю)</text>
+<text x="480.0" y="360.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">Швидкість спаду шини: dV/dt &gt; 10 В/мкс (злив заряду ємностей DUT)</text>
+<text x="480.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">Захист від наскрізного струму (Dead-Time Generator: 50 нс)</text>
+<rect x="305.0" y="425.0" width="350.0" height="120.0" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.2"/>
+<text x="480.0" y="445.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#15803d" text-anchor="middle" font-weight="700">Бар'єр захисту від паразитного живлення</text>
+<text x="480.0" y="465.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">Цифрові ізолятори (ISO7741 / ADuM140) на UART, SWD, GPIO</text>
+<text x="480.0" y="485.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#166534" text-anchor="middle">Блокування струму витоку крізь ESD-діоди мікроконтролера</text>
+<text x="480.0" y="505.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">Відключення підтяжок (Pull-up) під час фази знеструмлення</text>
+<text x="480.0" y="525.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">Гальванічна розв'язка вимірювальних кіл</text>
+<rect x="700.0" y="85.0" width="310.0" height="475.0" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.6"/>
+<text x="855.0" y="111.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="middle" font-weight="700">Цільовий пристрій (DUT)</text>
+<text x="855.0" y="129.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">MCU + Flash + Периферія</text>
+<rect x="715.0" y="145.0" width="280.0" height="115.0" rx="4" fill="#ffffff" stroke="#f59e0b" stroke-width="1.1"/>
+<text x="855.0" y="165.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#92400e" text-anchor="middle" font-weight="700">Flash-пам'ять під навантаженням</text>
+<text x="855.0" y="185.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• SPI NOR (W25Q128) / NAND</text>
+<text x="855.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle">• Стирання блоку (400 мс)</text>
+<text x="855.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Запис сторінки (300 мкс)</text>
+<text x="855.0" y="243.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b45309" text-anchor="middle">• Зона ризику: Torn Write</text>
+<rect x="715.0" y="275.0" width="280.0" height="130.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="855.0" y="295.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle" font-weight="700">Критичні підсистеми</text>
+<text x="855.0" y="315.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Завантажувач (Bootloader A/B)</text>
+<text x="855.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Файлова система LittleFS</text>
+<text x="855.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">• Енергонезалежні налаштування NVS</text>
+<text x="855.0" y="375.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">• Таблиця розділів Flash</text>
+<text x="855.0" y="393.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">• Регістри статусу Write-In-Progress</text>
+<rect x="715.0" y="420.0" width="280.0" height="115.0" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="855.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle" font-weight="700">Сигнали та контури</text>
+<text x="855.0" y="460.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#dc2626" text-anchor="middle">V_DD (Керована шина живлення)</text>
+<text x="855.0" y="480.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0284c7" text-anchor="middle">GPIO Trigger (Синхронізація)</text>
+<text x="855.0" y="500.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#059669" text-anchor="middle">UART Console (Телеметрія)</text>
+<text x="855.0" y="520.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">BOR (Brown-out Reset поріг)</text>
+<line x1="260.0" y1="200.0" x2="290.0" y2="200.0" stroke="#6366f1" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="260.0" y1="480.0" x2="290.0" y2="480.0" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="670.0" y1="345.0" x2="700.0" y2="460.0" stroke="#dc2626" stroke-width="2.0" marker-end="url(#arrow)"/>
+<line x1="700.0" y1="480.0" x2="670.0" y2="205.0" stroke="#0284c7" stroke-width="1.8" marker-end="url(#arrow)"/>
+<line x1="700.0" y1="500.0" x2="670.0" y2="500.0" stroke="#059669" stroke-width="1.8" marker-end="url(#arrow)"/>
+</svg>

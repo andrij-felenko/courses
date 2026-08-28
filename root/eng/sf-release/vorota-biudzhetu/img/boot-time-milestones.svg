@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 918.8 390" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="918.8" height="390" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<line x1="80.0" y1="180.0" x2="820.0" y2="180.0" stroke="#333333" stroke-width="2.0"/>
+<line x1="800.0" y1="180.0" x2="830.0" y2="180.0" stroke="#333333" stroke-width="2.0" marker-end="url(#arrow)"/>
+<text x="830.0" y="205.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="700">Час (мс)</text>
+<circle cx="100.0" cy="180.0" r="6.0" fill="#c0392b" stroke="#333333" stroke-width="1.5"/>
+<line x1="100.0" y1="130.0" x2="100.0" y2="180.0" stroke="#333333" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="100.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">T0: 0 мс</text>
+<text x="100.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Reset Handler</text>
+<text x="100.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Старт ядра</text>
+<circle cx="230.0" cy="180.0" r="6.0" fill="#3b82f6" stroke="#333333" stroke-width="1.5"/>
+<line x1="230.0" y1="100.0" x2="230.0" y2="180.0" stroke="#333333" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="230.0" y="90.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">T1: 2.5 мс</text>
+<text x="230.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">SystemInit</text>
+<text x="230.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">PLL + копіювання</text>
+<text x="230.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">.data та .bss</text>
+<circle cx="390.0" cy="180.0" r="6.0" fill="#8b5cf6" stroke="#333333" stroke-width="1.5"/>
+<line x1="390.0" y1="120.0" x2="390.0" y2="180.0" stroke="#333333" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="390.0" y="110.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">T2: 6.0 мс</text>
+<text x="390.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">C++ Static Init</text>
+<text x="390.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">__libc_init_array</text>
+<circle cx="550.0" cy="180.0" r="6.0" fill="#f59e0b" stroke="#333333" stroke-width="1.5"/>
+<line x1="550.0" y1="90.0" x2="550.0" y2="180.0" stroke="#333333" stroke-width="1.0" stroke-dasharray="3,3"/>
+<text x="550.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">T3: 18.0 мс</text>
+<text x="550.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">Драйвери шин</text>
+<text x="550.0" y="225.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">CAN / SPI / Сенсори</text>
+<circle cx="690.0" cy="180.0" r="7.0" fill="#27ae60" stroke="#333333" stroke-width="2.0"/>
+<line x1="690.0" y1="70.0" x2="690.0" y2="180.0" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+<text x="690.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="middle" font-weight="700">T4: 32.0 мс</text>
+<text x="690.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#15803d" text-anchor="middle" font-weight="700">First Task Ready</text>
+<text x="690.0" y="228.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Перший фрейм CAN</text>
+<line x1="780.0" y1="40.0" x2="780.0" y2="280.0" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,4"/>
+<text x="780.0" y="30.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="700">Дедлайн готовності вузла: 50.0 мс</text>
+<text x="780.0" y="305.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Жорсткий ліміт ISO 26262 / CAN bus readiness</text>
+<rect x="690.0" y="140.0" width="90.0" height="25.0" rx="3" fill="#dcfce7" stroke="#27ae60" stroke-width="1.0"/>
+<text x="735.0" y="157.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#166534" text-anchor="middle" font-weight="700">Запас: 18 мс</text>
+<rect x="80.0" y="335.0" width="740.0" height="35.0" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="450.0" y="357.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle" font-weight="700">CI/CD Gate перевіряє тривалість фаз у QEMU/HIL; регресія будь-якого етапу &gt; 10% блокує злиття</text>
+</svg>

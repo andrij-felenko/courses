@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 890 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="890" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="40.0" y="50.0" width="360.0" height="440.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="220.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Flash / ROM (Енергонезалежна пам'ять)</text>
+<text x="220.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Фізичний обсяг: 512 КБ</text>
+<rect x="60.0" y="120.0" width="320.0" height="45.0" rx="4" fill="#e0e7ff" stroke="#4f46e5" stroke-width="1.2"/>
+<text x="220.0" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#312e81" text-anchor="middle" font-weight="700">Vector Table (Таблиця векторів ISR)</text>
+<text x="220.0" y="155.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">0x08000000 | 1 КБ</text>
+<rect x="60.0" y="175.0" width="320.0" height="120.0" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.2"/>
+<text x="220.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e3a8a" text-anchor="middle" font-weight="700">Секція .text (Виконуваний машинний код)</text>
+<text x="220.0" y="235.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Функції програми, RTOS, драйвери периферії</text>
+<text x="220.0" y="255.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle" font-weight="700">Розмір: 210 КБ</text>
+<rect x="60.0" y="305.0" width="320.0" height="75.0" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.2"/>
+<text x="220.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#075985" text-anchor="middle" font-weight="700">Секція .rodata (Константи та таблиці)</text>
+<text x="220.0" y="355.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle">Строкові літерали, lookup-таблиці, vtables | 45 КБ</text>
+<rect x="60.0" y="390.0" width="320.0" height="85.0" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+<text x="220.0" y="420.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#92400e" text-anchor="middle" font-weight="700">Запас Flash для OTA / Слот B</text>
+<text x="220.0" y="440.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle">Вільний резерв: 256 КБ (Поріг CI: max 240 КБ / слот)</text>
+<line x1="45.0" y1="385.0" x2="395.0" y2="385.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="5,3"/>
+<text x="220.0" y="380.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Жорсткий ліміт розділу OTA: 256 КБ</text>
+<rect x="480.0" y="50.0" width="360.0" height="440.0" rx="8" fill="#f8fafc" stroke="#333333" stroke-width="1.5"/>
+<text x="660.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">SRAM (Оперативна пам'ять)</text>
+<text x="660.0" y="100.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle">Фізичний обсяг: 128 КБ</text>
+<rect x="500.0" y="120.0" width="320.0" height="55.0" rx="4" fill="#fee2e2" stroke="#ef4444" stroke-width="1.2"/>
+<text x="660.0" y="142.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#991b1b" text-anchor="middle" font-weight="700">Секція .data (Ініціалізовані глобальні змінні)</text>
+<text x="660.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Копіюються з Flash при старті | 12 КБ</text>
+<rect x="500.0" y="185.0" width="320.0" height="65.0" rx="4" fill="#ffedd5" stroke="#f97316" stroke-width="1.2"/>
+<text x="660.0" y="210.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#9a3412" text-anchor="middle" font-weight="700">Секція .bss (Нульові глобальні/статичні змінні)</text>
+<text x="660.0" y="230.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Буфери, черги RTOS, дескриптори | 28 КБ</text>
+<rect x="500.0" y="260.0" width="320.0" height="160.0" rx="4" fill="#ecfdf5" stroke="#27ae60" stroke-width="1.2"/>
+<text x="660.0" y="285.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#065f46" text-anchor="middle" font-weight="700">Динамічна пам'ять (Купа та Стеки задач)</text>
+<text x="660.0" y="310.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#047857" text-anchor="middle">Купа (Heap) зростає вгору ──&gt;</text>
+<text x="660.0" y="335.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#047857" text-anchor="middle">&lt;── Стек (Stack) зростає вниз</text>
+<text x="660.0" y="365.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#065f46" text-anchor="middle" font-weight="700">Доступний резерв динаміки: 88 КБ</text>
+<text x="660.0" y="395.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Розрахований Max Stack: 24 КБ | Запас: 64 КБ</text>
+<rect x="500.0" y="430.0" width="320.0" height="45.0" rx="4" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2"/>
+<text x="660.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#374151" text-anchor="middle" font-weight="700">MPU Guard Region / Запобіжна зона</text>
+<text x="660.0" y="468.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="middle">Апаратний захист від переповнення стека</text>
+<line x1="485.0" y1="255.0" x2="835.0" y2="255.0" stroke="#c0392b" stroke-width="2.0" stroke-dasharray="5,3"/>
+<text x="660.0" y="250.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="700">Поріг статичної RAM (.data + .bss ≤ 40 КБ)</text>
+</svg>

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-46.6 -10 1106.6 630" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-46.6" y="-10" width="1106.6" height="630" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="1040.0" height="600.0" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="530.0" y="40.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#0f172a" text-anchor="middle" font-weight="700">Анатомія повного релізного пакета вбудованого продукту</text>
+<text x="530.0" y="60.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">Комплект постачання: від виконавчого бінарника до сертифікатів безпеки та довгострокового архіву</text>
+<rect x="30.0" y="85.0" width="680.0" height="510.0" rx="6" fill="#f8fafc" stroke="#2563eb" stroke-width="1.8"/>
+<text x="50.0" y="113.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#1e40af" text-anchor="start" font-weight="700">Релізний архів випуску (firmware-v2.4.0-release.tar.zst)</text>
+<rect x="50.0" y="130.0" width="310.0" height="135.0" rx="5" fill="#eff6ff" stroke="#0284c7" stroke-width="1.2"/>
+<text x="62.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="start" font-weight="700">1. Виробничий бінарний образ</text>
+<rect x="62.0" y="162.0" width="286.0" height="24.0" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.8"/>
+<text x="68.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start" font-weight="700">firmware.bin / firmware.hex / app.dfu</text>
+<rect x="-36.6" y="211.2" width="483.1" height="21.5" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="205.0" y="207.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle"><tspan x="205.0" dy="0.0">Чистий виконуваний код для прошивки у Flash мікроконтролера через завантажувач чи JTAG.</tspan></text>
+<rect x="380.0" y="130.0" width="310.0" height="135.0" rx="5" fill="#faf5ff" stroke="#7c3aed" stroke-width="1.2"/>
+<text x="392.0" y="152.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="start" font-weight="700">2. Налагоджувальний ELF з DWARF</text>
+<rect x="392.0" y="162.0" width="286.0" height="24.0" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.8"/>
+<text x="398.0" y="178.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start" font-weight="700">firmware.elf (повні секції .debug_*)</text>
+<rect x="301.6" y="211.2" width="466.9" height="21.5" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="535.0" y="232.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle"><tspan x="535.0" dy="0.0">Таблиці символів, типів, змінних і номерів рядків коду для розбору аварійних дампів.</tspan></text>
+<rect x="50.0" y="280.0" width="310.0" height="135.0" rx="5" fill="#f0fdf4" stroke="#059669" stroke-width="1.2"/>
+<text x="62.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#059669" text-anchor="start" font-weight="700">3. Файл мапи лінкера (Memory Map)</text>
+<rect x="62.0" y="312.0" width="286.0" height="24.0" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.8"/>
+<text x="68.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start" font-weight="700">firmware.map (секції, крос-референси)</text>
+<rect x="-36.6" y="361.2" width="483.1" height="21.5" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="205.0" y="357.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle"><tspan x="205.0" dy="0.0">Точні фізичні адреси Flash/RAM, розміри функцій і статичних буферів, межі стека й купи.</tspan></text>
+<rect x="380.0" y="280.0" width="310.0" height="135.0" rx="5" fill="#fffbeb" stroke="#d97706" stroke-width="1.2"/>
+<text x="392.0" y="302.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#d97706" text-anchor="start" font-weight="700">4. Підписаний маніфест прошивки</text>
+<rect x="392.0" y="312.0" width="286.0" height="24.0" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.8"/>
+<text x="398.0" y="328.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start" font-weight="700">manifest.json + manifest.sig (Ed25519)</text>
+<rect x="298.9" y="361.2" width="472.3" height="21.5" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="535.0" y="382.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle"><tspan x="535.0" dy="0.0">Версія, ревізія заліза, лічильник анти-відкату, геш образу та криптографічний підпис.</tspan></text>
+<rect x="50.0" y="430.0" width="310.0" height="135.0" rx="5" fill="#fef2f2" stroke="#dc2626" stroke-width="1.2"/>
+<text x="62.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="start" font-weight="700">5. Специфікація компонентів (SBOM)</text>
+<rect x="62.0" y="462.0" width="286.0" height="24.0" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.8"/>
+<text x="68.0" y="478.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start" font-weight="700">sbom.spdx.json / sbom.cdx.json</text>
+<rect x="-36.6" y="511.2" width="483.1" height="21.5" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="205.0" y="507.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle"><tspan x="205.0" dy="0.0">Машиночитаний перелік усіх сторонніх бібліотек, ліцензій, версій і pURL для аудиту CVE.</tspan></text>
+<rect x="380.0" y="430.0" width="310.0" height="135.0" rx="5" fill="#f1f5f9" stroke="#475569" stroke-width="1.2"/>
+<text x="392.0" y="452.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#475569" text-anchor="start" font-weight="700">6. Звіти верифікації та контрольні суми</text>
+<rect x="392.0" y="462.0" width="286.0" height="24.0" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.8"/>
+<text x="398.0" y="478.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e293b" text-anchor="start" font-weight="700">tests-junit.xml, misra.sarif, SHA256SUMS</text>
+<rect x="304.3" y="511.2" width="461.4" height="21.5" rx="6" fill="none" stroke="none" stroke-width="1.5"/><text x="535.0" y="532.3" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#475569" text-anchor="middle"><tspan x="535.0" dy="0.0">Протоколи прогону модульних тестів, статичного аналізу, HIL-тестів та SHA-256 хеші.</tspan></text>
+<text x="885.0" y="105.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="13" fill="#0f172a" text-anchor="middle" font-weight="700">Цільові споживачі та сценарії</text>
+<rect x="735.0" y="130.0" width="295.0" height="95.0" rx="5" fill="#ffffff" stroke="#0284c7" stroke-width="1.4"/>
+<circle cx="755.0" cy="158.0" r="6.0" fill="#0284c7" stroke="none" stroke-width="1.5"/>
+<text x="770.0" y="162.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#0284c7" text-anchor="start" font-weight="700">Завантажувач / OTA / Фабрика</text>
+<text x="770.0" y="188.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="start">Приймає .bin та перевіряє manifest.sig</text>
+<line x1="710.0" y1="177.0" x2="735.0" y2="177.0" stroke="#0284c7" stroke-width="1.2" stroke-dasharray="4,3"/>
+<circle cx="710.0" cy="177.0" r="3.0" fill="#0284c7" stroke="none" stroke-width="1.5"/>
+<rect x="735.0" y="245.0" width="295.0" height="95.0" rx="5" fill="#ffffff" stroke="#7c3aed" stroke-width="1.4"/>
+<circle cx="755.0" cy="273.0" r="6.0" fill="#7c3aed" stroke="none" stroke-width="1.5"/>
+<text x="770.0" y="277.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#7c3aed" text-anchor="start" font-weight="700">Інженери підтримки / Тріаж</text>
+<text x="770.0" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="start">Декодують HardFault через .elf та .map</text>
+<line x1="710.0" y1="292.0" x2="735.0" y2="292.0" stroke="#7c3aed" stroke-width="1.2" stroke-dasharray="4,3"/>
+<circle cx="710.0" cy="292.0" r="3.0" fill="#7c3aed" stroke="none" stroke-width="1.5"/>
+<rect x="735.0" y="360.0" width="295.0" height="95.0" rx="5" fill="#ffffff" stroke="#dc2626" stroke-width="1.4"/>
+<circle cx="755.0" cy="388.0" r="6.0" fill="#dc2626" stroke="none" stroke-width="1.5"/>
+<text x="770.0" y="392.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#dc2626" text-anchor="start" font-weight="700">Відділ кібербезпеки / DevSecOps</text>
+<text x="770.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="start">Аналізують SBOM на відомі вразливості CVE</text>
+<line x1="710.0" y1="407.0" x2="735.0" y2="407.0" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="4,3"/>
+<circle cx="710.0" cy="407.0" r="3.0" fill="#dc2626" stroke="none" stroke-width="1.5"/>
+<rect x="735.0" y="475.0" width="295.0" height="95.0" rx="5" fill="#ffffff" stroke="#059669" stroke-width="1.4"/>
+<circle cx="755.0" cy="503.0" r="6.0" fill="#059669" stroke="none" stroke-width="1.5"/>
+<text x="770.0" y="507.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#059669" text-anchor="start" font-weight="700">Орган сертифікації / Аудит (10+ років)</text>
+<text x="770.0" y="533.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="start">Перевіряють звіти тестів та SHA256SUMS</text>
+<line x1="710.0" y1="522.0" x2="735.0" y2="522.0" stroke="#059669" stroke-width="1.2" stroke-dasharray="4,3"/>
+<circle cx="710.0" cy="522.0" r="3.0" fill="#059669" stroke="none" stroke-width="1.5"/>
+</svg>

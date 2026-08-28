@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 480" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="480" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="450.0" y="44.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="17" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конвеєр автоматизованої перевірки DCO та комплаєнсу у CI/CD</text>
+<text x="450.0" y="26.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="700">Автоматизований конвеєр перевірки DCO та підписів у CI/CD</text>
+<rect x="30.0" y="75.0" width="175.0" height="120.0" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="117.5" y="99.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="middle" font-weight="700">1. Pull Request / Push</text>
+<text x="117.5" y="119.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Webhook надсилає подію</text>
+<text x="117.5" y="139.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="middle">Список нових комітів</text>
+<text x="117.5" y="159.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#5b328a" text-anchor="middle" font-weight="700">GIT_AUTHOR_EMAIL</text>
+<text x="117.5" y="179.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#5b328a" text-anchor="middle">Тіло commit message</text>
+<line x1="205.0" y1="135.0" x2="240.0" y2="135.0" stroke="#1a1a1a" stroke-width="1.8"/>
+<polygon points="245.0,135.0 237.0,131.0 237.0,139.0" fill="#1a1a1a" stroke="none" stroke-width="0.0"/>
+<rect x="245.0" y="60.0" width="290.0" height="150.0" rx="10" fill="#f4eefb" stroke="#5b328a" stroke-width="2.0"/>
+<text x="390.0" y="85.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#5b328a" text-anchor="middle" font-weight="700">2. DCO Verifier Engine (CI Bot)</text>
+<line x1="260.0" y1="95.0" x2="520.0" y2="95.0" stroke="#5b328a" stroke-width="1.0" stroke-dasharray="3 2"/>
+<text x="261.0" y="114.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Парсинг трейлерів git interpret-trailers</text>
+<text x="261.0" y="132.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Вилучення рядка Signed-off-by: Name &lt;email&gt;</text>
+<text x="261.0" y="150.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Перевірка: Email автора == Email у Sign-off</text>
+<text x="261.0" y="168.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Валідація співавторів Co-authored-by</text>
+<text x="261.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1a1a1a" text-anchor="start">• Перевірка криптографічного GPG-підпису</text>
+<path d="M 535 110 L 600 110 L 600 100 L 650 100" fill="none" stroke="#236932" stroke-width="2.0"/>
+<polygon points="655.0,100.0 647.0,96.0 647.0,104.0" fill="#236932" stroke="none" stroke-width="0.0"/>
+<text x="595.0" y="88.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#236932" text-anchor="middle" font-weight="700">Коміти валідні</text>
+<path d="M 535 160 L 600 160 L 600 270 L 650 270" fill="none" stroke="#9c2626" stroke-width="2.0"/>
+<polygon points="655.0,270.0 647.0,266.0 647.0,274.0" fill="#9c2626" stroke="none" stroke-width="0.0"/>
+<text x="595.0" y="215.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#9c2626" text-anchor="middle" font-weight="700">Порушення DCO</text>
+<rect x="655.0" y="50.0" width="215.0" height="115.0" rx="8" fill="#eaf5ec" stroke="#236932" stroke-width="1.8"/>
+<text x="762.5" y="75.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#236932" text-anchor="middle" font-weight="700">3A. Статус: УСПІШНО</text>
+<text x="762.5" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Зелений чек у GitHub/GitLab</text>
+<text x="762.5" y="118.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Комплаєнс підтверджено</text>
+<text x="762.5" y="140.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#236932" text-anchor="middle" font-weight="700">Дозвіл на злиття (Merge Allowed)</text>
+<rect x="655.0" y="215.0" width="215.0" height="140.0" rx="8" fill="#fbeeed" stroke="#9c2626" stroke-width="1.8"/>
+<text x="762.5" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#9c2626" text-anchor="middle" font-weight="700">3B. Статус: ЗАБЛОКОВАНО</text>
+<text x="762.5" y="261.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="middle">Червоний хрестик у PR</text>
+<text x="762.5" y="281.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#9c2626" text-anchor="middle">Бот публікує інструкцію виправлення:</text>
+<text x="762.5" y="303.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#5b328a" text-anchor="middle" font-weight="700">git commit --amend -s</text>
+<text x="762.5" y="321.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#5b328a" text-anchor="middle" font-weight="700">git push --force-with-lease</text>
+<text x="762.5" y="340.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#9c2626" text-anchor="middle">Merge заблоковано до фіксу</text>
+<rect x="30.0" y="375.0" width="840.0" height="75.0" rx="8" fill="#f8f9fa" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="50.0" y="398.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1a1a1a" text-anchor="start" font-weight="700">Чому перевірку DCO виконують автоматично в CI:</text>
+<text x="50.0" y="418.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Усуває людський фактор: рецензент не забуде перевірити юридичний підпис серед 50 файлів коду.</text>
+<text x="50.0" y="436.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#6b7280" text-anchor="start">• Захищає репозиторій від потрапляння неліцензованого або чужого закритого коду на етапі шлюзу злиття.</text>
+</svg>
