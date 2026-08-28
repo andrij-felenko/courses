@@ -95,66 +95,9 @@ S   →  цифровий пін під меандр (напр. D8 на Arduino 
 Один повний цикл 1000-герцового меандру триває 1 мс: пів-цикла HIGH (0.5 мс), пів-цикла LOW (0.5 мс). Найпростіший спосіб — робити це руками:
 
 :::tabs
-```arduino
-const uint8_t PIN_BUZ = 8;
-
-void setup() {
-  pinMode(PIN_BUZ, OUTPUT);
-}
-
-void loop() {
-  // один цикл меандру 1000 Гц: 500 мкс вгорі + 500 мкс унизу
-  digitalWrite(PIN_BUZ, HIGH);
-  delayMicroseconds(500);
-  digitalWrite(PIN_BUZ, LOW);
-  delayMicroseconds(500);
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "esp_rom_sys.h"        // esp_rom_delay_us — затримка на мікросекунди
-
-#define BUZ_GPIO GPIO_NUM_18
-
-void buzz_1khz(void)
-{
-    gpio_config_t cfg = {
-        .pin_bit_mask = 1ULL << BUZ_GPIO,
-        .mode         = GPIO_MODE_OUTPUT,
-        .pull_up_en   = GPIO_PULLUP_DISABLE,
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .intr_type    = GPIO_INTR_DISABLE,
-    };
-    ESP_ERROR_CHECK(gpio_config(&cfg));
-
-    while (1) {
-        // один цикл меандру 1000 Гц: 500 мкс вгорі + 500 мкс унизу
-        gpio_set_level(BUZ_GPIO, 1);
-        esp_rom_delay_us(500);
-        gpio_set_level(BUZ_GPIO, 0);
-        esp_rom_delay_us(500);
-    }
-}
-```
-```stm32
-// ніжку описано як GPIO_Output: BUZ_GPIO_Port / BUZ_Pin
-// HAL_Delay уміє лише мілісекунди, тож півперіод відміряємо грубим лічильником
-static void delay_us(uint32_t us) {
-    uint32_t ticks = us * (SystemCoreClock / 1000000U) / 4U;
-    while (ticks--) __NOP();
-}
-
-void buzz_1khz(void)
-{
-    while (1) {
-        // один цикл меандру 1000 Гц: 500 мкс вгорі + 500 мкс унизу
-        HAL_GPIO_WritePin(BUZ_GPIO_Port, BUZ_Pin, GPIO_PIN_SET);
-        delay_us(500);
-        HAL_GPIO_WritePin(BUZ_GPIO_Port, BUZ_Pin, GPIO_PIN_RESET);
-        delay_us(500);
-    }
-}
-```
+:::code ky-006-buzzer-d/c/arduino/iak-zmusyty-ky-006.ino
+:::code ky-006-buzzer-d/c/esp-idf/iak-zmusyty-ky-006.c
+:::code ky-006-buzzer-d/c/stm32/iak-zmusyty-ky-006.c
 :::
 
 Це працює — пін чесно смикається 1000 разів за секунду, зумер пищить рівним тоном. Але спосіб поганий: **процесор увесь час зайнятий** тим, що рахує мікросекунди й перемикає ніжку. Поки він пищить, він не може читати кнопки, крутити мотор чи блимати світлодіодом. Щойно ти захочеш звук **і** щось іще — цей підхід розвалюється.
@@ -162,62 +105,9 @@ void buzz_1khz(void)
 Тому в реальності меандр доручають **апаратному таймеру** — блоку, який є в кожному мікроконтролері: йому задають частоту й шпаруватість 50 %, і далі він сам смикає ніжку, поки процесор робить своє. Arduino ховає це за однією функцією `tone()`; в ESP-IDF ту саму роботу робить периферія **LEDC**, на STM32 — таймер у режимі ШІМ. Той самий тон 1000 Гц — але без ручного смикання:
 
 :::tabs
-```arduino
-const uint8_t PIN_BUZ = 8;
-
-void setup() {
-  tone(PIN_BUZ, 1000);   // залізо саме генерує меандр 1000 Гц на D8
-  // процесор тут уже вільний — може робити що завгодно
-}
-
-void loop() {
-  // ...інша робота йде паралельно; зумер тим часом пищить сам...
-}
-```
-```esp-idf
-#include "driver/ledc.h"
-
-#define BUZ_GPIO GPIO_NUM_18
-
-void buzzer_tone(uint32_t freq_hz)      // freq_hz і є висота тону
-{
-    ledc_timer_config_t timer = {
-        .speed_mode      = LEDC_LOW_SPEED_MODE,
-        .timer_num       = LEDC_TIMER_0,
-        .duty_resolution = LEDC_TIMER_10_BIT,
-        .freq_hz         = freq_hz,
-        .clk_cfg         = LEDC_AUTO_CLK,
-    };
-    ESP_ERROR_CHECK(ledc_timer_config(&timer));
-
-    ledc_channel_config_t ch = {
-        .gpio_num   = BUZ_GPIO,
-        .speed_mode = LEDC_LOW_SPEED_MODE,
-        .channel    = LEDC_CHANNEL_0,
-        .timer_sel  = LEDC_TIMER_0,
-        .duty       = 512,      // 512 з 1024 — рівно 50 %, тобто меандр
-        .hpoint     = 0,
-    };
-    ESP_ERROR_CHECK(ledc_channel_config(&ch));
-    // процесор тут уже вільний — меандр жене периферія LEDC
-}
-```
-```stm32
-// ніжку зумера заведено на вихід TIM3_CH1; таймер налаштовано в режимі PWM
-extern TIM_HandleTypeDef htim3;
-
-void buzzer_tone(uint32_t freq_hz)
-{
-    // період лічильника задає частоту: f = f_тайм / ((PSC+1)·(ARR+1))
-    uint32_t tim_clk = HAL_RCC_GetPCLK1Freq() * 2U;
-    uint32_t arr = tim_clk / ((htim3.Init.Prescaler + 1U) * freq_hz) - 1U;
-
-    __HAL_TIM_SET_AUTORELOAD(&htim3, arr);
-    __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, arr / 2U);  // 50 % — меандр
-    HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
-    // процесор тут уже вільний — ніжку смикає таймер
-}
-```
+:::code ky-006-buzzer-d/c/arduino/iak-zmusyty-ky-006-2.ino
+:::code ky-006-buzzer-d/c/esp-idf/ledc.h
+:::code ky-006-buzzer-d/c/stm32/iak-zmusyty-ky-006-2.c
 :::
 
 `tone(pin, freq)` заводить звук і одразу повертає керування; звук триває, поки не викличеш `noTone(pin)` (або новий `tone()` з іншою частотою). Є й зручний варіант із тривалістю — `tone(pin, freq, ms)` сам замовкне через `ms` мілісекунд.
@@ -231,100 +121,9 @@ void buzzer_tone(uint32_t freq_hz)
 **Умова.** Той самий KY-006 на тій самій ніжці. Хочемо зіграти перші ноти простого мотиву — послідовність нот із паузами між ними, як у справжній музиці.
 
 :::tabs
-```arduino
-const uint8_t PIN_BUZ = 8;
-
-// частоти нот у герцах
-const int C4 = 262, D4 = 294, E4 = 330, F4 = 349, G4 = 392;
-
-// мелодія: пари {частота, тривалість у мс}. 0 = пауза (тиша)
-const int melody[][2] = {
-  {E4, 300}, {E4, 300}, {F4, 300}, {G4, 300},
-  {G4, 300}, {F4, 300}, {E4, 300}, {D4, 300}, {C4, 500},
-};
-
-void setup() {
-  pinMode(PIN_BUZ, OUTPUT);
-  for (auto &note : melody) {
-    int freq = note[0], dur = note[1];
-    if (freq > 0)
-      tone(PIN_BUZ, freq, dur);   // грати ноту freq протягом dur мс
-    else
-      noTone(PIN_BUZ);            // freq==0 → пауза
-    // між нотами — маленький проміжок тиші, щоб ноти не зливались
-    delay(dur + 40);
-    noTone(PIN_BUZ);
-  }
-}
-
-void loop() {}
-```
-```esp-idf
-#include "driver/ledc.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-// частоти нот у герцах
-#define C4 262
-#define D4 294
-#define E4 330
-#define F4 349
-#define G4 392
-
-// мелодія: пари {частота, тривалість у мс}. 0 = пауза (тиша)
-static const struct { uint32_t freq; uint32_t ms; } melody[] = {
-    {E4, 300}, {E4, 300}, {F4, 300}, {G4, 300},
-    {G4, 300}, {F4, 300}, {E4, 300}, {D4, 300}, {C4, 500},
-};
-
-void play_melody(void)              // канал LEDC уже налаштовано (див. вище)
-{
-    for (size_t i = 0; i < sizeof melody / sizeof melody[0]; i++) {
-        if (melody[i].freq > 0) {
-            ledc_set_freq(LEDC_LOW_SPEED_MODE, LEDC_TIMER_0, melody[i].freq);
-            ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 512);  // 50 %
-        } else {
-            ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 0);    // пауза
-        }
-        ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
-        vTaskDelay(pdMS_TO_TICKS(melody[i].ms));
-
-        // між нотами — маленький проміжок тиші, щоб ноти не зливались
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 0);
-        ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
-        vTaskDelay(pdMS_TO_TICKS(40));
-    }
-}
-```
-```stm32
-extern TIM_HandleTypeDef htim3;     // TIM3_CH1 на ніжці зумера
-
-// частоти нот у герцах
-#define C4 262
-#define D4 294
-#define E4 330
-#define F4 349
-#define G4 392
-
-// мелодія: пари {частота, тривалість у мс}. 0 = пауза (тиша)
-static const struct { uint16_t freq; uint16_t ms; } melody[] = {
-    {E4, 300}, {E4, 300}, {F4, 300}, {G4, 300},
-    {G4, 300}, {F4, 300}, {E4, 300}, {D4, 300}, {C4, 500},
-};
-
-void play_melody(void)
-{
-    for (size_t i = 0; i < sizeof melody / sizeof melody[0]; i++) {
-        if (melody[i].freq > 0)
-            buzzer_tone(melody[i].freq);   // перелаштувати ARR і пустити ШІМ
-        HAL_Delay(melody[i].ms);
-
-        // між нотами — маленький проміжок тиші, щоб ноти не зливались
-        HAL_TIM_PWM_Stop(&htim3, TIM_CHANNEL_1);
-        HAL_Delay(40);
-    }
-}
-```
+:::code ky-006-buzzer-d/c/arduino/zihraty-melodiiu-chastota.ino
+:::code ky-006-buzzer-d/c/esp-idf/zihraty-melodiiu-chastota.c
+:::code ky-006-buzzer-d/c/stm32/zihraty-melodiiu-chastota.c
 :::
 
 Тут видно два тонкі місця, об які часто спотикаються. Перше: **запуск ноти нічого не чекає** — байдуже, чи це `tone(pin, freq, dur)`, чи `ledc_set_freq`, чи новий ARR у таймері, виклик лише вмикає генерацію й одразу повертається, тож без затримки цикл миттю перебіжить усі ноти, і ти почуєш тільки останню. Друге: **маленька пауза між нотами** (`+40` мс тиші) потрібна, щоб дві однакові ноти поспіль (як два «мі» на початку) не злилися в один довгий звук, — інакше вухо не почує, що їх дві.

@@ -24,140 +24,15 @@
 :::tabs
 == Arduino (AVR: Uno / Nano)
 
-```arduino
-// KY-009, спільний катод, живлення 5 В (Arduino Uno/Nano).
-// R, G, B — кожен ЧЕРЕЗ свій гасильний резистор до PWM-піна (~).
-const uint8_t PIN_R = 9;   // ~D9
-const uint8_t PIN_G = 10;  // ~D10
-const uint8_t PIN_B = 11;  // ~D11
-
-void setup() {
-  pinMode(PIN_R, OUTPUT);
-  pinMode(PIN_G, OUTPUT);
-  pinMode(PIN_B, OUTPUT);
-}
-
-// Єдиний шлюз кольору. r, g, b — яскравості 0…255.
-// Спільний катод: більше число → яскравіше.
-void setColor(uint8_t r, uint8_t g, uint8_t b) {
-  analogWrite(PIN_R, r);
-  analogWrite(PIN_G, g);
-  analogWrite(PIN_B, b);
-}
-
-void loop() {
-  setColor(255,   0,   0);  // червоний
-  delay(600);
-  setColor(  0, 255,   0);  // зелений
-  delay(600);
-  setColor(  0,   0, 255);  // синій
-  delay(600);
-  setColor(255, 255,   0);  // жовтий = червоний + зелений
-  delay(600);
-  setColor(255, 255, 255);  // білий = усі три
-  delay(600);
-}
-```
+:::code proj-ky009-color/c/arduino/fundament-setcolor-i-chomu.ino
 
 == ESP-IDF (ESP32, периферія LEDC)
 
-```esp-idf
-// KY-009, спільний катод. ESP32, ESP-IDF. Логіка 3.3 В — резистори рахуй на 3.3!
-#include "driver/ledc.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define PIN_R  GPIO_NUM_25          // LEDC пускає ШІМ майже на будь-який GPIO
-#define PIN_G  GPIO_NUM_26
-#define PIN_B  GPIO_NUM_27
-
-static const ledc_channel_t CH[3] = { LEDC_CHANNEL_0, LEDC_CHANNEL_1, LEDC_CHANNEL_2 };
-static const int PINS[3] = { PIN_R, PIN_G, PIN_B };
-
-static void leds_init(void) {
-    ledc_timer_config_t tim = {                  // спільний таймер на всі три канали
-        .speed_mode      = LEDC_LOW_SPEED_MODE,
-        .timer_num       = LEDC_TIMER_0,
-        .duty_resolution = LEDC_TIMER_8_BIT,     // 8 біт → 0…255, як звикли
-        .freq_hz         = 5000,                 // 5 кГц — вище за поріг мерехтіння
-        .clk_cfg         = LEDC_AUTO_CLK,
-    };
-    ESP_ERROR_CHECK(ledc_timer_config(&tim));
-
-    ledc_channel_config_t ch = {
-        .speed_mode = LEDC_LOW_SPEED_MODE,
-        .timer_sel  = LEDC_TIMER_0,
-        .intr_type  = LEDC_INTR_DISABLE,
-        .duty = 0, .hpoint = 0,
-    };
-    for (int i = 0; i < 3; i++) {                // прив'язати кожен пін до свого каналу
-        ch.channel = CH[i];
-        ch.gpio_num = PINS[i];
-        ESP_ERROR_CHECK(ledc_channel_config(&ch));
-    }
-}
-
-// Єдиний шлюз кольору. Спільний катод: більше число → яскравіше.
-static void set_color(uint8_t r, uint8_t g, uint8_t b) {
-    const uint8_t v[3] = { r, g, b };
-    for (int i = 0; i < 3; i++) {
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, CH[i], v[i]);
-        ledc_update_duty(LEDC_LOW_SPEED_MODE, CH[i]);   // без цього нове значення не поїде
-    }
-}
-
-void app_main(void) {
-    leds_init();
-    while (1) {
-        set_color(255,   0,   0); vTaskDelay(pdMS_TO_TICKS(600));  // червоний
-        set_color(  0, 255,   0); vTaskDelay(pdMS_TO_TICKS(600));  // зелений
-        set_color(  0,   0, 255); vTaskDelay(pdMS_TO_TICKS(600));  // синій
-        set_color(255, 255,   0); vTaskDelay(pdMS_TO_TICKS(600));  // жовтий
-        set_color(255, 255, 255); vTaskDelay(pdMS_TO_TICKS(600));  // білий
-    }
-}
-```
+:::code proj-ky009-color/c/esp-idf/fundament-setcolor-i-chomu.c
 
 == STM32 (HAL, три канали одного таймера)
 
-```stm32
-// KY-009, спільний катод. STM32 + HAL, налаштування з CubeMX:
-// TIM3 CH1 → R, CH2 → G, CH3 → B, усі три в режимі PWM Generation.
-// Prescaler підібраний так, щоб при Period (ARR) = 255 вийшло ≈5 кГц;
-// ARR = 255 дає шпаруватість 0…255 — рівно ті числа, з якими ми працюємо.
-#include "main.h"
-
-extern TIM_HandleTypeDef htim3;
-
-static void leds_init(void) {
-    HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);   // R
-    HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);   // G
-    HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);   // B
-}
-
-// Єдиний шлюз кольору. Запис у регістр порівняння каналу (CCR) — і є яскравість.
-static void set_color(uint8_t r, uint8_t g, uint8_t b) {
-    __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, r);
-    __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, g);
-    __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_3, b);
-}
-
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();
-    MX_TIM3_Init();
-    leds_init();
-
-    while (1) {
-        set_color(255,   0,   0); HAL_Delay(600);  // червоний
-        set_color(  0, 255,   0); HAL_Delay(600);  // зелений
-        set_color(  0,   0, 255); HAL_Delay(600);  // синій
-        set_color(255, 255,   0); HAL_Delay(600);  // жовтий
-        set_color(255, 255, 255); HAL_Delay(600);  // білий
-    }
-}
-```
+:::code proj-ky009-color/c/stm32/fundament-setcolor-i-chomu.c
 :::
 
 Тут усе прозоро: `setColor(255, 0, 0)` — повний червоний, `setColor(0, 0, 0)` — темрява. Жовтий виходить сумішшю червоного й зеленого, бо око складає їхнє світло — це і є [додаткове змішування кольору](root:sf-visual/color-formats), той самий принцип, що в кожному екрані. Керує яскравістю [ШІМ](root:hw-arch/pwm-on-mcu): пін не вміє видати «пів-напруги», він швидко-швидко вмикається й вимикається, а число 0…255 задає частку часу «ввімкнено».
@@ -172,31 +47,7 @@ int main(void) {
 
 Механіка — лінійна інтерполяція (лат. *inter* — між, *polio* — гладжу): на частці шляху `t` (від 0 до 1) кожна складова дорівнює `старе + (нове − старе)·t`. При `t = 0` маємо старий колір, при `t = 1` — новий, між ними — рівний перехід.
 
-```cpp
-// Плавно перейти з (r0,g0,b0) у (r1,g1,b1) за steps кроків.
-// wait — пауза між кроками в мілісекундах (менша → швидше).
-void fadeTo(uint8_t r0, uint8_t g0, uint8_t b0,
-            uint8_t r1, uint8_t g1, uint8_t b1,
-            int steps, int wait) {
-  for (int i = 0; i <= steps; i++) {
-    // частка шляху, порахована в цілих, щоб не тягти float:
-    // поточне = старе + (нове − старе) * i / steps
-    uint8_t r = r0 + (int)(r1 - r0) * i / steps;
-    uint8_t g = g0 + (int)(g1 - g0) * i / steps;
-    uint8_t b = b0 + (int)(b1 - b0) * i / steps;
-    setColor(r, g, b);
-    delay(wait);   // пауза: delay() в Arduino, vTaskDelay(pdMS_TO_TICKS(wait))
-                   // в ESP-IDF, HAL_Delay() на STM32 — решта рядків незмінна
-  }
-}
-
-void loop() {
-  fadeTo(255, 0, 0,   0, 0, 255,  100, 8);  // червоний → синій за ~0.8 с
-  fadeTo(  0, 0, 255, 0, 0,   0,  100, 8);  // синій → темрява (згасання)
-  fadeTo(  0, 0, 0,   0, 255, 0,  100, 8);  // з темряви → зелений
-  delay(300);
-}
-```
+:::code proj-ky009-color/cpp/plavnyi-perekhid-rukh.cpp
 
 Придивись до приведення `(int)(r1 - r0)`. Воно тут захисне, а не рятівне. У C перед відніманням обидва `uint8_t` **автоматично просуваються до знакового `int`** (цілочислове просування, англ. *integer promotion*) — бо `int` вміщає будь-яке значення `uint8_t`. Тому й без приведення `r1 - r0` рахується зі знаком: якщо новий колір **темніший** за старий (`r1 < r0`), різниця чесно виходить від'ємною, а не загортається через нуль у велике додатне число. Явне `(int)` тут нічого не змінює — воно лише робить знак видимим і закладає правильний рефлекс. А рефлекс не зайвий, бо просування рятує не завжди: щойно операнди стануть ширшими й беззнаковими (два `uint16_t` там, де `int` 16-бітний), автоматичного розширення до знакового вже не буде — і різниця таки загорнеться вгору. Ось там таке приведення справді необхідне, а не косметичне.
 
@@ -216,42 +67,7 @@ void loop() {
 
 Щоб крутити H, а світити на KY-009 доводиться однаково через R, G, B, потрібне перетворення **HSV → RGB**. Ось воно, у повній цілочисловій формі для максимальної насиченості й керованої яскравості:
 
-```cpp
-// H (відтінок): 0…359 градусів. S, V: 0…255.
-// Пише готовий колір у setColor. Формула — класичне HSV→RGB.
-void setHSV(int h, uint8_t s, uint8_t v) {
-  h %= 360;                 // загорнути в коло на випадок h ≥ 360 або < 0
-  if (h < 0) h += 360;
-
-  uint8_t region = h / 60;          // який із 6 секторів кола (0…5)
-  uint8_t rem    = (h % 60) * 255 / 60;  // положення в секторі, 0…255
-
-  // допоміжні рівні (стандартні p, q, t для HSV→RGB)
-  uint8_t p = (uint16_t)v * (255 - s) / 255;
-  uint8_t q = (uint16_t)v * (255 - (uint16_t)s * rem / 255) / 255;
-  uint8_t t = (uint16_t)v * (255 - (uint16_t)s * (255 - rem) / 255) / 255;
-
-  uint8_t r, g, b;
-  switch (region) {
-    case 0:  r = v; g = t; b = p; break;  // червоний → жовтий
-    case 1:  r = q; g = v; b = p; break;  // жовтий → зелений
-    case 2:  r = p; g = v; b = t; break;  // зелений → блакитний
-    case 3:  r = p; g = q; b = v; break;  // блакитний → синій
-    case 4:  r = t; g = p; b = v; break;  // синій → пурпуровий
-    default: r = v; g = p; b = q; break;  // пурпуровий → червоний
-  }
-  setColor(r, g, b);
-}
-
-// Райдуга по колу: H повзе 0…359 і знову.
-void loop() {
-  for (int h = 0; h < 360; h++) {
-    setHSV(h, 255, 255);   // повна насиченість і яскравість
-    delay(15);             // ~5.4 с на повне коло; менше → швидше
-                           // (vTaskDelay(pdMS_TO_TICKS(15)) в ESP-IDF, HAL_Delay(15) на STM32)
-  }
-}
-```
+:::code proj-ky009-color/cpp/raiduha-chomu-rgb.cpp
 
 Тепер райдуга — це буквально `for (h = 0; h < 360; h++)`. Уся возня «який канал зараз росте» сховалася в шість рядків `switch`, і вони однакові для будь-якого модуля. Зверни увагу на приведення `(uint16_t)` у формулах p, q, t: добуток `v * s` легко перевалює за 255 і не влазить у байт — множимо в 16-бітному типі, ділимо, і лише результат кладемо в `uint8_t`. Пропустиш це приведення — отримаєш переповнення й брудні кольори на переходах. Кут на колі тримає [синус-косинусна](root:math-geometry/sine-cosine) інтуїція «повного оберту на 360°», але саме тут тригонометрія нам не потрібна — секторна формула точніша й дешевша за виклик `sin` на кожен піксель.
 
@@ -271,28 +87,7 @@ void loop() {
 
 Рахувати `pow()` на кожен піксель дорого й безглуздо — крива та сама завжди, тож її прораховують **один раз** у таблицю з 256 значень і далі просто беруть готове. Ось найпростіший спосіб — вписати таблицю прямо в код (щоб не тягти математику з плаваючою комою на дрібний Uno):
 
-```cpp
-// Гама-таблиця (γ ≈ 2.2), 256 значень: сире 0…255 → виправлена світність 0…255.
-// Порахована наперед; на самому МК жодного pow() під час роботи.
-const uint8_t gamma8[256] = {
-    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   1,
-    1,   1,   1,   1,   1,   1,   1,   1,   1,   2,   2,   2,   2,   2,   2,   2,
-    3,   3,   3,   3,   3,   4,   4,   4,   4,   5,   5,   5,   5,   6,   6,   6,
-    6,   7,   7,   7,   8,   8,   8,   9,   9,   9,  10,  10,  11,  11,  11,  12,
-   12,  13,  13,  13,  14,  14,  15,  15,  16,  16,  17,  17,  18,  18,  19,  19,
-   20,  20,  21,  22,  22,  23,  23,  24,  25,  25,  26,  26,  27,  28,  28,  29,
-   30,  30,  31,  32,  33,  33,  34,  35,  35,  36,  37,  38,  39,  39,  40,  41,
-   42,  43,  43,  44,  45,  46,  47,  48,  49,  49,  50,  51,  52,  53,  54,  55,
-   56,  57,  58,  59,  60,  61,  62,  63,  64,  65,  66,  67,  68,  69,  70,  71,
-   73,  74,  75,  76,  77,  78,  79,  81,  82,  83,  84,  85,  87,  88,  89,  90,
-   91,  93,  94,  95,  97,  98,  99, 100, 102, 103, 105, 106, 107, 109, 110, 111,
-  113, 114, 116, 117, 119, 120, 121, 123, 124, 126, 127, 129, 130, 132, 133, 135,
-  137, 138, 140, 141, 143, 145, 146, 148, 149, 151, 153, 154, 156, 158, 159, 161,
-  163, 165, 166, 168, 170, 172, 173, 175, 177, 179, 181, 182, 184, 186, 188, 190,
-  192, 194, 196, 197, 199, 201, 203, 205, 207, 209, 211, 213, 215, 217, 219, 221,
-  223, 225, 227, 229, 231, 234, 236, 238, 240, 242, 244, 246, 248, 251, 253, 255
-};
-```
+:::code proj-ky009-color/cpp/hama-chomu-128-ne-polovyna.cpp
 
 Тепер вставляємо таблицю в **той самий єдиний шлюз** `setColor` — і всі функції вище (fade, HSV, райдуга) автоматично стають плавними, бо весь колір іде крізь одне місце:
 
@@ -337,22 +132,7 @@ static void set_color(uint8_t r, uint8_t g, uint8_t b) {
 :::tabs
 == Arduino
 
-```arduino
-uint8_t gamma8[256];
-
-void buildGamma(float g) {          // напр. g = 2.2
-  for (int i = 0; i < 256; i++) {
-    gamma8[i] = (uint8_t)(pow((float)i / 255.0, g) * 255.0 + 0.5);
-  }
-}
-
-void setup() {
-  pinMode(PIN_R, OUTPUT);
-  pinMode(PIN_G, OUTPUT);
-  pinMode(PIN_B, OUTPUT);
-  buildGamma(2.2);   // порахувати криву один раз на старті
-}
-```
+:::code proj-ky009-color/c/arduino/hama-chomu-128-ne-polovyna.ino
 
 == ESP-IDF
 
@@ -368,19 +148,7 @@ void app_main(void) {
 
 == STM32 (HAL)
 
-```stm32
-#include <math.h>                   // powf(); тіло функції — те саме, що й у вкладці Arduino
-
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();
-    MX_TIM3_Init();
-    build_gamma(2.2f);              // порахувати криву один раз на старті
-    leds_init();                    // і лише тоді пускати ШІМ на канали
-    while (1) { /* … анімація … */ }
-}
-```
+:::code proj-ky009-color/c/stm32/hama-chomu-128-ne-polovyna.c
 :::
 
 Обидва шляхи дають те саме; таблиця в коді економить пам'ять програми на розрахунок і працює навіть там, де `pow` небажаний, а розрахунок на старті зручніший, коли хочеш крутити показник γ на льоту й дивитися, що краще для ока.
@@ -395,49 +163,11 @@ int main(void) {
 
 **Старий API (ESP32 Arduino core 2.x)** — канал і пін налаштовуються окремо:
 
-```arduino
-// ESP32, старий LEDC API (core 2.x). Живлення логіки — 3.3 В!
-const uint8_t PIN_R = 25, PIN_G = 26, PIN_B = 27;
-const int CH_R = 0, CH_G = 1, CH_B = 2;   // три незалежні канали LEDC
-const int PWM_FREQ = 5000;                // 5 кГц — вище за поріг мерехтіння
-const int PWM_BITS = 8;                   // 8-бітна роздільність → 0…255, як звикли
-
-void setup() {
-  ledcSetup(CH_R, PWM_FREQ, PWM_BITS);    // налаштувати канал: частота + роздільність
-  ledcSetup(CH_G, PWM_FREQ, PWM_BITS);
-  ledcSetup(CH_B, PWM_FREQ, PWM_BITS);
-  ledcAttachPin(PIN_R, CH_R);             // прив'язати пін до каналу
-  ledcAttachPin(PIN_G, CH_G);
-  ledcAttachPin(PIN_B, CH_B);
-}
-
-void setColor(uint8_t r, uint8_t g, uint8_t b) {
-  ledcWrite(CH_R, gamma8[r]);   // пишемо В КАНАЛ, не в пін
-  ledcWrite(CH_G, gamma8[g]);
-  ledcWrite(CH_B, gamma8[b]);
-}
-```
+:::code proj-ky009-color/c/arduino/esp32-ta-sama-lohika-insha.ino
 
 **Новий API (ESP32 Arduino core 3.x)** прибрав явні номери каналів — прив'язуєш пін і задаєш частоту одним викликом, а пишеш прямо в пін:
 
-```arduino
-// ESP32, новий LEDC API (core 3.x).
-const uint8_t PIN_R = 25, PIN_G = 26, PIN_B = 27;
-const int PWM_FREQ = 5000;
-const int PWM_BITS = 8;
-
-void setup() {
-  ledcAttach(PIN_R, PWM_FREQ, PWM_BITS);  // пін + частота + роздільність одним викликом
-  ledcAttach(PIN_G, PWM_FREQ, PWM_BITS);
-  ledcAttach(PIN_B, PWM_FREQ, PWM_BITS);
-}
-
-void setColor(uint8_t r, uint8_t g, uint8_t b) {
-  ledcWrite(PIN_R, gamma8[r]);  // тепер пишемо прямо в ПІН
-  ledcWrite(PIN_G, gamma8[g]);
-  ledcWrite(PIN_B, gamma8[b]);
-}
-```
+:::code proj-ky009-color/c/arduino/esp32-ta-sama-lohika-insha-2.ino
 
 І в обох випадках `fadeTo`, `setHSV`, райдуга з розділів вище працюють **без жодної зміни** — вони кличуть `setColor`, а що там усередині, `analogWrite` чи `ledcWrite`, їм байдуже. Знову дивіденд від єдиного шлюзу: портування на іншу архітектуру — це переписати одну функцію, а не весь скетч.
 
@@ -507,19 +237,7 @@ void setColor(uint8_t r, uint8_t g, uint8_t b) {
 
 == ESP-IDF
 
-```esp-idf
-// Ті самі коефіцієнти — тільки перед самим записом у канал.
-static const uint16_t TRIM[3] = { 200, 255, 255 };   // R притлумлено, G і B на повну
-
-static void set_color(uint8_t r, uint8_t g, uint8_t b) {
-    const uint8_t raw[3] = { r, g, b };
-    for (int i = 0; i < 3; i++) {
-        uint8_t v = gamma8[(uint16_t)raw[i] * TRIM[i] / 255];
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, CH[i], v);
-        ledc_update_duty(LEDC_LOW_SPEED_MODE, CH[i]);
-    }
-}
-```
+:::code proj-ky009-color/c/esp-idf/pastky-de-tse-lamaietsia.c
 
 == STM32 (HAL)
 

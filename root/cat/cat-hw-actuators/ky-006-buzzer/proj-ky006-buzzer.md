@@ -43,168 +43,9 @@
 Ключ — розділити «почати» й «підтримувати». `beep()` лише запускає тон і записує дедлайн. Окремий `update()`, який ми кличемо на **кожному** витку `loop()`, стежить за годинником і вчасно замовкає:
 
 :::tabs
-```arduino
-const uint8_t PIN_BUZ = 8;
-
-unsigned long toneOffAt = 0;   // millis(), коли вимкнути тон; 0 = вже мовчимо
-bool          toneOn    = false;
-
-// Почати тон freq Гц на dur мс і одразу повернутися.
-void beep(unsigned int freq, unsigned int dur) {
-  tone(PIN_BUZ, freq);            // залізо саме жене меандр; ми не чекаємо
-  toneOffAt = millis() + dur;     // запам'ятали ДЕДЛАЙН, а не «спимо dur мс»
-  toneOn    = true;
-}
-
-// Кликати на КОЖНОМУ витку loop(): гляне на годинник і вимкне тон, коли час.
-void buzzerUpdate() {
-  if (toneOn && millis() >= toneOffAt) {
-    noTone(PIN_BUZ);
-    toneOn = false;
-  }
-}
-
-void setup() {
-  pinMode(PIN_BUZ, OUTPUT);
-  beep(1000, 200);                // пікнули 1 кГц на 200 мс
-}
-
-void loop() {
-  buzzerUpdate();                 // ← зумер обслуговується тут, фоном
-  // ...будь-яка інша робота: кнопки, давачі, мотор — усе жваве...
-}
-```
-```esp-idf
-#include "driver/ledc.h"
-#include "esp_timer.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define BUZ_GPIO   GPIO_NUM_18
-#define BUZ_MODE   LEDC_LOW_SPEED_MODE
-#define BUZ_TIMER  LEDC_TIMER_0
-#define BUZ_CHAN   LEDC_CHANNEL_0
-
-static int64_t toneOffAt = 0;   // esp_timer_get_time(), коли вимкнути тон (мкс)
-static bool    toneOn    = false;
-
-// Меандр жене LEDC: таймер тримає частоту, канал — шпаруватість.
-static void buzzerBegin(void)
-{
-    ledc_timer_config_t timer = {
-        .speed_mode      = BUZ_MODE,
-        .timer_num       = BUZ_TIMER,
-        .duty_resolution = LEDC_TIMER_10_BIT,   // 0…1023
-        .freq_hz         = 2000,
-        .clk_cfg         = LEDC_AUTO_CLK,
-    };
-    ESP_ERROR_CHECK(ledc_timer_config(&timer));
-
-    ledc_channel_config_t ch = {
-        .gpio_num   = BUZ_GPIO,
-        .speed_mode = BUZ_MODE,
-        .channel    = BUZ_CHAN,
-        .timer_sel  = BUZ_TIMER,
-        .duty       = 0,        // старт у тиші
-        .hpoint     = 0,
-    };
-    ESP_ERROR_CHECK(ledc_channel_config(&ch));
-}
-
-static void buzzerTone(uint32_t freq)   // ← тутешній відповідник tone()
-{
-    ledc_set_freq(BUZ_MODE, BUZ_TIMER, freq);
-    ledc_set_duty(BUZ_MODE, BUZ_CHAN, 512);   // 512 з 1024 = 50 %, чистий меандр
-    ledc_update_duty(BUZ_MODE, BUZ_CHAN);     // без цього duty не поїде в залізо
-}
-
-static void buzzerOff(void)             // ← тутешній відповідник noTone()
-{
-    ledc_set_duty(BUZ_MODE, BUZ_CHAN, 0);
-    ledc_update_duty(BUZ_MODE, BUZ_CHAN);
-}
-
-void beep(uint32_t freq, uint32_t dur_ms)
-{
-    buzzerTone(freq);                                           // не чекаємо
-    toneOffAt = esp_timer_get_time() + (int64_t)dur_ms * 1000;  // годинник у МКС
-    toneOn    = true;
-}
-
-void buzzerUpdate(void)   // кликати часто — так само, як у loop()
-{
-    if (toneOn && esp_timer_get_time() >= toneOffAt) {
-        buzzerOff();
-        toneOn = false;
-    }
-}
-
-void app_main(void)
-{
-    buzzerBegin();
-    beep(1000, 200);                    // пікнули 1 кГц на 200 мс
-    while (1) {
-        buzzerUpdate();                 // ← зумер обслуговується тут, фоном
-        vTaskDelay(pdMS_TO_TICKS(2));   // віддали такт іншим задачам FreeRTOS
-    }
-}
-```
-```stm32
-#include "main.h"     // CubeMX: ніжка зумера — вихід TIM3_CH1 у режимі PWM
-
-extern TIM_HandleTypeDef htim3;
-
-#define BUZ_TIM      (&htim3)
-#define BUZ_CH       TIM_CHANNEL_1
-#define BUZ_TICK_HZ  1000000U   // прескалер уже поділив таймер до 1 МГц
-
-static uint32_t toneOffAt = 0;  // HAL_GetTick(), коли вимкнути тон
-static bool     toneOn    = false;
-
-// Тон = ШІМ 50 % на потрібній частоті: період кладемо в ARR, половину — в CCR.
-static void buzzerTone(uint32_t freq)   // ← тутешній відповідник tone()
-{
-    uint32_t arr = BUZ_TICK_HZ / freq - 1U;
-    __HAL_TIM_SET_AUTORELOAD(BUZ_TIM, arr);
-    __HAL_TIM_SET_COMPARE(BUZ_TIM, BUZ_CH, arr / 2U);
-    HAL_TIM_PWM_Start(BUZ_TIM, BUZ_CH);
-}
-
-static void buzzerOff(void)             // ← тутешній відповідник noTone()
-{
-    HAL_TIM_PWM_Stop(BUZ_TIM, BUZ_CH);
-}
-
-void beep(uint32_t freq, uint32_t dur)
-{
-    buzzerTone(freq);                 // таймер жене меандр; ми не чекаємо
-    toneOffAt = HAL_GetTick() + dur;  // запам'ятали ДЕДЛАЙН, а не «спимо dur мс»
-    toneOn    = true;
-}
-
-// Кликати на КОЖНОМУ витку while(1): гляне на годинник і вимкне тон, коли час.
-void buzzerUpdate(void)
-{
-    if (toneOn && HAL_GetTick() >= toneOffAt) {
-        buzzerOff();
-        toneOn = false;
-    }
-}
-
-int main(void)
-{
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();
-    MX_TIM3_Init();
-
-    beep(1000, 200);                // пікнули 1 кГц на 200 мс
-    while (1) {
-        buzzerUpdate();             // ← зумер обслуговується тут, фоном
-        // ...будь-яка інша робота: кнопки, давачі, мотор — усе жваве...
-    }
-}
-```
+:::code proj-ky006-buzzer/c/arduino/krok-1-odyn-ton-shcho.ino
+:::code proj-ky006-buzzer/c/esp-idf/krok-1-odyn-ton-shcho.c
+:::code proj-ky006-buzzer/c/stm32/krok-1-odyn-ton-shcho.c
 :::
 
 Порівняй із наївним `tone(PIN_BUZ, 1000); delay(200); noTone(PIN_BUZ);`. Результат для вуха той самий — пік на 200 мс. Але наївний варіант **краде** ці 200 мс у всієї програми, а наш — ні: `beep()` повертається за мікросекунди, а `buzzerUpdate()` на кожному витку робить одне копійчане порівняння `millis() >= toneOffAt`. Між пуском і вимиканням тону `loop()` устигає прокрутитися тисячі разів.
@@ -219,36 +60,7 @@ int main(void)
 
 Перше, від чого варто позбутися, — голі герци в тексті мелодії. `{330, 300}` нічого не каже; `{NOTE_E4, 300}` каже «мі четвертої октави». Тож заведімо **таблицю частот нот**. Висота ноти — це фізика, однакова для будь-якого інструмента: рівномірно темперований стрій прив'язаний до камертонного «ля» (A4 = 440 Гц), а кожна наступна нота вища за попередню в ¹²√2 разів (дванадцять півтонів на октаву, октава — подвоєння частоти). Порахувавши це раз, отримуємо звичні значення:
 
-```cpp
-// Частоти нот у герцах (рівномірна темперація, A4 = 440 Гц).
-// Назва = нота + номер октави. #: C#4 пишемо як CS4.
-// 4-та октава (найужитковіша для «біпів» і мелодій):
-#define NOTE_C4   262
-#define NOTE_CS4  277
-#define NOTE_D4   294
-#define NOTE_DS4  311
-#define NOTE_E4   330
-#define NOTE_F4   349
-#define NOTE_FS4  370
-#define NOTE_G4   392
-#define NOTE_GS4  415
-#define NOTE_A4   440
-#define NOTE_AS4  466
-#define NOTE_B4   494
-// 5-та октава (вдвічі вищі частоти — дзвінкіше, ближче до резонансу пластини):
-#define NOTE_C5   523
-#define NOTE_D5   587
-#define NOTE_E5   659
-#define NOTE_F5   698
-#define NOTE_G5   784
-#define NOTE_A5   880
-#define NOTE_B5   988
-#define NOTE_C6  1047
-// 3-тя октава (нижчі — глухіші на KY-006, бо далі від резонансу ≈2 кГц):
-#define NOTE_A3   220
-#define NOTE_B3   247
-#define REST        0   // тиша (пауза)
-```
+:::code proj-ky006-buzzer/cpp/krok-2-melodiia-iak-spysok.cpp
 
 Кожна частота тут — не магічне число, а `440 · 2^((n−69)/12)`, де `n` — номер клавіші (MIDI): для «ля» першої октави (A4) `n = 69`, і формула дає рівно 440; для «до» (C4) `n = 60` — виходить 261.6, округлюємо до 262. Округлення на слух непомітне: вухо не відрізнить 262 від 261.6 Гц.
 
@@ -257,213 +69,17 @@ int main(void)
 Тепер сам плеєр. Мелодію задамо масивом пар `{частота, тривалість}`, а плеєр працюватиме у **два такти**: грає ноту — тримає коротку паузу — грає наступну. Він пам'ятає **індекс наступної ноти**, **дедлайн поточної фази** й **чи він зараз у паузі** (`inGap`). На кожному витку `update()` дивиться, чи не вичерпалась поточна фаза, і як настане її дедлайн — перемикає такт: нота → пауза → наступна нота. Ніякого `delay`:
 
 :::tabs
-```arduino
-struct Note { unsigned int freq; unsigned int dur; };  // частота Гц, тривалість мс
-
-// ── Стан плеєра ──
-const Note*   melody     = nullptr;  // на яку мелодію показуємо
-uint16_t      melodyLen  = 0;        // скільки в ній нот
-uint16_t      noteIndex  = 0;        // яку ноту гратимемо наступною
-unsigned long phaseEndAt = 0;        // millis(), коли скінчиться поточна фаза
-bool          playing    = false;
-bool          inGap      = false;    // true = зараз мовчазна пауза між нотами
-
-const uint16_t GAP_MS = 30;  // тривалість тиші між сусідніми нотами
-
-// Запустити мелодію (не блокує). arr — масив нот, len — його довжина.
-void playMelody(const Note* arr, uint16_t len) {
-  melody     = arr;
-  melodyLen  = len;
-  noteIndex  = 0;
-  playing    = true;
-  inGap      = true;        // старт у фазі «пауза вже вичерпана» → перша нота піде одразу
-  phaseEndAt = millis();    // не чекати: на найближчому витку візьмемо ноту 0
-}
-
-// Кликати на КОЖНОМУ витку loop().
-void buzzerUpdate() {
-  if (!playing) return;
-  if (millis() < phaseEndAt) return;         // поточна фаза (нота чи пауза) ще триває
-
-  if (inGap) {
-    // Пауза скінчилась → завести чергову ноту.
-    Note n = melody[noteIndex++];            // беремо ноту й зсуваємо індекс
-    if (n.freq > 0) tone(PIN_BUZ, n.freq);   // REST (freq 0) — лишаємо в тиші
-    inGap      = false;
-    phaseEndAt = millis() + n.dur;           // нота звучить рівно свій dur
-  } else {
-    // Нота відзвучала → погасити й вставити РЕАЛЬНУ паузу.
-    noTone(PIN_BUZ);
-    if (noteIndex >= melodyLen) {            // нот більше немає — мелодія скінчилась
-      playing = false;
-      return;
-    }
-    inGap      = true;
-    phaseEndAt = millis() + GAP_MS;          // ← ось вона, справжня тиша між нотами
-  }
-}
-```
-```esp-idf
-typedef struct { uint16_t freq; uint16_t dur; } note_t;  // частота Гц, тривалість мс
-
-// ── Стан плеєра ──
-static const note_t *melody     = NULL;   // на яку мелодію показуємо
-static uint16_t      melodyLen  = 0;      // скільки в ній нот
-static uint16_t      noteIndex  = 0;      // яку ноту гратимемо наступною
-static int64_t       phaseEndAt = 0;      // кінець поточної фази, мкс
-static bool          playing    = false;
-static bool          inGap      = false;  // true = зараз мовчазна пауза між нотами
-
-#define GAP_US  (30 * 1000)   // 30 мс тиші між сусідніми нотами
-
-// Запустити мелодію (не блокує). arr — масив нот, len — його довжина.
-void playMelody(const note_t *arr, uint16_t len)
-{
-    melody     = arr;
-    melodyLen  = len;
-    noteIndex  = 0;
-    playing    = true;
-    inGap      = true;                     // фаза «пауза вже вичерпана»
-    phaseEndAt = esp_timer_get_time();     // перша нота піде на найближчому витку
-}
-
-void buzzerUpdate(void)
-{
-    if (!playing) return;
-    int64_t now = esp_timer_get_time();
-    if (now < phaseEndAt) return;          // фаза (нота чи пауза) ще триває
-
-    if (inGap) {
-        // Пауза скінчилась → завести чергову ноту.
-        note_t n = melody[noteIndex++];
-        if (n.freq > 0) buzzerTone(n.freq);   // REST (freq 0) — лишаємо в тиші
-        inGap      = false;
-        phaseEndAt = now + (int64_t)n.dur * 1000;
-    } else {
-        // Нота відзвучала → погасити й вставити РЕАЛЬНУ паузу.
-        buzzerOff();
-        if (noteIndex >= melodyLen) {         // нот більше немає
-            playing = false;
-            return;
-        }
-        inGap      = true;
-        phaseEndAt = now + GAP_US;            // ← справжня тиша між нотами
-    }
-}
-```
-```stm32
-typedef struct { uint16_t freq; uint16_t dur; } Note;   // частота Гц, тривалість мс
-
-// ── Стан плеєра ──
-static const Note *melody     = NULL;   // на яку мелодію показуємо
-static uint16_t    melodyLen  = 0;      // скільки в ній нот
-static uint16_t    noteIndex  = 0;      // яку ноту гратимемо наступною
-static uint32_t    phaseEndAt = 0;      // HAL_GetTick(), кінець поточної фази
-static bool        playing    = false;
-static bool        inGap      = false;  // true = зараз мовчазна пауза між нотами
-
-#define GAP_MS  30U   // тривалість тиші між сусідніми нотами
-
-// Запустити мелодію (не блокує). arr — масив нот, len — його довжина.
-void playMelody(const Note *arr, uint16_t len)
-{
-    melody     = arr;
-    melodyLen  = len;
-    noteIndex  = 0;
-    playing    = true;
-    inGap      = true;             // фаза «пауза вже вичерпана»
-    phaseEndAt = HAL_GetTick();    // перша нота піде на найближчому витку
-}
-
-// Кликати на КОЖНОМУ витку while(1).
-void buzzerUpdate(void)
-{
-    if (!playing) return;
-    uint32_t now = HAL_GetTick();
-    if (now < phaseEndAt) return;       // фаза (нота чи пауза) ще триває
-
-    if (inGap) {
-        // Пауза скінчилась → завести чергову ноту.
-        Note n = melody[noteIndex++];
-        if (n.freq > 0) buzzerTone(n.freq);   // REST (freq 0) — лишаємо в тиші
-        inGap      = false;
-        phaseEndAt = now + n.dur;
-    } else {
-        // Нота відзвучала → погасити й вставити РЕАЛЬНУ паузу.
-        buzzerOff();
-        if (noteIndex >= melodyLen) {         // нот більше немає
-            playing = false;
-            return;
-        }
-        inGap      = true;
-        phaseEndAt = now + GAP_MS;            // ← справжня тиша між нотами
-    }
-}
-```
+:::code proj-ky006-buzzer/c/arduino/krok-2-melodiia-iak-spysok.ino
+:::code proj-ky006-buzzer/c/esp-idf/krok-2-melodiia-iak-spysok.c
+:::code proj-ky006-buzzer/c/stm32/krok-2-melodiia-iak-spysok.c
 :::
 
 І застосування — мелодія стає просто даними, а грає вона фоном:
 
 :::tabs
-```arduino
-// Висхідний мотив «до-ре-мі-фа-соль» і назад, остання нота довша.
-const Note scaleUpDown[] = {
-  {NOTE_C4, 200}, {NOTE_D4, 200}, {NOTE_E4, 200}, {NOTE_F4, 200},
-  {NOTE_G4, 200}, {NOTE_F4, 200}, {NOTE_E4, 200}, {NOTE_D4, 200},
-  {NOTE_C4, 500},
-};
-
-void setup() {
-  pinMode(PIN_BUZ, OUTPUT);
-  playMelody(scaleUpDown, sizeof(scaleUpDown) / sizeof(scaleUpDown[0]));
-}
-
-void loop() {
-  buzzerUpdate();     // ← мелодія рухається тут, фоном
-  // ...усе інше живе паралельно: поки грає гама, пристрій опитує кнопки...
-}
-```
-```esp-idf
-// Висхідний мотив «до-ре-мі-фа-соль» і назад, остання нота довша.
-static const note_t scaleUpDown[] = {
-    {NOTE_C4, 200}, {NOTE_D4, 200}, {NOTE_E4, 200}, {NOTE_F4, 200},
-    {NOTE_G4, 200}, {NOTE_F4, 200}, {NOTE_E4, 200}, {NOTE_D4, 200},
-    {NOTE_C4, 500},
-};
-
-void app_main(void)
-{
-    buzzerBegin();
-    playMelody(scaleUpDown, sizeof(scaleUpDown) / sizeof(scaleUpDown[0]));
-
-    while (1) {
-        buzzerUpdate();                 // ← мелодія рухається тут, фоном
-        vTaskDelay(pdMS_TO_TICKS(2));   // ...інші задачі живуть паралельно...
-    }
-}
-```
-```stm32
-// Висхідний мотив «до-ре-мі-фа-соль» і назад, остання нота довша.
-static const Note scaleUpDown[] = {
-    {NOTE_C4, 200}, {NOTE_D4, 200}, {NOTE_E4, 200}, {NOTE_F4, 200},
-    {NOTE_G4, 200}, {NOTE_F4, 200}, {NOTE_E4, 200}, {NOTE_D4, 200},
-    {NOTE_C4, 500},
-};
-
-int main(void)
-{
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();
-    MX_TIM3_Init();
-    playMelody(scaleUpDown, sizeof(scaleUpDown) / sizeof(scaleUpDown[0]));
-
-    while (1) {
-        buzzerUpdate();   // ← мелодія рухається тут, фоном
-        // ...усе інше живе паралельно: поки грає гама, пристрій опитує кнопки...
-    }
-}
-```
+:::code proj-ky006-buzzer/c/arduino/krok-2-melodiia-iak-spysok-2.ino
+:::code proj-ky006-buzzer/c/esp-idf/krok-2-melodiia-iak-spysok-2.c
+:::code proj-ky006-buzzer/c/stm32/krok-2-melodiia-iak-spysok-2.c
 :::
 
 Розберімо два тонкі місця, об які тут спотикаються найчастіше.
@@ -480,31 +96,7 @@ int main(void)
 
 Тут працює звукова інтуїція, стара як світ і зрозуміла без слів: **угору — добре, униз — погано, повторюваний різкий — тривога**. Висхідні дві ноти («ді-дінь!») вухо чує як «готово, вийшло»; спадні («дон-дон») — як «щось не так»; короткий повтор однакового різкого тону — як «увага, дивись сюди». Ми не вигадуємо ці асоціації, а спираємось на вже наявні в голові:
 
-```cpp
-// ── Готові сигнали-квитанції ──
-
-// Успіх: дві висхідні ноти, бадьоро. «ді-дінь!»
-const Note SND_OK[] = {
-  {NOTE_G4, 90}, {NOTE_C5, 140},
-};
-
-// Помилка: дві спадні низькі ноти, глухо. «дон-дон».
-const Note SND_ERROR[] = {
-  {NOTE_E4, 160}, {NOTE_C4, 260},
-};
-
-// Попередження: три однакові короткі писки, наполегливо. «пік-пік-пік».
-// Явних пауз не треба — плеєр сам розділить однакові ноти своєю фазою GAP_MS.
-const Note SND_WARN[] = {
-  {NOTE_A5, 80}, {NOTE_A5, 80}, {NOTE_A5, 80},
-};
-
-// Зручні обгортки — читаються за змістом, а не за нотами.
-#define N(arr) (arr), (sizeof(arr) / sizeof((arr)[0]))
-void soundOk()    { playMelody(N(SND_OK));    }
-void soundError() { playMelody(N(SND_ERROR)); }
-void soundWarn()  { playMelody(N(SND_WARN));  }
-```
+:::code proj-ky006-buzzer/cpp/krok-3-korotki-syhnaly-na.cpp
 
 Тепер код каже сам за себе — і жоден із цих викликів не блокує, звук іде фоном, поки логіка біжить далі:
 
@@ -519,39 +111,8 @@ void loop() {
   // ...і все це не спиняє loop() ні на мить...
 }
 ```
-```esp-idf
-void app_main(void)
-{
-    buzzerBegin();
-    while (1) {
-        buzzerUpdate();
-
-        if (button_pressed()) sound_ok();      // натиск — бадьорий «ді-дінь»
-        if (sensor_failed())  sound_error();   // давач замовк — глухий «дон-дон»
-        if (battery_low())    sound_warn();    // сідає батарея — «пік-пік-пік»
-
-        vTaskDelay(pdMS_TO_TICKS(2));   // ...і жоден із цих викликів не чекав...
-    }
-}
-```
-```stm32
-int main(void)
-{
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();
-    MX_TIM3_Init();
-
-    while (1) {
-        buzzerUpdate();
-
-        if (ButtonPressed()) SoundOk();      // натиск — бадьорий «ді-дінь»
-        if (SensorFailed())  SoundError();   // давач замовк — глухий «дон-дон»
-        if (BatteryLow())    SoundWarn();    // сідає батарея — «пік-пік-пік»
-        // ...і все це не спиняє цикл ні на мить...
-    }
-}
-```
+:::code proj-ky006-buzzer/c/esp-idf/krok-3-korotki-syhnaly-na.c
+:::code proj-ky006-buzzer/c/stm32/krok-3-korotki-syhnaly-na.c
 :::
 
 Зверни увагу на `SND_WARN`: три однакові `{NOTE_A5, 80}` поспіль — і **жодного явного REST** між ними. Без роздільника вони злилися б в один суцільний писк на чверть секунди, але плеєр сам вставляє між кожними двома нотами свою фазу `GAP_MS`, і саме вона розбиває ряд на три окремі удари — той тривожний пульс, який вухо чує як «увага». Тиша тут — не пропуск, а **повноцінний елемент** сигналу, і плеєр робить її сам. А коли треба пауза **ширша** за копійчані 30 мс (розлогіше «пі... пі... пі» чи ритмічна цезура всередині мелодії), для цього й лишається `REST`: постав `{REST, N}` явною нотою — це навмисна довга мовчанка на твій смак, тоді як `GAP_MS` — мінімальний автоматичний роздільник, щоб узагалі ніщо не злипалось.
@@ -567,110 +128,9 @@ int main(void)
 Суть — лінійно перекласти одне вікно чисел в інше. Arduino має для цього готову `map(x, inMin, inMax, outMin, outMax)`; в ESP-IDF і в HAL такої функції немає — там цю пропорцію пишуть самі, одним рядком. Пастки в неї всюди ті самі дві, їх і розберемо. Ось звукова шкала:
 
 :::tabs
-```arduino
-// Межі звуку. Нижню беремо не з підвалу: KY-006 нижче ~150 Гц ледь чутний,
-// а найдзвінкіше — ближче до резонансу пластини (~2 кГц), тож туди й ведемо верх.
-const int TONE_MIN_HZ = 200;    // найнижчий (найтихіший край шкали)
-const int TONE_MAX_HZ = 2000;   // найвищий (найгучніший, коло резонансу)
-
-// Заспівати значення value з діапазону [valMin; valMax].
-// invert=true → більше значення дає НИЖЧИЙ тон (як паркрадар: ближче → вище).
-void sonify(long value, long valMin, long valMax, bool invert) {
-  value = constrain(value, valMin, valMax);   // ← 1) затиснути в межі ОБОВ'ЯЗКОВО
-  int f;
-  if (invert)
-    f = map(value, valMin, valMax, TONE_MAX_HZ, TONE_MIN_HZ);
-  else
-    f = map(value, valMin, valMax, TONE_MIN_HZ, TONE_MAX_HZ);
-  tone(PIN_BUZ, f);   // безперервний тон, що «їздить» за значенням; noTone() коли не треба
-}
-
-void loop() {
-  buzzerUpdate();
-  long dist = readDistanceCm();          // напр. 5…100 см
-  sonify(dist, 5, 100, /*invert=*/true); // ближче стіна → вищий писк
-}
-```
-```esp-idf
-// Ті самі межі: нижче ~150 Гц KY-006 ледь чутний, найдзвінкіше — коло 2 кГц.
-#define TONE_MIN_HZ  200
-#define TONE_MAX_HZ  2000
-
-// Готової map()/constrain() тут немає — пропорція й затиск пишуться в рядок.
-static int32_t map_i(int32_t x, int32_t inMin, int32_t inMax,
-                     int32_t outMin, int32_t outMax)
-{
-    return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
-}
-static int32_t clamp_i(int32_t x, int32_t lo, int32_t hi)
-{
-    return x < lo ? lo : (x > hi ? hi : x);
-}
-
-// Заспівати значення value з діапазону [valMin; valMax].
-// invert=true → більше значення дає НИЖЧИЙ тон (як паркрадар: ближче → вище).
-void sonify(int32_t value, int32_t valMin, int32_t valMax, bool invert)
-{
-    value = clamp_i(value, valMin, valMax);   // ← 1) затиснути в межі ОБОВ'ЯЗКОВО
-    int32_t f = invert
-        ? map_i(value, valMin, valMax, TONE_MAX_HZ, TONE_MIN_HZ)
-        : map_i(value, valMin, valMax, TONE_MIN_HZ, TONE_MAX_HZ);
-    buzzerTone((uint32_t)f);   // тон «їздить» за значенням; buzzerOff() коли не треба
-}
-
-void app_main(void)
-{
-    buzzerBegin();
-    while (1) {
-        buzzerUpdate();
-        int32_t dist = read_distance_cm();       // напр. 5…100 см
-        sonify(dist, 5, 100, /*invert=*/true);   // ближче стіна → вищий писк
-        vTaskDelay(pdMS_TO_TICKS(20));
-    }
-}
-```
-```stm32
-// Ті самі межі: нижче ~150 Гц KY-006 ледь чутний, найдзвінкіше — коло 2 кГц.
-#define TONE_MIN_HZ  200
-#define TONE_MAX_HZ  2000
-
-// HAL готової map()/constrain() теж не має — пишемо пропорцію й затиск самі.
-static int32_t mapI(int32_t x, int32_t inMin, int32_t inMax,
-                    int32_t outMin, int32_t outMax)
-{
-    return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
-}
-static int32_t clampI(int32_t x, int32_t lo, int32_t hi)
-{
-    return x < lo ? lo : (x > hi ? hi : x);
-}
-
-// Заспівати значення value з діапазону [valMin; valMax].
-// invert=true → більше значення дає НИЖЧИЙ тон (як паркрадар: ближче → вище).
-void sonify(int32_t value, int32_t valMin, int32_t valMax, bool invert)
-{
-    value = clampI(value, valMin, valMax);   // ← 1) затиснути в межі ОБОВ'ЯЗКОВО
-    int32_t f = invert
-        ? mapI(value, valMin, valMax, TONE_MAX_HZ, TONE_MIN_HZ)
-        : mapI(value, valMin, valMax, TONE_MIN_HZ, TONE_MAX_HZ);
-    buzzerTone((uint32_t)f);   // тон «їздить» за значенням; buzzerOff() коли не треба
-}
-
-int main(void)
-{
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();
-    MX_TIM3_Init();
-
-    while (1) {
-        buzzerUpdate();
-        int32_t dist = ReadDistanceCm();         // напр. 5…100 см
-        sonify(dist, 5, 100, /*invert=*/true);   // ближче стіна → вищий писк
-        HAL_Delay(20);
-    }
-}
-```
+:::code proj-ky006-buzzer/c/arduino/krok-4-prystrii-shcho.ino
+:::code proj-ky006-buzzer/c/esp-idf/krok-4-prystrii-shcho.c
+:::code proj-ky006-buzzer/c/stm32/krok-4-prystrii-shcho.c
 :::
 
 Дві пастки тут коштують багатьох згаяних вечорів, бо код виглядає правильним, а звук — дикий.
@@ -688,56 +148,8 @@ int main(void)
 Уся **логіка плеєра лишається незмінною** — таблиця нот, `struct Note`, `buzzerUpdate`, сигнали, соніфікація. Міняється тільки найнижчий шар: три виклики `tone`/`noTone` замінюємо на LEDC. Зведімо їх в один шлюз, щоб решта модуля не знала, на якому вона залізі:
 
 :::tabs
-```arduino
-// ── Шлюз звуку для ESP32 (LEDC). Решта модуля кличе tone()/noTone() через нього. ──
-const uint8_t PIN_BUZ    = 25;    // будь-який GPIO, здатний на вихід
-const int     BUZ_CHAN   = 0;     // один канал LEDC під зумер
-const int     BUZ_RES    = 10;    // роздільність (для tone байдужа, треба для ledcSetup)
-
-void buzzerBegin() {
-  ledcSetup(BUZ_CHAN, 2000, BUZ_RES);   // завести канал (частоту задамо тоном)
-  ledcAttachPin(PIN_BUZ, BUZ_CHAN);     // прив'язати пін до каналу
-}
-
-// Наші власні tone()/noTone поверх LEDC — сигнатури як в Arduino, тіло інше.
-void tone(uint8_t /*pin*/, unsigned int freq) {
-  ledcWriteTone(BUZ_CHAN, freq);        // меандр 50% на freq Гц; 0 → тиша
-}
-void noTone(uint8_t /*pin*/) {
-  ledcWriteTone(BUZ_CHAN, 0);           // 0 Гц = вимкнути (шпаруватість у нуль)
-}
-
-void setup() {
-  buzzerBegin();
-  playMelody(scaleUpDown, sizeof(scaleUpDown) / sizeof(scaleUpDown[0]));
-}
-// loop(), buzzerUpdate(), таблиця нот, сигнали — БЕЗ ЖОДНОЇ ЗМІНИ
-```
-```esp-idf
-// ── Той самий шлюз на голому ESP-IDF. Тут не треба прикидатися Arduino:
-//    плеєр кличе buzzerTone()/buzzerOff(), а ті йдуть просто в драйвер LEDC. ──
-#include "driver/ledc.h"
-
-#define BUZ_MODE   LEDC_LOW_SPEED_MODE
-#define BUZ_TIMER  LEDC_TIMER_0
-#define BUZ_CHAN   LEDC_CHANNEL_0
-#define BUZ_DUTY   512     // 512 з 1024 (10 біт) = 50 %, чистий меандр
-
-void buzzerTone(uint32_t freq)
-{
-    ledc_set_freq(BUZ_MODE, BUZ_TIMER, freq);      // частоту тримає ТАЙМЕР…
-    ledc_set_duty(BUZ_MODE, BUZ_CHAN, BUZ_DUTY);   // …а шпаруватість — КАНАЛ
-    ledc_update_duty(BUZ_MODE, BUZ_CHAN);          // без цього duty не поїде в залізо
-}
-
-void buzzerOff(void)
-{
-    ledc_set_duty(BUZ_MODE, BUZ_CHAN, 0);
-    ledc_update_duty(BUZ_MODE, BUZ_CHAN);
-}
-// buzzerBegin() (ledc_timer_config + ledc_channel_config) — як у Кроці 1;
-// плеєр, таблиця нот, сигнали, соніфікація — БЕЗ ЖОДНОЇ ЗМІНИ
-```
+:::code proj-ky006-buzzer/c/arduino/esp32-ta-sama-lohika-insha.ino
+:::code proj-ky006-buzzer/c/esp-idf/esp32-ta-sama-lohika-insha.c
 :::
 
 На нових ядрах ESP32 (Arduino core 3.x) API LEDC спростили: замість пари `ledcSetup` + `ledcAttachPin` — один `ledcAttach(pin, freq, res)`, а тон дає `ledcWriteTone(pin, freq)` прямо в пін (без номера каналу). Ідея та сама, лише виклики коротші; логіка плеєра знову не міняється ні на йоту.

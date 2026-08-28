@@ -17,121 +17,9 @@
 Ось базова версія — те саме `setColor`, що обіцяла головна стаття, але вже з підтримкою обох типів. Завдання на будь-якому МК одне: три канали ШІМ і одна-єдина точка, де живе інверсія; різняться лише команди, якими шпаруватість задають:
 
 :::tabs
-```arduino
-// --- KY-016: керування кольором, катод АБО анод ---
-const uint8_t PIN_R = 9;      // усі три — PWM-піни (з «~» на Uno)
-const uint8_t PIN_G = 10;
-const uint8_t PIN_B = 11;
-
-// true  — плата зі СПІЛЬНИМ АНОДОМ (колір вмикає низький рівень)
-// false — плата зі СПІЛЬНИМ КАТОДОМ (колір вмикає високий рівень)
-const bool COMMON_ANODE = false;
-
-// один вихід каналу: тут і тільки тут живе інверсія для анода
-static inline uint8_t level(uint8_t v) {
-  return COMMON_ANODE ? (uint8_t)(255 - v) : v;
-}
-
-void setColor(uint8_t r, uint8_t g, uint8_t b) {
-  analogWrite(PIN_R, level(r));   // r,g,b — «людська» яскравість: 255 = яскраво
-  analogWrite(PIN_G, level(g));
-  analogWrite(PIN_B, level(b));
-}
-
-void setup() {
-  pinMode(PIN_R, OUTPUT);
-  pinMode(PIN_G, OUTPUT);
-  pinMode(PIN_B, OUTPUT);
-  setColor(255, 90, 0);           // теплий помаранчевий — однаково на обох типах плат
-}
-
-void loop() {}
-```
-```esp-idf
-// --- KY-016 на ESP-IDF: три канали апаратного модуля LEDC ---
-#include "driver/ledc.h"
-#include "esp_err.h"
-
-#define PIN_R 25
-#define PIN_G 26
-#define PIN_B 27
-
-// true — плата зі СПІЛЬНИМ АНОДОМ (колір вмикає низький рівень)
-#define COMMON_ANODE 0
-
-// один вихід каналу: тут і тільки тут живе інверсія для анода
-// (LEDC уміє інвертувати й апаратно — flags.output_invert; лишаємо явно, щоб було видно)
-static inline uint32_t level(uint8_t v) { return COMMON_ANODE ? 255u - v : v; }
-
-static void rgb_init(void) {
-    ledc_timer_config_t timer = {
-        .speed_mode      = LEDC_LOW_SPEED_MODE,
-        .timer_num       = LEDC_TIMER_0,
-        .duty_resolution = LEDC_TIMER_8_BIT,   // шкала duty 0..255, як на Uno
-        .freq_hz         = 5000,               // 5 кГц — без видимого мерехтіння
-        .clk_cfg         = LEDC_AUTO_CLK,
-    };
-    ESP_ERROR_CHECK(ledc_timer_config(&timer));
-
-    const int pins[3] = { PIN_R, PIN_G, PIN_B };
-    for (int i = 0; i < 3; i++) {
-        ledc_channel_config_t ch = {
-            .gpio_num   = pins[i],
-            .speed_mode = LEDC_LOW_SPEED_MODE,
-            .channel    = (ledc_channel_t)(LEDC_CHANNEL_0 + i),
-            .timer_sel  = LEDC_TIMER_0,
-            .duty       = 0,
-            .hpoint     = 0,
-        };
-        ESP_ERROR_CHECK(ledc_channel_config(&ch));
-    }
-}
-
-static void write_ch(ledc_channel_t ch, uint8_t v) {
-    ledc_set_duty(LEDC_LOW_SPEED_MODE, ch, level(v));
-    ledc_update_duty(LEDC_LOW_SPEED_MODE, ch);   // duty набирає сили лише тут
-}
-
-void set_color(uint8_t r, uint8_t g, uint8_t b) {
-    write_ch(LEDC_CHANNEL_0, r);   // r,g,b — «людська» яскравість: 255 = яскраво
-    write_ch(LEDC_CHANNEL_1, g);
-    write_ch(LEDC_CHANNEL_2, b);
-}
-
-void app_main(void) {
-    rgb_init();
-    set_color(255, 90, 0);         // теплий помаранчевий
-}
-```
-```stm32
-// --- KY-016 на STM32 HAL: три канали ОДНОГО таймера ---
-// TIM3 CH1/CH2/CH3 у режимі PWM Generation, ARR = 255 → шкала duty 0..255;
-// частоту дає прескалер: f = f_TIM / (PSC+1) / (ARR+1) ≈ 5 кГц.
-#include "main.h"
-
-extern TIM_HandleTypeDef htim3;   // дескриптор таймера, згенерований CubeMX
-
-#define COMMON_ANODE 0
-#define DUTY_MAX 255              // = ARR таймера
-
-// один вихід каналу: тут і тільки тут живе інверсія для анода
-static inline uint32_t level(uint8_t v) {
-  return COMMON_ANODE ? (uint32_t)(DUTY_MAX - v) : (uint32_t)v;
-}
-
-void set_color(uint8_t r, uint8_t g, uint8_t b) {
-  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, level(r));   // пишемо в CCR каналу
-  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, level(g));
-  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_3, level(b));
-}
-
-void rgb_init(void) {
-  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);   // пустити ШІМ на трьох каналах
-  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
-  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
-  set_color(255, 90, 0);                      // теплий помаранчевий
-}
-```
+:::code api-rgb-control/c/arduino/krok-pershyi-chesnyi.ino
+:::code api-rgb-control/c/esp-idf/krok-pershyi-chesnyi.c
+:::code api-rgb-control/c/stm32/krok-pershyi-chesnyi.c
 :::
 
 > 🔧 **Навіщо це.** Прапорець замість зашитого варіанта — це не педантизм, а страховка від найтиповішої втрати вечора. Замовив ти дві однакові з вигляду платки в різних продавців — одна катодна, друга анодна, і зовні їх не відрізниш. Код, у якому інверсія схована за одним `COMMON_ANODE`, переноситься з плати на плату **зміною одного рядка**, а не полюванням на кожен `analogWrite` у програмі. Той самий прийом — «весь варіант заліза за одним прапорцем» — рятує скрізь, де є дзеркальна логіка: активний-низький скидання, інверсні входи оптопар, реле, що замикається землею.
@@ -159,77 +47,9 @@ b(t) = bA + (bB − bA) · t
 Тепер це в коді. Найпростіший, **блокувальний** варіант — цикл на N кроків із паузою (а де таймер уміє доводити шпаруватість до цілі сам, цикл не потрібен зовсім — вкладка ESP-IDF):
 
 :::tabs
-```arduino
-// плавний перехід поточного кольору A → цільового B за час ~ (steps * wait) мс
-void fade(uint8_t rA, uint8_t gA, uint8_t bA,
-          uint8_t rB, uint8_t gB, uint8_t bB,
-          uint16_t steps, uint16_t wait) {
-  for (uint16_t i = 0; i <= steps; i++) {
-    float t = (float)i / steps;                 // 0.0 → 1.0
-    uint8_t r = rA + (int)((rB - rA) * t);      // лінійна інтерполяція каналу
-    uint8_t g = gA + (int)((gB - gA) * t);
-    uint8_t b = bA + (int)((bB - bA) * t);
-    setColor(r, g, b);
-    delay(wait);                                // пауза між кадрами
-  }
-}
-
-void loop() {
-  fade(255, 90, 0,  0, 120, 255,  60, 12);   // помаранчевий → блакитний, ~0.7 с
-  fade(0, 120, 255,  255, 90, 0,  60, 12);   // і назад
-}
-```
-```esp-idf
-// На ESP32 перехід уміє саме залізо: LEDC має вбудований фейдер, який доводить
-// duty до цілі за задані мілісекунди без участі процесора. Кадри рахувати не треба.
-#include "driver/ledc.h"
-
-static void fade_ch(ledc_channel_t ch, uint8_t v, uint32_t ms) {
-    ledc_set_fade_with_time(LEDC_LOW_SPEED_MODE, ch, level(v), ms);
-    ledc_fade_start(LEDC_LOW_SPEED_MODE, ch, LEDC_FADE_NO_WAIT);  // не блокує задачу
-}
-
-void fade_to(uint8_t r, uint8_t g, uint8_t b, uint32_t ms) {
-    fade_ch(LEDC_CHANNEL_0, r, ms);   // три канали їдуть до цілі одночасно
-    fade_ch(LEDC_CHANNEL_1, g, ms);
-    fade_ch(LEDC_CHANNEL_2, b, ms);
-}
-
-static void rgb_task(void *arg) {
-    ESP_ERROR_CHECK(ledc_fade_func_install(0));   // один раз: сервіс фейду + його ISR
-    for (;;) {
-        fade_to(0, 120, 255, 700);                // помаранчевий → блакитний, 0.7 с
-        vTaskDelay(pdMS_TO_TICKS(700));
-        fade_to(255, 90, 0, 700);                 // і назад
-        vTaskDelay(pdMS_TO_TICKS(700));
-    }
-}
-// у app_main: xTaskCreate(rgb_task, "rgb", 3072, NULL, 5, NULL);
-```
-```stm32
-// плавний перехід поточного кольору A → цільового B за час ~ (steps * wait) мс
-void fade(uint8_t rA, uint8_t gA, uint8_t bA,
-          uint8_t rB, uint8_t gB, uint8_t bB,
-          uint16_t steps, uint16_t wait) {
-  for (uint16_t i = 0; i <= steps; i++) {
-    float t = (float)i / steps;                 // 0.0 → 1.0
-    uint8_t r = rA + (int)((rB - rA) * t);      // лінійна інтерполяція каналу
-    uint8_t g = gA + (int)((gB - gA) * t);
-    uint8_t b = bA + (int)((bB - bA) * t);
-    set_color(r, g, b);
-    HAL_Delay(wait);                            // пауза між кадрами, крок SysTick — 1 мс
-  }
-}
-
-int main(void) {
-  /* HAL_Init(), SystemClock_Config(), MX_TIM3_Init() — від CubeMX */
-  rgb_init();
-  while (1) {
-    fade(255, 90, 0,  0, 120, 255,  60, 12);   // помаранчевий → блакитний, ~0.7 с
-    fade(0, 120, 255,  255, 90, 0,  60, 12);   // і назад
-  }
-}
-```
+:::code api-rgb-control/c/arduino/krok-druhyi-fade-plavnyi.ino
+:::code api-rgb-control/c/esp-idf/krok-druhyi-fade-plavnyi.c
+:::code api-rgb-control/c/stm32/krok-druhyi-fade-plavnyi.c
 :::
 
 Одна тонкість у арифметиці: різницю `(rB - rA)` треба рахувати **зі знаком**, бо канал може і спадати (червоний з 255 до 0 дає різницю −255). Тому множення `(rB - rA) * t` беремо в `int`, а вже суму присвоюємо в `uint8_t` — інакше на спадному каналі отримаєш переповнення й колір смикнеться. Дрібниця, але саме на ній ламаються перші саморобні fade.
@@ -326,84 +146,9 @@ print("};")
 У класичному вигляді (Arduino-ESP32 версії 2.x) це три виклики:
 
 :::tabs
-```arduino
-// ESP32 (Arduino-ESP32 2.x): три канали LEDC під три кольори KY-016
-const uint8_t PIN_R = 25, PIN_G = 26, PIN_B = 27;   // на ESP32 підійде майже будь-який GPIO
-const uint8_t CH_R = 0,  CH_G = 1,  CH_B = 2;       // три апаратні канали LEDC
-const uint32_t PWM_FREQ = 5000;                      // 5 кГц — поза чутністю, без мерехтіння
-const uint8_t  PWM_BITS = 8;                         // 8-бітна роздільність → duty 0..255
-
-const bool COMMON_ANODE = false;
-
-static inline uint8_t level(uint8_t v) {
-  return COMMON_ANODE ? (uint8_t)(255 - v) : v;
-}
-
-void setColor(uint8_t r, uint8_t g, uint8_t b) {
-  ledcWrite(CH_R, level(gamma8(r)));   // на ESP32 пишемо в КАНАЛ, не в пін
-  ledcWrite(CH_G, level(gamma8(g)));
-  ledcWrite(CH_B, level(gamma8(b)));
-}
-
-void setup() {
-  ledcSetup(CH_R, PWM_FREQ, PWM_BITS);   // 1) налаштувати канал: частота + роздільність
-  ledcSetup(CH_G, PWM_FREQ, PWM_BITS);
-  ledcSetup(CH_B, PWM_FREQ, PWM_BITS);
-  ledcAttachPin(PIN_R, CH_R);            // 2) прив'язати канал до фізичного піна
-  ledcAttachPin(PIN_G, CH_G);
-  ledcAttachPin(PIN_B, CH_B);
-  setColor(255, 90, 0);
-}
-
-void loop() {}
-```
-```esp-idf
-// Те саме без обгорток: ledcSetup — це ledc_timer_config(), ledcAttachPin —
-// ledc_channel_config(), ledcWrite — ledc_set_duty() + ledc_update_duty().
-ledc_timer_config_t timer = {
-    .speed_mode      = LEDC_LOW_SPEED_MODE,
-    .timer_num       = LEDC_TIMER_0,
-    .duty_resolution = LEDC_TIMER_8_BIT,   // 1) роздільність: duty 0..255
-    .freq_hz         = 5000,               // 2) частота: 5 кГц
-    .clk_cfg         = LEDC_AUTO_CLK,
-};
-ESP_ERROR_CHECK(ledc_timer_config(&timer));
-
-ledc_channel_config_t ch_r = {            // 3) канал ↔ пін: прив'язка окремим кроком
-    .gpio_num = PIN_R, .speed_mode = LEDC_LOW_SPEED_MODE,
-    .channel  = LEDC_CHANNEL_0, .timer_sel = LEDC_TIMER_0,
-    .duty = 0, .hpoint = 0,
-};
-ESP_ERROR_CHECK(ledc_channel_config(&ch_r));   // так само CH_G/PIN_G і CH_B/PIN_B
-
-ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, level(gamma8(r)));
-ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
-```
-```stm32
-// Ті самі три ручки на STM32, лише називаються по-таймерному:
-// роздільність = ARR, частота = f_TIM/((PSC+1)·(ARR+1)), канал ≠ пін.
-TIM_HandleTypeDef htim3;
-
-void rgb_init(void) {
-  __HAL_RCC_TIM3_CLK_ENABLE();
-  htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 65 - 1;              // 84 МГц / 65 ≈ 1.29 МГц
-  htim3.Init.Period    = 256 - 1;             // ARR = 255 → duty 0..255 (8 біт)
-  htim3.Init.CounterMode   = TIM_COUNTERMODE_UP;   // 1.29 МГц / 256 ≈ 5 кГц
-  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  HAL_TIM_PWM_Init(&htim3);
-
-  TIM_OC_InitTypeDef oc = { .OCMode = TIM_OCMODE_PWM1, .Pulse = 0,
-                            .OCPolarity = TIM_OCPOLARITY_HIGH, .OCFastMode = TIM_OCFAST_DISABLE };
-  HAL_TIM_PWM_ConfigChannel(&htim3, &oc, TIM_CHANNEL_1);   // канал 1 → PB4 (AF2)
-  HAL_TIM_PWM_ConfigChannel(&htim3, &oc, TIM_CHANNEL_2);   // канал 2 → PB5
-  HAL_TIM_PWM_ConfigChannel(&htim3, &oc, TIM_CHANNEL_3);   // канал 3 → PB0
-  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
-  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
-  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
-}
-// (піни в режимі альтернативної функції — окремо, у HAL_TIM_MspPostInit)
-```
+:::code api-rgb-control/c/arduino/krok-chetvertyi-esp32-toi.ino
+:::code api-rgb-control/c/esp-idf/krok-chetvertyi-esp32-toi.h
+:::code api-rgb-control/c/stm32/krok-chetvertyi-esp32-toi.c
 :::
 
 Три речі, які тут інші, ніж на Uno, і які варто зрозуміти, а не завчити:

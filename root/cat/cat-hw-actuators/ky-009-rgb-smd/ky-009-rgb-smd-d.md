@@ -84,92 +84,9 @@ R   = 2.2 В / 0.02 А = 110 Ом
 У коді це щоразу три однакові дії: завести три канали PWM на трьох виводах і задати кожному свою шпаруватість. Назви викликів у кожному середовищі свої, суть — та сама. Ось помаранчевий (пам'ятаючи, що піни йдуть до виходів **через резистори**):
 
 :::tabs
-```arduino
-// KY-009, спільний катод. R→D9, G→D10, B→D11 (кожен ЧЕРЕЗ резистор); − → GND.
-const int R = 9, G = 10, B = 11;
-
-void setup() {
-  pinMode(R, OUTPUT);
-  pinMode(G, OUTPUT);
-  pinMode(B, OUTPUT);
-}
-
-void loop() {
-  // Помаранчевий: повний червоний, півзеленого, без синього.
-  // Спільний катод → більше число = яскравіше.
-  analogWrite(R, 255);   // червоний на повну
-  analogWrite(G, 128);   // зелений наполовину
-  analogWrite(B, 0);     // синій вимкнено
-}
-```
-```esp-idf
-// KY-009, спільний катод. R→GPIO25, G→GPIO26, B→GPIO27 (кожен ЧЕРЕЗ резистор); − → GND.
-#include "driver/ledc.h"
-
-#define RGB_MODE LEDC_LOW_SPEED_MODE
-static const int rgb_gpio[3] = { 25, 26, 27 };
-
-static void rgb_init(void) {
-  ledc_timer_config_t tcfg = {
-    .speed_mode      = RGB_MODE,
-    .timer_num       = LEDC_TIMER_0,
-    .duty_resolution = LEDC_TIMER_8_BIT,   // шпаруватість 0…255
-    .freq_hz         = 1000,               // 1 кГц — око миготіння не бачить
-    .clk_cfg         = LEDC_AUTO_CLK,
-  };
-  ESP_ERROR_CHECK(ledc_timer_config(&tcfg));
-
-  for (int i = 0; i < 3; i++) {            // три канали на одному таймері
-    ledc_channel_config_t ccfg = {
-      .gpio_num   = rgb_gpio[i],
-      .speed_mode = RGB_MODE,
-      .channel    = (ledc_channel_t)(LEDC_CHANNEL_0 + i),
-      .timer_sel  = LEDC_TIMER_0,
-      .duty       = 0,
-      .hpoint     = 0,
-    };
-    ESP_ERROR_CHECK(ledc_channel_config(&ccfg));
-  }
-}
-
-static void rgb_set(uint32_t r, uint32_t g, uint32_t b) {
-  const uint32_t duty[3] = { r, g, b };    // спільний катод → більше = яскравіше
-  for (int i = 0; i < 3; i++) {
-    ledc_channel_t ch = (ledc_channel_t)(LEDC_CHANNEL_0 + i);
-    ESP_ERROR_CHECK(ledc_set_duty(RGB_MODE, ch, duty[i]));
-    ESP_ERROR_CHECK(ledc_update_duty(RGB_MODE, ch));   // нова шпаруватість діє лише після update
-  }
-}
-
-void app_main(void) {
-  rgb_init();
-  rgb_set(255, 128, 0);                    // помаранчевий
-}
-```
-```stm32
-// KY-009, спільний катод. R→TIM3_CH1, G→TIM3_CH2, B→TIM3_CH3 (кожен ЧЕРЕЗ резистор); − → GND.
-// Таймер налаштовано в CubeMX як PWM Generation, ARR = 255 → шпаруватість теж 0…255.
-#include "main.h"
-
-extern TIM_HandleTypeDef htim3;
-
-static void rgb_start(void) {
-  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);   // червоний
-  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);   // зелений
-  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);   // синій
-}
-
-static void rgb_set(uint8_t r, uint8_t g, uint8_t b) {
-  // Запис у регістр порівняння каналу — це і є «задати яскравість».
-  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, r);   // спільний катод → більше = яскравіше
-  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, g);
-  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_3, b);
-}
-
-// у main(), після MX_TIM3_Init():
-//   rgb_start();
-//   rgb_set(255, 128, 0);   // помаранчевий: повний червоний, півзеленого, без синього
-```
+:::code ky-009-rgb-smd-d/c/arduino/main.ino
+:::code ky-009-rgb-smd-d/c/esp-idf/main.c
+:::code ky-009-rgb-smd-d/c/stm32/main.c
 :::
 
 Число, яким задають шпаруватість, живе в межах **роздільності каналу**: вісім біт дають звичні 0…255, а на STM32 стелею є значення `ARR` таймера — воно яке завгодно, і «повна яскравість» дорівнює саме йому. Хоч би яка стеля, сенс той самий: 0 — колір погашено, стеля — повна яскравість. Для спільного катода число прямо відповідає яскравості; якби модуль був спільноанодним, ті самі кольори задавали б дзеркальними числами (нуль світив би червоний на повну). Плавні переходи, райдугу «по колу» й перетворення звичного кольору (відтінок-насиченість-яскравість) на трійку R-G-B — тобто повний практичний код керування з типовими пастками (гама-корекція, чому «половина числа» не виглядає як «половина яскравості», та керування на ESP32 через `ledc`) — зібрано окремо в [практиці керування KY-009](root:cat-hw-actuators/ky-009-rgb-smd/proj-ky009-color.md).

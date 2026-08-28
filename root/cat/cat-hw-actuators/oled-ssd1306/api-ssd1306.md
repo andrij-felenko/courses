@@ -14,30 +14,7 @@
 
 Ось повний сканер для Arduino/ESP32. Його можна залити окремим скетчем — він нічого не малює, лише друкує в монітор порту знайдені адреси.
 
-```cpp
-#include <Wire.h>
-
-void setup() {
-  Serial.begin(115200);
-  while (!Serial) { }            // на ESP32/native USB — дочекатися монітора
-  Wire.begin();                  // SDA=GPIO21, SCL=GPIO22 на ESP32 за замовчуванням
-  Serial.println("Скануємо шину I2C...");
-
-  int found = 0;
-  for (uint8_t addr = 1; addr < 127; addr++) {
-    Wire.beginTransmission(addr);
-    uint8_t err = Wire.endTransmission();   // 0 == дістали ACK, пристрій живий
-    if (err == 0) {
-      Serial.printf("  пристрій за адресою 0x%02X\n", addr);
-      found++;
-    }
-  }
-  if (found == 0)
-    Serial.println("Ніхто не озвався — перевір дроти, живлення, підтяжки.");
-}
-
-void loop() { }
-```
+:::code api-ssd1306/cpp/krok-nul-znaity-dysplei-na.cpp
 
 Запустивши це на справному модулі, ви побачите рівно один рядок: `пристрій за адресою 0x3C`. Зрідка — `0x3D` (якщо на платі перепаяно площадку SA0). Побачили `0x3D` — запам'ятайте це число: саме його треба буде передати в ініціалізацію замість типового `0x3C`, інакше бібліотека стукатиме не туди й вважатиме, що дисплея немає.
 
@@ -80,40 +57,7 @@ for (uint8_t a7 = 1; a7 < 127; a7++) {
 
 На щастя, руками цю пару команд шлють лише ті, хто пише свій драйвер. У звичайному коді беруть бібліотеку, яка знає всю послідовність напам'ять. У світі Arduino/ESP32 канонічна пара — **Adafruit_SSD1306** (драйвер саме цього контролера) поверх **Adafruit_GFX** (спільна графіка: шрифти, лінії, фігури — те саме API, що й для інших дисплеїв Adafruit). Ініціалізація зводиться до одного рядка:
 
-```cpp
-#include <Wire.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
-
-#define SCREEN_W    128
-#define SCREEN_H     64
-#define OLED_ADDR  0x3C     // те, що показав сканер; зрідка 0x3D
-#define OLED_RESET   -1     // I2C-модуль 0.96" не має окремої ніжки RESET
-
-// Буфер 128*64/8 = 1024 байти живе всередині цього об'єкта, у RAM МК.
-Adafruit_SSD1306 display(SCREEN_W, SCREEN_H, &Wire, OLED_RESET);
-
-void setup() {
-  Serial.begin(115200);
-  Wire.begin();
-
-  // SWITCHCAPVCC — увімкнути внутрішній зарядний насос (та сама пара 0x8D,0x14).
-  // begin() ще й ВИДІЛЯЄ 1024 байти під буфер і повертає false, якщо RAM не стало.
-  if (!display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDR)) {
-    Serial.println("SSD1306: begin() не вдався — адреса або брак RAM");
-    for (;;) { }            // далі йти немає сенсу
-  }
-
-  display.clearDisplay();   // очистити буфер (у RAM; на склі ще старе/сміття)
-  display.setTextColor(SSD1306_WHITE);
-  display.setTextSize(2);
-  display.setCursor(0, 20);
-  display.println("Привіт!");
-  display.display();        // ← ОЦЕ штовхає буфер на скло. Без нього — порожньо.
-}
-
-void loop() { }
-```
+:::code api-ssd1306/cpp/krok-odyn-initsializatsiia.cpp
 
 Два рядки тут варто зупинити окремо. По-перше, `display.begin(...)` **повертає `bool`**, і це не формальність: усередині він намагається виділити 1024 байти під кадровий буфер, і на чипі з обмаллю RAM це може не вдатися. Тому перевірку `if (!display.begin(...))` не викидають — вона розрізняє «не та адреса / бракує пам'яті» від «усе гаразд». По-друге — і це найважливіше в усьому прикладі — останній рядок `display.display()`. До нього всі `println`, `setCursor`, майбутні лінії й прямокутники малюються **лише в буфер у RAM**; на склі не змінюється ані піксель. `display()` бере ці 1024 байти й жене їх на контролер. **Забули `display()` — екран лишається порожнім, і здається, що дисплей завис.**
 
@@ -123,54 +67,7 @@ void loop() { }
 
 На «голому» STM32 (без Arduino) Adafruit-бібліотека не підходить — вона зшита з `Wire`. Тут беруть **U8g2** — універсальний драйвер, що вміє десятки контролерів (зокрема й SH1106 з сусідніх 1.3″-модулів) і працює як в Arduino, так і в чистому C поверх HAL. Ціна універсальності — трохи більше ручної роботи: U8g2 не знає вашого конкретного мікроконтролера, тож ви даєте йому **два колбеки** — «як послати байти по I2C» і «як зачекати мілісекунди». Усередині цих колбеків і живе HAL зі своїм зсунутим `0x78`.
 
-```c
-#include "u8g2.h"
-
-static u8g2_t u8g2;                 // структура дисплея; буфер 1024 Б — усередині
-extern I2C_HandleTypeDef hi2c1;     // налаштований у CubeMX
-
-// Колбек №1: віддати байти по I2C. U8g2 накопичує їх, а на END — шле пачку.
-static uint8_t u8x8_byte_stm32_hw_i2c(u8x8_t *u8x8, uint8_t msg,
-                                      uint8_t arg_int, void *arg_ptr) {
-  static uint8_t buf[32];
-  static uint8_t idx;
-  uint8_t *data;
-  switch (msg) {
-    case U8X8_MSG_BYTE_START_TRANSFER: idx = 0; break;
-    case U8X8_MSG_BYTE_SEND:
-      data = (uint8_t *)arg_ptr;
-      while (arg_int-- > 0) buf[idx++] = *data++;   // збираємо у свій буфер
-      break;
-    case U8X8_MSG_BYTE_END_TRANSFER:
-      // 0x3C << 1 = 0x78 — HAL хоче 8-бітну адресу! (та сама каверза, що й у сканері)
-      HAL_I2C_Master_Transmit(&hi2c1, 0x78, buf, idx, HAL_MAX_DELAY);
-      break;
-  }
-  return 1;
-}
-
-// Колбек №2: затримки. Для I2C потрібні лише мілісекунди.
-static uint8_t u8x8_gpio_and_delay_stm32(u8x8_t *u8x8, uint8_t msg,
-                                         uint8_t arg_int, void *arg_ptr) {
-  if (msg == U8X8_MSG_DELAY_MILLI) HAL_Delay(arg_int);
-  return 1;
-}
-
-void oled_init(void) {
-  // Конструктор «повнобуферного» (_f) драйвера саме SSD1306 128x64 noname.
-  u8g2_Setup_ssd1306_i2c_128x64_noname_f(
-      &u8g2, U8G2_R0,                       // R0 — без повороту
-      u8x8_byte_stm32_hw_i2c, u8x8_gpio_and_delay_stm32);
-
-  u8g2_InitDisplay(&u8g2);      // шле всю послідовність ініціалізації (насос теж!)
-  u8g2_SetPowerSave(&u8g2, 0);  // 0 — прокинутися; 1 — приспати екран
-  u8g2_ClearBuffer(&u8g2);
-
-  u8g2_SetFont(&u8g2, u8g2_font_ncenB14_tr);
-  u8g2_DrawStr(&u8g2, 0, 30, "Привіт!");
-  u8g2_SendBuffer(&u8g2);       // ← аналог display(): без нього скло порожнє
-}
-```
+:::code api-ssd1306/c/main.c
 
 Структурно це **той самий обряд**, лише іншими словами. `u8g2_InitDisplay()` шле всю послідовність команд, зокрема й увімкнення насоса, — вам не треба знати про `0x8D, 0x14`, U8g2 знає її для «noname» SSD1306. Суфікс `_f` у назві конструктора (`..._noname_f`) означає **full-buffer** — повний кадровий буфер у RAM, як у Adafruit; є ще режими з частковим буфером (`_1`, `_2`) для зовсім тісних чипів, але вони складніші в користуванні. І, звісно, `u8g2_SendBuffer()` — точний аналог `display()`: доки не покликали, скло не змінюється.
 

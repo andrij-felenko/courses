@@ -98,36 +98,8 @@ S       →  цифровий пін МК  (HIGH — світиться, LOW —
 **Умова.** Сигнал S KY-034 заведено на цифровий пін (D8 на Arduino Uno; GPIO 5 на ESP32), мінус — на GND. Хочемо блимнути модулем тричі — увімкнути на пів секунди, згасити, і так три рази.
 
 :::tabs
-```cpp
-const uint8_t PIN_LED = 8;      // S модуля на цифровому виході
-
-void setup() {
-  pinMode(PIN_LED, OUTPUT);
-  for (int i = 0; i < 3; i++) {
-    digitalWrite(PIN_LED, HIGH);   // подаємо живлення — модуль світиться (свій колір)
-    delay(500);
-    digitalWrite(PIN_LED, LOW);    // прибираємо живлення — модуль згас
-    delay(500);
-  }
-}
-
-void loop() {
-  // далі нічого: блимнули тричі на старті й затихли
-}
-```
-```micropython
-from machine import Pin
-from time import sleep_ms
-
-led = Pin(5, Pin.OUT)             # S модуля на цифровому виході (ESP32: GPIO5)
-
-for _ in range(3):
-    led.value(1)                  # подаємо живлення — модуль світиться (свій колір)
-    sleep_ms(500)
-    led.value(0)                  # прибираємо живлення — модуль згас
-    sleep_ms(500)
-# далі нічого: блимнули тричі й затихли
-```
+:::code ky-034-flash-d/cpp/keruiemo-nym-u-kodi-tym.cpp
+:::code ky-034-flash-d/py/micropython/main.py
 :::
 
 Зверни увагу на важливе: `digitalWrite(PIN_LED, HIGH)` вмикає вогник, але **не задає, яким кольором він засвітиться**. Якого кольору дійде черга в заводському хороводі тієї миті — таким і спалахне. Якщо ти згасиш його й за секунду ввімкнеш знову, він **не почне з червоного заново**: у дешевих екземплярах внутрішній лічильник під час короткого зникнення живлення просто скидається, тож після ввімкнення візерунок стартує з початку, — але покладатися на це як на «керування кольором» не можна, бо це не команда, а побічний ефект скидання. Хочеш передбачуваний колір у передбачувану мить — це не той модуль.
@@ -137,20 +109,7 @@ for _ in range(3):
 **Умова.** KY-034 на D8; кнопка (чи будь-який цифровий сигнал) на D2. Хай модуль світиться, поки на D2 є сигнал.
 
 :::tabs
-```cpp
-const uint8_t PIN_LED = 8;
-const uint8_t PIN_IN  = 2;
-
-void setup() {
-  pinMode(PIN_LED, OUTPUT);
-  pinMode(PIN_IN, INPUT);
-}
-
-void loop() {
-  bool active = digitalRead(PIN_IN);        // є сигнал на вході?
-  digitalWrite(PIN_LED, active ? HIGH : LOW); // так → живимо вогник; ні → гасимо
-}
-```
+:::code ky-034-flash-d/cpp/keruiemo-nym-u-kodi-tym-2.cpp
 ```micropython
 from machine import Pin
 

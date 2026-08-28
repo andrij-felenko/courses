@@ -16,18 +16,7 @@ uint8_t frame[8];   // frame[r] — узор рядка r; біт c = цятка
 
 Ось приклад «малювання» — покласти в буфер усміхнене обличчя. Кожен рядок зручно писати двійковим літералом, бо тоді видно сам малюнок просто в коді:
 
-```cpp
-void drawSmiley() {
-    frame[0] = 0b00111100;
-    frame[1] = 0b01000010;
-    frame[2] = 0b10100101;   // очі
-    frame[3] = 0b10000001;
-    frame[4] = 0b10100101;   // куточки рота
-    frame[5] = 0b10011001;   // усмішка
-    frame[6] = 0b01000010;
-    frame[7] = 0b00111100;
-}
-```
+:::code api-driver/cpp/bufer-kadru-iak-iedyna.cpp
 
 Одиниці в літералі — це цятки, що мають горіти. Дивишся на код — і бачиш обличчя. Далі все питання в тому, **як** ці вісім байтів долетять до світлодіодів.
 
@@ -53,40 +42,8 @@ const uint8_t COL_PIN[8] = { 2, 3, 4, 5, 6, 7, 8, 9 };
 // Виводи, що керують транзисторними ключами рядків 0..7 (аноди до +5 В).
 const uint8_t ROW_PIN[8] = { 10, 11, 12, 13, A0, A1, A2, A3 };
 ```
-```esp-idf
-#include "driver/gpio.h"
-
-// Номери GPIO чипа, до яких припаяно стовпці 0..7 (катоди через резистори).
-static const gpio_num_t COL_PIN[8] = {
-    GPIO_NUM_4,  GPIO_NUM_5,  GPIO_NUM_12, GPIO_NUM_13,
-    GPIO_NUM_14, GPIO_NUM_15, GPIO_NUM_16, GPIO_NUM_17,
-};
-
-// GPIO, що керують транзисторними ключами рядків 0..7 (аноди до +5 В).
-// GPIO 6..11 зайняті флешем, 34..39 — тільки входи: під виходи не годяться.
-static const gpio_num_t ROW_PIN[8] = {
-    GPIO_NUM_18, GPIO_NUM_19, GPIO_NUM_21, GPIO_NUM_22,
-    GPIO_NUM_23, GPIO_NUM_25, GPIO_NUM_26, GPIO_NUM_27,
-};
-```
-```stm32
-#include "stm32f1xx_hal.h"
-
-// На STM32 вивід — це пара «порт + маска ніжки», тож тримаємо її структурою.
-typedef struct { GPIO_TypeDef *port; uint16_t pin; } pin_t;
-
-// Стовпці 0..7 (катоди через резистори).
-static const pin_t COL_PIN[8] = {
-    {GPIOA, GPIO_PIN_0}, {GPIOA, GPIO_PIN_1}, {GPIOA, GPIO_PIN_2}, {GPIOA, GPIO_PIN_3},
-    {GPIOA, GPIO_PIN_4}, {GPIOA, GPIO_PIN_5}, {GPIOA, GPIO_PIN_6}, {GPIOA, GPIO_PIN_7},
-};
-
-// Рядкові ключі 0..7 (аноди до +5 В). PB2 обходимо — це BOOT1.
-static const pin_t ROW_PIN[8] = {
-    {GPIOB, GPIO_PIN_0}, {GPIOB, GPIO_PIN_1}, {GPIOB, GPIO_PIN_3}, {GPIOB, GPIO_PIN_4},
-    {GPIOB, GPIO_PIN_5}, {GPIOB, GPIO_PIN_6}, {GPIOB, GPIO_PIN_7}, {GPIOB, GPIO_PIN_8},
-};
-```
+:::code api-driver/c/esp-idf/rozkladka-vyvodiv-i-karta.c
+:::code api-driver/c/stm32/rozkladka-vyvodiv-i-karta.c
 :::
 
 Ключова думка: **порядок у цих масивах ти підбираєш під свій примірник**, а не під чужий малюнок. Якщо після заливки картинка перевернута чи дзеркальна — не чіпаєш логіку розгортки, а лише переставляєш числа в цих двох рядках, доки орієнтація не збіжиться. Уся розпіновка зібрана у двох масивах — і це єдине місце, яке залежить від конкретної матриці.
@@ -98,65 +55,9 @@ static const pin_t ROW_PIN[8] = {
 В ініціалізації — тому коді, що виконується один раз до запуску розгортки (`setup()` в Arduino, початок `app_main()` в ESP-IDF, ділянка після `HAL_Init()` у STM32), — оголошуємо всі шістнадцять виводів виходами й гасимо матрицю в безпечний стан: рядки вимкнено (жоден ключ не подає «плюс»), стовпці підтягнуто до «високого» (жодна цятка не має куди стекти струму). А тоді заводимо таймер.
 
 :::tabs
-```arduino
-void setup() {
-    for (uint8_t i = 0; i < 8; i++) {
-        pinMode(COL_PIN[i], OUTPUT);
-        pinMode(ROW_PIN[i], OUTPUT);
-        digitalWrite(COL_PIN[i], HIGH);   // стовпець «високий» → цятка темна
-        digitalWrite(ROW_PIN[i], LOW);    // ключ закритий → рядок не живиться
-    }
-    drawSmiley();        // покладемо в буфер щось видиме
-    setupScanTimer();    // запускаємо розгортку в перериванні
-}
-```
-```esp-idf
-static const char *TAG = "matrix";
-
-void app_main(void) {
-    gpio_config_t io = {
-        .pin_bit_mask = 0,
-        .mode         = GPIO_MODE_OUTPUT,
-        .pull_up_en   = GPIO_PULLUP_DISABLE,
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .intr_type    = GPIO_INTR_DISABLE,
-    };
-    for (int i = 0; i < 8; i++)           // усі шістнадцять ніжок — в одну маску
-        io.pin_bit_mask |= (1ULL << COL_PIN[i]) | (1ULL << ROW_PIN[i]);
-    ESP_ERROR_CHECK(gpio_config(&io));
-
-    for (int i = 0; i < 8; i++) {
-        gpio_set_level(COL_PIN[i], 1);    // стовпець «високий» → цятка темна
-        gpio_set_level(ROW_PIN[i], 0);    // ключ закритий → рядок не живиться
-    }
-    drawSmiley();                         // покладемо в буфер щось видиме
-    ESP_LOGI(TAG, "матрицю погашено, запускаю розгортку");
-    setupScanTimer();                     // запускаємо розгортку в перериванні
-}
-```
-```stm32
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    __HAL_RCC_GPIOA_CLK_ENABLE();         // без такту на порт ніжки мертві
-    __HAL_RCC_GPIOB_CLK_ENABLE();
-
-    GPIO_InitTypeDef g = {0};
-    g.Mode  = GPIO_MODE_OUTPUT_PP;
-    g.Pull  = GPIO_NOPULL;
-    g.Speed = GPIO_SPEED_FREQ_HIGH;
-    for (int i = 0; i < 8; i++) {
-        g.Pin = COL_PIN[i].pin;  HAL_GPIO_Init(COL_PIN[i].port, &g);
-        g.Pin = ROW_PIN[i].pin;  HAL_GPIO_Init(ROW_PIN[i].port, &g);
-        // стовпець «високий» → цятка темна; ключ закритий → рядок не живиться
-        HAL_GPIO_WritePin(COL_PIN[i].port, COL_PIN[i].pin, GPIO_PIN_SET);
-        HAL_GPIO_WritePin(ROW_PIN[i].port, ROW_PIN[i].pin, GPIO_PIN_RESET);
-    }
-    drawSmiley();        // покладемо в буфер щось видиме
-    setupScanTimer();    // запускаємо розгортку в перериванні
-    while (1) { }        // головний цикл вільний
-}
-```
+:::code api-driver/c/arduino/initsializatsiia.ino
+:::code api-driver/c/esp-idf/initsializatsiia.c
+:::code api-driver/c/stm32/initsializatsiia.c
 :::
 
 Порядок гасіння тут не випадковий. Спершу треба привести обидва боки в стан «нічого не горить», і аж тоді дозволяти переривання. Інакше перший же виклик обробника може застати виводи в непевному стані й блимнути сміттям.
@@ -166,72 +67,9 @@ int main(void) {
 Ось найважливіша функція всього способу. Вона викликається таймером сотні разів на секунду й щоразу показує **рівно один наступний рядок**. Логіка кроку строга, і порядок дій у ньому — це і є те місце, де народжуються або не народжуються «привиди»:
 
 :::tabs
-```arduino
-volatile uint8_t curRow = 0;   // який рядок показуємо цієї ітерації
-
-void scanStep() {
-    // 1. ПОГАСИТИ попередній рядок ПЕРШИМ ділом — інакше буде перекриття.
-    digitalWrite(ROW_PIN[curRow], LOW);      // закрити ключ старого рядка
-
-    // 2. Перейти до наступного рядка по колу.
-    curRow = (curRow + 1) & 7;               // 0,1,…,7,0,1,… (& 7 = % 8)
-
-    // 3. Виставити на стовпці узор саме цього рядка.
-    uint8_t bits = frame[curRow];
-    for (uint8_t c = 0; c < 8; c++) {
-        // спільний анод: цятка горить, коли стовпець = LOW.
-        bool lit = bits & (1 << c);
-        digitalWrite(COL_PIN[c], lit ? LOW : HIGH);
-    }
-
-    // 4. І аж ТЕПЕР увімкнути новий рядок.
-    digitalWrite(ROW_PIN[curRow], HIGH);     // відкрити ключ → рядок світить
-}
-```
-```esp-idf
-static volatile uint8_t curRow = 0;   // який рядок показуємо цієї ітерації
-
-// IRAM_ATTR — щоб обробник не чекав на кеш флешу.
-static void IRAM_ATTR scanStep(void) {
-    // 1. ПОГАСИТИ попередній рядок ПЕРШИМ ділом — інакше буде перекриття.
-    gpio_set_level(ROW_PIN[curRow], 0);      // закрити ключ старого рядка
-
-    // 2. Перейти до наступного рядка по колу.
-    curRow = (curRow + 1) & 7;               // 0,1,…,7,0,1,… (& 7 = % 8)
-
-    // 3. Виставити на стовпці узор саме цього рядка.
-    uint8_t bits = frame[curRow];
-    for (int c = 0; c < 8; c++) {
-        // спільний анод: цятка горить, коли стовпець у нулі.
-        gpio_set_level(COL_PIN[c], (bits & (1 << c)) ? 0 : 1);
-    }
-
-    // 4. І аж ТЕПЕР увімкнути новий рядок.
-    gpio_set_level(ROW_PIN[curRow], 1);      // відкрити ключ → рядок світить
-}
-```
-```stm32
-volatile uint8_t curRow = 0;   // який рядок показуємо цієї ітерації
-
-void scanStep(void) {
-    // 1. ПОГАСИТИ попередній рядок ПЕРШИМ ділом — інакше буде перекриття.
-    HAL_GPIO_WritePin(ROW_PIN[curRow].port, ROW_PIN[curRow].pin, GPIO_PIN_RESET);
-
-    // 2. Перейти до наступного рядка по колу.
-    curRow = (curRow + 1) & 7;               // 0,1,…,7,0,1,… (& 7 = % 8)
-
-    // 3. Виставити на стовпці узор саме цього рядка.
-    uint8_t bits = frame[curRow];
-    for (uint8_t c = 0; c < 8; c++) {
-        // спільний анод: цятка горить, коли стовпець притягнуто до нуля.
-        GPIO_PinState lit = (bits & (1 << c)) ? GPIO_PIN_RESET : GPIO_PIN_SET;
-        HAL_GPIO_WritePin(COL_PIN[c].port, COL_PIN[c].pin, lit);
-    }
-
-    // 4. І аж ТЕПЕР увімкнути новий рядок.
-    HAL_GPIO_WritePin(ROW_PIN[curRow].port, ROW_PIN[curRow].pin, GPIO_PIN_SET);
-}
-```
+:::code api-driver/c/arduino/sertse-obrobnyk-rozhortky.ino
+:::code api-driver/c/esp-idf/sertse-obrobnyk-rozhortky.c
+:::code api-driver/c/stm32/sertse-obrobnyk-rozhortky.c
 :::
 
 Порядок кроків тут — не стильова примха, а фізика. **Спершу гасимо старий рядок, потім міняємо узор на стовпцях, і лише насамкінець вмикаємо новий.** Якщо переставити — скажімо, увімкнути новий рядок раніше, ніж виставлено його стовпці, — то якусь коротку мить новий рядок світитиме **чужим** узором (тим, що лишився від попереднього). Око зловить це як тьмяні зайві цятки — ті самі привиди. Тому «згасив → переклав → запалив» у цьому порядку, і жодного разу два рядки не ввімкнено водночас.
@@ -245,74 +83,9 @@ void scanStep(void) {
 Механіка скрізь та сама: лічильник цокає від системного годинника через передільник, а на заданому числі викликає переривання й обнуляється. Різняться імена — в ATmega328P це таймер 2 в режимі «скидання за збігом» (CTC), в ESP-IDF готовий `esp_timer` бере період прямо в мікросекундах, у STM32 те саме роблять поля `Prescaler` і `Period`. Арифметика прямо в коментарях:
 
 :::tabs
-```arduino
-void setupScanTimer() {
-    noInterrupts();               // на час налаштування вимкнути переривання
-    TCCR2A = 0;
-    TCCR2B = 0;
-    TCNT2  = 0;
-    // Частота 16 МГц; передільник 64 → лічильник цокає 16e6/64 = 250 000 Гц.
-    // Для 1000 переривань/с рахуємо до 250 000 / 1000 = 250 тактів.
-    OCR2A  = 249;                 // 0..249 — це рівно 250 кроків
-    TCCR2A |= (1 << WGM21);       // режим CTC: скидати TCNT2 за збігом з OCR2A
-    TCCR2B |= (1 << CS22);        // передільник 64
-    TIMSK2 |= (1 << OCIE2A);      // дозволити переривання «збіг з OCR2A»
-    interrupts();                 // знову ввімкнути переривання
-}
-
-// Це і є та функція, яку таймер смикає 1000 разів на секунду.
-ISR(TIMER2_COMPA_vect) {
-    scanStep();
-}
-```
-```esp-idf
-#include "esp_timer.h"
-
-// Це і є та функція, яку таймер смикає 1000 разів на секунду.
-static void scanTimerCb(void *arg) {
-    scanStep();
-}
-
-static void setupScanTimer(void) {
-    const esp_timer_create_args_t args = {
-        .callback = &scanTimerCb,
-        .arg      = NULL,
-        .name     = "scan",
-    };
-    esp_timer_handle_t h;
-    ESP_ERROR_CHECK(esp_timer_create(&args, &h));
-    // Передільники рахувати не треба: період задають у мікросекундах.
-    // 1000 мкс → рівно 1000 переривань за секунду.
-    ESP_ERROR_CHECK(esp_timer_start_periodic(h, 1000));
-}
-```
-```stm32
-TIM_HandleTypeDef htim2;
-
-void setupScanTimer(void) {
-    __HAL_RCC_TIM2_CLK_ENABLE();
-    htim2.Instance = TIM2;
-    // Шина таймера 72 МГц; передільник 72 → лічильник цокає 1 000 000 Гц.
-    // Для 1000 переривань/с рахуємо до 1 000 000 / 1000 = 1000 тактів.
-    htim2.Init.Prescaler     = 72 - 1;
-    htim2.Init.CounterMode   = TIM_COUNTERMODE_UP;
-    htim2.Init.Period        = 1000 - 1;   // 0..999 — це рівно 1000 кроків
-    htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-    HAL_TIM_Base_Init(&htim2);
-
-    HAL_NVIC_SetPriority(TIM2_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(TIM2_IRQn);
-    HAL_TIM_Base_Start_IT(&htim2);         // пустити таймер із перериванням
-}
-
-// Вектор віддає керування HAL, а HAL — у наш зворотний виклик нижче.
-void TIM2_IRQHandler(void) { HAL_TIM_IRQHandler(&htim2); }
-
-// Це і є та функція, яку таймер смикає 1000 разів на секунду.
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-    if (htim->Instance == TIM2) scanStep();
-}
-```
+:::code api-driver/c/arduino/pidkliuchennia-taimera.ino
+:::code api-driver/c/esp-idf/pidkliuchennia-taimera.c
+:::code api-driver/c/stm32/pidkliuchennia-taimera.c
 :::
 
 В усіх трьох вкладках це те саме — **обробник переривання** (англ. *interrupt service routine*): функція, яку ніхто не викликає з коду, а смикає саме залізо таймера, коли лічильник добіг до кінця. Різниться лише спосіб її оголосити: в AVR це макрос `ISR(TIMER2_COMPA_vect)` із зашитим у нього вектором, в ESP-IDF — звичайний зворотний виклик, зареєстрований при створенні таймера, у STM32 HAL — наперед оголошений `HAL_TIM_PeriodElapsedCallback()`. Усередині — лише `scanStep()`. Тепер головний цикл може бути хоч порожнім, хоч зайнятим — розгортка крутиться сама, у фоні, і кадр стоїть на місці.
@@ -325,21 +98,7 @@ void loop() {
     // просто перепиши frame[]; наступні оберти покажуть уже нове.
 }
 ```
-```esp-idf
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-// Головного циклу як такого нема — його роль грає задача FreeRTOS.
-// Створюють її з app_main(): xTaskCreate(appTask, "app", 4096, NULL, 5, NULL);
-static void appTask(void *arg) {
-    for (;;) {
-        // Тут головна програма вільна: читати кнопки, давачі, рахувати.
-        // Розгортка живе окремо, у перериванні таймера. Щоб змінити картинку —
-        // просто перепиши frame[]; наступні оберти покажуть уже нове.
-        vTaskDelay(pdMS_TO_TICKS(20));   // віддати процесор іншим задачам
-    }
-}
-```
+:::code api-driver/c/esp-idf/pidkliuchennia-taimera-2.c
 ```stm32
 // Кінець main(), після setupScanTimer().
 while (1) {
@@ -359,76 +118,9 @@ while (1) {
 Ідея проста. Обробник тепер тікає **швидше** — скажімо, у чотири рази частіше, — і ділить час кожного рядка на чотири підкроки. На перших підкроках рядок горить, на решті — вже погашений. Скажеш «горіти 4 підкроки з 4» — повна яскравість; «1 з 4» — чверть. Ось як це вплітається в крок:
 
 :::tabs
-```arduino
-volatile uint8_t brightness = 4;   // 1..4: скільки підкроків із 4 рядок світить
-volatile uint8_t subTick   = 0;    // 0..3: поточний підкрок усередині рядка
-
-void scanStepPWM() {
-    subTick++;
-    if (subTick < 4) {
-        // Ще той самий рядок; гасимо його, якщо вичерпав свою частку яскравості.
-        if (subTick == brightness)
-            digitalWrite(ROW_PIN[curRow], LOW);
-        return;
-    }
-    // subTick дійшов 4 → час нового рядка.
-    subTick = 0;
-    digitalWrite(ROW_PIN[curRow], LOW);      // згасити старий
-    curRow = (curRow + 1) & 7;
-    uint8_t bits = frame[curRow];
-    for (uint8_t c = 0; c < 8; c++)
-        digitalWrite(COL_PIN[c], (bits & (1 << c)) ? LOW : HIGH);
-    if (brightness > 0)
-        digitalWrite(ROW_PIN[curRow], HIGH); // запалити новий (якщо не нульова яскравість)
-}
-```
-```esp-idf
-static volatile uint8_t brightness = 4;  // 1..4: скільки підкроків із 4 рядок світить
-static volatile uint8_t subTick    = 0;  // 0..3: поточний підкрок усередині рядка
-
-static void IRAM_ATTR scanStepPWM(void) {
-    subTick++;
-    if (subTick < 4) {
-        // Ще той самий рядок; гасимо його, якщо вичерпав свою частку яскравості.
-        if (subTick == brightness)
-            gpio_set_level(ROW_PIN[curRow], 0);
-        return;
-    }
-    // subTick дійшов 4 → час нового рядка.
-    subTick = 0;
-    gpio_set_level(ROW_PIN[curRow], 0);      // згасити старий
-    curRow = (curRow + 1) & 7;
-    uint8_t bits = frame[curRow];
-    for (int c = 0; c < 8; c++)
-        gpio_set_level(COL_PIN[c], (bits & (1 << c)) ? 0 : 1);
-    if (brightness > 0)
-        gpio_set_level(ROW_PIN[curRow], 1);  // запалити новий (якщо не нульова яскравість)
-}
-```
-```stm32
-volatile uint8_t brightness = 4;   // 1..4: скільки підкроків із 4 рядок світить
-volatile uint8_t subTick   = 0;    // 0..3: поточний підкрок усередині рядка
-
-void scanStepPWM(void) {
-    subTick++;
-    if (subTick < 4) {
-        // Ще той самий рядок; гасимо його, якщо вичерпав свою частку яскравості.
-        if (subTick == brightness)
-            HAL_GPIO_WritePin(ROW_PIN[curRow].port, ROW_PIN[curRow].pin, GPIO_PIN_RESET);
-        return;
-    }
-    // subTick дійшов 4 → час нового рядка.
-    subTick = 0;
-    HAL_GPIO_WritePin(ROW_PIN[curRow].port, ROW_PIN[curRow].pin, GPIO_PIN_RESET);
-    curRow = (curRow + 1) & 7;
-    uint8_t bits = frame[curRow];
-    for (uint8_t c = 0; c < 8; c++)
-        HAL_GPIO_WritePin(COL_PIN[c].port, COL_PIN[c].pin,
-                          (bits & (1 << c)) ? GPIO_PIN_RESET : GPIO_PIN_SET);
-    if (brightness > 0)
-        HAL_GPIO_WritePin(ROW_PIN[curRow].port, ROW_PIN[curRow].pin, GPIO_PIN_SET);
-}
-```
+:::code api-driver/c/arduino/iaskravist-cherez.ino
+:::code api-driver/c/esp-idf/iaskravist-cherez.c
+:::code api-driver/c/stm32/iaskravist-cherez.c
 :::
 
 Тепер запис `brightness = 1` робить екран у чверть яскравості, `brightness = 4` — на повну. Оскільки підкроків стало вчетверо більше, таймер треба завести на 4000 переривань за секунду замість 1000 — у розрахунку ділиш уже не на 1000, а на 4000 (в AVR `OCR2A = 62`, у STM32 `Period = 250 - 1`, в `esp_timer` — період 250 мкс). Це і є **програмне регулювання яскравості**: жодного зайвого дроту, лише перерозподіл часу.
@@ -451,65 +143,9 @@ MAX7219 слухає послідовний інтерфейс, дуже бли�
 Напишемо цю передачу вручну, побітово (так званий «bit-banging» — смикання ніжок без апаратного SPI). Це наочно показує, що всередині діється, і не залежить ні від того, до яких саме виводів припаяно драйвер, ні від платформи — потрібні лише три звичайні виходи. Коли на чипі є вільний апаратний SPI, ті самі шістнадцять бітів просто віддають йому (`SPI.transfer16()`, `HAL_SPI_Transmit()`, `spi_device_polling_transmit()`), а `LOAD` смикають руками до й після:
 
 :::tabs
-```arduino
-const uint8_t PIN_DIN  = 11;   // дані в MAX7219
-const uint8_t PIN_CLK  = 13;   // такт
-const uint8_t PIN_LOAD = 10;   // завантаження (CS)
-
-// Надіслати один 16-бітний кадр: адреса реєстра + байт даних.
-void max7219send(uint8_t addr, uint8_t data) {
-    uint16_t frame16 = ((uint16_t)addr << 8) | data;   // старший байт = адреса
-    digitalWrite(PIN_LOAD, LOW);                        // почали кадр
-    for (int8_t i = 15; i >= 0; i--) {                  // старшим бітом уперед
-        digitalWrite(PIN_CLK, LOW);
-        digitalWrite(PIN_DIN, (frame16 >> i) & 1);      // виставити біт
-        digitalWrite(PIN_CLK, HIGH);                    // фронт CLK → чип зчитав біт
-    }
-    digitalWrite(PIN_LOAD, HIGH);                       // фронт LOAD → клацнути в реєстр
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-
-#define PIN_DIN   GPIO_NUM_23   // дані в MAX7219
-#define PIN_CLK   GPIO_NUM_18   // такт
-#define PIN_LOAD  GPIO_NUM_5    // завантаження (CS)
-
-// Надіслати один 16-бітний кадр: адреса реєстра + байт даних.
-static void max7219send(uint8_t addr, uint8_t data) {
-    uint16_t frame16 = ((uint16_t)addr << 8) | data;   // старший байт = адреса
-    gpio_set_level(PIN_LOAD, 0);                        // почали кадр
-    for (int i = 15; i >= 0; i--) {                     // старшим бітом уперед
-        gpio_set_level(PIN_CLK, 0);
-        gpio_set_level(PIN_DIN, (frame16 >> i) & 1);    // виставити біт
-        gpio_set_level(PIN_CLK, 1);                     // фронт CLK → чип зчитав біт
-    }
-    gpio_set_level(PIN_LOAD, 1);                        // фронт LOAD → клацнути в реєстр
-}
-```
-```stm32
-#include "stm32f1xx_hal.h"
-
-#define DIN_PORT  GPIOA
-#define DIN_PIN   GPIO_PIN_7    // дані в MAX7219
-#define CLK_PORT  GPIOA
-#define CLK_PIN   GPIO_PIN_5    // такт
-#define LOAD_PORT GPIOA
-#define LOAD_PIN  GPIO_PIN_4    // завантаження (CS)
-
-// Надіслати один 16-бітний кадр: адреса реєстра + байт даних.
-void max7219send(uint8_t addr, uint8_t data) {
-    uint16_t frame16 = ((uint16_t)addr << 8) | data;   // старший байт = адреса
-    HAL_GPIO_WritePin(LOAD_PORT, LOAD_PIN, GPIO_PIN_RESET);   // почали кадр
-    for (int8_t i = 15; i >= 0; i--) {                        // старшим бітом уперед
-        HAL_GPIO_WritePin(CLK_PORT, CLK_PIN, GPIO_PIN_RESET);
-        HAL_GPIO_WritePin(DIN_PORT, DIN_PIN,
-                          ((frame16 >> i) & 1) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-        HAL_GPIO_WritePin(CLK_PORT, CLK_PIN, GPIO_PIN_SET);   // фронт CLK → біт зчитано
-    }
-    HAL_GPIO_WritePin(LOAD_PORT, LOAD_PIN, GPIO_PIN_SET);     // фронт LOAD → у реєстр
-}
-```
+:::code api-driver/c/arduino/protokol-16-bitiv-u-chyp.ino
+:::code api-driver/c/esp-idf/protokol-16-bitiv-u-chyp.c
+:::code api-driver/c/stm32/protokol-16-bitiv-u-chyp.c
 :::
 
 Уся суть роботи з MAX7219 — у цій одній функції. Далі все зводиться до того, **які пари (адреса, дані)** їй згодовувати.
@@ -533,19 +169,7 @@ MAX7219 має чотирнадцять реєстрів, і сім із них 
 
 Тут ховається пастка, у яку впадають майже всі новачки: **після ввімкнення живлення MAX7219 сидить у сплячому режимі, з очищеними реєстрами й мінімальною яскравістю.** Не налаштуєш його — матриця просто мовчатиме, хоч кадри шли скільки завгодно. Тому ініціалізація обов'язкова, і кожен її рядок має свій сенс:
 
-```cpp
-void max7219init() {
-    max7219send(0x0F, 0x00);   // display-test ВИМКНУТИ (не «всі горять»)
-    max7219send(0x09, 0x00);   // decode-mode ВИМКНУТИ — ми шлемо сирі біти,
-                               //   а не цифри для семисегментника
-    max7219send(0x0B, 0x07);   // scan-limit = 7 → розгортати всі 8 рядків
-    max7219send(0x0A, 0x08);   // intensity ≈ середина (0..15)
-    max7219send(0x0C, 0x01);   // shutdown = 1 → ПРОКИНУТИСЯ, почати роботу
-    // Погасити сміття, що лишилось у пам'яті чипа після старту:
-    for (uint8_t r = 0; r < 8; r++)
-        max7219send(r + 1, 0x00);   // рядки 0..7 → адреси 0x01..0x08, усі темні
-}
-```
+:::code api-driver/cpp/karta-reiestriv-i.cpp
 
 Розберемо, чому саме так. **`decode-mode = 0`** — бо MAX7219 уміє автоматично малювати цифри 0–9 на семисегментному індикаторі, і якщо декодування ввімкнене, він тлумачитиме наші байти як коди цифр, а не як сиру картинку 8×8. Нам треба сирі біти — тож декодування геть. **`scan-limit = 7`** — це «розгортай усі вісім рядків»; поставиш менше — частина матриці згасне. **`shutdown = 1`** здається нелогічним («одиниця — а прокидається?»), але так у даташиті: нуль — сон, одиниця — робота. І насамкінець гасимо всі вісім рядків, бо в пам'яті чипа після ввімкнення лежить випадкове сміття, яке інакше блимне на старті.
 
@@ -565,63 +189,9 @@ void max7219show() {
 І вся програма для MAX7219 стає короткою — уся розгортка тепер усередині кремнію, тож головний цикл більше не мусить нічого крутити без упину:
 
 :::tabs
-```arduino
-void setup() {
-    pinMode(PIN_DIN,  OUTPUT);
-    pinMode(PIN_CLK,  OUTPUT);
-    pinMode(PIN_LOAD, OUTPUT);
-    max7219init();
-    drawSmiley();
-    max7219show();     // надіслали кадр — і він стоїть сам, чип його розгортає
-}
-
-void loop() {
-    // Нічого крутити не треба: MAX7219 сам тримає й розгортає картинку.
-    // Щоб змінити зображення — перепиши frame[] і виклич max7219show() ще раз.
-}
-```
-```esp-idf
-void app_main(void) {
-    gpio_config_t io = {
-        .pin_bit_mask = (1ULL << PIN_DIN) | (1ULL << PIN_CLK) | (1ULL << PIN_LOAD),
-        .mode         = GPIO_MODE_OUTPUT,
-        .pull_up_en   = GPIO_PULLUP_DISABLE,
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .intr_type    = GPIO_INTR_DISABLE,
-    };
-    ESP_ERROR_CHECK(gpio_config(&io));
-    max7219init();
-    drawSmiley();
-    max7219show();     // надіслали кадр — і він стоїть сам, чип його розгортає
-
-    // Нічого крутити не треба: MAX7219 сам тримає й розгортає картинку.
-    // Щоб змінити зображення — перепиши frame[] і виклич max7219show() ще раз.
-    for (;;) vTaskDelay(pdMS_TO_TICKS(1000));
-}
-```
-```stm32
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-
-    GPIO_InitTypeDef g = {0};
-    g.Pin   = DIN_PIN | CLK_PIN | LOAD_PIN;
-    g.Mode  = GPIO_MODE_OUTPUT_PP;
-    g.Pull  = GPIO_NOPULL;
-    g.Speed = GPIO_SPEED_FREQ_HIGH;
-    HAL_GPIO_Init(GPIOA, &g);
-
-    max7219init();
-    drawSmiley();
-    max7219show();     // надіслали кадр — і він стоїть сам, чип його розгортає
-
-    while (1) {
-        // Нічого крутити не треба: MAX7219 сам тримає й розгортає картинку.
-        // Щоб змінити зображення — перепиши frame[] і виклич max7219show() ще раз.
-    }
-}
-```
+:::code api-driver/c/arduino/pokazaty-kadr.ino
+:::code api-driver/c/esp-idf/pokazaty-kadr.c
+:::code api-driver/c/stm32/pokazaty-kadr.c
 :::
 
 Ось у чому головна різниця двох способів у коді. При прямому мультиплексуванні головний код не міг зупинитися ні на мить — розгортка трималася лише на нашому таймері. З MAX7219 картинку надіслали **один раз**, і вона стоїть сама, поки не захочеш її змінити. Мікроконтролер вільний хоч спати.
@@ -633,85 +203,9 @@ int main(void) {
 Хитрість адресації тут — реєстр **No-Op (0x00)**. Щоб оновити рядок у якомусь одному чипі ланцюга, треба надіслати стільки 16-бітних кадрів, скільки чипів, і всі, крім потрібного, зробити «пустими» — з адресою `0x00`, яку чип ігнорує. Тоді реальний кадр «доїде» рівно до свого чипа, а решта пропустять No-Op повз себе:
 
 :::tabs
-```arduino
-const uint8_t N = 4;              // скільки модулів у ланцюгу
-uint8_t frames[N][8];             // окремий буфер на кожен модуль
-
-// Надіслати один рядок r у ВСІ модулі за один прохід LOAD.
-void chainSendRow(uint8_t r) {
-    digitalWrite(PIN_LOAD, LOW);
-    // Найдальший у ланцюгу чип має отримати свій кадр ПЕРШИМ —
-    // бо наступні кадри проштовхнуть його далі по ланцюгу.
-    for (int8_t dev = N - 1; dev >= 0; dev--) {
-        uint16_t f = ((uint16_t)(r + 1) << 8) | frames[dev][r];
-        for (int8_t i = 15; i >= 0; i--) {
-            digitalWrite(PIN_CLK, LOW);
-            digitalWrite(PIN_DIN, (f >> i) & 1);
-            digitalWrite(PIN_CLK, HIGH);
-        }
-    }
-    digitalWrite(PIN_LOAD, HIGH);   // усі чипи разом клацнули свій рядок
-}
-
-// Повний кадр усього ланцюга — це вісім таких проходів.
-void chainShow() {
-    for (uint8_t r = 0; r < 8; r++)
-        chainSendRow(r);
-}
-```
-```esp-idf
-#define N 4                       // скільки модулів у ланцюгу
-static uint8_t frames[N][8];      // окремий буфер на кожен модуль
-
-// Надіслати один рядок r у ВСІ модулі за один прохід LOAD.
-static void chainSendRow(uint8_t r) {
-    gpio_set_level(PIN_LOAD, 0);
-    // Найдальший у ланцюгу чип має отримати свій кадр ПЕРШИМ —
-    // бо наступні кадри проштовхнуть його далі по ланцюгу.
-    for (int dev = N - 1; dev >= 0; dev--) {
-        uint16_t f = ((uint16_t)(r + 1) << 8) | frames[dev][r];
-        for (int i = 15; i >= 0; i--) {
-            gpio_set_level(PIN_CLK, 0);
-            gpio_set_level(PIN_DIN, (f >> i) & 1);
-            gpio_set_level(PIN_CLK, 1);
-        }
-    }
-    gpio_set_level(PIN_LOAD, 1);    // усі чипи разом клацнули свій рядок
-}
-
-// Повний кадр усього ланцюга — це вісім таких проходів.
-static void chainShow(void) {
-    for (uint8_t r = 0; r < 8; r++)
-        chainSendRow(r);
-}
-```
-```stm32
-#define N 4                       // скільки модулів у ланцюгу
-uint8_t frames[N][8];             // окремий буфер на кожен модуль
-
-// Надіслати один рядок r у ВСІ модулі за один прохід LOAD.
-void chainSendRow(uint8_t r) {
-    HAL_GPIO_WritePin(LOAD_PORT, LOAD_PIN, GPIO_PIN_RESET);
-    // Найдальший у ланцюгу чип має отримати свій кадр ПЕРШИМ —
-    // бо наступні кадри проштовхнуть його далі по ланцюгу.
-    for (int8_t dev = N - 1; dev >= 0; dev--) {
-        uint16_t f = ((uint16_t)(r + 1) << 8) | frames[dev][r];
-        for (int8_t i = 15; i >= 0; i--) {
-            HAL_GPIO_WritePin(CLK_PORT, CLK_PIN, GPIO_PIN_RESET);
-            HAL_GPIO_WritePin(DIN_PORT, DIN_PIN,
-                              ((f >> i) & 1) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-            HAL_GPIO_WritePin(CLK_PORT, CLK_PIN, GPIO_PIN_SET);
-        }
-    }
-    HAL_GPIO_WritePin(LOAD_PORT, LOAD_PIN, GPIO_PIN_SET);  // усі чипи клацнули разом
-}
-
-// Повний кадр усього ланцюга — це вісім таких проходів.
-void chainShow(void) {
-    for (uint8_t r = 0; r < 8; r++)
-        chainSendRow(r);
-}
-```
+:::code api-driver/c/arduino/kaskad-kilka-moduliv-u.ino
+:::code api-driver/c/esp-idf/kaskad-kilka-moduliv-u.c
+:::code api-driver/c/stm32/kaskad-kilka-moduliv-u.c
 :::
 
 Тонкість, на якій легко спіткнутися, — **порядок чипів**. Дані течуть крізь ланцюг, тож кадр для найдальшого чипа треба виштовхнути **першим**: він пройде крізь усі проміжні й осяде в кінці, поки наступні кадри штовхають його далі. Пошлеш у прямому порядку — картинка «розповзеться» по сусідніх модулях. Ініціалізацію (`max7219init`) теж роби для кожного чипа — найпростіше надіслати ті самі керівні кадри N разів поспіль тим самим прийомом.

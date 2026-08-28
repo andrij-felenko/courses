@@ -13,44 +13,8 @@
 Мінімальний скетч, що ставить вал у центр і повертає на 30° в один бік раз на секунду:
 
 :::tabs
-```cpp
-#include <Servo.h>
-
-const uint8_t SERVO_PIN = 9;   // сигнальний (жовтий) дріт на ~D9
-Servo servo;                   // об'єкт-керувач одним серво
-
-void setup() {
-    servo.attach(SERVO_PIN);   // почепити пін; бібліотека сама пускає 50 Гц
-    servo.writeMicroseconds(1520);  // справжня нейтраль HD-1370A
-    delay(500);
-}
-
-void loop() {
-    servo.writeMicroseconds(1520);  // центр
-    delay(1000);
-    servo.writeMicroseconds(1520 + 333);  // ≈ +30° від центру (30° · 11.1 мкс/°)
-    delay(1000);
-}
-```
-```python
-from machine import Pin, PWM
-from time import sleep_ms
-
-# ESP32: будь-який вихідний пін; тут GPIO 18
-servo = PWM(Pin(18), freq=50)   # 50 Гц одразу, як і треба серву
-
-def write_us(us):
-    servo.duty_ns(int(us) * 1000)   # мкс → нс; duty_ns — прямий аналог writeMicroseconds
-
-write_us(1520)                  # справжня нейтраль HD-1370A
-sleep_ms(500)
-
-while True:
-    write_us(1520)              # центр
-    sleep_ms(1000)
-    write_us(1520 + 333)        # ≈ +30° від центру (30° · 11.1 мкс/°)
-    sleep_ms(1000)
-```
+:::code api-drive/cpp/naipershyi-rukh-chomu-ne.cpp
+:::code api-drive/py/naipershyi-rukh-chomu-ne.py
 :::
 
 Зверніть увагу на головне рішення вже тут: я **не** пишу `servo.write(30)` у градусах, а задаю ширину імпульсу прямо в мікросекундах через `writeMicroseconds`. Це навмисно, і причина того варта окремої розмови.
@@ -84,57 +48,8 @@ while True:
 Спосіб простий і надійний. Заливаємо скетч, що читає число з послідовного порту й одразу шле його як ширину імпульсу. Крутите значення туди-сюди, доки кермо не стане ідеально по центру, — оце знайдене число й є ваша нейтраль.
 
 :::tabs
-```cpp
-#include <Servo.h>
-
-const uint8_t SERVO_PIN = 9;
-Servo servo;
-
-void setup() {
-    Serial.begin(115200);
-    servo.attach(SERVO_PIN);
-    servo.writeMicroseconds(1520);      // старт від паспортної нейтралі
-    Serial.println(F("Введи ширину в мкс (напр. 1520) і Enter:"));
-}
-
-void loop() {
-    if (Serial.available()) {
-        int us = Serial.parseInt();     // прочитати число
-        if (us >= 1000 && us <= 2000) { // не пускати за межі ходу
-            servo.writeMicroseconds(us);
-            Serial.print(F("-> ")); Serial.print(us); Serial.println(F(" мкс"));
-        } else {
-            Serial.println(F("поза 1000..2000 — пропущено"));
-        }
-    }
-}
-```
-```python
-from machine import Pin, PWM
-import sys
-
-servo = PWM(Pin(18), freq=50)
-
-def write_us(us):
-    servo.duty_ns(int(us) * 1000)
-
-write_us(1520)                          # старт від паспортної нейтралі
-print("Введи ширину в мкс (напр. 1520) і Enter:")
-
-while True:
-    line = sys.stdin.readline().strip() # прочитати рядок із REPL/порту
-    if not line:
-        continue
-    try:
-        us = int(line)
-    except ValueError:
-        continue
-    if 1000 <= us <= 2000:              # не пускати за межі ходу
-        write_us(us)
-        print("->", us, "мкс")
-    else:
-        print("поза 1000..2000 — пропущено")
-```
+:::code api-drive/cpp/tochka-vidliku-kalibruiemo.cpp
+:::code api-drive/py/tochka-vidliku-kalibruiemo.py
 :::
 
 Помітили запобіжник: код **не пускає** значення за межі 1000…2000 мкс навіть на етапі калібрування. Це не зайва обережність — саме на калібруванні найлегше з переляку вбити «2500» і залишити серво впертим у стопор, доки шукаєш, чому воно гуде. Знайшли рівне число (хай вийшло, скажімо, 1508) — записуєте його константою `NEUTRAL_US` і забуваєте про паспортні 1520.
@@ -150,81 +65,8 @@ while True:
 Зробимо крихітний шар-обгортку, через який проходитиме кожен наказ кута. Він приймає кут у градусах від центру, перераховує в мікросекунди й **затискає** результат у вікно. Далі весь код спілкується з серво лише через цю функцію — і промахнутися за межу стає фізично нікуди.
 
 :::tabs
-```cpp
-#include <Servo.h>
-
-const uint8_t SERVO_PIN = 9;
-
-// --- калібрування конкретного примірника ---
-const int NEUTRAL_US = 1520;   // знайдена нейтраль (див. калібрувальний скетч)
-const float US_PER_DEG = 11.1; // 1000 мкс на 90° ходу ≈ 11.1 мкс/°
-
-// --- безпечне вікно, підтягнуте ВСЕРЕДИНУ від стопорів ---
-const int MIN_US = 1100;       // не 1000: лишаємо запас до стопора
-const int MAX_US = 1940;       // не 2000: те саме з іншого боку
-
-Servo servo;
-
-// Затиснути число у [lo, hi] (Arduino має constrain(), але покажемо явно).
-int clampInt(int v, int lo, int hi) {
-    if (v < lo) return lo;
-    if (v > hi) return hi;
-    return v;
-}
-
-// Єдина точка входу: кут у градусах від центру -> безпечний імпульс.
-void setAngle(float deg) {
-    int us = NEUTRAL_US + (int)(deg * US_PER_DEG);
-    us = clampInt(us, MIN_US, MAX_US);   // ГОЛОВНИЙ запобіжник
-    servo.writeMicroseconds(us);
-}
-
-void setup() {
-    servo.attach(SERVO_PIN);
-    setAngle(0);                 // у центр
-}
-
-void loop() {
-    setAngle(-30);  delay(800);  // ліворуч
-    setAngle(+30);  delay(800);  // праворуч
-    setAngle(+90);  delay(800);  // ПРОСИМО забагато — але clamp врятує серво
-}
-```
-```python
-from machine import Pin, PWM
-from time import sleep_ms
-
-SERVO_PIN = 18
-
-# --- калібрування конкретного примірника ---
-NEUTRAL_US = 1520      # знайдена нейтраль
-US_PER_DEG = 11.1      # 1000 мкс на 90° ходу ≈ 11.1 мкс/°
-
-# --- безпечне вікно, підтягнуте ВСЕРЕДИНУ від стопорів ---
-MIN_US = 1100          # не 1000: запас до стопора
-MAX_US = 1940          # не 2000: те саме з іншого боку
-
-servo = PWM(Pin(SERVO_PIN), freq=50)
-
-def write_us(us):
-    servo.duty_ns(int(us) * 1000)
-
-def clamp(v, lo, hi):
-    return lo if v < lo else hi if v > hi else v
-
-# Єдина точка входу: кут у градусах від центру -> безпечний імпульс.
-def set_angle(deg):
-    us = NEUTRAL_US + int(deg * US_PER_DEG)
-    us = clamp(us, MIN_US, MAX_US)   # ГОЛОВНИЙ запобіжник
-    write_us(us)
-
-set_angle(0)                         # у центр
-
-while True:
-    set_angle(-30); sleep_ms(800)    # ліворуч
-    set_angle(+30); sleep_ms(800)    # праворуч
-    set_angle(+90); sleep_ms(800)    # ПРОСИМО забагато — але clamp врятує серво
-```
+:::code api-drive/cpp/obmezhennia-khodu-iak-ne.cpp
+:::code api-drive/py/obmezhennia-khodu-iak-ne.py
 :::
 
 Останній рядок циклу навмисне просить `+90°`, яких у серва немає. Без затиску це був би смертний вирок: імпульс поїхав би до 2520 мкс, вал уперся б у стопор і мотор став би під струмом. Із затиском `+90°` тихо перетворюється на `MAX_US = 1940` — серво стане в дальню безпечну точку й **не грітиметься**. Це і є весь секрет довговічності: один `clamp` на шляху кожного наказу.
@@ -241,105 +83,8 @@ while True:
 Природний ритм для приростів — той самий **кадр 20 мс**, з яким живе серво: немає сенсу оновлювати ціль частіше, ніж серво встигає прочитати новий імпульс. Тому робимо неблокуючий рух: функція `moveTo` тримає поточний кут і при кожному виклику підсуває його на маленький крок до цілі. Викликаємо її раз на 20 мс — і вал плавно пливе, а `loop()` тим часом вільний робити інше (у цьому й перевага перед наївним циклом із `delay`).
 
 :::tabs
-```cpp
-#include <Servo.h>
-
-const uint8_t SERVO_PIN = 9;
-const int   NEUTRAL_US = 1520;
-const float US_PER_DEG = 11.1;
-const int   MIN_US = 1100, MAX_US = 1940;
-const unsigned long FRAME_MS = 20;   // крок часу = кадр серва (50 Гц)
-
-Servo servo;
-float curDeg = 0;      // де вал зараз (у градусах від центру)
-float tgtDeg = 0;      // куди хочемо
-float stepDeg = 1.0;   // приріст на кадр -> задає швидкість
-unsigned long lastFrame = 0;
-
-int clampInt(int v, int lo, int hi) { return v < lo ? lo : v > hi ? hi : v; }
-
-void applyDeg(float deg) {
-    int us = clampInt(NEUTRAL_US + (int)(deg * US_PER_DEG), MIN_US, MAX_US);
-    servo.writeMicroseconds(us);
-}
-
-// Викликати часто; сама рухає не частіше, ніж раз на кадр.
-void serviceMove() {
-    unsigned long now = millis();
-    if (now - lastFrame < FRAME_MS) return;   // ще не час на новий крок
-    lastFrame = now;
-
-    float diff = tgtDeg - curDeg;
-    if (fabs(diff) <= stepDeg) curDeg = tgtDeg;         // дійшли — сісти точно на ціль
-    else curDeg += (diff > 0 ? stepDeg : -stepDeg);     // крок у бік цілі
-    applyDeg(curDeg);
-}
-
-void moveTo(float deg) { tgtDeg = deg; }   // лише задати ціль, рух зробить serviceMove
-
-void setup() {
-    servo.attach(SERVO_PIN);
-    applyDeg(0);
-}
-
-void loop() {
-    // приклад: гойдати між −30 і +30, міняючи ціль по досягненні
-    if (curDeg == tgtDeg) {
-        moveTo(tgtDeg <= 0 ? +30 : -30);
-    }
-    serviceMove();     // саме тут відбувається плавний крок
-    // ... тут loop() вільний робити будь-що інше ...
-}
-```
-```python
-from machine import Pin, PWM
-from time import ticks_ms, ticks_diff
-
-SERVO_PIN = 18
-NEUTRAL_US = 1520
-US_PER_DEG = 11.1
-MIN_US, MAX_US = 1100, 1940
-FRAME_MS = 20                  # крок часу = кадр серва (50 Гц)
-
-servo = PWM(Pin(SERVO_PIN), freq=50)
-
-cur_deg = 0.0                  # де вал зараз
-tgt_deg = 0.0                  # куди хочемо
-step_deg = 1.0                 # приріст на кадр -> швидкість
-last_frame = ticks_ms()
-
-def clamp(v, lo, hi):
-    return lo if v < lo else hi if v > hi else v
-
-def apply_deg(deg):
-    us = clamp(NEUTRAL_US + int(deg * US_PER_DEG), MIN_US, MAX_US)
-    servo.duty_ns(us * 1000)
-
-def service_move():
-    global cur_deg, last_frame
-    now = ticks_ms()
-    if ticks_diff(now, last_frame) < FRAME_MS:   # ще не час на новий крок
-        return
-    last_frame = now
-    diff = tgt_deg - cur_deg
-    if abs(diff) <= step_deg:
-        cur_deg = tgt_deg                        # дійшли — сісти точно на ціль
-    else:
-        cur_deg += step_deg if diff > 0 else -step_deg
-    apply_deg(cur_deg)
-
-def move_to(deg):
-    global tgt_deg
-    tgt_deg = deg                                # лише задати ціль
-
-apply_deg(0)
-
-while True:
-    if cur_deg == tgt_deg:                       # гойдати між −30 і +30
-        move_to(+30 if tgt_deg <= 0 else -30)
-    service_move()                               # тут відбувається плавний крок
-    # ... цикл вільний робити будь-що інше ...
-```
+:::code api-drive/cpp/plavnyi-rukh-vesty-a-ne.cpp
+:::code api-drive/py/plavnyi-rukh-vesty-a-ne.py
 :::
 
 Швидкість руху тут задається однією величиною — `stepDeg`, приростом на кадр. Хочете вдвічі повільніше й м'якше — зменшіть крок; хочете різкіше — збільшіть, аж до стрибка, коли крок більший за всю відстань. Зверніть увагу, що `moveTo` **лише ставить ціль** і миттєво повертається, а весь рух котиться у `serviceMove`, який ви кличете в кожному оберті `loop()`. Це той самий підхід, що і з таймером бібліотеки: важку роботу (рівний тайминг) віддаємо в фон, головний код лишаємо вільним.

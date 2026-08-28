@@ -46,35 +46,8 @@ LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 //               │  └───────────── E  → вивід 9 МК
 //               └──────────────── RS → вивід 8 МК
 ```
-```esp-idf
-#include "driver/gpio.h"
-
-// Ті самі шість ліній; вивід МК тут називається номером GPIO.
-#define LCD_RS  GPIO_NUM_18       // RS → GPIO18
-#define LCD_E   GPIO_NUM_19       // E  → GPIO19
-#define LCD_D4  GPIO_NUM_21
-#define LCD_D5  GPIO_NUM_22
-#define LCD_D6  GPIO_NUM_23
-#define LCD_D7  GPIO_NUM_25
-
-// Готового «LiquidCrystal» в ESP-IDF немає — карту ліній даних тримаємо самі.
-// Порядок у цьому масиві такий самий критичний, як порядок аргументів конструктора.
-static const gpio_num_t LCD_DATA[4] = { LCD_D4, LCD_D5, LCD_D6, LCD_D7 };
-```
-```stm32
-#include "stm32f1xx_hal.h"        // або заголовок своєї серії
-
-// Вивід тут — пара «порт + пін»; у CubeMX усі шість позначені GPIO_Output.
-#define LCD_RS_PORT  GPIOB
-#define LCD_RS_PIN   GPIO_PIN_0   // RS
-#define LCD_E_PORT   GPIOB
-#define LCD_E_PIN    GPIO_PIN_1   // E
-
-// Чотири лінії даних — таблицею, у порядку D4, D5, D6, D7.
-static GPIO_TypeDef *const LCD_D_PORT[4] = { GPIOB, GPIOB, GPIOB, GPIOB };
-static const uint16_t      LCD_D_PIN[4]  = { GPIO_PIN_4, GPIO_PIN_5,
-                                             GPIO_PIN_6, GPIO_PIN_7 };
-```
+:::code api-liquidcrystal/c/esp-idf/riven-biblioteky.c
+:::code api-liquidcrystal/c/stm32/riven-biblioteky.c
 :::
 
 Тут криється **перша класична пастка**: порядок аргументів. Це `(rs, e, d4, d5, d6, d7)`, а не навпаки і не `(e, rs, ...)`. Якщо переплутати RS з E або перевернути порядок ліній даних, дисплей або мовчатиме, або сипатиме кашею — а код при цьому виглядає бездоганно. Числа в дужках — це **виводи мікроконтролера**, до яких фізично прийшли дроти від відповідних ніжок дисплея; сплутати «номер ніжки дисплея» з «номером виводу МК» теж легко.
@@ -97,18 +70,7 @@ void app_main(void) {
     ESP_LOGI("lcd", "дисплей 16x2 готовий");
 }
 ```
-```stm32
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();        // CubeMX: шість ніжок дисплея як GPIO_Output
-
-    lcd_init();            // свій драйвер (складемо нижче)
-    lcd_print("Hello!");   // напис з клітинки (0,0)
-
-    while (1) { }
-}
-```
+:::code api-liquidcrystal/c/stm32/riven-biblioteky-2.c
 :::
 
 `begin(16, 2)` — це не просто «запам'ятай, що екран 16×2». Усередині він: чекає, поки контролер після подачі живлення очуняється; кількома командами вводить його в 4-бітний режим; задає дві лінії й шрифт 5×8; вмикає дисплей; очищає екран. Усе, що на «сирому» рівні займе десяток рядків із паузами, тут згорнуто в один рядок. Саме тому з бібліотекою так зручно — і саме тому корисно один раз побачити, що вона згортає.
@@ -162,19 +124,7 @@ lcd.noBlink();      // сховати блимання
 
 Найзручніше малювати такий символ прямо в коді двійковими літералами — картинка видно очима:
 
-```cpp
-// Значок градуса «°»: кружечок у верхньому лівому куті клітинки
-byte degree[8] = {
-    0b01100,   //  ##
-    0b10010,   // #  #
-    0b10010,   // #  #
-    0b01100,   //  ##
-    0b00000,   //
-    0b00000,   //
-    0b00000,   //
-    0b00000    //
-};
-```
+:::code api-liquidcrystal/cpp/main.cpp
 
 Придивіться до літералів `0b01100` — це буквально малюнок: одиниці утворюють кільце у верхній частині клітинки. Кожен рядок — окремий байт, вісім рядків — уся картинка 5×8. Записати її в дисплей і показати:
 
@@ -190,34 +140,8 @@ void setup() {
     lcd.print("C");
 }
 ```
-```esp-idf
-// той самий масив, лише тип: static const uint8_t degree[8] = { … };
-void app_main(void) {
-    lcd_init();
-    lcd_create_char(0, degree);  // покласти картинку у комірку CGRAM №0
-
-    lcd_set_cursor(0, 0);
-    lcd_print("Temp: 23.5");
-    lcd_write_char(0);           // вивести символ із комірки №0 → «°»
-    lcd_print("C");
-}
-```
-```stm32
-// той самий масив, лише тип: static const uint8_t degree[8] = { … };
-int main(void) {
-    HAL_Init(); SystemClock_Config(); MX_GPIO_Init();
-
-    lcd_init();
-    lcd_create_char(0, degree);  // покласти картинку у комірку CGRAM №0
-
-    lcd_set_cursor(0, 0);
-    lcd_print("Temp: 23.5");
-    lcd_write_char(0);           // вивести символ із комірки №0 → «°»
-    lcd_print("C");
-
-    while (1) { }
-}
-```
+:::code api-liquidcrystal/c/esp-idf/vlasni-symvoly-maliuiemo.c
+:::code api-liquidcrystal/c/stm32/vlasni-symvoly-maliuiemo.c
 :::
 
 Тут два тонкі моменти, на яких спотикаються. Перший: `createChar(n, ...)` кладе картинку у **комірку n (0–7)**, а показують її потім через `lcd.write(byte(n))` — саме `write` із **кодом комірки**, а не `print("0")` (це надрукувало б цифру нуль). Обгортка `byte(0)` обов'язкова: без неї `write(0)` компілятор може витлумачити неоднозначно.
@@ -240,67 +164,9 @@ int main(void) {
 Ось ця сама «цеглинка» голими ніжками, через прямі виклики [керування виводами](root:sf-devices/gpio-registers):
 
 :::tabs
-```arduino
-// Ніжки мікроконтролера, куди прийшли керувальні лінії дисплея
-const int PIN_RS = 8;
-const int PIN_E  = 9;
-const int PIN_D4 = 4, PIN_D5 = 5, PIN_D6 = 6, PIN_D7 = 7;
-
-// Виставити один напівбайт (молодші 4 біти value) на лінії D4–D7
-void putNibble(uint8_t value) {
-    digitalWrite(PIN_D4, (value >> 0) & 1);
-    digitalWrite(PIN_D5, (value >> 1) & 1);
-    digitalWrite(PIN_D6, (value >> 2) & 1);
-    digitalWrite(PIN_D7, (value >> 3) & 1);
-}
-
-// Клацнути строб: підняти E, витримати, опустити — на спаді контролер читає лінії
-void pulseE() {
-    digitalWrite(PIN_E, HIGH);
-    delayMicroseconds(1);      // тримаємо E високим ≥ 0.45 мкс (беремо із запасом)
-    digitalWrite(PIN_E, LOW);
-    delayMicroseconds(50);     // даємо контролеру перетравити (звичайна команда ~37 мкс)
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "esp_rom_sys.h"       // esp_rom_delay_us() — активне очікування в мікросекундах
-                               // (vTaskDelay сюди не годиться: його крок — цілий тик)
-
-// Виставити один напівбайт (молодші 4 біти value) на лінії D4–D7
-static void put_nibble(uint8_t value) {
-    for (int i = 0; i < 4; i++)
-        gpio_set_level(LCD_DATA[i], (value >> i) & 1);
-}
-
-// Клацнути строб: підняти E, витримати, опустити — на спаді контролер читає лінії
-static void pulse_e(void) {
-    gpio_set_level(LCD_E, 1);
-    esp_rom_delay_us(1);       // тримаємо E високим ≥ 0.45 мкс (беремо із запасом)
-    gpio_set_level(LCD_E, 0);
-    esp_rom_delay_us(50);      // даємо контролеру перетравити (звичайна команда ~37 мкс)
-}
-```
-```stm32
-#include "stm32f1xx_hal.h"
-// HAL_Delay() має крок 1 мс — для 1 і 50 мкс потрібен свій delay_us()
-// на лічильнику DWT->CYCCNT або на вільному таймері.
-
-// Виставити один напівбайт (молодші 4 біти value) на лінії D4–D7
-static void put_nibble(uint8_t value) {
-    for (int i = 0; i < 4; i++)
-        HAL_GPIO_WritePin(LCD_D_PORT[i], LCD_D_PIN[i],
-                          ((value >> i) & 1) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-}
-
-// Клацнути строб: підняти E, витримати, опустити — на спаді контролер читає лінії
-static void pulse_e(void) {
-    HAL_GPIO_WritePin(LCD_E_PORT, LCD_E_PIN, GPIO_PIN_SET);
-    delay_us(1);               // тримаємо E високим ≥ 0.45 мкс (беремо із запасом)
-    HAL_GPIO_WritePin(LCD_E_PORT, LCD_E_PIN, GPIO_PIN_RESET);
-    delay_us(50);              // даємо контролеру перетравити (звичайна команда ~37 мкс)
-}
-```
+:::code api-liquidcrystal/c/arduino/pid-kapotom-shcho-take.ino
+:::code api-liquidcrystal/c/esp-idf/pid-kapotom-shcho-take.c
+:::code api-liquidcrystal/c/stm32/pid-kapotom-shcho-take.c
 :::
 
 Три числа тут не випадкові. Строб мусить бути високим щонайменше близько **0.45 мкс** (мінімальна ширина імпульсу E за специфікацією HD44780) — беремо 1 мкс із запасом. Пауза `50 мкс` після спаду — це час на виконання звичайної команди чи запис символу (у документації ~37 мкс); без неї наступний обмін наздожене попередній, ще не завершений. Порядок теж жорсткий: спершу `putNibble` (дані на лініях), тільки потім `pulseE`. Смикнеш строб раніше, ніж лінії набули значень, — контролер зафіксує сміття. Оце і є той самий момент, що псує більшість саморобних драйверів.
@@ -312,55 +178,9 @@ static void pulse_e(void) {
 Один імпульс кидає в контролер лише напівбайт (4 біти). Цілий байт у 4-бітному режимі — це **два** імпульси: спершу старша половина, потім молодша. А ніжка RS каже, чим цей байт є — командою чи символом.
 
 :::tabs
-```arduino
-// Надіслати повний байт: старший напівбайт, тоді молодший
-//   isData = false → команда (RS=0);  isData = true → символ (RS=1)
-void sendByte(uint8_t b, bool isData) {
-    digitalWrite(PIN_RS, isData ? HIGH : LOW);
-
-    putNibble(b >> 4);     // старші 4 біти
-    pulseE();
-    putNibble(b & 0x0F);   // молодші 4 біти
-    pulseE();
-}
-
-// Зручні обгортки — рівно те, що всередині робить бібліотека
-void lcdCommand(uint8_t c) { sendByte(c, false); }   // RS=0
-void lcdData(uint8_t d)    { sendByte(d, true);  }   // RS=1
-```
-```esp-idf
-// Надіслати повний байт: старший напівбайт, тоді молодший
-//   is_data = false → команда (RS=0);  is_data = true → символ (RS=1)
-static void send_byte(uint8_t b, bool is_data) {
-    gpio_set_level(LCD_RS, is_data ? 1 : 0);
-
-    put_nibble(b >> 4);    // старші 4 біти
-    pulse_e();
-    put_nibble(b & 0x0F);  // молодші 4 біти
-    pulse_e();
-}
-
-// Зручні обгортки — саме їх викликає решта драйвера
-static void lcd_command(uint8_t c) { send_byte(c, false); }   // RS=0
-static void lcd_data(uint8_t d)    { send_byte(d, true);  }   // RS=1
-```
-```stm32
-// Надіслати повний байт: старший напівбайт, тоді молодший
-//   is_data = false → команда (RS=0);  is_data = true → символ (RS=1)
-static void send_byte(uint8_t b, bool is_data) {
-    HAL_GPIO_WritePin(LCD_RS_PORT, LCD_RS_PIN,
-                      is_data ? GPIO_PIN_SET : GPIO_PIN_RESET);
-
-    put_nibble(b >> 4);    // старші 4 біти
-    pulse_e();
-    put_nibble(b & 0x0F);  // молодші 4 біти
-    pulse_e();
-}
-
-// Зручні обгортки — саме їх викликає решта драйвера
-static void lcd_command(uint8_t c) { send_byte(c, false); }   // RS=0
-static void lcd_data(uint8_t d)    { send_byte(d, true);  }   // RS=1
-```
+:::code api-liquidcrystal/c/arduino/pid-kapotom-tsilyi-bait-i.ino
+:::code api-liquidcrystal/c/esp-idf/pid-kapotom-tsilyi-bait-i.c
+:::code api-liquidcrystal/c/stm32/pid-kapotom-tsilyi-bait-i.c
 :::
 
 Оце вже впритул те, що ховається за `lcd.command(...)` і `lcd.write(...)`. Виставили RS, розрізали байт `b` на `b >> 4` (старші) і `b & 0x0F` (молодші), кожну половину клацнули стробом. Порядок напівбайтів — **старший першим**; переплутаєш його — кожен байт «перевернеться» наполовину, і замість тексту піде безлад, у якому іноді впізнаються шматки правильних символів.
@@ -405,98 +225,9 @@ HAL_Delay(2);        // ~1.52 мс на виконання — інакше на
 Між цими кроками — паузи із запасом, бо на самому старті контролер ще не піднімає прапорець зайнятості, і покластися нема на що, крім часу з документації:
 
 :::tabs
-```arduino
-void lcdInit() {
-    // 0. Налаштувати ніжки на вихід
-    pinMode(PIN_RS, OUTPUT); pinMode(PIN_E, OUTPUT);
-    pinMode(PIN_D4, OUTPUT); pinMode(PIN_D5, OUTPUT);
-    pinMode(PIN_D6, OUTPUT); pinMode(PIN_D7, OUTPUT);
-    digitalWrite(PIN_E, LOW);
-
-    delay(50);               // 1. Живлення встоялося: чекаємо ≥ 40 мс після подачі
-
-    // 2. Тричі напівбайт 0011 — надійно завести у 8-бітний режим із будь-якого стану.
-    //    Це ще НЕ повні байти: шлемо самі напівбайти, стробом кожен.
-    digitalWrite(PIN_RS, LOW);
-    putNibble(0x03); pulseE(); delay(5);      // перший раз: пауза > 4.1 мс
-    putNibble(0x03); pulseE(); delayMicroseconds(150);  // другий: > 100 мкс
-    putNibble(0x03); pulseE(); delayMicroseconds(150);  // третій
-
-    // 3. Тепер напівбайт 0010 — перемкнути у 4-бітний режим.
-    putNibble(0x02); pulseE(); delayMicroseconds(150);
-
-    // 4. Звідси — вже ПОВНІ байти (sendByte ріже їх на два напівбайти).
-    lcdCommand(0x28);        // Function Set: 4 біти, 2 рядки, шрифт 5×8
-    lcdCommand(0x08);        // Display OFF
-    lcdCommand(0x01); delay(2);   // Clear Display (довга — пауза ~1.52 мс)
-    lcdCommand(0x06);        // Entry Mode: курсор рухається вправо, без зсуву екрана
-    lcdCommand(0x0C);        // Display ON, курсор і блимання вимкнені
-}
-```
-```esp-idf
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-void lcd_init(void) {
-    // 0. Налаштувати ніжки на вихід — одним gpio_config на всі шість
-    gpio_config_t io = {
-        .pin_bit_mask = (1ULL << LCD_RS) | (1ULL << LCD_E) |
-                        (1ULL << LCD_D4) | (1ULL << LCD_D5) |
-                        (1ULL << LCD_D6) | (1ULL << LCD_D7),
-        .mode         = GPIO_MODE_OUTPUT,
-        .pull_up_en   = GPIO_PULLUP_DISABLE,
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .intr_type    = GPIO_INTR_DISABLE,
-    };
-    ESP_ERROR_CHECK(gpio_config(&io));
-    gpio_set_level(LCD_E, 0);
-
-    vTaskDelay(pdMS_TO_TICKS(50));   // 1. чекаємо ≥ 40 мс після подачі живлення
-
-    // 2. Тричі напівбайт 0011 — надійно завести у 8-бітний режим із будь-якого стану.
-    //    Це ще НЕ повні байти: шлемо самі напівбайти, стробом кожен.
-    gpio_set_level(LCD_RS, 0);
-    put_nibble(0x03); pulse_e(); esp_rom_delay_us(5000);  // перший раз: > 4.1 мс
-    put_nibble(0x03); pulse_e(); esp_rom_delay_us(150);   // другий: > 100 мкс
-    put_nibble(0x03); pulse_e(); esp_rom_delay_us(150);   // третій
-
-    // 3. Тепер напівбайт 0010 — перемкнути у 4-бітний режим.
-    put_nibble(0x02); pulse_e(); esp_rom_delay_us(150);
-
-    // 4. Звідси — вже ПОВНІ байти (send_byte ріже їх на два напівбайти).
-    lcd_command(0x28);       // Function Set: 4 біти, 2 рядки, шрифт 5×8
-    lcd_command(0x08);       // Display OFF
-    lcd_command(0x01); esp_rom_delay_us(2000);  // Clear Display (довга, ~1.52 мс)
-    lcd_command(0x06);       // Entry Mode: курсор вправо, без зсуву екрана
-    lcd_command(0x0C);       // Display ON, курсор і блимання вимкнені
-}
-```
-```stm32
-void lcd_init(void) {
-    // 0. Ніжки на вихід: у CubeMX усі шість позначені GPIO_Output —
-    //    тут лишається завести E в нуль перед першим стробом.
-    HAL_GPIO_WritePin(LCD_E_PORT, LCD_E_PIN, GPIO_PIN_RESET);
-
-    HAL_Delay(50);           // 1. Живлення встоялося: чекаємо ≥ 40 мс після подачі
-
-    // 2. Тричі напівбайт 0011 — надійно завести у 8-бітний режим із будь-якого стану.
-    //    Це ще НЕ повні байти: шлемо самі напівбайти, стробом кожен.
-    HAL_GPIO_WritePin(LCD_RS_PORT, LCD_RS_PIN, GPIO_PIN_RESET);
-    put_nibble(0x03); pulse_e(); HAL_Delay(5);    // перший раз: пауза > 4.1 мс
-    put_nibble(0x03); pulse_e(); delay_us(150);   // другий: > 100 мкс
-    put_nibble(0x03); pulse_e(); delay_us(150);   // третій
-
-    // 3. Тепер напівбайт 0010 — перемкнути у 4-бітний режим.
-    put_nibble(0x02); pulse_e(); delay_us(150);
-
-    // 4. Звідси — вже ПОВНІ байти (send_byte ріже їх на два напівбайти).
-    lcd_command(0x28);       // Function Set: 4 біти, 2 рядки, шрифт 5×8
-    lcd_command(0x08);       // Display OFF
-    lcd_command(0x01); HAL_Delay(2);   // Clear Display (довга — пауза ~1.52 мс)
-    lcd_command(0x06);       // Entry Mode: курсор вправо, без зсуву екрана
-    lcd_command(0x0C);       // Display ON, курсор і блимання вимкнені
-}
-```
+:::code api-liquidcrystal/c/arduino/pid-kapotom-ta-sama.ino
+:::code api-liquidcrystal/c/esp-idf/pid-kapotom-ta-sama.c
+:::code api-liquidcrystal/c/stm32/pid-kapotom-ta-sama.c
 :::
 
 Розшифруймо чотири команди наприкінці, бо кожен біт у них значить конкретну річ:

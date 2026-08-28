@@ -56,154 +56,15 @@ GND  ───────────────  GND   ← спільна з�
 :::tabs
 == Arduino (бібліотека `Stepper`)
 
-```arduino
-#include <Stepper.h>
-
-// 28BYJ-48 через редуктор дає ~2038 кроків на оберт ВИХІДНОГО вала
-// (а не круглі 2048 — некруглий редуктор; докладніше нижче).
-const int STEPS_PER_REV = 2038;
-
-// УВАГА на порядок: піни перелічені 8, 10, 9, 11 — тобто IN1, IN3, IN2, IN4,
-// а НЕ 8, 9, 10, 11. Це не помилка. Чому саме так — окремий розділ нижче.
-Stepper motor(STEPS_PER_REV, 8, 10, 9, 11);
-
-void setup() {
-  motor.setSpeed(10);            // швидкість, обертів за хвилину (для 28BYJ-48 реально ~10..15)
-}
-
-void loop() {
-  motor.step(STEPS_PER_REV);     // один повний оберт уперед (блокує, доки не докрутить)
-  delay(1000);
-
-  motor.step(-STEPS_PER_REV);    // один повний оберт назад
-  delay(1000);
-}
-```
+:::code api-arduino/c/arduino/pidkhid-pershyi.ino
 
 == ESP-IDF (ESP32, крок таблицею)
 
-```esp-idf
-// 28BYJ-48 через ULN2003. ESP32, ESP-IDF. Готової бібліотеки нема — крок робимо
-// самі: таблиця тактів плюс пауза між ними. IN1..IN4 — чотири звичайні GPIO.
-#include "driver/gpio.h"
-#include "esp_rom_sys.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define STEPS_PER_REV  2038            // кроків на оберт ВИХІДНОГО вала (не 2048)
-
-static const gpio_num_t PINS[4] = {    // IN1, IN2, IN3, IN4 — у ФІЗИЧНОМУ порядку
-    GPIO_NUM_16, GPIO_NUM_17, GPIO_NUM_18, GPIO_NUM_19 };
-
-// Повнокрокова послідовність: у кожному такті ввімкнено дві сусідні фази.
-// Чергування обмоток заховане в самій таблиці, тому переставляти піни (як в
-// аргументах Stepper) тут не треба — це та сама послідовність, що її дає
-// бібліотека при порядку 8, 10, 9, 11.
-static const uint8_t FULL_STEP[4][4] = {
-    {1, 1, 0, 0},
-    {0, 1, 1, 0},
-    {0, 0, 1, 1},
-    {1, 0, 0, 1},
-};
-
-static int phase = 0;                  // на якому такті ми зараз
-
-static void stepper_init(void) {
-  gpio_config_t cfg = {
-      .pin_bit_mask = (1ULL << PINS[0]) | (1ULL << PINS[1]) |
-                      (1ULL << PINS[2]) | (1ULL << PINS[3]),
-      .mode = GPIO_MODE_OUTPUT,
-  };
-  ESP_ERROR_CHECK(gpio_config(&cfg));
-}
-
-static void apply_phase(int p) {
-  for (int i = 0; i < 4; i++) gpio_set_level(PINS[i], FULL_STEP[p][i]);
-}
-
-// Блокуючий рух на n кроків: знак задає напрям, step_us — пауза між тактами.
-// Тік FreeRTOS (типово 10 мс) для такої паузи завеликий, тому чекаємо
-// мікросекундами, а щоб довгий рух не голодив планувальник — раз на 64 кроки
-// віддаємо йому квант.
-static void stepper_step(int n, uint32_t step_us) {
-  int dir = (n >= 0) ? 1 : -1;
-  int total = n * dir;
-  for (int i = 0; i < total; i++) {
-    phase = (phase + dir + 4) % 4;
-    apply_phase(phase);
-    esp_rom_delay_us(step_us);
-    if ((i & 63) == 63) vTaskDelay(1);
-  }
-}
-
-void app_main(void) {
-  stepper_init();
-  while (1) {
-    stepper_step( STEPS_PER_REV, 3000);   // оберт уперед; 3 мс/крок ≈ 10 об/хв
-    vTaskDelay(pdMS_TO_TICKS(1000));
-    stepper_step(-STEPS_PER_REV, 3000);   // оберт назад
-    vTaskDelay(pdMS_TO_TICKS(1000));
-  }
-}
-```
+:::code api-arduino/c/esp-idf/pidkhid-pershyi.c
 
 == STM32 (HAL, крок таблицею)
 
-```stm32
-// 28BYJ-48 через ULN2003. STM32 + HAL. IN1..IN4 — чотири GPIO Output Push-Pull
-// (тут PB0..PB3, налаштовані в CubeMX). Бібліотеки крокового двигуна не треба.
-#include "main.h"
-
-#define STEPS_PER_REV  2038
-
-typedef struct { GPIO_TypeDef *port; uint16_t pin; } out_t;
-
-static const out_t IN[4] = {           // IN1..IN4 у ФІЗИЧНОМУ порядку
-    { GPIOB, GPIO_PIN_0 }, { GPIOB, GPIO_PIN_1 },
-    { GPIOB, GPIO_PIN_2 }, { GPIOB, GPIO_PIN_3 },
-};
-
-// Повнокрокова послідовність: чергування обмоток уже закладено в таблицю —
-// це те саме, що дає Stepper, коли їй передати піни в порядку 8, 10, 9, 11.
-static const uint8_t FULL_STEP[4][4] = {
-    {1, 1, 0, 0},
-    {0, 1, 1, 0},
-    {0, 0, 1, 1},
-    {1, 0, 0, 1},
-};
-
-static int phase = 0;
-
-static void apply_phase(int p) {
-  for (int i = 0; i < 4; i++)
-    HAL_GPIO_WritePin(IN[i].port, IN[i].pin,
-                      FULL_STEP[p][i] ? GPIO_PIN_SET : GPIO_PIN_RESET);
-}
-
-// Блокуючий рух на n кроків; step_ms — пауза між тактами. Тік HAL — 1 мс,
-// для 28BYJ-48 такої роздільності вистачає з головою.
-static void stepper_step(int n, uint32_t step_ms) {
-  int dir = (n >= 0) ? 1 : -1;
-  int total = n * dir;
-  for (int i = 0; i < total; i++) {
-    phase = (phase + dir + 4) % 4;
-    apply_phase(phase);
-    HAL_Delay(step_ms);
-  }
-}
-
-int main(void) {
-  HAL_Init();
-  SystemClock_Config();
-  MX_GPIO_Init();
-  while (1) {
-    stepper_step( STEPS_PER_REV, 3);      // оберт уперед; 3 мс/крок ≈ 10 об/хв
-    HAL_Delay(1000);
-    stepper_step(-STEPS_PER_REV, 3);      // оберт назад
-    HAL_Delay(1000);
-  }
-}
-```
+:::code api-arduino/c/stm32/pidkhid-pershyi.c
 :::
 
 Розберімо, що тут де, на прикладі бібліотеки: у вкладках без неї ті самі три речі — скільки кроків в оберті, який темп і скільки кроків зробити — стоять просто відкрито в коді.
@@ -232,55 +93,15 @@ int main(void) {
 :::tabs
 == Arduino
 
-```arduino
-void releaseCoils() {
-  digitalWrite(8, LOW);
-  digitalWrite(9, LOW);
-  digitalWrite(10, LOW);
-  digitalWrite(11, LOW);
-}
-
-void loop() {
-  motor.step(STEPS_PER_REV);
-  releaseCoils();                // погасили обмотки — мотор охолов, струм не тече
-  delay(2000);
-}
-```
+:::code api-arduino/c/arduino/pidkhid-pershyi-2.ino
 
 == ESP-IDF
 
-```esp-idf
-static void release_coils(void) {
-  for (int i = 0; i < 4; i++) gpio_set_level(PINS[i], 0);
-}
-
-void app_main(void) {
-  stepper_init();
-  while (1) {
-    stepper_step(STEPS_PER_REV, 3000);
-    release_coils();             // погасили обмотки — мотор охолов, струм не тече
-    vTaskDelay(pdMS_TO_TICKS(2000));
-  }
-}
-```
+:::code api-arduino/c/esp-idf/pidkhid-pershyi-2.c
 
 == STM32 (HAL)
 
-```stm32
-static void release_coils(void) {
-  for (int i = 0; i < 4; i++)
-    HAL_GPIO_WritePin(IN[i].port, IN[i].pin, GPIO_PIN_RESET);
-}
-
-int main(void) {
-  HAL_Init(); SystemClock_Config(); MX_GPIO_Init();
-  while (1) {
-    stepper_step(STEPS_PER_REV, 3);
-    release_coils();             // погасили обмотки — мотор охолов, струм не тече
-    HAL_Delay(2000);
-  }
-}
-```
+:::code api-arduino/c/stm32/pidkhid-pershyi-2.c
 :::
 
 Зверніть увагу: в Arduino-варіанті `releaseCoils` номери ніжок — фізичні (`8, 9, 10, 11`), бо ми говоримо прямо з ногами контролера, а не через об'єкт мотора; тут порядок перестановки вже не діє, ми ж просто гасимо всі чотири. Після знеструмлення вал вільно провертається пальцем — мотор більше не тримає й не гріється, зате втрачає утримання. Це чесний розмін: тримаєш позицію — гріється; гасиш — холодне, але вал вільний. Вибирайте за задачею.
@@ -298,181 +119,15 @@ int main(void) {
 :::tabs
 == Arduino (`AccelStepper`)
 
-```arduino
-#include <AccelStepper.h>
-
-// HALF4WIRE = напівкроковий, 4 керовані лінії — саме для 28BYJ-48 + ULN2003.
-// І знову той самий порядок пінів: IN1, IN3, IN2, IN4  →  8, 10, 9, 11.
-AccelStepper motor(AccelStepper::HALF4WIRE, 8, 10, 9, 11);
-
-// У напівкроковому режимі кроків удвічі більше: ~4076 на оберт вала.
-const long STEPS_PER_REV = 4076;
-
-void setup() {
-  motor.setMaxSpeed(1000.0);       // стеля швидкості, кроків за секунду
-  motor.setAcceleration(500.0);    // прискорення, кроків за секунду за секунду
-  motor.moveTo(STEPS_PER_REV);     // ціль: один повний оберт уперед
-}
-
-void loop() {
-  // Доїхали до цілі? Розвернімося в протилежний бік.
-  if (motor.distanceToGo() == 0) {
-    motor.moveTo(-motor.currentPosition());
-  }
-  motor.run();                     // НЕблокуючий: щонайбільше один крок за виклик
-}
-```
+:::code api-arduino/c/arduino/pidkhid-druhyi-rukh-u-tli.ino
 
 == ESP-IDF (ESP32, одноразовий `esp_timer`)
 
-```esp-idf
-// 28BYJ-48 через ULN2003, напівкроковий режим із розгоном. Крок робить
-// одноразовий esp_timer, який після кожного кроку заводить сам себе на нову
-// паузу, — це і є місцевий відповідник run(). app_main лишається вільним.
-#include "driver/gpio.h"
-#include "esp_timer.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define STEPS_PER_REV  4076            // напівкрок: удвічі більше кроків на оберт
-
-static const gpio_num_t PINS[4] = {
-    GPIO_NUM_16, GPIO_NUM_17, GPIO_NUM_18, GPIO_NUM_19 };
-
-// Напівкрокова послідовність (8 тактів) у ФІЗИЧНОМУ порядку IN1..IN4 — та сама,
-// що її дає AccelStepper::HALF4WIRE з пінами 8, 10, 9, 11.
-static const uint8_t HALF_STEP[8][4] = {
-    {1,0,0,0}, {1,1,0,0}, {0,1,0,0}, {0,1,1,0},
-    {0,0,1,0}, {0,0,1,1}, {0,0,0,1}, {1,0,0,1},
-};
-
-static const float MAX_SPEED = 600.0f; // стеля, кроків/с
-static const float ACCEL     = 500.0f; // прискорення, кроків/с²
-static const float MIN_SPEED =  20.0f; // з якого темпу рушаємо
-
-static esp_timer_handle_t tick;
-static volatile long position = 0, target = 0;
-static float speed = MIN_SPEED;
-static int phase = 0;
-
-static void apply_phase(int p) {
-  for (int i = 0; i < 4; i++) gpio_set_level(PINS[i], HALF_STEP[p][i]);
-}
-
-static void step_cb(void *arg) {
-  long togo = target - position;
-  if (togo == 0) { speed = MIN_SPEED; return; }   // доїхали: себе не перезаводимо
-  int dir = (togo > 0) ? 1 : -1;
-  phase = (phase + dir + 8) & 7;
-  apply_phase(phase);
-  position += dir;
-
-  // Гальмівний шлях із поточної швидкості — v²/(2a). Поки решти більше, розганяємось.
-  float left = (float)(togo * dir - 1);
-  float dt = 1.0f / speed;
-  if (left <= speed * speed / (2.0f * ACCEL)) speed -= ACCEL * dt;
-  else if (speed < MAX_SPEED)                 speed += ACCEL * dt;
-  if (speed < MIN_SPEED) speed = MIN_SPEED;
-  esp_timer_start_once(tick, (uint64_t)(1000000.0f / speed));   // заводимо себе знову
-}
-
-static void move_to(long p) {                     // абсолютна ціль у кроках
-  target = p;
-  if (position != target) esp_timer_start_once(tick, 1000);     // штовхаємо рух
-}
-
-void app_main(void) {
-  gpio_config_t cfg = {
-      .pin_bit_mask = (1ULL << PINS[0]) | (1ULL << PINS[1]) |
-                      (1ULL << PINS[2]) | (1ULL << PINS[3]),
-      .mode = GPIO_MODE_OUTPUT,
-  };
-  ESP_ERROR_CHECK(gpio_config(&cfg));
-  const esp_timer_create_args_t args = { .callback = step_cb, .name = "step" };
-  ESP_ERROR_CHECK(esp_timer_create(&args, &tick));
-
-  move_to(STEPS_PER_REV);                         // ціль: один оберт уперед
-  while (1) {                                     // цикл вільний: тут кнопка, дисплей…
-    if (position == target) move_to(-position);   // доїхали — розвертаємось
-    vTaskDelay(pdMS_TO_TICKS(50));
-  }
-}
-```
+:::code api-arduino/c/esp-idf/pidkhid-druhyi-rukh-u-tli.c
 
 == STM32 (HAL, переривання таймера)
 
-```stm32
-// 28BYJ-48 через ULN2003, напівкроковий режим із розгоном. Крок робить
-// переривання TIM2, а період (ARR) переписуємо після кожного кроку — це
-// місцевий відповідник run(). TIM2 у CubeMX: PSC такий, щоб такт був 1 МГц.
-#include "main.h"
-
-extern TIM_HandleTypeDef htim2;
-
-#define STEPS_PER_REV  4076
-
-typedef struct { GPIO_TypeDef *port; uint16_t pin; } out_t;
-static const out_t IN[4] = {
-    { GPIOB, GPIO_PIN_0 }, { GPIOB, GPIO_PIN_1 },
-    { GPIOB, GPIO_PIN_2 }, { GPIOB, GPIO_PIN_3 },
-};
-
-// Напівкрокова послідовність (8 тактів) у ФІЗИЧНОМУ порядку IN1..IN4.
-static const uint8_t HALF_STEP[8][4] = {
-    {1,0,0,0}, {1,1,0,0}, {0,1,0,0}, {0,1,1,0},
-    {0,0,1,0}, {0,0,1,1}, {0,0,0,1}, {1,0,0,1},
-};
-
-static const float MAX_SPEED = 600.0f; // кроків/с
-static const float ACCEL     = 500.0f; // кроків/с²
-static const float MIN_SPEED =  20.0f; // з ним ARR ≤ 49999 — влазить і в 16 біт
-
-static volatile long position = 0, target = 0;
-static float speed = MIN_SPEED;
-static int phase = 0;
-
-static void apply_phase(int p) {
-  for (int i = 0; i < 4; i++)
-    HAL_GPIO_WritePin(IN[i].port, IN[i].pin,
-                      HALF_STEP[p][i] ? GPIO_PIN_SET : GPIO_PIN_RESET);
-}
-
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-  if (htim->Instance != TIM2) return;             // таймер бази часу — не наш клопіт
-  long togo = target - position;
-  if (togo == 0) { HAL_TIM_Base_Stop_IT(&htim2); speed = MIN_SPEED; return; }
-  int dir = (togo > 0) ? 1 : -1;
-  phase = (phase + dir + 8) & 7;
-  apply_phase(phase);
-  position += dir;
-
-  // Гальмівний шлях із поточної швидкості — v²/(2a).
-  float left = (float)(togo * dir - 1);
-  float dt = 1.0f / speed;
-  if (left <= speed * speed / (2.0f * ACCEL)) speed -= ACCEL * dt;
-  else if (speed < MAX_SPEED)                 speed += ACCEL * dt;
-  if (speed < MIN_SPEED) speed = MIN_SPEED;
-  __HAL_TIM_SET_AUTORELOAD(&htim2, (uint32_t)(1000000.0f / speed) - 1);
-}
-
-static void move_to(long p) {                     // абсолютна ціль у кроках
-  target = p;
-  if (position != p) HAL_TIM_Base_Start_IT(&htim2);
-}
-
-int main(void) {
-  HAL_Init();
-  SystemClock_Config();
-  MX_GPIO_Init();
-  MX_TIM2_Init();
-
-  move_to(STEPS_PER_REV);                         // ціль: один оберт уперед
-  while (1) {                                     // цикл вільний: тут кнопка, дисплей…
-    if (position == target) move_to(-position);   // доїхали — розвертаємось
-    HAL_Delay(50);
-  }
-}
-```
+:::code api-arduino/c/stm32/pidkhid-druhyi-rukh-u-tli.c
 :::
 
 Що змінилося проти `Stepper`:
