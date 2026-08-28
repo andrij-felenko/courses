@@ -51,18 +51,7 @@
 static uint8_t ucHeap[ configTOTAL_HEAP_SIZE ];
 static size_t xNextFreeByte = ( size_t ) 0;
 ```
-```cpp
-#include <array>
-#include <cstddef>
-#include <cstdint>
-
-template <std::size_t HeapSizeBytes>
-class BumpAllocatorState {
-public:
-    static inline std::array<std::uint8_t, HeapSizeBytes> heap_storage{};
-    static inline std::size_t next_free_byte{0};
-};
-```
+:::code freertos-heap-d/cpp/heap-1-liniinyi-bamp.cpp
 :::
 
 Коли програма викликає `pvPortMalloc(xWantedSize)`, алокатор виконує три елементарні кроки:
@@ -146,73 +135,8 @@ struct BlockLink {
 Щоб запобігти цьому, `heap_3.c` тимчасово вимикає перемикання контексту задач на час виконання коду стандартної бібліотеки:
 
 :::tabs
-```c
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-void *pvPortMalloc( size_t xWantedSize )
-{
-    void *pvReturn;
-
-    /* Призупиняємо планувальник: перемикання задач заблоковано */
-    vTaskSuspendAll();
-    {
-        pvReturn = malloc( xWantedSize );
-    }
-    /* Відновлюємо планувальник */
-    ( void ) xTaskResumeAll();
-
-    return pvReturn;
-}
-
-void vPortFree( void *pv )
-{
-    if( pv != NULL )
-    {
-        vTaskSuspendAll();
-        {
-            free( pv );
-        }
-        ( void ) xTaskResumeAll();
-    }
-}
-```
-```cpp
-#include <memory>
-#include <concepts>
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-namespace rtos::heap3 {
-
-template <typename T, typename... Args>
-[[nodiscard]] std::unique_ptr<T, void(*)(T*)> make_unique_task_safe(Args&&... args)
-{
-    vTaskSuspendAll();
-    void* raw_mem = std::malloc(sizeof(T));
-    xTaskResumeAll();
-
-    if (!raw_mem) {
-        return {nullptr, [](T*){}};
-    }
-
-    T* object = ::new (raw_mem) T(std::forward<Args>(args)...);
-
-    return {
-        object,
-        [](T* ptr) noexcept {
-            if (ptr) {
-                ptr->~T();
-                vTaskSuspendAll();
-                std::free(static_cast<void*>(ptr));
-                xTaskResumeAll();
-            }
-        }
-    };
-}
-
-} // namespace rtos::heap3
-```
+:::code freertos-heap-d/c/heap-3-obhortka-nad.c
+:::code freertos-heap-d/cpp/heap-3-obhortka-nad.cpp
 :::
 
 Ціна такого підходу:
@@ -296,97 +220,8 @@ if (wanted_size + heap_struct_size > wanted_size) {
 Справжня сила `heap_4` проявляється під час повернення блока у `vPortFree()`. Функція `prvInsertBlockIntoFreeList()` вставляє блок у відсортований за адресами список і негайно перевіряє можливість його злиття з лівим і правивим фізичними сусідами.
 
 :::tabs
-```c
-#include "freertos/FreeRTOS.h"
-
-/* Внутрішній фрагмент алгоритму злиття heap_4.c */
-static void prvInsertBlockIntoFreeList( BlockLink_t *pxBlockToInsert )
-{
-    BlockLink_t *pxIterator;
-    uint8_t *puc;
-
-    /* 1. Пошук позиції вставки за адресою: шукаємо блок, адреса якого менша за pxBlockToInsert */
-    for( pxIterator = &xStart; pxIterator->pxNextFreeBlock < pxBlockToInsert; pxIterator = pxIterator->pxNextFreeBlock )
-    {
-        /* Простий прохід списком вперед */
-    }
-
-    /* 2. Перевірка злиття з ЛІВИМ сусідом (той, що попереду у списку) */
-    puc = ( uint8_t * ) pxIterator;
-    if( ( puc + pxIterator->xBlockSize ) == ( uint8_t * ) pxBlockToInsert )
-    {
-        /* Лівий сусід впритул прилягає до нашого блока: поглинаємо наш блок */
-        pxIterator->xBlockSize += pxBlockToInsert->xBlockSize;
-        pxBlockToInsert = pxIterator;
-    }
-    else
-    {
-        /* Якщо лівий сусід не прилягає, зв'язуємо вказівники */
-        pxIterator->pxNextFreeBlock = pxBlockToInsert;
-    }
-
-    /* 3. Перевірка злиття з ПРАВИМ сусідом (наступний за адресою) */
-    puc = ( uint8_t * ) pxBlockToInsert;
-    if( ( puc + pxBlockToInsert->xBlockSize ) == ( uint8_t * ) pxIterator->pxNextFreeBlock )
-    {
-        if( pxIterator->pxNextFreeBlock != pxEnd )
-        {
-            /* Правий сусід прилягає до кінця нашого блока: поглинаємо правого сусіда */
-            pxBlockToInsert->xBlockSize += pxIterator->pxNextFreeBlock->xBlockSize;
-            pxBlockToInsert->pxNextFreeBlock = pxIterator->pxNextFreeBlock->pxNextFreeBlock;
-        }
-    }
-    else
-    {
-        pxBlockToInsert->pxNextFreeBlock = pxIterator->pxNextFreeBlock;
-    }
-}
-```
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <concepts>
-
-struct FreeBlockHeader {
-    FreeBlockHeader* next_free{nullptr};
-    std::size_t size{0};
-
-    [[nodiscard]] std::uint8_t* byte_end() noexcept {
-        return reinterpret_cast<std::uint8_t*>(this) + size;
-    }
-};
-
-class AddressOrderedFreeList {
-public:
-    void insert_and_coalesce(FreeBlockHeader* block_to_insert) noexcept {
-        FreeBlockHeader* prev = &head_;
-
-        // 1. Пошук позиції за фізичною адресою
-        while (prev->next_free != nullptr && prev->next_free < block_to_insert) {
-            prev = prev->next_free;
-        }
-
-        // 2. Злиття з лівим сусідом
-        if (prev != &head_ && prev->byte_end() == reinterpret_cast<std::uint8_t*>(block_to_insert)) {
-            prev->size += block_to_insert->size;
-            block_to_insert = prev;
-        } else {
-            block_to_insert->next_free = prev->next_free;
-            prev->next_free = block_to_insert;
-        }
-
-        // 3. Злиття з правим сусідом
-        if (block_to_insert->next_free != nullptr &&
-            block_to_insert->byte_end() == reinterpret_cast<std::uint8_t*>(block_to_insert->next_free)) {
-            block_to_insert->size += block_to_insert->next_free->size;
-            block_to_insert->next_free = block_to_insert->next_free->next_free;
-        }
-    }
-
-private:
-    FreeBlockHeader head_{};
-};
-```
+:::code freertos-heap-d/c/heap_4.c
+:::code freertos-heap-d/cpp/alhorytm-zlyttia.cpp
 :::
 
 Якщо вивільняється блок, оточений вільними ділянками з обох боків, функція за два кроки об'єднує всі три ділянки в єдиний монолітний блок. Це гарантує, що пам'ять автоматично дефрагментується під час кожного виклику `vPortFree()`.
@@ -431,74 +266,8 @@ struct HeapRegion {
 :::
 
 :::tabs
-```c
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-/* Визначення адрес фізичних банків пам'яті */
-#define SRAM1_START_ADDR    ( ( uint8_t * ) 0x20000000UL )
-#define SRAM1_SIZE_BYTES    ( 64 * 1024 )
-
-#define SRAM2_START_ADDR    ( ( uint8_t * ) 0x20040000UL )
-#define SRAM2_SIZE_BYTES    ( 128 * 1024 )
-
-#define EXT_RAM_START_ADDR  ( ( uint8_t * ) 0x60000000UL )
-#define EXT_RAM_SIZE_BYTES  ( 4 * 1024 * 1024 )
-
-/* Масив дескрипторів регіонів */
-const HeapRegion_t xHeapRegions[] =
-{
-    { SRAM1_START_ADDR,   SRAM1_SIZE_BYTES },
-    { SRAM2_START_ADDR,   SRAM2_SIZE_BYTES },
-    { EXT_RAM_START_ADDR, EXT_RAM_SIZE_BYTES },
-    { NULL,               0 } /* Обов'язковий кінцевий сентинел */
-};
-
-void system_memory_init( void )
-{
-    /* Ініціалізація пулу heap_5 перед запуском ядра */
-    vPortDefineHeapRegions( xHeapRegions );
-}
-```
-```cpp
-#include <array>
-#include <cstdint>
-#include <span>
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-namespace rtos::heap5 {
-
-struct MemoryRegionDescriptor {
-    std::uintptr_t start_address;
-    std::size_t size_in_bytes;
-};
-
-template <std::size_t RegionCount>
-class MultiRegionHeapManager {
-public:
-    explicit constexpr MultiRegionHeapManager(
-        const std::array<MemoryRegionDescriptor, RegionCount>& descriptors) noexcept
-    {
-        for (std::size_t i = 0; i < RegionCount; ++i) {
-            c_regions_[i].pucStartAddress = reinterpret_cast<uint8_t*>(descriptors[i].start_address);
-            c_regions_[i].xSizeInBytes = descriptors[i].size_in_bytes;
-        }
-        // Фінальний маркер-сентинел
-        c_regions_[RegionCount].pucStartAddress = nullptr;
-        c_regions_[RegionCount].xSizeInBytes = 0;
-    }
-
-    void initialize_heap() const noexcept {
-        vPortDefineHeapRegions(c_regions_.data());
-    }
-
-private:
-    mutable std::array<HeapRegion_t, RegionCount + 1> c_regions_{};
-};
-
-} // namespace rtos::heap5
-```
+:::code freertos-heap-d/c/konfihuratsiia-cherez.c
+:::code freertos-heap-d/cpp/konfihuratsiia-cherez.cpp
 :::
 
 #### Залізні правила heap_5
@@ -562,95 +331,8 @@ void heap_caps_free(void* ptr) noexcept;
 Якщо викликати звичайний `malloc(size)`, ESP-IDF автоматично транслює його у виклик `heap_caps_malloc(size, MALLOC_CAP_DEFAULT)`, де дефолтна маска вимагає звичайну побайтову пам'ять (`MALLOC_CAP_8BIT | MALLOC_CAP_32BIT`).
 
 :::tabs
-```c
-#include "esp_heap_caps.h"
-#include "esp_log.h"
-
-static const char *TAG = "HEAP_EXAMPLE";
-
-void allocate_hardware_buffers(void)
-{
-    /* 1. Виділення буфера для швидкого DMA-обміну по SPI (тільки внутрішня RAM!) */
-    uint8_t *dma_buffer = (uint8_t *)heap_caps_malloc(4096, MALLOC_CAP_DMA | MALLOC_CAP_INTERNAL);
-    if (dma_buffer == NULL) {
-        ESP_LOGE(TAG, "Помилка: не вдалося виділити DMA-буфер у внутрішній пам'яті");
-        return;
-    }
-
-    /* 2. Виділення великого кадрового буфера камери у зовнішній PSRAM */
-    uint8_t *frame_buffer = (uint8_t *)heap_caps_malloc(640 * 480 * 2, MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
-    if (frame_buffer == NULL) {
-        ESP_LOGE(TAG, "Помилка: не вдалося знайти місце у зовнішній PSRAM");
-        heap_caps_free(dma_buffer);
-        return;
-    }
-
-    ESP_LOGI(TAG, "Буфери успішно створено: DMA @ %p, Frame @ %p", dma_buffer, frame_buffer);
-
-    /* Звільнення виконується універсальною функцією: алокатор сам знає, якому пулу належить адреса */
-    heap_caps_free(frame_buffer);
-    heap_caps_free(dma_buffer);
-}
-```
-```cpp
-#include <memory>
-#include <new>
-#include <span>
-#include "esp_heap_caps.h"
-#include "esp_log.h"
-
-namespace esp_memory {
-
-template <uint32_t Caps>
-struct CapsDeleter {
-    void operator()(void* ptr) const noexcept {
-        heap_caps_free(ptr);
-    }
-};
-
-template <typename T, uint32_t Caps>
-using CapsUniquePtr = std::unique_ptr<T, CapsDeleter<Caps>>;
-
-template <typename T, uint32_t Caps, typename... Args>
-[[nodiscard]] CapsUniquePtr<T, Caps> make_caps_unique(Args&&... args)
-{
-    void* raw = heap_caps_malloc(sizeof(T), Caps);
-    if (!raw) {
-        throw std::bad_alloc();
-    }
-    T* object = ::new (raw) T(std::forward<Args>(args)...);
-    return CapsUniquePtr<T, Caps>{object};
-}
-
-template <typename T, uint32_t Caps>
-[[nodiscard]] CapsUniquePtr<T[], Caps> make_caps_buffer(std::size_t element_count)
-{
-    void* raw = heap_caps_malloc(sizeof(T) * element_count, Caps);
-    if (!raw) {
-        throw std::bad_alloc();
-    }
-    return CapsUniquePtr<T[], Caps>{static_cast<T*>(raw)};
-}
-
-} // namespace esp_memory
-
-void allocate_hardware_buffers_cpp()
-{
-    try {
-        // Автоматичне виділення та RAII-очищення DMA-буфера
-        auto dma_buf = esp_memory::make_caps_buffer<uint8_t, MALLOC_CAP_DMA | MALLOC_CAP_INTERNAL>(4096);
-
-        // Виділення кадрового буфера у зовнішній PSRAM
-        auto frame_buf = esp_memory::make_caps_buffer<uint8_t, MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT>(640 * 480 * 2);
-
-        ESP_LOGI("CPP_HEAP", "RAII буфери виділено: DMA @ %p, PSRAM @ %p",
-                 dma_buf.get(), frame_buf.get());
-    }
-    catch (const std::bad_alloc&) {
-        ESP_LOGE("CPP_HEAP", "Неможливо виділити запитаний обсяг пам'яті");
-    }
-}
-```
+:::code freertos-heap-d/c/osnovni-praportsi.c
+:::code freertos-heap-d/cpp/osnovni-praportsi.cpp
 :::
 
 ---

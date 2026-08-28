@@ -17,19 +17,7 @@ typedef struct {
     uint8_t tkey[32];  /**< Ключ налаштування зміщення (AES-256 tweak key) */
 } nvs_sec_cfg_t;
 ```
-```cpp
-#include <array>
-#include <cstdint>
-
-namespace esp_nvs {
-
-struct SecurityConfig {
-    std::array<uint8_t, 32> encryption_key{}; /**< Ключ шифрування корисних даних */
-    std::array<uint8_t, 32> tweak_key{};      /**< Ключ налаштування зміщення */
-};
-
-} // namespace esp_nvs
-```
+:::code api-nvs-encryption/cpp/struktury-danykh.cpp
 :::
 
 Поле `ekey` використовується для безпосереднього перетворення відкритого тексту кожного 32-байтового слота запису NVS на шифротекст. Поле `tkey` використовується для криптографічного шифрування значення налаштування (tweak), яке обчислюється на основі фізичного зміщення запису в розділі пам'яті.
@@ -51,22 +39,7 @@ esp_err_t nvs_flash_read_security_cfg(
     nvs_sec_cfg_t* cfg
 );
 ```
-```cpp
-#include "nvs_flash.h"
-#include <expected>
-#include <system_error>
-
-namespace esp_nvs {
-
-[[nodiscard]] inline esp_err_t read_security_config(
-    const esp_partition_t* partition,
-    nvs_sec_cfg_t& cfg) noexcept
-{
-    return nvs_flash_read_security_cfg(partition, &cfg);
-}
-
-} // namespace esp_nvs
-```
+:::code api-nvs-encryption/cpp/1-zchytuvannia-kliuchiv.cpp
 :::
 
 - **Призначення:** Зчитує 64-байтову конфігурацію ключів шифрування з указаного розділу типу `data` та підтипу `nvs_keys`. Якщо на мікроконтролері ввімкнено апаратний захист [Flash Encryption](root:sys-fw/flash-encryption), зчитування відбувається через прозоре апаратне дешифрування Flash MMU.
@@ -88,20 +61,7 @@ esp_err_t nvs_flash_generate_keys(
     nvs_sec_cfg_t* cfg
 );
 ```
-```cpp
-#include "nvs_flash.h"
-
-namespace esp_nvs {
-
-[[nodiscard]] inline esp_err_t generate_security_keys(
-    const esp_partition_t* partition,
-    nvs_sec_cfg_t& cfg) noexcept
-{
-    return nvs_flash_generate_keys(partition, &cfg);
-}
-
-} // namespace esp_nvs
-```
+:::code api-nvs-encryption/cpp/2-heneratsiia-novykh.cpp
 :::
 
 - **Призначення:** Генерує 64 байти криптографічно стійких випадкових даних за допомогою вбудованого апаратного генератора випадкових чисел (TRNG, від англ. *True Random Number Generator*), записує їх у виділений розділ `nvs_keys` на Flash і повертає заповнену структуру `cfg` у RAM.
@@ -119,18 +79,7 @@ namespace esp_nvs {
 ```c
 esp_err_t nvs_flash_secure_init(nvs_sec_cfg_t* cfg);
 ```
-```cpp
-#include "nvs_flash.h"
-
-namespace esp_nvs {
-
-[[nodiscard]] inline esp_err_t secure_init_default(nvs_sec_cfg_t& cfg) noexcept
-{
-    return nvs_flash_secure_init(&cfg);
-}
-
-} // namespace esp_nvs
-```
+:::code api-nvs-encryption/cpp/3-bezpechna.cpp
 :::
 
 - **Призначення:** Ініціалізує стандартний розділ NVS (з міткою `"nvs"`) у зашифрованому режимі з переданими ключами.
@@ -150,21 +99,7 @@ esp_err_t nvs_flash_secure_init_partition(
     nvs_sec_cfg_t* cfg
 );
 ```
-```cpp
-#include "nvs_flash.h"
-#include <string_view>
-
-namespace esp_nvs {
-
-[[nodiscard]] inline esp_err_t secure_init_custom_partition(
-    std::string_view partition_name,
-    nvs_sec_cfg_t& cfg) noexcept
-{
-    return nvs_flash_secure_init_partition(partition_name.data(), &cfg);
-}
-
-} // namespace esp_nvs
-```
+:::code api-nvs-encryption/cpp/4-bezpechna.cpp
 :::
 
 - **Призначення:** Ініціалізує кастомний розділ NVS з іменем `part_name` у зашифрованому режимі.
@@ -182,20 +117,7 @@ namespace esp_nvs {
 ```c
 esp_err_t nvs_flash_deinit_partition(const char* partition_name);
 ```
-```cpp
-#include "nvs_flash.h"
-#include <string_view>
-
-namespace esp_nvs {
-
-[[nodiscard]] inline esp_err_t deinit_custom_partition(
-    std::string_view partition_name) noexcept
-{
-    return nvs_flash_deinit_partition(partition_name.data());
-}
-
-} // namespace esp_nvs
-```
+:::code api-nvs-encryption/cpp/5-deinitsializatsiia-ta.cpp
 :::
 
 - **Призначення:** Звільняє внутрішні динамічні ресурси драйвера NVS, пов'язані з розділом, та закриває доступ. Викликається перед перепрошиванням, зміною конфігурації або переведенням системи в режим глибокого сну.
@@ -267,90 +189,6 @@ inline void enable_nvs_debug_logs() noexcept
 Нижче показано цілісний модуль безпечної ініціалізації сховища та читання конфіденційного рядка з автоматичною обробкою першого старту.
 
 :::tabs
-```c
-#include "nvs_flash.h"
-#include "nvs.h"
-#include "esp_log.h"
-#include <string.h>
-
-static const char* TAG = "nvs_sec_api";
-
-esp_err_t init_encrypted_storage_c(const char* part_label)
-{
-    nvs_sec_cfg_t cfg;
-    const esp_partition_t* key_part = esp_partition_find_first(
-        ESP_PARTITION_TYPE_DATA,
-        ESP_PARTITION_SUBTYPE_DATA_NVS_KEYS,
-        NULL
-    );
-    if (!key_part) {
-        ESP_LOGE(TAG, "Розділ nvs_keys не знайдено у таблиці розділів!");
-        return ESP_ERR_NOT_FOUND;
-    }
-
-    esp_err_t err = nvs_flash_read_security_cfg(key_part, &cfg);
-    if (err == ESP_ERR_NVS_KEYS_NOT_INITIALIZED) {
-        ESP_LOGW(TAG, "Ключі відсутні (перший старт). Генеруємо нову конфігурацію...");
-        err = nvs_flash_generate_keys(key_part, &cfg);
-    }
-    if (err != ESP_OK) {
-        ESP_LOGE(TAG, "Не вдалося отримати ключі шифрування: 0x%x", err);
-        return err;
-    }
-
-    err = nvs_flash_secure_init_partition(part_label, &cfg);
-    if (err != ESP_OK) {
-        ESP_LOGE(TAG, "Помилка монтування зашифрованого розділу %s: 0x%x", part_label, err);
-    }
-
-    // Очищення структури ключів у RAM
-    explicit_bzero(&cfg, sizeof(cfg));
-    return err;
-}
-```
-```cpp
-#include "nvs_flash.h"
-#include "nvs.h"
-#include "esp_log.h"
-#include <string_view>
-#include <system_error>
-#include <algorithm>
-#include <cstring>
-
-namespace sys {
-
-class EncryptedNvsStorage {
-public:
-    static esp_err_t init(std::string_view partition_label) noexcept {
-        const esp_partition_t* key_part = esp_partition_find_first(
-            ESP_PARTITION_TYPE_DATA,
-            ESP_PARTITION_SUBTYPE_DATA_NVS_KEYS,
-            nullptr
-        );
-        if (!key_part) {
-            ESP_LOGE("NVS_CPP", "Розділ nvs_keys не знайдено!");
-            return ESP_ERR_NOT_FOUND;
-        }
-
-        nvs_sec_cfg_t cfg{};
-        esp_err_t err = nvs_flash_read_security_cfg(key_part, &cfg);
-        if (err == ESP_ERR_NVS_KEYS_NOT_INITIALIZED) {
-            ESP_LOGW("NVS_CPP", "Перший запуск: генерація ключів через TRNG...");
-            err = nvs_flash_generate_keys(key_part, &cfg);
-        }
-        if (err != ESP_OK) {
-            return err;
-        }
-
-        err = nvs_flash_secure_init_partition(partition_label.data(), &cfg);
-
-        // Гарантоване затирання конфіденційних даних у пам'яті
-        std::fill(reinterpret_cast<uint8_t*>(&cfg),
-                  reinterpret_cast<uint8_t*>(&cfg) + sizeof(cfg), 0);
-        return err;
-    }
-};
-
-} // namespace sys
-```
+:::code api-nvs-encryption/c/main.c
+:::code api-nvs-encryption/cpp/povnyi-pryklad.cpp
 :::
