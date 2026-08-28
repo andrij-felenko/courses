@@ -15,44 +15,8 @@
 ### 2.1. Константи та структури даних
 
 :::tabs
-```c
-#define MAX_DEGREE 4
-#define TAPE_SIZE 64
-
-typedef struct {
-    int64_t coeffs[MAX_DEGREE];
-} NonStandardInt;
-
-typedef struct {
-    uint8_t tape[TAPE_SIZE];
-    size_t head_pos;
-    int current_state;
-    NonStandardInt step_count;
-    bool halted;
-} NonStandardTM;
-```
-```cpp
-namespace NonStandard {
-
-constexpr size_t MAX_DEGREE = 4;
-constexpr size_t TAPE_SIZE = 64;
-
-class NonStandardInt {
-private:
-    std::vector<int64_t> coeffs_;
-};
-
-class NonStandardTuringMachine {
-private:
-    std::vector<uint8_t> tape_;
-    size_t head_pos_;
-    int state_;
-    NonStandardInt steps_;
-    bool halted_;
-};
-
-} // namespace NonStandard
-```
+:::code api-nonstandard-model/c/2-1-konstanty-ta-struktury.c
+:::code api-nonstandard-model/cpp/2-1-konstanty-ta-struktury.cpp
 :::
 
 #### Поля структури `NonStandardInt`
@@ -73,44 +37,8 @@ coeffs[0] + coeffs[1]·H + coeffs[2]·H² + ... + coeffs[MAX_DEGREE-1]·H^(MAX_D
 ### 2.2. Сигнатури функцій створення та арифметичних операцій
 
 :::tabs
-```c
-/* Конструктори та ініціалізація */
-NonStandardInt ns_create_standard(int64_t val);
-NonStandardInt ns_create_inf(size_t degree, int64_t coeff);
-
-/* Предикати та порівняння */
-bool ns_is_standard(const NonStandardInt* num);
-int ns_compare(const NonStandardInt* a, const NonStandardInt* b);
-
-/* Арифметичні операції */
-NonStandardInt ns_add(const NonStandardInt* a, const NonStandardInt* b);
-NonStandardInt ns_multiply(const NonStandardInt* a, const NonStandardInt* b);
-
-/* Друк */
-void ns_print(const NonStandardInt* num);
-```
-```cpp
-namespace NonStandard {
-
-class NonStandardInt {
-public:
-    explicit NonStandardInt(int64_t standard_val = 0);
-    static NonStandardInt make_inf(size_t degree, int64_t coeff = 1);
-
-    [[nodiscard]] bool is_standard() const noexcept;
-    [[nodiscard]] std::span<const int64_t> coefficients() const noexcept;
-
-    auto operator<=>(const NonStandardInt& other) const noexcept;
-    bool operator==(const NonStandardInt& other) const noexcept;
-
-    NonStandardInt operator+(const NonStandardInt& other) const;
-    NonStandardInt operator*(const NonStandardInt& other) const;
-
-    [[nodiscard]] std::string to_string() const;
-};
-
-} // namespace NonStandard
-```
+:::code api-nonstandard-model/c/2-2-syhnatury-funktsii.h
+:::code api-nonstandard-model/cpp/2-2-syhnatury-funktsii.hpp
 :::
 
 #### Опис функцій інтерфейсу
@@ -196,24 +124,7 @@ public:
 void tm_init(NonStandardTM* tm);
 void tm_step(NonStandardTM* tm);
 ```
-```cpp
-namespace NonStandard {
-
-class NonStandardTuringMachine {
-public:
-    explicit NonStandardTuringMachine(size_t tape_size = 64);
-
-    void step();
-    void execute_hyper_steps(const NonStandardInt& hyper_limit);
-
-    [[nodiscard]] std::string get_status() const;
-    [[nodiscard]] const std::vector<uint8_t>& get_tape() const noexcept;
-    [[nodiscard]] const NonStandardInt& get_step_count() const noexcept;
-    [[nodiscard]] bool is_halted() const noexcept;
-};
-
-} // namespace NonStandard
-```
+:::code api-nonstandard-model/cpp/3-2-interfeis.hpp
 :::
 
 #### Контракт методів виконання

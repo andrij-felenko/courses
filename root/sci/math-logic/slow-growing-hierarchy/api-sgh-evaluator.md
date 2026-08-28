@@ -47,19 +47,7 @@ typedef enum {
     SGH_ERR_NOT_A_LIMIT = 6        /* Спроба взяти фундаментальну послідовність від наступника */
 } SghStatus;
 ```
-```cpp
-namespace sgh {
-enum class Status : uint32_t {
-    Ok = 0,
-    NullPtr = 1,
-    Overflow = 2,
-    InvalidOrdinal = 3,
-    OutOfMemory = 4,
-    ParseSyntax = 5,
-    NotALimit = 6
-};
-}
-```
+:::code api-sgh-evaluator/cpp/kody-povernennia-ta.cpp
 :::
 
 ### Типи категорій вузлів `OrdinalKind`
@@ -92,44 +80,8 @@ enum class OrdinalKind : uint8_t {
 Синтаксичний вузол оптимізований за розміром для забезпечення високої просторової локальності в кеш-пам'яті сучасних процесорів:
 
 :::tabs
-```c
-typedef struct OrdinalNode OrdinalNode;
-
-struct OrdinalNode {
-    OrdinalKind kind;
-    union {
-        uint64_t constant;
-        struct {
-            OrdinalNode *exponent;
-            uint64_t coefficient;
-        } omega_term;
-        struct {
-            OrdinalNode **terms;
-            size_t count;
-            size_t capacity;
-        } sum;
-        struct {
-            OrdinalNode *inner;
-        } collapse;
-    } as;
-};
-```
-```cpp
-namespace sgh {
-class OrdinalNode {
-public:
-    virtual ~OrdinalNode() = default;
-    [[nodiscard]] virtual uint64_t evaluate(uint64_t n) const = 0;
-    [[nodiscard]] virtual std::string to_string() const = 0;
-    [[nodiscard]] virtual std::unique_ptr<OrdinalNode> clone() const = 0;
-    [[nodiscard]] virtual std::unique_ptr<OrdinalNode> fundamental_step(uint64_t n) const = 0;
-    [[nodiscard]] virtual bool is_zero() const noexcept { return false; }
-    [[nodiscard]] virtual bool is_successor() const noexcept { return false; }
-    [[nodiscard]] virtual bool is_limit() const noexcept { return false; }
-};
-using OrdinalPtr = std::unique_ptr<OrdinalNode>;
-}
-```
+:::code api-sgh-evaluator/c/struktura-vuzla.c
+:::code api-sgh-evaluator/cpp/struktura-vuzla.cpp
 :::
 
 | Поле структури | Тип | Опис та інваріанти |
@@ -294,49 +246,8 @@ using OrdinalPtr = std::unique_ptr<OrdinalNode>;
 Бібліотека використовує типізовані класи винятків, похідні від `std::runtime_error`:
 
 :::tabs
-```cpp
-namespace sgh {
-
-class OrdinalException : public std::runtime_error {
-    using std::runtime_error::runtime_error;
-};
-
-class OverflowException final : public OrdinalException {
-public:
-    OverflowException() : OrdinalException("Arithmetic integer overflow in SGH evaluation") {}
-};
-
-class ParseException final : public OrdinalException {
-private:
-    size_t position_;
-public:
-    ParseException(const std::string& msg, size_t pos)
-        : OrdinalException(msg + " at position " + std::to_string(pos)), position_(pos) {}
-    [[nodiscard]] size_t position() const noexcept { return position_; }
-};
-
-class InvalidOrdinalException final : public OrdinalException {
-public:
-    explicit InvalidOrdinalException(const std::string& msg) : OrdinalException(msg) {}
-};
-
-}
-```
-```c
-/* У C API помилки обробляються через повернення кодів SghStatus */
-const char *sgh_status_to_string(SghStatus status) {
-    switch (status) {
-        case SGH_OK: return "OK";
-        case SGH_ERR_NULL_PTR: return "Null pointer argument";
-        case SGH_ERR_OVERFLOW: return "Arithmetic integer overflow";
-        case SGH_ERR_INVALID_ORDINAL: return "Invalid Cantor normal form";
-        case SGH_ERR_OUT_OF_MEMORY: return "Out of memory";
-        case SGH_ERR_PARSE_SYNTAX: return "Syntax parsing error";
-        case SGH_ERR_NOT_A_LIMIT: return "Not a limit ordinal";
-        default: return "Unknown error";
-    }
-}
-```
+:::code api-sgh-evaluator/cpp/iierarkhiia-vyniatkiv-c.cpp
+:::code api-sgh-evaluator/c/iierarkhiia-vyniatkiv-c.c
 :::
 
 ## Приклади інтеграції та типові сценарії використання
@@ -346,96 +257,15 @@ const char *sgh_status_to_string(SghStatus status) {
 Нижче наведено приклад правильного створення, обчислення та безпечного звільнення ординала Кантора `α = ω² · 3 + ω · 4 + 5`:
 
 :::tabs
-```c
-#include "sgh_engine.h"
-#include <stdio.h>
-#include <inttypes.h>
-
-void run_c_example(void) {
-    /* 1. Створення доданків */
-    OrdinalNode *term1 = ord_create_omega_term(ord_create_const(2), 3); /* w^2 * 3 */
-    OrdinalNode *term2 = ord_create_omega_term(ord_create_const(1), 4); /* w^1 * 4 */
-    OrdinalNode *term3 = ord_create_const(5);                           /* 5 */
-
-    /* 2. Агрегація в суму Кантора */
-    OrdinalNode *sum = ord_create_sum();
-    ord_sum_append(sum, term1);
-    ord_sum_append(sum, term2);
-    ord_sum_append(sum, term3);
-
-    /* 3. Обчислення значення G_alpha(n) для n = 4 */
-    uint64_t n = 4;
-    uint64_t result = sgh_eval_homomorphism(sum, n);
-    printf("G_alpha(%" PRIu64 ") = %" PRIu64 "\n", n, result);
-    /* Очікуваний результат: 4^2 * 3 + 4 * 4 + 5 = 16 * 3 + 16 + 5 = 48 + 16 + 5 = 69 */
-
-    /* 4. Вивільнення пам'яті всього дерева */
-    ord_free(sum);
-}
-```
-```cpp
-#include "sgh_engine.hpp"
-#include <iostream>
-
-void run_cpp_example() {
-    auto sum = std::make_unique<sgh::SumNode>();
-    sum->add_term(std::make_unique<sgh::OmegaTermNode>(std::make_unique<sgh::ConstantNode>(2), 3));
-    sum->add_term(std::make_unique<sgh::OmegaTermNode>(std::make_unique<sgh::ConstantNode>(1), 4));
-    sum->add_term(std::make_unique<sgh::ConstantNode>(5));
-
-    constexpr uint64_t n = 4;
-    const uint64_t result = sum->evaluate(n);
-    std::cout << "G_alpha(" << n << ") = " << result << "\n";
-}
-```
+:::code api-sgh-evaluator/c/stsenarii-1-povnyi.c
+:::code api-sgh-evaluator/cpp/stsenarii-1-povnyi.cpp
 :::
 
 ### Сценарій 2: Ідіоматичне використання C++20 API з парсером та обробкою винятків
 
 :::tabs
-```cpp
-#include "sgh_engine.hpp"
-#include <iostream>
-
-void run_cpp_parser_example() {
-    try {
-        std::string expr = "w^3 * 2 + w^2 * 5 + 7";
-        auto ordinal = sgh::OrdinalParser::parse(expr);
-
-        constexpr uint64_t n = 3;
-        uint64_t value = ordinal->evaluate(n);
-
-        std::cout << "Вираз: " << ordinal->to_string() << "\n";
-        std::cout << "G_alpha(" << n << ") = " << value << "\n";
-
-        auto next_step = ordinal->fundamental_step(n);
-        std::cout << "Після редукції [3]: " << next_step->to_string() << "\n";
-
-    } catch (const sgh::ParseException& e) {
-        std::cerr << "Синтаксична помилка: " << e.what() << " на позиції " << e.position() << "\n";
-    } catch (const sgh::OverflowException& e) {
-        std::cerr << "Арифметичне переповнення: " << e.what() << "\n";
-    } catch (const std::exception& e) {
-        std::cerr << "Стандартний виняток: " << e.what() << "\n";
-    }
-}
-```
-```c
-#include "sgh_engine.h"
-#include <stdio.h>
-
-void run_c_parser_example(void) {
-    OrdinalNode *node = NULL;
-    SghStatus st = sgh_parse_string("w^3 * 2 + w^2 * 5 + 7", &node);
-    if (st != SGH_OK) {
-        fprintf(stderr, "Помилка парсингу: %d\n", st);
-        return;
-    }
-    uint64_t val = sgh_eval_homomorphism(node, 3);
-    printf("Обчислено у C: %lu\n", (unsigned long)val);
-    ord_free(node);
-}
-```
+:::code api-sgh-evaluator/cpp/stsenarii-2-idiomatychne.cpp
+:::code api-sgh-evaluator/c/stsenarii-2-idiomatychne.c
 :::
 
 ## Зведена матриця часової та просторової складності

@@ -30,52 +30,15 @@ def anf_transform(t):                 # t — масив із 2ⁿ бітів (0
         step *= 2
     return t
 ```
-```c
-#include <stdint.h>
-#include <stddef.h>
-
-// t — 2^n байтів-бітів; після виклику t[m] — коефіцієнт при мономі-підмножині m
-void anf_transform(uint8_t *t, int n) {
-    for (size_t step = 1; step < ((size_t)1 << n); step <<= 1)
-        for (size_t j = 0; j < ((size_t)1 << n); j += step << 1)
-            for (size_t k = j; k < j + step; ++k)
-                t[k + step] ^= t[k];        // рядку-з-одиницею ⊕ рядок-з-нулем
-}
-```
-```rust
-// t — зріз із 2^n значень 0/1; згортається на місці в коефіцієнти
-fn anf_transform(t: &mut [u8]) {
-    let mut step = 1;
-    while step < t.len() {                  // по одному біту-змінній за раз
-        for block in t.chunks_mut(step << 1) {          // блок = дві сусідні половини
-            let (lo, hi) = block.split_at_mut(step);
-            for (a, b) in lo.iter().zip(hi.iter_mut()) {
-                *b ^= *a;                   // половину-з-одиницею ⊕ половина-з-нулем
-            }
-        }
-        step <<= 1;
-    }
-}
-```
+:::code proj-anf-transform/c/oserdia-try-vkladeni.c
+:::code proj-anf-transform/rust/oserdia-try-vkladeni.rs
 :::
 
 Вкладки різняться не перекладом одного циклу в інший синтаксис, а тим, як кожна мова *думає* про масив. Пайтон бачить список і крутить індекси — зрозуміло очам, але кожен `t[k]` коштує розіменування об'єкта. C бачить суцільний шматок байтів і адресну арифметику — саме те, що ляже у векторні регістри процесора без жодного зусилля. Rust ту саму суцільну пам'ять розрізає безпечно: `chunks_mut` ділить масив на блоки завширшки у два кроки, `split_at_mut` дає дві половини, які компілятор дозволяє чіпати одночасно, бо статично довів, що вони не перетинаються. Три погляди на один і той самий рух даних — і той, хто пише швидку версію, обирає між «читабельно» й «лягає в залізо» свідомо, а не за звичкою.
 
 Прожену на знайомій функції — мажоритарній МАЖ(a, b, c), що видає одиницю, коли одиниць на вході більшість. Її таблиця для наборів 000…111 — це `0, 0, 0, 1, 0, 1, 1, 1`:
 
-```python
-maj = [0, 0, 0, 1, 0, 1, 1, 1]        # МАЖ(a,b,c), рядки 000..111
-coef = anf_transform(maj[:])          # копія: перетворення псує вхід (на місці)
-print(coef)                           # [0, 0, 0, 1, 0, 1, 1, 0]
-
-names = "cba"                          # домовленість: біт 0 → c, біт 1 → b, біт 2 → a
-terms = []
-for m, c in enumerate(coef):
-    if c:                              # коефіцієнт увімкнено — моном входить у поліном
-        vs = [names[i] for i in range(3) if m >> i & 1]
-        terms.append("·".join(reversed(vs)) or "1")
-print(" ⊕ ".join(terms))              # b·c ⊕ a·c ⊕ a·b
-```
+:::code proj-anf-transform/py/oserdia-try-vkladeni.py
 
 Три однакові доданки, `МАЖ = a·b ⊕ b·c ⊕ a·c` — саме той симетричний многочлен, що ховається за «більшістю голосів». Ці кілька рядків метелика відтворили його з голої таблиці, без жодного алгебричного здогаду.
 
@@ -101,82 +64,9 @@ print(back)                           # [0, 0, 0, 1, 0, 1, 1, 1]  — знову
 **Лінійність.** Функція лінійна (точніше афінна, якщо дозволити вільну одиницю) рівно тоді, коли її степінь не перевищує 1 — жодного доданка з двох і більше змінних. Не треба навіть рахувати степінь до кінця: щойно трапився ненульовий коефіцієнт з popcount ≥ 2, відповідь «ні», і можна виходити.
 
 :::tabs
-```python
-def anf_eval(coef, x):                # значення полінома на наборі x
-    acc, m = 0, x
-    while True:
-        acc ^= coef[m]                # ⊕ коефіцієнти всіх підмножин x
-        if m == 0:
-            break
-        m = (m - 1) & x               # наступна підмножина маски x
-    return acc
-
-def anf_degree(coef):                 # алгебричний степінь = найдовший живий доданок
-    return max((m.bit_count() for m, c in enumerate(coef) if c), default=-1)
-
-def is_affine(coef):                  # лінійна (афінна) ⟺ степінь ≤ 1
-    return all(c == 0 or m.bit_count() < 2 for m, c in enumerate(coef))
-```
-```c
-#include <stdint.h>
-#include <stddef.h>
-
-// значення полінома на наборі x: ⊕ коефіцієнтів усіх підмножин x
-uint8_t anf_eval(const uint8_t *coef, size_t x) {
-    uint8_t acc = 0;
-    for (size_t m = x; ; m = (m - 1) & x) {     // перебір підмножин маски x
-        acc ^= coef[m];
-        if (m == 0) break;
-    }
-    return acc;
-}
-
-// алгебричний степінь; -1 для тотожного нуля (живих доданків нема)
-int anf_degree(const uint8_t *coef, int n) {
-    int deg = -1;
-    for (size_t m = 0; m < ((size_t)1 << n); ++m)
-        if (coef[m]) {
-            int d = __builtin_popcountll((unsigned long long)m);
-            if (d > deg) deg = d;
-        }
-    return deg;
-}
-
-// лінійна (афінна) ⟺ немає доданка з двох і більше змінних
-int is_affine(const uint8_t *coef, int n) {
-    for (size_t m = 0; m < ((size_t)1 << n); ++m)
-        if (coef[m] && __builtin_popcountll((unsigned long long)m) >= 2)
-            return 0;
-    return 1;
-}
-```
-```rust
-// значення полінома на наборі x: ⊕ коефіцієнтів усіх підмножин x
-fn anf_eval(coef: &[u8], x: usize) -> u8 {
-    let (mut acc, mut m) = (0u8, x);
-    loop {
-        acc ^= coef[m];
-        if m == 0 { break; }
-        m = (m - 1) & x;              // наступна підмножина маски x
-    }
-    acc
-}
-
-// алгебричний степінь; -1 для тотожного нуля
-fn anf_degree(coef: &[u8]) -> i32 {
-    coef.iter().enumerate()
-        .filter(|&(_, &c)| c != 0)
-        .map(|(m, _)| m.count_ones() as i32)
-        .max()
-        .unwrap_or(-1)
-}
-
-// лінійна (афінна) ⟺ жодного доданка з двох і більше змінних
-fn is_affine(coef: &[u8]) -> bool {
-    coef.iter().enumerate()
-        .all(|(m, &c)| c == 0 || m.count_ones() < 2)
-}
-```
+:::code proj-anf-transform/py/try-zapytannia-do-hotovoho.py
+:::code proj-anf-transform/c/try-zapytannia-do-hotovoho.c
+:::code proj-anf-transform/rust/try-zapytannia-do-hotovoho.rs
 :::
 
 Тут добре видно, як кожна мова каже те саме своїм голосом. Popcount — операція, задля якої в процесорі є окрема інструкція: у C її дає `__builtin_popcountll`, у Rust — метод `count_ones`, у Python — `int.bit_count`. Перебір підмножин маски `m = (m - 1) & x` — той самий у всіх трьох, бо це чиста бітова тотожність, а не ідіома мови. А Rust-версії степеня й лінійності показують, як ланцюжок ітераторів (`filter` → `map` → `max`, або `all`) читається майже як означення — і при цьому компілюється в такий самий цикл, як рукописний C. Прожену на МАЖ:

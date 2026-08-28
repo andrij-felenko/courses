@@ -16,143 +16,21 @@
 
 Спочатку визначимо типи (логічні формули). Типом може бути або базова змінна (наприклад, "A"), або імплікація двох типів (A → B).
 
-```cpp
-#include <iostream>
-#include <string>
-#include <variant>
-#include <memory>
-#include <map>
-#include <stdexcept>
-
-// Оголошення структур для AST Типів
-struct BaseType;
-struct ArrowType;
-
-using Type = std::variant<BaseType, std::shared_ptr<ArrowType>>;
-
-struct BaseType {
-    std::string name;
-};
-
-struct ArrowType {
-    Type from;
-    Type to;
-};
-
-// Допоміжна функція для друку типів
-void printType(const Type& t) {
-    if (auto* b = std::get_if<BaseType>(&t)) {
-        std::cout << b->name;
-    } else if (auto* a = std::get_if<std::shared_ptr<ArrowType>>(&t)) {
-        std::cout << "(";
-        printType((*a)->from);
-        std::cout << " -> ";
-        printType((*a)->to);
-        std::cout << ")";
-    }
-}
-```
+:::code proj-proof-assistant-mini/cpp/3-bazova-realizatsiia.cpp
 
 Далі визначимо терми (програми/доведення). Це змінні, лямбда-абстракції (введення імплікації) та застосування функцій (Modus Ponens).
 
-```cpp
-struct VarTerm;
-struct AbsTerm;
-struct AppTerm;
-
-using Term = std::variant<VarTerm, std::shared_ptr<AbsTerm>, std::shared_ptr<AppTerm>>;
-
-struct VarTerm {
-    std::string name;
-};
-
-struct AbsTerm {
-    std::string paramName;
-    Type paramType;
-    Term body;
-};
-
-struct AppTerm {
-    Term func;
-    Term arg;
-};
-```
+:::code proj-proof-assistant-mini/cpp/3-bazova-realizatsiia-2.cpp
 
 Основа нашого асистента — це контекст (набір відомих гіпотез) та функція перевірки типів (Type Checker). Ми використаємо `std::map` для зберігання контексту `Gamma`.
 
-```cpp
-using Context = std::map<std::string, Type>;
-
-// Функція для порівняння типів на еквівалентність
-bool typesEqual(const Type& t1, const Type& t2) {
-    if (t1.index() != t2.index()) return false;
-    if (auto* b1 = std::get_if<BaseType>(&t1)) {
-        return b1->name == std::get<BaseType>(t2).name;
-    } else {
-        auto a1 = std::get<std::shared_ptr<ArrowType>>(t1);
-        auto a2 = std::get<std::shared_ptr<ArrowType>>(t2);
-        return typesEqual(a1->from, a2->from) && typesEqual(a1->to, a2->to);
-    }
-}
-
-// Головна функція виведення типів
-Type typeCheck(const Term& term, Context ctx) {
-    if (auto* v = std::get_if<VarTerm>(&term)) {
-        if (ctx.find(v->name) != ctx.end()) {
-            return ctx[v->name];
-        }
-        throw std::runtime_error("Невідома гіпотеза: " + v->name);
-    } 
-    else if (auto* abs = std::get_if<std::shared_ptr<AbsTerm>>(&term)) {
-        // Додаємо гіпотезу в контекст
-        Context newCtx = ctx;
-        newCtx[(*abs)->paramName] = (*abs)->paramType;
-        Type bodyType = typeCheck((*abs)->body, newCtx);
-        return std::make_shared<ArrowType>(ArrowType{(*abs)->paramType, bodyType});
-    } 
-    else if (auto* app = std::get_if<std::shared_ptr<AppTerm>>(&term)) {
-        Type funcType = typeCheck((*app)->func, ctx);
-        Type argType = typeCheck((*app)->arg, ctx);
-        
-        if (auto* arrow = std::get_if<std::shared_ptr<ArrowType>>(&funcType)) {
-            if (typesEqual((*arrow)->from, argType)) {
-                return (*arrow)->to;
-            } else {
-                throw std::runtime_error("Невідповідність типів при застосуванні Modus Ponens");
-            }
-        }
-        throw std::runtime_error("Спроба застосувати не-імплікацію");
-    }
-    throw std::runtime_error("Невідомий терм");
-}
-```
+:::code proj-proof-assistant-mini/cpp/3-bazova-realizatsiia-3.cpp
 
 ### 4. Збирання та тестування
 
 Протестуємо наш перевіряльник на простому законі ідентичності (A → A), доведенням якого є лямбда-функція `λx:A. x`.
 
-```cpp
-int main() {
-    Type A = BaseType{"A"};
-    
-    // Терм: λx:A. x
-    Term id = std::make_shared<AbsTerm>(AbsTerm{
-        "x", A, VarTerm{"x"}
-    });
-
-    try {
-        Context emptyCtx;
-        Type t = typeCheck(id, emptyCtx);
-        std::cout << "Доведення коректне! Доведена теорема: ";
-        printType(t); // Виведе (A -> A)
-        std::cout << std::endl;
-    } catch (const std::exception& e) {
-        std::cerr << "Помилка доведення: " << e.what() << std::endl;
-    }
-
-    return 0;
-}
-```
+:::code proj-proof-assistant-mini/cpp/4-zbyrannia-ta-testuvannia.cpp
 
 Щоб зібрати програму, збережіть її у файл `proof_assistant.cpp` та скомпілюйте за допомогою компілятора з підтримкою C++17:
 `g++ -std=c++17 -O2 proof_assistant.cpp -o proof_assistant`

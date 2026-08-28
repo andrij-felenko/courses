@@ -147,18 +147,7 @@ ph_status_t ph_config_init(ph_config_t *config);
 ### Перевірка окремої підмножини `ph_check_subset`
 
 :::tabs
-```c
-/**
- * Перевіряє, чи є дана підмножина вершин великою та монохроматичною.
- */
-ph_status_t ph_check_subset(
-    const uint8_t *coloring,
-    uint32_t n_nodes,
-    uint64_t mask,
-    const ph_config_t *config,
-    bool *is_large_mono
-);
-```
+:::code api-ramsey-solver/c/perevirka-okremoi.c
 ```cpp
 /**
  * Перевіряє, чи є дана підмножина вершин великою та монохроматичною.
@@ -211,35 +200,8 @@ ph_status_t ph_compute_bound(
 При виклику API розробник повинен завжди аналізувати повернутий статус:
 
 :::tabs
-```c
-ph_config_t config;
-ph_config_init(&config);
-config.target_m = 3;
-config.num_colors = 2;
-
-ph_result_t result;
-ph_status_t st = ph_compute_bound(&config, &result);
-
-if (st == PH_SUCCESS) {
-    printf("Обчислено поріг PH: %u за %.3f сек.\n", 
-           result.computed_N, result.execution_time_sec);
-} else if (st == PH_ERROR_TIMEOUT) {
-    fprintf(stderr, "Обчислення перервано за тайм-аутом.\n");
-}
-```
-```cpp
-PhConfig config;
-config.target_m = 3;
-config.num_colors = 2;
-
-PhResult result = compute_bound(config);
-if (result.status == PhStatus::Success) {
-    std::cout << "Обчислено поріг PH: " << result.computed_N
-              << " за " << result.execution_time_sec << " сек.\n";
-} else if (result.status == PhStatus::ErrorTimeout) {
-    std::cerr << "Обчислення перервано за тайм-аутом.\n";
-}
-```
+:::code api-ramsey-solver/c/pryklad-obrobky-ta.c
+:::code api-ramsey-solver/cpp/main.cpp
 :::
 
 ## Обмеження за пам'яттю, потокобезпечність та вибух складності

@@ -122,18 +122,7 @@ using CNFFormula = std::vector<Clause>;
 
 Для синтаксичного конвертера та символьних обчислень використовується N-арне абстрактне синтаксичне дерево (Flattened AST).
 
-```cpp
-#include <vector>
-#include <string>
-
-enum class ASTOp { Var, Not, And, Or };
-
-struct ASTNode {
-    ASTOp op;
-    int var_id{0}; // Заповнюється, якщо op == Var
-    std::vector<ASTNode> children; // Для And/Or містить n аргументів
-};
-```
+:::code api-cnf-dnf-ast/cpp/5-vnutrishnie.cpp
 
 ### Інваріанти структури AST:
 1. **Інваріант NNF (Negation Normal Form):** Оператор `Not` може міститися виключно на рівні безпосередніх батьків вузлів `Var`.
@@ -169,26 +158,6 @@ struct ASTNode {
 
 Для швидкодіючих логічних симуляторів та GPU-обчислень при `n ≤ 64` кожна булева формула зберігається у вигляді 64-бітового інтеджера `uint64_t` (Truth Table Bitset).
 
-```cpp
-#include <cstdint>
-
-// Таблиця істинності функції 3 змінних (2^3 = 8 біт)
-using TruthTable8 = uint8_t;
-
-// Операція AND двох формул - одна інструкція CPU:
-TruthTable8 f_and(TruthTable8 f1, TruthTable8 f2) {
-    return f1 & f2;
-}
-
-// Операція OR двох формул:
-TruthTable8 f_or(TruthTable8 f1, TruthTable8 f2) {
-    return f1 | f2;
-}
-
-// Операція NOT:
-TruthTable8 f_not(TruthTable8 f1) {
-    return ~f1;
-}
-```
+:::code api-cnf-dnf-ast/cpp/7-bitsetovi-makety-dlia.cpp
 
 При використанні вектора інструкцій AVX-512 (512-бітові регістри ZMM) один SIMD-вектор здатний одночасно зберігати та обробляти таблиці істинності для формул від 9 змінних (`2⁹ = 512` біт). Це забезпечує оцінку виконуваності тисяч ДНФ/КНФ термів за один векторний такт процесора.

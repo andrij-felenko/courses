@@ -24,100 +24,11 @@
 
 Роботу ділять на дві стадії: **лексер** (символи → лексеми) і **парсер** (лексеми → дерево). Лексер простий: він проходить рядок, викидає пробіли, упізнає дужки й сполучники (приймемо і красиві символи ¬ ∧ ∨ ⟹, і зручні для клавіатури `~ & | ->`), а суцільні букви збирає в назву змінної.
 
-```python
-from itertools import product
-
-OPS = {'¬': 'not', '~': 'not', '!': 'not',
-       '∧': 'and', '&': 'and',
-       '∨': 'or',  '|': 'or',
-       '⟹': 'imp', '→': 'imp'}          # приймаємо і ⟹, і →
-
-def tokenize(s):
-    toks, i = [], 0
-    while i < len(s):
-        c = s[i]
-        if c.isspace():
-            i += 1
-        elif s.startswith('->', i) or s.startswith('=>', i):
-            toks.append('imp'); i += 2
-        elif c in '()':
-            toks.append(c); i += 1
-        elif c in OPS:
-            toks.append(OPS[c]); i += 1
-        elif c.isalpha():                  # назва змінної: p, q, rain, …
-            j = i
-            while j < len(s) and s[j].isalnum():
-                j += 1
-            toks.append(('var', s[i:j])); i = j
-        else:
-            raise SyntaxError('невідомий символ %r у позиції %d' % (c, i))
-    return toks
-```
+:::code proj-proof-checker/py/rozbir-formuly-vid-riadka.py
 
 Тепер парсер. Пріоритет вкладають у саму структуру викликів: **одна функція на кожен рівень пріоритету**, і кожна кличе тіснішу за себе. Функція для найслабшого ⟹ спершу питає рівень ∨; той — рівень ∧; той — заперечення; те — атом або дужку. Дужка ж скидає нас назад на найслабший рівень, бо всередині дужок усе починається спочатку. Це класичний **рекурсивний спуск** — той самий прийом, що розбирає арифметичні вирази в [розборі виразів магазинним автоматом](root:computability/pushdown-automata/proj-expression-parser.md): граматика прямо перекладається на взаємні виклики функцій.
 
-```python
-class Parser:
-    def __init__(self, toks):
-        self.toks, self.pos = toks, 0
-
-    def peek(self):
-        return self.toks[self.pos] if self.pos < len(self.toks) else None
-
-    def eat(self, want=None):
-        t = self.peek()
-        if want is not None and t != want:
-            raise SyntaxError('очікував %r, знайшов %r' % (want, t))
-        self.pos += 1
-        return t
-
-    def parse(self):
-        tree = self.imp()
-        if self.pos != len(self.toks):
-            raise SyntaxError('зайві лексеми з позиції %d' % self.pos)
-        return tree
-
-    def imp(self):                       # ⟹ — найслабший, ПРАВОасоціативний
-        left = self.disj()
-        if self.peek() == 'imp':
-            self.eat('imp')
-            return ('imp', left, self.imp())   # рекурсія праворуч
-        return left
-
-    def disj(self):                      # ∨ — лівоасоціативний
-        node = self.conj()
-        while self.peek() == 'or':
-            self.eat('or')
-            node = ('or', node, self.conj())
-        return node
-
-    def conj(self):                      # ∧ — тісніший за ∨
-        node = self.neg()
-        while self.peek() == 'and':
-            self.eat('and')
-            node = ('and', node, self.neg())
-        return node
-
-    def neg(self):                       # ¬ — найтісніший
-        if self.peek() == 'not':
-            self.eat('not')
-            return ('not', self.neg())   # ¬¬p цілком законне
-        return self.atom()
-
-    def atom(self):                      # змінна або (…)
-        t = self.peek()
-        if t == '(':
-            self.eat('(')
-            node = self.imp()            # у дужках усе спочатку
-            self.eat(')')
-            return node
-        if isinstance(t, tuple) and t[0] == 'var':
-            return self.eat()
-        raise SyntaxError('очікував змінну або дужку, знайшов %r' % (t,))
-
-def parse(s):
-    return Parser(tokenize(s)).parse()
-```
+:::code proj-proof-checker/py/rozbir-formuly-vid-riadka-2.py
 
 Дерево ми зображуємо простими кортежами: `('var', 'p')` — листок-змінна, `('not', A)` — заперечення піддерева A, `('and', A, B)`, `('or', A, B)`, `('imp', A, B)` — двомісні вузли. Жодних класів не треба: кортеж уже несе і тип вузла (перший елемент), і його дітей. А завдяки пріоритетам той самий текст завжди дає те саме дерево, і будь-яка двозначність зникає.
 
@@ -128,21 +39,7 @@ def parse(s):
 
 Дерево є — обійдімо його. Обчислювач рекурсивний, бо рекурсивна сама структура: значення вузла складається зі значень його дітей. П'ять форм дерева дають рівно п'ять випадків. Тільки один із них варто прочитати уважно — імплікацію: `p ⟹ q` за означенням є `(¬p) ∨ q`, тобто вона істинна завжди, крім єдиного випадку «посилка істинна, а наслідок хибний». Це та сама матеріальна імплікація, що дивує новачків (до неї ще повернемось у пастках), але для машини вона — просто три рядки таблиці з чотирьох.
 
-```python
-def evaluate(node, env):
-    match node:
-        case ('var', name):  return env[name]
-        case ('not', a):     return not evaluate(a, env)
-        case ('and', a, b):  return evaluate(a, env) and evaluate(b, env)
-        case ('or', a, b):   return evaluate(a, env) or evaluate(b, env)
-        case ('imp', a, b):  return (not evaluate(a, env)) or evaluate(b, env)
-
-def variables(node):
-    match node:
-        case ('var', name): return {name}
-        case ('not', a):    return variables(a)
-        case (_, a, b):     return variables(a) | variables(b)
-```
+:::code proj-proof-checker/py/obchyslyty-i-perebraty.py
 
 Пітонівський `match` тут не прикраса, а точне віддзеркалення структури: скільки форм у дерева, стільки й гілок, і кожна каже, як зібрати значення з дітей. Функція `variables` тим самим ходом збирає всі імена атомів через об'єднання множин — вони визначать розмір таблиці.
 
@@ -166,33 +63,7 @@ def check(premises, conclusion):
 
 Обгорнімо перевіряч у друк вердикту й прожену на класичних формах міркування — правильних і хибних. Значення позначимо українськими літерами: **І** — істина, **Х** — хиба.
 
-```python
-def show(premises, conclusion):
-    valid, cx = check(premises, conclusion)
-    arg = '%s  ⊢  %s' % (', '.join(premises), conclusion)
-    if valid:
-        print('ЧИННИЙ    ' + arg)
-    else:
-        w = ', '.join('%s=%s' % (k, 'І' if v else 'Х') for k, v in sorted(cx.items()))
-        print('НЕЧИННИЙ  %s   контрприклад: %s' % (arg, w))
-
-tests = [
-    (['p ⟹ q', 'p'], 'q'),                 # модус поненс
-    (['p ⟹ q', '¬q'], '¬p'),               # модус толленс
-    (['p ⟹ q', 'q'], 'p'),                 # ХИБА: ствердження висновку
-    (['p ⟹ q', '¬p'], '¬q'),               # ХИБА: заперечення посилки
-    (['p ∨ q', '¬p'], 'q'),                 # диз'юнктивний силогізм
-    (['p ⟹ q', 'q ⟹ r'], 'p ⟹ r'),         # транзитивність імплікації
-    (['p ∨ q', 'p ⟹ r', 'q ⟹ r'], 'r'),    # розбір випадків
-]
-for prem, con in tests:
-    show(prem, con)
-
-print('---')
-show([], 'p ∨ ¬p')          # порожні посилки: чинність = висновок є тавтологією
-show([], 'p ∨ q')           # не тавтологія → нечинний
-show(['p', '¬p'], 'q')      # суперечливі посилки доводять будь-що
-```
+:::code proj-proof-checker/py/shcho-kazhe-prohin.py
 
 Прогін друкує:
 

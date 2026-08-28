@@ -151,46 +151,8 @@ VeblenTerm       ::= "phi(" OrdinalTerm "," OrdinalTerm ")"
 Розглянемо типовий сценарій використання бібліотеки в автоматичному доводжувачі теорем:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <assert.h>
-
-void demo_client_usage(void) {
-    /* Створення ординала epsilon_0 = phi(1, 0) */
-    OrdinalNode* eps0 = ord_veblen(ord_finite(1), ord_zero());
-
-    /* Створення ординала omega = phi(0, 1) */
-    OrdinalNode* omega = ord_veblen(ord_zero(), ord_finite(1));
-
-    /* Обчислення суми: omega + epsilon_0 (повинно дати epsilon_0 через поглинання) */
-    OrdinalNode* sum = ord_add(ord_clone(omega), ord_clone(eps0));
-
-    /* Перевірка еквівалентності */
-    assert(ord_cmp(sum, eps0) == 0);
-
-    ord_free(eps0);
-    ord_free(omega);
-    ord_free(sum);
-}
-```
-```cpp
-#include <iostream>
-#include <cassert>
-
-void demo_client_usage_cpp() {
-    // Створення ординала epsilon_0 = phi(1, 0)
-    auto eps0 = veblen::make_veblen(veblen::make_finite(1), veblen::make_zero());
-
-    // Створення ординала omega = phi(0, 1)
-    auto omega = veblen::make_veblen(veblen::make_zero(), veblen::make_finite(1));
-
-    // Обчислення суми: omega + epsilon_0 (повинно дати epsilon_0 через поглинання)
-    auto sum = veblen::add(omega->clone(), eps0->clone());
-
-    // Перевірка еквівалентності
-    assert(veblen::compare(sum.get(), eps0.get()) == std::strong_ordering::equal);
-}
-```
+:::code api-veblen-tree/c/main.c
+:::code api-veblen-tree/cpp/praktychni-pryklady.cpp
 :::
 
 Такий підхід забезпечує максимальну надійність та лаконічність системного коду, унеможливлюючи виникнення важковловимих багів ручної трансфінітної арифметики.
@@ -277,19 +239,7 @@ bool ord_is_successor(const OrdinalNode* n);
 /* Обчислення трансфінітної різниці a - b (якщо a >= b) */
 OrdinalNode* ord_sub(const OrdinalNode* a, const OrdinalNode* b);
 ```
-```cpp
-namespace veblen {
-    /* Генерація n-го члена фундаментальної послідовності для граничного ординала lambda */
-    OrdinalPtr fundamental_sequence(const Ordinal* lambda, unsigned long long n);
-
-    /* Предикати типу ординалу */
-    [[nodiscard]] bool is_limit(const Ordinal* n) noexcept;
-    [[nodiscard]] bool is_successor(const Ordinal* n) noexcept;
-
-    /* Обчислення трансфінітної різниці a - b (якщо a >= b) */
-    OrdinalPtr subtract(const Ordinal* a, const Ordinal* b);
-}
-```
+:::code api-veblen-tree/cpp/syhnatury-rozshyrenoho-api.hpp
 :::
 
 - `ord_fundamental_sequence(lambda, n)` / `fundamental_sequence(lambda, n)`: Обчислює `n`-й член канонічної послідовності `λ[n]`. Якщо `lambda` є ізольованим або нульовим, функція повертає помилку. Часова складність `O(h_lambda)`.

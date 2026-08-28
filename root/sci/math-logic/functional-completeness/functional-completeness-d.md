@@ -76,23 +76,7 @@ a | a  =  ¬(a ∧ a)  =  ¬a          ← ось і заперечення
 
 **Приклад (усе з NAND, з машинною перевіркою).** Двовходову функцію представимо четвіркою виходів для входів (0,0), (0,1), (1,0), (1,1).
 
-```python
-INPUTS = [(0, 0), (0, 1), (1, 0), (1, 1)]
-
-def nand(a, b):
-    return 1 - (a & b)                 # ¬(a ∧ b) — єдина цегла
-
-# З одного лише NAND:
-def not_(a):     return nand(a, a)               # ¬a
-def and_(a, b):  return not_(nand(a, b))         # a ∧ b = ¬(a | b)
-def or_(a, b):   return nand(not_(a), not_(b))   # a ∨ b = ¬a | ¬b
-
-# Звіряємо з еталонними таблицями істинності на всіх входах:
-assert [not_(a)    for a, _ in INPUTS] == [1, 1, 0, 0]
-assert [and_(a, b) for a, b in INPUTS] == [0, 0, 0, 1]
-assert [or_(a, b)  for a, b in INPUTS] == [0, 1, 1, 1]
-print("усе зібрано з NAND і збігається")
-```
+:::code functional-completeness-d/py/main.py
 
 Жоден `assert` не спрацював — отже кожна з трьох дій відтворена точно, самим лише NAND. А маючи {¬, ∧, ∨}, ми вже маємо все.
 

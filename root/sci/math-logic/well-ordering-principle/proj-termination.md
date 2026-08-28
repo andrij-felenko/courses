@@ -145,21 +145,7 @@ ack(m−1, …)  (зовн.)    :  m меншає             →  (m−1, …) 
 Розглянь обчислення виразу-дерева `(3 + 4) × (5 + 6)`. Функція `eval` кличе себе на піддеревах:
 
 :::tabs
-```rust
-enum Expr {
-    Num(i64),
-    Add(Box<Expr>, Box<Expr>),
-    Mul(Box<Expr>, Box<Expr>),
-}
-
-fn eval(e: &Expr) -> i64 {
-    match e {
-        Expr::Num(v) => *v,                     // база: лист, глибше не йдемо
-        Expr::Add(l, r) => eval(l) + eval(r),   // виклики на власних піддеревах —
-        Expr::Mul(l, r) => eval(l) * eval(r),   // кожне строго менше за e
-    }
-}
-```
+:::code proj-termination/rust/main.rs
 ```py
 def eval(e):
     match e:

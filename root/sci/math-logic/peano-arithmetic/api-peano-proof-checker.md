@@ -21,103 +21,9 @@
 Приклад оголошення типів даних наведено у двох варіантах мовного інтерфейсу: для мови C та ідіоматичного модуля C++.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
+:::code api-peano-proof-checker/c/2-pererakhovuvalni-typy-ta.c
 
-/* Ідентифікатори аксіом та правил виведення PA */
-typedef enum {
-    PA_RULE_AXIOM_EQUALITY = 101,  /* Аксіоми рівності (=) */
-    PA_RULE_AXIOM_PEANO_1  = 102,  /* ¬(S(x) = 0) */
-    PA_RULE_AXIOM_PEANO_2  = 103,  /* S(x) = S(y) → x = y */
-    PA_RULE_AXIOM_ADD_BASE = 104,  /* x + 0 = x */
-    PA_RULE_AXIOM_ADD_SUCC = 105,  /* x + S(y) = S(x + y) */
-    PA_RULE_AXIOM_MUL_BASE = 106,  /* x · 0 = 0 */
-    PA_RULE_AXIOM_MUL_SUCC = 107,  /* x · S(y) = (x · y) + x */
-    PA_RULE_SCHEME_INDUCTION = 108,/* Схема індукції */
-    
-    PA_RULE_MODUS_PONENS   = 201,  /* З A та A → B виводиться B */
-    PA_RULE_GENERALIZATION = 202   /* З A(x) виводиться ∀x A(x) */
-} PaRuleType;
-
-/* Коди повернення та статусів верифікації */
-typedef enum {
-    PA_SUCCESS               = 0,
-    PA_ERR_INVALID_STEP_ID   = 1001,
-    PA_ERR_NOT_AN_AXIOM      = 1002,
-    PA_ERR_MP_MISMATCH       = 1003,
-    PA_ERR_INDUCTION_SCHEMA  = 1004,
-    PA_ERR_UNBOUND_VARIABLE  = 1005,
-    PA_ERR_CIRCULAR_PROOF    = 1006
-} PaStatusCode;
-
-/* Структура одного кроку доведення */
-typedef struct PaProofStep {
-    uint32_t step_id;           /* Унікальний номер кроку (1-indexed) */
-    const void* formula_ast;    /* Указник на синтаксичне дерево формули */
-    PaRuleType rule;            /* Обґрунтування кроку */
-    uint32_t ref_step_1;        /* Посилання на 1-й крок (0, якщо немає) */
-    uint32_t ref_step_2;        /* Посилання на 2-й крок (0, якщо немає) */
-} PaProofStep;
-
-/* Контекст верифікації формального доведення */
-typedef struct PaProofContext {
-    const PaProofStep* steps;   /* Масив кроків доведення */
-    size_t step_count;          /* Загальна кількість кроків */
-    uint32_t flags;             /* Прапорці налаштувань */
-} PaProofContext;
-```
-
-```cpp
-#include <cstdint>
-#include <cstddef>
-#include <vector>
-#include <memory>
-#include <string_view>
-#include <expected>
-
-namespace peano::verifier {
-
-enum class RuleType : uint32_t {
-    AxiomEquality       = 101,  // Аксіоми рівності (=)
-    AxiomPeano1         = 102,  // ¬(S(x) = 0)
-    AxiomPeano2         = 103,  // S(x) = S(y) → x = y
-    AxiomAddBase        = 104,  // x + 0 = x
-    AxiomAddSucc        = 105,  // x + S(y) = S(x + y)
-    AxiomMulBase        = 106,  // x · 0 = 0
-    AxiomMulSucc        = 107,  // x · S(y) = (x · y) + x
-    SchemeInduction     = 108,  // Схема індукції
-    
-    ModusPonens         = 201,  // З A та A → B виводиться B
-    Generalization      = 202   // З A(x) виводиться ∀x A(x)
-};
-
-enum class StatusCode : uint32_t {
-    Success             = 0,
-    InvalidStepId       = 1001,
-    NotAnAxiom          = 1002,
-    MpMismatch          = 1003,
-    InductionSchema     = 1004,
-    UnboundVariable     = 1005,
-    CircularProof       = 1006
-};
-
-struct ProofStep {
-    uint32_t step_id;           // Номер кроку (1-indexed)
-    const void* formula_ast;    // Вказник на AST формули
-    RuleType rule;              // Правило виведення
-    uint32_t ref_step_1;        // Посилання на 1-шу передумову
-    uint32_t ref_step_2;        // Посилання на 2-гу передумову
-};
-
-struct ProofContext {
-    std::vector<ProofStep> steps;
-    uint32_t flags{0};
-};
-
-} // namespace peano::verifier
-```
+:::code api-peano-proof-checker/cpp/2-pererakhovuvalni-typy-ta.cpp
 :::
 
 ## 3. Детальна розфільтровка кодів статусів та діагностика помилок
@@ -160,46 +66,9 @@ struct ProofContext {
 Нижче наведено контракт та підписи головних системних функцій верифікатора.
 
 :::tabs
-```c
-#include <stdint.h>
-#include <stdbool.h>
+:::code api-peano-proof-checker/c/stdint.h
 
-/* Перевірка одного кроку доведення */
-PaStatusCode pa_verify_step(
-    const PaProofContext* ctx,
-    size_t current_step_idx
-);
-
-/* Повна перевірка всього масиву кроків доведення */
-PaStatusCode pa_verify_proof(
-    const PaProofContext* ctx,
-    uint32_t* failed_step_id
-);
-
-/* Синтаксичний аналізатор відповідності схемі індукції */
-bool pa_is_induction_instance(
-    const void* formula_ast,
-    const char* var_name
-);
-```
-
-```cpp
-#include <expected>
-#include <string_view>
-
-namespace peano::verifier {
-
-// Перевірка одного кроку доведення
-StatusCode verify_step(const ProofContext& ctx, size_t current_step_idx) noexcept;
-
-// Повна перевірка доведення із поверненням детального статусу
-std::expected<void, std::pair<uint32_t, StatusCode>> verify_proof(const ProofContext& ctx) noexcept;
-
-// Аналіз формули на належність до схеми індукції
-bool is_induction_instance(const void* formula_ast, std::string_view var_name) noexcept;
-
-} // namespace peano::verifier
-```
+:::code api-peano-proof-checker/cpp/4-spetsyfikatsiia-funktsii.cpp
 :::
 
 ### 4.1. Детальний алгоритм верифікації кроку `pa_verify_step`
@@ -247,88 +116,9 @@ bool is_induction_instance(const void* formula_ast, std::string_view var_name) n
 Нижче наведено повністю робочий приклад виклику API верифікатора для перевірки доведення аксіоматичного кроку `PA`.
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdint.h>
-#include <stdbool.h>
+:::code api-peano-proof-checker/c/6-kontrakty-vyklykiv-ta.c
 
-int main(void) {
-    printf("=== Перевірка формального доведення через PA Proof Checker API (C) ===\n");
-
-    /* Створення масиву кроків для доведення: ∀x (x + 0 = x) */
-    PaProofStep steps[2];
-
-    /* Крок 1: Аксіома додавання бази: x + 0 = x */
-    steps[0].step_id = 1;
-    steps[0].formula_ast = (const void*)0x1000; /* Умовна адреса AST */
-    steps[0].rule = PA_RULE_AXIOM_ADD_BASE;
-    steps[0].ref_step_1 = 0;
-    steps[0].ref_step_2 = 0;
-
-    /* Крок 2: Узагальнення за x: ∀x (x + 0 = x) */
-    steps[1].step_id = 2;
-    steps[1].formula_ast = (const void*)0x2000;
-    steps[1].rule = PA_RULE_GENERALIZATION;
-    steps[1].ref_step_1 = 1;
-    steps[1].ref_step_2 = 0;
-
-    PaProofContext ctx;
-    ctx.steps = steps;
-    ctx.step_count = 2;
-    ctx.flags = 0;
-
-    uint32_t failed_step = 0;
-    PaStatusCode status = pa_verify_proof(&ctx, &failed_step);
-
-    if (status == PA_SUCCESS) {
-        printf("Результат: Формальне доведення УСПІШНО ВЕРИФІКОВАНО (PA_SUCCESS)\n");
-    } else {
-        printf("Результат: ПОМИЛКА ВЕРИФІКАЦІЇ у кроці %u (Код помилки: %d)\n", failed_step, status);
-    }
-
-    return 0;
-}
-```
-
-```cpp
-#include <iostream>
-#include <vector>
-
-int main() {
-    using namespace peano::verifier;
-
-    std::cout << "=== Перевірка формального доведення через PA Proof Checker API (C++20) ===\n";
-
-    ProofContext ctx;
-    ctx.steps.push_back(ProofStep{
-        .step_id = 1,
-        .formula_ast = reinterpret_cast<const void*>(0x1000),
-        .rule = RuleType::AxiomAddBase,
-        .ref_step_1 = 0,
-        .ref_step_2 = 0
-    });
-
-    ctx.steps.push_back(ProofStep{
-        .step_id = 2,
-        .formula_ast = reinterpret_cast<const void*>(0x2000),
-        .rule = RuleType::Generalization,
-        .ref_step_1 = 1,
-        .ref_step_2 = 0
-    });
-
-    auto result = verify_proof(ctx);
-
-    if (result.has_value()) {
-        std::cout << "Результат: Формальне доведення УСПІШНО ВЕРИФІКОВАНО (Success)\n";
-    } else {
-        auto [failed_step, status] = result.error();
-        std::cout << "Результат: ПОМИЛКА ВЕРИФІКАЦІЇ у кроці " << failed_step 
-                  << " (Код помилки: " << static_cast<uint32_t>(status) << ")\n";
-    }
-
-    return 0;
-}
-```
+:::code api-peano-proof-checker/cpp/6-kontrakty-vyklykiv-ta.cpp
 :::
 
 Використання цього API дозволяє легко інтегрувати автоматичний модуль перевірки доведень у SMT-солівери, навчальні системи символьної логіки та програмні комплекси формальної верифікації.

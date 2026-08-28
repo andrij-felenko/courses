@@ -30,34 +30,8 @@
 Перечислення типів вузлів кодує повний набір примітивів базису Кальмара:
 
 :::tabs
-```c
-typedef enum {
-    KALMAR_NODE_CONST       = 0x01,  /* Числова константа uint64_t */
-    KALMAR_NODE_VAR         = 0x02,  /* Читання змінної за індексом середовища */
-    KALMAR_NODE_ADD         = 0x10,  /* Додавання (lhs + rhs) */
-    KALMAR_NODE_SUB         = 0x11,  /* Зрізане віднімання (lhs ∸ rhs) */
-    KALMAR_NODE_MUL         = 0x12,  /* Множення (lhs · rhs) */
-    KALMAR_NODE_DIV         = 0x13,  /* Безпечне цілочисельне ділення */
-    KALMAR_NODE_EXP         = 0x14,  /* Цілочисельне піднесення до степеня */
-    KALMAR_NODE_SUM         = 0x20,  /* Обмежена сума ∑_{z ≤ bound} body */
-    KALMAR_NODE_PROD        = 0x21,  /* Обмежений добуток ∏_{z ≤ bound} body */
-    KALMAR_NODE_SEARCH      = 0x22   /* Обмежений μ-пошук найменшого кореня */
-} KalmarNodeType;
-```
-```cpp
-enum class NodeType : uint8_t {
-    Constant      = 0x01,
-    Variable      = 0x02,
-    Add           = 0x10,
-    Subtract      = 0x11,
-    Multiply      = 0x12,
-    Divide        = 0x13,
-    Exponent      = 0x14,
-    BoundedSum    = 0x20,
-    BoundedProd   = 0x21,
-    BoundedSearch = 0x22
-};
-```
+:::code api-elementary-spec/c/kody-operatsii-ta-typy.c
+:::code api-elementary-spec/cpp/kody-operatsii-ta-typy.cpp
 :::
 
 ### Коди результатів та помилок
@@ -241,47 +215,7 @@ struct Environment {
 
 Застосування `std::span` гарантує відсутність копіювання масивів аргументів при передачі у методи обчислення, забезпечуючи нульові накладні витрати пам'яті. Тип `std::expected` дозволяє клієнтському коду обробляти потенційні помилки переповнення та вичерпання бюджету без використання винятків, що забезпечує повну детермінованість і відповідність стандарту MISRA C++:2023.
 
-```cpp
-namespace kalmar {
-
-class Expression {
-public:
-    Expression(Expression&& other) noexcept;
-    Expression& operator=(Expression&& other) noexcept;
-    ~Expression() = default;
-
-    Expression(const Expression&) = delete;
-    Expression& operator=(const Expression&) = delete;
-
-    [[nodiscard]] Expression clone() const;
-
-    [[nodiscard]] size_t tower_height() const noexcept;
-    [[nodiscard]] size_t node_count() const noexcept;
-
-    [[nodiscard]] std::expected<uint64_t, StatusCode> 
-    evaluate(std::span<uint64_t> env) const noexcept;
-
-    [[nodiscard]] std::expected<bool, StatusCode> 
-    evaluate_as_predicate(std::span<uint64_t> env) const noexcept;
-
-    static Expression make_constant(uint64_t val);
-    static Expression make_variable(size_t var_idx);
-    static Expression make_add(Expression lhs, Expression rhs);
-    static Expression make_sub(Expression lhs, Expression rhs);
-    static Expression make_mul(Expression lhs, Expression rhs);
-    static Expression make_div(Expression lhs, Expression rhs);
-    static Expression make_pow(Expression base, Expression exponent);
-    static Expression make_sum(size_t var_idx, Expression bound, Expression body);
-    static Expression make_prod(size_t var_idx, Expression bound, Expression body);
-    static Expression make_search(size_t var_idx, Expression bound, Expression predicate);
-
-private:
-    std::unique_ptr<AstNode> root_;
-    explicit Expression(std::unique_ptr<AstNode> root) noexcept;
-};
-
-} // namespace kalmar
-```
+:::code api-elementary-spec/cpp/spetsyfikatsiia-obiektno.hpp
 
 ---
 
@@ -409,58 +343,8 @@ void set_trace_callback(Environment& env, TraceCallback cb);
 Наведений нижче приклад демонструє типовий життєвий цикл використання API: побудова AST логічного предиката перевірки парності числа, статична верифікація висоти вежі експонент, виконання обчислення для вибірки чисел та автоматичне очищення ресурсів:
 
 :::tabs
-```c
-#include <stdio.h>
-#include <stdint.h>
-#include <stdbool.h>
-
-void run_c_parity_workflow(void) {
-    /* Побудова виразу Rem(n, 2): n ∸ (2 · (n / 2)) */
-    KalmarNode* div_expr = kalmar_make_binop(KALMAR_NODE_DIV, kalmar_make_var(0), kalmar_make_const(2));
-    KalmarNode* mul_expr = kalmar_make_binop(KALMAR_NODE_MUL, kalmar_make_const(2), div_expr);
-    KalmarNode* rem_expr = kalmar_make_binop(KALMAR_NODE_SUB, kalmar_make_var(0), mul_expr);
-    KalmarNode* is_even  = kalmar_make_binop(KALMAR_NODE_SUB, kalmar_make_const(1), rem_expr);
-
-    size_t k = kalmar_compute_tower_height(is_even);
-    printf("C API: Verified tower height k = %zu\n", k);
-
-    uint64_t vars[2] = {0};
-    KalmarEnvironment env = { .vars = vars, .capacity = 2, .step_count = 0, .step_limit = 1000 };
-
-    bool is_true = false;
-    vars[0] = 42;
-    if (kalmar_eval_predicate(is_even, &env, &is_true) == KALMAR_OK) {
-        printf("Number 42 is %s\n", is_true ? "EVEN" : "ODD");
-    }
-
-    kalmar_free_tree(is_even);
-}
-```
-```cpp
-#include <iostream>
-#include <vector>
-#include <span>
-
-void run_cpp_parity_workflow() {
-    using namespace kalmar;
-
-    auto div_expr = Expression::make_div(Expression::make_variable(0), Expression::make_constant(2));
-    auto mul_expr = Expression::make_mul(Expression::make_constant(2), std::move(div_expr));
-    auto rem_expr = Expression::make_sub(Expression::make_variable(0), std::move(mul_expr));
-    auto is_even  = Expression::make_sub(Expression::make_constant(1), std::move(rem_expr));
-
-    size_t k = is_even.tower_height();
-    std::cout << "C++ API: Verified tower height k = " << k << "\n";
-
-    std::vector<uint64_t> env_vars(2, 0);
-    env_vars[0] = 42;
-
-    auto res = is_even.evaluate_as_predicate(env_vars);
-    if (res.has_value()) {
-        std::cout << "Number 42 is " << (res.value() ? "EVEN" : "ODD") << "\n";
-    }
-}
-```
+:::code api-elementary-spec/c/pryklad-povnoho.c
+:::code api-elementary-spec/cpp/pryklad-povnoho.cpp
 :::
 
 Цей інтерфейс забезпечує повну ізоляцію логіки обчислень від низькорівневих деталей платформи, надаючи детермінований, математично верифікований та безпечний інструмент для роботи з елементарною арифметикою в критичних системах.

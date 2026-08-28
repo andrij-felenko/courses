@@ -128,29 +128,7 @@ struct OrdinalNode {
 
 Обгортка забезпечує незмінність початкового ординала завдяки нативному методу `clone()`, який виконує глибоке копіювання синтаксичного дерева перед кожною підстановкою фундаментальної послідовності. Це гарантує повну побічну безпеку при багаторазових обчисленнях.
 
-```cpp
-namespace fgh {
-
-class Ordinal {
-public:
-    static OrdinalPtr make_zero();
-    static OrdinalPtr make_finite(uint64_t val);
-    static OrdinalPtr make_term(OrdinalPtr exp, uint64_t coeff, OrdinalPtr tail = nullptr);
-
-    OrdinalPtr clone() const;
-    bool is_limit() const;
-    OrdinalPtr fundamental_sequence(uint64_t n) const;
-};
-
-class Evaluator {
-public:
-    explicit Evaluator(uint64_t max_steps = 1000000);
-    
-    uint64_t eval(const OrdinalNode* alpha, uint64_t n, EvalStats& stats);
-};
-
-} // namespace fgh
-```
+:::code api-fgh-evaluator/cpp/main.hpp
 
 ## Таблиця помилок, режимів та кодів повернення
 

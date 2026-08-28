@@ -45,49 +45,8 @@
 ## Специфікація типів даних C та C++ API
 
 :::tabs
-```c
-typedef int32_t HornVar;
-typedef int32_t HornClauseId;
-
-#define HORN_VAR_NONE ((HornVar)-1)
-
-typedef enum {
-    HORN_OK = 0,
-    HORN_RESULT_SAT = 1,
-    HORN_RESULT_UNSAT = 2,
-    HORN_ERR_NULL_POINTER = -1,
-    HORN_ERR_INVALID_VAR = -2,
-    HORN_ERR_INVALID_STATE = -3,
-    HORN_ERR_OUT_OF_MEMORY = -4,
-    HORN_ERR_DUPLICATE_LITERAL = -5
-} HornErrorCode;
-
-typedef struct HornSolverC HornSolverC;
-```
-```cpp
-namespace horn {
-
-using Var = int32_t;
-inline constexpr Var VarNone = -1;
-
-enum class SolutionStatus : uint8_t {
-    Sat,
-    Unsat
-};
-
-enum class ErrorCode : int32_t {
-    Ok = 0,
-    NullPointer = -1,
-    InvalidVar = -2,
-    InvalidState = -3,
-    OutOfMemory = -4,
-    DuplicateLiteral = -5
-};
-
-class HornSolver;
-
-} // namespace horn
-```
+:::code api-horn-solver/c/main.c
+:::code api-horn-solver/cpp/main.cpp
 :::
 
 ## Зведена таблиця функцій C та методів C++ API

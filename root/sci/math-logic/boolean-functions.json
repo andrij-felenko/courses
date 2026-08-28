@@ -29,13 +29,16 @@
           "math": [
             {
               "file": "math-boolean-eval.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-truth-table-generator.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -70,7 +73,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -87,7 +91,8 @@
           "proj": [
             {
               "file": "proj-completeness-check.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -105,7 +110,8 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 3
+            "level": 3,
+            "recode": true
           },
           "hist": [
             {
@@ -122,7 +128,8 @@
           "proj": [
             {
               "file": "proj-recursive-expansion.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -133,7 +140,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -144,13 +152,15 @@
           "math": [
             {
               "file": "math-mobius-transform.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "proj": [
             {
               "file": "proj-anf-transform.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         }
@@ -179,19 +189,24 @@
           "math": [
             {
               "file": "math-dnf-cnf-duality.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-cnf-dnf-converter.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-cnf-dnf-ast.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -213,19 +228,24 @@
           "math": [
             {
               "file": "math-tseytin-equisatisfiability.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-tseytin-encoder.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-dimacs-cnf.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -248,19 +268,24 @@
           "math": [
             {
               "file": "math-completeness.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-solver.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-proof-format.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         },
@@ -282,19 +307,23 @@
           "math": [
             {
               "file": "math-horn-solvability.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-horn-solver.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ],
           "api": [
             {
               "file": "api-horn-solver.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }

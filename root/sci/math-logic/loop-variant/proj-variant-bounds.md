@@ -52,22 +52,7 @@ v₀ < W(k)   ⟹   кроків буде менше за k
 
 Візьмімо [двійковий пошук](root:sf-algorithms/binary-search) — він тримає вікно, у якому ще може бути ціль, і щопроходу відкидає половину; варіант — ширина цього вікна. Ось код, який рахує і водночас стежить за власним варіантом:
 
-```python
-def bsearch(a, target):
-    """Пошук у відсортованому масиві. Вікно — напіввідкрите [lo, hi)."""
-    lo, hi = 0, len(a)
-    while lo < hi:
-        v = hi - lo                     # варіант — ширина вікна
-        mid = lo + (hi - lo) // 2       # так, а не (lo + hi) // 2: різниці нема з чого переповнитись
-        if a[mid] == target:
-            return mid
-        if a[mid] < target:
-            lo = mid + 1                # ціль правіше: відкидаємо ліву половину РАЗОМ з mid
-        else:
-            hi = mid                    # ціль лівіше: відкидаємо праву половину разом з mid
-        assert hi - lo <= v // 2        # закон спуску, а не просто «впало»
-    return -1
-```
+:::code proj-variant-bounds/py/dviikovyi-poshuk-drabyna.py
 
 Придивімось до `assert`. Він стежить не за тим, що варіант «якось» упав, — він стежить за **законом**: `v′ ≤ ⌊v/2⌋`. Ось звідки цей закон береться. У циклі `v ≥ 1`, а `mid = lo + ⌊v/2⌋`, тож `lo ≤ mid < hi`. Дві гілки:
 
@@ -133,21 +118,7 @@ pred(a, b) = (a + b, a)
 
 Це твердження легко перевірити не вірою, а перебором — просто спитавши в машини найменшу пару для кожного `k`:
 
-```python
-def gcd_steps(a, b):
-    k = 0
-    while b:
-        a, b = b, a % b
-        k += 1
-    return k
-
-# найменша пара a > b > 0, що вимагає k кроків
-def min_pair(k, cap=400):
-    for b in range(1, cap):
-        for a in range(b + 1, 2 * cap):
-            if gcd_steps(a, b) >= k:
-                return a, b
-```
+:::code proj-variant-bounds/py/evklid-chomu-same.py
 
 ```
 k = 1  → (2, 1)     = (F₃, F₂)
@@ -204,123 +175,9 @@ log_φ(10) = ln(10)/ln(φ) = 2.302585 / 0.4812118 = 4.785
 Головний цикл робить за прохід рівно одну дію — або **читає** токен, або **знімає** оператор зі стека:
 
 :::tabs
-```python
-PREC = {"+": 1, "-": 1, "*": 2, "/": 2}
-
-def to_rpn(tokens):
-    """Інфікс → постфікс. Один прохід = одна дія."""
-    out, ops, i = [], [], 0
-    while i < len(tokens) or ops:
-        v = (len(tokens) - i, len(ops))          # варіант — ПАРА
-        t = tokens[i] if i < len(tokens) else None
-
-        if t is not None and t not in PREC and t not in ("(", ")"):
-            out.append(t); i += 1                            # число — одразу у вихід
-        elif t == "(":
-            ops.append(t); i += 1
-        elif t == ")" and ops and ops[-1] == "(":
-            ops.pop(); i += 1                                # дужка закрилася
-        elif t is not None and t in PREC and (
-                not ops or ops[-1] == "(" or PREC[ops[-1]] < PREC[t]):
-            ops.append(t); i += 1                            # оператор іде вгору
-        else:
-            out.append(ops.pop())                            # старший оператор — у вихід
-
-        assert (len(tokens) - i, len(ops)) < v    # кортежі порівнюються словниково
-    return out
-```
-```rust
-fn prec(c: char) -> u8 {
-    match c { '+' | '-' => 1, '*' | '/' => 2, _ => 0 }
-}
-
-fn tok_prec(t: Tok) -> u8 {
-    match t { Tok::Op(c) => prec(c), _ => 0 }
-}
-
-#[derive(Clone, Copy, PartialEq, Eq, Debug)]
-enum Tok { Num(i64), Op(char), LPar, RPar }
-
-/// Інфікс → постфікс. Один прохід = одна дія.
-fn to_rpn(tokens: &[Tok]) -> Vec<Tok> {
-    let mut out: Vec<Tok> = Vec::new();
-    let mut ops: Vec<Tok> = Vec::new();
-    let mut i = 0usize;
-
-    while i < tokens.len() || !ops.is_empty() {
-        // варіант — ПАРА; кортежі в Rust порівнюються словниково «з коробки»
-        let v = (tokens.len() - i, ops.len());
-
-        let t = tokens.get(i).copied();
-        let top = ops.last().copied();
-
-        if let Some(n @ Tok::Num(_)) = t {
-            out.push(n); i += 1;                             // число — одразу у вихід
-        } else if t == Some(Tok::LPar) {
-            ops.push(Tok::LPar); i += 1;
-        } else if t == Some(Tok::RPar) && top == Some(Tok::LPar) {
-            ops.pop(); i += 1;                               // дужка закрилася
-        } else if let Some(Tok::Op(c)) = t {
-            if top.map_or(true, |x| x == Tok::LPar || tok_prec(x) < prec(c)) {
-                ops.push(Tok::Op(c)); i += 1;                // оператор іде вгору
-            } else {
-                out.push(ops.pop().unwrap());                // старший оператор — у вихід
-            }
-        } else {
-            out.push(ops.pop().expect("незбалансовані дужки"));
-        }
-
-        debug_assert!((tokens.len() - i, ops.len()) < v);    // пара впала словниково
-    }
-    out
-}
-```
-```cpp
-#include <vector>
-#include <utility>
-#include <cassert>
-#include <cstddef>
-
-enum class Kind { Num, Op, LPar, RPar };
-struct Tok { Kind kind; long num = 0; char op = 0; };
-
-int prec(char c) {
-    switch (c) { case '+': case '-': return 1;
-                 case '*': case '/': return 2; default: return 0; }
-}
-int tok_prec(const Tok& t) { return t.kind == Kind::Op ? prec(t.op) : 0; }
-
-// Інфікс → постфікс. Один прохід = одна дія.
-std::vector<Tok> to_rpn(const std::vector<Tok>& tokens) {
-    std::vector<Tok> out, ops;
-    std::size_t i = 0;
-
-    while (i < tokens.size() || !ops.empty()) {
-        // варіант — ПАРА; std::pair порівнюється словниково «з коробки»
-        std::pair<std::size_t, std::size_t> v{tokens.size() - i, ops.size()};
-        bool have = i < tokens.size();
-
-        if (have && tokens[i].kind == Kind::Num) {
-            out.push_back(tokens[i]); ++i;                   // число — одразу у вихід
-        } else if (have && tokens[i].kind == Kind::LPar) {
-            ops.push_back(tokens[i]); ++i;
-        } else if (have && tokens[i].kind == Kind::RPar
-                   && !ops.empty() && ops.back().kind == Kind::LPar) {
-            ops.pop_back(); ++i;                             // дужка закрилася
-        } else if (have && tokens[i].kind == Kind::Op
-                   && (ops.empty() || ops.back().kind == Kind::LPar
-                       || tok_prec(ops.back()) < prec(tokens[i].op))) {
-            ops.push_back(tokens[i]); ++i;                   // оператор іде вгору
-        } else {
-            out.push_back(ops.back()); ops.pop_back();       // старший оператор — у вихід
-        }
-
-        // пара впала словниково (подвійні дужки — щоб коми не розбили макрос assert)
-        assert((std::pair<std::size_t, std::size_t>{tokens.size() - i, ops.size()} < v));
-    }
-    return out;
-}
-```
+:::code proj-variant-bounds/py/koly-odnoho-lichylnyka.py
+:::code proj-variant-bounds/rust/koly-odnoho-lichylnyka.rs
+:::code proj-variant-bounds/cpp/koly-odnoho-lichylnyka.cpp
 :::
 
 Простежмо `3 + 4 * 2` і подивімось, що взагалі тут спадає:
@@ -381,83 +238,9 @@ N₀ = 2n + 0 = 2n
 Усе, що ми виписували, — закон спуску, дно, передбачену межу, — можна не лишати на папері, а вкласти в код, щоб воно перевіряло себе саме. Ось [перевірка припущення](root:sf-apps/assert-panic) на всі три обіцянки одразу:
 
 :::tabs
-```python
-class Variant:
-    """Строгий спад + дно + збіг із передбаченою межею."""
-
-    def __init__(self, floor=0, budget=None):
-        self.floor, self.budget = floor, budget
-        self.prev, self.steps = None, 0
-
-    def step(self, now):
-        """Викликати ПЕРШИМ рядком тіла циклу — жодна гілка не прослизне."""
-        self.steps += 1
-        assert now >= self.floor, "варіант пробив дно: %r < %r" % (now, self.floor)
-        if self.prev is not None:
-            assert now < self.prev, "варіант не впав: %r → %r" % (self.prev, now)
-        if self.budget is not None:
-            assert self.steps <= self.budget, \
-                "перевищено передбачену межу: %d > %d" % (self.steps, self.budget)
-        self.prev = now
-```
-```rust
-use std::fmt::Debug;
-
-/// Строгий спад + дно + збіг із передбаченою межею.
-struct Variant<V: Ord + Debug> {
-    floor: V,
-    budget: Option<usize>,
-    prev: Option<V>,
-    steps: usize,
-}
-
-impl<V: Ord + Debug> Variant<V> {
-    fn new(floor: V, budget: Option<usize>) -> Self {
-        Variant { floor, budget, prev: None, steps: 0 }
-    }
-
-    /// Викликати ПЕРШИМ рядком тіла циклу — жодна гілка не прослизне.
-    fn step(&mut self, now: V) {
-        self.steps += 1;
-        assert!(now >= self.floor, "варіант пробив дно: {:?} < {:?}", now, self.floor);
-        if let Some(prev) = &self.prev {
-            assert!(now < *prev, "варіант не впав: {:?} → {:?}", prev, now);
-        }
-        if let Some(b) = self.budget {
-            assert!(self.steps <= b, "перевищено передбачену межу: {} > {}", self.steps, b);
-        }
-        self.prev = Some(now);
-    }
-}
-```
-```cpp
-#include <optional>
-#include <utility>
-#include <cassert>
-#include <cstddef>
-
-// Строгий спад + дно + збіг із передбаченою межею.
-template <class V>
-class Variant {
-    V floor_;
-    std::optional<std::size_t> budget_;
-    std::optional<V> prev_;
-    std::size_t steps_ = 0;
-
-public:
-    explicit Variant(V floor, std::optional<std::size_t> budget = std::nullopt)
-        : floor_(std::move(floor)), budget_(budget) {}
-
-    // Викликати ПЕРШИМ рядком тіла циклу — жодна гілка не прослизне.
-    void step(const V& now) {
-        ++steps_;
-        assert(now >= floor_ && "варіант пробив дно");
-        assert((!prev_ || now < *prev_) && "варіант не впав");
-        assert((!budget_ || steps_ <= *budget_) && "перевищено передбачену межу");
-        prev_ = now;
-    }
-};
-```
+:::code proj-variant-bounds/py/variant-iak-rantaim.py
+:::code proj-variant-bounds/rust/variant-iak-rantaim.rs
+:::code proj-variant-bounds/cpp/variant-iak-rantaim.cpp
 :::
 
 Місце виклику вибране не для краси. Перевірка стоїть **першим рядком тіла**, а не останнім, — і тому її не обійде жодна гілка. Останній рядок обходиться тривіально: досить `continue` десь усередині, і контроль пролітає повз. А до першого рядка потрапляє все, що заходить на новий прохід, — байдуже, звідки воно прийшло:
@@ -498,23 +281,7 @@ a = [10, 20], ціль 15:
 
 **Машинні цілі — не ℕ, а кільце.** Доведення велося над натуральними, а код виконується над `ℤ/2ⁿ`. Це не педантизм: кільце лишків **не має дна взагалі** — воно циклічне, і спуск `0 → 2ⁿ−1 → 2ⁿ−2 → …` триває вічно. [Фундованість](root:math-logic/loop-variant/math-well-founded.md), на якій тримається все доведення, просто не виконується:
 
-```c
-#include <stddef.h>
-
-/* Здається, рахує вниз від n−1 до 0. Насправді — не спиняється ніколи. */
-void walk_backwards(const int *a, size_t n)
-{
-    for (size_t i = n - 1; i >= 0; i--)   /* i БЕЗЗНАКОВЕ: умова тотожно істинна */
-        use(a[i]);                        /* при i = 0 крок i-- дає SIZE_MAX */
-}
-
-/* Так правильно: перевірка й крок в одному, дно недосяжне знизу. */
-void walk_backwards_ok(const int *a, size_t n)
-{
-    for (size_t i = n; i-- > 0; )
-        use(a[i]);
-}
-```
+:::code proj-variant-bounds/c/main.c
 
 Умова `i >= 0` для беззнакового типу — не дно, а тавтологія: кожне беззнакове число `≥ 0` (gcc так і каже: *comparison of unsigned expression >= 0 is always true*). Варіант мусить жити у множині без нескінченного спуску — а [переповнення](root:sf-lang/overflow-wraparound) робить із такої множини карусель.
 

@@ -117,74 +117,8 @@ U = (L > 0) ? (2 · L) : (2 · (-L) + 1)
 Нижче наведено специфікацію API, яке вбудовується в ядро SAT-розв'язувача для логування резолюційного сертифіката.
 
 :::tabs
-```c
-#ifndef DRAT_PROOF_LOGGER_H
-#define DRAT_PROOF_LOGGER_H
-
-#include <stdio.h>
-#include <stdbool.h>
-
-// Контекст реєстратора траси
-typedef struct {
-    FILE *file;
-    bool binary_mode;
-    size_t added_clauses;
-    size_t deleted_clauses;
-} ProofLogger;
-
-// Ініціалізація реєстратора
-ProofLogger* proof_logger_open(const char *filename, bool binary_mode);
-
-// Запис додавання диз'юнкта резолюції (завершується 0 у масиві lits)
-void proof_logger_add_clause(ProofLogger *logger, const int *lits, size_t size);
-
-// Запис видалення диз'юнкта
-void proof_logger_delete_clause(ProofLogger *logger, const int *lits, size_t size);
-
-// Закриття траси з записом порожнього диз'юнкта ⊥
-void proof_logger_close(ProofLogger *logger);
-
-#endif // DRAT_PROOF_LOGGER_H
-```
-```cpp
-#ifndef DRAT_PROOF_LOGGER_HPP
-#define DRAT_PROOF_LOGGER_HPP
-
-#include <fstream>
-#include <filesystem>
-#include <vector>
-#include <span>
-
-namespace drat {
-
-class ProofLogger {
-private:
-    std::ofstream file_;
-    bool binary_mode_{false};
-    size_t added_clauses_{0};
-    size_t deleted_clauses_{0};
-
-public:
-    explicit ProofLogger(const std::filesystem::path& path, bool binary_mode = false);
-    ~ProofLogger();
-
-    ProofLogger(const ProofLogger&) = delete;
-    ProofLogger& operator=(const ProofLogger&) = delete;
-    ProofLogger(ProofLogger&&) noexcept = default;
-    ProofLogger& operator=(ProofLogger&&) noexcept = default;
-
-    void add_clause(std::span<const int> lits);
-    void delete_clause(std::span<const int> lits);
-    void close();
-
-    [[nodiscard]] size_t added_count() const noexcept { return added_clauses_; }
-    [[nodiscard]] size_t deleted_count() const noexcept { return deleted_clauses_; }
-};
-
-} // namespace drat
-
-#endif // DRAT_PROOF_LOGGER_HPP
-```
+:::code api-proof-format/c/main.h
+:::code api-proof-format/cpp/main.hpp
 :::
 
 ## 6. Утиліти перевірки та діагностика помилок
