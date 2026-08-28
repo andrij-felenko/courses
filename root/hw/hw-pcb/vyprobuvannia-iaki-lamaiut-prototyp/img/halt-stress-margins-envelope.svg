@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 910 530" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="910" height="530" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<rect x="10.0" y="10.0" width="880.0" height="500.0" rx="8" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="450.0" y="38.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="700">Конверт граничних навантажень HALT та формування запасу міцності</text>
+<text x="450.0" y="56.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#6b7280" text-anchor="middle">Ступінчасте навантаження до відмови, пошук експлуатаційних (UOL/LOL) та деструктивних (UDL/LDL) меж</text>
+<rect x="25.0" y="75.0" width="460.0" height="420.0" rx="6" fill="#fbfcfd" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="255.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle" font-weight="700">Ступінчастий стрес HALT (Step-Stress Timeline)</text>
+<rect x="66.0" y="330.0" width="405.0" height="65.0" rx="0" fill="#ecfdf5" stroke="#10b981" stroke-width="1.0"/>
+<text x="268.0" y="366.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#047857" text-anchor="middle" font-weight="700">Діапазон ТЗ (Specification: −40 °C ... +85 °C / 3g)</text>
+<rect x="66.0" y="240.0" width="405.0" height="90.0" rx="0" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.0"/>
+<text x="268.0" y="288.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#1d4ed8" text-anchor="middle" font-weight="700">Запас стабільності (Operating Margin: до LOL / UOL)</text>
+<rect x="66.0" y="140.0" width="405.0" height="100.0" rx="0" fill="#fef2f2" stroke="#ef4444" stroke-width="1.0"/>
+<text x="268.0" y="195.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#b91c1c" text-anchor="middle" font-weight="700">Руйнівна зона HALT (Destruct Margin: до LDL / UDL)</text>
+<line x1="65.0" y1="440.0" x2="65.0" y2="125.0" stroke="#475569" stroke-width="1.5"/>
+<line x1="65.0" y1="130.0" x2="65.0" y2="120.0" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="60.0" y="116.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="start" font-weight="700">Рівень стресу (+T, −T, Vib, V)</text>
+<line x1="65.0" y1="440.0" x2="465.0" y2="440.0" stroke="#475569" stroke-width="1.5"/>
+<line x1="460.0" y1="440.0" x2="470.0" y2="440.0" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="465.0" y="456.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#475569" text-anchor="end">Час тесту (t)</text>
+<path d="M 65.0,385.0 L 105.0,385.0 L 105.0,355.0 L 145.0,355.0 L 145.0,315.0 L 185.0,315.0 L 185.0,275.0 L 225.0,275.0 L 225.0,235.0 L 265.0,235.0 L 265.0,195.0 L 305.0,195.0 L 305.0,160.0 L 345.0,160.0 L 345.0,135.0 L 395.0,135.0" fill="none" stroke="#0f172a" stroke-width="2.5"/>
+<circle cx="265.0" cy="235.0" r="5.0" fill="#2563eb" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="145.0" y="248.0" width="115.0" height="32.0" rx="3" fill="#ffffff" stroke="#2563eb" stroke-width="1.0"/>
+<text x="195.0" y="262.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1e40af" text-anchor="middle" font-weight="700">UOL: Оборотний збій</text>
+<text x="202.0" y="274.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">PLL / RAM timing drift</text>
+<circle cx="345.0" cy="160.0" r="5.0" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="340.0" y="146.0" width="120.0" height="32.0" rx="3" fill="#ffffff" stroke="#dc2626" stroke-width="1.0"/>
+<text x="400.0" y="160.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#991b1b" text-anchor="middle" font-weight="700">UDL: Руйнування</text>
+<text x="400.0" y="172.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">BGA shear / Via crack</text>
+<rect x="500.0" y="75.0" width="375.0" height="420.0" rx="6" fill="#fbfcfd" stroke="#94a3b8" stroke-width="1.2"/>
+<text x="687.0" y="98.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1e293b" text-anchor="middle" font-weight="700">Порівняння меж запасу міцності</text>
+<rect x="512.0" y="120.0" width="350.0" height="26.0" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.0"/>
+<text x="560.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle" font-weight="700">Параметр</text>
+<text x="648.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#047857" text-anchor="middle" font-weight="700">Специфікація</text>
+<text x="730.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1d4ed8" text-anchor="middle" font-weight="700">Межа UOL/LOL</text>
+<text x="815.0" y="137.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle" font-weight="700">Межа UDL/LDL</text>
+<rect x="512.0" y="154.0" width="350.0" height="50.0" rx="3" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<circle cx="524.0" cy="179.0" r="4.5" fill="#2457d6" stroke="none" stroke-width="1.5"/>
+<text x="572.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="middle" font-weight="700">Холодний стрес</text>
+<text x="648.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#047857" text-anchor="middle">−40 °C</text>
+<text x="730.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1d4ed8" text-anchor="middle" font-weight="700">−65 °C (LOL)</text>
+<text x="815.0" y="184.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle" font-weight="700">−90 °C (LDL)</text>
+<rect x="512.0" y="210.0" width="350.0" height="50.0" rx="3" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<circle cx="524.0" cy="235.0" r="4.5" fill="#c0392b" stroke="none" stroke-width="1.5"/>
+<text x="572.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="middle" font-weight="700">Гарячий стрес</text>
+<text x="648.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#047857" text-anchor="middle">+85 °C</text>
+<text x="730.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1d4ed8" text-anchor="middle" font-weight="700">+125 °C (UOL)</text>
+<text x="815.0" y="240.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle" font-weight="700">+155 °C (UDL)</text>
+<rect x="512.0" y="266.0" width="350.0" height="50.0" rx="3" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<circle cx="524.0" cy="291.0" r="4.5" fill="#d97706" stroke="none" stroke-width="1.5"/>
+<text x="572.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="middle" font-weight="700">Вібрація 6DoF</text>
+<text x="648.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#047857" text-anchor="middle">3 g_rms</text>
+<text x="730.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1d4ed8" text-anchor="middle" font-weight="700">28 g_rms (UOL)</text>
+<text x="815.0" y="296.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle" font-weight="700">48 g_rms (UDL)</text>
+<rect x="512.0" y="322.0" width="350.0" height="50.0" rx="3" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<circle cx="524.0" cy="347.0" r="4.5" fill="#7c3aed" stroke="none" stroke-width="1.5"/>
+<text x="572.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="middle" font-weight="700">Швидкість Т-циклу</text>
+<text x="648.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#047857" text-anchor="middle">5 °C/хв</text>
+<text x="730.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1d4ed8" text-anchor="middle" font-weight="700">40 °C/хв (UOL)</text>
+<text x="815.0" y="352.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle" font-weight="700">65 °C/хв (UDL)</text>
+<rect x="512.0" y="378.0" width="350.0" height="50.0" rx="3" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.0"/>
+<circle cx="524.0" cy="403.0" r="4.5" fill="#059669" stroke="none" stroke-width="1.5"/>
+<text x="572.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#0f172a" text-anchor="middle" font-weight="700">Напруга живлення</text>
+<text x="648.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#047857" text-anchor="middle">±10%</text>
+<text x="730.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#1d4ed8" text-anchor="middle" font-weight="700">±22% (UOL)</text>
+<text x="815.0" y="408.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#b91c1c" text-anchor="middle" font-weight="700">+45% OVP (UDL)</text>
+<rect x="512.0" y="442.0" width="350.0" height="42.0" rx="4" fill="#fefce8" stroke="#eab308" stroke-width="1.0"/>
+<text x="687.0" y="459.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#854d0e" text-anchor="middle" font-weight="700">Вікно HASS = 50% між Специфікацією та UOL</text>
+<text x="687.0" y="474.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#a16207" text-anchor="middle">Виявляє прихований брак пайки без вичерпання ресурсу втоми</text>
+</svg>

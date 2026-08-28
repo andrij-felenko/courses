@@ -1,0 +1,226 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 970 580" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif"><rect x="-10" y="-10" width="970" height="580" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#333333"/></marker></defs>
+<text x="480.0" y="25.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="16" fill="#1a1a1a" text-anchor="middle" font-weight="700">Канонічний 4-етапний конвеєр оживлення плати (Bringup)</text>
+<rect x="24.0" y="52.0" width="215.0" height="240.0" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+<circle cx="46.0" cy="76.0" r="13.0" fill="#c0392b" stroke="#c0392b" stroke-width="1.0"/>
+<text x="46.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">1</text>
+<text x="66.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Шини живлення &amp; POR</text>
+<line x1="34.0" y1="98.0" x2="229.0" y2="98.0" stroke="#fca5a5" stroke-width="1.0"/>
+<text x="34.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="start">• LDO / Buck плавний пуск (Soft-start)</text>
+<text x="34.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="start">• Монотонне наростання напруги dV/dt</text>
+<text x="34.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="start">• Секвенсування: VCORE → VDD → VDDA</text>
+<text x="34.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="start">• Спрацьовування Power-On Reset (POR)</text>
+<text x="34.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="start">• Відсутність просідань та Brownout</text>
+<line x1="241.0" y1="172.0" x2="253.0" y2="172.0" stroke="#94a3b8" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="255.0" y="52.0" width="215.0" height="240.0" rx="6" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.5"/>
+<circle cx="277.0" cy="76.0" r="13.0" fill="#d97706" stroke="#d97706" stroke-width="1.0"/>
+<text x="277.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">2</text>
+<text x="297.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Лінія скидання nRST</text>
+<line x1="265.0" y1="98.0" x2="460.0" y2="98.0" stroke="#fcd34d" stroke-width="1.0"/>
+<text x="265.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="start">• Затримка RC-ланцюга: 10–100 кОм + 100 нФ</text>
+<text x="265.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="start">• nRST утримується в '0' під час підйому VDD</text>
+<text x="265.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="start">• Відпускання в '1' після стабілізації</text>
+<text x="265.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="start">• Фільтрація імпульсних завад (Glitch filter)</text>
+<text x="265.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="start">• Робота зовнішнього супервізора / WDT</text>
+<line x1="472.0" y1="172.0" x2="484.0" y2="172.0" stroke="#94a3b8" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="486.0" y="52.0" width="215.0" height="240.0" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+<circle cx="508.0" cy="76.0" r="13.0" fill="#2563eb" stroke="#2563eb" stroke-width="1.0"/>
+<text x="508.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">3</text>
+<text x="528.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">Тактове дерево &amp; PLL</text>
+<line x1="496.0" y1="98.0" x2="691.0" y2="98.0" stroke="#93c5fd" stroke-width="1.0"/>
+<text x="496.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="start">• Запуск внутрішнього RC-генератора HSI</text>
+<text x="496.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="start">• Розгойдування кварцу HSE (Pierce OSC)</text>
+<text x="496.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="start">• Баланс ємностей C_L та запас посилення gm</text>
+<text x="496.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="start">• Захоплення частоти PLL (PLL Lock)</text>
+<text x="496.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="start">• Активація захисту такту (CSS Failover)</text>
+<line x1="703.0" y1="172.0" x2="715.0" y2="172.0" stroke="#94a3b8" stroke-width="2.0" marker-end="url(#arrow)"/>
+<rect x="717.0" y="52.0" width="215.0" height="240.0" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+<circle cx="739.0" cy="76.0" r="13.0" fill="#27ae60" stroke="#27ae60" stroke-width="1.0"/>
+<text x="739.0" y="81.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">4</text>
+<text x="759.0" y="80.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="11" fill="#1a1a1a" text-anchor="start" font-weight="700">SWD / JTAG Детект</text>
+<line x1="727.0" y1="98.0" x2="922.0" y2="98.0" stroke="#86efac" stroke-width="1.0"/>
+<text x="727.0" y="120.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="start">• Line Reset (≥ 50 тактів SWCLK при SWDIO=1)</text>
+<text x="727.0" y="153.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="start">• Перемикання JTAG→SWD (послідовність 0x79E7)</text>
+<text x="727.0" y="186.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="start">• Читання регістру DP-IDCODE через SWD</text>
+<text x="727.0" y="219.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="start">• Активація живлення налагодження (CTRL/STAT)</text>
+<text x="727.0" y="252.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#333333" text-anchor="start">• Зупинка ядра (Core Halt) та доступ до пам'яті</text>
+<rect x="24.0" y="316.0" width="912.0" height="225.0" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="40.0" y="338.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="700">Часова послідовність проходження фаз Bringup на живій платі:</text>
+<line x1="319.4" y1="352.0" x2="319.4" y2="531.0" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="319.4" y="527.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="700">t1: VDD OK / POR</text>
+<line x1="484.9" y1="352.0" x2="484.9" y2="531.0" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="484.9" y="527.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#d97706" text-anchor="middle" font-weight="700">t2: nRST High</text>
+<line x1="695.4" y1="352.0" x2="695.4" y2="531.0" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="695.4" y="527.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#2563eb" text-anchor="middle" font-weight="700">t3: PLL Locked</text>
+<line x1="868.4" y1="352.0" x2="868.4" y2="531.0" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="868.4" y="527.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">t4: Target Halt</text>
+<text x="40.0" y="370.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="700">VDD (3.3V)</text>
+<line x1="154.0" y1="366.0" x2="906.0" y2="366.0" stroke="#f1f5f9" stroke-width="1.0"/>
+<text x="40.0" y="396.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#dc2626" text-anchor="start" font-weight="700">POR / BOR</text>
+<line x1="154.0" y1="392.0" x2="906.0" y2="392.0" stroke="#f1f5f9" stroke-width="1.0"/>
+<text x="40.0" y="422.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#d97706" text-anchor="start" font-weight="700">nRST лінія</text>
+<line x1="154.0" y1="418.0" x2="906.0" y2="418.0" stroke="#f1f5f9" stroke-width="1.0"/>
+<text x="40.0" y="448.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#2563eb" text-anchor="start" font-weight="700">HSE Кварц</text>
+<line x1="154.0" y1="444.0" x2="906.0" y2="444.0" stroke="#f1f5f9" stroke-width="1.0"/>
+<text x="40.0" y="474.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#0284c7" text-anchor="start" font-weight="700">PLL Lock</text>
+<line x1="154.0" y1="470.0" x2="906.0" y2="470.0" stroke="#f1f5f9" stroke-width="1.0"/>
+<text x="40.0" y="500.0" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="10" fill="#27ae60" text-anchor="start" font-weight="700">SWD ACK</text>
+<line x1="154.0" y1="496.0" x2="906.0" y2="496.0" stroke="#f1f5f9" stroke-width="1.0"/>
+<line x1="154.0" y1="374.0" x2="289.4" y2="358.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="289.4" y1="358.0" x2="906.0" y2="358.0" stroke="#c0392b" stroke-width="2.0"/>
+<line x1="154.0" y1="400.0" x2="319.4" y2="400.0" stroke="#dc2626" stroke-width="2.0"/>
+<line x1="319.4" y1="400.0" x2="319.4" y2="384.0" stroke="#dc2626" stroke-width="2.0"/>
+<line x1="319.4" y1="384.0" x2="906.0" y2="384.0" stroke="#dc2626" stroke-width="2.0"/>
+<line x1="154.0" y1="426.0" x2="484.9" y2="426.0" stroke="#d97706" stroke-width="2.0"/>
+<line x1="484.9" y1="426.0" x2="484.9" y2="410.0" stroke="#d97706" stroke-width="2.0"/>
+<line x1="484.9" y1="410.0" x2="906.0" y2="410.0" stroke="#d97706" stroke-width="2.0"/>
+<line x1="154.0" y1="444.0" x2="499.9" y2="444.0" stroke="#94a3b8" stroke-width="1.5"/>
+<line x1="499.9" y1="444.0" x2="502.3" y2="445.5" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="502.3" y1="445.5" x2="504.8" y2="446.2" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="504.8" y1="446.2" x2="507.2" y2="445.6" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="507.2" y1="445.6" x2="509.6" y2="443.9" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="509.6" y1="443.9" x2="512.0" y2="442.1" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="512.0" y1="442.1" x2="514.5" y2="441.4" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="514.5" y1="441.4" x2="516.9" y2="442.3" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="516.9" y1="442.3" x2="519.3" y2="444.3" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="519.3" y1="444.3" x2="521.7" y2="446.3" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="521.7" y1="446.3" x2="524.1" y2="447.0" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="524.1" y1="447.0" x2="526.6" y2="445.8" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="526.6" y1="445.8" x2="529.0" y2="443.4" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="529.0" y1="443.4" x2="531.4" y2="441.2" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="531.4" y1="441.2" x2="533.8" y2="440.6" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="533.8" y1="440.6" x2="536.2" y2="442.1" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="536.2" y1="442.1" x2="538.7" y2="444.8" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="538.7" y1="444.8" x2="541.1" y2="447.2" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="541.1" y1="447.2" x2="543.5" y2="447.7" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="543.5" y1="447.7" x2="545.9" y2="445.9" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="545.9" y1="445.9" x2="548.4" y2="442.8" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="548.4" y1="442.8" x2="550.8" y2="440.3" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="550.8" y1="440.3" x2="553.2" y2="440.0" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="553.2" y1="440.0" x2="555.6" y2="442.1" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="555.6" y1="442.1" x2="558.0" y2="445.5" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="558.0" y1="445.5" x2="560.5" y2="448.1" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="560.5" y1="448.1" x2="562.9" y2="448.3" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="562.9" y1="448.3" x2="565.3" y2="445.8" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="565.3" y1="445.8" x2="567.7" y2="442.1" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="567.7" y1="442.1" x2="570.1" y2="439.4" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="570.1" y1="439.4" x2="572.6" y2="439.4" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="572.6" y1="439.4" x2="575.0" y2="442.3" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="575.0" y1="442.3" x2="577.4" y2="446.4" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="577.4" y1="446.4" x2="579.8" y2="449.1" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="579.8" y1="449.1" x2="582.3" y2="448.8" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="582.3" y1="448.8" x2="584.7" y2="445.5" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="584.7" y1="445.5" x2="587.1" y2="441.2" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="587.1" y1="441.2" x2="589.5" y2="438.4" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="589.5" y1="438.4" x2="591.9" y2="439.0" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="591.9" y1="439.0" x2="594.4" y2="442.7" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="594.4" y1="442.7" x2="596.8" y2="447.3" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="596.8" y1="447.3" x2="599.2" y2="450.1" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="599.2" y1="450.1" x2="601.6" y2="449.1" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="601.6" y1="449.1" x2="604.1" y2="445.0" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="604.1" y1="445.0" x2="606.5" y2="440.1" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="606.5" y1="440.1" x2="608.9" y2="437.5" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="608.9" y1="437.5" x2="611.3" y2="438.8" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="611.3" y1="438.8" x2="613.7" y2="443.3" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="613.7" y1="443.3" x2="616.2" y2="448.4" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="616.2" y1="448.4" x2="618.6" y2="451.0" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="618.6" y1="451.0" x2="621.0" y2="449.3" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="621.0" y1="449.3" x2="623.4" y2="444.3" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="623.4" y1="444.3" x2="625.8" y2="439.0" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="625.8" y1="439.0" x2="628.3" y2="436.6" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="628.3" y1="436.6" x2="630.7" y2="438.7" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="630.7" y1="438.7" x2="633.1" y2="444.1" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="633.1" y1="444.1" x2="635.5" y2="449.6" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="635.5" y1="449.6" x2="638.0" y2="451.8" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="638.0" y1="451.8" x2="640.4" y2="449.2" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="640.4" y1="449.2" x2="642.8" y2="443.4" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="642.8" y1="438.6" x2="646.1" y2="437.0" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="646.1" y1="437.0" x2="649.5" y2="439.7" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="649.5" y1="439.7" x2="652.8" y2="444.9" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="652.8" y1="444.9" x2="656.1" y2="449.6" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="656.1" y1="449.6" x2="659.5" y2="450.9" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="659.5" y1="450.9" x2="662.8" y2="448.0" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="662.8" y1="448.0" x2="666.1" y2="442.7" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="666.1" y1="442.7" x2="669.5" y2="438.1" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="669.5" y1="438.1" x2="672.8" y2="437.2" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="672.8" y1="437.2" x2="676.1" y2="440.3" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="676.1" y1="440.3" x2="679.4" y2="445.7" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="679.4" y1="445.7" x2="682.8" y2="450.1" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="682.8" y1="450.1" x2="686.1" y2="450.7" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="686.1" y1="450.7" x2="689.4" y2="447.3" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="689.4" y1="447.3" x2="692.8" y2="441.9" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="692.8" y1="441.9" x2="696.1" y2="437.7" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="696.1" y1="437.7" x2="699.4" y2="437.4" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="699.4" y1="437.4" x2="702.8" y2="441.1" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="702.8" y1="441.1" x2="706.1" y2="446.5" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="706.1" y1="446.5" x2="709.4" y2="450.4" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="709.4" y1="450.4" x2="712.8" y2="450.5" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="712.8" y1="450.5" x2="716.1" y2="446.6" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="716.1" y1="446.6" x2="719.4" y2="441.1" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="719.4" y1="441.1" x2="722.8" y2="437.4" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="722.8" y1="437.4" x2="726.1" y2="437.7" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="726.1" y1="437.7" x2="729.4" y2="441.8" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="729.4" y1="441.8" x2="732.8" y2="447.3" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="732.8" y1="447.3" x2="736.1" y2="450.7" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="736.1" y1="450.7" x2="739.4" y2="450.1" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="739.4" y1="450.1" x2="742.7" y2="445.8" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="742.7" y1="445.8" x2="746.1" y2="440.4" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="746.1" y1="440.4" x2="749.4" y2="437.2" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="749.4" y1="437.2" x2="752.7" y2="438.1" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="752.7" y1="438.1" x2="756.1" y2="442.6" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="756.1" y1="442.6" x2="759.4" y2="448.0" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="759.4" y1="448.0" x2="762.7" y2="450.9" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="762.7" y1="450.9" x2="766.1" y2="449.7" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="766.1" y1="449.7" x2="769.4" y2="445.0" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="769.4" y1="445.0" x2="772.7" y2="439.7" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="772.7" y1="439.7" x2="776.1" y2="437.0" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="776.1" y1="437.0" x2="779.4" y2="438.6" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="779.4" y1="438.6" x2="782.7" y2="443.4" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="782.7" y1="443.4" x2="786.1" y2="448.6" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="786.1" y1="448.6" x2="789.4" y2="451.0" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="789.4" y1="451.0" x2="792.7" y2="449.1" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="792.7" y1="449.1" x2="796.1" y2="444.2" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="796.1" y1="444.2" x2="799.4" y2="439.1" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="799.4" y1="439.1" x2="802.7" y2="437.0" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="802.7" y1="437.0" x2="806.1" y2="439.2" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="806.1" y1="439.2" x2="809.4" y2="444.2" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="809.4" y1="444.2" x2="812.7" y2="449.2" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="812.7" y1="449.2" x2="816.0" y2="451.0" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="816.0" y1="451.0" x2="819.4" y2="448.5" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="819.4" y1="448.5" x2="822.7" y2="443.3" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="822.7" y1="443.3" x2="826.0" y2="438.5" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="826.0" y1="438.5" x2="829.4" y2="437.1" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="829.4" y1="437.1" x2="832.7" y2="439.8" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="832.7" y1="439.8" x2="836.0" y2="445.1" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="836.0" y1="445.1" x2="839.4" y2="449.7" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="839.4" y1="449.7" x2="842.7" y2="450.9" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="842.7" y1="450.9" x2="846.0" y2="447.9" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="846.0" y1="447.9" x2="849.4" y2="442.5" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="849.4" y1="442.5" x2="852.7" y2="438.1" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="852.7" y1="438.1" x2="856.0" y2="437.2" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="856.0" y1="437.2" x2="859.4" y2="440.5" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="859.4" y1="440.5" x2="862.7" y2="445.9" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="862.7" y1="445.9" x2="866.0" y2="450.1" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="866.0" y1="450.1" x2="869.4" y2="450.7" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="869.4" y1="450.7" x2="872.7" y2="447.2" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="872.7" y1="447.2" x2="876.0" y2="441.7" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="876.0" y1="441.7" x2="879.3" y2="437.7" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="879.3" y1="437.7" x2="882.7" y2="437.4" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="882.7" y1="437.4" x2="886.0" y2="441.2" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="886.0" y1="441.2" x2="889.3" y2="446.6" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="889.3" y1="446.6" x2="892.7" y2="450.5" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="892.7" y1="450.5" x2="896.0" y2="450.4" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="896.0" y1="450.4" x2="899.3" y2="446.4" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="899.3" y1="446.4" x2="902.7" y2="441.0" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="902.7" y1="441.0" x2="906.0" y2="437.4" stroke="#2563eb" stroke-width="1.5"/>
+<line x1="154.0" y1="478.0" x2="695.4" y2="478.0" stroke="#0284c7" stroke-width="2.0"/>
+<line x1="695.4" y1="478.0" x2="695.4" y2="462.0" stroke="#0284c7" stroke-width="2.0"/>
+<line x1="695.4" y1="462.0" x2="906.0" y2="462.0" stroke="#0284c7" stroke-width="2.0"/>
+<line x1="154.0" y1="496.0" x2="740.6" y2="496.0" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="748.1" y="488.0" width="60.2" height="16.0" rx="2" fill="#bbf7d0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="778.2" y="499.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">Reset</text>
+<rect x="815.8" y="488.0" width="52.6" height="16.0" rx="2" fill="#bbf7d0" stroke="#27ae60" stroke-width="1.2"/>
+<text x="842.1" y="499.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="700">0x79E7</text>
+<rect x="875.9" y="488.0" width="26.3" height="16.0" rx="2" fill="#86efac" stroke="#27ae60" stroke-width="1.5"/>
+<text x="888.7" y="499.5" font-family="'Segoe UI', 'DejaVu Sans', Arial, sans-serif" font-size="9" fill="#14532d" text-anchor="middle" font-weight="700">ID</text>
+</svg>
