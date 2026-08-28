@@ -26,79 +26,11 @@
 
 Обидва підходи прості за суттю: метод A рахує частоту за одне опорне вікно від точного джерела, а метод B накопичує розбіжність годинників і дістає похибку з нахилу прямої. Уся тонкість — не в цих формулах, а в тому, щоб такти лічило залізо, а не програма.
 
-```c
-#include <stdint.h>
-
-#define F_NOMINAL 16000000UL    // паспортний номінал кварцу, Гц
-
-// Вільний 32-розрядний таймер тактується власним кварцом; вхід 1 PPS
-// заведено на канал input capture, тож лічильник фіксується АПАРАТНО
-// по фронту опорної секунди — обробник лише читає готовий регістр.
-volatile uint32_t g_capture;     // останнє апаратно захоплене значення таймера
-volatile uint32_t g_pps_count;   // лічильник опорних секунд (фронтів 1 PPS)
-
-void TIMER_CAPTURE_IRQ(void)     // переривання по фронту 1 PPS
-{
-    g_capture = TIM_CCR;         // зафіксоване залізом значення лічильника
-    g_pps_count++;
-}
-
-// Метод A — частота кварцу, усереднена за вікно gate_seconds опорних секунд.
-double measure_ppm_gated(uint32_t gate_seconds)
-{
-    uint32_t t0 = g_pps_count;
-    while (g_pps_count == t0) { }            // дочекатися першого фронту 1 PPS
-    uint32_t n_start = g_capture;            // такти на початку вікна
-    uint32_t t_start = g_pps_count;
-
-    while (g_pps_count - t_start < gate_seconds) { }   // рівно gate_seconds секунд
-    uint32_t n_end = g_capture;              // такти в кінці вікна
-
-    // Беззнакове віднімання коректно переступає ОДНЕ переповнення лічильника.
-    uint32_t dN = n_end - n_start;
-
-    double f_meas = (double)dN / gate_seconds;              // Гц, усереднено
-    return (f_meas - (double)F_NOMINAL) / F_NOMINAL * 1e6;  // ppm
-}
-```
+:::code proj-measure-drift/c/kod.c
 
 Метод B не потребує навіть частотоміра — лише двох годинників і терпіння:
 
-```c
-#define MAX_POINTS 32
-
-extern double ref_time_seconds(void);   // мітка точного джерела (GPS/NTP), с
-extern double own_time_seconds(void);   // власний час пристрою (з кварцу), с
-extern void   wait_one_hour(void);      // довгий проміжок між звірками
-
-// Метод B — похибка як нахил накопиченої різниці Δt(t).
-double measure_ppm_accumulate(void)
-{
-    double t[MAX_POINTS], dt[MAX_POINTS];
-    int n;
-
-    for (n = 0; n < MAX_POINTS; n++) {
-        wait_one_hour();                    // терпляче чекання між точками
-        double ref = ref_time_seconds();
-        double own = own_time_seconds();
-        t[n]  = ref;                        // час спостереження (опорний)
-        dt[n] = own - ref;                  // накопичена різниця, с
-    }
-
-    // Нахил прямої Δt = a·t + b (найменші квадрати): a — секунди на секунду.
-    double st = 0, sdt = 0, stt = 0, stdt = 0;
-    for (int i = 0; i < n; i++) {
-        st   += t[i];
-        sdt  += dt[i];
-        stt  += t[i] * t[i];
-        stdt += t[i] * dt[i];
-    }
-    double slope = ((double)n * stdt - st * sdt)
-                 / ((double)n * stt  - st * st);
-
-    return slope * 1e6;   // ppm; +вгору — власний кварц спішить
-}
-```
+:::code proj-measure-drift/c/kod-2.c
 
 Складність — крихітна: O(1) на кожен імпульс (відняти, поділити), пам'яті — кілька змінних або короткий буфер точок під [регресію](root:math-probability/least-squares). Уся «робота» — у терплячому чеканні, а не в обчисленнях.
 

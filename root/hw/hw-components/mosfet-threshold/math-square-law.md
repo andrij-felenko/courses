@@ -41,80 +41,10 @@ Id ≈ 0                            (Vgs < Vth)
 **Умова.** Логічний MOSFET: Vth = 1.0 В, k = 0.5 А/В². Підраховуємо струм стоку (у насиченні) для трьох напруг на затворі — 1.5 В, 2.0 В і 3.0 В — і дивимося, як він зростає.
 
 :::tabs
-```cpp
-// Квадратичний закон у насиченні: Id = 0.5 * k * (Vgs - Vth)^2
-#include <cstdio>
-
-float id_sat(float vgs, float vth, float k) {
-    float vov = vgs - vth;          // перевищення порогу
-    if (vov <= 0.0f) return 0.0f;   // нижче порога — канал закрито
-    return 0.5f * k * vov * vov;    // квадрат перевищення
-}
-
-int main() {
-    const float vth = 1.0f, k = 0.5f;
-    float vgs[] = { 1.5f, 2.0f, 3.0f };
-    for (float v : vgs) {
-        float vov = v - vth;
-        std::printf("Vgs=%.1f V  Vov=%.1f V  Id=%.3f A\n",
-                    v, vov, id_sat(v, vth, k));
-    }
-    return 0;
-}
-```
-```python
-# Квадратичний закон у насиченні: Id = 0.5 * k * (Vgs - Vth)^2
-
-def id_sat(vgs, vth, k):
-    vov = vgs - vth                 # перевищення порогу
-    if vov <= 0.0:                  # нижче порога — канал закрито
-        return 0.0
-    return 0.5 * k * vov * vov      # квадрат перевищення
-
-vth, k = 1.0, 0.5
-for vgs in (1.5, 2.0, 3.0):
-    vov = vgs - vth
-    print(f"Vgs={vgs:.1f} V  Vov={vov:.1f} V  Id={id_sat(vgs, vth, k):.3f} A")
-```
-```js
-// Квадратичний закон у насиченні: Id = 0.5 * k * (Vgs - Vth)^2
-
-function idSat(vgs, vth, k) {
-    const vov = vgs - vth;          // перевищення порогу
-    if (vov <= 0) return 0;         // нижче порога — канал закрито
-    return 0.5 * k * vov * vov;     // квадрат перевищення
-}
-
-const vth = 1.0, k = 0.5;
-for (const vgs of [1.5, 2.0, 3.0]) {
-    const vov = vgs - vth;
-    console.log(
-        `Vgs=${vgs.toFixed(1)} V  Vov=${vov.toFixed(1)} V  Id=${idSat(vgs, vth, k).toFixed(3)} A`);
-}
-```
-```go
-// Квадратичний закон у насиченні: Id = 0.5 * k * (Vgs - Vth)^2
-package main
-
-import "fmt"
-
-func idSat(vgs, vth, k float64) float64 {
-	vov := vgs - vth        // перевищення порогу
-	if vov <= 0 {           // нижче порога — канал закрито
-		return 0
-	}
-	return 0.5 * k * vov * vov // квадрат перевищення
-}
-
-func main() {
-	vth, k := 1.0, 0.5
-	for _, vgs := range []float64{1.5, 2.0, 3.0} {
-		vov := vgs - vth
-		fmt.Printf("Vgs=%.1f V  Vov=%.1f V  Id=%.3f A\n",
-			vgs, vov, idSat(vgs, vth, k))
-	}
-}
-```
+:::code math-square-law/cpp/main.cpp
+:::code math-square-law/py/main.py
+:::code math-square-law/js/index.js
+:::code math-square-law/go/main.go
 :::
 
 ```

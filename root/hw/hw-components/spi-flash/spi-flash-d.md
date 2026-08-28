@@ -146,107 +146,27 @@ SPI-флеш має цілий набір звичок, які спершу зд
 
 Почнімо з читання. Щоб **витягти** байт із флеші, ведучий однаково мусить крутити такт, тож він надсилає байт-пустушку, а корисне приходить у відповідь:
 
-```c
-#include <stdint.h>
-
-// Адресу розкладаємо старшим байтом уперед — саме такого порядку чекає флеш.
-void flash_read(uint32_t addr, uint8_t *buf, uint32_t len) {
-    cs_low();                       // опустили вибір чипа — відкрили розмову
-    spi_xfer(0x03);                 // опкод READ
-    spi_xfer((addr >> 16) & 0xFF);  // адреса: старший байт A23..16
-    spi_xfer((addr >> 8)  & 0xFF);  // середній байт A15..8
-    spi_xfer(addr & 0xFF);          // молодший байт A7..0
-    for (uint32_t i = 0; i < len; i++)
-        buf[i] = spi_xfer(0x00);    // штовхаємо пустушку, читаємо байт у відповідь
-    cs_high();                      // підняли вибір — закрили розмову
-}
-```
+:::code spi-flash-d/c/draiver-zbyraiemo-dokupy.c
 
 Спитати чип, хто він, — той самий рух, тільки коротший, без адреси:
 
-```c
-// Повертає 24-бітний ідентифікатор: [виробник][модель_старша][модель_молодша].
-uint32_t flash_read_jedec_id(void) {
-    cs_low();
-    spi_xfer(0x9F);                 // READ JEDEC ID
-    uint8_t mf  = spi_xfer(0x00);   // байт виробника
-    uint8_t th  = spi_xfer(0x00);   // старший байт моделі
-    uint8_t tl  = spi_xfer(0x00);   // молодший байт моделі
-    cs_high();
-    return ((uint32_t)mf << 16) | ((uint32_t)th << 8) | tl;
-}
-```
+:::code spi-flash-d/c/draiver-zbyraiemo-dokupy-2.c
 
 Тепер записувальна половина. Перед кожним записом і стиранням висилаємо дозвіл, а після — чекаємо, поки чип відпустить біт зайнятості:
 
-```c
-void flash_write_enable(void) {
-    cs_low();
-    spi_xfer(0x06);                 // WRITE ENABLE: підняти засувку дозволу
-    cs_high();
-}
-
-// Опитуємо регістр статусу (0x05); біт 0 = «запис триває».
-void flash_wait_busy(void) {
-    cs_low();
-    spi_xfer(0x05);                 // READ STATUS REGISTER
-    while (spi_xfer(0x00) & 0x01)   // крутимо такт, читаємо статус, поки BUSY = 1
-        ;                           // (у бойовому коді тут доречний тайм-аут)
-    cs_high();
-}
-```
+:::code spi-flash-d/c/draiver-zbyraiemo-dokupy-3.c
 
 Стирання сектора — це дозвіл, опкод з адресою й чекання. Даних тут нема, бо стирання не пише, а гасить:
 
-```c
-void flash_sector_erase(uint32_t addr) {
-    flash_write_enable();           // без дозволу чип мовчки проігнорує
-    cs_low();
-    spi_xfer(0x20);                 // SECTOR ERASE (4 КіБ)
-    spi_xfer((addr >> 16) & 0xFF);
-    spi_xfer((addr >> 8)  & 0xFF);
-    spi_xfer(addr & 0xFF);
-    cs_high();                      // підняли вибір — чип ПОЧИНАЄ стирати
-    flash_wait_busy();              // десятки мілісекунд — чекаємо
-}
-```
+:::code spi-flash-d/c/draiver-zbyraiemo-dokupy-4.c
 
 Запис однієї сторінки — так само, тільки з даними й опкодом `PAGE PROGRAM`. Тут `len` не має перетинати межу сторінки:
 
-```c
-// Пишемо до однієї сторінки. len ≤ скільки лишилося до кінця сторінки.
-void flash_page_program(uint32_t addr, const uint8_t *data, uint32_t len) {
-    flash_write_enable();
-    cs_low();
-    spi_xfer(0x02);                 // PAGE PROGRAM
-    spi_xfer((addr >> 16) & 0xFF);
-    spi_xfer((addr >> 8)  & 0xFF);
-    spi_xfer(addr & 0xFF);
-    for (uint32_t i = 0; i < len; i++)
-        spi_xfer(data[i]);          // байти течуть у флеш
-    cs_high();                      // підняли вибір — чип ПОЧИНАЄ писати
-    flash_wait_busy();              // поки пише — зайнятий, чекаємо
-}
-```
+:::code spi-flash-d/c/draiver-zbyraiemo-dokupy-5.c
 
 А ось те, чого не було в окремих командах, — **безпечний запис довільної довжини**. Він сам ріже дані по межах сторінок, щоб лічильник усередині флеші ніде не «загорнувся» й не затер початок сторінки:
 
-```c
-#define FLASH_PAGE 256u
-
-void flash_write(uint32_t addr, const uint8_t *data, uint32_t len) {
-    while (len > 0) {
-        uint32_t page_off = addr % FLASH_PAGE;      // де ми в поточній сторінці
-        uint32_t chunk    = FLASH_PAGE - page_off;  // скільки влізе до її кінця
-        if (chunk > len)
-            chunk = len;                            // останній шматок — коротший
-        flash_page_program(addr, data, chunk);      // сам чекає зайнятості
-        addr += chunk;
-        data += chunk;
-        len  -= chunk;
-    }
-}
-```
+:::code spi-flash-d/c/draiver-zbyraiemo-dokupy-6.c
 
 Уся робота з SPI-флешшю — це варіації трьох рухів: опустити вибір чипа, прокрутити тактом байти команди-адреси-даних, підняти вибір; а для будь-якого запису — ще дозвіл перед і чекання зайнятості після. Зверніть увагу, що `flash_write` **не стирає** сам: він припускає, що місце вже чисте (усі одиниці). Це навмисно — рішення, коли й що стирати, належить шару вище, бо стирання дороге й гуртове; драйвер лише чесно кладе байти туди, де вже підготовлено.
 

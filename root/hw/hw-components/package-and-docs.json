@@ -144,7 +144,8 @@
           "proj": [
             {
               "file": "proj-capacitor-decoder.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -187,7 +188,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "comp": [
             {
@@ -234,7 +236,8 @@
           "comp": [
             {
               "file": "comp-test-traps.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
@@ -246,7 +249,8 @@
           "proj": [
             {
               "file": "proj-pulsed-iv-curve.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -268,7 +272,8 @@
           "comp": [
             {
               "file": "comp-guarantee-matrix.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
@@ -280,7 +285,8 @@
           "proj": [
             {
               "file": "proj-pat-outlier-filter.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -340,12 +346,14 @@
           },
           "detailed": {
             "status": "deeper",
-            "level": 4
+            "level": 4,
+            "recode": true
           },
           "hist": [
             {
               "file": "hist-wcca-aerospace.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 2
             }
           ]
         },
@@ -362,19 +370,23 @@
           "api": [
             {
               "file": "api-timing-specs.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-timing-budget.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-timing-validator.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         }
@@ -397,19 +409,23 @@
           "api": [
             {
               "file": "api-bom-attributes.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "comp": [
             {
               "file": "comp-dropin-alternates.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-bom-audit.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -425,13 +441,15 @@
           "math": [
             {
               "file": "math-compensation-calc.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-switching-loop-calc.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -442,7 +460,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "hist": [
             {
@@ -453,13 +472,15 @@
           "proj": [
             {
               "file": "proj-silicon-quirks.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ],
           "api": [
             {
               "file": "api-pcn-ppap-matrix.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         }

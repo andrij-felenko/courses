@@ -61,47 +61,8 @@ QLC (4 біти)            ≈    150 …   1 000
 **Приклад (вибір блока під новий запис за лічильником стирань).** Серед усіх вільних (стертих) блоків беремо той, чий лічильник найменший.
 
 :::tabs
-```cpp
-#include <stdint.h>
-
-#define N_BLOCKS 1024
-
-uint32_t erase_count[N_BLOCKS];   // «пробіг» кожного блока
-uint8_t  is_free[N_BLOCKS];       // 1 = блок стертий, готовий приймати запис
-
-// Повертає індекс наймолодшого вільного блока, або -1, якщо вільних нема.
-int pick_block_for_write(void)
-{
-    int best = -1;
-    uint32_t best_count = UINT32_MAX;
-
-    for (int b = 0; b < N_BLOCKS; b++) {
-        if (is_free[b] && erase_count[b] < best_count) {
-            best_count = erase_count[b];
-            best = b;                 // цей поки що наймолодший
-        }
-    }
-    return best;                      // сюди й покладемо нові дані
-}
-```
-```python
-N_BLOCKS = 1024
-
-erase_count = [0] * N_BLOCKS   # «пробіг» кожного блока
-is_free     = [0] * N_BLOCKS   # 1 = блок стертий, готовий приймати запис
-
-def pick_block_for_write():
-    """Повертає індекс наймолодшого вільного блока, або -1, якщо вільних нема."""
-    best = -1
-    best_count = None
-
-    for b in range(N_BLOCKS):
-        if is_free[b] and (best_count is None or erase_count[b] < best_count):
-            best_count = erase_count[b]
-            best = b                  # цей поки що наймолодший
-
-    return best                       # сюди й покладемо нові дані
-```
+:::code flash-wear-leveling-d/cpp/naiprostishyi-mekhanizm.cpp
+:::code flash-wear-leveling-d/py/main.py
 :::
 
 Щоразу, коли блок стирають перед поверненням у запас вільних, його лічильник підростає на одиницю — і природно опускає цей блок у «чергу молодості» нижче за інших:
@@ -148,20 +109,7 @@ def erase_block(b):
 **Приклад (поріг запуску статичного переселення).** Раз-по-раз перевіряємо розрив між ветераном і новачком; переріс поріг — переселяємо холодне.
 
 :::tabs
-```cpp
-#define GAP_THRESHOLD 512   // допустимий розрив пробігу між блоками
-
-// Чи час зрівнювати знос примусово?
-int need_static_leveling(void)
-{
-    uint32_t lo = UINT32_MAX, hi = 0;
-    for (int b = 0; b < N_BLOCKS; b++) {
-        if (erase_count[b] < lo) lo = erase_count[b];   // наймолодший
-        if (erase_count[b] > hi) hi = erase_count[b];   // найстаріший
-    }
-    return (hi - lo) > GAP_THRESHOLD;   // розрив завеликий → пора переселяти
-}
-```
+:::code flash-wear-leveling-d/cpp/iak-statychne.cpp
 ```python
 GAP_THRESHOLD = 512   # допустимий розрив пробігу між блоками
 
@@ -176,21 +124,7 @@ def need_static_leveling():
 А коли треба переселити холодні дані, ми свідомо цілимося в блок із **найменшим** пробігом — бо саме він застряг осторонь гри й саме його ресурс марнується:
 
 :::tabs
-```cpp
-// Знайти найсвіжіший блок (кандидат на «розморожування» холодних даних).
-int pick_stale_cold_block(void)
-{
-    int best = -1;
-    uint32_t best_count = UINT32_MAX;
-    for (int b = 0; b < N_BLOCKS; b++) {
-        if (!is_free[b] && erase_count[b] < best_count) {
-            best_count = erase_count[b];   // застояний ветеран навпаки — з малим пробігом
-            best = b;
-        }
-    }
-    return best;   // його вміст переселимо, а блок пустимо під гарячий запис
-}
-```
+:::code flash-wear-leveling-d/cpp/iak-statychne-2.cpp
 ```python
 def pick_stale_cold_block():
     """Знайти найсвіжіший блок (кандидат на «розморожування» холодних даних)."""

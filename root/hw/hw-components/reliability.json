@@ -17,12 +17,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "math": [
             {
               "file": "math-redundancy-reliability.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ]
         },
@@ -33,7 +35,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           }
         },
         {
@@ -54,7 +57,9 @@
           "proj": [
             {
               "file": "proj-operating-hours-tracker.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         }
@@ -77,19 +82,23 @@
           "comp": [
             {
               "file": "comp-failure-mechanisms-ea.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
             {
               "file": "math-arrhenius-derivation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-lifetime-calculator.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -111,7 +120,8 @@
           "comp": [
             {
               "file": "comp-aging-mechanisms.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
@@ -123,7 +133,8 @@
           "proj": [
             {
               "file": "proj-lifetime-estimator.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -149,7 +160,8 @@
           "comp": [
             {
               "file": "comp-derating-standards.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
@@ -161,7 +173,9 @@
           "proj": [
             {
               "file": "proj-derating-checker.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -219,7 +233,8 @@
           "proj": [
             {
               "file": "proj-lifetime-extrapolation.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -274,7 +289,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "comp": [
             {

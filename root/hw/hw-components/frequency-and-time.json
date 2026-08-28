@@ -48,7 +48,8 @@
           "comp": [
             {
               "file": "comp-cut-matrix.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "math": [
@@ -60,7 +61,8 @@
           "proj": [
             {
               "file": "proj-cut-calculator.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -118,7 +120,8 @@
           "proj": [
             {
               "file": "proj-measure-drift.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -141,13 +144,15 @@
           "math": [
             {
               "file": "math-leeson-derivation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-phase-noise-to-jitter.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -170,13 +175,15 @@
           "math": [
             {
               "file": "math-allan-derivation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "proj": [
             {
               "file": "proj-compute-adev.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -282,7 +289,8 @@
           "proj": [
             {
               "file": "proj-rtc-driver.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -293,7 +301,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           }
         },
         {
@@ -303,7 +312,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "math": [
             {
@@ -314,7 +324,9 @@
           "proj": [
             {
               "file": "proj-rtc-monotonic-driver.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 2
             }
           ]
         }

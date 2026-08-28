@@ -42,25 +42,30 @@
           "hist": [
             {
               "file": "hist-renard-iec60063.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "comp": [
             {
               "file": "comp-resistor-technologies.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
             {
               "file": "math-tolerance-propagation.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-tolerance-analysis.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -253,7 +258,8 @@
           "comp": [
             {
               "file": "comp-valve-dielectrics.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
@@ -291,7 +297,8 @@
           "comp": [
             {
               "file": "comp-niobium-vs-tantalum.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
@@ -303,7 +310,9 @@
           "proj": [
             {
               "file": "proj-niobium-inrush-protection.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -325,7 +334,8 @@
           "comp": [
             {
               "file": "comp-polymer-families.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
@@ -428,7 +438,8 @@
           "comp": [
             {
               "file": "comp-dielectric-technologies.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
@@ -440,7 +451,8 @@
           "proj": [
             {
               "file": "proj-pdn-impedance-sim.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -462,7 +474,8 @@
           "math": [
             {
               "file": "math-debye-relaxation.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -479,7 +492,8 @@
           "proj": [
             {
               "file": "proj-dcdc-derating-calc.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -501,7 +515,8 @@
           "comp": [
             {
               "file": "comp-dielectric-table.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
@@ -513,7 +528,8 @@
           "proj": [
             {
               "file": "proj-measure-soakage.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -541,7 +557,8 @@
           "proj": [
             {
               "file": "proj-acoustic-risk-calculator.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -569,7 +586,8 @@
           "proj": [
             {
               "file": "proj-flex-test-monitor.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -586,12 +604,14 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "proj": [
             {
               "file": "proj-potentiometer.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ],
           "api": [
@@ -613,19 +633,23 @@
           "comp": [
             {
               "file": "comp-digipot-architectures.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-digipot-bandwidth.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-digipot-dcdc-control.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -642,13 +666,16 @@
           "api": [
             {
               "file": "api-rotary-encoder.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-rotary-encoder.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 4
             }
           ]
         }

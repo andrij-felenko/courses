@@ -89,7 +89,8 @@
           "comp": [
             {
               "file": "comp-nor-vs-nand-flash.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
@@ -101,7 +102,8 @@
           "proj": [
             {
               "file": "proj-nor-flash-driver.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -129,7 +131,8 @@
           "proj": [
             {
               "file": "proj-rowhammer-sweep.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -146,7 +149,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -157,7 +161,8 @@
           "proj": [
             {
               "file": "proj-flash-ring-log.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -168,7 +173,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -178,30 +184,36 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "recheck"
+            "status": "recheck",
+            "recode": true
           },
           "comp": [
             {
               "file": "comp-cell-types-tradeoffs.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 5
             }
           ],
           "hist": [
             {
               "file": "hist-charge-trap-flash.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-ispp-distribution.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-flash-soft-sensing.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -228,7 +240,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "hist": [
             {
@@ -239,7 +252,8 @@
           "math": [
             {
               "file": "math-bch.md",
-              "status": "done"
+              "status": "done",
+              "recode": true
             }
           ]
         },
@@ -250,7 +264,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "math": [
             {
@@ -277,7 +292,8 @@
           "comp": [
             {
               "file": "comp-ftl-mapping-schemes.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
@@ -289,7 +305,8 @@
           "proj": [
             {
               "file": "proj-ftl-mapping.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }
@@ -303,10 +320,12 @@
           "slug": "spi-flash",
           "title": "SPI-флеш",
           "basic": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {

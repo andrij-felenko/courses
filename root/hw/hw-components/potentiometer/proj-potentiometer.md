@@ -9,37 +9,8 @@
 **Мінімальний робочий приклад (Arduino-ESP32):**
 
 :::tabs
-```cpp
-const int POT = 34;            // ADC1-ніжка (Wi-Fi-safe)
-
-void setup() {
-  Serial.begin(115200);
-  // вхід; виклик opinionated — ADC-ніжки читаються і без pinMode
-}
-
-void loop() {
-  int raw = analogRead(POT);              // 0…4095 — «номер щабля»
-  float v  = raw * 3.3f / 4095.0f;        // назад у вольти: код · опорна / макс. код
-  int pct  = map(raw, 0, 4095, 0, 100);   // поворот у відсотках
-  Serial.printf("raw=%4d  v=%.2f  pos=%d%%\n", raw, v, pct);
-  delay(100);
-}
-```
-```python
-from machine import ADC, Pin
-from time import sleep_ms
-
-pot = ADC(Pin(34))             # ADC1-ніжка (Wi-Fi-safe)
-pot.atten(ADC.ATTN_11DB)       # повна шкала входу ~3.3 В
-pot.width(ADC.WIDTH_12BIT)     # роздільність 0…4095
-
-while True:
-    raw = pot.read()                    # 0…4095 — «номер щабля»
-    v   = raw * 3.3 / 4095              # назад у вольти: код · опорна / макс. код
-    pct = raw * 100 // 4095             # поворот у відсотках
-    print("raw={:4d}  v={:.2f}  pos={}%".format(raw, v, pct))
-    sleep_ms(100)
-```
+:::code proj-potentiometer/cpp/main.cpp
+:::code proj-potentiometer/py/main.py
 :::
 
 `raw` зростає разом із поворотом ручки. Перерахунок у вольти — стандартний для [АЦП](root:hw-analog/adc) вираз `raw * 3.3 / 4095`; `map` дає зручну «позицію 0…100 %» без плаваючої арифметики.

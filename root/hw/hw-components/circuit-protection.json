@@ -35,7 +35,8 @@
           "proj": [
             {
               "file": "proj-fuse-sizing.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -67,19 +68,23 @@
           "comp": [
             {
               "file": "comp-breaker-types.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "math": [
             {
               "file": "math-bimetal-trip-time.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 3
             }
           ],
           "proj": [
             {
               "file": "proj-efuse-controller.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         },
@@ -101,7 +106,8 @@
           "comp": [
             {
               "file": "comp-fuse-classes.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "math": [
@@ -113,7 +119,8 @@
           "proj": [
             {
               "file": "proj-inrush-derating.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -248,7 +255,8 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "done"
+            "status": "done",
+            "recode": true
           }
         },
         {
@@ -269,7 +277,9 @@
           "proj": [
             {
               "file": "proj-spark-gap-coordination.md",
-              "status": "recheck"
+              "status": "deeper",
+              "recode": true,
+              "level": 3
             }
           ]
         }
@@ -304,7 +314,8 @@
           "proj": [
             {
               "file": "proj-esd-selection-sim.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         },
@@ -332,13 +343,15 @@
           "math": [
             {
               "file": "math-snubber-design.md",
-              "status": "recheck"
+              "status": "deeper",
+              "level": 4
             }
           ],
           "proj": [
             {
               "file": "proj-snubber-calc.md",
-              "status": "recheck"
+              "status": "recheck",
+              "recode": true
             }
           ]
         }

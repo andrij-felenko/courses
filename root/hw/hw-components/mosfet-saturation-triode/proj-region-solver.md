@@ -14,30 +14,7 @@
 
 Ось цей класифікатор як чиста функція — жодної арифметики струму, лише два порівняння, що повертають одну з трьох міток:
 
-```python
-from dataclasses import dataclass
-from enum import Enum
-
-class Region(Enum):
-    CUTOFF     = "відсічка"
-    TRIODE     = "тріод"
-    SATURATION = "насичення"
-
-@dataclass
-class Mosfet:
-    vth: float          # порогова напруга Vth, В
-    k:   float          # крутість k = μ·Cox·W/L, А/В²
-    lam: float = 0.0    # модуляція довжини каналу λ, 1/В (0 — ідеальна полиця)
-
-def region(dev: Mosfet, vgs: float, vds: float) -> Region:
-    """Чистий класифікатор: два порівняння, жодного струму."""
-    vov = vgs - dev.vth              # перекриття (overdrive)
-    if vov <= 0:
-        return Region.CUTOFF         # канал не відкрито
-    if vds < vov:
-        return Region.TRIODE         # канал суцільний — резистор
-    return Region.SATURATION         # стік защемлено — джерело струму
-```
+:::code proj-region-solver/py/main.py
 
 Три гілки — три режими, і читаються вони згори вниз рівно як два питання. Перше `if` згортає всю умову відсічки в один рядок: `vov <= 0` — це те саме, що `Vgs <= Vth`, канал не відкрито. Друге відділяє тріод від насичення по межі Vds = Vov. Межу — точку Vds = Vov — я віддав насиченню (умова тріода строга, `vds < vov`); чому вибір між `<` і `≤` тут ні на що не впливає, стане видно згодом, коли дійдемо до коліна.
 
