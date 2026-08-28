@@ -48,19 +48,7 @@ g_object_set (jbuf,  "latency",       (guint) 200, NULL);        /* а тут �
 
 Запит — це те, чим конвеєр збирає з елементів їхні вимоги. Три функції, три поля.
 
-```c
-GstQuery * gst_query_new_latency   (void);
-
-void       gst_query_parse_latency (GstQuery     *query,
-                                    gboolean     *live,
-                                    GstClockTime *min_latency,
-                                    GstClockTime *max_latency);
-
-void       gst_query_set_latency   (GstQuery     *query,
-                                    gboolean      live,
-                                    GstClockTime  min_latency,
-                                    GstClockTime  max_latency);
-```
+:::code api-latency-controls/c/zapyt-gst-query-latency.h
 
 | Поле | Тип | Одиниця | Значення |
 |---|---|---|---|
@@ -70,19 +58,7 @@ void       gst_query_set_latency   (GstQuery     *query,
 
 **Опитати конвеєр із програми.** Запит, надісланий у сам конвеєр, `GstBin` розводить по всіх споживачах і зводить відповіді за тим самим правилом, за яким рахує затримку: `min` = максимум із мінімумів, `max` = мінімум із максимумів, `live` = логічне «або».
 
-```c
-GstQuery *q = gst_query_new_latency ();
-
-if (gst_element_query (GST_ELEMENT (pipeline), q)) {
-    gboolean     live;
-    GstClockTime min, max;
-
-    gst_query_parse_latency (q, &live, &min, &max);
-    g_print ("live=%d  min=%" GST_TIME_FORMAT "  max=%" GST_TIME_FORMAT "\n",
-             live, GST_TIME_ARGS (min), GST_TIME_ARGS (max));
-}
-gst_query_unref (q);
-```
+:::code api-latency-controls/c/zapyt-gst-query-latency.c
 
 Число, яке поверне цей запит, — це **вимога** гілок, а не те, що конвеєр застосував: примусове `pipeline.latency` тут не враховано. Застосований зсув віддає `gst_pipeline_get_configured_latency()`.
 
@@ -183,19 +159,7 @@ void gst_message_parse_buffering_stats (GstMessage *message, GstBufferingMode *m
 
 Мінімальний обробник разом із винятком для живого:
 
-```c
-case GST_MESSAGE_BUFFERING: {
-    gint percent;
-
-    if (is_live)                 /* живий конвеєр стану НЕ міняє */
-        break;
-
-    gst_message_parse_buffering (msg, &percent);
-    gst_element_set_state (pipeline,
-        percent < 100 ? GST_STATE_PAUSED : GST_STATE_PLAYING);
-    break;
-}
-```
+:::code api-latency-controls/c/gst-message-buffering.h
 
 Прапорець `is_live` беруть із того, що повернув перший `gst_element_set_state (pipeline, GST_STATE_PAUSED)`: значення `GST_STATE_CHANGE_NO_PREROLL` і означає «джерело живе, преролу не буде». Це той самий поділ, на якому тримаються всі [стани конвеєра](root:sys-media/states-lifecycle) — набір NULL/READY/PAUSED/PLAYING і правила переходу між ними.
 
@@ -218,20 +182,7 @@ case GST_MESSAGE_BUFFERING: {
 
 Найбільше плутають `processing-deadline` і `render-delay`. Обидва в наносекундах, обидва потрапляють у домовленість — але вимірюють різні відрізки й поводяться по-різному в запиті. Дослівна логіка з коду:
 
-```c
-if (l) {                                     /* обидва блоки — лише для живого */
-  min += render_delay;                       /* затримка ПІСЛЯ споживача */
-  if (max != -1)
-    max += render_delay;                     /* ... іде і в підлогу, і в стелю */
-}
-
-if (l) {
-  if (max == -1 || min + processing_deadline <= max)
-    min += processing_deadline;              /* запас на роботу самого споживача */
-  else
-    GST_ELEMENT_WARNING (sink, CORE, CLOCK, (…), (…));   /* не влазить під стелю */
-}
-```
+:::code api-latency-controls/c/spozhyvach-vlastyvosti.c
 
 Різниця в тому, який відрізок часу описує кожна ручка. `processing-deadline` — це запас **усередині** споживача, на його власну промальовку, тому він додається лише до підлоги: він не робить конвеєр терплячішим. `render-delay` — це затримка **після** споживача, у ланцюзі, до якого GStreamer уже не має доступу; вона зсуває обидві межі, а потім споживач віднімає її назад під час обчислення моменту показу — тобто малює **раніше** рівно на цю величину, щоб картинка з'явилася на екрані вчасно.
 

@@ -75,53 +75,8 @@
 **Стеження в головному циклі GLib.** `gst_bus_add_watch(bus, callback, data)` створює джерело подій і чіпляє його до типового головного контексту GLib. Далі все звичне: `GMainLoop` крутиться, помічає, що на шині щось є, і викликає ваш колбек — у своїй нитці. Колбек повертає `TRUE`, щоб лишитися підключеним, і `FALSE`, щоб від'єднатися. Це основний спосіб для застосунків, у яких головний цикл уже й так є (а він є в усьому, що на GLib чи Gtk).
 
 :::tabs
-```c
-static gboolean on_bus_message (GstBus *bus, GstMessage *msg, gpointer user_data)
-{
-  GMainLoop *loop = user_data;
-
-  switch (GST_MESSAGE_TYPE (msg)) {
-    case GST_MESSAGE_ERROR: {
-      GError *err = NULL;
-      gchar *dbg = NULL;
-      gst_message_parse_error (msg, &err, &dbg);
-      g_printerr ("помилка від %s: %s\n", GST_OBJECT_NAME (msg->src), err->message);
-      g_printerr ("подробиці: %s\n", dbg ? dbg : "(немає)");
-      g_clear_error (&err);
-      g_free (dbg);
-      g_main_loop_quit (loop);
-      break;
-    }
-    case GST_MESSAGE_EOS:
-      g_print ("потік скінчився\n");
-      g_main_loop_quit (loop);
-      break;
-    default:
-      break;
-  }
-  return TRUE;                    /* лишаємося підключеними */
-}
-
-/* ... */
-GstBus *bus = gst_element_get_bus (pipeline);
-gst_bus_add_watch (bus, on_bus_message, loop);
-gst_object_unref (bus);
-```
-```py
-def on_bus_message(bus, msg, loop):
-    if msg.type == Gst.MessageType.ERROR:
-        err, dbg = msg.parse_error()
-        print(f"помилка від {msg.src.name}: {err.message}")
-        print(f"подробиці: {dbg or '(немає)'}")
-        loop.quit()
-    elif msg.type == Gst.MessageType.EOS:
-        print("потік скінчився")
-        loop.quit()
-    return True                    # лишаємося підключеними
-
-bus = pipeline.get_bus()
-bus.add_watch(GLib.PRIORITY_DEFAULT, on_bus_message, loop)
-```
+:::code bus-and-messages-d/c/try-sposoby-zabraty.c
+:::code bus-and-messages-d/py/main.py
 :::
 
 **Опитування без циклу.** Якщо головного циклу GLib у застосунку немає — скажімо, це утиліта командного рядка або чужий фреймворк зі своїм циклом, — шину можна просто питати. `gst_bus_timed_pop_filtered()` блокує нитку до появи повідомлення потрібного типу або до вичерпання відведеного часу:
@@ -154,18 +109,7 @@ GstMessage *msg = gst_bus_timed_pop_filtered (bus, GST_CLOCK_TIME_NONE,
 
 Останній варіант — це навмисне гальмо конвеєра, і застосовувати його треба, розуміючи ціну: нитка потоку стоїть, буфери не рухаються, а якщо ваш головний цикл у цей момент чимось зайнятий — конвеєр стоїть рівно стільки ж.
 
-```c
-static GstBusSyncReply on_sync_message (GstBus *bus, GstMessage *msg, gpointer data)
-{
-  if (!gst_is_video_overlay_prepare_window_handle_message (msg))
-    return GST_BUS_PASS;              /* решта — звичайним шляхом, у головний цикл */
-
-  gst_video_overlay_set_window_handle (GST_VIDEO_OVERLAY (GST_MESSAGE_SRC (msg)),
-                                       (guintptr) window_id);
-  gst_message_unref (msg);            /* DROP означає: повідомлення наше — нам і звільняти */
-  return GST_BUS_DROP;
-}
-```
+:::code bus-and-messages-d/c/synkhronnyi-obrobnyk-koly.c
 
 Код у синхронному обробнику мусить бути коротким і не мати права ходити ні у віджети, ні назад у конвеєр по стан. Синхронних обробників, як і стежень, шина тримає рівно один.
 

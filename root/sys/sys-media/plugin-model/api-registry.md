@@ -34,56 +34,7 @@ gcc app.c -o app $(pkg-config --cflags --libs gstreamer-1.0)
 
 Реєстр у процесі один, він з'являється під час `gst_init` і живе до кінця. Тому окремої функції створення немає — є функція «дайте той самий».
 
-```c
-/* transfer none — сталий об'єкт процесу, unref не потрібен */
-GstRegistry *      gst_registry_get                     (void);
-
-/* transfer full, nullable — фіча заданого виду за іменем */
-GstPluginFeature * gst_registry_find_feature            (GstRegistry *registry,
-                                                         const gchar *name,
-                                                         GType type);
-
-/* transfer full, nullable — фіча за іменем, вид байдужий */
-GstPluginFeature * gst_registry_lookup_feature          (GstRegistry *registry,
-                                                         const char *name);
-
-/* transfer full — усі фічі заданого виду */
-GList *            gst_registry_get_feature_list        (GstRegistry *registry,
-                                                         GType type);
-
-/* transfer full — усі фічі, які дав один плагін */
-GList *            gst_registry_get_feature_list_by_plugin
-                                                        (GstRegistry *registry,
-                                                         const gchar *name);
-
-/* transfer full — усі відомі плагіни */
-GList *            gst_registry_get_plugin_list         (GstRegistry *registry);
-
-/* transfer full, nullable — плагін за коротким іменем */
-GstPlugin *        gst_registry_find_plugin             (GstRegistry *registry,
-                                                         const gchar *name);
-
-/* transfer full — власний відбір: filter кличуть на кожну фічу;
-   first=TRUE зупиняє пошук на першій, що підійшла */
-GList *            gst_registry_feature_filter          (GstRegistry *registry,
-                                                         GstPluginFeatureFilter filter,
-                                                         gboolean first,
-                                                         gpointer user_data);
-
-/* чи є така фіча й чи не старіша вона за задану версію */
-gboolean           gst_registry_check_feature_version   (GstRegistry *registry,
-                                                         const gchar *feature_name,
-                                                         guint min_major,
-                                                         guint min_minor,
-                                                         guint min_micro);
-
-/* лічильник змін переліку фіч */
-guint32            gst_registry_get_feature_list_cookie (GstRegistry *registry);
-
-/* просканувати теку негайно; TRUE, якщо реєстр змінився */
-gboolean           gst_registry_scan_path               (GstRegistry *registry,
-                                                         const gchar *path);
-```
+:::code api-registry/c/reiestr.h
 
 Аргумент `type` — це `GType`, числовий ідентифікатор класу в об'єктній системі GLib. Виду фіч рівно стільки, скільки різновидів записів уміє створювати `plugin_init`:
 
@@ -101,59 +52,7 @@ gboolean           gst_registry_scan_path               (GstRegistry *registry,
 
 Ці дві дії варто тримати нарізно. Знайти й розглянути фабрику — дешево й не відкриває жодного файла. Створити елемент — дорого: саме тут плагін нарешті завантажують у процес.
 
-```c
-/* transfer full, nullable — фабрика за іменем */
-GstElementFactory *gst_element_factory_find   (const gchar *name);
-
-/* transfer floating, nullable — знайти фабрику й одразу створити елемент;
-   name=NULL → ім'я породжується само й буде неповторним у процесі */
-GstElement *gst_element_factory_make          (const gchar *factoryname,
-                                               const gchar *name);
-
-/* те саме плюс властивості одразу, перелік завершує NULL (з 1.20) */
-GstElement *gst_element_factory_make_full     (const gchar *factoryname,
-                                               const gchar *first, ...);
-
-/* те саме масивами, зручно з мов-обгорток (з 1.20) */
-GstElement *gst_element_factory_make_with_properties
-                                              (const gchar *factoryname,
-                                               guint n,
-                                               const gchar **names,
-                                               const GValue *values);
-
-/* створити з уже знайденої фабрики */
-GstElement *gst_element_factory_create        (GstElementFactory *factory,
-                                               const gchar *name);
-GstElement *gst_element_factory_create_with_properties
-                                              (GstElementFactory *factory,
-                                               guint n,
-                                               const gchar **names,
-                                               const GValue *values);
-
-/* 0, поки плагін не завантажено */
-GType        gst_element_factory_get_element_type (GstElementFactory *factory);
-
-/* transfer none — метадані з реєстру, файл не відкривається */
-const gchar *gst_element_factory_get_metadata (GstElementFactory *factory,
-                                               const gchar *key);
-gchar **     gst_element_factory_get_metadata_keys (GstElementFactory *factory);
-
-/* transfer none — шаблони падів разом із їхніми caps */
-const GList *gst_element_factory_get_static_pad_templates (GstElementFactory *factory);
-guint        gst_element_factory_get_num_pad_templates    (GstElementFactory *factory);
-
-/* швидка перевірка сумісності за шаблонами, без створення елемента */
-gboolean gst_element_factory_can_sink_all_caps (GstElementFactory *f, const GstCaps *caps);
-gboolean gst_element_factory_can_sink_any_caps (GstElementFactory *f, const GstCaps *caps);
-gboolean gst_element_factory_can_src_all_caps  (GstElementFactory *f, const GstCaps *caps);
-gboolean gst_element_factory_can_src_any_caps  (GstElementFactory *f, const GstCaps *caps);
-
-/* URI-схеми й інтерфейси, оголошені фабрикою */
-GstURIType            gst_element_factory_get_uri_type      (GstElementFactory *factory);
-const gchar * const * gst_element_factory_get_uri_protocols (GstElementFactory *factory);
-gboolean              gst_element_factory_has_interface     (GstElementFactory *factory,
-                                                             const gchar *interfacename);
-```
+:::code api-registry/c/fabryka-elementa-znaity.h
 
 Ключі метаданих — рядкові сталі, і саме вони заповнюються макросом `gst_element_class_set_static_metadata`:
 
@@ -172,21 +71,7 @@ gboolean              gst_element_factory_has_interface     (GstElementFactory *
 
 Ось той запит, заради якого реєстр і збирали: «дай усі декодери відео, ранг не нижчий за такий, і викинь ті, що не приймають цих caps».
 
-```c
-/* transfer full — список фабрик, УЖЕ впорядкований за спаданням рангу */
-GList *gst_element_factory_list_get_elements (GstElementFactoryListType type,
-                                              GstRank minrank);
-
-/* transfer full — новий список; вхідний НЕ споживається і НЕ звільняється */
-GList *gst_element_factory_list_filter       (GList *list,
-                                              const GstCaps *caps,
-                                              GstPadDirection direction,
-                                              gboolean subsetonly);
-
-/* та сама перевірка виду для однієї фабрики */
-gboolean gst_element_factory_list_is_type    (GstElementFactory *factory,
-                                              GstElementFactoryListType type);
-```
+:::code api-registry/c/dobir-za-vydom-i-za-caps.h
 
 Тип фабрики — не перелічуваний тип, а набір бітів: `typedef guint64 GstElementFactoryListType`. Молодші біти кажуть, **що елемент робить**, старші — **над чим**.
 
@@ -252,33 +137,7 @@ GST_ELEMENT_FACTORY_TYPE_AUDIOVIDEO_SINKS = SINK | MEDIA_AUDIO | MEDIA_VIDEO
 
 Фабрика — окремий випадок фічі, і все, що стосується імені та рангу, працює однаково для всіх видів записів у реєстрі.
 
-```c
-/* насправді макрос: gst_plugin_feature_get_name(f) → GST_OBJECT_NAME(f) */
-const gchar *gst_plugin_feature_get_name        (GstPluginFeature *feature);
-
-guint        gst_plugin_feature_get_rank        (GstPluginFeature *feature);
-void         gst_plugin_feature_set_rank        (GstPluginFeature *feature,
-                                                 guint rank);
-
-/* transfer full, nullable — плагін, який дав цю фічу */
-GstPlugin *  gst_plugin_feature_get_plugin      (GstPluginFeature *feature);
-/* transfer none, nullable — лише коротке ім'я плагіна (з 1.2) */
-const gchar *gst_plugin_feature_get_plugin_name (GstPluginFeature *feature);
-
-/* transfer full — завантажити плагін і повернути «повноцінну» фічу */
-GstPluginFeature *gst_plugin_feature_load       (GstPluginFeature *feature);
-
-gboolean gst_plugin_feature_check_version (GstPluginFeature *feature,
-                                           guint min_major, guint min_minor,
-                                           guint min_micro);
-
-/* GCompareFunc для g_list_sort */
-gint  gst_plugin_feature_rank_compare_func (gconstpointer p1, gconstpointer p2);
-
-void   gst_plugin_feature_list_free  (GList *list);
-GList *gst_plugin_feature_list_copy  (GList *list);
-void   gst_plugin_feature_list_debug (GList *list);
-```
+:::code api-registry/c/ficha-imia-ranh-poriadok.h
 
 Те, що `gst_plugin_feature_get_name` — макрос над `GST_OBJECT_NAME`, важить практично: виклик нічого не коштує й не бере блокування, тож у циклі по кількох сотнях фабрик його можна не берегти.
 
@@ -295,30 +154,7 @@ void   gst_plugin_feature_list_debug (GList *list);
 
 ## Плагін як об'єкт: завантаження й паспорт
 
-```c
-/* transfer full — завантажити файл у процес; повертає ту саму або нову
-   «завантажену» обгортку, стару після цього не вживають */
-GstPlugin *gst_plugin_load         (GstPlugin *plugin);
-GstPlugin *gst_plugin_load_by_name (const gchar *name);
-GstPlugin *gst_plugin_load_file    (const gchar *filename, GError **error);
-
-/* усе нижче — transfer none, беруть із дескриптора */
-const gchar *gst_plugin_get_name                 (GstPlugin *plugin);
-const gchar *gst_plugin_get_description          (GstPlugin *plugin);
-const gchar *gst_plugin_get_filename             (GstPlugin *plugin);
-const gchar *gst_plugin_get_license              (GstPlugin *plugin);
-const gchar *gst_plugin_get_source               (GstPlugin *plugin);
-const gchar *gst_plugin_get_package              (GstPlugin *plugin);
-const gchar *gst_plugin_get_origin               (GstPlugin *plugin);
-const gchar *gst_plugin_get_version              (GstPlugin *plugin);
-const gchar *gst_plugin_get_release_date_string  (GstPlugin *plugin);
-
-gboolean     gst_plugin_is_loaded                (GstPlugin *plugin);
-
-const GstStructure *gst_plugin_get_cache_data (GstPlugin *plugin);
-void                gst_plugin_set_cache_data (GstPlugin *plugin,
-                                               GstStructure *cache_data);
-```
+:::code api-registry/c/plahin-iak-obiekt.h
 
 Три схожі поля паспорта плутають найчастіше, а різняться вони по суті:
 
@@ -336,20 +172,7 @@ void                gst_plugin_set_cache_data (GstPlugin *plugin,
 
 Коли плагіни вкомпільовують у застосунок (типова ситуація для iOS, Android і вбудованих образів), файла для сканування немає й реєстр наповнюють руками.
 
-```c
-gboolean gst_plugin_register_static (gint major_version, gint minor_version,
-                                     const gchar *name,
-                                     const gchar *description,
-                                     GstPluginInitFunc init_func,
-                                     const gchar *version,
-                                     const gchar *license,
-                                     const gchar *source,
-                                     const gchar *package,
-                                     const gchar *origin);
-
-/* те саме, але init_func отримує ще й user_data */
-gboolean gst_plugin_register_static_full (…, gpointer user_data);
-```
+:::code api-registry/c/statychna-zbirka-i.h
 
 Порядок аргументів тут дослівно повторює поля дескриптора, який у динамічному випадку заповнює `GST_PLUGIN_DEFINE`, — так і замислено: статична реєстрація підставляє те саме, тільки без файла. Для плагінів, зібраних із чужих джерел, той самий ефект дають два макроси, які треба виконати до першого звертання до елемента:
 
@@ -383,57 +206,7 @@ void gst_plugin_add_dependency_simple (GstPlugin *plugin,
 
 Програма нижче робить те, що зазвичай доводиться робити руками під час розбирання халепи: за іменем елемента показує його паспорт і файл, із якого його візьмуть. Цікаве в ній — рядок про завантаження: усе, що надруковано вище, добуто з реєстру, і жодного файла на той момент ще не відкрито.
 
-```c
-#include <gst/gst.h>
-
-int
-main (int argc, char *argv[])
-{
-  gst_init (&argc, &argv);
-
-  if (argc < 2) {
-    g_printerr ("вжиток: %s <ім'я-елемента>\n", argv[0]);
-    return 2;
-  }
-
-  GstRegistry *registry = gst_registry_get ();          /* transfer none */
-  GstPluginFeature *feature =
-      gst_registry_find_feature (registry, argv[1], GST_TYPE_ELEMENT_FACTORY);
-
-  if (feature == NULL) {
-    g_print ("%s: у реєстрі немає такої фабрики\n", argv[1]);
-    return 1;
-  }
-
-  GstElementFactory *factory = GST_ELEMENT_FACTORY (feature);
-
-  g_print ("фабрика   %s\n", gst_plugin_feature_get_name (feature));
-  g_print ("ранг      %u\n", gst_plugin_feature_get_rank (feature));
-  g_print ("klass     %s\n",
-      gst_element_factory_get_metadata (factory, GST_ELEMENT_METADATA_KLASS));
-  g_print ("назва     %s\n",
-      gst_element_factory_get_metadata (factory, GST_ELEMENT_METADATA_LONGNAME));
-
-  GstPlugin *plugin = gst_plugin_feature_get_plugin (feature);   /* transfer full */
-  if (plugin != NULL) {
-    g_print ("плагін    %s (набір %s, ліцензія %s)\n",
-        gst_plugin_get_name (plugin), gst_plugin_get_source (plugin),
-        gst_plugin_get_license (plugin));
-    g_print ("файл      %s\n", gst_plugin_get_filename (plugin));
-    g_print ("файл відкрито: %s\n",
-        gst_plugin_is_loaded (plugin) ? "так" : "ні");
-    gst_object_unref (plugin);
-  }
-
-  /* аж ось тут plugin_init нарешті виконають */
-  GstElement *element = gst_element_factory_create (factory, NULL);
-  g_print ("створено  %s\n", GST_OBJECT_NAME (element));
-  gst_object_unref (element);
-
-  gst_object_unref (feature);
-  return 0;
-}
-```
+:::code api-registry/c/minimalnyi-robochyi-vyklyk.c
 
 **Вивід на десктопній збірці, `./app h264parse`:**
 

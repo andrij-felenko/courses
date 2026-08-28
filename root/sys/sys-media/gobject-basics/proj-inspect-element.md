@@ -28,78 +28,7 @@
 
 Увесь файл — `mininspect.c`. Спершу `main`, бо в ньому видно весь маршрут.
 
-```c
-/* mininspect.c — власний gst-inspect на дві сотні рядків
-   збірка: gcc mininspect.c -o mininspect $(pkg-config --cflags --libs gstreamer-1.0)
-   запуск: ./mininspect filesrc                                                     */
-
-#include <gst/gst.h>
-
-static void print_ancestry (GType type);
-static void print_pad_templates (GstElementClass * eclass);
-static void print_properties (GObjectClass * oclass);
-static void print_value_range (GParamSpec * p);
-static void print_flags (GParamSpec * p);
-static void print_signals (GType type);
-
-int
-main (int argc, char **argv)
-{
-  GstElementFactory *factory, *loaded;
-  GObjectClass *oclass;
-  GType type;
-
-  /* Без цього немає нічого: ані таблиці типів GStreamer, ані реєстру.
-     gst_init заразом з'їдає свої аргументи (--gst-debug-level тощо)
-     з argv — тому його викликають ДО розбору власних аргументів.     */
-  gst_init (&argc, &argv);
-
-  if (argc != 2) {
-    g_printerr ("вжиток: %s <ім'я елемента>\n", argv[0]);
-    return 2;
-  }
-
-  factory = gst_element_factory_find (argv[1]);       /* посилання наше */
-  if (!factory) {
-    g_printerr ("елемента «%s» немає в реєстрі\n", argv[1]);
-    return 1;
-  }
-
-  /* Реєстр знав лише метадані. Тепер вантажимо сам файл плагіна.
-     Обережно: повертається ІНШИЙ об'єкт фабрики — той, що з
-     завантаженого плагіна; старий треба відпустити.                  */
-  loaded = GST_ELEMENT_FACTORY (
-      gst_plugin_feature_load (GST_PLUGIN_FEATURE (factory)));
-  gst_object_unref (factory);
-  if (!loaded) {
-    g_printerr ("плагін для «%s» не вантажиться\n", argv[1]);
-    return 1;
-  }
-  factory = loaded;
-
-  type = gst_element_factory_get_element_type (factory);  /* 0, якщо не завантажено */
-
-  /* Ось де народжується структура класу: g_type_class_ref виконує
-     class_init, а з ним — усі install_property і g_signal_new.       */
-  oclass = g_type_class_ref (type);
-
-  g_print ("%s — %s\n", argv[1],
-      gst_element_factory_get_metadata (factory, GST_ELEMENT_METADATA_LONGNAME));
-  g_print ("категорія: %s\n",
-      gst_element_factory_get_metadata (factory, GST_ELEMENT_METADATA_KLASS));
-  g_print ("плагін: %s\n",
-      gst_plugin_feature_get_plugin_name (GST_PLUGIN_FEATURE (factory)));
-
-  print_ancestry (type);
-  print_pad_templates (GST_ELEMENT_CLASS (oclass));
-  print_properties (oclass);
-  print_signals (type);
-
-  g_type_class_unref (oclass);   /* клас — не об'єкт, у нього свій лічильник */
-  gst_object_unref (factory);
-  return 0;
-}
-```
+:::code proj-inspect-element/c/mininspect.c
 
 Три різні `unref` в одній функції — не недбалість, а три різні системи володіння, і про них окремо нижче.
 
@@ -107,34 +36,7 @@ main (int argc, char **argv)
 
 Ланцюг предків тримається в таблиці типів, тому обхід тривіальний: `g_type_parent` дає батька, нуль означає вершину. Друкувати треба у зворотному порядку — від `GObject` донизу, — тож спершу збираємо ланцюг у масив.
 
-```c
-static void
-print_ancestry (GType type)
-{
-  GType chain[32];
-  GType *ifaces;
-  guint n_ifaces = 0;
-  gint n = 0, i;
-
-  for (; type != 0 && n < (gint) G_N_ELEMENTS (chain); type = g_type_parent (type))
-    chain[n++] = type;
-  if (n == 0)
-    return;
-
-  g_print ("\nРодовід:\n");
-  for (i = n - 1; i >= 0; i--)
-    g_print ("%*s%s\n", (n - 1 - i) * 2 + 2, "", g_type_name (chain[i]));
-
-  ifaces = g_type_interfaces (chain[0], &n_ifaces);   /* масив наш */
-  if (n_ifaces) {
-    g_print ("  інтерфейси:");
-    for (i = 0; i < (gint) n_ifaces; i++)
-      g_print (" %s", g_type_name (ifaces[i]));
-    g_print ("\n");
-  }
-  g_free (ifaces);
-}
-```
+:::code proj-inspect-element/c/rodovid-i-interfeisy.c
 
 `g_type_interfaces` повертає щойно виділений масив ідентифікаторів — його звільняє `g_free`. Самі типи, звісно, нікуди не діваються: масив — це копія переліку, а не володіння типами.
 
@@ -142,99 +44,13 @@ print_ancestry (GType type)
 
 Далі — головне. `g_object_class_list_properties` віддає масив описів усіх властивостей класу, разом із успадкованими.
 
-```c
-static void
-print_properties (GObjectClass * oclass)
-{
-  GParamSpec **props;
-  guint n = 0, i;
-
-  props = g_object_class_list_properties (oclass, &n);
-  g_print ("\nВластивості (%u):\n", n);
-
-  for (i = 0; i < n; i++) {
-    GParamSpec *p = props[i];
-    const gchar *blurb = g_param_spec_get_blurb (p);
-
-    g_print ("\n  %s   ← оголошено в %s\n",
-        g_param_spec_get_name (p), g_type_name (p->owner_type));
-    if (blurb)
-      g_print ("      %s\n", blurb);
-    print_value_range (p);
-    print_flags (p);
-  }
-
-  /* Наш тут лише МАСИВ. Самі описи належать класові й живуть,
-     поки живе клас, — звільняти їх не можна.                    */
-  g_free (props);
-}
-```
+:::code proj-inspect-element/c/vlastyvosti-opys-a-ne-pole.c
 
 Поле `owner_type` — те, заради чого варто було все затівати. Воно каже, у чиєму `class_init` властивість оголошено, і одразу пояснює, звідки в елемента взялося те, чого його автор не писав: `blocksize` і `num-buffers` приходять від `GstBaseSrc`, `name` — від `GstObject`.
 
 Тепер тип і межі. Опис властивості — не просто «тип», а окремий підклас `GParamSpec` на кожен різновид значення, і саме в ньому лежать найменше, найбільше й типове. Тому розбір — це низка перевірок «а чи це опис цілого зі знаком».
 
-```c
-static void
-print_value_range (GParamSpec * p)
-{
-  GValue def = G_VALUE_INIT;
-  gchar *ds;
-
-  /* Універсальний спосіб надрукувати типове значення будь-чого:
-     завести GValue правильного типу, попросити опис покласти туди
-     своє типове й перетворити на текст.                          */
-  g_value_init (&def, p->value_type);
-  g_param_value_set_default (p, &def);
-  ds = g_strdup_value_contents (&def);
-
-  if (G_IS_PARAM_SPEC_UINT (p)) {
-    GParamSpecUInt *s = G_PARAM_SPEC_UINT (p);
-    g_print ("      ціле без знака, межі %u … %u, типово %s\n",
-        s->minimum, s->maximum, ds);
-  } else if (G_IS_PARAM_SPEC_INT (p)) {
-    GParamSpecInt *s = G_PARAM_SPEC_INT (p);
-    g_print ("      ціле зі знаком, межі %d … %d, типово %s\n",
-        s->minimum, s->maximum, ds);
-  } else if (G_IS_PARAM_SPEC_INT64 (p)) {
-    GParamSpecInt64 *s = G_PARAM_SPEC_INT64 (p);
-    g_print ("      ціле 64 біти, межі %" G_GINT64_FORMAT
-        " … %" G_GINT64_FORMAT ", типово %s\n", s->minimum, s->maximum, ds);
-  } else if (G_IS_PARAM_SPEC_UINT64 (p)) {
-    GParamSpecUInt64 *s = G_PARAM_SPEC_UINT64 (p);
-    g_print ("      ціле 64 біти без знака, межі %" G_GUINT64_FORMAT
-        " … %" G_GUINT64_FORMAT ", типово %s\n", s->minimum, s->maximum, ds);
-  } else if (G_IS_PARAM_SPEC_DOUBLE (p)) {
-    GParamSpecDouble *s = G_PARAM_SPEC_DOUBLE (p);
-    g_print ("      дробове, межі %g … %g, типово %s\n",
-        s->minimum, s->maximum, ds);
-  } else if (G_IS_PARAM_SPEC_BOOLEAN (p)) {
-    g_print ("      логічне, типово %s\n", ds);
-  } else if (G_IS_PARAM_SPEC_STRING (p)) {
-    g_print ("      рядок, типово %s\n", ds);
-  } else if (G_IS_PARAM_SPEC_ENUM (p)) {
-    GEnumClass *ec = G_PARAM_SPEC_ENUM (p)->enum_class;
-    guint k;
-    g_print ("      перелік %s, типово %s\n", g_type_name (p->value_type), ds);
-    for (k = 0; k < ec->n_values; k++)
-      g_print ("          (%d) %-14s %s\n", ec->values[k].value,
-          ec->values[k].value_nick, ec->values[k].value_name);
-  } else if (G_IS_PARAM_SPEC_FLAGS (p)) {
-    GFlagsClass *fc = G_PARAM_SPEC_FLAGS (p)->flags_class;
-    guint k;
-    g_print ("      набір прапорців %s, типово %s\n",
-        g_type_name (p->value_type), ds);
-    for (k = 0; k < fc->n_values; k++)
-      g_print ("          (0x%08x) %-14s %s\n", fc->values[k].value,
-          fc->values[k].value_nick, fc->values[k].value_name);
-  } else {
-    g_print ("      %s, типово %s\n", g_type_name (p->value_type), ds);
-  }
-
-  g_free (ds);
-  g_value_unset (&def);     /* для рядків і об'єктів це справжнє звільнення */
-}
-```
+:::code proj-inspect-element/c/vlastyvosti-opys-a-ne-pole-2.c
 
 `g_param_value_set_default` разом із `g_strdup_value_contents` — пара, що позбавляє від окремої гілки на кожен тип: перша кладе типове значення у `GValue`, друга друкує вміст `GValue`, яким би він не був. Гілки нижче потрібні тільки заради **меж**, бо межі не є значенням і в `GValue` не поміщаються.
 
@@ -244,40 +60,7 @@ print_value_range (GParamSpec * p)
 
 Прапорці — те, заради чого весь інспектор і писався. GObject дає загальні біти, GStreamer додає власні у зоні, відведеній для розширень: `G_PARAM_USER_SHIFT` дорівнює восьми, і `GST_PARAM_MUTABLE_PLAYING` — це просто `1 << (8 + 4)`.
 
-```c
-static void
-print_flags (GParamSpec * p)
-{
-  GString *s = g_string_new (NULL);
-  guint f = p->flags;
-
-  if (f & G_PARAM_READABLE)       g_string_append (s, "читання, ");
-  if (f & G_PARAM_WRITABLE)       g_string_append (s, "запис, ");
-  if (f & G_PARAM_CONSTRUCT_ONLY) g_string_append (s, "лише при створенні, ");
-  if (f & G_PARAM_DEPRECATED)     g_string_append (s, "застаріла, ");
-
-  /* Біти GStreamer. Порядок важливий: PLAYING містить у собі PAUSED,
-     PAUSED — READY, тож перемагає найвищий із виставлених.          */
-  if (f & GST_PARAM_MUTABLE_PLAYING)
-    g_string_append (s, "міняти можна аж до PLAYING, ");
-  else if (f & GST_PARAM_MUTABLE_PAUSED)
-    g_string_append (s, "міняти можна до PAUSED, ");
-  else if (f & GST_PARAM_MUTABLE_READY)
-    g_string_append (s, "міняти можна до READY, ");
-  else if (f & G_PARAM_WRITABLE)
-    g_string_append (s, "коли міняти — не позначено (покладайся на NULL), ");
-
-  if (f & GST_PARAM_CONTROLLABLE)
-    g_string_append (s, "можна вести кривою в часі, ");
-  if (f & GST_PARAM_CONDITIONALLY_AVAILABLE)
-    g_string_append (s, "є не в кожній збірці, ");
-
-  if (s->len >= 2)
-    g_string_truncate (s, s->len - 2);
-  g_print ("      прапорці: %s\n", s->str);
-  g_string_free (s, TRUE);
-}
-```
+:::code proj-inspect-element/c/praportsi-koly-same.c
 
 Остання гілка ланцюжка потребує чесності. Відсутність прапорця `MUTABLE_*` — це не доказ, що властивість не можна міняти на ходу; це відсутність обіцянки з боку автора елемента. Практичний висновок один і той самий: без прапорця значення міняють, опустивши елемент до `NULL`, бо [перехід між станами](root:sys-media/states-lifecycle) — єдиний момент, коли ніхто інший цього поля не читає.
 
@@ -287,56 +70,7 @@ print_flags (GParamSpec * p)
 
 Сигнали теж зареєстровані в таблиці типів, але прив'язані **до конкретного типу**, а не успадковані в один список. Тому їх збирають, ідучи вгору по родоводу.
 
-```c
-static const gchar *
-star (GType t)
-{
-  /* об'єктні, боксовані та рядкові типи їдуть у зворотний виклик покажчиком */
-  return (G_TYPE_IS_CLASSED (t) || G_TYPE_IS_BOXED (t)
-      || t == G_TYPE_STRING || t == G_TYPE_POINTER) ? " *" : " ";
-}
-
-static void
-print_signals (GType type)
-{
-  g_print ("\nСигнали:\n");
-
-  for (; type != 0; type = g_type_parent (type)) {
-    guint *ids, n = 0, i, k;
-
-    ids = g_signal_list_ids (type, &n);       /* масив наш → g_free */
-    for (i = 0; i < n; i++) {
-      GSignalQuery q;
-      GString *sig;
-      GType rt;
-
-      g_signal_query (ids[i], &q);
-      if (q.signal_id == 0)                   /* сигнал уже не існує */
-        continue;
-
-      /* У типах сигналу молодший біт може нести службовий прапорець
-         G_SIGNAL_TYPE_STATIC_SCOPE — його треба зняти маскою.       */
-      rt = q.return_type & ~G_SIGNAL_TYPE_STATIC_SCOPE;
-
-      sig = g_string_new (NULL);
-      g_string_append_printf (sig, "%s%suser_function (%s *self",
-          g_type_name (rt), star (rt), g_type_name (q.itype));
-      for (k = 0; k < q.n_params; k++) {
-        GType pt = q.param_types[k] & ~G_SIGNAL_TYPE_STATIC_SCOPE;
-        g_string_append_printf (sig, ", %s%sarg%u", g_type_name (pt), star (pt), k);
-      }
-      g_string_append (sig, ", gpointer user_data)");
-
-      g_print ("  \"%s\"  ← від %s%s\n      %s\n", q.signal_name,
-          g_type_name (q.itype),
-          (q.signal_flags & G_SIGNAL_ACTION) ? "   [дія: не підписка, а виклик]" : "",
-          sig->str);
-      g_string_free (sig, TRUE);
-    }
-    g_free (ids);
-  }
-}
-```
+:::code proj-inspect-element/c/syhnaly-perelik-i.c
 
 Позначка `[дія]` варта окремого рядка коду, бо міняє сенс усього запису. Звичайний сигнал — сповіщення, на яке підписуються; сигнал із прапорцем `G_SIGNAL_ACTION` — навпаки, метод, який **викликають** через `g_signal_emit_by_name`. Так `appsink` віддає кадр: `pull-sample` виглядає в переліку як сигнал, а є функцією, що чекає й повертає буфер.
 
@@ -344,29 +78,7 @@ print_signals (GType type)
 
 Шаблони теж живуть у класі — їх кладе туди `class_init`, — тож примірник знову не потрібен.
 
-```c
-static void
-print_pad_templates (GstElementClass * eclass)
-{
-  GList *l;
-
-  g_print ("\nШаблони падів:\n");
-  for (l = gst_element_class_get_pad_template_list (eclass); l; l = l->next) {
-    GstPadTemplate *t = GST_PAD_TEMPLATE (l->data);
-    GstCaps *caps = gst_pad_template_get_caps (t);   /* нове посилання */
-    gchar *s = gst_caps_to_string (caps);
-
-    g_print ("  %-14s %s, %s\n      %s\n", t->name_template,
-        t->direction == GST_PAD_SRC ? "вихід" : "вхід",
-        t->presence == GST_PAD_ALWAYS ? "завжди" :
-        t->presence == GST_PAD_SOMETIMES ? "інколи" : "на запит",
-        s);
-
-    g_free (s);
-    gst_caps_unref (caps);      /* НЕ gst_object_unref: caps — міні-об'єкт */
-  }
-}
-```
+:::code proj-inspect-element/c/shablony-padiv.c
 
 Сам список належить класові — його не звільняють і не міняють. А от `gst_pad_template_get_caps` віддає **нове посилання** на набір [узгоджуваних форматів](root:sys-media/caps-negotiation), і його повертають. Слово «інколи» в колонці присутності — не дрібниця: воно означає, що пад з'явиться лише під час роботи, і саме на такі елементи чіпляють обробник `pad-added`, як описує [з'єднання елементів](root:sys-media/pads-and-linking).
 

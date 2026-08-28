@@ -27,81 +27,7 @@
 
 ## Конвеєр: один на обидві половини
 
-```cpp
-/* bridge.cpp — NV12 з апаратного декодера → cv::Mat → BGR назад у конвеєр.
- *
- *   g++ -O2 -std=c++17 bridge.cpp -o bridge \
- *       $(pkg-config --cflags --libs gstreamer-1.0 gstreamer-app-1.0 \
- *                                    gstreamer-video-1.0 opencv4)
- */
-#include <gst/gst.h>
-#include <gst/app/gstappsink.h>
-#include <gst/app/gstappsrc.h>
-#include <gst/video/video.h>
-#include <opencv2/imgproc.hpp>
-#include <vector>
-
-struct Bridge {
-  GstElement   *pipeline  = nullptr;
-  GstElement   *sink      = nullptr;
-  GstElement   *src       = nullptr;
-  GstCaps      *in_caps   = nullptr;   /* caps, під які розібрано in_info */
-  GstVideoInfo  in_info   {};
-  bool          out_ready = false;
-};
-
-/* Ваша робота. Усе, що вміє працювати по яскравості, працює прямо тут. */
-static void detect (const cv::Mat &luma, std::vector<cv::Rect> &out);
-
-static GstFlowReturn on_new_sample (GstAppSink *sink, gpointer user_data);
-
-int main (int argc, char *argv[])
-{
-  gst_init (&argc, &argv);
-  Bridge b;
-
-  /* NV12 — це ВИМОГА до декодера, а не сподівання. Один рядок caps
-     робить те, чого не зробить жодне перетворення в нашому коді. */
-  const char *desc =
-      "rtspsrc location=rtsp://cam/stream latency=100 ! rtph264depay ! h264parse ! "
-      "vaapih264dec ! video/x-raw,format=NV12 ! "
-      "appsink name=cvsink sync=false max-buffers=2 drop=true "
-
-      "appsrc name=cvsrc format=time is-live=true do-timestamp=false ! "
-      "videoconvert ! x264enc tune=zerolatency speed-preset=veryfast ! "
-      "h264parse ! matroskamux ! filesink location=out.mkv";
-
-  GError *e = nullptr;
-  b.pipeline = gst_parse_launch (desc, &e);
-  if (!b.pipeline) { g_printerr ("конвеєр: %s\n", e->message); return 1; }
-
-  b.sink = gst_bin_get_by_name (GST_BIN (b.pipeline), "cvsink");
-  b.src  = gst_bin_get_by_name (GST_BIN (b.pipeline), "cvsrc");
-
-  /* Вміст структури appsink копіює собі; static — просто страховка.
-     Зворотний виклик отримає &b, а b живе до кінця main. */
-  static GstAppSinkCallbacks cbs = {};
-  cbs.new_sample = on_new_sample;
-  gst_app_sink_set_callbacks (GST_APP_SINK (b.sink), &cbs, &b, nullptr);
-
-  gst_element_set_state (b.pipeline, GST_STATE_PLAYING);
-
-  GstBus     *bus = gst_element_get_bus (b.pipeline);
-  GstMessage *msg = gst_bus_timed_pop_filtered (
-      bus, GST_CLOCK_TIME_NONE,
-      (GstMessageType) (GST_MESSAGE_ERROR | GST_MESSAGE_EOS));
-  if (msg) gst_message_unref (msg);
-  gst_object_unref (bus);
-
-  /* Спершу NULL: доки конвеєр живий, у ньому можуть їхати наші буфери. */
-  gst_element_set_state (b.pipeline, GST_STATE_NULL);
-  gst_caps_replace (&b.in_caps, nullptr);
-  gst_object_unref (b.sink);
-  gst_object_unref (b.src);
-  gst_object_unref (b.pipeline);
-  return 0;
-}
-```
+:::code proj-zero-copy-bridge/cpp/bridge.cpp
 
 Обидві половини — вхідна й вихідна — живуть в одному конвеєрі: `gst_parse_launch` спокійно бере опис із кількох незв'язаних ланцюгів. Це не косметика. Один конвеєр означає один годинник на обидві половини, тож мітки часу, перенесені з вхідного кадру, для кодера означають те саме, що означали для декодера; двом окремим конвеєрам довелося б ще й домовлятися про базу часу.
 
@@ -109,76 +35,7 @@ int main (int argc, char *argv[])
 
 ## Уперед: обробник `new-sample`
 
-```cpp
-static GstFlowReturn push_bgr (Bridge *b, const cv::Mat &bgr,
-                               GstBuffer *src_buf, int w, int h);
-
-static GstFlowReturn on_new_sample (GstAppSink *sink, gpointer user_data)
-{
-  Bridge *b = static_cast<Bridge *> (user_data);
-
-  GstSample *sample = gst_app_sink_pull_sample (sink);   /* наш: transfer full */
-  if (!sample)
-    return GST_FLOW_EOS;
-
-  /* Формат приїжджає з КОЖНИМ семплом; розбираємо його, лише коли він змінився. */
-  GstCaps *caps = gst_sample_get_caps (sample);          /* позичений */
-  if (!caps) { gst_sample_unref (sample); return GST_FLOW_ERROR; }
-
-  if (!b->in_caps || !gst_caps_is_equal (caps, b->in_caps)) {
-    if (!gst_video_info_from_caps (&b->in_info, caps) ||
-        GST_VIDEO_INFO_FORMAT (&b->in_info) != GST_VIDEO_FORMAT_NV12) {
-      g_printerr ("чекали NV12\n");
-      gst_sample_unref (sample);
-      return GST_FLOW_ERROR;
-    }
-    gst_caps_replace (&b->in_caps, caps);
-    b->out_ready = false;                    /* вихід перенастроїмо під новий розмір */
-  }
-
-  GstBuffer *buf = gst_sample_get_buffer (sample);       /* позичений */
-
-  /* Кроки й зсуви площин беруться з GstVideoMeta буфера, якщо вона там є,
-     і лише інакше — з in_info. Порахувати їх із ширини не можна. */
-  GstVideoFrame vf;
-  if (!gst_video_frame_map (&vf, &b->in_info, buf, GST_MAP_READ)) {
-    gst_sample_unref (sample);
-    return GST_FLOW_ERROR;
-  }
-
-  const int w = GST_VIDEO_FRAME_WIDTH  (&vf);
-  const int h = GST_VIDEO_FRAME_HEIGHT (&vf);
-
-  /* Два заголовки на дві площини — кожен зі СВОЇМ покажчиком і СВОЇМ кроком. */
-  cv::Mat y  (h,     w,     CV_8UC1,
-              GST_VIDEO_FRAME_PLANE_DATA (&vf, 0),
-              (size_t) GST_VIDEO_FRAME_PLANE_STRIDE (&vf, 0));
-  cv::Mat uv (h / 2, w / 2, CV_8UC2,
-              GST_VIDEO_FRAME_PLANE_DATA (&vf, 1),
-              (size_t) GST_VIDEO_FRAME_PLANE_STRIDE (&vf, 1));
-
-  /* Робота по яскравості йде просто по площині Y: нуль копій, нуль
-     перетворень, повна роздільність. Декодер уже все зробив за нас. */
-  std::vector<cv::Rect> hits;
-  detect (y, hits);
-
-  /* Колір потрібен лише тому, що кадр іде далі картинкою. bgr — ЛОКАЛЬНА
-     змінна, і саме локальність тут рятує (див. пастку про create). */
-  cv::Mat bgr;
-  cv::cvtColorTwoPlane (y, uv, bgr, cv::COLOR_YUV2BGR_NV12);
-
-  gst_video_frame_unmap (&vf);       /* з цієї миті y та uv — покажчики в нікуди */
-
-  /* Малюємо вже у своїй пам'яті, а buf лишається дійсним: розмапування
-     забирає покажчики на пікселі, а не саме посилання на буфер. */
-  for (const cv::Rect &r : hits)
-    cv::rectangle (bgr, r, cv::Scalar (0, 220, 0), 2);
-
-  GstFlowReturn ret = push_bgr (b, bgr, buf, w, h);
-  gst_sample_unref (sample);         /* аж тепер буфер повертається в пул */
-  return ret;
-}
-```
+:::code proj-zero-copy-bridge/cpp/upered-obrobnyk-new-sample.cpp
 
 Три рішення в цьому обробнику неочевидні.
 
@@ -190,58 +47,7 @@ static GstFlowReturn on_new_sample (GstAppSink *sink, gpointer user_data)
 
 ## Назад: заголовок `cv::Mat` як тримач блока
 
-```cpp
-/* GStreamer покличе це, коли зникне ОСТАННЄ посилання на буфер, —
-   з невідомого нам потоку й у невідому мить. Робота тут одна: −1 до лічильника. */
-static void release_keeper (gpointer p)
-{
-  delete static_cast<cv::Mat *> (p);
-}
-
-static GstFlowReturn push_bgr (Bridge *b, const cv::Mat &bgr,
-                               GstBuffer *src_buf, int w, int h)
-{
-  CV_Assert (bgr.isContinuous ());     /* wrapped_full знає довжину, а не крок */
-
-  const gsize bytes  = bgr.total () * bgr.elemSize ();
-  cv::Mat    *keeper = new cv::Mat (bgr);   /* копія ЗАГОЛОВКА: +1 до лічильника блока */
-
-  GstBuffer *out = gst_buffer_new_wrapped_full (
-      GST_MEMORY_FLAG_READONLY,      /* блок наш — нижчі елементи в нього не пишуть */
-      keeper->data, bytes,           /* дані, maxsize */
-      0, bytes,                      /* offset, size  */
-      keeper, release_keeper);       /* хто відпустить останнім, той і поверне блок */
-
-  /* Ширина не кратна чотирьом: сусідній елемент порахував би крок сам
-     і промахнувся. Кажемо справжній крок метаданими. */
-  gsize offset[GST_VIDEO_MAX_PLANES] = { 0 };
-  gint  stride[GST_VIDEO_MAX_PLANES] = { (gint) bgr.step[0] };
-  gst_buffer_add_video_meta_full (out, GST_VIDEO_FRAME_FLAG_NONE,
-                                  GST_VIDEO_FORMAT_BGR, w, h, 1, offset, stride);
-
-  /* Час беремо з вхідного кадру. Саме час — і НЕ метадані: там розкладка NV12. */
-  gst_buffer_copy_into (out, src_buf,
-                        (GstBufferCopyFlags) (GST_BUFFER_COPY_TIMESTAMPS |
-                                              GST_BUFFER_COPY_FLAGS),
-                        0, (gsize) -1);
-
-  if (!b->out_ready) {
-    GstCaps *ocaps = gst_caps_new_simple (
-        "video/x-raw",
-        "format",    G_TYPE_STRING,     "BGR",
-        "width",     G_TYPE_INT,        w,
-        "height",    G_TYPE_INT,        h,
-        "framerate", GST_TYPE_FRACTION, GST_VIDEO_INFO_FPS_N (&b->in_info),
-                                        GST_VIDEO_INFO_FPS_D (&b->in_info),
-        NULL);
-    gst_app_src_set_caps (GST_APP_SRC (b->src), ocaps);
-    gst_caps_unref (ocaps);
-    b->out_ready = true;
-  }
-
-  return gst_app_src_push_buffer (GST_APP_SRC (b->src), out);   /* забирає володіння */
-}
-```
+:::code proj-zero-copy-bridge/cpp/nazad-zaholovok-cv-mat-iak.cpp
 
 `keeper` — уся суть зворотного напрямку. Копія заголовка `cv::Mat` не рухає жодного байта: вона лише збільшує число всередині блока пікселів. Далі цей заголовок живе на купі, і його адреса їде з буфером як `user_data`. Коли останнє посилання на буфер зникає — байдуже, у якому потоці й через скільки секунд, — GStreamer кличе `release_keeper`, заголовок помирає, лічильник падає, і блок звільняється сам. Ані ми, ані конвеєр не мусимо знати, хто з нас останній.
 

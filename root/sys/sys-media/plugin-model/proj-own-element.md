@@ -45,39 +45,7 @@ dlopen("libgstmyfilter.so")
 
 Увесь плагін — один файл `gstmyfilter.c` приблизно на сто рядків. Почнімо з опису типу.
 
-```c
-/* gstmyfilter.c — інвертор яскравості GRAY8 на GstBaseTransform */
-#include <gst/gst.h>
-#include <gst/base/gstbasetransform.h>
-#include <gst/video/video.h>
-
-GST_DEBUG_CATEGORY_STATIC (myfilter_debug);
-#define GST_CAT_DEFAULT myfilter_debug
-
-#define GST_TYPE_MY_FILTER (gst_my_filter_get_type ())
-G_DECLARE_FINAL_TYPE (GstMyFilter, gst_my_filter, GST, MY_FILTER,
-    GstBaseTransform)
-
-struct _GstMyFilter
-{
-  GstBaseTransform parent;
-  GstVideoInfo info;            /* заповнює set_caps, читає transform_ip */
-};
-
-G_DEFINE_TYPE (GstMyFilter, gst_my_filter, GST_TYPE_BASE_TRANSFORM)
-
-/* Єдиний формат, який елемент розуміє, — і той самий з обох боків:
-   інверсія не міняє ані розкладки кадру, ані його розміру. */
-#define MYFILTER_CAPS "video/x-raw, format=(string)GRAY8"
-
-static GstStaticPadTemplate sink_template =
-GST_STATIC_PAD_TEMPLATE ("sink", GST_PAD_SINK, GST_PAD_ALWAYS,
-    GST_STATIC_CAPS (MYFILTER_CAPS));
-
-static GstStaticPadTemplate src_template =
-GST_STATIC_PAD_TEMPLATE ("src", GST_PAD_SRC, GST_PAD_ALWAYS,
-    GST_STATIC_CAPS (MYFILTER_CAPS));
-```
+:::code proj-own-element/c/gst.h
 
 `G_DECLARE_FINAL_TYPE` — скорочення, що пише за вас оголошення `gst_my_filter_get_type()`, структуру класу й макрос приведення `GST_MY_FILTER()`. Структуру примірника ви описуєте самі, бо саме в ній лежать ваші дані; тут це один `GstVideoInfo` — розібрана розкладка кадру, яку рахують раз на узгодження, а не на кожному кадрі.
 
@@ -85,77 +53,13 @@ GST_STATIC_PAD_TEMPLATE ("src", GST_PAD_SRC, GST_PAD_ALWAYS,
 
 Тепер клас:
 
-```c
-static void
-gst_my_filter_class_init (GstMyFilterClass * klass)
-{
-  GstElementClass *element_class = GST_ELEMENT_CLASS (klass);
-  GstBaseTransformClass *bt_class = GST_BASE_TRANSFORM_CLASS (klass);
-
-  gst_element_class_set_static_metadata (element_class,
-      "Інвертор яскравості",          /* людська назва */
-      "Filter/Effect/Video",          /* klass: категорія для автопідбору */
-      "Інвертує яскравість кадру GRAY8 на місці",
-      "Ім'я Прізвище <mail@example.org>");
-
-  gst_element_class_add_static_pad_template (element_class, &sink_template);
-  gst_element_class_add_static_pad_template (element_class, &src_template);
-
-  bt_class->set_caps = gst_my_filter_set_caps;
-  bt_class->transform_ip = gst_my_filter_transform_ip;
-}
-
-static void
-gst_my_filter_init (GstMyFilter * self)
-{
-  gst_video_info_init (&self->info);
-}
-```
+:::code proj-own-element/c/typ-shablony-metadani.c
 
 Чотири рядки метаданих і два шаблони падів — це і є все, що система знатиме про ваш елемент, не відкриваючи файла. Другий із них, `Filter/Effect/Video`, зветься `klass` і виглядає як декорація, але саме за підрядками в ньому автопідбір відбирає кандидатів за категорією. Порожній або довільний рядок тут означає елемент, якого `decodebin` ніколи не розгляне.
 
 Тіла двох методів, які ми щойно підключили до класу:
 
-```c
-static gboolean
-gst_my_filter_set_caps (GstBaseTransform * base, GstCaps * incaps,
-    GstCaps * outcaps)
-{
-  GstMyFilter *self = GST_MY_FILTER (base);
-
-  if (!gst_video_info_from_caps (&self->info, incaps)) {
-    GST_ERROR_OBJECT (self, "не розібрав caps %" GST_PTR_FORMAT, incaps);
-    return FALSE;
-  }
-  return TRUE;
-}
-
-static GstFlowReturn
-gst_my_filter_transform_ip (GstBaseTransform * base, GstBuffer * buf)
-{
-  GstMyFilter *self = GST_MY_FILTER (base);
-  GstVideoFrame frame;
-  guint8 *plane;
-  gint stride, w, h, x, y;
-
-  if (!gst_video_frame_map (&frame, &self->info, buf, GST_MAP_READWRITE))
-    return GST_FLOW_ERROR;
-
-  plane = GST_VIDEO_FRAME_PLANE_DATA (&frame, 0);
-  stride = GST_VIDEO_FRAME_PLANE_STRIDE (&frame, 0);
-  w = GST_VIDEO_FRAME_WIDTH (&frame);
-  h = GST_VIDEO_FRAME_HEIGHT (&frame);
-
-  for (y = 0; y < h; y++) {
-    guint8 *row = plane + (gsize) y * stride;
-    for (x = 0; x < w; x++)
-      row[x] = 255 - row[x];
-  }
-
-  gst_video_frame_unmap (&frame);
-  return GST_FLOW_OK;
-}
-```
+:::code proj-own-element/c/typ-shablony-metadani-2.c
 
 `gst_video_frame_map` замість простого `gst_buffer_map` тут не з педантизму: справжній крок приїздить разом із кадром у метаданих, і взяти його можна лише звідти. Ширина в цьому коді використана рівно один раз — як межа внутрішнього циклу, а адреса рядка рахується через `stride`.
 
@@ -165,29 +69,7 @@ gst_my_filter_transform_ip (GstBaseTransform * base, GstBuffer * buf)
 
 Лишилося дві частини — і вони найкоротші в усьому файлі:
 
-```c
-static gboolean
-plugin_init (GstPlugin * plugin)
-{
-  GST_DEBUG_CATEGORY_INIT (myfilter_debug, "myfilter", 0,
-      "інвертор яскравості GRAY8");
-
-  return gst_element_register (plugin, "myfilter", GST_RANK_NONE,
-      GST_TYPE_MY_FILTER);
-}
-
-#ifndef PACKAGE
-#define PACKAGE "gst-myfilter"
-#endif
-#ifndef VERSION
-#define VERSION "1.0"
-#endif
-
-GST_PLUGIN_DEFINE (GST_VERSION_MAJOR, GST_VERSION_MINOR,
-    myfilter,                                     /* коротке ім'я плагіна */
-    "Інвертор яскравості для перевірки моделі плагінів",
-    plugin_init, VERSION, "LGPL", "myplugins", "https://example.org/")
-```
+:::code proj-own-element/c/tochka-vkhodu-i-deskryptor.c
 
 Аргументи макроса розкладаються так: дві перші цифри — версія ядра, під яке зібрано (їх підставляє сам заголовок); далі коротке ім'я плагіна, опис, функція ініціалізації, версія плагіна, ліцензія, ім'я бінарного пакунка й походження. Плюс один аргумент, якого в списку не видно: макрос читає визначення `PACKAGE` і кладе його в окреме поле дескриптора — «модуль джерел». Забути його не можна, бо збірка просто не пройде — і це, як не дивно, найкраща новина цього тексту: єдина з усіх помилок, про яку вам скажуть уголос.
 

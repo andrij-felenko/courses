@@ -14,22 +14,7 @@
 
 Друге рішення — **поле `roi`** просто в тілі зображення:
 
-```c
-typedef struct _IplROI {
-    int coi;                 /* 0 — усі канали, 1 — нульовий, ... */
-    int xOffset, yOffset;
-    int width, height;
-} IplROI;
-
-typedef struct _IplImage {
-    int   nChannels, depth;
-    int   width, height;
-    struct _IplROI *roi;     /* NULL — вибрано все зображення */
-    char *imageData;
-    int   widthStep;         /* байтів на вирівняний рядок */
-    /* ... і ще з десяток полів, частину яких OpenCV просто ігнорує ... */
-} IplImage;
-```
+:::code hist-iplimage-roi/c/main.c
 
 Зверни увагу на `coi` — «channel of interest». Разом із прямокутником зображення могло тримати ще й **увімкнений канал**: обробляй лише синій. Одна структура несла два різні перемикачі режиму.
 

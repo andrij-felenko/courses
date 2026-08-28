@@ -75,21 +75,7 @@ g_print ("pts %" GST_TIME_FORMAT "  тривалість %" GST_TIME_FORMAT "\n"
 
 Знак `jitter` доповнює картину. Додатне значення — наскільки замовлена мить відстала від годинника (разом із `GST_CLOCK_EARLY`); від'ємне — скільки часу насправді провели в чеканні. Тобто додатний jitter завжди означає запізнення, і його зручно друкувати через `GST_STIME_FORMAT`.
 
-```c
-GstClock *clock = gst_element_get_clock (sink);   /* NULL, якщо конвеєр не в PAUSED/PLAYING */
-GstClockTime now = gst_clock_get_time (clock);
-GstClockID   id  = gst_clock_new_single_shot_id (clock, now + 20 * GST_MSECOND);
-
-GstClockTimeDiff jitter;
-GstClockReturn   res = gst_clock_id_wait (id, &jitter);
-
-if (res == GST_CLOCK_EARLY)
-  g_print ("мить уже минула на %" GST_STIME_FORMAT "\n", GST_STIME_ARGS (jitter));
-
-gst_clock_id_unschedule (id);   /* з іншого потоку це й є спосіб розбудити чекальника */
-gst_clock_id_unref (id);        /* одноразовий id придатний рівно на одне чекання */
-gst_object_unref (clock);
-```
+:::code api-clock-and-time/c/gstclock-prochytaty-chas-i.h
 
 Два практичні наслідки з цього коду. По-перше, час у замовленні **абсолютний**: передати туди «двадцять мілісекунд» замість «поточний час плюс двадцять мілісекунд» — типова помилка, і вона миттєво дає `GST_CLOCK_EARLY`. По-друге, скасувати чекання зсередини потоку, що спить, неможливо, тому `GstClockID` тримають у структурі, доступній іншому потоку, — інакше зупинити конвеєр без грубого вбивства потоку не вийде.
 
@@ -177,18 +163,7 @@ external = (internal − cinternal) · cnum / cdenom + cexternal
 
 Ось повний набір дій, потрібний, щоб два конвеєри в різних процесах показували одне й те саме одночасно:
 
-```c
-/* 1. Спільний годинник: беремо час у процесу-постачальника */
-GstClock *net = gst_net_client_clock_new ("net", "192.168.1.10", 8554, 0);
-gst_clock_wait_for_sync (net, 30 * GST_SECOND);       /* без цього перші секунди — сміття */
-gst_pipeline_use_clock (GST_PIPELINE (pipeline), net);
-
-/* 2. Спільна точка відліку: конвеєр не має права перевибрати base_time */
-gst_element_set_start_time (pipeline, GST_CLOCK_TIME_NONE);
-gst_element_set_base_time (pipeline, agreed_base);    /* однакове число в усіх учасників */
-
-gst_element_set_state (pipeline, GST_STATE_PLAYING);
-```
+:::code api-clock-and-time/c/hodynnyk-base-time-i-start.h
 
 Обидва кроки обов'язкові й неподільні: спільний годинник без спільного `base_time` дає лише спільну лінійку без спільного нуля, а спільний `base_time` без спільного годинника — два нулі на лінійках, що розходяться.
 
@@ -345,23 +320,7 @@ gst-launch-1.0 filesrc location=in.mp4 ! decodebin name=d \
 
 Два рядки з позначкою «вимагає дії» — це той мінімум, без якого застосунок рано чи пізно застрягне: перший ловить від'єднану звукову карту, другий — камеру чи мережеве джерело, що змінили свою затримку на ходу. Так само їх обробляє й сам `gst-launch-1.0`:
 
-```c
-case GST_MESSAGE_CLOCK_LOST:
-  gst_element_set_state (pipeline, GST_STATE_PAUSED);
-  gst_element_set_state (pipeline, GST_STATE_PLAYING);
-  break;
-
-case GST_MESSAGE_LATENCY:
-  gst_bin_recalculate_latency (GST_BIN (pipeline));
-  break;
-
-case GST_MESSAGE_NEW_CLOCK: {
-  GstClock *clock;
-  gst_message_parse_new_clock (msg, &clock);       /* годинник належить повідомленню */
-  g_print ("годинник конвеєра: %s\n", clock ? GST_OBJECT_NAME (clock) : "немає");
-  break;
-}
-```
+:::code api-clock-and-time/c/povidomlennia-shyny-shcho.h
 
 Решта часових подій шиною не ходить: `QoS`, `SEGMENT` і `LATENCY`-**подія** живуть усередині конвеєра, і застосунок бачить їх лише через зонд на паді. Що саме несе шина й у якому порядку — розбирає тема про [шину повідомлень](root:sys-media/bus-and-messages).
 
@@ -369,78 +328,7 @@ case GST_MESSAGE_NEW_CLOCK: {
 
 Ця програма друкує для кожного кадру три величини одразу — мітку, `running_time` і фактичне запізнення відносно годинника. Це найкоротший спосіб з'ясувати, яка саме ланка ланцюга поламана: порожня мітка, чужий `base_time` чи розбіжність годинників.
 
-```c
-#include <gst/gst.h>
-
-typedef struct { GstSegment seg; GstElement *sink; } Ctx;
-
-static GstPadProbeReturn
-probe (GstPad * pad, GstPadProbeInfo * info, gpointer user_data)
-{
-  Ctx *ctx = user_data;
-
-  if (GST_PAD_PROBE_INFO_TYPE (info) & GST_PAD_PROBE_TYPE_EVENT_DOWNSTREAM) {
-    GstEvent *ev = GST_PAD_PROBE_INFO_EVENT (info);
-    if (GST_EVENT_TYPE (ev) == GST_EVENT_SEGMENT)
-      gst_event_copy_segment (ev, &ctx->seg);       /* сегмент потрібен для перекладу */
-    return GST_PAD_PROBE_OK;
-  }
-
-  GstBuffer *buf = GST_PAD_PROBE_INFO_BUFFER (info);
-  GstClockTime pts = GST_BUFFER_PTS (buf);
-
-  if (!GST_CLOCK_TIME_IS_VALID (pts)) {
-    g_print ("буфер без PTS — споживач покаже його одразу\n");
-    return GST_PAD_PROBE_OK;
-  }
-
-  GstClockTime rt = gst_segment_to_running_time (&ctx->seg, GST_FORMAT_TIME, pts);
-  GstClockTime base = gst_element_get_base_time (ctx->sink);
-  GstClock *clock = gst_element_get_clock (ctx->sink);
-  if (clock == NULL)                                 /* конвеєр ще не в PAUSED/PLAYING */
-    return GST_PAD_PROBE_OK;
-
-  GstClockTimeDiff late = GST_CLOCK_DIFF (rt + base, gst_clock_get_time (clock));
-  gst_object_unref (clock);
-
-  g_print ("PTS %" GST_TIME_FORMAT "   running %" GST_TIME_FORMAT
-           "   запізнення %" GST_STIME_FORMAT "\n",
-           GST_TIME_ARGS (pts), GST_TIME_ARGS (rt), GST_STIME_ARGS (late));
-  return GST_PAD_PROBE_OK;
-}
-
-int
-main (int argc, char *argv[])
-{
-  gst_init (&argc, &argv);
-
-  GstElement *pipeline = gst_parse_launch
-      ("videotestsrc is-live=true ! video/x-raw,framerate=25/1 ! "
-       "videoconvert ! autovideosink name=out", NULL);
-  GstElement *sink = gst_bin_get_by_name (GST_BIN (pipeline), "out");
-
-  Ctx ctx = { 0 };
-  gst_segment_init (&ctx.seg, GST_FORMAT_TIME);
-  ctx.sink = sink;
-
-  GstPad *pad = gst_element_get_static_pad (sink, "sink");
-  gst_pad_add_probe (pad,
-      GST_PAD_PROBE_TYPE_BUFFER | GST_PAD_PROBE_TYPE_EVENT_DOWNSTREAM,
-      probe, &ctx, NULL);
-
-  gst_element_set_state (pipeline, GST_STATE_PLAYING);
-  GstMessage *msg = gst_bus_timed_pop_filtered (GST_ELEMENT_BUS (pipeline),
-      10 * GST_SECOND, GST_MESSAGE_ERROR | GST_MESSAGE_EOS);
-  if (msg)
-    gst_message_unref (msg);
-
-  gst_element_set_state (pipeline, GST_STATE_NULL);
-  gst_object_unref (pad);
-  gst_object_unref (sink);
-  gst_object_unref (pipeline);
-  return 0;
-}
-```
+:::code api-clock-and-time/c/minimalnyi-robochyi-vyklyk.c
 
 ```sh
 gcc probe.c -o probe $(pkg-config --cflags --libs gstreamer-1.0)

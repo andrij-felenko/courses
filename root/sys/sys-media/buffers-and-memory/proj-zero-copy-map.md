@@ -53,109 +53,7 @@
 
 З результатом цікавіше. Профіль займає шістдесят чотири кілобайти, і брати їх у системи наново тридцять разів на секунду означає тридцять разів на секунду просити великий суцільний блок і віддавати його назад — за годину роботи надійний спосіб покришити адресний простір так, що суцільного блоку в ньому вже не знайдеться. Тож зробімо крихітний власний пул: кільце з чотирьох слотів, кожен розміром із готовий профіль. Слот беруть перед роботою й повертають тоді, коли конвеєр остаточно відпустить буфер, побудований над ним. Коли всі чотири слоти в конвеєрі, узяття блокується — і це найдешевший [зворотний тиск](root:sf-tasks/backpressure), який можна побудувати: наш цикл сам зупиняється, доки споживач не встигне.
 
-```c
-/* zerocopy-profile.c — кадр із appsink без копії й результат назад у appsrc.
- *
- *   gcc -O2 -o zerocopy-profile zerocopy-profile.c \
- *       $(pkg-config --cflags --libs gstreamer-1.0 gstreamer-app-1.0 gstreamer-video-1.0)
- */
-#include <gst/gst.h>
-#include <gst/app/gstappsink.h>
-#include <gst/app/gstappsrc.h>
-#include <gst/video/video.h>
-#include <string.h>
-
-#define PROF_W       200                        /* видима ширина смужки      */
-#define PROF_H       256                        /* рядків у профілі          */
-#define PROF_STRIDE  256                        /* крок, вирівняний на 64    */
-#define PROF_BYTES   ((gsize) PROF_STRIDE * PROF_H)
-#define SLOT_COUNT   4
-
-typedef struct _SlotRing SlotRing;
-
-/* Те, що піде в колбек звільнення: кільце і номер слота в ньому.
-   Кожен слот має свій незмінний SlotRef, тож на кадр не виділяється нічого. */
-typedef struct {
-  SlotRing *ring;
-  gint      idx;
-} SlotRef;
-
-struct _SlotRing {
-  guint8   *data[SLOT_COUNT];
-  gboolean  busy[SLOT_COUNT];
-  SlotRef   ref[SLOT_COUNT];
-  GMutex    lock;
-  GCond     freed;
-};
-
-/* Кільце мусить пережити обидва конвеєри: колбек звільнення спрацює
-   на останньому unref буфера, а це буває вже під час зупинки. */
-static SlotRing g_ring;
-
-static void
-slot_ring_init (SlotRing *r)
-{
-  g_mutex_init (&r->lock);
-  g_cond_init (&r->freed);
-  for (gint i = 0; i < SLOT_COUNT; i++) {
-    r->data[i]     = g_malloc0 (PROF_BYTES);
-    r->busy[i]     = FALSE;
-    r->ref[i].ring = r;
-    r->ref[i].idx  = i;
-  }
-}
-
-static void
-slot_ring_clear (SlotRing *r)
-{
-  for (gint i = 0; i < SLOT_COUNT; i++) {
-    g_assert (!r->busy[i]);                     /* усі повернулися з конвеєра */
-    g_free (r->data[i]);
-  }
-  g_mutex_clear (&r->lock);
-  g_cond_clear (&r->freed);
-}
-
-static gint
-slot_acquire (SlotRing *r)
-{
-  gint idx = -1;
-
-  g_mutex_lock (&r->lock);
-  while (idx < 0) {
-    for (gint i = 0; i < SLOT_COUNT; i++)
-      if (!r->busy[i]) { r->busy[i] = TRUE; idx = i; break; }
-
-    if (idx < 0) {                              /* усі слоти в конвеєрі */
-      gint64 deadline = g_get_monotonic_time () + 2 * G_TIME_SPAN_SECOND;
-      if (!g_cond_wait_until (&r->freed, &r->lock, deadline))
-        break;                                  /* дві секунди тиші — здаємось */
-    }
-  }
-  g_mutex_unlock (&r->lock);
-  return idx;
-}
-
-/* Це і є GDestroyNotify: GStreamer покличе його на останньому unref буфера,
-   з невідомого нам потоку і в невідомий момент. */
-static void
-slot_release (gpointer user_data)
-{
-  SlotRef *sr = user_data;
-
-  g_mutex_lock (&sr->ring->lock);
-  sr->ring->busy[sr->idx] = FALSE;
-  g_cond_signal (&sr->ring->freed);
-  g_mutex_unlock (&sr->ring->lock);
-}
-
-typedef struct {
-  GstVideoInfo  info;
-  GstCaps      *caps;                           /* caps, для яких порахована info */
-  GstElement   *appsrc;
-  guint64       frames;
-} Ctx;
-```
+:::code proj-zero-copy-map/c/zerocopy-profile.c
 
 Колбек звільнення викликають із того потоку, який останнім відпустив буфер, — а це майже напевно не ваш. Тому все, чого він торкається, мусить бути готовим до одночасного доступу; тут це робить звичайний м'ютекс, і без нього кільце розсипалося б на першій же гонитві ([безпека щодо потоків](root:sf-tasks/thread-safety)).
 
@@ -163,97 +61,7 @@ typedef struct {
 
 Тепер сам обхід. Тут важливі три речі: правильний крок, чесний режим доступу й те, що на кожному шляху виходу — і успішному, і помилковому — усе відпущено рівно один раз.
 
-```c
-/* Іде рядками площини яскравості за СПРАВЖНІМ кроком і складає профіль. */
-static void
-build_profile (const GstVideoFrame *f, guint8 *out)
-{
-  const guint8 *y      = GST_VIDEO_FRAME_PLANE_DATA   (f, 0);
-  gint          stride = GST_VIDEO_FRAME_PLANE_STRIDE (f, 0);
-  gint          w      = GST_VIDEO_FRAME_WIDTH  (f);
-  gint          h      = GST_VIDEO_FRAME_HEIGHT (f);
-
-  guint64 acc[PROF_H] = { 0 };
-  guint32 cnt[PROF_H] = { 0 };
-
-  for (gint row = 0; row < h; row++) {
-    const guint8 *line = y + (gsize) row * stride;      /* НЕ row * w */
-    guint64 sum = 0;
-
-    for (gint x = 0; x < w; x++)
-      sum += line[x];
-
-    gint bin = (gint) ((gint64) row * PROF_H / h);      /* h рядків → PROF_H смуг */
-    acc[bin] += sum / (guint) w;
-    cnt[bin] += 1;
-  }
-
-  memset (out, 0, PROF_BYTES);
-  for (gint b = 0; b < PROF_H; b++) {
-    guint mean = cnt[b] ? (guint) (acc[b] / cnt[b]) : 0;          /* 0…255 */
-    gint  len  = (gint) ((guint64) mean * PROF_W / 255);
-    memset (out + (gsize) b * PROF_STRIDE, 255, (gsize) len);
-  }
-}
-
-static gboolean
-process_one (GstAppSink *sink, Ctx *ctx)
-{
-  GstSample     *sample;
-  GstBuffer     *buf, *out;
-  GstCaps       *caps;
-  GstVideoFrame  frame;
-  gint           idx;
-  gboolean       go_on = TRUE;
-
-  sample = gst_app_sink_pull_sample (sink);          /* наш: transfer full */
-  if (sample == NULL)
-    return FALSE;                                    /* EOS або зупинка */
-
-  buf  = gst_sample_get_buffer (sample);             /* позичений */
-  caps = gst_sample_get_caps (sample);               /* позичений */
-  if (buf == NULL || caps == NULL)
-    goto out_sample;
-
-  /* gst_caps_is_equal першою дією порівнює вказівники, а appsink зазвичай
-     віддає той самий об'єкт caps — тож у сталому режимі це одне порівняння. */
-  if (ctx->caps == NULL || !gst_caps_is_equal (caps, ctx->caps)) {
-    if (!gst_video_info_from_caps (&ctx->info, caps))
-      goto out_sample;
-    gst_caps_replace (&ctx->caps, caps);             /* тепер тримаємо своє посилання */
-    g_print ("формат: %s %d×%d\n",
-             gst_video_format_to_string (GST_VIDEO_INFO_FORMAT (&ctx->info)),
-             GST_VIDEO_INFO_WIDTH (&ctx->info),
-             GST_VIDEO_INFO_HEIGHT (&ctx->info));
-  }
-
-  idx = slot_acquire (&g_ring);
-  if (idx < 0) { go_on = FALSE; goto out_sample; }
-
-  /* Тільки читання. Кожен зайвий біт у прапорцях тут коштує грошей. */
-  if (!gst_video_frame_map (&frame, &ctx->info, buf, GST_MAP_READ))
-    goto out_slot;
-
-  build_profile (&frame, g_ring.data[idx]);
-
-  gst_video_frame_unmap (&frame);                    /* далі frame.data — сміття */
-
-  /* Слот переходить у власність буфера, буфер — у власність appsrc. */
-  out = wrap_slot (idx, GST_BUFFER_PTS (buf), GST_BUFFER_DURATION (buf));
-  if (gst_app_src_push_buffer (GST_APP_SRC (ctx->appsrc), out) != GST_FLOW_OK)
-    go_on = FALSE;                                   /* слот уже у буфера — не чіпаємо */
-  else
-    ctx->frames++;
-
-  goto out_sample;
-
-out_slot:
-  slot_release (&g_ring.ref[idx]);                   /* слот у конвеєр не пішов */
-out_sample:
-  gst_sample_unref (sample);
-  return go_on;
-}
-```
+:::code proj-zero-copy-map/c/kadr-vid-sample-do.c
 
 Драбинка `goto` тут не стилістичний вибір, а єдиний спосіб не забути `unmap` чи `unref` на п'ятьох різних шляхах виходу. Ціна забутого `unmap` конкретна: поки блок відображений, він не повертається в пул, і за кілька секунд джерело стане, бо йому нема куди писати. Ціна забутого `gst_sample_unref` — три мегабайти за кадр, які нікуди не подінуться.
 
@@ -263,19 +71,7 @@ out_sample:
 
 Спокуса очевидна: «збережу вказівник на площину, гляну на неї трохи згодом».
 
-```c
-/* ✗ так не можна */
-static const guint8 *g_last_y;
-static gint          g_last_stride;
-
-gst_video_frame_map (&frame, &ctx->info, buf, GST_MAP_READ);
-g_last_y      = GST_VIDEO_FRAME_PLANE_DATA   (&frame, 0);
-g_last_stride = GST_VIDEO_FRAME_PLANE_STRIDE (&frame, 0);
-gst_video_frame_unmap (&frame);
-gst_sample_unref (sample);
-/* …десь у зовсім іншій функції */
-analyse (g_last_y, g_last_stride);
-```
+:::code proj-zero-copy-map/c/pastka-persha-vkazivnyk.h
 
 Найгірше в цьому те, що в найпоширенішому випадку воно **працює**. Кадр із системної пам'яті пулу нікуди не подівся: сторінки на місці, адреса дійсна, читання не спричиняє жодного сигналу. Просто буфер після `unref` ліг назад у пул, пул віддав його джерелу, і джерело записало туди наступний кадр. Ви читаєте справжні пікселі — просто не ті. Симптом у продукті виглядає як «детектор раз на кілька секунд бачить те, чого немає», і шукають його тижнями.
 
@@ -348,35 +144,7 @@ GST_DEBUG=GST_PERFORMANCE:5 ./zerocopy-profile
 
 Лишилося віддати профіль. Пам'ять під нього виділили ми, GStreamer про неї нічого не знає й звільнити її сам не має права. Саме для цього існує `gst_buffer_new_wrapped_full` — обгортка над чужим блоком із власним способом звільнення:
 
-```c
-static GstBuffer *
-wrap_slot (gint idx, GstClockTime pts, GstClockTime dur)
-{
-  gsize offset[1] = { 0 };
-  gint  stride[1] = { PROF_STRIDE };
-  GstBuffer *out;
-
-  /* READONLY: нижчі елементи хай не пишуть у наш слот — ми його перевикористаємо.
-     Останній unref покличе slot_release із &g_ring.ref[idx]. */
-  out = gst_buffer_new_wrapped_full (GST_MEMORY_FLAG_READONLY,
-                                     g_ring.data[idx],   /* дані     */
-                                     PROF_BYTES,         /* maxsize  */
-                                     0,                  /* offset   */
-                                     PROF_BYTES,         /* size     */
-                                     &g_ring.ref[idx],   /* user_data */
-                                     slot_release);      /* GDestroyNotify */
-
-  /* Крок 256 при ширині 200: без метаданих кожен нижчий елемент рахував би
-     розкладку за шириною (для GRAY8 це 200) і отримав би скіс. */
-  gst_buffer_add_video_meta_full (out, GST_VIDEO_FRAME_FLAG_NONE,
-                                  GST_VIDEO_FORMAT_GRAY8,
-                                  PROF_W, PROF_H, 1, offset, stride);
-
-  GST_BUFFER_PTS (out)      = pts;                /* мітки беремо з вхідного кадру */
-  GST_BUFFER_DURATION (out) = dur;
-  return out;
-}
-```
+:::code proj-zero-copy-map/c/nazad-u-konveier-chuzha.c
 
 Три речі тут неочевидні.
 
@@ -396,62 +164,7 @@ gst_app_src_push_buffer (GST_APP_SRC (ctx->appsrc), out);   /* transfer full */
 
 ## Складання: обидва конвеєри й акуратна зупинка
 
-```c
-int
-main (int argc, char *argv[])
-{
-  GstElement *in_pipe, *out_pipe, *sink, *src;
-  GstCaps    *out_caps;
-  Ctx         ctx = { 0 };
-
-  gst_init (&argc, &argv);
-  gst_video_info_init (&ctx.info);
-  slot_ring_init (&g_ring);
-
-  in_pipe = gst_parse_launch
-      ("videotestsrc pattern=ball num-buffers=300 ! "
-       "video/x-raw,format=NV12,width=1920,height=1080,framerate=30/1 ! "
-       "appsink name=sink sync=false max-buffers=2 drop=true", NULL);
-
-  out_pipe = gst_parse_launch
-      ("appsrc name=src format=time is-live=true ! "
-       "videoconvert ! videoscale ! autovideosink sync=false", NULL);
-
-  sink = gst_bin_get_by_name (GST_BIN (in_pipe),  "sink");
-  src  = gst_bin_get_by_name (GST_BIN (out_pipe), "src");
-  ctx.appsrc = src;
-
-  out_caps = gst_caps_new_simple ("video/x-raw",
-      "format",    G_TYPE_STRING,     "GRAY8",
-      "width",     G_TYPE_INT,        PROF_W,
-      "height",    G_TYPE_INT,        PROF_H,
-      "framerate", GST_TYPE_FRACTION, 30, 1, NULL);
-  gst_app_src_set_caps (GST_APP_SRC (src), out_caps);
-  gst_caps_unref (out_caps);
-
-  gst_element_set_state (out_pipe, GST_STATE_PLAYING);
-  gst_element_set_state (in_pipe,  GST_STATE_PLAYING);
-
-  while (process_one (GST_APP_SINK (sink), &ctx))
-    ;
-
-  gst_app_src_end_of_stream (GST_APP_SRC (src));
-  g_print ("оброблено кадрів: %" G_GUINT64_FORMAT "\n", ctx.frames);
-
-  /* Спершу конвеєри в NULL — доки живий бодай один буфер, живий і слот. */
-  gst_element_set_state (in_pipe,  GST_STATE_NULL);
-  gst_element_set_state (out_pipe, GST_STATE_NULL);
-
-  gst_object_unref (sink);
-  gst_object_unref (src);
-  gst_object_unref (in_pipe);
-  gst_object_unref (out_pipe);
-  gst_caps_replace (&ctx.caps, NULL);
-
-  slot_ring_clear (&g_ring);        /* аж тепер жоден колбек уже не спрацює */
-  return 0;
-}
-```
+:::code proj-zero-copy-map/c/skladannia-obydva.c
 
 Порядок зупинки не декоративний. Звільнити кільце, доки в конвеєрі ще живе бодай один буфер над його слотом, означає лишити конвеєру вказівники в звільнену пам'ять, а колбеку звільнення — знищений м'ютекс. Обидва конвеєри мусять дійти до `NULL` **перед** тим, як зникне пам'ять, якою вони користувалися, — а `gst_element_set_state (…, GST_STATE_NULL)` якраз і гарантує, що всі внутрішні черги спорожніли й усі буфери відпущені.
 

@@ -64,28 +64,7 @@ application/x-onvif-metadata; meta/x-klv; meta/x-id3; meta/x-st-2038
 | `unknown-type` | `void` | коли пад додано, а продовжувати добір нема чим |
 | `drained` | `void` | коли всі дані пройшли й декодувати більше нічого |
 
-```c
-gboolean   autoplug_continue_cb  (GstElement *bin, GstPad *pad, GstCaps *caps,
-                                  gpointer user_data);
-
-GValueArray *autoplug_factories_cb (GstElement *bin, GstPad *pad, GstCaps *caps,
-                                    gpointer user_data);
-
-GValueArray *autoplug_sort_cb    (GstElement *bin, GstPad *pad, GstCaps *caps,
-                                  GValueArray *factories, gpointer user_data);
-
-GstAutoplugSelectResult
-           autoplug_select_cb    (GstElement *bin, GstPad *pad, GstCaps *caps,
-                                  GstElementFactory *factory, gpointer user_data);
-
-gboolean   autoplug_query_cb     (GstElement *bin, GstPad *pad, GstElement *child,
-                                  GstQuery *query, gpointer user_data);
-
-void       unknown_type_cb       (GstElement *bin, GstPad *pad, GstCaps *caps,
-                                  gpointer user_data);
-
-void       drained_cb            (GstElement *bin, gpointer user_data);
-```
+:::code api-decodebin-signals/c/syhnaly-decodebin.h
 
 Три слова відповіді `autoplug-select` — це перелічуваний тип із плагіна `playback`:
 
@@ -155,28 +134,7 @@ typedef enum {
 
 Два сигнали оперують `GValueArray` — типом, який у GLib позначено застарілим ще з 2.32, але який лишається в цьому інтерфейсі заради сумісності. Кожен елемент масиву — `GValue` типу `G_TYPE_OBJECT`, усередині якого лежить `GstElementFactory *`.
 
-```c
-static GValueArray *
-on_autoplug_sort (GstElement *bin, GstPad *pad, GstCaps *caps,
-                  GValueArray *factories, gpointer user_data)
-{
-  GValueArray *result = g_value_array_new (factories->n_values);
-
-  /* пропускаємо все, що зареєстроване як апаратне, а решту лишаємо як є */
-  for (guint i = 0; i < factories->n_values; i++) {
-    GValue *v = g_value_array_get_nth (factories, i);
-    GstElementFactory *f = GST_ELEMENT_FACTORY (g_value_get_object (v));
-
-    if (gst_element_factory_list_is_type (f,
-            GST_ELEMENT_FACTORY_TYPE_HARDWARE))
-      continue;
-
-    g_value_array_append (result, v);
-  }
-
-  return result;               /* володіння переходить до decodebin */
-}
-```
+:::code api-decodebin-signals/c/gvaluearray-iak-iz-nym.c
 
 Вхідний масив належить тому, хто його дав, і чіпати його не можна — повертають **новий**. Повернений масив забирає `decodebin` і звільняє сам. Через застарілість типу цей сигнал майже недоступний із мов-обгорток: у GObject Introspection `GValueArray` не описано як слід, тож із Python практичний важіль — не `autoplug-factories`/`autoplug-sort`, а `autoplug-select`, де жодних масивів немає.
 
@@ -192,36 +150,11 @@ on_autoplug_sort (GstElement *bin, GstPad *pad, GstCaps *caps,
 
 `decodebin` — бін, тож усе, що GStreamer дає для спостереження за вмістом біна, працює й тут. Це найпростіший спосіб виставити властивість дібраному елементові: іншої нагоди немає, бо ім'я елемента наперед невідоме.
 
-```c
-void element_added_cb        (GstBin *bin, GstElement *element,
-                              gpointer user_data);
-void element_removed_cb      (GstBin *bin, GstElement *element,
-                              gpointer user_data);
-
-/* з 1.10 — бачить і те, що додали у вкладені біни */
-void deep_element_added_cb   (GstBin *bin, GstBin *sub_bin, GstElement *element,
-                              gpointer user_data);
-void deep_element_removed_cb (GstBin *bin, GstBin *sub_bin, GstElement *element,
-                              gpointer user_data);
-```
+:::code api-decodebin-signals/c/syhnaly-bina-spiimaty.h
 
 Пара з префіксом `deep-` (з 1.10) потрібна тоді, коли `decodebin` сидить усередині чогось іще — `uridecodebin`, `playbin` — і вішати сигнал на кожен внутрішній бін окремо незручно: `deep-element-added` на конвеєрі бачить усе, що з'явилося на будь-якій глибині.
 
-```c
-static void
-on_deep_element_added (GstBin *pipeline, GstBin *sub_bin,
-                       GstElement *element, gpointer user_data)
-{
-  GstElementFactory *f = gst_element_get_factory (element);   /* transfer none */
-  if (f == NULL)
-    return;
-
-  const gchar *name = gst_plugin_feature_get_name (GST_PLUGIN_FEATURE (f));
-
-  if (g_str_has_prefix (name, "avdec_"))
-    g_object_set (element, "max-threads", 4, "output-corrupt", FALSE, NULL);
-}
-```
+:::code api-decodebin-signals/c/syhnaly-bina-spiimaty.c
 
 Сигнал видають **після** того, як елемент додано, але до того, як його перевели в робочий стан, — тобто властивості, які читають лише під час переходу станів, тут виставляти ще можна.
 
@@ -305,22 +238,7 @@ void source_setup_cb (GstElement *bin, GstElement *source, gpointer user_data);
 
 ## Колекція потоків: типи, прапорці, функції розбору
 
-```c
-guint         gst_stream_collection_get_size        (GstStreamCollection *collection);
-/* transfer none — колекція лишається власником */
-GstStream *   gst_stream_collection_get_stream      (GstStreamCollection *collection,
-                                                     guint index);
-const gchar * gst_stream_collection_get_upstream_id (GstStreamCollection *collection);
-
-/* усе про один потік */
-const gchar * gst_stream_get_stream_id    (GstStream *stream);   /* transfer none */
-GstStreamType gst_stream_get_stream_type  (GstStream *stream);
-GstCaps *     gst_stream_get_caps         (GstStream *stream);   /* transfer full */
-GstTagList *  gst_stream_get_tags         (GstStream *stream);   /* transfer full */
-GstStreamFlags gst_stream_get_stream_flags (GstStream *stream);
-
-const gchar * gst_stream_type_get_name    (GstStreamType stype);
-```
+:::code api-decodebin-signals/c/kolektsiia-potokiv-typy.h
 
 `GstStreamType` — набір бітів, а не одне значення; довідка окремо застерігає не покладатися на те, що там стоїть рівно один біт.
 
@@ -351,20 +269,7 @@ const gchar * gst_stream_type_get_name    (GstStreamType stype);
 | `GST_EVENT_SELECT_STREAMS` | подія | **угору** за течією |
 | `GST_MESSAGE_STREAMS_SELECTED` | повідомлення на шині | підтвердження: ось що справді обрано |
 
-```c
-/* transfer full у вихідному аргументі — знімати посилання вам */
-void      gst_message_parse_stream_collection      (GstMessage *message,
-                                                    GstStreamCollection **collection);
-void      gst_message_parse_streams_selected       (GstMessage *message,
-                                                    GstStreamCollection **collection);
-guint     gst_message_streams_selected_get_size    (GstMessage *message);
-/* transfer full */
-GstStream *gst_message_streams_selected_get_stream (GstMessage *message, guint idx);
-
-/* streams — GList рядків-ідентифікаторів; подія копіює їх собі (з 1.10) */
-GstEvent *gst_event_new_select_streams   (GList *streams);
-void      gst_event_parse_select_streams (GstEvent *event, GList **streams);
-```
+:::code api-decodebin-signals/c/kolektsiia-potokiv-typy-2.h
 
 Подію надсилають **конвеєрові**, а не окремому елементу: `GST_EVENT_SELECT_STREAMS` іде вгору за течією від кожного приймача, і саме так вона доходить до `decodebin3` незалежно від того, наскільки глибоко він захований.
 
@@ -372,118 +277,7 @@ void      gst_event_parse_select_streams (GstEvent *event, GList **streams);
 
 Програма читає колекцію потоків, друкує її, вибирає перше відео й перший звук і надсилає вибір. Тут задіяно рівно той шлях, який довідка називає основним; `playbin3` узятий за найкоротшу оболонку — з `uridecodebin3` тіло обробника не змінюється жодним рядком.
 
-```c
-#include <gst/gst.h>
-
-typedef struct {
-  GMainLoop *loop;
-  GstElement *pipeline;
-  gboolean sent;
-} App;
-
-static gboolean
-on_bus (GstBus *bus, GstMessage *msg, gpointer data)
-{
-  App *app = data;
-
-  switch (GST_MESSAGE_TYPE (msg)) {
-    case GST_MESSAGE_STREAM_COLLECTION: {
-      GstStreamCollection *coll = NULL;
-      gst_message_parse_stream_collection (msg, &coll);      /* transfer full */
-      if (coll == NULL)
-        break;
-
-      GList *wanted = NULL;
-      gboolean have_video = FALSE, have_audio = FALSE;
-      guint n = gst_stream_collection_get_size (coll);
-
-      for (guint i = 0; i < n; i++) {
-        GstStream *s = gst_stream_collection_get_stream (coll, i);  /* transfer none */
-        GstStreamType t = gst_stream_get_stream_type (s);
-        const gchar *id = gst_stream_get_stream_id (s);
-
-        g_print ("%u  %-9s %s\n", i, gst_stream_type_get_name (t), id);
-
-        if (t == GST_STREAM_TYPE_VIDEO && !have_video) {
-          wanted = g_list_append (wanted, (gpointer) id);
-          have_video = TRUE;
-        } else if (t == GST_STREAM_TYPE_AUDIO && !have_audio) {
-          wanted = g_list_append (wanted, (gpointer) id);
-          have_audio = TRUE;
-        }
-      }
-
-      if (wanted != NULL && !app->sent) {
-        app->sent = TRUE;
-        gst_element_send_event (app->pipeline,
-            gst_event_new_select_streams (wanted));
-      }
-
-      g_list_free (wanted);          /* самі рядки належать колекції */
-      gst_object_unref (coll);
-      break;
-    }
-
-    case GST_MESSAGE_STREAMS_SELECTED: {
-      guint n = gst_message_streams_selected_get_size (msg);
-      g_print ("обрано %u:\n", n);
-      for (guint i = 0; i < n; i++) {
-        GstStream *s = gst_message_streams_selected_get_stream (msg, i); /* full */
-        g_print ("   %s\n", gst_stream_get_stream_id (s));
-        gst_object_unref (s);
-      }
-      break;
-    }
-
-    case GST_MESSAGE_ERROR: {
-      GError *err = NULL;
-      gchar *dbg = NULL;
-      gst_message_parse_error (msg, &err, &dbg);
-      g_printerr ("помилка: %s\n%s\n", err->message, dbg ? dbg : "");
-      g_clear_error (&err);
-      g_free (dbg);
-      g_main_loop_quit (app->loop);
-      break;
-    }
-
-    case GST_MESSAGE_EOS:
-      g_main_loop_quit (app->loop);
-      break;
-
-    default:
-      break;
-  }
-  return TRUE;
-}
-
-int
-main (int argc, char *argv[])
-{
-  gst_init (&argc, &argv);
-
-  if (argc < 2) {
-    g_printerr ("вжиток: %s <uri>\n", argv[0]);
-    return 2;
-  }
-
-  App app = { 0, };
-  app.loop = g_main_loop_new (NULL, FALSE);
-  app.pipeline = gst_element_factory_make ("playbin3", "player");
-  g_object_set (app.pipeline, "uri", argv[1], NULL);
-
-  GstBus *bus = gst_element_get_bus (app.pipeline);
-  gst_bus_add_watch (bus, on_bus, &app);
-  gst_object_unref (bus);
-
-  gst_element_set_state (app.pipeline, GST_STATE_PLAYING);
-  g_main_loop_run (app.loop);
-
-  gst_element_set_state (app.pipeline, GST_STATE_NULL);
-  gst_object_unref (app.pipeline);
-  g_main_loop_unref (app.loop);
-  return 0;
-}
-```
+:::code api-decodebin-signals/c/minimalnyi-robochyi-vyklyk.c
 
 **Вивід на файлі MKV з однією відео- і трьома звуковими доріжками:**
 
@@ -506,21 +300,7 @@ main (int argc, char *argv[])
 
 **Ранг фабрики.** Діє на весь процес, тож ставити його треба після `gst_init()` і до побудови конвеєра.
 
-```c
-static void
-set_rank (const gchar *factory, GstRank rank)
-{
-  GstPluginFeature *f = gst_registry_find_feature (gst_registry_get (),
-      factory, GST_TYPE_ELEMENT_FACTORY);
-  if (f == NULL)
-    return;                      /* такої фабрики в системі немає */
-  gst_plugin_feature_set_rank (f, rank);
-  gst_object_unref (f);
-}
-
-/* прибрати програмний декодер з-під ніг апаратного */
-set_rank ("avdec_h264", GST_RANK_NONE);
-```
+:::code api-decodebin-signals/c/vazheli-poza-elementom.c
 
 `GST_RANK_NONE` (0) — не «заборонено», а «автодобір не візьме»; назване на ім'я, воно так само працює.
 
@@ -546,24 +326,7 @@ gst-launch-1.0 filesrc location=clip.mkv \
 
 Коли ланцюг обірвався, `decodebin` **спершу** постить на шину повідомлення `GST_MESSAGE_ELEMENT` спеціального вигляду й лише потім видає `unknown-type`. Розбирає таке повідомлення бібліотека pbutils:
 
-```c
-gboolean gst_is_missing_plugin_message                (GstMessage *msg);
-/* обидва — transfer full, звільняти через g_free() */
-gchar *  gst_missing_plugin_message_get_description   (GstMessage *msg);
-gchar *  gst_missing_plugin_message_get_installer_detail (GstMessage *msg);
-
-/* створити таке саме повідомлення самому — знадобиться у власному елементі */
-GstMessage *gst_missing_decoder_message_new    (GstElement *element,
-                                                const GstCaps *decode_caps);
-GstMessage *gst_missing_encoder_message_new    (GstElement *element,
-                                                const GstCaps *encode_caps);
-GstMessage *gst_missing_element_message_new    (GstElement *element,
-                                                const gchar *factory_name);
-GstMessage *gst_missing_uri_source_message_new (GstElement *element,
-                                                const gchar *protocol);
-GstMessage *gst_missing_uri_sink_message_new   (GstElement *element,
-                                                const gchar *protocol);
-```
+:::code api-decodebin-signals/c/brak-kodeka-iak-prochytaty.h
 
 Два рядки, які повертає розбір, мають різне призначення, і плутати їх не можна.
 

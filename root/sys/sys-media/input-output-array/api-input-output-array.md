@@ -64,18 +64,7 @@ typedef InputOutputArray          InputOutputArrayOfArrays;
 | заборона розміру | 30 | `FIXED_SIZE = 0x4000 << 16` = `0x40000000` | `create` не має права змінити розмір |
 | заборона типу | 31 | `FIXED_TYPE = 0x8000 << 16` = `0x80000000` | `create` не має права змінити тип |
 
-```cpp
-enum KindFlag {
-    KIND_SHIFT = 16,
-    FIXED_TYPE = 0x8000 << KIND_SHIFT,
-    FIXED_SIZE = 0x4000 << KIND_SHIFT,
-    KIND_MASK  = 31 << KIND_SHIFT,
-    /* … значення видів … */
-};
-
-enum AccessFlag { ACCESS_READ=1<<24, ACCESS_WRITE=1<<25,
-    ACCESS_RW=3<<24, ACCESS_MASK=ACCESS_RW, ACCESS_FAST=1<<26 };
-```
+:::code api-input-output-array/cpp/2-rozkladka-polia-flags.cpp
 
 Три наслідки, на які варто зважати.
 
@@ -192,46 +181,7 @@ _InputOutputArray(std::vector<bool>& vec) = delete;          // not supported
 
 ## 5 · Методи `_InputArray`
 
-```cpp
-Mat  getMat(int idx=-1) const;
-Mat  getMat_(int idx=-1) const;
-UMat getUMat(int idx=-1) const;
-void getMatVector(std::vector<Mat>& mv) const;
-void getUMatVector(std::vector<UMat>& umv) const;
-void getGpuMatVector(std::vector<cuda::GpuMat>& gpumv) const;
-cuda::GpuMat   getGpuMat() const;
-cuda::GpuMatND getGpuMatND() const;
-ogl::Buffer    getOGlBuffer() const;
-
-int   getFlags() const;
-void* getObj() const;
-Size  getSz() const;
-
-_InputArray::KindFlag kind() const;
-int    dims(int i=-1) const;
-int    cols(int i=-1) const;
-int    rows(int i=-1) const;
-Size   size(int i=-1) const;
-int    sizend(int* sz, int i=-1) const;
-bool   sameSize(const _InputArray& arr) const;
-size_t total(int i=-1) const;
-int    type(int i=-1) const;
-int    depth(int i=-1) const;
-int    channels(int i=-1) const;
-bool   isContinuous(int i=-1) const;
-bool   isSubmatrix(int i=-1) const;
-bool   empty() const;
-bool   empty(int i) const;
-void   copyTo(const _OutputArray& arr) const;
-void   copyTo(const _OutputArray& arr, const _InputArray& mask) const;
-size_t offset(int i=-1) const;
-size_t step(int i=-1) const;
-bool isMat() const;        bool isUMat() const;
-bool isMatVector() const;  bool isUMatVector() const;
-bool isMatx() const;       bool isVector() const;
-bool isGpuMat() const;     bool isGpuMatVector() const;
-bool isGpuMatND() const;
-```
+:::code api-input-output-array/cpp/5-metody-inputarray.cpp
 
 Параметр `i` скрізь означає «індекс усередині набору»: для `STD_VECTOR_MAT`, `STD_VECTOR_UMAT`, `STD_VECTOR_VECTOR` і `STD_ARRAY_MAT` це номер елемента, для решти видів має бути `-1`. Для одиничних видів (`MAT`, `UMAT`, `MATX`) більшість методів починається з `CV_Assert(i < 0)`.
 
@@ -253,46 +203,7 @@ inline bool _InputArray::isVector() const { return kind() == _InputArray::STD_VE
 
 ## 6 · Методи `_OutputArray`
 
-```cpp
-enum DepthMask {
-    DEPTH_MASK_8U = 1 << CV_8U,   DEPTH_MASK_8S  = 1 << CV_8S,
-    DEPTH_MASK_16U = 1 << CV_16U, DEPTH_MASK_16S = 1 << CV_16S,
-    DEPTH_MASK_32S = 1 << CV_32S, DEPTH_MASK_32F = 1 << CV_32F,
-    DEPTH_MASK_64F = 1 << CV_64F, DEPTH_MASK_16F = 1 << CV_16F,
-    DEPTH_MASK_ALL = (DEPTH_MASK_64F<<1)-1,
-    DEPTH_MASK_ALL_BUT_8S = DEPTH_MASK_ALL & ~DEPTH_MASK_8S,
-    DEPTH_MASK_ALL_16F = (DEPTH_MASK_16F<<1)-1,
-    DEPTH_MASK_FLT = DEPTH_MASK_32F + DEPTH_MASK_64F
-};
-
-void create(Size sz, int type, int i=-1, bool allowTransposed=false,
-            DepthMask fixedDepthMask=static_cast<DepthMask>(0)) const;
-void create(int rows, int cols, int type, int i=-1, bool allowTransposed=false,
-            DepthMask fixedDepthMask=static_cast<DepthMask>(0)) const;
-void create(int dims, const int* size, int type, int i=-1, bool allowTransposed=false,
-            DepthMask fixedDepthMask=static_cast<DepthMask>(0)) const;
-void createSameSize(const _InputArray& arr, int mtype) const;
-
-void release() const;
-void clear() const;
-void setTo(const _InputArray& value, const _InputArray& mask = _InputArray()) const;
-
-bool needed() const;
-bool fixedSize() const;
-bool fixedType() const;
-
-Mat&  getMatRef(int i=-1) const;
-UMat& getUMatRef(int i=-1) const;
-cuda::GpuMat&   getGpuMatRef() const;
-cuda::GpuMatND& getGpuMatNDRef() const;
-std::vector<cuda::GpuMat>& getGpuMatVecRef() const;
-ogl::Buffer&    getOGlBufferRef() const;
-cuda::HostMem&  getHostMemRef() const;
-
-void assign(const Mat& m) const;   void assign(const std::vector<Mat>& v) const;
-void assign(const UMat& u) const;  void assign(const std::vector<UMat>& v) const;
-void move(Mat& m) const;           void move(UMat& u) const;
-```
+:::code api-input-output-array/cpp/6-metody-outputarray.cpp
 
 Три перевантаження `create` зводяться до третього; перші два лише впаковують розмір у масив. Параметр `allowTransposed` дозволяє прийняти вже виділений буфер, у якого переставлені рядки й стовпці (це рятує від зайвого виділення в матричних розкладах). `fixedDepthMask` — набір глибин, які функція згодна прийняти замість запитаної: якщо приймач має заборону типу, але його глибина є в масці й кількість каналів збігається, `create` мовчки бере тип приймача замість свого.
 
@@ -316,21 +227,7 @@ void _OutputArray::createSameSize(const _InputArray& arr, int mtype) const
 
 `assign` і `move` різняться саме тим, чим і мають: `assign` копіює, `move` віддає буфер без копіювання — але **лише** коли це можливо. Обидва вміють рівно три види, `MAT`, `UMAT` і `MATX`; для решти кидають `CV_Error(Error::StsNotImplemented, "")` з порожнім повідомленням.
 
-```cpp
-void _OutputArray::move(Mat& m) const
-{
-    if (fixedSize())
-    {
-        assign(m);          // ← заборона розміру мовчки перетворює переміщення на копію
-        return;
-    }
-    int k = kind();
-    if (k == UMAT)      { m.copyTo(*(UMat*)obj); m.release(); }
-    else if (k == MAT)  { *(Mat*)obj = std::move(m); }
-    else if (k == MATX) { m.copyTo(getMat()); m.release(); }
-    else CV_Error(Error::StsNotImplemented, "");
-}
-```
+:::code api-input-output-array/cpp/6-metody-outputarray-2.cpp
 
 Перший рядок пояснює цілу категорію «загадкових» просідань: приймач, переданий як константне посилання, має `FIXED_SIZE`, і кожне `move` у ньому — насправді повне копіювання пікселів. Ані попередження, ані винятку.
 
@@ -453,32 +350,7 @@ for( i = 0; i < n; i++ )
 
 Порядок дій, якого дотримується вся бібліотека, — рівно такий:
 
-```cpp
-void scaleAndMask(cv::InputArray _src, cv::OutputArray _dst,
-                  cv::OutputArray _mask, double k)
-{
-    // 1. Заборонене відсіюємо явно — до першого дотику до пам'яті.
-    CV_Assert(!_src.empty());
-    CV_Assert(_src.kind() != cv::_InputArray::CUDA_GPU_MAT);
-
-    // 2. Вхід беремо ДО create: вхід і вихід можуть виявитися тим самим об'єктом.
-    cv::Mat src = _src.getMat();
-
-    // 3. Виділяємо приймач. Розмір збігається — виклик нічого не робить.
-    _dst.create(src.size(), src.type());
-    cv::Mat dst = _dst.getMat();
-
-    src.convertTo(dst, src.type(), k);
-
-    // 4. Необов'язковий вихід — лише якщо його справді просили.
-    if (_mask.needed())
-    {
-        _mask.create(src.size(), CV_8UC1);
-        cv::Mat mask = _mask.getMat();
-        cv::compare(dst, 0, mask, cv::CMP_GT);
-    }
-}
-```
+:::code api-input-output-array/cpp/10-minimalnyi-korektnyi.cpp
 
 Виклик без маски виглядає так:
 
@@ -489,25 +361,7 @@ scaleAndMask(frame, out, cv::noArray(), 1.5);
 
 Коли поведінка все-таки розходиться з очікуваною, найкоротший шлях до причини — надрукувати `flags` розкладеними на частини:
 
-```cpp
-std::string describe(const cv::_InputArray& a)
-{
-    static const char* names[] = {
-        "NONE","MAT","MATX","STD_VECTOR","STD_VECTOR_VECTOR","STD_VECTOR_MAT",
-        "<removed EXPR>","OPENGL_BUFFER","CUDA_HOST_MEM","CUDA_GPU_MAT","UMAT",
-        "STD_VECTOR_UMAT","STD_BOOL_VECTOR","STD_VECTOR_CUDA_GPU_MAT",
-        "<removed STD_ARRAY>","STD_ARRAY_MAT","CUDA_GPU_MATND" };
-
-    const int f = a.getFlags();
-    std::string s = names[(f & cv::_InputArray::KIND_MASK) >> cv::_InputArray::KIND_SHIFT];
-
-    if (f & cv::ACCESS_READ)   s += " READ";
-    if (f & cv::ACCESS_WRITE)  s += " WRITE";
-    if (f & cv::_InputArray::FIXED_TYPE) s += " FIXED_TYPE";
-    if (f & cv::_InputArray::FIXED_SIZE) s += " FIXED_SIZE";
-    return s;
-}
-```
+:::code api-input-output-array/cpp/10-minimalnyi-korektnyi-2.cpp
 
 Для `cv::Mat m; describe(cv::_OutputArray(m));` це дасть `MAT WRITE`, а для того самого `m`, схопленого як `const cv::Mat&`, — `MAT WRITE FIXED_TYPE FIXED_SIZE`. Один рядок виводу відрізняє робочий виклик від того, що впаде на першому ж кадрі іншого розміру.
 

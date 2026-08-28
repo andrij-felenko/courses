@@ -20,212 +20,21 @@
 
 ## Кістяк і підписка
 
-```c
-/* dynlink.c — гілки, що чіпляються до qtdemux під час роботи.
- *   зібрати:   gcc dynlink.c -o dynlink $(pkg-config --cflags --libs gstreamer-1.0)
- *   запустити: ./dynlink кіно.mp4 5     (через 5 с відрізати відеогілку)
- */
-#include <gst/gst.h>
-#include <stdlib.h>
-
-typedef struct {
-  GstElement *pipeline;
-  GMainLoop  *loop;
-
-  GstElement *video_branch;   /* бін гілки, доки вона в конвеєрі */
-  GstElement *audio_branch;
-  GstElement *video_tail;     /* останній елемент відеогілки — треба лише для дренажу */
-  GstPad     *video_pad;      /* src-пад qtdemux, з якого живе відеогілка */
-  gint        cut_started;    /* одноразовий засув для розрізу */
-} App;
-
-static const gchar *const VIDEO_BRANCH[] = {
-  "queue", "h264parse", "avdec_h264", "videoconvert", "autovideosink", NULL
-};
-static const gchar *const AUDIO_BRANCH[] = {
-  "queue", "aacparse", "avdec_aac", "audioconvert", "audioresample",
-  "autoaudiosink", NULL
-};
-
-/* оголошення наперед — тіла нижче */
-static void     on_pad_added     (GstElement *demux, GstPad *newpad, gpointer user_data);
-static gboolean on_bus_message   (GstBus *bus, GstMessage *msg, gpointer user_data);
-static gboolean cut_video_branch (gpointer user_data);
-
-int
-main (int argc, char *argv[])
-{
-  App app = { 0 };
-
-  gst_init (&argc, &argv);
-  if (argc < 2) {
-    g_printerr ("вжиток: %s файл.mp4 [секунд до відрізання відеогілки]\n", argv[0]);
-    return 1;
-  }
-
-  app.loop = g_main_loop_new (NULL, FALSE);
-  app.pipeline = gst_pipeline_new ("dyn");
-
-  GstElement *src   = gst_element_factory_make ("filesrc", NULL);
-  GstElement *demux = gst_element_factory_make ("qtdemux", NULL);
-  g_object_set (src, "location", argv[1], NULL);
-
-  gst_bin_add_many (GST_BIN (app.pipeline), src, demux, NULL);
-  if (!gst_element_link (src, demux))
-    g_error ("filesrc → qtdemux не з'єдналися");
-
-  /* Усе, що нижче qtdemux, з'явиться потім. Єдине, що можна зробити зараз, —
-     сказати, кого кликати, коли воно з'явиться. */
-  g_signal_connect (demux, "pad-added", G_CALLBACK (on_pad_added), &app);
-
-  GstBus *bus = gst_element_get_bus (app.pipeline);
-  gst_bus_add_watch (bus, on_bus_message, &app);
-  gst_object_unref (bus);
-
-  gst_element_set_state (app.pipeline, GST_STATE_PLAYING);
-  if (argc > 2)
-    g_timeout_add_seconds ((guint) atoi (argv[2]), cut_video_branch, &app);
-
-  g_main_loop_run (app.loop);
-
-  gst_element_set_state (app.pipeline, GST_STATE_NULL);
-  gst_object_unref (app.pipeline);
-  g_main_loop_unref (app.loop);
-  return 0;
-}
-```
+:::code proj-dynamic-linking/c/dynlink.c
 
 Головний цикл `GMainLoop` тут не декорація. Обробник `pad-added` виконуватиметься в потоці демультиплексора, а помилки, які він може накоїти, прилітають окремим каналом — повідомленнями на шину конвеєра. Читає шину `gst_bus_add_watch`, і читає її **в головному потоці**: доки цикл крутиться, потік обробки може щось повідомити, нікого не чекаючи ([шина повідомлень](root:sys-media/bus-and-messages) — асинхронний канал від конвеєра до програми саме для того, щоб потоки обробки ніколи не блокувалися на розмові з нею).
 
-```c
-static gboolean
-on_bus_message (GstBus *bus, GstMessage *msg, gpointer user_data)
-{
-  App *app = user_data;
-
-  switch (GST_MESSAGE_TYPE (msg)) {
-    case GST_MESSAGE_ERROR: {
-      GError *err = NULL;
-      gchar *dbg = NULL;
-      gst_message_parse_error (msg, &err, &dbg);
-      g_printerr ("помилка від %s: %s\n", GST_OBJECT_NAME (msg->src), err->message);
-      if (dbg)
-        g_printerr ("  %s\n", dbg);
-      g_clear_error (&err);
-      g_free (dbg);
-      g_main_loop_quit (app->loop);
-      break;
-    }
-    case GST_MESSAGE_EOS:
-      g_print ("кінець потоку\n");
-      g_main_loop_quit (app->loop);
-      break;
-    default:
-      break;
-  }
-  return TRUE;   /* лишити спостерігача на шині */
-}
-```
+:::code proj-dynamic-linking/c/kistiak-i-pidpyska.c
 
 ## Гілка як бін з одним входом
 
-```c
-/* Гілка — окремий бін з одним привидним sink-падом. Так її можна додати,
-   синхронізувати, від'єднати й вилучити як одне ціле. */
-static GstElement *
-make_branch (const gchar *name, const gchar *const *factories, GstElement **tail)
-{
-  GstElement *bin = gst_bin_new (name);
-  GstElement *first = NULL, *prev = NULL;
-
-  for (int i = 0; factories[i] != NULL; i++) {
-    GstElement *e = gst_element_factory_make (factories[i], NULL);
-    if (e == NULL) {
-      g_printerr ("немає елемента '%s' — бракує плагіна\n", factories[i]);
-      gst_object_unref (bin);
-      return NULL;
-    }
-    gst_bin_add (GST_BIN (bin), e);          /* бін забирає посилання на e */
-    if (prev != NULL && !gst_element_link (prev, e)) {
-      g_printerr ("не з'єдналися %s → %s\n", factories[i - 1], factories[i]);
-      gst_object_unref (bin);
-      return NULL;
-    }
-    if (first == NULL)
-      first = e;
-    prev = e;
-  }
-
-  /* Вхід біна: привид над sink-падом першого елемента. Бін щойно створений,
-     тобто в стані NULL, — активувати пад окремо не треба, це зробить перехід
-     стану. Пад, доданий до елемента, який ВЖЕ працює, довелося б активувати
-     самому: gst_pad_set_active (ghost, TRUE). */
-  GstPad *inner = gst_element_get_static_pad (first, "sink");
-  GstPad *ghost = gst_ghost_pad_new ("sink", inner);
-  gst_element_add_pad (bin, ghost);          /* бін забирає посилання на ghost */
-  gst_object_unref (inner);
-
-  if (tail != NULL)
-    *tail = prev;              /* позичений покажчик: власник — бін */
-  return bin;
-}
-```
+:::code proj-dynamic-linking/c/hilka-iak-bin-z-odnym.c
 
 Перший елемент кожної гілки — `queue`, і це не про запас пам'яті. Черга розриває ланцюг вкладених викликів: далі за нею гілка живе у **власному потоці**, а демультиплексор, штовхнувши буфер, одразу вертається до розбору файлу замість того, щоб чекати на декодування ([потоки виконання й черги](root:sys-media/threads-and-queues) — де саме конвеєр міняє потік і чого це коштує). Для розрізу це теж важить: гілка з чергою вимикається, не чіпаючи потоку, у якому працює `qtdemux`.
 
 ## Обробник pad-added
 
-```c
-static void
-on_pad_added (GstElement *demux, GstPad *newpad, gpointer user_data)
-{
-  App *app = user_data;
-
-  /* Тип доріжки читаємо з caps самого пада: qtdemux виставляє їх ще до того,
-     як оголосити пад. Якщо поточних caps немає — беремо те, що пад уміє. */
-  GstCaps *caps = gst_pad_get_current_caps (newpad);
-  if (caps == NULL)
-    caps = gst_pad_query_caps (newpad, NULL);
-  const gchar *media = gst_structure_get_name (gst_caps_get_structure (caps, 0));
-  g_print ("новий пад %s: %s\n", GST_PAD_NAME (newpad), media);
-
-  GstElement *branch = NULL;
-  if (g_str_has_prefix (media, "video/") && app->video_branch == NULL) {
-    branch = make_branch ("video-branch", VIDEO_BRANCH, &app->video_tail);
-    if (branch != NULL) {
-      app->video_branch = branch;
-      app->video_pad = gst_object_ref (newpad);   /* пад у сигналі — позичений */
-    }
-  } else if (g_str_has_prefix (media, "audio/") && app->audio_branch == NULL) {
-    branch = make_branch ("audio-branch", AUDIO_BRANCH, NULL);
-    app->audio_branch = branch;
-  }
-  gst_caps_unref (caps);
-
-  if (branch == NULL) {
-    g_print ("  доріжку пропускаємо\n");
-    return;
-  }
-
-  /* 1. Спершу в конвеєр: інакше пади не мають спільного предка
-        і gst_pad_link поверне GST_PAD_LINK_WRONG_HIERARCHY. */
-  gst_bin_add (GST_BIN (app->pipeline), branch);
-
-  /* 2. Тепер з'єднання. */
-  GstPad *branch_in = gst_element_get_static_pad (branch, "sink");
-  GstPadLinkReturn ret = gst_pad_link (newpad, branch_in);
-  gst_object_unref (branch_in);
-  if (GST_PAD_LINK_FAILED (ret)) {
-    g_printerr ("  не з'єдналося: %s\n", gst_pad_link_get_name (ret));
-    return;
-  }
-
-  /* 3. Гілка щойно створена — вона в NULL, а конвеєр уже в PLAYING.
-        Без цього рядка вона просто мовчатиме, і жодної помилки не буде. */
-  if (!gst_element_sync_state_with_parent (branch))
-    g_printerr ("  гілка не догнала стан конвеєра\n");
-}
-```
+:::code proj-dynamic-linking/c/obrobnyk-pad-added.c
 
 Порядок трьох дій — не питання смаку, кожна перестановка карається по-своєму. З'єднати до `gst_bin_add` не дасть перевірка ієрархії: обидва пади мусять мати спільного предка, бо станами й годинником керують згори вниз по дереву об'єктів. Синхронізувати стан до `gst_bin_add` теж не вийде — синхронізувати нема з чим, батька ще немає. А от забути третій крок легко, і саме це найпідступніше: конвеєр грає, гілка приєднана, помилок нема, картинки нема. Елемент, доданий у працюючий конвеєр, залишається в стані `NULL` доти, доки хтось явно не підніме його ([стани конвеєра](root:sys-media/states-lifecycle) — перехід у `PLAYING` активує пади й запускає потоки, і новачок у конвеєрі його не отримує задарма).
 
@@ -241,60 +50,7 @@ on_pad_added (GstElement *demux, GstPad *newpad, gpointer user_data)
 
 *Розрив робить той потік, що володіє падом; вимикання й вилучення — будь-який інший.*
 
-```c
-/* Виконується в потоці з пулу GStreamer — не в streaming-потоці.
-   Тут уже можна змінювати стани. */
-static void
-teardown_video_branch (GstElement *pipeline, gpointer user_data)
-{
-  App *app = user_data;
-
-  gst_element_set_state (app->video_branch, GST_STATE_NULL);
-  gst_bin_remove (GST_BIN (pipeline), app->video_branch);  /* конвеєр відпускає своє посилання */
-  app->video_branch = NULL;
-
-  gst_object_unref (app->video_pad);
-  app->video_pad = NULL;
-
-  g_print ("відеогілку вилучено, звук грає далі\n");
-}
-
-/* Проба IDLE: GStreamer кличе її, коли через пад ТОЧНО нічого не тече. */
-static GstPadProbeReturn
-on_pad_idle (GstPad *pad, GstPadProbeInfo *info, gpointer user_data)
-{
-  App *app = user_data;
-
-  /* У пробу можна ввійти двічі: негайно, з потоку, який її ставив (якщо пад
-     уже був порожній), і зі streaming-потоку. Ріжемо рівно один раз. */
-  if (!g_atomic_int_compare_and_exchange (&app->cut_started, 0, 1))
-    return GST_PAD_PROBE_REMOVE;
-
-  GstPad *branch_in = gst_pad_get_peer (pad);
-  if (branch_in != NULL) {
-    gst_pad_unlink (pad, branch_in);       /* розрив дешевий: два покажчики */
-    gst_object_unref (branch_in);
-  }
-
-  /* set_state(NULL) звідси означало б зупиняти потік, у якому ми стоїмо.
-     Тому решту роботи віддаємо чужому потокові. */
-  gst_element_call_async (app->pipeline, teardown_video_branch, app, NULL);
-
-  return GST_PAD_PROBE_REMOVE;             /* проба знімає себе, пад вільний */
-}
-
-/* Головний потік, за таймером. */
-static gboolean
-cut_video_branch (gpointer user_data)
-{
-  App *app = user_data;
-
-  if (app->video_pad != NULL)
-    gst_pad_add_probe (app->video_pad, GST_PAD_PROBE_TYPE_IDLE,
-                       on_pad_idle, app, NULL);
-  return G_SOURCE_REMOVE;                  /* таймер одноразовий */
-}
-```
+:::code proj-dynamic-linking/c/rizaty-na-khodu.c
 
 Розділення двох дій — розрив тут, вимикання деінде — має точну причину. Перехід у `NULL` зупиняє потоки елемента й **чекає**, доки вони справді зупиняться. Якщо викликати його з потоку, що належить тому самому елементові, чекати доведеться на самого себе — класичне взаємне блокування ([взаємне блокування](root:sf-tasks/deadlock) — коли учасник чекає на подію, яку сам і мав би спричинити). Документація GStreamer на цей випадок дає готовий інструмент: `gst_element_call_async` викликає передану функцію з іншого потоку саме для змін стану зі streaming-потоку. У нашому складі гілки з чергою перехід, можливо, минувся б і без цього, але правило безумовне, а ціна його — один рядок.
 
@@ -302,28 +58,7 @@ cut_video_branch (gpointer user_data)
 
 Миттєвий розрив губить усе, що встигло накопичитися в черзі гілки. Для екрана це кілька непоказаних кадрів, для запису у файл — зіпсований файл: мультиплексор дописує таблиці й правильні розміри лише тоді, коли дістане `EOS`. Отже, гілку спершу зливають, а вимикають після.
 
-```c
-/* Замість негайного call_async у пробі IDLE: проштовхнути EOS у голову гілки
-   й дочекатися, поки він дійде до її хвоста. */
-static GstPadProbeReturn
-on_branch_drained (GstPad *pad, GstPadProbeInfo *info, gpointer user_data)
-{
-  if (GST_EVENT_TYPE (GST_PAD_PROBE_INFO_DATA (info)) != GST_EVENT_EOS)
-    return GST_PAD_PROBE_PASS;             /* решту подій пропускаємо далі */
-
-  App *app = user_data;
-  gst_pad_remove_probe (pad, GST_PAD_PROBE_INFO_ID (info));
-  gst_element_call_async (app->pipeline, teardown_video_branch, app, NULL);
-  return GST_PAD_PROBE_OK;                 /* хай приймач теж дізнається про кінець */
-}
-
-/* … у тілі on_pad_idle, одразу після gst_pad_unlink: */
-GstPad *tail = gst_element_get_static_pad (app->video_tail, "sink");
-gst_pad_add_probe (tail, GST_PAD_PROBE_TYPE_BLOCK | GST_PAD_PROBE_TYPE_EVENT_DOWNSTREAM,
-                   on_branch_drained, app, NULL);
-gst_object_unref (tail);
-gst_pad_send_event (branch_in, gst_event_new_eos ());   /* EOS у голову гілки */
-```
+:::code proj-dynamic-linking/c/koly-v-hiltsi-zapys-u-fail.c
 
 Пробу вішають на sink-пад **останнього** елемента гілки: `EOS`, що дійшов туди, означає, що все попереднє вже віддало свій хвіст і мультиплексор дописав, що мав.
 

@@ -8,34 +8,7 @@
 
 Ціна цієї спадковості видно, щойно розгорнути структуру:
 
-```c
-typedef struct _IplImage
-{
-    int  nSize;              /* sizeof(IplImage) */
-    int  ID;
-    int  nChannels;
-    int  alphaChannel;       /* ігнорується OpenCV */
-    int  depth;
-    char colorModel[4];      /* ігнорується OpenCV */
-    char channelSeq[4];      /* ігнорується OpenCV */
-    int  dataOrder;
-    int  origin;
-    int  align;              /* ігнорується; вживається widthStep */
-    int  width;
-    int  height;
-    struct _IplROI *roi;     /* область інтересу — окремий об'єкт */
-    struct _IplImage *maskROI;    /* мусить бути NULL */
-    void  *imageId;               /* мусить бути NULL */
-    struct _IplTileInfo *tileInfo;/* мусить бути NULL */
-    int  imageSize;
-    char *imageData;         /* ← самі пікселі */
-    int  widthStep;          /* байтів на рядок */
-    int  BorderMode[4];      /* ігнорується */
-    int  BorderConst[4];     /* ігнорується */
-    char *imageDataOrigin;   /* початок виділеного блоку */
-}
-IplImage;
-```
+:::code hist-mat-vs-iplimage/c/chuzha-struktura-iaku.c
 
 Половина полів — баласт від чужої бібліотеки, який OpenCV ніколи не читала й вимагала тримати нульовим. Але для нашої історії важливе інше: **у структурі немає жодного лічильника**. Ні поля, ні покажчика, ні натяку на те, скільки людей зараз дивиться на `imageData`. Отже, знати, коли пікселі більше нікому не потрібні, могла тільки людина, що писала код.
 
@@ -57,22 +30,7 @@ IplImage;
 
 Цікаво, що лічильник у C-API таки з'явився — у матричному типі `CvMat`:
 
-```c
-typedef struct CvMat
-{
-    int type;
-    int step;
-
-    /* for internal use only */
-    int* refcount;
-    int hdr_refcount;
-
-    union { uchar* ptr; short* s; int* i; float* fl; double* db; } data;
-    int rows;
-    int cols;
-}
-CvMat;
-```
+:::code hist-mat-vs-iplimage/c/napivkrok-lichylnyk-iakyi.c
 
 Коментар у заголовку — «for internal use only» — тут головний. Лічильник обслуговував внутрішні потреби бібліотеки (спільні дані між заголовками, які вона робила сама) і кілька явних функцій на кшталт `cvIncRefData`/`cvDecRefData`. Але зовнішній договір не змінився: користувач як створював `cvCreateMat`, так і звільняв `cvReleaseMat` руками, і жодна змінна не рахувала себе власником автоматично. Механізм був — а семантики володіння в типі не було, бо в C немає місця, куди її повісити: ані конструктора копії, ані деструктора.
 
@@ -115,19 +73,7 @@ refcount = (int*)(data + totalsize);
 
 Відповідь — винести все, що стосується володіння, у окрему структуру на боці хоста. Так у 3.0 з'явився `UMatData`:
 
-```cpp
-const MatAllocator* prevAllocator;
-const MatAllocator* currAllocator;
-int urefcount;      // скільки UMat-заголовків
-int refcount;       // скільки Mat-заголовків
-uchar* data;        // адреса для процесора (може бути NULL)
-uchar* origdata;    // початок виділеного блоку
-size_t size;
-int flags;
-void* handle;       // дескриптор буфера пристрою
-void* userdata;
-int allocatorFlags_;
-```
+:::code hist-mat-vs-iplimage/cpp/main.cpp
 
 Поле `int* refcount` із `Mat` зникло, натомість заголовок став посилатися на керівний блок полем `UMatData* u`. Два лічильники замість одного — саме тому, що власників тепер два роди: `UMat::getMat`, який відображає буфер пристрою в звичайний `Mat`, робить `CV_XADD(&hdr.u->refcount, 1)`, тобто додає одного власника-процесорного, не чіпаючи рахунок пристроєвих. Блок пікселів помирає, коли зникає останній власник обох родів — і не раніше, навіть якщо процесорна сторона давно все відпустила.
 

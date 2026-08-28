@@ -118,79 +118,11 @@ GstStateChangeReturn gst_element_get_state (GstElement  *element,
 
 Один допоміжний виклик, який чесно обробляє всі чотири коди й повертає правду про те, чи стан досягнуто:
 
-```c
-#include <gst/gst.h>
-
-static gboolean
-await_state (GstElement *pipeline, GstState want)
-{
-  GstBus *bus = gst_element_get_bus (pipeline);
-  GstStateChangeReturn ret = gst_element_set_state (pipeline, want);
-  gboolean ok = FALSE;
-
-  switch (ret) {
-    case GST_STATE_CHANGE_SUCCESS:
-      ok = TRUE;                    /* стан уже досягнуто */
-      break;
-
-    case GST_STATE_CHANGE_NO_PREROLL:
-      ok = TRUE;                    /* живий конвеєр: ASYNC_DONE не буде ніколи */
-      break;
-
-    case GST_STATE_CHANGE_ASYNC: {
-      /* єдиний ASYNC_DONE, який доходить сюди, — від самого конвеєра */
-      GstMessage *msg = gst_bus_timed_pop_filtered (bus, 5 * GST_SECOND,
-          GST_MESSAGE_ASYNC_DONE | GST_MESSAGE_ERROR);
-
-      if (msg == NULL) {
-        g_printerr ("перехід не завершився за 5 с — конвеєр застряг\n");
-      } else {
-        ok = (GST_MESSAGE_TYPE (msg) == GST_MESSAGE_ASYNC_DONE);
-        if (!ok) {
-          GError *err = NULL;
-          gchar *dbg = NULL;
-          gst_message_parse_error (msg, &err, &dbg);
-          g_printerr ("%s: %s (%s)\n",
-              GST_OBJECT_NAME (GST_MESSAGE_SRC (msg)),
-              err->message, dbg ? dbg : "без подробиць");
-          g_clear_error (&err);
-          g_free (dbg);
-        }
-        gst_message_unref (msg);
-      }
-      break;
-    }
-
-    case GST_STATE_CHANGE_FAILURE:
-      break;                        /* причина приїде окремим ERROR */
-  }
-
-  if (!ok)                          /* єдина коректна реакція на невдачу */
-    gst_element_set_state (pipeline, GST_STATE_NULL);
-
-  gst_object_unref (bus);
-  return ok;
-}
-```
+:::code api-state-api/c/minimalnyi-robochyi-vyklyk.c
 
 Виклик із цього боку виглядає так:
 
-```c
-GstElement *pipeline = gst_parse_launch (
-    "filesrc location=movie.mkv ! decodebin ! autovideosink", NULL);
-
-if (await_state (pipeline, GST_STATE_PAUSED)) {
-  gint64 dur;
-  /* тільки тепер тривалість справді відома */
-  if (gst_element_query_duration (pipeline, GST_FORMAT_TIME, &dur))
-    g_print ("тривалість: %" GST_TIME_FORMAT "\n", GST_TIME_ARGS (dur));
-
-  await_state (pipeline, GST_STATE_PLAYING);   /* коштує майже нічого */
-}
-
-gst_element_set_state (pipeline, GST_STATE_NULL);   /* обов'язково перед unref */
-gst_object_unref (pipeline);
-```
+:::code api-state-api/c/minimalnyi-robochyi-vyklyk-2.c
 
 Два місця варті окремої уваги. Перехід у `NULL` виконується синхронно: виклик поверне керування лише тоді, коли всі потоки справді зупинені, — тому саме він, а не деструктор, є точкою, де конвеєр віддає пристрої. І він потрібен навіть після провалу: `gst_object_unref()` над конвеєром у `PLAYING` лишає по собі відкриті пристрої й живі потоки.
 
@@ -224,23 +156,7 @@ void gst_message_parse_state_changed (GstMessage *message,
                                       GstState   *pending);
 ```
 
-```c
-case GST_MESSAGE_STATE_CHANGED: {
-  GstState old_state, new_state, pending;
-
-  /* цих повідомлень багато — від кожного елемента;
-     стан конвеєра описує лише те, що постив сам конвеєр */
-  if (GST_MESSAGE_SRC (msg) != GST_OBJECT (pipeline))
-    break;
-
-  gst_message_parse_state_changed (msg, &old_state, &new_state, &pending);
-  g_print ("конвеєр: %s → %s (попереду %s)\n",
-      gst_element_state_get_name (old_state),
-      gst_element_state_get_name (new_state),
-      gst_element_state_get_name (pending));
-  break;
-}
-```
+:::code api-state-api/c/rozbir-state-changed.h
 
 Третій параметр — найкорисніший і найчастіше зайво пропущений. Коли `pending` дорівнює `GST_STATE_VOID_PENDING`, елемент дійшов туди, куди його просили, і зупинився. Коли там стоїть якийсь стан, це повідомлення про **проміжну** сходинку: попросили `PLAYING`, а зараз доповіли про `NULL → READY` із `pending = PLAYING`, і попереду ще два переходи. Застосунок, який реагує на «конвеєр у READY», не глянувши в `pending`, робить висновки посеред дороги.
 
@@ -314,23 +230,7 @@ void gst_element_lost_state (GstElement *element);
 
 ## vfunc change_state
 
-```c
-struct _GstElementClass {
-  /* ... */
-  GstStateChangeReturn (*change_state) (GstElement    *element,
-                                        GstStateChange transition);
-  GstStateChangeReturn (*set_state)    (GstElement    *element,
-                                        GstState       state);
-  GstStateChangeReturn (*get_state)    (GstElement    *element,
-                                        GstState      *state,
-                                        GstState      *pending,
-                                        GstClockTime   timeout);
-  void                 (*state_changed)(GstElement    *element,
-                                        GstState       oldstate,
-                                        GstState       newstate,
-                                        GstState       pending);
-};
-```
+:::code api-state-api/c/vfunc-change-state.h
 
 Елемент перевизначає `change_state` — і майже ніколи `set_state` чи `get_state`: ті два реалізують сам протокол станів, і замінювати їх означає переписувати автомат.
 
@@ -355,18 +255,7 @@ my_filter_class_init (MyFilterClass *klass)
 
 Останній рядок таблиці має одне важливе застосування. Живе джерело мусить перетворити `SUCCESS` предка на `NO_PREROLL` — і рівно на двох переходах:
 
-```c
-ret = GST_ELEMENT_CLASS (parent_class)->change_state (element, transition);
-if (ret == GST_STATE_CHANGE_FAILURE)
-  return ret;
-
-if (self->is_live &&
-    (transition == GST_STATE_CHANGE_READY_TO_PAUSED ||
-     transition == GST_STATE_CHANGE_PLAYING_TO_PAUSED))
-  ret = GST_STATE_CHANGE_NO_PREROLL;
-
-return ret;
-```
+:::code api-state-api/c/vfunc-change-state.c
 
 Обидва переходи ведуть у `PAUSED`, а `NO_PREROLL` — це твердження саме про `PAUSED`: «я туди прийшов, але даних там не буде». На переходах у `PLAYING`, `READY` чи `NULL` цей код не має сенсу.
 

@@ -36,21 +36,7 @@
 
 За числом у таблиці лежить опис: ім'я типу рядком, GType батька, розмір структури примірника, розмір структури класу, вказівники на функції ініціалізації класу й примірника, перелік реалізованих інтерфейсів. Тип **реєструють викликом** — тобто це відбувається під час роботи програми, а не під час компіляції:
 
-```c
-GType
-gst_my_filter_get_type (void)
-{
-  static gsize type = 0;
-  if (g_once_init_enter (&type)) {
-    GType t = g_type_register_static_simple (GST_TYPE_ELEMENT,
-        "GstMyFilter",
-        sizeof (GstMyFilterClass), (GClassInitFunc) gst_my_filter_class_init,
-        sizeof (GstMyFilter),      (GInstanceInitFunc) gst_my_filter_init, 0);
-    g_once_init_leave (&type, t);
-  }
-  return type;
-}
-```
+:::code gobject-basics-d/c/gtype-typ-iak-zapys-u.c
 
 Руками так майже ніхто не пише — це розгортає макрос `G_DEFINE_TYPE`, — але дивитися варто на розгорнуту форму, бо в ній видно суть. Тип **не існує**, поки цей код не виконали. Ідентифікатор типу — не константа, відома лінкувальнику, а значення, яке з'явиться колись під час роботи; тому в коді ви бачите не `GST_TYPE_MY_FILTER` як число, а макрос, що розкривається у виклик `gst_my_filter_get_type ()`.
 
@@ -70,31 +56,7 @@ gst_my_filter_get_type (void)
 
 Обидві збудовані за одним правилом: **перше поле — структура батька цілком**, не вказівник на неї, а вбудована копія розкладки.
 
-```c
-struct _GstElement {
-  GstObject     object;        /* батьківська структура — першим полем */
-
-  GRecMutex     state_lock;
-  GstState      current_state;
-  GstState      pending_state;
-  GList        *pads;
-  ...
-};
-
-struct _GstElementClass {
-  GstObjectClass parent_class; /* батьківський клас — першим полем */
-
-  GstMetadata   *metadata;
-  GList         *padtemplates;
-
-  /* віртуальні методи */
-  GstPad             * (*request_new_pad) (GstElement *e, GstPadTemplate *t,
-                                           const gchar *name, const GstCaps *caps);
-  GstStateChangeReturn (*change_state)    (GstElement *e, GstStateChange transition);
-  gboolean             (*send_event)      (GstElement *e, GstEvent *event);
-  ...
-};
-```
+:::code gobject-basics-d/c/dvi-struktury-klas-okremo.h
 
 Стандарт C гарантує, що адреса структури збігається з адресою її першого поля. Отже, вказівник на `GstMyFilter` — це водночас дійсний вказівник на `GstElement`, на `GstObject` і на `GObject`: одна й та сама адреса, читана крізь різні «вікна». Ніякої магії, ніякого зсуву — усе спадкування тримається на цій одній властивості розкладки структур.
 
@@ -106,19 +68,7 @@ struct _GstElementClass {
 
 Найцікавіше — як клас **успадковує** реалізації. Структуру класу створюють один раз, ліниво, коли треба перший об'єкт цього типу. Створення відбувається у три кроки: виділити пам'ять розміром зі структуру класу нащадка; **скопіювати туди структуру батьківського класу цілком**; викликати `class_init` нащадка. Копіювання приносить усі батьківські вказівники на функції; `class_init` перезаписує ті з них, що нащадок робить по-своєму:
 
-```c
-static void
-gst_my_filter_class_init (GstMyFilterClass * klass)
-{
-  GstElementClass *element_class = GST_ELEMENT_CLASS (klass);
-
-  /* після копіювання тут лежить реалізація GstElement; замінюємо своєю */
-  element_class->change_state = gst_my_filter_change_state;
-
-  gst_element_class_set_static_metadata (element_class,
-      "My filter", "Filter/Effect/Video", "Приклад", "Автор <a@example.org>");
-}
-```
+:::code gobject-basics-d/c/dvi-struktury-klas-okremo.c
 
 Отже, «успадкований метод» — це буквально байти, скопійовані з батьківського класу. А виклик `parent_class->change_state (element, transition)` усередині власної реалізації — не мовна конструкція, а звертання до збереженої копії батьківського класу. Через це в GStreamer діє тверде правило: [перехід стану](root:sys-media/states-lifecycle) майже завжди мусить дійти до батьківської реалізації, бо саме вона робить обов'язкову роботу `GstElement` — інакше пади не заведуть свої нитки, а конвеєр зависне на переході.
 
@@ -149,23 +99,7 @@ g_object_class_install_property (gobject_class, PROP_BITRATE,
 
 Доступ до самого поля йде через **дві функції на весь клас**, а не через функцію на кожну властивість:
 
-```c
-static void
-gst_x264_enc_set_property (GObject * object, guint prop_id,
-    const GValue * value, GParamSpec * pspec)
-{
-  GstX264Enc *self = GST_X264_ENC (object);
-
-  switch (prop_id) {
-    case PROP_BITRATE:
-      self->bitrate = g_value_get_uint (value);
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-      break;
-  }
-}
-```
+:::code gobject-basics-d/c/vlastyvist-ne-pole-a.c
 
 Одна функція для властивостей різних типів потребує **універсального контейнера для значення** — інакше її сигнатуру не написати. Це `GValue`: структура з полем GType і об'єднанням для самого значення. Вона й дає ту саму динамічну типізацію, якої в C немає: значення завжди подорожує разом зі своїм типом, тому його можна перевірити, надрукувати чи перетворити, не знаючи наперед, що там.
 

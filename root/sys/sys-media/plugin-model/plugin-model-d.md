@@ -34,19 +34,7 @@
 
 Дескриптор заповнює один макрос:
 
-```c
-static gboolean
-plugin_init (GstPlugin * plugin)
-{
-  return gst_element_register (plugin, "myfilter", GST_RANK_NONE,
-      GST_TYPE_MY_FILTER);
-}
-
-GST_PLUGIN_DEFINE (GST_VERSION_MAJOR, GST_VERSION_MINOR,
-    myfilter,                          /* коротке ім'я плагіна */
-    "Приклад власного фільтра",
-    plugin_init, "1.0", "LGPL", "myplugins", "https://example.org")
-```
+:::code plugin-model-d/c/plahin-iak-fail-odyn.c
 
 Дивіться, чого в дескрипторі **немає**. У ньому немає переліку елементів. Немає жодного слова про формати, які плагін обробляє. Є версія ядра, під яке його зібрано, ліцензія, ім'я пакунка, походження — і вказівник на `plugin_init`. Усе, що плагін насправді вміє, стає відомим лише тоді, коли `plugin_init` виконали. А виконати її можна, тільки завантаживши файл у процес.
 
@@ -66,22 +54,7 @@ GST_PLUGIN_DEFINE (GST_VERSION_MAJOR, GST_VERSION_MINOR,
 
 Усе це фабрика витягає з класу елемента, а клас заповнює себе сам під час ініціалізації:
 
-```c
-static GstStaticPadTemplate sink_template =
-GST_STATIC_PAD_TEMPLATE ("sink", GST_PAD_SINK, GST_PAD_ALWAYS,
-    GST_STATIC_CAPS ("video/x-h264, stream-format=(string)byte-stream"));
-
-static void
-gst_my_filter_class_init (GstMyFilterClass * klass)
-{
-  GstElementClass *ec = GST_ELEMENT_CLASS (klass);
-
-  gst_element_class_set_static_metadata (ec,
-      "Мій фільтр", "Filter/Effect/Video",
-      "Робить із кадром щось корисне", "Ім'я <mail@example.org>");
-  gst_element_class_add_static_pad_template (ec, &sink_template);
-}
-```
+:::code plugin-model-d/c/fabryka-opys-iakyi-mozhna.c
 
 Ключове слово тут — `static`: і шаблони, і метадані відомі ще до того, як з'явиться бодай один об'єкт. Саме тому їх можна забрати з класу й покласти в реєстр — а потім користуватися ними, коли класу в пам'яті немає взагалі.
 
@@ -179,42 +152,8 @@ GST_RANK_PRIMARY    = 256    брати першим
 Ось як цей запит виглядає в коді — спершу відбір за категорією й мінімальним рангом, потім проріджування за caps, потім упорядкування:
 
 :::tabs
-```c
-GList *cands = gst_element_factory_list_get_elements (
-    GST_ELEMENT_FACTORY_TYPE_DECODER | GST_ELEMENT_FACTORY_TYPE_MEDIA_VIDEO,
-    GST_RANK_MARGINAL);
-
-GstCaps *caps = gst_caps_from_string ("video/x-h264");
-GList *fit = gst_element_factory_list_filter (cands, caps, GST_PAD_SINK, FALSE);
-fit = g_list_sort (fit, gst_plugin_feature_rank_compare_func);
-
-for (GList *l = fit; l != NULL; l = l->next) {
-  GstPluginFeature *f = GST_PLUGIN_FEATURE (l->data);
-  g_print ("%-18s rank %u\n", gst_plugin_feature_get_name (f),
-      gst_plugin_feature_get_rank (f));
-}
-
-gst_plugin_feature_list_free (fit);
-gst_plugin_feature_list_free (cands);
-gst_caps_unref (caps);
-```
-```py
-import gi
-gi.require_version("Gst", "1.0")
-from gi.repository import Gst
-
-Gst.init(None)
-
-cands = Gst.ElementFactory.list_get_elements(
-    Gst.ELEMENT_FACTORY_TYPE_DECODER | Gst.ELEMENT_FACTORY_TYPE_MEDIA_VIDEO,
-    Gst.Rank.MARGINAL)
-
-caps = Gst.Caps.from_string("video/x-h264")
-fit = Gst.ElementFactory.list_filter(cands, caps, Gst.PadDirection.SINK, False)
-
-for f in sorted(fit, key=lambda f: f.get_rank(), reverse=True):
-    print("%-18s rank %u" % (f.get_name(), f.get_rank()))
-```
+:::code plugin-model-d/c/rank-polityka-vyboru.c
+:::code plugin-model-d/py/main.py
 :::
 
 Жоден із цих рядків не відкриває плагіна: усе, що потрібно для відповіді, вже лежить у реєстрі.

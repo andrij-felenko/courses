@@ -6,19 +6,7 @@
 
 ## Поля заголовка
 
-```cpp
-int flags;               // магія · суцільність · підматриця · глибина · канали
-int dims;                // кількість вимірів
-int rows, cols;          // при dims > 2 обидва дорівнюють −1
-uchar* data;             // перший байт ЦЬОГО заголовка
-const uchar* datastart;  // помічники для locateROI / adjustROI
-const uchar* dataend;
-const uchar* datalimit;
-MatAllocator* allocator; // індивідуальний алокатор або 0
-UMatData* u;             // керівний блок; 0 — заголовок нічим не володіє
-MatSize size;
-MatStep step;
-```
+:::code api-mat-ownership/cpp/polia-zaholovka.cpp
 
 | Поле | Тип | Що означає точно |
 |---|---|---|
@@ -214,30 +202,7 @@ CV_ELEM_SIZE(type) = CV_MAT_CN(type) · CV_ELEM_SIZE1(type)
 
 ## `MatAllocator`: інтерфейс
 
-```cpp
-class CV_EXPORTS MatAllocator
-{
-public:
-    virtual UMatData* allocate(int dims, const int* sizes, int type,
-                               void* data, size_t* step,
-                               AccessFlag flags, UMatUsageFlags usageFlags) const = 0;
-    virtual bool allocate(UMatData* data, AccessFlag accessflags,
-                          UMatUsageFlags usageFlags) const = 0;
-    virtual void deallocate(UMatData* data) const = 0;
-    virtual void map(UMatData* data, AccessFlag accessflags) const;
-    virtual void unmap(UMatData* data) const;
-    virtual void download(UMatData* data, void* dst, int dims, const size_t sz[],
-                          const size_t srcofs[], const size_t srcstep[],
-                          const size_t dststep[]) const;
-    virtual void upload(UMatData* data, const void* src, int dims, const size_t sz[],
-                        const size_t dstofs[], const size_t dststep[],
-                        const size_t srcstep[]) const;
-    virtual void copy(UMatData* srcdata, UMatData* dstdata, int dims, const size_t sz[],
-                      const size_t srcofs[], const size_t srcstep[],
-                      const size_t dstofs[], const size_t dststep[], bool sync) const;
-    virtual BufferPoolController* getBufferPoolController(const char* id = NULL) const;
-};
-```
+:::code api-mat-ownership/cpp/matallocator-interfeis.cpp
 
 | Метод | Обов'язковий | Хто кличе | Що робить типова реалізація |
 |---|---|---|---|
@@ -278,58 +243,7 @@ MatAllocator* allocator;                           // НЕстатичне по�
 
 Це найкоротша повна реалізація третього режиму володіння: байти виділив хтось інший, а відпустити їх треба тоді, коли зникне останній заголовок. Час життя чужого ресурсу прив'язується до лічильника `Mat` рівно однією функцією зворотного виклику.
 
-```cpp
-#include <opencv2/core.hpp>
-#include <functional>
-#include <utility>
-
-// Заголовок над ЧУЖИМИ байтами, але під лічильником Mat.
-// release_ спрацює на останньому release() — не раніше й не пізніше.
-class BorrowedAllocator final : public cv::MatAllocator {
-public:
-    BorrowedAllocator(uchar* bytes, size_t nbytes, size_t rowStep,
-                      std::function<void()> release)
-        : bytes_(bytes), nbytes_(nbytes), rowStep_(rowStep), release_(std::move(release)) {}
-
-    cv::UMatData* allocate(int dims, const int* sizes, int type,
-                           void* data0, size_t* step,
-                           cv::AccessFlag, cv::UMatUsageFlags) const override
-    {
-        CV_Assert(data0 == nullptr && dims == 2 && step != nullptr);
-
-        const size_t esz = CV_ELEM_SIZE(type);
-        step[1] = esz;                                   // create() перевіряє саме цей крок
-        step[0] = rowStep_ ? rowStep_ : sizes[1] * esz;  // крок рядка джерела, а не ширина
-        CV_Assert(step[0] >= sizes[1] * esz);
-        CV_Assert(step[0] * sizes[0] <= nbytes_);
-
-        cv::UMatData* u = new cv::UMatData(this);
-        u->data = u->origdata = bytes_;
-        u->size = step[0] * sizes[0];
-        u->flags |= cv::UMatData::USER_ALLOCATED;        // байти не наші: fastFree не чіпати
-        return u;
-    }
-
-    bool allocate(cv::UMatData* u, cv::AccessFlag, cv::UMatUsageFlags) const override
-    {
-        return u != nullptr;
-    }
-
-    void deallocate(cv::UMatData* u) const override
-    {
-        if (!u) return;
-        CV_Assert(u->refcount == 0 && u->urefcount == 0);
-        if (release_) release_();   // ось де відпускається чужий буфер
-        delete u;                   // керівний блок завжди наш
-    }
-
-private:
-    uchar* bytes_;
-    size_t nbytes_;
-    size_t rowStep_;
-    std::function<void()> release_;
-};
-```
+:::code api-mat-ownership/cpp/minimalnyi-robochyi.cpp
 
 Виклик:
 
@@ -350,28 +264,7 @@ frame.create(height, width, CV_8UC3);     // виділення піде чер�
 
 Коли треба з'ясувати, у якому саме стані заголовок, що прийшов іззовні, вистачає одного виводу:
 
-```cpp
-void dumpOwnership(const cv::Mat& m, const char* name)
-{
-    std::printf("%s: %dx%d type=%d flags=0x%08X cont=%d sub=%d step0=%zu\n",
-                name, m.rows, m.cols, m.type(), m.flags,
-                (int)m.isContinuous(), (int)m.isSubmatrix(), m.step[0]);
-
-    if (m.u)
-        std::printf("   u=%p refcount=%d urefcount=%d size=%zu user_allocated=%d\n",
-                    (void*)m.u, m.u->refcount, m.u->urefcount, m.u->size,
-                    (int)((m.u->flags & cv::UMatData::USER_ALLOCATED) != 0));
-    else
-        std::printf("   u=nullptr — заголовок нічим не володіє\n");
-
-    if (m.dims == 2 && m.step[0] > 0) {
-        cv::Size whole; cv::Point ofs;
-        m.locateROI(whole, ofs);
-        std::printf("   вигляд %dx%d у буфері %dx%d зі зсувом (%d, %d)\n",
-                    m.cols, m.rows, whole.width, whole.height, ofs.x, ofs.y);
-    }
-}
-```
+:::code api-mat-ownership/cpp/znimok-volodinnia-dlia-bud.cpp
 
 `refcount` тут читається звичайним доступом, без атомарної операції, тож це знімок на мить виводу: у багатопотоковій програмі значення могло змінитися вже під час друку. Для діагностики цього досить, для логіки — ні: жодного рішення на підставі `refcount` ухвалювати не можна.
 

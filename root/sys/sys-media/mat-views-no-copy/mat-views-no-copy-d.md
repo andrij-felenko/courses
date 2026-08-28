@@ -133,24 +133,7 @@ ROI:    5760 ≠    64·3 =  192   → ні,  isContinuous() == false
 
 Звідси канонічний обхід, який працює й швидко, і правильно:
 
-```cpp
-void invert(cv::Mat& m)                      // CV_8UC3, на місці
-{
-    int rows = m.rows;
-    int cols = m.cols * m.channels();        // байтів у рядку — корисних
-
-    if (m.isContinuous()) {                  // весь блок — один довгий рядок
-        cols *= rows;
-        rows = 1;
-    }
-
-    for (int y = 0; y < rows; ++y) {
-        uchar* p = m.ptr<uchar>(y);          // початок рядка y
-        for (int i = 0; i < cols; ++i)
-            p[i] = 255 - p[i];
-    }
-}
-```
+:::code mat-views-no-copy-d/cpp/sutsilnist-koly-po-vydovi.cpp
 
 Тут `m.ptr<uchar>(y)` — це рівно `m.data + y·m.step[0]`, тобто рядковий доступ коректний завжди. А злиття всіх рядків в один — оптимізація, дозволена **лише** прапорцем суцільності. Код, що замість цього робить `m.data[i]` по `m.total()·m.channels()` байтів, на суцільному кадрі працює, а на ROI мовчки читає й псує сусідні ділянки зображення.
 
@@ -229,21 +212,7 @@ public:
 
 Саме заради цього конструктора все й затівалося. Декодований кадр приходить із конвеєра в його власному буфері — часто виділеному драйвером або пулом, іноді відображеному з пам'яті відеокарти. Копіювати його в `cv::Mat` означає щокадру платити ті самі шість мегабайтів; правильний шлях — накрити чужий буфер заголовком:
 
-```cpp
-GstVideoFrame vf;
-if (!gst_video_frame_map(&vf, &info, buffer, GST_MAP_READ))
-    return;
-
-cv::Mat view(GST_VIDEO_FRAME_HEIGHT(&vf),
-             GST_VIDEO_FRAME_WIDTH(&vf),
-             CV_8UC3,
-             GST_VIDEO_FRAME_PLANE_DATA(&vf, 0),
-             GST_VIDEO_FRAME_PLANE_STRIDE(&vf, 0));   // крок — від конвеєра!
-
-detect(view);                    // читаємо на місці, не скопіювавши байта
-
-gst_video_frame_unmap(&vf);      // відображення знято: view тепер висячий
-```
+:::code mat-views-no-copy-d/cpp/styk-iz-videokonveierom.cpp
 
 Три речі в цьому фрагменті вирішують справу.
 
@@ -298,19 +267,7 @@ patch.copyTo(roi);   // пише в frame, ЯКЩО patch.size() == roi.size()
 
 Спільна пам'ять зазвичай означає синхронізацію. Тут — не завжди. Два види на **неперетинні** ділянки одного кадру торкаються неперетинних байтів, тож писати в них можна одночасно й без жодного замка:
 
-```cpp
-const int nBands = 4;
-
-cv::parallel_for_(cv::Range(0, nBands), [&](const cv::Range& r) {
-    for (int b = r.start; b < r.end; ++b) {
-        int y0 =  b      * frame.rows / nBands;
-        int y1 = (b + 1) * frame.rows / nBands;
-
-        cv::Mat band = frame.rowRange(y0, y1);          // вид, не копія
-        cv::threshold(band, band, 128, 255, cv::THRESH_BINARY);
-    }
-});
-```
+:::code mat-views-no-copy-d/cpp/pozytyvnyi-bik-smuhy-bez.cpp
 
 Лічильник посилань атомарний, тож самі заголовки безпечно роздавати між гілками; пікселі ж захищені не блокуванням, а геометрією — кожна гілка працює зі своїм діапазоном рядків, і жоден байт не потрапляє під двох. Смуги по рядках зручні ще й тим, що межа між ними майже завжди припадає на різні кеш-лінії: рядок займає тисячі байтів, тож на шві ділиться щонайбільше одна лінія, і [хибне спільне використання](root:hw-arch/false-sharing) не встигає нашкодити.
 

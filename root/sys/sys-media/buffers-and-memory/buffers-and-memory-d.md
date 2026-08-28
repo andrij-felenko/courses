@@ -89,25 +89,7 @@
 
 Зверніть увагу, чим за це платять. Правило нічого не знає про наміри — воно бачить лише число. Тому елемент, який хоче змінити кадр на місці, стає заручником усіх, хто цей кадр тримає. Поставили `tee` — і той самий фільтр, що раніше працював без копії, раптом починає копіювати кожен кадр, хоча в його коді не змінилося нічого. Поставили `queue` з довгою чергою — сама черга тримає посилання, і поки буфер у ній, він не придатний до запису. Це не помилка й не витік: це прямий наслідок того, що ви попросили одні дані двом споживачам.
 
-```c
-/* Типова обробка на місці всередині елемента */
-static GstFlowReturn
-transform_ip (GstBaseTransform * trans, GstBuffer * buf)
-{
-  GstMapInfo info;
-
-  /* buf уже придатний до запису: basetransform подбав про це за нас,
-     викликавши gst_buffer_make_writable перед transform_ip */
-  if (!gst_buffer_map (buf, &info, GST_MAP_READWRITE))
-    return GST_FLOW_ERROR;
-
-  for (gsize i = 0; i < info.size; i++)
-    info.data[i] = 255 - info.data[i];      /* інверсія яскравості */
-
-  gst_buffer_unmap (buf, &info);            /* обов'язково, навіть на помилці */
-  return GST_FLOW_OK;
-}
-```
+:::code buffers-and-memory-d/c/pravylo-prava-na-zapys.c
 
 Базовий клас `GstBaseTransform` сам вирішує, чи можна працювати на місці: якщо буфер придатний до запису й формат на вході та виході однаковий, він кличе `transform_ip` і нічого не копіює. Якщо ні — виділяє окремий вихідний буфер і кличе `transform`. Один і той самий елемент залежно від оточення поводиться по-різному, і саме тому «мій фільтр гальмує» так часто виявляється проблемою не фільтра, а того, хто стоїть поруч.
 
@@ -161,23 +143,7 @@ transform_ip (GstBaseTransform * trans, GstBuffer * buf)
 
 `GstMeta` — це довільна структура, яку елемент прикріплює до буфера. Для відео найважливіша `GstVideoMeta`: у ній лежать реальні кроки всіх площин і зміщення кожної площини від початку пам'яті. Це відповідь на питання «як насправді розкладені байти цього конкретного кадру», і вона супроводжує кадр, а не формат.
 
-```c
-GstVideoFrame frame;
-
-/* gst_video_frame_map читає GstVideoMeta, якщо вона є,
-   інакше рахує розкладку з GstVideoInfo (щільне пакування) */
-if (gst_video_frame_map (&frame, &vinfo, buf, GST_MAP_READ)) {
-  const guint8 *y_plane = GST_VIDEO_FRAME_PLANE_DATA (&frame, 0);
-  gint          y_stride = GST_VIDEO_FRAME_PLANE_STRIDE (&frame, 0);
-  gint          height   = GST_VIDEO_FRAME_HEIGHT (&frame);
-
-  for (gint row = 0; row < height; row++) {
-    const guint8 *line = y_plane + (gsize) row * y_stride;   /* НЕ · width */
-    /* … обробка рядка … */
-  }
-  gst_video_frame_unmap (&frame);
-}
-```
+:::code buffers-and-memory-d/c/metadani-shyryna-kadru.c
 
 Правило просте: з відеокадром працюють через `gst_video_frame_map`, а не через `gst_buffer_map`. Перший знає про метадані й дає правильні кроки; другий дає плаский масив байтів, і всю розкладку доводиться вгадувати.
 

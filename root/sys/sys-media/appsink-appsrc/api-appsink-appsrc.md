@@ -78,50 +78,7 @@ NULL тут означає три різні речі одразу: прийма
 
 ## appsink: C-функції
 
-```c
-/* формат і режим роботи */
-void          gst_app_sink_set_caps      (GstAppSink *appsink, const GstCaps *caps);
-GstCaps *     gst_app_sink_get_caps      (GstAppSink *appsink);
-gboolean      gst_app_sink_is_eos        (GstAppSink *appsink);
-void          gst_app_sink_set_emit_signals (GstAppSink *appsink, gboolean emit);
-gboolean      gst_app_sink_get_emit_signals (GstAppSink *appsink);
-
-/* межі внутрішньої черги */
-void          gst_app_sink_set_max_buffers (GstAppSink *appsink, guint max);
-guint         gst_app_sink_get_max_buffers (GstAppSink *appsink);
-void          gst_app_sink_set_max_bytes   (GstAppSink *appsink, guint64 max);       /* 1.24 */
-guint64       gst_app_sink_get_max_bytes   (GstAppSink *appsink);
-void          gst_app_sink_set_max_time    (GstAppSink *appsink, GstClockTime max);  /* 1.24 */
-GstClockTime  gst_app_sink_get_max_time    (GstAppSink *appsink);
-
-/* поточне заповнення — 1.28 */
-guint64       gst_app_sink_get_current_level_buffers (GstAppSink *appsink);
-guint64       gst_app_sink_get_current_level_bytes   (GstAppSink *appsink);
-GstClockTime  gst_app_sink_get_current_level_time    (GstAppSink *appsink);
-
-/* поведінка при переповненні й на кінці потоку */
-void            gst_app_sink_set_drop       (GstAppSink *appsink, gboolean drop);      /* застаріле з 1.28 */
-gboolean        gst_app_sink_get_drop       (GstAppSink *appsink);
-void            gst_app_sink_set_leaky_type (GstAppSink *appsink, GstAppLeakyType leaky); /* 1.28 */
-GstAppLeakyType gst_app_sink_get_leaky_type (GstAppSink *appsink);
-void            gst_app_sink_set_wait_on_eos (GstAppSink *appsink, gboolean wait);      /* 1.8 */
-gboolean        gst_app_sink_get_wait_on_eos (GstAppSink *appsink);
-void            gst_app_sink_set_buffer_list_support (GstAppSink *appsink, gboolean enable_lists);
-gboolean        gst_app_sink_get_buffer_list_support (GstAppSink *appsink);
-
-/* забирання даних — усе повертає transfer full */
-GstSample *     gst_app_sink_pull_preroll     (GstAppSink *appsink);
-GstSample *     gst_app_sink_pull_sample      (GstAppSink *appsink);
-GstMiniObject * gst_app_sink_pull_object      (GstAppSink *appsink);                  /* 1.20 */
-GstSample *     gst_app_sink_try_pull_preroll (GstAppSink *appsink, GstClockTime timeout); /* 1.10 */
-GstSample *     gst_app_sink_try_pull_sample  (GstAppSink *appsink, GstClockTime timeout); /* 1.10 */
-GstMiniObject * gst_app_sink_try_pull_object  (GstAppSink *appsink, GstClockTime timeout); /* 1.20 */
-
-/* зворотні виклики */
-void gst_app_sink_set_callbacks (GstAppSink *appsink, GstAppSinkCallbacks *callbacks,
-                                 gpointer user_data, GDestroyNotify notify);
-void gst_app_sink_set_simple_callbacks (GstAppSink *appsink, GstAppSinkSimpleCallbacks *cb); /* 1.28 */
-```
+:::code api-appsink-appsrc/c/appsink-c-funktsii.h
 
 Блокувальні `pull_preroll()` і `pull_sample()` чекають, доки не з'явиться семпл, доки не прийде EOS **або доки елемент не переведуть у READY чи NULL**. Остання умова — єдине, що рятує ваш цикл від вічного очікування на конвеєрі, який зупиняють ззовні; без неї потік завис би назавжди.
 
@@ -210,45 +167,7 @@ gst_app_sink_simple_callbacks_unref (cb);
 
 ## appsrc: C-функції
 
-```c
-/* формат і опис потоку */
-void             gst_app_src_set_caps        (GstAppSrc *appsrc, const GstCaps *caps);
-GstCaps *        gst_app_src_get_caps        (GstAppSrc *appsrc);
-void             gst_app_src_set_size        (GstAppSrc *appsrc, gint64 size);
-gint64           gst_app_src_get_size        (GstAppSrc *appsrc);
-void             gst_app_src_set_duration    (GstAppSrc *appsrc, GstClockTime duration); /* 1.10 */
-GstClockTime     gst_app_src_get_duration    (GstAppSrc *appsrc);
-void             gst_app_src_set_stream_type (GstAppSrc *appsrc, GstAppStreamType type);
-GstAppStreamType gst_app_src_get_stream_type (GstAppSrc *appsrc);
-
-/* межі черги й поточне заповнення */
-void         gst_app_src_set_max_bytes   (GstAppSrc *appsrc, guint64 max);
-guint64      gst_app_src_get_max_bytes   (GstAppSrc *appsrc);
-void         gst_app_src_set_max_buffers (GstAppSrc *appsrc, guint64 max);      /* 1.20 */
-guint64      gst_app_src_get_max_buffers (GstAppSrc *appsrc);
-void         gst_app_src_set_max_time    (GstAppSrc *appsrc, GstClockTime max); /* 1.20 */
-GstClockTime gst_app_src_get_max_time    (GstAppSrc *appsrc);
-guint64      gst_app_src_get_current_level_bytes   (GstAppSrc *appsrc);
-guint64      gst_app_src_get_current_level_buffers (GstAppSrc *appsrc);
-GstClockTime gst_app_src_get_current_level_time    (GstAppSrc *appsrc);
-void            gst_app_src_set_leaky_type (GstAppSrc *appsrc, GstAppLeakyType leaky); /* 1.20 */
-GstAppLeakyType gst_app_src_get_leaky_type (GstAppSrc *appsrc);
-
-/* затримка */
-void gst_app_src_set_latency (GstAppSrc *appsrc, guint64 min, guint64 max);
-void gst_app_src_get_latency (GstAppSrc *appsrc, guint64 *min, guint64 *max);
-
-/* штовхання даних */
-GstFlowReturn gst_app_src_push_buffer      (GstAppSrc *appsrc, GstBuffer *buffer);
-GstFlowReturn gst_app_src_push_buffer_list (GstAppSrc *appsrc, GstBufferList *buffer_list); /* 1.14 */
-GstFlowReturn gst_app_src_push_sample      (GstAppSrc *appsrc, GstSample *sample);          /* 1.6 */
-GstFlowReturn gst_app_src_end_of_stream    (GstAppSrc *appsrc);
-
-/* зворотні виклики */
-void gst_app_src_set_callbacks (GstAppSrc *appsrc, GstAppSrcCallbacks *callbacks,
-                                gpointer user_data, GDestroyNotify notify);
-void gst_app_src_set_simple_callbacks (GstAppSrc *appsrc, GstAppSrcSimpleCallbacks *cb); /* 1.28 */
-```
+:::code api-appsink-appsrc/c/appsrc-c-funktsii.h
 
 Зверніть увагу на пару `set_latency`/`get_latency`: у C-інтерфейсі обидва числа беруться й віддаються разом і мають тип `guint64`, тоді як однойменні властивості — `gint64` зі значенням `-1` як «за замовчуванням» чи «без обмежень». Як конвеєр збирає ці числа з усіх елементів у спільний бюджет, описано в [темі про затримку](root:sys-media/latency-and-buffering) — там же видно, чому оголошена вами `min-latency` прямо додається до затримки всієї системи.
 
@@ -285,19 +204,7 @@ typedef struct {
 
 ## Перелічення
 
-```c
-typedef enum {
-  GST_APP_LEAKY_TYPE_NONE,        /* не протікати: черга блокує (за замовчуванням) */
-  GST_APP_LEAKY_TYPE_UPSTREAM,    /* викидати НОВІ буфери — ті, що приходять */
-  GST_APP_LEAKY_TYPE_DOWNSTREAM   /* викидати СТАРІ буфери — ті, що вже в черзі */
-} GstAppLeakyType;                /* з 1.20 в appsrc, з 1.28 в appsink */
-
-typedef enum {
-  GST_APP_STREAM_TYPE_STREAM,         /* перемотування неможливе — жива трансляція */
-  GST_APP_STREAM_TYPE_SEEKABLE,       /* перемотування можливе, але повільне — дані з вебсервера */
-  GST_APP_STREAM_TYPE_RANDOM_ACCESS   /* перемотування швидке — локальний файл */
-} GstAppStreamType;
-```
+:::code api-appsink-appsrc/c/perelichennia.c
 
 Напрямок у `GstAppLeakyType` називають з погляду черги, а не вашого: `upstream` — це «протікає з боку того, хто кладе», тобто новий буфер до черги не потрапляє взагалі. Для «мені потрібен найсвіжіший кадр» правильне значення — `downstream` разом із `max-buffers=1`.
 
@@ -349,49 +256,6 @@ ret = src.emit("push-buffer", buf)   # transfer none: посилання лиш�
 
 Найкоротше, що показує обидва контракти одразу: джерело зі зворотними викликами, яке віддає кадри на вимогу конвеєра й коректно закривається.
 
-```c
-typedef struct { guint64 n; } Ctx;
-
-static void need_data (GstAppSrc *src, guint length, gpointer user_data)
-{
-  Ctx *ctx = user_data;
-
-  if (ctx->n >= 300) {                         /* дані скінчилися */
-    gst_app_src_end_of_stream (src);           /* без цього mp4mux не допише moov */
-    return;
-  }
-
-  GstBuffer *buf = gst_buffer_new_allocate (NULL, 1920 * 1080 * 3, NULL);
-  fill_frame (buf, ctx->n);                    /* ваш код малює кадр */
-
-  GST_BUFFER_PTS (buf)      = ctx->n * GST_SECOND / 30;
-  GST_BUFFER_DURATION (buf) = GST_SECOND / 30;
-  ctx->n++;
-
-  GstFlowReturn ret = gst_app_src_push_buffer (src, buf);   /* transfer full */
-  if (ret != GST_FLOW_OK)
-    gst_app_src_end_of_stream (src);           /* FLUSHING або EOS — далі не штовхаємо */
-}
-
-/* налаштування елемента */
-GstAppSrc *src = GST_APP_SRC (gst_element_factory_make ("appsrc", "in"));
-
-GstCaps *caps = gst_caps_new_simple ("video/x-raw",
-    "format",    G_TYPE_STRING, "BGR",
-    "width",     G_TYPE_INT,    1920,
-    "height",    G_TYPE_INT,    1080,
-    "framerate", GST_TYPE_FRACTION, 30, 1, NULL);
-gst_app_src_set_caps (src, caps);
-gst_caps_unref (caps);                         /* set_caps узяв своє посилання */
-
-g_object_set (src, "format", GST_FORMAT_TIME,  /* НЕ bytes */
-                   "is-live", TRUE,
-                   "max-buffers", (guint64) 4, /* 4 × 6.2 МБ, а не 200 кБ */
-                   NULL);
-
-GstAppSrcCallbacks cb = { 0 };                 /* обнулити ОБОВ'ЯЗКОВО */
-cb.need_data = need_data;
-gst_app_src_set_callbacks (src, &cb, ctx, NULL);
-```
+:::code api-appsink-appsrc/c/minimalnyi-robochyi-vyklyk.c
 
 Тут щільно зібрано всі пункти, у яких помиляються найчастіше: `format=time` замість заводського `bytes`, межа черги в буферах замість безглуздих для сирого відео 200 кБ, обнулена структура зворотних викликів, перевірка коду повернення й явний EOS. Фіксовані `caps` без діапазонів — теж не дрібниця: [узгодження формату](root:sys-media/caps-negotiation) починається з того, що джерело оголошує щось цілком конкретне, і `width=[1,1920]` замість `width=1920` дасть `GST_FLOW_NOT_NEGOTIATED` на першому ж буфері.

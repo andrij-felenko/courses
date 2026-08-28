@@ -6,22 +6,7 @@
 
 Гілка 0.10 вийшла в грудні 2005 року. Світ, під який її робили, був простий: файл або мережевий потік приходить у програму, процесор його розтискає в звичайну оперативну пам'ять, і звідти картинка йде на екран. Уся обробка — в адресному просторі процесу, уся пам'ять — з `malloc`. Структура буфера це чесно віддзеркалювала:
 
-```c
-struct _GstBuffer {
-  GstMiniObject          mini_object;
-  guint8                *data;         /* вказівник на байти */
-  guint                  size;         /* скільки їх */
-  GstClockTime           timestamp;
-  GstClockTime           duration;
-  GstCaps               *caps;         /* формат — просто в буфері */
-  guint64                offset;
-  guint64                offset_end;
-  guint8                *malloc_data;  /* що звільняти */
-  GFreeFunc              free_func;    /* чим звільняти */
-  GstBuffer             *parent;       /* чий я суббуфер */
-  gpointer _gst_reserved[GST_PADDING - 2];
-};
-```
+:::code hist-memory-model-rewrite/c/main.c
 
 *Структура `GstBuffer` у 0.10 — байти, їхній розмір і спосіб їх звільнити лежать прямо в конверті. Наведено за заголовком `gst/gstbuffer.h` гілки 0.10.*
 

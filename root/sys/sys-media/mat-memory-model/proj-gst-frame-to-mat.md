@@ -21,50 +21,7 @@
 
 Перш ніж будувати заголовок над чужими байтами, треба знати три числа: висоту, ширину й **крок рядка**. Перші два ще можна припустити з налаштувань конвеєра, третє — ні. Крок їде разом із кадром, і бере його звідти `GstVideoInfo`, розібраний із [узгоджених caps](root:sys-media/caps-negotiation).
 
-```cpp
-// gstcvbridge.hpp — спільне для всіх трьох версій
-#include <gst/gst.h>
-#include <gst/app/gstappsink.h>
-#include <gst/video/video.h>
-#include <opencv2/core.hpp>
-#include <opencv2/imgproc.hpp>
-#include <memory>
-
-// Формати, які лягають у cv::Mat без жодного перетворення.
-static int cvTypeForVideo(GstVideoFormat fmt)
-{
-    switch (fmt) {
-        case GST_VIDEO_FORMAT_BGR:       return CV_8UC3;
-        case GST_VIDEO_FORMAT_RGB:       return CV_8UC3;  // ⚠ канали переставлені
-        case GST_VIDEO_FORMAT_BGRA:
-        case GST_VIDEO_FORMAT_BGRx:      return CV_8UC4;
-        case GST_VIDEO_FORMAT_GRAY8:     return CV_8UC1;
-        case GST_VIDEO_FORMAT_GRAY16_LE: return CV_16UC1;
-        default:                         return -1;       // NV12, I420, YUY2 — окрема розмова
-    }
-}
-
-struct FrameFormat {
-    GstVideoInfo info;
-    GstCaps*     caps   = nullptr;   // caps, для яких пораховано info
-    int          cvType = -1;
-
-    FrameFormat()  { gst_video_info_init(&info); }
-    ~FrameFormat() { gst_caps_replace(&caps, nullptr); }
-};
-
-// Розбирає caps лише тоді, коли вони справді змінилися.
-static bool refreshFormat(FrameFormat& ff, GstCaps* caps)
-{
-    if (ff.caps && gst_caps_is_equal(caps, ff.caps))
-        return ff.cvType >= 0;
-    if (!gst_video_info_from_caps(&ff.info, caps))
-        return false;
-    ff.cvType = cvTypeForVideo(GST_VIDEO_INFO_FORMAT(&ff.info));
-    gst_caps_replace(&ff.caps, caps);   // тепер тримаємо власне посилання
-    return ff.cvType >= 0;
-}
-```
+:::code proj-gst-frame-to-mat/cpp/spilne-rozkladka-kadru.cpp
 
 Розбирати caps на кожному кадрі немає жодної причини: між кадрами вони майже завжди ті самі, а `gst_caps_is_equal` першою дією порівнює вказівники — і appsink зазвичай віддає той самий об'єкт. Тож у сталому режимі вся ця функція — одне порівняння двох адрес.
 
@@ -81,37 +38,7 @@ static bool refreshFormat(FrameFormat& ff, GstCaps* caps)
 
 Найпростіший міст: відобразити буфер, побудувати над ним заголовок, скопіювати пікселі до себе, відпустити все чуже.
 
-```cpp
-// Повертає false, коли потік скінчився або кадр не придатний.
-bool pullFrameCopy(GstAppSink* sink, FrameFormat& ff, cv::Mat& out)
-{
-    GstSample* sample = gst_app_sink_pull_sample(sink);   // наш: transfer full
-    if (!sample)
-        return false;                                     // EOS або зупинка
-
-    bool ok = false;
-    GstBuffer* buf  = gst_sample_get_buffer(sample);      // позичений у зразка
-    GstCaps*   caps = gst_sample_get_caps(sample);        // позичений у зразка
-    GstMapInfo mi;
-
-    if (buf && caps && refreshFormat(ff, caps) &&
-        gst_buffer_map(buf, &mi, GST_MAP_READ))
-    {
-        const int    h      = GST_VIDEO_INFO_HEIGHT(&ff.info);
-        const int    w      = GST_VIDEO_INFO_WIDTH(&ff.info);
-        const size_t stride = (size_t) GST_VIDEO_INFO_PLANE_STRIDE(&ff.info, 0);
-
-        if (mi.size >= stride * (size_t) h) {
-            cv::Mat view(h, w, ff.cvType, mi.data, stride);  // заголовок без володіння
-            view.copyTo(out);                                 // ← єдина копія
-            ok = true;
-        }
-        gst_buffer_unmap(buf, &mi);
-    }
-    gst_sample_unref(sample);
-    return ok;
-}
-```
+:::code proj-gst-frame-to-mat/cpp/versiia-1-chesna-kopiia.cpp
 
 Три речі варті погляду.
 
@@ -129,57 +56,7 @@ bool pullFrameCopy(GstAppSink* sink, FrameFormat& ff, cv::Mat& out)
 
 Головна небезпека тут — забути `unmap` на якомусь із шляхів виходу, надто коли всередині може полетіти виняток. У C цю дисципліну тримають драбинкою `goto`, у C++ її тримає тип, чий знищувач і є `unmap` — звичайний [RAII](root:sf-lang/raii):
 
-```cpp
-// Відображення живе рівно стільки, скільки живе цей об'єкт.
-class MappedFrame {
-public:
-    MappedFrame(GstBuffer* buf, const FrameFormat& ff) : buf_(buf)
-    {
-        if (!gst_buffer_map(buf_, &mi_, GST_MAP_READ))
-            return;
-        mapped_ = true;
-
-        const size_t stride = (size_t) GST_VIDEO_INFO_PLANE_STRIDE(&ff.info, 0);
-        const int    h      = GST_VIDEO_INFO_HEIGHT(&ff.info);
-        if (mi_.size >= stride * (size_t) h)
-            mat_ = cv::Mat(h, GST_VIDEO_INFO_WIDTH(&ff.info), ff.cvType, mi_.data, stride);
-    }
-    ~MappedFrame() { if (mapped_) gst_buffer_unmap(buf_, &mi_); }
-
-    MappedFrame(const MappedFrame&)            = delete;   // відображення не копіюють
-    MappedFrame& operator=(const MappedFrame&) = delete;
-
-    bool           ok()  const { return mapped_ && !mat_.empty(); }
-    const cv::Mat& mat() const { return mat_; }            // ПОСИЛАННЯ, не копія
-
-private:
-    GstBuffer* buf_    = nullptr;
-    GstMapInfo mi_{};
-    bool       mapped_ = false;
-    cv::Mat    mat_;
-};
-
-struct SampleDeleter { void operator()(GstSample* s) const { gst_sample_unref(s); } };
-using SamplePtr = std::unique_ptr<GstSample, SampleDeleter>;
-
-bool processOneFrame(GstAppSink* sink, FrameFormat& ff)
-{
-    SamplePtr sample(gst_app_sink_pull_sample(sink));
-    if (!sample)
-        return false;
-
-    GstBuffer* buf  = gst_sample_get_buffer(sample.get());
-    GstCaps*   caps = gst_sample_get_caps(sample.get());
-    if (!buf || !caps || !refreshFormat(ff, caps))
-        return true;                       // кадр пропускаємо, цикл живе далі
-
-    MappedFrame frame(buf, ff);
-    if (frame.ok())
-        detect(frame.mat());               // уся робота — тут і тільки тут
-
-    return true;                           // ~MappedFrame → unmap; ~SamplePtr → unref
-}
-```
+:::code proj-gst-frame-to-mat/cpp/versiia-2-obrobka.cpp
 
 Копій нуль, дисципліна тримається сама. Але сказати треба чесно: `mat()` віддає посилання лише для того, щоб не спокушати, а не для того, щоб заборонити. Один рядок `cv::Mat kept = frame.mat();` усередині `detect` — і заголовок утік за межі відображення, бо копіювання заголовка коштує кілька присвоєнь і жодна перевірка часу компіляції його не помітить. Мова тут не рятує; рятує лише те, що кадр справді нікуди не треба відкладати.
 
@@ -199,92 +76,13 @@ bool processOneFrame(GstAppSink* sink, FrameFormat& ff)
 
 Дві ланки посередині — джерело найпоширенішої помилки в саморобних алокаторах, тож випишімо їх дослівно з `modules/core/src/matrix.cpp`:
 
-```cpp
-void Mat::deallocate()
-{
-    if(u)
-    {
-        UMatData* u_ = u;
-        u = NULL;
-        (u_->currAllocator ? u_->currAllocator : allocator ?
-         allocator : getDefaultAllocator())->unmap(u_);
-    }
-}
-
-void MatAllocator::unmap(UMatData* u) const
-{
-    if(u->urefcount == 0 && u->refcount == 0)
-    {
-        deallocate(u);
-    }
-}
-```
+:::code proj-gst-frame-to-mat/cpp/lantsiuh-zvilnennia-kudy.cpp
 
 Читається це так: `Mat::deallocate` кличе **`unmap`**, а не `deallocate` алокатора. Базова реалізація `unmap` звіряє обидва лічильники й уже сама кличе `deallocate`. Отже, перевизначати треба `deallocate` і **не чіпати** `unmap` — інакше ланцюг обірветься на порожньому місці, і ваш звільняльник просто ніколи не викличеться. І друге: вибір алокатора йде через `u->currAllocator`, тобто через того, кого записали в `UMatData` при створенні, а не через поле `Mat::allocator`.
 
 ### Алокатор
 
-```cpp
-// Усе, що мусить пережити кадр і померти разом із ним.
-struct MappedSample {
-    GstSample* sample = nullptr;   // НАШЕ посилання на зразок
-    GstBuffer* buffer = nullptr;   // позичений у зразка
-    GstMapInfo map{};
-};
-
-class GstMatAllocator final : public cv::MatAllocator
-{
-public:
-    // Цей перевантажений allocate ми кличемо самі, передавши відображені байти.
-    cv::UMatData* allocate(int dims, const int* sizes, int type,
-                           void* data0, size_t* step,
-                           cv::AccessFlag, cv::UMatUsageFlags) const override
-    {
-        CV_Assert(data0 != nullptr);        // ми загортаємо чуже, а не виділяємо своє
-
-        size_t total = CV_ELEM_SIZE(type);
-        for (int i = dims - 1; i >= 0; --i) {
-            if (step) {
-                if (step[i] != CV_AUTOSTEP) { CV_Assert(total <= step[i]); total = step[i]; }
-                else                        { step[i] = total; }
-            }
-            total *= sizes[i];
-        }
-
-        cv::UMatData* u = new cv::UMatData(this);   // → currAllocator = this, refcount = 0
-        u->data = u->origdata = static_cast<uchar*>(data0);
-        u->size = total;
-        u->flags |= cv::UMatData::USER_ALLOCATED;   // ← без цього буде fastFree чужого вказівника
-        return u;
-    }
-
-    bool allocate(cv::UMatData* u, cv::AccessFlag, cv::UMatUsageFlags) const override
-    {
-        return u != nullptr;                        // шлях UMat нам не потрібен
-    }
-
-    void deallocate(cv::UMatData* u) const override
-    {
-        if (!u) return;
-        CV_Assert(u->urefcount == 0 && u->refcount == 0);
-
-        auto* hold = static_cast<MappedSample*>(u->userdata);
-        if (hold) {
-            gst_buffer_unmap(hold->buffer, &hold->map);   // спершу закрити відображення…
-            gst_sample_unref(hold->sample);               // …і аж потім відпустити зразок
-            delete hold;
-        }
-        delete u;                                          // fastFree не кличемо — пам'ять чужа
-    }
-};
-
-// Алокатор без стану — отже, один на процес.
-static const GstMatAllocator& gstAllocator()
-{
-    static const GstMatAllocator instance;
-    return instance;
-}
-```
+:::code proj-gst-frame-to-mat/cpp/alokator.cpp
 
 Чотири рішення тут неочевидні, і кожне має причину.
 
@@ -308,43 +106,7 @@ if( !(u->flags & UMatData::USER_ALLOCATED) )
 
 ### Складання заголовка
 
-```cpp
-// Забирає володіння зразком. Порожній Mat означає «кадр не придатний».
-cv::Mat matFromSample(GstSample* sample, FrameFormat& ff)
-{
-    SamplePtr guard(sample);                     // поки що зразок наш
-    GstCaps*   caps = gst_sample_get_caps(sample);
-    GstBuffer* buf  = gst_sample_get_buffer(sample);
-    if (!caps || !buf || !refreshFormat(ff, caps))
-        return {};
-
-    auto hold = std::make_unique<MappedSample>();
-    if (!gst_buffer_map(buf, &hold->map, GST_MAP_READ))
-        return {};
-
-    const int    h      = GST_VIDEO_INFO_HEIGHT(&ff.info);
-    const int    w      = GST_VIDEO_INFO_WIDTH(&ff.info);
-    const size_t stride = (size_t) GST_VIDEO_INFO_PLANE_STRIDE(&ff.info, 0);
-    if (hold->map.size < stride * (size_t) h) {
-        gst_buffer_unmap(buf, &hold->map);
-        return {};
-    }
-
-    cv::Mat m(h, w, ff.cvType, hold->map.data, stride);   // заголовок без володіння…
-
-    int    sizes[2] = { h, w };
-    size_t steps[2] = { stride, CV_ELEM_SIZE(ff.cvType) };
-    m.u = gstAllocator().allocate(2, sizes, ff.cvType, hold->map.data, steps,
-                                  cv::ACCESS_RW, cv::USAGE_DEFAULT);
-
-    hold->sample  = guard.release();   // з цієї миті зразок належить кадрові
-    hold->buffer  = buf;
-    m.u->userdata = hold.release();
-    m.addref();                        // refcount 0 → 1: цей заголовок — перший власник
-
-    return m;                          // …і ось він уже володіє: копіюйте, кладіть у чергу
-}
-```
+:::code proj-gst-frame-to-mat/cpp/skladannia-zaholovka.cpp
 
 Порядок останніх чотирьох рядків — не стиль, а безпека. Доки не заповнено `userdata`, зразок тримає `guard`, і будь-яке дострокове повернення відпустить його як слід. Щойно `userdata` заповнено — відповідальність перейшла до `UMatData`, і `guard` мусить розтиснутися **перед** цим, а не після.
 
@@ -362,20 +124,7 @@ cv::Mat matFromSample(GstSample* sample, FrameFormat& ff)
 
 Найдорожча помилка в цій темі виглядає невинно й трапляється у версіях 1 і 2:
 
-```cpp
-// ✗ так не можна
-cv::Mat grab(GstAppSink* sink, FrameFormat& ff) {
-    SamplePtr sample(gst_app_sink_pull_sample(sink));
-    GstBuffer* buf = gst_sample_get_buffer(sample.get());
-    GstMapInfo mi;
-    gst_buffer_map(buf, &mi, GST_MAP_READ);
-
-    cv::Mat frame(1080, 1920, CV_8UC3, mi.data);   // заголовок нічого не тримає
-
-    gst_buffer_unmap(buf, &mi);
-    return frame;                                   // ← вказівник уже висячий
-}
-```
+:::code proj-gst-frame-to-mat/cpp/zaholovok-shcho-perezhyv.cpp
 
 Компілятор мовчить, бо з погляду типів усе гаразд. Найгірше те, що воно **працює**. Кадр із системної пам'яті нікуди не подівся: сторінки на місці, читання не спричиняє жодного сигналу. Просто буфер повернувся в пул, пул віддав його джерелу, і джерело записало туди наступний кадр. Ви читаєте справжні пікселі — просто не ті. У продукті це виглядає як «детектор раз на кілька секунд бачить те, чого не було», і шукають таке тижнями. Це звичайне [звернення після звільнення](root:sys-plang-cpp/dangling-references), лише заховане за типом, який зазвичай усе робить сам.
 
@@ -405,18 +154,7 @@ Mat порахував:                                    4098
 
 Правильний спосіб взяти NV12 у `Mat` є, і копії він теж не потребує:
 
-```cpp
-const int    h  = GST_VIDEO_INFO_HEIGHT(&ff.info);
-const int    w  = GST_VIDEO_INFO_WIDTH(&ff.info);
-const size_t sy = (size_t) GST_VIDEO_INFO_PLANE_STRIDE(&ff.info, 0);
-
-// Обидві умови мусять справдитися, інакше суцільного заголовка не буде:
-CV_Assert(sy == (size_t) GST_VIDEO_INFO_PLANE_STRIDE(&ff.info, 1));   // кроки рівні
-CV_Assert(GST_VIDEO_INFO_PLANE_OFFSET(&ff.info, 1) == sy * (size_t) h); // площини стикаються
-
-cv::Mat nv12(h + h / 2, w, CV_8UC1, mi.data, sy);      // Y, а під ним UV
-cv::cvtColor(nv12, bgr, cv::COLOR_YUV2BGR_NV12);        // ось тут і буде копія
-```
+:::code proj-gst-frame-to-mat/cpp/nv12-pid-vyhliadom-cv-8uc3.hpp
 
 Друга умова справджується не завжди: зміщення другої площини GStreamer рахує як `stride · GST_ROUND_UP_2(height)`, тож на непарній висоті між площинами з'являється зайвий рядок, і суцільний заголовок над обома площинами стає неправильним. Перевірка вартує двох порівнянь на зміну caps.
 

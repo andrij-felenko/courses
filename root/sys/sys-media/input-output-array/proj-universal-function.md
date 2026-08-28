@@ -24,27 +24,7 @@ void localRange(cv::InputArray src, cv::OutputArray dst, int ksize = 3,
 
 Тіло починається так:
 
-```cpp
-void cvx::localRange(cv::InputArray _src, cv::OutputArray _dst, int ksize,
-                     cv::InputArray _mask, cv::OutputArray _hist)
-{
-    CV_Assert(ksize >= 3 && ksize % 2 == 1);
-    CV_Assert(_src.dims() <= 2 && _src.type() == CV_8UC1);
-    CV_Assert(_mask.empty() || _mask.type() == CV_8UC1);
-    CV_Assert(!_dst.fixedType() || _dst.type() == CV_8UC1);
-
-    CVX_OCL_RUN(_dst.isUMat(), ocl_localRange(_src, _dst, ksize, _mask, _hist));
-
-    cv::Mat src  = _src.getMat();          // ← до create, і це не стиль
-    cv::Mat mask = _mask.getMat();         // порожній Mat, якщо маски немає
-
-    CV_Assert(mask.empty() || mask.size() == src.size());
-
-    _dst.create(src.size(), CV_8UC1);
-    cv::Mat dst = _dst.getMat();
-    // ...
-}
-```
+:::code proj-universal-function/cpp/karkas-shist-riadkiv-u.cpp
 
 ![Шість рядків каркаса й те, що ламається, якщо їх переставити](img/own-function-order.svg)
 
@@ -85,94 +65,11 @@ void cvx::localRange(cv::InputArray _src, cv::OutputArray _dst, int ksize,
 
 Саме ядро — прямий переказ віконного циклу. Параметри не довільні: їх диктують помічники `KernelArg`, і порядок у ядрі мусить точно повторювати порядок помічників у `args`. Що таке контекст, черга команд і глобальний розмір задачі — у темі про [модель обчислень OpenCL](root:sf-visual/opencl-compute-model).
 
-```c
-__kernel void localRange(__global const uchar* srcptr, int src_step, int src_offset,
-                         __global uchar* dstptr, int dst_step, int dst_offset,
-                         int dst_rows, int dst_cols
-#ifdef HAVE_MASK
-                       , __global const uchar* mskptr, int msk_step, int msk_offset
-#endif
-                        )
-{
-    const int x = get_global_id(0);
-    const int y = get_global_id(1);
-    if (x >= dst_cols || y >= dst_rows)
-        return;
-
-    const int di = mad24(y, dst_step, x + dst_offset);
-
-#ifdef HAVE_MASK
-    if (mskptr[mad24(y, msk_step, x + msk_offset)] == 0) {
-        dstptr[di] = 0;
-        return;
-    }
-#endif
-
-    const int r = KSIZE / 2;
-    int lo = 255, hi = 0;
-    for (int dy = -r; dy <= r; ++dy) {
-        const int yy = clamp(y + dy, 0, dst_rows - 1);
-        for (int dx = -r; dx <= r; ++dx) {
-            const int xx = clamp(x + dx, 0, dst_cols - 1);
-            const int v = srcptr[mad24(yy, src_step, xx + src_offset)];
-            lo = min(lo, v);
-            hi = max(hi, v);
-        }
-    }
-    dstptr[di] = convert_uchar(hi - lo);
-}
-```
+:::code proj-universal-function/c/main.c
 
 `KSIZE` і `HAVE_MASK` приходять не як аргументи, а як опції збірки ядра — і це загальний прийом OpenCV: ядро компілюють під конкретну конфігурацію, а результат лягає в кеш під ключем, у який ці опції входять. Розмір вікна стає сталою часу компіляції, і драйвер розгортає цикл.
 
-```cpp
-static bool ocl_localRange(cv::InputArray _src, cv::OutputArray _dst, int ksize,
-                           cv::InputArray _mask, cv::OutputArray _hist)
-{
-    if (_hist.needed())
-        return false;               // гістограму на пристрої ми не рахуємо — чесно віддаємо все
-
-    static const cv::ocl::ProgramSource prog("cvx", "localRange",
-                                             kLocalRangeSrc, "localRange-v1");
-
-    const bool hasMask = !_mask.empty();
-    const cv::String opts = cv::format("-D KSIZE=%d%s", ksize,
-                                       hasMask ? " -D HAVE_MASK" : "");
-
-    cv::ocl::Kernel k("localRange", prog, opts);
-    if (k.empty())
-        return false;               // ще НІЧОГО не змінено в приймачі — так і має бути
-
-    cv::UMat src  = _src.getUMat();
-    cv::UMat mask = hasMask ? _mask.getUMat() : cv::UMat();
-    CV_Assert(!hasMask || mask.size() == src.size());
-
-    _dst.create(src.size(), CV_8UC1);
-    cv::UMat dst = _dst.getUMat();
-
-    cv::UMat tmp, out = dst;
-    if (dst.u == src.u) {           // in-place — те саме питання, що й на процесорі
-        tmp.create(src.size(), CV_8UC1);
-        out = tmp;
-    }
-
-    if (hasMask)
-        k.args(cv::ocl::KernelArg::ReadOnlyNoSize(src),
-               cv::ocl::KernelArg::WriteOnly(out),
-               cv::ocl::KernelArg::ReadOnlyNoSize(mask));
-    else
-        k.args(cv::ocl::KernelArg::ReadOnlyNoSize(src),
-               cv::ocl::KernelArg::WriteOnly(out));
-
-    size_t global[2] = { (size_t)out.cols, (size_t)out.rows };
-    if (!k.run(2, global, nullptr, /*sync=*/false))
-        return false;
-
-    if (!tmp.empty())
-        tmp.copyTo(dst);
-    return true;
-}
-```
+:::code proj-universal-function/cpp/hilka-pryskoriuvacha-chomu.cpp
 
 Два рядки тут важать більше, ніж здаються.
 
@@ -186,47 +83,7 @@ static bool ocl_localRange(cv::InputArray _src, cv::OutputArray _dst, int ksize,
 
 Максимум і мінімум у прямокутному вікні **розділювані**: максимум по `k×k` дорівнює максимуму по стовпчику з максимумів по рядках. Тому замість `k²` порівнянь на піксель робимо два проходи по `k`.
 
-```cpp
-static void localRangeBody(const cv::Mat& src, cv::Mat& dst, const cv::Mat& mask,
-                           int ksize, cv::Mat& scratch)
-{
-    const int r = ksize / 2, H = src.rows, W = src.cols;
-
-    // Канал 0 — максимум по рядку, канал 1 — мінімум. Один буфер замість двох.
-    scratch.create(H, W, CV_8UC2);
-
-    for (int y = 0; y < H; ++y) {
-        const uchar* s = src.ptr<uchar>(y);
-        uchar* h = scratch.ptr<uchar>(y);
-        for (int x = 0; x < W; ++x) {
-            const int x0 = std::max(x - r, 0), x1 = std::min(x + r, W - 1);
-            int lo = 255, hi = 0;
-            for (int xx = x0; xx <= x1; ++xx) {
-                const int v = s[xx];
-                if (v < lo) lo = v;
-                if (v > hi) hi = v;
-            }
-            h[2 * x] = (uchar)hi;  h[2 * x + 1] = (uchar)lo;
-        }
-    }
-
-    for (int y = 0; y < H; ++y) {
-        uchar* d = dst.ptr<uchar>(y);
-        const uchar* m = mask.empty() ? nullptr : mask.ptr<uchar>(y);
-        const int y0 = std::max(y - r, 0), y1 = std::min(y + r, H - 1);
-        for (int x = 0; x < W; ++x) {
-            if (m && !m[x]) { d[x] = 0; continue; }
-            int lo = 255, hi = 0;
-            for (int yy = y0; yy <= y1; ++yy) {
-                const uchar* h = scratch.ptr<uchar>(yy);
-                if (h[2 * x]     > hi) hi = h[2 * x];
-                if (h[2 * x + 1] < lo) lo = h[2 * x + 1];
-            }
-            d[x] = (uchar)(hi - lo);
-        }
-    }
-}
-```
+:::code proj-universal-function/cpp/tilo-na-protsesori.cpp
 
 Обрізання індексів на краях — це рівно `BORDER_REPLICATE`, і не наближено, а точно: повторений крайовий піксель уже входить у вкорочене вікно, тож на максимум і мінімум він не впливає. Для згорток так не вийшло б, а для порядкових операцій виходить безплатно.
 
@@ -240,36 +97,13 @@ static void localRangeBody(const cv::Mat& src, cv::Mat& dst, const cv::Mat& mask
 
 Виявити збіг треба до першого записаного пікселя. Найпростіша перевірка — `_src.getObj() == _dst.getObj()`: проксі зберігає адресу самого об'єкта викликача, тож `f(m, m)` видно одразу. Але вона ловить лише буквальний збіг змінних, а не спільний буфер: `f(canvas, canvas(roi))` — це два різні `Mat` над однією пам'яттю. Тому питати треба про дані:
 
-```cpp
-static bool overlaps(const cv::Mat& a, const cv::Mat& b)
-{
-    if (!a.datastart || !b.datastart)
-        return false;
-    if (a.u && b.u && a.u != b.u)
-        return false;                 // різні керівні блоки — точно різні буфери
-
-    std::less<const uchar*> before;    // повний порядок; звичайне «<» на покажчиках
-    return before(a.datastart, b.dataend) &&   // з різних об'єктів не визначене
-           before(b.datastart, a.dataend);
-}
-```
+:::code proj-universal-function/cpp/aliasynh-chomu-vikonna.cpp
 
 Дві дрібниці в цих п'яти рядках варті окремого слова. Перевірка керівних блоків відсікає найчастіший випадок дешево: якщо обидва заголовки мають свій `UMatData` і він різний, буфери різні напевно. А `std::less` замість голого `<` — не педантизм: у C++ результат порівняння оператором `<` двох покажчиків у різні об'єкти стандарт лишає неуточненим, тоді як спеціалізація `std::less` для покажчиків зобов'язана задавати повний порядок на будь-яких покажчиках того самого типу. Про те, чим взагалі загрожує припущення «ці два покажчики не перетинаються», — тема [аліасинг покажчиків і UB](root:sf-lang/pointer-aliasing).
 
 Далі все просто: перетинаються — рахуємо в тимчасовий буфер і копіюємо.
 
-```cpp
-    cv::Mat scratch, tmp, out = dst;
-    if (overlaps(src, dst)) {
-        tmp.create(src.size(), CV_8UC1);
-        out = tmp;
-    }
-
-    localRangeBody(src, out, mask, ksize, scratch);
-
-    if (!tmp.empty())
-        tmp.copyTo(dst);
-```
+:::code proj-universal-function/cpp/aliasynh-chomu-vikonna-2.cpp
 
 Звідси, до речі, випливає протилежне тому, що зазвичай думають: `f(m, m)` не економить пам'ять, а витрачає її. In-place-виклик для віконної операції коштує **зайвого** буфера й зайвого копіювання — просто ця ціна схована в бібліотеці, а не в коді викликача.
 
@@ -289,19 +123,7 @@ static bool overlaps(const cv::Mat& a, const cv::Mat& b)
 
 А `needed()` показує себе там, де йому місце, — на необов'язковому виході. Гістограма розмахів потрібна не завжди, і рахувати її «про всяк випадок» означає зайвий прохід по кадру:
 
-```cpp
-    if (_hist.needed()) {
-        _hist.create(1, 256, CV_32SC1);
-        cv::Mat hist = _hist.getMat();
-        hist.setTo(0);
-        int* h = hist.ptr<int>();
-        for (int y = 0; y < out.rows; ++y) {
-            const uchar* d = out.ptr<uchar>(y);
-            for (int x = 0; x < out.cols; ++x)
-                ++h[d[x]];
-        }
-    }
-```
+:::code proj-universal-function/cpp/maska-empty-proty-needed.cpp
 
 Тепер видно, навіщо гілка прискорювача першим рядком робить `if (_hist.needed()) return false;`: рахувати гістограму на пристрої ми не вміємо, а віддавати половину роботи — гірше, ніж віддати всю.
 
@@ -334,21 +156,7 @@ cvx::localRange(frame1920x1080, cell, 3); // ✘ canvas лишиться нез�
 
 Правило «`InputArray` існує лише в дужках виклику» відоме. Менш відоме інше: очевидний обхід — «зберігаю не проксі, а `Mat`, узятий із нього» — рятує **не завжди**.
 
-```cpp
-class RangeStage
-{
-public:
-    void submit(cv::InputArray _frame)
-    {
-        cv::Mat m = _frame.getMat();
-        if (!m.u)          // заголовок нічим не володіє: вектор, чужий буфер, GstBuffer
-            m = m.clone();  // єдиний спосіб пережити вихід із функції
-        queue_.push_back(m);
-    }
-private:
-    std::deque<cv::Mat> queue_;
-};
-```
+:::code proj-universal-function/cpp/ne-zberihaty-proksi-i.cpp
 
 Ось звідки береться `if (!m.u)`. Коли джерело було `Mat`, `getMat()` віддає копію заголовка зі спільним керівним блоком — лічильник посилань зростає, і збережений заголовок сам тримає пікселі при житті. Коли джерело було `std::vector` або чужа пам'ять, бібліотека будує заголовок **над** буфером: керівного блоку немає, лічильника немає, звільняти нічого — і такий `Mat` не тримає при житті нічого. Поле `u` і є цією різницею: `nullptr` означає «я нічим не володію». Що всередині керівного блока й чому лічильник живе саме там — у темі про [пам'ять і володіння в cv::Mat](root:sys-media/mat-memory-model).
 
@@ -358,46 +166,7 @@ private:
 
 Тепер прилад. Кількість виділень за кадр — величина, яку не треба вгадувати: OpenCV дозволяє підмінити розподільник пам'яті для всіх `Mat` у програмі.
 
-```cpp
-class CountingAllocator : public cv::MatAllocator
-{
-public:
-    explicit CountingAllocator(cv::MatAllocator* base) : base_(base) {}
-
-    cv::UMatData* allocate(int dims, const int* sizes, int type, void* data,
-                           size_t* step, cv::AccessFlag flags,
-                           cv::UMatUsageFlags usage) const override
-    {
-        cv::UMatData* u = base_->allocate(dims, sizes, type, data, step, flags, usage);
-        if (u) {
-            ++allocs;
-            size_t n = CV_ELEM_SIZE(type);
-            for (int i = 0; i < dims; ++i) n *= (size_t)sizes[i];
-            bytes += n;
-        }
-        return u;
-    }
-
-    bool allocate(cv::UMatData* u, cv::AccessFlag f, cv::UMatUsageFlags g) const override
-    { return base_->allocate(u, f, g); }
-
-    void deallocate(cv::UMatData* u) const override
-    { if (u) ++frees; base_->deallocate(u); }
-
-    void map(cv::UMatData* u, cv::AccessFlag f)  const override { base_->map(u, f); }
-    void unmap(cv::UMatData* u)                  const override { base_->unmap(u); }
-
-    // download / upload / copy / getBufferPoolController — так само наскрізь у base_.
-
-    void reset() { allocs = 0; frees = 0; bytes = 0; }
-
-    // Внутрішні тимчасові буфери OpenCV народжуються й у робочих потоках,
-    // тож лічильники мусять бути атомарними.
-    mutable std::atomic<long long> allocs{0}, frees{0}, bytes{0};
-private:
-    cv::MatAllocator* base_;
-};
-```
+:::code proj-universal-function/cpp/skilky-vydilen-koshtuie.cpp
 
 Ставимо його один раз на старті — і всі `Mat::create` у програмі, наші й бібліотечні, проходять через лічильник:
 
@@ -410,37 +179,7 @@ cv::Mat::setDefaultAllocator(&counter);
 
 Далі — по одному сценарію на варіант. Перший виклик кожного сценарію робимо до обнулення лічильника: він грає роль прогріву, бо саме на ньому виділяється приймач.
 
-```cpp
-static void report(const char* name, int frames)
-{
-    std::printf("%-40s %8.2f %11.2f\n", name,
-                double(counter.allocs) / frames,
-                double(counter.bytes)  / frames / 1048576.0);
-}
-
-const cv::Size sz(1920, 1080);
-cv::Mat frame(sz, CV_8UC1);
-cv::randu(frame, 0, 255);
-const int N = 100;
-
-{   // приймач живе між кадрами
-    cv::Mat dst;
-    cvx::localRange(frame, dst, 3);
-    counter.reset();
-    for (int i = 0; i < N; ++i)
-        cvx::localRange(frame, dst, 3);
-    report("приймач поза циклом", N);
-}
-
-{   // приймач народжується щокадру
-    counter.reset();
-    for (int i = 0; i < N; ++i) {
-        cv::Mat dst;
-        cvx::localRange(frame, dst, 3);
-    }
-    report("приймач усередині циклу", N);
-}
-```
+:::code proj-universal-function/cpp/skilky-vydilen-koshtuie-2.cpp
 
 Числа виходять такі (кадр 1920×1080, одноканальний):
 

@@ -92,19 +92,7 @@ void resize(const Mat& src, Mat& dst, Size dsize, double fx = 0, double fy = 0, 
 
 У теці `modules/core` версії 2.2 класу `_InputArray` ще немає. У версії 2.3 він уже є — і разом із ним псевдонім, який відтоді бачать у кожному підписі:
 
-```cpp
-class CV_EXPORTS _InputArray
-{
-public:
-    enum { KIND_SHIFT=16, NONE=0<<KIND_SHIFT, MAT=1<<KIND_SHIFT,
-        MATX=2<<KIND_SHIFT, STD_VECTOR=3<<KIND_SHIFT,
-        STD_VECTOR_VECTOR=4<<KIND_SHIFT,
-        STD_VECTOR_MAT=5<<KIND_SHIFT, EXPR=6<<KIND_SHIFT };
-    // ...
-};
-
-typedef const _InputArray& InputArray;
-```
+:::code hist-cvarr-to-inputarray/cpp/2011-ta-sama-ideia-ale-teh.cpp
 
 Довідник версії 2.3, датований 15 жовтня 2011 року, описує це вже як усталену річ: спеціальні «проксі»-класи введено, щоб уникнути численних дублікатів в API, `InputArray` — базовий, для масивів лише для читання, похідний від нього `OutputArray` — для вихідних. І окремо втішає читача: замість `InputArray`/`OutputArray` завжди можна підставити `Mat`, `std::vector<>`, `Matx<>`, `Vec<>` чи `Scalar`.
 
@@ -120,24 +108,7 @@ typedef const _InputArray& InputArray;
 
 Ось як це виглядає в переліку видів версії 3.0.0:
 
-```cpp
-enum { KIND_SHIFT = 16,
-    FIXED_TYPE = 0x8000 << KIND_SHIFT,
-    FIXED_SIZE = 0x4000 << KIND_SHIFT,
-    KIND_MASK  = 31 << KIND_SHIFT,
-    NONE = 0 << KIND_SHIFT,   MAT = 1 << KIND_SHIFT,
-    MATX = 2 << KIND_SHIFT,   STD_VECTOR = 3 << KIND_SHIFT,
-    STD_VECTOR_VECTOR = 4 << KIND_SHIFT,
-    STD_VECTOR_MAT    = 5 << KIND_SHIFT,
-    EXPR              = 6 << KIND_SHIFT,
-    OPENGL_BUFFER     = 7 << KIND_SHIFT,
-    CUDA_HOST_MEM     = 8 << KIND_SHIFT,
-    CUDA_GPU_MAT      = 9 << KIND_SHIFT,
-    UMAT              = 10 << KIND_SHIFT,
-    STD_VECTOR_UMAT   = 11 << KIND_SHIFT,
-    STD_BOOL_VECTOR   = 12 << KIND_SHIFT
-};
-```
+:::code hist-cvarr-to-inputarray/cpp/2015-druhyi-vytok-tiiei.cpp
 
 Сім видів стало тринадцять, і серед них — буфер OpenGL, закріплена пам'ять CUDA, матриця на відеокарті та довгожданий `UMAT`. Ціна кожного новачка: один конструктор, один рядок у переліку, кілька гілок у `getMat`. Підписи тисяч функцій не змінилися, двійкова сумісність не постраждала, чужі програми збираються далі.
 

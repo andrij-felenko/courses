@@ -45,44 +45,7 @@
 
 ### Версія: два числа, що можуть розійтися
 
-```cpp
-#include <opencv2/core.hpp>
-#include <opencv2/core/ocl.hpp>
-#include <opencv2/core/utility.hpp>
-#include <opencv2/core/version.hpp>
-#include <opencv2/core/utils/logger.hpp>
-#include <opencv2/videoio.hpp>
-#include <opencv2/videoio/registry.hpp>
-
-#include <algorithm>
-#include <cstdio>
-#include <functional>
-#include <iostream>
-#include <sstream>
-#include <string>
-#include <vector>
-
-namespace reg = cv::videoio_registry;
-
-// CV_VERSION_* прийшли із заголовків, які бачив КОМПІЛЯТОР;
-// getVersion*() виконується всередині тієї libopencv_core,
-// яку підставив ЗАВАНТАЖУВАЧ. Це два незалежні числа.
-static bool headerMatchesLibrary()
-{
-    return cv::getVersionMajor()    == CV_VERSION_MAJOR
-        && cv::getVersionMinor()    == CV_VERSION_MINOR
-        && cv::getVersionRevision() == CV_VERSION_REVISION;
-}
-
-static void reportVersion()
-{
-    std::cout << "OpenCV\n"
-              << "  бібліотека: " << cv::getVersionString() << "\n"
-              << "  заголовки:  " << CV_VERSION << "\n";
-    if (!headerMatchesLibrary())
-        std::cout << "  ! заголовки й бібліотека з різних збірок\n";
-}
-```
+:::code proj-inspect-build/cpp/versiia-dva-chysla-shcho.cpp
 
 Перевірка виглядає зайвою рівно доти, доки не спрацює. Розходження означає, що в системі лежить кілька збірок, а зібрано вас проти одних заголовків, тоді як завантажувач знайшов інші, — і далі все залежить від того, чи розійшлася розкладка структур між цими двома версіями. Один рядок коштує п'яти хвилин, а ловить помилку, яка інакше проявиться аварією в геть іншому місці.
 
@@ -99,64 +62,7 @@ static void reportVersion()
 
 Отже, читач має лише два правила: рядок із відступом два — початок секції, усе глибше до наступного такого рядка — її нутрощі.
 
-```cpp
-static std::string trimmed(const std::string& s)
-{
-    const size_t b = s.find_first_not_of(" \t\r");
-    if (b == std::string::npos) return std::string();
-    return s.substr(b, s.find_last_not_of(" \t\r") - b + 1);
-}
-
-static size_t indentOf(const std::string& s)
-{
-    const size_t b = s.find_first_not_of(' ');
-    return b == std::string::npos ? 0 : b;
-}
-
-// Тіло секції звіту разом із її заголовком.
-static std::vector<std::string> buildInfoSection(const std::string& name)
-{
-    static const std::vector<std::string> lines = [] {
-        std::vector<std::string> v;
-        std::istringstream in(cv::getBuildInformation());
-        for (std::string ln; std::getline(in, ln); ) v.push_back(ln);
-        return v;
-    }();
-
-    const std::string head = "  " + name + ":";
-    std::vector<std::string> body;
-    for (size_t i = 0; i < lines.size(); ++i) {
-        if (lines[i].compare(0, head.size(), head) != 0) continue;
-        body.push_back(lines[i]);
-        for (size_t j = i + 1; j < lines.size(); ++j) {
-            if (trimmed(lines[j]).empty()) continue;
-            if (indentOf(lines[j]) <= 2) break;   // почалася наступна секція
-            body.push_back(lines[j]);
-        }
-        break;
-    }
-    return body;
-}
-
-// buildInfoField("Video I/O", "FFMPEG") → "YES"
-static std::string buildInfoField(const std::string& section,
-                                  const std::string& key)
-{
-    const std::string tag = key + ":";
-    for (const std::string& line : buildInfoSection(section)) {
-        const size_t at = line.find(tag);
-        if (at == std::string::npos || at != indentOf(line)) continue;
-        return trimmed(line.substr(at + tag.size()));
-    }
-    return std::string();
-}
-
-// Значення в самому заголовку секції: «  Parallel framework:  pthreads»
-static std::string buildInfoHead(const std::string& section)
-{
-    return buildInfoField(section, section);
-}
-```
+:::code proj-inspect-build/cpp/zvit-konfihuratsii.cpp
 
 Умова `at != indentOf(line)` тут не косметична: без неї `FFMPEG:` знайшлося б і в тілі чужого рядка, де слово стоїть усередині значення, а не на початку поля. Розбирач тексту, який приймає збіг будь-де, рано чи пізно збреше.
 
@@ -166,47 +72,7 @@ static std::string buildInfoHead(const std::string& section)
 
 Це серце програми. Різницю між сходинками треба не описати в коментарі, а надрукувати в кожному рядку виведення.
 
-```cpp
-using PluginVersionFn = std::string (*)(cv::VideoCaptureAPIs, int&, int&);
-
-// hasBackend() для плагіна — це справжня спроба завантажити файл.
-static bool loads(cv::VideoCaptureAPIs api)
-{
-    try { return reg::hasBackend(api); }
-    catch (const cv::Exception&) { return false; }
-}
-
-// Питати версію плагіна МОЖНА лише в плагіна: для вбудованого бекенда
-// всередині спрацьовує CV_Assert і летить cv::Exception.
-// Повертається опис із заголовка плагіна, а не шлях до файлу.
-static std::string pluginNote(PluginVersionFn version, cv::VideoCaptureAPIs api)
-{
-    int abi = 0, apiVer = 0;
-    try {
-        const std::string desc = version(api, abi, apiVer);
-        return " ← " + desc + " (ABI " + std::to_string(abi)
-             + ", API " + std::to_string(apiVer) + ")";
-    } catch (const cv::Exception&) {
-        return " ← файл плагіна не відкрито";
-    }
-}
-
-static void reportBackends(const char* what,
-                           const std::vector<cv::VideoCaptureAPIs>& list,
-                           PluginVersionFn version)
-{
-    std::cout << what << " (" << list.size() << ")\n";
-    for (cv::VideoCaptureAPIs api : list) {
-        const bool builtIn = reg::isBackendBuiltIn(api);
-        const bool alive   = loads(api);
-        std::cout << (alive ? "  + " : "  - ")
-                  << reg::getBackendName(api)
-                  << (builtIn ? "  вбудований" : "  плагін");
-        if (!builtIn) std::cout << pluginNote(version, api);
-        std::cout << "\n";
-    }
-}
-```
+:::code proj-inspect-build/cpp/reiestr-okremo-oholoshene.cpp
 
 Три однакові за формою виклики дають три різні відповіді, і це не надлишок:
 
@@ -223,37 +89,7 @@ static void reportBackends(const char* what,
 
 ### Обчислення: чим саме працюватиме бібліотека
 
-```cpp
-static void reportCompute()
-{
-    std::cout << "Паралелізм: " << buildInfoHead("Parallel framework")
-              << ", потоків " << cv::getNumThreads()
-              << " із " << cv::getNumberOfCPUs() << " процесорів\n";
-
-    std::cout << "Вектори\n"
-              << "  зібрано під: " << cv::getCPUFeaturesLine() << "\n"
-              << "  процесор має:";
-    for (int f : { CV_CPU_SSE4_2, CV_CPU_AVX, CV_CPU_AVX2,
-                   CV_CPU_AVX512_SKX, CV_CPU_NEON })
-        if (cv::checkHardwareSupport(f))
-            std::cout << " " << cv::getHardwareFeatureName(f);
-    std::cout << "\n";
-
-    std::cout << "OpenCL: рантайм " << (cv::ocl::haveOpenCL() ? "є" : "немає")
-              << ", T-API " << (cv::ocl::useOpenCL() ? "увімкнено" : "вимкнено")
-              << "\n";
-    if (!cv::ocl::haveOpenCL()) return;
-    try {
-        const cv::ocl::Device& dev = cv::ocl::Device::getDefault();
-        if (!dev.empty())
-            std::cout << "  " << dev.name() << " / " << dev.vendorName()
-                      << " / " << dev.version()
-                      << ", блоків " << dev.maxComputeUnits() << "\n";
-    } catch (const cv::Exception& e) {
-        std::cout << "  пристрій не піднявся: " << e.err << "\n";
-    }
-}
-```
+:::code proj-inspect-build/cpp/obchyslennia-chym-same.cpp
 
 Два рядки про вектори стоять поряд навмисно, бо відповідають на різні питання. `getCPUFeaturesLine()` перелічує те, під що бібліотеку **скомпільовано**: базовий набір без позначки, диспетчеризовані — з зірочкою попереду, а знак питання в кінці означає «код є, але цей процесор його не потягне». `checkHardwareSupport()` натомість каже про **процесор**: чи має він таку інструкцію (і чи не заборонили її явно). Обидва потрібні: код без заліза марний так само, як залізо без коду. Звідки бібліотека взагалі дізнається про можливості процесора — окрема історія, [CPUID](root:hw-arch/cpuid).
 
@@ -263,128 +99,17 @@ static void reportCompute()
 
 Звіт корисний людині. Застосункові потрібна не картина світу, а вирок: пускати чи ні. Тому та сама механіка збирається в другу форму — перелік обов'язкових здатностей, кожна з власним способом перевірки й власною порадою.
 
-```cpp
-struct Need {
-    std::string           what;   // чого потребує застосунок
-    std::function<bool()> probe;  // як це перевірити тут і тепер
-    std::string           fix;    // що робити, якщо не склалося
-};
-
-static bool listed(const std::vector<cv::VideoCaptureAPIs>& list,
-                   cv::VideoCaptureAPIs api)
-{
-    return std::find(list.begin(), list.end(), api) != list.end();
-}
-
-// Найтвердіший доказ: справді відкрити крихітний файл потрібним кодеком.
-static bool writerWorks(int fourcc)
-{
-    const std::string probe = cv::tempfile(".mp4");
-    cv::VideoWriter w(probe, cv::CAP_FFMPEG, fourcc, 25.0, cv::Size(64, 64));
-    const bool ok = w.isOpened();
-    w.release();
-    std::remove(probe.c_str());
-    return ok;
-}
-```
+:::code proj-inspect-build/cpp/vid-zvitu-do-zapobizhnyka.cpp
 
 Перелік потрібного не вигадується в ревізорі — він виводиться з того, що застосунок і так знає про себе зі своєї [конфігурації](root:sf-apps/config-design): якщо джерело мережеве, потрібен бекенд для потоків; якщо ввімкнено запис, потрібен ще й записувач із конкретним кодеком.
 
-```cpp
-struct AppConfig {
-    bool readsRtsp   = true;
-    bool recordsH264 = true;
-    bool usesOpenCL  = false;
-};
-
-static std::vector<Need> requirementsOf(const AppConfig& cfg)
-{
-    std::vector<Need> need;
-
-    need.push_back({
-        "заголовки й бібліотека OpenCV з однієї збірки",
-        headerMatchesLibrary,
-        "у процесі кілька збірок OpenCV; звірте, з чим злінковано плагіни" });
-
-    if (cfg.readsRtsp)
-        need.push_back({
-            "читання RTSP через GStreamer",
-            [] { return listed(reg::getStreamBackends(), cv::CAP_GSTREAMER)
-                     && loads(cv::CAP_GSTREAMER); },
-            "немає файлу opencv_videoio_gstreamer поруч із бібліотекою "
-            "або в теках зі змінної OPENCV_VIDEOIO_PLUGIN_PATH" });
-
-    if (cfg.recordsH264)
-        need.push_back({
-            "запис H.264 у mp4 через FFmpeg",
-            [] { return listed(reg::getWriterBackends(), cv::CAP_FFMPEG)
-                     && writerWorks(cv::VideoWriter::fourcc('a','v','c','1')); },
-            "бекенд запису є, але кодек avc1 у ньому не піднімається — "
-            "перевірте, з якою збіркою FFmpeg зібрано плагін" });
-
-    if (cfg.usesOpenCL)
-        need.push_back({
-            "OpenCL для cv::UMat",
-            [] { return cv::ocl::haveOpenCL() && cv::ocl::useOpenCL(); },
-            "рантайму OpenCL немає або його вимкнено; "
-            "конвеєр на UMat тихо порахується на процесорі" });
-
-    return need;
-}
-
-static bool verify(const std::vector<Need>& needs)
-{
-    std::vector<const Need*> missing;
-    for (const Need& n : needs) {
-        bool ok = false;
-        try { ok = n.probe(); }
-        catch (const cv::Exception&) { ok = false; }
-        if (!ok) missing.push_back(&n);
-    }
-    if (missing.empty()) return true;
-
-    std::cerr << "Ця збірка OpenCV (" << cv::getVersionString()
-              << ") не дає застосункові потрібного:\n";
-    for (const Need* n : missing)
-        std::cerr << "  x " << n->what << "\n      " << n->fix << "\n";
-    std::cerr << "Повний перелік здатностей: запустіть із --report.\n";
-    return false;
-}
-```
+:::code proj-inspect-build/cpp/vid-zvitu-do-zapobizhnyka-2.cpp
 
 `try` навколо кожної проби — не перестрахування, а вимога з початку: перевірка, яка сама впала, перетворює зрозумілу відмову на незрозумілу аварію, тобто робить рівно те, проти чого затіяна.
 
 І останнє — `main`, у якому обидві форми співіснують:
 
-```cpp
-int main(int argc, char** argv)
-{
-    const std::string mode = argc > 1 ? argv[1] : "--report";
-
-    if (mode == "--debug")   // чому саме плагін не завантажився
-        cv::utils::logging::setLogLevel(cv::utils::logging::LOG_LEVEL_DEBUG);
-
-    if (mode != "--check") {
-        reportVersion();
-        std::cout << "Модулі: "
-                  << buildInfoField("OpenCV modules", "To be built") << "\n"
-                  << "Contrib: "
-                  << buildInfoField("Extra modules", "Version control (extra)")
-                  << "\n";
-        reportBackends("Файли й потоки", reg::getStreamBackends(),
-                                         reg::getStreamBackendPluginVersion);
-        reportBackends("Камери",         reg::getCameraBackends(),
-                                         reg::getCameraBackendPluginVersion);
-        reportBackends("Запис",          reg::getWriterBackends(),
-                                         reg::getWriterBackendPluginVersion);
-        reportCompute();
-        std::cout << "\n";
-    }
-
-    const AppConfig cfg{};               // насправді — з конфігурації застосунку
-    return verify(requirementsOf(cfg)) ? 0 : 1;
-}
-```
+:::code proj-inspect-build/cpp/vid-zvitu-do-zapobizhnyka-3.cpp
 
 Збирається це звичайним `CMakeLists.txt`:
 

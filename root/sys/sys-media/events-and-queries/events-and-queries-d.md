@@ -98,27 +98,7 @@
 
 Дві осі й ознака липкості вкладені прямо в числове значення типу події. Молодший байт — прапорці, старші — порядковий номер:
 
-```c
-#define GST_EVENT_MAKE_TYPE(num, flags)  (((num) << 8) | (flags))
-
-GST_EVENT_TYPE_UPSTREAM      = 1 << 0
-GST_EVENT_TYPE_DOWNSTREAM    = 1 << 1
-GST_EVENT_TYPE_SERIALIZED    = 1 << 2
-GST_EVENT_TYPE_STICKY        = 1 << 3
-GST_EVENT_TYPE_STICKY_MULTI  = 1 << 4
-
-GST_EVENT_FLUSH_START  = MAKE_TYPE ( 10, BOTH)
-GST_EVENT_FLUSH_STOP   = MAKE_TYPE ( 20, BOTH | SERIALIZED)
-GST_EVENT_STREAM_START = MAKE_TYPE ( 40, DOWNSTREAM | SERIALIZED | STICKY)
-GST_EVENT_CAPS         = MAKE_TYPE ( 50, DOWNSTREAM | SERIALIZED | STICKY)
-GST_EVENT_SEGMENT      = MAKE_TYPE ( 70, DOWNSTREAM | SERIALIZED | STICKY)
-GST_EVENT_TAG          = MAKE_TYPE ( 80, DOWNSTREAM | SERIALIZED | STICKY | STICKY_MULTI)
-GST_EVENT_EOS          = MAKE_TYPE (110, DOWNSTREAM | SERIALIZED | STICKY)
-GST_EVENT_GAP          = MAKE_TYPE (160, DOWNSTREAM | SERIALIZED)
-GST_EVENT_QOS          = MAKE_TYPE (190, UPSTREAM)
-GST_EVENT_SEEK         = MAKE_TYPE (200, UPSTREAM)
-GST_EVENT_RECONFIGURE  = MAKE_TYPE (240, UPSTREAM)
-```
+:::code events-and-queries-d/c/typ-podii-tse-chyslo-z.c
 
 Читати цю таблицю варто не як перелік, а як перевірку правил на міцність. Обидва скидання позначені `BOTH` — вони мають право йти в обидва боки, бо перемотування народжується в програмі й спускається до джерела, а джерело розсилає скидання вниз. Початок скидання — єдиний із двох без прапорця серіалізації, і це та сама причина, що вище. Усе, що описує дані, — за течією й серіалізоване. Усе, що є наказом, — проти течії й без серіалізації, бо наказ має діяти негайно, а не через півсекунди.
 
@@ -193,40 +173,7 @@ gst_query_unref (q);
 
 Елемент бере участь у сигналізації двома функціями, які ставить на свої пади: одна для подій, одна для запитів. Обидві мають ту саму форму — «або обробити самому, або передати далі», — і обидві мають типову реалізацію, яку треба **кликати**, а не заміщати.
 
-```c
-static gboolean
-my_sink_event (GstPad *pad, GstObject *parent, GstEvent *event)
-{
-  MyFilter *self = MY_FILTER (parent);
-
-  switch (GST_EVENT_TYPE (event)) {
-    case GST_EVENT_SEGMENT:
-      /* запам'ятовуємо систему координат часу для себе —
-         і ОБОВ'ЯЗКОВО пускаємо подію далі: вона потрібна не лише нам */
-      gst_event_copy_segment (event, &self->segment);
-      break;
-
-    case GST_EVENT_FLUSH_STOP:
-      /* після скидання наш внутрішній стан недійсний */
-      my_filter_reset (self);
-      break;
-
-    case GST_EVENT_CUSTOM_DOWNSTREAM:
-      if (gst_event_has_name (event, "my-marker")) {
-        my_filter_handle_marker (self, event);
-        gst_event_unref (event);       /* з'їли — самі й звільняємо */
-        return TRUE;
-      }
-      break;
-
-    default:
-      break;
-  }
-
-  /* усе інше — типовій обробці: вона розішле подію на всі src-пади */
-  return gst_pad_event_default (pad, parent, event);
-}
-```
+:::code events-and-queries-d/c/shcho-z-usoho-tsoho-musyt.c
 
 У цих двадцяти рядках сидять чотири правила, кожне з яких коштує окремого дня налагодження, якщо його порушити.
 

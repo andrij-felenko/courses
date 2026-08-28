@@ -1,0 +1,38 @@
+Mat  getMat(int idx=-1) const;
+Mat  getMat_(int idx=-1) const;
+UMat getUMat(int idx=-1) const;
+void getMatVector(std::vector<Mat>& mv) const;
+void getUMatVector(std::vector<UMat>& umv) const;
+void getGpuMatVector(std::vector<cuda::GpuMat>& gpumv) const;
+cuda::GpuMat   getGpuMat() const;
+cuda::GpuMatND getGpuMatND() const;
+ogl::Buffer    getOGlBuffer() const;
+
+int   getFlags() const;
+void* getObj() const;
+Size  getSz() const;
+
+_InputArray::KindFlag kind() const;
+int    dims(int i=-1) const;
+int    cols(int i=-1) const;
+int    rows(int i=-1) const;
+Size   size(int i=-1) const;
+int    sizend(int* sz, int i=-1) const;
+bool   sameSize(const _InputArray& arr) const;
+size_t total(int i=-1) const;
+int    type(int i=-1) const;
+int    depth(int i=-1) const;
+int    channels(int i=-1) const;
+bool   isContinuous(int i=-1) const;
+bool   isSubmatrix(int i=-1) const;
+bool   empty() const;
+bool   empty(int i) const;
+void   copyTo(const _OutputArray& arr) const;
+void   copyTo(const _OutputArray& arr, const _InputArray& mask) const;
+size_t offset(int i=-1) const;
+size_t step(int i=-1) const;
+bool isMat() const;        bool isUMat() const;
+bool isMatVector() const;  bool isUMatVector() const;
+bool isMatx() const;       bool isVector() const;
+bool isGpuMat() const;     bool isGpuMatVector() const;
+bool isGpuMatND() const;

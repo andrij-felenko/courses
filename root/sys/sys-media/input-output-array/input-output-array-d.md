@@ -36,23 +36,7 @@ protected:
 
 Конструктори — не `explicit`, по одному на кожен підтримуваний тип, і кожен лише запам'ятовує адресу:
 
-```cpp
-inline _InputArray::_InputArray(const Mat& m)  { init(+MAT + ACCESS_READ, &m); }
-inline _InputArray::_InputArray(const UMat& m) { init(+UMAT + ACCESS_READ, &m); }
-
-template<typename _Tp> inline
-_InputArray::_InputArray(const std::vector<_Tp>& vec)
-{
-    init(FIXED_TYPE + STD_VECTOR + traits::Type<_Tp>::value + ACCESS_READ, &vec);
-}
-
-template<typename _Tp, int m, int n> inline
-_InputArray::_InputArray(const Matx<_Tp, m, n>& mtx)
-{
-    init(FIXED_TYPE + FIXED_SIZE + MATX + traits::Type<_Tp>::value + ACCESS_READ,
-         &mtx, Size(n, m));
-}
-```
+:::code input-output-array-d/cpp/proksi-shcho-ne-volodiie.cpp
 
 Ніде немає ані копіювання пікселів, ані навіть збільшення лічильника посилань — самий лише `&`. Це три-чотири присвоєння цілих чисел і покажчика, тобто вартість, яку компілятор здебільшого просто розчиняє в місці виклику.
 
@@ -77,33 +61,7 @@ typedef const _InputOutputArray& InputOutputArray;
 
 Поле `flags` виглядає як єдине число, але насправді це чотири незалежні відповіді, укладені в різні його біти.
 
-```cpp
-enum KindFlag {
-    KIND_SHIFT = 16,
-    FIXED_TYPE = 0x8000 << KIND_SHIFT,
-    FIXED_SIZE = 0x4000 << KIND_SHIFT,
-    KIND_MASK  = 31 << KIND_SHIFT,
-
-    NONE              = 0 << KIND_SHIFT,
-    MAT               = 1 << KIND_SHIFT,
-    MATX              = 2 << KIND_SHIFT,
-    STD_VECTOR        = 3 << KIND_SHIFT,
-    STD_VECTOR_VECTOR = 4 << KIND_SHIFT,
-    STD_VECTOR_MAT    = 5 << KIND_SHIFT,
-    OPENGL_BUFFER     = 7 << KIND_SHIFT,
-    CUDA_HOST_MEM     = 8 << KIND_SHIFT,
-    CUDA_GPU_MAT      = 9 << KIND_SHIFT,
-    UMAT              =10 << KIND_SHIFT,
-    STD_VECTOR_UMAT   =11 << KIND_SHIFT,
-    STD_BOOL_VECTOR   =12 << KIND_SHIFT,
-    STD_VECTOR_CUDA_GPU_MAT = 13 << KIND_SHIFT,
-    STD_ARRAY_MAT     =15 << KIND_SHIFT,
-    CUDA_GPU_MATND    =16 << KIND_SHIFT
-};
-
-enum AccessFlag { ACCESS_READ=1<<24, ACCESS_WRITE=1<<25,
-    ACCESS_RW=3<<24, ACCESS_MASK=ACCESS_RW, ACCESS_FAST=1<<26 };
-```
+:::code input-output-array-d/cpp/odne-tsile-chyslo-z.cpp
 
 ![Розкладка бітів у полі flags: тип елемента, вид джерела, права доступу та два прапорці незмінності](img/flags-layout.svg)
 

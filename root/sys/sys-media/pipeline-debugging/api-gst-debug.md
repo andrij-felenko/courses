@@ -118,20 +118,7 @@ GST_DEBUG=2 GST_DEBUG_FILE=/tmp/gst-%p.log gst-launch-1.0 …
 
 Типовий приймач за замовчуванням — `gst_debug_log_default`; його прибирають, коли треба забрати весь журнал собі:
 
-```c
-static void my_log (GstDebugCategory *cat, GstDebugLevel level,
-                    const gchar *file, const gchar *function, gint line,
-                    GObject *object, GstDebugMessage *message, gpointer data)
-{
-  syslog (LOG_DEBUG, "%s %s:%d %s",
-          gst_debug_category_get_name (cat), file, line,
-          gst_debug_message_get (message));
-}
-
-gst_debug_remove_log_function (gst_debug_log_default);
-gst_debug_add_log_function (my_log, NULL, NULL);
-gst_debug_set_threshold_from_string ("2,GST_STATES:5", TRUE);
-```
+:::code api-gst-debug/c/main.c
 
 > 🔧 **Навіщо це.** На пристрої без термінала журнал GStreamer інакше просто зникає: `stderr` закритий або перенаправлений у `/dev/null`, а файлова система здебільшого лише для читання. Власний приймач віддає ті самі рядки в системний журнал, у кільцевий буфер у пам'яті чи в мережу — і робить діагностику доступною там, де змінних середовища виставити нікому.
 

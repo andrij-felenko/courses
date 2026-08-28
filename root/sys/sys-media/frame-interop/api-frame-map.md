@@ -22,19 +22,7 @@ pkg-config --cflags --libs opencv4
 
 `GstVideoInfo` — це розібраний рядок caps: із тексту `video/x-raw, format=NV12, width=1366, height=768` вона робить формат, розміри й **типові** кроки та зсуви площин.
 
-```c
-void           gst_video_info_init          (GstVideoInfo *info);
-gboolean       gst_video_info_from_caps     (GstVideoInfo *info, const GstCaps *caps);
-GstCaps       *gst_video_info_to_caps       (const GstVideoInfo *info);
-gboolean       gst_video_info_set_format    (GstVideoInfo *info, GstVideoFormat format,
-                                             guint width, guint height);
-GstVideoInfo  *gst_video_info_new           (void);                        /* 1.6  */
-GstVideoInfo  *gst_video_info_new_from_caps (const GstCaps *caps);         /* 1.20 */
-void           gst_video_info_free          (GstVideoInfo *info);          /* 1.6  */
-gboolean       gst_video_info_align         (GstVideoInfo *info, GstVideoAlignment *align);
-gboolean       gst_video_info_align_full    (GstVideoInfo *info, GstVideoAlignment *align,
-                                             gsize plane_size[GST_VIDEO_MAX_PLANES]); /* 1.18 */
-```
+:::code api-frame-map/c/caps-gstvideoinfo.h
 
 `gst_video_info_from_caps` повертає `FALSE`, коли caps не фіксовані або це взагалі не `video/x-raw`; нефіксовані caps ще й лишають у журналі GLib запис про невдалу перевірку аргументу. Повернене значення перевіряти обов'язково: доки [узгодження caps](root:sys-media/caps-negotiation) не пройшло, структура не заповнена і читати з неї нічого.
 
@@ -130,24 +118,7 @@ I420   stride[1] = RU4(RU2(1366)/2) = RU4(683) = 684
 
 Типові кроки — це те, що GStreamer вигадав би сам. Реальний буфер, який приїхав від апаратного декодера чи камери через V4L2, розкладено так, як зручно тому залізу, і свою розкладку він несе на собі метаданими.
 
-```c
-GstVideoMeta *gst_buffer_get_video_meta      (GstBuffer *buffer);
-GstVideoMeta *gst_buffer_get_video_meta_id   (GstBuffer *buffer, gint id);
-GstVideoMeta *gst_buffer_add_video_meta      (GstBuffer *buffer, GstVideoFrameFlags flags,
-                                              GstVideoFormat format, guint width, guint height);
-GstVideoMeta *gst_buffer_add_video_meta_full (GstBuffer *buffer, GstVideoFrameFlags flags,
-                                              GstVideoFormat format, guint width, guint height,
-                                              guint n_planes,
-                                              gsize offset[GST_VIDEO_MAX_PLANES],
-                                              gint  stride[GST_VIDEO_MAX_PLANES]);
-
-gboolean gst_video_meta_map              (GstVideoMeta *meta, guint plane, GstMapInfo *info,
-                                          gpointer *data, gint *stride, GstMapFlags flags);
-gboolean gst_video_meta_unmap            (GstVideoMeta *meta, guint plane, GstMapInfo *info);
-gboolean gst_video_meta_set_alignment    (GstVideoMeta *meta, GstVideoAlignment alignment);   /* 1.18 */
-gboolean gst_video_meta_get_plane_size   (GstVideoMeta *meta, gsize plane_size[GST_VIDEO_MAX_PLANES]);   /* 1.18 */
-gboolean gst_video_meta_get_plane_height (GstVideoMeta *meta, guint plane_height[GST_VIDEO_MAX_PLANES]); /* 1.18 */
-```
+:::code api-frame-map/c/gstvideometa-koly-typovi.h
 
 | Поле `GstVideoMeta` | Тип | Значення |
 | --- | --- | --- |
@@ -224,20 +195,7 @@ struct _GstVideoFrame {
 
 Мінімальний правильний виклик:
 
-```c
-GstVideoInfo  info;
-GstVideoFrame frame;
-
-if (!gst_video_info_from_caps (&info, caps))
-  return GST_FLOW_NOT_NEGOTIATED;
-
-if (!gst_video_frame_map (&frame, &info, buffer, GST_MAP_READ))
-  return GST_FLOW_ERROR;
-
-/* … робота з GST_VIDEO_FRAME_PLANE_DATA / PLANE_STRIDE … */
-
-gst_video_frame_unmap (&frame);        /* і на кожному ранньому виході теж */
-```
+:::code api-frame-map/c/gst-video-frame-map-proty.c
 
 ## Площина — це не компонента
 
@@ -351,74 +309,7 @@ ITUR_BT_601_SHIFT = 20
 
 ## Готова функція
 
-```cpp
-// Кадр із конвеєра → BGR. Заголовки над площинами нічого не копіюють;
-// копія відбувається лише всередині cvtColor і merge, де без неї не обійтися.
-static bool frame_to_bgr(const GstVideoFrame& f, cv::Mat& bgr)
-{
-    const int w = GST_VIDEO_FRAME_WIDTH(&f);
-    const int h = GST_VIDEO_FRAME_HEIGHT(&f);
-    const int cw = GST_VIDEO_FRAME_COMP_WIDTH(&f, 1);    // ширина хроми
-    const int ch = GST_VIDEO_FRAME_COMP_HEIGHT(&f, 1);   // висота хроми
-
-    switch (GST_VIDEO_FRAME_FORMAT(&f)) {
-
-    case GST_VIDEO_FORMAT_BGR: {
-        cv::Mat src(h, w, CV_8UC3, GST_VIDEO_FRAME_PLANE_DATA(&f, 0),
-                                   GST_VIDEO_FRAME_PLANE_STRIDE(&f, 0));
-        src.copyTo(bgr);            // без copyTo це позика, що помре на unmap
-        return true;
-    }
-    case GST_VIDEO_FORMAT_BGRx:
-    case GST_VIDEO_FORMAT_BGRA: {
-        cv::Mat src(h, w, CV_8UC4, GST_VIDEO_FRAME_PLANE_DATA(&f, 0),
-                                   GST_VIDEO_FRAME_PLANE_STRIDE(&f, 0));
-        cv::cvtColor(src, bgr, cv::COLOR_BGRA2BGR);
-        return true;
-    }
-    case GST_VIDEO_FORMAT_GRAY8: {
-        cv::Mat src(h, w, CV_8UC1, GST_VIDEO_FRAME_PLANE_DATA(&f, 0),
-                                   GST_VIDEO_FRAME_PLANE_STRIDE(&f, 0));
-        cv::cvtColor(src, bgr, cv::COLOR_GRAY2BGR);
-        return true;
-    }
-    case GST_VIDEO_FORMAT_YUY2: {
-        cv::Mat src(h, w, CV_8UC2, GST_VIDEO_FRAME_PLANE_DATA(&f, 0),
-                                   GST_VIDEO_FRAME_PLANE_STRIDE(&f, 0));
-        cv::cvtColor(src, bgr, cv::COLOR_YUV2BGR_YUY2);
-        return true;
-    }
-    case GST_VIDEO_FORMAT_NV12:
-    case GST_VIDEO_FORMAT_NV21: {
-        cv::Mat y (h,  w,  CV_8UC1, GST_VIDEO_FRAME_PLANE_DATA(&f, 0),
-                                    GST_VIDEO_FRAME_PLANE_STRIDE(&f, 0));
-        cv::Mat uv(ch, cw, CV_8UC2, GST_VIDEO_FRAME_PLANE_DATA(&f, 1),
-                                    GST_VIDEO_FRAME_PLANE_STRIDE(&f, 1));
-        cv::cvtColorTwoPlane(y, uv, bgr,
-            GST_VIDEO_FRAME_FORMAT(&f) == GST_VIDEO_FORMAT_NV12
-                ? cv::COLOR_YUV2BGR_NV12 : cv::COLOR_YUV2BGR_NV21);
-        return true;
-    }
-    case GST_VIDEO_FORMAT_I420:
-    case GST_VIDEO_FORMAT_YV12: {
-        // COMP, а не PLANE: компонента 1 — завжди U, компонента 2 — завжди V,
-        // тому обидва формати проходять цією гілкою без розрізнення.
-        cv::Mat y(h,  w,  CV_8UC1, GST_VIDEO_FRAME_COMP_DATA(&f, 0),
-                                   GST_VIDEO_FRAME_COMP_STRIDE(&f, 0));
-        cv::Mat u(ch, cw, CV_8UC1, GST_VIDEO_FRAME_COMP_DATA(&f, 1),
-                                   GST_VIDEO_FRAME_COMP_STRIDE(&f, 1));
-        cv::Mat v(ch, cw, CV_8UC1, GST_VIDEO_FRAME_COMP_DATA(&f, 2),
-                                   GST_VIDEO_FRAME_COMP_STRIDE(&f, 2));
-        cv::Mat uv;
-        cv::merge(std::vector<cv::Mat>{u, v}, uv);   // U та V поруч — розкладка NV12
-        cv::cvtColorTwoPlane(y, uv, bgr, cv::COLOR_YUV2BGR_NV12);
-        return true;
-    }
-    default:
-        return false;               // формат не з нашого списку — хай його візьме videoconvert
-    }
-}
-```
+:::code api-frame-map/cpp/main.cpp
 
 ## `cv::VideoCapture` з бекендом GStreamer
 

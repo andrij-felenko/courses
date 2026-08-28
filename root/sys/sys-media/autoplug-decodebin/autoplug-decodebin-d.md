@@ -128,20 +128,7 @@ gst-launch-1.0 filesrc location=clip.mkv \
 
 Застосунок може втрутитися в перебір. Перед кожною спробою `decodebin` питає в програми сигналом `autoplug-select`, і обробник відповідає одним із трьох слів: `try` — пробуй цю фабрику, `skip` — пропусти й бери наступну, `expose` — не став нічого, виставляй пад як є. Три відповіді покривають усі потреби: вимкнути конкретний елемент, звузити список до дозволених, або взагалі перехопити потік на півдорозі до сирих кадрів.
 
-```c
-static GstAutoplugSelectResult
-on_autoplug_select (GstElement *bin, GstPad *pad, GstCaps *caps,
-                    GstElementFactory *factory, gpointer user_data)
-{
-  const gchar *name = gst_plugin_feature_get_name (GST_PLUGIN_FEATURE (factory));
-
-  /* відомо, що на цьому залізі 10-бітний профіль апаратно не йде */
-  if (g_str_has_prefix (name, "va") && caps_are_10bit (caps))
-    return GST_AUTOPLUG_SELECT_SKIP;
-
-  return GST_AUTOPLUG_SELECT_TRY;
-}
-```
+:::code autoplug-decodebin-d/c/main.c
 
 Поруч живуть іще три точки втручання: `autoplug-continue` вирішує, чи взагалі шукати щось далі за цими caps; `autoplug-factories` дає готовий список кандидатів на заміну; `autoplug-sort` переставляє їх у своєму порядку. Повний перелік сигналів і властивостей — і в `decodebin`, і в `decodebin3` — зібрано окремо: [інтерфейс керування автодобором](root:sys-media/autoplug-decodebin/api-decodebin-signals.md). А робочу програму, яка веде журнал кандидатів, забороняє непотрібні й акуратно доживає до першого кадру, розібрано у вставці [керований автодобір із власним вибором декодера](root:sys-media/autoplug-decodebin/proj-autoplug-select.md).
 

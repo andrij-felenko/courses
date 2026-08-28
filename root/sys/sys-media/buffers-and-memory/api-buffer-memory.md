@@ -265,27 +265,7 @@ maxsize ≥ 0 + 3 317 760 + 64                    = 3 317 824 байти
 
 Порядок тут не рекомендація, а умова: конфігурацію не приймуть на активному пулі, а буферів не буде до активації.
 
-```c
-GstBufferPool *pool = gst_buffer_pool_new ();      /* або з елемента, або із запиту */
-GstStructure  *config = gst_buffer_pool_get_config (pool);   /* окрема копія */
-
-gst_buffer_pool_config_set_params (config, caps, size, min_buffers, max_buffers);
-gst_buffer_pool_config_set_allocator (config, allocator, &params);
-if (gst_buffer_pool_has_option (pool, GST_BUFFER_POOL_OPTION_VIDEO_META))
-  gst_buffer_pool_config_add_option (config, GST_BUFFER_POOL_OPTION_VIDEO_META);
-
-if (!gst_buffer_pool_set_config (pool, config))    /* config з'їдено в будь-якому разі */
-  goto config_failed;
-
-gst_buffer_pool_set_active (pool, TRUE);           /* саме тут виділяються min_buffers */
-
-/* … робота … */
-gst_buffer_pool_acquire_buffer (pool, &buf, NULL);
-gst_buffer_unref (buf);                            /* повернення в пул */
-
-gst_buffer_pool_set_active (pool, FALSE);          /* звільняє, коли всі буфери вдома */
-gst_object_unref (pool);
-```
+:::code api-buffer-memory/c/gstbufferpool-poriadok.h
 
 Три речі, на яких спотикаються:
 
@@ -371,31 +351,7 @@ void      gst_query_parse_allocation (GstQuery *query, GstCaps **caps, gboolean 
 
 Три однакові за будовою набори: пули, параметри виділення, метадані.
 
-```c
-/* пули */
-void   gst_query_add_allocation_pool        (GstQuery *q, GstBufferPool *pool,
-                                             guint size, guint min_buffers, guint max_buffers);
-guint  gst_query_get_n_allocation_pools     (GstQuery *q);
-void   gst_query_parse_nth_allocation_pool  (GstQuery *q, guint index, GstBufferPool **pool,
-                                             guint *size, guint *min, guint *max);
-void   gst_query_set_nth_allocation_pool    (GstQuery *q, guint index, GstBufferPool *pool,
-                                             guint size, guint min, guint max);
-void   gst_query_remove_nth_allocation_pool (GstQuery *q, guint index);
-
-/* параметри виділення */
-void   gst_query_add_allocation_param       (GstQuery *q, GstAllocator *allocator,
-                                             const GstAllocationParams *params);
-guint  gst_query_get_n_allocation_params    (GstQuery *q);
-void   gst_query_parse_nth_allocation_param (GstQuery *q, guint index, GstAllocator **allocator,
-                                             GstAllocationParams *params);
-
-/* метадані */
-void     gst_query_add_allocation_meta       (GstQuery *q, GType api, const GstStructure *params);
-guint    gst_query_get_n_allocation_metas    (GstQuery *q);
-GType    gst_query_parse_nth_allocation_meta (GstQuery *q, guint index,
-                                              const GstStructure **params);
-gboolean gst_query_find_allocation_meta      (GstQuery *q, GType api, guint *index);
-```
+:::code api-buffer-memory/c/zapyt-na-alokatsiiu.h
 
 Три домовленості, без яких ці функції читаються неправильно:
 
@@ -431,86 +387,9 @@ gboolean (*decide_allocation) (GstVideoDecoder *decoder, GstQuery *query);
 
 Обидві половини цілком:
 
-```c
-/* ── СПОЖИВАЧ: що я вимагаю від того, хто виділятиме ─────────────────── */
-static gboolean
-my_sink_propose_allocation (GstBaseSink * sink, GstQuery * query)
-{
-  GstCaps *caps;
-  gboolean need_pool;
-  GstVideoInfo info;
-  GstAllocationParams params;
+:::code api-buffer-memory/c/khto-koho-pytaie-propose.c
 
-  gst_query_parse_allocation (query, &caps, &need_pool);
-  if (caps == NULL || !gst_video_info_from_caps (&info, caps))
-    return FALSE;
-
-  /* «я розумію GstVideoMeta» — джерело може лишити свій крок рядка */
-  gst_query_add_allocation_meta (query, GST_VIDEO_META_API_TYPE, NULL);
-
-  /* вимоги мого заліза: рядок по 256 байтів, 64 байти запасу за кадром */
-  gst_allocation_params_init (&params);
-  params.align = 255;
-  params.padding = 64;
-  gst_query_add_allocation_param (query, NULL, &params);   /* алокатор — будь-який */
-
-  if (need_pool) {
-    GstBufferPool *pool = gst_video_buffer_pool_new ();
-    GstStructure *config = gst_buffer_pool_get_config (pool);
-
-    gst_buffer_pool_config_set_params (config, caps, GST_VIDEO_INFO_SIZE (&info), 4, 0);
-    gst_buffer_pool_config_add_option (config, GST_BUFFER_POOL_OPTION_VIDEO_META);
-    if (!gst_buffer_pool_set_config (pool, config)) {
-      gst_object_unref (pool);
-      return FALSE;
-    }
-    gst_query_add_allocation_pool (query, pool, GST_VIDEO_INFO_SIZE (&info), 4, 0);
-    gst_object_unref (pool);            /* запит узяв власне посилання */
-  }
-  return TRUE;
-}
-```
-
-```c
-/* ── ТОЙ, ХТО ВИДІЛЯЄ: обираю пул із зібраних відповідей ─────────────── */
-static gboolean
-my_src_decide_allocation (GstBaseSrc * src, GstQuery * query)
-{
-  GstBufferPool *pool = NULL;
-  GstStructure *config;
-  GstCaps *caps;
-  guint size = 0, min = 0, max = 0;
-  gboolean had_pool;
-
-  gst_query_parse_allocation (query, &caps, NULL);
-
-  had_pool = gst_query_get_n_allocation_pools (query) > 0;
-  if (had_pool)
-    gst_query_parse_nth_allocation_pool (query, 0, &pool, &size, &min, &max);
-
-  if (pool == NULL) {                   /* ніхто нічого не запропонував */
-    pool = gst_video_buffer_pool_new ();
-    size = MAX (size, own_frame_size (src));
-    min = 3;
-    max = 0;
-  }
-
-  config = gst_buffer_pool_get_config (pool);
-  gst_buffer_pool_config_set_params (config, caps, size, min, max);
-  if (gst_query_find_allocation_meta (query, GST_VIDEO_META_API_TYPE, NULL))
-    gst_buffer_pool_config_add_option (config, GST_BUFFER_POOL_OPTION_VIDEO_META);
-  gst_buffer_pool_set_config (pool, config);
-
-  /* рішення треба покласти назад у запит — базовий клас активує саме цей пул */
-  if (had_pool)
-    gst_query_set_nth_allocation_pool (query, 0, pool, size, min, max);
-  else
-    gst_query_add_allocation_pool (query, pool, size, min, max);
-
-  gst_object_unref (pool);
-  return TRUE;
-}
-```
+:::code api-buffer-memory/c/khto-koho-pytaie-propose-2.c
 
 ## Симптом → причина
 

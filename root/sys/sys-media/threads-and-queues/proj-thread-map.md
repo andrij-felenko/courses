@@ -14,45 +14,7 @@
 
 ## Що тримає програма
 
-```c
-/* thread-map.c — друкує справжню мапу ниток конвеєра GStreamer.
- *
- * збірка:
- *   cc thread-map.c -o thread-map $(pkg-config --cflags --libs gstreamer-1.0)
- * запуск:
- *   ./thread-map              # із чергами на гілках — працює
- *   ./thread-map --no-queue   # без черг — конвеєр не доїде до PAUSED
- */
-#include <gst/gst.h>
-
-typedef struct {
-  GThread *thread;   /* нитка, у якій спрацювала проба */
-  gint     tid;      /* наш короткий номер: T1, T2, … */
-  gchar   *elem;     /* ім'я елемента */
-  gchar   *pad;      /* ім'я пада */
-  gchar    dir;      /* '<' вхідний, '>' вихідний */
-} Mark;
-
-static GMutex      log_lock;   /* один замок на друк і на обидві таблиці */
-static GArray     *marks;      /* Mark у порядку появи */
-static GHashTable *tids;       /* GThread* → номер нитки */
-static GThread    *thr[64];    /* номер нитки → GThread* */
-static gint        next_tid = 1;
-
-/* Короткий номер нитки. Викликати з узятим log_lock. */
-static gint
-thread_number (GThread *t)
-{
-  gpointer v = g_hash_table_lookup (tids, t);
-
-  if (v == NULL && next_tid < (gint) G_N_ELEMENTS (thr)) {
-    v = GINT_TO_POINTER (next_tid);
-    thr[next_tid++] = t;
-    g_hash_table_insert (tids, t, v);
-  }
-  return GPOINTER_TO_INT (v);
-}
-```
+:::code proj-thread-map/c/thread-map.c
 
 Найважливіше тут — короткий номер. `GThread *` цілком годиться, щоб розрізняти нитки, але вісім шістнадцяткових цифр у кожному рядку перетворюють вивід на шифр, який доводиться розгадувати замість читати. Тому кожна нова нитка дістає порядковий номер при першій же появі, а вказівник друкується один раз у підсумку.
 
@@ -60,33 +22,7 @@ thread_number (GThread *t)
 
 ## Проба: один буфер, один рядок, і відразу геть
 
-```c
-/* Спрацьовує на ПЕРШОМУ буфері цього пада й одразу знімає себе.
-   Виконується в нитці потоку, із узятим замком потоку — тому тут
-   дозволено рівно два рухи: узяти імена й надрукувати рядок. */
-static GstPadProbeReturn
-first_buffer (GstPad *pad, GstPadProbeInfo *info, gpointer user_data)
-{
-  GstElement *owner = gst_pad_get_parent_element (pad);
-  Mark m;
-
-  m.thread = g_thread_self ();
-  m.elem   = owner ? gst_element_get_name (owner) : g_strdup ("?");
-  m.pad    = gst_pad_get_name (pad);
-  m.dir    = (GST_PAD_DIRECTION (pad) == GST_PAD_SINK) ? '<' : '>';
-
-  g_mutex_lock (&log_lock);
-  m.tid = thread_number (m.thread);
-  g_array_append_val (marks, m);
-  g_print ("  T%-2d  %-34s %c %s\n", m.tid, m.elem, m.dir, m.pad);
-  g_mutex_unlock (&log_lock);
-
-  if (owner)
-    gst_object_unref (owner);
-
-  return GST_PAD_PROBE_REMOVE;   /* нас цікавив ЛИШЕ перший буфер */
-}
-```
+:::code proj-thread-map/c/proba-odyn-bufer-odyn.c
 
 Три рядки цієї функції варті окремого погляду.
 
@@ -104,65 +40,7 @@ first_buffer (GstPad *pad, GstPadProbeInfo *info, gpointer user_data)
 
 ## Обхід падів: GstIterator і чому саме в READY
 
-```c
-/* Повісити пробу на кожен пад одного елемента. Самого BUFFER мало:
-   елемент може штовхати списки буферів, і тоді проба на самі лише
-   буфери просто мовчить. */
-static void
-probe_pads (GstElement *elem)
-{
-  GstIterator *it = gst_element_iterate_pads (elem);
-  GValue item = G_VALUE_INIT;
-  gboolean done = FALSE;
-
-  while (!done) {
-    switch (gst_iterator_next (it, &item)) {
-      case GST_ITERATOR_OK:
-        gst_pad_add_probe (GST_PAD (g_value_get_object (&item)),
-                           GST_PAD_PROBE_TYPE_BUFFER |
-                           GST_PAD_PROBE_TYPE_BUFFER_LIST,
-                           first_buffer, NULL, NULL);
-        g_value_reset (&item);      /* GValue тримав посилання — віддаємо */
-        break;
-      case GST_ITERATOR_RESYNC:     /* список падів змінився під нами */
-        gst_iterator_resync (it);   /* обхід починається спочатку */
-        break;
-      default:                      /* DONE або ERROR */
-        done = TRUE;
-        break;
-    }
-  }
-  g_value_unset (&item);
-  gst_iterator_free (it);
-}
-
-/* Те саме по всіх елементах конвеєра, разом із тими, що лежать усередині
-   вкладених бінів: autovideosink — саме такий бін. */
-static void
-for_each_element (GstElement *pipeline, void (*fn) (GstElement *))
-{
-  GstIterator *it = gst_bin_iterate_recurse (GST_BIN (pipeline));
-  GValue item = G_VALUE_INIT;
-  gboolean done = FALSE;
-
-  while (!done) {
-    switch (gst_iterator_next (it, &item)) {
-      case GST_ITERATOR_OK:
-        fn (GST_ELEMENT (g_value_get_object (&item)));
-        g_value_reset (&item);
-        break;
-      case GST_ITERATOR_RESYNC:
-        gst_iterator_resync (it);
-        break;
-      default:
-        done = TRUE;
-        break;
-    }
-  }
-  g_value_unset (&item);
-  gst_iterator_free (it);
-}
-```
+:::code proj-thread-map/c/obkhid-padiv-gstiterator-i.c
 
 Ітератор бібліотеки має форму, яка спершу дратує, а потім виявляється чесною: він може відповісти `RESYNC` — «список під тобою змінився, почни спочатку». Це не дефект, а зізнання: пади з'являються й зникають у нитках потоку, і жоден знімок списку не буває дійсним довго. Гілка `RESYNC`, дописана «щоб компілятор мовчав», — найкоротший шлях до обходу, який мовчки пропускає половину падів під час динамічного під'єднання.
 
@@ -170,57 +48,7 @@ for_each_element (GstElement *pipeline, void (*fn) (GstElement *))
 
 ## Хто створює нитки: STREAM_STATUS у своїй нитці
 
-```c
-/* Синхронний обробник шини: виконується в нитці ТОГО, ХТО ПОСТИТЬ
-   повідомлення. Саме тому тут видно різницю між тим, хто задачу
-   створює, і тим, хто в неї входить. */
-static GstBusSyncReply
-on_message_sync (GstBus *bus, GstMessage *msg, gpointer user_data)
-{
-  if (GST_MESSAGE_TYPE (msg) == GST_MESSAGE_STREAM_STATUS) {
-    GstStreamStatusType type;
-    GstElement *owner = NULL;
-    const GValue *val;
-    GstTask *task = NULL;
-    const gchar *word = NULL;
-
-    gst_message_parse_stream_status (msg, &type, &owner);
-    val = gst_message_get_stream_status_object (msg);
-    if (val != NULL && G_VALUE_TYPE (val) == GST_TYPE_TASK)
-      task = g_value_get_object (val);
-
-    switch (type) {
-      case GST_STREAM_STATUS_TYPE_CREATE:
-        word = "CREATE";
-        /* ЄДИНИЙ момент, коли можна підсунути власний пул ниток:
-             gst_task_set_pool (task, my_pool);
-           після повернення звідси задача вже візьме типовий. */
-        break;
-      case GST_STREAM_STATUS_TYPE_ENTER:
-        word = "ENTER";
-        /* ми вже ВСЕРЕДИНІ нової нитки — тут виставляють пріоритет:
-             struct sched_param p = { .sched_priority = 10 };
-             pthread_setschedparam (pthread_self (), SCHED_RR, &p); */
-        break;
-      case GST_STREAM_STATUS_TYPE_LEAVE:
-        word = "LEAVE";
-        break;
-      default:
-        break;
-    }
-
-    if (word != NULL) {
-      g_mutex_lock (&log_lock);
-      g_print ("  [%-6s] задача «%s» від «%s» — ми зараз у T%d\n", word,
-               task  ? GST_OBJECT_NAME (task)  : "?",
-               owner ? GST_OBJECT_NAME (owner) : "?",
-               thread_number (g_thread_self ()));
-      g_mutex_unlock (&log_lock);
-    }
-  }
-  return GST_BUS_PASS;   /* нічого не ковтаємо: далі повідомлення йде як завжди */
-}
-```
+:::code proj-thread-map/c/khto-stvoriuie-nytky.c
 
 Обробник саме синхронний, і слово це тут технічне: він виконується просто в тій нитці, яка поклала повідомлення, до того як керування повернеться. Звичайний обробник [шини повідомлень](root:sys-media/bus-and-messages) забирає повідомлення пізніше й із головного циклу — для `CREATE` це запізно, бо задача вже стартувала б із типовим пулом, а для `ENTER` просто безглуздо, бо весь сенс цього повідомлення в тому, у якій нитці воно приходить.
 
@@ -230,118 +58,7 @@ on_message_sync (GstBus *bus, GstMessage *msg, gpointer user_data)
 
 ## Головна частина
 
-```c
-static void
-dump_one_state (GstElement *e)
-{
-  GstState cur, pending;
-
-  gst_element_get_state (e, &cur, &pending, 0);
-  g_print ("  %-36s %-8s → %-12s%s\n", GST_OBJECT_NAME (e),
-           gst_element_state_get_name (cur),
-           gst_element_state_get_name (pending),
-           pending != GST_STATE_VOID_PENDING ? "  ← ось хто не доїхав" : "");
-}
-
-static void
-print_map (void)
-{
-  gint t;
-  guint i;
-
-  g_mutex_lock (&log_lock);
-  g_print ("\n=== мапа ниток: %u падів у %d нитках ===\n", marks->len, next_tid - 1);
-  for (t = 1; t < next_tid; t++) {
-    guint own = 0;
-
-    g_print ("\nT%d  (%p)\n", t, (void *) thr[t]);
-    for (i = 0; i < marks->len; i++) {
-      Mark *m = &g_array_index (marks, Mark, i);
-
-      if (m->tid != t)
-        continue;
-      g_print ("    %-36s %c %s\n", m->elem, m->dir, m->pad);
-      own++;
-    }
-    if (own == 0)
-      g_print ("    (жодного пада — через цю нитку дані не течуть)\n");
-  }
-  g_mutex_unlock (&log_lock);
-}
-
-int
-main (int argc, char *argv[])
-{
-  const gchar *with_queue =
-      "videotestsrc num-buffers=300 ! tee name=t "
-      "t. ! queue ! autovideosink "
-      "t. ! queue ! jpegenc ! fakesink";
-  const gchar *no_queue =
-      "videotestsrc num-buffers=300 ! tee name=t "
-      "t. ! autovideosink "
-      "t. ! jpegenc ! fakesink";
-  gboolean bare = (argc > 1 && g_strcmp0 (argv[1], "--no-queue") == 0);
-  GError *err = NULL;
-  GstElement *pipeline;
-  GstBus *bus;
-  GstStateChangeReturn ret;
-  guint i;
-
-  gst_init (&argc, &argv);
-  g_mutex_init (&log_lock);
-  marks = g_array_new (FALSE, FALSE, sizeof (Mark));
-  tids  = g_hash_table_new (NULL, NULL);
-
-  pipeline = gst_parse_launch (bare ? no_queue : with_queue, &err);
-  if (pipeline == NULL) {
-    g_printerr ("конвеєр не зібрався: %s\n", err->message);
-    return 1;
-  }
-
-  bus = gst_element_get_bus (pipeline);
-  gst_bus_set_sync_handler (bus, on_message_sync, NULL, NULL);
-
-  g_mutex_lock (&log_lock);
-  g_print ("нитка застосунку: T%d (%p)\n\n",
-           thread_number (g_thread_self ()), (void *) g_thread_self ());
-  g_mutex_unlock (&log_lock);
-
-  /* READY, а не одразу PAUSED: у READY autovideosink уже обрав справжній
-     стік і має всі пади, але жодного буфера ще не було. */
-  if (gst_element_set_state (pipeline, GST_STATE_READY) == GST_STATE_CHANGE_FAILURE) {
-    g_printerr ("не піднявся навіть у READY\n");
-    return 1;
-  }
-  for_each_element (pipeline, probe_pads);
-
-  gst_element_set_state (pipeline, GST_STATE_PLAYING);
-
-  /* Чекаємо з обмеженням, а не назавжди: різницю між робочим конвеєром
-     і зависанням видно саме тут. */
-  ret = gst_element_get_state (pipeline, NULL, NULL, 5 * GST_SECOND);
-  if (ret == GST_STATE_CHANGE_ASYNC) {
-    g_print ("\n!! за 5 с конвеєр не дійшов до PLAYING. Стани елементів:\n");
-    dump_one_state (pipeline);
-    for_each_element (pipeline, dump_one_state);
-  } else {
-    g_usleep (500 * 1000);
-    print_map ();
-  }
-
-  gst_element_set_state (pipeline, GST_STATE_NULL);
-
-  for (i = 0; i < marks->len; i++) {
-    Mark *m = &g_array_index (marks, Mark, i);
-    g_free (m->elem);
-    g_free (m->pad);
-  }
-  g_array_free (marks, TRUE);
-  g_hash_table_destroy (tids);
-  gst_object_unref (bus);
-  gst_object_unref (pipeline);
-  return 0;
-}
-```
+:::code proj-thread-map/c/holovna-chastyna.c
 
 Обмежене очікування замість вічного — головне рішення цієї функції. `gst_element_get_state` з `GST_CLOCK_TIME_NONE` на зіпсованому конвеєрі просто не повертається, і програма перетворюється на об'єкт для налагоджувача. З п'ятисекундною межею вона натомість сама доповідає, що перехід не завершився, і тут же друкує стани всіх елементів — тобто перетворює зависання на діагноз. Що означають ці стани й чому стік доповідає про готовність із затримкою, розібрано в темі [стани конвеєра](root:sys-media/states-lifecycle).
 
@@ -484,26 +201,7 @@ Thread 4 "videotestsrc0:s"     ← задача джерела; ім'я Linux о
 
 Наступне, чого хочеться від проби після мапи, — щоб вона щось вирішувала: скажімо, гасила конвеєр після сотого кадру. Наївний варіант із `gst_element_set_state (pipeline, GST_STATE_NULL)` прямо в пробі вішає програму намертво, і причина вже названа: перехід у `NULL` зобов'язаний дочекатися виходу всіх ниток потоку, а одна з них — саме та, що стоїть у цій пробі й чекає на повернення з `set_state`.
 
-```c
-/* Виконується вже в чужій нитці з пулу — тут можна все. */
-static void
-stop_now (GstElement *pipeline, gpointer user_data)
-{
-  gst_element_send_event (pipeline, gst_event_new_eos ());
-}
-
-/* А ця проба лишається на паді й рахує кадри. */
-static GstPadProbeReturn
-count_frames (GstPad *pad, GstPadProbeInfo *info, gpointer user_data)
-{
-  static gint n = 0;
-
-  if (g_atomic_int_add (&n, 1) == 99)
-    gst_element_call_async (GST_ELEMENT (user_data), stop_now, NULL, NULL);
-
-  return GST_PAD_PROBE_OK;
-}
-```
+:::code proj-thread-map/c/zupynyty-konveier-iz-proby.c
 
 `gst_element_call_async` бере нитку з внутрішнього пулу й виконує зворотний виклик поза потоком; сама проба при цьому повертається негайно й замка не тримає. У версіях від 1.28 ця функція перейменована на `gst_object_call_async`, стара лишилася застарілим синонімом.
 

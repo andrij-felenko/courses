@@ -37,135 +37,15 @@ videotestsrc num-buffers=150
 
 Далі — один файл `trace-signals.c`, поданий шматками в тому порядку, у якому вони в ньому лежать.
 
-```c
-/* trace-signals.c — усе, що проходить крізь пад, одним рядком на сигнал.
- *
- *   gcc trace-signals.c -o trace-signals $(pkg-config --cflags --libs gstreamer-1.0)
- */
-#include <gst/gst.h>
-
-typedef struct {
-  const gchar *tag;        /* як звати цю точку спостереження */
-  guint64      buffers;    /* скільки буферів уже пройшло крізь неї */
-} Point;
-
-static gint64      t_start;      /* монотонний час старту, мкс */
-static GMutex      names_lock;
-static GHashTable *names;        /* GThread* → «T1», «T2», … */
-static guint       names_seq;
-
-static gint64
-ms_now (void)
-{
-  return (g_get_monotonic_time () - t_start) / 1000;
-}
-
-/* Коротке ім'я нитки: перша, що сюди зайшла, стає T1, друга — T2 і далі.
-   Голий покажчик GThread* нічого не каже оку, а «T2» видно одразу. */
-static const gchar *
-thread_tag (void)
-{
-  GThread *self = g_thread_self ();
-  gchar *name;
-
-  g_mutex_lock (&names_lock);
-  name = g_hash_table_lookup (names, self);
-  if (name == NULL) {
-    name = g_strdup_printf ("T%u", ++names_seq);
-    g_hash_table_insert (names, self, name);
-  }
-  g_mutex_unlock (&names_lock);
-  return name;
-}
-```
+:::code proj-event-tracer/c/trace-signals.c
 
 Сам зонд. Він друкує **одним** викликом `g_print` — це не косметика: обробник виконується в різних нитках одночасно, і рядок, зібраний із трьох викликів, у виводі порветься навпіл чужим рядком.
 
-```c
-/* Ширини в printf рахують БАЙТИ, а не літери, тож «%-6s» на кирилиці не
-   вирівнює нічого. Тому кириличні колонки подано вже однакової довжини,
-   а ширину задано лише латинським. */
-static void
-line_out (const Point *p, const gchar *kind, const gchar *dir,
-          const gchar *ser, const gchar *name, const gchar *extra)
-{
-  g_print ("%6" G_GINT64_FORMAT " мс | %-10s | %-3s | %s %s %s | %-22s | буфер #%-4"
-           G_GUINT64_FORMAT "%s\n",
-           ms_now (), p->tag, thread_tag (), kind, dir, ser, name, p->buffers, extra);
-}
-
-static GstPadProbeReturn
-trace_cb (GstPad *pad, GstPadProbeInfo *info, gpointer user_data)
-{
-  Point *p = user_data;
-  GstPadProbeType t = GST_PAD_PROBE_INFO_TYPE (info);
-  const gchar *dir;
-
-  /* Буфери лише рахуємо: якби ми їх друкували, рядки із сигналами потонули б
-     у тридцяти рядках на секунду, а ще зонд почав би сам гальмувати конвеєр. */
-  if (t & (GST_PAD_PROBE_TYPE_BUFFER | GST_PAD_PROBE_TYPE_BUFFER_LIST)) {
-    p->buffers++;
-    return GST_PAD_PROBE_OK;
-  }
-
-  /* Напрям — із типу зонда, а не з прапорців сигналу: у скидання
-     й у всіх типів CUSTOM_BOTH увімкнено обидва біти напрямку. */
-  dir = (t & (GST_PAD_PROBE_TYPE_EVENT_UPSTREAM |
-              GST_PAD_PROBE_TYPE_QUERY_UPSTREAM)) ? "вгору" : "вниз ";
-
-  if (t & (GST_PAD_PROBE_TYPE_EVENT_DOWNSTREAM |
-           GST_PAD_PROBE_TYPE_EVENT_UPSTREAM |
-           GST_PAD_PROBE_TYPE_EVENT_FLUSH)) {
-    GstEvent *ev = GST_PAD_PROBE_INFO_EVENT (info);      /* позичений, не наш */
-    const GstStructure *s = gst_event_get_structure (ev);
-    gchar extra[64] = "";
-    gint64 sent;
-
-    /* Наші власні мітки несуть у собі мить надсилання — звідси й вимір. */
-    if (s != NULL && gst_structure_has_name (s, "tracer-mark") &&
-        gst_structure_get_int64 (s, "sent-ms", &sent))
-      g_snprintf (extra, sizeof extra, "   ← у дорозі %" G_GINT64_FORMAT " мс",
-                  ms_now () - sent);
-
-    line_out (p, "подія ", dir,
-              GST_EVENT_IS_SERIALIZED (ev) ? "сер." : "поз.",
-              GST_EVENT_TYPE_NAME (ev), extra);
-    return GST_PAD_PROBE_OK;
-  }
-
-  if (t & (GST_PAD_PROBE_TYPE_QUERY_DOWNSTREAM |
-           GST_PAD_PROBE_TYPE_QUERY_UPSTREAM)) {
-    GstQuery *q = GST_PAD_PROBE_INFO_QUERY (info);
-
-    /* Запит проходить зонд ДВІЧІ: з бітом PUSH — дорогою по відповідь,
-       з бітом PULL — назад, уже із заповненими полями. */
-    line_out (p, (t & GST_PAD_PROBE_TYPE_PULL) ? "запит←" : "запит→", dir,
-              GST_QUERY_IS_SERIALIZED (q) ? "сер." : "поз.",
-              GST_QUERY_TYPE_NAME (q), "");
-    return GST_PAD_PROBE_OK;
-  }
-  return GST_PAD_PROBE_OK;
-}
-```
+:::code proj-event-tracer/c/prohrama.c
 
 Постановка зонда — один виклик, і вся суть у масці типів:
 
-```c
-static void
-watch (GstElement *elem, const gchar *padname, const gchar *tag)
-{
-  GstPad *pad = gst_element_get_static_pad (elem, padname);
-  Point *p = g_new0 (Point, 1);
-
-  p->tag = tag;
-  gst_pad_add_probe (pad,
-      GST_PAD_PROBE_TYPE_BUFFER | GST_PAD_PROBE_TYPE_BUFFER_LIST |
-      GST_PAD_PROBE_TYPE_EVENT_BOTH | GST_PAD_PROBE_TYPE_EVENT_FLUSH |
-      GST_PAD_PROBE_TYPE_QUERY_BOTH,
-      trace_cb, p, g_free);           /* g_free звільнить Point разом із зондом */
-  gst_object_unref (pad);
-}
-```
+:::code proj-event-tracer/c/prohrama-2.c
 
 `GST_PAD_PROBE_TYPE_EVENT_BOTH` — це лише «за течією або проти», **без скидання**: `GST_PAD_PROBE_TYPE_EVENT_FLUSH` стоїть окремим бітом і в жодну зі зручних комбінацій не входить. Забути його — означає під час першого ж перемотування дивитися в трасування, де раптово нічого немає.
 
@@ -173,26 +53,7 @@ watch (GstElement *elem, const gchar *padname, const gchar *tag)
 
 Тепер вимір. Ми пускаємо в конвеєр дві власні події поспіль, з однаковим вмістом і різницею в одному-єдиному прапорці: `GST_EVENT_CUSTOM_DOWNSTREAM` серіалізована, `GST_EVENT_CUSTOM_DOWNSTREAM_OOB` — ні. Обидві несуть у своїй структурі мить надсилання, тож трасувальник сам порахує, скільки кожна була в дорозі.
 
-```c
-static GstEvent *
-mark (GstEventType type)
-{
-  return gst_event_new_custom (type,
-      gst_structure_new ("tracer-mark", "sent-ms", G_TYPE_INT64, ms_now (), NULL));
-}
-
-static gboolean
-send_marks (gpointer data)
-{
-  GstElement *pipeline = data;
-
-  g_print ("\n--- %" G_GINT64_FORMAT " мс: шлемо дві власні події поспіль ---\n",
-           ms_now ());
-  gst_element_send_event (pipeline, mark (GST_EVENT_CUSTOM_DOWNSTREAM));
-  gst_element_send_event (pipeline, mark (GST_EVENT_CUSTOM_DOWNSTREAM_OOB));
-  return G_SOURCE_REMOVE;
-}
-```
+:::code proj-event-tracer/c/dvi-vlasni-podii-poslani-v.c
 
 Обидві події віддано конвеєрові одним і тим самим викликом — а далі їхні шляхи розходяться вже всередині першого ж елемента. Конвеєр як контейнер пересилає подію за течією своїм **джерелам**; базове джерело серіалізовану подію кладе у свій список відкладених і пускає її потім, зі своєї нитки потоку, точно перед наступним буфером. Позачергову воно штовхає в пад **негайно, просто в нитці того, хто викликав**. Черга завершує поділ: серіалізовану вона кладе в себе разом із буферами, позачергову — проштовхує зі свого виходу тієї ж миті, не заглядаючи у вміст.
 
@@ -226,62 +87,7 @@ send_marks (gpointer data)
 
 Перевіримо це на запиті про тривалість. `videotestsrc` тривалості не знає й ніколи не знатиме: у його сегменті вона так і лишається невизначеною, тож запит чесно провалюється по всьому ланцюгу. Зонд це виправляє однією вставкою.
 
-```c
-/* Зонд, що ВІДПОВІДАЄ замість елемента: перехоплює запит про тривалість,
-   вписує в нього десять секунд і закриває питання. */
-static GstPadProbeReturn
-answer_duration (GstPad *pad, GstPadProbeInfo *info, gpointer user_data)
-{
-  GstQuery *query = GST_PAD_PROBE_INFO_QUERY (info);
-  GstFormat format;
-
-  if (GST_PAD_PROBE_INFO_TYPE (info) & GST_PAD_PROBE_TYPE_PULL)
-    return GST_PAD_PROBE_OK;                  /* це вже дорога назад */
-  if (GST_QUERY_TYPE (query) != GST_QUERY_DURATION)
-    return GST_PAD_PROBE_OK;
-
-  gst_query_parse_duration (query, &format, NULL);
-  if (format != GST_FORMAT_TIME)
-    return GST_PAD_PROBE_OK;                  /* у байтах не відповідаємо */
-
-  gst_query_set_duration (query, GST_FORMAT_TIME, 10 * GST_SECOND);
-  /* НЕ звільняємо: об'єкт запиту належить тому, хто питав. */
-  return GST_PAD_PROBE_HANDLED;
-}
-
-static void
-ask_duration (GstPad *pad)
-{
-  GstQuery *query = gst_query_new_duration (GST_FORMAT_TIME);
-  gint64 dur;
-
-  if (gst_pad_query (pad, query)) {            /* синхронно, у нашій нитці */
-    gst_query_parse_duration (query, NULL, &dur);
-    g_print ("тривалість: %" GST_TIME_FORMAT "\n", GST_TIME_ARGS (dur));
-  } else {
-    g_print ("тривалість: ніхто не відповів\n");
-  }
-  gst_query_unref (query);                     /* створили ми — нам і звільняти */
-}
-
-static gboolean
-duration_demo (gpointer data)
-{
-  GstPad *qsrc = data;
-  gulong id;
-
-  g_print ("\n--- питаємо тривалість у живого конвеєра ---\n");
-  ask_duration (qsrc);
-
-  id = gst_pad_add_probe (qsrc, GST_PAD_PROBE_TYPE_QUERY_UPSTREAM,
-                          answer_duration, NULL, NULL);
-  g_print ("--- те саме питання із зондом-відповідачем ---\n");
-  ask_duration (qsrc);
-  gst_pad_remove_probe (qsrc, id);
-
-  return G_SOURCE_REMOVE;
-}
-```
+:::code proj-event-tracer/c/zond-iakyi-vidpovidaie.c
 
 У виводі різниця видна не лише в останньому рядку:
 
@@ -306,145 +112,13 @@ duration_demo (gpointer data)
 
 Останній шматок файлу нічого нового не пояснює, але без нього програма не запуститься. Варто помітити в ньому одне: `gst_element_link_filtered` фільтр **не забирає** — його треба звільнити самому. Такі дрібниці володіння в GStreamer коштують не менше за архітектурні рішення.
 
-```c
-static gboolean
-on_bus (GstBus *bus, GstMessage *msg, gpointer data)
-{
-  if (GST_MESSAGE_TYPE (msg) & (GST_MESSAGE_EOS | GST_MESSAGE_ERROR))
-    g_main_loop_quit (data);
-  return TRUE;
-}
-
-int
-main (int argc, char *argv[])
-{
-  GstElement *pipeline, *src, *queue, *sink;
-  GstCaps *caps;
-  GstPad *qsrc;
-  GMainLoop *loop;
-  GstBus *bus;
-
-  gst_init (&argc, &argv);
-  t_start = g_get_monotonic_time ();
-  g_mutex_init (&names_lock);
-  names = g_hash_table_new (NULL, NULL);
-
-  pipeline = gst_pipeline_new ("tracer");
-  src   = gst_element_factory_make ("videotestsrc", NULL);
-  queue = gst_element_factory_make ("queue", NULL);
-  sink  = gst_element_factory_make ("fakesink", NULL);
-  g_assert (src != NULL && queue != NULL && sink != NULL);
-
-  g_object_set (src, "num-buffers", 150, NULL);
-  g_object_set (queue, "max-size-time", (guint64) (200 * GST_MSECOND),
-                       "max-size-buffers", (guint) 0,
-                       "max-size-bytes", (guint) 0, NULL);
-  g_object_set (sink, "sync", TRUE, NULL);
-
-  gst_bin_add_many (GST_BIN (pipeline), src, queue, sink, NULL);
-  caps = gst_caps_from_string ("video/x-raw,width=320,height=240,framerate=30/1");
-  if (!gst_element_link_filtered (src, queue, caps) ||
-      !gst_element_link (queue, sink))
-    g_error ("конвеєр не зв'язався");
-  gst_caps_unref (caps);              /* фільтр передано БЕЗ володіння */
-
-  watch (queue, "sink", "queue.sink");
-  watch (queue, "src",  "queue.src");
-  qsrc = gst_element_get_static_pad (queue, "src");
-
-  loop = g_main_loop_new (NULL, FALSE);
-  bus = gst_element_get_bus (pipeline);
-  gst_bus_add_watch (bus, on_bus, loop);
-  gst_object_unref (bus);
-
-  gst_element_set_state (pipeline, GST_STATE_PLAYING);
-  g_timeout_add (1500, send_marks, pipeline);      /* черга вже повна */
-  g_timeout_add (2500, duration_demo, qsrc);
-  g_main_loop_run (loop);
-
-  gst_element_set_state (pipeline, GST_STATE_NULL);
-  gst_object_unref (qsrc);
-  gst_object_unref (pipeline);
-  g_main_loop_unref (loop);
-  return 0;
-}
-```
+:::code proj-event-tracer/c/shcho-lyshylosia-zibraty.c
 
 ## Те саме на Python, щоб перевірити за півхвилини
 
 Коли треба просто подивитися, що коїться на паді, компіляція зайва. PyGObject дає той самий доступ до зондів, і повний трасувальник займає тридцять рядків.
 
-```python
-#!/usr/bin/env python3
-import threading, time
-import gi
-gi.require_version('Gst', '1.0')
-from gi.repository import Gst, GLib
-
-Gst.init(None)
-T0 = time.monotonic()
-ms = lambda: int((time.monotonic() - T0) * 1000)
-
-_names, _lock = {}, threading.Lock()
-def tag():
-    with _lock:
-        return _names.setdefault(threading.get_ident(), 'T%d' % (len(_names) + 1))
-
-sent_at, count = {}, {}
-
-def trace(pad, info, point):
-    t = info.type
-    if t & (Gst.PadProbeType.BUFFER | Gst.PadProbeType.BUFFER_LIST):
-        count[point] = count.get(point, 0) + 1
-        return Gst.PadProbeReturn.OK
-
-    up = t & (Gst.PadProbeType.EVENT_UPSTREAM | Gst.PadProbeType.QUERY_UPSTREAM)
-    extra = ''
-    if t & (Gst.PadProbeType.EVENT_DOWNSTREAM | Gst.PadProbeType.EVENT_UPSTREAM
-            | Gst.PadProbeType.EVENT_FLUSH):
-        obj, kind = info.get_event(), 'подія '
-        ser = obj.type.get_flags() & Gst.EventTypeFlags.SERIALIZED
-        if obj.type in sent_at:
-            extra = '   ← у дорозі %d мс' % (ms() - sent_at[obj.type])
-    else:
-        obj = info.get_query()
-        kind = 'запит←' if t & Gst.PadProbeType.PULL else 'запит→'
-        ser = obj.type.get_flags() & Gst.QueryTypeFlags.SERIALIZED
-    print('%6d мс | %-10s | %-3s | %-6s %-5s %-4s | %-22s | буфер #%-4d%s'
-          % (ms(), point, tag(), kind, 'вгору' if up else 'вниз',
-             'сер.' if ser else 'поз.', obj.type.get_name(),
-             count.get(point, 0), extra))
-    return Gst.PadProbeReturn.OK
-
-pipeline = Gst.parse_launch(
-    'videotestsrc num-buffers=150 '
-    '! video/x-raw,width=320,height=240,framerate=30/1 '
-    '! queue name=q max-size-time=200000000 max-size-buffers=0 max-size-bytes=0 '
-    '! fakesink sync=true')
-
-MASK = (Gst.PadProbeType.BUFFER | Gst.PadProbeType.BUFFER_LIST
-        | Gst.PadProbeType.EVENT_BOTH | Gst.PadProbeType.EVENT_FLUSH
-        | Gst.PadProbeType.QUERY_BOTH)
-q = pipeline.get_by_name('q')
-for name in ('sink', 'src'):
-    q.get_static_pad(name).add_probe(MASK, trace, 'queue.' + name)
-
-def send_marks():
-    print('\n--- %d мс: шлемо дві власні події поспіль ---' % ms())
-    for etype in (Gst.EventType.CUSTOM_DOWNSTREAM, Gst.EventType.CUSTOM_DOWNSTREAM_OOB):
-        sent_at[etype] = ms()
-        pipeline.send_event(Gst.Event.new_custom(etype,
-                                                 Gst.Structure.new_empty('tracer-mark')))
-    return False
-
-loop = GLib.MainLoop()
-bus = pipeline.get_bus()
-bus.add_signal_watch()
-bus.connect('message::eos', lambda *_: loop.quit())
-pipeline.set_state(Gst.State.PLAYING)
-GLib.timeout_add(1500, send_marks)
-loop.run()
-```
+:::code proj-event-tracer/py/main.py
 
 Одна відмінність тут не косметична, і про неї варто знати наперед: `print` у Python не атомарний так само, як `g_print`, а обробник виконується в трьох різних нитках. За великого потоку рядки іноді злипаються. Для розглядання це не заважає, для машинного розбору логу — заважає, і тоді пишіть у чергу, а друкуйте з однієї нитки.
 

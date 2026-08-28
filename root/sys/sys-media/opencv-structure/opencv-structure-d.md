@@ -202,19 +202,7 @@ ocv_add_dispatched_file(color_yuv SSE2 SSE4_1 AVX2 AVX512_SKX AVX512_ICL)
 
 Тобто рішення «хто декодує кадр» приймається тепер не під час збірки й навіть не під час лінкування, а **під час запуску, в конкретному оточенні** — і разом із ним переїжджає відповідь на питання «хто виділив буфер, який ви зараз тримаєте». Реєстр це чесно показує:
 
-```cpp
-#include <opencv2/videoio.hpp>
-#include <opencv2/videoio/registry.hpp>
-#include <iostream>
-
-int main() {
-    for (auto api : cv::videoio_registry::getStreamBackends()) {
-        std::cout << cv::videoio_registry::getBackendName(api)
-                  << (cv::videoio_registry::isBackendBuiltIn(api)
-                          ? "  вбудований\n" : "  плагін\n");
-    }
-}
-```
+:::code opencv-structure-d/cpp/main.cpp
 
 Що б не написав реєстр, для вашого коду результат однаковий за формою: `cap >> frame` віддає `cv::Mat`, і цей `Mat` **майже завжди володіє власним буфером, у який кадр скопійовано з буфера декодера**. Бекенд і OpenCV живуть у різних моделях пам'яті: у декодера це може бути буфер DMA, апаратна поверхня чи вирівняний блок із власного пулу, а `cv::Mat` вимагає суцільного масиву з відомим кроком рядка. Копія — плата за спільний тип, з якого ми починали.
 

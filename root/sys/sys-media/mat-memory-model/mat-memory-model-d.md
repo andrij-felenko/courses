@@ -22,22 +22,7 @@
 
 Ось скорочений склад цієї структури (реальні поля, у порядку оголошення в `mat.hpp`):
 
-```cpp
-class Mat {
-public:
-    int flags;          // сигнатура, тип елемента, прапорець суцільності
-    int dims;           // кількість вимірів (для зображення — 2)
-    int rows, cols;      // висота й ширина (лише коли dims == 2)
-    uchar* data;         // ← перший байт ЦЬОГО зображення
-    const uchar* datastart;  // початок усього виділеного блоку
-    const uchar* dataend;    // за останнім використаним байтом
-    const uchar* datalimit;  // за останнім байтом блоку
-    MatAllocator* allocator; // хто виділяв (0 — стандартний)
-    UMatData* u;             // ← керівний блок із лічильником
-    MatSize size;
-    MatStep step;            // step[0] — байтів на рядок, step[1] — на піксель
-};
-```
+:::code mat-memory-model-d/cpp/zaholovok-okremo-pikseli.cpp
 
 Це десь сотня байтів. Скопіювати такий заголовок — операція, вартість якої не залежить від розміру зображення: кілька присвоєнь цілих чисел і покажчиків. Порівняйте з шістьма мегабайтами `memcpy` — різниця в п'ять порядків, і саме вона робить передавання кадрів дешевим.
 
@@ -55,23 +40,7 @@ public:
 
 Уся механіка вміщається у дві функції з `modules/core/src/matrix.cpp`:
 
-```cpp
-void Mat::addref()
-{
-    if( u )
-        CV_XADD(&u->refcount, 1);
-}
-
-void Mat::release()
-{
-    if( u && CV_XADD(&u->refcount, -1) == 1 )
-        deallocate();
-    u = NULL;
-    datastart = dataend = datalimit = data = 0;
-    for(int i = 0; i < dims; i++)
-        size.p[i] = 0;
-}
-```
+:::code mat-memory-model-d/cpp/lichylnyk-iakyi-robyt.cpp
 
 Тут варто затриматися на трьох дрібницях, у кожній з яких є сенс.
 
@@ -83,20 +52,7 @@ void Mat::release()
 
 Далі все, що бачить користувач, — це обгортки над цими двома викликами. Конструктор копіювання й присвоєння роблять `addref` для джерела, деструктор робить `release`. Присвоєння варте окремого погляду:
 
-```cpp
-Mat& Mat::operator=(const Mat& m)
-{
-    if( this != &m )
-    {
-        if( m.u )
-            CV_XADD(&m.u->refcount, 1);
-        release();
-        flags = m.flags;
-        // ... далі копіюються всі поля заголовка
-    }
-    return *this;
-}
-```
+:::code mat-memory-model-d/cpp/lichylnyk-iakyi-robyt-2.cpp
 
 Порядок тут не випадковий: **спершу збільшити лічильник джерела, лише потім звільнити своє**. Якщо зробити навпаки, конструкція `a = a(cv::Rect(10, 10, 100, 100))` знищила б блок пікселів рівно перед тим, як на нього почав би вказувати новий заголовок. Це той самий інваріант, що й у `shared_ptr::operator=`, і в обох випадках його порушення дає помилку, яка не відтворюється на дрібних тестах.
 
@@ -224,21 +180,7 @@ width   = (delta2 − step[0] · (height − 1)) / elemSize
 
 Друга плата — втрата суцільності. Прапорець `CV_MAT_CONT_FLAG` у полі `flags` означає рівно одне: `step[0] == cols · elemSize()`, тобто в буфері немає проміжків між рядками, і всі пікселі лежать одним неперервним масивом. Метод `isContinuous()` читає цей прапорець, а не рахує щоразу. Для вирізу завширшки менше за батька він знятий — і саме тому реальний код обробки виглядає так:
 
-```cpp
-void addOffset(cv::Mat& m, int delta) {
-    CV_Assert(m.type() == CV_8UC1);
-    int rowsToScan = m.rows, colsToScan = m.cols;
-    if (m.isContinuous()) {           // рядки стикаються —
-        colsToScan *= rowsToScan;     // обходимо все одним циклом
-        rowsToScan = 1;
-    }
-    for (int y = 0; y < rowsToScan; ++y) {
-        uchar* p = m.ptr<uchar>(y);
-        for (int x = 0; x < colsToScan; ++x)
-            p[x] = cv::saturate_cast<uchar>(p[x] + delta);
-    }
-}
-```
+:::code mat-memory-model-d/cpp/heometriia-bufera-data.cpp
 
 Цей прийом — «якщо суцільно, склей рядки в один рядок» — розсипаний по всій бібліотеці. Виграш не в кількості операцій, а в тому, що один довгий прохід дружніший до [кеша](root:hw-arch/cache) й векторизації, ніж 1080 коротких із перезапуском циклу. І ще: без перевірки `isContinuous()` цей самий цикл на вирізі поліз би в сусідні пікселі батька — мовчки, без жодного порушення доступу, бо пам'ять там законна.
 
@@ -264,20 +206,7 @@ cv::Mat view(1080, 1920, CV_8UC3, raw, 5760);
 
 **Режим третій — чужий буфер, але через свій алокатор.** Проміжний варіант: `UMatData` є, лічильник працює, але дані виділяв не стандартний алокатор. Такий керівний блок несе прапорець `UMatData::USER_ALLOCATED`, і стандартна процедура звільнення в цьому разі не викликає `fastFree`:
 
-```cpp
-void deallocate(UMatData* u) const CV_OVERRIDE
-{
-    if(!u) return;
-    CV_Assert(u->urefcount == 0);
-    CV_Assert(u->refcount == 0);
-    if( !(u->flags & UMatData::USER_ALLOCATED) )
-    {
-        fastFree(u->origdata);
-        u->origdata = 0;
-    }
-    delete u;
-}
-```
+:::code mat-memory-model-d/cpp/try-rezhymy-volodinnia.cpp
 
 Практична цінність режиму в тому, що `MatAllocator` — це віртуальний інтерфейс, і власна його реалізація може робити у своєму `deallocate` що завгодно: віддати буфер у пул, зняти відображення пам'яті, відпустити об'єкт чужої бібліотеки. Тобто третій режим — це спосіб **прив'язати чужий час життя до лічильника `Mat`**.
 
@@ -287,20 +216,7 @@ void deallocate(UMatData* u) const CV_OVERRIDE
 
 У GStreamer це виглядає так: [appsink](root:sys-media/appsink-appsrc) віддає `GstSample`, з нього беруть `GstBuffer`, буфер відображають у пам'ять процесу викликом `gst_buffer_map` — і одержують покажчик, дійсний рівно доти, доки не викликано `gst_buffer_unmap` і доки живий сам зразок.
 
-```cpp
-cv::Mat grabFrame(GstAppSink* sink) {
-    GstSample* sample = gst_app_sink_pull_sample(sink);
-    GstBuffer* buf = gst_sample_get_buffer(sample);
-    GstMapInfo mi;
-    gst_buffer_map(buf, &mi, GST_MAP_READ);
-
-    cv::Mat frame(1080, 1920, CV_8UC3, mi.data);   // заголовок без володіння
-
-    gst_buffer_unmap(buf, &mi);
-    gst_sample_unref(sample);                       // буфер може бути звільнений
-    return frame;                                   // ← покажчик уже висячий
-}
-```
+:::code mat-memory-model-d/cpp/koly-lichylnyka-nema-kadr.cpp
 
 Компілятор мовчить, санітайзери мовчать, а на робочому конвеєрі функція повертає `Mat`, який дивиться у звільнену або вже перезаписану пам'ять. Найгірше в цій помилці те, що вона довго вдає працездатність: доки алокатор не віддав ту сторінку комусь іншому, у кадрі видно правильне зображення. Це класичне [звернення після звільнення](root:sys-plang-cpp/dangling-references), просто заховане за типом, який зазвичай усе робить сам.
 

@@ -121,21 +121,7 @@
 
 Ось як виглядає штовхання кадру, у якому вже враховано володіння:
 
-```c
-/* дані готує ваш код; звільнить їх release_frame, коли конвеєр
-   відпустить останнє посилання на буфер — жодного копіювання */
-GstBuffer *buf = gst_buffer_new_wrapped_full (
-    GST_MEMORY_FLAG_READONLY, frame_data, frame_size, 0, frame_size,
-    frame_owner, (GDestroyNotify) release_frame);
-
-GST_BUFFER_PTS (buf)      = frame_index * GST_SECOND / 30;
-GST_BUFFER_DURATION (buf) = GST_SECOND / 30;
-
-GstFlowReturn ret = gst_app_src_push_buffer (GST_APP_SRC (src), buf);
-/* buf уже НЕ ваш — навіть якщо ret не GST_FLOW_OK */
-if (ret != GST_FLOW_OK)
-  break;                 /* GST_FLOW_FLUSHING: конвеєр згортається */
-```
+:::code appsink-appsrc-d/c/viddaty-kadr-i-ne-vtratyty.h
 
 Два рядки в цьому фрагменті варті окремої уваги.
 
@@ -199,47 +185,8 @@ max-bytes      =                     200 000 байтів
 Щоб побачити всі частини разом, ось найкоротший чесний цикл читання — з обмеженою чергою, таймаутом і правильним звільненням:
 
 :::tabs
-```c
-GstElement *sink = gst_bin_get_by_name (GST_BIN (pipeline), "out");
-g_object_set (sink, "sync", FALSE, "max-buffers", (guint) 2, NULL);
-
-for (;;) {
-  GstSample *sample =
-      gst_app_sink_try_pull_sample (GST_APP_SINK (sink), GST_SECOND);
-  if (!sample) {                       /* таймаут або кінець потоку */
-    if (gst_app_sink_is_eos (GST_APP_SINK (sink)))
-      break;
-    continue;
-  }
-
-  GstBuffer *buf = gst_sample_get_buffer (sample);  /* належить семплу */
-  GstMapInfo info;
-  if (gst_buffer_map (buf, &info, GST_MAP_READ)) {
-    process (info.data, info.size);
-    gst_buffer_unmap (buf, &info);
-  }
-  gst_sample_unref (sample);           /* пам'ять повертається в пул */
-}
-```
-```py
-sink = pipeline.get_by_name("out")
-sink.set_property("sync", False)
-sink.set_property("max-buffers", 2)
-
-while True:
-    sample = sink.emit("try-pull-sample", Gst.SECOND)
-    if sample is None:                 # таймаут або кінець потоку
-        if sink.get_property("eos"):
-            break
-        continue
-
-    buf = sample.get_buffer()
-    ok, info = buf.map(Gst.MapFlags.READ)
-    if ok:
-        process(info.data)             # memoryview на пам'ять буфера
-        buf.unmap(info)
-    del sample                         # не тримати посилання довше, ніж треба
-```
+:::code appsink-appsrc-d/c/minimalnyi-robochyi-tsykl.c
+:::code appsink-appsrc-d/py/main.py
 :::
 
 Обидва варіанти роблять те саме, і в обох найважливіший рядок — останній: без нього все інше не має значення, бо через кілька десятків кадрів конвеєр просто стане.

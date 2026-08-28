@@ -178,86 +178,8 @@ gboolean gst_structure_fixate_field_nearest_fraction (GstStructure *s, const cha
 Дві сторони, перетин, фіксація й читання результату — увесь цикл, який елемент проводить перед першим буфером.
 
 :::tabs
-```c
-#include <gst/gst.h>
-
-int
-main (int argc, char **argv)
-{
-  gst_init (&argc, &argv);
-
-  /* що вміє віддати джерело */
-  GstCaps *src = gst_caps_from_string (
-      "video/x-raw, format={ NV12, YUY2 }, width=[ 320, 1920 ], "
-      "height=[ 240, 1080 ], framerate=[ 1/1, 60/1 ]");
-
-  /* що приймає кодер; поля framerate НЕМА навмисно — йому байдуже */
-  GstCaps *sink = gst_caps_new_simple ("video/x-raw",
-      "format", G_TYPE_STRING, "NV12",
-      "width",  GST_TYPE_INT_RANGE, 16, 4096,
-      "height", GST_TYPE_INT_RANGE, 16, 4096,
-      NULL);
-
-  /* перевагу лишаємо за джерелом — тому воно перший аргумент */
-  GstCaps *both = gst_caps_intersect_full (src, sink, GST_CAPS_INTERSECT_FIRST);
-  if (gst_caps_is_empty (both)) {
-    g_printerr ("спільного формату немає — тут і виникає not-negotiated\n");
-    return 1;
-  }
-
-  gchar *s = gst_caps_to_string (both);
-  g_print ("перетин: %s\n", s);          /* усе ще множина */
-  g_free (s);
-
-  /* fixate забирає посилання, тому даємо йому власне: caps скопіюються */
-  GstCaps *fixed = gst_caps_fixate (gst_caps_ref (both));
-  g_assert (gst_caps_is_fixed (fixed));
-
-  const GstStructure *st = gst_caps_get_structure (fixed, 0);
-  const gchar *fmt = gst_structure_get_string (st, "format");
-  gint w = 0, h = 0, num = 0, den = 1;
-  gst_structure_get_int (st, "width", &w);
-  gst_structure_get_int (st, "height", &h);
-  gst_structure_get_fraction (st, "framerate", &num, &den);
-  g_print ("обрано: %s %dx%d @ %d/%d\n", fmt, w, h, num, den);
-
-  gst_caps_unref (fixed);
-  gst_caps_unref (both);
-  gst_caps_unref (sink);
-  gst_caps_unref (src);
-  return 0;
-}
-```
-```py
-import gi
-gi.require_version("Gst", "1.0")
-from gi.repository import Gst
-
-Gst.init(None)
-
-# у Python немає new_simple (варіативні функції не інтроспектуються) —
-# caps будують з рядка або через new_empty_simple + set_value
-src = Gst.Caps.from_string(
-    "video/x-raw, format={ NV12, YUY2 }, width=[ 320, 1920 ], "
-    "height=[ 240, 1080 ], framerate=[ 1/1, 60/1 ]")
-sink = Gst.Caps.from_string(
-    "video/x-raw, format=NV12, width=[ 16, 4096 ], height=[ 16, 4096 ]")
-
-both = src.intersect_full(sink, Gst.CapsIntersectMode.FIRST)
-if both.is_empty():
-    raise SystemExit("спільного формату немає — тут і виникає not-negotiated")
-
-print("перетин:", both.to_string())
-
-fixed = both.copy().fixate()        # copy(), бо fixate забирає посилання
-assert fixed.is_fixed()
-
-st = fixed.get_structure(0)
-ok_w, w = st.get_int("width")       # геттери віддають пару (успіх, значення)
-ok_h, h = st.get_int("height")
-ok_f, num, den = st.get_fraction("framerate")
-print("обрано: %s %dx%d @ %d/%d" % (st.get_string("format"), w, h, num, den))
-```
+:::code api-caps-syntax/c/main.c
+:::code api-caps-syntax/py/main.py
 :::
 
 Вивід варто прочитати уважно — він показує, чого коштує покластися на типову фіксацію:

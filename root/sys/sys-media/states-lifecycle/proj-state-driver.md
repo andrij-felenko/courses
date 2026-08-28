@@ -18,26 +18,7 @@
 
 ## Що тримає драйвер
 
-```c
-/* state-driver.c — керований життєвий цикл конвеєра GStreamer.
- *
- * збірка:
- *   cc state-driver.c -o state-driver $(pkg-config --cflags --libs gstreamer-1.0)
- * файл:
- *   ./state-driver "filesrc location=clip.mp4 ! decodebin ! videoconvert ! autovideosink"
- * камера:
- *   ./state-driver "v4l2src device=/dev/video0 ! videoconvert ! autovideosink"
- */
-#include <gst/gst.h>
-
-typedef struct {
-  GstElement *pipeline;  /* конвеєр, яким керуємо */
-  GstBus     *bus;       /* його шина: окреме посилання, яке ми зобов'язані віддати */
-  gboolean    is_live;   /* джерело живе → попереднього наповнення не буде ніколи */
-  gboolean    quit;      /* цикл має завершитися */
-  gboolean    failed;    /* завершуємося через помилку, а не через кінець потоку */
-} Driver;
-```
+:::code proj-state-driver/c/state-driver.c
 
 Структура невелика, але кожне поле в ній з'явилося з конкретної потреби.
 
@@ -49,78 +30,7 @@ typedef struct {
 
 ## Розбір одного повідомлення
 
-```c
-/* Розібрати одне повідомлення. Викликається ЛИШЕ з головного потоку —
-   тому тут вільно чіпати стан конвеєра. */
-static void
-handle_message (Driver *d, GstMessage *msg)
-{
-  switch (GST_MESSAGE_TYPE (msg)) {
-
-    case GST_MESSAGE_ERROR: {
-      GError *err = NULL;
-      gchar  *dbg = NULL;
-
-      gst_message_parse_error (msg, &err, &dbg);
-      g_printerr ("ПОМИЛКА від «%s»: %s\n", GST_MESSAGE_SRC_NAME (msg), err->message);
-      if (dbg)
-        g_printerr ("  подробиці: %s\n", dbg);
-      g_clear_error (&err);
-      g_free (dbg);
-
-      d->failed = TRUE;
-      d->quit = TRUE;
-      break;
-    }
-
-    case GST_MESSAGE_WARNING: {
-      GError *err = NULL;
-      gchar  *dbg = NULL;
-
-      gst_message_parse_warning (msg, &err, &dbg);
-      g_printerr ("попередження від «%s»: %s\n", GST_MESSAGE_SRC_NAME (msg), err->message);
-      g_clear_error (&err);
-      g_free (dbg);
-      break;                       /* конвеєр живий — не виходимо */
-    }
-
-    case GST_MESSAGE_EOS:
-      g_print ("потік дійшов кінця\n");
-      d->quit = TRUE;
-      break;
-
-    case GST_MESSAGE_STATE_CHANGED:
-      /* діти звітують сюди теж; нас цікавить лише сам конвеєр */
-      if (GST_MESSAGE_SRC (msg) == GST_OBJECT (d->pipeline)) {
-        GstState old_state, new_state, pending;
-
-        gst_message_parse_state_changed (msg, &old_state, &new_state, &pending);
-        g_print ("конвеєр: %s → %s%s\n",
-                 gst_element_state_get_name (old_state),
-                 gst_element_state_get_name (new_state),
-                 pending == GST_STATE_VOID_PENDING ? "" : " (є ще незавершене)");
-      }
-      break;
-
-    case GST_MESSAGE_CLOCK_LOST:
-      /* елемент, що давав годинник, зник; новий вибирається лише
-         на переході в PLAYING — тож зробимо цей перехід примусово */
-      g_print ("годинник утрачено — перевибираємо\n");
-      gst_element_set_state (d->pipeline, GST_STATE_PAUSED);
-      gst_element_set_state (d->pipeline, GST_STATE_PLAYING);
-      break;
-
-    case GST_MESSAGE_APPLICATION:
-      /* записка від потоків конвеєра до нас — про це далі */
-      if (gst_message_has_name (msg, "app-stop"))
-        d->quit = TRUE;
-      break;
-
-    default:
-      break;
-  }
-}
-```
+:::code proj-state-driver/c/rozbir-odnoho.c
 
 Розбір ERROR виглядає багатослівним, але коротшим бути не може. `gst_message_parse_error` віддає дві речі й обидві у власність: `GError` із коротким людським текстом і рядок подробиць із назвою файлу та рядком у сирцях плагіна. Перший показують користувачеві, другий — у журнал; обидва треба звільнити, інакше кожна помилка коштує вам кілька сотень байтів пам'яті назавжди. `GST_MESSAGE_SRC_NAME` дає ім'я винуватця й безпечний навіть тоді, коли джерела в повідомленні немає, — без нього довелося б писати перевірку на порожній вказівник.
 
@@ -132,54 +42,7 @@ handle_message (Driver *d, GstMessage *msg)
 
 ## Два способи почекати
 
-```c
-/* Забрати все, що вже лежить на шині, і нічого не чекати.
-   Потрібно після провалу: причина вже надіслана й лежить там. */
-static void
-drain_bus (Driver *d)
-{
-  GstMessage *msg;
-
-  while ((msg = gst_bus_pop (d->bus)) != NULL) {
-    handle_message (d, msg);
-    gst_message_unref (msg);
-  }
-}
-
-/* Дочекатися завершення попереднього наповнення, не гублячи решти повідомлень.
-   TRUE — наповнення завершилося; FALSE — помилка, кінець потоку або таймаут. */
-static gboolean
-wait_for_async_done (Driver *d, GstClockTime limit)
-{
-  gint64 deadline = g_get_monotonic_time () + limit / GST_USECOND;
-
-  for (;;) {
-    gint64 left_us = deadline - g_get_monotonic_time ();
-    GstMessage *msg;
-
-    if (left_us <= 0) {
-      g_printerr ("наповнення не завершилося за відведений час\n");
-      return FALSE;
-    }
-
-    msg = gst_bus_timed_pop_filtered (d->bus, left_us * GST_USECOND, GST_MESSAGE_ANY);
-    if (msg == NULL)
-      continue;                    /* час вийшов — вирішить перевірка вгорі */
-
-    if (GST_MESSAGE_TYPE (msg) == GST_MESSAGE_ASYNC_DONE &&
-        GST_MESSAGE_SRC (msg) == GST_OBJECT (d->pipeline)) {
-      gst_message_unref (msg);
-      return TRUE;
-    }
-
-    handle_message (d, msg);
-    gst_message_unref (msg);
-
-    if (d->quit)                   /* ERROR або EOS прилетіли раніше за наповнення */
-      return FALSE;
-  }
-}
-```
+:::code proj-state-driver/c/dva-sposoby-pochekaty.c
 
 `drain_bus` існує через дрібницю, яка коштує людям годин: коли зміна стану провалилася, функція повертає саму лише ознаку провалу — без слова про причину. Причина в цю мить уже лежить на шині окремим повідомленням, і якщо програма піде звідси прямо на вихід, вона надрукує «не вдалося» і не скаже, що саме. Тому після кожного провалу шину треба вигребти — не чекаючи нічого нового, бо нового вже й не буде.
 
@@ -195,74 +58,7 @@ wait_for_async_done (Driver *d, GstClockTime limit)
 
 *Три з чотирьох відповідей означають «усе гаразд», але роблять із них три різні речі.*
 
-```c
-int
-main (int argc, char *argv[])
-{
-  Driver d = { NULL, NULL, FALSE, FALSE, FALSE };
-  GError *err = NULL;
-  GstStateChangeReturn ret;
-  int rc = 0;
-
-  gst_init (&argc, &argv);
-
-  if (argc < 2) {
-    g_printerr ("вжиток: %s \"<опис конвеєра>\"\n", argv[0]);
-    return 2;
-  }
-
-  d.pipeline = gst_parse_launch (argv[1], &err);
-  if (d.pipeline == NULL) {
-    g_printerr ("конвеєр не зібрано: %s\n", err ? err->message : "причина невідома");
-    g_clear_error (&err);
-    return 2;
-  }
-  if (err != NULL) {               /* зібрався, але не без зауважень */
-    g_printerr ("зауваження при зборі: %s\n", err->message);
-    g_clear_error (&err);
-  }
-
-  d.bus = gst_element_get_bus (d.pipeline);
-
-  /* Крок 1: у PAUSED — і лише тут стає видно, з чим ми маємо справу. */
-  ret = gst_element_set_state (d.pipeline, GST_STATE_PAUSED);
-
-  switch (ret) {
-    case GST_STATE_CHANGE_FAILURE:
-      g_printerr ("перехід у PAUSED провалився\n");
-      drain_bus (&d);              /* причина вже на шині */
-      rc = 1;
-      goto teardown;
-
-    case GST_STATE_CHANGE_NO_PREROLL:
-      g_print ("джерело живе: наповнення не буде — не чекаємо нічого\n");
-      d.is_live = TRUE;
-      break;
-
-    case GST_STATE_CHANGE_ASYNC:
-      g_print ("наповнення триває — чекаємо ASYNC_DONE\n");
-      if (!wait_for_async_done (&d, 10 * GST_SECOND)) {
-        rc = 1;
-        goto teardown;
-      }
-      g_print ("наповнено: конвеєр у PAUSED\n");
-      break;
-
-    case GST_STATE_CHANGE_SUCCESS:
-      g_print ("PAUSED досягнуто одразу\n");
-      break;
-  }
-
-  /* Наповнення (якщо воно було) дало відповіді, яких до нього не існувало. */
-  if (!d.is_live) {
-    gint64 duration = -1;
-
-    if (gst_element_query_duration (d.pipeline, GST_FORMAT_TIME, &duration))
-      g_print ("тривалість: %" GST_TIME_FORMAT "\n", GST_TIME_ARGS (duration));
-    else
-      g_print ("тривалість невідома — потік без кінця\n");
-  }
-```
+:::code proj-state-driver/c/start-chotyry-vidpovidi.c
 
 Перший крок нагору робимо не до PLAYING, а до PAUSED — і це навмисно. Проміжна зупинка потрібна тому, що саме на ній конвеєр уперше відповідає на питання, якого йому більше ніхто не поставить: наповнюватися він буде чи не буде. Стандартний `gst-launch-1.0` побудований точно так само: спершу PAUSED, розбір відповіді, потім PLAYING.
 
@@ -282,43 +78,7 @@ main (int argc, char *argv[])
 
 ## PLAYING і головний цикл
 
-```c
-  /* Крок 2: у PLAYING. ASYNC тут — не біда: доводити перехід до кінця
-     буде цикл нижче, а нам чекати нема потреби. */
-  ret = gst_element_set_state (d.pipeline, GST_STATE_PLAYING);
-  if (ret == GST_STATE_CHANGE_FAILURE) {
-    g_printerr ("перехід у PLAYING провалився\n");
-    drain_bus (&d);
-    rc = 1;
-    goto teardown;
-  }
-
-  /* Крок 3: живемо, поки шина не скаже інакше. */
-  while (!d.quit) {
-    GstMessage *msg = gst_bus_timed_pop_filtered (d.bus, 100 * GST_MSECOND,
-                                                  GST_MESSAGE_ANY);
-    if (msg == NULL) {
-      /* сюди потрапляємо десять разів на секунду: місце для власної
-         періодичної роботи — опитати позицію, оновити вікно, глянути прапорці */
-      continue;
-    }
-
-    handle_message (&d, msg);
-    gst_message_unref (msg);
-  }
-
-  if (d.failed)
-    rc = 1;
-
-teardown:
-  /* Крок 4: униз до NULL — і лише потім віддавати посилання. */
-  gst_element_set_state (d.pipeline, GST_STATE_NULL);
-  gst_object_unref (d.bus);
-  gst_object_unref (d.pipeline);
-
-  return rc;
-}
-```
+:::code proj-state-driver/c/playing-i-holovnyi-tsykl.c
 
 Перехід у PLAYING перевіряємо лише на провал, і це свідома асиметрія. Тут немає нічого, чого варто було б дочекатися: якщо конвеєр відповів «триває», перехід дійде до кінця сам, а повідомлення про це прийде в цикл, який уже крутиться. Чекати тут — це чекати заради того, щоб одразу почати чекати ще раз.
 
@@ -367,24 +127,7 @@ $ ./state-driver "v4l2src device=/dev/video0 ! videoconvert ! autovideosink"
 
 Правильний хід — записка головному потокові:
 
-```c
-static GstPadProbeReturn
-on_buffer (GstPad *pad, GstPadProbeInfo *info, gpointer user_data)
-{
-  Driver *d = user_data;
-  static guint frames = 0;         /* проба одна — статичний лічильник тут доречний */
-
-  if (++frames < 300)
-    return GST_PAD_PROBE_OK;
-
-  /* НЕ gst_element_set_state (...), а повідомлення на шину */
-  gst_element_post_message (d->pipeline,
-      gst_message_new_application (GST_OBJECT (d->pipeline),
-          gst_structure_new_empty ("app-stop")));
-
-  return GST_PAD_PROBE_REMOVE;     /* більше нас не турбувати */
-}
-```
+:::code proj-state-driver/c/pastky.c
 
 Повідомлення типу APPLICATION існує саме для цього — воно нічого не значить для рушія й повністю віддане застосункові. Головний цикл забере його зі шини, гілка `GST_MESSAGE_APPLICATION` виставить `quit`, і стан зміниться там, де це дозволено. Ім'я структури мусить починатися з латинської літери, а далі містити лише літери, цифри й кілька службових знаків (`/-_.:+`): перевірка імені в GStreamer пропускає тільки їх, і структура з кириличною назвою просто не створиться.
 
@@ -400,46 +143,13 @@ on_buffer (GstPad *pad, GstPadProbeInfo *info, gpointer user_data)
 
 **Стеження за шиною без головного циклу не спрацьовує жодного разу.** Замість власного циклу шину можна читати через `gst_bus_add_watch` — це зручніше, коли програма й так має [цикл подій](root:sf-tasks/event-loop) GLib, наприклад через графічний інтерфейс:
 
-```c
-static gboolean
-on_bus_message (GstBus *bus, GstMessage *msg, gpointer user_data)
-{
-  Driver *d = user_data;
-
-  handle_message (d, msg);
-  if (d->quit)
-    g_main_loop_quit (d->loop);    /* до Driver додано поле GMainLoop *loop */
-
-  return TRUE;                     /* TRUE — стежити далі */
-}
-
-/* у main — замість власного циклу з gst_bus_timed_pop_filtered: */
-  guint watch_id = gst_bus_add_watch (d.bus, on_bus_message, &d);
-
-  d.loop = g_main_loop_new (NULL, FALSE);
-  g_main_loop_run (d.loop);        /* без цього рядка обробник не викличеться ніколи */
-
-  g_source_remove (watch_id);
-  g_main_loop_unref (d.loop);
-```
+:::code proj-state-driver/c/pastky-2.c
 
 Стеження за шиною — це джерело подій у головному циклі GLib, і без запущеного циклу воно просто ніколи не дійде до виконання. Симптом класичний: обробник написано, повідомлення на шину надходять, а всередину не потрапляє жодне. Другий бік тієї самої монети — не блокувати головний потік нічим довгим, доки цикл працює: усе, що блокує його, глушить і шину.
 
 **Запис у файл, обірваний спуском у NULL, дає нечитний файл.** Якщо конвеєр не показує, а пише — через `mp4mux`, `matroskamux`, будь-який пакувальник, — то просто опустити його в NULL мало. Пакувальник дописує заголовок і покажчик кадрів **на кінці потоку**, і без сигналу «кінець» він цього не зробить: у файлі лишиться тіло без змісту, і жоден програвач його не відкриє. Правильне завершення виглядає так:
 
-```c
-  /* лише для конвеєра, що пише файл */
-  GstMessage *last;
-
-  gst_element_send_event (d.pipeline, gst_event_new_eos ());
-
-  last = gst_bus_timed_pop_filtered (d.bus, 5 * GST_SECOND,
-                                     GST_MESSAGE_EOS | GST_MESSAGE_ERROR);
-  if (last)
-    gst_message_unref (last);
-
-  gst_element_set_state (d.pipeline, GST_STATE_NULL);
-```
+:::code proj-state-driver/c/pastky.h
 
 Подія кінця потоку йде ланцюгом за течією даних і доходить до пакувальника; той дописує що треба й передає EOS далі, аж до шини. Ось тут вузький фільтр доречний — після цієї миті нас справді більше нічого не цікавить, а п'ять секунд строку рятують від вічного чекання, якщо десь усередині щось зламалося.
 

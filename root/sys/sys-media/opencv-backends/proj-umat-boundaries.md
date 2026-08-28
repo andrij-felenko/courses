@@ -31,63 +31,7 @@
 
 ## Каркас: секундомір, синхронізація, лічильник байтів
 
-```cpp
-// umat_boundaries.cpp — один ланцюжок, чотири маршрути, чесний вимір.
-//
-//   g++ -O2 -std=c++17 umat_boundaries.cpp -o umat_boundaries \
-//       $(pkg-config --cflags --libs opencv4)
-
-#include <opencv2/core.hpp>
-#include <opencv2/core/ocl.hpp>
-#include <opencv2/imgproc.hpp>
-
-#include <algorithm>
-#include <cstdint>
-#include <cstdio>
-#include <string>
-#include <vector>
-
-// Мілісекунди між двома відліками. Переводимо саме різницю: лічильник тіків
-// росте від старту машини, і множити його на 1000.0 — втрачати молодші розряди.
-static double msBetween(int64_t a, int64_t b)
-{
-    return (b - a) * 1000.0 / cv::getTickFrequency();
-}
-
-// Закрити чергу пристрою. Без цього виклику будь-яке число нижче — вигадка.
-static void syncDevice()
-{
-    if (cv::ocl::useOpenCL())
-        cv::ocl::finish();
-}
-
-// Скільки байтів і скільки разів кадр перетнув межу за один прохід.
-struct Wall {
-    long long up = 0, down = 0;
-    int crossings = 0;
-
-    void toDevice(const cv::Mat& m)
-    { up   += (long long)m.total() * m.elemSize(); ++crossings; }
-
-    void toHost(const cv::UMat& u)
-    { down += (long long)u.total() * u.elemSize(); ++crossings; }
-
-    long long total() const { return up + down; }
-};
-
-// Єдині два місця в програмі, де межу перетинають свідомо.
-static void upload(const cv::Mat& src, cv::UMat& dst, Wall& w)
-{
-    src.copyTo(dst);            // Mat::copyTo у UMat — це upload у буфер пристрою
-    w.toDevice(src);
-}
-
-static void download(const cv::UMat& src, cv::Mat& dst, Wall& w)
-{
-    src.copyTo(dst);            // UMat::copyTo у Mat — це download із буфера
-    w.toHost(src);
-}
-```
+:::code proj-umat-boundaries/cpp/umat_boundaries.cpp
 
 `copyTo` тут не випадковий. Коли приймач — `UMat`, `Mat::copyTo` не робить проміжного заголовка й не відображає буфер у адресний простір процесу: він створює приймач потрібного розміру й віддає байти прямо в `upload` алокатора. Зворотний бік симетричний. Це найдешевший спосіб перейти межу, і — що важливіше для нас — єдине місце, де перехід можна порахувати.
 
@@ -95,257 +39,33 @@ static void download(const cv::UMat& src, cv::Mat& dst, Wall& w)
 
 Крива яскравості — одна таблиця на 256 значень, спільна для всіх маршрутів: інакше маршрути рахували б різне й порівнювати їх не було б сенсу.
 
-```cpp
-static uchar    g_curve[256];
-static cv::UMat g_curveU;              // та сама таблиця для гілки на пристрої
-
-static void buildCurve()
-{
-    for (int i = 0; i < 256; ++i) {
-        double x = i / 255.0;
-        double y = x * x * (3.0 - 2.0 * x);        // м'яка S-подібна крива
-        g_curve[i] = cv::saturate_cast<uchar>(y * 255.0);
-    }
-    cv::Mat(1, 256, CV_8UC1, g_curve).copyTo(g_curveU);
-}
-
-// Крок, у якого гілки на прискорювачі немає за визначенням: наш власний цикл.
-static void curveOnHost(const cv::Mat& src, cv::Mat& dst)
-{
-    CV_Assert(src.type() == CV_8UC1);
-    dst.create(src.size(), src.type());
-    for (int y = 0; y < src.rows; ++y) {
-        const uchar* s = src.ptr<uchar>(y);
-        uchar*       d = dst.ptr<uchar>(y);
-        for (int x = 0; x < src.cols; ++x)
-            d[x] = g_curve[s[x]];
-    }
-}
-```
+:::code proj-umat-boundaries/cpp/kroky-lantsiuzhka.cpp
 
 Той самий крок ядром OpenCL. Це найкоротший приклад того, як узагалі виглядає власне ядро в термінах OpenCV; що таке контекст, черга й глобальний розмір задачі, розібрано окремо — [OpenCL: контекст, черга команд, ядра й буфери](root:sf-visual/opencl-compute-model).
 
-```c
-__kernel void applyCurve(__global const uchar* srcptr, int src_step, int src_offset,
-                         __global uchar* dstptr, int dst_step, int dst_offset,
-                         int dst_rows, int dst_cols,
-                         __global const uchar* curve)
-{
-    int x = get_global_id(0);
-    int y = get_global_id(1);
-    if (x < dst_cols && y < dst_rows)
-        dstptr[mad24(y, dst_step, x + dst_offset)] =
-            curve[srcptr[mad24(y, src_step, x + src_offset)]];
-}
-```
+:::code proj-umat-boundaries/c/main.c
 
 Список параметрів ядра не довільний: його диктують помічники `KernelArg`. `ReadOnlyNoSize` розгортається у трійку «покажчик, крок, зсув», `WriteOnly` — у п'ятірку «покажчик, крок, зсув, рядки, стовпці», `PtrReadOnly` — в один покажчик. Порядок аргументів у ядрі мусить точно повторювати порядок помічників у `args`.
 
-```cpp
-static const char* kCurveSrc = R"CLC(
-  ... текст ядра з попереднього блоку ...
-)CLC";
-
-static bool curveOnDevice(const cv::UMat& src, cv::UMat& dst)
-{
-    // Останній аргумент — ключ, під яким скомпільоване ядро ляже в дисковий кеш.
-    // Змінили текст ядра — змініть і ключ, інакше ризикуєте дістати стару збірку.
-    static const cv::ocl::ProgramSource prog("app", "curve", kCurveSrc, "curve-v1");
-
-    cv::ocl::Kernel k("applyCurve", prog);
-    if (k.empty())
-        return false;                      // драйвер не зібрав — чесно кажемо про це
-
-    dst.create(src.size(), src.type());
-    k.args(cv::ocl::KernelArg::ReadOnlyNoSize(src),
-           cv::ocl::KernelArg::WriteOnly(dst),
-           cv::ocl::KernelArg::PtrReadOnly(g_curveU));
-
-    size_t global[2] = { (size_t)src.cols, (size_t)src.rows };
-    return k.run(2, global, nullptr, /*sync=*/false);
-}
-```
+:::code proj-umat-boundaries/cpp/kroky-lantsiuzhka-2.cpp
 
 `sync = false` — навмисно: ядро йде в чергу й повертає керування, як і решта викликів у маршруті. Синхронізуватися ми будемо в одному місці й свідомо.
 
 ## Чотири маршрути
 
-```cpp
-using Route = void (*)(const cv::Mat& in, cv::OutputArray out, Wall& w);
-
-// 1. Усе на Mat: межі не існує.
-static void routeHost(const cv::Mat& in, cv::OutputArray out, Wall&)
-{
-    cv::Mat gray, blur, curved;
-    cv::cvtColor(in, gray, cv::COLOR_BGR2GRAY);
-    cv::GaussianBlur(gray, blur, {5, 5}, 1.5);
-    curveOnHost(blur, curved);
-    cv::threshold(curved, out, 128, 255, cv::THRESH_BINARY);
-}
-
-// 2. Усе на UMat: крива — бібліотечним LUT, у якого гілка на пристрої є.
-static void routeDevice(const cv::Mat& in, cv::OutputArray out, Wall& w)
-{
-    cv::UMat uin, gray, blur, curved;
-    upload(in, uin, w);                                   // єдиний перетин межі
-    cv::cvtColor(uin, gray, cv::COLOR_BGR2GRAY);
-    cv::GaussianBlur(gray, blur, {5, 5}, 1.5);
-    cv::LUT(blur, g_curveU, curved);
-    cv::threshold(curved, out, 128, 255, cv::THRESH_BINARY);
-}
-
-// 3. Те саме, але крива — нашим циклом: посеред ланцюжка з'являється межа.
-static void routeSplit(const cv::Mat& in, cv::OutputArray out, Wall& w)
-{
-    cv::UMat uin, gray, blur, curved;
-    upload(in, uin, w);
-    cv::cvtColor(uin, gray, cv::COLOR_BGR2GRAY);
-    cv::GaussianBlur(gray, blur, {5, 5}, 1.5);
-
-    cv::Mat hblur, hcurved;
-    download(blur, hblur, w);                             // тут потік зупиняється
-    curveOnHost(hblur, hcurved);
-    upload(hcurved, curved, w);
-
-    cv::threshold(curved, out, 128, 255, cv::THRESH_BINARY);
-}
-
-// 4. Те саме, але крива — власним ядром: межа зникає знову.
-static void routeKernel(const cv::Mat& in, cv::OutputArray out, Wall& w)
-{
-    cv::UMat uin, gray, blur, curved;
-    upload(in, uin, w);
-    cv::cvtColor(uin, gray, cv::COLOR_BGR2GRAY);
-    cv::GaussianBlur(gray, blur, {5, 5}, 1.5);
-    if (!curveOnDevice(blur, curved))
-        cv::LUT(blur, g_curveU, curved);                  // запасний шлях, якщо ядра немає
-    cv::threshold(curved, out, 128, 255, cv::THRESH_BINARY);
-}
-```
+:::code proj-umat-boundaries/cpp/chotyry-marshruty.cpp
 
 Різниця між другим і третім маршрутом — сім рядків, і в них немає жодного слова про шину.
 
 ## Прогін: чотири числа на кадр замість одного
 
-```cpp
-struct Report {
-    std::string name;
-    double enqueue = 0, compute = 0, deliver = 0, total = 0;
-    Wall wall;
-    cv::Mat result;
-};
-
-static double median(std::vector<double> v)
-{
-    if (v.empty()) return 0.0;
-    std::sort(v.begin(), v.end());
-    return v[v.size() / 2];
-}
-
-static Report bench(const std::string& name, Route route, bool onDevice,
-                    const std::vector<cv::Mat>& frames, int warmup, int measured)
-{
-    Report r; r.name = name;
-    std::vector<double> enq, cmp, dlv, tot;
-    cv::Mat  mout;
-    cv::UMat uout;
-
-    for (int i = 0; i < warmup + measured; ++i) {
-        const cv::Mat& in = frames[i % frames.size()];
-        Wall w;
-
-        syncDevice();                    // чужий хвіст у наше число не потрапить
-        int64_t t0 = cv::getTickCount();
-
-        if (onDevice) route(in, uout, w);
-        else          route(in, mout, w);
-        int64_t t1 = cv::getTickCount();   // усе поставлено в чергу; робота ще триває
-
-        syncDevice();
-        int64_t t2 = cv::getTickCount();   // а тепер точно скінчилася
-
-        if (onDevice) download(uout, mout, w);   // доставка результату хостові
-        int64_t t3 = cv::getTickCount();
-
-        if (i >= warmup) {
-            enq.push_back(msBetween(t0, t1));
-            cmp.push_back(msBetween(t1, t2));
-            dlv.push_back(msBetween(t2, t3));
-            tot.push_back(msBetween(t0, t3));
-            r.wall = w;
-        }
-    }
-
-    r.enqueue = median(enq);  r.compute = median(cmp);
-    r.deliver = median(dlv);  r.total   = median(tot);
-    mout.copyTo(r.result);
-    return r;
-}
-```
+:::code proj-umat-boundaries/cpp/prohin-chotyry-chysla-na.cpp
 
 Розділення на чотири числа — не педантизм, а власне діагностика. **Постановка** каже, скільки часу ваш потік провів у бібліотеці; у чесно асинхронного маршруту вона майже нульова. **Рахунок** — це те, що додалося після закриття черги, тобто справжня робота прискорювача. **Доставка** — ціна того, що результат потрібен процесорові. Щойно стовпчик «постановка» роздувся, десь усередині маршруту є синхронна межа, і шукати її треба не профільником, а очима по коду.
 
 Кадри зробимо синтетичні — щоб програму можна було запустити де завгодно й дістати повторюваний результат:
 
-```cpp
-static std::vector<cv::Mat> makeFrames(cv::Size sz, int n)
-{
-    std::vector<cv::Mat> v;
-    cv::RNG rng(42);
-    for (int i = 0; i < n; ++i) {
-        cv::Mat f(sz, CV_8UC3, cv::Scalar(30, 30, 30));
-        cv::circle(f, {300 + 90 * i, 540}, 260, cv::Scalar(210, 200, 190), -1);
-        cv::rectangle(f, cv::Rect(900, 200 + 30 * i, 700, 500),
-                      cv::Scalar(160, 170, 180), -1);
-        cv::Mat noise(sz, CV_8UC3);
-        rng.fill(noise, cv::RNG::UNIFORM, 0, 12);
-        f += noise;
-        v.push_back(f);
-    }
-    return v;
-}
-
-int main()
-{
-    buildCurve();
-
-    std::printf("OpenCL: %s", cv::ocl::haveOpenCL() ? "є" : "немає");
-    if (cv::ocl::haveOpenCL()) {
-        const cv::ocl::Device& d = cv::ocl::Device::getDefault();
-        std::printf(", пристрій: %s, спільна пам'ять із хостом: %s",
-                    d.name().c_str(), d.hostUnifiedMemory() ? "так" : "ні");
-    }
-    std::printf("\n\n");
-
-    std::vector<cv::Mat> frames = makeFrames({1920, 1080}, 8);
-
-    struct { const char* name; Route fn; bool onDevice; } routes[] = {
-        { "усе на Mat",              routeHost,   false },
-        { "усе на UMat",             routeDevice, true  },
-        { "UMat + процесорний крок", routeSplit,  true  },
-        { "UMat + власне ядро",      routeKernel, true  },
-    };
-
-    std::printf("%-26s %8s %8s %8s %8s   %s\n", "маршрут",
-                "постан.", "рахунок", "доставка", "разом", "через шину");
-
-    std::vector<Report> reps;
-    for (const auto& r : routes)
-        reps.push_back(bench(r.name, r.fn, r.onDevice, frames, 10, 60));
-
-    for (const auto& r : reps)
-        std::printf("%-26s %8.2f %8.2f %8.2f %8.2f   %6.2f МБ / %d\n",
-                    r.name.c_str(), r.enqueue, r.compute, r.deliver, r.total,
-                    r.wall.total() / 1048576.0, r.wall.crossings);
-
-    // Маршрути мусять давати ту саму картинку — інакше вимір ні про що.
-    for (size_t i = 1; i < reps.size(); ++i)
-        std::printf("розбіжність з першим маршрутом: %d пікселів (%s)\n",
-                    cv::countNonZero(reps[i].result != reps[0].result),
-                    reps[i].name.c_str());
-    return 0;
-}
-```
+:::code proj-umat-boundaries/cpp/prohin-chotyry-chysla-na-2.cpp
 
 Останній цикл — не формальність. Бенчмарк, який порівнює чотири маршрути, зобов'язаний спершу довести, що вони рахують одне й те саме; інакше ви порівнюєте швидкість двох різних програм. Кілька десятків розбіжних пікселів на межах — нормально: округлення у згортці на пристрої й на процесорі різні, і піксель, що стояв упритул до порога, може перекинутися. Тисячі розбіжних пікселів означають помилку в коді, а не в залізі.
 
@@ -383,30 +103,7 @@ UMat + власне ядро             0.45     1.79     0.50     2.74     8.2
 
 **Спосіб другий — спитати керівний блок, де тепер правда.** Поля `UMatData` доступні з коду, і після кожного кроку по них видно, хто цей крок виконав:
 
-```cpp
-static std::string where(const cv::UMat& u)
-{
-    if (!u.u) return "порожній";
-    std::string s = u.u->handle ? "буфер пристрою є" : "буфера пристрою нема";
-    s += u.u->data ? ", копія в системній є" : ", копії в системній нема";
-    if (u.u->hostCopyObsolete())   s += "; свіжа — на пристрої";
-    if (u.u->deviceCopyObsolete()) s += "; свіжа — на хості";
-    return s;
-}
-
-static void probe(const cv::Mat& in)
-{
-    cv::UMat uin, gray, blur, curved;
-    Wall w;
-    upload(in, uin, w);
-    cv::cvtColor(uin, gray, cv::COLOR_BGR2GRAY);
-    std::printf("cvtColor → %s\n", where(gray).c_str());
-    cv::GaussianBlur(gray, blur, {5, 5}, 1.5);
-    std::printf("blur     → %s\n", where(blur).c_str());
-    cv::LUT(blur, g_curveU, curved);
-    std::printf("LUT      → %s\n", where(curved).c_str());
-}
-```
+:::code proj-umat-boundaries/cpp/try-sposoby-vpiimaty.cpp
 
 Крок, що справді відпрацював на пристрої, лишає по собі свіжу копію на пристрої: `handle` є, системної копії часто немає взагалі, стоїть позначка застарілості хостової копії. Процесорна ж гілка починається з `_src.getMat()` і закінчується записом у системну пам'ять — після неї в керівному блоці з'являється `data`, а свіжою оголошено саме її. Одне застереження: на залізі зі спільною пам'яттю, де буфер відображається в адресний простір процесу замість копіювання, картина розмита — там обидві «копії» є однією ділянкою, і прапорці не такі промовисті. На дискретній карті ознака працює надійно.
 

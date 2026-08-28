@@ -61,23 +61,7 @@ void gst_util_set_object_arg (GObject *object, const gchar *name, const gchar *v
 
 З боку того, хто пише елемент, властивість — це три речі: номер у переліку, опис у класі й гілка в двох спільних функціях.
 
-```c
-enum { PROP_0, PROP_BITRATE, PROP_LOCATION, PROP_LAST };
-
-static void
-gst_my_enc_class_init (GstMyEncClass * klass)
-{
-  GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-
-  gobject_class->set_property = gst_my_enc_set_property;
-  gobject_class->get_property = gst_my_enc_get_property;
-
-  g_object_class_install_property (gobject_class, PROP_BITRATE,
-      g_param_spec_uint ("bitrate", "Bitrate", "Bitrate in kbit/sec",
-          1, 2048000, 2048,
-          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | GST_PARAM_MUTABLE_PLAYING));
-}
-```
+:::code api-gobject-surface/c/oholosyty-vlastyvist-u.c
 
 `PROP_0` на початку переліку не декоративний: нуль зарезервовано самим GObject, і властивість із номером 0 не встановиться. Дві функції класу мають строго визначені підписи — переплутати місцями `value` й `pspec` компілятор не дасть, а от переплутати `set` із `get` дасть залюбки, бо різниться лише `const`:
 
@@ -88,31 +72,7 @@ void (*get_property) (GObject *object, guint property_id,       GValue *value, G
 
 У `set_property` значення **позичене** — його треба скопіювати в поле, а не запам'ятати вказівник. У `get_property` навпаки: ви заповнюєте чужий `GValue`, і для рядка чи об'єкта це має бути копія або нове посилання, бо викликач її звільнить.
 
-```c
-static void
-gst_my_enc_set_property (GObject * object, guint prop_id,
-    const GValue * value, GParamSpec * pspec)
-{
-  GstMyEnc *self = GST_MY_ENC (object);
-
-  switch (prop_id) {
-    case PROP_BITRATE:
-      GST_OBJECT_LOCK (self);                    /* нитка потоку читає це поле */
-      self->bitrate = g_value_get_uint (value);
-      GST_OBJECT_UNLOCK (self);
-      break;
-    case PROP_LOCATION:
-      GST_OBJECT_LOCK (self);
-      g_free (self->location);
-      self->location = g_value_dup_string (value);  /* dup, а не get: рядок наш */
-      GST_OBJECT_UNLOCK (self);
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-      break;
-  }
-}
-```
+:::code api-gobject-surface/c/oholosyty-vlastyvist-u-2.c
 
 `GST_OBJECT_LOCK` — не перестрахування, а домовленість GStreamer: властивість ставлять із однієї нитки, а поле читає [нитка потоку](root:sys-media/threads-and-queues), яка саме зараз обробляє кадр. Той самий м'ютекс живе в `GstObject` і використовується всередині ядра, тож брати окремий не треба. Чому спільне поле без узгодження — це не «зрідка не те значення», а невизначена поведінка, розібрано в [безпеці щодо ниток](root:sf-tasks/thread-safety).
 
@@ -142,23 +102,7 @@ gst_my_enc_set_property (GObject * object, guint prop_id,
 
 Перелік потребує окремого `GType`, який теж треба зареєструвати під час роботи. Звична форма — функція з таблицею членів:
 
-```c
-GType
-gst_my_enc_pass_get_type (void)
-{
-  static gsize id = 0;
-  static const GEnumValue values[] = {
-    { GST_MY_ENC_PASS_CBR,  "Constant Bitrate Encoding", "cbr"  },
-    { GST_MY_ENC_PASS_QUANT, "Constant Quantizer",       "quant" },
-    { 0, NULL, NULL }
-  };
-  if (g_once_init_enter (&id)) {
-    GType t = g_enum_register_static ("GstMyEncPass", values);
-    g_once_init_leave (&id, t);
-  }
-  return id;
-}
-```
+:::code api-gobject-surface/c/konstruktory-gparamspec.c
 
 Третє поле кожного члена — короткий псевдонім, і саме його пишуть у рядку конвеєра: `pass=cbr`. Друге — людський опис, який покаже інспектор. Отже, псевдонім є частиною зовнішнього інтерфейсу елемента нарівні з іменем властивості, і міняти його — те саме, що ламати чужі рядки конвеєра.
 
@@ -434,79 +378,6 @@ g_signal_emit_by_name (appsrc, "push-buffer", buf, &ret);
 
 Скелет, у якому зійшлося все: оголошення властивості з прапорцями, сетер із замком і явним сповіщенням, оголошення сигналу, підписка з деталлю та з прибиранням даних і чисте зняття.
 
-```c
-/* ── у класі елемента ─────────────────────────────────────────────────── */
-enum { PROP_0, PROP_BITRATE };
-enum { SIGNAL_KEYFRAME, SIGNAL_LAST };
-
-static guint signals[SIGNAL_LAST];
-
-static void gst_my_enc_set_property (GObject *, guint, const GValue *, GParamSpec *);
-static void gst_my_enc_get_property (GObject *, guint,       GValue *, GParamSpec *);
-
-static void
-gst_my_enc_class_init (GstMyEncClass * klass)
-{
-  GObjectClass *go = G_OBJECT_CLASS (klass);
-
-  go->set_property = gst_my_enc_set_property;
-  go->get_property = gst_my_enc_get_property;
-
-  g_object_class_install_property (go, PROP_BITRATE,
-      g_param_spec_uint ("bitrate", "Bitrate", "Bitrate in kbit/sec",
-          1, 2048000, 2048,
-          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS |
-          G_PARAM_EXPLICIT_NOTIFY |          /* сповіщаємо самі, лише на зміну */
-          GST_PARAM_MUTABLE_PLAYING | GST_PARAM_CONTROLLABLE));
-
-  signals[SIGNAL_KEYFRAME] =
-      g_signal_new ("keyframe", G_TYPE_FROM_CLASS (klass),
-          G_SIGNAL_RUN_LAST, 0, NULL, NULL, NULL,
-          G_TYPE_NONE, 1, G_TYPE_UINT64);   /* мітка часу опорного кадру */
-}
-
-static void
-gst_my_enc_set_property (GObject * object, guint prop_id,
-    const GValue * value, GParamSpec * pspec)
-{
-  GstMyEnc *self = GST_MY_ENC (object);
-
-  switch (prop_id) {
-    case PROP_BITRATE: {
-      guint v = g_value_get_uint (value);
-      gboolean changed;
-
-      GST_OBJECT_LOCK (self);
-      changed = (self->bitrate != v);
-      self->bitrate = v;
-      GST_OBJECT_UNLOCK (self);
-
-      if (changed)                          /* EXPLICIT_NOTIFY: наш обов'язок */
-        g_object_notify_by_pspec (object, pspec);
-      break;
-    }
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-      break;
-  }
-}
-
-/* ── з боку застосунку ───────────────────────────────────────────────── */
-GstElement *enc = gst_element_factory_make ("myenc", "enc");  /* floating */
-gst_bin_add (GST_BIN (pipeline), enc);          /* ref_sink: власник — конвеєр */
-
-g_object_set (enc, "bitrate", 4096, NULL);      /* значення копіюється всередину */
-
-gulong id = g_signal_connect_data (enc, "notify::bitrate",
-                                   G_CALLBACK (on_bitrate), ctx,
-                                   (GClosureNotify) ctx_free, 0);
-
-GstPad *sink = gst_element_get_static_pad (enc, "sink");   /* transfer full */
-/* … робота … */
-gst_object_unref (sink);                        /* пропущений unref = витік */
-
-g_signal_handler_disconnect (enc, id);          /* ctx звільниться сам */
-/* enc не чіпаємо: його власник — конвеєр */
-```
+:::code api-gobject-surface/c/minimalnyi-povnyi-vyklyk.c
 
 Три місця, де тут проходять невидимі межі. Після `gst_bin_add` елемент більше не ваш — і `unref` на ньому зламає конвеєр. Пад, узятий `get_static_pad`, навпаки, ваш — і забутий `unref` не впаде, а лише не дасть звільнити конвеєр, що в програмі з перезапусками виглядає як повільне зростання пам'яті без винуватця. А `EXPLICIT_NOTIFY` перекладає сповіщення на сетер: приберіть з нього `g_object_notify_by_pspec` — і жоден підписник `"notify::bitrate"` більше не почує нічого, хоча значення мінятиметься справно.

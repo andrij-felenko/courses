@@ -57,19 +57,7 @@ gst-launch-1.0 videotestsrc ! queue max-size-buffers=3 max-size-bytes=0 \
     max-size-time=0 leaky=downstream ! autovideosink
 ```
 
-```c
-GstElement *q = gst_element_factory_make ("queue", "q0");
-
-g_object_set (q,
-    "max-size-buffers", (guint) 3,
-    "max-size-bytes",   (guint) 0,
-    "max-size-time",    (guint64) 0,          /* приведення ОБОВ'ЯЗКОВЕ */
-    "leaky",            2,                    /* GST_QUEUE_LEAK_DOWNSTREAM */
-    NULL);
-
-guint level;
-g_object_get (q, "current-level-buffers", &level, NULL);   /* безпечно з будь-якої нитки */
-```
+:::code api-queue-and-task/c/vyklyk.h
 
 Приведення в `g_object_set()` — не косметика. Список змінної довжини не знає типів, і `guint64`-властивість, якій передали звичайний `0`, прочитає у своїх восьми байтах чотири ваші й чотири чужі. Помилка мовчазна й плаваюча, тож `max-size-time` і всі інші `guint64` пишуть із явним `(guint64)` або через `GST_SECOND`.
 
@@ -183,38 +171,7 @@ GstPad *src  = gst_element_get_static_pad (mq, "src_0");        /* парний 
 
 Мінімальна робоча активація в режимі витягування:
 
-```c
-static void
-my_loop (gpointer user_data)             /* виконується під замком потоку */
-{
-  GstPad *pad = user_data;
-  MyElement *self = MY_ELEMENT (gst_pad_get_parent (pad));
-  GstBuffer *buf = NULL;
-
-  GstFlowReturn ret = gst_pad_pull_range (self->sinkpad, self->offset, 4096, &buf);
-  if (ret != GST_FLOW_OK) {
-    gst_pad_pause_task (pad);            /* спиняємо СЕБЕ саме так */
-    goto done;
-  }
-  self->offset += gst_buffer_get_size (buf);
-
-  if (gst_pad_push (pad, buf) != GST_FLOW_OK)
-    gst_pad_pause_task (pad);
-
-done:
-  gst_object_unref (self);
-}
-
-static gboolean
-my_activate_mode (GstPad *pad, GstObject *parent, GstPadMode mode, gboolean active)
-{
-  if (mode != GST_PAD_MODE_PULL)
-    return FALSE;                        /* у режимі штовхання нитки тут не буде */
-
-  return active ? gst_pad_start_task (pad, my_loop, pad, NULL)
-                : gst_pad_stop_task (pad);
-}
-```
+:::code api-queue-and-task/c/zadacha-na-padi.c
 
 `GstPadMode` має рівно три значення: `GST_PAD_MODE_NONE` (пад не активний), `GST_PAD_MODE_PUSH` (дані приходять викликом згори) і `GST_PAD_MODE_PULL` (пад сам витягує їх знизу). Задачу заводять для того режиму, у якому пад мусить бути рушієм.
 
@@ -294,41 +251,7 @@ my_activate_mode (GstPad *pad, GstObject *parent, GstPadMode mode, gboolean acti
 
 > 🔧 **Навіщо це.** Обробник має бути **синхронним** — не звичайним стеженням за шиною, а функцією, яку кличуть просто в нитці, що постить повідомлення. Причина одна: `CREATE` означає «нитку зараз створять», і якщо на момент повернення з обробника пул не підмінено, задача візьме типовий. Асинхронна доставка через головний цикл приходить, коли нитка вже крутиться, і міняти пул пізно.
 
-```c
-static GstTaskPool *my_pool;              /* створений один раз при старті застосунку */
-
-static GstBusSyncReply
-sync_handler (GstBus *bus, GstMessage *msg, gpointer user_data)
-{
-  if (GST_MESSAGE_TYPE (msg) != GST_MESSAGE_STREAM_STATUS)
-    return GST_BUS_PASS;
-
-  GstStreamStatusType type;
-  GstElement *owner;
-  gst_message_parse_stream_status (msg, &type, &owner);
-
-  const GValue *val = gst_message_get_stream_status_object (msg);
-
-  switch (type) {
-    case GST_STREAM_STATUS_TYPE_CREATE: {
-      GstTask *task = GST_TASK (g_value_get_object (val));
-      gst_task_set_pool (task, my_pool);      /* нитки ще нема — саме час */
-      break;
-    }
-    case GST_STREAM_STATUS_TYPE_ENTER:
-      /* ми ВСЕРЕДИНІ нової нитки: пріоритет виставляють тільки звідси */
-      set_thread_priority_for_self ();
-      break;
-    default:
-      break;
-  }
-  return GST_BUS_PASS;                        /* хай іде далі, у звичайне стеження */
-}
-
-GstBus *bus = gst_element_get_bus (pipeline);
-gst_bus_set_sync_handler (bus, sync_handler, NULL, NULL);
-gst_object_unref (bus);
-```
+:::code api-queue-and-task/c/stream-status-iak.c
 
 Чому пріоритет ставлять саме на `ENTER`, а не на `CREATE`: політику планувальника задають для нитки, у якій перебувають, а на `CREATE` потрібної нитки ще не існує. Що саме означає підвищений клас і чим реальночасова політика відрізняється від просто меншого `nice`, — у темі [пріоритети, nice і реальночасові класи](root:sys-unix/priority-nice-realtime).
 

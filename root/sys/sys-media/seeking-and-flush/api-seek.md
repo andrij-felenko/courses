@@ -6,37 +6,7 @@
 
 ## Три способи послати seek
 
-```c
-/* gstutils.h — найкоротший шлях */
-gboolean   gst_element_seek_simple (GstElement   *element,
-                                    GstFormat     format,
-                                    GstSeekFlags  seek_flags,
-                                    gint64        seek_pos);
-
-/* gstelement.h — повний контроль */
-gboolean   gst_element_seek        (GstElement   *element,
-                                    gdouble       rate,
-                                    GstFormat     format,
-                                    GstSeekFlags  flags,
-                                    GstSeekType   start_type, gint64 start,
-                                    GstSeekType   stop_type,  gint64 stop);
-
-/* gstevent.h — коли подію треба потримати в руках */
-GstEvent * gst_event_new_seek      (gdouble       rate,
-                                    GstFormat     format,
-                                    GstSeekFlags  flags,
-                                    GstSeekType   start_type, gint64 start,
-                                    GstSeekType   stop_type,  gint64 stop);
-void       gst_event_parse_seek    (GstEvent     *event,
-                                    gdouble      *rate,
-                                    GstFormat    *format,
-                                    GstSeekFlags *flags,
-                                    GstSeekType  *start_type, gint64 *start,
-                                    GstSeekType  *stop_type,  gint64 *stop);
-
-gboolean   gst_element_send_event  (GstElement *element, GstEvent *event);
-gboolean   gst_pad_send_event      (GstPad     *pad,     GstEvent *event);
-```
+:::code api-seek/c/gstutils.h
 
 Механізм за ними один: `gst_element_seek()` створює подію тими самими сімома аргументами й віддає її `gst_element_send_event()`, а `gst_element_seek_simple()` — це один рядок поверх `gst_element_seek()`:
 
@@ -115,25 +85,7 @@ if (gst_element_query_position (pipeline, GST_FORMAT_TIME, &pos))
 
 ## GstSeekFlags: повна таблиця
 
-```c
-typedef enum {
-  GST_SEEK_FLAG_NONE                        = 0,
-  GST_SEEK_FLAG_FLUSH                       = (1 << 0),
-  GST_SEEK_FLAG_ACCURATE                    = (1 << 1),
-  GST_SEEK_FLAG_KEY_UNIT                    = (1 << 2),
-  GST_SEEK_FLAG_SEGMENT                     = (1 << 3),
-  GST_SEEK_FLAG_TRICKMODE                   = (1 << 4),
-  GST_SEEK_FLAG_SKIP                        = (1 << 4),
-  GST_SEEK_FLAG_SNAP_BEFORE                 = (1 << 5),
-  GST_SEEK_FLAG_SNAP_AFTER                  = (1 << 6),
-  GST_SEEK_FLAG_SNAP_NEAREST                = GST_SEEK_FLAG_SNAP_BEFORE |
-                                              GST_SEEK_FLAG_SNAP_AFTER,
-  GST_SEEK_FLAG_TRICKMODE_KEY_UNITS         = (1 << 7),
-  GST_SEEK_FLAG_TRICKMODE_NO_AUDIO          = (1 << 8),
-  GST_SEEK_FLAG_TRICKMODE_FORWARD_PREDICTED = (1 << 9),
-  GST_SEEK_FLAG_INSTANT_RATE_CHANGE         = (1 << 10),
-} GstSeekFlags;
-```
+:::code api-seek/c/gstseekflags-povna.c
 
 | Константа | Біт | Число | З версії | Що просить |
 |---|---|---|---|---|
@@ -224,66 +176,13 @@ gboolean gst_segment_do_seek (GstSegment  *segment,
 
 Найкоротший чесний код, який питає дозвіл, перемотує й дочікується справжнього завершення:
 
-```c
-#include <gst/gst.h>
-
-static gboolean
-seek_and_wait (GstElement *pipeline, gint64 pos_ns, gboolean accurate)
-{
-  GstQuery *q = gst_query_new_seeking (GST_FORMAT_TIME);
-  gboolean seekable = FALSE;
-  gint64 lo = 0, hi = 0;
-
-  /* 1. чи взагалі можна і в яких межах */
-  if (!gst_element_query (pipeline, q)) {
-    gst_query_unref (q);
-    return FALSE;                       /* ніхто не відповів — не перемотуємо */
-  }
-  gst_query_parse_seeking (q, NULL, &seekable, &lo, &hi);
-  gst_query_unref (q);
-
-  if (!seekable || pos_ns < lo || (hi != -1 && pos_ns > hi))
-    return FALSE;
-
-  /* 2. прохання; FLUSH обов'язковий, якщо файл уже дограв до кінця */
-  GstSeekFlags flags = GST_SEEK_FLAG_FLUSH |
-      (accurate ? GST_SEEK_FLAG_ACCURATE : GST_SEEK_FLAG_KEY_UNIT);
-
-  if (!gst_element_seek (pipeline, 1.0, GST_FORMAT_TIME, flags,
-          GST_SEEK_TYPE_SET, pos_ns,
-          GST_SEEK_TYPE_SET, GST_CLOCK_TIME_NONE))
-    return FALSE;                       /* ніхто не взявся */
-
-  /* 3. справжнє завершення — ASYNC_DONE від самого конвеєра */
-  GstBus *bus = gst_element_get_bus (pipeline);
-  GstMessage *msg = gst_bus_timed_pop_filtered (bus, 5 * GST_SECOND,
-      GST_MESSAGE_ASYNC_DONE | GST_MESSAGE_ERROR);
-  gboolean ok = (msg && GST_MESSAGE_TYPE (msg) == GST_MESSAGE_ASYNC_DONE);
-
-  if (msg)
-    gst_message_unref (msg);
-  gst_object_unref (bus);
-  return ok;
-}
-```
+:::code api-seek/c/minimalnyi-robochyi-vyklyk.c
 
 Верхня межа `hi`, повернена запитом, може дорівнювати `-1` — це не помилка, а «кінець невідомий», звичайна відповідь для потоку, що ще пишеться. Порівнювати з нею позицію в такому разі нема з чим, тому перевірка й пропускає цей випадок.
 
 Зациклення відрізка збирається з двох різних масок, і різниця між ними — уся суть безшовності:
 
-```c
-/* перший захід: флашний, бо треба стрибнути на початок відрізка */
-gst_element_seek (pipeline, 1.0, GST_FORMAT_TIME,
-    GST_SEEK_FLAG_FLUSH | GST_SEEK_FLAG_SEGMENT | GST_SEEK_FLAG_ACCURATE,
-    GST_SEEK_TYPE_SET, 10 * GST_SECOND,
-    GST_SEEK_TYPE_SET, 20 * GST_SECOND);
-
-/* у відповідь на SEGMENT_DONE: той самий відрізок, але БЕЗ флаша */
-gst_element_seek (pipeline, 1.0, GST_FORMAT_TIME,
-    GST_SEEK_FLAG_SEGMENT | GST_SEEK_FLAG_ACCURATE,
-    GST_SEEK_TYPE_SET, 10 * GST_SECOND,
-    GST_SEEK_TYPE_SET, 20 * GST_SECOND);
-```
+:::code api-seek/c/minimalnyi-robochyi-vyklyk.h
 
 Миттєва зміна швидкості (від 1.18) виглядає інакше — обидва типи позиції `NONE`, обидва значення «не задано»:
 
@@ -310,31 +209,7 @@ gst_element_seek (pipeline, 2.0, GST_FORMAT_TIME,
 
 Уся різниця між двома подіями флаша вміщається в один стовпчик: `FLUSH_START` **не** серіалізована, тобто обганяє буфери в чергах, а `FLUSH_STOP` серіалізована, тобто стоїть у потоці даних на своєму місці й проводить межу між старим і новим. Липкість `SEGMENT` теж не декоративна: подія лишається на паді, і кожен, хто під'єднається пізніше, отримає її автоматично.
 
-```c
-GstEvent * gst_event_new_flush_start  (void);
-GstEvent * gst_event_new_flush_stop   (gboolean reset_time);
-void       gst_event_parse_flush_stop (GstEvent *event, gboolean *reset_time);
-
-GstEvent * gst_event_new_segment      (const GstSegment *segment);
-void       gst_event_parse_segment    (GstEvent *event, const GstSegment **segment);
-void       gst_event_copy_segment     (GstEvent *event, GstSegment *segment);
-
-GstEvent * gst_event_new_segment_done   (GstFormat format, gint64 position);
-void       gst_event_parse_segment_done (GstEvent *event, GstFormat *format,
-                                         gint64 *position);
-
-GstEvent * gst_event_new_instant_rate_change   (gdouble rate_multiplier,
-                                                GstSegmentFlags new_flags);
-void       gst_event_parse_instant_rate_change (GstEvent *event,
-                                                gdouble *rate_multiplier,
-                                                GstSegmentFlags *new_flags);
-GstEvent * gst_event_new_instant_rate_sync_time (gdouble rate_multiplier,
-                                                 GstClockTime running_time,
-                                                 GstClockTime upstream_running_time);
-
-GstEvent * gst_event_new_step (GstFormat format, guint64 amount, gdouble rate,
-                               gboolean flush, gboolean intermediate);
-```
+:::code api-seek/c/podii.h
 
 Єдиний аргумент `gst_event_new_flush_stop()` вирішує долю відліку часу:
 
@@ -349,25 +224,7 @@ GstEvent * gst_event_new_step (GstFormat format, guint64 amount, gdouble rate,
 
 ## Запити
 
-```c
-GstQuery * gst_query_new_seeking   (GstFormat format);
-void       gst_query_set_seeking   (GstQuery *query, GstFormat format,
-                                    gboolean seekable,
-                                    gint64 segment_start, gint64 segment_end);
-void       gst_query_parse_seeking (GstQuery *query, GstFormat *format,
-                                    gboolean *seekable,
-                                    gint64 *segment_start, gint64 *segment_end);
-
-GstQuery * gst_query_new_position  (GstFormat format);
-void       gst_query_parse_position (GstQuery *query, GstFormat *format, gint64 *cur);
-
-GstQuery * gst_query_new_duration  (GstFormat format);
-void       gst_query_parse_duration (GstQuery *query, GstFormat *format, gint64 *duration);
-
-GstQuery * gst_query_new_segment   (GstFormat format);
-void       gst_query_parse_segment (GstQuery *query, gdouble *rate, GstFormat *format,
-                                    gint64 *start_value, gint64 *stop_value);
-```
+:::code api-seek/c/zapyty.h
 
 Для трьох найчастіших є короткі обгортки в `gstutils.h` — вони самі створюють запит, шлють його й розбирають відповідь:
 
@@ -416,22 +273,7 @@ void gst_message_parse_segment_done  (GstMessage *message, GstFormat *format, gi
 
 ## Точки розширення: GstBaseSrc
 
-```c
-struct _GstBaseSrcClass {
-  /* ... */
-  gboolean      (*is_seekable)          (GstBaseSrc *src);
-  gboolean      (*prepare_seek_segment) (GstBaseSrc *src, GstEvent *seek,
-                                         GstSegment *segment);
-  gboolean      (*do_seek)              (GstBaseSrc *src, GstSegment *segment);
-  gboolean      (*get_size)             (GstBaseSrc *src, guint64 *size);
-  gboolean      (*query)                (GstBaseSrc *src, GstQuery *query);
-  gboolean      (*event)                (GstBaseSrc *src, GstEvent *event);
-  gboolean      (*unlock)               (GstBaseSrc *src);
-  gboolean      (*unlock_stop)          (GstBaseSrc *src);
-  GstFlowReturn (*create)               (GstBaseSrc *src, guint64 offset,
-                                         guint size, GstBuffer **buf);
-};
-```
+:::code api-seek/c/tochky-rozshyrennia.h
 
 Базовий клас бере на себе всю послідовність — прийом seek-події, обидва флаші, зупинку й перезапуск завдання, розсилку нового сегмента. Від автора елемента він хоче чотири відповіді, і кожну — у своїй віртуальній функції:
 
@@ -444,28 +286,7 @@ struct _GstBaseSrcClass {
 
 Пара `unlock` / `unlock_stop` — те місце, де найчастіше застрягають власні джерела. `unlock()` викликають при `FLUSH_START`, і він мусить **негайно повернути** з блокування ваш `create()` — розбудити умовну змінну, записати в самотрубу, закрити чекання на сокеті. `unlock_stop()` викликають при `FLUSH_STOP`, і він вертає джерело в стан, у якому читання знову можливе. Джерело, що чекає в `read()` без жодного способу це чекання обірвати, підвісить усе перемотування, і ніякий правильний `do_seek()` цього не врятує.
 
-```c
-static gboolean
-my_src_is_seekable (GstBaseSrc *src)
-{
-  MySrc *self = MY_SRC (src);
-  return self->fd >= 0 && self->size > 0;    /* живий потік поверне FALSE */
-}
-
-static gboolean
-my_src_do_seek (GstBaseSrc *src, GstSegment *segment)
-{
-  MySrc *self = MY_SRC (src);
-
-  /* сегмент уже готовий: базовий клас застосував до нього подію.
-     Наше діло — переставити носій на segment->start і сказати «так». */
-  if (lseek (self->fd, segment->start, SEEK_SET) < 0)
-    return FALSE;
-
-  self->read_offset = segment->start;
-  return TRUE;
-}
-```
+:::code api-seek/c/tochky-rozshyrennia.c
 
 Формат, у якому джерело працює, задають один раз при створенні: `gst_base_src_set_format (src, GST_FORMAT_BYTES)`. Живе джерело позначають `gst_base_src_set_live (src, TRUE)` — і тоді `is_seekable` майже завжди `FALSE`, бо минулого в живого джерела немає.
 
@@ -485,18 +306,7 @@ gboolean gst_base_src_new_seamless_segment (GstBaseSrc *src,
 
 Авторові приймача лишаються ті самі чотири речі:
 
-```c
-gboolean      (*unlock)      (GstBaseSink *sink);
-gboolean      (*unlock_stop) (GstBaseSink *sink);
-gboolean      (*event)       (GstBaseSink *sink, GstEvent *event);
-gboolean      (*query)       (GstBaseSink *sink, GstQuery *query);
-
-GstFlowReturn gst_base_sink_wait_preroll (GstBaseSink *sink);
-GstFlowReturn gst_base_sink_wait_clock   (GstBaseSink *sink, GstClockTime time,
-                                          GstClockTimeDiff *jitter);
-GstFlowReturn gst_base_sink_wait         (GstBaseSink *sink, GstClockTime time,
-                                          GstClockTimeDiff *jitter);
-```
+:::code api-seek/c/tochky-rozshyrennia-2.h
 
 `unlock` / `unlock_stop` тут потрібні з тієї самої причини, що й у джерелі: якщо ваш `render()` блокується на чомусь своєму (запис у пристрій, чекання на буфер відеокарти), базовий клас мусить мати ручку, якою це обірвати.
 
@@ -508,59 +318,7 @@ GstFlowReturn gst_base_sink_wait         (GstBaseSink *sink, GstClockTime time,
 
 Елемент, що читає в режимі витягування ([потік обробки](root:sys-media/threads-and-queues) у ньому свій, і завдання на паді запускає він сам), робить усю послідовність вручну. Порядок дій задає контракт подій, і кожен крок має свою причину:
 
-```c
-static gboolean
-my_demux_handle_seek (MyDemux *self, GstEvent *event)
-{
-  gdouble rate;
-  GstFormat format;
-  GstSeekFlags flags;
-  GstSeekType start_type, stop_type;
-  gint64 start, stop;
-  gboolean flush, update;
-
-  gst_event_parse_seek (event, &rate, &format, &flags,
-      &start_type, &start, &stop_type, &stop);
-
-  if (format != GST_FORMAT_TIME)          /* ми розуміємо лише час */
-    return FALSE;
-
-  flush = (flags & GST_SEEK_FLAG_FLUSH) != 0;
-
-  /* 1. розчистити дорогу: обидва напрямки, поза чергою */
-  if (flush) {
-    gst_pad_push_event (self->sinkpad, gst_event_new_flush_start ());
-    gst_pad_push_event (self->srcpad,  gst_event_new_flush_start ());
-  } else {
-    gst_pad_pause_task (self->sinkpad); /* нефлашний: просто спинити завдання */
-  }
-
-  /* 2. дочекатися, доки потік обробки справді вийде: замок вільний
-        лише тоді, коли ніхто не всередині ланцюжкової функції */
-  GST_PAD_STREAM_LOCK (self->sinkpad);
-
-  /* 3. застосувати подію до свого сегмента й знайти байтове зміщення */
-  gst_segment_do_seek (&self->segment, rate, format, flags,
-      start_type, start, stop_type, stop, &update);
-
-  if (update)
-    self->byte_offset = my_demux_index_lookup (self, self->segment.start);
-
-  /* 4. відпустити пади й оголосити новий сегмент */
-  if (flush) {
-    gst_pad_push_event (self->sinkpad, gst_event_new_flush_stop (TRUE));
-    gst_pad_push_event (self->srcpad,  gst_event_new_flush_stop (TRUE));
-  }
-  self->need_segment = TRUE;              /* SEGMENT піде перед першим буфером */
-
-  /* 5. пустити дані */
-  gst_pad_start_task (self->sinkpad,
-      (GstTaskFunction) my_demux_loop, self, NULL);
-
-  GST_PAD_STREAM_UNLOCK (self->sinkpad);
-  return TRUE;
-}
-```
+:::code api-seek/c/demultypleksor.c
 
 Чотири місця, у яких тут помиляються найчастіше.
 

@@ -51,21 +51,7 @@ cv::setUseOptimized(false);                            // вимкнути пі�
 
 У керівному блоці є два покажчики на дані й два лічильники:
 
-```cpp
-struct CV_EXPORTS UMatData {
-    int urefcount;      // скільки заголовків UMat
-    int refcount;       // скільки заголовків Mat
-    uchar* data;        // байти в системній пам'яті (може бути 0)
-    uchar* origdata;
-    size_t size;
-    UMatData::MemoryFlag flags;
-    void* handle;       // буфер прискорювача, cl_mem (може бути 0)
-    void* userdata;
-    int allocatorFlags_;
-    int mapcount;
-    UMatData* originalUMatData;
-};
-```
+:::code opencv-backends-d/cpp/umat-odyn-kerivnyi-blok.cpp
 
 Ось у чому суть: **пікселі можуть існувати у двох місцях одночасно**. `data` — це адреса в системній пам'яті, доступна процесорові напряму. `handle` — це непрозорий описувач буфера, виділеного через OpenCL; його вміст процесор прочитати не може, для нього треба або відобразити буфер у свій адресний простір, або скопіювати вміст у себе. Коли ви пишете `cv::UMat dst;` і передаєте його як приймач у будь-яку функцію OpenCV, а прискорювач доступний, виділиться саме буфер на пристрої, і поле `data` лишиться нульовим: у системній пам'яті результату просто немає.
 
@@ -77,18 +63,7 @@ struct CV_EXPORTS UMatData {
 
 Пам'ятають прапорці. У полі `flags` того ж керівного блоку живе такий набір:
 
-```cpp
-enum MemoryFlag {
-    COPY_ON_MAP          = 1,
-    HOST_COPY_OBSOLETE   = 2,    // копія в системній памʼяті застаріла
-    DEVICE_COPY_OBSOLETE = 4,    // копія на пристрої застаріла
-    TEMP_UMAT            = 8,
-    TEMP_COPIED_UMAT     = 24,
-    USER_ALLOCATED       = 32,
-    DEVICE_MEM_MAPPED    = 64,
-    ASYNC_CLEANUP        = 128
-};
-```
+:::code opencv-backends-d/cpp/umat-odyn-kerivnyi-blok-2.cpp
 
 Два перші прапорці й тримають усю конструкцію. Правило просте й симетричне: **хто пише, той оголошує чужу копію застарілою**. Ядро OpenCL відпрацювало над буфером пристрою — виставляється `HOST_COPY_OBSOLETE`. Процесор щось записав у системну пам'ять — виставляється `DEVICE_COPY_OBSOLETE`. Обидва прапорці одночасно стояти не можуть: це означало б, що правди немає ніде.
 
@@ -100,26 +75,7 @@ enum MemoryFlag {
 
 **`UMat::getMat(AccessFlag)`** — попросити системну адресу того, що лежить на пристрої. Ось повний код цього методу з гілки 4.x, і в ньому варто розібратися до дна:
 
-```cpp
-Mat UMat::getMat(AccessFlag accessFlags) const
-{
-    if(!u)
-        return Mat();
-    accessFlags |= ACCESS_RW;
-    UMatDataAutoLock autolock(u);
-    ...
-        if(CV_XADD(&u->refcount, 1) == 0)
-            u->currAllocator->map(u, accessFlags);
-        if (u->data != 0)
-        {
-            Mat hdr(dims, size.p, type(), u->data + offset, step.p);
-            hdr.u = u;
-            ...
-            return hdr;
-        }
-    ...
-}
-```
+:::code opencv-backends-d/cpp/de-same-narodzhuietsia.cpp
 
 Три речі тут важать.
 
@@ -133,20 +89,7 @@ Mat UMat::getMat(AccessFlag accessFlags) const
 
 І тут захована пастка, яку варто знати напам'ять. Ось початок того самого методу:
 
-```cpp
-UMat Mat::getUMat(AccessFlag accessFlags, UMatUsageFlags usageFlags) const
-{
-    ...
-    if (data != datastart)          // це виріз усередині більшого буфера
-    {
-        ...
-        src.adjustROI(dtop, dbottom, dleft, dright);   // розтягнути до цілого
-        return src.getUMat(accessFlags, usageFlags)(cv::Rect(ofs.x, ofs.y, sz.width, sz.height));
-    }
-    CV_Assert(data == datastart);
-    ...
-}
-```
+:::code opencv-backends-d/cpp/de-same-narodzhuietsia.hpp
 
 Прочитайте це ще раз. Якщо `Mat` є [вирізом](root:sys-media/mat-views-no-copy) із більшого кадру, бібліотека спершу **розтягує його назад до цілого батьківського кадру**, переганяє на пристрій увесь кадр і аж потім бере від нього потрібний прямокутник. Виріз 64×64 із кадру 4K коштує пересилання двадцяти чотирьох мегабайтів. Інакше не можна: буфер прискорювача — це суцільний шматок, а виріз має чужий крок рядка й дірки між рядками. Але з боку користувача це виглядає як маленька операція над маленьким прямокутником.
 

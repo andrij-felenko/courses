@@ -63,85 +63,13 @@
 
 Дві речі в цій програмі варто зробити один раз і більше про них не думати: зняття відображення й побудову заголовка. Обидві вкладаються в маленький клас, чий деструктор і є `unmap` — звичайний [охоронець області](root:sys-plang-cpp/scope-guard), тільки застосований до кадру.
 
-```cpp
-// gst_mat_inplace.cpp — кадр із appsink у cv::Mat, обробка на місці,
-// той самий буфер далі в конвеєр.
-//
-//   g++ -O2 -std=c++17 gst_mat_inplace.cpp -o gst_mat_inplace \
-//       $(pkg-config --cflags --libs gstreamer-1.0 gstreamer-app-1.0 \
-//                                    gstreamer-video-1.0 opencv4)
-
-#include <gst/gst.h>
-#include <gst/app/gstappsink.h>
-#include <gst/app/gstappsrc.h>
-#include <gst/video/video.h>
-
-#include <opencv2/imgproc.hpp>
-
-#include <csignal>
-
-static volatile sig_atomic_t g_stop = 0;
-static void on_sigint (int) { g_stop = 1; }
-
-/* Відображення, прив'язане до області видимості: unmap станеться сам —
-   і на ранньому return, і на винятку з надр OpenCV. */
-class MappedFrame {
-public:
-  MappedFrame (const GstVideoInfo *info, GstBuffer *buf, GstMapFlags flags)
-      : ok_ (gst_video_frame_map (&f_, info, buf, flags)) {}
-
-  ~MappedFrame () { if (ok_) gst_video_frame_unmap (&f_); }
-
-  MappedFrame (const MappedFrame &)            = delete;   /* копії заборонені: */
-  MappedFrame &operator= (const MappedFrame &) = delete;   /* unmap рівно один  */
-
-  explicit operator bool () const { return ok_; }
-
-  int width  () const { return GST_VIDEO_FRAME_WIDTH  (&f_); }
-  int height () const { return GST_VIDEO_FRAME_HEIGHT (&f_); }
-
-  const GstVideoFrame *get () const { return &f_; }   /* для решти макросів */
-
-  /* Заголовок над площиною p. Розмір і тип задає викликач — лише він знає,
-     про який формат домовився конвеєр. Крок береться з КАДРУ. */
-  cv::Mat plane (guint p, int rows, int cols, int cvType) const
-  {
-    return cv::Mat (rows, cols, cvType,
-                    GST_VIDEO_FRAME_PLANE_DATA (&f_, p),
-                    (size_t) GST_VIDEO_FRAME_PLANE_STRIDE (&f_, p));
-  }
-
-private:
-  GstVideoFrame f_ {};    /* оголошений ПЕРШИМ: map у списку ініціалізації */
-  gboolean      ok_;      /* працює вже над готовим полем                  */
-};
-```
+:::code proj-gst-mat-zero-copy/cpp/gst_mat_inplace.cpp
 
 Метод `plane()` навмисно `const`, а `cv::Mat`, який він повертає, дозволяє запис. Це не недогляд, а чесне відображення того, як влаштований `cv::Mat`: константність до пікселів не доходить узагалі, і жодна сигнатура в OpenCV від запису у вхідне зображення не захищає ([коректність за const](root:sys-plang-cpp/const-correctness)). Право писати тут дає не тип, а прапорці відображення.
 
 Сама обробка після цього — кілька рядків, і кожен із них пише прямо в кадр конвеєра:
 
-```cpp
-/* Замазує прямокутник ПРЯМО в кадрі конвеєра. */
-static bool blur_region (const GstVideoInfo *info, GstBuffer *buf, cv::Rect r)
-{
-  MappedFrame f (info, buf, GST_MAP_READWRITE);
-  if (!f)
-    return false;
-
-  cv::Mat bgr = f.plane (0, f.height (), f.width (), CV_8UC3);  /* без копії */
-
-  r &= cv::Rect (0, 0, bgr.cols, bgr.rows);        /* обрізати межами кадру */
-  if (r.width < 8 || r.height < 8)
-    return true;
-
-  cv::Mat roi = bgr (r);                           /* вид у виді, теж без копії */
-  cv::GaussianBlur (roi, roi, cv::Size (0, 0), 9); /* пише В КАДР */
-  cv::rectangle (bgr, r, cv::Scalar (0, 255, 0), 2);
-
-  return true;
-}   /* roi і bgr гинуть раніше за f — unmap робиться останнім */
-```
+:::code proj-gst-mat-zero-copy/cpp/okhoronets-vidobrazhennia.cpp
 
 Порядок знищення тут не випадковий, а виведений з порядку оголошення: `f` створено першим, тож знищено буде останнім, уже після обох заголовків. Якби охоронець стояв нижче, `unmap` відбувся б, доки `bgr` і `roi` ще живі, — і хоч ніхто б цього не помітив, у програмі з'явилася б мить, коли чинний на вигляд `cv::Mat` дивиться в зняте відображення.
 
@@ -149,91 +77,7 @@ static bool blur_region (const GstVideoInfo *info, GstBuffer *buf, cv::Rect r)
 
 ## Цикл: два конвеєри й один буфер між ними
 
-```cpp
-int main (int argc, char *argv[])
-{
-  gst_init (&argc, &argv);
-  std::signal (SIGINT, on_sigint);
-
-  GError *err = NULL;
-  GstElement *pin = gst_parse_launch (
-      "videotestsrc pattern=smpte is-live=true ! "
-      "video/x-raw,format=BGR,width=1280,height=720,framerate=30/1 ! "
-      "appsink name=out sync=false max-buffers=2 drop=true", &err);
-  if (!pin) { g_printerr ("вхід: %s\n", err->message); return 1; }
-
-  GstElement *pout = gst_parse_launch (
-      "appsrc name=in format=time is-live=true ! "
-      "videoconvert ! autovideosink sync=false", &err);
-  if (!pout) { g_printerr ("вихід: %s\n", err->message); return 1; }
-
-  GstAppSink *sink = GST_APP_SINK (gst_bin_get_by_name (GST_BIN (pin),  "out"));
-  GstAppSrc  *src  = GST_APP_SRC  (gst_bin_get_by_name (GST_BIN (pout), "in"));
-
-  gst_element_set_state (pout, GST_STATE_PLAYING);
-  gst_element_set_state (pin,  GST_STATE_PLAYING);
-
-  GstVideoInfo  info;
-  GstCaps      *known  = NULL;      /* caps, для яких порахована info */
-  guint64       frames = 0;
-
-  while (!g_stop) {
-    GstSample *sample = gst_app_sink_try_pull_sample (sink, 200 * GST_MSECOND);
-    if (!sample) {
-      if (gst_app_sink_is_eos (sink)) break;
-      continue;                                    /* таймаут — просто чекаємо */
-    }
-
-    GstCaps *caps = gst_sample_get_caps (sample);  /* позичені в sample */
-    if (!caps) { gst_sample_unref (sample); continue; }
-
-    /* Розбирати caps щокадру немає причини: між кадрами вони ті самі. */
-    if (!known || !gst_caps_is_equal (caps, known)) {
-      if (!gst_video_info_from_caps (&info, caps)) {
-        gst_sample_unref (sample);
-        break;
-      }
-      gst_caps_replace (&known, caps);             /* тепер посилання наше */
-      gst_app_src_set_caps (src, known);           /* далі йде той самий формат */
-      g_printerr ("формат %s %d×%d, крок площини 0 — з кадру, не з ширини\n",
-                  gst_video_format_to_string (GST_VIDEO_INFO_FORMAT (&info)),
-                  GST_VIDEO_INFO_WIDTH (&info), GST_VIDEO_INFO_HEIGHT (&info));
-    }
-
-    /* Буфер беремо СОБІ й одразу відпускаємо sample: доки той живий,
-       у буфера два власники — і запис у нього коштував би копії. */
-    GstBuffer *buf = gst_buffer_ref (gst_sample_get_buffer (sample));
-    gst_sample_unref (sample);
-
-    /* Власник один — повернеться той самий буфер. Якщо чомусь не один,
-       GStreamer зробить нам власний, і програма лишиться правильною. */
-    buf = gst_buffer_make_writable (buf);
-
-    if (!blur_region (&info, buf, cv::Rect (420, 240, 440, 240))) {
-      gst_buffer_unref (buf);                      /* не відобразився — наш борг */
-      continue;
-    }
-
-    if (gst_app_src_push_buffer (src, buf) != GST_FLOW_OK)
-      break;                                       /* після push buf уже не наш */
-    ++frames;
-  }
-
-  /* Спершу зупиняємо той конвеєр, який тримає чужі буфери. */
-  gst_app_src_end_of_stream (src);
-  gst_element_set_state (pout, GST_STATE_NULL);
-  gst_element_set_state (pin,  GST_STATE_NULL);
-
-  if (known) gst_caps_unref (known);
-  gst_object_unref (sink);
-  gst_object_unref (src);
-  gst_object_unref (pin);
-  gst_object_unref (pout);
-
-  g_printerr ("кадрів: %" G_GUINT64_FORMAT "\n", frames);
-  return 0;
-}
-```
+:::code proj-gst-mat-zero-copy/cpp/tsykl-dva-konveiery-i-odyn.cpp
 
 Кадр, який ми віддали в другий конвеєр, і далі належить пулу першого: він повернеться туди аж тоді, коли `autovideosink` його відпустить. Пул скінченний, тож затримка на виході миттєво стає нестачею буферів на вході — саме тому `max-buffers=2 drop=true` на `appsink` тут не косметика, а умова, за якої перший конвеєр не стане. Якщо кадр треба тримати довше (черга, інший потік, запис на диск), економія обертається на свою протилежність, і чесніше зробити копію — але свідомо й в одному відомому місці.
 
@@ -247,33 +91,7 @@ int main (int argc, char *argv[])
 
 *Площина яскравості — один байт на піксель; площина колірності — пара U,V на кожен квадрат 2×2, тобто два канали при вдвічі менших розмірах.*
 
-```cpp
-static bool blur_region_nv12 (const GstVideoInfo *info, GstBuffer *buf, cv::Rect r)
-{
-  MappedFrame f (info, buf, GST_MAP_READWRITE);
-  if (!f)
-    return false;
-
-  const int w = f.width (), h = f.height ();
-
-  cv::Mat y  = f.plane (0, h,     w,     CV_8UC1);   /* яскравість */
-  cv::Mat uv = f.plane (1, h / 2, w / 2, CV_8UC2);   /* U та V поруч */
-
-  /* Межі ділянки мусять бути парними: одна пара U,V накриває квадрат 2×2,
-     тож непарний край просто нікуди покласти. */
-  r &= cv::Rect (0, 0, w, h);
-  r = cv::Rect (r.x & ~1, r.y & ~1, r.width & ~1, r.height & ~1);
-  if (r.width < 8 || r.height < 8)
-    return true;
-
-  cv::Rect ruv (r.x / 2, r.y / 2, r.width / 2, r.height / 2);
-
-  cv::Mat yr = y (r), uvr = uv (ruv);                /* два види, обидва в кадрі */
-  cv::GaussianBlur (yr,  yr,  cv::Size (0, 0), 9);
-  cv::GaussianBlur (uvr, uvr, cv::Size (0, 0), 4.5);
-  return true;
-}
-```
+:::code proj-gst-mat-zero-copy/cpp/nv12-odyn-kadr-dva.cpp
 
 Розмиття двоканальної колірності працює поканально, тобто U розмивається з U, а V — з V; це саме те, чого хочеться. Якщо ділянку треба не розмити, а знебарвити, замість другого виклику стоїть `uv(ruv).setTo(cv::Scalar(128, 128))` — сіре в NV12 це рівно 128 в обох каналах.
 
@@ -304,22 +122,7 @@ bool one_block = (su == sy) && (pu == py + (size_t) sy * h);
 
 ### Заголовок, збережений у члені класу
 
-```cpp
-class MotionDetector {
-  cv::Mat prev_;
-public:
-  void feed (const cv::Mat &frame)
-  {
-    if (!prev_.empty ()) {
-      cv::Mat diff;
-      cv::absdiff (prev_, frame, diff);
-      report (cv::mean (diff)[0]);          /* середня зміна на піксель */
-    }
-    prev_ = frame;              /* ✗ копіює ЗАГОЛОВОК, не пікселі */
-  //prev_ = frame.clone ();     /* ✓ власний блок із лічильником   */
-  }
-};
-```
+:::code proj-gst-mat-zero-copy/cpp/zaholovok-zberezhenyi-u.cpp
 
 `frame` тут — заголовок над буфером конвеєра, і поле володіння в нього порожнє. Присвоєння копіює заголовок разом із цією порожнечею: `prev_` теж нічим не володіє, лічильника не збільшує й нічого не продовжує. Щойно відображення знято, а буфер повернувся в пул, `prev_.data` вказує на пам'ять, яку пул уже роздає наново — класичне [звернення після звільнення](root:sys-plang-cpp/dangling-references), тільки загорнуте в клас, який на вигляд керує пам'яттю сам.
 

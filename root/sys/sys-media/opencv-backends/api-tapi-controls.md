@@ -228,27 +228,7 @@ static cv::ocl::Device        cv::ocl::Device::fromHandle(void* d);
 
 ### Контекст і черга
 
-```cpp
-static cv::ocl::Context& cv::ocl::Context::getDefault(bool initialize = true);
-static cv::ocl::Context  cv::ocl::Context::fromHandle(void* context);
-static cv::ocl::Context  cv::ocl::Context::fromDevice(const cv::ocl::Device& device);
-static cv::ocl::Context  cv::ocl::Context::create(const std::string& configuration);
-void*             cv::ocl::Context::ptr() const;
-size_t            cv::ocl::Context::ndevices() const;
-cv::ocl::Device&  cv::ocl::Context::device(size_t idx) const;
-bool              cv::ocl::Context::useSVM() const;
-void              cv::ocl::Context::setUseSVM(bool enabled);
-
-static cv::ocl::Queue& cv::ocl::Queue::getDefault();
-const cv::ocl::Queue&  cv::ocl::Queue::getProfilingQueue() const;
-void                   cv::ocl::Queue::finish();
-void*                  cv::ocl::Queue::ptr() const;
-bool                   cv::ocl::Queue::create(const cv::ocl::Context& c = cv::ocl::Context(),
-                                              const cv::ocl::Device&  d = cv::ocl::Device());
-
-void cv::ocl::attachContext(const cv::String& platformName, void* platformID,
-                            void* context, void* deviceID);
-```
+:::code api-tapi-controls/cpp/kontekst-i-cherha.hpp
 
 `ptr()` віддає сирий описувач (`cl_context`, `cl_command_queue`) — це вихід у чужий код, який працює з OpenCL напряму. Зворотний вхід — `attachContext`: бібліотека починає жити в **уже наявному** контексті замість того, щоб створювати свій. Що таке контекст, черга команд і ядро — [OpenCL: контекст, черга команд, ядра й буфери](root:sf-visual/opencl-compute-model); практичний наслідок простий: буфер належить контексту, і два різні контексти обмінюються даними лише через системну пам'ять, скільки б «взаємодії» не було в назвах функцій.
 
@@ -276,23 +256,7 @@ double ms = (cv::getTickCount() - t0) * 1000.0 / cv::getTickFrequency();
 
 ### Процесорний бік
 
-```cpp
-void          cv::setNumThreads(int nthreads);   // 0 — послідовно; від'ємне — повернути типове
-int           cv::getNumThreads();
-int           cv::getNumberOfCPUs();
-void          cv::setUseOptimized(bool onoff);
-bool          cv::useOptimized();
-bool          cv::checkHardwareSupport(int feature);
-cv::String    cv::getHardwareFeatureName(int feature);
-const cv::String& cv::getBuildInformation();
-cv::String    cv::getVersionString();
-
-bool       cv::ipp::useIPP();
-void       cv::ipp::setUseIPP(bool flag);
-cv::String cv::ipp::getIppVersion();
-bool       cv::ipp::useIPP_NotExact();
-void       cv::ipp::setUseIPP_NotExact(bool flag);
-```
+:::code api-tapi-controls/cpp/protsesornyi-bik.hpp
 
 `setUseOptimized(false)` вимикає під час виконання і диспетчеризовані копії функцій, і підмінені реалізації — це важіль вимірювання, а не роботи: різниця «увімкнено проти вимкнено» показує, скільки процесорна збірка вже дає задарма.
 
@@ -338,18 +302,7 @@ enum UMatUsageFlags {
 
 ### Прапорці керівного блоку
 
-```cpp
-enum UMatData::MemoryFlag {
-    COPY_ON_MAP          = 1,
-    HOST_COPY_OBSOLETE   = 2,
-    DEVICE_COPY_OBSOLETE = 4,
-    TEMP_UMAT            = 8,
-    TEMP_COPIED_UMAT     = 24,
-    USER_ALLOCATED       = 32,
-    DEVICE_MEM_MAPPED    = 64,
-    ASYNC_CLEANUP        = 128
-};
-```
+:::code api-tapi-controls/cpp/praportsi-kerivnoho-bloku.cpp
 
 | Прапорець | Що означає |
 |---|---|
@@ -444,52 +397,7 @@ enum VideoAccelerationType {
 
 ### Мінімальний робочий виклик
 
-```cpp
-#include <opencv2/core.hpp>
-#include <opencv2/core/ocl.hpp>
-#include <opencv2/imgproc.hpp>
-#include <opencv2/videoio.hpp>
-#include <cstdio>
-
-int main()
-{
-    if (!cv::ocl::haveOpenCL())
-        std::printf("бібліотеки драйвера немає — усе піде процесором\n");
-
-    const cv::ocl::Device& d = cv::ocl::Device::getDefault();
-    std::printf("%s | %s | спільна памʼять: %d | один буфер до %zu МБ\n",
-                d.name().c_str(), d.OpenCLVersion().c_str(),
-                (int)d.hostUnifiedMemory(), d.maxMemAllocSize() >> 20);
-
-    cv::VideoCapture cap("in.mp4", cv::CAP_FFMPEG, {
-        cv::CAP_PROP_HW_ACCELERATION,            cv::VIDEO_ACCELERATION_ANY,
-        cv::CAP_PROP_HW_DEVICE,                  0,
-        cv::CAP_PROP_HW_ACCELERATION_USE_OPENCL, 1
-    });
-    if (!cap.isOpened())
-        return 1;
-    std::printf("дісталося прискорення: %d\n",
-                (int)cap.get(cv::CAP_PROP_HW_ACCELERATION));
-
-    cv::UMat frame, gray, blurred;
-    for (int i = 0; cap.read(frame); ++i)
-    {
-        cv::cvtColor(frame, gray, cv::COLOR_BGR2GRAY);
-        cv::GaussianBlur(gray, blurred, {5, 5}, 1.5);
-
-        if (i == 10)                       // перші кадри платять за компіляцію ядер
-        {
-            cv::ocl::finish();
-            int64 t0 = cv::getTickCount();
-            cv::GaussianBlur(gray, blurred, {5, 5}, 1.5);
-            cv::ocl::finish();
-            std::printf("розмиття: %.2f мс\n",
-                        (cv::getTickCount() - t0) * 1000.0 / cv::getTickFrequency());
-        }
-    }
-    return 0;
-}
-```
+:::code api-tapi-controls/cpp/minimalnyi-robochyi-vyklyk.cpp
 
 Кадр тут не покидає пам'яті прискорювача від декодера до кінця обробки: `CAP_PROP_HW_ACCELERATION_USE_OPENCL` віддає бібліотеці контекст декодера, а приймачем `read` стоїть `UMat`. Які формати при цьому можна віддати без перетворення — [стик із відеоконвеєром: формати пікселів і передача кадру](root:sys-media/frame-interop).
 

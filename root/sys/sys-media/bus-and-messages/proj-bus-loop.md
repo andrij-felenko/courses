@@ -29,86 +29,8 @@
 Усе це разом одна структура, вказівник на яку ми передаємо в кожен колбек. Колбеки шини виконуються всі в одній нитці — тій, що крутить головний цикл, — тому замок їм не потрібен; про це варто пам'ятати, бо `pad-added` нижче виконується вже **не** в ній.
 
 :::tabs
-```c
-#include <gst/gst.h>
-
-typedef struct {
-  GstElement *pipeline;
-  GstBus     *bus;
-  GMainLoop  *loop;
-  guint       watch_id;
-
-  GstState    target;      /* чого ми хочемо; буферизація цього не змінює */
-  gboolean    is_live;     /* живий конвеєр: паузою не керуємо взагалі */
-  gboolean    buffering;   /* зараз усередині набору запасу */
-  int         exit_code;
-} App;
-
-/* Ім'я джерела повідомлення. Джерела може й не бути — тоді GST_OBJECT_NAME
-   впаде на нульовому вказівнику, тому питаємо обережно. */
-static const gchar *src_name (GstMessage *msg)
-{
-  GstObject *src = GST_MESSAGE_SRC (msg);
-  return src ? GST_OBJECT_NAME (src) : "(без джерела)";
-}
-
-/* Обидва колбеки означено нижче; у файлі вони йдуть перед build(). */
-static void     on_pad_added   (GstElement *dec, GstPad *pad, gpointer data);
-static gboolean on_bus_message (GstBus *bus, GstMessage *msg, gpointer data);
-
-static gboolean build (App *app, const gchar *uri)
-{
-  app->loop     = g_main_loop_new (NULL, FALSE);
-  app->target   = GST_STATE_PLAYING;
-  app->pipeline = gst_pipeline_new ("player");
-
-  GstElement *dec = gst_element_factory_make ("uridecodebin", "dec");
-  if (!dec) {
-    g_printerr ("немає елемента uridecodebin — не встановлено gst-plugins-base\n");
-    return FALSE;
-  }
-  g_object_set (dec, "uri", uri,
-                     "use-buffering", TRUE,     /* без цього BUFFERING не постить */
-                     NULL);
-  gst_bin_add (GST_BIN (app->pipeline), dec);
-  g_signal_connect (dec, "pad-added", G_CALLBACK (on_pad_added), app);
-
-  app->bus      = gst_element_get_bus (app->pipeline);
-  app->watch_id = gst_bus_add_watch (app->bus, on_bus_message, app);
-  if (app->watch_id == 0) {
-    g_printerr ("стеження не приєдналося: на шині вже є інше\n");
-    return FALSE;
-  }
-  return TRUE;
-}
-```
-```py
-import sys
-import gi
-gi.require_version("Gst", "1.0")
-from gi.repository import Gst, GLib
-
-
-class Player:
-    def __init__(self, uri):
-        self.loop = GLib.MainLoop()
-        self.target = Gst.State.PLAYING   # чого ми хочемо; буферизація цього не змінює
-        self.is_live = False              # живий конвеєр: паузою не керуємо взагалі
-        self.buffering = False            # зараз усередині набору запасу
-        self.exit_code = 0
-
-        self.pipeline = Gst.Pipeline.new("player")
-        dec = Gst.ElementFactory.make("uridecodebin", "dec")
-        if dec is None:
-            raise RuntimeError("немає елемента uridecodebin — не встановлено gst-plugins-base")
-        dec.set_property("uri", uri)
-        dec.set_property("use-buffering", True)
-        self.pipeline.add(dec)
-        dec.connect("pad-added", self.on_pad_added)
-
-        self.bus = self.pipeline.get_bus()
-        self.watch_id = self.bus.add_watch(GLib.PRIORITY_DEFAULT, self.on_message, None)
-```
+:::code proj-bus-loop/c/stan-zastosunku-namir.c
+:::code proj-bus-loop/py/stan-zastosunku-namir.py
 :::
 
 Одна деталь у налаштуванні `uridecodebin` варта окремої згадки: `use-buffering` типово **вимкнено**. Без нього мережеве джерело мовчки набиратиме запас, і жодного `BUFFERING` ви не побачите — а потім здивуєтеся, чому картинка починається з ривка. Увімкнули — і елемент постить відсоток, поки набирає.
@@ -122,103 +44,8 @@ class Player:
 Друга нагода — порядок дій. Елемент, доданий у конвеєр, треба **спершу з'єднати й тільки потім** підтягнути його стан під конвеєр. Навпаки не виходить: запущений у порожнечу `queue` одразу впаде помилкою про непід'єднаний pad, і програма зупиниться на порожньому місці.
 
 :::tabs
-```c
-/* Будує ланцюжок елементів, лінкує його й підтягує стан під конвеєр.
-   Повертає вхідний pad першого елемента — його звільняє викликач. */
-static GstPad *add_branch (App *app, const gchar *const *factories)
-{
-  GstElement *chain[4] = { NULL, NULL, NULL, NULL };
-  guint n = 0;
-
-  for (; n < G_N_ELEMENTS (chain) && factories[n] != NULL; n++) {
-    chain[n] = gst_element_factory_make (factories[n], NULL);
-    if (!chain[n]) {
-      g_printerr ("бракує елемента «%s» — не встановлено плагін\n", factories[n]);
-      return NULL;
-    }
-    gst_bin_add (GST_BIN (app->pipeline), chain[n]);   /* конвеєр забрав посилання */
-    if (n > 0 && !gst_element_link (chain[n - 1], chain[n])) {
-      g_printerr ("не з'єдналися %s і %s\n", factories[n - 1], factories[n]);
-      return NULL;
-    }
-  }
-
-  /* стан підтягуємо ТІЛЬКИ після з'єднання всього ланцюжка */
-  for (guint i = 0; i < n; i++)
-    gst_element_sync_state_with_parent (chain[i]);
-
-  return gst_element_get_static_pad (chain[0], "sink");
-}
-
-/* Викликається в НИТЦІ ПОТОКУ uridecodebin, не в головній. */
-static void on_pad_added (GstElement *dec, GstPad *pad, gpointer data)
-{
-  static const gchar *const video[] = { "queue", "videoconvert", "autovideosink", NULL };
-  static const gchar *const audio[] = { "queue", "audioconvert", "audioresample",
-                                        "autoaudiosink", NULL };
-  App *app = data;
-
-  GstCaps *caps = gst_pad_get_current_caps (pad);
-  if (!caps)
-    caps = gst_pad_query_caps (pad, NULL);
-  const gchar *media = gst_structure_get_name (gst_caps_get_structure (caps, 0));
-
-  const gchar *const *want = NULL;
-  const gchar *label = NULL;
-  if (g_str_has_prefix (media, "video/"))      { want = video; label = "відео"; }
-  else if (g_str_has_prefix (media, "audio/")) { want = audio; label = "звук";  }
-  gst_caps_unref (caps);            /* після цього рядка media вже недійсний */
-
-  if (!want)
-    return;                         /* субтитри й службові потоки не беремо */
-
-  GstPad *sink = add_branch (app, want);
-  if (!sink)
-    return;
-  if (gst_pad_link (pad, sink) != GST_PAD_LINK_OK)
-    g_printerr ("гілку «%s» не приєднано\n", label);
-  gst_object_unref (sink);
-}
-```
-```py
-    def add_branch(self, factories):
-        """Будує ланцюжок, лінкує його й підтягує стан під конвеєр.
-        Повертає вхідний pad першого елемента."""
-        chain = []
-        for name in factories:
-            element = Gst.ElementFactory.make(name)
-            if element is None:
-                print(f"бракує елемента «{name}» — не встановлено плагін", file=sys.stderr)
-                return None
-            self.pipeline.add(element)
-            if chain and not chain[-1].link(element):
-                print(f"не з'єдналися {chain[-1].name} і {name}", file=sys.stderr)
-                return None
-            chain.append(element)
-
-        # стан підтягуємо ТІЛЬКИ після з'єднання всього ланцюжка
-        for element in chain:
-            element.sync_state_with_parent()
-        return chain[0].get_static_pad("sink")
-
-    def on_pad_added(self, dec, pad):
-        """Викликається в НИТЦІ ПОТОКУ uridecodebin, не в головній."""
-        caps = pad.get_current_caps() or pad.query_caps(None)
-        media = caps.get_structure(0).get_name()
-
-        if media.startswith("video/"):
-            want, label = ["queue", "videoconvert", "autovideosink"], "відео"
-        elif media.startswith("audio/"):
-            want, label = ["queue", "audioconvert", "audioresample", "autoaudiosink"], "звук"
-        else:
-            return                       # субтитри й службові потоки не беремо
-
-        sink = self.add_branch(want)
-        if sink is None:
-            return
-        if pad.link(sink) != Gst.PadLinkReturn.OK:
-            print(f"гілку «{label}» не приєднано", file=sys.stderr)
-```
+:::code proj-bus-loop/c/hilky-na-vymohu-pad-added.c
+:::code proj-bus-loop/py/hilky-na-vymohu-pad-added.py
 :::
 
 `queue` на початку кожної гілки — не прикраса. Він розриває ланцюг і додає власну нитку, тож відео й звук перестають чекати одне на одного, а повільний приймач не гальмує декодер. Без нього дві гілки з одного демультиплексора рано чи пізно взаємно заблокуються.
@@ -230,168 +57,8 @@ static void on_pad_added (GstElement *dec, GstPad *pad, gpointer data)
 Тепер власне те, заради чого все затівалося. Одна функція, один `switch`, і в кожній гілці — рішення, а не просто друк.
 
 :::tabs
-```c
-/* Розбір помилки. Повідомлення НЕ звільняє — власник у різних дорогах різний. */
-static void report_error (GstMessage *msg)
-{
-  GError *err = NULL;
-  gchar  *dbg = NULL;
-  gst_message_parse_error (msg, &err, &dbg);
-
-  g_printerr ("ПОМИЛКА від %s: %s\n", src_name (msg), err->message);
-  g_printerr ("  домен %s, код %d\n", g_quark_to_string (err->domain), err->code);
-
-  if (g_error_matches (err, GST_RESOURCE_ERROR, GST_RESOURCE_ERROR_NOT_FOUND))
-    g_printerr ("  → за цією адресою джерела немає\n");
-  else if (g_error_matches (err, GST_STREAM_ERROR, GST_STREAM_ERROR_CODEC_NOT_FOUND))
-    g_printerr ("  → у системі немає плагіна-декодера для цього формату\n");
-
-  g_printerr ("  зневадження: %s\n", dbg ? dbg : "(немає)");
-
-  g_clear_error (&err);
-  g_free (dbg);
-}
-
-static gboolean on_bus_message (GstBus *bus, GstMessage *msg, gpointer data)
-{
-  App *app = data;
-
-  switch (GST_MESSAGE_TYPE (msg)) {
-
-    case GST_MESSAGE_ERROR:
-      report_error (msg);
-      app->exit_code = 1;
-      g_main_loop_quit (app->loop);       /* конвеєр сам не спиниться */
-      break;
-
-    case GST_MESSAGE_EOS:
-      g_print ("кінець потоку\n");
-      g_main_loop_quit (app->loop);
-      break;
-
-    case GST_MESSAGE_WARNING: {
-      GError *err = NULL;
-      gchar  *dbg = NULL;
-      gst_message_parse_warning (msg, &err, &dbg);
-      g_printerr ("попередження від %s: %s (%s)\n",
-                  src_name (msg), err->message, dbg ? dbg : "—");
-      g_clear_error (&err);
-      g_free (dbg);
-      break;                              /* робота триває — не зупиняємо */
-    }
-
-    case GST_MESSAGE_STATE_CHANGED: {
-      if (GST_MESSAGE_SRC (msg) != GST_OBJECT (app->pipeline))
-        break;                            /* стани окремих елементів нас не цікавлять */
-      GstState from, to, pending;
-      gst_message_parse_state_changed (msg, &from, &to, &pending);
-      g_print ("конвеєр: %s → %s\n",
-               gst_element_state_get_name (from), gst_element_state_get_name (to));
-      break;
-    }
-
-    case GST_MESSAGE_BUFFERING: {
-      if (app->is_live)
-        break;                            /* живому джерелу пауза лише зашкодить */
-      gint percent = 0;
-      gst_message_parse_buffering (msg, &percent);
-      g_print ("буферизація %3d%%\n", percent);
-
-      if (percent < 100) {
-        if (!app->buffering && app->target == GST_STATE_PLAYING)
-          gst_element_set_state (app->pipeline, GST_STATE_PAUSED);
-        app->buffering = TRUE;
-      } else if (app->buffering) {
-        app->buffering = FALSE;
-        if (app->target == GST_STATE_PLAYING)
-          gst_element_set_state (app->pipeline, GST_STATE_PLAYING);
-      }
-      break;
-    }
-
-    case GST_MESSAGE_LATENCY:
-      g_print ("перерахунок затримки на прохання %s\n", src_name (msg));
-      gst_bin_recalculate_latency (GST_BIN (app->pipeline));
-      break;
-
-    case GST_MESSAGE_CLOCK_LOST:
-      /* годинник зник; новий вибереться на наступному вході в PLAYING */
-      gst_element_set_state (app->pipeline, GST_STATE_PAUSED);
-      gst_element_set_state (app->pipeline, GST_STATE_PLAYING);
-      break;
-
-    default:
-      break;
-  }
-
-  return TRUE;      /* лишаємось підключеними; msg НЕ звільняємо — він позичений */
-}
-```
-```py
-    def report_error(self, msg):
-        """Розбір помилки. Повідомлення не звільняє — власник у різних дорогах різний."""
-        err, dbg = msg.parse_error()
-
-        print(f"ПОМИЛКА від {msg.src.name}: {err.message}", file=sys.stderr)
-        print(f"  домен {err.domain}, код {err.code}", file=sys.stderr)
-
-        if err.domain == "gst-resource-error-quark" and err.code == Gst.ResourceError.NOT_FOUND:
-            print("  → за цією адресою джерела немає", file=sys.stderr)
-        elif err.domain == "gst-stream-error-quark" and err.code == Gst.StreamError.CODEC_NOT_FOUND:
-            print("  → у системі немає плагіна-декодера для цього формату", file=sys.stderr)
-
-        print(f"  зневадження: {dbg or '(немає)'}", file=sys.stderr)
-
-    def on_message(self, bus, msg, _unused):
-        t = msg.type
-
-        if t == Gst.MessageType.ERROR:
-            self.report_error(msg)
-            self.exit_code = 1
-            self.loop.quit()                      # конвеєр сам не спиниться
-
-        elif t == Gst.MessageType.EOS:
-            print("кінець потоку")
-            self.loop.quit()
-
-        elif t == Gst.MessageType.WARNING:
-            err, dbg = msg.parse_warning()
-            print(f"попередження від {msg.src.name}: {err.message} ({dbg or '—'})",
-                  file=sys.stderr)                # робота триває — не зупиняємо
-
-        elif t == Gst.MessageType.STATE_CHANGED:
-            if msg.src is not self.pipeline:
-                return True                       # стани окремих елементів нас не цікавлять
-            old, new, _pending = msg.parse_state_changed()
-            print(f"конвеєр: {Gst.Element.state_get_name(old)} → "
-                  f"{Gst.Element.state_get_name(new)}")
-
-        elif t == Gst.MessageType.BUFFERING:
-            if self.is_live:
-                return True                       # живому джерелу пауза лише зашкодить
-            percent = msg.parse_buffering()
-            print(f"буферизація {percent:3d}%")
-
-            if percent < 100:
-                if not self.buffering and self.target == Gst.State.PLAYING:
-                    self.pipeline.set_state(Gst.State.PAUSED)
-                self.buffering = True
-            elif self.buffering:
-                self.buffering = False
-                if self.target == Gst.State.PLAYING:
-                    self.pipeline.set_state(Gst.State.PLAYING)
-
-        elif t == Gst.MessageType.LATENCY:
-            print(f"перерахунок затримки на прохання {msg.src.name}")
-            self.pipeline.recalculate_latency()
-
-        elif t == Gst.MessageType.CLOCK_LOST:
-            # годинник зник; новий вибереться на наступному вході в PLAYING
-            self.pipeline.set_state(Gst.State.PAUSED)
-            self.pipeline.set_state(Gst.State.PLAYING)
-
-        return True                               # лишаємось підключеними
-```
+:::code proj-bus-loop/c/obrobnyk-shyny-sertse.c
+:::code proj-bus-loop/py/obrobnyk-shyny-sertse.py
 :::
 
 Три рядки в цьому коді варті окремого погляду.
@@ -423,80 +90,8 @@ static gboolean on_bus_message (GstBus *bus, GstMessage *msg, gpointer data)
 Перехід у `PAUSED` змушує конвеєр домовитися про формати й підготувати перший кадр. Звичайне джерело це вміє, і виклик повертає `GST_STATE_CHANGE_ASYNC` — «роблю, скажу згодом». Живе джерело підготувати кадр наперед не може принципово: кадру ще не існує, він з'явиться, коли камера його зніме. Саме тому воно відповідає окремим значенням `GST_STATE_CHANGE_NO_PREROLL`, і це найнадійніший наявний спосіб дізнатися вид конвеєра.
 
 :::tabs
-```c
-int main (int argc, char **argv)
-{
-  gst_init (&argc, &argv);
-  if (argc < 2) {
-    g_printerr ("вжиток: %s <uri>\n", argv[0]);
-    return 2;
-  }
-
-  App app = { 0 };
-  if (!build (&app, argv[1]))
-    return 1;
-
-  GstStateChangeReturn ret = gst_element_set_state (app.pipeline, GST_STATE_PAUSED);
-
-  if (ret == GST_STATE_CHANGE_FAILURE) {
-    /* головного циклу ще нема, забрати повідомлення нікому — беремо самі */
-    GstMessage *msg = gst_bus_timed_pop_filtered (app.bus, 0, GST_MESSAGE_ERROR);
-    if (msg) {
-      report_error (msg);
-      gst_message_unref (msg);        /* це повідомлення НАШЕ */
-    } else {
-      g_printerr ("конвеєр не пішов у PAUSED, а помилки на шині немає\n");
-    }
-    app.exit_code = 1;
-  } else {
-    app.is_live = (ret == GST_STATE_CHANGE_NO_PREROLL);
-    gst_element_set_state (app.pipeline, GST_STATE_PLAYING);
-    g_main_loop_run (app.loop);       /* уся програма живе тут */
-  }
-
-  /* однаковий шлях і після помилки, і після EOS */
-  gst_element_set_state (app.pipeline, GST_STATE_NULL);
-  gst_bus_remove_watch (app.bus);
-  gst_object_unref (app.bus);
-  gst_object_unref (app.pipeline);
-  g_main_loop_unref (app.loop);
-  return app.exit_code;
-}
-```
-```py
-    def run(self):
-        ret = self.pipeline.set_state(Gst.State.PAUSED)
-
-        if ret == Gst.StateChangeReturn.FAILURE:
-            # головного циклу ще нема, забрати повідомлення нікому — беремо самі
-            msg = self.bus.timed_pop_filtered(0, Gst.MessageType.ERROR)
-            if msg is not None:
-                self.report_error(msg)   # звільняє зв'язувач, коли обгортка помре
-            else:
-                print("конвеєр не пішов у PAUSED, а помилки на шині немає", file=sys.stderr)
-            self.exit_code = 1
-        else:
-            self.is_live = (ret == Gst.StateChangeReturn.NO_PREROLL)
-            self.pipeline.set_state(Gst.State.PLAYING)
-            self.loop.run()              # уся програма живе тут
-
-        # однаковий шлях і після помилки, і після EOS
-        self.pipeline.set_state(Gst.State.NULL)
-        self.bus.remove_watch()
-        return self.exit_code
-
-
-def main():
-    Gst.init(None)
-    if len(sys.argv) < 2:
-        print(f"вжиток: {sys.argv[0]} <uri>", file=sys.stderr)
-        return 2
-    return Player(sys.argv[1]).run()
-
-
-if __name__ == "__main__":
-    sys.exit(main())
-```
+:::code proj-bus-loop/c/pusk-paused-iak-rozvidka.c
+:::code proj-bus-loop/py/pusk-paused-iak-rozvidka.py
 :::
 
 Гілка `FAILURE` — місце, де більшість прикладів обриваються рядком «не вдалося запустити конвеєр», і саме через неї найчастіше не видно причини. Помилка на шині вже лежить: елемент устиг її запостити просто всередині `set_state()`. Але головний цикл іще не крутиться, і стеження, хоч і підключене, не спрацює ніколи — програма ж зараз піде у вихід. Тому ми дістаємо повідомлення руками, тим самим `gst_bus_timed_pop_filtered()` із нульовою витримкою, і віддаємо в **ту саму** функцію розбору. Ціна цього кроку — один рядок і обов'язок звільнити, про який далі.
@@ -530,39 +125,8 @@ gcc player.c -o player $(pkg-config --cflags --libs gstreamer-1.0 gstreamer-vide
 Тому обробник тут окремий, синхронний — його шина кличе негайно, у нитці, що постила, ще до всякої черги:
 
 :::tabs
-```c
-#include <gst/video/videooverlay.h>
-
-static guintptr window_handle;    /* заповнює віконна система до пуску конвеєра */
-
-static GstBusSyncReply on_sync_message (GstBus *bus, GstMessage *msg, gpointer data)
-{
-  if (!gst_is_video_overlay_prepare_window_handle_message (msg))
-    return GST_BUS_PASS;          /* решта — звичайним шляхом, у чергу */
-
-  gst_video_overlay_set_window_handle (GST_VIDEO_OVERLAY (GST_MESSAGE_SRC (msg)),
-                                       window_handle);
-  gst_message_unref (msg);        /* DROP означає: повідомлення наше — нам і звільняти */
-  return GST_BUS_DROP;
-}
-
-/* поруч із gst_bus_add_watch(), до першого set_state */
-gst_bus_set_sync_handler (app.bus, on_sync_message, NULL, NULL);
-```
-```py
-gi.require_version("GstVideo", "1.0")
-from gi.repository import GstVideo
-
-def on_sync_message(bus, msg, handle):
-    if not GstVideo.is_video_overlay_prepare_window_handle_message(msg):
-        return Gst.BusSyncReply.PASS      # решта — звичайним шляхом, у чергу
-
-    msg.src.set_window_handle(handle)     # unref тут не потрібен: його робить зв'язувач
-    return Gst.BusSyncReply.DROP
-
-# поруч із add_watch(), до першого set_state
-bus.set_sync_handler(on_sync_message, window_handle)
-```
+:::code proj-bus-loop/c/synkhronnyi-obrobnyk-vikno.c
+:::code proj-bus-loop/py/synkhronnyi-obrobnyk-vikno.py
 :::
 
 Три правила для такого обробника. Він мусить бути коротким — доки він працює, нитка потоку стоїть. Він не має права ходити у віджети — він **не** в головній нитці. І він не має права питати конвеєр про стан чи міняти його — це прохання до нитки зачекати на саму себе. Усе, що не стосується вікна, він відпускає з `GST_BUS_PASS`, і воно доходить до звичайного обробника як завжди.
@@ -593,18 +157,7 @@ bus.set_sync_handler(on_sync_message, window_handle)
 
 **Головний цикл ніхто не крутить.** Стеження приєднується до типового головного контексту GLib, і якщо в застосунку свій цикл подій — чужого набору віджетів, власного сервера, чого завгодно, — цей контекст не обертається ніколи. Виходів два. Перший: підняти `GMainLoop` в окремій нитці. Другий, простіший: не приєднувати стеження взагалі, а вичерпувати шину з таймера свого циклу — і тоді власником повідомлень стаєте ви:
 
-```c
-/* «стеження» вручну: кликати з таймера чужого циклу, скажімо раз на 50 мс.
-   gst_bus_add_watch() у цьому варіанті НЕ викликати — стеження одне на шину. */
-static void pump_bus (App *app)
-{
-  GstMessage *msg;
-  while ((msg = gst_bus_pop (app->bus)) != NULL) {
-    on_bus_message (app->bus, msg, app);   /* та сама функція, що й у стеженні */
-    gst_message_unref (msg);               /* але звільняємо ТЕПЕР ми */
-  }
-}
-```
+:::code proj-bus-loop/c/try-pastky-na-iakykh.c
 
 **Обробник працює довго.** Цикл є, крутиться, обробник викликається — але всередині нього похід у мережу, запис у базу або перемальовування всього інтерфейсу. Повідомлення надходять швидше, ніж ви їх розбираєте, і черга росте. Найшвидше її набивають `QOS` і `STATE_CHANGED`: на живому відео це десятки повідомлень за секунду. Правило просте — усе, що триває довше за мить, кладеться у власну чергу задач і виконується поза обробником. Спіймати порушення можна дешево:
 

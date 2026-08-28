@@ -147,24 +147,7 @@ GstIterator *gst_element_iterate_sink_pads (GstElement *element);
 
 ## Обгортки рівня елементів
 
-```c
-gboolean gst_element_link               (GstElement *src, GstElement *dest);
-gboolean gst_element_link_many          (GstElement *e1, GstElement *e2, ...);  /* NULL-термінований */
-gboolean gst_element_link_filtered      (GstElement *src, GstElement *dest,
-                                         GstCaps *filter);
-gboolean gst_element_link_pads          (GstElement *src, const gchar *srcpadname,
-                                         GstElement *dest, const gchar *destpadname);
-gboolean gst_element_link_pads_full     (GstElement *src, const gchar *srcpadname,
-                                         GstElement *dest, const gchar *destpadname,
-                                         GstPadLinkCheck flags);
-gboolean gst_element_link_pads_filtered (GstElement *src, const gchar *srcpadname,
-                                         GstElement *dest, const gchar *destpadname,
-                                         GstCaps *filter);
-void     gst_element_unlink             (GstElement *src, GstElement *dest);
-void     gst_element_unlink_many        (GstElement *e1, GstElement *e2, ...);
-void     gst_element_unlink_pads        (GstElement *src, const gchar *srcpadname,
-                                         GstElement *dest, const gchar *destpadname);
-```
+:::code api-pads/c/obhortky-rivnia-elementiv.h
 
 Усе це — надбудова над `gst_pad_link()`, яка сама шукає придатну пару падів. `NULL` замість імені пада означає «будь-який відповідний». Три властивості цих обгорток варто знати напам'ять.
 
@@ -188,25 +171,7 @@ gboolean      gst_pad_query      (GstPad *pad, GstQuery *query);
 
 `gst_pad_pull_range()` кличуть **на sink-паді**, активованому в режимі `PULL`; `offset` рахують у байтах від початку, а `*buffer` повертається новим посиланням. `gst_pad_peer_query()` виконує запит на паді-партнері; структуру запиту створюєте й звільняєте ви самі — володіння не передається.
 
-```c
-typedef enum {
-  GST_FLOW_CUSTOM_SUCCESS_2 =  102,
-  GST_FLOW_CUSTOM_SUCCESS_1 =  101,
-  GST_FLOW_CUSTOM_SUCCESS   =  100,
-  GST_FLOW_OK               =    0,
-  GST_FLOW_NOT_LINKED       =   -1,
-  GST_FLOW_FLUSHING         =   -2,
-  GST_FLOW_EOS              =   -3,
-  GST_FLOW_NOT_NEGOTIATED   =   -4,
-  GST_FLOW_ERROR            =   -5,
-  GST_FLOW_NOT_SUPPORTED    =   -6,
-  GST_FLOW_CUSTOM_ERROR     = -100,
-  GST_FLOW_CUSTOM_ERROR_1   = -101,
-  GST_FLOW_CUSTOM_ERROR_2   = -102
-} GstFlowReturn;
-
-const gchar *gst_flow_get_name (GstFlowReturn ret);
-```
+:::code api-pads/c/rukh-danykh-i.c
 
 | Код | Знач. | Що сталося | Реакція |
 | --- | --- | --- | --- |
@@ -304,25 +269,7 @@ SCHEDULING        = PUSH | PULL                                     0x3000
 
 Дані витягають із `GstPadProbeInfo`:
 
-```c
-struct _GstPadProbeInfo {
-  GstPadProbeType type;
-  gulong          id;
-  gpointer        data;
-  guint64         offset;
-  guint           size;
-};
-
-#define GST_PAD_PROBE_INFO_TYPE(d)        ((d)->type)
-#define GST_PAD_PROBE_INFO_ID(d)          ((d)->id)
-#define GST_PAD_PROBE_INFO_DATA(d)        ((d)->data)
-#define GST_PAD_PROBE_INFO_FLOW_RETURN(d) ((d)->ABI.abi.flow_ret)
-
-GstBuffer     *gst_pad_probe_info_get_buffer      (GstPadProbeInfo *info);
-GstBufferList *gst_pad_probe_info_get_buffer_list (GstPadProbeInfo *info);
-GstEvent      *gst_pad_probe_info_get_event       (GstPadProbeInfo *info);
-GstQuery      *gst_pad_probe_info_get_query       (GstPadProbeInfo *info);
-```
+:::code api-pads/c/proby-typy-kody-struktura.h
 
 Функції-акцесори кращі за прямий `info->data` тим, що самі перевіряють `type` і повертають `NULL`, коли зараз іде не той тип даних. Одна маска легко ловить і буфери, і події — без перевірки код розіб'ється на першій же події `caps`, розтлумаченій як буфер.
 
@@ -377,96 +324,8 @@ gboolean gst_ghost_pad_set_target                (GstGhostPad *gpad, GstPad *new
 gcc pads-min.c -o pads-min $(pkg-config --cflags --libs gstreamer-1.0)
 ```
 
-```c
-#include <gst/gst.h>
-
-static GstPadProbeReturn
-on_buffer (GstPad *pad, GstPadProbeInfo *info, gpointer user_data)
-{
-  guint *n = user_data;
-  GstBuffer *buf = gst_pad_probe_info_get_buffer (info);   /* позичене */
-
-  if (buf != NULL) {
-    (*n)++;
-    g_print ("буфер %2u  pts %" GST_TIME_FORMAT "\n",
-             *n, GST_TIME_ARGS (GST_BUFFER_PTS (buf)));
-  }
-  return GST_PAD_PROBE_OK;                  /* пропустити далі, пробу лишити */
-}
-
-int
-main (int argc, char **argv)
-{
-  guint n = 0;
-
-  gst_init (&argc, &argv);
-
-  GstElement *pipe = gst_pipeline_new ("p");
-  GstElement *src  = gst_element_factory_make ("videotestsrc", NULL);
-  GstElement *conv = gst_element_factory_make ("videoconvert", NULL);
-  GstElement *sink = gst_element_factory_make ("fakesink", NULL);
-
-  g_object_set (src, "num-buffers", 10, NULL);
-
-  /* спершу в бін — інакше буде GST_PAD_LINK_WRONG_HIERARCHY */
-  gst_bin_add_many (GST_BIN (pipe), src, conv, sink, NULL);
-
-  GstPad *srcpad  = gst_element_get_static_pad (src,  "src");    /* +1 */
-  GstPad *sinkpad = gst_element_get_static_pad (conv, "sink");   /* +1 */
-
-  GstPadLinkReturn lr = gst_pad_link (srcpad, sinkpad);
-  if (GST_PAD_LINK_FAILED (lr)) {
-    g_printerr ("не з'єдналося: %s\n", gst_pad_link_get_name (lr));
-    return 1;
-  }
-  gst_object_unref (sinkpad);            /* більше не потрібен — віддаємо */
-
-  /* обгортка: зручно, але причини невдачі не скаже */
-  if (!gst_element_link (conv, sink))
-    g_printerr ("videoconvert ! fakesink: не з'єдналося\n");
-
-  gulong probe_id = gst_pad_add_probe (srcpad, GST_PAD_PROBE_TYPE_BUFFER,
-                                       on_buffer, &n, NULL);
-
-  gst_element_set_state (pipe, GST_STATE_PLAYING);
-
-  GstBus *bus = gst_element_get_bus (pipe);
-  GstMessage *msg = gst_bus_timed_pop_filtered (bus, GST_CLOCK_TIME_NONE,
-      GST_MESSAGE_EOS | GST_MESSAGE_ERROR);
-
-  if (msg != NULL && GST_MESSAGE_TYPE (msg) == GST_MESSAGE_ERROR) {
-    GError *err = NULL;
-    gst_message_parse_error (msg, &err, NULL);
-    g_printerr ("помилка: %s\n", err->message);
-    g_clear_error (&err);
-  }
-
-  gst_pad_remove_probe (srcpad, probe_id);
-  gst_element_set_state (pipe, GST_STATE_NULL);
-
-  if (msg != NULL)
-    gst_message_unref (msg);
-  gst_object_unref (bus);
-  gst_object_unref (srcpad);             /* наше посилання з get_static_pad */
-  gst_object_unref (pipe);
-  return 0;
-}
-```
+:::code api-pads/c/minimalnyi-robochyi-vyklyk.c
 
 Окремо — повний цикл request-пада, бо він єдиний вимагає двох різних звільнень:
 
-```c
-GstPad *tee_src = gst_element_request_pad_simple (tee, "src_%u");  /* створено, +1 */
-GstPad *q_sink  = gst_element_get_static_pad (queue, "sink");      /* +1 */
-
-if (GST_PAD_LINK_FAILED (gst_pad_link (tee_src, q_sink)))
-  g_printerr ("гілка tee не під'єдналася\n");
-
-/* … робота … */
-
-gst_pad_unlink (tee_src, q_sink);
-gst_object_unref (q_sink);                       /* посилання з get_static_pad */
-
-gst_element_release_request_pad (tee, tee_src);  /* 1) сказати елементу */
-gst_object_unref (tee_src);                      /* 2) віддати своє посилання */
-```
+:::code api-pads/c/minimalnyi-robochyi-vyklyk.h

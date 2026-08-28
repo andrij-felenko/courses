@@ -49,22 +49,7 @@
 
 **`timeout` нічого не зупиняє.** Він лише кладе на шину елементне повідомлення зі структурою `GstUDPSrcTimeout`; конвеєр далі чекає так само. Рішення — перепідключитися, звалитися з помилкою, показати «немає сигналу» — цілком за вашим кодом.
 
-```c
-/* udpsrc timeout=2000000000  →  повідомлення на шину після 2 с тиші */
-static gboolean
-on_bus (GstBus * bus, GstMessage * msg, gpointer user_data)
-{
-  const GstStructure *s = gst_message_get_structure (msg);
-
-  if (GST_MESSAGE_TYPE (msg) == GST_MESSAGE_ELEMENT &&
-      s && gst_structure_has_name (s, "GstUDPSrcTimeout")) {
-    guint64 ns = 0;
-    gst_structure_get_uint64 (s, "timeout", &ns);
-    g_printerr ("тиша в сокеті довша за %" G_GUINT64_FORMAT " нс\n", ns);
-  }
-  return TRUE;                  /* повідомлення не «спожите» — хай іде далі */
-}
-```
+:::code api-network-source-elements/c/udpsrc-soket-iak-dzherelo.c
 
 Групове приймання має рівно одну пастку, і вона не в GStreamer. Запит на приєднання до групи ядро шле з якогось інтерфейсу, і на машині з кількома мережами воно вибере той, куди дивиться маршрут за замовчуванням, — а потік іде іншим. `multicast-iface=eth1` каже, з якого саме; `multicast-source` звужує приймання до перелічених відправників, як дозволяє [фільтрація за джерелом](root:com-transport/source-specific-multicast). Механіка самого приєднання розібрана в темі про [багатоадресну розсилку](root:com-transport/multicast-and-discovery).
 
@@ -142,49 +127,13 @@ gst-launch-1.0 -v udpsrc port=5600 ! fakesink dump=true
 
 Два з них вирішують типову задачу «взяти з камери лише відео» краще, ніж перевірка caps у `pad-added`: `select-stream` відсіює потік ще до `SETUP`, тобто камера навіть не почне слати звук, і мережа не носитиме зайвого.
 
-```c
-static gboolean
-select_stream (GstElement * src, guint num, GstCaps * caps, gpointer user_data)
-{
-  const GstStructure *s = gst_caps_get_structure (caps, 0);
-
-  /* FALSE тут означає «не робити SETUP», а не «прийняти й викинути» */
-  return g_strcmp0 (gst_structure_get_string (s, "media"), "video") == 0;
-}
-
-static void
-on_pad_added (GstElement * src, GstPad * pad, gpointer depay)
-{
-  GstPad *sink = gst_element_get_static_pad (GST_ELEMENT (depay), "sink");
-
-  if (!gst_pad_is_linked (sink))
-    gst_pad_link (pad, sink);
-  gst_object_unref (sink);
-}
-
-g_signal_connect (rtspsrc, "select-stream", G_CALLBACK (select_stream), NULL);
-g_signal_connect (rtspsrc, "pad-added", G_CALLBACK (on_pad_added), depay);
-```
+:::code api-network-source-elements/c/syhnaly.c
 
 Пади тут з'являються вже після `DESCRIBE`, тобто на переході в `PAUSED`, — це саме той випадок, задля якого існують [пади, що виникають на ходу](root:sys-media/pads-and-linking).
 
 А ось дорога до налаштувань буфера джитера, яких `rtspsrc` не показує:
 
-```c
-static void
-on_new_jitterbuffer (GstElement * rtpbin, GstElement * jb,
-    guint session, guint ssrc, gpointer user_data)
-{
-  g_object_set (jb, "max-misorder-time", 500, "faststart-min-packets", 3, NULL);
-}
-
-static void
-on_new_manager (GstElement * src, GstElement * manager, gpointer user_data)
-{
-  g_signal_connect (manager, "new-jitterbuffer",
-      G_CALLBACK (on_new_jitterbuffer), NULL);
-}
-```
+:::code api-network-source-elements/c/syhnaly-2.c
 
 ## rtpjitterbuffer: вікно очікування
 
@@ -236,18 +185,7 @@ on_new_manager (GstElement * src, GstElement * manager, gpointer user_data)
 | `rtx-per-packet` (double) | середнє число замовлень на один пакет |
 | `rtx-rtt` | середній час обміну туди-назад за замовленнями повтору, наносекунди |
 
-```c
-GstStructure *stats = NULL;
-guint64 pushed = 0, lost = 0, late = 0, dup = 0;
-
-g_object_get (jitterbuffer, "stats", &stats, NULL);
-gst_structure_get (stats,
-    "num-pushed", G_TYPE_UINT64, &pushed,
-    "num-lost", G_TYPE_UINT64, &lost,
-    "num-late", G_TYPE_UINT64, &late,
-    "num-duplicates", G_TYPE_UINT64, &dup, NULL);
-gst_structure_free (stats);      /* структуру віддають у власність — звільняти обов'язково */
-```
+:::code api-network-source-elements/c/rtpjitterbuffer-vikno.h
 
 Два лічильники розрізняють два зовсім різні діагнози, і саме на цій різниці будують вибір `latency`.
 
@@ -369,31 +307,6 @@ Interleaved-обгортка описана в RFC 2326 §10.12 і склада�
 
 ## Мінімальні робочі рядки
 
-```sh
-# 1. Одноадресний UDP, живий лінк: маленьке вікно, облік втрат, тиша замість зелених квадратів
-gst-launch-1.0 -v \
-  udpsrc port=5600 buffer-size=524288 \
-    caps="application/x-rtp,media=(string)video,clock-rate=(int)90000,encoding-name=(string)H264,payload=(int)96" \
-  ! rtpjitterbuffer latency=100 do-lost=true drop-on-latency=true \
-  ! rtph264depay wait-for-keyframe=true ! h264parse ! avdec_h264 ! autovideosink sync=false
-
-# 2. Багатоадресна група на машині з кількома мережами
-gst-launch-1.0 -v \
-  udpsrc address=239.1.2.3 port=5600 multicast-iface=eth1 auto-multicast=true \
-    caps="application/x-rtp,media=(string)video,clock-rate=(int)90000,encoding-name=(string)H264,payload=(int)96" \
-  ! rtpjitterbuffer latency=200 ! rtph264depay ! h264parse ! avdec_h264 ! autovideosink
-
-# 3. RTSP із камери, налаштований на свіжість, а не на плавність
-gst-launch-1.0 -v \
-  rtspsrc location=rtsp://user:pass@192.168.1.64:554/Streaming/Channels/101 \
-          latency=100 protocols=udp timeout=2000000 \
-  ! rtph264depay ! h264parse ! avdec_h264 ! autovideosink sync=false
-
-# 4. Той самий потік крізь NAT: транспорт зафіксовано, UDP не пробують узагалі
-gst-launch-1.0 -v \
-  rtspsrc location=rtsp://192.168.1.64:554/Streaming/Channels/101 \
-          latency=300 protocols=tcp \
-  ! decodebin ! autovideosink
-```
+:::code api-network-source-elements/sh/main.sh
 
 Різниця між третім і четвертим рядками — не в смаку, а в діагнозі. Якщо `protocols=udp` дає тишу, а `protocols=tcp` — стабільну картинку, справа не в GStreamer і не в камері: між ними стоїть щось, що не пускає вхідні датаграми, і далі йти треба до [NAT](root:com-transport/nat), а не до властивостей елементів.
