@@ -78,80 +78,9 @@ TOF250 — представник цілої **родини сумісних м�
 
 **Прочитати відстань по I2C (мм) на Arduino / ESP32.**
 :::tabs
-```cpp
-#include <Wire.h>
-#define TOF_ADDR 0x52          // 7-бітна адреса модуля (байт 0xA4 → 0x52)
-
-int readDistanceMM() {
-    Wire.beginTransmission(TOF_ADDR);
-    Wire.write(0x00);                    // хочу читати з регістра 0x00 (відстань)
-    if (Wire.endTransmission(false) != 0) // повторний старт, не відпускаючи шину
-        return -1;                        // модуль не відповів
-
-    Wire.requestFrom(TOF_ADDR, 2);        // очікую два байти
-    if (Wire.available() < 2) return -1;
-
-    uint16_t hi = Wire.read();            // старший байт
-    uint16_t lo = Wire.read();            // молодший байт
-    return (int)((hi << 8) | lo);         // мм
-}
-
-void setup() {
-    Wire.begin();
-    Serial.begin(115200);
-}
-void loop() {
-    int mm = readDistanceMM();
-    if (mm >= 0) { Serial.print(mm); Serial.println(" mm"); }
-    delay(100);                           // ~10 разів на секунду
-}
-```
-```micropython
-from machine import I2C, Pin
-import time
-
-TOF_ADDR = 0x52          # 7-бітна адреса модуля (байт 0xA4 → 0x52)
-
-i2c = I2C(0, scl=Pin(22), sda=Pin(21))
-
-def read_distance_mm():
-    try:
-        i2c.writeto(TOF_ADDR, b"\x00")   # хочу читати з регістра 0x00 (відстань)
-        data = i2c.readfrom(TOF_ADDR, 2) # очікую два байти
-    except OSError:
-        return -1                        # модуль не відповів
-    hi, lo = data[0], data[1]            # старший, молодший байт
-    return (hi << 8) | lo                # мм
-
-while True:
-    mm = read_distance_mm()
-    if mm >= 0:
-        print(mm, "mm")
-    time.sleep_ms(100)                   # ~10 разів на секунду
-```
-```python
-from smbus2 import SMBus, i2c_msg
-import time
-
-TOF_ADDR = 0x52          # 7-бітна адреса модуля (байт 0xA4 → 0x52)
-
-def read_distance_mm(bus):
-    try:
-        write = i2c_msg.write(TOF_ADDR, [0x00])  # хочу читати з регістра 0x00 (відстань)
-        read = i2c_msg.read(TOF_ADDR, 2)         # очікую два байти
-        bus.i2c_rdwr(write, read)                # повторний старт, не відпускаючи шину
-    except OSError:
-        return -1                                # модуль не відповів
-    hi, lo = list(read)                          # старший, молодший байт
-    return (hi << 8) | lo                        # мм
-
-with SMBus(1) as bus:
-    while True:
-        mm = read_distance_mm(bus)
-        if mm >= 0:
-            print(mm, "mm")
-        time.sleep(0.1)                          # ~10 разів на секунду
-```
+:::code tof250-d/cpp/main.cpp
+:::code tof250-d/py/micropython/main.py
+:::code tof250-d/py/main.py
 :::
 
 Зсув `hi << 8` піднімає старший байт на його місце, `| lo` домальовує молодший — і ви отримуєте, скажімо, `0x02EC` = 748 мм. Крім живого відліку, у модуля є ще регістр **усередненої (згладженої) відстані** — те саме число, але пропущене через внутрішній фільтр, щоб прибрати тремтіння окремих замірів; для стабільного показу на екрані він зручніший, ніж «сирий» 0x00.

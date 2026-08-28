@@ -79,77 +79,11 @@ KY-020 — член великої [KY-серії](root:cat-hw-sensors/ky-series
 **Умова.** Пін S давача заведено на будь-який цифровий вхід мікроконтролера, світлодіод — на цифровий вихід (в Arduino це D2 і вбудований D13, на інших платах — свої піни). Треба засвічувати світлодіод, поки давач нахилено.
 
 :::tabs
-```arduino
-const uint8_t TILT = 2;    // пін S давача
-const uint8_t LED  = 13;   // вбудований світлодіод
+:::code ky-020-tilt-d/c/arduino/try-piny-i-pidkliuchennia.ino
 
-void setup() {
-    pinMode(TILT, INPUT);  // підтяжка вже на модулі — INPUT_PULLUP не обов'язковий
-    pinMode(LED, OUTPUT);
-    Serial.begin(9600);
-}
+:::code ky-020-tilt-d/c/esp-idf/try-piny-i-pidkliuchennia.c
 
-void loop() {
-    // УВАГА: логіка перевернута — нахил дає LOW, спокій HIGH
-    bool tilted = (digitalRead(TILT) == LOW);
-    digitalWrite(LED, tilted);        // світимо, поки нахилено
-    if (tilted) Serial.println("нахил!");
-    delay(50);
-}
-```
-
-```esp-idf
-#include "driver/gpio.h"
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define TILT GPIO_NUM_4    // пін S давача
-#define LED  GPIO_NUM_2    // світлодіод плати
-
-static const char *TAG = "tilt";
-
-void app_main(void) {
-    gpio_config_t in = {
-        .pin_bit_mask = 1ULL << TILT,
-        .mode         = GPIO_MODE_INPUT,
-        .pull_up_en   = GPIO_PULLUP_DISABLE,   // підтяжка 10 кОм уже на модулі
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .intr_type    = GPIO_INTR_DISABLE,
-    };
-    ESP_ERROR_CHECK(gpio_config(&in));
-    ESP_ERROR_CHECK(gpio_set_direction(LED, GPIO_MODE_OUTPUT));
-
-    while (1) {
-        // УВАГА: логіка перевернута — нахил дає 0, спокій 1
-        int tilted = (gpio_get_level(TILT) == 0);
-        gpio_set_level(LED, tilted);           // світимо, поки нахилено
-        if (tilted) ESP_LOGI(TAG, "нахил!");
-        vTaskDelay(pdMS_TO_TICKS(50));
-    }
-}
-```
-
-```stm32
-#include "main.h"          // CubeMX: PA0 — GPIO_Input без підтяжки (10 кОм уже на
-                           // модулі), PC13 — GPIO_Output push-pull
-
-#define TILT_PORT GPIOA
-#define TILT_PIN  GPIO_PIN_0      // пін S давача
-#define LED_PORT  GPIOC
-#define LED_PIN   GPIO_PIN_13     // світлодіод плати
-
-void tilt_loop(void) {            // викликати з main() після MX_GPIO_Init()
-    while (1) {
-        // УВАГА: логіка перевернута — нахил дає RESET, спокій SET
-        GPIO_PinState raw = HAL_GPIO_ReadPin(TILT_PORT, TILT_PIN);
-        GPIO_PinState tilted = (raw == GPIO_PIN_RESET) ? GPIO_PIN_SET : GPIO_PIN_RESET;
-        HAL_GPIO_WritePin(LED_PORT, LED_PIN, tilted);   // світимо, поки нахилено
-        if (raw == GPIO_PIN_RESET) printf("нахил!\r\n");  // printf виведено в UART
-        HAL_Delay(50);
-    }
-}
-```
+:::code ky-020-tilt-d/c/stm32/try-piny-i-pidkliuchennia.c
 :::
 
 Ключова умова — «низький рівень = нахил»: ми свідомо звемо «нахилом» саме нуль, бо підтяжка робить спокій одиницею. Якби ми написали наївне «високий рівень = нахил», світлодіод горів би, коли платка *лежить рівно*, — класична помилка «все навпаки». Але навіть цей правильний код у реальному застосуванні поведеться капризно, і винен у цьому не він, а брязкіт кульки.
@@ -168,113 +102,11 @@ void tilt_loop(void) {            // викликати з main() після MX_
 **Умова.** Порахувати кожен *окремий* перехід у стан «нахилено», не рахуючи брязкіт як багато подій.
 
 :::tabs
-```arduino
-const uint8_t TILT = 2;
-const unsigned long SETTLE = 30;   // мс: скільки рівень має протриматися
+:::code ky-020-tilt-d/c/arduino/holovna-praktychna-pastka.ino
 
-bool  stable   = HIGH;             // усталений стан (HIGH = рівно)
-bool  lastRaw  = HIGH;             // попереднє СИРЕ читання
-unsigned long lastChange = 0;      // коли сире читання востаннє смикнулось
-unsigned long tilts = 0;           // лічильник справжніх нахилів
+:::code ky-020-tilt-d/c/esp-idf/holovna-praktychna-pastka.c
 
-void setup() {
-    pinMode(TILT, INPUT);
-    Serial.begin(9600);
-}
-
-void loop() {
-    bool raw = digitalRead(TILT);          // сире, брязкуче
-    if (raw != lastRaw) {                  // рівень щойно смикнувся —
-        lastChange = millis();             // перезапускаємо відлік «тиші»
-        lastRaw = raw;
-    }
-    // рівень протримався сталим довше за SETTLE → приймаємо його
-    if (millis() - lastChange > SETTLE && raw != stable) {
-        stable = raw;
-        if (stable == LOW) {               // перейшли саме в «нахил»
-            tilts++;
-            Serial.print("нахилів: ");
-            Serial.println(tilts);
-        }
-    }
-}
-```
-
-```esp-idf
-#include "driver/gpio.h"
-#include "esp_log.h"
-#include "esp_timer.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define TILT      GPIO_NUM_4
-#define SETTLE_US 30000            // 30 мс: скільки рівень має протриматися
-
-static const char *TAG = "tilt";
-
-void app_main(void) {
-    gpio_config_t in = {
-        .pin_bit_mask = 1ULL << TILT,
-        .mode         = GPIO_MODE_INPUT,
-        .pull_up_en   = GPIO_PULLUP_DISABLE,   // підтяжка вже на модулі
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .intr_type    = GPIO_INTR_DISABLE,
-    };
-    ESP_ERROR_CHECK(gpio_config(&in));
-
-    int stable = 1, last_raw = 1;              // 1 = рівно
-    int64_t last_change = esp_timer_get_time();
-    uint32_t tilts = 0;                        // лічильник справжніх нахилів
-
-    while (1) {
-        int raw = gpio_get_level(TILT);        // сире, брязкуче
-        if (raw != last_raw) {                 // рівень щойно смикнувся —
-            last_change = esp_timer_get_time();// перезапускаємо відлік «тиші»
-            last_raw = raw;
-        }
-        // рівень протримався сталим довше за SETTLE_US → приймаємо його
-        if (esp_timer_get_time() - last_change > SETTLE_US && raw != stable) {
-            stable = raw;
-            if (stable == 0) {                 // перейшли саме в «нахил»
-                tilts++;
-                ESP_LOGI(TAG, "нахилів: %u", (unsigned)tilts);
-            }
-        }
-        vTaskDelay(pdMS_TO_TICKS(5));          // не займаємо процесор намарно
-    }
-}
-```
-
-```stm32
-#include "main.h"          // CubeMX: PA0 — GPIO_Input без підтяжки (10 кОм на модулі)
-
-#define TILT_PORT GPIOA
-#define TILT_PIN  GPIO_PIN_0
-#define SETTLE    30u              // мс: скільки рівень має протриматися
-
-void tilt_count(void) {            // викликати з main() після MX_GPIO_Init()
-    GPIO_PinState stable  = GPIO_PIN_SET;   // усталений стан (SET = рівно)
-    GPIO_PinState lastRaw = GPIO_PIN_SET;   // попереднє СИРЕ читання
-    uint32_t lastChange = HAL_GetTick();    // коли сире читання востаннє смикнулось
-    uint32_t tilts = 0;                     // лічильник справжніх нахилів
-
-    while (1) {
-        GPIO_PinState raw = HAL_GPIO_ReadPin(TILT_PORT, TILT_PIN);  // сире, брязкуче
-        if (raw != lastRaw) {                   // рівень щойно смикнувся —
-            lastChange = HAL_GetTick();         // перезапускаємо відлік «тиші»
-            lastRaw = raw;
-        }
-        // рівень протримався сталим довше за SETTLE → приймаємо його
-        if (HAL_GetTick() - lastChange > SETTLE && raw != stable) {
-            stable = raw;
-            if (stable == GPIO_PIN_RESET) {     // перейшли саме в «нахил»
-                tilts++;
-                printf("нахилів: %lu\r\n", (unsigned long)tilts);
-            }
-        }
-    }
-}
-```
+:::code ky-020-tilt-d/c/stm32/holovna-praktychna-pastka.c
 :::
 
 Логіка проста: щоразу, коли сире читання стрибнуло, ми перезапускаємо секундомір; ухвалюємо новий стан лише тоді, коли після останнього стрибка минуло понад 30 мс тиші. Уся черга підстрибувань за цей час встигає вгамуватися, і з неї народжується рівно одне чисте спрацювання. Такий підхід (звіряємося з лічильником часу, а не спимо в затримці) не гальмує решту програми — давач можна опитувати паралельно з іншими справами. Готові фрагменти під різні задачі — просто зчитати стан, порахувати нахили, зловити падіння набік з сигналом тривоги — а також варіант із перериванням і апаратне гасіння конденсатором зібрано в [окремому проєкті-вставці](root:cat-hw-sensors/ky-020-tilt/proj-ky020-driver.md).

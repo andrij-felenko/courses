@@ -143,60 +143,8 @@ DHT11-сенсор        Мікроконтролер
 Найпростіший робочий кістяк на Arduino виглядає так:
 
 :::tabs
-```cpp
-#include <DHT.h>
-
-#define DHT_PIN   2         // ніжка МК, куди прийшла лінія DATA
-#define DHT_TYPE  DHT11     // саме DHT11 (не DHT22)
-
-DHT dht(DHT_PIN, DHT_TYPE);
-
-void setup() {
-    Serial.begin(9600);
-    dht.begin();            // налаштувати ніжку й давач
-}
-
-void loop() {
-    delay(2000);            // ≥ 1 с між читаннями; беремо 2 с із запасом
-
-    float t = dht.readTemperature();   // °C
-    float h = dht.readHumidity();       // % RH
-
-    // Давач міг не відповісти — бібліотека поверне NAN. Перевіряймо!
-    if (isnan(t) || isnan(h)) {
-        Serial.println("DHT11 не відповів — пропускаю читання");
-        return;
-    }
-
-    Serial.print("Temp: ");  Serial.print(t, 0);   // 0 знаків: DHT11 і так цілі
-    Serial.print(" C   Hum: ");  Serial.print(h, 0);
-    Serial.println(" %");
-}
-```
-```micropython
-from machine import Pin
-import dht
-import time
-
-DHT_PIN = 2                      # ніжка МК, куди прийшла лінія DATA
-
-sensor = dht.DHT11(Pin(DHT_PIN))  # саме DHT11 (не DHT22)
-
-while True:
-    time.sleep(2)                # ≥ 1 с між читаннями; беремо 2 с із запасом
-
-    # Давач міг не відповісти — measure() кине виняток. Перевіряймо!
-    try:
-        sensor.measure()               # запустити однодротовий обмін
-        t = sensor.temperature()       # °C
-        h = sensor.humidity()          # % RH
-    except OSError:
-        print("DHT11 не відповів — пропускаю читання")
-        continue
-
-    # 0 знаків: DHT11 і так цілі
-    print("Temp: {:.0f} C   Hum: {:.0f} %".format(t, h))
-```
+:::code dht11-d/cpp/main.cpp
+:::code dht11-d/py/micropython/main.py
 :::
 
 Тут кожен рядок відповідає одному пунктові з того, що ми розібрали. `DHT dht(DHT_PIN, DHT11)` каже бібліотеці, на якій ніжці давач і що це саме **DHT11** — переплутати з `DHT22` легко, а тоді числа поїдуть, бо формати збігаються, а калібрування ні. `delay(2000)` тримає паузу між опитуваннями (не швидше ніж 1 Гц). `readTemperature()` і `readHumidity()` запускають той самий однодротовий обмін і повертають уже готові число з плаваючою крапкою — хоч на DHT11 воно завжди буде цілим. А перевірка `isnan` — критична: якщо давач не відповів (не поставили підтяжку, поганий контакт, спитали надто швидко), бібліотека повертає `NAN` («не число»), і показувати його як температуру не можна.

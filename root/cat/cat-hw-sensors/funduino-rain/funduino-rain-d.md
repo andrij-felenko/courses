@@ -74,68 +74,8 @@
 **Умова.** DO під'єднано до D2, живлення й земля заведені; вбудований світлодіод плати — на D13. Спокій дає «1», дощ — «0», але на межі зволоження вихід тремтить. Треба світити світлодіодом під час дощу й друкувати рівно одне повідомлення на початок і одне на кінець.
 
 :::tabs
-```cpp
-const uint8_t RAIN = 2;        // цифровий вихід DO давача
-const uint8_t LED  = 13;       // вбудований світлодіод плати
-const unsigned long SETTLE = 400;  // скільки стан має протриматися (мс)
-
-bool raining = false;              // поточний підтверджений стан
-bool candidate = false;            // стан, який щойно побачили
-unsigned long changedAt = 0;       // коли кандидат уперше з'явився
-
-void setup() {
-    pinMode(RAIN, INPUT);      // push-pull-вихід LM358 → підтяжка не потрібна
-    pinMode(LED, OUTPUT);
-    Serial.begin(9600);
-}
-
-void loop() {
-    // DO: 0 = дощ, 1 = сухо. Робимо булеве «зараз дощить?»
-    bool now = (digitalRead(RAIN) == LOW);
-
-    // якщо показ змінився — запам'ятовуємо як кандидата й засікаємо час
-    if (now != candidate) {
-        candidate = now;
-        changedAt = millis();
-    }
-
-    // приймаємо новий стан, лише коли кандидат протримався SETTLE мс —
-    // це програмний гістерезис проти торохтняви на межі (LM358 без гістерезису)
-    if (candidate != raining && millis() - changedAt > SETTLE) {
-        raining = candidate;
-        digitalWrite(LED, raining);
-        Serial.println(raining ? "дощ почався" : "дощ скінчився");
-    }
-}
-```
-```micropython
-from machine import Pin
-import time
-
-rain = Pin(2, Pin.IN)   # push-pull-вихід LM358 → підтяжка не потрібна
-led = Pin(13, Pin.OUT)
-SETTLE = 400            # скільки стан має протриматися (мс)
-
-raining = False         # поточний підтверджений стан
-candidate = False       # стан, який щойно побачили
-changed_at = 0          # коли кандидат уперше з'явився
-
-while True:
-    # DO: 0 = дощ, 1 = сухо. Робимо булеве «зараз дощить?»
-    now = (rain.value() == 0)
-
-    # якщо показ змінився — запам'ятовуємо як кандидата й засікаємо час
-    if now != candidate:
-        candidate = now
-        changed_at = time.ticks_ms()
-
-    # приймаємо новий стан, лише коли кандидат протримався SETTLE мс —
-    # це програмний гістерезис проти торохтняви на межі (LM358 без гістерезису)
-    if candidate != raining and time.ticks_diff(time.ticks_ms(), changed_at) > SETTLE:
-        raining = candidate
-        led.value(1 if raining else 0)
-        print("дощ почався" if raining else "дощ скінчився")
-```
+:::code funduino-rain-d/cpp/chytannia-v-kodi.cpp
+:::code funduino-rain-d/py/micropython/chytannia-v-kodi.py
 :::
 
 Ключова тут не сама перевірка рівня, а **витримка 400 мілісекунд**. Через відсутність гістерезису DO на межі «сухо/мокро» перекидається чергою коротких переходів. Якби ми реагували на кожен, серіал захлинувся б «почався/скінчився/почався…» на одну реальну зміну. Правило просте: **вважати стан справжнім лише тоді, коли він протримався якийсь час** — тут пасивне очікування 400 мс. Це і є програмний замінник гістерезису, якого нема в залізі.
@@ -145,46 +85,8 @@ while True:
 **Умова.** AO під'єднано до A0. Пам'ятаймо: більше води — **нижча** напруга, тож і менше число з АЦП. Треба розрізнити «сухо / волого / залито» власними порогами й друкувати сирий відлік для калібрування.
 
 :::tabs
-```cpp
-const uint8_t AO = A0;
-
-void setup() {
-    Serial.begin(9600);
-}
-
-void loop() {
-    int v = analogRead(AO);        // 0..1023; менше = мокріше
-    Serial.print("AO = ");
-    Serial.print(v);
-
-    if (v > 800)       Serial.println("  сухо");
-    else if (v > 400)  Serial.println("  волого");
-    else               Serial.println("  залито");
-
-    delay(300);
-}
-```
-```micropython
-from machine import ADC, Pin
-import time
-
-ao = ADC(Pin(0))                   # аналоговий вхід AO
-
-while True:
-    raw = ao.read_u16()            # 0..65535
-    v = raw >> 6                   # зводимо до 0..1023; менше = мокріше
-    line = "AO = {}".format(v)
-
-    if v > 800:
-        line += "  сухо"
-    elif v > 400:
-        line += "  волого"
-    else:
-        line += "  залито"
-
-    print(line)
-    time.sleep_ms(300)
-```
+:::code funduino-rain-d/cpp/chytannia-v-kodi-2.cpp
+:::code funduino-rain-d/py/micropython/chytannia-v-kodi-2.py
 :::
 
 Конкретні числа порогів (тут 800 і 400) **не універсальні**: вони залежать від живлення, від резистора Rд на вашій платі, від чистоти пластини. Тому першим ділом виведіть сирий `analogRead` у монітор, побризкайте на пластину водою, подивіться реальний розмах «сухо → мокро» на вашому екземплярі — і аж тоді впишіть свої межі. Це п'ятихвилинне калібрування рятує від годин здогадок, чому «в сусіда працює, а в мене ні».

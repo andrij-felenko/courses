@@ -50,45 +50,8 @@
 **Прочитати відстань по I2C (мм) на Arduino / ESP32.**
 
 :::tabs
-```cpp
-#include <Wire.h>
-
-#define TOF_ADDR  0x52    // 7-бітна адреса (байт 0xA4 → 0x52 у Wire)
-#define REG_DIST  0x00    // відстань, 2 байти (сира чи згладжена — за режимом s3-x#)
-
-// Прочитати 16-бітну відстань із регістра 0x00. -1 = помилка.
-int tofReadDistance() {
-    Wire.beginTransmission(TOF_ADDR);
-    Wire.write(REG_DIST);                   // «хочу читати з регістра 0x00»
-    if (Wire.endTransmission(false) != 0)   // повторний старт, шину НЕ відпускаємо
-        return -1;                          // модуль не підтвердив адресу
-
-    if (Wire.requestFrom(TOF_ADDR, (uint8_t)2) != 2)
-        return -1;                          // не дочекались двох байтів
-
-    uint16_t hi = Wire.read();              // старший байт приходить першим
-    uint16_t lo = Wire.read();              // потім молодший
-    return (int)((hi << 8) | lo);           // склали → відстань у мм
-}
-```
-```python
-from machine import I2C, Pin
-
-TOF_ADDR = 0x52     # 7-бітна адреса (байт 0xA4 → 0x52)
-REG_DIST = 0x00     # відстань, 2 байти (сира чи згладжена — за режимом s3-x#)
-
-i2c = I2C(0, scl=Pin(22), sda=Pin(21))   # типові виводи ESP32
-
-def tof_read_distance():
-    """16-бітна відстань із регістра 0x00. None = помилка."""
-    try:
-        # записуємо номер регістра, потім читаємо 2 байти
-        raw = i2c.readfrom_mem(TOF_ADDR, REG_DIST, 2)
-    except OSError:
-        return None                        # модуль не підтвердив адресу
-    hi, lo = raw[0], raw[1]                 # старший байт приходить першим
-    return (hi << 8) | lo                   # склали → відстань у мм
-```
+:::code api-tof250-api/cpp/robochyi-kod-chytannia-po.cpp
+:::code api-tof250-api/py/robochyi-kod-chytannia-po.py
 :::
 
 Три деталі, кожна з яких важить.
@@ -114,44 +77,8 @@ hi = 0x02   lo = 0xEC
 **Сканер I2C-шини: хто взагалі є на лінії.**
 
 :::tabs
-```cpp
-#include <Wire.h>
-
-void setup() {
-    Wire.begin();
-    Serial.begin(115200);      // це швидкість Serial-МОНІТОРА, не давача
-    while (!Serial) { }
-    Serial.println("Скан I2C-шини...");
-
-    uint8_t found = 0;
-    for (uint8_t addr = 1; addr < 127; addr++) {
-        Wire.beginTransmission(addr);
-        if (Wire.endTransmission() == 0) {   // 0 = хтось підтвердив цю адресу
-            Serial.print("  знайдено пристрій за 0x");
-            if (addr < 16) Serial.print('0');
-            Serial.println(addr, HEX);
-            found++;
-        }
-    }
-    if (found == 0)
-        Serial.println("  тиша. Перевір живлення, SDA/SCL і підтяжки.");
-}
-
-void loop() { }
-```
-```python
-from machine import I2C, Pin
-
-# Wire.begin() → створення шини; scan() сам стукає по всіх адресах 1..126
-i2c = I2C(0, scl=Pin(22), sda=Pin(21))   # типові виводи ESP32
-
-print("Скан I2C-шини...")
-found = i2c.scan()                       # список адрес, що підтвердили себе
-for addr in found:
-    print("  знайдено пристрій за 0x{:02X}".format(addr))
-if not found:
-    print("  тиша. Перевір живлення, SDA/SCL і підтяжки.")
-```
+:::code api-tof250-api/cpp/koly-davach-znyk-skaner.cpp
+:::code api-tof250-api/py/koly-davach-znyk-skaner.py
 :::
 
 Логіка проста до краю: почати транзакцію на адресу й одразу її закрити. Якщо за цією адресою хтось є — він смикне лінію даних униз на підтвердження, і `endTransmission()` поверне нуль. Ніхто не відповів — ненуль. Пробігаємо так усі адреси й друкуємо ті, що озвалися.
@@ -198,68 +125,8 @@ if not found:
 **Розбір потоку «NNNmm\r\n» у число (ESP32, апаратний Serial2).**
 
 :::tabs
-```cpp
-// ESP32: Serial2 — апаратний UART. Виводи RX2=16, TX2=17 (типові).
-// Модуль шле текст на 9600 8N1; його TX іде на RX2 плати.
-
-char    buf[8];          // кільцевий накопичувач цифр (з запасом)
-uint8_t len = 0;         // скільки цифр уже зібрано
-int     lastDistance = -1;
-
-void setup() {
-    Serial.begin(115200);                        // порт у комп'ютер (монітор)
-    Serial2.begin(9600, SERIAL_8N1, 16, 17);     // порт до давача: 9600!
-}
-
-void loop() {
-    while (Serial2.available()) {
-        char c = (char)Serial2.read();
-
-        if (c >= '0' && c <= '9') {              // цифра — накопичуємо
-            if (len < sizeof(buf) - 1)
-                buf[len++] = c;
-        }
-        else if (c == '\n') {                    // кінець рядка — рядок готовий
-            if (len > 0) {
-                buf[len] = '\0';                 // завершуємо С-рядок
-                lastDistance = atoi(buf);        // текст → число
-                len = 0;                         // буфер під наступний рядок
-                Serial.print(lastDistance);
-                Serial.println(" mm");
-            }
-        }
-        else {
-            // 'm', '\r', пробіл, будь-що інше — ігноруємо; довжину не чіпаємо
-        }
-    }
-}
-```
-```python
-# ESP32: UART2 — апаратний. Виводи RX2=16, TX2=17 (типові).
-# Модуль шле текст на 9600 8N1; його TX іде на RX2 плати.
-from machine import UART, Pin
-
-uart = UART(2, baudrate=9600, bits=8, parity=None, stop=1,
-            rx=16, tx=17)                        # порт до давача: 9600!
-
-buf = bytearray()          # накопичувач цифр
-last_distance = -1
-
-while True:
-    if not uart.any():
-        continue
-    c = uart.read(1)                             # один байт
-    if c is None:
-        continue
-    if b'0' <= c <= b'9':                        # цифра — накопичуємо
-        buf += c
-    elif c == b'\n':                             # кінець рядка — рядок готовий
-        if buf:
-            last_distance = int(buf)             # текст → число
-            buf = bytearray()                    # буфер під наступний рядок
-            print(last_distance, "mm")
-    # 'm', '\r', пробіл, будь-що інше — ігноруємо
-```
+:::code api-tof250-api/cpp/robochyi-rozbir-po-uart.cpp
+:::code api-tof250-api/py/robochyi-rozbir-po-uart.py
 :::
 
 Чому ця схема стійка? Вона **ніколи не довіряє обрубку**. Поки не прийшов `\n`, число не вважається готовим; перший, можливо, неповний рядок після ввімкнення просто дасть кілька зайвих цифр, які закриються на першому ж `\n` і в найгіршому разі зіпсують один-єдиний перший відлік — далі все синхронно. Накопичувач має запас (`8` байтів на щонайбільше 4 цифри плюс термінатор), тож переповнення не буде; а `if (len < sizeof(buf) - 1)` страхує навіть від диких випадків, коли в лінію влетіло сміття без переходу рядка.
@@ -289,72 +156,8 @@ r7#       прочитати I2C-адресу модуля → "I=164"  (164 = 0
 **Пасивний режим: питати відстань, коли треба.**
 
 :::tabs
-```cpp
-void setup() {
-    Serial.begin(115200);
-    Serial2.begin(9600, SERIAL_8N1, 16, 17);
-    delay(30);
-    Serial2.print("s5-1#");     // перемкнути модуль у пасивний режим
-    delay(30);                  // дати час перетравити й відповісти "ok"
-    while (Serial2.available()) Serial2.read();   // прибрати "ok" з буфера
-}
-
-// Запитати відстань один раз. Повертає мм або -1.
-int tofQuery() {
-    while (Serial2.available()) Serial2.read();   // чистимо старе
-    Serial2.print("r6#");                         // «дай відстань зараз»
-
-    // Відповідь виду "L=748\r\n" — беремо цифри після '='
-    char buf[8]; uint8_t len = 0; bool seenEq = false;
-    unsigned long t0 = millis();
-    while (millis() - t0 < 100) {                 // ждемо відповідь до 100 мс
-        if (!Serial2.available()) continue;
-        char c = (char)Serial2.read();
-        if (c == '=') { seenEq = true; continue; }
-        if (seenEq && c >= '0' && c <= '9') {
-            if (len < sizeof(buf) - 1) buf[len++] = c;
-        } else if (seenEq && (c == '\r' || c == '\n')) {
-            break;                                 // рядок скінчився
-        }
-    }
-    if (len == 0) return -1;
-    buf[len] = '\0';
-    return atoi(buf);
-}
-```
-```python
-from machine import UART, Pin
-import time
-
-uart = UART(2, baudrate=9600, bits=8, parity=None, stop=1, rx=16, tx=17)
-time.sleep_ms(30)
-uart.write("s5-1#")            # перемкнути модуль у пасивний режим
-time.sleep_ms(30)              # дати час перетравити й відповісти "ok"
-uart.read()                    # прибрати "ok" з буфера
-
-def tof_query():
-    """Запитати відстань один раз. Повертає мм або None."""
-    uart.read()                                   # чистимо старе
-    uart.write("r6#")                             # «дай відстань зараз»
-
-    # Відповідь виду "L=748\r\n" — беремо цифри після '='
-    buf = bytearray(); seen_eq = False
-    t0 = time.ticks_ms()
-    while time.ticks_diff(time.ticks_ms(), t0) < 100:   # чекаємо до 100 мс
-        c = uart.read(1)
-        if c is None:
-            continue
-        if c == b'=':
-            seen_eq = True
-            continue
-        if seen_eq and b'0' <= c <= b'9':
-            buf += c
-        elif seen_eq and c in (b'\r', b'\n'):
-            break                                 # рядок скінчився
-    if not buf:
-        return None
-    return int(buf)
-```
+:::code api-tof250-api/cpp/aktyvnyi-i-pasyvnyi.cpp
+:::code api-tof250-api/py/aktyvnyi-i-pasyvnyi.py
 :::
 
 Різниця з активним режимом видна одразу: тут **ініціативу перебрав мікроконтролер**. Він шле `r6#`, чекає рядок `L=…`, вибирає цифри після знаку рівності. Формат відповіді трохи інший (`L=748`, а не `748mm`), тож і розбір інший — синхронізуємося не по `mm`, а по `=`.
@@ -370,60 +173,8 @@ def tof_query():
 **Мінімум: відстань TOF250 у Serial-монітор (I2C).**
 
 :::tabs
-```cpp
-#include <Wire.h>
-#define TOF_ADDR 0x52
-
-int tofRead() {
-    Wire.beginTransmission(TOF_ADDR);
-    Wire.write(0x00);                          // регістр живої відстані
-    if (Wire.endTransmission(false) != 0) return -1;
-    if (Wire.requestFrom(TOF_ADDR, (uint8_t)2) != 2) return -1;
-    uint16_t hi = Wire.read(), lo = Wire.read();
-    return (int)((hi << 8) | lo);
-}
-
-void setup() {
-    Wire.begin();                              // SDA/SCL — типові виводи плати
-    Serial.begin(115200);
-    while (!Serial) { }
-    Serial.println("TOF250 готовий");
-}
-
-void loop() {
-    int mm = tofRead();
-    if (mm >= 0) {
-        Serial.print(mm);
-        Serial.println(" mm");
-    } else {
-        Serial.println("немає відповіді (перевір адресу й дроти)");
-    }
-    delay(100);                                // ~10 замірів на секунду
-}
-```
-```python
-from machine import I2C, Pin
-import time
-
-TOF_ADDR = 0x52
-i2c = I2C(0, scl=Pin(22), sda=Pin(21))         # типові виводи плати
-
-def tof_read():
-    try:
-        raw = i2c.readfrom_mem(TOF_ADDR, 0x00, 2)   # регістр живої відстані
-    except OSError:
-        return None
-    return (raw[0] << 8) | raw[1]
-
-print("TOF250 готовий")
-while True:
-    mm = tof_read()
-    if mm is not None:
-        print(mm, "mm")
-    else:
-        print("немає відповіді (перевір адресу й дроти)")
-    time.sleep_ms(100)                         # ~10 замірів на секунду
-```
+:::code api-tof250-api/cpp/minimalnyi-sketch-vidstan.cpp
+:::code api-tof250-api/py/minimalnyi-sketch-vidstan.py
 :::
 
 Тридцять рядків — і на екрані повзуть чесні міліметри. Якщо замість чисел іде «немає відповіді» — запускайте сканер із розділу вище: він скаже, чи давач узагалі на шині.

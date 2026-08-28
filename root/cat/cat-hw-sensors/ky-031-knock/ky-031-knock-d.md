@@ -82,56 +82,8 @@ KY-031 — член [KY-серії](root:cat-hw-sensors/ky-series): те сам�
 **Умова.** Вивід S під'єднано до D2, увімкнено внутрішню підтяжку (спокій — «1»); вбудований світлодіод — на D13. Треба на кожен стук блимнути світлодіодом і рахувати стуки в монітор, не рахуючи торохтіння пружини за окремі події.
 
 :::tabs
-```cpp
-const uint8_t KNOCK = 2;        // вивід S давача стуку
-const uint8_t LED   = 13;       // вбудований світлодіод
-const unsigned long LOCKOUT = 250;   // глухе вікно після стуку, мс
-
-unsigned long lastKnock = 0;    // час останнього зарахованого стуку
-unsigned long count     = 0;    // лічильник стуків
-
-void setup() {
-    pinMode(KNOCK, INPUT_PULLUP);   // підтяжка вгору: спокій = 1, удар тягне до 0
-    pinMode(LED, OUTPUT);
-    Serial.begin(9600);
-}
-
-void loop() {
-    // активний-НИЗЬКО: удар — це коли вхід просів у 0
-    if (digitalRead(KNOCK) == LOW && millis() - lastKnock > LOCKOUT) {
-        lastKnock = millis();
-        count++;
-        digitalWrite(LED, HIGH);
-        Serial.print("стук #");
-        Serial.println(count);
-    }
-    // гасимо світлодіод трохи згодом після спалаху
-    if (millis() - lastKnock > 60) digitalWrite(LED, LOW);
-}
-```
-```python
-from machine import Pin
-import time
-
-knock = Pin(2, Pin.IN, Pin.PULL_UP)   # підтяжка вгору: спокій = 1, удар тягне до 0
-led = Pin(13, Pin.OUT)                # вбудований світлодіод
-LOCKOUT = 250                         # глухе вікно після стуку, мс
-
-last_knock = 0                        # час останнього зарахованого стуку
-count = 0                             # лічильник стуків
-
-while True:
-    now = time.ticks_ms()
-    # активний-НИЗЬКО: удар — це коли вхід просів у 0
-    if knock.value() == 0 and time.ticks_diff(now, last_knock) > LOCKOUT:
-        last_knock = now
-        count += 1
-        led.value(1)
-        print("стук #", count)
-    # гасимо світлодіод трохи згодом після спалаху
-    if time.ticks_diff(time.ticks_ms(), last_knock) > 60:
-        led.value(0)
-```
+:::code ky-031-knock-d/cpp/main.cpp
+:::code ky-031-knock-d/py/main.py
 :::
 
 Цей варіант читає ногу в циклі й тому надійний лише в короткому, нічим не забитому `loop`. Щойно в програмі з'явиться щось повільне (робота з дисплеєм, мережа, `delay`), опитування почне **проґавлювати** двомілісекундні контакти, і давач «замовкне». Тоді стук ловлять **перериванням по фронту спаду**, а притлумлення роблять уже над зафіксованою подією. Це, а також як діставати з голого «замкнено» бодай грубу «серію стуків» для замка-на-стук, розписано з робочими скетчами під Arduino та ESP32 в окремій вставці — [прошивка для KY-031](root:cat-hw-sensors/ky-031-knock/proj-ky031-knock.md).

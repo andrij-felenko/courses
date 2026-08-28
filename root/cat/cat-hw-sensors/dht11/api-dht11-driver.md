@@ -30,40 +30,7 @@ DHT11 говорить власним «однодротовим» проток�
 
 Ось повний робочий кістяк — не фрагмент, а те, що компілюється й крутиться:
 
-```cpp
-#include <DHT.h>
-
-#define DHT_PIN   2         // ніжка МК, куди прийшла лінія DATA
-#define DHT_TYPE  DHT11     // саме DHT11 — НЕ DHT22 і не AM2302
-
-DHT dht(DHT_PIN, DHT_TYPE);
-
-void setup() {
-    Serial.begin(9600);
-    dht.begin();            // налаштувати ніжку в потрібний режим
-    delay(1500);            // дати давачу очуняти після подачі живлення
-}
-
-void loop() {
-    delay(2000);            // ≥ 1 с між читаннями; беремо 2 с із запасом
-
-    float h = dht.readHumidity();      // % RH
-    float t = dht.readTemperature();   // °C (без аргументу — Цельсій)
-
-    // Давач міг не відповісти — тоді бібліотека повертає NAN.
-    // Це не виняток, а звичайний робочий випадок: перевіряти ОБОВ'ЯЗКОВО.
-    if (isnan(h) || isnan(t)) {
-        Serial.println(F("DHT11 не відповів — пропускаю це читання"));
-        return;             // просто чекаємо наступного проходу циклу
-    }
-
-    Serial.print(F("Вологість: "));
-    Serial.print(h, 0);                // 0 знаків після крапки: DHT11 і так цілі
-    Serial.print(F(" %   Температура: "));
-    Serial.print(t, 0);
-    Serial.println(F(" C"));
-}
-```
+:::code api-dht11-driver/cpp/shliakh-pershyi-hotova.cpp
 
 Розберемо, чому кожен рядок саме такий — бо в цих дрібницях і ховаються всі граблі.
 
@@ -87,47 +54,7 @@ void loop() {
 
 Драйвер складається з двох частин: **розбудити давача** (стартовий імпульс + приймання відповіді) і **зловити 40 бітів** (вимірювання ширини кожного високого імпульсу). Почнемо з повного коду, тоді розберемо його по фазах.
 
-```cpp
-#define DHT_PIN 2                 // ніжка з лінією DATA
-
-// Повертає true, якщо читання вдалося; кладе результат у temp/hum.
-bool dht11_read(int *temp, int *hum) {
-    uint8_t bytes[5] = {0, 0, 0, 0, 0};
-
-    // ── Фаза 1: стартовий імпульс від хоста ──
-    pinMode(DHT_PIN, OUTPUT);
-    digitalWrite(DHT_PIN, LOW);   // притискаємо лінію до землі
-    delay(20);                    // ≥ 18 мс — будимо давача (беремо 20 із запасом)
-    digitalWrite(DHT_PIN, HIGH);  // коротко відпускаємо
-    delayMicroseconds(30);        // 20–40 мкс, поки давач «прокидається»
-    pinMode(DHT_PIN, INPUT_PULLUP); // віддаємо лінію: тепер говорить давач
-
-    // ── Фаза 2: чекаємо відповідь давача (80 мкс низько + 80 мкс високо) ──
-    if (!wait_level(LOW,  100)) return false;  // давач притиснув лінію
-    if (!wait_level(HIGH, 100)) return false;  // давач відпустив (80 мкс низько)
-    if (!wait_level(LOW,  100)) return false;  // кінець 80 мкс високо — старт даних
-
-    // ── Фаза 3: 40 бітів, значення = ширина високого імпульсу ──
-    for (int i = 0; i < 40; i++) {
-        if (!wait_level(HIGH, 100)) return false;  // пропускаємо 50 мкс низько
-        uint32_t t0 = micros();                    // фронт угору — засікли час
-        if (!wait_level(LOW, 100)) return false;   // чекаємо фронт униз
-        uint32_t width = micros() - t0;            // ширина високого імпульсу
-
-        // ширина ~26 мкс → 0, ~70 мкс → 1; поріг посередині (~50 мкс)
-        bytes[i / 8] <<= 1;                         // звільняємо місце під новий біт
-        if (width > 50) bytes[i / 8] |= 1;          // довгий імпульс → одиниця
-    }
-
-    // ── Фаза 4: контрольна сума ──
-    uint8_t sum = bytes[0] + bytes[1] + bytes[2] + bytes[3];
-    if (sum != bytes[4]) return false;             // не збіглося — читання зіпсоване
-
-    *hum  = bytes[0];   // ціла частина вологості (байт 2 у DHT11 завжди 0)
-    *temp = bytes[2];   // ціла частина температури (байт 4 завжди 0)
-    return true;
-}
-```
+:::code api-dht11-driver/cpp/shliakh-druhyi-vlasnyi.cpp
 
 Помічник `wait_level` — це той шматок, що чекає, поки лінія набуде потрібного рівня, і **не дає програмі зависнути навіки**, якщо давач замовк:
 
@@ -161,23 +88,7 @@ bool wait_level(int level, uint32_t timeout) {
 
 Виклик у скетчі виходить чистий:
 
-```cpp
-void setup() {
-    Serial.begin(9600);
-    delay(1500);                  // даємо давачу очуняти після ввімкнення
-}
-
-void loop() {
-    int t, h;
-    if (dht11_read(&t, &h)) {
-        Serial.print(F("T = ")); Serial.print(t);
-        Serial.print(F(" C, RH = ")); Serial.print(h); Serial.println(F(" %"));
-    } else {
-        Serial.println(F("читання не вдалося — повторю"));
-    }
-    delay(2000);                  // ≥ 1 с між читаннями
-}
-```
+:::code api-dht11-driver/cpp/shliakh-druhyi-vlasnyi-2.cpp
 
 > 🔧 **Навіщо це.** Зверніть увагу, як **таймаути** в `wait_level` роблять драйвер надійним. Без них перше ж мовчання давача (висмикнули дріт, поганий контакт) підвісило б `while` навіки, і весь мікроконтролер став би колом. З таймаутом драйвер за частку мілісекунди здається, повертає `false`, і система живе далі — покаже «читання не вдалося» й спробує наступного разу. **Ніколи не пишіть очікування рівня без стелі за часом** — це різниця між прошивкою, що переживе відключений давач, і тією, що від нього зависає.
 
@@ -193,22 +104,7 @@ void loop() {
 
 **Друге — і головне — немає готового `micros()`.** Arduino дає його з коробки; на STM32 мікросекундний час треба **організувати самому**. Найпоширеніший спосіб — узяти вільний **апаратний таймер** і налаштувати його так, щоб він тікав рівно раз на мікросекунду; тоді його лічильник — це і є наш `micros()`. Ось як це заводять:
 
-```c
-// Припускаємо: TIM2 налаштований у CubeMX так, щоб тікати раз на 1 мкс.
-// Для цього Prescaler = (частота_шини_таймера в МГц) − 1.
-// Напр. якщо TIM2 живиться від 72 МГц → Prescaler = 71,
-// тоді лічильник збільшується на 1 кожну мікросекунду.
-
-static inline uint32_t micros(void) {
-    return __HAL_TIM_GET_COUNTER(&htim2);   // лічильник = мікросекунди
-}
-
-// Затримка в мікросекундах через той самий таймер.
-static void delay_us(uint32_t us) {
-    uint32_t start = __HAL_TIM_GET_COUNTER(&htim2);
-    while ((uint32_t)(__HAL_TIM_GET_COUNTER(&htim2) - start) < us) { }
-}
-```
+:::code api-dht11-driver/c/shliakh-tretii-toi-samyi.c
 
 Тут ховається важлива думка, яку легко проґавити. **Чому `Prescaler = частота_в_МГц − 1`?** Дільник (англ. *prescaler* — [подільник частоти](root:hw-digital/counters), що ділить вхідні такти перед лічильником) ділить тактову частоту таймера на `Prescaler + 1`. Якщо таймер живиться від 72 МГц і ми хочемо, щоб лічильник цокав раз на мікросекунду (тобто на 1 МГц), треба поділити 72 на 72 — звідси `Prescaler + 1 = 72`, тобто `Prescaler = 71`. Візьмете інше число — і весь ваш час «попливе»: пороги 26/70 мкс перестануть відповідати реальним імпульсам, і драйвер читатиме сміття. Тому **перша річ, яку перевіряють**, коли ручний драйвер на STM32 не працює, — чи справді таймер тікає раз на мікросекунду.
 
@@ -216,74 +112,7 @@ static void delay_us(uint32_t us) {
 
 Сам драйвер на STM32 з HAL виглядає так — порівняйте його з Arduino-версією рядок у рядок, фази ідентичні:
 
-```c
-#define DHT_PORT  GPIOA
-#define DHT_PIN   GPIO_PIN_1
-
-// Перемкнути ніжку у вихід (push-pull) або у вхід.
-static void dht_output(void) {
-    GPIO_InitTypeDef g = {0};
-    g.Pin = DHT_PIN;  g.Mode = GPIO_MODE_OUTPUT_PP;
-    g.Pull = GPIO_NOPULL;  g.Speed = GPIO_SPEED_FREQ_LOW;
-    HAL_GPIO_Init(DHT_PORT, &g);
-}
-static void dht_input(void) {
-    GPIO_InitTypeDef g = {0};
-    g.Pin = DHT_PIN;  g.Mode = GPIO_MODE_INPUT;
-    g.Pull = GPIO_PULLUP;   // внутрішня підтяжка (зовнішній резистор усе одно бажаний)
-    HAL_GPIO_Init(DHT_PORT, &g);
-}
-
-static inline int dht_get(void) {   // прочитати рівень лінії: 1 або 0
-    return HAL_GPIO_ReadPin(DHT_PORT, DHT_PIN) == GPIO_PIN_SET;
-}
-
-// Чекати рівень level не довше timeout мкс; 1 — дочекалися, 0 — вийшов час.
-static int wait_level(int level, uint32_t timeout) {
-    uint32_t start = micros();
-    while (dht_get() != level) {
-        if ((uint32_t)(micros() - start) > timeout) return 0;
-    }
-    return 1;
-}
-
-// Читання. Повертає 1 при успіху; результат — у *temp, *hum.
-int dht11_read(int *temp, int *hum) {
-    uint8_t bytes[5] = {0, 0, 0, 0, 0};
-
-    // ── Фаза 1: стартовий імпульс ──
-    dht_output();
-    HAL_GPIO_WritePin(DHT_PORT, DHT_PIN, GPIO_PIN_RESET); // притиснули низько
-    HAL_Delay(20);                                        // ≥ 18 мс (мілісекунди!)
-    HAL_GPIO_WritePin(DHT_PORT, DHT_PIN, GPIO_PIN_SET);   // відпустили
-    delay_us(30);                                         // 20–40 мкс
-    dht_input();                                          // віддали лінію давачу
-
-    // ── Фаза 2: відповідь давача (80 мкс низько + 80 мкс високо) ──
-    if (!wait_level(0, 100)) return 0;
-    if (!wait_level(1, 100)) return 0;
-    if (!wait_level(0, 100)) return 0;
-
-    // ── Фаза 3: 40 бітів ──
-    for (int i = 0; i < 40; i++) {
-        if (!wait_level(1, 100)) return 0;   // пропустили 50 мкс низько
-        uint32_t t0 = micros();
-        if (!wait_level(0, 100)) return 0;   // дочекалися фронту вниз
-        uint32_t width = micros() - t0;      // ширина високого імпульсу
-
-        bytes[i / 8] <<= 1;
-        if (width > 50) bytes[i / 8] |= 1;   // довгий → 1
-    }
-
-    // ── Фаза 4: контрольна сума ──
-    if ((uint8_t)(bytes[0] + bytes[1] + bytes[2] + bytes[3]) != bytes[4])
-        return 0;
-
-    *hum  = bytes[0];
-    *temp = bytes[2];
-    return 1;
-}
-```
+:::code api-dht11-driver/c/shliakh-tretii-toi-samyi-2.c
 
 Це той самий скінченний автомат — ті самі п'ять станів, ті самі числа 20 мс, 30 мкс, поріг 50 мкс, та сама сума по модулю 256. Змінилися лише **імена інструментів**: `pinMode` став парою `dht_output`/`dht_input`, `digitalWrite` — `HAL_GPIO_WritePin`, `digitalRead` — `HAL_GPIO_ReadPin`, а `micros()` ми змайстрували з таймера. Логіка ж — власність протоколу, і вона незмінна.
 

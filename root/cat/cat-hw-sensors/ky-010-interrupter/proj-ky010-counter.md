@@ -55,108 +55,9 @@ float period = 1.0 / pps;              // період імпульсу, с
 Почнемо з простого — рахувати всі імпульси й показувати оберти. Кістяк усюди той самий: налаштувати пін на вхід, повісити обробник на потрібний фронт, збільшити в ньому лічильник, а всю арифметику лишити основному коду. Ось він трьома середовищами, розібраний по деталях, кожна з яких важить.
 
 :::tabs
-```arduino
-const uint8_t PIN_S   = 2;        // сигнал KY-010; D2 і D3 на Uno — входи переривання
-const uint8_t N_SLOTS = 20;       // прорізів на диску (стільки імпульсів = 1 оберт)
-
-volatile uint32_t pulses = 0;     // лічильник імпульсів; його чіпає ISR → тільки volatile
-
-void onEdge() {                   // ISR: коротка, без Serial, без delay
-  pulses++;
-}
-
-void setup() {
-  pinMode(PIN_S, INPUT);
-  Serial.begin(115200);
-  attachInterrupt(digitalPinToInterrupt(PIN_S), onEdge, RISING);
-}
-
-void loop() {
-  static uint32_t tPrint = 0;
-  uint32_t now = millis();
-  if (now - tPrint >= 1000) {     // раз на секунду знімаємо зріз
-    tPrint = now;
-
-    noInterrupts();               // атомарно зчитуємо 32-бітне значення
-    uint32_t p = pulses;
-    interrupts();
-
-    uint32_t revs = p / N_SLOTS;  // цілих обертів від старту
-    Serial.print("обертів усього: ");
-    Serial.println(revs);
-  }
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define PIN_S    GPIO_NUM_4       // будь-який GPIO вміє переривання
-#define N_SLOTS  20               // прорізів на диску
-static const char *TAG = "ky010";
-
-static volatile uint32_t pulses = 0;   // лічильник; його чіпає ISR → volatile
-
-static void IRAM_ATTR on_edge(void *arg) {   // ISR в IRAM: коротка, без логів
-  pulses++;
-}
-
-void app_main(void) {
-  gpio_config_t cfg = {
-    .pin_bit_mask = 1ULL << PIN_S,
-    .mode         = GPIO_MODE_INPUT,
-    .pull_up_en   = GPIO_PULLUP_DISABLE,
-    .pull_down_en = GPIO_PULLDOWN_DISABLE,
-    .intr_type    = GPIO_INTR_POSEDGE,       // передній фронт
-  };
-  ESP_ERROR_CHECK(gpio_config(&cfg));
-  ESP_ERROR_CHECK(gpio_install_isr_service(0));
-  ESP_ERROR_CHECK(gpio_isr_handler_add(PIN_S, on_edge, NULL));
-
-  while (1) {
-    vTaskDelay(pdMS_TO_TICKS(1000));         // раз на секунду знімаємо зріз
-    uint32_t p = pulses;                     // 32 біти читаються атомарно
-    ESP_LOGI(TAG, "обертів усього: %u", (unsigned)(p / N_SLOTS));
-  }
-}
-```
-```stm32
-#define N_SLOTS 20                // прорізів на диску
-
-volatile uint32_t pulses = 0;     // лічильник; його чіпає ISR → volatile
-
-/* PA0 налаштовано в CubeMX як GPIO_EXTI0, режим GPIO_MODE_IT_RISING,
-   переривання EXTI0 увімкнено. HAL кличе цей колбек із обробника. */
-void HAL_GPIO_EXTI_Callback(uint16_t pin) {
-  if (pin == GPIO_PIN_0) pulses++;
-}
-
-int main(void) {
-  HAL_Init();
-  SystemClock_Config();
-  MX_GPIO_Init();                 // конфіг піна й EXTI від CubeMX
-  MX_USART2_UART_Init();
-
-  uint32_t tPrint = 0;
-  while (1) {
-    uint32_t now = HAL_GetTick(); // мілісекунди від старту
-    if (now - tPrint >= 1000) {   // раз на секунду знімаємо зріз
-      tPrint = now;
-
-      __disable_irq();            // атомарно зчитуємо 32-бітне значення
-      uint32_t p = pulses;
-      __enable_irq();
-
-      char buf[48];
-      int n = snprintf(buf, sizeof buf, "обертів усього: %lu\r\n",
-                       (unsigned long)(p / N_SLOTS));
-      HAL_UART_Transmit(&huart2, (uint8_t *)buf, n, HAL_MAX_DELAY);
-    }
-  }
-}
-```
+:::code proj-ky010-counter/c/arduino/krok-1-lichylnyk-obertiv.ino
+:::code proj-ky010-counter/c/esp-idf/krok-1-lichylnyk-obertiv.c
+:::code proj-ky010-counter/c/stm32/krok-1-lichylnyk-obertiv.c
 :::
 
 Три речі в цьому коді неочевидні новачкові, і кожна — джерело реальних багів.
@@ -174,34 +75,8 @@ int main(void) {
 Чесний драйвер не вгадує фронт, а бере його з калібрування — з тієї самої іменованої константи полярності, що й у скетчі-калібраторі:
 
 :::tabs
-```arduino
-const uint8_t BLOCKED = HIGH;     // ← що показав калібратор на ЦІЙ платі
-
-// «зубець зайшов у щілину» — це перехід у стан BLOCKED:
-//   BLOCKED==HIGH → фронт RISING; BLOCKED==LOW → фронт FALLING.
-const int EDGE = (BLOCKED == HIGH) ? RISING : FALLING;
-
-void setup() {
-  pinMode(PIN_S, INPUT);
-  attachInterrupt(digitalPinToInterrupt(PIN_S), onEdge, EDGE);
-}
-```
-```esp-idf
-#define BLOCKED 1                 // ← що показав калібратор на ЦІЙ платі
-
-// «зубець зайшов у щілину» — це перехід у стан BLOCKED:
-//   BLOCKED==1 → POSEDGE; BLOCKED==0 → NEGEDGE.
-#define EDGE (BLOCKED ? GPIO_INTR_POSEDGE : GPIO_INTR_NEGEDGE)
-
-gpio_config_t cfg = {
-  .pin_bit_mask = 1ULL << PIN_S,
-  .mode         = GPIO_MODE_INPUT,
-  .intr_type    = EDGE,
-};
-ESP_ERROR_CHECK(gpio_config(&cfg));
-// фронт можна перезадати й потім, не переписуючи весь конфіг:
-ESP_ERROR_CHECK(gpio_set_intr_type(PIN_S, EDGE));
-```
+:::code proj-ky010-counter/c/arduino/iakyi-front-lovyty-i-chomu.ino
+:::code proj-ky010-counter/c/esp-idf/iakyi-front-lovyty-i-chomu.h
 ```stm32-ll
 #define BLOCKED 1                    // ← що показав калібратор на ЦІЙ платі
 
@@ -235,54 +110,9 @@ void EdgeFromPolarity(void) {
 Наслідок прямий: ISR на `RISING` спрацює не раз, а стільки разів, скільки схил кольнув поріг. Один зубець диска перетвориться на 3–5 «зубців» у лічильнику, і на повільному валу тахометр покаже швидкість у кілька разів завищену. Рятунок — **мертвий час** (англ. *dead time*, ще кажуть *lockout*): зарахувавши фронт, драйвер на кілька мілісекунд перестає слухати, поки схил не пройде поріг остаточно й пачка не вгамується. Це той самий приймач антидребезгу, тільки замість опитування ми фільтруємо всередині ISR за міткою часу.
 
 :::tabs
-```arduino
-const uint32_t GUARD_US = 800;    // мертвий час, мкс: більший за пачку, менший за період
-
-volatile uint32_t pulses  = 0;
-volatile uint32_t lastEdge = 0;   // мітка часу останнього ЗАРАХОВАНОГО фронту, мкс
-
-void onEdge() {
-  uint32_t t = micros();          // micros() безпечний в ISR (лише читає лічильник)
-  if (t - lastEdge >= GUARD_US) { // пройшло досить від попереднього фронту?
-    pulses++;
-    lastEdge = t;
-  }
-  // інакше — це дрижання того ж зубця, ігноруємо
-}
-```
-```esp-idf
-#define GUARD_US 800              // мертвий час, мкс: більший за пачку, менший за період
-
-static volatile uint32_t pulses   = 0;
-static volatile int64_t  lastEdge = 0;   // мітка часу зарахованого фронту, мкс
-
-static void IRAM_ATTR on_edge(void *arg) {
-  int64_t t = esp_timer_get_time();      // мкс від старту, 64 біти; безпечна в ISR
-  if (t - lastEdge >= GUARD_US) {        // пройшло досить від попереднього фронту?
-    pulses++;
-    lastEdge = t;
-  }
-  // інакше — це дрижання того ж зубця, ігноруємо
-}
-```
-```stm32
-#define GUARD_US 800              // мертвий час, мкс: більший за пачку, менший за період
-
-volatile uint32_t pulses   = 0;
-volatile uint32_t lastEdge = 0;   // мітка часу зарахованого фронту, мкс
-
-/* TIM2 пущено вільним лічильником із тактом 1 мкс (prescaler = f_APB1/1 МГц),
-   тож TIM2->CNT — це наш «micros()» на 32 бітах. */
-void HAL_GPIO_EXTI_Callback(uint16_t pin) {
-  if (pin != GPIO_PIN_0) return;
-  uint32_t t = __HAL_TIM_GET_COUNTER(&htim2);
-  if (t - lastEdge >= GUARD_US) {        // пройшло досить від попереднього фронту?
-    pulses++;
-    lastEdge = t;
-  }
-  // інакше — це дрижання того ж зубця, ігноруємо
-}
-```
+:::code proj-ky010-counter/c/arduino/krok-2-optychne-dryzhannia.ino
+:::code proj-ky010-counter/c/esp-idf/krok-2-optychne-dryzhannia.c
+:::code proj-ky010-counter/c/stm32/krok-2-optychne-dryzhannia.c
 :::
 
 Ключ — вираз `t - lastEdge`. Тут працює тонкість беззнакової арифметики: 32-бітний лічильник мікросекунд (`micros()` в Arduino, `TIM2->CNT` на STM32) десь раз на ~71 хвилину переповнюється й починає з нуля. Якби ми писали `t > lastEdge + GUARD_US`, то на межі переповнення додавання `lastEdge + GUARD_US` саме перекрутилось би, і порівняння збрехало б. А **віднімання** `t - lastEdge` у беззнаковій арифметиці дає правильний проміжок навіть через переповнення: різниця «обертається» так само, як самі значення, і виходить справжня кількість мікросекунд між фронтами. Це не хитрість заради краси — це єдиний спосіб рахувати час на лічильнику, що переповнюється; докладніше — у [Періоді й переповненні](root:hw-arch/timer-overflow).
@@ -320,146 +150,9 @@ float maxRpm    = maxRps * 60.0;        // 3750 об/хв
 Ось драйвер, що рахує об/хв методом вікна. Він бере два знімки лічильника через відомий проміжок і ділить приріст:
 
 :::tabs
-```arduino
-const uint8_t  PIN_S    = 2;
-const uint8_t  N_SLOTS  = 20;
-const uint32_t GUARD_US = 800;
-const uint32_t WINDOW_MS = 1000;      // вікно вимірювання, мс
-
-volatile uint32_t pulses   = 0;
-volatile uint32_t lastEdge = 0;
-
-void onEdge() {
-  uint32_t t = micros();
-  if (t - lastEdge >= GUARD_US) { pulses++; lastEdge = t; }
-}
-
-void setup() {
-  pinMode(PIN_S, INPUT);
-  Serial.begin(115200);
-  const uint8_t BLOCKED = HIGH;               // з калібрування
-  int edge = (BLOCKED == HIGH) ? RISING : FALLING;
-  attachInterrupt(digitalPinToInterrupt(PIN_S), onEdge, edge);
-}
-
-void loop() {
-  static uint32_t tWin  = 0;
-  static uint32_t pPrev = 0;
-  uint32_t now = millis();
-
-  if (now - tWin >= WINDOW_MS) {
-    uint32_t dt = now - tWin;                 // фактичний час вікна, мс (≈WINDOW_MS)
-    tWin = now;
-
-    noInterrupts();
-    uint32_t p = pulses;
-    interrupts();
-
-    uint32_t dp = p - pPrev;                  // приріст імпульсів за вікно
-    pPrev = p;
-
-    // об/хв = 60000 · dp / (N · dt);  60000 бо dt у мс
-    float rpm = 60000.0 * (float)dp / ((float)N_SLOTS * (float)dt);
-    Serial.print("швидкість: ");
-    Serial.print(rpm, 0);
-    Serial.println(" об/хв");
-  }
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "esp_timer.h"
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define PIN_S      GPIO_NUM_4
-#define N_SLOTS    20
-#define GUARD_US   800
-#define WINDOW_MS  1000               // вікно вимірювання, мс
-#define BLOCKED    1                  // з калібрування
-static const char *TAG = "ky010";
-
-static volatile uint32_t pulses   = 0;
-static volatile int64_t  lastEdge = 0;
-
-static void IRAM_ATTR on_edge(void *arg) {
-  int64_t t = esp_timer_get_time();
-  if (t - lastEdge >= GUARD_US) { pulses++; lastEdge = t; }
-}
-
-void app_main(void) {
-  gpio_config_t cfg = {
-    .pin_bit_mask = 1ULL << PIN_S,
-    .mode         = GPIO_MODE_INPUT,
-    .intr_type    = BLOCKED ? GPIO_INTR_POSEDGE : GPIO_INTR_NEGEDGE,
-  };
-  ESP_ERROR_CHECK(gpio_config(&cfg));
-  ESP_ERROR_CHECK(gpio_install_isr_service(0));
-  ESP_ERROR_CHECK(gpio_isr_handler_add(PIN_S, on_edge, NULL));
-
-  uint32_t pPrev = 0;
-  int64_t  tWin  = esp_timer_get_time();
-  while (1) {
-    vTaskDelay(pdMS_TO_TICKS(WINDOW_MS));
-    int64_t now = esp_timer_get_time();
-    float dt = (now - tWin) / 1e6f;    // фактичний час вікна, с
-    tWin = now;
-
-    uint32_t p  = pulses;
-    uint32_t dp = p - pPrev;           // приріст імпульсів за вікно
-    pPrev = p;
-
-    // об/хв = 60 · dp / (N · dt);  dt тут у секундах
-    ESP_LOGI(TAG, "швидкість: %.0f об/хв", 60.0f * dp / (N_SLOTS * dt));
-  }
-}
-```
-```stm32
-#define N_SLOTS    20
-#define GUARD_US   800
-#define WINDOW_MS  1000               // вікно вимірювання, мс
-#define BLOCKED    1                  // з калібрування
-
-volatile uint32_t pulses   = 0;
-volatile uint32_t lastEdge = 0;
-
-void HAL_GPIO_EXTI_Callback(uint16_t pin) {
-  if (pin != GPIO_PIN_0) return;
-  uint32_t t = __HAL_TIM_GET_COUNTER(&htim2);   // TIM2 тактує 1 мкс
-  if (t - lastEdge >= GUARD_US) { pulses++; lastEdge = t; }
-}
-
-int main(void) {
-  HAL_Init();
-  SystemClock_Config();
-  MX_GPIO_Init();                     // PA0 = EXTI0, фронт за BLOCKED
-  MX_TIM2_Init();
-  MX_USART2_UART_Init();
-  HAL_TIM_Base_Start(&htim2);
-
-  uint32_t tWin = HAL_GetTick(), pPrev = 0;
-  while (1) {
-    uint32_t now = HAL_GetTick();
-    if (now - tWin < WINDOW_MS) continue;
-    uint32_t dt = now - tWin;         // фактичний час вікна, мс (≈WINDOW_MS)
-    tWin = now;
-
-    __disable_irq();
-    uint32_t p = pulses;
-    __enable_irq();
-
-    uint32_t dp = p - pPrev;          // приріст імпульсів за вікно
-    pPrev = p;
-
-    // об/хв = 60000 · dp / (N · dt);  60000 бо dt у мс
-    float rpm = 60000.0f * dp / (N_SLOTS * (float)dt);
-    char buf[48];                     // потрібна підтримка float у printf
-    int n = snprintf(buf, sizeof buf, "швидкість: %.0f об/хв\r\n", rpm);
-    HAL_UART_Transmit(&huart2, (uint8_t *)buf, n, HAL_MAX_DELAY);
-  }
-}
-```
+:::code proj-ky010-counter/c/arduino/krok-3-impulsy-v-oberty-za.ino
+:::code proj-ky010-counter/c/esp-idf/krok-3-impulsy-v-oberty-za.c
+:::code proj-ky010-counter/c/stm32/krok-3-impulsy-v-oberty-za.c
 :::
 
 Зверни увагу: беремо **фактичний** `dt = now - tWin`, а не константу `WINDOW_MS`. Різниця крихітна, але чесна — основний цикл міг затриматися на зайву мілісекунду, і врахувати справжній час вікна нічого не коштує, а точність рятує. І тут знову працює беззнакове віднімання `p - pPrev` та `now - tWin`: обидва переживають переповнення своїх лічильників без окремої обробки.
@@ -482,129 +175,9 @@ int main(void) {
 Щоб дістати `T`, ISR має запам'ятовувати не лише що фронт стався, а **коли**. Обробник фіксує мітку часу поточного фронту й віддає в основний код проміжок від попереднього:
 
 :::tabs
-```arduino
-const uint8_t  PIN_S    = 2;
-const uint8_t  N_SLOTS  = 20;
-const uint32_t GUARD_US = 800;
-
-volatile uint32_t period   = 0;       // останній період між фронтами, мкс
-volatile uint32_t lastEdge = 0;
-volatile bool     fresh    = false;   // прапорець «є новий вимір»
-
-void onEdge() {
-  uint32_t t = micros();
-  uint32_t dt = t - lastEdge;         // проміжок від попереднього фронту
-  if (dt >= GUARD_US) {               // мертвий час: відкидаємо дрижання
-    period   = dt;                    // ← ось воно, T у мікросекундах
-    lastEdge = t;
-    fresh    = true;
-  }
-}
-
-void setup() {
-  pinMode(PIN_S, INPUT);
-  Serial.begin(115200);
-  const uint8_t BLOCKED = HIGH;
-  int edge = (BLOCKED == HIGH) ? RISING : FALLING;
-  attachInterrupt(digitalPinToInterrupt(PIN_S), onEdge, edge);
-}
-
-void loop() {
-  if (fresh) {
-    noInterrupts();
-    uint32_t T = period;              // знімок періоду, мкс
-    fresh = false;
-    interrupts();
-
-    // об/хв = 60 000 000 / (N · T);  60e6 бо T у мкс
-    float rpm = 60000000.0 / ((float)N_SLOTS * (float)T);
-    Serial.print("миттєво: ");
-    Serial.print(rpm, 0);
-    Serial.println(" об/хв");
-  }
-}
-```
-```esp-idf
-#define PIN_S    GPIO_NUM_4
-#define N_SLOTS  20
-#define GUARD_US 800
-static const char *TAG = "ky010";
-
-static volatile int64_t lastEdge = 0;
-static QueueHandle_t    q;            // ISR → задача: свіжий вимір періоду
-
-static void IRAM_ATTR on_edge(void *arg) {
-  int64_t  t  = esp_timer_get_time();
-  uint32_t dt = (uint32_t)(t - lastEdge);   // проміжок від попереднього фронту
-  if (dt >= GUARD_US) {               // мертвий час: відкидаємо дрижання
-    lastEdge = t;
-    BaseType_t woken = pdFALSE;
-    xQueueSendFromISR(q, &dt, &woken);      // ← ось воно, T у мікросекундах
-    if (woken) portYIELD_FROM_ISR();
-  }
-}
-
-void app_main(void) {
-  q = xQueueCreate(4, sizeof(uint32_t));
-  gpio_config_t cfg = { .pin_bit_mask = 1ULL << PIN_S,
-                        .mode      = GPIO_MODE_INPUT,
-                        .intr_type = GPIO_INTR_POSEDGE };
-  ESP_ERROR_CHECK(gpio_config(&cfg));
-  ESP_ERROR_CHECK(gpio_install_isr_service(0));
-  ESP_ERROR_CHECK(gpio_isr_handler_add(PIN_S, on_edge, NULL));
-
-  uint32_t T;
-  while (1) {
-    xQueueReceive(q, &T, portMAX_DELAY);    // задача спить, поки нема виміру
-    // об/хв = 60 000 000 / (N · T);  60e6 бо T у мкс
-    ESP_LOGI(TAG, "миттєво: %.0f об/хв", 60e6f / (N_SLOTS * (float)T));
-  }
-}
-```
-```stm32
-#define N_SLOTS  20
-#define GUARD_US 800
-
-/* На STM32 період міряє сам таймер: канал TIM2_CH1 у режимі input capture
-   ловить фронт на PA0 і клацає CNT у CCR1 — без похибки входу в ISR. */
-volatile uint32_t period   = 0;       // останній період між фронтами, мкс
-volatile uint32_t lastEdge = 0;
-volatile uint8_t  fresh    = 0;       // прапорець «є новий вимір»
-
-void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
-  if (htim->Channel != HAL_TIM_ACTIVE_CHANNEL_1) return;
-  uint32_t t  = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
-  uint32_t dt = t - lastEdge;         // проміжок від попереднього фронту
-  if (dt >= GUARD_US) {               // мертвий час: відкидаємо дрижання
-    period   = dt;                    // ← ось воно, T у мікросекундах
-    lastEdge = t;
-    fresh    = 1;
-  }
-}
-
-int main(void) {
-  HAL_Init();
-  SystemClock_Config();
-  MX_GPIO_Init();
-  MX_TIM2_Init();                     // TIM2 з тактом 1 мкс, CH1 = input capture
-  MX_USART2_UART_Init();
-  HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_1);
-
-  while (1) {
-    if (!fresh) continue;
-    __disable_irq();
-    uint32_t T = period;              // знімок періоду, мкс
-    fresh = 0;
-    __enable_irq();
-
-    // об/хв = 60 000 000 / (N · T);  60e6 бо T у мкс
-    float rpm = 60000000.0f / (N_SLOTS * (float)T);
-    char buf[48];
-    int n = snprintf(buf, sizeof buf, "миттєво: %.0f об/хв\r\n", rpm);
-    HAL_UART_Transmit(&huart2, (uint8_t *)buf, n, HAL_MAX_DELAY);
-  }
-}
-```
+:::code proj-ky010-counter/c/arduino/krok-4-myttieva-shvydkist.ino
+:::code proj-ky010-counter/c/esp-idf/krok-4-myttieva-shvydkist.c
+:::code proj-ky010-counter/c/stm32/krok-4-myttieva-shvydkist.c
 :::
 
 Тепер швидкість оновлюється **на кожному зубці**, а не раз на секунду — на повільному валу це різниця між живою стрілкою й ледачою. Але в методу періоду свої дві пастки, і обидві варто знати наперед.

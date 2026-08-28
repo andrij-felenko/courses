@@ -37,34 +37,8 @@
 Ось крихітний скетч-розвідник: підносьте й прибирайте магніт, дивіться в монітор порту, і він сам скаже, який рівень активний.
 
 :::tabs
-```cpp
-const uint8_t REED = 2;        // D0 давача на вивід D2
-
-void setup() {
-    pinMode(REED, INPUT);      // на платі KY-025 підтяжка Rp вже є — зовнішня не потрібна
-    Serial.begin(9600);
-    Serial.println("Підносьте й прибирайте магніт, стежте за рівнем D0:");
-}
-
-void loop() {
-    int level = digitalRead(REED);
-    Serial.println(level == HIGH ? "D0 = HIGH (високий)" : "D0 = LOW (низький)");
-    delay(300);
-}
-```
-```micropython
-from machine import Pin
-import time
-
-reed = Pin(4, Pin.IN)          # D0 давача на GPIO4; підтяжка Rp вже є на платі KY-025
-
-print("Підносьте й прибирайте магніт, стежте за рівнем D0:")
-
-while True:
-    level = reed.value()
-    print("D0 = HIGH (високий)" if level == 1 else "D0 = LOW (низький)")
-    time.sleep_ms(300)
-```
+:::code proj-reed-firmware/cpp/spershu-vyznachyty.cpp
+:::code proj-reed-firmware/py/micropython/spershu-vyznachyty.py
 :::
 
 Піднесли магніт — запам'ятали, який рівень з'явився. Це і є ваш `ACTIVE`. Далі в усіх скетчах я оголошую його окремою константою:
@@ -86,69 +60,8 @@ const int ACTIVE = LOW;   // ← сюди підставте те, що пока
 **Умова.** `D0` — на D2 Arduino Uno; активний рівень визначено розвідкою (нехай `LOW`); треба рахувати піднесення магніта й друкувати накопичене число в монітор порту.
 
 :::tabs
-```cpp
-const uint8_t REED   = 2;        // D0 давача
-const int     ACTIVE = LOW;      // ← активний рівень вашої плати (з розвідки)
-
-const uint32_t DEBOUNCE_MS = 30; // «мертвий час» після краю: коротший сплеск — брязкіт
-
-uint32_t counter   = 0;          // накопичені події
-bool     was_near  = false;      // попередній стан геркона (для виявлення краю)
-uint32_t t_edge    = 0;          // коли востаннє прийняли зміну стану
-
-void setup() {
-    pinMode(REED, INPUT);
-    Serial.begin(9600);
-    was_near = (digitalRead(REED) == ACTIVE);
-    Serial.println("Лічильник геркона готовий.");
-}
-
-void loop() {
-    bool near = (digitalRead(REED) == ACTIVE);
-    uint32_t now = millis();
-
-    // Реагуємо лише на ЗМІНУ стану і лише якщо від минулої зміни минув мертвий час.
-    if (near != was_near && (now - t_edge) >= DEBOUNCE_MS) {
-        t_edge   = now;
-        was_near = near;
-
-        if (near) {                       // край саме «нема → є» — це нова подія
-            counter++;
-            Serial.print("клац! всього: ");
-            Serial.println(counter);
-        }
-    }
-}
-```
-```micropython
-from machine import Pin
-import time
-
-REED        = 4                  # D0 давача на GPIO4
-ACTIVE      = 0                  # ← активний рівень вашої плати (з розвідки): 0 = LOW
-
-DEBOUNCE_MS = 30                 # «мертвий час» після краю: коротший сплеск — брязкіт
-
-reed     = Pin(REED, Pin.IN)
-counter  = 0                     # накопичені події
-was_near = (reed.value() == ACTIVE)   # попередній стан геркона (для виявлення краю)
-t_edge   = 0                     # коли востаннє прийняли зміну стану
-
-print("Лічильник геркона готовий.")
-
-while True:
-    near = (reed.value() == ACTIVE)
-    now = time.ticks_ms()
-
-    # Реагуємо лише на ЗМІНУ стану і лише якщо від минулої зміни минув мертвий час.
-    if near != was_near and time.ticks_diff(now, t_edge) >= DEBOUNCE_MS:
-        t_edge   = now
-        was_near = near
-
-        if near:                          # край саме «нема → є» — це нова подія
-            counter += 1
-            print("клац! всього:", counter)
-```
+:::code proj-reed-firmware/cpp/robochyi-sketch-lichylnyk.cpp
+:::code proj-reed-firmware/py/micropython/robochyi-sketch-lichylnyk.py
 :::
 
 Розберімо, чому кожен шматок саме такий.
@@ -170,89 +83,8 @@ while True:
 **Умова.** `D0` — на D2 Arduino; магніт на дверях дає активний рівень `LOW`, коли двері **зачинені**; треба тримати поточний стан, лічити відкривання, друкувати кожну зміну. Світлодіод на D13 хай світиться, поки двері відчинені (сигнал «незакрито»).
 
 :::tabs
-```cpp
-const uint8_t REED   = 2;        // D0 давача
-const uint8_t LED    = 13;       // «двері відчинені» — індикатор
-const int     ACTIVE = LOW;      // рівень, коли магніт поруч = двері ЗАЧИНЕНІ
-
-const uint32_t DEBOUNCE_MS = 30;
-
-bool     closed   = true;        // поточний стан: true = зачинено
-bool     was_closed = true;
-uint32_t opens    = 0;           // скільки разів відчиняли
-uint32_t t_edge   = 0;
-
-void setup() {
-    pinMode(REED, INPUT);
-    pinMode(LED, OUTPUT);
-    Serial.begin(9600);
-
-    closed = (digitalRead(REED) == ACTIVE);   // початковий стан — як є при старті
-    was_closed = closed;
-    digitalWrite(LED, closed ? LOW : HIGH);
-    Serial.println(closed ? "старт: двері зачинені" : "старт: двері ВІДЧИНЕНІ");
-}
-
-void loop() {
-    bool now_closed = (digitalRead(REED) == ACTIVE);
-    uint32_t now = millis();
-
-    if (now_closed != was_closed && (now - t_edge) >= DEBOUNCE_MS) {
-        t_edge = now;
-        was_closed = now_closed;
-        closed = now_closed;
-
-        if (!closed) {                 // край «зачинено → відчинено» — це відкривання
-            opens++;
-            digitalWrite(LED, HIGH);
-            Serial.print("ВІДЧИНИЛИ (разів: ");
-            Serial.print(opens);
-            Serial.println(")");
-        } else {                       // край «відчинено → зачинено»
-            digitalWrite(LED, LOW);
-            Serial.println("зачинили");
-        }
-    }
-}
-```
-```micropython
-from machine import Pin
-import time
-
-REED        = 4                  # D0 давача на GPIO4
-LED         = 2                  # «двері відчинені» — індикатор (вбудований LED)
-ACTIVE      = 0                  # рівень, коли магніт поруч = двері ЗАЧИНЕНІ: 0 = LOW
-
-DEBOUNCE_MS = 30
-
-reed = Pin(REED, Pin.IN)
-led  = Pin(LED, Pin.OUT)
-
-closed     = (reed.value() == ACTIVE)   # початковий стан — як є при старті
-was_closed = closed
-opens      = 0                   # скільки разів відчиняли
-t_edge     = 0
-
-led.value(0 if closed else 1)
-print("старт: двері зачинені" if closed else "старт: двері ВІДЧИНЕНІ")
-
-while True:
-    now_closed = (reed.value() == ACTIVE)
-    now = time.ticks_ms()
-
-    if now_closed != was_closed and time.ticks_diff(now, t_edge) >= DEBOUNCE_MS:
-        t_edge = now
-        was_closed = now_closed
-        closed = now_closed
-
-        if not closed:                  # край «зачинено → відчинено» — це відкривання
-            opens += 1
-            led.value(1)
-            print("ВІДЧИНИЛИ (разів:", opens, ")")
-        else:                           # край «відчинено → зачинено»
-            led.value(0)
-            print("зачинили")
-```
+:::code proj-reed-firmware/cpp/robochyi-sketch-davach.cpp
+:::code proj-reed-firmware/py/micropython/robochyi-sketch-davach.py
 :::
 
 Скелет — той самий гасений-за-часом детектор краю, що й у лічильнику; вся різниця в тому, що ми тепер тримаємо **іменований стан** `closed` і реагуємо на обидва його боки: на відчинення нарощуємо лічильник і засвічуємо індикатор, на зачинення — гасимо. Лічильник `opens` рахує лише один бік краю, тож пам'ять відкривань чиста від брязкоту так само, як у попередньому скетчі.
@@ -275,46 +107,7 @@ while True:
 
 Оскільки активний рівень у нас `LOW`, поява магніта — це спад `D0`, тобто режим `FALLING`.
 
-```cpp
-const uint8_t REED = 2;          // D0 — ОБОВ'ЯЗКОВО на D2 або D3 (тільки там переривання)
-const uint8_t LED  = 13;
-
-const uint32_t DEBOUNCE_MS = 30; // мертве вікно проти брязкоту, тепер — усередині ISR
-
-volatile uint32_t counter    = 0;   // лічильник змінює переривання → volatile
-volatile uint32_t t_last_isr = 0;   // мить останньої прийнятої події
-
-// ISR: якнайкоротша. Лише гасимо брязкіт вікном і нарощуємо лічильник.
-void on_reed() {
-    uint32_t now = millis();
-    if (now - t_last_isr >= DEBOUNCE_MS) {   // усе, що ближче за DEBOUNCE_MS — брязкіт
-        t_last_isr = now;
-        counter++;
-    }
-}
-
-void setup() {
-    pinMode(REED, INPUT);
-    pinMode(LED, OUTPUT);
-    Serial.begin(9600);
-    // Магніт дає спад D0 (активний LOW) → ловимо FALLING:
-    attachInterrupt(digitalPinToInterrupt(REED), on_reed, FALLING);
-    Serial.println("Переривання на герконі увімкнено.");
-}
-
-uint32_t shown = 0;
-
-void loop() {
-    // Основний код вільний робити будь-що; лічильник росте «сам».
-    if (counter != shown) {
-        shown = counter;
-        Serial.print("подій: ");
-        Serial.println(shown);
-        digitalWrite(LED, HIGH); delay(15); digitalWrite(LED, LOW);   // коротке блимання
-    }
-    // ... тут може бути будь-яка інша важка робота — переривання її не пропустить ...
-}
-```
+:::code proj-reed-firmware/cpp/avr-arduino-uno-nano.cpp
 
 Три речі тут — золоті правила переривань, і порушують їх найчастіше.
 
@@ -329,76 +122,8 @@ void loop() {
 ESP32 щедріший: **зовнішнє переривання вміє майже будь-яка нога** GPIO (окрім суто вхідних 34–39, які теж працюють на вхід-переривання, але без підтяжок, і службових флеш-виводів GPIO 6–11, які чіпати не можна взагалі). Тож `D0` геркона можна завести майже куди завгодно. Синтаксис `attachInterrupt` той самий, але є одна відмінність, яку **не можна пропустити**: функцію-ISR позначають атрибутом `IRAM_ATTR` (у новіших версіях ядра — `ARDUINO_ISR_ATTR`), щоб вона лягла у швидку внутрішню пам'ять IRAM, а не в повільну флеш-пам'ять. Без цього переривання може падати або зависати, коли флеш саме зайнята.
 
 :::tabs
-```cpp
-const uint8_t REED = 4;          // D0 на GPIO4 (майже будь-яка нога годиться)
-const int     ACTIVE = LOW;
-
-const uint32_t DEBOUNCE_MS = 30;
-
-volatile uint32_t counter    = 0;
-volatile uint32_t t_last_isr = 0;
-
-// На ESP32 ISR має лежати в IRAM → атрибут IRAM_ATTR обов'язковий.
-void IRAM_ATTR on_reed() {
-    uint32_t now = millis();
-    if (now - t_last_isr >= DEBOUNCE_MS) {
-        t_last_isr = now;
-        counter++;
-    }
-}
-
-void setup() {
-    pinMode(REED, INPUT_PULLUP);   // у KY-025 підтяжка є на платі; для голого геркона — своя
-    Serial.begin(115200);
-    // Активний LOW → магніт дає спад → FALLING:
-    attachInterrupt(digitalPinToInterrupt(REED), on_reed, FALLING);
-    Serial.println("ESP32: переривання на герконі увімкнено.");
-}
-
-uint32_t shown = 0;
-
-void loop() {
-    if (counter != shown) {
-        shown = counter;
-        Serial.printf("подій: %u\n", shown);
-    }
-    // основний код вільний; наприклад, тут може крутитися Wi-Fi / дисплей
-}
-```
-```micropython
-from machine import Pin
-import time
-
-REED        = 4                  # D0 на GPIO4 (майже будь-яка нога годиться)
-
-DEBOUNCE_MS = 30
-
-counter    = 0
-t_last_isr = 0
-
-# ISR має бути короткою; @micropython.native тримає її швидкою (аналог IRAM_ATTR).
-@micropython.native
-def on_reed(pin):
-    global counter, t_last_isr
-    now = time.ticks_ms()
-    if time.ticks_diff(now, t_last_isr) >= DEBOUNCE_MS:
-        t_last_isr = now
-        counter += 1
-
-# у KY-025 підтяжка є на платі; для голого геркона — Pin.PULL_UP
-reed = Pin(REED, Pin.IN, Pin.PULL_UP)
-# Активний LOW → магніт дає спад → фронт спаду:
-reed.irq(trigger=Pin.IRQ_FALLING, handler=on_reed)
-print("ESP32: переривання на герконі увімкнено.")
-
-shown = 0
-
-while True:
-    if counter != shown:
-        shown = counter
-        print("подій:", shown)
-    # основний код вільний; наприклад, тут може крутитися Wi-Fi / дисплей
-```
+:::code proj-reed-firmware/cpp/esp32-pereryvannia-na.cpp
+:::code proj-reed-firmware/py/micropython/esp32-pereryvannia-na.py
 :::
 
 Дисципліна та сама, що на AVR: ISR коротка, спільні змінні `volatile`, брязкіт гасимо вікном. Додається лише `IRAM_ATTR` — і свобода вибору ноги. Одна практична засторога під ESP32: якщо `D0` заводите на суто вхідну ногу 34–39, зовнішня підтяжка обов'язкова (внутрішньої там немає), — але на модулі KY-025 підтяжка `Rp` уже стоїть на платі, тож окрема не потрібна; рядок `INPUT_PULLUP` у прикладі — для випадку голого геркона без плати.

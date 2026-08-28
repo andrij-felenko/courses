@@ -30,70 +30,8 @@
 Ось скетч під Arduino Uno. Полярність — класична: спокій «1» (сухо), дощ «0».
 
 :::tabs
-```cpp
-const uint8_t RAIN = 2;             // цифровий вихід DO давача
-const uint8_t LED  = 13;            // вбудований світлодіод плати
-const unsigned long SETTLE = 400;   // скільки стан має протриматися, мс
-
-bool raining   = false;             // поточний ПІДТВЕРДЖЕНИЙ стан
-bool candidate = false;             // стан, який щойно побачили на нозі
-unsigned long changedAt = 0;        // коли кандидат уперше з'явився
-
-void setup() {
-    pinMode(RAIN, INPUT);           // push-pull-вихід LM358 → підтяжка не потрібна
-    pinMode(LED, OUTPUT);
-    Serial.begin(9600);
-}
-
-void loop() {
-    // DO: 0 = дощ, 1 = сухо. Робимо булеве «зараз дощить?»
-    bool now = (digitalRead(RAIN) == LOW);
-
-    // показ змінився — запам'ятовуємо як кандидата й засікаємо час
-    if (now != candidate) {
-        candidate = now;
-        changedAt = millis();
-    }
-
-    // приймаємо новий стан, ЛИШЕ коли кандидат протримався SETTLE мс —
-    // це програмний гістерезис проти торохтняви межі
-    if (candidate != raining && millis() - changedAt > SETTLE) {
-        raining = candidate;
-        digitalWrite(LED, raining);
-        Serial.println(raining ? "дощ почався" : "дощ скінчився");
-    }
-    // програма НЕ спить: сюди можна вставити будь-яку іншу роботу
-}
-```
-```micropython
-from machine import Pin
-import time
-
-RAIN = Pin(2, Pin.IN)               # цифровий вихід DO давача
-LED  = Pin(13, Pin.OUT)             # вбудований світлодіод плати
-SETTLE = 400                        # скільки стан має протриматися, мс
-
-raining   = False                   # поточний ПІДТВЕРДЖЕНИЙ стан
-candidate = False                   # стан, який щойно побачили на нозі
-changed_at = time.ticks_ms()        # коли кандидат уперше з'явився
-
-while True:
-    # DO: 0 = дощ, 1 = сухо. Робимо булеве «зараз дощить?»
-    now = (RAIN.value() == 0)
-
-    # показ змінився — запам'ятовуємо як кандидата й засікаємо час
-    if now != candidate:
-        candidate = now
-        changed_at = time.ticks_ms()
-
-    # приймаємо новий стан, ЛИШЕ коли кандидат протримався SETTLE мс —
-    # це програмний гістерезис проти торохтняви межі
-    if candidate != raining and time.ticks_diff(time.ticks_ms(), changed_at) > SETTLE:
-        raining = candidate
-        LED.value(raining)
-        print("дощ почався" if raining else "дощ скінчився")
-    # програма НЕ спить: сюди можна вставити будь-яку іншу роботу
-```
+:::code proj-funduino-rain/cpp/do-bez-torokhtniavy.cpp
+:::code proj-funduino-rain/py/micropython/do-bez-torokhtniavy.py
 :::
 
 Серце коду — дві умови, і кожна несе вагу. Перша, `now != candidate`, ловить **будь-яку** зміну на нозі й щоразу перезапускає таймер: поки лінія торохтить, `changedAt` постійно оновлюється, і відлік «скільки протрималося» весь час скидається в нуль. Друга, `millis() - changedAt > SETTLE`, приймає новий стан лише коли він **устояв** довше за вікно — тобто торохтняви скінчилися й лінія завмерла. Пачка коротких переходів на межі так і не проб'ється у `raining`: кожен новий стрибок скидає таймер, і жоден не встигає «дозріти». А коли дощ по-справжньому почався й DO ліг у стійкий «0», кандидат нарешті протримується всі 400 мс — і ми друкуємо рівно одне «дощ почався».
@@ -105,51 +43,8 @@ while True:
 Той самий скетч під ESP32 відрізняється лише дрібницями — номером ноги (у ESP32 «цифрова» будь-яка GPIO) і швидкістю порту:
 
 :::tabs
-```cpp
-const uint8_t RAIN = 4;             // DO на GPIO4
-const uint8_t LED  = 2;             // вбудований світлодіод (на більшості плат GPIO2)
-const unsigned long SETTLE = 400;
-
-bool raining = false, candidate = false;
-unsigned long changedAt = 0;
-
-void setup() {
-    pinMode(RAIN, INPUT);
-    pinMode(LED, OUTPUT);
-    Serial.begin(115200);
-}
-
-void loop() {
-    bool now = (digitalRead(RAIN) == LOW);
-    if (now != candidate) { candidate = now; changedAt = millis(); }
-    if (candidate != raining && millis() - changedAt > SETTLE) {
-        raining = candidate;
-        digitalWrite(LED, raining);
-        Serial.println(raining ? "дощ почався" : "дощ скінчився");
-    }
-}
-```
-```micropython
-from machine import Pin
-import time
-
-RAIN = Pin(4, Pin.IN)               # DO на GPIO4
-LED  = Pin(2, Pin.OUT)              # вбудований світлодіод (на більшості плат GPIO2)
-SETTLE = 400
-
-raining, candidate = False, False
-changed_at = time.ticks_ms()
-
-while True:
-    now = (RAIN.value() == 0)
-    if now != candidate:
-        candidate = now
-        changed_at = time.ticks_ms()
-    if candidate != raining and time.ticks_diff(time.ticks_ms(), changed_at) > SETTLE:
-        raining = candidate
-        LED.value(raining)
-        print("дощ почався" if raining else "дощ скінчився")
-```
+:::code proj-funduino-rain/cpp/do-bez-torokhtniavy-2.cpp
+:::code proj-funduino-rain/py/micropython/do-bez-torokhtniavy-2.py
 :::
 
 Логіка ідентична — і це навмисно: сам прийом гістерезису на `millis()` переносний між платформами без змін, різняться тільки константи оточення.
@@ -165,88 +60,15 @@ while True:
 Ключова думка калібрування: **абсолютні числа порогів не переносяться між екземплярами**, тож їх треба здобути **на своїй платі** — і це справа п'яти хвилин. Заливаємо скетч, що просто ллє сирий `analogRead` у монітор, і дивимося дві опорні точки: скільки давач показує **сухим** і скільки — коли пластину **побризкати водою**. Між ними — ваш реальний розмах, і вже по ньому ставимо межі із запасом.
 
 :::tabs
-```cpp
-const uint8_t AO = A0;              // аналоговий вихід давача на A0
-
-void setup() {
-    Serial.begin(9600);
-}
-
-void loop() {
-    int v = analogRead(AO);         // 0..1023 на Uno; менше = мокріше
-    Serial.println(v);              // ← дивимося сухе й мокре значення
-    delay(300);
-}
-```
-```micropython
-from machine import ADC, Pin
-import time
-
-ao = ADC(Pin(34))                   # аналоговий вихід давача (ESP32: ADC1)
-ao.atten(ADC.ATTN_11DB)             # повна шкала ~3.3 В
-
-while True:
-    v = ao.read()                   # 0..4095 на ESP32; менше = мокріше
-    print(v)                        # ← дивимося сухе й мокре значення
-    time.sleep_ms(300)
-```
+:::code proj-funduino-rain/cpp/ao-cherez-atsp-porih.cpp
+:::code proj-funduino-rain/py/micropython/ao-cherez-atsp-porih.py
 :::
 
 Припустімо, монітор показав: суха пластина дає близько 900, а щедро побризкана падає до ~250. Тоді розумні пороги — з відступом від країв, щоб дрібний шум не перекидав рішення: скажімо, «сухо» вище 800, «залито» нижче 350, а між ними «волого». Впишемо це в робочий скетч і додамо гістерезис — але тепер **аналоговий**, двопороговий, бо на числі це навіть природніше, ніж на біті:
 
 :::tabs
-```cpp
-const uint8_t AO = A0;
-const int DRY_ENTER = 800;          // вище цього вважаємо «сухо»
-const int WET_ENTER = 500;          // нижче цього вважаємо «дощ»
-//   ЗВЕРНІТЬ УВАГУ: DRY_ENTER > WET_ENTER — між ними «мертва зона» гістерезису
-
-bool raining = false;
-
-void setup() {
-    Serial.begin(9600);
-}
-
-void loop() {
-    int v = analogRead(AO);         // менше число = мокріше
-
-    // двопороговий гістерезис прямо на числі:
-    //   у «дощ» переходимо, лише впавши НИЖЧЕ WET_ENTER;
-    //   у «сухо» — лише піднявшись ВИЩЕ DRY_ENTER.
-    if (!raining && v < WET_ENTER) raining = true;
-    if ( raining && v > DRY_ENTER) raining = false;
-
-    Serial.print("AO = "); Serial.print(v);
-    Serial.println(raining ? "  → дощ" : "  → сухо");
-    delay(200);
-}
-```
-```micropython
-from machine import ADC, Pin
-import time
-
-ao = ADC(Pin(34))
-ao.atten(ADC.ATTN_11DB)
-DRY_ENTER = 800                     # вище цього вважаємо «сухо»
-WET_ENTER = 500                     # нижче цього вважаємо «дощ»
-#   ЗВЕРНІТЬ УВАГУ: DRY_ENTER > WET_ENTER — між ними «мертва зона» гістерезису
-
-raining = False
-
-while True:
-    v = ao.read()                   # менше число = мокріше
-
-    # двопороговий гістерезис прямо на числі:
-    #   у «дощ» переходимо, лише впавши НИЖЧЕ WET_ENTER;
-    #   у «сухо» — лише піднявшись ВИЩЕ DRY_ENTER.
-    if not raining and v < WET_ENTER:
-        raining = True
-    if raining and v > DRY_ENTER:
-        raining = False
-
-    print("AO =", v, "  → дощ" if raining else "  → сухо")
-    time.sleep_ms(200)
-```
+:::code proj-funduino-rain/cpp/ao-cherez-atsp-porih-2.cpp
+:::code proj-funduino-rain/py/micropython/ao-cherez-atsp-porih-2.py
 :::
 
 Ось у чому сила двопорогового підходу й чому це **справжній гістерезис**, тепер уже реалізований нами, а не залізом. Між `WET_ENTER` (500) і `DRY_ENTER` (800) лежить **мертва зона** шириною 300 відліків. Щоб оголосити дощ, сигналу мало впасти нижче 500; а щоб скасувати — вирости аж вище 800. Поки число блукає всередині зони (а саме там воно й тремтить на межі зволоження), рішення **не міняється** — стан «залипає». Це та сама «мертва зона», якої катастрофічно бракує голому LM358 на DO; ми повернули її в коді, і тепер жодне тремтіння порога не дає хибних перемикань. За шириною зони стоїть простий компроміс: вужча — давач чутливіший до слабких змін, але ближчий до торохтняви; ширша — рішення твердіше, але треба помітніша зміна вологи, щоб його перекинути.
@@ -264,51 +86,8 @@ while True:
 Практично корисно ще й те, що на ESP32 сирий `analogRead` можна замінити на `analogReadMilliVolts()` — воно повертає вже **відкалібровані мілівольти**, використовуючи заводські дані калібрування, зашиті в кристал (eFuse Vref). Це обходить частину нелінійності АЦП і робить пороги трохи переноснішими між екземплярами ESP32. Пам'ятайте лише, що АЦП ESP32 галасливий і «сліпий» на самих краях шкали — приблизно нижче 0.1 В він тримає нуль, а біля 3.1 В залипає у стелю, — тож не ставте пороги в цих крайніх зонах.
 
 :::tabs
-```cpp
-const uint8_t AO = 34;              // ADC1! GPIO34 безпечний при Wi-Fi
-const int DRY_ENTER_MV = 2400;      // пороги — тепер у мілівольтах
-const int WET_ENTER_MV = 1500;
-
-bool raining = false;
-
-void setup() {
-    Serial.begin(115200);
-    analogReadResolution(12);       // 0..4095, якщо читати сирий analogRead
-}
-
-void loop() {
-    int mv = analogReadMilliVolts(AO);   // відкалібровані мілівольти
-
-    if (!raining && mv < WET_ENTER_MV) raining = true;
-    if ( raining && mv > DRY_ENTER_MV) raining = false;
-
-    Serial.print("AO = "); Serial.print(mv); Serial.print(" мВ");
-    Serial.println(raining ? "  → дощ" : "  → сухо");
-    delay(200);
-}
-```
-```micropython
-from machine import ADC, Pin
-import time
-
-ao = ADC(Pin(34))                   # ADC1! GPIO34 безпечний при Wi-Fi
-ao.atten(ADC.ATTN_11DB)             # повна шкала ~3.3 В
-DRY_ENTER_MV = 2400                 # пороги — тепер у мілівольтах
-WET_ENTER_MV = 1500
-
-raining = False
-
-while True:
-    mv = ao.read_uv() // 1000        # відкалібровані мілівольти (read_uv → мкВ)
-
-    if not raining and mv < WET_ENTER_MV:
-        raining = True
-    if raining and mv > DRY_ENTER_MV:
-        raining = False
-
-    print("AO =", mv, "мВ", "  → дощ" if raining else "  → сухо")
-    time.sleep_ms(200)
-```
+:::code proj-funduino-rain/cpp/toi-samyi-vymir-na-esp32-i.cpp
+:::code proj-funduino-rain/py/micropython/toi-samyi-vymir-na-esp32-i.py
 :::
 
 Логіка двопорогового гістерезису ідентична Uno-версії — різняться лише одиниці (мілівольти замість сирих відліків), ширша шкала й обов'язковий вибір ноги ADC1. Саме тому варто тримати рішення про поріг окремо від читання: перенести код на іншу плату — це поміняти константи й спосіб читання, а не логіку.
@@ -330,95 +109,8 @@ while True:
 Ось закінчений скетч під ESP32, що лишає модуль цілим і просто імпульсно його живить: подає VCC на час виміру, читає AO з ноги ADC1, застосовує двопороговий гістерезис, а між вимірами тримає модуль знеструмленим.
 
 :::tabs
-```cpp
-// Давач дощу цілим модулем: імпульсно живимо VCC модуля з GPIO,
-// читаємо AO з ADC1 лише під час короткого вікна. БЕЗ реверсу полярності —
-// перевертати живлення плати з LM358 не можна.
-
-const uint8_t PWR = 26;             // живлення VCC модуля (нога GPIO або ключ на транзисторі)
-const uint8_t AO  = 34;             // аналоговий вихід модуля → ADC1
-
-const unsigned long PERIOD    = 60000UL; // період між вимірами, мс (тут 1 хв)
-const unsigned long SETTLE_MS = 30;      // усталення LM358 + подільника
-const int DRY_ENTER_MV = 2400;
-const int WET_ENTER_MV = 1500;
-
-bool raining = false;
-unsigned long lastMeasure = 0;
-
-// один вимір: подати живлення на весь модуль, усталити, зчитати AO, зняти живлення
-int measureOnce() {
-    digitalWrite(PWR, HIGH);            // подали живлення на весь модуль
-    delay(SETTLE_MS);                   // LM358 і подільник усталюються
-    int mv = analogReadMilliVolts(AO);
-    digitalWrite(PWR, LOW);             // зняли живлення — струму крізь вологу нема
-    return mv;
-}
-
-void setup() {
-    Serial.begin(115200);
-    analogReadResolution(12);
-    pinMode(PWR, OUTPUT);
-    digitalWrite(PWR, LOW);             // старт — модуль знеструмлений
-}
-
-void loop() {
-    if (millis() - lastMeasure >= PERIOD) {
-        lastMeasure = millis();
-        int mv = measureOnce();
-
-        if (!raining && mv < WET_ENTER_MV) raining = true;
-        if ( raining && mv > DRY_ENTER_MV) raining = false;
-
-        Serial.print("AO = "); Serial.print(mv); Serial.print(" мВ  → ");
-        Serial.println(raining ? "дощ" : "сухо");
-    }
-    // весь інший час модуль знеструмлений, МК вільний (тут доречний і сон)
-}
-```
-```micropython
-# Давач дощу цілим модулем: імпульсно живимо VCC модуля з GPIO,
-# читаємо AO з ADC1 лише під час короткого вікна. БЕЗ реверсу полярності —
-# перевертати живлення плати з LM358 не можна.
-
-from machine import ADC, Pin
-import time
-
-PWR = Pin(26, Pin.OUT)              # живлення VCC модуля (нога GPIO або ключ на транзисторі)
-ao  = ADC(Pin(34))                  # аналоговий вихід модуля → ADC1
-ao.atten(ADC.ATTN_11DB)
-
-PERIOD    = 60000                   # період між вимірами, мс (тут 1 хв)
-SETTLE_MS = 30                      # усталення LM358 + подільника
-DRY_ENTER_MV = 2400
-WET_ENTER_MV = 1500
-
-raining = False
-last_measure = time.ticks_ms()
-
-# один вимір: подати живлення на весь модуль, усталити, зчитати AO, зняти живлення
-def measure_once():
-    PWR.value(1)                    # подали живлення на весь модуль
-    time.sleep_ms(SETTLE_MS)        # LM358 і подільник усталюються
-    mv = ao.read_uv() // 1000
-    PWR.value(0)                    # зняли живлення — струму крізь вологу нема
-    return mv
-
-PWR.value(0)                        # старт — модуль знеструмлений
-
-while True:
-    if time.ticks_diff(time.ticks_ms(), last_measure) >= PERIOD:
-        last_measure = time.ticks_ms()
-        mv = measure_once()
-
-        if not raining and mv < WET_ENTER_MV:
-            raining = True
-        if raining and mv > DRY_ENTER_MV:
-            raining = False
-
-        print("AO =", mv, "мВ  →", "дощ" if raining else "сухо")
-    # весь інший час модуль знеструмлений, МК вільний (тут доречний і сон)
-```
+:::code proj-funduino-rain/cpp/plastyna-pid-strumom-hyne.cpp
+:::code proj-funduino-rain/py/micropython/plastyna-pid-strumom-hyne.py
 :::
 
 Одне застереження до живлення VCC прямо з ноги: модуль тягне струм своїх індикаторів і LM358 — зазвичай кілька міліампер, що нозі до снаги, але якщо на платі яскраві світлодіоди або ви живите кілька давачів, поставте між шиною й модулем ключ на польовому транзисторі, а ногою лише керуйте затвором. Тоді нога не несе струму навантаження, а тільки вмикає й вимикає живлення.
@@ -433,118 +125,8 @@ while True:
 Ось закінчений скетч під ESP32, що поєднує обидва ліки на голій пластині: живить її з двох GPIO з реверсом полярності, читає середину власного подільника лише під час короткого вікна, застосовує двопороговий гістерезис і між вимірами тримає пластину відірваною (Hi-Z).
 
 :::tabs
-```cpp
-// Реверс полярності на ГОЛІЙ пластині (плата LM358 не задіяна).
-// Гребінки пластини — на GPIO25 і GPIO26; між GPIO25 і GPIO34 — опорний
-// резистор R_ref, сама пластина — між GPIO34 і GPIO26. Читаємо GPIO34 (ADC1).
-
-const uint8_t DRV_A = 25;           // гребінка A + опорний резистор до NODE
-const uint8_t DRV_B = 26;           // гребінка B
-const uint8_t NODE  = 34;           // середина подільника → ADC1
-const int ADC_FS = 4095;            // повна шкала 12-біт АЦП
-
-const unsigned long PERIOD    = 60000UL; // період між вимірами, мс (тут 1 хв)
-const unsigned long SETTLE_MS = 30;      // усталення напруги на подільнику
-const int DRY_ENTER = 2600;         // пороги — у нормованих відліках, калібрувати
-const int WET_ENTER = 1500;
-
-bool raining = false;
-bool flip = false;                  // чергування полярності
-unsigned long lastMeasure = 0;
-
-// один вимір: подати полярність, усталити, зчитати середину, знеструмити,
-// а тоді нормувати так, щоб «менше = мокріше» незалежно від напрямку струму
-int measureOnce(bool reversed) {
-    uint8_t hi = reversed ? DRV_B : DRV_A;   // яка гребінка «плюс» цього разу
-    uint8_t lo = reversed ? DRV_A : DRV_B;
-    pinMode(hi, OUTPUT); digitalWrite(hi, HIGH);
-    pinMode(lo, OUTPUT); digitalWrite(lo, LOW);
-    delay(SETTLE_MS);                        // коротке усталення напруги на подільнику
-    int raw = analogRead(NODE);
-    // знеструмлюємо пластину: обидві ноги у Hi-Z, струм крізь вологу спинено
-    pinMode(hi, INPUT);
-    pinMode(lo, INPUT);
-    // при розвороті плечі міняються місцями → відлік інвертується; вирівнюємо
-    return reversed ? (ADC_FS - raw) : raw;
-}
-
-void setup() {
-    Serial.begin(115200);
-    analogReadResolution(12);
-    pinMode(DRV_A, INPUT);          // старт — пластина знеструмлена (Hi-Z)
-    pinMode(DRV_B, INPUT);
-}
-
-void loop() {
-    if (millis() - lastMeasure >= PERIOD) {
-        lastMeasure = millis();
-        int v = measureOnce(flip);           // полярність — по черзі
-        flip = !flip;
-
-        if (!raining && v < WET_ENTER) raining = true;
-        if ( raining && v > DRY_ENTER) raining = false;
-
-        Serial.print("вологість = "); Serial.print(v); Serial.print("  → ");
-        Serial.println(raining ? "дощ" : "сухо");
-    }
-    // весь інший час пластина у Hi-Z, МК вільний (тут доречний і сон)
-}
-```
-```micropython
-# Реверс полярності на ГОЛІЙ пластині (плата LM358 не задіяна).
-# Гребінки пластини — на GPIO25 і GPIO26; між GPIO25 і GPIO34 — опорний
-# резистор R_ref, сама пластина — між GPIO34 і GPIO26. Читаємо GPIO34 (ADC1).
-
-from machine import ADC, Pin
-import time
-
-DRV_A = 25                          # гребінка A + опорний резистор до NODE
-DRV_B = 26                          # гребінка B
-ADC_FS = 4095                       # повна шкала 12-біт АЦП
-node = ADC(Pin(34))                 # середина подільника → ADC1
-node.atten(ADC.ATTN_11DB)
-
-PERIOD    = 60000                   # період між вимірами, мс (тут 1 хв)
-SETTLE_MS = 30                      # усталення напруги на подільнику
-DRY_ENTER = 2600                    # пороги — у нормованих відліках, калібрувати
-WET_ENTER = 1500
-
-raining = False
-flip = False                        # чергування полярності
-last_measure = time.ticks_ms()
-
-# один вимір: подати полярність, усталити, зчитати середину, знеструмити,
-# а тоді нормувати так, щоб «менше = мокріше» незалежно від напрямку струму
-def measure_once(reversed):
-    hi = DRV_B if reversed else DRV_A   # яка гребінка «плюс» цього разу
-    lo = DRV_A if reversed else DRV_B
-    Pin(hi, Pin.OUT).value(1)
-    Pin(lo, Pin.OUT).value(0)
-    time.sleep_ms(SETTLE_MS)            # коротке усталення напруги на подільнику
-    raw = node.read()
-    # знеструмлюємо пластину: обидві ноги у Hi-Z, струм крізь вологу спинено
-    Pin(hi, Pin.IN)
-    Pin(lo, Pin.IN)
-    # при розвороті плечі міняються місцями → відлік інвертується; вирівнюємо
-    return (ADC_FS - raw) if reversed else raw
-
-Pin(DRV_A, Pin.IN)                  # старт — пластина знеструмлена (Hi-Z)
-Pin(DRV_B, Pin.IN)
-
-while True:
-    if time.ticks_diff(time.ticks_ms(), last_measure) >= PERIOD:
-        last_measure = time.ticks_ms()
-        v = measure_once(flip)          # полярність — по черзі
-        flip = not flip
-
-        if not raining and v < WET_ENTER:
-            raining = True
-        if raining and v > DRY_ENTER:
-            raining = False
-
-        print("вологість =", v, "  →", "дощ" if raining else "сухо")
-    # весь інший час пластина у Hi-Z, МК вільний
-```
+:::code proj-funduino-rain/cpp/plastyna-pid-strumom-hyne-2.cpp
+:::code proj-funduino-rain/py/micropython/plastyna-pid-strumom-hyne-2.py
 :::
 
 Три речі в цьому коді вирішальні. Перше — **знеструмлення через `INPUT`**: обидві гребінки переводимо у високоімпедансний стан (Hi-Z, `pinMode(pin, INPUT)`), фактично відриваючи пластину від живлення; струм крізь вологу спиняється повністю, а не просто «падає до нуля вольтів». Друге — **пауза `SETTLE_MS` на усталення**: подільник із пластиною не миттєвий, і якщо читати АЦП одразу після подання живлення, зловиш перехідний процес; кількадесят мілісекунд дають напрузі влягтися. Третє — **нормування розвернутого виміру**: коли `DRV_A` і `DRV_B` міняються ролями, «сире» число АЦП перевертається, тому на непарному вимірі повертаємо `ADC_FS - raw` — і тоді «менше = мокріше» справджується завжди, а двопороговий гістерезис працює на однорідній шкалі. Між вимірами (тут ціла хвилина) уся пластина у Hi-Z — сюди природно лягає режим сну мікроконтролера, і тоді середній струм давача падає до майже нуля.
@@ -561,47 +143,7 @@ while True:
 
 Зберемо це в закінчений скетч. Він читає DO (для економії — але з AO працює так само), і оголошує «дощ» лише коли пластина мокра **безперервно** довше за поріг часу; щойно вона підсихає, лічильник скидається. Так роса, що приходить і йде, і коротка мжичка порогу часу не набирають, а справжній дощ — набирає.
 
-```cpp
-// Відсів роси/туману: «дощ» лише коли мокро БЕЗПЕРЕРВНО довше за N хвилин.
-// DO давача на D2 (класична полярність: 0 = мокро, 1 = сухо).
-
-const uint8_t RAIN = 2;
-const unsigned long RAIN_MIN_MS = 3UL * 60UL * 1000UL;  // 3 хвилини стійкої вологи
-const unsigned long DRY_CLEAR_MS = 30UL * 1000UL;       // 30 с сухо → скидаємо
-
-bool wet = false;                   // миттєво мокро (сира ознака)
-bool declaredRain = false;          // ПІДТВЕРДЖЕНИЙ дощ
-unsigned long wetSince = 0;         // відколи безперервно мокро
-unsigned long drySince = 0;         // відколи безперервно сухо
-
-void setup() {
-    pinMode(RAIN, INPUT);
-    Serial.begin(9600);
-}
-
-void loop() {
-    bool nowWet = (digitalRead(RAIN) == LOW);
-    unsigned long t = millis();
-
-    if (nowWet) {
-        if (!wet) { wet = true; wetSince = t; }   // щойно намокло — засікаємо
-        drySince = 0;
-        // мокро вже досить довго → це справжній дощ
-        if (!declaredRain && t - wetSince >= RAIN_MIN_MS) {
-            declaredRain = true;
-            Serial.println(">>> ДОЩ підтверджено (мокро > 3 хв)");
-        }
-    } else {
-        if (wet) { wet = false; drySince = t; }   // щойно висохло — засікаємо
-        wetSince = 0;
-        // сухо вже досить довго → дощ скінчився
-        if (declaredRain && t - drySince >= DRY_CLEAR_MS) {
-            declaredRain = false;
-            Serial.println(">>> сухо, дощ скінчився");
-        }
-    }
-}
-```
+:::code proj-funduino-rain/cpp/rosa-i-tuman-lohika-doshch.cpp
 
 Логіка тримається на двох таймерах-«відколи». `wetSince` рахує, як довго пластина мокра **безперервно**: щойно вона на мить підсихає, гілка `else` скидає `wet`, і наступне намокання почне відлік наново — отже, коротка роса, що приходить і сходить, ніколи не набере трьох хвилин поспіль. Симетрично `drySince` вимагає, щоб перед оголошенням кінця дощу пластина побула сухою стійкі 30 секунд, — інакше пауза між зливами розірвала б один дощ на два. Пороги `RAIN_MIN_MS` і `DRY_CLEAR_MS` — це і є ваша політика: підняли перший — суворіше відсіваєте росу ціною запізнілої реакції на дощ; підняли другий — твердіше склеюєте перерви в зливі.
 
@@ -616,38 +158,8 @@ void loop() {
 **Пастка 2: перевернута полярність DO на різних партіях.** Класична плата в спокої тримає DO у «1» (сухо), а дощ притискає до «0». Але розводка модуля на різних партіях гуляє: буває, який вхід компаратора «+», а який «−», розведено навпаки, і тоді все перевертається — спокій «0», дощ «1». Скетч, написаний під чужу полярність, поводитиметься точно навпаки: «дощить» у суху погоду й мовчить під зливою. Лік — **не вірити чужому малюнку, а прочитати полярність спокою на своїй платі в `setup`** і будувати логіку від неї, а не від константи. Ось акуратний спосіб: у `setup` (коли пластина явно суха) один раз читаємо DO й запам'ятовуємо цей рівень як «сухо», а «дощем» вважаємо протилежний.
 
 :::tabs
-```cpp
-const uint8_t RAIN = 2;
-bool dryLevel;                      // рівень DO у спокої — визначимо на старті
-
-void setup() {
-    pinMode(RAIN, INPUT);
-    Serial.begin(9600);
-    delay(50);
-    dryLevel = digitalRead(RAIN);   // ПРИПУСКАЄМО: на старті пластина суха
-    Serial.print("рівень 'сухо' на цій платі = ");
-    Serial.println(dryLevel ? "HIGH" : "LOW");
-}
-
-void loop() {
-    bool nowWet = (digitalRead(RAIN) != dryLevel);   // мокро = НЕ як у спокої
-    // ... далі звична логіка гістерезису/відсіву на булевому nowWet ...
-}
-```
-```micropython
-from machine import Pin
-import time
-
-RAIN = Pin(2, Pin.IN)
-
-time.sleep_ms(50)
-dry_level = RAIN.value()            # ПРИПУСКАЄМО: на старті пластина суха
-print("рівень 'сухо' на цій платі =", "HIGH" if dry_level else "LOW")
-
-while True:
-    now_wet = (RAIN.value() != dry_level)   # мокро = НЕ як у спокої
-    # ... далі звична логіка гістерезису/відсіву на булевому now_wet ...
-```
+:::code proj-funduino-rain/cpp/try-pastky-u-iaki-padaiut.cpp
+:::code proj-funduino-rain/py/micropython/try-pastky-u-iaki-padaiut.py
 :::
 
 Прийом коштує одного рядка, а робить скетч **байдужим до полярності партії**: хоч спокій «1», хоч «0» — «мокро» завжди означає «не так, як було в суху погоду на старті». Єдина умова — на момент `setup` пластина має бути справді суха (інакше давач «запам'ятає» дощ за норму). Для стаціонарного пристрою це майже завжди так; для параної можна звіритися ще й з AO.

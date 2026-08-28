@@ -44,44 +44,8 @@ def magnet_present(pin: Pin) -> bool:
 **Умова.** Сигнал S KY-021 — на D2 Arduino Uno; поки поряд магніт, світить вбудований світлодіод (D13) і в монітор порту летить стан. Плата 5-вольтова, модуль живимо 5 В.
 
 :::tabs
-```cpp
-const uint8_t PIN_REED = 2;    // S давача KY-021
-const uint8_t PIN_LED  = 13;   // вбудований світлодіод
-
-inline bool magnetPresent(uint8_t pin) { return digitalRead(pin) == LOW; }
-
-void setup() {
-  pinMode(PIN_REED, INPUT);    // підтяжка вже на платі — INPUT достатньо
-  pinMode(PIN_LED,  OUTPUT);
-  Serial.begin(9600);
-}
-
-void loop() {
-  bool magnet = magnetPresent(PIN_REED);
-  digitalWrite(PIN_LED, magnet ? HIGH : LOW);
-  Serial.println(magnet ? "магніт поряд" : "магніту немає");
-  delay(100);
-}
-```
-```micropython
-from machine import Pin
-import time
-
-PIN_REED = 4                       # S давача KY-021 (GPIO 4)
-PIN_LED  = 2                        # вбудований світлодіод (GPIO 2)
-
-reed = Pin(PIN_REED, Pin.IN)       # підтяжка вже на платі — Pin.IN достатньо
-led  = Pin(PIN_LED, Pin.OUT)
-
-def magnet_present(pin: Pin) -> bool:
-    return pin.value() == 0
-
-while True:
-    magnet = magnet_present(reed)
-    led.value(1 if magnet else 0)
-    print("магніт поряд" if magnet else "магніту немає")
-    time.sleep_ms(100)
-```
+:::code proj-ky021/cpp/zadacha-1-prosto.cpp
+:::code proj-ky021/py/micropython/zadacha-1-prosto.py
 :::
 
 Це працює й нічого хитрого не потребує — саме тому, що ми **не лічимо** й нам байдужий брязкіт. Якщо в мить замикання язички геркона кілька разів клацнуть між дотиком і розривом, світлодіод на ці мілісекунди легенько моргне — і ніхто цього не побачить. Для «показувати поточний стан» брязкіт нешкідливий; ми його просто ігноруємо.
@@ -107,73 +71,8 @@ while True:
 **Умова.** На колесі — магніт, повз нього стоїть KY-021 (S на D2). Рахуємо оберти й раз на секунду друкуємо лічбу. Магніт замикає геркон один раз за оберт.
 
 :::tabs
-```cpp
-const uint8_t PIN_REED = 2;
-const unsigned long DEBOUNCE_MS = 10;   // вікно тиші після події (мс)
-
-inline bool magnetPresent(uint8_t pin) { return digitalRead(pin) == LOW; }
-
-unsigned long revolutions = 0;
-bool          lastState   = false;      // магніт був поряд минулого разу?
-unsigned long lastEdgeMs  = 0;          // коли востаннє зарахували край
-unsigned long lastReport  = 0;
-
-void setup() {
-  pinMode(PIN_REED, INPUT);
-  Serial.begin(9600);
-}
-
-void loop() {
-  unsigned long now = millis();
-  bool state = magnetPresent(PIN_REED);
-
-  // цікавить перехід «не було → з'явився» (край HIGH→LOW),
-  // і лише якщо від минулого зарахованого краю минуло вікно тиші
-  if (state && !lastState && (now - lastEdgeMs) >= DEBOUNCE_MS) {
-    revolutions++;
-    lastEdgeMs = now;
-  }
-  lastState = state;
-
-  if (now - lastReport >= 1000) {
-    lastReport = now;
-    Serial.print("обертів: ");
-    Serial.println(revolutions);
-  }
-}
-```
-```micropython
-from machine import Pin
-import time
-
-PIN_REED    = 4
-DEBOUNCE_MS = 10                  # вікно тиші після події (мс)
-
-reed = Pin(PIN_REED, Pin.IN)
-
-def magnet_present(pin: Pin) -> bool:
-    return pin.value() == 0
-
-revolutions  = 0
-last_state   = False              # магніт був поряд минулого разу?
-last_edge_ms = 0                  # коли востаннє зарахували край
-last_report  = 0
-
-while True:
-    now   = time.ticks_ms()
-    state = magnet_present(reed)
-
-    # цікавить перехід «не було → з'явився» (край HIGH→LOW),
-    # і лише якщо від минулого зарахованого краю минуло вікно тиші
-    if state and not last_state and time.ticks_diff(now, last_edge_ms) >= DEBOUNCE_MS:
-        revolutions += 1
-        last_edge_ms = now
-    last_state = state
-
-    if time.ticks_diff(now, last_report) >= 1000:
-        last_report = now
-        print("обертів:", revolutions)
-```
+:::code proj-ky021/cpp/debauns-na-millis.cpp
+:::code proj-ky021/py/micropython/debauns-na-millis.py
 :::
 
 Простежмо логіку, бо кожен рядок тут навмисний. Ми ловимо **край**, а не рівень: `state && !lastState` спрацьовує лише в **той цикл**, коли магніт щойно з'явився (був `false`, став `true`) — тож один прохід дає максимум одне зарахування, а не купу, поки магніт стоїть навпроти. Але край сам по собі ще не рятує від брязкоту: перший відскок теж дасть край HIGH→LOW. Тому додано `(now - lastEdgeMs) >= DEBOUNCE_MS` — **після зарахованого краю ми на 10 мс глухнемо**. Другий, третій, четвертий відскоки прилітають усередині цього вікна й ігноруються; на момент, коли вікно спливе, геркон уже давно заспокоївся. `lastState = state` наприкінці — щоб наступний цикл знав, який стан був «минулого разу».
@@ -205,70 +104,8 @@ while True:
 Опитувати пін у `loop()` добре, поки `loop()` короткий. Але якщо в проєкті багато роботи й один прохід циклу тягнеться довго, можна **проґавити** швидкий імпульс — магніт майне повз геркон між двома опитуваннями. Надійніше доручити ловлю самому чипу через [апаратне переривання](root:hw-arch/interrupts): пін налаштовуємо так, що падіння в LOW **саме** смикає короткий обробник, хоч би що робив основний код.
 
 :::tabs
-```cpp
-const uint8_t PIN_REED = 2;              // на Uno INT-входи — D2 і D3
-const unsigned long DEBOUNCE_MS = 10;
-
-volatile unsigned long revolutions = 0;  // змінюється в перериванні → volatile
-volatile unsigned long lastEdgeMs  = 0;
-
-void onReedFall() {                       // обробник переривання (ISR)
-  unsigned long now = millis();           // millis() всередині ISR читати можна
-  if (now - lastEdgeMs >= DEBOUNCE_MS) {  // той самий таймерний дебаунс
-    revolutions++;
-    lastEdgeMs = now;
-  }
-}
-
-void setup() {
-  pinMode(PIN_REED, INPUT);
-  // край HIGH→LOW (магніт з'явився) смикає onReedFall()
-  attachInterrupt(digitalPinToInterrupt(PIN_REED), onReedFall, FALLING);
-  Serial.begin(9600);
-}
-
-void loop() {
-  static unsigned long lastReport = 0;
-  if (millis() - lastReport >= 1000) {
-    lastReport = millis();
-    noInterrupts();                        // читаємо 32-бітну лічбу атомарно
-    unsigned long snapshot = revolutions;
-    interrupts();
-    Serial.print("обертів: ");
-    Serial.println(snapshot);
-  }
-}
-```
-```micropython
-from machine import Pin, disable_irq, enable_irq
-import time
-
-PIN_REED    = 4
-DEBOUNCE_MS = 10
-
-revolutions  = 0                  # змінюється в обробнику переривання
-last_edge_ms = 0
-
-def on_reed_fall(pin):            # обробник переривання (ISR)
-    global revolutions, last_edge_ms
-    now = time.ticks_ms()         # ticks_ms() усередині ISR читати можна
-    if time.ticks_diff(now, last_edge_ms) >= DEBOUNCE_MS:  # той самий таймерний дебаунс
-        revolutions += 1
-        last_edge_ms = now
-
-reed = Pin(PIN_REED, Pin.IN)
-# край HIGH→LOW (магніт з'явився) смикає on_reed_fall()
-reed.irq(trigger=Pin.IRQ_FALLING, handler=on_reed_fall)
-
-last_report = 0
-while True:
-    if time.ticks_diff(time.ticks_ms(), last_report) >= 1000:
-        last_report = time.ticks_ms()
-        state = disable_irq()     # читаємо лічбу атомарно
-        snapshot = revolutions
-        enable_irq(state)
-        print("обертів:", snapshot)
-```
+:::code proj-ky021/cpp/koly-briazkit-znykaie-sam.cpp
+:::code proj-ky021/py/micropython/koly-briazkit-znykaie-sam.py
 :::
 
 Тут з'являються дві речі, повз які пройти не можна, бо їх забувають — і код починає збоїти рідко й незрозуміло. Перша: змінні, які чіпає переривання (`revolutions`, `lastEdgeMs`), позначені `volatile`. Без цього компілятор має право вирішити, що між ітераціями `loop()` вони не міняються (адже в `loop()` їх ніхто не пише), і закешувати старе значення в регістрі — лічба «замерзне». `volatile` наказує щоразу читати з пам'яті. Друга: `revolutions` — 32-бітна, а Uno 8-бітний, тож читання цих чотирьох байтів **не атомарне**: переривання може вклинитися посеред читання й лишити тобі напівоновлене число-химеру. Тому на час зчитування ми глушимо переривання (`noInterrupts()`), копіюємо значення й одразу вмикаємо назад. Обробник тримаємо **коротким** — жодних `Serial.print` усередині ISR: друк повільний, а переривання має влетіти й вилетіти за мікросекунди.
@@ -282,71 +119,8 @@ while True:
 **Умова.** KY-021 на дверях (S на D3). Хочемо: коли двері **зачинили** (магніт наблизився, HIGH→LOW) — надрукувати «зачинено» один раз; коли **відчинили** (LOW→HIGH) — «відчинено» один раз. Жодних повторів, поки стан тримається.
 
 :::tabs
-```cpp
-const uint8_t PIN_REED = 3;
-const unsigned long DEBOUNCE_MS = 20;   // двері — не поспішають, вікно можна більше
-
-inline bool magnetPresent(uint8_t pin) { return digitalRead(pin) == LOW; }
-
-bool          doorClosed  = false;      // стійкий (уже підтверджений) стан
-bool          reading     = false;      // останнє миттєве читання
-unsigned long lastChange  = 0;
-
-void setup() {
-  pinMode(PIN_REED, INPUT);
-  Serial.begin(9600);
-  doorClosed = magnetPresent(PIN_REED); // початковий стан при вмиканні
-}
-
-void loop() {
-  unsigned long now = millis();
-  bool now_reading = magnetPresent(PIN_REED);
-
-  // щойно миттєве читання відрізнилось від попереднього — перезапускаємо таймер
-  if (now_reading != reading) {
-    reading = now_reading;
-    lastChange = now;
-  }
-
-  // читання протрималось незмінним довше за вікно → це справжня зміна, не брязкіт
-  if ((now - lastChange) >= DEBOUNCE_MS && now_reading != doorClosed) {
-    doorClosed = now_reading;             // фіксуємо новий стійкий стан
-    Serial.println(doorClosed ? "зачинено" : "відчинено");
-    // сюди — одноразова дія на перехід (надіслати, приспати, увімкнути…)
-  }
-}
-```
-```micropython
-from machine import Pin
-import time
-
-PIN_REED    = 5
-DEBOUNCE_MS = 20                  # двері — не поспішають, вікно можна більше
-
-reed = Pin(PIN_REED, Pin.IN)
-
-def magnet_present(pin: Pin) -> bool:
-    return pin.value() == 0
-
-door_closed = magnet_present(reed)  # початковий стан при вмиканні
-reading     = door_closed           # останнє миттєве читання
-last_change = 0
-
-while True:
-    now = time.ticks_ms()
-    now_reading = magnet_present(reed)
-
-    # щойно миттєве читання відрізнилось від попереднього — перезапускаємо таймер
-    if now_reading != reading:
-        reading = now_reading
-        last_change = now
-
-    # читання протрималось незмінним довше за вікно → це справжня зміна, не брязкіт
-    if time.ticks_diff(now, last_change) >= DEBOUNCE_MS and now_reading != door_closed:
-        door_closed = now_reading         # фіксуємо новий стійкий стан
-        print("зачинено" if door_closed else "відчинено")
-        # сюди — одноразова дія на перехід (надіслати, приспати, увімкнути…)
-```
+:::code proj-ky021/cpp/zadacha-3-spiimaty-myt.cpp
+:::code proj-ky021/py/micropython/zadacha-3-spiimaty-myt.py
 :::
 
 Це вже **повноцінний антибрязкотний скінченний автомат**, і він елегантніший за попередній: він давить брязкіт **на обох краях** (і на замиканні, і на розмиканні) і водночас гарантує рівно одну реакцію на перехід. Логіка така: будь-яка зміна миттєвого читання перезапускає таймер `lastChange`; **справжньою** зміну визнаємо лише коли нове читання **протрималось незмінним** довше за вікно (`now - lastChange >= DEBOUNCE_MS`) і при цьому воно **відрізняється** від поточного стійкого стану. Брязкіт — це якраз швидкі перемикання, коротші за вікно; вони весь час скидають таймер і ніколи не «дозрівають» до зміни стійкого стану. А `doorClosed != now_reading` у кінці — запобіжник від повтору: коли стан уже зафіксовано, повторно ту саму дію не запустимо, доки не буде реального переходу назад.
@@ -371,56 +145,7 @@ while True:
 
 **Умова.** У спокої магніту біля геркона **нема**: підтяжка тримає пін у HIGH — саме в цьому стані чип спить у мікроамперах. Прокинутись треба, **щойно геркон замкнеться** (магніт під'їхав → пін упав у LOW): зачинили кришку з магнітом, під'їхав рухомий вузол, піднесли магніт-«ключ». ATmega328P (Uno/Nano), геркон на D2 (INT0).
 
-```cpp
-#include <avr/sleep.h>
-#include <avr/interrupt.h>
-
-const uint8_t PIN_REED = 2;              // INT0
-
-inline bool magnetPresent(uint8_t pin) { return digitalRead(pin) == LOW; }
-
-void onWake() {
-  // порожньо: сам факт переривання будить чип; діло робимо в loop()
-}
-
-void goToSleep() {
-  ADCSRA &= ~(1 << ADEN);                // вимкнути АЦП — інакше він їсть струм і уві сні
-  set_sleep_mode(SLEEP_MODE_PWR_DOWN);   // найглибший сон, тактовий генератор стане
-  cli();                                  // без переривань, поки готуємось (без гонки)
-  sleep_enable();
-  // у power-down доступний лише РІВЕНЬ. Озброюємось на НИЗЬКИЙ (пін LOW).
-  // зараз магніту нема → пін HIGH → умова не виконана, тож чип спокійно засне;
-  // переривання вистрелить згодом, коли геркон замкне пін у LOW.
-  attachInterrupt(digitalPinToInterrupt(PIN_REED), onWake, LOW);
-  sei();                                  // тепер переривання дозволені
-  sleep_cpu();                            // ← ЧИП ЗАСИНАЄ ТУТ
-
-  // ---- прокинулись (геркон замкнув пін у LOW): продовжуємо звідси ----
-  sleep_disable();
-  detachInterrupt(digitalPinToInterrupt(PIN_REED));
-}
-
-void setup() {
-  pinMode(PIN_REED, INPUT);              // підтяжка на платі тримає рівні чіткими
-  Serial.begin(9600);
-  Serial.println("старт: засинаю, чекаю на замикання геркона");
-  Serial.flush();
-  goToSleep();                           // одразу в сон — до першого замикання
-}
-
-void loop() {
-  // сюди виконання потрапляє ЩОЙНО прокинулись: геркон замкнувся
-  Serial.println("прокинувся: геркон замкнувся (магніт поряд)!");
-  Serial.flush();                        // дочекатись, поки байти підуть у порт
-  // ... тут корисне діло: тривога по радіо, інкремент лічби, запис часу ...
-
-  // поки магніт біля геркона (пін LOW), у power-down лягати НЕ МОЖНА:
-  // рівневе переривання підняло б нас миттєво. Чекаємо, доки магніт поїде.
-  while (magnetPresent(PIN_REED)) delay(20);
-
-  goToSleep();                           // магніт поїхав (пін HIGH) — спимо далі
-}
-```
+:::code proj-ky021/cpp/avr-arduino-uno-nano.cpp
 
 Простежмо, чому це справді спить, а не будиться щомиті. У мить `goToSleep()` магніту нема, пін у HIGH — а озброїли ми переривання на **LOW**. Умова не виконана, тож `sleep_cpu()` спокійно занурює чип у power-down: тактовий генератор стає, споживання падає в десяті частки мікроампера — і так, доки хтось не піднесе магніт. Щойно геркон замкнув пін у нуль, асинхронна ловля рівня (їй генератор не потрібен) будить чип, і виконання йде далі, у `loop()`.
 
@@ -439,65 +164,8 @@ void loop() {
 **Умова.** KY-021 на ESP32, S на GPIO 25. Хочемо спати в глибокому сні й прокидатися, щойно геркон замкнеться (магніт наблизиться → пін у LOW).
 
 :::tabs
-```cpp
-#include "driver/rtc_io.h"
-
-const gpio_num_t PIN_REED = GPIO_NUM_25;  // ОБОВ'ЯЗКОВО RTC-здатний GPIO!
-
-void setup() {
-  Serial.begin(115200);
-  delay(200);
-
-  // чому прокинулись цього разу?
-  esp_sleep_wakeup_cause_t cause = esp_sleep_get_wakeup_cause();
-  if (cause == ESP_SLEEP_WAKEUP_EXT0)
-    Serial.println("прокинувся: геркон замкнувся (магніт поряд)");
-  else
-    Serial.println("холодний старт / скидання");
-
-  // тут — корисне діло: надіслати тривогу по Wi-Fi, інкрементувати лічбу тощо
-
-  // готуємось спати: будити, коли PIN_REED впаде в 0 (геркон замкнений)
-  esp_sleep_enable_ext0_wakeup(PIN_REED, 0);   // 0 == прокинутись на LOW
-
-  // на час сну лишити внутрішню підтяжку, щоб пін не «плавав»
-  rtc_gpio_pullup_en(PIN_REED);
-  rtc_gpio_pulldown_dis(PIN_REED);
-
-  Serial.println("засинаю…");
-  Serial.flush();
-  esp_deep_sleep_start();                        // ← далі виконання НЕ ЙДЕ
-}
-
-void loop() {
-  // недосяжно: після deep sleep чип перезавантажується й починає із setup()
-}
-```
-```micropython
-import machine
-import esp32
-from machine import Pin
-
-PIN_REED = 25                     # ОБОВ'ЯЗКОВО RTC-здатний GPIO!
-
-# після deep sleep чип стартує заново — уся логіка виконується «на вході»
-
-# чому прокинулись цього разу?
-if machine.wake_reason() == machine.EXT0_WAKE:
-    print("прокинувся: геркон замкнувся (магніт поряд)")
-else:
-    print("холодний старт / скидання")
-
-# тут — корисне діло: надіслати тривогу по Wi-Fi, інкрементувати лічбу тощо
-
-reed = Pin(PIN_REED, Pin.IN, Pin.PULL_UP)  # внутрішня підтяжка, щоб пін не «плавав»
-
-# готуємось спати: будити, коли PIN_REED впаде в 0 (геркон замкнений)
-esp32.wake_on_ext0(pin=reed, level=esp32.WAKEUP_ALL_LOW)  # прокинутись на LOW
-
-print("засинаю…")
-machine.deepsleep()               # ← далі виконання НЕ ЙДЕ
-```
+:::code proj-ky021/cpp/esp32-hlybokyi-son-i.cpp
+:::code proj-ky021/py/micropython/esp32-hlybokyi-son-i.py
 :::
 
 Тут відразу впадають в око дві відмінності від AVR, і обидві — типові пастки саме ESP32. Перша: **не будь-який GPIO вміє будити з глибокого сну**. Ловля рівня уві сні лежить на окремому «завжди живому» блоці RTC, тож пін мусить бути **RTC-здатним** — на класичному ESP32 це GPIO 0, 2, 4, 12–15, 25–27, 32–39. Причепиш геркон до GPIO 16 — код скомпілюється, але з deep sleep не прокинеться ніколи, і шукатимеш причину годинами. Друга: після глибокого сну ESP32 **не продовжує з місця засинання, а перезавантажується** — виконання щоразу починається з `setup()`, як після скидання. Тому вся логіка «прокинувся → зробив діло → знову спати» живе **в `setup()`**, а `loop()` лишається порожнім і недосяжним. Причину пробудження питаємо в `esp_sleep_get_wakeup_cause()`, щоб відрізнити «розбудив геркон» від «холодний старт».

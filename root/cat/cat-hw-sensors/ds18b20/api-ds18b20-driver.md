@@ -32,32 +32,7 @@
 
 Почнемо з того, як це виглядає, коли всю трійцю актів веде за тебе бібліотека. На Arduino стандарт — пара `OneWire` (веде тайминг шини) + `DallasTemperature` (знає команди саме DS18B20). Ось повний робочий скетч для одного давача:
 
-```cpp
-#include <OneWire.h>
-#include <DallasTemperature.h>
-
-const uint8_t PIN_1WIRE = 4;          // лінія DQ шини 1-Wire
-OneWire oneWire(PIN_1WIRE);
-DallasTemperature sensors(&oneWire);
-
-void setup() {
-  Serial.begin(115200);
-  sensors.begin();                    // знайти давачі, зчитати їхні коди
-}
-
-void loop() {
-  sensors.requestTemperatures();      // АКТ: скидання→Skip ROM→Convert T усім
-  float t = sensors.getTempCByIndex(0);  // АКТ: скидання→Read Scratchpad, декод
-
-  if (t == DEVICE_DISCONNECTED_C) {   // -127.0: не відповів або CRC не зійшлось
-    Serial.println("DS18B20 не на звязку");
-  } else {
-    Serial.print(t, 4);               // уже в °C
-    Serial.println(" C");
-  }
-  delay(1000);
-}
-```
+:::code api-ds18b20-driver/cpp/naivyshchyi-poverkh-dva.cpp
 
 За цими двома робочими рядками ховається саме наша трійця. `requestTemperatures()` проводить **перший** прогін: скидання, `Skip ROM` (бо адресу не вказали — «всім»), `Convert T`. Причому за замовчуванням цей виклик **сам блокує** програму на весь час конверсії — тихо стоїть у чеканні ті 750 мс, поки давач рахує. `getTempCByIndex(0)` проводить **другий** прогін: скидання, вибір давача, `Read Scratchpad`, забирає дев'ять байтів, перевіряє CRC і перераховує сирі біти в градуси.
 
@@ -71,64 +46,13 @@ void loop() {
 
 Спершу треба ці коди **дізнатися**. Заллємо разовий скетч, що знаходить усі давачі й друкує їхні коди — щоб потім вписати потрібні в програму як сталі:
 
-```cpp
-#include <OneWire.h>
-#include <DallasTemperature.h>
-
-OneWire oneWire(4);
-DallasTemperature sensors(&oneWire);
-
-void setup() {
-  Serial.begin(115200);
-  sensors.begin();
-
-  uint8_t n = sensors.getDeviceCount();     // скільки давачів знайшлось
-  Serial.print("Знайдено давачів: ");
-  Serial.println(n);
-
-  DeviceAddress addr;                        // це просто uint8_t[8]
-  for (uint8_t i = 0; i < n; i++) {
-    if (sensors.getAddress(addr, i)) {       // забрати код i-го давача
-      Serial.print("Давач ");
-      Serial.print(i);
-      Serial.print(": { ");
-      for (uint8_t b = 0; b < 8; b++) {
-        Serial.print("0x");
-        if (addr[b] < 16) Serial.print('0'); // провідний нуль для рівних чисел
-        Serial.print(addr[b], HEX);
-        if (b < 7) Serial.print(", ");
-      }
-      Serial.println(" }");                  // готово вставляти в код
-    }
-  }
-}
-
-void loop() {}
-```
+:::code api-ds18b20-driver/cpp/adresuiemo-davacha-za-64.cpp
 
 У моніторі з'явиться щось на кшталт `Давач 0: { 0x28, 0xFF, 0x64, 0x1E, 0x8A, 0x12, 0x03, 0xDC }`. Перший байт `0x28` — це **код родини** DS18B20 (у DS18S20 він `0x10`), останній — CRC самого коду, а шість посередині — заводський серійний номер. Ці вісім чисел — паспорт давача; фізично підпиши кожен давач і запиши, який код якому належить.
 
 Тепер, знаючи коди, звертаємось до давачів **поіменно** — і порядок на шині більше не має значення:
 
-```cpp
-// Коди конкретних давачів, зчитані попереднім скетчем і підписані фізично.
-DeviceAddress SENSOR_TANK = { 0x28, 0xFF, 0x64, 0x1E, 0x8A, 0x12, 0x03, 0xDC };
-DeviceAddress SENSOR_PIPE = { 0x28, 0xAA, 0x1B, 0x55, 0x0C, 0x00, 0x00, 0x9F };
-
-void loop() {
-  sensors.requestTemperatures();                    // виміряти всім одразу
-
-  float tTank = sensors.getTempC(SENSOR_TANK);      // забрати за КОДОМ, не індексом
-  float tPipe = sensors.getTempC(SENSOR_PIPE);
-
-  if (tTank != DEVICE_DISCONNECTED_C)
-    Serial.printf("Бак:  %.2f C\n", tTank);
-  if (tPipe != DEVICE_DISCONNECTED_C)
-    Serial.printf("Труба: %.2f C\n", tPipe);
-
-  delay(1000);
-}
-```
+:::code api-ds18b20-driver/cpp/adresuiemo-davacha-za-64-2.cpp
 
 Різниця тонка, але вирішальна: `getTempC(SENSOR_TANK)` під капотом робить `Match ROM` (`0x55`) з цими вісьма байтами — тобто перед `Read Scratchpad` вимовляє точне ім'я давача, і відгукується рівно він. Тепер хоч переставляй давачі на шині, хоч додавай нові — «бак» лишиться баком, бо його впізнають за незмінним кодом, а не за випадковою позицією.
 
@@ -146,44 +70,7 @@ void loop() {
 
 Механіка проста. По-перше, кажемо бібліотеці **не чекати** самій — вимикаємо блокування одним викликом у `setup()`. По-друге, самі відмічаємо час старту й забираємо результат лише коли час конверсії минув, звіряючись із [millis()](root:sf-devices/millis-micros) — годинником, що рахує мілісекунди від старту, не спиняючи програму:
 
-```cpp
-#include <OneWire.h>
-#include <DallasTemperature.h>
-
-OneWire oneWire(4);
-DallasTemperature sensors(&oneWire);
-
-const uint16_t CONV_MS = 750;         // час конверсії на 12 бітах (із запасом)
-uint32_t convStartedAt = 0;           // коли востаннє запустили конверсію
-bool converting = false;              // чи чекаємо зараз результат
-
-void setup() {
-  Serial.begin(115200);
-  sensors.begin();
-  sensors.setWaitForConversion(false);   // КЛЮЧОВЕ: не блокувати на конверсії
-}
-
-void loop() {
-  uint32_t now = millis();
-
-  if (!converting) {
-    sensors.requestTemperatures();       // старт; повертає ОДРАЗУ, не чекає
-    convStartedAt = now;
-    converting = true;
-  } else if (now - convStartedAt >= CONV_MS) {
-    float t = sensors.getTempCByIndex(0);  // час минув — результат готовий
-    if (t != DEVICE_DISCONNECTED_C)
-      Serial.printf("t = %.2f C\n", t);
-    converting = false;                  // цикл замкнувся: наступний старт
-  }
-
-  // ↓ Сюди вписуй усе, що має жити безперервно —
-  //   воно тепер крутиться ВЕСЬ час конверсії, а не стоїть.
-  pollButtons();
-  updateDisplay();
-  runControlLoop();
-}
-```
+:::code api-ds18b20-driver/cpp/neblokuiuche-chytannia-ne.cpp
 
 Тут немає жодного `delay`. `loop()` крутиться тисячі разів на секунду; коли давач не рахує — він запускає конверсію й запам'ятовує момент; коли рахує — просто перевіряє, чи вже минуло 750 мс, і поки ні, летить далі до `pollButtons()` та решти. Вираз `now - convStartedAt` рахує різницю правильно навіть у мить, коли `millis()` переповнюється й обнуляється (приблизно раз на 49 днів), — це стандартна властивість беззнакової арифметики, тому саме `now - start >= interval`, а не `now >= start + interval`.
 
@@ -238,42 +125,13 @@ R1 R0 = 11 → 12 біт  (0.0625 °C, ~750 мс)   ← заводське за 
 
 Почнемо з цих двох цеглинок і точного відмірювання часу через [delayMicroseconds()](root:sf-devices/millis-micros):
 
-```cpp
-const uint8_t OW_PIN = 4;             // лінія DQ
-
-// «Притиснути лінію до нуля»: ніжка стає виходом у стані LOW.
-static inline void ow_low() {
-  pinMode(OW_PIN, OUTPUT);
-  digitalWrite(OW_PIN, LOW);
-}
-
-// «Відпустити лінію»: ніжка стає входом; підтяжка сама тягне її вгору.
-static inline void ow_release() {
-  pinMode(OW_PIN, INPUT);             // жодного LOW/HIGH — просто перестали тягнути
-}
-
-// Прочитати рівень лінії (0 або 1).
-static inline uint8_t ow_read() {
-  return digitalRead(OW_PIN);
-}
-```
+:::code api-ds18b20-driver/cpp/spuskaiemos-na-dno-vlasnyi.cpp
 
 ### Скидання й presence
 
 Перший акт. Притискаємо лінію надовго (стандарт — **≥480 мкс**), відпускаємо, і за коротку мить дивимось, чи хтось притягнув її назад до нуля. Притягнув — давач живий і повернув `presence`; лишилась високою — на шині нікого:
 
-```cpp
-// Повертає true, якщо на шині відгукнувся хоча б один давач.
-bool ow_reset() {
-  ow_low();
-  delayMicroseconds(480);             // тримаємо низько ≥480 мкс — це «скидання»
-  ow_release();
-  delayMicroseconds(70);              // чекаємо, поки давач видасть presence
-  uint8_t present = (ow_read() == 0); // давач притиснув лінію → present == true
-  delayMicroseconds(410);             // добути слот скидання до кінця (усього ~960 мкс)
-  return present;
-}
-```
+:::code api-ds18b20-driver/cpp/skydannia-i-presence.cpp
 
 Числа тут не з повітря: майстер тримає лінію низько щонайменше 480 мкс, потім, відпустивши, давач за 15–60 мкс сам притискає її на 60–240 мкс. Ми чекаємо 70 мкс і **саме тоді** дивимось на лінію — у це вікно давач якраз тримає її притиснутою. Ці тайминги 1-Wire звірено з даташитом DS18B20 і застосунковою запискою Analog Devices — усталений факт.
 
@@ -281,55 +139,13 @@ bool ow_reset() {
 
 Другий і третій акти складаються з тайм-слотів по біту. Записати біт — притиснути лінію на певний час: **коротко** притиснув і відпустив — це одиниця, **довго** протримав притиснутою — нуль. Прочитати біт — самому смикнути лінію на мить, відпустити й **швидко подивитись**: якщо давач тримає її притиснутою — він віддає нуль, якщо вже відпустив — одиницю.
 
-```cpp
-// Записати ОДИН біт у давач.
-void ow_write_bit(uint8_t bit) {
-  if (bit) {
-    ow_low();
-    delayMicroseconds(6);             // «1»: коротко притиснути (<15 мкс)…
-    ow_release();
-    delayMicroseconds(64);            // …і відпустити на решту слота (усього ~70 мкс)
-  } else {
-    ow_low();
-    delayMicroseconds(60);            // «0»: тримати притиснутою майже весь слот
-    ow_release();
-    delayMicroseconds(10);            // коротка пауза між слотами
-  }
-}
-
-// Прочитати ОДИН біт із давача.
-uint8_t ow_read_bit() {
-  ow_low();
-  delayMicroseconds(3);               // самі смикнули лінію (≥1 мкс) — старт слота
-  ow_release();
-  delayMicroseconds(10);              // дали лінії/давачу усталитись у вікні <15 мкс
-  uint8_t bit = ow_read();            // САМЕ ТУТ читаємо: 0 = давач тримає, 1 = відпустив
-  delayMicroseconds(50);             // добути слот до ~60 мкс
-  return bit;
-}
-```
+:::code api-ds18b20-driver/cpp/zapysaty-odyn-bit-i.cpp
 
 Ось де живе вся крихкість 1-Wire: **момент зчитування**. Слот триває близько 60 мкс, а сказати «нуль це чи одиниця» можна лише в перші 15 мкс від його початку — далі навіть нульовий давач відпускає лінію, і пізнє читання завжди побачить одиницю. Тому `ow_read()` стоїть рівно у вузькому вікні. Зсунеш його на десяток мікросекунд — і всі нулі перетворяться на одиниці, а температура — на сміття.
 
 Байт складається з восьми бітів, і 1-Wire шле їх **молодшим уперед** (LSB first). Тому цикл по байту простий:
 
-```cpp
-void ow_write_byte(uint8_t b) {
-  for (uint8_t i = 0; i < 8; i++) {   // молодший біт першим
-    ow_write_bit(b & 1);
-    b >>= 1;
-  }
-}
-
-uint8_t ow_read_byte() {
-  uint8_t b = 0;
-  for (uint8_t i = 0; i < 8; i++) {   // молодший біт приходить першим
-    if (ow_read_bit())
-      b |= (1 << i);                  // ставимо саме i-й біт
-  }
-  return b;
-}
-```
+:::code api-ds18b20-driver/cpp/zapysaty-odyn-bit-i-2.cpp
 
 ### CRC: чи не збрехала дорога
 
@@ -337,56 +153,13 @@ uint8_t ow_read_byte() {
 
 Класична побітова реалізація цього CRC у прошивці коротка. Секрет — константа `0x8C`: це той самий поліном X⁸+X⁵+X⁴+1, записаний «задом наперед» (у відображеній формі), бо біти течуть молодшим уперед:
 
-```cpp
-// Dallas/Maxim CRC-8, поліном X8+X5+X4+1 (відображений вигляд → 0x8C).
-uint8_t ow_crc8(const uint8_t *data, uint8_t len) {
-  uint8_t crc = 0;
-  for (uint8_t i = 0; i < len; i++) {
-    uint8_t b = data[i];
-    for (uint8_t j = 0; j < 8; j++) {
-      uint8_t mix = (crc ^ b) & 1;    // чи різняться молодші біти
-      crc >>= 1;
-      if (mix) crc ^= 0x8C;           // якщо так — підмішуємо поліном
-      b >>= 1;
-    }
-  }
-  return crc;                         // 0, якщо порахувати над усіма 9 байтами
-}
-```
+:::code api-ds18b20-driver/cpp/crc-chy-ne-zbrekhala.cpp
 
 ### Складаємо вимір докупи
 
 Тепер у нас є всі цеглинки, і повний власний вимір температури одного давача читається як прямий переклад трьох актів на код. Робимо два прогони трійці — перший наказує конверсію, другий забирає scratchpad — і декодуємо перші два байти:
 
-```cpp
-// Прочитати температуру одного DS18B20 на шині (Skip ROM — коли давач один).
-// Повертає true й кладе °C у *out; false — якщо давача немає або CRC не зійшлось.
-bool ds18b20_read(float *out) {
-  // --- Прогін 1: наказати виміряти ---
-  if (!ow_reset()) return false;      // немає presence — немає давача
-  ow_write_byte(0xCC);                // Skip ROM: «усі, слухайте» (давач один)
-  ow_write_byte(0x44);                // Convert T: почати перетворення
-
-  delay(750);                         // блокуюче чекання на 12 бітах (див. нижче)
-
-  // --- Прогін 2: забрати результат ---
-  if (!ow_reset()) return false;
-  ow_write_byte(0xCC);                // Skip ROM знову
-  ow_write_byte(0xBE);                // Read Scratchpad: віддай пам'ять
-
-  uint8_t sp[9];
-  for (uint8_t i = 0; i < 9; i++)     // забираємо всі 9 байтів
-    sp[i] = ow_read_byte();
-
-  if (ow_crc8(sp, 9) != 0)            // CRC над усіма 9 має дати 0
-    return false;                     // не дало → читання зіпсоване, викидаємо
-
-  // --- Декод: перші два байти — температура, 16-бітове доповняльне число ---
-  int16_t raw = (int16_t)((sp[1] << 8) | sp[0]);   // старший байт sp[1], молодший sp[0]
-  *out = raw * 0.0625f;               // молодший біт важить 2⁻⁴ = 0.0625 °C
-  return true;
-}
-```
+:::code api-ds18b20-driver/cpp/skladaiemo-vymir-dokupy.cpp
 
 Два місця тут варті пильної уваги. Перше — **порядок байтів**: температура приходить молодшим байтом (`sp[0]`) першим, старшим (`sp[1]`) другим, тож зібрати число треба саме `(sp[1] << 8) | sp[0]`. Друге — **знак**. Число 16-бітове й [доповняльне (two's complement)](root:hw-digital/twos-complement-hardware): від'ємні температури приходять як великі беззнакові значення, і якщо забрати їх у беззнаковий тип, `−1 °C` перетвориться на дику додатну величину. Рятує саме приведення до **знакового** `int16_t` перед множенням: воно правильно розгортає знак, і `−10 °C` лишається `−10 °C`. Молодший біт важить рівно 0.0625 °C (це 2⁻⁴), тож помноживши сире число на 0.0625, дістаємо готові градуси.
 
@@ -396,35 +169,7 @@ bool ds18b20_read(float *out) {
 
 У повному прикладі стоїть `Skip ROM` (`0xCC`) — «усім», що чесно лише коли давач на шині один. Для кількох давачів другий акт міняється на `Match ROM` (`0x55`) з наступними вісьмома байтами коду:
 
-```cpp
-// Прочитати конкретний давач за його 64-бітним ROM-кодом (8 байтів).
-bool ds18b20_read_addr(const uint8_t rom[8], float *out) {
-  // Прогін 1: адресуємо саме цей давач і наказуємо виміряти.
-  if (!ow_reset()) return false;
-  ow_write_byte(0x55);                // Match ROM: «слухає лише той, чий код далі»
-  for (uint8_t i = 0; i < 8; i++)     // вимовляємо 64-бітний код, байт за байтом
-    ow_write_byte(rom[i]);
-  ow_write_byte(0x44);                // Convert T — тільки адресований почне рахувати
-
-  delay(750);
-
-  // Прогін 2: знову адресуємо його ж і забираємо scratchpad.
-  if (!ow_reset()) return false;
-  ow_write_byte(0x55);
-  for (uint8_t i = 0; i < 8; i++)
-    ow_write_byte(rom[i]);
-  ow_write_byte(0xBE);                // Read Scratchpad
-
-  uint8_t sp[9];
-  for (uint8_t i = 0; i < 9; i++)
-    sp[i] = ow_read_byte();
-  if (ow_crc8(sp, 9) != 0) return false;
-
-  int16_t raw = (int16_t)((sp[1] << 8) | sp[0]);
-  *out = raw * 0.0625f;
-  return true;
-}
-```
+:::code api-ds18b20-driver/cpp/adresatsiia-kilkokh.cpp
 
 Знайти самі коди на шині можна алгоритмом **Search ROM** (`0xF0`) — це хитра двійкова прогулянка деревом бітів, де майстер на кожному розгалуженні дізнається, у яких давачів наступний біт нуль, а в яких одиниця, і так поступово вилущує всі коди. Він задовгий, щоб розписувати його тут повністю; на практиці або беруть готову `OneWire::search()`, або зчитують коди разовим скетчем (як вище) і зашивають їх сталими. Для власного драйвера частіше саме другий шлях: склад шини відомий, коди підписані, і `Match ROM` з готовими байтами простіший і надійніший за повний пошук у прошивці.
 
@@ -432,24 +177,7 @@ bool ds18b20_read_addr(const uint8_t rom[8], float *out) {
 
 Щоб змінити роздільність без бібліотеки, шлемо `Write Scratchpad` (`0x4E`) і **три байти** — TH, TL і регістр налаштувань:
 
-```cpp
-// Виставити роздільність: 9, 10, 11 або 12 біт.
-void ds18b20_set_resolution(uint8_t bits) {
-  uint8_t cfg;
-  switch (bits) {
-    case 9:  cfg = 0x1F; break;       // R1R0 = 00
-    case 10: cfg = 0x3F; break;       // R1R0 = 01
-    case 11: cfg = 0x5F; break;       // R1R0 = 10
-    default: cfg = 0x7F; break;       // 12 біт, R1R0 = 11 (за замовчуванням)
-  }
-  ow_reset();
-  ow_write_byte(0xCC);                // Skip ROM (або Match ROM для конкретного)
-  ow_write_byte(0x4E);                // Write Scratchpad
-  ow_write_byte(0x00);                // TH — верхній поріг тривоги (тут не використ.)
-  ow_write_byte(0x00);                // TL — нижній поріг тривоги
-  ow_write_byte(cfg);                 // регістр налаштувань → роздільність
-}
-```
+:::code api-ds18b20-driver/cpp/rozdilnist-cherez-vlasnyi.cpp
 
 Важлива тонкість: `Write Scratchpad` записує **всі три байти одразу**, часткового запису немає. Тому TH і TL теж треба надіслати — навіть якщо пороги тривоги не використовуються, шлемо в них нулі, інакше туди потрапить сміття. Записане живе в оперативному scratchpad до вимкнення живлення; щоб роздільність пережила перезавантаження, після цього шлють `Copy Scratchpad` (`0x48`), який переписує налаштування в незалежну EEPROM давача.
 
@@ -459,50 +187,7 @@ Arduino ховає роботу з ніжкою за `pinMode`/`digitalWrite`, �
 
 Ескіз для STM32F1 (лінія на `PB6`), на регістрах CMSIS:
 
-```c
-#include "stm32f1xx.h"
-
-// --- Лінія DQ на PB6. Керуємо через регістри конфігурації й даних порту B. ---
-#define OW_PIN        6
-#define OW_PORT       GPIOB
-
-// Перемкнути PB6 у режим "вихід open-drain" (потрібно на час притискання).
-static inline void ow_dir_output(void) {
-  // У STM32F1 режим піна задають 4 біти в CRL (для пінів 0..7).
-  OW_PORT->CRL &= ~(0xF << (OW_PIN * 4));           // очистити поле піна
-  OW_PORT->CRL |=  (0x5 << (OW_PIN * 4));           // 0b0101: вихід 10 МГц, open-drain
-}
-
-// Перемкнути PB6 у режим "вхід" (відпустити лінію — тягне зовнішня підтяжка).
-static inline void ow_dir_input(void) {
-  OW_PORT->CRL &= ~(0xF << (OW_PIN * 4));
-  OW_PORT->CRL |=  (0x4 << (OW_PIN * 4));           // 0b0100: плаваючий вхід
-}
-
-// Притиснути лінію до нуля (у режимі open-drain "0" тягне лінію вниз).
-static inline void ow_low(void) {
-  ow_dir_output();
-  OW_PORT->BSRR = (1 << (OW_PIN + 16));             // BR6: скинути PB6 у 0
-}
-
-// Відпустити лінію: перевести в режим входу, підтяжка підніме її сама.
-static inline void ow_release(void) {
-  ow_dir_input();
-}
-
-// Прочитати рівень лінії (0 або 1) з регістра входів.
-static inline uint8_t ow_read(void) {
-  return (OW_PORT->IDR & (1 << OW_PIN)) ? 1 : 0;
-}
-
-// Точна затримка в мікросекундах через лічильник тактів DWT.
-// (увімкнути один раз у старті: CoreDebug->DEMCR |= TRCENA; DWT->CTRL |= 1;)
-static inline void delay_us(uint32_t us) {
-  uint32_t start = DWT->CYCCNT;
-  uint32_t ticks = us * (SystemCoreClock / 1000000UL);   // тактів на 1 мкс × us
-  while ((DWT->CYCCNT - start) < ticks) { /* крутимось */ }
-}
-```
+:::code api-ds18b20-driver/c/main.c
 
 Ключова відмінність від Arduino — **де взяти точний мікросекундний час**. На STM32 надійне джерело — лічильник тактів ядра **DWT->CYCCNT**: він цокає з частотою процесора, і `delay_us` просто крутиться, доки не набіжить потрібне число тактів (`us × тактів_на_мікросекунду`). Це дає рівний, передбачуваний тайминг, від якого й залежить, чи прочитається біт правильно. А самий обмін — той самий: `ow_reset`, `ow_write_bit`, `ow_read_bit` пишуться поверх цих `ow_low`/`ow_release`/`ow_read`/`delay_us` дослівно так, як в Arduino-версії вище.
 

@@ -35,68 +35,8 @@
 Контрольна сума NMEA — це XOR усіх байтів рядка між `$` і `*`, звірений із двома шістнадцятковими цифрами після зірки; переведення поля `ddmm.mmmm` у градуси — це «градуси плюс хвилини поділені на шістдесят». Обидва правила з прикладами лежать у [довіднику](root:cat-hw-sensors/beitian-be182/api-nmea-ubx.md); нижче — код, що їх реалізує:
 
 :::tabs
-```c
-// nmea_core.c — контрольна сума й переведення поля координати.
-// Ці дві функції однакові на будь-якій платформі.
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
-
-// XOR усіх байтів між '$' і '*'. Повертає 1, якщо збіглося з полем після '*'.
-// line — цілий рядок NMEA, що починається з '$' і містить "*hh".
-int nmea_checksum_ok(const char *line) {
-    const char *p = line;
-    if (*p == '$') p++;                 // пропустити відкривне '$'
-    uint8_t sum = 0;
-    while (*p && *p != '*') {           // XOR до зірки (не включно)
-        sum ^= (uint8_t)*p;
-        p++;
-    }
-    if (*p != '*') return 0;            // немає зірки — рядок обрізаний
-    // після '*' — дві шістнадцяткові цифри контрольної суми
-    unsigned int given = (unsigned int)strtol(p + 1, NULL, 16);
-    return (given == sum);
-}
-
-// Поле "ddmm.mmmm" + літера напрямку → десяткові градуси.
-// deg_digits: 2 для широти (dd), 3 для довготи (ddd).
-double nmea_to_degrees(const char *field, char dir, int deg_digits) {
-    if (!field || field[0] == '\0') return 0.0;   // порожнє поле — нема fix
-    double raw = atof(field);                      // напр. 4807.038
-    int deg = (int)(raw / 100.0);                  // 48  (відкидаємо хвилини)
-    double minutes = raw - deg * 100.0;            // 7.038
-    double dec = deg + minutes / 60.0;             // 48.1173
-    if (dir == 'S' || dir == 'W') dec = -dec;      // південь/захід — мінус
-    return dec;
-}
-```
-```py
-# nmea_core.py — контрольна сума й переведення поля координати.
-# Ті самі дві дії, що й у C, лише коротше.
-
-def checksum_ok(line: str) -> bool:
-    """XOR усіх байтів між '$' і '*'; True, якщо збіглося з полем після '*'."""
-    line = line.strip()
-    if "*" not in line:
-        return False                       # немає зірки — рядок обрізаний
-    body, given = line[1:].split("*", 1)   # [1:] прибирає '$'; body — до зірки
-    calc = 0
-    for ch in body:
-        calc ^= ord(ch)                    # побайтний XOR
-    return calc == int(given[:2], 16)      # дві шістнадцяткові цифри
-
-def to_degrees(field: str, direction: str, deg_digits: int) -> float:
-    """Поле 'ddmm.mmmm' + літера напрямку → десяткові градуси."""
-    if not field:
-        return 0.0                         # порожнє поле — нема fix
-    raw = float(field)                     # напр. 4807.038
-    deg = int(raw // 100)                  # 48  (відкидаємо хвилини)
-    minutes = raw - deg * 100              # 7.038
-    dec = deg + minutes / 60.0             # 48.1173
-    if direction in ("S", "W"):
-        dec = -dec                         # південь/захід — мінус
-    return dec
-```
+:::code proj-nmea-read/c/nmea_core.c
+:::code proj-nmea-read/py/nmea_core.py
 :::
 
 Зверніть увагу на один трюк, спільний обом версіям: щоб відділити градуси від хвилин, не треба рахувати цифри рядка. Досить поділити число на 100 націло — цілу частину дасть градуси (`4807.038 / 100 = 48`), а залишок — хвилини (`4807.038 − 4800 = 7.038`). Це працює і для широти, і для довготи автоматично, бо хвилини за визначенням завжди займають два розряди перед крапкою. Тому параметр `deg_digits` у коді насправді й не потрібен для обчислення — він лишений як підказка читачеві, скільки розрядів у градусах очікувати.
@@ -104,56 +44,8 @@ def to_degrees(field: str, direction: str, deg_digits: int) -> float:
 Тепер зберемо повний розбір рядка `GGA`: поділ по комах, перевірка fix, виклик переведення. Знову двома мовами.
 
 :::tabs
-```c
-// Розбір рядка GGA на координати. Повертає 1, якщо є дійсний fix.
-// УВАГА: strtok псує вхідний рядок — передавайте копію, не оригінал буфера.
-#include <stdio.h>
-
-typedef struct { double lat, lon; int sats; int fix; } gga_t;
-
-int parse_gga(char *line, gga_t *out) {        // line — змінна копія!
-    if (!nmea_checksum_ok(line)) return 0;     // спершу контрольна сума
-    // тип рядка — після коми стоїть, тому дивимось перші літери
-    if (strncmp(line + 3, "GGA", 3) != 0) return 0;   // "$GPGGA" → зсув 3
-
-    char *lat = NULL, *ns = NULL, *lon = NULL, *ew = NULL, *fix = NULL, *sat = NULL;
-    int f = 0;
-    for (char *tok = strtok(line, ","); tok; tok = strtok(NULL, ","), f++) {
-        switch (f) {
-            case 2: lat = tok; break;   // широта  ddmm.mmmm
-            case 3: ns  = tok; break;   // N / S
-            case 4: lon = tok; break;   // довгота dddmm.mmmm
-            case 5: ew  = tok; break;   // E / W
-            case 6: fix = tok; break;   // якість fix
-            case 7: sat = tok; break;   // супутників
-        }
-    }
-    out->fix  = fix ? atoi(fix) : 0;
-    if (out->fix == 0) return 0;                // нема fix — координатам не вірити
-    out->lat  = nmea_to_degrees(lat, ns ? ns[0] : 'N', 2);
-    out->lon  = nmea_to_degrees(lon, ew ? ew[0] : 'E', 3);
-    out->sats = sat ? atoi(sat) : 0;
-    return 1;
-}
-```
-```py
-# Розбір рядка GGA на координати. Повертає dict або None, якщо fix немає.
-def parse_gga(line: str):
-    if not checksum_ok(line):
-        return None                            # спершу контрольна сума
-    parts = line.split("*")[0].split(",")      # відкинути "*hh", поділити по комах
-    if not parts[0].endswith("GGA"):           # "$GPGGA" / "$GNGGA"
-        return None
-    fix = int(parts[6]) if parts[6] else 0
-    if fix == 0:
-        return None                            # нема fix — координатам не вірити
-    return {
-        "lat":  to_degrees(parts[2], parts[3], 2),
-        "lon":  to_degrees(parts[4], parts[5], 3),
-        "sats": int(parts[7]) if parts[7] else 0,
-        "fix":  fix,
-    }
-```
+:::code proj-nmea-read/c/robochyi-parser-vruchnu.c
+:::code proj-nmea-read/py/robochyi-parser-vruchnu.py
 :::
 
 Одна пастка саме в C-версії варта попередження: `strtok` **руйнує** рядок, вставляючи нулі замість ком. Тому передавайте йому **копію** буфера, а не той самий масив, куди приймаєте байти з UART, — інакше зіпсуєте наступний рядок ще до того, як його прийняли. У Python `split` повертає новий список, тож ця проблема відпадає сама.
@@ -166,67 +58,13 @@ def parse_gga(line: str):
 
 **Шлях руками.** Ідея проста: у циклі читаємо доступні байти, накопичуємо їх у буфер, а коли трапляється кінець рядка — віддаємо зібраний рядок у наш `parse_gga`. Приклад на Arduino (модуль на апаратному `Serial1`, консоль — на `Serial`):
 
-```cpp
-// Прийом NMEA на Arduino: збираємо рядок до '\n', потім розбираємо.
-// Модуль BE-182 → Serial1 (TX модуля на RX1 плати), швидкість 38400.
-char buf[100];
-uint8_t len = 0;
-
-void setup() {
-    Serial.begin(115200);      // консоль у комп'ютер
-    Serial1.begin(38400);      // BE-182 — саме 38400 за замовчуванням!
-}
-
-void loop() {
-    while (Serial1.available()) {
-        char c = Serial1.read();
-        if (c == '\n') {                       // кінець рядка — розбираємо
-            buf[len] = '\0';
-            gga_t g;
-            char copy[100];
-            strncpy(copy, buf, sizeof copy);   // копія: parse_gga псує рядок
-            if (parse_gga(copy, &g)) {
-                Serial.print("lat="); Serial.print(g.lat, 6);
-                Serial.print(" lon="); Serial.print(g.lon, 6);
-                Serial.print(" sats="); Serial.println(g.sats);
-            }
-            len = 0;                           // почати новий рядок
-        } else if (c != '\r' && len < sizeof(buf) - 1) {
-            buf[len++] = c;                    // накопичувати (крім '\r')
-        } else if (len >= sizeof(buf) - 1) {
-            len = 0;                           // рядок задовгий — скинути буфер
-        }
-    }
-}
-```
+:::code proj-nmea-read/cpp/na-mikrokontroleri.cpp
 
 Дві дрібниці тут рятують від годин відлагодження. Перша — `Serial1.begin(38400)`: якщо поставити звичне для Arduino `9600`, модуль слатиме на 38400, а плата слухатиме на 9600, і в консоль поллється абракадабра з випадкових символів. Друга — перевірка `len < sizeof(buf) - 1`: без неї надто довгий чи бита рядок переповнить буфер і зіпсує пам'ять поряд. І ще: `char copy[...]` перед `parse_gga` — бо, як згадано вище, розбір псує рядок нулями від `strtok`.
 
 **Шлях бібліотекою.** Писати збирач рядків і парсер щоразу руками не обов'язково — для Arduino є усталена бібліотека **TinyGPS++** (автор Mikal Hart), яка робить усі п'ять ланок сама: приймає байти, збирає рядки, звіряє контрольну суму, розбирає поля й **уже віддає десяткові градуси** — переведення з хвилин теж на ній. Ви лише «згодовуєте» їй байти й питаєте готовий результат:
 
-```cpp
-// Те саме, але через TinyGPS++: бібліотека сама робить усі п'ять ланок.
-#include <TinyGPS++.h>
-
-TinyGPSPlus gps;
-
-void setup() {
-    Serial.begin(115200);
-    Serial1.begin(38400);      // BE-182 за замовчуванням — 38400
-}
-
-void loop() {
-    while (Serial1.available())
-        gps.encode(Serial1.read());          // згодувати кожен байт
-
-    // isValid() — це і є перевірка «fix є, координатам можна вірити»
-    if (gps.location.isUpdated() && gps.location.isValid()) {
-        Serial.print("lat=");  Serial.print(gps.location.lat(), 6);   // десяткові!
-        Serial.print(" lon="); Serial.print(gps.location.lng(), 6);
-        Serial.print(" sats="); Serial.println(gps.satellites.value());
-    }
-}
-```
+:::code proj-nmea-read/cpp/na-mikrokontroleri-2.cpp
 
 Різниця в зусиллі очевидна: `gps.location.lat()` одразу дає `48.117300`, без жодної арифметики з хвилинами й без ручної звірки суми — усе всередині бібліотеки (перевірено за офіційними прикладами TinyGPS++). Метод `isValid()` — це і є та сама перевірка «fix є», яку вручну ми робили полем 6. Тому для реального проєкту на Arduino беріть TinyGPS++; ручний парсер варто розуміти, щоб знати, що саме бібліотека робить за вас, і щоб мати запасний варіант на платформі, де її немає.
 
@@ -238,33 +76,7 @@ void loop() {
 
 Дві бібліотеки роблять усю роботу: **pyserial** читає байти з порту, **pynmea2** розбирає рядок NMEA (звіряє суму, ділить поля й **сам віддає десяткові градуси** через властивості `latitude`/`longitude`). Це усталені, широковживані бібліотеки (перевірено за їхньою документацією).
 
-```py
-# read_gps.py — послухати BE-182 через перехідник USB↔UART і показати координати.
-# Постав бібліотеки:  pip install pyserial pynmea2
-import serial
-import pynmea2
-
-PORT = "COM5"          # Windows; на Linux — "/dev/ttyUSB0"
-BAUD = 38400           # BE-182 за замовчуванням саме стільки
-
-with serial.Serial(PORT, BAUD, timeout=1) as ser:
-    while True:
-        raw = ser.readline().decode("ascii", errors="replace").strip()
-        if not raw.startswith("$"):
-            continue                              # не рядок NMEA — пропустити
-        try:
-            msg = pynmea2.parse(raw)              # звіряє суму й розбирає поля
-        except pynmea2.ParseError:
-            continue                              # бита рядок — на смітник
-
-        if msg.sentence_type == "GGA":
-            if int(msg.gps_qual) == 0:            # поле fix: 0 — нема положення
-                print("fix ще нема — під небо або до вікна…")
-                continue
-            # .latitude / .longitude — уже десяткові градуси, зі знаком!
-            print(f"lat={msg.latitude:.6f}  lon={msg.longitude:.6f}  "
-                  f"sats={msg.num_sats}")
-```
+:::code proj-nmea-read/py/read_gps.py
 
 Ключове полегшення — `msg.latitude` і `msg.longitude`: pynmea2 уже повертає **десяткові градуси зі знаком**, тобто і переведення з хвилин, і врахування півкулі (`S`/`W` → мінус) зроблені за вас. Сирі поля теж доступні — `msg.lat` дасть текст `"4807.038"`, `msg.lat_dir` — літеру `"N"`, — якщо раптом захочете рахувати самі. Але перевірку `gps_qual == 0` **обов'язково лишіть своєю**: pynmea2 чесно віддасть вам і нульові координати при fix = 0, якщо ви їх не відсіете. Це рівно та сама пастка «нулі як справжня точка», тільки на хості.
 

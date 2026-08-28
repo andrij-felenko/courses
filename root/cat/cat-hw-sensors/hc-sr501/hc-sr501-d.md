@@ -56,73 +56,11 @@ HC-SR501 навмисне зроблено дурнозахищеним: усь�
 **Умова.** OUT давача заведено на звичайний цифровий вхід мікроконтролера, світлодіод — на цифровий вихід. Переривання тут не потрібне: рівень тримається секундами, тож вистачає простого опитування. У прикладах це D2/D13 на Arduino, GPIO4/GPIO2 на ESP32 і PA0/PC13 на STM32. Треба засвічувати світлодіод, коли є рух.
 
 :::tabs
-```arduino
-const uint8_t PIR = 2;     // OUT давача
-const uint8_t LED = 13;    // вбудований світлодіод
+:::code hc-sr501-d/c/arduino/main.ino
 
-void setup() {
-    pinMode(PIR, INPUT);   // вихід давача сам штовхає рівень — підтяжка не потрібна
-    pinMode(LED, OUTPUT);
-    Serial.begin(9600);
-}
+:::code hc-sr501-d/c/esp-idf/main.c
 
-void loop() {
-    int motion = digitalRead(PIR);   // 1 = є рух, 0 = немає
-    digitalWrite(LED, motion);
-    if (motion) Serial.println("рух!");
-    delay(50);
-}
-```
-
-```esp-idf
-#include "driver/gpio.h"
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define PIR GPIO_NUM_4     // OUT давача
-#define LED GPIO_NUM_2     // світлодіод плати
-
-static const char *TAG = "pir";
-
-void app_main(void) {
-    gpio_config_t in = {
-        .pin_bit_mask  = 1ULL << PIR,
-        .mode          = GPIO_MODE_INPUT,
-        .pull_up_en    = GPIO_PULLUP_DISABLE,    // вихід давача сам штовхає рівень
-        .pull_down_en  = GPIO_PULLDOWN_DISABLE,
-        .intr_type     = GPIO_INTR_DISABLE,
-    };
-    ESP_ERROR_CHECK(gpio_config(&in));
-    ESP_ERROR_CHECK(gpio_set_direction(LED, GPIO_MODE_OUTPUT));
-
-    while (1) {
-        int motion = gpio_get_level(PIR);        // 1 = є рух, 0 = немає
-        gpio_set_level(LED, motion);
-        if (motion) ESP_LOGI(TAG, "рух!");
-        vTaskDelay(pdMS_TO_TICKS(50));
-    }
-}
-```
-
-```stm32
-#include "main.h"          // CubeMX: PA0 — GPIO_Input без підтяжки (давач штовхає
-                           // рівень сам), PC13 — GPIO_Output push-pull
-
-#define PIR_PORT  GPIOA
-#define PIR_PIN   GPIO_PIN_0      // OUT давача
-#define LED_PORT  GPIOC
-#define LED_PIN   GPIO_PIN_13     // світлодіод плати
-
-void pir_loop(void) {              // викликати з main() після MX_GPIO_Init()
-    while (1) {
-        GPIO_PinState motion = HAL_GPIO_ReadPin(PIR_PORT, PIR_PIN);  // SET = є рух
-        HAL_GPIO_WritePin(LED_PORT, LED_PIN, motion);
-        if (motion == GPIO_PIN_SET) printf("рух!\r\n");   // printf виведено в UART
-        HAL_Delay(50);
-    }
-}
-```
+:::code hc-sr501-d/c/stm32/main.c
 :::
 
 Ніякої бібліотеки, ніякого протоколу: одне читання рівня ноги — хоч `digitalRead`, хоч `gpio_get_level`, хоч `HAL_GPIO_ReadPin` — повертає готову відповідь, бо всю розумну роботу вже зробила BISS0001 на платі. Але одна засторога перетворює цей простенький код на джерело головного болю, якщо про неї не знати, — прогрів.

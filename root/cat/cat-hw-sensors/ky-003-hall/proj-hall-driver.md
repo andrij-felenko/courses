@@ -15,18 +15,7 @@
 
 Наївна спроба виглядає так (записана в Arduino, але хиба та сама в будь-якому середовищі) — і саме так робити **не треба**:
 
-```arduino
-// ЯК НЕ ТРЕБА: підрахунок у головному циклі
-int count = 0;
-bool prev = HIGH;
-void loop() {
-    bool now = digitalRead(HALL);
-    if (prev == HIGH && now == LOW) count++;   // спіймали спад
-    prev = now;
-    Serial.println(count);   // ← поки це друкується, магніт проскочив
-    delay(100);              // ← а тут ми взагалі спимо й нічого не бачимо
-}
-```
+:::code proj-hall-driver/c/arduino/zadacha-1-rakhuvaty-oberty.ino
 
 Проблема не в логіці розпізнавання спаду — вона правильна. Проблема в тому, що між двома викликами `digitalRead` процесор зайнятий іншим: друкує в порт, спить у `delay`. Провал сигналу триває стільки, скільки магніт фізично перед давачем, — на швидкому валу це якісь мікросекунди. Якщо саме в ці мікросекунди `loop()` застряг у `Serial.println`, імпульсу **ніби й не було**. Що швидше крутиться вал, то більше імпульсів губиться, і покази занижуються тим сильніше, чим цікавіший режим. Це не полагодити прискоренням циклу: завжди знайдеться `delay` чи повільна операція, що припаде на момент імпульсу.
 
@@ -75,118 +64,11 @@ void HAL_GPIO_EXTI_Callback(uint16_t pin) {   // сюди приходить ф�
 Найлегший спосіб дістати оберти — рахувати імпульси за фіксований проміжок часу («вікно») і множити. Порахували 50 імпульсів за чверть секунди — значить, 200 за секунду, тобто 200 обертів за секунду (12000 за хвилину), якщо магніт один. Від контролера тут треба лише три речі: вхід із підтяжкою, переривання на спадному фронті й будь-який лічильник мілісекунд. Ось повний робочий драйвер — той самий у трьох середовищах:
 
 :::tabs
-```arduino
-const uint8_t HALL = 2;          // S давача KY-003 → D2 (лінія переривання на Uno)
+:::code proj-hall-driver/c/arduino/naiprostishyi-takhometr.ino
 
-volatile uint32_t pulses = 0;    // лічильник, який чіпає ISR — ОБОВʼЯЗКОВО volatile
+:::code proj-hall-driver/c/esp-idf/naiprostishyi-takhometr.c
 
-void onPulse() {                 // ISR: якнайкоротша
-    pulses++;
-}
-
-void setup() {
-    pinMode(HALL, INPUT_PULLUP); // відкритий колектор → внутрішня підтяжка обовʼязкова
-    Serial.begin(115200);
-    attachInterrupt(digitalPinToInterrupt(HALL), onPulse, FALLING);
-}
-
-const uint32_t WINDOW_MS = 250;  // вікно вимірювання
-uint32_t windowStart = 0;
-
-void loop() {
-    if (millis() - windowStart >= WINDOW_MS) {
-        // атомарно зчитуємо й обнуляємо лічильник (див. пояснення нижче)
-        noInterrupts();
-        uint32_t n = pulses;
-        pulses = 0;
-        interrupts();
-        windowStart += WINDOW_MS;
-
-        // n імпульсів за WINDOW_MS мілісекунд; магніт один → n обертів за вікно
-        float rpm = (float)n * (60000.0 / WINDOW_MS);
-        Serial.print("RPM: ");
-        Serial.println(rpm, 0);
-    }
-    // тут головний цикл вільний робити будь-що — імпульси не губляться
-}
-```
-
-```esp-idf
-#include "driver/gpio.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "esp_log.h"
-
-#define HALL_GPIO  GPIO_NUM_4    // S давача KY-003 → GPIO4
-#define WINDOW_MS  250           // вікно вимірювання
-static const char *TAG = "tacho";
-
-static portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;
-static volatile uint32_t pulses = 0;   // лічильник, який чіпає ISR
-
-static void IRAM_ATTR on_pulse(void *arg) {   // ISR у RAM: якнайкоротша
-    pulses++;
-}
-
-void app_main(void) {
-    gpio_config_t cfg = {
-        .pin_bit_mask = 1ULL << HALL_GPIO,
-        .mode         = GPIO_MODE_INPUT,
-        .pull_up_en   = GPIO_PULLUP_ENABLE,   // відкритий колектор → підтяжка
-        .intr_type    = GPIO_INTR_NEGEDGE,    // спад: магніт зайшов
-    };
-    gpio_config(&cfg);
-    gpio_install_isr_service(0);
-    gpio_isr_handler_add(HALL_GPIO, on_pulse, NULL);
-
-    while (1) {
-        vTaskDelay(pdMS_TO_TICKS(WINDOW_MS));
-
-        portENTER_CRITICAL(&mux);          // цілісне зчитування й обнулення
-        uint32_t n = pulses;
-        pulses = 0;
-        portEXIT_CRITICAL(&mux);
-
-        float rpm = (float)n * (60000.0f / WINDOW_MS);
-        ESP_LOGI(TAG, "RPM: %.0f", rpm);
-    }
-}
-```
-
-```stm32
-#include "main.h"
-
-#define WINDOW_MS 250                  // вікно вимірювання
-
-volatile uint32_t pulses = 0;          // лічильник, який чіпає ISR
-
-/* нога описана в CubeMX: GPIO_EXTI, Pull-up, Falling edge —
-   відкритий колектор → підтяжка обовʼязкова */
-void HAL_GPIO_EXTI_Callback(uint16_t pin) {   // ISR: якнайкоротша
-    if (pin == HALL_Pin) pulses++;
-}
-
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();                    // тут же вмикається EXTI на нозі
-    uint32_t windowStart = HAL_GetTick();
-
-    while (1) {
-        if (HAL_GetTick() - windowStart < WINDOW_MS) continue;
-        windowStart += WINDOW_MS;
-
-        __disable_irq();               // цілісне зчитування й обнулення
-        uint32_t n = pulses;
-        pulses = 0;
-        __enable_irq();
-
-        // n імпульсів за WINDOW_MS мілісекунд; магніт один → n обертів за вікно
-        float rpm = (float)n * (60000.0f / WINDOW_MS);
-        printf("RPM: %.0f\r\n", rpm);   // printf перенаправлено на UART
-    }
-}
-```
+:::code proj-hall-driver/c/stm32/naiprostishyi-takhometr.c
 :::
 
 Три деталі цього коду не випадкові, і кожна — типове місце помилки.
@@ -214,153 +96,11 @@ RPM = 60 000 000 / T        (T — період у мікросекундах, �
 Реалізація ловить у ISR не лічильник, а **час** кожного фронту й зберігає інтервал до попереднього. Мікросекундну мітку часу дає будь-який контролер — питання лише, звідки її брати: з програмного лічильника чи просто з таймера, який на STM32 уміє захопити її сам, апаратно:
 
 :::tabs
-```arduino
-const uint8_t HALL  = 2;
-const uint8_t POLES = 1;          // скільки магнітів на оберт
+:::code proj-hall-driver/c/arduino/tochnishyi-takhometr.ino
 
-volatile uint32_t lastEdge   = 0; // час попереднього фронту, мкс
-volatile uint32_t period     = 0; // останній виміряний період, мкс
-volatile bool     gotPulse   = false;
+:::code proj-hall-driver/c/esp-idf/tochnishyi-takhometr.c
 
-void onPulse() {
-    uint32_t now = micros();      // мітка часу фронту; micros() в ISR на AVR читати можна
-    if (lastEdge != 0) {          // перший фронт лише задає початок відліку — періоду ще нема
-        period   = now - lastEdge;
-        gotPulse = true;
-    }
-    lastEdge = now;               // інтервал рахуємо від попереднього фронту
-}
-
-void setup() {
-    pinMode(HALL, INPUT_PULLUP);
-    Serial.begin(115200);
-    attachInterrupt(digitalPinToInterrupt(HALL), onPulse, FALLING);
-}
-
-const uint32_t STOP_US = 2000000; // 2 с без імпульсів → вважаємо, що зупинилось
-
-void loop() {
-    noInterrupts();
-    uint32_t T    = period;
-    uint32_t last = lastEdge;
-    bool     fresh = gotPulse;
-    gotPulse = false;
-    interrupts();
-
-    float rpm;
-    if (micros() - last > STOP_US) {
-        rpm = 0;                       // давно немає імпульсів — вал стоїть
-    } else if (fresh && T > 0) {
-        rpm = 60000000.0 / ((float)T * POLES);
-    } else {
-        return;                        // нового періоду ще нема — нічого не оновлюємо
-    }
-
-    Serial.print("RPM: ");
-    Serial.println(rpm, 1);
-    delay(100);                        // друк не заважає лічбі — імпульси ловить ISR
-}
-```
-
-```esp-idf
-#include "driver/gpio.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "esp_timer.h"
-#include "esp_log.h"
-
-#define HALL_GPIO GPIO_NUM_4
-#define POLES     1              // скільки магнітів на оберт
-#define STOP_US   2000000        // 2 с без імпульсів → вважаємо, що зупинилось
-static const char *TAG = "tacho";
-
-static portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;
-static volatile int64_t lastEdge = 0;   // час попереднього фронту, мкс
-static volatile int64_t period   = 0;   // останній виміряний період, мкс
-static volatile bool    gotPulse = false;
-
-static void IRAM_ATTR on_pulse(void *arg) {
-    int64_t now = esp_timer_get_time();  // мкс від старту; в ISR читати можна
-    if (lastEdge != 0) {                 // перший фронт лише задає початок відліку
-        period   = now - lastEdge;
-        gotPulse = true;
-    }
-    lastEdge = now;
-}
-
-void app_main(void) {
-    gpio_config_t cfg = {
-        .pin_bit_mask = 1ULL << HALL_GPIO,
-        .mode         = GPIO_MODE_INPUT,
-        .pull_up_en   = GPIO_PULLUP_ENABLE,
-        .intr_type    = GPIO_INTR_NEGEDGE,
-    };
-    gpio_config(&cfg);
-    gpio_install_isr_service(0);
-    gpio_isr_handler_add(HALL_GPIO, on_pulse, NULL);
-
-    while (1) {
-        portENTER_CRITICAL(&mux);
-        int64_t T = period, last = lastEdge;
-        bool fresh = gotPulse;
-        gotPulse = false;
-        portEXIT_CRITICAL(&mux);
-
-        if (esp_timer_get_time() - last > STOP_US) {
-            ESP_LOGI(TAG, "RPM: 0.0");            // давно немає імпульсів — вал стоїть
-        } else if (fresh && T > 0) {
-            ESP_LOGI(TAG, "RPM: %.1f", 60000000.0f / ((float)T * POLES));
-        }                                         // інакше нового періоду ще нема
-        vTaskDelay(pdMS_TO_TICKS(100));
-    }
-}
-```
-
-```stm32
-#include "main.h"
-extern TIM_HandleTypeDef htim2;   // TIM2 CH1 у режимі Input Capture, спадний фронт;
-                                  // прескалер підібрано так, щоб такт = 1 мкс
-#define POLES   1
-#define STOP_US 2000000u
-
-volatile uint32_t lastEdge = 0;   // захоплений такт попереднього фронту
-volatile uint32_t period   = 0;   // останній виміряний період, мкс
-volatile uint8_t  gotPulse = 0;
-
-/* мітку часу знімає сам таймер — програма дізнається про фронт уже з нею */
-void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
-    if (htim->Instance != TIM2) return;
-    uint32_t now = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
-    if (lastEdge != 0) {          // перший фронт лише задає початок відліку
-        period   = now - lastEdge;   // TIM2 32-бітний → різниця вірна й через переповнення
-        gotPulse = 1;
-    }
-    lastEdge = now;
-}
-
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();
-    MX_TIM2_Init();
-    HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_1);
-
-    while (1) {
-        __disable_irq();
-        uint32_t T = period, last = lastEdge;
-        uint8_t  fresh = gotPulse;
-        gotPulse = 0;
-        __enable_irq();
-
-        if (__HAL_TIM_GET_COUNTER(&htim2) - last > STOP_US) {
-            printf("RPM: 0.0\r\n");               // давно немає імпульсів — вал стоїть
-        } else if (fresh && T > 0) {
-            printf("RPM: %.1f\r\n", 60000000.0f / ((float)T * POLES));
-        }                                         // інакше нового періоду ще нема
-        HAL_Delay(100);
-    }
-}
-```
+:::code proj-hall-driver/c/stm32/tochnishyi-takhometr.c
 :::
 
 Тут зʼявляється тонкість, якої у віконному варіанті не було: **зупинку треба ловити окремо**. Метод періоду знає лише інтервали між фронтами; коли фронти перестали приходити — вал зупинився, — period просто застигає на останньому значенні, і без додаткової перевірки тахометр вічно показуватиме останню швидкість зупиненого вала. Тому ми дивимося, скільки минуло від останнього фронту (`micros() - last`): перевалило поріг `STOP_US` — рапортуємо нуль. Поріг беруть трохи більшим за найповільніший очікуваний оберт, інакше на малих обертах тахометр блиматиме нулем між справжніми імпульсами.
@@ -378,50 +118,11 @@ int main(void) {
 Захист у коді простий: після зарахованого фронту **ігнорувати наступні протягом короткого «мертвого часу»**. Якщо ми знаємо, що фізично два справжні оберти не можуть статися ближче ніж, скажімо, за мілісекунду (бо стільки вал просто не встигне), то будь-який фронт, що прийшов раніше ніж через мілісекунду після попереднього, — це тремтіння, і його викидаємо просто в ISR:
 
 :::tabs
-```arduino
-const uint32_t DEBOUNCE_US = 1000;   // менший за найкоротший реальний період оберту
+:::code proj-hall-driver/c/arduino/tremtinnia-koly-holl.ino
 
-volatile uint32_t pulses   = 0;
-volatile uint32_t lastEdge = 0;
+:::code proj-hall-driver/c/esp-idf/tremtinnia-koly-holl.c
 
-void onPulse() {
-    uint32_t now = micros();
-    if (now - lastEdge < DEBOUNCE_US) return;  // надто рано → тремтіння, ігноруємо
-    lastEdge = now;
-    pulses++;
-}
-```
-
-```esp-idf
-#define DEBOUNCE_US 1000             // менший за найкоротший реальний період оберту
-
-static volatile uint32_t pulses   = 0;
-static volatile int64_t  lastEdge = 0;
-
-static void IRAM_ATTR on_pulse(void *arg) {
-    int64_t now = esp_timer_get_time();
-    if (now - lastEdge < DEBOUNCE_US) return;  // надто рано → тремтіння, ігноруємо
-    lastEdge = now;
-    pulses++;
-}
-```
-
-```stm32
-#define DEBOUNCE_US 1000             // менший за найкоротший реальний період оберту
-
-extern TIM_HandleTypeDef htim2;      // вільно біжить, такт = 1 мкс
-
-volatile uint32_t pulses   = 0;
-volatile uint32_t lastEdge = 0;
-
-void HAL_GPIO_EXTI_Callback(uint16_t pin) {
-    if (pin != HALL_Pin) return;
-    uint32_t now = __HAL_TIM_GET_COUNTER(&htim2);
-    if (now - lastEdge < DEBOUNCE_US) return;  // надто рано → тремтіння, ігноруємо
-    lastEdge = now;
-    pulses++;
-}
-```
+:::code proj-hall-driver/c/stm32/tremtinnia-koly-holl.c
 :::
 
 Тут ховається пастка, дзеркальна до тремтіння: `DEBOUNCE_US` треба брати **меншим** за найкоротший **справжній** період оберту, інакше на високих обертах ми почнемо викидати вже й реальні імпульси й занижувати покази. Тобто цей поріг — компроміс: досить великий, щоб зʼїсти дзвін, і досить малий, щоб пропустити найшвидший робочий оберт. Якщо ваш магніт і монтаж дають чистий сигнал (а добрий неодимовий магніт, що проходить впевнено, зазвичай його дає), програмний антидребезг тут узагалі не потрібен — на відміну від механічної кнопки, де він майже обовʼязковий.
@@ -444,138 +145,11 @@ void HAL_GPIO_EXTI_Callback(uint16_t pin) {
 Від контролера тут потрібні лише вхід АЦП, звичайний цифровий вхід і затримка — усе решта арифметика:
 
 :::tabs
-```arduino
-const uint8_t A_PIN = A0;        // аналоговий вихід 49E → A0
-const uint8_t D_PIN = 3;         // цифровий вихід компаратора (поріг гвинтика)
+:::code proj-hall-driver/c/arduino/robochyi-vymiriuvach-polia.ino
 
-int baseline = 512;              // нульова лінія — уточнимо на старті
-const int DEADBAND = 4;          // мертва зона: |delta| нижче цього → «нема поля»
+:::code proj-hall-driver/c/esp-idf/robochyi-vymiriuvach-polia.c
 
-int readAveraged(uint8_t pin, uint8_t n) {
-    long acc = 0;
-    for (uint8_t i = 0; i < n; i++) { acc += analogRead(pin); delayMicroseconds(200); }
-    return acc / n;
-}
-
-void setup() {
-    pinMode(D_PIN, INPUT);
-    Serial.begin(115200);
-    delay(50);                        // хай живлення й вихід 49E устояться
-    baseline = readAveraged(A_PIN, 64);   // калібрування нуля (біля давача НЕ має бути магніту!)
-    Serial.print("baseline = ");
-    Serial.println(baseline);
-}
-
-void loop() {
-    int raw   = readAveraged(A_PIN, 8);   // трохи усереднити проти шуму
-    int delta = raw - baseline;
-
-    Serial.print("поле: ");
-    if (delta > DEADBAND) {
-        Serial.print(delta);  Serial.print("  (N-бік)");
-    } else if (delta < -DEADBAND) {
-        Serial.print(delta);  Serial.print("  (S-бік)");
-    } else {
-        Serial.print("~0    (нема)");
-    }
-
-    // цифровий вихід D0: клацає на порозі, заданому гвинтиком (зазвичай активний у нулі)
-    if (digitalRead(D_PIN) == LOW) Serial.print("   [поріг!]");
-    Serial.println();
-    delay(100);
-}
-```
-
-```esp-idf
-#include "esp_adc/adc_oneshot.h"
-#include "driver/gpio.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "esp_rom_sys.h"
-#include "esp_log.h"
-
-#define A_CHAN   ADC_CHANNEL_6      // GPIO34 — аналоговий вихід 49E
-#define D_GPIO   GPIO_NUM_25        // цифровий вихід компаратора (поріг гвинтика)
-#define DEADBAND 16                 // мертва зона на 12-бітній шкалі
-static const char *TAG = "hall";
-
-static adc_oneshot_unit_handle_t adc;
-
-static int read_averaged(int n) {   // трохи усереднити проти шуму
-    long acc = 0;
-    for (int i = 0; i < n; i++) {
-        int raw;
-        adc_oneshot_read(adc, A_CHAN, &raw);
-        acc += raw;
-        esp_rom_delay_us(200);
-    }
-    return (int)(acc / n);
-}
-
-void app_main(void) {
-    adc_oneshot_unit_init_cfg_t unit = { .unit_id = ADC_UNIT_1 };
-    adc_oneshot_new_unit(&unit, &adc);
-    adc_oneshot_chan_cfg_t ch = { .bitwidth = ADC_BITWIDTH_DEFAULT,
-                                  .atten    = ADC_ATTEN_DB_12 };
-    adc_oneshot_config_channel(adc, A_CHAN, &ch);
-
-    gpio_config_t d = { .pin_bit_mask = 1ULL << D_GPIO, .mode = GPIO_MODE_INPUT };
-    gpio_config(&d);
-
-    vTaskDelay(pdMS_TO_TICKS(50));         // хай живлення й вихід 49E устояться
-    int baseline = read_averaged(64);      // біля давача НЕ має бути магніту!
-    ESP_LOGI(TAG, "baseline = %d", baseline);
-
-    while (1) {
-        int delta = read_averaged(8) - baseline;
-        const char *pole = delta >  DEADBAND ? "N-бік"
-                         : delta < -DEADBAND ? "S-бік" : "нема";
-        // цифровий вихід D0 зазвичай активний у нулі
-        ESP_LOGI(TAG, "поле: %d  (%s)%s", delta, pole,
-                 gpio_get_level(D_GPIO) == 0 ? "   [поріг!]" : "");
-        vTaskDelay(pdMS_TO_TICKS(100));
-    }
-}
-```
-
-```stm32
-#include "main.h"
-extern ADC_HandleTypeDef hadc1;   // канал на нозі аналогового виходу 49E
-
-#define DEADBAND 16               // мертва зона на 12-бітній шкалі
-
-static uint16_t readAveraged(uint8_t n) {   // трохи усереднити проти шуму
-    uint32_t acc = 0;
-    for (uint8_t i = 0; i < n; i++) {
-        HAL_ADC_Start(&hadc1);
-        HAL_ADC_PollForConversion(&hadc1, 10);
-        acc += HAL_ADC_GetValue(&hadc1);
-        HAL_ADC_Stop(&hadc1);
-    }
-    return (uint16_t)(acc / n);
-}
-
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();               // D_Pin — звичайний вхід
-    MX_ADC1_Init();
-
-    HAL_Delay(50);                       // хай живлення й вихід 49E устояться
-    int baseline = readAveraged(64);     // біля давача НЕ має бути магніту!
-    printf("baseline = %d\r\n", baseline);
-
-    while (1) {
-        int delta = (int)readAveraged(8) - baseline;
-        const char *pole = delta >  DEADBAND ? "N-бік"
-                         : delta < -DEADBAND ? "S-бік" : "нема";
-        // цифровий вихід D0 зазвичай активний у нулі
-        int over = (HAL_GPIO_ReadPin(D_GPIO_Port, D_Pin) == GPIO_PIN_RESET);
-        printf("поле: %d  (%s)%s\r\n", delta, pole, over ? "   [поріг!]" : "");
-        HAL_Delay(100);
-    }
-}
-```
+:::code proj-hall-driver/c/stm32/robochyi-vymiriuvach-polia.c
 :::
 
 Розберімо, що тут несе вагу.

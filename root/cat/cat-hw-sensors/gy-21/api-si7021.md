@@ -50,135 +50,8 @@
 Ось ця логіка одним шматком. Функція повертає `true`, якщо вимір вдався (зокрема, зійшлася контрольна сума), і кладе результат у передане за посиланням число.
 
 :::tabs
-```cpp
-#include <Wire.h>
-
-static const uint8_t GY21_ADDR = 0x40;   // фіксована адреса, джамперами не змінюється
-static const uint8_t CMD_TEMP  = 0xF3;   // вимір T, no-hold master
-static const uint8_t CMD_HUM   = 0xF5;   // вимір RH, no-hold master
-
-// Перевірка CRC-8 (означимо трохи нижче):
-uint8_t si7021_crc8(const uint8_t *data, uint8_t len);
-
-// Спільне ядро: послати команду `cmd`, зачекати `wait_ms`, прочитати 3 байти,
-// звірити CRC і повернути 16-бітне СИРЕ значення (з обнуленими службовими бітами).
-// Повертає true при успіху; false — якщо давач не відповів або CRC не зійшлася.
-static bool gy21_read_raw(uint8_t cmd, uint16_t wait_ms, uint16_t *raw_out) {
-  // -- Крок 1: послати командний байт --
-  Wire.beginTransmission(GY21_ADDR);
-  Wire.write(cmd);
-  if (Wire.endTransmission() != 0) return false;   // давач не підтвердив команду
-
-  // -- Крок 2: витримати паузу, поки давач міряє --
-  delay(wait_ms);
-
-  // -- Крок 3: прочитати рівно 3 байти (MSB, LSB, CRC) --
-  if (Wire.requestFrom((int)GY21_ADDR, 3) != 3) return false;
-  uint8_t msb = Wire.read();
-  uint8_t lsb = Wire.read();
-  uint8_t crc = Wire.read();
-
-  // -- Крок 4a: перевірити контрольну суму над двома байтами даних --
-  uint8_t buf[2] = { msb, lsb };
-  if (si7021_crc8(buf, 2) != crc) return false;     // зіпсовано в дорозі — відкинути
-
-  // -- Крок 4b: зібрати число й обнулити 2 службових біти --
-  uint16_t raw = ((uint16_t)msb << 8) | lsb;
-  raw &= 0xFFFC;
-
-  *raw_out = raw;
-  return true;
-}
-
-// Публічні читання: та сама функція, різний командний байт і пауза + формула.
-bool gy21_read_temperature(float *t_out) {
-  uint16_t raw;
-  if (!gy21_read_raw(CMD_TEMP, 10, &raw)) return false;
-  *t_out = 175.72f * raw / 65536.0f - 46.85f;
-  return true;
-}
-
-bool gy21_read_humidity(float *rh_out) {
-  uint16_t raw;
-  if (!gy21_read_raw(CMD_HUM, 20, &raw)) return false;
-  float rh = 125.0f * raw / 65536.0f - 6.0f;
-  // Формула може дати трохи <0 або трохи >100 біля країв — притиснути до 0..100:
-  if (rh < 0.0f)   rh = 0.0f;
-  if (rh > 100.0f) rh = 100.0f;
-  *rh_out = rh;
-  return true;
-}
-```
-```python
-# CircuitPython: сирий обмін через busio.I2C, без бібліотеки давача
-import time
-import board
-import busio
-
-GY21_ADDR = 0x40   # фіксована адреса, джамперами не змінюється
-CMD_TEMP  = 0xF3   # вимір T, no-hold master
-CMD_HUM   = 0xF5   # вимір RH, no-hold master
-
-i2c = busio.I2C(board.SCL, board.SDA)
-
-# si7021_crc8() означимо трохи нижче.
-
-# Спільне ядро: послати команду `cmd`, зачекати `wait_ms`, прочитати 3 байти,
-# звірити CRC і повернути 16-бітне СИРЕ значення (з обнуленими службовими бітами).
-# Повертає raw при успіху; None — якщо давач не відповів або CRC не зійшлася.
-def gy21_read_raw(cmd, wait_ms):
-    while not i2c.try_lock():
-        pass
-    try:
-        # -- Крок 1: послати командний байт --
-        try:
-            i2c.writeto(GY21_ADDR, bytes([cmd]))
-        except OSError:
-            return None                  # давач не підтвердив команду
-
-        # -- Крок 2: витримати паузу, поки давач міряє --
-        time.sleep(wait_ms / 1000)
-
-        # -- Крок 3: прочитати рівно 3 байти (MSB, LSB, CRC) --
-        buf = bytearray(3)
-        try:
-            i2c.readfrom_into(GY21_ADDR, buf)
-        except OSError:
-            return None
-        msb, lsb, crc = buf[0], buf[1], buf[2]
-    finally:
-        i2c.unlock()
-
-    # -- Крок 4a: перевірити контрольну суму над двома байтами даних --
-    if si7021_crc8(buf[:2]) != crc:      # зіпсовано в дорозі — відкинути
-        return None
-
-    # -- Крок 4b: зібрати число й обнулити 2 службових біти --
-    raw = (msb << 8) | lsb
-    raw &= 0xFFFC
-    return raw
-
-
-# Публічні читання: та сама функція, різний командний байт і пауза + формула.
-def gy21_read_temperature():
-    raw = gy21_read_raw(CMD_TEMP, 10)
-    if raw is None:
-        return None
-    return 175.72 * raw / 65536 - 46.85
-
-
-def gy21_read_humidity():
-    raw = gy21_read_raw(CMD_HUM, 20)
-    if raw is None:
-        return None
-    rh = 125.0 * raw / 65536 - 6.0
-    # Формула може дати трохи <0 або трохи >100 біля країв — притиснути до 0..100:
-    if rh < 0.0:
-        rh = 0.0
-    if rh > 100.0:
-        rh = 100.0
-    return rh
-```
+:::code api-si7021/cpp/odyn-vymir-komanda-pauza.cpp
+:::code api-si7021/py/odyn-vymir-komanda-pauza.py
 :::
 
 Кілька місць варті окремого слова.
@@ -200,37 +73,8 @@ def gy21_read_humidity():
 Класична реалізація «по байту»: XOR-имо байт у контрольний регістр, потім вісім разів зсуваємо регістр уліво на один біт; якщо перед зсувом старший біт був `1`, після зсуву XOR-имо регістр із `0x31`. Ось і все.
 
 :::tabs
-```cpp
-// CRC-8, поліном x⁸+x⁵+x⁴+1 (0x31), початкове значення 0x00.
-// Рахуємо над `len` байтами; для GY-21 len = 2 (два байти даних виміру).
-uint8_t si7021_crc8(const uint8_t *data, uint8_t len) {
-  uint8_t crc = 0x00;                      // початкове значення регістра
-  for (uint8_t i = 0; i < len; i++) {
-    crc ^= data[i];                        // внести черговий байт
-    for (uint8_t bit = 0; bit < 8; bit++) {
-      if (crc & 0x80)                       // старший біт = 1?
-        crc = (uint8_t)((crc << 1) ^ 0x31); //   зсув + XOR з поліномом
-      else
-        crc = (uint8_t)(crc << 1);          //   інакше просто зсув
-    }
-  }
-  return crc;
-}
-```
-```python
-# CRC-8, поліном x⁸+x⁵+x⁴+1 (0x31), початкове значення 0x00.
-# Рахуємо над байтами `data`; для GY-21 це 2 байти даних виміру.
-def si7021_crc8(data):
-    crc = 0x00                             # початкове значення регістра
-    for byte in data:
-        crc ^= byte                        # внести черговий байт
-        for _ in range(8):
-            if crc & 0x80:                  # старший біт = 1?
-                crc = ((crc << 1) ^ 0x31) & 0xFF  # зсув + XOR з поліномом
-            else:
-                crc = (crc << 1) & 0xFF     # інакше просто зсув
-    return crc
-```
+:::code api-si7021/cpp/kontrolna-suma-crc-8.cpp
+:::code api-si7021/py/kontrolna-suma-crc-8.py
 :::
 
 Як переконатися, що це не «майже правильно», а точно правильно. У документації давача є **тестові вектори** — пари «вхідні байти → правильна CRC». Проженемо через нашу функцію три з них:
@@ -262,73 +106,8 @@ assert si7021_crc8(bytes([0x4E, 0x85]))  == 0x6B   # 0x4E85 ≈ 32.3 % RH
 А HTU21D цю пару команд **не підтримує так само**: він або не відповість очікуваним чином, або поверне не ті дані. Тому саме факт, що прочитати `0x15` вдалося, і є ознакою «це Si7021»; якщо не вдалося — перед вами майже напевно HTU21D (чи інший сумісний клон). Ось так «неможливо розрізнити на вигляд» перетворюється на «розрізнити однією командою».
 
 :::tabs
-```cpp
-// Читає найстарший байт другої половини серійного номера (SNB3),
-// що кодує модель чипа. Повертає true й кладе байт у *id_out при успіху.
-bool si7021_read_model_id(uint8_t *id_out) {
-  // -- Друга половина серійного номера: команда 0xFC 0xC9 --
-  Wire.beginTransmission(GY21_ADDR);
-  Wire.write(0xFC);
-  Wire.write(0xC9);
-  if (Wire.endTransmission() != 0) return false;
-
-  // Пристрій віддає 6 байтів: SNB3, SNB2, CRC, SNB1, SNB0, CRC.
-  // Нам потрібен найперший (SNB3) — він і є ідентифікатор моделі.
-  if (Wire.requestFrom((int)GY21_ADDR, 6) != 6) return false;
-  uint8_t snb3 = Wire.read();      // <- ідентифікатор моделі
-  // решту байтів дочитуємо, щоб не лишати «хвіст» у буфері шини:
-  while (Wire.available()) Wire.read();
-
-  *id_out = snb3;
-  return true;
-}
-
-// Зручна обгортка: назвати модель словами.
-const char* gy21_model_name() {
-  uint8_t id;
-  if (!si7021_read_model_id(&id)) return "HTU21D або сумісний (не Si70xx)";
-  switch (id) {
-    case 0x15: return "Si7021";
-    case 0x14: return "Si7020";
-    case 0x0D: return "Si7013";
-    case 0x00:
-    case 0xFF: return "Si70xx (інженерний зразок)";
-    default:   return "невідомий Si70xx";
-  }
-}
-```
-```python
-# Читає найстарший байт другої половини серійного номера (SNB3),
-# що кодує модель чипа. Повертає байт при успіху або None.
-def si7021_read_model_id():
-    while not i2c.try_lock():
-        pass
-    try:
-        # -- Друга половина серійного номера: команда 0xFC 0xC9 --
-        # Пристрій віддає 6 байтів: SNB3, SNB2, CRC, SNB1, SNB0, CRC.
-        # Нам потрібен найперший (SNB3) — він і є ідентифікатор моделі.
-        buf = bytearray(6)
-        try:
-            i2c.writeto_then_readfrom(GY21_ADDR, bytes([0xFC, 0xC9]), buf)
-        except OSError:
-            return None
-        return buf[0]              # <- ідентифікатор моделі
-    finally:
-        i2c.unlock()
-
-
-# Зручна обгортка: назвати модель словами.
-def gy21_model_name():
-    id = si7021_read_model_id()
-    return {
-        None: "HTU21D або сумісний (не Si70xx)",
-        0x15: "Si7021",
-        0x14: "Si7020",
-        0x0D: "Si7013",
-        0x00: "Si70xx (інженерний зразок)",
-        0xFF: "Si70xx (інженерний зразок)",
-    }.get(id, "невідомий Si70xx")
-```
+:::code api-si7021/cpp/elektronnyi-seriinyi-nomer.cpp
+:::code api-si7021/py/elektronnyi-seriinyi-nomer.py
 :::
 
 Практична користь від цього подвійна. По-перше, діагностика: залив скетч, роздрукував `gy21_model_name()` — і точно знаєш, що на платі, замість того щоб мружитися на мікросхему під лупою. По-друге, серійний номер **унікальний**, тож повну його версію (обидві половини) можна використати як апаратний ідентифікатор пристрою — наприклад, щоб у мережі з десяти однакових датчиків кожен представлявся своїм номером.
@@ -344,79 +123,8 @@ def gy21_model_name():
 Найважливіше правило роботи з регістром: **не затирайте чужі біти**. Щоб змінити один біт, треба прочитати весь регістр, поміняти в ньому потрібний біт і записати назад — інакше ви ненароком скинете налаштування роздільності. Це загальний прийом «read-modify-write», і на регістрах він обов'язковий.
 
 :::tabs
-```cpp
-static const uint8_t REG_READ  = 0xE7;   // читати регістр налаштувань 1
-static const uint8_t REG_WRITE = 0xE6;   // писати регістр налаштувань 1
-static const uint8_t HEATER_BIT = 0x04;  // біт 2 = вмикання нагрівача (HTRE)
-
-// Прочитати регістр налаштувань 1. Повертає true й кладе байт у *reg_out.
-static bool gy21_read_user_reg(uint8_t *reg_out) {
-  Wire.beginTransmission(GY21_ADDR);
-  Wire.write(REG_READ);
-  if (Wire.endTransmission() != 0) return false;
-  if (Wire.requestFrom((int)GY21_ADDR, 1) != 1) return false;
-  *reg_out = Wire.read();
-  return true;
-}
-
-// Увімкнути (on=true) чи вимкнути (on=false) вбудований нагрівач —
-// НЕ чіпаючи бітів роздільності (read-modify-write).
-bool gy21_set_heater(bool on) {
-  uint8_t reg;
-  if (!gy21_read_user_reg(&reg)) return false;   // 1) прочитати поточний стан
-
-  if (on) reg |=  HEATER_BIT;                      // 2) виставити або
-  else    reg &= ~HEATER_BIT;                      //    скинути лише біт 2
-
-  Wire.beginTransmission(GY21_ADDR);               // 3) записати назад
-  Wire.write(REG_WRITE);
-  Wire.write(reg);
-  return (Wire.endTransmission() == 0);
-}
-```
-```python
-REG_READ   = 0xE7   # читати регістр налаштувань 1
-REG_WRITE  = 0xE6   # писати регістр налаштувань 1
-HEATER_BIT = 0x04   # біт 2 = вмикання нагрівача (HTRE)
-
-# Прочитати регістр налаштувань 1. Повертає байт або None.
-def gy21_read_user_reg():
-    while not i2c.try_lock():
-        pass
-    try:
-        buf = bytearray(1)
-        try:
-            i2c.writeto_then_readfrom(GY21_ADDR, bytes([REG_READ]), buf)
-        except OSError:
-            return None
-        return buf[0]
-    finally:
-        i2c.unlock()
-
-
-# Увімкнути (on=True) чи вимкнути (on=False) вбудований нагрівач —
-# НЕ чіпаючи бітів роздільності (read-modify-write).
-def gy21_set_heater(on):
-    reg = gy21_read_user_reg()             # 1) прочитати поточний стан
-    if reg is None:
-        return False
-
-    if on:
-        reg |= HEATER_BIT                   # 2) виставити або
-    else:
-        reg &= ~HEATER_BIT & 0xFF           #    скинути лише біт 2
-
-    while not i2c.try_lock():               # 3) записати назад
-        pass
-    try:
-        try:
-            i2c.writeto(GY21_ADDR, bytes([REG_WRITE, reg]))
-        except OSError:
-            return False
-        return True
-    finally:
-        i2c.unlock()
-```
+:::code api-si7021/cpp/rehistr-nalashtuvan-1.cpp
+:::code api-si7021/py/rehistr-nalashtuvan-1.py
 :::
 
 Логіка `reg |= HEATER_BIT` виставляє біт 2 у одиницю, не торкаючись інших; `reg &= ~HEATER_BIT` — навпаки, обнуляє тільки його (`~HEATER_BIT` — це `0b1111_1011`, маска «усе, крім біта 2»). Це і є суть безпечної роботи з регістром: змінюєш рівно те, що хотів. Роздільність вимірів лежить у бітах 7 і 0 того самого регістра (чотири комбінації від 12/14 біт до 8/12) — і саме тому read-modify-write обов'язковий: запис нагрівача не повинен зачепити роздільність.
@@ -438,22 +146,7 @@ bool gy21_reset() {
   return ok;
 }
 ```
-```python
-# М'яке скидання давача у стан за замовчуванням.
-def gy21_reset():
-    while not i2c.try_lock():
-        pass
-    try:
-        try:
-            i2c.writeto(GY21_ADDR, bytes([0xFE]))
-            ok = True
-        except OSError:
-            ok = False
-    finally:
-        i2c.unlock()
-    time.sleep(0.015)   # давачу треба ~15 мс на перезавантаження
-    return ok
-```
+:::code api-si7021/py/miake-skydannia-0xfe.py
 :::
 
 Пауза після скидання обов'язкова: поки давач перезавантажується (близько 15 мс), він не відповідатиме на команди, і якщо одразу послати вимір, дістанете помилку. Скидання корисне на старті прошивки (привести давач у відомий стан незалежно від того, що з ним робили до перезапуску контролера) або як спроба «оживити» давач, що завис після наведеної перешкоди, не знімаючи живлення.

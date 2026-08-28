@@ -27,55 +27,9 @@ Rₛ = Rₗ · (MAX − raw) / raw
 Ось ця ланка в коді. Одна функція, яку далі кличемо звідусіль:
 
 :::tabs
-```cpp
-// Скільки квантів дає наш АЦП: 1023 для Arduino (10 біт), 4095 для ESP32 (12 біт)
-const float ADC_MAX = 1023.0f;
-
-// Опір навантажувального резистора на платі модуля, кОм.
-// Класичне значення з коду MQ; на своїй платі перевір мультиметром.
-const float RL_KOHM = 5.0f;
-
-// Відлік АЦП → опір давача Rₛ (у кОм), через математику дільника.
-// Живлення тут не потрібне — воно скорочується.
-float mqReadRs(int raw) {
-  if (raw <= 0) return INFINITY;          // 0 у знаменнику: давач «нескінченно» великий
-  return RL_KOHM * (ADC_MAX - (float)raw) / (float)raw;
-}
-```
-```python
-import math
-
-# Скільки квантів дає наш АЦП: 1023 для Arduino (10 біт), 4095 для ESP32 (12 біт)
-ADC_MAX = 1023.0
-
-# Опір навантажувального резистора на платі модуля, кОм.
-# Класичне значення з коду MQ; на своїй платі перевір мультиметром.
-RL_KOHM = 5.0
-
-
-def mq_read_rs(raw):
-    """Відлік АЦП → опір давача Rₛ (у кОм), через математику дільника.
-    Живлення тут не потрібне — воно скорочується."""
-    if raw <= 0:
-        return math.inf                   # 0 у знаменнику: давач «нескінченно» великий
-    return RL_KOHM * (ADC_MAX - raw) / raw
-```
-```micropython
-# Скільки квантів дає наш АЦП: 1023 для Arduino (10 біт), 4095 для ESP32 (12 біт)
-ADC_MAX = 1023.0
-
-# Опір навантажувального резистора на платі модуля, кОм.
-# Класичне значення з коду MQ; на своїй платі перевір мультиметром.
-RL_KOHM = 5.0
-
-
-def mq_read_rs(raw):
-    # Відлік АЦП → опір давача Rₛ (у кОм), через математику дільника.
-    # Живлення тут не потрібне — воно скорочується.
-    if raw <= 0:
-        return float('inf')               # 0 у знаменнику: давач «нескінченно» великий
-    return RL_KOHM * (ADC_MAX - raw) / raw
-```
+:::code api-mq-driver/cpp/krok-pershyi-vidlik-atsp.cpp
+:::code api-mq-driver/py/krok-pershyi-vidlik-atsp.py
+:::code api-mq-driver/py/micropython/krok-pershyi-vidlik-atsp.py
 :::
 
 > 🔧 **Навіщо це.** Тут ховається перша й найтихіша пастка: **сире число з АЦП — це не опір і тим паче не проміле**. Хто пише `if (analogRead(A0) > 400) alarm()`, той прив'язав тривогу до напруги на конкретному резисторі конкретної плати за конкретної погоди — і поріг 400 нічого не значить деінде. Переведення у Rₛ — це той крок, що робить число фізичним: опір давача не залежить ні від того, який у тебе АЦП, ні від живлення, а лише від того, скільки газу на поверхні. Далі вся робота — з опором, не з відліком.
@@ -92,23 +46,7 @@ R₀ = (Rₛ, виміряне в чистому повітрі) / 9.83
 
 Цей множник 9.83 — не магія й не універсальна константа всіх давачів; це просто точка на кривій MQ-2, де крива перетинає «чисте повітря». Для іншої букви серії він інший. Ось калібрування в коді — окрема функція, яку кличеш **один раз** після прогріву:
 
-```cpp
-// У чистому повітрі Rₛ більше за R₀ у стільки разів (з графіка даташита MQ-2).
-const float CLEAN_AIR_FACTOR = 9.83f;
-
-// Виміряти R₀ цього екземпляра: усереднити Rₛ у чистому повітрі й поділити на множник.
-float mqCalibrateR0(int analogPin) {
-  const int   N = 50;        // скільки замірів усереднити
-  const int   MS = 500;      // пауза між ними
-  float rsSum = 0.0f;
-  for (int i = 0; i < N; i++) {
-    rsSum += mqReadRs(analogRead(analogPin));
-    delay(MS);
-  }
-  float rsAir = rsSum / N;              // середній опір у чистому повітрі
-  return rsAir / CLEAN_AIR_FACTOR;      // → R₀ цього давача
-}
-```
+:::code api-mq-driver/cpp/krok-druhyi-oporna-tochka.cpp
 
 П'ятдесят замірів по півсекунди — це двадцять п'ять секунд стояння в чистому повітрі; усереднення гасить шум і випадкові поштовхи. Отримане R₀ ти або тримаєш у пам'яті на весь сеанс роботи, або — розумніше — **зберігаєш у флеш** (EEPROM на Arduino, Preferences/NVS на ESP32), щоб не калібруватися щоразу після ввімкнення.
 
@@ -163,58 +101,9 @@ a = 10^(x − y/slope) = 10^(2.3 − 0.21/(−0.47))
 У коді зручніше **не** розкривати до a і b, а лишити точковий вигляд — менше втрати точності й видно, звідки що. Ось функція, що приймає трійку-криву й повертає ppm:
 
 :::tabs
-```cpp
-// Крива газу: {x = lg(ppm), y = lg(Rₛ/R₀) у опорній точці, slope = нахил}.
-// Значення для MQ-2 з коду Sandbox Electronics (зняті з графіків даташита).
-struct MqCurve { float x, y, slope; };
-
-const MqCurve LPG_CURVE   = { 2.3f, 0.21f, -0.47f };
-const MqCurve CO_CURVE    = { 2.3f, 0.72f, -0.34f };
-const MqCurve SMOKE_CURVE = { 2.3f, 0.53f, -0.44f };
-
-// Відношення Rₛ/R₀ → ppm за степеневою кривою (у точковій формі).
-float mqPpm(float rsR0, const MqCurve& c) {
-  // lg(ppm) = x + (lg(Rₛ/R₀) − y) / slope,  далі 10 у цей степінь
-  float lgPpm = c.x + (log10f(rsR0) - c.y) / c.slope;
-  return powf(10.0f, lgPpm);
-}
-```
-```python
-import math
-from collections import namedtuple
-
-# Крива газу: {x = lg(ppm), y = lg(Rₛ/R₀) у опорній точці, slope = нахил}.
-# Значення для MQ-2 з коду Sandbox Electronics (зняті з графіків даташита).
-MqCurve = namedtuple("MqCurve", ("x", "y", "slope"))
-
-LPG_CURVE   = MqCurve(2.3, 0.21, -0.47)
-CO_CURVE    = MqCurve(2.3, 0.72, -0.34)
-SMOKE_CURVE = MqCurve(2.3, 0.53, -0.44)
-
-
-def mq_ppm(rs_r0, c):
-    """Відношення Rₛ/R₀ → ppm за степеневою кривою (у точковій формі)."""
-    # lg(ppm) = x + (lg(Rₛ/R₀) − y) / slope,  далі 10 у цей степінь
-    lg_ppm = c.x + (math.log10(rs_r0) - c.y) / c.slope
-    return 10.0 ** lg_ppm
-```
-```micropython
-import math
-
-# Крива газу: (x = lg(ppm), y = lg(Rₛ/R₀) у опорній точці, slope = нахил).
-# Значення для MQ-2 з коду Sandbox Electronics (зняті з графіків даташита).
-LPG_CURVE   = (2.3, 0.21, -0.47)
-CO_CURVE    = (2.3, 0.72, -0.34)
-SMOKE_CURVE = (2.3, 0.53, -0.44)
-
-
-def mq_ppm(rs_r0, curve):
-    # Відношення Rₛ/R₀ → ppm за степеневою кривою (у точковій формі).
-    x, y, slope = curve
-    # lg(ppm) = x + (lg(Rₛ/R₀) − y) / slope,  далі 10 у цей степінь
-    lg_ppm = x + (math.log10(rs_r0) - y) / slope
-    return 10.0 ** lg_ppm
-```
+:::code api-mq-driver/cpp/krok-tretii-stepeneva.cpp
+:::code api-mq-driver/py/krok-tretii-stepeneva.py
+:::code api-mq-driver/py/micropython/krok-tretii-stepeneva.py
 :::
 
 Тут `log10f` — десятковий логарифм (у чистому C через `<math.h>` можна `log10()`), `powf(10, …)` — піднесення десятки. Одна тонкість: якщо десь у тебе натуральний логарифм `log()` (як у старих скетчах), то й основа степеня має бути `e` — головне не змішувати основи, інакше числа поїдуть у рази.
@@ -230,64 +119,9 @@ def mq_ppm(rs_r0, curve):
 Ось сторож у коді — універсальний, тримає стан між викликами:
 
 :::tabs
-```cpp
-// Сторож порога з гістерезисом: вмикається на ON, вимикається на OFF (OFF < ON).
-struct Hysteresis {
-  float onLevel;      // поріг вмикання
-  float offLevel;     // поріг вимикання (нижчий!)
-  bool  state = false;
-
-  // Подати нове значення, повернути стан тривоги.
-  bool update(float value) {
-    if (!state && value >= onLevel)  state = true;   // піднялись вище — вмикаємось
-    if ( state && value <= offLevel) state = false;  // впали нижче — відпускаємо
-    return state;                                    // між порогами — не міняємось
-  }
-};
-
-// Наприклад, стерегти за ppm-еквівалентом LPG: тривога від 350, відбій нижче 250.
-Hysteresis lpgWatch = { 350.0f, 250.0f };
-```
-```python
-# Сторож порога з гістерезисом: вмикається на ON, вимикається на OFF (OFF < ON).
-class Hysteresis:
-    def __init__(self, on_level, off_level):  # поріг вмикання / вимикання (нижчий!)
-        self.on_level = on_level
-        self.off_level = off_level
-        self.state = False
-
-    def update(self, value):
-        """Подати нове значення, повернути стан тривоги."""
-        if not self.state and value >= self.on_level:
-            self.state = True                 # піднялись вище — вмикаємось
-        if self.state and value <= self.off_level:
-            self.state = False                # впали нижче — відпускаємо
-        return self.state                     # між порогами — не міняємось
-
-
-# Наприклад, стерегти за ppm-еквівалентом LPG: тривога від 350, відбій нижче 250.
-lpg_watch = Hysteresis(350.0, 250.0)
-```
-```micropython
-# Сторож порога з гістерезисом: вмикається на ON, вимикається на OFF (OFF < ON).
-class Hysteresis:
-    def __init__(self, on_level, off_level):  # поріг вмикання / вимикання (нижчий!)
-        self.on_level = on_level
-        self.off_level = off_level
-        self.state = False
-
-    def update(self, value):
-        # Подати нове значення, повернути стан тривоги.
-        if not self.state and value >= self.on_level:
-            self.state = True                 # піднялись вище — вмикаємось
-        if self.state and value <= self.off_level:
-            self.state = False                # впали нижче — відпускаємо
-        return self.state                     # між порогами — не міняємось
-
-
-# Наприклад, стерегти за ppm-еквівалентом LPG: тривога від 350, відбій нижче 250.
-lpg_watch = Hysteresis(350.0, 250.0)
-```
+:::code api-mq-driver/cpp/krok-chetvertyi-storozh.cpp
+:::code api-mq-driver/py/krok-chetvertyi-storozh.py
+:::code api-mq-driver/py/micropython/krok-chetvertyi-storozh.py
 :::
 
 Той самий сторож годиться і для **цифрового виходу DO**, тільки там значення — не ppm, а рівень піна, і треба зважити на **інверсію**. На багатьох платах MQ вихід DO у спокої тримається у «1», а спрацювання порога (газу забагато) притягує його в «0» — тобто логіка перевернута. Тому перш ніж писати `if (digitalRead(DO) == HIGH) alarm()`, звір по світлодіоду DO на платі, **у який бік** він міняється, коли підносиш газ, і вистав поріг гвинтиком так, щоб у спокої давач не був уже спрацьований. Код тоді простий, але напрямок порівняння — за фактом твоєї плати:
@@ -309,71 +143,7 @@ bool doTriggered() {
 
 Тепер складімо чотири кроки в один робочий скетч. Спершу — **Arduino Uno/Nano**: 5-вольтова плата, AO заходить прямо на аналоговий вхід без жодного узгодження рівнів (бо і давач, і АЦП на 5 В). Це найпростіший випадок.
 
-```cpp
-#include <Arduino.h>
-#include <math.h>
-
-// ── Піни й сталі ─────────────────────────────────────────────
-const int   AO_PIN   = A0;      // AO модуля → аналоговий вхід
-const float ADC_MAX  = 1023.0f; // Arduino: 10-бітний АЦП
-const float RL_KOHM  = 5.0f;    // навантажувальний резистор на платі (перевір!)
-const float CLEAN_AIR_FACTOR = 9.83f;
-
-struct MqCurve { float x, y, slope; };
-const MqCurve LPG_CURVE = { 2.3f, 0.21f, -0.47f };
-
-float R0 = 0.0f;                 // визначимо калібруванням у setup()
-
-// ── Ланки ланцюжка ───────────────────────────────────────────
-float mqReadRs(int raw) {
-  if (raw <= 0) return INFINITY;
-  return RL_KOHM * (ADC_MAX - (float)raw) / (float)raw;
-}
-
-float mqCalibrateR0(int pin) {
-  float rsSum = 0.0f;
-  for (int i = 0; i < 50; i++) { rsSum += mqReadRs(analogRead(pin)); delay(500); }
-  return (rsSum / 50.0f) / CLEAN_AIR_FACTOR;
-}
-
-float mqPpm(float rsR0, const MqCurve& c) {
-  return powf(10.0f, c.x + (log10f(rsR0) - c.y) / c.slope);
-}
-
-// ── Сторож порога з гістерезисом ─────────────────────────────
-struct Hysteresis {
-  float on, off; bool state = false;
-  bool update(float v) {
-    if (!state && v >= on)  state = true;
-    if ( state && v <= off) state = false;
-    return state;
-  }
-};
-Hysteresis lpgWatch = { 350.0f, 250.0f };  // ppm-еквівалент LPG
-
-void setup() {
-  Serial.begin(9600);
-  Serial.println(F("MQ: розпал... (даємо нагрівачу вийти на температуру)"));
-  delay(30000);                     // короткий розпал; НЕ калібруй холодним давачем
-  Serial.println(F("MQ: калібрую R0 у чистому повітрі..."));
-  R0 = mqCalibrateR0(AO_PIN);       // роби це у справді чистому повітрі
-  Serial.print(F("R0 = ")); Serial.print(R0); Serial.println(F(" кОм"));
-}
-
-void loop() {
-  int   raw  = analogRead(AO_PIN);
-  float rs   = mqReadRs(raw);
-  float rsR0 = rs / R0;
-  float ppm  = mqPpm(rsR0, LPG_CURVE);
-  bool  alarm = lpgWatch.update(ppm);
-
-  Serial.print(F("raw=")); Serial.print(raw);
-  Serial.print(F("  Rs/R0=")); Serial.print(rsR0, 2);
-  Serial.print(F("  LPG~")); Serial.print(ppm, 0); Serial.print(F(" ppm"));
-  Serial.println(alarm ? F("  [ТРИВОГА]") : F(""));
-  delay(1000);
-}
-```
+:::code api-mq-driver/cpp/zbyraiemo-vse-arduino-5-v.cpp
 
 Зверни увагу на `delay(30000)` перед калібруванням: це той короткий розпал, без якого R₀ вийде хибним. Для **нового** давача цього мало — його треба прогнати добу-дві, перш ніж узагалі довіряти R₀; у робочому пристрої це означає: перший запуск нового модуля лиши на випал, а калібрування зроби потім і збережи R₀.
 
@@ -385,73 +155,7 @@ void loop() {
 
 Плюс дрібниці ESP32: АЦП 12-бітний (`ADC_MAX = 4095`), а вхідний діапазон варто розширити `analogSetAttenuation(ADC_11db)`, щоб міряти близько до повних 3.3 В. Ось зміни (решта ланок — ті самі функції, що вище):
 
-```cpp
-#include <Arduino.h>
-#include <math.h>
-
-const int   AO_PIN   = 34;        // ADC1-пін ESP32 (напр. GPIO34) через дільник
-const float ADC_MAX  = 4095.0f;   // ESP32: 12-бітний АЦП
-const float RL_KOHM  = 5.0f;      // навантажувальний резистор НА ПЛАТІ МОДУЛЯ
-const float CLEAN_AIR_FACTOR = 9.83f;
-
-// Зовнішній дільник AO→GPIO: R_top зверху, R_bot на землю.
-// Він передає на вхід частку R_bot/(R_top+R_bot). Щоб відновити повну
-// напругу давача, відлік домножуємо на обернений коефіцієнт.
-const float DIV_TOP = 10.0f, DIV_BOT = 20.0f;
-const float DIV_COMP = (DIV_TOP + DIV_BOT) / DIV_BOT;   // = 1.5
-
-struct MqCurve { float x, y, slope; };
-const MqCurve LPG_CURVE = { 2.3f, 0.21f, -0.47f };
-float R0 = 0.0f;
-
-// Відлік → Rₛ, з поправкою на зовнішній дільник ПЕРЕД математикою опору.
-float mqReadRs(int raw) {
-  float rawFull = (float)raw * DIV_COMP;              // повернули «повний» масштаб
-  if (rawFull >= ADC_MAX) rawFull = ADC_MAX - 1;      // захист від ділення на 0
-  if (rawFull <= 0)       return INFINITY;
-  return RL_KOHM * (ADC_MAX - rawFull) / rawFull;
-}
-
-float mqCalibrateR0(int pin) {
-  float rsSum = 0.0f;
-  for (int i = 0; i < 50; i++) { rsSum += mqReadRs(analogRead(pin)); delay(500); }
-  return (rsSum / 50.0f) / CLEAN_AIR_FACTOR;
-}
-
-float mqPpm(float rsR0, const MqCurve& c) {
-  return powf(10.0f, c.x + (log10f(rsR0) - c.y) / c.slope);
-}
-
-struct Hysteresis {
-  float on, off; bool state = false;
-  bool update(float v) {
-    if (!state && v >= on)  state = true;
-    if ( state && v <= off) state = false;
-    return state;
-  }
-};
-Hysteresis lpgWatch = { 350.0f, 250.0f };
-
-void setup() {
-  Serial.begin(115200);
-  analogSetAttenuation(ADC_11db);   // розширити діапазон АЦП ~до 3.3 В
-  Serial.println("MQ: розпал...");
-  delay(30000);                     // короткий розпал (новому давачу — доба випалу окремо)
-  Serial.println("MQ: калібрую R0 у чистому повітрі...");
-  R0 = mqCalibrateR0(AO_PIN);
-  Serial.printf("R0 = %.2f кОм\n", R0);
-}
-
-void loop() {
-  int   raw  = analogRead(AO_PIN);
-  float rsR0 = mqReadRs(raw) / R0;
-  float ppm  = mqPpm(rsR0, LPG_CURVE);
-  bool  alarm = lpgWatch.update(ppm);
-  Serial.printf("raw=%4d  Rs/R0=%.2f  LPG~%.0f ppm%s\n",
-                raw, rsR0, ppm, alarm ? "  [ТРИВОГА]" : "");
-  delay(1000);
-}
-```
+:::code api-mq-driver/cpp/te-same-na-esp32-3-3-v.cpp
 
 Ключова думка про ESP32: **зовнішній дільник — це не тільки захист ніжки, а й член у формулі**. Забудеш поправку `DIV_COMP` — і Rₛ вийде систематично зміщеним, R₀ теж, і хоча відношення Rₛ/R₀ частково витягне (бо зсув в обох), крива в log-log нелінійна, тож ppm однаково поповзуть. Тому поправку кладемо там, де відлік уперше стає опором — у `mqReadRs`, — і далі весь ланцюжок працює як на Arduino.
 

@@ -30,72 +30,9 @@
 
 :::tabs
 
-```cpp
-#include <Wire.h>
+:::code proj-tof10120/cpp/roboche-chytannia-po-i2c.cpp
 
-#define TOF_ADDR   0x52     // 7-бітна адреса (байт 0xA4 → 0x52)
-#define REG_RAW    0x00     // миттєва (сира) відстань, 2 байти MSB-first
-#define REG_FILT   0x04     // згладжена відстань, 2 байти MSB-first
-
-// Повертає відстань у мм (0..~1993) або -1, якщо модуль не відповів як слід.
-int tofReadReg(uint8_t reg) {
-    Wire.beginTransmission(TOF_ADDR);
-    Wire.write(reg);                       // куди поставити внутрішній вказівник
-    if (Wire.endTransmission(false) != 0)  // repeated-start: не відпускаємо шину
-        return -1;                         // ніхто не підтвердив адресу → нема модуля
-
-    if (Wire.requestFrom(TOF_ADDR, (uint8_t)2) != 2)
-        return -1;                         // прийшло менше двох байтів → збій обміну
-
-    uint16_t hi = Wire.read();             // старший байт
-    uint16_t lo = Wire.read();             // молодший байт
-    return (int)((hi << 8) | lo);          // склали 16-бітне число, мм
-}
-
-void setup() {
-    Wire.begin();                          // на ESP32/STM32/Pico тут задайте свої ніжки
-    Serial.begin(115200);
-}
-
-void loop() {
-    int mm = tofReadReg(REG_FILT);         // згладжена; для сирої — REG_RAW
-    if (mm < 0)        Serial.println("TOF: нема відповіді");
-    else if (mm == 0)  Serial.println("TOF: 0 (ціль надто близько / поза діапазоном?)");
-    else { Serial.print(mm); Serial.println(" мм"); }
-    delay(100);
-}
-```
-
-```python
-from machine import I2C, Pin
-from time import sleep_ms
-
-TOF_ADDR = 0x52     # 7-бітна адреса (байт 0xA4 → 0x52)
-REG_RAW  = 0x00     # миттєва (сира) відстань, 2 байти MSB-first
-REG_FILT = 0x04     # згладжена відстань, 2 байти MSB-first
-
-i2c = I2C(0, scl=Pin(22), sda=Pin(21))     # ніжки — під свою плату
-
-# Повертає відстань у мм (0..~1993) або -1, якщо модуль не відповів як слід.
-def tof_read_reg(reg):
-    try:
-        # readfrom_mem сам робить repeated-start: пише регістр і зразу читає 2 байти
-        b = i2c.readfrom_mem(TOF_ADDR, reg, 2)
-    except OSError:
-        return -1                          # ніхто не підтвердив адресу → нема модуля
-    return (b[0] << 8) | b[1]              # старший, молодший → 16-бітне число, мм
-
-sleep_ms(10)
-while True:
-    mm = tof_read_reg(REG_FILT)            # згладжена; для сирої — REG_RAW
-    if mm < 0:
-        print("TOF: нема відповіді")
-    elif mm == 0:
-        print("TOF: 0 (ціль надто близько / поза діапазоном?)")
-    else:
-        print(mm, "мм")
-    sleep_ms(100)
-```
+:::code proj-tof10120/py/roboche-chytannia-po-i2c.py
 
 :::
 
@@ -141,73 +78,9 @@ hi = 0x02, lo = 0xEC
 
 :::tabs
 
-```cpp
-// Кладемо цифри в буфер; на кінці рядка віддаємо готове число.
-// Повертає >=0, коли надійшло ЦІЛЕ нове число; -1, якщо рядок ще не завершено.
-int tofPollUart() {
-    static char buf[8];
-    static uint8_t len = 0;
+:::code proj-tof10120/cpp/synkhronizatsiia-po.cpp
 
-    while (Serial1.available()) {          // Serial1 — апаратний порт (див. нижче)
-        char c = Serial1.read();
-
-        if (c >= '0' && c <= '9') {        // цифра → накопичуємо
-            if (len < sizeof(buf) - 1) buf[len++] = c;
-        }
-        else if (c == '\n') {              // кінець рядка → число готове
-            buf[len] = '\0';
-            int mm = (len > 0) ? atoi(buf) : -1;
-            len = 0;                        // чистимо буфер під наступне число
-            if (mm >= 0) return mm;
-        }
-        // усе інше ('m', '\r', пробіли, сміття) — просто пропускаємо
-    }
-    return -1;                              // цілого рядка ще нема
-}
-
-void setup() {
-    Serial.begin(115200);                  // термінал у ПК
-    Serial1.begin(9600);                   // TOF10120: 9600 8N1 (апаратний порт)
-}
-
-void loop() {
-    int mm = tofPollUart();
-    if (mm >= 0) { Serial.print(mm); Serial.println(" мм"); }
-    // loop не блокується — тут може крутитися будь-яка інша робота
-}
-```
-
-```python
-from machine import UART, Pin
-
-# 9600 8N1, апаратний порт; ніжки tx/rx — під свою плату.
-uart = UART(1, baudrate=9600, tx=Pin(17), rx=Pin(16))
-
-_buf = bytearray()
-
-# Кладемо цифри в буфер; на кінці рядка віддаємо готове число.
-# Повертає >=0, коли надійшло ЦІЛЕ нове число; None, якщо рядок ще не завершено.
-def tof_poll_uart():
-    global _buf
-    while uart.any():                      # апаратний порт ловить байти у фоні
-        c = uart.read(1)
-        if b'0' <= c <= b'9':              # цифра → накопичуємо
-            if len(_buf) < 7:
-                _buf += c
-        elif c == b'\n':                   # кінець рядка → число готове
-            mm = int(_buf) if _buf else -1
-            _buf = bytearray()             # чистимо буфер під наступне число
-            if mm >= 0:
-                return mm
-        # усе інше (b'm', b'\r', пробіли, сміття) — просто пропускаємо
-    return None                            # цілого рядка ще нема
-
-while True:
-    mm = tof_poll_uart()
-    if mm is not None:
-        print(mm, "мм")
-    # цикл не блокується — тут може крутитися будь-яка інша робота
-```
+:::code proj-tof10120/py/synkhronizatsiia-po.py
 
 :::
 
@@ -225,91 +98,9 @@ while True:
 
 :::tabs
 
-```cpp
-// Шле команду (напр. "s3-1#") і збирає відповідь модуля до '\n' або тайм-ауту.
-// Повертає true, якщо у відповіді трапилось "ok"; текст відповіді кладе в resp.
-bool tofCommand(const char *cmd, char *resp, size_t respSize,
-                uint32_t timeoutMs = 200) {
-    while (Serial1.available()) Serial1.read();   // прибрати недочитаний потік
+:::code proj-tof10120/cpp/nadislaty-komandu-i.cpp
 
-    Serial1.print(cmd);                            // напр. "s3-1#"
-
-    size_t n = 0;
-    uint32_t t0 = millis();
-    while (millis() - t0 < timeoutMs) {
-        while (Serial1.available()) {
-            char c = Serial1.read();
-            if (c == '\n' || c == '\r') {          // кінець рядка відповіді
-                resp[n] = '\0';
-                if (n > 0) return (strstr(resp, "ok") != NULL);
-            } else if (n < respSize - 1) {
-                resp[n++] = c;
-            }
-        }
-    }
-    resp[n] = '\0';
-    return false;                                  // модуль не відповів вчасно
-}
-
-void applySettings() {
-    char resp[16];
-
-    // сира миттєва відстань
-    if (tofCommand("s3-1#", resp, sizeof(resp))) Serial.println("режим: сира — ok");
-    else Serial.print("режим: збій, відповідь=") , Serial.println(resp);
-
-    // пасивний режим: більше не базікає сам
-    tofCommand("s5-1#", resp, sizeof(resp));
-
-    // юстування нуля: якщо модуль стабільно завищує на 5 мм — компенсуємо
-    tofCommand("s1-05#", resp, sizeof(resp));
-
-    // тепер відстань беремо на запит
-    if (tofCommand("r6#", resp, sizeof(resp)))
-        Serial.print("на r6# прийшло: "), Serial.println(resp);  // напр. L=0748
-}
-```
-
-```python
-from time import ticks_ms, ticks_diff
-
-# Шле команду (напр. "s3-1#") і збирає відповідь модуля до '\n' або тайм-ауту.
-# Повертає (ok, resp): ok=True, якщо у відповіді трапилось "ok"; resp — текст.
-def tof_command(cmd, timeout_ms=200):
-    while uart.any():                              # прибрати недочитаний потік
-        uart.read()
-
-    uart.write(cmd)                                # напр. "s3-1#"
-
-    resp = bytearray()
-    t0 = ticks_ms()
-    while ticks_diff(ticks_ms(), t0) < timeout_ms:
-        c = uart.read(1)
-        if c is None:
-            continue
-        if c in (b'\n', b'\r'):                    # кінець рядка відповіді
-            if resp:
-                return (b"ok" in resp, resp.decode())
-        else:
-            resp += c
-    return (False, resp.decode())                  # модуль не відповів вчасно
-
-def apply_settings():
-    # сира миттєва відстань
-    ok, resp = tof_command("s3-1#")
-    print("режим: сира — ok" if ok else "режим: збій, відповідь=" + resp)
-
-    # пасивний режим: більше не базікає сам
-    tof_command("s5-1#")
-
-    # юстування нуля: якщо модуль стабільно завищує на 5 мм — компенсуємо
-    tof_command("s1-05#")
-
-    # тепер відстань беремо на запит
-    ok, resp = tof_command("r6#")
-    if ok:
-        print("на r6# прийшло:", resp)             # напр. L=0748
-```
+:::code proj-tof10120/py/nadislaty-komandu-i.py
 
 :::
 
@@ -343,33 +134,9 @@ mm = int(resp[i + 1:]) if i >= 0 else -1  # int("0748") = 748
 
 :::tabs
 
-```cpp
-// Виконати ПО ОДНОМУ модулю за раз (лише цей під'єднаний до UART).
-// Значення s7 — БАЙТ адреси (7-бітна << 1), тому парне.
-// 7-біт 0x54 → байт 0xA8 = 168; 0x55 → 0xAA = 170; 0x56 → 0xAC = 172
-void setAddress(uint8_t byteAddr) {         // напр. 168, 170, 172
-    char cmd[12], resp[16];
-    snprintf(cmd, sizeof(cmd), "s7-%u#", byteAddr);   // "s7-168#"
-    if (tofCommand(cmd, resp, sizeof(resp)))
-        Serial.print("нова адреса задана, байт="), Serial.println(byteAddr);
-    else
-        Serial.print("не вдалося, відповідь="), Serial.println(resp);
-    // нова адреса діє після перезапуску живлення модуля
-}
-```
+:::code proj-tof10120/cpp/navishcho-miniaty-adresu.cpp
 
-```python
-# Виконати ПО ОДНОМУ модулю за раз (лише цей під'єднаний до UART).
-# Значення s7 — БАЙТ адреси (7-бітна << 1), тому парне.
-# 7-біт 0x54 → байт 0xA8 = 168; 0x55 → 0xAA = 170; 0x56 → 0xAC = 172
-def set_address(byte_addr):                 # напр. 168, 170, 172
-    ok, resp = tof_command("s7-{}#".format(byte_addr))   # "s7-168#"
-    if ok:
-        print("нова адреса задана, байт=", byte_addr)
-    else:
-        print("не вдалося, відповідь=", resp)
-    # нова адреса діє після перезапуску живлення модуля
-```
+:::code proj-tof10120/py/navishcho-miniaty-adresu.py
 
 :::
 

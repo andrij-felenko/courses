@@ -79,86 +79,9 @@ KY-024 — це вже давач-**вимірювач**, зроблений н�
 **Умова.** Сигнал S під'єднано до будь-якого цифрового виводу з внутрішньою підтяжкою (D3 на Arduino, GPIO4 на ESP32, PA0 на STM32), поруч — світлодіод. Треба засвічувати світлодіод, поки давач бачить магніт.
 
 :::tabs
-```arduino
-const uint8_t HALL = 3;    // S давача KY-003
-const uint8_t LED  = 13;   // вбудований світлодіод
-
-void setup() {
-    pinMode(HALL, INPUT_PULLUP);   // без підтяжки нога висить — читатимеш сміття
-    pinMode(LED, OUTPUT);
-    Serial.begin(9600);
-}
-
-void loop() {
-    // вихід активний у нулі: LOW = є магніт
-    bool magnet = (digitalRead(HALL) == LOW);
-    digitalWrite(LED, magnet);
-    if (magnet) Serial.println("магніт!");
-    delay(50);
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "esp_log.h"
-
-#define HALL  GPIO_NUM_4           // S давача KY-003
-#define LED   GPIO_NUM_2           // світлодіод на платі
-static const char *TAG = "hall";
-
-void app_main(void) {
-    gpio_config_t in = {
-        .pin_bit_mask = 1ULL << HALL,
-        .mode         = GPIO_MODE_INPUT,
-        .pull_up_en   = GPIO_PULLUP_ENABLE,    // без підтяжки нога висить — читатимеш сміття
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .intr_type    = GPIO_INTR_DISABLE,
-    };
-    ESP_ERROR_CHECK(gpio_config(&in));
-    gpio_config_t out = { .pin_bit_mask = 1ULL << LED, .mode = GPIO_MODE_OUTPUT };
-    ESP_ERROR_CHECK(gpio_config(&out));
-
-    // давач живиться від 5 В, але вихід у нього відкритий колектор:
-    // рівень «1» задає підтяжка на 3.3 В, тож нозі ESP32 нічого не загрожує
-    while (1) {
-        bool magnet = (gpio_get_level(HALL) == 0);   // активний у нулі: 0 = є магніт
-        gpio_set_level(LED, magnet);
-        if (magnet) ESP_LOGI(TAG, "магніт!");
-        vTaskDelay(pdMS_TO_TICKS(50));
-    }
-}
-```
-```stm32
-#include "main.h"                  // HALL_Pin / LED_Pin — імена з CubeMX
-
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-    __HAL_RCC_GPIOC_CLK_ENABLE();
-
-    GPIO_InitTypeDef gi = {0};
-    gi.Pin  = HALL_Pin;            // PA0 — S давача KY-003
-    gi.Mode = GPIO_MODE_INPUT;
-    gi.Pull = GPIO_PULLUP;         // без підтяжки нога висить — читатимеш сміття
-    HAL_GPIO_Init(HALL_GPIO_Port, &gi);
-
-    gi.Pin   = LED_Pin;            // PC13 — світлодіод плати
-    gi.Mode  = GPIO_MODE_OUTPUT_PP;
-    gi.Pull  = GPIO_NOPULL;
-    gi.Speed = GPIO_SPEED_FREQ_LOW;
-    HAL_GPIO_Init(LED_GPIO_Port, &gi);
-
-    while (1) {
-        // вихід активний у нулі: GPIO_PIN_RESET = є магніт
-        bool magnet = (HAL_GPIO_ReadPin(HALL_GPIO_Port, HALL_Pin) == GPIO_PIN_RESET);
-        HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, magnet ? GPIO_PIN_SET : GPIO_PIN_RESET);
-        if (magnet) printf("магніт!\r\n");
-        HAL_Delay(50);
-    }
-}
-```
+:::code ky-003-hall-d/c/arduino/chytaiemo-v-kodi.ino
+:::code ky-003-hall-d/c/esp-idf/chytaiemo-v-kodi.c
+:::code ky-003-hall-d/c/stm32/chytaiemo-v-kodi.c
 :::
 
 Жодної бібліотеки не треба на жодній платформі — одне читання стану ноги повертає готову відповідь, бо всю роботу зробила A3144. Забудете ввімкнути підтяжку — і давач «спрацьовуватиме сам по собі» від наведень на висячій нозі; це класична пастка, а не поломка модуля.
@@ -168,106 +91,9 @@ int main(void) {
 **Умова.** Аналоговий вихід A0 давача — на вхід АЦП (A0 на Arduino, GPIO34 на ESP32, PA0 на STM32), цифровий D0 — на звичайний цифровий вивід. Треба показувати відхилення поля від спокою і полюс, а також стан порогового виходу.
 
 :::tabs
-```arduino
-const uint8_t A_PIN = A0;   // аналоговий вихід 49E
-const uint8_t D_PIN = 3;    // цифровий вихід компаратора
-
-int baseline = 512;         // нульова лінія (≈ половина шкали)
-
-void setup() {
-    pinMode(D_PIN, INPUT);
-    Serial.begin(9600);
-    // за 200 мс без магніту запамʼятовуємо реальний спокій
-    long acc = 0;
-    for (int i = 0; i < 64; i++) { acc += analogRead(A_PIN); delay(3); }
-    baseline = acc / 64;
-}
-
-void loop() {
-    int raw   = analogRead(A_PIN);   // 0..1023
-    int delta = raw - baseline;      // >0 один полюс, <0 протилежний
-
-    Serial.print("поле: ");
-    Serial.print(delta);
-    Serial.print(delta > 0 ? " (N-бік) " : (delta < 0 ? " (S-бік) " : " (нема) "));
-    // цифровий вихід: клацає на порозі гвинтика (типово активний у нулі)
-    Serial.println(digitalRead(D_PIN) == LOW ? " [поріг!]" : "");
-    delay(100);
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "esp_adc/adc_oneshot.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "esp_log.h"
-
-#define A_CHAN  ADC_CHANNEL_6      // ADC1_CH6 — це GPIO34, аналоговий вихід 49E
-#define D_PIN   GPIO_NUM_4         // цифровий вихід компаратора
-static const char *TAG = "ky024";
-static adc_oneshot_unit_handle_t adc1;
-
-static int sample(void) {
-    int v = 0;
-    ESP_ERROR_CHECK(adc_oneshot_read(adc1, A_CHAN, &v));
-    return v;                      // 0..4095
-}
-
-void app_main(void) {
-    gpio_config_t d = { .pin_bit_mask = 1ULL << D_PIN, .mode = GPIO_MODE_INPUT,
-                        .pull_up_en = GPIO_PULLUP_ENABLE };
-    ESP_ERROR_CHECK(gpio_config(&d));
-
-    adc_oneshot_unit_init_cfg_t unit = { .unit_id = ADC_UNIT_1 };   // ADC1 не свариться з Wi-Fi
-    ESP_ERROR_CHECK(adc_oneshot_new_unit(&unit, &adc1));
-    adc_oneshot_chan_cfg_t ch = { .atten = ADC_ATTEN_DB_12, .bitwidth = ADC_BITWIDTH_DEFAULT };
-    ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1, A_CHAN, &ch));
-
-    long acc = 0;                  // ~0.6 с без магніту: тик FreeRTOS 10 мс, дрібнішої паузи нема
-    for (int i = 0; i < 64; i++) { acc += sample(); vTaskDelay(pdMS_TO_TICKS(10)); }
-    int baseline = acc / 64;       // нульова лінія ≈ половина шкали (12 біт: ≈2048)
-
-    while (1) {
-        int delta = sample() - baseline;   // >0 один полюс, <0 протилежний
-        ESP_LOGI(TAG, "поле: %d %s%s", delta,
-                 delta > 0 ? "(N-бік)" : (delta < 0 ? "(S-бік)" : "(нема)"),
-                 gpio_get_level(D_PIN) == 0 ? " [поріг!]" : "");   // поріг гвинтика
-        vTaskDelay(pdMS_TO_TICKS(100));
-    }
-}
-```
-```stm32
-#include "main.h"                  // A0 → PA0 (ADC1_IN0), D0 → D0_Pin із GPIO_PULLUP
-
-extern ADC_HandleTypeDef hadc1;
-
-static uint16_t sample(void) {
-    HAL_ADC_Start(&hadc1);
-    HAL_ADC_PollForConversion(&hadc1, 10);
-    uint16_t v = HAL_ADC_GetValue(&hadc1);   // 0..4095
-    HAL_ADC_Stop(&hadc1);
-    return v;
-}
-
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();
-    MX_ADC1_Init();
-
-    long acc = 0;                  // за ~200 мс без магніту запамʼятовуємо реальний спокій
-    for (int i = 0; i < 64; i++) { acc += sample(); HAL_Delay(3); }
-    int baseline = (int)(acc / 64);   // ≈ половина шкали (живлення 3.3 В, 12 біт: ≈2048)
-
-    while (1) {
-        int delta = (int)sample() - baseline;   // >0 один полюс, <0 протилежний
-        const char *pole = delta > 0 ? "(N-бік)" : (delta < 0 ? "(S-бік)" : "(нема)");
-        printf("поле: %d %s%s\r\n", delta, pole,
-               HAL_GPIO_ReadPin(D0_GPIO_Port, D0_Pin) == GPIO_PIN_RESET ? " [поріг!]" : "");
-        HAL_Delay(100);
-    }
-}
-```
+:::code ky-003-hall-d/c/arduino/chytaiemo-v-kodi-2.ino
+:::code ky-003-hall-d/c/esp-idf/chytaiemo-v-kodi-2.c
+:::code ky-003-hall-d/c/stm32/chytaiemo-v-kodi-2.c
 :::
 
 Калібрування нульової лінії на старті — не примха: точна середина в кожного екземпляра 49E трохи своя й ще й плаває від живлення, тож зафіксувати «спокій» разом при ввімкненні (поки біля давача точно нема магніту) надійніше, ніж вписати 512 наосліп. Готовий C++-код обох варіантів — і як зробити з KY-003 лічильник обертів на перериваннях — зібрано в [прикладі-драйвері](root:cat-hw-sensors/ky-003-hall/proj-hall-driver.md).

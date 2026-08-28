@@ -26,177 +26,9 @@
 Вкладки нижче роблять рівно одне й те саме — різняться тим, як платформа зве смикання ноги й звідки бере мікросекунди. Пам'ятай про рівні: 5-вольтовий модуль на 3.3-вольтовій платі вимагає подільника на ECHO (про це — окремий розділ нижче).
 
 :::tabs
-```arduino
-const uint8_t TRIG_PIN = 9;
-const uint8_t ECHO_PIN = 10;
-
-// Тайм-аут очікування луни, мкс. Апаратно модуль сам гасить ECHO
-// приблизно за 38000 мкс; беремо трохи більше, щоб не обрізати дальні цілі.
-const unsigned long ECHO_TIMEOUT_US = 40000UL;
-
-void setup() {
-    pinMode(TRIG_PIN, OUTPUT);
-    pinMode(ECHO_PIN, INPUT);
-    digitalWrite(TRIG_PIN, LOW);
-    Serial.begin(9600);
-}
-
-// Повертає відстань у см, або 0 — якщо луни не було (порожньо / поза межами).
-unsigned int measureCm() {
-    // Такт 1: чистий поштовх 10 мкс. Спершу тягнемо в 0 на 2 мкс,
-    // щоб фронт був різкий і без залишкового «дзвону» від попереднього разу.
-    digitalWrite(TRIG_PIN, LOW);
-    delayMicroseconds(2);
-    digitalWrite(TRIG_PIN, HIGH);
-    delayMicroseconds(10);
-    digitalWrite(TRIG_PIN, LOW);
-
-    // Такти 2–3: ширина високого рівня на ECHO = час польоту t, мкс.
-    unsigned long t = pulseIn(ECHO_PIN, HIGH, ECHO_TIMEOUT_US);
-
-    if (t == 0) return 0;          // луни не почули — не плутати з «0 см»!
-    return (unsigned int)(t / 58); // Такт 4: мкс → см
-}
-
-void loop() {
-    unsigned int cm = measureCm();
-    if (cm == 0) {
-        Serial.println(F("out of range"));
-    } else {
-        Serial.print(cm);
-        Serial.println(F(" cm"));
-    }
-    delay(60);                     // пауза між вимірами ≥ 60 мс
-}
-```
-```esp-idf
-// ESP-IDF 5.x. ECHO — ТІЛЬКИ через подільник 1к/2к (5 В → ~3.3 В), VCC модуля — 5 В.
-#include "driver/gpio.h"
-#include "esp_timer.h"
-#include "esp_rom_sys.h"          // esp_rom_delay_us()
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define TRIG_GPIO        GPIO_NUM_5
-#define ECHO_GPIO        GPIO_NUM_18      // сюди приходить середина подільника
-#define ECHO_TIMEOUT_US  40000            // трохи більше за апаратні ~38 мс модуля
-
-static const char *TAG = "hc-sr04";
-
-static void hcsr04_init(void)
-{
-    gpio_config_t trig = {
-        .pin_bit_mask = 1ULL << TRIG_GPIO,
-        .mode         = GPIO_MODE_OUTPUT,
-        .pull_up_en   = GPIO_PULLUP_DISABLE,
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .intr_type    = GPIO_INTR_DISABLE,
-    };
-    ESP_ERROR_CHECK(gpio_config(&trig));
-
-    gpio_config_t echo = trig;
-    echo.pin_bit_mask  = 1ULL << ECHO_GPIO;
-    echo.mode          = GPIO_MODE_INPUT;
-    ESP_ERROR_CHECK(gpio_config(&echo));
-
-    gpio_set_level(TRIG_GPIO, 0);
-}
-
-// Повертає відстань у см, або 0 — якщо луни не було (порожньо / поза межами).
-static unsigned hcsr04_measure_cm(void)
-{
-    // Такт 1: чистий поштовх 10 мкс (esp_rom_delay_us не віддає процесор — тут це й треба).
-    gpio_set_level(TRIG_GPIO, 0); esp_rom_delay_us(2);
-    gpio_set_level(TRIG_GPIO, 1); esp_rom_delay_us(10);
-    gpio_set_level(TRIG_GPIO, 0);
-
-    // Такт 2: чекаємо фронту ECHO — але не довше за тайм-аут, інакше зависнемо.
-    int64_t t0 = esp_timer_get_time();            // мікросекунди від старту
-    while (gpio_get_level(ECHO_GPIO) == 0)
-        if (esp_timer_get_time() - t0 > ECHO_TIMEOUT_US) return 0;
-
-    // Такт 3: ширина високого рівня = час польоту t, мкс.
-    int64_t rise = esp_timer_get_time();
-    while (gpio_get_level(ECHO_GPIO) == 1)
-        if (esp_timer_get_time() - rise > ECHO_TIMEOUT_US) return 0;
-
-    return (unsigned)((esp_timer_get_time() - rise) / 58);   // Такт 4: мкс → см
-}
-
-void app_main(void)
-{
-    hcsr04_init();
-    for (;;) {
-        unsigned cm = hcsr04_measure_cm();
-        if (cm == 0) ESP_LOGI(TAG, "out of range");   // не плутати з «0 см»!
-        else         ESP_LOGI(TAG, "%u cm", cm);
-        vTaskDelay(pdMS_TO_TICKS(60));                // пауза між вимірами ≥ 60 мс
-    }
-}
-```
-```stm32
-// STM32 HAL. ECHO — ТІЛЬКИ через подільник 1к/2к (5 В → ~3.3 В), VCC модуля — 5 В.
-// TIM1 налаштований у CubeMX так, щоб лічильник цокав раз на мікросекунду
-// (Prescaler = такт_таймера_в_МГц − 1, Period = 0xFFFF) — це наше джерело часу.
-#include "main.h"
-#include <stdio.h>
-
-extern TIM_HandleTypeDef  htim1;
-extern UART_HandleTypeDef huart2;
-
-#define TRIG_PORT        GPIOA
-#define TRIG_PIN         GPIO_PIN_8
-#define ECHO_PORT        GPIOA
-#define ECHO_PIN         GPIO_PIN_9
-#define ECHO_TIMEOUT_US  40000u          // трохи більше за апаратні ~38 мс модуля
-
-static void delay_us(uint16_t us)
-{
-    __HAL_TIM_SET_COUNTER(&htim1, 0);
-    while (__HAL_TIM_GET_COUNTER(&htim1) < us) { }
-}
-
-/* Повертає відстань у см, або 0 — якщо луни не було (порожньо / поза межами). */
-static uint16_t measure_cm(void)
-{
-    /* Такт 1: чистий поштовх 10 мкс. */
-    HAL_GPIO_WritePin(TRIG_PORT, TRIG_PIN, GPIO_PIN_RESET); delay_us(2);
-    HAL_GPIO_WritePin(TRIG_PORT, TRIG_PIN, GPIO_PIN_SET);   delay_us(10);
-    HAL_GPIO_WritePin(TRIG_PORT, TRIG_PIN, GPIO_PIN_RESET);
-
-    /* Такт 2: чекаємо фронту ECHO — з тайм-аутом, інакше зависнемо назавжди. */
-    __HAL_TIM_SET_COUNTER(&htim1, 0);
-    while (HAL_GPIO_ReadPin(ECHO_PORT, ECHO_PIN) == GPIO_PIN_RESET)
-        if (__HAL_TIM_GET_COUNTER(&htim1) > ECHO_TIMEOUT_US) return 0;
-
-    /* Такт 3: міряємо ширину високого рівня, мкс. */
-    __HAL_TIM_SET_COUNTER(&htim1, 0);
-    while (HAL_GPIO_ReadPin(ECHO_PORT, ECHO_PIN) == GPIO_PIN_SET)
-        if (__HAL_TIM_GET_COUNTER(&htim1) > ECHO_TIMEOUT_US) return 0;
-
-    return (uint16_t)(__HAL_TIM_GET_COUNTER(&htim1) / 58);   /* Такт 4: мкс → см */
-}
-
-int main(void)
-{
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();
-    MX_TIM1_Init();
-    MX_USART2_UART_Init();
-    HAL_TIM_Base_Start(&htim1);          /* лічильник мікросекунд пішов */
-
-    char buf[24];
-    while (1) {
-        uint16_t cm = measure_cm();
-        int n = (cm == 0) ? snprintf(buf, sizeof buf, "out of range\r\n")
-                          : snprintf(buf, sizeof buf, "%u cm\r\n", cm);
-        HAL_UART_Transmit(&huart2, (uint8_t *)buf, n, HAL_MAX_DELAY);
-        HAL_Delay(60);                   /* пауза між вимірами ≥ 60 мс */
-    }
-}
-```
+:::code api-newping/c/arduino/robochyi-kod-try-platformy.ino
+:::code api-newping/c/esp-idf/main.c
+:::code api-newping/c/stm32/main.c
 :::
 
 Придивись до трьох речей, які тут не прикраса, а необхідність — прибери будь-яку, і модуль почне «глючити».
@@ -227,26 +59,7 @@ int main(void)
 
 ### Найпростіший вимір
 
-```arduino
-#include <NewPing.h>
-
-const uint8_t TRIG_PIN = 9;
-const uint8_t ECHO_PIN = 10;
-const unsigned int MAX_DISTANCE = 300;   // см; далі не цікавить — не чекаємо
-
-NewPing sonar(TRIG_PIN, ECHO_PIN, MAX_DISTANCE);
-
-void setup() {
-    Serial.begin(9600);
-}
-
-void loop() {
-    delay(60);                            // пауза між вимірами ≥ 60 мс
-    unsigned int cm = sonar.ping_cm();    // 0 = поза межами / порожньо
-    if (cm == 0) Serial.println(F("out of range"));
-    else       { Serial.print(cm); Serial.println(F(" cm")); }
-}
-```
+:::code api-newping/c/arduino/naiprostishyi-vymir.ino
 
 Уся механіка з поштовхом, тайм-аутом і діленням на 58 сховалась усередину `ping_cm()`. Але зверни увагу на третій аргумент конструктора — `MAX_DISTANCE`. Це не косметика, а важіль швидкодії.
 
@@ -279,42 +92,7 @@ void loop() {
 
 Ось те, заради чого варто перейти на бібліотеку в серйозному пристрої. `ping_cm()` усередині все ще використовує блокувальне очікування — поки летить луна, процесор зайнятий. NewPing пропонує альтернативу: **`ping_timer`** запускає вимір і одразу повертає керування, а коли за таймером настане час зчитати ECHO — сама викличе твою функцію-обробник. Між пострілом і зчитуванням процесор вільний робити що завгодно.
 
-```arduino
-#include <NewPing.h>
-
-const uint8_t TRIG_PIN = 9;
-const uint8_t ECHO_PIN = 10;
-const unsigned int MAX_DISTANCE = 300;
-
-NewPing sonar(TRIG_PIN, ECHO_PIN, MAX_DISTANCE);
-
-unsigned int lastCm = 0;      // сюди кладемо готовий результат
-unsigned long pingTimer = 0;  // коли робити наступний постріл
-
-void echoCheck() {            // бібліотека кличе це багато разів за вимір
-    if (sonar.check_timer()) {              // луна повернулась?
-        // ping_result — сирий час у мкс; US_ROUNDTRIP_CM — власна константа
-        // бібліотеки (=57, тобто її «58» для трохи теплішого повітря).
-        lastCm = sonar.ping_result / US_ROUNDTRIP_CM;
-    }
-}
-
-void setup() {
-    Serial.begin(9600);
-    pingTimer = millis() + 75;
-}
-
-void loop() {
-    // Кожні 75 мс — запускаємо новий вимір (сам постріл миттєвий).
-    if (millis() >= pingTimer) {
-        pingTimer += 75;
-        sonar.ping_timer(echoCheck);   // стартуємо й ОДРАЗУ йдемо далі
-    }
-
-    // ...тут процесор вільний: крути мотори, читай Bluetooth, блимай...
-    // lastCm завжди тримає найсвіжіший вимір, ні на що не чекаючи.
-}
-```
+:::code api-newping/c/arduino/neblokuvalne-chytannia.ino
 
 Різниця принципова. У блокувальному варіанті рядок `ping_cm()` з'їдав до 40 мс суцільної глухоти. Тут `ping_timer()` лише **запускає** постріл і миттєво повертається; поки летить луна, крутиться твій основний цикл, а зчитування ECHO відбувається у фоні за таймерним перериванням. Готове число завжди лежить у `lastCm`. Саме так далекомір вбудовують у робота, де крім нього багато іншої роботи.
 
@@ -326,28 +104,7 @@ void loop() {
 
 Коли роботові треба «зір» на всі боки, вішають кілька далекомірів. NewPing тримає для кожного окремий об'єкт — досить масиву:
 
-```arduino
-#include <NewPing.h>
-
-const uint8_t SONAR_NUM = 3;
-const unsigned int MAX_DISTANCE = 300;
-
-NewPing sonar[SONAR_NUM] = {          // {TRIG, ECHO, макс. відстань}
-    NewPing(4, 5,  MAX_DISTANCE),     // ліворуч
-    NewPing(6, 7,  MAX_DISTANCE),     // прямо
-    NewPing(8, 9,  MAX_DISTANCE)      // праворуч
-};
-
-void loop() {
-    for (uint8_t i = 0; i < SONAR_NUM; i++) {
-        delay(35);                    // пауза між СУСІДНІМИ пострілами
-        unsigned int cm = sonar[i].ping_cm();
-        Serial.print(cm == 0 ? 999 : cm);
-        Serial.print('\t');
-    }
-    Serial.println();
-}
-```
+:::code api-newping/c/arduino/kilka-moduliv-odrazu.ino
 
 Тут вилазить окрема, неочевидна пастка — **перехресні відлуння**. Пачка, яку щойно випустив лівий модуль, ще літає в кімнаті, коли за 5 мс стріляє передній: його приймач може зловити чужий хвіст і показати відстань, якої нема. Тому паузу між сусідніми пострілами не прибирають до нуля навіть тут — 30–35 мс на кожен дає луні від попереднього модуля вгаснути. Виходить, три модулі по черзі — це той самий бюджет ~100 мс на повний оберт, що й один модуль з паузою 60 мс на два постріли. Швидше — лише неблокувально й розносячи постріли в часі так, щоб конуси не перетиналися; у самій бібліотеці для цього є приклад із «пінг-раундами» на таймері (знову ж таки, AVR-only).
 
@@ -357,60 +114,11 @@ void loop() {
 
 Із боку коду для ESP32 змінюється небагато — сам протокол той самий, — але є два «але»: живлення (VCC модуля все одно хоче 5 В, тож бери 5 В із плати чи окремо, а не 3.3 В) і те, що `ping_timer` тут недоступний (Timer2, як з'ясували, лише на AVR). Тому на ESP32 з Arduino-ядром користуються `ping_cm()` / `ping_median()`, а неблокувальність за потреби будують засобами самої плати — окремою задачею FreeRTOS чи апаратним таймером. Ось надійний варіант через NewPing (під чистим ESP-IDF чи STM32 HAL бібліотеки нема зовсім — там працюють однойменні вкладки з першого прикладу):
 
-```arduino
-// ESP32: ECHO — ТІЛЬКИ через подільник 1к/2к (5 В → ~3.3 В).
-// TRIG — напряму. VCC модуля — 5 В (не 3.3!).
-#include <NewPing.h>
-
-const uint8_t TRIG_PIN = 5;
-const uint8_t ECHO_PIN = 18;   // сюди приходить середина подільника
-const unsigned int MAX_DISTANCE = 300;
-
-NewPing sonar(TRIG_PIN, ECHO_PIN, MAX_DISTANCE);
-
-void setup() {
-    Serial.begin(115200);
-}
-
-void loop() {
-    delay(60);
-    unsigned int cm = sonar.convert_cm(sonar.ping_median(5));
-    if (cm == 0) Serial.println("out of range");
-    else       { Serial.printf("%u cm\n", cm); }
-}
-```
+:::code api-newping/c/arduino/variant-dlia-3-3-voltovoi.ino
 
 А якщо не хочеться тягнути бібліотеку заради двох функцій, той самий вимір на ESP32 читається й голими руками — код майже дослівно збігається з Arduino-вкладкою першого прикладу, бо Arduino-ядро для ESP32 дає ті самі `pulseIn`, `delayMicroseconds` і `digitalWrite`. Без ядра, на чистому ESP-IDF, це буквально вкладка `esp-idf` вище — там і номери ніг ті самі:
 
-```arduino
-// ESP32 без бібліотеки. ECHO — через подільник 1к/2к!
-const uint8_t TRIG_PIN = 5;
-const uint8_t ECHO_PIN = 18;
-const unsigned long ECHO_TIMEOUT_US = 40000UL;
-
-void setup() {
-    pinMode(TRIG_PIN, OUTPUT);
-    pinMode(ECHO_PIN, INPUT);
-    digitalWrite(TRIG_PIN, LOW);
-    Serial.begin(115200);
-}
-
-unsigned int measureCm() {
-    digitalWrite(TRIG_PIN, LOW);  delayMicroseconds(2);
-    digitalWrite(TRIG_PIN, HIGH); delayMicroseconds(10);
-    digitalWrite(TRIG_PIN, LOW);
-    unsigned long t = pulseIn(ECHO_PIN, HIGH, ECHO_TIMEOUT_US);
-    if (t == 0) return 0;
-    return (unsigned int)(t / 58);
-}
-
-void loop() {
-    unsigned int cm = measureCm();
-    if (cm == 0) Serial.println("out of range");
-    else         Serial.printf("%u cm\n", cm);
-    delay(60);
-}
-```
+:::code api-newping/c/arduino/variant-dlia-3-3-voltovoi-2.ino
 
 > 🔧 **Навіщо це.** Найчастіша причина «купив новий ESP32, під'єднав HC-SR04 — плата здохла» — це ECHO напряму в пін без подільника. Два резистори коштують копійки; згорілий вхід ESP32 — нову плату. Перевір напругу логіки **до** того, як тицяєш ECHO: 5 В — можна прямо, 3.3 В — тільки через подільник. Існують і новіші HC-SR04+ / «3V3-сумісні» версії, що самі узгоджують рівні й живляться від 3.3 В, — але класична синя, якої в продажу найбільше, п'ятивольтова, і подільник для неї не обговорюється.
 

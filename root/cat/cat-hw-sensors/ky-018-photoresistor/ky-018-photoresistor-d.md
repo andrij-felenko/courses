@@ -95,31 +95,8 @@ S  →  АНАЛОГОВИЙ пін  (A0 на Uno; ADC-GPIO на ESP32)
 **Умова.** Сигнал S KY-018 — на A0 Arduino Uno; хочемо бачити відлік освітленості в моніторі порту. Живлення модуля — 5 В (плата 5-вольтова).
 
 :::tabs
-```cpp
-const uint8_t PIN_LDR = A0;      // S давача на аналоговому вході
-
-void setup() {
-  Serial.begin(9600);
-}
-
-void loop() {
-  int light = analogRead(PIN_LDR);   // 0…1023 на 10-бітному АЦП Uno
-  Serial.println(light);             // темно → мале число; світло → близько 1023
-  delay(200);
-}
-```
-```micropython
-from machine import ADC, Pin      # S давача на аналоговому вході (ESP32: GPIO34)
-from time import sleep_ms
-
-ldr = ADC(Pin(34))
-ldr.atten(ADC.ATTN_11DB)          # повний розмах входу, ~0…3.3 В
-
-while True:
-    light = ldr.read()            # 0…4095 на 12-бітному АЦП ESP32
-    print(light)                  # темно → мале число; світло → близько 4095
-    sleep_ms(200)
-```
+:::code ky-018-photoresistor-d/cpp/chytaiemo-svitlo-v-kodi.cpp
+:::code ky-018-photoresistor-d/py/micropython/chytaiemo-svitlo-v-kodi.py
 :::
 
 Запусти, посвіти на очок ліхтариком, потім прикрий долонею — і в моніторі побачиш, як число повзе від кількох десятків (долоня) до майже 1023 (ліхтарик). На Arduino Uno АЦП 10-бітний, тож діапазон — **0…1023**; на ESP32 він 12-бітний, тож там буде **0…4095**. Це «сире» число — ще не люкси й не відсотки, а просто позиція напруги в діапазоні АЦП, і воно різне для кожного екземпляра й кожної кімнати.
@@ -129,37 +106,8 @@ while True:
 **Умова.** Той самий давач на A0; вбудований світлодіод Uno (D13) хай засвічується, коли темно (відлік нижчий за поріг).
 
 :::tabs
-```cpp
-const uint8_t PIN_LDR = A0;
-const uint8_t PIN_LED = 13;
-const int     DARK    = 300;     // поріг: нижче — вважаємо «темно» (добери під себе!)
-
-void setup() {
-  pinMode(PIN_LED, OUTPUT);
-}
-
-void loop() {
-  int light = analogRead(PIN_LDR);
-  bool dark = (light < DARK);          // менше світла = менший відлік
-  digitalWrite(PIN_LED, dark ? HIGH : LOW);
-  delay(100);
-}
-```
-```micropython
-from machine import ADC, Pin
-from time import sleep_ms
-
-ldr = ADC(Pin(34))
-ldr.atten(ADC.ATTN_11DB)
-led = Pin(2, Pin.OUT)             # вбудований світлодіод ESP32
-DARK = 1200                       # поріг: нижче — вважаємо «темно» (добери під себе!)
-
-while True:
-    light = ldr.read()
-    dark = light < DARK           # менше світла = менший відлік
-    led.value(1 if dark else 0)
-    sleep_ms(100)
-```
+:::code ky-018-photoresistor-d/cpp/chytaiemo-svitlo-v-kodi-2.cpp
+:::code ky-018-photoresistor-d/py/micropython/chytaiemo-svitlo-v-kodi-2.py
 :::
 
 Число `300` тут — **не константа природи**, а те, що ти маєш підібрати експериментально під свій екземпляр і своє освітлення: подивися в моніторі, який відлік у «твоїй темряві» й у «твоєму світлі», і став поріг десь між ними.

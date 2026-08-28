@@ -66,115 +66,11 @@
 
 :::tabs
 
-```arduino
-const uint8_t SOUND = 2;      // вивід OUT давача
-const uint8_t LED   = 13;     // вбудований світлодіод плати
-unsigned long lastHit = 0;    // час останньої зарахованої події
-unsigned long count   = 0;    // лічильник гучних звуків
+:::code sound-lm393-d/c/arduino/main.ino
 
-void setup() {
-    pinMode(SOUND, INPUT);    // на платі вже є підтяжка → спокій = 1
-    pinMode(LED, OUTPUT);
-    Serial.begin(9600);
-}
+:::code sound-lm393-d/c/esp-idf/main.c
 
-void loop() {
-    int level = digitalRead(SOUND);    // 1 = тиша, 0 = гучний звук
-    digitalWrite(LED, level == LOW);   // світимо, поки давач бачить звук
-
-    // рахуємо подію, але не частіше ніж раз на 150 мс —
-    // інакше один плеск дасть чергу спрацювань
-    if (level == LOW && millis() - lastHit > 150) {
-        lastHit = millis();
-        Serial.print("гучний звук #");
-        Serial.println(++count);
-    }
-    delay(2);   // щільний цикл, щоб не проґавити короткий імпульс
-}
-```
-
-```esp-idf
-#include "driver/gpio.h"
-#include "esp_log.h"
-#include "esp_timer.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define SOUND GPIO_NUM_4        // вивід OUT давача
-#define LED   GPIO_NUM_2        // світлодіод плати
-static const char *TAG = "sound";
-
-static void sound_task(void *arg)
-{
-    gpio_config_t in = {
-        .pin_bit_mask = 1ULL << SOUND,
-        .mode = GPIO_MODE_INPUT,
-        .pull_up_en = GPIO_PULLUP_DISABLE,   // підтяжка вже стоїть на платі давача
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .intr_type = GPIO_INTR_DISABLE,
-    };
-    ESP_ERROR_CHECK(gpio_config(&in));
-    ESP_ERROR_CHECK(gpio_set_direction(LED, GPIO_MODE_OUTPUT));
-
-    int64_t last_hit = 0;       // мікросекунди останньої зарахованої події
-    unsigned count = 0;
-
-    while (1) {
-        int level = gpio_get_level(SOUND);        // 1 = тиша, 0 = гучний звук
-        gpio_set_level(LED, level == 0);          // світимо, поки давач бачить звук
-
-        // рахуємо подію, але не частіше ніж раз на 150 мс —
-        // інакше один плеск дасть чергу спрацювань
-        int64_t now = esp_timer_get_time();
-        if (level == 0 && now - last_hit > 150000) {
-            last_hit = now;
-            ESP_LOGI(TAG, "гучний звук #%u", ++count);
-        }
-        vTaskDelay(pdMS_TO_TICKS(2));   // щільний цикл, щоб не проґавити імпульс
-    }
-}
-
-void app_main(void)
-{
-    xTaskCreate(sound_task, "sound", 3072, NULL, 5, NULL);
-}
-```
-
-```stm32
-#include "main.h"       // CubeMX: PA0 — вхід без підтяжки, PC13 — вихід push-pull
-
-#define SOUND_PORT  GPIOA
-#define SOUND_PIN   GPIO_PIN_0      // вивід OUT давача
-#define LED_PORT    GPIOC
-#define LED_PIN     GPIO_PIN_13     // світлодіод плати
-
-int main(void)
-{
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();         // підтяжка не потрібна: вона вже є на платі давача
-    MX_USART2_UART_Init();  // printf перенаправлено на UART
-
-    uint32_t last_hit = 0;  // HAL_GetTick() останньої зарахованої події
-    uint32_t count = 0;
-
-    while (1) {
-        // GPIO_PIN_SET = тиша, GPIO_PIN_RESET = гучний звук
-        GPIO_PinState level = HAL_GPIO_ReadPin(SOUND_PORT, SOUND_PIN);
-        HAL_GPIO_WritePin(LED_PORT, LED_PIN,
-                          level == GPIO_PIN_RESET ? GPIO_PIN_SET : GPIO_PIN_RESET);
-
-        // рахуємо подію, але не частіше ніж раз на 150 мс —
-        // інакше один плеск дасть чергу спрацювань
-        uint32_t now = HAL_GetTick();
-        if (level == GPIO_PIN_RESET && now - last_hit > 150) {
-            last_hit = now;
-            printf("гучний звук #%lu\r\n", (unsigned long)++count);
-        }
-        HAL_Delay(2);   // щільний цикл, щоб не проґавити короткий імпульс
-    }
-}
-```
+:::code sound-lm393-d/c/stm32/main.c
 
 :::
 

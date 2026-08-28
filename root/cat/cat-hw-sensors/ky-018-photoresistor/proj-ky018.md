@@ -17,72 +17,11 @@
 Найчесніший спосіб зробити це — **автокалібрування за кілька секунд руху**: крутиш освітлення туди-сюди, а програма стежить за побаченими крайнощами й розсовує межі під них. Ось робочий фрагмент, який за задані секунди збирає min і max:
 
 :::tabs
-```arduino
-const uint8_t PIN_LDR = A0;
+:::code proj-ky018/c/arduino/zadacha-persha-svii.ino
 
-int rawMin = 1023;   // почнемо з «перевернутих» меж, щоб перший же відлік їх стягнув
-int rawMax = 0;
+:::code proj-ky018/c/esp-idf/zadacha-persha-svii.c
 
-void calibrate(uint16_t seconds) {
-  uint32_t until = millis() + (uint32_t)seconds * 1000;
-  while (millis() < until) {
-    int v = analogRead(PIN_LDR);
-    if (v < rawMin) rawMin = v;    // побачили темніше — опустили дно
-    if (v > rawMax) rawMax = v;    // побачили світліше — підняли стелю
-    delay(5);
-  }
-}
-```
-
-```esp-idf
-#include "esp_adc/adc_oneshot.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define LDR_CHAN  ADC_CHANNEL_6    // GPIO34 — канал блоку ADC1
-
-static adc_oneshot_unit_handle_t adc1;
-static int raw_min = 4095;   // «перевернуті» межі, щоб перший же відлік їх стягнув
-static int raw_max = 0;
-
-static void calibrate(uint16_t seconds) {
-  TickType_t until = xTaskGetTickCount() + pdMS_TO_TICKS(seconds * 1000);
-  while (xTaskGetTickCount() < until) {
-    int v = 0;
-    ESP_ERROR_CHECK(adc_oneshot_read(adc1, LDR_CHAN, &v));
-    if (v < raw_min) raw_min = v;  // побачили темніше — опустили дно
-    if (v > raw_max) raw_max = v;  // побачили світліше — підняли стелю
-    vTaskDelay(pdMS_TO_TICKS(5));
-  }
-}
-```
-
-```stm32
-#include "main.h"
-
-extern ADC_HandleTypeDef hadc1;  // CubeMX: ADC1, вхід IN0 → PA0, 12 біт
-
-static uint16_t ldr_read(void) {
-  HAL_ADC_Start(&hadc1);
-  HAL_ADC_PollForConversion(&hadc1, 10);
-  uint16_t v = HAL_ADC_GetValue(&hadc1);
-  HAL_ADC_Stop(&hadc1);
-  return v;
-}
-
-static int raw_min = 4095;   // «перевернуті» межі, щоб перший же відлік їх стягнув
-static int raw_max = 0;
-
-static void calibrate(uint16_t seconds) {
-  uint32_t until = HAL_GetTick() + (uint32_t)seconds * 1000;
-  while (HAL_GetTick() < until) {
-    int v = ldr_read();
-    if (v < raw_min) raw_min = v;  // побачили темніше — опустили дно
-    if (v > raw_max) raw_max = v;  // побачили світліше — підняли стелю
-    HAL_Delay(5);
-  }
-}
-```
+:::code proj-ky018/c/stm32/zadacha-persha-svii.c
 :::
 
 Тонкість, що відрізняє живий код від наївного, — у стартових значеннях. `rawMin` починається з **найбільшого** можливого числа, `rawMax` — з **найменшого**. Це навмисне «неправильно»: перший же реальний відлік менший за повну шкалу (1023 чи 4095), тож одразу стягне `rawMin` донизу; перший же відлік більший за 0 підніме `rawMax`. Почни ти з `rawMin = 0`, і жоден відлік ніколи не буде меншим — межа застрягне на нулі назавжди. Цей прийом («ініціалізуй екстремум протилежною межею») — класичний, і варто його впізнавати, бо він зринає всюди, де шукають min/max потоку.
@@ -133,84 +72,11 @@ y ← y + α · (нове − y)          0 < α ≤ 1
 Ось обидва фільтри робочим кодом. Спершу експоненційний — коротший і найуживаніший:
 
 :::tabs
-```arduino
-const uint8_t PIN_LDR = A0;
+:::code proj-ky018/c/arduino/zadacha-tretia-pryborkaty.ino
 
-float smoothed = 0;                 // згладжена оцінка (float, щоб α працював тонко)
-const float ALPHA = 0.2f;           // 0.1 гладше+лінивіше · 0.5 жвавіше+шумніше
+:::code proj-ky018/c/esp-idf/zadacha-tretia-pryborkaty.c
 
-void setup() {
-  Serial.begin(9600);
-  smoothed = analogRead(PIN_LDR);   // засіяти першим відліком, а не нулем
-}
-
-void loop() {
-  int raw = analogRead(PIN_LDR);
-  smoothed += ALPHA * (raw - smoothed);   // y ← y + α·(нове − y)
-  Serial.println((int)smoothed);
-  delay(20);
-}
-```
-
-```esp-idf
-#include "esp_adc/adc_oneshot.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "esp_log.h"
-
-static const char *TAG = "ldr";
-#define LDR_CHAN  ADC_CHANNEL_6     // GPIO34 — канал блоку ADC1
-#define ALPHA     0.2f              // 0.1 гладше+лінивіше · 0.5 жвавіше+шумніше
-
-void app_main(void) {
-  adc_oneshot_unit_handle_t adc1;
-  adc_oneshot_unit_init_cfg_t init = { .unit_id = ADC_UNIT_1 };
-  ESP_ERROR_CHECK(adc_oneshot_new_unit(&init, &adc1));
-  adc_oneshot_chan_cfg_t ch = { .atten = ADC_ATTEN_DB_12, .bitwidth = ADC_BITWIDTH_12 };
-  ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1, LDR_CHAN, &ch));
-
-  int raw = 0;
-  ESP_ERROR_CHECK(adc_oneshot_read(adc1, LDR_CHAN, &raw));
-  float smoothed = raw;             // засіяти першим відліком, а не нулем
-
-  for (;;) {
-    ESP_ERROR_CHECK(adc_oneshot_read(adc1, LDR_CHAN, &raw));
-    smoothed += ALPHA * (raw - smoothed);   // y ← y + α·(нове − y)
-    ESP_LOGI(TAG, "%d", (int)smoothed);
-    vTaskDelay(pdMS_TO_TICKS(20));
-  }
-}
-```
-
-```stm32
-#include "main.h"
-#include <stdio.h>
-
-extern ADC_HandleTypeDef  hadc1;    // CubeMX: ADC1, вхід IN0 → PA0, 12 біт
-extern UART_HandleTypeDef huart2;   // куди друкуємо замість Serial
-
-#define ALPHA 0.2f                  // 0.1 гладше+лінивіше · 0.5 жвавіше+шумніше
-
-static uint16_t ldr_read(void) {
-  HAL_ADC_Start(&hadc1);
-  HAL_ADC_PollForConversion(&hadc1, 10);
-  uint16_t v = HAL_ADC_GetValue(&hadc1);
-  HAL_ADC_Stop(&hadc1);
-  return v;
-}
-
-void ldr_loop(void) {               // кликати з main() після MX_*_Init()
-  float smoothed = ldr_read();      // засіяти першим відліком, а не нулем
-  char line[24];
-  for (;;) {
-    uint16_t raw = ldr_read();
-    smoothed += ALPHA * (raw - smoothed);   // y ← y + α·(нове − y)
-    int n = snprintf(line, sizeof line, "%d\r\n", (int)smoothed);
-    HAL_UART_Transmit(&huart2, (uint8_t *)line, n, HAL_MAX_DELAY);
-    HAL_Delay(20);
-  }
-}
-```
+:::code proj-ky018/c/stm32/zadacha-tretia-pryborkaty.c
 :::
 
 Дрібниця, яку легко проґавити й потім довго дивуватися: **засівання** `smoothed` першим відліком ще до входу в цикл — байдуже, зветься те місце `setup()`, початком `app_main()` чи рядком після `MX_ADC1_Init()`. Залиш там нуль — і фільтр перші секунди повзтиме від нуля до реального рівня, даючи брехливо «темні» числа на старті. Засіяв першим виміром — фільтр стартує вже біля правди. І `float` тут не примха: якби `smoothed` був `int`, добуток `α·(нове − y)` для малих різниць округлявся б до нуля, і фільтр «застрягав» би, не доходячи до цілі — знову ж таки пастка цілої арифметики.
@@ -218,120 +84,11 @@ void ldr_loop(void) {               // кликати з main() після MX_*_
 Ковзне середнє без буфера, коли хочеться саме його (рівномірне вікно, передбачувана затримка рівно на пів-вікна):
 
 :::tabs
-```arduino
-const uint8_t PIN_LDR = A0;
-const uint8_t N = 16;               // розмір вікна (степінь двійки — зручно для ділення)
+:::code proj-ky018/c/arduino/zadacha-tretia-pryborkaty-2.ino
 
-int   buf[N];                       // кільцевий буфер відліків
-uint8_t idx = 0;                    // куди писати наступний
-long  sum = 0;                      // поточна сума вмісту буфера
-bool  filled = false;               // чи буфер уже повний
+:::code proj-ky018/c/esp-idf/zadacha-tretia-pryborkaty-2.c
 
-void setup() {
-  Serial.begin(9600);
-  for (uint8_t i = 0; i < N; i++) buf[i] = 0;
-}
-
-int movingAverage(int raw) {
-  sum -= buf[idx];                  // викинути найдавніший відлік із суми
-  buf[idx] = raw;                   // покласти новий на його місце
-  sum += raw;                       // додати новий у суму
-  idx = (idx + 1) % N;              // зсунути вказівник по колу
-  if (idx == 0) filled = true;
-  uint8_t count = filled ? N : idx; // поки не заповнилось — ділимо на реальну кількість
-  return count ? (int)(sum / count) : raw;
-}
-
-void loop() {
-  int raw = analogRead(PIN_LDR);
-  Serial.println(movingAverage(raw));
-  delay(20);
-}
-```
-
-```esp-idf
-#include "esp_adc/adc_oneshot.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "esp_log.h"
-
-static const char *TAG = "ldr";
-#define LDR_CHAN  ADC_CHANNEL_6     // GPIO34
-#define N         16                // розмір вікна
-
-static int      buf[N];             // кільцевий буфер відліків
-static uint8_t  idx = 0;            // куди писати наступний
-static long     sum = 0;            // поточна сума вмісту буфера
-static bool     filled = false;     // чи буфер уже повний
-
-static int moving_average(int raw) {
-  sum -= buf[idx];                  // викинути найдавніший відлік із суми
-  buf[idx] = raw;                   // покласти новий на його місце
-  sum += raw;                       // додати новий у суму
-  idx = (idx + 1) % N;              // зсунути вказівник по колу
-  if (idx == 0) filled = true;
-  uint8_t count = filled ? N : idx; // поки не заповнилось — ділимо на реальну кількість
-  return count ? (int)(sum / count) : raw;
-}
-
-void app_main(void) {
-  adc_oneshot_unit_handle_t adc1;
-  adc_oneshot_unit_init_cfg_t init = { .unit_id = ADC_UNIT_1 };
-  ESP_ERROR_CHECK(adc_oneshot_new_unit(&init, &adc1));
-  adc_oneshot_chan_cfg_t ch = { .atten = ADC_ATTEN_DB_12, .bitwidth = ADC_BITWIDTH_12 };
-  ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1, LDR_CHAN, &ch));
-
-  for (;;) {
-    int raw = 0;
-    ESP_ERROR_CHECK(adc_oneshot_read(adc1, LDR_CHAN, &raw));
-    ESP_LOGI(TAG, "%d", moving_average(raw));
-    vTaskDelay(pdMS_TO_TICKS(20));
-  }
-}
-```
-
-```stm32
-#include "main.h"
-#include <stdio.h>
-
-extern ADC_HandleTypeDef  hadc1;    // ADC1, вхід IN0 → PA0
-extern UART_HandleTypeDef huart2;
-
-#define N 16                        // розмір вікна
-
-static int     buf[N];              // кільцевий буфер відліків
-static uint8_t idx = 0;             // куди писати наступний
-static long    sum = 0;             // поточна сума вмісту буфера
-static bool    filled = false;      // чи буфер уже повний
-
-static uint16_t ldr_read(void) {
-  HAL_ADC_Start(&hadc1);
-  HAL_ADC_PollForConversion(&hadc1, 10);
-  uint16_t v = HAL_ADC_GetValue(&hadc1);
-  HAL_ADC_Stop(&hadc1);
-  return v;
-}
-
-static int moving_average(int raw) {
-  sum -= buf[idx];                  // викинути найдавніший відлік із суми
-  buf[idx] = raw;                   // покласти новий на його місце
-  sum += raw;                       // додати новий у суму
-  idx = (idx + 1) % N;              // зсунути вказівник по колу
-  if (idx == 0) filled = true;
-  uint8_t count = filled ? N : idx; // поки не заповнилось — ділимо на реальну кількість
-  return count ? (int)(sum / count) : raw;
-}
-
-void ldr_loop(void) {               // кликати з main() після MX_*_Init()
-  char line[24];
-  for (;;) {
-    int raw = ldr_read();
-    int n = snprintf(line, sizeof line, "%d\r\n", moving_average(raw));
-    HAL_UART_Transmit(&huart2, (uint8_t *)line, n, HAL_MAX_DELAY);
-    HAL_Delay(20);
-  }
-}
-```
+:::code proj-ky018/c/stm32/zadacha-tretia-pryborkaty-2.c
 :::
 
 Ключова ідея тут — що ми **не пересумовуємо** весь буфер щоразу (це коштувало б N дій на кожен відлік), а тримаємо `sum` і правимо її двома операціями: мінус найдавніший, плюс найновіший. Це і робить «ковзне» дешевим — робота стала (O(1)), скільки б не було вікно. Прапорець `filled` і `count` дбають про чесний старт: поки буфер не набрався, ділимо на скільки реально є, а не на N (інакше перші відліки занижені порожніми нулями). Обери один із двох фільтрів під задачу: EMA — коли треба дешево й без буфера, ковзне — коли треба точно передбачувана затримка й рівний внесок кожного відліку. Глибше про те, [чому будь-яке згладжування неминуче додає затримку](root:com-signal/smoothing-vs-lag), — в окремій замітці; для KY-018, давача й так повільного, ця затримка зазвичай губиться на тлі власної інерції LDR.
@@ -349,99 +106,11 @@ void ldr_loop(void) {               // кликати з main() після MX_*_
 У коді гістерезис — це буквально кілька рядків, і головна їх ідея: **рішення залежить не лише від відліку, а й від поточного стану**. Той самий відлік у «мертвій зоні» лишає світло ввімкненим, якщо воно вже було ввімкнене, і вимкненим, якщо було вимкнене:
 
 :::tabs
-```arduino
-const uint8_t PIN_LDR = A0;
-const uint8_t PIN_LED = 13;
+:::code proj-ky018/c/arduino/zadacha-chetverta-stiike.ino
 
-const int DARK_ON  = 300;   // темніше цього → УВІМКНУТИ (нижній поріг)
-const int LIGHT_OFF = 400;  // світліше цього → ВИМКНУТИ (верхній поріг)
+:::code proj-ky018/c/esp-idf/zadacha-chetverta-stiike.c
 
-bool lampOn = false;        // поточний стан — частина рішення!
-
-void setup() {
-  pinMode(PIN_LED, OUTPUT);
-}
-
-void loop() {
-  int light = analogRead(PIN_LDR);   // (краще — уже згладжений; див. збірку нижче)
-
-  if (!lampOn && light < DARK_ON)      lampOn = true;    // було світло, стало темно
-  else if (lampOn && light > LIGHT_OFF) lampOn = false;  // було темно, стало світло
-  // якщо відлік між порогами — жодна умова не спрацює, стан лишається
-
-  digitalWrite(PIN_LED, lampOn ? HIGH : LOW);
-  delay(50);
-}
-```
-
-```esp-idf
-#include "driver/gpio.h"
-#include "esp_adc/adc_oneshot.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define LDR_CHAN   ADC_CHANNEL_6    // GPIO34
-#define PIN_LED    GPIO_NUM_2
-
-#define DARK_ON    1200   // темніше цього → УВІМКНУТИ (нижній поріг, 12 біт)
-#define LIGHT_OFF  1600   // світліше цього → ВИМКНУТИ (верхній поріг)
-
-void app_main(void) {
-  gpio_config_t io = { .pin_bit_mask = 1ULL << PIN_LED, .mode = GPIO_MODE_OUTPUT };
-  ESP_ERROR_CHECK(gpio_config(&io));
-
-  adc_oneshot_unit_handle_t adc1;
-  adc_oneshot_unit_init_cfg_t init = { .unit_id = ADC_UNIT_1 };
-  ESP_ERROR_CHECK(adc_oneshot_new_unit(&init, &adc1));
-  adc_oneshot_chan_cfg_t ch = { .atten = ADC_ATTEN_DB_12, .bitwidth = ADC_BITWIDTH_12 };
-  ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1, LDR_CHAN, &ch));
-
-  bool lamp_on = false;             // поточний стан — частина рішення!
-  for (;;) {
-    int light = 0;                  // (краще — уже згладжений; див. збірку нижче)
-    ESP_ERROR_CHECK(adc_oneshot_read(adc1, LDR_CHAN, &light));
-
-    if (!lamp_on && light < DARK_ON)       lamp_on = true;   // було світло, стало темно
-    else if (lamp_on && light > LIGHT_OFF) lamp_on = false;  // було темно, стало світло
-    // якщо відлік між порогами — жодна умова не спрацює, стан лишається
-
-    gpio_set_level(PIN_LED, lamp_on);
-    vTaskDelay(pdMS_TO_TICKS(50));
-  }
-}
-```
-
-```stm32
-#include "main.h"
-
-extern ADC_HandleTypeDef hadc1;     // ADC1, вхід IN0 → PA0, 12 біт
-
-#define DARK_ON    1200   // темніше цього → УВІМКНУТИ (нижній поріг, 12 біт)
-#define LIGHT_OFF  1600   // світліше цього → ВИМКНУТИ (верхній поріг)
-
-static uint16_t ldr_read(void) {
-  HAL_ADC_Start(&hadc1);
-  HAL_ADC_PollForConversion(&hadc1, 10);
-  uint16_t v = HAL_ADC_GetValue(&hadc1);
-  HAL_ADC_Stop(&hadc1);
-  return v;
-}
-
-void lamp_loop(void) {              // кликати з main() після MX_*_Init()
-  bool lamp_on = false;             // поточний стан — частина рішення!
-  for (;;) {
-    uint16_t light = ldr_read();    // (краще — уже згладжений; див. збірку нижче)
-
-    if (!lamp_on && light < DARK_ON)       lamp_on = true;   // було світло, стало темно
-    else if (lamp_on && light > LIGHT_OFF) lamp_on = false;  // було темно, стало світло
-    // якщо відлік між порогами — жодна умова не спрацює, стан лишається
-
-    HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin,
-                      lamp_on ? GPIO_PIN_SET : GPIO_PIN_RESET);
-    HAL_Delay(50);
-  }
-}
-```
+:::code proj-ky018/c/stm32/zadacha-chetverta-stiike.c
 :::
 
 Уся магія — у двох умовах, і кожна дивиться **і** на відлік, **і** на стан. `!lampOn && light < DARK_ON` — умикаємо, тільки якщо зараз вимкнено **й** стало по-справжньому темно. `lampOn && light > LIGHT_OFF` — вимикаємо, тільки якщо зараз увімкнено **й** стало помітно світло. Коли відлік у зазорі `DARK_ON..LIGHT_OFF`, жодна умова не істинна — і `lampOn` лишається незмінним. Ширина зазору (тут 100 одиниць) — це запас стійкості: вужчий зазор чутливіший, але гірше гасить тремтіння; ширший стійкіший, але «тупіший» на справжні повільні зміни. Підбирають його під розмах шуму: зазор має бути помітно **більшим** за амплітуду тремтіння відліку, інакше шум усе одно перестрибне обидві межі.
@@ -453,194 +122,11 @@ void lamp_loop(void) {              // кликати з main() після MX_*_
 Розкидані фрагменти зведімо в одне — об'єкт давача `LightSensor`, який інкапсулює калібрування, згладжування, перерахунок у відсотки й поріг із гістерезисом. Це вже не «приклад заради демонстрації», а те, що не соромно покласти в реальний проєкт: увесь стан давача сидить усередині, назовні — кілька зрозумілих операцій. Логіка одна на всі три середовища, різниться лише спосіб її записати: в Arduino це природно лягає в клас C++, в ESP-IDF і STM32 HAL — у структуру стану плюс кілька функцій над нею, як там і прийнято. Єдину справжню відмінність заліза — розрядність АЦП — усюди винесено в одне число, задане під час налаштування.
 
 :::tabs
-```arduino
-class LightSensor {
-  uint8_t pin;
-  int     rawMin, rawMax;     // межі власного діапазону (калібрування)
-  float   smoothed;           // згладжена оцінка (EMA)
-  float   alpha;              // сила фільтра 0..1
-  bool    dark;               // поточний стан (для гістерезису)
-  int     onThresh, offThresh;// пороги у ВІДСОТКАХ діапазону
+:::code proj-ky018/c/arduino/zbirka-malenka-biblioteka.ino
 
-public:
-  LightSensor(uint8_t p, float a = 0.2f, int onPct = 30, int offPct = 45)
-    : pin(p), rawMin(0), rawMax(0), smoothed(0),
-      alpha(a), dark(false), onThresh(onPct), offThresh(offPct) {}
+:::code proj-ky018/c/esp-idf/zbirka-malenka-biblioteka.c
 
-  void begin(int fullScale) {           // fullScale: 1023 для Uno, 4095 для ESP32
-    rawMin = fullScale;                 // «перевернуті» старти під пошук min/max
-    rawMax = 0;
-    smoothed = analogRead(pin);         // засіяти фільтр першим відліком
-  }
-
-  // покрутіть освітлення протягом seconds — клас зловить ваші крайнощі
-  void calibrate(uint16_t seconds) {
-    uint32_t until = millis() + (uint32_t)seconds * 1000;
-    while (millis() < until) {
-      int v = analogRead(pin);
-      if (v < rawMin) rawMin = v;
-      if (v > rawMax) rawMax = v;
-      delay(5);
-    }
-    if (rawMax - rawMin < 20) {          // діапазон підозріло вузький — калібрування недійсне
-      rawMin = 0; rawMax = 0;            // (нуль-нуль = «не відкалібровано»)
-    }
-  }
-
-  int  update() {                         // кликати щоцикл: оновлює фільтр, вертає сирий згладжений відлік
-    int raw = analogRead(pin);
-    smoothed += alpha * (raw - smoothed);
-    return (int)smoothed;
-  }
-
-  uint8_t percent() {                     // 0..100 % у межах власного діапазону
-    if (rawMax <= rawMin) return 0;       // ще не відкалібровано
-    int s = (int)smoothed;
-    if (s <= rawMin) return 0;
-    if (s >= rawMax) return 100;
-    return (uint32_t)(s - rawMin) * 100 / (rawMax - rawMin);
-  }
-
-  bool isDark() {                         // рішення з гістерезисом, у відсотках
-    uint8_t p = percent();
-    if (!dark && p < onThresh)       dark = true;    // стало темно
-    else if (dark && p > offThresh)  dark = false;   // стало світло
-    return dark;
-  }
-};
-```
-
-```esp-idf
-#include "esp_adc/adc_oneshot.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-typedef struct {
-  adc_oneshot_unit_handle_t adc;
-  adc_channel_t chan;
-  int   raw_min, raw_max;     // межі власного діапазону (калібрування)
-  float smoothed;             // згладжена оцінка (EMA)
-  float alpha;                // сила фільтра 0..1
-  bool  dark;                 // поточний стан (для гістерезису)
-  int   on_pct, off_pct;      // пороги у ВІДСОТКАХ діапазону
-} light_sensor_t;
-
-// full_scale: 4095 для 12-бітного АЦП ESP32
-void light_begin(light_sensor_t *s, adc_oneshot_unit_handle_t adc, adc_channel_t chan,
-                 int full_scale, float alpha, int on_pct, int off_pct) {
-  s->adc = adc;  s->chan = chan;  s->alpha = alpha;
-  s->on_pct = on_pct;  s->off_pct = off_pct;  s->dark = false;
-  s->raw_min = full_scale;    // «перевернуті» старти під пошук min/max
-  s->raw_max = 0;
-  int raw = 0;
-  ESP_ERROR_CHECK(adc_oneshot_read(adc, chan, &raw));
-  s->smoothed = raw;          // засіяти фільтр першим відліком
-}
-
-// покрутіть освітлення протягом seconds — функція зловить ваші крайнощі
-void light_calibrate(light_sensor_t *s, uint16_t seconds) {
-  TickType_t until = xTaskGetTickCount() + pdMS_TO_TICKS(seconds * 1000);
-  while (xTaskGetTickCount() < until) {
-    int v = 0;
-    ESP_ERROR_CHECK(adc_oneshot_read(s->adc, s->chan, &v));
-    if (v < s->raw_min) s->raw_min = v;
-    if (v > s->raw_max) s->raw_max = v;
-    vTaskDelay(pdMS_TO_TICKS(5));
-  }
-  if (s->raw_max - s->raw_min < 20) {   // діапазон підозріло вузький — калібрування недійсне
-    s->raw_min = 0;  s->raw_max = 0;    // (нуль-нуль = «не відкалібровано»)
-  }
-}
-
-int light_update(light_sensor_t *s) {   // кликати щоцикл: оновлює фільтр
-  int raw = 0;
-  ESP_ERROR_CHECK(adc_oneshot_read(s->adc, s->chan, &raw));
-  s->smoothed += s->alpha * (raw - s->smoothed);
-  return (int)s->smoothed;
-}
-
-uint8_t light_percent(const light_sensor_t *s) {  // 0..100 % власного діапазону
-  if (s->raw_max <= s->raw_min) return 0;         // ще не відкалібровано
-  int v = (int)s->smoothed;
-  if (v <= s->raw_min) return 0;
-  if (v >= s->raw_max) return 100;
-  return (uint32_t)(v - s->raw_min) * 100 / (s->raw_max - s->raw_min);
-}
-
-bool light_is_dark(light_sensor_t *s) {           // рішення з гістерезисом, у відсотках
-  uint8_t p = light_percent(s);
-  if (!s->dark && p < s->on_pct)       s->dark = true;    // стало темно
-  else if (s->dark && p > s->off_pct)  s->dark = false;   // стало світло
-  return s->dark;
-}
-```
-
-```stm32
-#include "main.h"
-#include <stdbool.h>
-
-typedef struct {
-  ADC_HandleTypeDef *adc;
-  int   raw_min, raw_max;     // межі власного діапазону (калібрування)
-  float smoothed;             // згладжена оцінка (EMA)
-  float alpha;                // сила фільтра 0..1
-  bool  dark;                 // поточний стан (для гістерезису)
-  int   on_pct, off_pct;      // пороги у ВІДСОТКАХ діапазону
-} light_sensor_t;
-
-static uint16_t light_raw(light_sensor_t *s) {
-  HAL_ADC_Start(s->adc);
-  HAL_ADC_PollForConversion(s->adc, 10);
-  uint16_t v = HAL_ADC_GetValue(s->adc);
-  HAL_ADC_Stop(s->adc);
-  return v;
-}
-
-// full_scale: 4095 для 12-бітного АЦП (типове для STM32), 1023 для 10-бітного режиму
-void light_begin(light_sensor_t *s, ADC_HandleTypeDef *adc,
-                 int full_scale, float alpha, int on_pct, int off_pct) {
-  s->adc = adc;  s->alpha = alpha;
-  s->on_pct = on_pct;  s->off_pct = off_pct;  s->dark = false;
-  s->raw_min = full_scale;    // «перевернуті» старти під пошук min/max
-  s->raw_max = 0;
-  s->smoothed = light_raw(s); // засіяти фільтр першим відліком
-}
-
-// покрутіть освітлення протягом seconds — функція зловить ваші крайнощі
-void light_calibrate(light_sensor_t *s, uint16_t seconds) {
-  uint32_t until = HAL_GetTick() + (uint32_t)seconds * 1000;
-  while (HAL_GetTick() < until) {
-    int v = light_raw(s);
-    if (v < s->raw_min) s->raw_min = v;
-    if (v > s->raw_max) s->raw_max = v;
-    HAL_Delay(5);
-  }
-  if (s->raw_max - s->raw_min < 20) {   // діапазон підозріло вузький — калібрування недійсне
-    s->raw_min = 0;  s->raw_max = 0;    // (нуль-нуль = «не відкалібровано»)
-  }
-}
-
-int light_update(light_sensor_t *s) {   // кликати щоцикл: оновлює фільтр
-  int raw = light_raw(s);
-  s->smoothed += s->alpha * (raw - s->smoothed);
-  return (int)s->smoothed;
-}
-
-uint8_t light_percent(const light_sensor_t *s) {  // 0..100 % власного діапазону
-  if (s->raw_max <= s->raw_min) return 0;         // ще не відкалібровано
-  int v = (int)s->smoothed;
-  if (v <= s->raw_min) return 0;
-  if (v >= s->raw_max) return 100;
-  return (uint32_t)(v - s->raw_min) * 100 / (s->raw_max - s->raw_min);
-}
-
-bool light_is_dark(light_sensor_t *s) {           // рішення з гістерезисом, у відсотках
-  uint8_t p = light_percent(s);
-  if (!s->dark && p < s->on_pct)       s->dark = true;    // стало темно
-  else if (s->dark && p > s->off_pct)  s->dark = false;   // стало світло
-  return s->dark;
-}
-```
+:::code proj-ky018/c/stm32/zbirka-malenka-biblioteka.c
 :::
 
 Чому пороги гістерезису тепер у **відсотках**, а не в сирих одиницях? Бо після калібрування відсоток осмислений і **переносний у часі**: «умикати темніше 30 %, вимикати світліше 45 %» лишається правдою й уранці, і ввечері, бо межі діапазону вимірюються заново, а не хардкодяться. Сирий поріг «300» такої стійкості не має — він прив'язаний до конкретного освітлення миті, коли його підбирали. Це прямий плід калібрування: воно окупається саме тут, роблячи логіку незалежною від абсолютних чисел АЦП.
@@ -648,115 +134,16 @@ bool light_is_dark(light_sensor_t *s) {           // рішення з гіст�
 Використання скрізь одне: налаштувати вхід, віддати давачу повну шкалу свого АЦП, відкалібруватися — і далі щоцикл питати відсоток та рішення. Перша вкладка — **Arduino Uno** (10-бітний АЦП → повна шкала 1023), поруч те саме на ESP-IDF і STM32 HAL, де шкала вже 4095:
 
 :::tabs
-```arduino
-LightSensor sensor(A0, 0.2f, 30, 45);   // пін A0, α=0.2, пороги 30/45 %
+:::code proj-ky018/c/arduino/zbirka-malenka-biblioteka-2.ino
 
-void setup() {
-  Serial.begin(9600);
-  pinMode(13, OUTPUT);
-  sensor.begin(1023);                   // 10-бітний АЦП Uno
-  Serial.println("Калібрування: 5 с крутіть освітлення...");
-  sensor.calibrate(5);
-}
+:::code proj-ky018/c/esp-idf/zbirka-malenka-biblioteka-2.c
 
-void loop() {
-  sensor.update();                      // оновити фільтр
-  uint8_t pct = sensor.percent();
-  bool dark = sensor.isDark();
-  digitalWrite(13, dark ? HIGH : LOW);  // вбудований світлодіод у темряві
-  Serial.print("яскравість "); Serial.print(pct); Serial.print(" %  ");
-  Serial.println(dark ? "ТЕМНО" : "світло");
-  delay(50);
-}
-```
-
-```esp-idf
-#include "driver/gpio.h"
-#include "esp_log.h"
-
-static const char *TAG = "ldr";
-static light_sensor_t sensor;
-
-void app_main(void) {
-  adc_oneshot_unit_handle_t adc1;
-  adc_oneshot_unit_init_cfg_t init = { .unit_id = ADC_UNIT_1 };   // ADC1 — не свариться з Wi-Fi
-  ESP_ERROR_CHECK(adc_oneshot_new_unit(&init, &adc1));
-  adc_oneshot_chan_cfg_t ch = { .atten = ADC_ATTEN_DB_12, .bitwidth = ADC_BITWIDTH_12 };
-  ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1, ADC_CHANNEL_6, &ch));  // GPIO34
-
-  gpio_config_t io = { .pin_bit_mask = 1ULL << GPIO_NUM_2, .mode = GPIO_MODE_OUTPUT };
-  ESP_ERROR_CHECK(gpio_config(&io));
-
-  light_begin(&sensor, adc1, ADC_CHANNEL_6, 4095, 0.2f, 30, 45);  // 12-бітний АЦП
-  ESP_LOGI(TAG, "Калібрування: 5 с крутіть освітлення...");
-  light_calibrate(&sensor, 5);
-
-  for (;;) {
-    light_update(&sensor);              // оновити фільтр
-    uint8_t pct = light_percent(&sensor);
-    bool dark = light_is_dark(&sensor);
-    gpio_set_level(GPIO_NUM_2, dark);   // світлодіод плати в темряві
-    ESP_LOGI(TAG, "яскравість %u %%  %s", pct, dark ? "ТЕМНО" : "світло");
-    vTaskDelay(pdMS_TO_TICKS(50));
-  }
-}
-```
-
-```stm32
-#include <stdio.h>
-#include <string.h>
-
-extern ADC_HandleTypeDef  hadc1;
-extern UART_HandleTypeDef huart2;
-
-static light_sensor_t sensor;
-
-static void say(const char *s) {
-  HAL_UART_Transmit(&huart2, (uint8_t *)s, strlen(s), HAL_MAX_DELAY);
-}
-
-int main(void) {
-  HAL_Init();  SystemClock_Config();
-  MX_GPIO_Init();  MX_ADC1_Init();  MX_USART2_UART_Init();
-
-  light_begin(&sensor, &hadc1, 4095, 0.2f, 30, 45);   // 12-бітний АЦП
-  say("Калібрування: 5 с крутіть освітлення...\r\n");
-  light_calibrate(&sensor, 5);
-
-  char line[48];
-  for (;;) {
-    light_update(&sensor);              // оновити фільтр
-    uint8_t pct = light_percent(&sensor);
-    bool dark = light_is_dark(&sensor);
-    HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin,       // світлодіод плати в темряві
-                      dark ? GPIO_PIN_SET : GPIO_PIN_RESET);
-    snprintf(line, sizeof line, "яскравість %u %%  %s\r\n", pct, dark ? "ТЕМНО" : "світло");
-    say(line);
-    HAL_Delay(50);
-  }
-}
-```
+:::code proj-ky018/c/stm32/zbirka-malenka-biblioteka-2.c
 :::
 
 На **ESP32 під Arduino-ядром** різниться рівно один рядок налаштування — `begin(4095)` замість `begin(1023)`, бо АЦП там 12-бітний. Але з піном і самим АЦП ESP32 є принципові тонкощі, повз які не можна пройти, — їм окремий розділ нижче. Скелет же коду ідентичний:
 
-```arduino
-LightSensor sensor(34, 0.2f, 30, 45);   // GPIO34 — канал ADC1 (див. розділ про ESP32!)
-
-void setup() {
-  Serial.begin(115200);
-  analogReadResolution(12);             // 0..4095 (типове для ESP32)
-  sensor.begin(4095);                   // 12-бітний АЦП
-  sensor.calibrate(5);
-}
-
-void loop() {
-  sensor.update();
-  Serial.printf("яскравість %u %%  %s\n",
-                sensor.percent(), sensor.isDark() ? "ТЕМНО" : "світло");
-  delay(50);
-}
-```
+:::code proj-ky018/c/arduino/zbirka-malenka-biblioteka-3.ino
 
 Одна логіка, три середовища, різниця — в одному числі повної шкали. Саме заради цього діапазон не «зашитий» усередину давача, а переданий у `begin`: перенесення між платами не мусить чіпати логіку.
 
@@ -802,22 +189,7 @@ ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1, ADC_CHANNEL_6, &ch));  // GPIO3
 int mv = analogReadMilliVolts(34);   // калібровані мілівольти замість сире·константа
 ```
 
-```esp-idf
-#include "esp_adc/adc_cali.h"
-#include "esp_adc/adc_cali_scheme.h"
-
-adc_cali_handle_t cali;
-adc_cali_line_fitting_config_t cfg = {
-  .unit_id  = ADC_UNIT_1,
-  .atten    = ADC_ATTEN_DB_12,
-  .bitwidth = ADC_BITWIDTH_12,
-};
-ESP_ERROR_CHECK(adc_cali_create_scheme_line_fitting(&cfg, &cali));
-
-int raw = 0, mv = 0;
-ESP_ERROR_CHECK(adc_oneshot_read(adc1, ADC_CHANNEL_6, &raw));
-ESP_ERROR_CHECK(adc_cali_raw_to_voltage(cali, raw, &mv));   // калібровані мілівольти
-```
+:::code proj-ky018/c/esp-idf/adc_cali.h
 :::
 
 Але для самого KY-018 напруга на дільнику — не мета: нас цікавить світло, а не вольти на вузлі S. Тож у нашій «бібліотеці давача» ми свідомо лишаємось у відсотках власного діапазону — там нелінійність АЦП розчиняється в калібруванні й ні на що не впливає. Глибше про 12-бітний АЦП ESP32, атенюацію й калібрування — у [статті про АЦП](root:hw-analog/adc); тут досить трьох правил: **пін бери з ADC1**, **шкала 0…4095**, а **вольти (якщо треба) — через заводське калібрування (`analogReadMilliVolts` чи `adc_cali_raw_to_voltage`), не множенням**.

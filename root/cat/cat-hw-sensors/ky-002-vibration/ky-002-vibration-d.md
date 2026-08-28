@@ -72,115 +72,11 @@ KY-002 — член [KY-серії](root:cat-hw-sensors/ky-series): те сам�
 
 :::tabs
 
-```arduino
-const uint8_t SHOCK = 2;      // вивід S давача
-const uint8_t LED   = 13;     // вбудований світлодіод
-unsigned long lastHit = 0;    // час останнього зарахованого струсу
-unsigned long count   = 0;    // лічильник струсів
+:::code ky-002-vibration-d/c/arduino/main.ino
 
-void setup() {
-    pinMode(SHOCK, INPUT_PULLUP);  // підтяжка вгору: спокій = 1, струс тягне до 0
-    pinMode(LED, OUTPUT);
-    Serial.begin(9600);
-}
+:::code ky-002-vibration-d/c/esp-idf/main.c
 
-void loop() {
-    int level = digitalRead(SHOCK);   // 1 = спокій, 0 = контакт замкнувся
-    digitalWrite(LED, level == LOW);  // світимо, поки бачимо замикання
-
-    // рахуємо струс, але не частіше ніж раз на 200 мс — гасимо торохтіння пружини
-    if (level == LOW && millis() - lastHit > 200) {
-        lastHit = millis();
-        Serial.print("струс #");
-        Serial.println(++count);
-    }
-    delay(5);   // щільний цикл, щоб не проґавити короткий контакт
-}
-```
-
-```esp-idf
-#include "driver/gpio.h"
-#include "esp_log.h"
-#include "esp_timer.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define SHOCK  GPIO_NUM_4     // вивід S давача
-#define LED    GPIO_NUM_2     // світлодіод на платі
-
-static const char *TAG = "ky002";
-
-void app_main(void)
-{
-    gpio_config_t in = {
-        .pin_bit_mask = 1ULL << SHOCK,
-        .mode         = GPIO_MODE_INPUT,
-        .pull_up_en   = GPIO_PULLUP_ENABLE,     // спокій = 1, струс тягне до 0
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .intr_type    = GPIO_INTR_DISABLE,
-    };
-    ESP_ERROR_CHECK(gpio_config(&in));
-
-    gpio_config_t out = {
-        .pin_bit_mask = 1ULL << LED,
-        .mode         = GPIO_MODE_OUTPUT,
-        .pull_up_en   = GPIO_PULLUP_DISABLE,
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .intr_type    = GPIO_INTR_DISABLE,
-    };
-    ESP_ERROR_CHECK(gpio_config(&out));
-
-    int64_t  last_hit = 0;    // мікросекунди останнього зарахованого струсу
-    unsigned count    = 0;
-
-    while (1) {
-        int level = gpio_get_level(SHOCK);   // 1 = спокій, 0 = контакт замкнувся
-        gpio_set_level(LED, level == 0);     // світимо, поки бачимо замикання
-
-        int64_t now = esp_timer_get_time();
-        // рахуємо струс, але не частіше ніж раз на 200 мс — гасимо торохтіння пружини
-        if (level == 0 && now - last_hit > 200000) {
-            last_hit = now;
-            ESP_LOGI(TAG, "струс #%u", ++count);
-        }
-        // щільний цикл; щоб 5 мс не округлилися до нуля, тик FreeRTOS
-        // піднімають до 1000 Гц (CONFIG_FREERTOS_HZ), інакше крок буде 10 мс
-        vTaskDelay(pdMS_TO_TICKS(5));
-    }
-}
-```
-
-```stm32
-#include "main.h"   // CubeMX: SHOCK_Pin — вхід із GPIO_PULLUP, LED_Pin — вихід
-
-int main(void)
-{
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();            // підтяжка вгору на SHOCK_Pin: спокій = 1, струс тягне до 0
-    MX_USART2_UART_Init();     // printf перенаправлено на UART
-
-    uint32_t last_hit = 0;     // мілісекунди останнього зарахованого струсу
-    uint32_t count    = 0;
-
-    while (1) {
-        // 1 = спокій, 0 = контакт замкнувся
-        GPIO_PinState level = HAL_GPIO_ReadPin(SHOCK_GPIO_Port, SHOCK_Pin);
-
-        // світимо, поки бачимо замикання
-        HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin,
-                          level == GPIO_PIN_RESET ? GPIO_PIN_SET : GPIO_PIN_RESET);
-
-        // рахуємо струс, але не частіше ніж раз на 200 мс — гасимо торохтіння пружини
-        uint32_t now = HAL_GetTick();
-        if (level == GPIO_PIN_RESET && now - last_hit > 200) {
-            last_hit = now;
-            printf("струс #%lu\r\n", (unsigned long)++count);
-        }
-        HAL_Delay(5);   // щільний цикл, щоб не проґавити короткий контакт
-    }
-}
-```
+:::code ky-002-vibration-d/c/stm32/main.c
 
 :::
 

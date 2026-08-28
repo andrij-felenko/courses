@@ -79,60 +79,8 @@
 **Умова.** AO під'єднано до аналогового входу A0, живлення й земля заведені. Що вологіше — то менша напруга (типово для цих плат), тож більше число АЦП означає сухіше. Треба вмикати «полити», коли земля пересохла за поріг, і вимикати лише коли добре зволожилась, — без сіпання на межі.
 
 :::tabs
-```cpp
-const uint8_t SOIL = A0;         // штир AO давача
-const int DRY = 700;             // сухіше за це — вмикаємо полив
-const int WET = 450;             // вологіше за це — вимикаємо
-bool watering = false;           // поточний стан насоса
-
-int readSoil() {                 // середнє з 8 замірів — глушимо шум
-    long sum = 0;
-    for (int i = 0; i < 8; i++) { sum += analogRead(SOIL); delay(2); }
-    return sum / 8;
-}
-
-void setup() {
-    Serial.begin(9600);
-}
-
-void loop() {
-    int v = readSoil();          // більше = сухіше
-    if (!watering && v > DRY) watering = true;   // пересохло → полив
-    if ( watering && v < WET) watering = false;  // зволожилось → стоп
-
-    Serial.print("вологість(АЦП)="); Serial.print(v);
-    Serial.println(watering ? "  [полив]" : "  [сухо стоїть]");
-    delay(1000);
-}
-```
-```micropython
-from machine import ADC, Pin
-from time import sleep_ms
-
-soil = ADC(Pin(34))              # штир AO давача (вхід АЦП)
-soil.atten(ADC.ATTN_11DB)        # повний діапазон 0..3.3 В
-
-DRY = 2800                       # сухіше за це — вмикаємо полив
-WET = 1800                       # вологіше за це — вимикаємо
-watering = False                 # поточний стан насоса
-
-def read_soil():                 # середнє з 8 замірів — глушимо шум
-    total = 0
-    for _ in range(8):
-        total += soil.read()
-        sleep_ms(2)
-    return total // 8
-
-while True:
-    v = read_soil()              # більше = сухіше
-    if not watering and v > DRY:
-        watering = True          # пересохло → полив
-    if watering and v < WET:
-        watering = False         # зволожилось → стоп
-
-    print("вологість(АЦП)=", v, "  [полив]" if watering else "  [сухо стоїть]")
-    sleep_ms(1000)
-```
+:::code soil-moisture-d/cpp/chotyry-shtyri-i.cpp
+:::code soil-moisture-d/py/micropython/chotyry-shtyri-i.py
 :::
 
 Тут головне — не сама перевірка, а **два різні пороги** `DRY` і `WET`. Якби межа була одна, давач біля неї коливався б через шум і насос смикався б увімкнув-вимкнув по десять разів на секунду. Розвівши пороги (увімкнути при 700, вимкнути аж при 450), ми лишаємо **зону спокою** — це і є гістерезис (гр. *hystérēsis* — відставання: вихід «запізнюється», тримаючи стан, поки величина не пройде далеко за межу). Конкретні числа тут умовні: реальні пороги ви знімете самі — застромивши щуп у суху й у щойно политу землю й глянувши, які числа дає ваш ґрунт із вашою платою.
@@ -148,50 +96,8 @@ while True:
 **Умова.** VCC давача під'єднано не до шини живлення, а до цифрового виводу D7; AO — на A0. Треба вмикати давач лише на час заміру, аби щуп менше кородував.
 
 :::tabs
-```cpp
-const uint8_t POWER = 7;         // VCC давача живимо з цифрового виводу
-const uint8_t SOIL  = A0;
-
-void setup() {
-    pinMode(POWER, OUTPUT);
-    digitalWrite(POWER, LOW);    // у спокої давач знеструмлений
-    Serial.begin(9600);
-}
-
-int measure() {
-    digitalWrite(POWER, HIGH);   // подали живлення на щуп
-    delay(10);                   // даємо напрузі усталитися
-    int v = analogRead(SOIL);    // швидко зняли
-    digitalWrite(POWER, LOW);    // одразу знеструмили — щуп «відпочиває»
-    return v;
-}
-
-void loop() {
-    Serial.println(measure());
-    delay(60000);                // міряємо раз на хвилину, а не безперервно
-}
-```
-```micropython
-from machine import ADC, Pin
-from time import sleep_ms, sleep
-
-power = Pin(7, Pin.OUT)          # VCC давача живимо з цифрового виводу
-soil = ADC(Pin(34))             # штир AO (вхід АЦП)
-soil.atten(ADC.ATTN_11DB)
-
-power.value(0)                   # у спокої давач знеструмлений
-
-def measure():
-    power.value(1)               # подали живлення на щуп
-    sleep_ms(10)                 # даємо напрузі усталитися
-    v = soil.read()              # швидко зняли
-    power.value(0)               # одразу знеструмили — щуп «відпочиває»
-    return v
-
-while True:
-    print(measure())
-    sleep(60)                    # міряємо раз на хвилину, а не безперервно
-```
+:::code soil-moisture-d/cpp/holovna-vada-shchup.cpp
+:::code soil-moisture-d/py/micropython/holovna-vada-shchup.py
 :::
 
 Кілька мілісекунд струму раз на хвилину замість цілодобового постійного — і швидкість корозії падає в десятки разів. (Зважте лише на межу виводу по струму: якщо щуп у мокрій солоній землі тягне більше, ніж вивід уміє віддати, живіть давач через транзистор-ключ, а виводом лише керуйте.) Другий, слабший захід — **золочені або нержавні щупи**: дорожчі версії вкривають доріжки імерсійним золотом, що не окиснюється; допомагає, але від електролізу самої металізації остаточно не рятує.

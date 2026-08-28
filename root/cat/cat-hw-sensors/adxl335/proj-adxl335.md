@@ -42,25 +42,7 @@ a = (raw/1023 − k_bias) / k_sens
 
 Тримаймо цю ідею в коді як явний вибір: працюємо **у відліках АЦП**, а не у вольтах. Вольти — проміжна фікція; у відліках усе ратіометрично й простіше.
 
-```c
-// Скільки відліків АЦП відповідає нулю g і одному g.
-// Це вже ратіометричні числа: вони НЕ залежать від точного Vcc,
-// поки давач і опора АЦП живляться від однієї шини.
-//
-// Орієнтир для 10-бітного АЦП (0..1023), давач і опора від однієї 3.3 В:
-//   0g  -> ~512 відліків (половина шкали)
-//   1g  -> ~102 відліки понад біас  (0.330 В / 3.3 В * 1023)
-// Але точні значення в кожного екземпляра СВОЇ — їх дає калібрування (нижче).
-
-int   biasRaw[3] = { 512, 512, 512 };   // код при 0g на осях X, Y, Z
-float scaleRaw[3] = { 102.0f, 102.0f, 102.0f };  // код на 1g
-
-// Читання однієї осі одразу в g, у відліках АЦП (ратіометрично).
-float readG(int pin, int axis) {
-    int raw = analogRead(pin);
-    return (raw - biasRaw[axis]) / scaleRaw[axis];
-}
-```
+:::code proj-adxl335/c/krok-0-ratiometrychne.c
 
 Зверніть увагу: ми **ніде не переводимо у вольти**. `readG` бере сирий код, віднімає код-біас, ділить на код-на-g. Вольти зникли — і разом з ними зникла залежність від точного значення опори.
 
@@ -100,36 +82,7 @@ int readAvg(int pin, int n) {
 
 Осей три, а рук у вас дві — тож калібрування зручно зробити напівавтоматом: код чекає, поки ви поставите плату в потрібне положення, ви шлете символ у монітор порту, він знімає точку. Шість знімків (три осі × два напрямки) — і константи готові.
 
-```c
-const int PIN[3] = { A0, A1, A2 };   // X, Y, Z
-const char* AXIS[3] = { "X", "Y", "Z" };
-
-// Знімає один усереднений код для осі axis і напряму (+1g або -1g),
-// коли користувач підтвердив, що поставив плату правильно.
-int capturePoint(int axis, const char* dir) {
-    Serial.print("Постав вiсь "); Serial.print(AXIS[axis]);
-    Serial.print(" строго "); Serial.print(dir);
-    Serial.println(" (+1g угору / -1g униз), потiм натисни Enter...");
-    while (Serial.available() == 0) { /* чекаємо */ }
-    while (Serial.available() > 0) Serial.read();   // з'їсти рядок
-    int raw = readAvg(PIN[axis], 64);               // тихий, точний знімок
-    Serial.print("  знято: "); Serial.println(raw);
-    return raw;
-}
-
-void calibrate() {
-    for (int ax = 0; ax < 3; ax++) {
-        int up   = capturePoint(ax, "вгору");
-        int down = capturePoint(ax, "вниз");
-        biasRaw[ax]  = (up + down) / 2;
-        scaleRaw[ax] = (up - down) / 2.0f;
-        Serial.print("Вiсь "); Serial.print(AXIS[ax]);
-        Serial.print(": bias="); Serial.print(biasRaw[ax]);
-        Serial.print("  scale="); Serial.println(scaleRaw[ax], 1);
-    }
-    Serial.println("Калiбрування завершено. Впиши цi числа в код як стартовi.");
-}
-```
+:::code proj-adxl335/c/krok-1-dvotochkove.c
 
 Порахувавши константи один раз, ви вписуєте їх у `biasRaw[]` і `scaleRaw[]` як стартові значення — і `readG` одразу дає правильні g. Для приладу, що возиться (робот, коптер), калібрування варто зберігати в `EEPROM`, щоб не повторювати після кожного вимкнення; для настільних дослідів досить вписати числа в скетч.
 
@@ -153,71 +106,9 @@ roll  = atan2( ay , √(ax² + az²) )   // нахил ліворуч-право
 `atan2` повертає радіани — переведемо в градуси множенням на `180/π`:
 
 :::tabs
-```cpp
-#include <math.h>
-
-// Кути нахилу (градуси) з трьох прискорень у g.
-void tiltAngles(float ax, float ay, float az,
-                float* pitch, float* roll) {
-    const float RAD2DEG = 57.29578f;             // 180 / π
-    *pitch = atan2f(ax, sqrtf(ay*ay + az*az)) * RAD2DEG;
-    *roll  = atan2f(ay, sqrtf(ax*ax + az*az)) * RAD2DEG;
-}
-
-void loop() {
-    float ax = readG(A0, 0);
-    float ay = readG(A1, 1);
-    float az = readG(A2, 2);
-
-    float pitch, roll;
-    tiltAngles(ax, ay, az, &pitch, &roll);
-
-    Serial.print("pitch="); Serial.print(pitch, 1);
-    Serial.print("  roll="); Serial.println(roll, 1);
-    delay(50);
-}
-```
-```python
-import math
-import time
-
-# Кути нахилу (градуси) з трьох прискорень у g.
-def tilt_angles(ax, ay, az):
-    pitch = math.degrees(math.atan2(ax, math.hypot(ay, az)))
-    roll  = math.degrees(math.atan2(ay, math.hypot(ax, az)))
-    return pitch, roll
-
-while True:
-    ax = read_g(0, 0)
-    ay = read_g(1, 1)
-    az = read_g(2, 2)
-
-    pitch, roll = tilt_angles(ax, ay, az)
-
-    print("pitch={:.1f}  roll={:.1f}".format(pitch, roll))
-    time.sleep(0.05)
-```
-```micropython
-import math
-import time
-
-# Кути нахилу (градуси) з трьох прискорень у g.
-def tilt_angles(ax, ay, az):
-    RAD2DEG = 57.29578                           # 180 / π
-    pitch = math.atan2(ax, math.sqrt(ay*ay + az*az)) * RAD2DEG
-    roll  = math.atan2(ay, math.sqrt(ax*ax + az*az)) * RAD2DEG
-    return pitch, roll
-
-while True:
-    ax = read_g(0, 0)
-    ay = read_g(1, 1)
-    az = read_g(2, 2)
-
-    pitch, roll = tilt_angles(ax, ay, az)
-
-    print("pitch={:.1f}  roll={:.1f}".format(pitch, roll))
-    time.sleep_ms(50)
-```
+:::code proj-adxl335/cpp/krok-2-kut-nakhylu-cherez.cpp
+:::code proj-adxl335/py/krok-2-kut-nakhylu-cherez.py
+:::code proj-adxl335/py/micropython/krok-2-kut-nakhylu-cherez.py
 :::
 
 > 🔧 **Навіщо atan2, а не asin.** `atan2` бере два аргументи — «протилежний» і «прилеглий» катети — і тому знає **обидва знаки**. Це дає йому дві переваги, яких немає в `asin`: він розрізняє всі чотири чверті (нахил уперед проти назад, а не лише «на скільки»), і він **не вибухає** біля 90°, бо там працює за тангенсом, а не за синусом. Для будь-якого кута з проєкцій вектора — завжди `atan2`.
@@ -239,78 +130,9 @@ while True:
 Найзрозуміліший фільтр — [ковзне середнє](root:com-signal/moving-average): тримаємо останні N вимірів і щоразу видаємо їхнє середнє. Кожен новий відлік входить у вікно, найстаріший випадає. Це буквально та сама ідея, що й усереднення при читанні, тільки рознесена в часі й безперервна.
 
 :::tabs
-```cpp
-// Ковзне середнє на кільцевому буфері (для однієї осі).
-#define WIN 8
-struct MovAvg {
-    float buf[WIN];
-    int   idx;
-    float sum;
-    bool  filled;
-};
-
-void maInit(MovAvg* m) {
-    m->idx = 0; m->sum = 0; m->filled = false;
-    for (int i = 0; i < WIN; i++) m->buf[i] = 0;
-}
-
-float maStep(MovAvg* m, float x) {
-    m->sum -= m->buf[m->idx];   // прибрати найстаріше
-    m->buf[m->idx] = x;         // покласти нове на його місце
-    m->sum += x;
-    m->idx = (m->idx + 1) % WIN;
-    if (m->idx == 0) m->filled = true;
-    int n = m->filled ? WIN : m->idx;   // поки буфер не повний — ділимо на стільки, скільки є
-    if (n == 0) n = WIN;
-    return m->sum / n;
-}
-```
-```python
-from collections import deque
-
-# Ковзне середнє на кільцевому буфері (для однієї осі).
-WIN = 8
-
-class MovAvg:
-    def __init__(self):
-        self.buf = deque([0.0] * WIN, maxlen=WIN)  # найстаріше саме випадає
-        self.sum = 0.0
-        self.filled = False
-        self.count = 0
-
-    def step(self, x):
-        oldest = self.buf[0] if len(self.buf) == WIN else 0.0
-        self.sum -= oldest          # прибрати найстаріше
-        self.buf.append(x)          # покласти нове на його місце
-        self.sum += x
-        if self.count < WIN:
-            self.count += 1
-        n = self.count              # поки буфер не повний — ділимо на стільки, скільки є
-        return self.sum / n
-```
-```micropython
-# Ковзне середнє на кільцевому буфері (для однієї осі).
-WIN = const(8)
-
-class MovAvg:
-    def __init__(self):
-        self.buf = [0.0] * WIN
-        self.idx = 0
-        self.sum = 0.0
-        self.filled = False
-
-    def step(self, x):
-        self.sum -= self.buf[self.idx]   # прибрати найстаріше
-        self.buf[self.idx] = x           # покласти нове на його місце
-        self.sum += x
-        self.idx = (self.idx + 1) % WIN
-        if self.idx == 0:
-            self.filled = True
-        n = WIN if self.filled else self.idx  # поки буфер не повний — ділимо на стільки, скільки є
-        if n == 0:
-            n = WIN
-        return self.sum / n
-```
+:::code proj-adxl335/cpp/kovzne-serednie-chesne.cpp
+:::code proj-adxl335/py/kovzne-serednie-chesne.py
+:::code proj-adxl335/py/micropython/kovzne-serednie-chesne.py
 :::
 
 Хитрість тут — **не переусереднювати весь буфер щоразу**. Ми тримаємо біжучу суму: віднімаємо те, що випадає, додаємо те, що входить. Тож один крок — це одне віднімання й одне додавання, скільки б не було вікно. Вікно N душить білий шум у √N разів (те саме правило), але коштує **затримки**: середнє N відліків «відстає» від сигналу приблизно на пів-вікна. N = 8 при циклі 20 мс дає ≈ 80 мс запізнення — непомітно для нахилу рукою, відчутно для швидкого керування. Ширше вікно — тихіше, але повільніше; це прямий компроміс.
@@ -336,40 +158,12 @@ float iirStep(Iir* f, float x, float alpha) {
     return f->y;
 }
 ```
-```python
-# Однополюсний IIR (експоненційне згладжування), стан — одне float.
-# Той самий код працює і на CPython, і на MicroPython.
-class Iir:
-    def __init__(self):
-        self.y = 0.0
-        self.init = False
-
-    def step(self, x, alpha):
-        if not self.init:            # перший вимір — як є, без розгону
-            self.y = x
-            self.init = True
-        self.y += alpha * (x - self.y)
-        return self.y
-```
+:::code proj-adxl335/py/iir-filtr-odne-chyslo.py
 :::
 
 Порада з практики: **фільтруйте g, не кут**. Спокусливо згладити вже готовий `pitch`, але кут — це нелінійна функція проєкцій (`atan2`), і згладжування після нелінійності спотворює менше очевидно. Чистіше: відфільтрувати три `ax/ay/az`, а вже з тихих проєкцій рахувати кут. Тоді нелінійність працює з чистим входом, і кут виходить і тихий, і без викривлення.
 
-```c
-Iir fx, fy, fz;                 // по фільтру на вісь
-const float A = 0.15f;          // золота середина: помітно тихіше, ще не мляво
-
-void loop() {
-    float ax = iirStep(&fx, readG(A0, 0), A);
-    float ay = iirStep(&fy, readG(A1, 1), A);
-    float az = iirStep(&fz, readG(A2, 2), A);   // Z шумніша вдвічі — фільтр тут особливо доречний
-
-    float pitch, roll;
-    tiltAngles(ax, ay, az, &pitch, &roll);
-    Serial.print(pitch, 1); Serial.print('\t'); Serial.println(roll, 1);
-    delay(20);
-}
-```
+:::code proj-adxl335/c/iir-filtr-odne-chyslo.c
 
 Вісь Z я згадав окремо навмисно: у ADXL335 її шум **удвічі більший**, ніж X/Y — 300 мкg/√Гц проти 150 (вертикальна вісь конструктивно шумніша). Тож саме Z виграє від фільтра найбільше; для неї іноді беруть трохи менше α, ніж для X/Y, щоб зрівняти тремтіння всіх трьох. Наскільки вузько різати смугу — питання не лише про давач, а й про те, скільки шуму несе ваша смуга пропускання загалом: ширша смуга — більше шуму пролазить, і це загальне [правило шумової смуги](root:hw-analog/noise-bandwidth), не особливість ADXL335.
 
@@ -390,30 +184,7 @@ void loop() {
 
 Чому саме модуль, а не якась одна вісь? Бо удар може прийти під будь-яким кутом і розкластися на осі як завгодно — але **довжина** вектора від напрямку не залежить. Один поріг на модуль ловить поштовх з будь-якого боку, тоді як стеження за окремою віссю пропустило б удар, спрямований уздовж іншої.
 
-```c
-// Детектор поштовху: спрацьовує, коли модуль прискорення
-// відбіг від 1g далі за поріг THRESH (у g).
-const float THRESH = 0.35f;      // 0.35g понад тяжіння — впевнений струс
-bool wasQuiet = true;            // щоб не сипати подіями, поки трясе
-
-void loop() {
-    float ax = readG(A0, 0);
-    float ay = readG(A1, 1);
-    float az = readG(A2, 2);
-
-    float mag = sqrtf(ax*ax + ay*ay + az*az);   // модуль вектора, g
-    float dev = fabsf(mag - 1.0f);              // відхилення від спокою
-
-    if (dev > THRESH && wasQuiet) {
-        Serial.print("ПОШТОВХ! |a|="); Serial.println(mag, 2);
-        wasQuiet = false;                       // подія вже видана
-    }
-    if (dev < THRESH * 0.5f) {
-        wasQuiet = true;                        // затихло — готові до наступного
-    }
-    delay(10);
-}
-```
+:::code proj-adxl335/c/krok-4-detektor-poshtovkhu.c
 
 Два місця тут — не випадкові, і саме вони роблять детектор придатним.
 

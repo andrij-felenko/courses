@@ -40,141 +40,9 @@ MS5611 розуміє маленький набір однобайтових к�
 При старті ведучий шле байт скиду `0x1E` і чекає близько 3 мс, поки давач перекладе калібрувальну пам'ять (PROM) у робочі регістри. Далі — читання шести коефіцієнтів. Кожне слово PROM — це **16 бітів**, тому на команду `0xA2` давач віддає **два байти** (старший, потім молодший), які треба скласти в `uint16_t`. Коефіцієнти незмінні, тож це робиться **раз** за все життя прошивки.
 
 :::tabs
-```arduino
-#include <Wire.h>
-
-static const uint8_t MS5611_ADDR = 0x77;   // 0x76, якщо CSB на VCC
-
-static const uint8_t CMD_RESET    = 0x1E;
-static const uint8_t CMD_CONV_D1  = 0x40;   // тиск;  до цього додається OSR·2
-static const uint8_t CMD_CONV_D2  = 0x50;   // темпер.; до цього додається OSR·2
-static const uint8_t CMD_ADC_READ = 0x00;
-static const uint8_t CMD_PROM_BASE= 0xA0;   // A0..AE — 8 слів по 16 біт
-
-// Тут зберігатимемо весь PROM: [0]=reserved+CRC-nibble, [1..6]=C1..C6, [7]=serial+CRC.
-uint16_t g_prom[8];
-
-// Скид давача.
-static bool ms5611_reset() {
-  Wire.beginTransmission(MS5611_ADDR);
-  Wire.write(CMD_RESET);
-  bool ok = (Wire.endTransmission() == 0);
-  delay(3);            // ~2.8 мс на перезавантаження PROM у регістри
-  return ok;
-}
-
-// Прочитати одне 16-бітне слово PROM за індексом 0..7.
-static bool ms5611_read_prom_word(uint8_t index, uint16_t *out) {
-  Wire.beginTransmission(MS5611_ADDR);
-  Wire.write(CMD_PROM_BASE + index * 2);      // A0, A2, A4, ... AE
-  if (Wire.endTransmission() != 0) return false;
-
-  if (Wire.requestFrom((int)MS5611_ADDR, 2) != 2) return false;
-  uint8_t hi = Wire.read();
-  uint8_t lo = Wire.read();
-  *out = ((uint16_t)hi << 8) | lo;            // старший байт першим
-  return true;
-}
-
-// Прочитати весь PROM (8 слів) у g_prom[]. Викликається раз при старті.
-static bool ms5611_read_prom() {
-  for (uint8_t i = 0; i < 8; i++) {
-    if (!ms5611_read_prom_word(i, &g_prom[i])) return false;
-  }
-  return true;
-}
-```
-```esp-idf
-#include "driver/i2c.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define I2C_PORT      I2C_NUM_0
-#define MS5611_ADDR   0x77          // 0x76, якщо CSB на VCC
-#define I2C_TMO       pdMS_TO_TICKS(100)
-
-#define CMD_RESET      0x1E
-#define CMD_CONV_D1    0x40         // тиск;   до цього додається OSR·2
-#define CMD_CONV_D2    0x50         // темпер.; до цього додається OSR·2
-#define CMD_ADC_READ   0x00
-#define CMD_PROM_BASE  0xA0         // A0..AE — 8 слів по 16 біт
-
-// Тут зберігатимемо весь PROM: [0]=reserved+CRC-nibble, [1..6]=C1..C6, [7]=serial+CRC.
-uint16_t g_prom[8];
-
-// Скид давача.
-static esp_err_t ms5611_reset(void) {
-    uint8_t cmd = CMD_RESET;
-    esp_err_t err = i2c_master_write_to_device(I2C_PORT, MS5611_ADDR, &cmd, 1, I2C_TMO);
-    vTaskDelay(pdMS_TO_TICKS(5));   // ~2.8 мс на перезавантаження PROM у регістри
-    return err;
-}
-
-// Прочитати одне 16-бітне слово PROM за індексом 0..7.
-// write_read_device = запис команди, повторний старт, читання — один виклик.
-static esp_err_t ms5611_read_prom_word(uint8_t index, uint16_t *out) {
-    uint8_t cmd = CMD_PROM_BASE + index * 2;    // A0, A2, A4, ... AE
-    uint8_t buf[2];
-    esp_err_t err = i2c_master_write_read_device(I2C_PORT, MS5611_ADDR,
-                                                 &cmd, 1, buf, 2, I2C_TMO);
-    if (err != ESP_OK) return err;
-    *out = ((uint16_t)buf[0] << 8) | buf[1];    // старший байт першим
-    return ESP_OK;
-}
-
-// Прочитати весь PROM (8 слів) у g_prom[]. Викликається раз при старті.
-static esp_err_t ms5611_read_prom(void) {
-    for (uint8_t i = 0; i < 8; i++) {
-        esp_err_t err = ms5611_read_prom_word(i, &g_prom[i]);
-        if (err != ESP_OK) return err;
-    }
-    return ESP_OK;
-}
-```
-```stm32
-#include "stm32f4xx_hal.h"
-
-extern I2C_HandleTypeDef hi2c1;             // налаштований у MX_I2C1_Init()
-
-// HAL чекає 8-бітну адресу: 7-бітну зсуваємо вліво, молодший біт — R/W.
-#define MS5611_ADDR   (0x77 << 1)           // (0x76 << 1), якщо CSB на VCC
-#define I2C_TMO       100                   // мс на транзакцію
-
-#define CMD_RESET      0x1E
-#define CMD_CONV_D1    0x40                 // тиск;   до цього додається OSR·2
-#define CMD_CONV_D2    0x50                 // темпер.; до цього додається OSR·2
-#define CMD_ADC_READ   0x00
-#define CMD_PROM_BASE  0xA0                 // A0..AE — 8 слів по 16 біт
-
-// Тут зберігатимемо весь PROM: [0]=reserved+CRC-nibble, [1..6]=C1..C6, [7]=serial+CRC.
-uint16_t g_prom[8];
-
-// Скид давача.
-static bool ms5611_reset(void) {
-  uint8_t cmd = CMD_RESET;
-  if (HAL_I2C_Master_Transmit(&hi2c1, MS5611_ADDR, &cmd, 1, I2C_TMO) != HAL_OK) return false;
-  HAL_Delay(5);            // ~2.8 мс на перезавантаження PROM у регістри
-  return true;
-}
-
-// Прочитати одне 16-бітне слово PROM за індексом 0..7.
-static bool ms5611_read_prom_word(uint8_t index, uint16_t *out) {
-  uint8_t cmd = CMD_PROM_BASE + index * 2;  // A0, A2, A4, ... AE
-  uint8_t buf[2];
-  if (HAL_I2C_Master_Transmit(&hi2c1, MS5611_ADDR, &cmd, 1, I2C_TMO) != HAL_OK) return false;
-  if (HAL_I2C_Master_Receive(&hi2c1, MS5611_ADDR, buf, 2, I2C_TMO) != HAL_OK) return false;
-  *out = ((uint16_t)buf[0] << 8) | buf[1];  // старший байт першим
-  return true;
-}
-
-// Прочитати весь PROM (8 слів) у g_prom[]. Викликається раз при старті.
-static bool ms5611_read_prom(void) {
-  for (uint8_t i = 0; i < 8; i++) {
-    if (!ms5611_read_prom_word(i, &g_prom[i])) return false;
-  }
-  return true;
-}
-```
+:::code api-ms5611/c/arduino/krok-0-skyd-i-chytannia.ino
+:::code api-ms5611/c/esp-idf/krok-0-skyd-i-chytannia.c
+:::code api-ms5611/c/stm32/krok-0-skyd-i-chytannia.c
 :::
 
 Порядок байтів тут — не дрібниця, а перша з класичних пасток. MS5611 віддає **старший байт першим** (big-endian), і якщо скласти навпаки (`lo << 8 | hi`), коефіцієнти вийдуть спотворені, а тиск — безглуздий. Та сама увага знадобиться при читанні 24-бітного АЦП.
@@ -185,36 +53,7 @@ static bool ms5611_read_prom(void) {
 
 Алгоритм TE Connectivity канонічний і виглядає незвично: він рахує CRC не побайтово, а прокручує всі **16 байтів** восьми слів через 16-бітний регістр із поліномом `0x3000`, попередньо занулив ніблі самої суми у восьмому слові (інакше сума рахувалася б «сама від себе»). Ось він, слово в слово з довідкового драйвера виробника, лише з українськими коментарями:
 
-```cpp
-// CRC-4 для PROM MS5611 (алгоритм TE Connectivity, AN520).
-// Приймає масив 8 слів; повертає true, якщо обчислена сума збіглася із зашитою.
-bool ms5611_prom_crc_ok(uint16_t *prom) {
-  uint16_t n_rem = 0x00;               // робочий 16-бітний залишок (CRC-регістр)
-  uint16_t crc_read = prom[7];         // запам'ятати слово з зашитою сумою
-  uint8_t  crc_expected = prom[7] & 0x000F;   // сама CRC-4 — молодший нібл
-
-  prom[7] = prom[7] & 0xFF00;          // занулити нібл суми ПЕРЕД обчисленням
-
-  for (uint8_t cnt = 0; cnt < 16; cnt++) {     // 16 байтів = 8 слів
-    if (cnt % 2 == 1)
-      n_rem ^= (uint16_t)(prom[cnt >> 1] & 0x00FF);   // непарний крок — молодший байт
-    else
-      n_rem ^= (uint16_t)(prom[cnt >> 1] >> 8);       // парний крок — старший байт
-
-    for (uint8_t bit = 8; bit > 0; bit--) {
-      if (n_rem & 0x8000)
-        n_rem = (n_rem << 1) ^ 0x3000;    // старший біт = 1 → зсув + XOR з поліномом
-      else
-        n_rem = (n_rem << 1);             // інакше просто зсув
-    }
-  }
-
-  n_rem = (n_rem >> 12) & 0x000F;      // готова CRC-4 — старші 4 біти залишку
-  prom[7] = crc_read;                  // відновити слово (ми його псували маскою)
-
-  return (n_rem == crc_expected);
-}
-```
+:::code api-ms5611/cpp/sertse-nadiinosti.cpp
 
 Три місця варті окремого слова, бо саме на них плутаються при переписуванні.
 
@@ -227,67 +66,9 @@ bool ms5611_prom_crc_ok(uint16_t *prom) {
 Тепер старт прошивки виглядає так:
 
 :::tabs
-```arduino
-void setup() {
-  Serial.begin(115200);
-  Wire.begin(21, 22);               // ESP32: SDA=21, SCL=22
-
-  if (!ms5611_reset())   { Serial.println(F("MS5611: немає ACK на скид")); while (1) {} }
-  if (!ms5611_read_prom()) { Serial.println(F("MS5611: не прочитав PROM"));  while (1) {} }
-
-  if (!ms5611_prom_crc_ok(g_prom)) {
-    Serial.println(F("MS5611: CRC-4 калібрування НЕ зійшлася — коефіцієнти пошкоджені!"));
-    while (1) {}                     // працювати з такими даними не можна
-  }
-  Serial.println(F("MS5611: PROM цілий, коефіцієнти дійсні."));
-}
-```
-```esp-idf
-#include "esp_log.h"
-
-static const char *TAG = "ms5611";
-
-void app_main(void) {
-    i2c_config_t conf = {
-        .mode = I2C_MODE_MASTER,
-        .sda_io_num = 21,                     // будь-який вільний GPIO
-        .scl_io_num = 22,
-        .sda_pullup_en = GPIO_PULLUP_ENABLE,  // модуль GY-63 має свої підтяжки
-        .scl_pullup_en = GPIO_PULLUP_ENABLE,
-        .master.clk_speed = 400000,           // MS5611 тримає до 20 МГц по SPI, 400 кГц по I2C
-    };
-    ESP_ERROR_CHECK(i2c_param_config(I2C_PORT, &conf));
-    ESP_ERROR_CHECK(i2c_driver_install(I2C_PORT, conf.mode, 0, 0, 0));
-
-    if (ms5611_reset() != ESP_OK)     { ESP_LOGE(TAG, "немає ACK на скид");  vTaskSuspend(NULL); }
-    if (ms5611_read_prom() != ESP_OK) { ESP_LOGE(TAG, "не прочитав PROM");   vTaskSuspend(NULL); }
-
-    if (!ms5611_prom_crc_ok(g_prom)) {
-        ESP_LOGE(TAG, "CRC-4 калібрування НЕ зійшлася — коефіцієнти пошкоджені!");
-        vTaskSuspend(NULL);                   // працювати з такими даними не можна
-    }
-    ESP_LOGI(TAG, "PROM цілий, коефіцієнти дійсні.");
-}
-```
-```stm32
-int main(void) {
-  HAL_Init();
-  SystemClock_Config();
-  MX_GPIO_Init();
-  MX_I2C1_Init();                    // CubeMX: I2C1, Fast Mode 400 кГц, ніжки з альт. функцією
-
-  if (!ms5611_reset())     { printf("MS5611: немає ACK на скид\r\n"); Error_Handler(); }
-  if (!ms5611_read_prom()) { printf("MS5611: не прочитав PROM\r\n");  Error_Handler(); }
-
-  if (!ms5611_prom_crc_ok(g_prom)) {
-    printf("MS5611: CRC-4 калібрування НЕ зійшлася — коефіцієнти пошкоджені!\r\n");
-    Error_Handler();                 // працювати з такими даними не можна
-  }
-  printf("MS5611: PROM цілий, коефіцієнти дійсні.\r\n");
-
-  while (1) { /* цикл вимірювання */ }
-}
-```
+:::code api-ms5611/c/arduino/sertse-nadiinosti.ino
+:::code api-ms5611/c/esp-idf/sertse-nadiinosti.c
+:::code api-ms5611/c/stm32/sertse-nadiinosti.c
 :::
 
 > 🔧 **Навіщо це.** Перевіряти CRC пам'яті варто саме тому, що коефіцієнти читаються **один раз**. Помилка в них — не тимчасовий стрибок, а систематичне зміщення на весь час роботи: барометр покаже, скажімо, стабільні, але хибні 990 мбар замість 1013, і жодне усереднення цього не виправить. Ціна перевірки — кількадесят операцій один раз при старті; ціна пропуску — прилад, що тихо бреше всю сесію. Бібліотека RobTillaart дає це через `getCRC()` і `getProm()`, тож перевірку можна зробити і з нею.
@@ -309,121 +90,9 @@ OSR 4096  (код 8)  →  ~9.1 мс   ← найвища роздільніст
 Пауза критична: прочитаєте АЦП **раніше**, ніж перетворення завершилось, — дістанете попереднє або сміттєве значення. Тому витримуємо час із таблиці із запасом.
 
 :::tabs
-```arduino
-// Обраний режим згладжування (код OSR: 0,2,4,6,8) і його пауза в мілісекундах.
-static uint8_t g_osr_cmd = 8;        // 8 = OSR 4096 (найвища роздільність)
-
-static uint16_t osr_delay_ms() {
-  switch (g_osr_cmd) {
-    case 0: return 1;   // ~0.6 мс, округляємо вгору
-    case 2: return 2;   // ~1.2 мс
-    case 4: return 3;   // ~2.3 мс
-    case 6: return 5;   // ~4.6 мс
-    default:return 10;  // ~9.1 мс (OSR 4096)
-  }
-}
-
-// Запустити одне перетворення (start = CMD_CONV_D1 або CMD_CONV_D2),
-// витримати паузу за OSR і прочитати 24-бітний результат АЦП.
-static bool ms5611_convert_read(uint8_t start_cmd, uint32_t *out) {
-  // -- запуск перетворення --
-  Wire.beginTransmission(MS5611_ADDR);
-  Wire.write(start_cmd + g_osr_cmd);       // напр. 0x40 + 8 = 0x48 для тиску @OSR4096
-  if (Wire.endTransmission() != 0) return false;
-
-  // -- пауза, поки АЦП рахує --
-  delay(osr_delay_ms());
-
-  // -- команда читання результату --
-  Wire.beginTransmission(MS5611_ADDR);
-  Wire.write(CMD_ADC_READ);                // 0x00
-  if (Wire.endTransmission() != 0) return false;
-
-  // -- забрати рівно 3 байти: 24 біти, старший першим --
-  if (Wire.requestFrom((int)MS5611_ADDR, 3) != 3) return false;
-  uint32_t b2 = Wire.read();               // старший
-  uint32_t b1 = Wire.read();               // середній
-  uint32_t b0 = Wire.read();               // молодший
-  *out = (b2 << 16) | (b1 << 8) | b0;      // 24-бітне число
-
-  // нульовий результат = давач не встиг/не відповів як слід
-  return (*out != 0);
-}
-```
-```esp-idf
-#include "esp_rom_sys.h"
-
-// Обраний режим згладжування (код OSR: 0,2,4,6,8) і його пауза в мікросекундах.
-static uint8_t g_osr_cmd = 8;                // 8 = OSR 4096 (найвища роздільність)
-
-static uint32_t osr_delay_us(void) {
-    switch (g_osr_cmd) {
-        case 0:  return 600;                 // OSR 256
-        case 2:  return 1200;                // OSR 512
-        case 4:  return 2300;                // OSR 1024
-        case 6:  return 4600;                // OSR 2048
-        default: return 9100;                // OSR 4096
-    }
-}
-
-// Запустити одне перетворення (start_cmd = CMD_CONV_D1 або CMD_CONV_D2),
-// витримати паузу за OSR і прочитати 24-бітний результат АЦП.
-static esp_err_t ms5611_convert_read(uint8_t start_cmd, uint32_t *out) {
-    uint8_t cmd = start_cmd + g_osr_cmd;     // напр. 0x40 + 8 = 0x48 для тиску @OSR4096
-    esp_err_t err = i2c_master_write_to_device(I2C_PORT, MS5611_ADDR, &cmd, 1, I2C_TMO);
-    if (err != ESP_OK) return err;
-
-    // vTaskDelay округлює до тика планувальника (типово 10 мс) — для 0.6…9 мс
-    // це надто грубо, тому коротку паузу відлічуємо точним лічильником.
-    esp_rom_delay_us(osr_delay_us() + 500);  // + запас
-
-    uint8_t rd = CMD_ADC_READ, buf[3];       // 0x00
-    err = i2c_master_write_read_device(I2C_PORT, MS5611_ADDR, &rd, 1, buf, 3, I2C_TMO);
-    if (err != ESP_OK) return err;
-
-    // 24 біти, старший байт першим
-    *out = ((uint32_t)buf[0] << 16) | ((uint32_t)buf[1] << 8) | buf[2];
-
-    // нульовий результат = давач не встиг/не відповів як слід
-    return (*out != 0) ? ESP_OK : ESP_ERR_INVALID_RESPONSE;
-}
-```
-```stm32
-// Обраний режим згладжування (код OSR: 0,2,4,6,8) і його пауза в мілісекундах.
-static uint8_t g_osr_cmd = 8;               // 8 = OSR 4096 (найвища роздільність)
-
-// HAL_Delay(n) гарантує щонайменше n−1 мс, тому округляємо вгору з запасом.
-static uint32_t osr_delay_ms(void) {
-  switch (g_osr_cmd) {
-    case 0:  return 2;    // ~0.6 мс
-    case 2:  return 3;    // ~1.2 мс
-    case 4:  return 4;    // ~2.3 мс
-    case 6:  return 6;    // ~4.6 мс
-    default: return 11;   // ~9.1 мс (OSR 4096)
-  }
-}
-
-// Запустити одне перетворення (start_cmd = CMD_CONV_D1 або CMD_CONV_D2),
-// витримати паузу за OSR і прочитати 24-бітний результат АЦП.
-static bool ms5611_convert_read(uint8_t start_cmd, uint32_t *out) {
-  uint8_t cmd = start_cmd + g_osr_cmd;      // напр. 0x40 + 8 = 0x48 для тиску @OSR4096
-  if (HAL_I2C_Master_Transmit(&hi2c1, MS5611_ADDR, &cmd, 1, I2C_TMO) != HAL_OK) return false;
-
-  HAL_Delay(osr_delay_ms());                // пауза, поки АЦП рахує
-
-  cmd = CMD_ADC_READ;                       // 0x00
-  if (HAL_I2C_Master_Transmit(&hi2c1, MS5611_ADDR, &cmd, 1, I2C_TMO) != HAL_OK) return false;
-
-  uint8_t buf[3];
-  if (HAL_I2C_Master_Receive(&hi2c1, MS5611_ADDR, buf, 3, I2C_TMO) != HAL_OK) return false;
-
-  // 24 біти, старший байт першим
-  *out = ((uint32_t)buf[0] << 16) | ((uint32_t)buf[1] << 8) | buf[2];
-
-  // нульовий результат = давач не встиг/не відповів як слід
-  return (*out != 0);
-}
-```
+:::code api-ms5611/c/arduino/krok-1-3-zapusk-pauza.ino
+:::code api-ms5611/c/esp-idf/krok-1-3-zapusk-pauza.c
+:::code api-ms5611/c/stm32/krok-1-3-zapusk-pauza.c
 :::
 
 Тут знову порядок байтів: 24 біти приходять **старшим байтом першим**, і збирати їх треба `(b2<<16)|(b1<<8)|b0`. Переставите — і замість тиску 1000 мбар отримаєте якусь фантастику. Перевірка `*out != 0` ловить типовий збій, коли читання прийшло до кінця перетворення: тоді АЦП повертає нулі.
@@ -434,58 +103,7 @@ static bool ms5611_convert_read(uint8_t start_cmd, uint32_t *out) {
 
 Подивіться на добуток `D1 · SENS`. Сирий тиск `D1` — це число до 2²⁴ ≈ 1.6·10⁷. Чутливість `SENS` після масштабування — близько 2³¹ ≈ 2·10⁹. Їхній добуток — близько **3·10¹⁶**, а це далеко за межу 32-бітного цілого (≈ 4.3·10⁹ для беззнакового). У 32 бітах він **тихо переповниться** — обчислення не впаде, не дасть помилки, а поверне обрізане молодше слово, тобто цілком випадковий тиск. Тому `SENS`, `OFF`, `P`, а з ними й проміжні добутки **мусять бути 64-бітними** (`int64_t`). Це не перестраховка — це різниця між правильним барометром і генератором випадкових чисел.
 
-```cpp
-// Результати останнього виміру (у людських одиницях).
-float g_temperature_C;    // °C
-float g_pressure_hPa;     // мбар = гПа
-
-// Повний вимір: D1, D2, компенсація 1-го і 2-го порядку. true — успіх.
-bool ms5611_measure() {
-  uint32_t D1, D2;                              // сирі тиск і температура
-  if (!ms5611_convert_read(CMD_CONV_D1, &D1)) return false;
-  if (!ms5611_convert_read(CMD_CONV_D2, &D2)) return false;
-
-  // Коефіцієнти для читабельності:
-  uint16_t C1 = g_prom[1];   // чутливість (SENS_T1)
-  uint16_t C2 = g_prom[2];   // зсув (OFF_T1)
-  uint16_t C3 = g_prom[3];   // температурний коеф. чутливості (TCS)
-  uint16_t C4 = g_prom[4];   // температурний коеф. зсуву (TCO)
-  uint16_t C5 = g_prom[5];   // опорна температура (T_REF)
-  uint16_t C6 = g_prom[6];   // температурний коеф. температури (TEMPSENS)
-
-  // -- 1) температура (у сотих градуса) --
-  int32_t dT   = (int32_t)D2 - ((int32_t)C5 << 8);            // D2 − C5·2⁸
-  int32_t TEMP = 2000 + (int32_t)(((int64_t)dT * C6) >> 23);  // 20.00 °C = 2000
-
-  // -- 2) зсув і чутливість, виправлені на температуру (ОБОВ'ЯЗКОВО 64 біти!) --
-  int64_t OFF  = ((int64_t)C2 << 16) + (((int64_t)C4 * dT) >> 7);
-  int64_t SENS = ((int64_t)C1 << 15) + (((int64_t)C3 * dT) >> 8);
-
-  // -- 3) компенсація другого порядку (для холоду) --
-  if (TEMP < 2000) {                                  // нижче 20 °C
-    int64_t dT64 = dT;
-    int64_t T2   = (dT64 * dT64) >> 31;
-    int64_t d    = (int64_t)TEMP - 2000;
-    int64_t OFF2  = (5 * d * d) >> 1;                 // 5·(TEMP−2000)² / 2
-    int64_t SENS2 = (5 * d * d) >> 2;                 // 5·(TEMP−2000)² / 4
-    if (TEMP < -1500) {                               // нижче −15 °C — ще сильніше
-      int64_t e = (int64_t)TEMP + 1500;
-      OFF2  += 7 * e * e;                             // + 7·(TEMP+1500)²
-      SENS2 += (11 * e * e) >> 1;                     // + 11·(TEMP+1500)² / 2
-    }
-    TEMP -= (int32_t)T2;
-    OFF  -= OFF2;
-    SENS -= SENS2;
-  }
-
-  // -- 4) тиск (у сотих мілібара) --
-  int32_t P = (int32_t)(((( (int64_t)D1 * SENS) >> 21) - OFF) >> 15);
-
-  g_temperature_C = TEMP / 100.0f;      // 2007 → 20.07 °C
-  g_pressure_hPa  = P    / 100.0f;      // 100009 → 1000.09 гПа
-  return true;
-}
-```
+:::code api-ms5611/cpp/krok-4-povna-kompensatsiia.cpp
 
 Три моменти, де плутаються найчастіше:
 

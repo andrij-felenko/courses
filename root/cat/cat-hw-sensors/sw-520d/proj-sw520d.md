@@ -23,37 +23,8 @@
 **Умова.** SW-520D одним виводом на GND, другим — на пін 2. Вмикаємо внутрішню підтяжку, читаємо стан «нахилено/ні» й засвічуємо світлодіод плати.
 
 :::tabs
-```cpp
-const uint8_t PIN_SW  = 2;         // вивід давача (другий — на GND)
-const uint8_t PIN_LED = 13;        // вбудований світлодіод
-
-const uint8_t ACTIVE = LOW;        // активний нуль: подія = LOW
-
-void setup() {
-  pinMode(PIN_SW, INPUT_PULLUP);   // спокій = HIGH, замикання кульки = LOW
-  pinMode(PIN_LED, OUTPUT);
-}
-
-void loop() {
-  bool tilted = (digitalRead(PIN_SW) == ACTIVE);   // читаємо «чи замкнено»
-  digitalWrite(PIN_LED, tilted ? HIGH : LOW);
-}
-```
-```micropython
-from machine import Pin
-
-PIN_SW  = 2                        # вивід давача (другий — на GND)
-PIN_LED = 13                       # вбудований світлодіод
-
-ACTIVE  = 0                        # активний нуль: подія = 0 (LOW)
-
-sw  = Pin(PIN_SW, Pin.IN, Pin.PULL_UP)   # спокій = 1, замикання кульки = 0
-led = Pin(PIN_LED, Pin.OUT)
-
-while True:
-    tilted = (sw.value() == ACTIVE)      # читаємо «чи замкнено»
-    led.value(1 if tilted else 0)
-```
+:::code proj-sw520d/cpp/ideia-1-chytaiemo-iak.cpp
+:::code proj-sw520d/py/micropython/ideia-1-chytaiemo-iak.py
 :::
 
 Уся хитрість тут — рядок `const uint8_t ACTIVE = LOW`. Він перетворює загадкове `digitalRead(PIN_SW) == LOW` на людське `tilted` — «чи нахилено». Тепер якщо ви колись переставите давач «золотим кінцем догори» й активним стане HIGH, ви поправите **одне** місце, а не полюватимете на розкидані по коду порівняння. Це не косметика: інверсна логіка — джерело номер один помилок із цим давачем, і єдиний захист від неї — не тримати сирі HIGH/LOW у гущі коду.
@@ -78,90 +49,8 @@ while True:
 **Умова.** Той самий давач на піні 2. Треба ловити кожен поштовх **рівно один раз**, гасячи брязкіт, і при цьому не блокувати програму (у `loop` є ще й «серцебиття» — блимання, що має тривати без пауз).
 
 :::tabs
-```cpp
-const uint8_t PIN_SW    = 2;
-const uint8_t PIN_LED   = 13;
-const uint8_t ACTIVE    = LOW;
-const uint16_t DEBOUNCE = 40;      // «глухе» вікно, мс — довше за брязкіт кульки
-
-bool     lastStable = false;       // останній ПІДТВЕРДЖЕНИЙ стан (true = замкнено)
-uint32_t lastEdgeMs = 0;           // коли востаннє прийняли зміну
-
-void setup() {
-  pinMode(PIN_SW, INPUT_PULLUP);
-  pinMode(PIN_LED, OUTPUT);
-  Serial.begin(115200);
-}
-
-// Повертає true рівно раз — у мить, коли давач ПІДТВЕРДЖЕНО замкнувся.
-bool shockDetected() {
-  bool raw = (digitalRead(PIN_SW) == ACTIVE);   // сирий рівень, ще з брязкотом
-
-  // якщо стан не змінився — нічого не робимо
-  if (raw == lastStable) return false;
-
-  // стан начебто змінився — але чи вже вийшли з «глухого» вікна?
-  if (millis() - lastEdgeMs < DEBOUNCE) return false;   // ще брязкіт — ігноруємо
-
-  // зміна справжня: фіксуємо її й перезапускаємо вікно
-  lastEdgeMs = millis();
-  lastStable = raw;
-
-  return raw;                       // true лише на фронті «розімкнено → замкнено»
-}
-
-void loop() {
-  if (shockDetected()) {
-    Serial.println("струс!");
-    digitalWrite(PIN_LED, HIGH);
-  }
-
-  // ... тут програма робить решту справ, НЕ чекаючи на давач ...
-  // напр. плавне «серцебиття» світлодіодом, опитування інших давачів, мережа
-}
-```
-```micropython
-from machine import Pin
-import time
-
-PIN_SW   = 2
-PIN_LED  = 13
-ACTIVE   = 0
-DEBOUNCE = 40                      # «глухе» вікно, мс — довше за брязкіт кульки
-
-sw  = Pin(PIN_SW, Pin.IN, Pin.PULL_UP)
-led = Pin(PIN_LED, Pin.OUT)
-
-last_stable = False                # останній ПІДТВЕРДЖЕНИЙ стан (True = замкнено)
-last_edge_ms = 0                   # коли востаннє прийняли зміну
-
-# Повертає True рівно раз — у мить, коли давач ПІДТВЕРДЖЕНО замкнувся.
-def shock_detected():
-    global last_stable, last_edge_ms
-    raw = (sw.value() == ACTIVE)   # сирий рівень, ще з брязкотом
-
-    # якщо стан не змінився — нічого не робимо
-    if raw == last_stable:
-        return False
-
-    # стан начебто змінився — але чи вже вийшли з «глухого» вікна?
-    if time.ticks_diff(time.ticks_ms(), last_edge_ms) < DEBOUNCE:
-        return False               # ще брязкіт — ігноруємо
-
-    # зміна справжня: фіксуємо її й перезапускаємо вікно
-    last_edge_ms = time.ticks_ms()
-    last_stable = raw
-
-    return raw                     # True лише на фронті «розімкнено → замкнено»
-
-while True:
-    if shock_detected():
-        print("струс!")
-        led.value(1)
-
-    # ... тут програма робить решту справ, НЕ чекаючи на давач ...
-    # напр. плавне «серцебиття» світлодіодом, опитування інших давачів, мережа
-```
+:::code proj-sw520d/cpp/ideia-2-neblokuvalnyi.cpp
+:::code proj-sw520d/py/micropython/ideia-2-neblokuvalnyi.py
 :::
 
 Придивімося до логіки `shockDetected`, бо тут криється типова пастка новачків. Ми **не** приймаємо зміну одразу, щойно `raw` розійшовся з `lastStable`. Ми спершу питаємо: чи минуло вже `DEBOUNCE` мілісекунд від **попередньої** прийнятої зміни? Якщо ні — це ще та сама «злива» брязкоту, і ми її мовчки ковтаємо. Лише коли давач тримає новий стан **довше** за час брязкоту, ми віримо йому, фіксуємо й перезапускаємо годинник. Так одна фізична подія (кулька торкнулась контактів) дає **один** результат `true`, скільки б разів вона не смикнула пін усередині вікна.
@@ -182,52 +71,8 @@ while True:
 Функція, яку викликає апаратура на подію, зветься **обробником переривання** (англ. *ISR — interrupt service routine*). Чіпляють її до піна одним рядком: `attachInterrupt(digitalPinToInterrupt(pin), isr, FALLING)`. Тут `FALLING` («спадний фронт») означає «викликати обробник, коли пін падає з HIGH у LOW» — а це в нашій інверсній схемі рівно **момент замикання кульки**. Обгортка `digitalPinToInterrupt` перетворює номер піна на внутрішній номер переривання — писати так треба **завжди**, бо це єдиний переносний спосіб (на різних платах відповідність піна й переривання різна).
 
 :::tabs
-```cpp
-const uint8_t PIN_SW = 2;              // на Uno/Nano переривання лише на пінах 2 і 3!
-
-volatile bool shockFlag = false;       // прапорець «була подія»; volatile — обов'язково
-
-void isrShock() {                       // обробник: викликається апаратно на фронті
-  shockFlag = true;                     // лише підняти прапорець — і нічого більше
-}
-
-void setup() {
-  pinMode(PIN_SW, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(PIN_SW), isrShock, FALLING);
-  Serial.begin(115200);
-}
-
-void loop() {
-  if (shockFlag) {
-    shockFlag = false;                  // погасити прапорець до наступної події
-    Serial.println("прокинулись від струсу!");
-    // ... тут — реакція: увімкнути, записати, послати сигнал ...
-  }
-  // ... а тут МК може заснути до наступного переривання ...
-}
-```
-```micropython
-from machine import Pin
-
-PIN_SW = 2                             # переносно чіпляємо переривання на будь-який GPIO
-
-shock_flag = False                     # прапорець «була подія»
-
-def isr_shock(pin):                     # обробник: викликається апаратно на фронті
-    global shock_flag
-    shock_flag = True                   # лише підняти прапорець — і нічого більше
-
-sw = Pin(PIN_SW, Pin.IN, Pin.PULL_UP)
-# спадний фронт (HIGH→LOW) = момент замикання кульки
-sw.irq(trigger=Pin.IRQ_FALLING, handler=isr_shock)
-
-while True:
-    if shock_flag:
-        shock_flag = False              # погасити прапорець до наступної події
-        print("прокинулись від струсу!")
-        # ... тут — реакція: увімкнути, записати, послати сигнал ...
-    # ... а тут МК може заснути до наступного переривання ...
-```
+:::code proj-sw520d/cpp/ideia-3-khai-mk-spyt-a.cpp
+:::code proj-sw520d/py/micropython/ideia-3-khai-mk-spyt-a.py
 :::
 
 Два рядки тут — не «стиль», а **закон**, і порушення кожного дає підступний баг, який ловиться годинами.
@@ -245,50 +90,8 @@ while True:
 **Друге: на ESP32 переривання можна повісити майже на **будь-який** GPIO** — на відміну від Uno/Nano, де це лише піни 2 і 3. Це зручно, але не привід забути про обгортку `digitalPinToInterrupt` — вона все одно правильна й переносна.
 
 :::tabs
-```cpp
-// ── варіант під ESP32 ──
-const uint8_t PIN_SW = 4;              // на ESP32 годиться майже будь-який GPIO
-
-volatile bool shockFlag = false;
-
-void IRAM_ATTR isrShock() {             // IRAM_ATTR — обробник у швидкій RAM, обов'язково
-  shockFlag = true;
-}
-
-void setup() {
-  pinMode(PIN_SW, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(PIN_SW), isrShock, FALLING);
-  Serial.begin(115200);
-}
-
-void loop() {
-  if (shockFlag) {
-    shockFlag = false;
-    Serial.println("ESP32 прокинувся від струсу!");
-  }
-}
-```
-```micropython
-# ── варіант під ESP32 ──
-from machine import Pin
-
-PIN_SW = 4                             # на ESP32 годиться майже будь-який GPIO
-
-shock_flag = False
-
-# у MicroPython обробник кладеться у RAM автоматично — окремого IRAM_ATTR не треба
-def isr_shock(pin):
-    global shock_flag
-    shock_flag = True
-
-sw = Pin(PIN_SW, Pin.IN, Pin.PULL_UP)
-sw.irq(trigger=Pin.IRQ_FALLING, handler=isr_shock)
-
-while True:
-    if shock_flag:
-        shock_flag = False
-        print("ESP32 прокинувся від струсу!")
-```
+:::code proj-sw520d/cpp/esp32-ta-sama-ideia-dvi.cpp
+:::code proj-sw520d/py/micropython/esp32-ta-sama-ideia-dvi.py
 :::
 
 Різниця з Arduino-версією — рівно два штрихи: `IRAM_ATTR` перед обробником і вільний вибір піна. Решта — слово в слово. Це і є сила Arduino-абстракції: логіка переривання переноситься між зовсім різними чипами майже без правок.
@@ -302,41 +105,8 @@ while True:
 Тому **дебаунс потрібен і тут**. Тільки робиться він трохи інакше — за часом, прямо всередині логіки: приймаємо переривання, але **ігноруємо** наступні протягом «глухого» вікна.
 
 :::tabs
-```cpp
-const uint8_t PIN_SW = 4;
-const uint16_t DEBOUNCE = 40;          // глухе вікно, мс
-
-volatile bool     shockFlag  = false;
-volatile uint32_t lastIsrMs  = 0;
-
-void IRAM_ATTR isrShock() {
-  uint32_t now = millis();             // у сучасних ядрах ESP32 millis() в ISR безпечний (він у IRAM)
-  if (now - lastIsrMs < DEBOUNCE) return;   // ще брязкіт тієї ж події — ігноруємо
-  lastIsrMs = now;
-  shockFlag = true;
-}
-```
-```micropython
-from machine import Pin
-import time
-
-PIN_SW   = 4
-DEBOUNCE = 40                          # глухе вікно, мс
-
-shock_flag  = False
-last_isr_ms = 0
-
-def isr_shock(pin):
-    global shock_flag, last_isr_ms
-    now = time.ticks_ms()              # у MicroPython ticks_ms() в обробнику безпечний
-    if time.ticks_diff(now, last_isr_ms) < DEBOUNCE:
-        return                         # ще брязкіт тієї ж події — ігноруємо
-    last_isr_ms = now
-    shock_flag = True
-
-sw = Pin(PIN_SW, Pin.IN, Pin.PULL_UP)
-sw.irq(trigger=Pin.IRQ_FALLING, handler=isr_shock)
-```
+:::code proj-sw520d/cpp/pastka-briazkit-nikudy-ne.cpp
+:::code proj-sw520d/py/micropython/pastka-briazkit-nikudy-ne.py
 :::
 
 Тут обробник за одну-дві дії відсіює брязкіт: якщо від попереднього прийнятого фронту не минуло `DEBOUNCE` мілісекунд — це той самий відскок, мовчки виходимо. Прапорець підніметься лише на **перший** фронт кожної нової події. Це коротко, а тому дозволено робити прямо в ISR (жодного `Serial`, жодних затримок — лише порівняння й присвоєння).
@@ -350,99 +120,8 @@ sw.irq(trigger=Pin.IRQ_FALLING, handler=isr_shock)
 **Умова.** SW-520D на піні 2 (Arduino). Треба щосекунди рахувати струси; якщо їх за секунду ≥ 5 — засвітити «тривогу», інакше згасити. Дебаунс — неблокувальний, як вище.
 
 :::tabs
-```cpp
-const uint8_t PIN_SW     = 2;
-const uint8_t PIN_LED    = 13;
-const uint8_t ACTIVE     = LOW;
-const uint16_t DEBOUNCE  = 40;         // глухе вікно проти брязкоту, мс
-const uint16_t WINDOW    = 1000;       // вікно підрахунку, мс
-const uint8_t  THRESHOLD = 5;          // поріг «сильної вібрації» за вікно
-
-bool     lastStable = false;
-uint32_t lastEdgeMs = 0;
-
-uint16_t count      = 0;               // струсів у поточному вікні
-uint32_t windowMs   = 0;               // початок поточного вікна
-
-bool shockDetected() {                 // той самий неблокувальний дебаунс
-  bool raw = (digitalRead(PIN_SW) == ACTIVE);
-  if (raw == lastStable) return false;
-  if (millis() - lastEdgeMs < DEBOUNCE) return false;
-  lastEdgeMs = millis();
-  lastStable = raw;
-  return raw;                          // true лише на замиканні
-}
-
-void setup() {
-  pinMode(PIN_SW, INPUT_PULLUP);
-  pinMode(PIN_LED, OUTPUT);
-  Serial.begin(115200);
-  windowMs = millis();
-}
-
-void loop() {
-  // 1) лічимо підтверджені струси
-  if (shockDetected()) count++;
-
-  // 2) щойно вікно (1 с) вичерпалось — оцінюємо й починаємо нове
-  if (millis() - windowMs >= WINDOW) {
-    Serial.print("струсів за секунду: ");
-    Serial.println(count);
-
-    digitalWrite(PIN_LED, count >= THRESHOLD ? HIGH : LOW);   // тривога?
-
-    count    = 0;                      // скидаємо лічильник
-    windowMs = millis();               // нове вікно
-  }
-}
-```
-```micropython
-from machine import Pin
-import time
-
-PIN_SW    = 2
-PIN_LED   = 13
-ACTIVE    = 0
-DEBOUNCE  = 40                         # глухе вікно проти брязкоту, мс
-WINDOW    = 1000                       # вікно підрахунку, мс
-THRESHOLD = 5                          # поріг «сильної вібрації» за вікно
-
-sw  = Pin(PIN_SW, Pin.IN, Pin.PULL_UP)
-led = Pin(PIN_LED, Pin.OUT)
-
-last_stable  = False
-last_edge_ms = 0
-
-count     = 0                          # струсів у поточному вікні
-window_ms = 0                          # початок поточного вікна
-
-def shock_detected():                  # той самий неблокувальний дебаунс
-    global last_stable, last_edge_ms
-    raw = (sw.value() == ACTIVE)
-    if raw == last_stable:
-        return False
-    if time.ticks_diff(time.ticks_ms(), last_edge_ms) < DEBOUNCE:
-        return False
-    last_edge_ms = time.ticks_ms()
-    last_stable = raw
-    return raw                         # True лише на замиканні
-
-window_ms = time.ticks_ms()
-
-while True:
-    # 1) лічимо підтверджені струси
-    if shock_detected():
-        count += 1
-
-    # 2) щойно вікно (1 с) вичерпалось — оцінюємо й починаємо нове
-    if time.ticks_diff(time.ticks_ms(), window_ms) >= WINDOW:
-        print("струсів за секунду:", count)
-
-        led.value(1 if count >= THRESHOLD else 0)   # тривога?
-
-        count = 0                      # скидаємо лічильник
-        window_ms = time.ticks_ms()    # нове вікно
-```
+:::code proj-sw520d/cpp/ideia-4-lichylnyk-strusiv.cpp
+:::code proj-sw520d/py/micropython/ideia-4-lichylnyk-strusiv.py
 :::
 
 Тут два незалежні таймери й у цьому вся краса. Один (`lastEdgeMs`) гасить брязкіт **усередині** однієї події — щоб кожен струс порахувався **раз**. Другий (`windowMs`) відмірює **вікно спостереження** — секунду, за яку ми збираємо статистику. Вони не заважають один одному: перший працює в масштабі десятків мілісекунд, другий — секунд. І весь код **неблокувальний**: `loop` не стоїть ні миті, тож паралельно може крутитись будь-що інше.

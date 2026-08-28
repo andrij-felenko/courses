@@ -111,63 +111,8 @@ HW-038          Мікроконтролер
 Ось робочий кістяк на Arduino, який робить і те, і те:
 
 :::tabs
-```cpp
-#define WATER_POWER_PIN  7    // цифрова ніжка живить давач (+ HW-038)
-#define WATER_SIGNAL_PIN A0   // аналоговий вхід ← S (OUT) давача
-
-void setup() {
-    Serial.begin(9600);
-    pinMode(WATER_POWER_PIN, OUTPUT);
-    digitalWrite(WATER_POWER_PIN, LOW);   // за замовчуванням давач знеструмлений
-}
-
-int readWaterLevel() {
-    digitalWrite(WATER_POWER_PIN, HIGH);  // подали живлення на гребінку
-    delay(10);                            // ~10 мс, щоб сигнал усталився
-    int value = analogRead(WATER_SIGNAL_PIN);  // 0..1023 на 10-бітному АЦП
-    digitalWrite(WATER_POWER_PIN, LOW);   // одразу знеструмили — менше корозії
-    return value;
-}
-
-void loop() {
-    int level = readWaterLevel();
-
-    // Пороги ПІД СВОЮ воду — визнач їх дослідом, не бери чужі!
-    if (level < 50)        Serial.println("сухо");
-    else if (level < 400)  Serial.println("трохи води");
-    else                   Serial.println("багато води");
-
-    delay(1000);   // раз на секунду досить; давач і так не живимо постійно
-}
-```
-```micropython
-from machine import Pin, ADC
-import time
-
-power = Pin(7, Pin.OUT)          # цифрова ніжка живить давач (+ HW-038)
-power.value(0)                   # за замовчуванням давач знеструмлений
-signal = ADC(Pin(26))            # аналоговий вхід ← S (OUT) давача
-
-def read_water_level():
-    power.value(1)               # подали живлення на гребінку
-    time.sleep_ms(10)            # ~10 мс, щоб сигнал усталився
-    value = signal.read_u16()    # 0..65535 на 16-бітному АЦП
-    power.value(0)               # одразу знеструмили — менше корозії
-    return value
-
-while True:
-    level = read_water_level()
-
-    # Пороги ПІД СВОЮ воду — визнач їх дослідом, не бери чужі!
-    if level < 3200:             # ~50/1023 у масштабі 0..65535
-        print("сухо")
-    elif level < 25600:          # ~400/1023 у масштабі 0..65535
-        print("трохи води")
-    else:
-        print("багато води")
-
-    time.sleep(1)                # раз на секунду досить; давач і так не живимо постійно
-```
+:::code hw-038-water-level-d/cpp/main.cpp
+:::code hw-038-water-level-d/py/micropython/main.py
 :::
 
 Розберімо, чому код саме такий. `pinMode(WATER_POWER_PIN, OUTPUT)` і `digitalWrite(..., LOW)` у `setup()` роблять ніжку живлення керованою й одразу лишають давач вимкненим. У `readWaterLevel()` ми **вмикаємо** живлення, чекаємо коротку паузу (гребінка й вхід АЦП мають устоятися — 10 мс із запасом), **читаємо** `analogRead()` і **зразу вимикаємо**. Так гребінка під струмом лише ці 10 мс на кожен вимір.

@@ -16,86 +16,8 @@
 Ось повний робочий скетч під ESP32, що раз на секунду друкує температуру, тиск і висоту в монітор порту.
 
 :::tabs
-```cpp
-#include <Wire.h>
-#include "MS5611.h"
-
-// Конструктор приймає адресу; 0x77 — коли CSB вільний або на GND, 0x76 — коли CSB на VCC.
-MS5611 baro(0x77);
-
-float seaLevel_hPa = 1013.25;   // опорний тиск на рівні моря; уточнимо його нижче
-
-void setup() {
-  Serial.begin(115200);
-  while (!Serial && millis() < 2000) { }
-
-  // На ESP32/STM32/Pico задайте ніжки шини ДО begin():
-  Wire.begin(21, 22);            // SDA=21, SCL=22 — типово для ESP32
-  // На класичній Arduino (UNO/Nano) ніжки жорсткі (A4/A5): просто Wire.begin();
-
-  if (!baro.begin()) {
-    Serial.println(F("MS5611 не відповідає. Перевірте дроти, адресу (0x76/0x77) і живлення."));
-    while (true) { delay(1000); }
-  }
-
-  // Режим згладжування: від OSR_ULTRA_LOW (найшвидший, найгрубіший)
-  // до OSR_ULTRA_HIGH (найдовша пауза ~9 мс, роздільність ~0.012 мбар — ті самі «10 см»).
-  baro.setOversampling(OSR_ULTRA_HIGH);
-
-  Serial.println(F("MS5611 на зв'язку."));
-}
-
-void loop() {
-  int result = baro.read();      // повний вимір: D1, D2, обидва порядки компенсації
-  if (result != MS5611_READ_OK) {
-    Serial.print(F("read() error: "));
-    Serial.println(result);
-    delay(1000);
-    return;
-  }
-
-  float t = baro.getTemperature();          // °C
-  float p = baro.getPressure();             // мбар (гПа)
-  float h = baro.getAltitude(seaLevel_hPa); // м над рівнем опорного тиску
-
-  Serial.print(F("T = "));   Serial.print(t, 2);
-  Serial.print(F(" °C   P = ")); Serial.print(p, 2);
-  Serial.print(F(" hPa   h = ")); Serial.print(h, 1);
-  Serial.println(F(" m"));
-
-  delay(1000);
-}
-```
-```python
-# MicroPython (Pico/ESP32): драйвер micropython-ms5611 (jposada202020) —
-# аналог RobTillaart, теж ховає скид, читання PROM, паузи й обидва порядки компенсації.
-#   pip install micropython-ms5611  (або скопіювати модуль на плату)
-import time
-from math import pow
-from machine import Pin, I2C
-from micropython_ms5611 import ms5611
-
-sea_level_hPa = 1013.25          # опорний тиск на рівні моря; уточнимо його нижче
-
-# Ніжки шини задаємо тут-таки: SDA=21, SCL=22 — типово для ESP32 (на Pico свої).
-i2c  = I2C(0, sda=Pin(21), scl=Pin(22))
-# Конструктор приймає адресу; 0x77 — коли CSB вільний або на GND, 0x76 — на VCC.
-baro = ms5611.MS5611(i2c, 0x77)  # кине RuntimeError, якщо давач не відповів
-
-# Режим згладжування: PRESS_OSR_4096 — найдовша пауза ~9 мс, роздільність
-# ~0.012 мбар (ті самі «10 см»); є й швидші PRESS_OSR_256 … PRESS_OSR_2048.
-baro.pressure_oversample_rate    = ms5611.PRESS_OSR_4096
-baro.temperature_oversample_rate = ms5611.TEMP_OSR_4096
-
-while True:
-    t, p_kPa = baro.measurements      # повний вимір: обидва порядки компенсації
-    p = p_kPa * 10.0                  # драйвер віддає кПа → у гПа (мбар)
-    # висоти в драйвері немає — рахуємо тією самою барометричною формулою:
-    h = 44330.0 * (1.0 - pow(p / sea_level_hPa, 0.1903))
-
-    print("T = {:.2f} °C   P = {:.2f} hPa   h = {:.1f} m".format(t, p, h))
-    time.sleep(1)
-```
+:::code proj-ms5611/cpp/hotova-biblioteka.cpp
+:::code proj-ms5611/py/main.py
 :::
 
 Кілька місць треба прочитати уважно — вони не випадкові.
@@ -124,34 +46,7 @@ h ≈ 44330 · (1 − (P / P₀)^0.1903)      // метри
 
 Одна тонкість вирішує все: `P₀` треба брати **усередненим**, а не з одного виміру. Давач такий чутливий, що поодинокий вимір гуляє від подиху чи поштовху повітря; візьміть за нуль середнє з кількох десятків вимірів, поки прилад стоїть нерухомо, — інакше сам «нуль» вийде хитким, і висота стрибатиме навколо нуля навіть на місці. Ось як це виглядає з тією ж бібліотекою:
 
-```cpp
-// Продовження того самого скетча: об'єкт baro вже створено вище.
-float g_p0_hPa = 1013.25;        // опорний тиск; поки не обнулили — стандартна атмосфера
-
-// Барометрична формула висоти (те, що всередині getAltitude()).
-static float altitude_m(float pressure_hPa, float seaLevel_hPa) {
-  return 44330.0f * (1.0f - powf(pressure_hPa / seaLevel_hPa, 0.1903f));
-}
-
-// «Обнулити» висоту: узяти поточний тиск за нуль. Усереднюємо ~40 вимірів,
-// поки прилад нерухомий (напр. на землі перед злетом), щоб «нуль» не гуляв.
-void zeroAltitude() {
-  double sum = 0.0;
-  const int N = 40;
-  for (int i = 0; i < N; i++) {
-    baro.read();                 // повний вимір із компенсацією
-    sum += baro.getPressure();   // мбар (гПа)
-    delay(20);
-  }
-  g_p0_hPa = (float)(sum / N);   // тепер ця точка = 0 м
-}
-
-// Відносна висота над точкою обнулення (метри).
-float relativeAltitude_m() {
-  baro.read();
-  return altitude_m(baro.getPressure(), g_p0_hPa);
-}
-```
+:::code proj-ms5611/cpp/vid-tysku-do-vysoty-i.cpp
 
 Тепер `zeroAltitude()` кличуть один раз на «нулі», а `relativeAltitude_m()` — у циклі: воно й дає ту миттєву відносну висоту, заради якої MS5611 узагалі беруть. Абсолютну висоту над рівнем моря дасть і GPS; барометр цінний саме тим, що бачить «набрали ви метр за секунду чи ні» одразу, без чекання супутників, і на десятисантиметровій роздільності. Дрон утримує задану висоту, порівнюючи поточний тиск із запам'ятаним `P₀`; варіометр планериста показує швидкість підйому як похідну тієї самої відносної висоти.
 

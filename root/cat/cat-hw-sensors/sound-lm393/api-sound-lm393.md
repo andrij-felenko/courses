@@ -40,78 +40,9 @@
 Отже, рідке опитування — це не «трохи неточно», а «часто зовсім сліпе» до коротких звуків. Ліки два. Простіший — **опитувати щільно**: тримати цикл коротким і читати вивід якомога частіше, щоб проміжок між читаннями був меншим за провал. Це працює, коли пристрій більше нічим важким не зайнятий:
 
 :::tabs
-```arduino
-const uint8_t SOUND = 2;                 // вивід DO давача
-uint8_t prev = HIGH;                     // попередній рівень (спокій = HIGH)
-
-void setup() {
-    pinMode(SOUND, INPUT);               // підтяжка на платі → спокій = 1
-    Serial.begin(9600);
-}
-
-void loop() {
-    uint8_t now = digitalRead(SOUND);
-    if (prev == HIGH && now == LOW) {    // спіймали спадний фронт «1→0»
-        Serial.println("звук!");
-    }
-    prev = now;
-    // жодних delay: цикл летить, проміжок між читаннями — мікросекунди
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define SOUND GPIO_NUM_4                 // вивід DO давача
-static const char *TAG = "sound";
-
-void app_main(void) {
-    gpio_config_t io = {
-        .pin_bit_mask = 1ULL << SOUND,
-        .mode         = GPIO_MODE_INPUT,
-        .pull_up_en   = GPIO_PULLUP_DISABLE,    // підтяжка вже на платі давача
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .intr_type    = GPIO_INTR_DISABLE,      // поки що чисте опитування
-    };
-    ESP_ERROR_CHECK(gpio_config(&io));
-
-    int prev = 1;                               // спокій = 1
-    while (1) {
-        int now = gpio_get_level(SOUND);
-        if (prev == 1 && now == 0) {            // спіймали спадний фронт «1→0»
-            ESP_LOGI(TAG, "звук!");
-        }
-        prev = now;
-        vTaskDelay(1);   // один такт планувальника; для щільного опитування
-                         // підніміть CONFIG_FREERTOS_HZ до 1000 (такт = 1 мс)
-    }
-}
-```
-```stm32
-#define SOUND_PORT GPIOA
-#define SOUND_PIN  GPIO_PIN_0            // вивід DO давача
-// у MX_GPIO_Init: Mode = GPIO_MODE_INPUT, Pull = GPIO_NOPULL
-// (підтяжка вже стоїть на платі давача)
-
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();
-    MX_USART2_UART_Init();               // printf перенаправлено в UART
-
-    GPIO_PinState prev = GPIO_PIN_SET;   // спокій = 1
-    while (1) {
-        GPIO_PinState now = HAL_GPIO_ReadPin(SOUND_PORT, SOUND_PIN);
-        if (prev == GPIO_PIN_SET && now == GPIO_PIN_RESET) {   // фронт «1→0»
-            printf("звук!\r\n");
-        }
-        prev = now;
-        // жодного HAL_Delay: цикл летить, проміжок між читаннями — мікросекунди
-    }
-}
-```
+:::code api-sound-lm393/c/arduino/opytuvannia-proty.ino
+:::code api-sound-lm393/c/esp-idf/opytuvannia-proty.c
+:::code api-sound-lm393/c/stm32/opytuvannia-proty.c
 :::
 
 Тут головне — **ловити перехід, а не рівень**. Наївна перевірка самого рівня (`if (digitalRead(SOUND) == LOW)` і її двійники в інших середовищах) спрацьовуватиме на кожному проході, поки триває провал, тобто десятки разів за один короткий імпульс. Порівняння `prev == HIGH && now == LOW` реагує лише в ту мить, коли лінія щойно впала, — це і є **фронт**, одна подія на один спад. Зберігати попередній стан і дивитися на різницю — той самий фокус, що й у надійному читанні кнопки.
@@ -119,99 +50,9 @@ int main(void) {
 Другий, правильніший для реального пристрою спосіб — **переривання** (англ. *interrupt*): доручити стеження за лінією апаратному блокові мікроконтролера, який сам, незалежно від головного циклу, покличе вашу функцію тієї ж миті, коли на нозі станеться потрібний фронт. Головний цикл при цьому може займатися чим завгодно — залізо його перерве. Оскільки нас цікавить перехід «1→0», настроюємо переривання на **спадний фронт** — в Arduino це `FALLING`, в ESP-IDF `GPIO_INTR_NEGEDGE`, у STM32 режим ноги `GPIO_MODE_IT_FALLING`:
 
 :::tabs
-```arduino
-const uint8_t SOUND = 2;                 // на Uno переривання є на D2 і D3
-volatile bool  hit  = false;             // прапорець «була подія», ставить ISR
-volatile unsigned long hitAt = 0;        // коли саме (для дебаунсу — далі)
-
-// ISR: обробник переривання. Коротка, без Serial і delay.
-void onSound() {
-    hit   = true;
-    hitAt = millis();
-}
-
-void setup() {
-    pinMode(SOUND, INPUT);
-    // digitalPinToInterrupt переганяє номер ноги в номер переривання
-    attachInterrupt(digitalPinToInterrupt(SOUND), onSound, FALLING);
-    Serial.begin(9600);
-}
-
-void loop() {
-    if (hit) {                           // головний цикл лише збирає врожай
-        hit = false;
-        Serial.println("звук (по перериванню)!");
-    }
-    // тут можна робити будь-що важке — переривання не проґавить фронт
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "esp_timer.h"
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define SOUND GPIO_NUM_4                       // переривання є на будь-якій GPIO
-static const char *TAG = "sound";
-
-static volatile bool    hit    = false;        // прапорець «була подія»
-static volatile int64_t hit_at = 0;            // коли саме, мкс (для дебаунсу)
-
-// ISR: коротка, без ESP_LOG і vTaskDelay; IRAM_ATTR — обов'язковий
-static void IRAM_ATTR on_sound(void *arg) {
-    hit    = true;
-    hit_at = esp_timer_get_time();
-}
-
-void app_main(void) {
-    gpio_config_t io = {
-        .pin_bit_mask = 1ULL << SOUND,
-        .mode         = GPIO_MODE_INPUT,
-        .pull_up_en   = GPIO_PULLUP_DISABLE,
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .intr_type    = GPIO_INTR_NEGEDGE,     // спадний фронт «1→0»
-    };
-    ESP_ERROR_CHECK(gpio_config(&io));
-    ESP_ERROR_CHECK(gpio_install_isr_service(0));   // спільна служба GPIO-переривань
-    ESP_ERROR_CHECK(gpio_isr_handler_add(SOUND, on_sound, NULL));
-
-    while (1) {
-        if (hit) {                             // задача лише збирає врожай
-            hit = false;
-            ESP_LOGI(TAG, "звук (по перериванню)!");
-        }
-        vTaskDelay(pdMS_TO_TICKS(10));
-    }
-}
-```
-```stm32
-#define SOUND_PORT GPIOA
-#define SOUND_PIN  GPIO_PIN_0
-
-volatile bool     hit    = false;              // прапорець «була подія»
-volatile uint32_t hit_at = 0;                  // коли саме, мс (для дебаунсу)
-
-// у MX_GPIO_Init: Mode = GPIO_MODE_IT_FALLING, Pull = GPIO_NOPULL, далі
-// HAL_NVIC_SetPriority(EXTI0_IRQn, 2, 0) і HAL_NVIC_EnableIRQ(EXTI0_IRQn) —
-// без увімкненого вектора переривання не дійде
-void HAL_GPIO_EXTI_Callback(uint16_t pin) {    // спільний обробник усіх ліній EXTI
-    if (pin != SOUND_PIN) return;
-    hit    = true;
-    hit_at = HAL_GetTick();
-}
-
-int main(void) {
-    HAL_Init(); SystemClock_Config(); MX_GPIO_Init(); MX_USART2_UART_Init();
-    while (1) {
-        if (hit) {                             // головний цикл збирає врожай
-            hit = false;
-            printf("звук (по перериванню)!\r\n");
-        }
-        // тут можна робити будь-що важке — EXTI не проґавить фронт
-    }
-}
-```
+:::code api-sound-lm393/c/arduino/opytuvannia-proty-2.ino
+:::code api-sound-lm393/c/esp-idf/opytuvannia-proty-2.c
+:::code api-sound-lm393/c/stm32/opytuvannia-proty-2.c
 :::
 
 Три речі в цьому коді не косметичні, а обов'язкові, і кожна має причину.
@@ -231,58 +72,8 @@ int main(void) {
 Правильний дебаунс **неблокуючий**: замість спати, програма **запам'ятовує час** зарахованої події і при кожному новому фронті просто питає годинник — чи минуло вже досить? Годинник — це вільний лічильник часу від старту плати; він тікає сам, не спиняючи програму: `millis()` в Arduino й `HAL_GetTick()` у STM32 (обидва в мілісекундах), `esp_timer_get_time()` в ESP-IDF (у мікросекундах). Логіка проста: зарахувати подію лише тоді, коли від попередньої зарахованої минуло більше за вікно (скажімо, 150 мс); усі фронти всередині вікна — це той самий плеск, їх пропускаємо.
 
 :::tabs
-```arduino
-const uint8_t SOUND = 2;
-const unsigned long WINDOW = 150;        // вікно дебаунсу, мс
-unsigned long lastHit = 0;               // час останньої ЗАРАХОВАНОЇ події
-unsigned long count   = 0;
-uint8_t prev = HIGH;
-
-void setup() {
-    pinMode(SOUND, INPUT);
-    Serial.begin(9600);
-}
-
-void loop() {
-    uint8_t now = digitalRead(SOUND);
-    unsigned long t = millis();
-
-    // спадний фронт І минуло вікно від попередньої події
-    if (prev == HIGH && now == LOW && t - lastHit > WINDOW) {
-        lastHit = t;
-        Serial.print("плеск #");
-        Serial.println(++count);
-    }
-    prev = now;
-    // програма НЕ спить: тут можна робити будь-що інше
-}
-```
-```stm32
-#define SOUND_PORT GPIOA
-#define SOUND_PIN  GPIO_PIN_0
-#define WINDOW     150u                  // вікно дебаунсу, мс
-
-int main(void) {
-    HAL_Init(); SystemClock_Config(); MX_GPIO_Init(); MX_USART2_UART_Init();
-
-    uint32_t lastHit = 0;                // час останньої ЗАРАХОВАНОЇ події
-    uint32_t count   = 0;
-    GPIO_PinState prev = GPIO_PIN_SET;
-
-    while (1) {
-        GPIO_PinState now = HAL_GPIO_ReadPin(SOUND_PORT, SOUND_PIN);
-        uint32_t t = HAL_GetTick();      // мілісекунди від старту, як millis()
-
-        // спадний фронт І минуло вікно від попередньої події
-        if (prev == GPIO_PIN_SET && now == GPIO_PIN_RESET && t - lastHit > WINDOW) {
-            lastHit = t;
-            printf("плеск #%lu\r\n", (unsigned long)++count);
-        }
-        prev = now;
-        // програма НЕ спить: жодного HAL_Delay у циклі
-    }
-}
-```
+:::code api-sound-lm393/c/arduino/debauns-bez-zamorozky.ino
+:::code api-sound-lm393/c/stm32/debauns-bez-zamorozky.c
 :::
 
 Серце цього коду — умова `t - lastHit > WINDOW`. Вона пропускає лише перший фронт плеску: щойно він зарахований, `lastHit` стає «зараз», і всі наступні провали тієї ж щіточки провалюють перевірку `t - lastHit > WINDOW` (бо різниця ще мала) — їх мовчки ігноровано. Коли ж мине 150 мс і пролунає **новий** плеск, різниця знову стане великою, і його перший фронт зарахується. Так один плеск дає рівно одну подію, а два окремі плески — дві.
@@ -296,98 +87,9 @@ int main(void) {
 Той самий неблокуючий підхід лягає й на переривання — лише перенесемо перевірку часу почасти в обробник. Обробник сам відкидає надто близькі фронти, тож головна програма дістає вже «чисту» подію — через прапорець (Arduino, STM32) або через чергу планувальника (ESP-IDF):
 
 :::tabs
-```arduino
-const uint8_t SOUND = 2;
-const unsigned long WINDOW = 150;
-volatile unsigned long lastHit = 0;
-volatile unsigned long count   = 0;
-volatile bool ready = false;
-
-void onSound() {                          // ISR
-    unsigned long t = millis();           // millis() у ISR на AVR читати можна
-    if (t - lastHit > WINDOW) {           // дебаунс прямо в перериванні
-        lastHit = t;
-        count++;
-        ready = true;
-    }
-}
-
-void setup() {
-    pinMode(SOUND, INPUT);
-    attachInterrupt(digitalPinToInterrupt(SOUND), onSound, FALLING);
-    Serial.begin(9600);
-}
-
-void loop() {
-    if (ready) {
-        ready = false;
-        Serial.print("плеск #");
-        Serial.println(count);            // друкуємо вже поза ISR
-    }
-}
-```
-```esp-idf
-#define SOUND     GPIO_NUM_4
-#define WINDOW_US 150000LL                    // вікно дебаунсу: 150 мс у мкс
-
-static const char *TAG = "sound";
-static QueueHandle_t evt_q;                   // ISR → задача, без спільних змінних
-static volatile int64_t lastHit = 0;
-
-static void IRAM_ATTR on_sound(void *arg) {   // ISR
-    int64_t t = esp_timer_get_time();         // мкс від старту; у ISR читати можна
-    if (t - lastHit > WINDOW_US) {            // дебаунс прямо в перериванні
-        lastHit = t;
-        uint32_t one = 1;
-        xQueueSendFromISR(evt_q, &one, NULL); // черга сама розбудить задачу
-    }
-}
-
-void app_main(void) {
-    gpio_config_t io = { .pin_bit_mask = 1ULL << SOUND, .mode = GPIO_MODE_INPUT,
-                         .pull_up_en   = GPIO_PULLUP_DISABLE,
-                         .pull_down_en = GPIO_PULLDOWN_DISABLE,
-                         .intr_type    = GPIO_INTR_NEGEDGE };
-    ESP_ERROR_CHECK(gpio_config(&io));
-    evt_q = xQueueCreate(8, sizeof(uint32_t));
-    ESP_ERROR_CHECK(gpio_install_isr_service(0));
-    ESP_ERROR_CHECK(gpio_isr_handler_add(SOUND, on_sound, NULL));
-
-    uint32_t one, count = 0;
-    while (1) {                               // задача спить, поки тихо
-        if (xQueueReceive(evt_q, &one, portMAX_DELAY) == pdTRUE)
-            ESP_LOGI(TAG, "плеск #%lu", (unsigned long)++count);
-    }
-}
-```
-```stm32
-#define SOUND_PIN GPIO_PIN_0
-#define WINDOW    150u
-
-volatile uint32_t lastHit = 0;
-volatile uint32_t count   = 0;
-volatile bool     ready   = false;
-
-void HAL_GPIO_EXTI_Callback(uint16_t pin) {   // обробник
-    if (pin != SOUND_PIN) return;
-    uint32_t t = HAL_GetTick();     // тік читати в ISR можна, HAL_Delay — ні
-    if (t - lastHit > WINDOW) {     // дебаунс прямо в перериванні
-        lastHit = t;
-        count++;
-        ready = true;
-    }
-}
-
-int main(void) {
-    HAL_Init(); SystemClock_Config(); MX_GPIO_Init(); MX_USART2_UART_Init();
-    while (1) {
-        if (ready) {
-            ready = false;
-            printf("плеск #%lu\r\n", (unsigned long)count);   // друк поза ISR
-        }
-    }
-}
-```
+:::code api-sound-lm393/c/arduino/debauns-na-pereryvanni.ino
+:::code api-sound-lm393/c/esp-idf/debauns-na-pereryvanni.c
+:::code api-sound-lm393/c/stm32/debauns-na-pereryvanni.c
 :::
 
 Обробник лишається коротким: одне віднімання, одне порівняння, три присвоєння. Уся «повільна» робота — друк — робиться в головному циклі за прапорцем `ready`. Це і є канонічна форма: **переривання відсіює й позначає, цикл обробляє**.
@@ -418,63 +120,8 @@ int main(void) {
 Прийом від контролера не залежить — залежать лише **числа**: розрядність АЦП і його опорна напруга. На Arduino Uno АЦП 10-бітний (значення 0–1023), опорна — живлення (5 В); на типовому STM32 — 12-бітний (0–4095) від 3.3 В. Ось той самий вимір:
 
 :::tabs
-```arduino
-const uint8_t AO = A0;                    // аналоговий вихід давача на A0
-const unsigned long WIN = 50;             // вікно вимірювання, мс
-
-int measurePeakToPeak() {
-    unsigned long start = millis();
-    int lo = 1023, hi = 0;                // межі для 10-бітного АЦП Uno
-    while (millis() - start < WIN) {
-        int v = analogRead(AO);
-        if (v < lo) lo = v;
-        if (v > hi) hi = v;
-    }
-    return hi - lo;                       // розмах у відліках АЦП
-}
-
-void setup() {
-    Serial.begin(9600);
-}
-
-void loop() {
-    int amp = measurePeakToPeak();
-    Serial.print("розмах: ");
-    Serial.println(amp);                  // мале — тихо, велике — гучно
-    // поріг гучності ТЕПЕР число: наприклад
-    if (amp > 60) Serial.println("  → гучно!");
-}
-```
-```stm32
-extern ADC_HandleTypeDef hadc1;           // канал з AO налаштовано в CubeMX
-#define WIN 50u                           // вікно вимірювання, мс
-
-uint16_t measure_peak_to_peak(void) {
-    uint32_t start = HAL_GetTick();
-    uint16_t lo = 4095, hi = 0;           // межі для 12-бітного АЦП STM32
-    while (HAL_GetTick() - start < WIN) {
-        HAL_ADC_Start(&hadc1);
-        if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK) {
-            uint16_t v = HAL_ADC_GetValue(&hadc1);
-            if (v < lo) lo = v;
-            if (v > hi) hi = v;
-        }
-        HAL_ADC_Stop(&hadc1);
-    }
-    return hi - lo;                       // розмах у відліках АЦП
-}
-
-int main(void) {
-    HAL_Init(); SystemClock_Config(); MX_GPIO_Init();
-    MX_ADC1_Init(); MX_USART2_UART_Init();
-    while (1) {
-        uint16_t amp = measure_peak_to_peak();
-        printf("розмах: %u\r\n", amp);    // мале — тихо, велике — гучно
-        // поріг під 12-бітну шкалу — теж просто число
-        if (amp > 250) printf("  → гучно!\r\n");
-    }
-}
-```
+:::code api-sound-lm393/c/arduino/analohovyi-vykhid-ao-hruba.ino
+:::code api-sound-lm393/c/stm32/analohovyi-vykhid-ao-hruba.c
 :::
 
 Прийом простий: у циклі, поки не мине вікно, безперервно читаємо АЦП і оновлюємо `lo`/`hi`; після вікна повертаємо різницю. Поріг «гучно» тепер — звичайне число (`60` у прикладі), яке легко міняти з коду під будь-яку задачу. Стартові значення важливі: `lo` заводимо у **верх шкали** (1023 на 10 бітах, 4095 на 12), `hi` — у мінімум (0), щоб перший же відлік їх правильно посунув.
@@ -490,78 +137,8 @@ int main(void) {
 По-третє, **АЦП ESP32 галасливий і нелінійний**. Рекламовані 12 біт на практиці ближчі до дев'яти плюс шум; ба більше, він «сліпий» на самих краях — приблизно нижче 0.1 В він тримає нуль, а вище ~3.1 В — залипає в 4095, тобто крайні ділянки шкали з'їдені. Для нашої грубої оцінки це стерпно (нам важить не точне значення, а зміна розмаху), але два заходи допомагають: невеликий конденсатор (0.1 мкФ) між ногою АЦП і землею гасить високочастотний шум, а для перерахунку в реальні мілівольти краще брати не сирий `analogRead`, а `analogReadMilliVolts` — воно повертає вже відкалібровані мілівольти, обходячи частину нелінійності.
 
 :::tabs
-```arduino
-const uint8_t AO = 34;                    // ADC1! GPIO34 безпечний при Wi-Fi
-const unsigned long WIN = 50;
-
-void setup() {
-    Serial.begin(115200);
-    analogReadResolution(12);             // 0..4095
-    // за замовчуванням послаблення 11 dB → діапазон ~0.15..2.45 В;
-    // за потреби ширший діапазон — analogSetPinAttenuation(AO, ADC_11db)
-}
-
-int measurePeakToPeak() {
-    unsigned long start = millis();
-    int lo = 4095, hi = 0;                // межі для 12-бітного АЦП ESP32
-    while (millis() - start < WIN) {
-        int v = analogRead(AO);
-        if (v < lo) lo = v;
-        if (v > hi) hi = v;
-    }
-    return hi - lo;
-}
-
-void loop() {
-    int amp = measurePeakToPeak();
-    Serial.print("розмах: ");
-    Serial.println(amp);
-    if (amp > 250) Serial.println("  → гучно!");   // поріг під 12-бітну шкалу
-}
-```
-```esp-idf
-#include "esp_adc/adc_oneshot.h"
-#include "esp_timer.h"
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define WIN_US 50000LL                        // вікно вимірювання: 50 мс у мкс
-#define AO_CH  ADC_CHANNEL_6                  // ADC1 канал 6 = GPIO34
-
-static const char *TAG = "sound";
-static adc_oneshot_unit_handle_t adc1;
-
-static void adc_setup(void) {
-    adc_oneshot_unit_init_cfg_t unit = { .unit_id = ADC_UNIT_1 };  // ADC1 живе з Wi-Fi
-    ESP_ERROR_CHECK(adc_oneshot_new_unit(&unit, &adc1));
-    adc_oneshot_chan_cfg_t chan = {
-        .atten    = ADC_ATTEN_DB_12,          // повна шкала ~0.15…3.1 В
-        .bitwidth = ADC_BITWIDTH_DEFAULT,     // 12 біт → 0…4095
-    };
-    ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1, AO_CH, &chan));
-}
-
-static int measure_peak_to_peak(void) {
-    int64_t start = esp_timer_get_time();
-    int lo = 4095, hi = 0, v = 0;
-    while (esp_timer_get_time() - start < WIN_US) {
-        if (adc_oneshot_read(adc1, AO_CH, &v) != ESP_OK) continue;
-        if (v < lo) lo = v;
-        if (v > hi) hi = v;
-    }
-    return hi - lo;
-}
-
-void app_main(void) {
-    adc_setup();
-    while (1) {
-        int amp = measure_peak_to_peak();
-        ESP_LOGI(TAG, "розмах: %d%s", amp, amp > 250 ? "  → гучно!" : "");
-        vTaskDelay(pdMS_TO_TICKS(100));
-    }
-}
-```
+:::code api-sound-lm393/c/arduino/toi-samyi-vymir-na-esp32-i.ino
+:::code api-sound-lm393/c/esp-idf/toi-samyi-vymir-na-esp32-i.c
 :::
 
 Логіка ідентична Uno-версії — різняться лише стартові межі (`4095` замість `1023`), поріг гучності та вибір ноги. Саме тому варто тримати вимір розмаху окремою функцією: тіло `measurePeakToPeak` переносне, змінюються тільки константи під конкретний АЦП.
@@ -573,93 +150,8 @@ void app_main(void) {
 **На перериванні з дебаунсом в обробнику — Arduino Uno і STM32 (HAL).**
 
 :::tabs
-```arduino
-// Звуковий давач на LM393 → Arduino Uno.
-// DO давача на D2 (переривання), вбудований світлодіод на D13.
-// Спокій = 1, звук = короткий 0. Дебаунс неблокуючий, у перериванні.
-
-const uint8_t SOUND = 2;                  // DO на ногу переривання D2
-const uint8_t LED   = 13;                 // вбудований світлодіод плати
-const unsigned long WINDOW = 150;         // вікно дебаунсу, мс
-
-volatile unsigned long lastHit = 0;
-volatile unsigned long count   = 0;
-volatile bool ready = false;
-
-void onSound() {                          // ISR: коротка, лише відсів і позначка
-    unsigned long t = millis();
-    if (t - lastHit > WINDOW) {           // ігноруємо торохтіння того ж плеску
-        lastHit = t;
-        count++;
-        ready = true;
-    }
-}
-
-void setup() {
-    pinMode(SOUND, INPUT);                // підтяжка на платі → спокій = 1
-    pinMode(LED, OUTPUT);
-    Serial.begin(9600);
-    attachInterrupt(digitalPinToInterrupt(SOUND), onSound, FALLING);
-    Serial.println("готово. плесніть у долоні.");
-}
-
-void loop() {
-    if (ready) {                          // головний цикл збирає врожай
-        ready = false;
-        digitalWrite(LED, HIGH);
-        Serial.print("плеск #");
-        Serial.println(count);
-        delay(30);                        // коротке блимання — тут delay доречний
-        digitalWrite(LED, LOW);
-    }
-    // сюди можна вставити будь-яку іншу роботу — переривання не проґавить звук
-}
-```
-```stm32
-/* Звуковий давач на LM393 → STM32 (HAL, приклад під F1/F4).
-   DO давача на PA0 (лінія EXTI0), світлодіод плати на PA5.
-   Спокій = 1, звук = короткий 0. Дебаунс неблокуючий, у перериванні. */
-
-#define SOUND_PORT GPIOA
-#define SOUND_PIN  GPIO_PIN_0             // DO на ногу з лінією EXTI0
-#define LED_PORT   GPIOA
-#define LED_PIN    GPIO_PIN_5             // світлодіод плати
-#define WINDOW     150u                   // вікно дебаунсу, мс
-
-volatile uint32_t lastHit = 0;
-volatile uint32_t count   = 0;
-volatile bool     ready   = false;
-
-/* MX_GPIO_Init: PA0 — GPIO_MODE_IT_FALLING / GPIO_NOPULL (підтяжка на платі),
-   PA5 — GPIO_MODE_OUTPUT_PP; далі HAL_NVIC_SetPriority(EXTI0_IRQn, 2, 0)
-   і HAL_NVIC_EnableIRQ(EXTI0_IRQn). */
-
-void HAL_GPIO_EXTI_Callback(uint16_t pin) {   // обробник: лише відсів і позначка
-    if (pin != SOUND_PIN) return;
-    uint32_t t = HAL_GetTick();     // тік у ISR читати можна, HAL_Delay — ні
-    if (t - lastHit > WINDOW) {     // ігноруємо торохтіння того ж плеску
-        lastHit = t;
-        count++;
-        ready = true;
-    }
-}
-
-int main(void) {
-    HAL_Init(); SystemClock_Config(); MX_GPIO_Init(); MX_USART2_UART_Init();
-    printf("готово. плесніть у долоні.\r\n");
-
-    while (1) {
-        if (ready) {                          // головний цикл збирає врожай
-            ready = false;
-            HAL_GPIO_WritePin(LED_PORT, LED_PIN, GPIO_PIN_SET);
-            printf("плеск #%lu\r\n", (unsigned long)count);
-            HAL_Delay(30);                    // коротке блимання
-            HAL_GPIO_WritePin(LED_PORT, LED_PIN, GPIO_PIN_RESET);
-        }
-        // сюди можна вставити будь-яку іншу роботу — EXTI не проґавить звук
-    }
-}
-```
+:::code api-sound-lm393/c/arduino/povni-robochi-sketchi.ino
+:::code api-sound-lm393/c/stm32/povni-robochi-sketchi.c
 :::
 
 Тут `delay(30)` (і `HAL_Delay(30)` у STM32-вкладці) для блимання світлодіодом — виняток, де коротка затримка припустима: вона в головному циклі, поза дебаунсом, і не заважає лову звуку, бо той на перериванні. Якби пристрій робив щось критичне щомілісекунди, і це блимання варто було б перевести на `millis()`.
@@ -667,112 +159,8 @@ int main(void) {
 **ESP32 — на перериванні з IRAM_ATTR: Arduino-ядро із захистом спільної змінної й чистий ESP-IDF із чергою.**
 
 :::tabs
-```arduino
-// Звуковий давач на LM393 → ESP32.
-// DO давача на GPIO4, вбудований світлодіод на GPIO2 (є на більшості плат).
-// ISR має жити в IRAM (IRAM_ATTR); спільну змінну ховаємо в критичну секцію.
-
-const uint8_t SOUND = 4;                  // DO на GPIO4 (переривання є на будь-якій GPIO)
-const uint8_t LED   = 2;                  // вбудований світлодіод
-const unsigned long WINDOW = 150;
-
-volatile unsigned long lastHit = 0;
-volatile unsigned long count   = 0;
-volatile bool ready = false;
-portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;   // спінлок для спільних даних
-
-void IRAM_ATTR onSound() {                // на ESP32 ISR позначаємо IRAM_ATTR
-    unsigned long t = millis();           // millis() читає апаратний таймер — у ISR можна
-    portENTER_CRITICAL_ISR(&mux);
-    if (t - lastHit > WINDOW) {
-        lastHit = t;
-        count++;
-        ready = true;
-    }
-    portEXIT_CRITICAL_ISR(&mux);
-}
-
-void setup() {
-    pinMode(SOUND, INPUT);
-    pinMode(LED, OUTPUT);
-    Serial.begin(115200);
-    attachInterrupt(digitalPinToInterrupt(SOUND), onSound, FALLING);
-    Serial.println("готово. плесніть у долоні.");
-}
-
-void loop() {
-    bool got = false;
-    unsigned long c = 0;
-    portENTER_CRITICAL(&mux);             // акуратно знімаємо спільні дані
-    if (ready) { ready = false; got = true; c = count; }
-    portEXIT_CRITICAL(&mux);
-
-    if (got) {
-        digitalWrite(LED, HIGH);
-        Serial.print("плеск #");
-        Serial.println(c);
-        delay(30);
-        digitalWrite(LED, LOW);
-    }
-}
-```
-```esp-idf
-/* Звуковий давач на LM393 → ESP32, чистий ESP-IDF.
-   DO давача на GPIO4, світлодіод на GPIO2.
-   ISR живе в IRAM (IRAM_ATTR); подія їде в чергу FreeRTOS. */
-
-#include "driver/gpio.h"
-#include "esp_timer.h"
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/queue.h"
-
-#define SOUND     GPIO_NUM_4
-#define LED       GPIO_NUM_2
-#define WINDOW_US 150000LL                 // вікно дебаунсу: 150 мс у мкс
-
-static const char *TAG = "sound";
-static QueueHandle_t evt_q;
-static volatile int64_t lastHit = 0;
-
-static void IRAM_ATTR on_sound(void *arg) {     // ISR: відсів і одна подія в чергу
-    int64_t t = esp_timer_get_time();
-    if (t - lastHit > WINDOW_US) {              // торохтіння того ж плеску — геть
-        lastHit = t;
-        uint32_t one = 1;
-        xQueueSendFromISR(evt_q, &one, NULL);   // черга замість спільних змінних
-    }
-}
-
-static void blink_task(void *arg) {             // уся «повільна» робота — тут
-    uint32_t one, count = 0;
-    while (1) {
-        if (xQueueReceive(evt_q, &one, portMAX_DELAY) == pdTRUE) {
-            gpio_set_level(LED, 1);
-            ESP_LOGI(TAG, "плеск #%lu", (unsigned long)++count);
-            vTaskDelay(pdMS_TO_TICKS(30));      // коротке блимання
-            gpio_set_level(LED, 0);
-        }
-    }
-}
-
-void app_main(void) {
-    gpio_config_t in = { .pin_bit_mask = 1ULL << SOUND, .mode = GPIO_MODE_INPUT,
-                         .pull_up_en   = GPIO_PULLUP_DISABLE,
-                         .pull_down_en = GPIO_PULLDOWN_DISABLE,
-                         .intr_type    = GPIO_INTR_NEGEDGE };
-    ESP_ERROR_CHECK(gpio_config(&in));
-    ESP_ERROR_CHECK(gpio_set_direction(LED, GPIO_MODE_OUTPUT));
-
-    evt_q = xQueueCreate(8, sizeof(uint32_t));
-    ESP_ERROR_CHECK(gpio_install_isr_service(0));
-    ESP_ERROR_CHECK(gpio_isr_handler_add(SOUND, on_sound, NULL));
-
-    xTaskCreate(blink_task, "blink", 3072, NULL, 5, NULL);
-    ESP_LOGI(TAG, "готово. плесніть у долоні.");
-}
-```
+:::code api-sound-lm393/c/arduino/povni-robochi-sketchi-2.ino
+:::code api-sound-lm393/c/esp-idf/povni-robochi-sketchi.c
 :::
 
 ESP32-версія додає два штрихи проти Uno. Перший — **`IRAM_ATTR`** перед обробником: він змушує покласти код ISR у швидку внутрішню пам'ять (IRAM), а не у флеш. Це не косметика: якщо ISR лежить у флеші, а той у момент переривання зайнятий (скажімо, йде читання з нього), обробник не зможе виконатися — і програма впаде або зависне. Друге — **критична секція** (`portENTER_CRITICAL`/`portENTER_CRITICAL_ISR` довкола спільних змінних): на двоядерному ESP32 головний цикл і обробник можуть чіпати `ready`/`count` буквально одночасно з різних ядер, і без захисту читання зіпсується. Спінлок `mux` гарантує, що поки один бік працює зі спільними даними, другий чекає. На простому одноядерному Uno цієї турботи немає — там переривання просто на мить спиняє головний код, — тож і `IRAM_ATTR`, і `portMUX` там ні до чого; це ціна багатоядерності ESP32. Вкладка ESP-IDF знімає ту саму біду інакше й чистіше: спільних змінних між обробником і задачею просто нема — ISR кладе подію в чергу (`xQueueSendFromISR`), а синхронізацію бере на себе сама черга.

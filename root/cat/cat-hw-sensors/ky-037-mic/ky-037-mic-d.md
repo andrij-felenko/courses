@@ -67,50 +67,8 @@ KY-037 — типовий член [KY-серії](root:cat-hw-sensors/ky-series
 **Умова.** AO під'єднано до аналогового входу A0. Треба за кожні ~50 мс оцінити гучність як розмах сигналу й вивести число, зручне для порівняння.
 
 :::tabs
-```cpp
-const uint8_t MIC = A0;           // аналоговий вихід KY-037
-const unsigned long WINDOW = 50;  // вікно вимірювання, мс
-
-int measureLoudness() {
-    unsigned long t0 = millis();
-    int hi = 0, lo = 1023;        // межі діапазону АЦП (10-біт)
-    while (millis() - t0 < WINDOW) {
-        int v = analogRead(MIC);  // миттєва точка хвилі
-        if (v > hi) hi = v;
-        if (v < lo) lo = v;
-    }
-    return hi - lo;               // РОЗМАХ: тиша ≈ мало, гучно ≈ багато
-}
-
-void setup() { Serial.begin(9600); }
-
-void loop() {
-    int loud = measureLoudness();
-    Serial.println(loud);         // спробуй у тиші й під оплеск — числа різні
-}
-```
-```micropython
-from machine import ADC, Pin
-from time import ticks_ms, ticks_diff
-
-mic = ADC(Pin(26))            # аналоговий вихід KY-037
-WINDOW = 50                   # вікно вимірювання, мс
-
-def measure_loudness():
-    t0 = ticks_ms()
-    hi, lo = 0, 65535         # межі діапазону read_u16 (16-біт)
-    while ticks_diff(ticks_ms(), t0) < WINDOW:
-        v = mic.read_u16()    # миттєва точка хвилі
-        if v > hi:
-            hi = v
-        if v < lo:
-            lo = v
-    return hi - lo            # РОЗМАХ: тиша ≈ мало, гучно ≈ багато
-
-while True:
-    loud = measure_loudness()
-    print(loud)               # спробуй у тиші й під оплеск — числа різні
-```
+:::code ky-037-mic-d/cpp/holovna-pastka-shcho.cpp
+:::code ky-037-mic-d/py/micropython/main.py
 :::
 
 Різниця `hi - lo` — не готові децибели, а **сирі одиниці АЦП**, але їх цілком досить, щоб відрізнити тишу від звуку й порівняти з власним порогом. Якщо треба справжня гучність у знайомих одиницях — доведеться калібрувати давач за еталоном, бо електретні капсулі різняться між собою, а підсилення на модулі не нормоване.
@@ -124,22 +82,7 @@ while True:
 **Умова.** DO під'єднано до цифрового входу D3, поріг виставлено гвинтиком за LED2. Треба засвітити вбудований світлодіод на час, поки давач чує звук понад поріг.
 
 :::tabs
-```cpp
-const uint8_t SOUND = 3;          // цифровий вихід KY-037
-const uint8_t LED   = 13;         // вбудований світлодіод плати
-
-void setup() {
-    pinMode(SOUND, INPUT);
-    pinMode(LED, OUTPUT);
-    Serial.begin(9600);
-}
-
-void loop() {
-    int hit = digitalRead(SOUND);  // спрацював поріг чи ні
-    digitalWrite(LED, hit);        // світимо, поки є звук понад поріг
-    Serial.println(hit);
-}
-```
+:::code ky-037-mic-d/cpp/tsyfrovyi-vykhid-koly.cpp
 ```micropython
 from machine import Pin
 

@@ -94,33 +94,8 @@ I = (Vcc - Vled) / R   # закон Ома для вітки
 
 **Приклад: визначаємо полярність своєї плати**
 :::tabs
-```cpp
-const int PIN_S = 2;   // сигнал KY-010 на цифровому вході D2
-
-void setup() {
-  pinMode(PIN_S, INPUT);
-  Serial.begin(9600);
-  Serial.println("Заводь щілину то вільною, то перекритою — дивись на рівень:");
-}
-
-void loop() {
-  int level = digitalRead(PIN_S);
-  Serial.println(level ? "HIGH" : "LOW");
-  delay(200);
-}
-```
-```micropython
-from machine import Pin
-import time
-
-pin_s = Pin(2, Pin.IN)   # сигнал KY-010 на цифровому вході GP2
-
-print("Заводь щілину то вільною, то перекритою — дивись на рівень:")
-while True:
-    level = pin_s.value()
-    print("HIGH" if level else "LOW")
-    time.sleep_ms(200)
-```
+:::code ky-010-interrupter-d/cpp/robota-v-kodi.cpp
+:::code ky-010-interrupter-d/py/micropython/robota-v-kodi.py
 :::
 Побачив, що перекрита щілина дає, скажімо, HIGH, — зафіксуй це в одній іменованій константі, і решта коду перестане залежати від ревізії плати:
 
@@ -148,57 +123,8 @@ def is_blocked():
 
 **Приклад: рахуємо проходи по фронту, з захистом від дрижання**
 :::tabs
-```cpp
-const int PIN_S      = 2;
-const int BLOCKED    = HIGH;      // з калібрування вище
-const unsigned long GUARD = 3;    // «мертвий час», мс — гасить дрижання на схилі
-
-volatile unsigned long count = 0;
-bool     prev = false;            // попередній стан щілини
-unsigned long tEdge = 0;          // час останнього зарахованого фронту
-
-void setup() {
-  pinMode(PIN_S, INPUT);
-  Serial.begin(9600);
-}
-
-void loop() {
-  bool now = (digitalRead(PIN_S) == BLOCKED);
-  unsigned long t = millis();
-
-  // цікавить лише фронт «вільно → перекрито» і не частіше, ніж раз на GUARD мс
-  if (now && !prev && (t - tEdge) > GUARD) {
-    count++;
-    tEdge = t;
-    Serial.println(count);
-  }
-  prev = now;
-}
-```
-```micropython
-from machine import Pin
-import time
-
-PIN_S   = 2
-BLOCKED = 1              # з калібрування вище
-GUARD   = 3             # «мертвий час», мс — гасить дрижання на схилі
-
-pin_s = Pin(PIN_S, Pin.IN)
-count = 0
-prev  = False           # попередній стан щілини
-t_edge = 0              # час останнього зарахованого фронту
-
-while True:
-    now = (pin_s.value() == BLOCKED)
-    t = time.ticks_ms()
-
-    # цікавить лише фронт «вільно → перекрито» і не частіше, ніж раз на GUARD мс
-    if now and not prev and time.ticks_diff(t, t_edge) > GUARD:
-        count += 1
-        t_edge = t
-        print(count)
-    prev = now
-```
+:::code ky-010-interrupter-d/cpp/robota-v-kodi-2.cpp
+:::code ky-010-interrupter-d/py/micropython/robota-v-kodi-2.py
 :::
 Логіка `now && !prev` спрацьовує рівно один раз на кожне входження об'єкта в щілину — на **передньому фронті**. Віконце `GUARD` у кілька мілісекунд відсікає багаторазові хибні спрацювання, коли край диска повзе через промінь і напруга кілька разів перетинає поріг туди-сюди (те саме «дрижання контактів», тільки оптичне, від плавного схилу без компаратора). Для дуже швидких валів цю саму логіку по фронту переносять у обробник переривання — щоб апаратура ловила кожен зубець, а не пропускала його між двома `digitalRead`. Готовий каркас драйвера — лічильник на перериванні, переведення в оберти за хвилину, вимірювання швидкості — винесено в [приклад-проєкт з робочим кодом](root:cat-hw-sensors/ky-010-interrupter/proj-ky010-counter.md).
 

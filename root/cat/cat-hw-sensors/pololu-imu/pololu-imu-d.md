@@ -87,44 +87,8 @@ LIS3MDL  (магнетометр) 0x1E   (SA0 до GND → 0x1C)
 Ось короткий приклад ручної ініціалізації й читання одного байта впізнання — реальний C для прошивки, де `i2c_write_reg`/`i2c_read_reg` — твої функції доступу до шини:
 
 :::tabs
-```cpp
-#include <stdint.h>
-
-#define LSM6_ADDR      0x6B   // адреса LSM6DS33 на шині
-#define REG_WHO_AM_I   0x0F
-#define REG_CTRL1_XL   0x10   // акселерометр
-#define REG_CTRL2_G    0x11   // гіроскоп
-
-int lsm6_init(void) {
-    uint8_t id = i2c_read_reg(LSM6_ADDR, REG_WHO_AM_I);
-    if (id != 0x69) return -1;          // чип не відповів — далі немає сенсу
-
-    // 0x80 = 1.66 кГц, 0x00 = ±2 g  → акселерометр увімкнено
-    i2c_write_reg(LSM6_ADDR, REG_CTRL1_XL, 0x80);
-    // 0x80 = 1.66 кГц, 0x00 = ±245 °/с → гіроскоп увімкнено
-    i2c_write_reg(LSM6_ADDR, REG_CTRL2_G, 0x80);
-    return 0;
-}
-```
-```micropython
-from machine import I2C
-
-LSM6_ADDR    = 0x6B   # адреса LSM6DS33 на шині
-REG_WHO_AM_I = 0x0F
-REG_CTRL1_XL = 0x10   # акселерометр
-REG_CTRL2_G  = 0x11   # гіроскоп
-
-def lsm6_init(i2c):
-    id = i2c.readfrom_mem(LSM6_ADDR, REG_WHO_AM_I, 1)[0]
-    if id != 0x69:
-        return -1                        # чип не відповів — далі немає сенсу
-
-    # 0x80 = 1.66 кГц, 0x00 = ±2 g  → акселерометр увімкнено
-    i2c.writeto_mem(LSM6_ADDR, REG_CTRL1_XL, bytes([0x80]))
-    # 0x80 = 1.66 кГц, 0x00 = ±245 °/с → гіроскоп увімкнено
-    i2c.writeto_mem(LSM6_ADDR, REG_CTRL2_G, bytes([0x80]))
-    return 0
-```
+:::code pololu-imu-d/cpp/main.cpp
+:::code pololu-imu-d/py/micropython/main.py
 :::
 
 Дані акселерометра лежать у шести послідовних регістрах, починаючи з OUTX_L_XL (0x28): по два байти на вісь X, Y, Z. Гіроскоп — так само, з 0x22. Прочитавши два байти, склеюємо їх у число зі знаком:

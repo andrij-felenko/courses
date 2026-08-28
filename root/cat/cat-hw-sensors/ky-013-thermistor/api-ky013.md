@@ -28,147 +28,9 @@
 **Умова.** Сигнал S давача заходить на вивід, заведений на канал АЦП: на Arduino Uno це `A0`, на ESP32 — канал ADC1 (наприклад GPIO34), на STM32 — вхід, прив'язаний до `ADC1` у CubeMX. Опорна напруга АЦП і живлення дільника — спільні (Uno 5 В, ESP32 і STM32 3.3 В), тож ratiometric виходить сам собою. Розрядність у кожного своя: 10 біт (0…1023) в Uno, 12 (0…4095) в ESP32 і STM32 — саме тому повна шкала винесена в окрему сталу. Термістор 10 кОм / B = 3950, сталий резистор 10 кОм. Термістор у **верхньому** плечі.
 
 :::tabs
-```arduino
-#include <math.h>
-
-const uint8_t  PIN_NTC  = A0;        // сигнал S давача
-const uint16_t ADC_MAX  = 1023;      // 10-біт АЦП: повна шкала (2^10 − 1)
-const float    R_FIXED  = 10000.0f;  // сталий резистор на модулі, Ом
-const float    R25      = 10000.0f;  // опір термістора за 25 °C, Ом
-const float    BETA     = 3950.0f;   // B-параметр термістора, K
-const float    T25_K    = 298.15f;   // 25 °C у кельвінах (25 + 273.15)
-
-void setup() {
-  Serial.begin(9600);                // пін аналоговий → pinMode НЕ потрібен
-}
-
-// відлік АЦП → опір термістора (термістор у ВЕРХНЬОМУ плечі)
-float rawToResistance(uint16_t raw) {
-  float ratio = (float)raw / ADC_MAX;             // U_S / Vcc, у межах 0..1
-  // U_S/Vcc = R_fixed / (R_ntc + R_fixed)
-  //        →  R_ntc = R_fixed * (1/ratio − 1)
-  return R_FIXED * (1.0f / ratio - 1.0f);
-}
-
-// опір термістора → температура, °C (B-параметр)
-float resistanceToTempC(float r_ntc) {
-  // 1/T = 1/T25 + (1/B)·ln(R/R25)
-  float invT = 1.0f / T25_K + logf(r_ntc / R25) / BETA;
-  return 1.0f / invT - 273.15f;                   // K → °C
-}
-
-void loop() {
-  uint16_t raw   = analogRead(PIN_NTC);
-  float    r     = rawToResistance(raw);
-  float    tempC = resistanceToTempC(r);
-
-  Serial.print(tempC, 1);
-  Serial.println(" C");
-  delay(500);
-}
-```
-```esp-idf
-// ESP-IDF 5.x: той самий конвеєр, АЦП — через драйвер adc_oneshot
-#include <math.h>
-#include "esp_adc/adc_oneshot.h"
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define ADC_CHAN   ADC_CHANNEL_6     // ADC1_CH6 = GPIO34, сигнал S давача
-#define ADC_MAX    4095.0f           // 12-біт АЦП: повна шкала (2^12 − 1)
-#define R_FIXED    10000.0f          // сталий резистор на модулі, Ом
-#define R25        10000.0f          // опір термістора за 25 °C, Ом
-#define BETA       3950.0f           // B-параметр термістора, K
-#define T25_K      298.15f           // 25 °C у кельвінах
-
-static const char *TAG = "ky013";
-static adc_oneshot_unit_handle_t adc1;
-
-// відлік АЦП → опір термістора (термістор у ВЕРХНЬОМУ плечі)
-static float raw_to_resistance(int raw) {
-    float ratio = (float)raw / ADC_MAX;          // U_S / Vcc, у межах 0..1
-    return R_FIXED * (1.0f / ratio - 1.0f);      // R_ntc = R_fixed·(1/ratio − 1)
-}
-
-// опір термістора → температура, °C (B-параметр)
-static float resistance_to_temp_c(float r_ntc) {
-    float invT = 1.0f / T25_K + logf(r_ntc / R25) / BETA;
-    return 1.0f / invT - 273.15f;                // K → °C
-}
-
-void app_main(void) {
-    adc_oneshot_unit_init_cfg_t unit = { .unit_id = ADC_UNIT_1 };
-    ESP_ERROR_CHECK(adc_oneshot_new_unit(&unit, &adc1));
-    adc_oneshot_chan_cfg_t ch = {
-        .bitwidth = ADC_BITWIDTH_12,             // 12 біт → шкала 0…4095
-        .atten    = ADC_ATTEN_DB_12,             // повний вхідний діапазон
-    };
-    ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1, ADC_CHAN, &ch));
-
-    while (1) {
-        int raw = 0;
-        ESP_ERROR_CHECK(adc_oneshot_read(adc1, ADC_CHAN, &raw));
-        float tempC = resistance_to_temp_c(raw_to_resistance(raw));
-        ESP_LOGI(TAG, "%.1f C", tempC);
-        vTaskDelay(pdMS_TO_TICKS(500));
-    }
-}
-```
-```stm32
-// STM32 HAL: той самий конвеєр, АЦП опитуємо поллінгом
-#include "stm32f4xx_hal.h"
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-#define ADC_MAX   4095.0f            // 12-біт АЦП: повна шкала (2^12 − 1)
-#define R_FIXED   10000.0f           // сталий резистор на модулі, Ом
-#define R25       10000.0f           // опір термістора за 25 °C, Ом
-#define BETA      3950.0f            // B-параметр термістора, K
-#define T25_K     298.15f            // 25 °C у кельвінах
-
-extern ADC_HandleTypeDef  hadc1;     // канал під сигнал S налаштований у CubeMX
-extern UART_HandleTypeDef huart2;    // вивід замість Serial
-
-static uint16_t adc_read(void) {     // один відлік із каналу
-    HAL_ADC_Start(&hadc1);
-    HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
-    uint16_t raw = (uint16_t)HAL_ADC_GetValue(&hadc1);
-    HAL_ADC_Stop(&hadc1);
-    return raw;
-}
-
-// відлік АЦП → опір термістора (термістор у ВЕРХНЬОМУ плечі)
-static float raw_to_resistance(uint16_t raw) {
-    float ratio = (float)raw / ADC_MAX;          // U_S / Vcc, у межах 0..1
-    return R_FIXED * (1.0f / ratio - 1.0f);      // R_ntc = R_fixed·(1/ratio − 1)
-}
-
-// опір термістора → температура, °C (B-параметр)
-static float resistance_to_temp_c(float r_ntc) {
-    float invT = 1.0f / T25_K + logf(r_ntc / R25) / BETA;
-    return 1.0f / invT - 273.15f;                // K → °C
-}
-
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();
-    MX_ADC1_Init();
-    MX_USART2_UART_Init();
-
-    char line[24];
-    while (1) {
-        float tempC = resistance_to_temp_c(raw_to_resistance(adc_read()));
-        int t10 = (int)lroundf(tempC * 10.0f);   // друкуємо цілими: десяті окремо,
-        int n = snprintf(line, sizeof line, "%d.%d C\r\n",
-                         t10 / 10, abs(t10 % 10));  // щоб не тягнути float у printf
-        HAL_UART_Transmit(&huart2, (uint8_t *)line, n, HAL_MAX_DELAY);
-        HAL_Delay(500);
-    }
-}
-```
+:::code api-ky013/c/arduino/minimalnyi-robochyi.ino
+:::code api-ky013/c/esp-idf/minimalnyi-robochyi.c
+:::code api-ky013/c/stm32/minimalnyi-robochyi.c
 :::
 
 Кілька рядків заслуговують уваги, бо на них ламаються.
@@ -251,40 +113,8 @@ uint16_t readRawAveraged(uint8_t samples = 16) {
   return (uint16_t)(acc / samples);
 }
 ```
-```esp-idf
-#include "esp_rom_sys.h"                    // esp_rom_delay_us()
-
-// середній сирий відлік із N вимірів (шум давиться як √N)
-static int read_raw_averaged(int samples) {
-    uint32_t acc = 0;                       // 32 біти: 64×4095 не переповнить
-    for (int i = 0; i < samples; i++) {
-        int raw = 0;
-        ESP_ERROR_CHECK(adc_oneshot_read(adc1, ADC_CHAN, &raw));
-        acc += (uint32_t)raw;
-        esp_rom_delay_us(200);              // дати входу АЦП «устоятися»
-    }
-    return (int)(acc / samples);
-}
-```
-```stm32
-// у HAL мікросекундної затримки нема: беремо лічильник тактів DWT
-// (його вмикають один раз на старті: CoreDebug->DEMCR |= TRCENA; DWT->CTRL |= 1)
-static void delay_us(uint32_t us) {
-    uint32_t t0 = DWT->CYCCNT;
-    uint32_t n  = us * (SystemCoreClock / 1000000U);
-    while (DWT->CYCCNT - t0 < n) { }
-}
-
-// середній сирий відлік із N вимірів (шум давиться як √N)
-static uint16_t read_raw_averaged(uint8_t samples) {
-    uint32_t acc = 0;                       // 32 біти: 64×4095 не переповнить
-    for (uint8_t i = 0; i < samples; i++) {
-        acc += adc_read();
-        delay_us(200);                      // дати входу АЦП «устоятися»
-    }
-    return (uint16_t)(acc / samples);
-}
-```
+:::code api-ky013/c/esp-idf/userednennia-pryborkaty.c
+:::code api-ky013/c/stm32/userednennia-pryborkaty.c
 :::
 
 Три деталі, які роблять цю функцію правильною, а не просто «циклом навколо відліку».
@@ -341,185 +171,14 @@ while (1) {
 
 Спершу — як **зробити таблицю**. Це разовий скрипт (тут на C для наочності, але зазвичай його ганяють раз на комп'ютері й вставляють готовий масив у прошивку). Для обраної орієнтації дільника беремо ряд температур із зручним кроком, для кожної рахуємо опір термістора, тоді відлік АЦП, який цьому опору відповідає:
 
-```cpp
-// РАЗОВО на комп'ютері: надрукувати рядки таблиці для вставки у скетч.
-// Термістор УНИЗУ; крок 5 °C від −10 до +45.
-#include <stdio.h>
-#include <math.h>
-int main() {
-  const double R_FIXED = 10000, R25 = 10000, BETA = 3950, T25 = 298.15;
-  const double ADC_MAX = 1023;
-  for (int tC = -10; tC <= 45; tC += 5) {
-    double T   = tC + 273.15;
-    // T → опір термістора (обернена B-формула)
-    double R   = R25 * exp(BETA * (1.0/T - 1.0/T25));
-    // опір → відлік (термістор унизу): ratio = R/(R+R_fixed)
-    double adc = ADC_MAX * (R / (R + R_FIXED));
-    printf("  {%4d, %3d},\n", (int)(adc + 0.5), tC * 10);  // t×10 → десяті
-  }
-  return 0;
-}
-```
+:::code api-ky013/cpp/bez-log-zovsim-tablytsia-i.cpp
 
 Вивід цього скрипта — готові рядки, які просто вставляють у прошивку. А ось сам **приклад із таблицею й інтерполяцією**, той, що вже крутиться на мікроконтролері й не тягне ні `logf`, ні `float` узагалі:
 
 :::tabs
-```arduino
-#include <avr/pgmspace.h>       // тримати таблицю у flash, не в дефіцитній RAM
-
-const uint8_t  PIN_NTC = A0;
-
-// Таблиця «відлік АЦП → температура×10 (десяті °C)», відліки СПАДАЮТЬ
-// з нагрівом. °C×10, щоб не втратити десяті на цілій арифметиці.
-// Термістор УНИЗУ (між S і −): гарячіше → напруга на S нижча → відлік менший.
-struct Point { int16_t adc; int16_t t10; };
-const Point TABLE[] PROGMEM = {
-  {873, -100}, {834,  -50}, {788,    0}, {738,   50},
-  {684,  100}, {627,  150}, {569,  200}, {512,  250},
-  {456,  300}, {403,  350}, {354,  400}, {310,  450},
-};
-const uint8_t N = sizeof(TABLE) / sizeof(TABLE[0]);
-
-void setup() { Serial.begin(9600); }
-
-// відлік → температура×10, лінійна інтерполяція по таблиці (без float!)
-int16_t lookupT10(int16_t raw) {
-  int16_t a0 = pgm_read_word(&TABLE[0].adc);
-  int16_t aN = pgm_read_word(&TABLE[N - 1].adc);
-  if (raw >= a0) return pgm_read_word(&TABLE[0].t10);        // за краєм — обрізаємо
-  if (raw <= aN) return pgm_read_word(&TABLE[N - 1].t10);
-
-  // знайти сегмент [i, i+1], де adc спадає від >raw до <=raw
-  for (uint8_t i = 0; i < N - 1; i++) {
-    int16_t aHi = pgm_read_word(&TABLE[i].adc);       // більший відлік
-    int16_t aLo = pgm_read_word(&TABLE[i + 1].adc);   // менший відлік
-    if (raw <= aHi && raw >= aLo) {
-      int16_t tHi = pgm_read_word(&TABLE[i].t10);
-      int16_t tLo = pgm_read_word(&TABLE[i + 1].t10);
-      // лінійна інтерполяція, уся арифметика ціла (32 біти проти переповнення):
-      // t = tHi + (tLo − tHi)·(aHi − raw)/(aHi − aLo)
-      int32_t num = (int32_t)(tLo - tHi) * (aHi - raw);
-      return tHi + (int16_t)(num / (aHi - aLo));
-    }
-  }
-  return pgm_read_word(&TABLE[N - 1].t10);            // сюди не дійде, для повноти
-}
-
-void loop() {
-  int16_t raw = analogRead(PIN_NTC);
-  int16_t t10 = lookupT10(raw);
-  Serial.print(t10 / 10);       // ціла частина градусів
-  Serial.print('.');
-  Serial.println(abs(t10 % 10)); // десята
-  delay(500);
-}
-```
-```esp-idf
-// На ESP32 flash відображена в адресний простір: таблиця — звичайний
-// static const, читається прямо, без PROGMEM і pgm_read_word.
-#include <stdlib.h>
-#include "esp_adc/adc_oneshot.h"
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-typedef struct { int16_t adc; int16_t t10; } point_t;
-
-// «відлік АЦП → температура×10 (десяті °C)», шкала 12-бітна (0…4095).
-// Термістор УНИЗУ (між S і −): гарячіше → напруга на S нижча → відлік менший.
-static const point_t TABLE[] = {
-    {3495, -100}, {3338,  -50}, {3154,    0}, {2954,   50},
-    {2738,  100}, {2510,  150}, {2278,  200}, {2050,  250},
-    {1825,  300}, {1613,  350}, {1417,  400}, {1241,  450},
-};
-#define N  (sizeof(TABLE) / sizeof(TABLE[0]))
-
-// відлік → температура×10, лінійна інтерполяція по таблиці (без float!)
-static int16_t lookup_t10(int16_t raw) {
-    if (raw >= TABLE[0].adc)     return TABLE[0].t10;      // за краєм — обрізаємо
-    if (raw <= TABLE[N - 1].adc) return TABLE[N - 1].t10;
-
-    for (size_t i = 0; i < N - 1; i++) {
-        int16_t aHi = TABLE[i].adc;          // більший відлік
-        int16_t aLo = TABLE[i + 1].adc;      // менший відлік
-        if (raw <= aHi && raw >= aLo) {
-            int16_t tHi = TABLE[i].t10, tLo = TABLE[i + 1].t10;
-            // t = tHi + (tLo − tHi)·(aHi − raw)/(aHi − aLo), уся арифметика ціла
-            int32_t num = (int32_t)(tLo - tHi) * (aHi - raw);
-            return tHi + (int16_t)(num / (aHi - aLo));
-        }
-    }
-    return TABLE[N - 1].t10;                 // сюди не дійде, для повноти
-}
-
-void app_main(void) {
-    /* ініціалізація adc_oneshot — та сама, що в першому прикладі */
-    while (1) {
-        int raw = 0;
-        ESP_ERROR_CHECK(adc_oneshot_read(adc1, ADC_CHAN, &raw));
-        int16_t t10 = lookup_t10((int16_t)raw);
-        ESP_LOGI(TAG, "%d.%d C", t10 / 10, abs(t10 % 10));
-        vTaskDelay(pdMS_TO_TICKS(500));
-    }
-}
-```
-```stm32
-// На STM32 flash теж відображена в загальний адресний простір: const-масив
-// лежить у flash і читається звичайним індексуванням. Саме тут, на Cortex-M0/M3
-// без FPU, ціла таблиця й виграє в logf найбільше.
-#include "stm32f4xx_hal.h"
-#include <stdio.h>
-#include <stdlib.h>
-
-extern ADC_HandleTypeDef  hadc1;
-extern UART_HandleTypeDef huart2;
-
-typedef struct { int16_t adc; int16_t t10; } Point;
-
-// «відлік АЦП → температура×10 (десяті °C)», шкала 12-бітна (0…4095).
-// Термістор УНИЗУ (між S і −): гарячіше → напруга на S нижча → відлік менший.
-static const Point TABLE[] = {
-    {3495, -100}, {3338,  -50}, {3154,    0}, {2954,   50},
-    {2738,  100}, {2510,  150}, {2278,  200}, {2050,  250},
-    {1825,  300}, {1613,  350}, {1417,  400}, {1241,  450},
-};
-#define N  (sizeof(TABLE) / sizeof(TABLE[0]))
-
-// відлік → температура×10, лінійна інтерполяція по таблиці (без float!)
-static int16_t lookup_t10(int16_t raw) {
-    if (raw >= TABLE[0].adc)     return TABLE[0].t10;      // за краєм — обрізаємо
-    if (raw <= TABLE[N - 1].adc) return TABLE[N - 1].t10;
-
-    for (size_t i = 0; i < N - 1; i++) {
-        int16_t aHi = TABLE[i].adc;          // більший відлік
-        int16_t aLo = TABLE[i + 1].adc;      // менший відлік
-        if (raw <= aHi && raw >= aLo) {
-            int16_t tHi = TABLE[i].t10, tLo = TABLE[i + 1].t10;
-            // t = tHi + (tLo − tHi)·(aHi − raw)/(aHi − aLo), уся арифметика ціла
-            int32_t num = (int32_t)(tLo - tHi) * (aHi - raw);
-            return tHi + (int16_t)(num / (aHi - aLo));
-        }
-    }
-    return TABLE[N - 1].t10;                 // сюди не дійде, для повноти
-}
-
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();
-    MX_ADC1_Init();
-    MX_USART2_UART_Init();
-
-    char line[24];
-    while (1) {
-        int16_t t10 = lookup_t10((int16_t)adc_read());
-        int n = snprintf(line, sizeof line, "%d.%d C\r\n",
-                         t10 / 10, abs(t10 % 10));
-        HAL_UART_Transmit(&huart2, (uint8_t *)line, n, HAL_MAX_DELAY);
-        HAL_Delay(500);
-    }
-}
-```
+:::code api-ky013/c/arduino/bez-log-zovsim-tablytsia-i.ino
+:::code api-ky013/c/esp-idf/bez-log-zovsim-tablytsia-i.c
+:::code api-ky013/c/stm32/bez-log-zovsim-tablytsia-i.c
 :::
 
 Розберімо, чому воно саме таке.
@@ -560,38 +219,11 @@ const uint16_t ADC_MAX = 4095;    // 12-біт АЦП ESP32: 2^12 − 1
 
 Найпростіше й найдієвіше — **однією точкою**. Дай давачу вилежатися поряд із добрим термометром до спільної температури, зчитай, що показує KY-013, і додай сталу поправку, щоб зійшлося. Це прибирає весь постійний зсув — головну частину похибки коло тієї точки:
 
-```cpp
-float T_OFFSET = 0.0f;   // поправка з калібрування, °C (спершу 0)
-
-float readTempCalibrated() {
-  float t = resistanceToTempC(rawToResistance(readRawAveraged(16)));
-  return t + T_OFFSET;
-}
-
-// РАЗОВО: поклади поряд добрий термометр, дай зрівнятися, зчитай обидва.
-// Скажімо, еталон показує 23.0, а KY-013 (з T_OFFSET=0) видає 25.4.
-// Тоді  T_OFFSET = 23.0 − 25.4 = −2.4;  вписуєш це число у код.
-```
+:::code api-ky013/cpp/kalibruvannia-pidrivniaty.cpp
 
 Точніше — **двома точками**, бо один зсув не бере до уваги, що похибка різна на різних температурах (крива термістора й розкид B цього не дозволяють). Візьми дві температури якнайдалі одна від одної в робочому діапазоні: холодну (лід із водою — стабільні ~0 °C) і теплу (кімната або тепла вода). Для кожної запиши, що показує KY-013 (`m`, measured) проти еталона (`r`, real). Тоді проведи через дві пари `(m, r)` пряму й нею виправляй усі покази:
 
-```cpp
-// Дві калібрувальні пари (виміряне KY-013 → справжнє з еталона):
-const float M1 =  1.5f, R1 =  0.0f;    // крижана вода: KY-013 дав 1.5, правда 0.0
-const float M2 = 24.8f, R2 = 23.0f;    // кімната:      KY-013 дав 24.8, правда 23.0
-
-float applyTwoPoint(float m) {
-  // пряма r = a·m + b через дві точки (M1,R1) і (M2,R2)
-  float a = (R2 - R1) / (M2 - M1);     // нахил
-  float b = R1 - a * M1;               // зсув
-  return a * m + b;
-}
-
-float readTempCalibrated2() {
-  float m = resistanceToTempC(rawToResistance(readRawAveraged(16)));
-  return applyTwoPoint(m);
-}
-```
+:::code api-ky013/cpp/kalibruvannia-pidrivniaty-2.cpp
 
 Дві поради, що роблять калібровку чесною. Перша: **дай давачу зрівнятися**. Намистинка мала, але теплову інерцію має; клади її впритул до еталона й чекай кілька десятків секунд, поки покази перестануть повзти, — інакше калібруєш не температуру, а перехідний процес. Друга: **бери точки далеко одна від одної**. Дві близькі температури дадуть ненадійний нахил прямої (мала різниця в знаменнику `M2 − M1` роздуває будь-яку похибку зчитування). Лід і кімната — гарна пара: близько 20 градусів між ними.
 

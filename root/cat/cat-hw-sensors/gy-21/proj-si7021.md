@@ -20,65 +20,8 @@
 Оскільки обидві однаково читають обидва чипи, візьмемо `Adafruit_Si7021` — вона найпоширеніша. Ось повний робочий скетч, що раз на дві секунди друкує температуру й вологість у монітор порту.
 
 :::tabs
-```cpp
-#include <Wire.h>
-#include <Adafruit_Si7021.h>
-
-Adafruit_Si7021 sensor;   // об'єкт давача
-
-void setup() {
-  Serial.begin(115200);
-  while (!Serial && millis() < 2000) { }   // дочекатись термінала, але не вічно
-
-  // На ESP32/STM32/Pico задайте свої ніжки шини ДО begin():
-  //   Wire.begin(21, 22);        // SDA=21, SCL=22 — типово для ESP32
-  // На класичній Arduino (UNO/Nano) ніжки жорсткі (A4/A5) — Wire.begin() без аргументів.
-  Wire.begin();
-
-  if (!sensor.begin()) {
-    Serial.println(F("GY-21 не відповідає. Перевірте живлення й дроти SDA/SCL."));
-    while (true) { delay(1000); }           // далі йти немає сенсу
-  }
-  Serial.println(F("GY-21 на зв'язку."));
-}
-
-void loop() {
-  float t  = sensor.readTemperature();   // °C
-  float rh = sensor.readHumidity();      // %
-
-  Serial.print(F("T = "));
-  Serial.print(t, 2);
-  Serial.print(F(" °C   RH = "));
-  Serial.print(rh, 1);
-  Serial.println(F(" %"));
-
-  delay(2000);        // раз на 2 с — щоб давач не грів сам себе (див. пастки)
-}
-```
-```python
-# CircuitPython: бібліотека adafruit_si7021 (читає й Si7021, і HTU21D)
-import time
-import board
-import busio
-import adafruit_si7021
-
-# Підіймаємо шину I2C на своїх ніжках (тут типові для більшості плат):
-i2c = busio.I2C(board.SCL, board.SDA)
-
-# Створення об'єкта саме й перевіряє зв'язок: якщо давач не відповідає,
-# конструктор кине виняток — ловимо його, бо далі йти немає сенсу.
-try:
-    sensor = adafruit_si7021.SI7021(i2c)
-except (ValueError, OSError):
-    raise SystemExit("GY-21 не відповідає. Перевірте живлення й дроти SDA/SCL.")
-print("GY-21 на зв'язку.")
-
-while True:
-    t = sensor.temperature         # °C
-    rh = sensor.relative_humidity  # %
-    print(f"T = {t:.2f} °C   RH = {rh:.1f} %")
-    time.sleep(2)                  # раз на 2 с — щоб давач не грів сам себе (див. пастки)
-```
+:::code proj-si7021/cpp/naishvydshyi-start.cpp
+:::code proj-si7021/py/naishvydshyi-start.py
 :::
 
 Три речі варто прочитати уважно, бо вони не випадкові.
@@ -102,89 +45,8 @@ while True:
 Ліки — **гістерезис** (грец. *hysteresis* — «відставання»): дві межі замість однієї. Вмикаємо тривогу на 70 %, а вимикаємо лише коли вологість впаде до 65 %. Між 65 і 70 стан **не змінюється** — тримається той, що був. Тепер дрижання біля 70 % уже не перемикає нічого: щоб вимкнути тривогу, вологість має відчутно впасти, а не просто хитнутися. Це той самий принцип, що в кімнатного термостата, який не клацає безперервно біля заданої температури.
 
 :::tabs
-```cpp
-#include <Wire.h>
-#include <Adafruit_Si7021.h>
-
-Adafruit_Si7021 sensor;
-
-const int   ALARM_LED = 13;     // вбудований світлодіод як індикатор тривоги
-const float RH_ON  = 70.0;      // увімкнути тривогу на цій вологості
-const float RH_OFF = 65.0;      // вимкнути — лише коли впаде до цієї
-
-bool alarm = false;             // поточний стан тривоги (пам'ять гістерезису)
-
-void setup() {
-  Serial.begin(115200);
-  pinMode(ALARM_LED, OUTPUT);
-  Wire.begin();                 // на ESP32 — Wire.begin(21, 22)
-  if (!sensor.begin()) {
-    Serial.println(F("GY-21 не відповідає. Перевірте дроти."));
-    while (true) { delay(1000); }
-  }
-}
-
-void loop() {
-  float t  = sensor.readTemperature();
-  float rh = sensor.readHumidity();
-
-  // -- гістерезис: перемикаємо стан лише на перетині відповідної межі --
-  if (!alarm && rh >= RH_ON) {
-    alarm = true;
-    digitalWrite(ALARM_LED, HIGH);
-    Serial.println(F("!! ТРИВОГА: вологість вища за безпечну"));
-  } else if (alarm && rh <= RH_OFF) {
-    alarm = false;
-    digitalWrite(ALARM_LED, LOW);
-    Serial.println(F("-- вологість повернулась у норму"));
-  }
-
-  Serial.print(F("T = "));       Serial.print(t, 1);
-  Serial.print(F(" °C  RH = "));  Serial.print(rh, 1);
-  Serial.println(alarm ? F(" %  [тривога]") : F(" %"));
-
-  delay(2000);                  // раз на 2 с — і давач не гріє себе
-}
-```
-```python
-import time
-import board
-import busio
-import digitalio
-import adafruit_si7021
-
-RH_ON  = 70.0     # увімкнути тривогу на цій вологості
-RH_OFF = 65.0     # вимкнути — лише коли впаде до цієї
-
-i2c = busio.I2C(board.SCL, board.SDA)
-try:
-    sensor = adafruit_si7021.SI7021(i2c)
-except (ValueError, OSError):
-    raise SystemExit("GY-21 не відповідає. Перевірте дроти.")
-
-led = digitalio.DigitalInOut(board.LED)   # вбудований світлодіод (на деяких платах — board.D13)
-led.direction = digitalio.Direction.OUTPUT
-
-alarm = False     # поточний стан тривоги (пам'ять гістерезису)
-
-while True:
-    t  = sensor.temperature
-    rh = sensor.relative_humidity
-
-    # -- гістерезис: перемикаємо стан лише на перетині відповідної межі --
-    if not alarm and rh >= RH_ON:
-        alarm = True
-        led.value = True
-        print("!! ТРИВОГА: вологість вища за безпечну")
-    elif alarm and rh <= RH_OFF:
-        alarm = False
-        led.value = False
-        print("-- вологість повернулась у норму")
-
-    tag = "  [тривога]" if alarm else ""
-    print(f"T = {t:.1f} °C  RH = {rh:.1f} %{tag}")
-    time.sleep(2)     # раз на 2 с — і давач не гріє себе
-```
+:::code proj-si7021/cpp/vid-druku-do-dila-tryvoha.cpp
+:::code proj-si7021/py/vid-druku-do-dila-tryvoha.py
 :::
 
 Ключ тут — змінна `alarm`, що **пам'ятає** попередній стан. Без неї (якби ми щоразу рахували стан заново з однієї межі) гістерезис був би неможливий: рішення «перемикати чи ні» спирається саме на те, у якому стані ми були досі. Дві межі плюс одна змінна пам'яті — і тривога стабільна.
@@ -198,48 +60,8 @@ while True:
 У давача для цього є вбудований **нагрівач**: він трохи гріє кристал і **випаровує** конденсат. У бібліотеці Adafruit його вмикає один виклик — `sensor.heater(true)`. Логіка автопросушування проста: якщо вологість тримається під стелею (≥ 99 %) кілька вимірів поспіль — це майже напевно конденсат, а не реальні 99 %; вмикаємо нагрівач на хвилину, потім вимикаємо, даємо давачу охолонути й міряємо далі.
 
 :::tabs
-```cpp
-const float STUCK_RH   = 99.0;   // «залипла» вологість — підозра на конденсат
-const int   STUCK_HITS = 5;      // скільки вимірів поспіль, щоб повірити в конденсат
-int stuck = 0;                    // лічильник підряд залиплих вимірів
-
-void dry_sensor() {
-  Serial.println(F(".. вмикаю нагрівач: схоже на конденсат"));
-  sensor.heater(true);            // увімкнути вбудований нагрівач
-  delay(60000);                   // гріємо ~хвилину (блокуюче — для наочності)
-  sensor.heater(false);           // вимкнути
-  Serial.println(F(".. нагрівач вимкнено, даю давачу охолонути"));
-  delay(30000);                   // охолонути перед новим виміром
-  stuck = 0;
-}
-
-// у loop(), одразу після читання rh:
-//   if (rh >= STUCK_RH) { if (++stuck >= STUCK_HITS) dry_sensor(); }
-//   else stuck = 0;
-```
-```python
-STUCK_RH   = 99.0    # «залипла» вологість — підозра на конденсат
-STUCK_HITS = 5       # скільки вимірів поспіль, щоб повірити в конденсат
-stuck = 0            # лічильник підряд залиплих вимірів
-
-def dry_sensor():
-    global stuck
-    print(".. вмикаю нагрівач: схоже на конденсат")
-    sensor.heater_enable = True    # увімкнути вбудований нагрівач
-    time.sleep(60)                 # гріємо ~хвилину
-    sensor.heater_enable = False   # вимкнути
-    print(".. нагрівач вимкнено, даю давачу охолонути")
-    time.sleep(30)                 # охолонути перед новим виміром
-    stuck = 0
-
-# у циклі, одразу після читання rh:
-#   if rh >= STUCK_RH:
-#       stuck += 1
-#       if stuck >= STUCK_HITS:
-#           dry_sensor()
-#   else:
-#       stuck = 0
-```
+:::code proj-si7021/cpp/koly-zalyplo-na-100.cpp
+:::code proj-si7021/py/koly-zalyplo-na-100.py
 :::
 
 Два числа тут не випадкові. **`STUCK_HITS` = 5** — щоб не сплутати конденсат зі справжньою високою вологістю: у сауні чи над киплячим чайником теж буває близько 100 %, і гріти давач там ні до чого. П'ять вимірів поспіль під стелею (тобто ~10 секунд стабільних 99 %+) — уже надійна ознака саме залипання. **Хвилина нагріву й пів хвилини на охолодження** — щоб після просушування давач не показував завищену температуру: нагрітий кристал вистигає не миттєво, і якщо міряти одразу, дістанете кілька зайвих градусів.

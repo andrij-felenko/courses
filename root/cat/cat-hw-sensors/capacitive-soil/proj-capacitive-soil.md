@@ -105,30 +105,8 @@ int readEMA(uint8_t pin, float alpha = 0.2) {
     return (int)(smoothed + 0.5);                   // округлення до цілого
 }
 ```
-```python
-smoothed = None                      # None = «ще не ініціалізовано»
-
-def read_ema(pin, alpha=0.2):
-    global smoothed
-    raw = pin.read()
-    if smoothed is None:                            # перший відлік — беремо як є
-        smoothed = raw
-    else:
-        smoothed = alpha * raw + (1 - alpha) * smoothed
-    return int(smoothed + 0.5)                      # округлення до цілого
-```
-```micropython
-smoothed = None                      # None = «ще не ініціалізовано»
-
-def read_ema(adc, alpha=0.2):
-    global smoothed
-    raw = adc.read()                                # ESP32: 0…4095
-    if smoothed is None:                            # перший відлік — беремо як є
-        smoothed = raw
-    else:
-        smoothed = alpha * raw + (1 - alpha) * smoothed
-    return int(smoothed + 0.5)                      # округлення до цілого
-```
+:::code proj-capacitive-soil/py/zhladzhuvannia-chomu-tut.py
+:::code proj-capacitive-soil/py/micropython/zhladzhuvannia-chomu-tut.py
 :::
 
 Тонкість тут одна, але важлива: **перший виклик треба ініціалізувати сирим відліком** (`smoothed = raw`), а не нулем. Якби фільтр стартував із нуля, він повз би до правдивого значення багато кроків, і перші заміри були б заниженими — на повільному сигналі це десятки хвилин брехні. Перевірка `smoothed < 0` ловить саме перший виклик.
@@ -153,32 +131,8 @@ void decide(int pct) {           // pct — уже згладжений відс
     // між 30 % і 60 % стан НЕ міняється — оце й є зона спокою
 }
 ```
-```python
-PCT_DRY = 30                     # сухіше за 30 % → вмикаємо полив
-PCT_WET = 60                     # вологіше за 60 % → вимикаємо
-watering = False                 # поточний стан насоса
-
-def decide(pct):                 # pct — уже згладжений відсоток вологості
-    global watering
-    if not watering and pct < PCT_DRY:  # пересохло → лий
-        watering = True
-    if watering and pct > PCT_WET:      # напоїлось → стоп
-        watering = False
-    # між 30 % і 60 % стан НЕ міняється — оце й є зона спокою
-```
-```micropython
-PCT_DRY = 30                     # сухіше за 30 % → вмикаємо полив
-PCT_WET = 60                     # вологіше за 60 % → вимикаємо
-watering = False                 # поточний стан насоса
-
-def decide(pct):                 # pct — уже згладжений відсоток вологості
-    global watering
-    if not watering and pct < PCT_DRY:  # пересохло → лий
-        watering = True
-    if watering and pct > PCT_WET:      # напоїлось → стоп
-        watering = False
-    # між 30 % і 60 % стан НЕ міняється — оце й є зона спокою
-```
+:::code proj-capacitive-soil/py/porohy-z-histerezysom.py
+:::code proj-capacitive-soil/py/micropython/porohy-z-histerezysom.py
 :::
 
 Ключ — **асиметрія переходів**. Умова ввімкнення (`pct < PCT_DRY`) перевіряється, лише коли насос вимкнений; умова вимкнення (`pct > PCT_WET`) — лише коли ввімкнений. Поки відсоток дрижить у зоні спокою між 30 і 60, жодна умова не спрацьовує, і насос спокійно тримає стан. Щоб його перемкнути, вологості треба пройти **весь шлях** від сухого краю до вологого — а це вже не дрижання на одиницю, а реальна зміна ґрунту. Ширша зона (пороги далі один від одного) — насос вмикається рідше й надовше, бережеться ресурс; вужча — вологість тримається в тіснішому діапазоні, але ближче до дрижання. Для квітки на підвіконні беріть ширшу: полив рідше великою порцією корисніший за постійне підкапування.
@@ -193,23 +147,7 @@ def decide(pct):                 # pct — уже згладжений відс�
 
 Найзручніше живити щуп **прямо з цифрового виводу мікроконтролера**: підняли вивід у «1» — щуп ожив, опустили — заснув. І тут ключова відмінність від резистивного випадку. Ємнісний щуп тягне **менше ніж 5 мА** (веб-звірка по типових платах v1.2), а вивід Arduino Uno безпечно віддає близько 20 мА, ESP32 — теж десятки міліампер. Тобто струму щупа виводу вистачає **з великим запасом**, і жодного транзистора-ключа тут не треба — на відміну від резистивного щупа в солоній воді, де струм міг вискочити за межу виводу. Пряме живлення з ноги для ємнісного щупа безпечне майже завжди:
 
-```cpp
-const uint8_t POWER = 7;          // VCC щупа живимо з цифрового виводу
-const uint8_t SOIL  = A0;         // AOUT
-
-void setup() {
-    pinMode(POWER, OUTPUT);
-    digitalWrite(POWER, LOW);     // у спокої щуп ЗНЕСТРУМЛЕНИЙ (генератор мовчить)
-}
-
-int measure() {
-    digitalWrite(POWER, HIGH);    // подали живлення — генератор запустився
-    delay(50);                     // ЧЕКАЄМО, поки все усталиться (див. нижче)
-    int v = readAvg(SOIL);         // тепер знімаємо
-    digitalWrite(POWER, LOW);     // знеструмили — щуп «відпочиває»
-    return v;
-}
-```
+:::code proj-capacitive-soil/cpp/zhyvyty-shchup-iz-vyvodu.cpp
 
 Один рядок тут критичний і не такий очевидний, як здається, — **`delay(50)` після подачі живлення**. Це не той самий короткий `delay(10)`, що годиться резистивному щупу. Ємнісному потрібно більше часу, і ось чому: коли ви щойно подали напругу, генератор 555 має розколиватися, а внутрішній RC-фільтр щупа — зарядитися до сталого рівня. Поки фільтр не наповнився, напруга на AOUT ще повзе вгору, і замір, знятий надто рано, покаже фальшиво «сухо» (бо напруга ще не встигла просісти під вологу). Тому даємо щупові десятки мілісекунд усталитися, і лише тоді читаємо. Прочитаєте одразу після `HIGH` — отримаєте плавучі, завищені числа, які здаватимуться поломкою.
 
@@ -233,81 +171,8 @@ analogSetAttenuation(ADC_11db);        // повний діапазон вход
 Ліки прості й дієві. Найкраще — **тримати робочий діапазон подалі від стелі**: живіть щуп від 3.3 В (а не 5 В), тоді його AOUT сам не полізе до самого верху шкали ESP32. Якщо це не рятує й «сухий» край усе одно впирається в 4095 — це вже сигнал, що точності вбудованого АЦП тут замало, і пора на зовнішній АЦП, про який далі. А поки — ось повний ESP32-скетч із правильним аналоговим трактом:
 
 :::tabs
-```cpp
-// ESP32: читати ємнісний щуп правильним аналоговим трактом.
-const uint8_t POWER = 25;              // живлення щупа з GPIO25
-const uint8_t SOIL  = 34;              // AOUT на GPIO34 — це ADC1 (важливо, див. нижче)
-
-// калібрування для ESP32 — інші числа, бо 12 біт! зняти на самому ESP32:
-const int AIR   = 2600;                // сухо (щуп у повітрі)
-const int WATER = 1300;                // мокро (щуп у воді)
-
-int readAvg(uint8_t pin, uint8_t n = 16) {
-    long sum = 0;
-    for (uint8_t i = 0; i < n; i++) { sum += analogRead(pin); delay(2); }
-    return (int)(sum / n);
-}
-
-int toPercent(int raw) {
-    int pct = map(raw, AIR, WATER, 0, 100);
-    return constrain(pct, 0, 100);
-}
-
-void setup() {
-    Serial.begin(115200);
-    analogReadResolution(12);          // 0…4095
-    analogSetAttenuation(ADC_11db);    // діапазон входу ≈ 0…3.1 В
-    pinMode(POWER, OUTPUT);
-    digitalWrite(POWER, LOW);
-}
-
-void loop() {
-    digitalWrite(POWER, HIGH);         // ожив генератор
-    delay(50);                          // усталення
-    int raw = readAvg(SOIL);
-    digitalWrite(POWER, LOW);          // знеструмили
-
-    int pct = toPercent(raw);
-    Serial.printf("raw=%d  moisture=%d%%\n", raw, pct);
-    delay(2000);
-}
-```
-```micropython
-# ESP32 (MicroPython): читати ємнісний щуп правильним аналоговим трактом.
-from machine import Pin, ADC
-import time
-
-power = Pin(25, Pin.OUT)                # живлення щупа з GPIO25
-soil  = ADC(Pin(34))                    # AOUT на GPIO34 — це ADC1 (важливо, див. нижче)
-soil.width(ADC.WIDTH_12BIT)             # 0…4095
-soil.atten(ADC.ATTN_11DB)               # діапазон входу ≈ 0…3.1 В
-
-# калібрування для ESP32 — інші числа, бо 12 біт! зняти на самому ESP32:
-AIR   = 2600                            # сухо (щуп у повітрі)
-WATER = 1300                            # мокро (щуп у воді)
-
-def read_avg(adc, n=16):
-    total = 0
-    for _ in range(n):
-        total += adc.read()
-        time.sleep_ms(2)
-    return total // n
-
-def to_percent(raw):
-    pct = (raw - AIR) * 100 // (WATER - AIR)   # AIR→0%, WATER→100%
-    return max(0, min(100, pct))               # затиск у 0…100
-
-power.value(0)
-while True:
-    power.value(1)                      # ожив генератор
-    time.sleep_ms(50)                   # усталення
-    raw = read_avg(soil)
-    power.value(0)                      # знеструмили
-
-    pct = to_percent(raw)
-    print("raw={}  moisture={}%".format(raw, pct))
-    time.sleep_ms(2000)
-```
+:::code proj-capacitive-soil/cpp/esp32-12-bit-oslablennia.cpp
+:::code proj-capacitive-soil/py/micropython/esp32-12-bit-oslablennia.py
 :::
 
 Один рядок вибору піна тут не випадковий: **AOUT заведено на GPIO34, що належить блоку ADC1**. У ESP32 два блоки АЦП, і **ADC2 несумісний із Wi-Fi**: щойно ввімкнеться радіо (а мережевий вузол часто шле дані), читання з ADC2-ноги повертає сміття. Для будь-якого проєкту з Wi-Fi заводьте аналоговий вхід тільки на **ADC1** (це GPIO32–39). Проґавите це — отримаєте незбагненне «то читає, то ні», яке жодним фільтром не лікується.
@@ -323,89 +188,8 @@ while True:
 Модуль за замовчуванням відповідає на I2C-адресі **0x48** (її можна змінити перемичкою на виводі ADDR, щоб повісити до чотирьох модулів на одну шину). Робота з ним у коді — через готову бібліотеку (Adafruit ADS1X15 чи подібну), і виглядає це так:
 
 :::tabs
-```cpp
-// ESP32 + ADS1115: читати ємнісний щуп через зовнішній 16-бітний АЦП по I2C.
-#include <Wire.h>
-#include <Adafruit_ADS1X15.h>
-
-Adafruit_ADS1115 ads;                  // об'єкт АЦП на шині I2C
-
-// щуп живимо з GPIO, як і раніше; AOUT ідемо на вхід A0 самого ADS1115
-const uint8_t POWER = 25;
-
-// калібрування у СИРИХ відліках ADS1115 (16 біт зі своїм PGA) — зняти окремо:
-const int AIR   = 17000;               // сухо
-const int WATER = 9000;                // мокро
-
-void setup() {
-    Serial.begin(115200);
-    Wire.begin();                      // I2C: SDA/SCL за замовчуванням плати
-    if (!ads.begin(0x48)) {            // адреса модуля; 0x48 — типова
-        Serial.println("ADS1115 не знайдено — перевір I2C та живлення");
-        while (1) delay(10);
-    }
-    ads.setGain(GAIN_ONE);             // PGA: діапазон входу ±4.096 В під наш сигнал
-    pinMode(POWER, OUTPUT);
-    digitalWrite(POWER, LOW);
-}
-
-int readAvgADS(uint8_t ch, uint8_t n = 16) {
-    long sum = 0;
-    for (uint8_t i = 0; i < n; i++) {
-        sum += ads.readADC_SingleEnded(ch);   // сирий 16-бітний відлік з каналу
-        delay(2);
-    }
-    return (int)(sum / n);
-}
-
-void loop() {
-    digitalWrite(POWER, HIGH);
-    delay(50);                          // усталення генератора щупа
-    int raw = readAvgADS(0);            // AOUT щупа на каналі A0 модуля ADS1115
-    digitalWrite(POWER, LOW);
-
-    int pct = constrain(map(raw, AIR, WATER, 0, 100), 0, 100);
-    Serial.printf("ADS raw=%d  moisture=%d%%\n", raw, pct);
-    delay(2000);
-}
-```
-```micropython
-# ESP32 (MicroPython) + ADS1115: щуп через зовнішній 16-бітний АЦП по I2C.
-from machine import Pin, I2C
-import ads1x15                          # драйвер ADS1115 (напр. robert-hh/ads1x15)
-import time
-
-power = Pin(25, Pin.OUT)               # щуп живимо з GPIO, як і раніше
-i2c = I2C(0, scl=Pin(22), sda=Pin(21)) # SDA/SCL плати
-# gain=1 → діапазон входу ±4.096 В під наш сигнал; 0x48 — типова адреса
-ads = ads1x15.ADS1115(i2c, 0x48, gain=1)
-
-# калібрування у СИРИХ відліках ADS1115 (16 біт зі своїм PGA) — зняти окремо:
-AIR   = 17000                          # сухо
-WATER = 9000                           # мокро
-
-def read_avg_ads(ch, n=16):
-    total = 0
-    for _ in range(n):
-        total += ads.read(channel1=ch)  # сирий 16-бітний відлік з каналу
-        time.sleep_ms(2)
-    return total // n
-
-def to_percent(raw):
-    pct = (raw - AIR) * 100 // (WATER - AIR)
-    return max(0, min(100, pct))        # затиск у 0…100
-
-power.value(0)
-while True:
-    power.value(1)
-    time.sleep_ms(50)                   # усталення генератора щупа
-    raw = read_avg_ads(0)               # AOUT щупа на каналі A0 модуля ADS1115
-    power.value(0)
-
-    pct = to_percent(raw)
-    print("ADS raw={}  moisture={}%".format(raw, pct))
-    time.sleep_ms(2000)
-```
+:::code proj-capacitive-soil/cpp/aphreid-tochnosti.cpp
+:::code proj-capacitive-soil/py/micropython/aphreid-tochnosti.py
 :::
 
 Дві речі, на яких спотикаються з ADS1115. Перша — **вибір `setGain`**. PGA задає, який діапазон входу відповідає повній шкалі: `GAIN_ONE` — це ±4.096 В, зручно для сигналу до кількох вольтів. Поставите заниженим коефіцієнт для великого сигналу — вхід «зашкалить» і обріжеться; завищеним для малого — змарнуєте роздільну здатність. Підбирайте PGA під реальний розмах AOUT вашого щупа. Друга — **живлення й опорна напруга**: ADS1115 працює від 2 до 5.5 В, і його вимір прив'язаний до власного живлення, тож живіть модуль стабільними 3.3 В (чи 5 В) від тієї ж плати, і не забудьте спільну землю з мікроконтролером — без неї I2C не «побачить» модуль.
@@ -420,26 +204,7 @@ while True:
 
 Тому перед тим, як живити щуп із 3.3-вольтового піна, **перевірте маркування мікросхеми на платі очима**: має бути `TLC555` (або `TL555`), а не `NE555`. Це головна перевірка. А в коді варто поставити **захисну санітарну перевірку** — грубий контроль, що сирий відлік узагалі осмислений, а не прилип до краю шкали:
 
-```cpp
-// груба перевірка «живий сигнал», щоб зловити мертвий таймер / обрив
-bool sensorSane(int raw, int adcMax) {
-    // якщо raw прилип до самого низу чи самого верху шкали — це підозріло:
-    // або таймер не гойдається (NE555 на 3.3 В), або обрив/КЗ дроту
-    if (raw <= 2)          return false;   // мертвий нуль
-    if (raw >= adcMax - 2) return false;   // прилип до стелі
-    return true;
-}
-
-// у loop() ESP32 (12 біт → adcMax = 4095):
-int raw = readAvg(SOIL);
-if (!sensorSane(raw, 4095)) {
-    Serial.println("щуп мовчить: перевір таймер (NE555 vs TLC555?), живлення, дроти");
-    // не приймаємо рішень поливу на битому сигналі!
-} else {
-    int pct = toPercent(raw);
-    // ... нормальна логіка
-}
-```
+:::code proj-capacitive-soil/cpp/holovna-pastka-v-kodi.cpp
 
 Ця перевірка не «виправляє» NE555 — виправити брак напруги кодом неможливо, це фізика. Але вона **ловить біду й не дає прийняти рішення поливу на битому сигналі**: замість того щоб залити горщик за фальшивим «сухо=4095», вузол чесно скаже, що щуп мовчить, і ви підете дивитися маркування таймера. Різниця між тихою катастрофою (залита рослина) і зрозумілою діагностикою — саме в цих кількох рядках.
 
@@ -451,91 +216,7 @@ if (!sensorSane(raw, 4095)) {
 
 Зберемо всі прийоми в один закінчений скетч під Arduino Uno, який можна залити як є. Він живить щуп імпульсно з виводу (заради економії й чистого заміру), читає AOUT ковзним середнім, перекладає у відсотки за двоточковим калібруванням, вирішує з гістерезисом і керує насосом через реле, а перед рішенням перевіряє, що сигнал живий.
 
-```cpp
-// Автополив на ЄМНІСНОМУ щупі v1.2 → Arduino Uno.
-// Щуп живиться імпульсно з D7 (економія + чистий замір), AOUT на A0
-// читається ковзним середнім, відсотки — за двоточковим калібруванням,
-// рішення з гістерезисом, насос через реле на D8. Санітарна перевірка сигналу.
-
-const uint8_t POWER = 7;          // живлення щупа з цифрового виводу
-const uint8_t SOIL  = A0;         // AOUT щупа
-const uint8_t PUMP  = 8;          // вивід на реле насоса
-
-// калібрування (10-бітний АЦП Uno): зняти для СВОГО щупа.
-// ПАМ'ЯТАЙ: велике число = сухо! AIR більше за WATER.
-const int AIR   = 610;            // сухо: щуп у повітрі
-const int WATER = 330;            // мокро: щуп у воді до межі друку
-
-const int PCT_DRY = 30;           // сухіше за 30 % → вмикаємо полив
-const int PCT_WET = 60;           // вологіше за 60 % → вимикаємо
-const unsigned long PERIOD = 60000UL;   // міряємо раз на хвилину
-
-bool watering = false;
-unsigned long lastMeasure = 0;
-
-// ── ковзне середнє з 16 замірів глушить дрібний шум ──
-int readAvg(uint8_t pin, uint8_t n = 16) {
-    long sum = 0;
-    for (uint8_t i = 0; i < n; i++) { sum += analogRead(pin); delay(2); }
-    return (int)(sum / n);        // long у сумі — щоб не переповнити int
-}
-
-// ── імпульсне живлення: струм на щуп лише на час заміру ──
-int measureRaw() {
-    digitalWrite(POWER, HIGH);    // ожив генератор 555
-    delay(50);                     // усталення генератора й RC-фільтра щупа
-    int v = readAvg(SOIL);
-    digitalWrite(POWER, LOW);     // знеструмили — щуп відпочиває
-    return v;
-}
-
-// ── сире число → відсоток; AIR→0%, WATER→100% (бо велике число = сухо) ──
-int toPercent(int raw) {
-    int pct = map(raw, AIR, WATER, 0, 100);
-    return constrain(pct, 0, 100);
-}
-
-// ── груба перевірка «живий сигнал»: ловить мертвий таймер / обрив ──
-bool sensorSane(int raw) {
-    if (raw <= 2)     return false;   // прилип до нуля
-    if (raw >= 1021)  return false;   // прилип до стелі 10-бітного АЦП
-    return true;
-}
-
-void setup() {
-    pinMode(POWER, OUTPUT); digitalWrite(POWER, LOW);
-    pinMode(PUMP,  OUTPUT); digitalWrite(PUMP,  LOW);
-    Serial.begin(9600);
-    Serial.println("автополив (ємнісний щуп) готовий.");
-}
-
-void loop() {
-    unsigned long now = millis();
-    // замір за розкладом — різниця часів переживе переповнення millis()
-    if (now - lastMeasure < PERIOD) return;
-    lastMeasure = now;
-
-    int raw = measureRaw();
-
-    if (!sensorSane(raw)) {                 // сигнал битий — не поливаємо наосліп
-        digitalWrite(PUMP, LOW);
-        Serial.print("щуп мовчить (raw="); Serial.print(raw);
-        Serial.println("): перевір таймер NE555/TLC555, живлення 3.3В, дроти");
-        return;
-    }
-
-    int pct = toPercent(raw);
-
-    // рішення з гістерезисом (у відсотках)
-    if (!watering && pct < PCT_DRY) watering = true;    // пересохло
-    if ( watering && pct > PCT_WET) watering = false;   // напоїлось
-    digitalWrite(PUMP, watering ? HIGH : LOW);
-
-    Serial.print("вологість="); Serial.print(pct); Serial.print("%  (raw ");
-    Serial.print(raw); Serial.print(")  ");
-    Serial.println(watering ? "[полив]" : "[сухо стоїть]");
-}
-```
+:::code proj-capacitive-soil/cpp/povnyi-robochyi-sketch.cpp
 
 Пройдімо думкою за течією. Замір іде за розкладом через `now - lastMeasure < PERIOD` — саме **різницею часів**, а не `now >= lastMeasure + PERIOD`, бо `millis()` переповнюється раз на ~50 діб, і форма з відніманням переживає це коректно завдяки беззнаковій арифметиці. Щуп під струмом лише ті десятки мілісекунд, поки триває `measureRaw`, — решту хвилини генератор мовчить, економлячи живлення. Перед будь-яким рішенням `sensorSane` перевіряє, що сигнал не прилип до краю шкали: якщо прилип (мертвий таймер на замалій напрузі, обрив дроту) — насос глушиться й у порт іде зрозуміла діагностика замість тихого заливання. А `map(raw, AIR, WATER, …)` тримає правильний, перевернутий напрям: сухе велике число → 0 %, мокре мале → 100 %.
 

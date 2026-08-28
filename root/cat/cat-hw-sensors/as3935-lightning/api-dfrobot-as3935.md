@@ -38,81 +38,9 @@ DFRobot_AS3935_I2C(uint8_t irqPin, uint8_t devAddr);
 Пін IRQ — це номер того входу мікроконтролера, куди заведено провід IRQ модуля. Тонкість: не кожен GPIO вміє будити по перериванню. На класичному Arduino Uno зовнішні переривання є лише на пінах 2 і 3; на ESP32 та ESP8266 — майже на будь-якому; на STM32 лінія EXTI прив'язана до **номера** піна, тож PA0 і PB0 ділять одну лінію й перериваннями одночасно не працюють. Тому оголошуємо два числа з оглядкою на плату:
 
 :::tabs
-```arduino
-#include <DFRobot_AS3935_I2C.h>
-
-// ── Плата: під свій мікроконтролер ─────────────────────────────
-#if defined(ESP32) || defined(ESP8266)
-  #define IRQ_PIN            4        // будь-який GPIO з перериванням
-#else
-  #define IRQ_PIN            2        // Uno/Nano: тільки 2 або 3
-#endif
-
-#define AS3935_I2C_ADDR      AS3935_ADD3   // ЗВІРИТИ з DIP-перемикачем!
-
-// ── Налаштування під місце ─────────────────────────────────────
-#define AS3935_CAPACITANCE   96       // стартова ємність, пФ (кратна 8)
-
-DFRobot_AS3935_I2C  lightning(IRQ_PIN, AS3935_I2C_ADDR);
-
-volatile bool irqTriggered = false;   // прапорець із обробника переривання
-```
-```esp-idf
-#include "driver/i2c.h"
-#include "driver/gpio.h"
-#include "esp_log.h"
-#include "esp_timer.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-// ── Плата: під свій мікроконтролер ─────────────────────────────
-#define IRQ_GPIO             GPIO_NUM_4   // будь-який GPIO з перериванням
-#define I2C_PORT             I2C_NUM_0
-#define AS3935_ADDR          0x03         // ЗВІРИТИ з DIP-перемикачем!
-
-// ── Налаштування під місце ─────────────────────────────────────
-#define AS3935_CAPACITANCE   96           // стартова ємність, пФ (кратна 8)
-
-static const char *TAG = "as3935";
-static volatile bool irq_triggered = false;  // прапорець із обробника переривання
-
-// Готової бібліотеки нема — говоримо з чіпом його регістрами напряму.
-static esp_err_t as3935_write(uint8_t reg, uint8_t val) {
-    uint8_t buf[2] = { reg, val };
-    return i2c_master_write_to_device(I2C_PORT, AS3935_ADDR, buf, 2, pdMS_TO_TICKS(100));
-}
-static esp_err_t as3935_read(uint8_t reg, uint8_t *val) {
-    return i2c_master_write_read_device(I2C_PORT, AS3935_ADDR, &reg, 1,
-                                        val, 1, pdMS_TO_TICKS(100));
-}
-```
-```stm32
-#include "stm32f4xx_hal.h"
-#include <stdbool.h>
-
-// ── Плата: під свій мікроконтролер ─────────────────────────────
-#define IRQ_PORT             GPIOB
-#define IRQ_PIN              GPIO_PIN_0   // пін з вільною лінією EXTI0
-#define AS3935_ADDR          (0x03 << 1)  // HAL чекає 8-бітну адресу: 7 біт ≪ 1
-
-// ── Налаштування під місце ─────────────────────────────────────
-#define AS3935_CAPACITANCE   96           // стартова ємність, пФ (кратна 8)
-
-extern I2C_HandleTypeDef hi2c1;   // CubeMX: 400 кГц (підтяжки вже на модулі)
-extern TIM_HandleTypeDef htim2;   // лічильник фронтів LCO для калібрування
-
-volatile bool irqTriggered = false;   // прапорець із обробника переривання
-
-// Готової бібліотеки нема — говоримо з чіпом його регістрами напряму.
-static HAL_StatusTypeDef as3935_write(uint8_t reg, uint8_t val) {
-    return HAL_I2C_Mem_Write(&hi2c1, AS3935_ADDR, reg,
-                             I2C_MEMADD_SIZE_8BIT, &val, 1, 100);
-}
-static HAL_StatusTypeDef as3935_read(uint8_t reg, uint8_t *val) {
-    return HAL_I2C_Mem_Read(&hi2c1, AS3935_ADDR, reg,
-                            I2C_MEMADD_SIZE_8BIT, val, 1, 100);
-}
-```
+:::code api-dfrobot-as3935/c/arduino/krok-0-adresa-piny.ino
+:::code api-dfrobot-as3935/c/esp-idf/krok-0-adresa-piny.c
+:::code api-dfrobot-as3935/c/stm32/krok-0-adresa-piny.c
 :::
 
 Число `AS3935_CAPACITANCE` — це початкова ємність підстроювання; чому 96, а не будь-яке інше, стане ясно за мить, коли дійдемо до калібрування. `volatile` на прапорці — обов'язкове: змінну міняє обробник переривання «поза» видимістю компілятора, і без `volatile` оптимізатор може вирішити, що вона ніколи не змінюється, і викинути перевірку в циклі.
@@ -132,40 +60,8 @@ void setup() {
   }
   Serial.println("AS3935 на шині, адресу знайдено");
 ```
-```esp-idf
-void app_main(void) {
-    i2c_config_t conf = {                   // те, що в Arduino робить Wire.begin()
-        .mode             = I2C_MODE_MASTER,
-        .sda_io_num       = GPIO_NUM_21,
-        .scl_io_num       = GPIO_NUM_22,
-        .sda_pullup_en    = GPIO_PULLUP_ENABLE,   // на Gravity-модулі підтяжки вже є
-        .scl_pullup_en    = GPIO_PULLUP_ENABLE,
-        .master.clk_speed = 400000,               // 400 кГц
-    };
-    ESP_ERROR_CHECK(i2c_param_config(I2C_PORT, &conf));
-    ESP_ERROR_CHECK(i2c_driver_install(I2C_PORT, conf.mode, 0, 0, 0));
-
-    uint8_t probe;                          // чи озивається чіп за цією адресою
-    while (as3935_read(0x00, &probe) != ESP_OK) {
-        ESP_LOGE(TAG, "AS3935 не відповідає — звір адресу з DIP і дроти");
-        vTaskDelay(pdMS_TO_TICKS(1000));
-    }
-    ESP_LOGI(TAG, "AS3935 на шині, адресу знайдено");
-```
-```stm32
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();
-    MX_I2C1_Init();                         // 400 кГц, згенеровано CubeMX
-
-    // Чи озивається чіп за цією адресою: 3 спроби, таймаут 100 мс
-    while (HAL_I2C_IsDeviceReady(&hi2c1, AS3935_ADDR, 3, 100) != HAL_OK) {
-        printf("AS3935 не відповідає — звір адресу з DIP і дроти\r\n");
-        HAL_Delay(1000);
-    }
-    printf("AS3935 на шині, адресу знайдено\r\n");
-```
+:::code api-dfrobot-as3935/c/esp-idf/krok-1-begin-ozhyvlennia-i.c
+:::code api-dfrobot-as3935/c/stm32/krok-1-begin-ozhyvlennia-i.c
 :::
 
 Що робить `begin()` усередині: піднімає I²C (`Wire.begin()`), виставляє тактову частоту шини (400 кГц) і пробує прочитати перші регістри чіпа. Якщо читання не вдалося — адреса не збіглася, обірвано дріт, немає підтяжок, — повертає ненуль. Цикл `while` тут навмисний: без живого давача далі йти немає сенсу, тож краще чесно зациклитися з підказкою, ніж мовчки калібрувати порожнечу. Механіка самого читання по регістрах — у [драйвері давача через реєстрову мапу](root:com-devices/register-map/proj-sensor-driver.md): назвати регістр, зробити повторний старт, забрати байти; тут це все сховано, але саме воно вирішує, чи `begin()` скаже «є» чи «нема».
@@ -261,134 +157,9 @@ void manualCal(uint8_t capacitance, uint8_t location, uint8_t disturber);
 `setIRQOutputSource(irqSelect)` керує тим, що виходить на пін IRQ (регістр 0x08, біти 7:5): значення **3** → вивести LCO (антенну частоту, REG0x08[7]), **2** → SRCO, **1** → TRCO, **0** → нічого (пін знову працює як вихід переривань). Для калібрування антени нам потрібне саме `setIRQOutputSource(3)`.
 
 :::tabs
-```arduino
-// Порахувати частоту LCO для заданої ємності tune (0..15).
-// Повертає виміряну частоту в Гц (уже помножену на дільник).
-uint32_t measureLco(uint8_t tune) {
-  lightning.setTuningCaps(tune * 8);        // 0, 8, 16 … 120 пФ
-  lightning.setIRQOutputSource(3);          // вивести LCO на пін IRQ
-  delay(2);                                 // дати сигналу устоятися
-
-  // Рахуємо фронти на піні IRQ за вікно 100 мс.
-  const uint32_t windowMs = 100;
-  uint32_t edges = 0;
-  int last = digitalRead(IRQ_PIN);
-  uint32_t t0 = millis();
-  while (millis() - t0 < windowMs) {
-    int now = digitalRead(IRQ_PIN);
-    if (now == HIGH && last == LOW) edges++; // порахувати фронт ↑
-    last = now;
-  }
-  lightning.setIRQOutputSource(0);          // ПРИБРАТИ LCO з піна!
-
-  // Дільник за замовчуванням — 16 (LCO_FDIV). Частота антени:
-  //   f = фронти / час · дільник
-  //   edges за 0.1 с → множимо на 10, щоб дістати за секунду, тоді ·16
-  return edges * (1000UL / windowMs) * 16UL;
-}
-
-// Перебрати 16 ємностей, знайти ту, де частота найближча до 500 кГц.
-uint8_t findBestCaps() {
-  const int32_t target = 500000;            // 500 кГц
-  uint8_t best = 0;
-  int32_t bestErr = INT32_MAX;
-  for (uint8_t tune = 0; tune < 16; tune++) {
-    int32_t f = (int32_t)measureLco(tune);
-    int32_t err = f > target ? f - target : target - f;   // |f − 500 кГц|
-    Serial.print("tune="); Serial.print(tune);
-    Serial.print("  f="); Serial.print(f);
-    Serial.print("  промах="); Serial.println(err);
-    if (err < bestErr) { bestErr = err; best = tune; }
-  }
-  Serial.print("Найкраща ємність: tune="); Serial.print(best);
-  Serial.print(" ("); Serial.print(best * 8); Serial.println(" пФ)");
-  return best;
-}
-```
-```esp-idf
-// Порахувати частоту LCO для заданої ємності tune (0..15).
-// Повертає виміряну частоту в Гц (уже помножену на дільник).
-static uint32_t measure_lco(uint8_t tune) {
-    uint8_t r;
-    as3935_read(0x08, &r);
-    as3935_write(0x08, (r & 0xF0) | (tune & 0x0F));   // TUN_CAP: 0, 8, 16 … 120 пФ
-    as3935_read(0x08, &r);
-    as3935_write(0x08, r | 0x80);                     // DISP_LCO=1 → LCO на пін IRQ
-    vTaskDelay(pdMS_TO_TICKS(2));                     // дати сигналу устоятися
-
-    // Рахуємо фронти на піні IRQ за вікно 100 мс.
-    const int64_t window_us = 100000;
-    uint32_t edges = 0;
-    int last = gpio_get_level(IRQ_GPIO);
-    int64_t t0 = esp_timer_get_time();
-    while (esp_timer_get_time() - t0 < window_us) {
-        int now = gpio_get_level(IRQ_GPIO);
-        if (now == 1 && last == 0) edges++;           // порахувати фронт ↑
-        last = now;
-    }
-    as3935_read(0x08, &r);
-    as3935_write(0x08, r & ~0xE0);                    // ПРИБРАТИ гетеродин з піна!
-
-    // edges за 0.1 с → ·10, щоб дістати за секунду; дільник LCO_FDIV = 16
-    return edges * 10U * 16U;
-}
-
-// Перебрати 16 ємностей, знайти ту, де частота найближча до 500 кГц.
-static uint8_t find_best_caps(void) {
-    const int32_t target = 500000;                    // 500 кГц
-    uint8_t best = 0;
-    int32_t best_err = INT32_MAX;
-    for (uint8_t tune = 0; tune < 16; tune++) {
-        int32_t f = (int32_t)measure_lco(tune);
-        int32_t err = f > target ? f - target : target - f;   // |f − 500 кГц|
-        ESP_LOGI(TAG, "tune=%u  f=%ld  промах=%ld", tune, (long)f, (long)err);
-        if (err < best_err) { best_err = err; best = tune; }
-    }
-    ESP_LOGI(TAG, "Найкраща ємність: tune=%u (%u пФ)", best, best * 8);
-    return best;
-}
-```
-```stm32
-// Порахувати частоту LCO для заданої ємності tune (0..15).
-// Повертає виміряну частоту в Гц (уже помножену на дільник).
-// TIM2 налаштовано в CubeMX як лічильник ЗОВНІШНЬОГО такту з піна IRQ
-// (Clock Source = ETR2 / TI1) — залізо рахує фронти саме, без такту процесора.
-static uint32_t MeasureLco(uint8_t tune) {
-    uint8_t r;
-    as3935_read(0x08, &r);
-    as3935_write(0x08, (r & 0xF0) | (tune & 0x0F));   // TUN_CAP: 0, 8, 16 … 120 пФ
-    as3935_read(0x08, &r);
-    as3935_write(0x08, r | 0x80);                     // DISP_LCO=1 → LCO на пін IRQ
-    HAL_Delay(2);                                     // дати сигналу устоятися
-
-    __HAL_TIM_SET_COUNTER(&htim2, 0);
-    HAL_TIM_Base_Start(&htim2);
-    HAL_Delay(100);                                   // вікно 100 мс
-    HAL_TIM_Base_Stop(&htim2);
-    uint32_t edges = __HAL_TIM_GET_COUNTER(&htim2);
-
-    as3935_read(0x08, &r);
-    as3935_write(0x08, r & ~0xE0);                    // ПРИБРАТИ гетеродин з піна!
-
-    // edges за 0.1 с → ·10, щоб дістати за секунду; дільник LCO_FDIV = 16
-    return edges * 10U * 16U;
-}
-
-// Перебрати 16 ємностей, знайти ту, де частота найближча до 500 кГц.
-static uint8_t FindBestCaps(void) {
-    const int32_t target = 500000;                    // 500 кГц
-    uint8_t best = 0;
-    int32_t bestErr = INT32_MAX;
-    for (uint8_t tune = 0; tune < 16; tune++) {
-        int32_t f = (int32_t)MeasureLco(tune);
-        int32_t err = f > target ? f - target : target - f;   // |f − 500 кГц|
-        printf("tune=%u  f=%ld  промах=%ld\r\n", tune, (long)f, (long)err);
-        if (err < bestErr) { bestErr = err; best = tune; }
-    }
-    printf("Найкраща ємність: tune=%u (%u пФ)\r\n", best, best * 8);
-    return best;
-}
-```
+:::code api-dfrobot-as3935/c/arduino/pravylne-kalibruvannia.ino
+:::code api-dfrobot-as3935/c/esp-idf/pravylne-kalibruvannia.c
+:::code api-dfrobot-as3935/c/stm32/pravylne-kalibruvannia.c
 :::
 
 Зверни увагу на два рядки, які легко забути й тим усе зламати. Перший — `delay(2)` після `setIRQOutputSource(3)`: гетеродину треба мить, щоб устоятися, інакше перші виміри брехливі. Другий, і критичний, — `setIRQOutputSource(0)` **наприкінці кожного виміру**: якщо не прибрати LCO з піна, він і далі жене 500-кілогерцовий прямокутник, а щойно ти чіпляєш обробник переривань — той захлинається. Прибрати гетеродин — не косметика, а умова, щоб система взагалі жила далі.
@@ -537,36 +308,8 @@ void onLightningIrq() {
   irqTriggered = true;
 }
 ```
-```esp-idf
-    gpio_config_t io = {
-        .pin_bit_mask = 1ULL << IRQ_GPIO,
-        .mode         = GPIO_MODE_INPUT,
-        .pull_up_en   = GPIO_PULLUP_DISABLE,
-        .pull_down_en = GPIO_PULLDOWN_ENABLE,   // IRQ активний високий → тягнемо вниз
-        .intr_type    = GPIO_INTR_POSEDGE,      // фронт ↑
-    };
-    ESP_ERROR_CHECK(gpio_config(&io));
-    ESP_ERROR_CHECK(gpio_install_isr_service(0));
-    ESP_ERROR_CHECK(gpio_isr_handler_add(IRQ_GPIO, on_lightning_irq, NULL));
-
-// Обробник переривання: КОРОТКО — лише прапорець.
-// IRAM_ATTR — щоб виклик не чекав на flash-кеш.
-static void IRAM_ATTR on_lightning_irq(void *arg) {
-    irq_triggered = true;
-}
-```
-```stm32
-    // Пін IRQ у CubeMX: GPIO_MODE_IT_RISING, Pull-down, лінія EXTI0 увімкнена.
-    // Тут лишається тільки дозволити переривання цієї лінії:
-    HAL_NVIC_SetPriority(EXTI0_IRQn, 5, 0);
-    HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-
-// Обробник переривання: КОРОТКО — лише прапорець.
-// HAL кличе цей callback з EXTI0_IRQHandler для всіх ліній — звіряємо пін.
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
-    if (GPIO_Pin == IRQ_PIN) irqTriggered = true;
-}
-```
+:::code api-dfrobot-as3935/c/esp-idf/krok-5-pidkliuchyty.c
+:::code api-dfrobot-as3935/c/stm32/krok-5-pidkliuchyty.c
 :::
 
 Номер піна й номер лінії переривання — різні речі на кожному мікроконтролері, і жорстке число тут — класична помилка. В Arduino переклад робить `digitalPinToInterrupt(IRQ_PIN)`; в ESP-IDF лінію заводить `gpio_isr_handler_add` за номером GPIO; у STM32 лінія EXTI визначена номером піна, а обробник ловиться в спільному `HAL_GPIO_EXTI_Callback`. Спільна вимога й друга: обробник має лежати там, звідки викликається миттєво — на ESP32 це IRAM (`IRAM_ATTR`), і в Arduino-скетчі на ESP32 атрибут теж треба дописати: `void IRAM_ATTR onLightningIrq()`.
@@ -580,116 +323,9 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 *Порівнюй саме з 1/2/3 — те, що дає бібліотека, — а не з 8/4/1 із даташита; звірка з 8 «нічого не спіймає», хоч блискавка й була.*
 
 :::tabs
-```arduino
-void loop() {
-  if (!irqTriggered) return;          // подій немає — нічого не робимо
-  irqTriggered = false;               // скинути прапорець одразу
-
-  delay(2);                           // ← КРИТИЧНО: дати чіпу досипати
-
-  uint8_t src = lightning.getInterruptSrc();
-
-  if (src == 1) {                     // 1 = блискавка
-    uint8_t  distKm = lightning.getLightningDistKm();
-    uint32_t energy = lightning.getStrikeEnergyRaw();
-
-    Serial.print("БЛИСКАВКА! відстань ~");
-    if (distKm == 1) {
-      Serial.println("гроза прямо над головою (поза шкалою)");
-    } else if (distKm == 63) {
-      Serial.println("надто далеко для оцінки (за межею)");
-    } else {
-      Serial.print(distKm); Serial.println(" км до фронту грози");
-    }
-    Serial.print("енергія розряду (сире число): ");
-    Serial.println(energy);
-
-  } else if (src == 2) {             // 2 = завада від техніки
-    Serial.println("Завада (disturber) — поруч щось шумить");
-
-  } else if (src == 3) {             // 3 = зависокий шум
-    Serial.println("Шум зависокий — підніми поріг або віднеси давач");
-
-  } else {                           // 0 = неочікувано
-    Serial.println("Переривання без зрозумілої причини");
-  }
-}
-```
-```esp-idf
-    while (1) {                                  // продовження app_main
-        if (!irq_triggered) {                    // подій немає — віддати такт іншим
-            vTaskDelay(pdMS_TO_TICKS(10));
-            continue;
-        }
-        irq_triggered = false;                   // скинути прапорець одразу
-
-        vTaskDelay(pdMS_TO_TICKS(2));            // ← КРИТИЧНО: дати чіпу досипати
-
-        uint8_t src;
-        as3935_read(0x03, &src);                 // читання скидає IRQ у низький
-        src &= 0x0F;                             // сирі біти чіпа: 8 / 4 / 1
-
-        if (src == 0x08) {                       // 0b1000 = блискавка
-            uint8_t dist, e0, e1, e2;
-            as3935_read(0x07, &dist);  dist &= 0x3F;
-            as3935_read(0x04, &e0);              // енергія: 0x04 + 0x05 + 0x06[4:0]
-            as3935_read(0x05, &e1);
-            as3935_read(0x06, &e2);
-            uint32_t energy = ((uint32_t)(e2 & 0x1F) << 16) | ((uint32_t)e1 << 8) | e0;
-
-            if (dist == 1)       ESP_LOGI(TAG, "БЛИСКАВКА! гроза прямо над головою");
-            else if (dist == 63) ESP_LOGI(TAG, "БЛИСКАВКА! надто далеко для оцінки");
-            else                 ESP_LOGI(TAG, "БЛИСКАВКА! ~%u км до фронту грози", dist);
-            ESP_LOGI(TAG, "енергія розряду (сире число): %lu", (unsigned long)energy);
-
-        } else if (src == 0x04) {                // 0b0100 = завада від техніки
-            ESP_LOGW(TAG, "Завада (disturber) — поруч щось шумить");
-
-        } else if (src == 0x01) {                // 0b0001 = зависокий шум
-            ESP_LOGW(TAG, "Шум зависокий — підніми поріг або віднеси давач");
-
-        } else {                                 // 0 = неочікувано
-            ESP_LOGW(TAG, "Переривання без зрозумілої причини");
-        }
-    }
-}
-```
-```stm32
-    while (1) {                                  // продовження main
-        if (!irqTriggered) continue;             // подій немає — нічого не робимо
-        irqTriggered = false;                    // скинути прапорець одразу
-
-        HAL_Delay(2);                            // ← КРИТИЧНО: дати чіпу досипати
-
-        uint8_t src;
-        as3935_read(0x03, &src);                 // читання скидає IRQ у низький
-        src &= 0x0F;                             // сирі біти чіпа: 8 / 4 / 1
-
-        if (src == 0x08) {                       // 0b1000 = блискавка
-            uint8_t dist, e0, e1, e2;
-            as3935_read(0x07, &dist);  dist &= 0x3F;
-            as3935_read(0x04, &e0);              // енергія: 0x04 + 0x05 + 0x06[4:0]
-            as3935_read(0x05, &e1);
-            as3935_read(0x06, &e2);
-            uint32_t energy = ((uint32_t)(e2 & 0x1F) << 16) | ((uint32_t)e1 << 8) | e0;
-
-            if (dist == 1)       printf("БЛИСКАВКА! гроза прямо над головою\r\n");
-            else if (dist == 63) printf("БЛИСКАВКА! надто далеко для оцінки\r\n");
-            else                 printf("БЛИСКАВКА! ~%u км до фронту грози\r\n", dist);
-            printf("енергія розряду (сире число): %lu\r\n", (unsigned long)energy);
-
-        } else if (src == 0x04) {                // 0b0100 = завада від техніки
-            printf("Завада (disturber) — поруч щось шумить\r\n");
-
-        } else if (src == 0x01) {                // 0b0001 = зависокий шум
-            printf("Шум зависокий — підніми поріг або віднеси давач\r\n");
-
-        } else {                                 // 0 = неочікувано
-            printf("Переривання без зрозумілої причини\r\n");
-        }
-    }
-}
-```
+:::code api-dfrobot-as3935/c/arduino/krok-6-holovnyi-tsykl.ino
+:::code api-dfrobot-as3935/c/esp-idf/krok-6-holovnyi-tsykl.c
+:::code api-dfrobot-as3935/c/stm32/krok-6-holovnyi-tsykl.c
 :::
 
 Розберімо три пастки, що ховаються в цих кількох рядках.

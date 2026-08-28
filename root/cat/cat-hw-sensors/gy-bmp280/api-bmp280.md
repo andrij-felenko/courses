@@ -20,82 +20,8 @@
 Ось повний робочий скетч, що раз на секунду друкує температуру, тиск і оцінку висоти в монітор порту.
 
 :::tabs
-```cpp
-#include <Wire.h>
-#include <Adafruit_BMP280.h>
-
-Adafruit_BMP280 bmp(&Wire);   // об'єкт давача на шині I2C
-
-void setup() {
-  Serial.begin(115200);
-  while (!Serial && millis() < 2000) { }   // дочекатись термінала, але не вічно
-
-  // На ESP32/Pico задайте свої ніжки шини ДО bmp.begin():
-  //   Wire.begin(21, 22);        // SDA=21, SCL=22 — типово для ESP32
-  //   Wire.begin(4, 5);          // SDA=GP4, SCL=GP5 — типово для Pico
-  // На класичній Arduino (UNO/Nano) ніжки жорсткі (A4/A5) — Wire.begin() без аргументів.
-  Wire.begin();
-
-  // УВАГА: типова плата GY-BMP280 за замовчуванням сидить на 0x76,
-  // а не на 0x77 (це «рідна» адреса Adafruit). Тому адресу задаємо явно.
-  if (!bmp.begin(0x76)) {
-    Serial.println(F("BMP280 не знайдено. Перевірте: 3.3 В, CSB вгору, адресу 0x76/0x77."));
-    while (true) { delay(1000); }           // далі йти немає сенсу
-  }
-  Serial.println(F("BMP280 на зв'язку."));
-
-  // Один раз налаштувати режим виміру: неперервний, обидва канали з
-  // передискретизацією, помірний згладжувальний фільтр.
-  bmp.setSampling(Adafruit_BMP280::MODE_NORMAL,     // міряє сам, без запитів
-                  Adafruit_BMP280::SAMPLING_X2,     // температура ×2
-                  Adafruit_BMP280::SAMPLING_X16,    // тиск ×16 (найважливіше)
-                  Adafruit_BMP280::FILTER_X16,      // сильний IIR-фільтр
-                  Adafruit_BMP280::STANDBY_MS_500); // пауза 500 мс між вимірами
-}
-
-void loop() {
-  float t = bmp.readTemperature();          // °C
-  float p = bmp.readPressure();             // Па (не гПа!)
-  float h = bmp.readAltitude(1013.25f);     // м, відносно стандартного рівня моря
-
-  Serial.print(F("T = "));   Serial.print(t, 2);        Serial.print(F(" C   "));
-  Serial.print(F("P = "));   Serial.print(p / 100.0f, 2); Serial.print(F(" hPa   "));
-  Serial.print(F("h = "));   Serial.print(h, 1);        Serial.println(F(" m"));
-
-  delay(1000);
-}
-```
-```python
-import time
-import board
-import adafruit_bmp280
-
-i2c = board.I2C()   # використовує board.SCL і board.SDA
-# На платах, де стандартні ніжки не ті, шину задають явно, напр.:
-#   import busio
-#   i2c = busio.I2C(board.GP5, board.GP4)   # SCL=GP5, SDA=GP4 — типово для Pico
-
-# УВАГА: типова плата GY-BMP280 сидить на 0x76, а не на «рідній» 0x77 —
-# тому адресу задаємо явно (за замовчуванням бібліотека взяла б 0x77).
-bmp280 = adafruit_bmp280.Adafruit_BMP280_I2C(i2c, address=0x76)
-
-# Один раз налаштувати режим виміру: неперервний, обидва канали з
-# передискретизацією, помірний згладжувальний фільтр.
-bmp280.mode = adafruit_bmp280.MODE_NORMAL          # міряє сам, без запитів
-bmp280.overscan_temperature = adafruit_bmp280.OVERSCAN_X2    # температура ×2
-bmp280.overscan_pressure = adafruit_bmp280.OVERSCAN_X16      # тиск ×16 (найважливіше)
-bmp280.iir_filter = adafruit_bmp280.IIR_FILTER_X16          # сильний IIR-фільтр
-bmp280.standby_period = adafruit_bmp280.STANDBY_TC_500      # пауза 500 мс між вимірами
-bmp280.sea_level_pressure = 1013.25                # опорний тиск для висоти, гПа
-
-while True:
-    t = bmp280.temperature   # °C
-    p = bmp280.pressure      # гПа (у CircuitPython — уже гектопаскалі!)
-    h = bmp280.altitude      # м, відносно sea_level_pressure
-
-    print("T = {:.2f} C   P = {:.2f} hPa   h = {:.1f} m".format(t, p, h))
-    time.sleep(1)
-```
+:::code api-bmp280/cpp/shliakh-pershyi-hotova.cpp
+:::code api-bmp280/py/shliakh-pershyi-hotova.py
 :::
 
 Кілька місць варті окремого слова, бо вони не випадкові.
@@ -126,40 +52,7 @@ while True:
 
 Тепер зробимо те саме голими руками. Уся робота з BMP280 через I²C — це читання й запис байтів у регістри за їхніми адресами, і всього таких дій чотири типи: прочитати один байт, прочитати кілька поспіль, записати один байт, зібрати з байтів багатобітне число. Спершу — крихітний шар доступу, на якому стоятиме все інше.
 
-```cpp
-#include <Wire.h>
-
-static const uint8_t BMP280_ADDR = 0x76;   // типова адреса GY-BMP280 (SDO донизу)
-
-// Прочитати ОДИН байт із регістра reg. Повертає true й кладе значення в *out.
-static bool rd8(uint8_t reg, uint8_t *out) {
-  Wire.beginTransmission(BMP280_ADDR);
-  Wire.write(reg);
-  if (Wire.endTransmission() != 0) return false;   // давач не підтвердив адресу
-  if (Wire.requestFrom((int)BMP280_ADDR, 1) != 1) return false;
-  *out = Wire.read();
-  return true;
-}
-
-// Прочитати `len` байтів ПОСПІЛЬ, починаючи з регістра reg, у буфер buf.
-// BMP280 сам збільшує внутрішній лічильник адреси, тож блок читається одним заходом.
-static bool rdN(uint8_t reg, uint8_t *buf, uint8_t len) {
-  Wire.beginTransmission(BMP280_ADDR);
-  Wire.write(reg);
-  if (Wire.endTransmission() != 0) return false;
-  if (Wire.requestFrom((int)BMP280_ADDR, (int)len) != len) return false;
-  for (uint8_t i = 0; i < len; i++) buf[i] = Wire.read();
-  return true;
-}
-
-// Записати ОДИН байт val у регістр reg. Повертає true при ACK.
-static bool wr8(uint8_t reg, uint8_t val) {
-  Wire.beginTransmission(BMP280_ADDR);
-  Wire.write(reg);
-  Wire.write(val);
-  return (Wire.endTransmission() == 0);
-}
-```
+:::code api-bmp280/cpp/shliakh-druhyi-syri.cpp
 
 Три деталі тут навмисні. `Wire.endTransmission()` **повертає 0 на успіх** (давач відповів ACK на адресу) — ненульове означає «мовчить»: не та адреса, обірвана земля, `CSB` висить у повітрі. `Wire.requestFrom` **повертає, скільки байтів реально прийшло** — звіряємо це заздалегідь, бо читати наосліп із пристрою, що віддав менше очікуваного, небезпечно (`Wire.read()` поверне `-1`, який мовчки стане `0xFF`). А блокове читання `rdN` спирається на приємну властивість BMP280: після кожного відданого байта чип **сам** просуває внутрішній вказівник на наступний регістр, тож 26 байтів калібрування чи 6 байтів даних беруться одним запитом, а не двадцятьма шістьма окремими.
 
@@ -185,38 +78,7 @@ bool bmp280_who_am_i(uint8_t *id_out) {
 
 Тонкість, на якій легко втратити півдня: **типи чисел різні**. Перший коефіцієнт кожної групи (`dig_T1`, `dig_P1`) — **беззнаковий** (unsigned, `uint16_t`), а всі решта — **знакові** (signed, `int16_t`). Переплутаєте знак — і компенсаційна формула дасть безглуздий результат. Порядок байтів — молодший перший (little-endian): у пам'яті спершу йде молодший байт числа, потім старший.
 
-```cpp
-// Заводські коефіцієнти BMP280 (з даташита; типи саме такі!).
-struct bmp280_calib {
-  uint16_t dig_T1;   // беззнаковий
-  int16_t  dig_T2, dig_T3;
-  uint16_t dig_P1;   // беззнаковий
-  int16_t  dig_P2, dig_P3, dig_P4, dig_P5, dig_P6, dig_P7, dig_P8, dig_P9;
-};
-
-static bmp280_calib calib;      // сюди прочитаємо один раз на старті
-
-// Прочитати всі 24 байти калібрування від 0x88 і розкласти в структуру.
-bool bmp280_read_calibration(void) {
-  uint8_t b[24];
-  if (!rdN(0x88, b, 24)) return false;
-
-  // Кожні два байти: молодший перший (little-endian) → 16-бітне число.
-  calib.dig_T1 = (uint16_t)(b[0]  | (b[1]  << 8));
-  calib.dig_T2 = (int16_t) (b[2]  | (b[3]  << 8));
-  calib.dig_T3 = (int16_t) (b[4]  | (b[5]  << 8));
-  calib.dig_P1 = (uint16_t)(b[6]  | (b[7]  << 8));
-  calib.dig_P2 = (int16_t) (b[8]  | (b[9]  << 8));
-  calib.dig_P3 = (int16_t) (b[10] | (b[11] << 8));
-  calib.dig_P4 = (int16_t) (b[12] | (b[13] << 8));
-  calib.dig_P5 = (int16_t) (b[14] | (b[15] << 8));
-  calib.dig_P6 = (int16_t) (b[16] | (b[17] << 8));
-  calib.dig_P7 = (int16_t) (b[18] | (b[19] << 8));
-  calib.dig_P8 = (int16_t) (b[20] | (b[21] << 8));
-  calib.dig_P9 = (int16_t) (b[22] | (b[23] << 8));
-  return true;
-}
-```
+:::code api-bmp280/cpp/krok-2-prochytaty-zavodski.cpp
 
 Читаємо це **один раз** на старті й запам'ятовуємо — коефіцієнти не змінюються, поки живе чип. Далі вони підуть у формулу; звідки саме вони беруться й чому формула має саме такий вигляд — розібрано в [математиці компенсації](root:cat-hw-sensors/gy-bmp280/math-compensation.md), а тут ми просто застосовуємо еталонний код Bosch.
 
@@ -246,28 +108,7 @@ bool bmp280_read_calibration(void) {
 
 Зберемо потрібні значення зсувами бітів — так у коді видно, з чого складається кожен байт:
 
-```cpp
-// Поля ctrl_meas (0xF4):
-#define OSRS_T_X2   (0x02 << 5)   // температура ×2
-#define OSRS_P_X16  (0x05 << 2)   // тиск ×16
-#define MODE_NORMAL  0x03         // неперервний
-#define MODE_FORCED  0x01         // разовий на вимогу
-#define MODE_SLEEP   0x00         // сон
-
-// Поля config (0xF5):
-#define T_SB_500MS  (0x04 << 5)   // пауза 500 мс між вимірами
-#define FILTER_16   (0x04 << 2)   // IIR-коефіцієнт 16
-
-// Налаштувати давач на неперервний вимір: T×2, P×16, фільтр 16, пауза 500 мс.
-bool bmp280_configure(void) {
-  // config пишемо ПЕРШИМ: у режимі normal запис у config може бути проігнорований,
-  // тож безпечно міняти його, поки давач ще спить (mode=00 після живлення).
-  if (!wr8(0xF5, T_SB_500MS | FILTER_16)) return false;
-  // ctrl_meas із режимом normal — з цієї миті давач починає міряти сам.
-  if (!wr8(0xF4, OSRS_T_X2 | OSRS_P_X16 | MODE_NORMAL)) return false;
-  return true;
-}
-```
+:::code api-bmp280/cpp/krok-3-nalashtuvaty.cpp
 
 Тонкість у коментарі не випадкова: даташит попереджає, що запис у `config` у режимі `normal` може бути **проігнорований**, тому `config` виставляють, поки давач ще в режимі `sleep` (а він саме там одразу після подачі живлення), і лише потім переводять у `normal` через `ctrl_meas`. Порушите порядок — фільтр і пауза можуть не застосуватися, і ви довго не зрозумієте, чому крива шумніша, ніж просили.
 
@@ -296,130 +137,22 @@ bool bmp280_read_raw(int32_t *adc_T, int32_t *adc_P) {
 
 Нижче — еталонний цілочисловий (fixed-point) код Bosch із даташита, дослівно; писати його «на око» не варто — це вивірені поліноми, і будь-яка самодіяльність у коефіцієнтах ламає точність.
 
-```cpp
-static int32_t t_fine;   // «температурна поправка»; спільна для T і P
-
-// Температура в сотих градуса Цельсія (напр. 2534 = 25.34 °C).
-// ПОБІЧНО виставляє глобальний t_fine — його потім вживає формула тиску.
-int32_t bmp280_compensate_T(int32_t adc_T) {
-  int32_t var1 = ((((adc_T >> 3) - ((int32_t)calib.dig_T1 << 1))) *
-                  ((int32_t)calib.dig_T2)) >> 11;
-  int32_t var2 = (((((adc_T >> 4) - ((int32_t)calib.dig_T1)) *
-                    ((adc_T >> 4) - ((int32_t)calib.dig_T1))) >> 12) *
-                  ((int32_t)calib.dig_T3)) >> 14;
-  t_fine = var1 + var2;
-  return (t_fine * 5 + 128) >> 8;
-}
-
-// Тиск у Па як число з фіксованою комою Q24.8:
-// повертає, напр., 24674867 = 24674867/256 = 96386.2 Па = 963.9 гПа.
-// ВИМАГАЄ, щоб t_fine був щойно оновлений bmp280_compensate_T()!
-uint32_t bmp280_compensate_P(int32_t adc_P) {
-  int64_t var1 = ((int64_t)t_fine) - 128000;
-  int64_t var2 = var1 * var1 * (int64_t)calib.dig_P6;
-  var2 = var2 + ((var1 * (int64_t)calib.dig_P5) << 17);
-  var2 = var2 + (((int64_t)calib.dig_P4) << 35);
-  var1 = ((var1 * var1 * (int64_t)calib.dig_P3) >> 8) +
-         ((var1 * (int64_t)calib.dig_P2) << 12);
-  var1 = (((((int64_t)1) << 47) + var1)) * ((int64_t)calib.dig_P1) >> 33;
-  if (var1 == 0) return 0;                    // ділення на нуль — захист
-  int64_t p = 1048576 - adc_P;
-  p = (((p << 31) - var2) * 3125) / var1;
-  var1 = (((int64_t)calib.dig_P9) * (p >> 13) * (p >> 13)) >> 25;
-  var2 = (((int64_t)calib.dig_P8) * p) >> 19;
-  p = ((p + var1 + var2) >> 8) + (((int64_t)calib.dig_P7) << 4);
-  return (uint32_t)p;   // Q24.8: поділіть на 256, щоб дістати Па
-}
-```
+:::code api-bmp280/cpp/krok-4-prochytaty-syri.cpp
 
 Дві речі про цей код. По-перше, `t_fine` — глобальний навмисно: він народжується в температурній формулі й «доживає» до формули тиску; це той самий місток між двома вимірами, про який ідеться весь час. По-друге, тиск рахується у **64-бітній** арифметиці (`int64_t`) — на 8-бітному AVR це коштує помітно, але без 64 біт проміжні добутки переповнюються й точність падає; на 32-бітних ESP32/Pico це взагалі непомітно. Bosch дає і 32-бітний варіант тиску (трохи менш точний) — його беруть лише коли 64-бітної арифметики шкода; чому саме потрібні 64 біти й чим версії різняться, розкрито в [математиці компенсації](root:cat-hw-sensors/gy-bmp280/math-compensation.md).
 
 Тепер — зручні обгортки, що ховають одиниці й **гарантують правильний порядок**:
 
 :::tabs
-```cpp
-// Температура в °C.
-float bmp280_temperature(void) {
-  int32_t adc_T, adc_P;
-  if (!bmp280_read_raw(&adc_T, &adc_P)) return NAN;
-  return bmp280_compensate_T(adc_T) / 100.0f;      // соті градуса → °C
-}
-
-// Тиск у гПа. САМ читає й температуру (щоб оновити t_fine) перед тиском.
-float bmp280_pressure_hpa(void) {
-  int32_t adc_T, adc_P;
-  if (!bmp280_read_raw(&adc_T, &adc_P)) return NAN;
-  bmp280_compensate_T(adc_T);                       // 1) спершу T → оновлює t_fine
-  uint32_t p_q248 = bmp280_compensate_P(adc_P);     // 2) потім P, з готовим t_fine
-  return (p_q248 / 256.0f) / 100.0f;                // Q24.8 → Па → гПа
-}
-```
-```python
-# Ті самі величини — але компенсацію й «спершу T, потім P» бібліотека
-# ховає всередині. Достатньо звернутися до властивостей.
-
-def bmp280_temperature():
-    return bmp280.temperature        # °C
-
-def bmp280_pressure_hpa():
-    # Читання .pressure усередині оновлює t_fine із свіжої температури,
-    # тож той самий обов'язковий порядок дотримано — але за нас.
-    return bmp280.pressure           # уже гПа
-```
+:::code api-bmp280/cpp/krok-4-prochytaty-syri-2.cpp
+:::code api-bmp280/py/krok-4-prochytaty-syri.py
 :::
 
 Зверніть увагу: `bmp280_pressure_hpa()` **завжди** спершу викликає компенсацію температури, навіть якщо саме температура вас не цікавить, — бо без свіжого `t_fine` тиск попливе. Це і є той «обов'язковий порядок» у коді, а не на словах. І весь старт разом виглядає так:
 
 :::tabs
-```cpp
-void setup() {
-  Serial.begin(115200);
-  Wire.begin();                                    // (на ESP32/Pico — зі своїми ніжками)
-
-  uint8_t id;
-  if (!bmp280_who_am_i(&id) || id != BMP280_CHIP_ID) {
-    Serial.println(F("Це не BMP280 (або давач мовчить). Стоп."));
-    while (true) delay(1000);
-  }
-  bmp280_read_calibration();                        // один раз — коефіцієнти
-  bmp280_configure();                               // передискретизація, фільтр, режим
-  Serial.println(F("BMP280 готовий (сирий драйвер)."));
-}
-
-void loop() {
-  Serial.print(F("T = ")); Serial.print(bmp280_temperature(), 2);   Serial.print(F(" C   "));
-  Serial.print(F("P = ")); Serial.print(bmp280_pressure_hpa(), 2);  Serial.println(F(" hPa"));
-  delay(1000);
-}
-```
-```python
-import time
-import board
-import adafruit_bmp280
-
-i2c = board.I2C()   # (на ESP32/Pico — busio.I2C зі своїми ніжками)
-
-# Конструктор сам читає ідентифікатор чипа з 0xD0 і калібрування від 0x88,
-# а на чужому чипі чи мовчазній шині підніме виняток — тож окремі
-# who_am_i / read_calibration / configure згортаються в один рядок.
-try:
-    bmp280 = adafruit_bmp280.Adafruit_BMP280_I2C(i2c, address=0x76)
-except (ValueError, RuntimeError):
-    print("Це не BMP280 (або давач мовчить). Стоп.")
-    while True:
-        time.sleep(1)
-
-bmp280.overscan_temperature = adafruit_bmp280.OVERSCAN_X2   # передискретизація,
-bmp280.overscan_pressure = adafruit_bmp280.OVERSCAN_X16     # фільтр, режим
-bmp280.iir_filter = adafruit_bmp280.IIR_FILTER_X16
-bmp280.mode = adafruit_bmp280.MODE_NORMAL
-print("BMP280 готовий.")
-
-while True:
-    print("T = {:.2f} C   P = {:.2f} hPa".format(
-        bmp280.temperature, bmp280.pressure))
-    time.sleep(1)
-```
+:::code api-bmp280/cpp/krok-4-prochytaty-syri-3.cpp
+:::code api-bmp280/py/krok-4-prochytaty-syri-2.py
 :::
 
 Порівняйте це з бібліотечним `bmp.readPressure()`: рівно ця логіка — упізнати чип, прочитати коефіцієнти, налаштувати, зчитати сире, порахувати температуру, порахувати тиск, — тільки згорнута в кілька викликів. Тепер видно, що саме там усередині, і чому воно іноді повертає `NaN` (давач не відповів) чи «застиглий» тиск (забули оновити температуру).
@@ -475,31 +208,8 @@ h = 44330.0 * (1.0 - math.pow(954.6 / 1013.25, 0.1903))
 Отже, 954.6 гПа відповідає висоті приблизно **500 метрів** — типово для міста в передгір'ї. Але тримайте твердо головне застереження: **абсолютна висота настільки точна, наскільки точний `p₀`**. Погода щодня зсуває тиск на рівні моря на десятки гПа, а кожен гПа — це близько 8 метрів. Тому барометр чудово міряє **зміну** висоти (піднявся дрон на метр — тиск ледь упав, це видно миттєво), а абсолютну дає надійно лише зі свіжим місцевим `p₀`. Практичний прийом — запам'ятати поточний тиск як власний нуль перед стартом:
 
 :::tabs
-```cpp
-static float p0_ref = 1013.25f;    // опорний тиск «нуля висоти»
-
-// Викликати на землі перед злетом: зробити поточне місце нульовою висотою.
-void bmp280_set_zero_here(void) {
-  p0_ref = bmp280_pressure_hpa();  // «тут і зараз» = 0 метрів
-}
-
-// Висота ВІДНОСНО запам'ятованого нуля (надійна, не залежить від погоди).
-float bmp280_relative_altitude(void) {
-  return bmp280_altitude(bmp280_pressure_hpa(), p0_ref);
-}
-```
-```python
-p0_ref = 1013.25    # опорний тиск «нуля висоти»
-
-# Викликати на землі перед злетом: зробити поточне місце нульовою висотою.
-def bmp280_set_zero_here():
-    global p0_ref
-    p0_ref = bmp280_pressure_hpa()   # «тут і зараз» = 0 метрів
-
-# Висота ВІДНОСНО запам'ятованого нуля (надійна, не залежить від погоди).
-def bmp280_relative_altitude():
-    return bmp280_altitude(bmp280_pressure_hpa(), p0_ref)
-```
+:::code api-bmp280/cpp/vid-tysku-do-vysoty.cpp
+:::code api-bmp280/py/vid-tysku-do-vysoty.py
 :::
 
 Саме так роблять у польотних контролерах: перед стартом фіксують тиск як «нуль», і далі рахують висоту відносно нього — тоді антициклон за вікном на результат не впливає.
@@ -516,22 +226,7 @@ def bmp280_relative_altitude():
 
 Робота в `forced` виглядає так: пишемо в `ctrl_meas` ті самі біти передискретизації плюс `MODE_FORCED`, чекаємо, поки вимір завершиться, і читаємо. Дочекатися можна двома способами — просто витримати паузу з запасом (найпростіше) або опитувати біт `measuring` у **статусному регістрі `0xF3`** (біт 3): поки він `1`, давач ще міряє.
 
-```cpp
-// Зробити ОДИН вимір у режимі forced і прочитати тиск (гПа). Між вимірами давач спить.
-float bmp280_read_forced_pressure(void) {
-  // Запустити разовий вимір (ті самі передискретизації + MODE_FORCED):
-  wr8(0xF4, OSRS_T_X2 | OSRS_P_X16 | MODE_FORCED);
-
-  // Дочекатися завершення: біт 3 (measuring) у статусі 0xF3 = 0, коли готово.
-  uint8_t st;
-  do {
-    delay(2);
-    if (!rd8(0xF3, &st)) return NAN;
-  } while (st & 0x08);          // біт measuring ще виставлений — чекаємо
-
-  return bmp280_pressure_hpa(); // читає T (оновлює t_fine) і P
-}
-```
+:::code api-bmp280/cpp/rezhymy-zhyvlennia-sleep.cpp
 
 > 🔧 **Навіщо це.** Різниця між `normal` і `forced` — це різниця між приладом, що живе тиждень від батарейки, і приладом, що живе рік. У трекері висоти на CR2032, що прокидається раз на секунду зняти один відлік і знову засинає, `forced` — єдиний правильний вибір: `normal` розрядив би елемент у рази швидше, бо давач без потреби міряв би тисячі разів між вашими читаннями. На стаціонарному приладі з зовнішнім живленням, навпаки, простіший `normal` — і не треба щоразу будити чип вручну.
 

@@ -17,109 +17,9 @@ DO — готовий біт: компаратор уже зробив голо�
 Висновок для коду залізний: **ніколи не зашивай `HIGH` чи `LOW` як «подію» намертво**. Замість цього на старті визнач, який рівень плата тримає в тиші, запам'ятай його — і вважай подією будь-яке **відхилення від спокою**. Тоді той самий скетч працює і на оригіналі, і на дзеркальному клоні, без жодної правки.
 
 :::tabs
-```arduino
-const uint8_t SOUND = 3;        // DO давача — на цифровий вхід
-
-int idleLevel;                  // рівень, який плата тримає в ТИШІ (визначаємо на старті)
-
-void setup() {
-    pinMode(SOUND, INPUT);
-    Serial.begin(9600);
-    delay(50);                  // дати входу усталитися
-    idleLevel = digitalRead(SOUND);   // у тиші — це «спокій» цієї конкретної плати
-    Serial.print("Рівень спокою DO = ");
-    Serial.println(idleLevel == HIGH ? "HIGH (подія — падіння в LOW)"
-                                     : "LOW (подія — зростання в HIGH)");
-}
-
-// true — коли DO відійшов від спокою, тобто звук ПЕРЕВИЩИВ поріг.
-inline bool isLoud() {
-    return digitalRead(SOUND) != idleLevel;
-}
-
-void loop() {
-    Serial.println(isLoud() ? "гучно" : "тихо");
-    delay(100);
-}
-```
-```esp-idf
-#include "driver/gpio.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "esp_log.h"
-
-#define SOUND_GPIO  GPIO_NUM_4          // DO давача — на будь-який вхідний GPIO
-static const char *TAG = "ky037";
-
-static int idle_level;                  // рівень, який плата тримає в ТИШІ
-
-static void sound_begin(void) {
-    gpio_config_t io = {
-        .pin_bit_mask = 1ULL << SOUND_GPIO,
-        .mode         = GPIO_MODE_INPUT,
-        .pull_up_en   = GPIO_PULLUP_DISABLE,   // підтяжка вже стоїть на модулі
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .intr_type    = GPIO_INTR_DISABLE,
-    };
-    ESP_ERROR_CHECK(gpio_config(&io));
-    vTaskDelay(pdMS_TO_TICKS(50));             // дати входу усталитися
-    idle_level = gpio_get_level(SOUND_GPIO);   // у тиші — «спокій» цієї плати
-    ESP_LOGI(TAG, "рівень спокою DO = %d (подія — відхилення від нього)", idle_level);
-}
-
-// true — коли DO відійшов від спокою, тобто звук ПЕРЕВИЩИВ поріг.
-static inline bool is_loud(void) {
-    return gpio_get_level(SOUND_GPIO) != idle_level;
-}
-
-void app_main(void) {
-    sound_begin();
-    while (1) {
-        ESP_LOGI(TAG, "%s", is_loud() ? "гучно" : "тихо");
-        vTaskDelay(pdMS_TO_TICKS(100));
-    }
-}
-```
-```stm32
-#include "stm32f4xx_hal.h"
-#include <stdbool.h>
-#include <stdio.h>
-
-#define SOUND_PORT  GPIOA
-#define SOUND_PIN   GPIO_PIN_1          // DO давача — на будь-який вхідний вивід
-
-static GPIO_PinState idle_level;        // рівень, який плата тримає в ТИШІ
-
-void sound_begin(void) {
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-    GPIO_InitTypeDef io = {0};
-    io.Pin  = SOUND_PIN;
-    io.Mode = GPIO_MODE_INPUT;
-    io.Pull = GPIO_NOPULL;              // підтяжка вже стоїть на модулі
-    HAL_GPIO_Init(SOUND_PORT, &io);
-
-    HAL_Delay(50);                      // дати входу усталитися
-    idle_level = HAL_GPIO_ReadPin(SOUND_PORT, SOUND_PIN);   // у тиші — «спокій» плати
-    printf("Рівень спокою DO = %s\r\n",
-           idle_level == GPIO_PIN_SET ? "SET (подія — падіння в RESET)"
-                                      : "RESET (подія — зростання в SET)");
-}
-
-// true — коли DO відійшов від спокою, тобто звук ПЕРЕВИЩИВ поріг.
-bool is_loud(void) {
-    return HAL_GPIO_ReadPin(SOUND_PORT, SOUND_PIN) != idle_level;
-}
-
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    sound_begin();
-    while (1) {
-        printf("%s\r\n", is_loud() ? "гучно" : "тихо");
-        HAL_Delay(100);
-    }
-}
-```
+:::code api-ky037-driver/c/arduino/ne-zashyvai-0-chy-1.ino
+:::code api-ky037-driver/c/esp-idf/ne-zashyvai-0-chy-1.c
+:::code api-ky037-driver/c/stm32/ne-zashyvai-0-chy-1.c
 :::
 
 Уся інверсія тепер живе в одному місці — у порівнянні `!= idleLevel` всередині `isLoud()`. Решта програми оперує чесним булевим «гучно чи ні», не знаючи й не переймаючись, «1» це чи «0» на конкретній платі.
@@ -184,97 +84,9 @@ while (1) {
 **Умова.** AO під'єднано до входу АЦП (на Arduino це A0, на ESP32 — нога блока АЦП1, на STM32 — канал ADC1). Треба за кожні ~50 мс оцінити гучність як розмах сигналу й вивести число, зручне для порівняння.
 
 :::tabs
-```arduino
-const uint8_t MIC = A0;              // AO давача
-const unsigned long WINDOW = 50;     // вікно вимірювання, мс
-
-int measurePeakToPeak() {
-    unsigned long t0 = millis();
-    int hi = 0, lo = 1023;           // межі 10-бітного АЦП Arduino
-    while (millis() - t0 < WINDOW) {
-        int v = analogRead(MIC);     // миттєва точка хвилі
-        if (v > hi) hi = v;
-        if (v < lo) lo = v;
-    }
-    return hi - lo;                  // РОЗМАХ: тиша ≈ мало, гучно ≈ багато
-}
-
-void setup() { Serial.begin(9600); }
-
-void loop() {
-    Serial.println(measurePeakToPeak());   // спробуй у тиші й під оплеск — числа різні
-}
-```
-```esp-idf
-#include "esp_adc/adc_oneshot.h"
-#include "esp_timer.h"
-#include "esp_log.h"
-
-#define MIC_CHAN   ADC_CHANNEL_6         // ADC1_CH6 = GPIO34 — блок АЦП1, дружній до Wi-Fi
-#define WINDOW_US  50000                 // вікно вимірювання, 50 мс
-
-static adc_oneshot_unit_handle_t adc1;
-
-static void mic_begin(void) {
-    adc_oneshot_unit_init_cfg_t unit = { .unit_id = ADC_UNIT_1 };
-    ESP_ERROR_CHECK(adc_oneshot_new_unit(&unit, &adc1));
-    adc_oneshot_chan_cfg_t chan = {
-        .bitwidth = ADC_BITWIDTH_DEFAULT,   // 12 біт → 0…4095
-        .atten    = ADC_ATTEN_DB_12,        // повний вхідний діапазон
-    };
-    ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1, MIC_CHAN, &chan));
-}
-
-static int measure_peak_to_peak(void) {
-    int64_t t0 = esp_timer_get_time();
-    int hi = 0, lo = 4095, v;             // межі 12-бітного АЦП ESP32
-    while (esp_timer_get_time() - t0 < WINDOW_US) {
-        adc_oneshot_read(adc1, MIC_CHAN, &v);   // миттєва точка хвилі
-        if (v > hi) hi = v;
-        if (v < lo) lo = v;
-    }
-    return hi - lo;                       // РОЗМАХ: тиша ≈ мало, гучно ≈ багато
-}
-
-void app_main(void) {
-    mic_begin();
-    while (1) ESP_LOGI("ky037", "%d", measure_peak_to_peak());
-}
-```
-```stm32
-#include "stm32f4xx_hal.h"
-#include <stdio.h>
-
-#define WINDOW_MS  50                    // вікно вимірювання, мс
-
-extern ADC_HandleTypeDef hadc1;          // AO — на канал ADC1 (напр. PA0 = IN0)
-
-static uint16_t adc_sample(void) {
-    HAL_ADC_Start(&hadc1);
-    HAL_ADC_PollForConversion(&hadc1, 1);   // одне перетворення, чекати до 1 мс
-    uint16_t v = HAL_ADC_GetValue(&hadc1);
-    HAL_ADC_Stop(&hadc1);
-    return v;
-}
-
-int measure_peak_to_peak(void) {
-    uint32_t t0 = HAL_GetTick();
-    int hi = 0, lo = 4095;               // межі 12-бітного АЦП STM32
-    while (HAL_GetTick() - t0 < WINDOW_MS) {
-        int v = adc_sample();            // миттєва точка хвилі
-        if (v > hi) hi = v;
-        if (v < lo) lo = v;
-    }
-    return hi - lo;                      // РОЗМАХ: тиша ≈ мало, гучно ≈ багато
-}
-
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    MX_ADC1_Init();                      // канал, час вибірки — з генератора CubeMX
-    while (1) printf("%d\r\n", measure_peak_to_peak());
-}
-```
+:::code api-ky037-driver/c/arduino/sposib-pershyi-rozmakh-max.ino
+:::code api-ky037-driver/c/esp-idf/sposib-pershyi-rozmakh-max.c
+:::code api-ky037-driver/c/stm32/sposib-pershyi-rozmakh-max.c
 :::
 
 Розмах — це той самий метод, що згадано в описі самого модуля, і його цілком досить, щоб відрізнити тишу від звуку. Але в нього є вада: він тримається на **двох крайніх** відліках з усього вікна. Один випадковий сплеск-наводка, що влучив у вікно, роздує `hi` — і число підскочить, хоч звуку не було. Розмах смиканий: реагує на піки, зокрема хибні.
@@ -292,115 +104,9 @@ int main(void) {
 **Умова.** Той самий AO на тому самому вході АЦП. За вікно 50 мс порахувати RMS-відхилення й вивести його. Проходимо вікно **двічі**: спершу знаходимо середнє, тоді — суму квадратів відхилень від нього.
 
 :::tabs
-```arduino
-const uint8_t MIC = A0;
-const unsigned long WINDOW = 50;
-
-float measureRMS() {
-    // --- прохід 1: середнє (робоча точка) за вікно ---
-    unsigned long t0 = millis();
-    long sum = 0;
-    int  n = 0;
-    while (millis() - t0 < WINDOW) {
-        sum += analogRead(MIC);
-        n++;
-    }
-    float mean = (float)sum / n;
-
-    // --- прохід 2: сума квадратів відхилень від середнього ---
-    t0 = millis();
-    float sumSq = 0;
-    int  n2 = 0;
-    while (millis() - t0 < WINDOW) {
-        float d = analogRead(MIC) - mean;
-        sumSq += d * d;
-        n2++;
-    }
-    return sqrt(sumSq / n2);          // RMS-відхилення в одиницях АЦП
-}
-
-void setup() { Serial.begin(9600); }
-
-void loop() {
-    Serial.println(measureRMS(), 1);  // одна цифра після коми
-}
-```
-```esp-idf
-#include "esp_adc/adc_oneshot.h"
-#include "esp_timer.h"
-#include "esp_log.h"
-#include <math.h>
-
-// adc1 і MIC_CHAN — з mic_begin() вище
-
-static float measure_rms(void) {
-    int v;
-    // --- прохід 1: середнє (робоча точка) за вікно ---
-    int64_t t0 = esp_timer_get_time();
-    int64_t sum = 0;
-    int     n = 0;
-    while (esp_timer_get_time() - t0 < WINDOW_US) {
-        adc_oneshot_read(adc1, MIC_CHAN, &v);
-        sum += v;
-        n++;
-    }
-    float mean = (float)sum / n;
-
-    // --- прохід 2: сума квадратів відхилень від середнього ---
-    t0 = esp_timer_get_time();
-    float sum_sq = 0;
-    int   n2 = 0;
-    while (esp_timer_get_time() - t0 < WINDOW_US) {
-        adc_oneshot_read(adc1, MIC_CHAN, &v);
-        float d = v - mean;
-        sum_sq += d * d;
-        n2++;
-    }
-    return sqrtf(sum_sq / n2);        // RMS-відхилення в одиницях АЦП
-}
-
-void app_main(void) {
-    mic_begin();
-    while (1) ESP_LOGI("ky037", "%.1f", measure_rms());
-}
-```
-```stm32
-#include "stm32f4xx_hal.h"
-#include <math.h>
-#include <stdio.h>
-
-// adc_sample() і WINDOW_MS — з прикладу розмаху вище
-
-float measure_rms(void) {
-    // --- прохід 1: середнє (робоча точка) за вікно ---
-    uint32_t t0 = HAL_GetTick();
-    uint32_t sum = 0;
-    int      n = 0;
-    while (HAL_GetTick() - t0 < WINDOW_MS) {
-        sum += adc_sample();
-        n++;
-    }
-    float mean = (float)sum / n;
-
-    // --- прохід 2: сума квадратів відхилень від середнього ---
-    t0 = HAL_GetTick();
-    float sum_sq = 0;
-    int   n2 = 0;
-    while (HAL_GetTick() - t0 < WINDOW_MS) {
-        float d = adc_sample() - mean;
-        sum_sq += d * d;
-        n2++;
-    }
-    return sqrtf(sum_sq / n2);        // RMS-відхилення в одиницях АЦП
-}
-
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    MX_ADC1_Init();
-    while (1) printf("%.1f\r\n", measure_rms());
-}
-```
+:::code api-ky037-driver/c/arduino/sposib-druhyi.ino
+:::code api-ky037-driver/c/esp-idf/sposib-druhyi.c
+:::code api-ky037-driver/c/stm32/sposib-druhyi.c
 :::
 
 Два проходи потрібні, бо середнє треба знати **до** обчислення відхилень, а вимірювати обидва за один прохід на дешевому AVR незручно (класичну однопрохідну формулу дисперсії через суму квадратів на цілих числах легко переповнити). Для навчального й практичного застосування два коротких проходи по 50 мс — цілком нормально; загальна затримка ~100 мс, оновлення десять разів на секунду — більш ніж досить для індикатора гучності.
@@ -436,19 +142,7 @@ void app_main(void) {
     }
 }
 ```
-```stm32
-#define NOISE_THRESHOLD  480         // 12 біт: поріг учетверо більший за 10-бітний
-
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    MX_ADC1_Init();
-    while (1) {
-        int loud = measure_peak_to_peak();
-        if (loud > NOISE_THRESHOLD) printf("ШУМНО: %d\r\n", loud);
-    }
-}
-```
+:::code api-ky037-driver/c/stm32/porih-i-zhladzhuvannia-v.c
 :::
 
 Число порога не універсальне — його визначають експериментально: подивись, яке значення дає `measurePeakToPeak()` у тиші твоєї кімнати, і постав поріг помітно вище фонового рівня. Це те саме, що виставити гвинтик за LED2, тільки в коді й із можливістю мати кілька порогів («тихо / розмова / крик»).
@@ -466,34 +160,8 @@ void loop() {
     Serial.println(g_smooth, 1);
 }
 ```
-```esp-idf
-static float g_smooth = 0;           // згладжений рівень (живе між ітераціями)
-#define ALPHA  0.2f                  // 0..1: менше = плавніше, але млявіше
-
-void app_main(void) {
-    mic_begin();
-    while (1) {
-        float now = measure_rms();
-        g_smooth = ALPHA * now + (1 - ALPHA) * g_smooth;   // ковзне середнє
-        ESP_LOGI("ky037", "%.1f", g_smooth);
-    }
-}
-```
-```stm32
-static float g_smooth = 0;           // згладжений рівень (живе між ітераціями)
-#define ALPHA  0.2f                  // 0..1: менше = плавніше, але млявіше
-
-int main(void) {
-    HAL_Init();
-    SystemClock_Config();
-    MX_ADC1_Init();
-    while (1) {
-        float now = measure_rms();
-        g_smooth = ALPHA * now + (1 - ALPHA) * g_smooth;   // ковзне середнє
-        printf("%.1f\r\n", g_smooth);
-    }
-}
-```
+:::code api-ky037-driver/c/esp-idf/porih-i-zhladzhuvannia-v.c
+:::code api-ky037-driver/c/stm32/porih-i-zhladzhuvannia-v-2.c
 :::
 
 Коефіцієнт `ALPHA` керує інерцією: `0.2` означає «новий вимір важить 20 %, накопичене минуле — 80 %», тож стрибки згладжуються, але й реакція трохи запізнюється. Менше значення — плавніше й повільніше; більше — жвавіше й смиканіше. Для індикатора шуму `0.1–0.3` — добрий діапазон.

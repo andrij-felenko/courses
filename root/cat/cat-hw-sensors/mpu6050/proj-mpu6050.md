@@ -16,80 +16,9 @@
 
 :::tabs
 
-```cpp
-#include <Wire.h>
-#include <MPU6050.h>     // бібліотека Джеффа Роуберґа (i2cdevlib)
+:::code proj-mpu6050/cpp/shliakh-pershyi-biblioteka.cpp
 
-MPU6050 mpu;             // адреса за замовчуванням 0x68 (AD0 на землі)
-
-int16_t ax, ay, az;      // сирі значення акселерометра
-int16_t gx, gy, gz;      // сирі значення гіроскопа
-
-void setup() {
-    Serial.begin(115200);
-    Wire.begin();
-
-    mpu.initialize();    // будить чип і ставить типові діапазони (±2g, ±250°/s)
-
-    // Перше, що робимо ЗАВЖДИ — питаємо, чи це взагалі наш чип.
-    if (mpu.testConnection()) {
-        Serial.println(F("MPU-6050 на місці"));
-    } else {
-        Serial.println(F("MPU-6050 НЕ відповідає — перевір пайку/адресу/клон"));
-        while (1) { }    // далі йти немає сенсу
-    }
-}
-
-void loop() {
-    // Один виклик читає всі шість осей одним пакетом по I2C.
-    mpu.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
-
-    float accX = ax / 16384.0f;    // g   (при діапазоні ±2g)
-    float gyrX = gx / 131.0f;      // °/s (при діапазоні ±250°/s)
-
-    Serial.print(accX); Serial.print('\t');
-    Serial.println(gyrX);
-    delay(20);
-}
-```
-
-```python
-from machine import I2C, Pin
-from time import sleep_ms
-from struct import unpack_from
-
-MPU = 0x68          # адреса за замовчуванням (AD0 на землі)
-PWR_MGMT_1 = 0x6B
-WHO_AM_I   = 0x75
-ACCEL_XOUT = 0x3B   # звідси йдуть 14 байтів: 6 акс + 2 темп + 6 гіро
-
-i2c = I2C(0, scl=Pin(22), sda=Pin(21))   # ніжки — під свою плату
-
-def setup():
-    i2c.writeto_mem(MPU, PWR_MGMT_1, b'\x00')   # розбудити (зняти біт SLEEP)
-    sleep_ms(100)
-    # Перше, що робимо ЗАВЖДИ — питаємо, чи це взагалі наш чип.
-    if i2c.readfrom_mem(MPU, WHO_AM_I, 1)[0] == 0x68:
-        print("MPU-6050 на місці")
-    else:
-        raise RuntimeError("MPU-6050 НЕ відповідає — перевір пайку/адресу/клон")
-
-def loop():
-    # Одне читання забирає всі шість осей одним пакетом по I2C.
-    b = i2c.readfrom_mem(MPU, ACCEL_XOUT, 14)
-    # >hhh h hhh — big-endian int16: ax,ay,az, temp, gx,gy,gz
-    ax, ay, az = unpack_from(">hhh", b, 0)
-    gx, gy, gz = unpack_from(">hhh", b, 8)
-
-    acc_x = ax / 16384.0    # g   (при діапазоні ±2g)
-    gyr_x = gx / 131.0      # °/s (при діапазоні ±250°/s)
-    print(acc_x, gyr_x)
-    sleep_ms(20)
-
-setup()
-while True:
-    loop()
-```
+:::code proj-mpu6050/py/shliakh-pershyi-biblioteka.py
 
 :::
 
@@ -105,69 +34,7 @@ DMP віддає орієнтацію як **кватерніон** — чоти
 
 Порядок роботи фіксований, і його варто знати напам'ять: `dmpInitialize()` заливає образ → задаємо зсуви нуля → калібруємо → `setDMPEnabled(true)` → у циклі тягнемо пакети:
 
-```cpp
-#include <Wire.h>
-#include <MPU6050_6Axis_MotionApps20.h>   // варіант бібліотеки З підтримкою DMP
-
-MPU6050 mpu;
-
-uint8_t  fifoBuffer[64];   // сюди читаємо один пакет FIFO
-uint16_t packetSize;       // розмір пакета DMP — дізнаємось у чипа
-Quaternion q;              // кватерніон [w, x, y, z]
-VectorFloat gravity;       // напрям тяжіння, відновлений із кватерніона
-float ypr[3];              // yaw, pitch, roll — у РАДІАНАХ
-
-void setup() {
-    Serial.begin(115200);
-    Wire.begin();
-    Wire.setClock(400000);     // DMP любить швидку шину (400 кГц)
-
-    mpu.initialize();
-    if (!mpu.testConnection()) { Serial.println(F("немає чипа")); while (1); }
-
-    // Заливаємо образ DMP у чип. Повертає 0, якщо все гаразд.
-    uint8_t status = mpu.dmpInitialize();
-
-    // Зсуви нуля — конкретні для КОЖНОГО екземпляра (див. розділ про калібрування).
-    // Ці числа беруться з калібрувального прогону; тут — приклад.
-    mpu.setXGyroOffset(220);
-    mpu.setYGyroOffset(76);
-    mpu.setZGyroOffset(-85);
-    mpu.setZAccelOffset(1788);
-
-    if (status == 0) {
-        // Автоматичне тонке калібрування нуля (6 ітерацій — компроміс точність/час).
-        mpu.CalibrateAccel(6);
-        mpu.CalibrateGyro(6);
-        mpu.setDMPEnabled(true);           // з цієї миті DMP сам пише у FIFO
-        packetSize = mpu.dmpGetFIFOPacketSize();   // дізнаємось розмір пакета
-        Serial.println(F("DMP готовий"));
-    } else {
-        // status 1 — не завантажилась память, 2 — не запустились налаштування DMP
-        Serial.print(F("DMP не стартував, код ")); Serial.println(status);
-        while (1);
-    }
-}
-
-void loop() {
-    // Тягнемо найсвіжіший цілий пакет із FIFO. Повертає true, якщо пакет є.
-    // Ця функція сама впорається з переповненням FIFO (див. пастку нижче).
-    if (mpu.dmpGetCurrentFIFOPacket(fifoBuffer)) {
-        mpu.dmpGetQuaternion(&q, fifoBuffer);      // байти → кватерніон
-        mpu.dmpGetGravity(&gravity, &q);           // кватерніон → напрям низу
-        mpu.dmpGetYawPitchRoll(ypr, &q, &gravity); // → yaw/pitch/roll (радіани)
-
-        // Переводимо в градуси: 180/π радіан у градусі.
-        float yaw   = ypr[0] * 180.0f / M_PI;
-        float pitch = ypr[1] * 180.0f / M_PI;
-        float roll  = ypr[2] * 180.0f / M_PI;
-
-        Serial.print(F("yaw "));   Serial.print(yaw, 1);
-        Serial.print(F("  pitch ")); Serial.print(pitch, 1);
-        Serial.print(F("  roll "));  Serial.println(roll, 1);
-    }
-}
-```
+:::code proj-mpu6050/cpp/shliakh-druhyi-hotovi-kuty.cpp
 
 Кілька речей тут навмисне не очевидні, і кожна — вистраждана.
 
@@ -217,126 +84,15 @@ roll_gyro = roll_попередній + gx · dt      // gx у °/s, dt у се�
 
 :::tabs
 
-```cpp
-#include <Wire.h>
-#include <MPU6050.h>
+:::code proj-mpu6050/cpp/shliakh-tretii.cpp
 
-MPU6050 mpu;
-
-int16_t ax, ay, az, gx, gy, gz;
-
-float roll = 0, pitch = 0;      // поточні злиті кути, °
-float gyroBiasX = 0, gyroBiasY = 0;   // нуль гіроскопа (з калібрування)
-uint32_t tPrev = 0;
-
-const float ALPHA = 0.98f;      // вага гіроскопа у злитті
-
-void setup() {
-    Serial.begin(115200);
-    Wire.begin();
-    mpu.initialize();
-    if (!mpu.testConnection()) { Serial.println(F("немає чипа")); while (1); }
-
-    calibrateGyro();            // виміряти нуль гіроскопа (див. нижче)
-    tPrev = micros();
-}
-
-void loop() {
-    mpu.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
-
-    // Реальний крок часу в секундах (micros() — мікросекунди).
-    uint32_t now = micros();
-    float dt = (now - tPrev) * 1e-6f;
-    tPrev = now;
-
-    // --- кут з акселерометра (абсолютний, шумний) ---
-    float axg = ax / 16384.0f, ayg = ay / 16384.0f, azg = az / 16384.0f;
-    float rollAcc  = atan2f(ayg, azg) * 180.0f / M_PI;
-    float pitchAcc = atan2f(-axg, sqrtf(ayg*ayg + azg*azg)) * 180.0f / M_PI;
-
-    // --- кутова швидкість з гіроскопа, з відрахованим нулем (°/s) ---
-    float rateX = (gx - gyroBiasX) / 131.0f;
-    float rateY = (gy - gyroBiasY) / 131.0f;
-
-    // --- комплементарне злиття ---
-    roll  = ALPHA * (roll  + rateX * dt) + (1.0f - ALPHA) * rollAcc;
-    pitch = ALPHA * (pitch + rateY * dt) + (1.0f - ALPHA) * pitchAcc;
-
-    Serial.print(F("roll "));  Serial.print(roll, 1);
-    Serial.print(F("  pitch ")); Serial.println(pitch, 1);
-    // БЕЗ delay(): точність фільтра залежить від частого, рівного циклу.
-}
-```
-
-```python
-from machine import I2C, Pin
-from time import ticks_us, ticks_diff
-from struct import unpack_from
-from math import atan2, sqrt, pi
-
-MPU = 0x68
-ACCEL_XOUT = 0x3B
-
-i2c = I2C(0, scl=Pin(22), sda=Pin(21))
-
-roll = 0.0
-pitch = 0.0
-gyro_bias_x = 0.0
-gyro_bias_y = 0.0     # нуль гіроскопа (з калібрування)
-
-ALPHA = 0.98          # вага гіроскопа у злитті
-
-def read6():
-    b = i2c.readfrom_mem(MPU, ACCEL_XOUT, 14)
-    ax, ay, az = unpack_from(">hhh", b, 0)
-    gx, gy, gz = unpack_from(">hhh", b, 8)
-    return ax, ay, az, gx, gy, gz
-
-calibrate_gyro()          # виміряти нуль гіроскопа (див. нижче)
-t_prev = ticks_us()
-
-while True:
-    ax, ay, az, gx, gy, gz = read6()
-
-    # Реальний крок часу в секундах (ticks_us() — мікросекунди).
-    now = ticks_us()
-    dt = ticks_diff(now, t_prev) * 1e-6
-    t_prev = now
-
-    # --- кут з акселерометра (абсолютний, шумний) ---
-    axg, ayg, azg = ax / 16384.0, ay / 16384.0, az / 16384.0
-    roll_acc  = atan2(ayg, azg) * 180.0 / pi
-    pitch_acc = atan2(-axg, sqrt(ayg*ayg + azg*azg)) * 180.0 / pi
-
-    # --- кутова швидкість з гіроскопа, з відрахованим нулем (°/s) ---
-    rate_x = (gx - gyro_bias_x) / 131.0
-    rate_y = (gy - gyro_bias_y) / 131.0
-
-    # --- комплементарне злиття ---
-    roll  = ALPHA * (roll  + rate_x * dt) + (1.0 - ALPHA) * roll_acc
-    pitch = ALPHA * (pitch + rate_y * dt) + (1.0 - ALPHA) * pitch_acc
-
-    print("roll", round(roll, 1), " pitch", round(pitch, 1))
-    # БЕЗ sleep: точність фільтра залежить від частого, рівного циклу.
-```
+:::code proj-mpu6050/py/shliakh-tretii.py
 
 :::
 
 **Приклад: як фільтр гасить поштовх.** Плата лежить рівно (`roll ≈ 0`), і хтось стукнув по столу. Акселерометр на мить показав, ніби плата хитнулась на 30° (`rollAcc = 30`), хоча вона не рухалась. Гіроскоп при цьому мовчить (`rateX ≈ 0`), бо реального обертання не було.
 
-```c
-// Один крок фільтра під час хибного стрибка акселерометра:
-//   roll_попередній = 0.0
-//   rateX · dt      = 0.0   (гіроскоп каже: обертання нема)
-//   rollAcc         = 30.0  (акселерометр збрехав від поштовху)
-//   α = 0.98
-//
-//   roll = 0.98 · (0.0 + 0.0) + 0.02 · 30.0
-//        = 0.6°
-//
-// Замість стрибка на 30° кут ворухнувся лише на 0.6° — і наступними
-// кроками, коли акселерометр заспокоївся, тихо повернувся до нуля.
-```
+:::code proj-mpu6050/c/main.c
 
 Хибний стрибок на 30° перетворився на ледь помітні 0.6° — бо акселерометру віддали лише 2 % ваги. А якби плата **справді** повільно нахилялась, гіроскоп вів би кут точно, і ті самі 2 % акселерометра лише не давали б йому спливти. Оце й є магія одного коефіцієнта.
 
@@ -352,50 +108,9 @@ while True:
 
 :::tabs
 
-```cpp
-void calibrateGyro() {
-    const int N = 2000;              // скільки зразків усереднити
-    long sumX = 0, sumY = 0, sumZ = 0;
+:::code proj-mpu6050/cpp/kalibruvannia-nulia.cpp
 
-    Serial.println(F("Калібрую гіроскоп — НЕ РУХАЙ плату 5 секунд..."));
-    delay(1000);                     // дати руці прибратись, платі — заспокоїтись
-
-    for (int i = 0; i < N; i++) {
-        mpu.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
-        sumX += gx;  sumY += gy;  sumZ += gz;
-        delay(2);                    // ~2 мс між зразками
-    }
-
-    gyroBiasX = sumX / (float)N;     // середнє = сталий зсув нуля
-    gyroBiasY = sumY / (float)N;
-    // gyroBiasZ = sumZ / (float)N;  // за потреби
-
-    Serial.print(F("Зсув нуля гіроскопа: "));
-    Serial.print(gyroBiasX); Serial.print(' ');
-    Serial.println(gyroBiasY);
-}
-```
-
-```python
-def calibrate_gyro():
-    global gyro_bias_x, gyro_bias_y
-    N = 2000                          # скільки зразків усереднити
-    sum_x = sum_y = sum_z = 0
-
-    print("Калібрую гіроскоп — НЕ РУХАЙ плату 5 секунд...")
-    sleep_ms(1000)                    # дати руці прибратись, платі — заспокоїтись
-
-    for _ in range(N):
-        _, _, _, gx, gy, gz = read6()
-        sum_x += gx;  sum_y += gy;  sum_z += gz
-        sleep_ms(2)                   # ~2 мс між зразками
-
-    gyro_bias_x = sum_x / N           # середнє = сталий зсув нуля
-    gyro_bias_y = sum_y / N
-    # gyro_bias_z = sum_z / N         # за потреби
-
-    print("Зсув нуля гіроскопа:", gyro_bias_x, gyro_bias_y)
-```
+:::code proj-mpu6050/py/kalibruvannia-nulia.py
 
 :::
 

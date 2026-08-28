@@ -57,21 +57,7 @@ GY-271 — маленька синя (частіше) плата завбіль�
 
 **Worked-приклад: азимут із двох осей.**
 
-```c
-#include <math.h>
-
-// mx, my — сирі відліки магнетометра по X та Y (з поправкою калібрування)
-float heading_deg(int16_t mx, int16_t my, float declination_deg) {
-    float heading = atan2f((float)my, (float)mx);   // радіани
-    heading += declination_deg * (float)M_PI / 180.0f;   // магнітне схилення
-
-    // Загорнути в діапазон 0 … 2π
-    if (heading < 0)            heading += 2.0f * (float)M_PI;
-    if (heading > 2*M_PI)       heading -= 2.0f * (float)M_PI;
-
-    return heading * 180.0f / (float)M_PI;   // градуси 0 … 360
-}
-```
+:::code hmc5883l-d/c/main.c
 
 Точність після належного калібрування — близько **1–2°**, чого досить для дронів, роботів і туристичних гаджетів.
 
@@ -103,101 +89,9 @@ B_gauss = raw / 1090.0
 **Worked-приклад: запуск і читання трьох осей.** Робота однакова на будь-якому мікроконтролері: ведучий на шині записує три байти у три регістри конфігурації, а потім читає підряд шість байтів даних, почавши з адреси 0x03. Різняться лише імена викликів — нижче той самий драйвер у трьох середовищах.
 
 :::tabs
-```arduino
-#include <Wire.h>
-#define HMC 0x1E   // 7-бітна I²C-адреса HMC5883L
-
-void hmc_init() {
-    Wire.begin();
-    Wire.beginTransmission(HMC);
-    Wire.write(0x00); Wire.write(0x70);   // Config A: 8 усереднень, 15 Гц
-    Wire.endTransmission();
-    Wire.beginTransmission(HMC);
-    Wire.write(0x01); Wire.write(0x20);   // Config B: підсилення ±1.3 Гаус
-    Wire.endTransmission();
-    Wire.beginTransmission(HMC);
-    Wire.write(0x02); Wire.write(0x00);   // Mode: безперервний вимір
-    Wire.endTransmission();
-}
-
-void hmc_read(int16_t *x, int16_t *y, int16_t *z) {
-    Wire.beginTransmission(HMC);
-    Wire.write(0x03);                     // почати з першого регістра даних
-    Wire.endTransmission();
-    Wire.requestFrom(HMC, 6);             // 6 байтів: X, Z, Y (саме такий порядок!)
-    *x = (Wire.read() << 8) | Wire.read();
-    *z = (Wire.read() << 8) | Wire.read();   // Z йде ДРУГИМ, не третім
-    *y = (Wire.read() << 8) | Wire.read();
-}
-```
-```esp-idf
-#include "driver/i2c.h"
-#include "esp_log.h"
-
-#define HMC      0x1E                  // 7-бітна I²C-адреса HMC5883L
-#define PORT     I2C_NUM_0
-#define TMO      pdMS_TO_TICKS(100)
-
-static esp_err_t hmc_write_reg(uint8_t reg, uint8_t val) {
-    uint8_t buf[2] = { reg, val };
-    return i2c_master_write_to_device(PORT, HMC, buf, sizeof(buf), TMO);
-}
-
-esp_err_t hmc_init(void) {
-    i2c_config_t cfg = {
-        .mode = I2C_MODE_MASTER,
-        .sda_io_num = 21, .scl_io_num = 22,
-        .sda_pullup_en = GPIO_PULLUP_ENABLE,   // підтяжки є й на самій платі
-        .scl_pullup_en = GPIO_PULLUP_ENABLE,
-        .master.clk_speed = 100000,            // 100 кГц
-    };
-    ESP_ERROR_CHECK(i2c_param_config(PORT, &cfg));
-    ESP_ERROR_CHECK(i2c_driver_install(PORT, cfg.mode, 0, 0, 0));
-
-    ESP_ERROR_CHECK(hmc_write_reg(0x00, 0x70));   // Config A: 8 усереднень, 15 Гц
-    ESP_ERROR_CHECK(hmc_write_reg(0x01, 0x20));   // Config B: підсилення ±1.3 Гаус
-    return hmc_write_reg(0x02, 0x00);             // Mode: безперервний вимір
-}
-
-esp_err_t hmc_read(int16_t *x, int16_t *y, int16_t *z) {
-    uint8_t reg = 0x03, b[6];                     // 6 байтів: X, Z, Y (саме такий порядок!)
-    esp_err_t err = i2c_master_write_read_device(PORT, HMC, &reg, 1, b, sizeof(b), TMO);
-    if (err != ESP_OK) { ESP_LOGE("hmc", "читання не вдалося: %s", esp_err_to_name(err)); return err; }
-    *x = (int16_t)((b[0] << 8) | b[1]);
-    *z = (int16_t)((b[2] << 8) | b[3]);           // Z йде ДРУГИМ, не третім
-    *y = (int16_t)((b[4] << 8) | b[5]);
-    return ESP_OK;
-}
-```
-```stm32
-#include "stm32f4xx_hal.h"
-
-#define HMC  (0x1E << 1)   // HAL бере 8-бітну адресу: 7 біт адреси + біт напряму
-
-extern I2C_HandleTypeDef hi2c1;   // налаштований у CubeMX на 100 кГц
-
-static HAL_StatusTypeDef hmc_write_reg(uint8_t reg, uint8_t val) {
-    return HAL_I2C_Mem_Write(&hi2c1, HMC, reg, I2C_MEMADD_SIZE_8BIT,
-                             &val, 1, HAL_MAX_DELAY);
-}
-
-HAL_StatusTypeDef hmc_init(void) {
-    if (hmc_write_reg(0x00, 0x70) != HAL_OK) return HAL_ERROR;  // Config A: 8 усереднень, 15 Гц
-    if (hmc_write_reg(0x01, 0x20) != HAL_OK) return HAL_ERROR;  // Config B: підсилення ±1.3 Гаус
-    return hmc_write_reg(0x02, 0x00);                           // Mode: безперервний вимір
-}
-
-HAL_StatusTypeDef hmc_read(int16_t *x, int16_t *y, int16_t *z) {
-    uint8_t b[6];                                 // 6 байтів: X, Z, Y (саме такий порядок!)
-    HAL_StatusTypeDef st = HAL_I2C_Mem_Read(&hi2c1, HMC, 0x03, I2C_MEMADD_SIZE_8BIT,
-                                            b, sizeof(b), HAL_MAX_DELAY);
-    if (st != HAL_OK) return st;
-    *x = (int16_t)((b[0] << 8) | b[1]);
-    *z = (int16_t)((b[2] << 8) | b[3]);           // Z йде ДРУГИМ, не третім
-    *y = (int16_t)((b[4] << 8) | b[5]);
-    return HAL_OK;
-}
-```
+:::code hmc5883l-d/c/arduino/main.ino
+:::code hmc5883l-d/c/esp-idf/main.c
+:::code hmc5883l-d/c/stm32/main.c
 :::
 
 ## Калібрування: чому «сирий» компас бреше
